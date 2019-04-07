@@ -1,0 +1,7 @@
+author = Verveine
+version = 1.0
+displayName = Orchid Mod
+hideCode = true
+hideResources = true
+includeSource = false
+homepage = https://discord.gg/nGWBJrP
