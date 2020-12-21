@@ -1,0 +1,16 @@
+v1.3.0.3 : (Hopefully) last patch before next content update :)
+Some polishing, bug fixes, and some QoL features including a chest failsafe, guaranteeing that all orchid chest items will generate at least once in a world. 
+
+Hello there,
+My name is Verveine, and this mod will be covering the ideas I had the courage to bring to life in the game.
+
+It adds :
+- 3 new classes : The Gambler, Alchemist and Shaman.
+While Gambler and Alchemist classes only have pre-hardmode content, the shaman class is implemented through the whole game !
+
+- A lot of Thorium Mod cross-content (for the shaman class, with more to come for the other two).
+
+- A new complex structure : The mineshaft, found roughly in the center of the map, allowing for a smoother start in the game.
+
+The full changelog for this update is available either on discord or on the forum page !
+Please, take a minute to report the oddities you may encounter :)
