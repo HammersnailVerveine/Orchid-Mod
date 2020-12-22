@@ -1,0 +1,66 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.GameContent.UI.Chat;
+using System;
+ 
+namespace OrchidMod.Shaman.Weapons
+{
+	public class MeteorPhasestaff : OrchidModShamanItem
+    {
+		public override void SafeSetDefaults()
+		{
+			item.damage = 7;
+			item.width = 30;
+			item.height = 30;
+			item.useTime = 4;
+			item.useAnimation = 32;
+			item.knockBack = 0f;
+			item.rare = 1;
+			item.value = Item.sellPrice(0, 0, 48, 0);
+			item.autoReuse = true;
+			item.shootSpeed = 5.25f;
+			item.shoot = mod.ProjectileType("MeteorPhasestaffProj");
+			item.UseSound = SoundID.Item15;
+			this.empowermentType = 1;
+			this.empowermentLevel = 2;
+			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+		}
+
+		public override void SetStaticDefaults()
+		{
+		  DisplayName.SetDefault("Meteor Phasestaff");
+		  Tooltip.SetDefault("Channels a disintegrating beam of energy"
+							+"\nThe beam gets weaker the further it goes"
+							+"\nWeapon damage doubles if you have 3 or more active shamanic bonds");
+		}
+		
+		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			if (modPlayer.getNbShamanicBonds() > 3) {
+				flat += 7f;
+			}
+		}
+		
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
+			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0)) {
+				position += muzzleOffset;
+			}
+			return true;
+		}
+		
+		public override void AddRecipes()
+		{
+		    ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);		
+			recipe.AddIngredient(ItemID.MeteoriteBar, 20);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+        }
+    }
+}
