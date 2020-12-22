@@ -719,11 +719,11 @@ namespace OrchidMod
 					}
 					
 					int maxBufftimer = 60 * this.shamanBuffTimer;
-					int toAdd = 20 + (5 * level);
-					this.shamanFireTimer = this.shamanFireTimer + toAdd > maxBufftimer ? maxBufftimer : this.shamanFireTimer + toAdd;
-					this.shamanWaterTimer = this.shamanWaterTimer + toAdd > maxBufftimer ? maxBufftimer : this.shamanWaterTimer + toAdd;
-					this.shamanAirTimer = this.shamanAirTimer + toAdd > maxBufftimer ? maxBufftimer : this.shamanAirTimer + toAdd;
-					this.shamanEarthTimer = this.shamanEarthTimer + toAdd > maxBufftimer ? maxBufftimer : this.shamanEarthTimer + toAdd;
+					int toAdd = 90 + (30 * level);
+					this.shamanFireTimer = this.shamanFireBuff == 0 ? 0 : this.shamanFireTimer + toAdd > maxBufftimer ? maxBufftimer : this.shamanFireTimer + toAdd;
+					this.shamanWaterTimer = this.shamanWaterBuff == 0 ? 0 : this.shamanWaterTimer + toAdd > maxBufftimer ? maxBufftimer : this.shamanWaterTimer + toAdd;
+					this.shamanAirTimer = this.shamanAirBuff == 0 ? 0 : this.shamanAirTimer + toAdd > maxBufftimer ? maxBufftimer : this.shamanAirTimer + toAdd;
+					this.shamanEarthTimer = this.shamanEarthBuff == 0 ? 0 : this.shamanEarthTimer + toAdd > maxBufftimer ? maxBufftimer : this.shamanEarthTimer + toAdd;
 					
 					this.shamanSpiritBondLoading = 0;
 					Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 45);

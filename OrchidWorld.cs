@@ -113,7 +113,7 @@ namespace OrchidMod
 			foundChemist = flags[0];
 		}
 		
-		public void PlaceMSRoom(int i, int j, int[,] MS, int[,]MSWall) {
+		public void PlaceMSRoomTiles(int i, int j, int[,] MS, int[,]MSWall) {
 			int barRand = Main.rand.Next(6);
 			int wallrand = Main.rand.Next(5);
 			for (int y = 0; y < MS.GetLength(0); y++) {
@@ -194,18 +194,16 @@ namespace OrchidMod
 								tile.active(true);
 								break;
 							case 15: 
-								WorldGen.PlaceObject(k, l-1, 215);
-								WorldGen.PlaceObject(k, l, 215);
-								WorldGen.PlaceObject(k, l+1, 215);
-								WorldGen.PlaceObject(k-1, l, 215);
-								WorldGen.PlaceObject(k+1, l, 215);
+								WorldGen.PlaceObject(k, l, 215); // campfire
 								break;
 							case 16:
-								if (Main.rand.Next(3) > 1) WorldGen.PlaceObject(k, l-1, 330);
+								if (Main.rand.Next(3) > 1) WorldGen.PlaceObject(k, l-1, 330); // Copper Coins
 								else {
-									if (Main.rand.Next(3) > 1) WorldGen.PlaceObject(k, l-1, 331);
-									else WorldGen.PlaceObject(k, l-1, 332);
+									if (Main.rand.Next(3) > 1) WorldGen.PlaceObject(k, l-1, 331); // Silver Coins
+									else WorldGen.PlaceObject(k, l-1, 332); // Gold Coins
 								}
+								break;
+							default :
 								break;
 						}
 						
@@ -224,6 +222,56 @@ namespace OrchidMod
 									if (Main.rand.Next(3) == 0) tile.wall = 2;
 									if (Main.rand.Next(3) == 0) tile.wall = 1;
 								}
+								break;
+							default :
+								break;
+						}
+					}
+				}
+			}
+		}
+		
+		public void PlaceMSRoomFurnitures(int i, int j, int[,] MS, int[,]MSWall) {
+			int barRand = Main.rand.Next(6);
+			int wallrand = Main.rand.Next(5);
+			for (int y = 0; y < MS.GetLength(0); y++) {
+				for (int x = 0; x < MS.GetLength(1); x++) {
+					int k = i - 3 + x;
+					int l = j - 6 + y;
+					if (WorldGen.InWorld(k, l, 30)){
+						Tile tile = Framing.GetTileSafely(k, l);
+						switch (MS[y, x]) {
+							case 3:
+								tile.type = TileID.Cobweb;
+								tile.active(true);
+								break;
+							case 5:
+								tile.type = TileID.Chain;
+								tile.active(true);
+								break;
+							case 6:
+								WorldGen.PlaceObject(k, l, 239, true, barRand); // Bars
+								tile.active(true);
+								break;
+							case 14:
+								tile.type = 178; // Amethyst
+								tile.active(true);
+								break;
+							case 15: 
+								WorldGen.PlaceObject(k, l-1, 215); // campfire
+								WorldGen.PlaceObject(k, l, 215);
+								WorldGen.PlaceObject(k, l+1, 215);
+								WorldGen.PlaceObject(k-1, l, 215);
+								WorldGen.PlaceObject(k+1, l, 215);
+								break;
+							case 16:
+								if (Main.rand.Next(3) > 1) WorldGen.PlaceObject(k, l-1, 330); // Copper Coins
+								else {
+									if (Main.rand.Next(3) > 1) WorldGen.PlaceObject(k, l-1, 331); // Silver Coins
+									else WorldGen.PlaceObject(k, l-1, 332); // Gold Coins
+								}
+								break;
+							default :
 								break;
 						}
 					}
@@ -253,20 +301,24 @@ namespace OrchidMod
 								WorldGen.PlaceObject(k, l, 42, true, 6); // 33 = candle /42 = Lantern
 								break;
 							case 7:	
-								for (int w=1;w>-2; w--) {
-									for (int q=1; q>-1; q--) {
-										tile = Framing.GetTileSafely(k-w, l-q);
-										tile.ClearTile();
+								for (int w = 0; w < 3; w ++) {
+									for (int q = 0; q < 3; q++) {
+										tile = Framing.GetTileSafely(k + w - 1, l + q - 1);
+										tile.ClearEverything();
 										tile.wall = 27;
 									}
 								}
 								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftPickaxeTile>());
 								break;
 							case 17:
-								for (int w=2;w>0; w--) {
-									for (int q=2; q>0; q--) {
-										tile = Framing.GetTileSafely(k-w, l-q);
-										tile.ClearTile();
+								for (int w = 0; w < 2; w ++) {
+									for (int q = 0; q < 2; q++) {
+										tile = Framing.GetTileSafely(k - w, l - q);
+										if (tile.type == 314) {
+											break;
+										} else {
+											tile.ClearTile();
+										}
 									}
 								}
 								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftCrate>());
@@ -277,8 +329,6 @@ namespace OrchidMod
 								mineshaftChestY = l;
 								break;
 							case 19:
-								Framing.GetTileSafely(k, l).ClearTile();
-								Framing.GetTileSafely(k, l-1).ClearTile();
 								WorldGen.PlaceObject(k, l, 82, true, 3);
 								break;
 						}
@@ -542,142 +592,167 @@ namespace OrchidMod
 			int PosY = MinPosY; // same
 			for (int i = 0; i < MSLenght ; i++ ) {
 				for (int j = 0; j < MSHeight ; j++ ) {
+					int[,] arrayShape = null;
+					int[,] arrayWalls = null;
+					int[,] arrayShape2 = null;
+					int[,] arrayWalls2 = null;
+					int[,] arrayShape3 = null;
+					int[,] arrayWalls3 = null;
+					int yOffSet = 0;
 					if (mineshaft[i,j] == 1) {
-						switch (Main.rand.Next(11)) // Update this when adding rooms.
-						{
+						arrayWalls = OrchidMSarrays.mSWall1;
+						switch (Main.rand.Next(11)) { // Update this when adding rooms.
 							case 0:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape1, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape1;
 								break;
 							case 1:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape2, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape2;
 								break;
 							case 2:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape3, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape3;
 								break;
 							case 3:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape4, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape4;
 								break;
 							case 4:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape5, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape5;
 								break;
 							case 5:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape6, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape6;
 								break;
 							case 6:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape7, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape7;
 								break;
 							case 7:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape8, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape8;
 								break;
 							case 8:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape9, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape9;
 								break;
 							case 9:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape10, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape10;
 								break;
 							case 10:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshape11, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshape11;
 								break;
 						}
 					}
 					if (mineshaft[i,j] == 2) {
-						switch (Main.rand.Next(3)) // Update this when adding rooms.
-						{
+						arrayWalls = OrchidMSarrays.mSWallStairs1;
+						switch (Main.rand.Next(3)) { // Update this when adding rooms.
 							case 0:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeStairs1, OrchidMSarrays.mSWallStairs1);
+								arrayShape = OrchidMSarrays.mSshapeStairs1;
 								break;
 							case 1:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeStairs2, OrchidMSarrays.mSWallStairs1);
+								arrayShape = OrchidMSarrays.mSshapeStairs2;
 								break;
 							case 2:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeStairs3, OrchidMSarrays.mSWallStairs1);
+								arrayShape = OrchidMSarrays.mSshapeStairs3;
 								break;
 						}
 					}
 					if (mineshaft[i,j] == 3) {
-						switch (Main.rand.Next(3)) // Update this when adding rooms.
-						{
+						arrayWalls = OrchidMSarrays.mSWallTreasure1;
+						switch (Main.rand.Next(3)) { // Update this when adding rooms.
 							case 0:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeTreasure1, OrchidMSarrays.mSWallTreasure1);
+								arrayShape = OrchidMSarrays.mSshapeTreasure1;
 								break;
 							case 1:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeTreasure2, OrchidMSarrays.mSWallTreasure1);
+								arrayShape = OrchidMSarrays.mSshapeTreasure2;
 								break;
 							case 2:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeTreasure3, OrchidMSarrays.mSWallTreasure1);
+								arrayShape = OrchidMSarrays.mSshapeTreasure3;
 								break;
 						}
 					}
 					if (mineshaft[i,j] == 4) {
-						switch (Main.rand.Next(3)) // Update this when adding rooms.
-						{
+						arrayWalls = OrchidMSarrays.mSWall1;
+						switch (Main.rand.Next(3)) { // Update this when adding rooms.
 							case 0:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeER1, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshapeER1;
 								break;
 							case 1:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeER2, OrchidMSarrays.mSWallER1);
+								arrayShape = OrchidMSarrays.mSshapeER2;
+								arrayWalls = OrchidMSarrays.mSWallER1;
 								break;
 							case 2:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeER3, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshapeER3;
 								break;
 						}
 					}
 					if (mineshaft[i,j] == 5) {
-						switch (Main.rand.Next(2)) // Update this when adding rooms.
-						{
+						arrayWalls = OrchidMSarrays.mSWallBigStairs1;
+						switch (Main.rand.Next(2)) { // Update this when adding rooms.
 							case 0:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeBigStairs1, OrchidMSarrays.mSWallBigStairs1);
+								arrayShape = OrchidMSarrays.mSshapeBigStairs1;
 								break;
 							case 1:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeBigStairs2, OrchidMSarrays.mSWallBigStairs1);
+								arrayShape = OrchidMSarrays.mSshapeBigStairs2;
 								break;
 						}
 					}
 					if (mineshaft[i,j] == 6) {
-						switch (Main.rand.Next(1)) // Update this when adding rooms.
-						{
+						switch (Main.rand.Next(1)) { // Update this when adding rooms.
 							case 0:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeCampfireL, OrchidMSarrays.mSWallCampfire);
-								PlaceMSRoom(PosX+15, PosY, OrchidMSarrays.mSshapeCampfireR, OrchidMSarrays.mSWallCampfire);
+								arrayShape = OrchidMSarrays.mSshapeCampfireL;
+								arrayWalls = OrchidMSarrays.mSWallCampfire;
+								arrayShape2 = OrchidMSarrays.mSshapeCampfireR;
+								arrayWalls2 = OrchidMSarrays.mSWallCampfire;
 								break;
 						}
 					}
 					if (mineshaft[i,j] == 7) {
-						switch (Main.rand.Next(1)) // Update this when adding rooms.
-						{
+						switch (Main.rand.Next(1)) { // Update this when adding rooms.
 							case 0:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeGems, OrchidMSarrays.mSWallGems);
+								arrayShape = OrchidMSarrays.mSshapeGems;
+								arrayWalls = OrchidMSarrays.mSWallGems;
 								break;
 						}
 					}
 					if (mineshaft[i,j] == 8) {
-						switch (Main.rand.Next(3)) // Update this when adding rooms.
-						{
+						arrayWalls = OrchidMSarrays.mSWall1;
+						switch (Main.rand.Next(3)) { // Update this when adding rooms.
 							case 0:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeEL1, OrchidMSarrays.mSWallEL1);
+								arrayShape = OrchidMSarrays.mSshapeEL1;
+								arrayWalls = OrchidMSarrays.mSWallEL1;
 								break;
 							case 1:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeEL2, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshapeEL2;
 								break;
 							case 2:
-								PlaceMSRoom(PosX, PosY, OrchidMSarrays.mSshapeEL3, OrchidMSarrays.mSWall1);
+								arrayShape = OrchidMSarrays.mSshapeEL3;
 								break;
 						}
 					}
 					if (mineshaft[i,j] == 9) {
-						switch (Main.rand.Next(1)) // Update this when adding rooms.
-						{
+						switch (Main.rand.Next(1)) { // Update this when adding rooms.
 							case 0:
-								PlaceMSRoom(PosX, PosY-4, OrchidMSarrays.mSshapeBossL, OrchidMSarrays.mSWallBoss);
-								PlaceMSRoom(PosX+15, PosY-4, OrchidMSarrays.mSshapeBossM, OrchidMSarrays.mSWallBoss);
-								PlaceMSRoom(PosX+30, PosY-4, OrchidMSarrays.mSshapeBossR, OrchidMSarrays.mSWallBoss);
+								arrayShape = OrchidMSarrays.mSshapeBossL;
+								arrayWalls = OrchidMSarrays.mSWallBoss;
+								arrayShape2 = OrchidMSarrays.mSshapeBossM;
+								arrayWalls2 = OrchidMSarrays.mSWallBoss;
+								arrayShape3 = OrchidMSarrays.mSshapeBossR;
+								arrayWalls3 = OrchidMSarrays.mSWallBoss;
+								yOffSet = -4;
 								break;
 						}
 					}
-				PosY += 14;
+					if (arrayShape != null && arrayWalls != null) {
+						PlaceMSRoomTiles(PosX, PosY + yOffSet, arrayShape, arrayWalls);
+						PlaceMSRoomFurnitures(PosX, PosY + yOffSet, arrayShape, arrayWalls);
+					}
+					if (arrayShape2 != null && arrayWalls2 != null) {
+						PlaceMSRoomTiles(PosX + 15, PosY + yOffSet, arrayShape2, arrayWalls2);
+						PlaceMSRoomFurnitures(PosX + 15, PosY + yOffSet, arrayShape2, arrayWalls2);
+					}
+					if (arrayShape3 != null && arrayWalls3 != null) {
+						PlaceMSRoomTiles(PosX + 30, PosY + yOffSet, arrayShape3, arrayWalls3);
+						PlaceMSRoomFurnitures(PosX + 30, PosY + yOffSet, arrayShape3, arrayWalls3);
+					}
+					PosY += 14;
 				}
-			PosY = MinPosY;
-			PosX += 15;
+				PosY = MinPosY;
+				PosX += 15;
 			}
 		}
 		
