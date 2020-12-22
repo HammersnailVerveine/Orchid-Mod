@@ -1,0 +1,65 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
+using Terraria.ID;
+using System.Linq;
+using System.Collections.Generic;
+using System;
+using System.Diagnostics;
+using Terraria.DataStructures;
+
+namespace OrchidMod.Alchemist.UI
+{
+	public class BagUIFrame : UIElement
+    {
+		public Color backgroundColor = Color.White;	
+		public static Texture2D symbolDark;
+		
+		Player player = Main.player[Main.myPlayer];
+		
+		protected override void DrawSelf(SpriteBatch spriteBatch)
+		{
+			CalculatedStyle dimensions = GetDimensions();
+            Point point = new Point((int)dimensions.X, (int)dimensions.Y - 100);
+            int width = (int)Math.Ceiling(dimensions.Width);
+            int height = (int)Math.Ceiling(dimensions.Height);
+			Player player = Main.player[Main.myPlayer];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			List<AlchemistElement> elements = modPlayer.alchemistElements;
+			
+			if (!Main.playerInventory && !player.dead) {
+				if (modPlayer.alchemistPotencyDisplayTimer > 0) {
+					
+					int drawHeight = 176;
+					int symbolHeight = 170 ;
+					
+					int textureWidth = 16;
+					int textureHeight = 4;
+					int symbolSize = 12;
+					
+					
+					if (elements.Contains(AlchemistElement.DARK)) {
+						spriteBatch.Draw(symbolDark, new Rectangle(point.X + textureWidth + 2, point.Y + symbolHeight , symbolSize, symbolSize), backgroundColor);
+					}
+				}
+			}
+		}
+		
+		public int incrementDrawHeight(int drawHeight) {
+			return (drawHeight - 4);
+		}
+		
+		public int incrementSymbolDrawHeight(int drawHeight) {
+			return (drawHeight - 14);
+		}
+		
+		public AlchemistUIFrame ()
+        {
+			if (symbolDark == null) symbolDark = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolDark");
+			
+		}
+	}
+}
