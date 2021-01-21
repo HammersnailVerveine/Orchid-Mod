@@ -8,7 +8,7 @@ namespace OrchidMod.Gambler.Buffs.Dice
         public override void SetDefaults()
         {
             Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Gambler Dice");
+			DisplayName.SetDefault("Gambler Die");
 			Description.SetDefault("Increased gambling damage");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;

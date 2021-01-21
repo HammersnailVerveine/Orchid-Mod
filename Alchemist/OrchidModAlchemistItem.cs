@@ -211,11 +211,11 @@ namespace OrchidMod.Alchemist
 				});
 			}
 			
-			tt = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.mod == "Terraria");
-			if (tt != null) tt.text = "Uses " + this.potencyCost + " potency";
+			// tt = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.mod == "Terraria");
+			// if (tt != null) tooltips.Remove(tt);
 			
 			tt = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.mod == "Terraria");
-			if (tt != null) tooltips.Remove(tt);
+			if (tt != null) tt.text = "Uses " + this.potencyCost + " potency";
 			
 			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);

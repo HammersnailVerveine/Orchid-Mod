@@ -30,8 +30,6 @@ using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 
-
-
 namespace OrchidMod
 {
 	public class OrchidWorld : ModWorld
@@ -42,39 +40,34 @@ namespace OrchidMod
 		private static int MSMinPosY;
 		private static int RMinPosX;
 		private static int RMinPosY;
-		
-		//private int fossilsNumber;
-		
-		private int [,]	mineshaft = new int[OrchidMSarrays.MSLenght,OrchidMSarrays.MSHeight]; 
-		private int [,]	minishaft1 = new int[5,3]; 
-		private int [,]	minishaft2 = new int[5,3]; 
+
+		private int [,]	mineshaft = new int[OrchidMSarrays.MSLenght,OrchidMSarrays.MSHeight];
+		private int [,]	minishaft1 = new int[5,3];
+		private int [,]	minishaft2 = new int[5,3];
 		private int [,] ruins = new int[RLenght,RHeight];
-		
-		
+
+
 		private int minishaft1X;
 		private int minishaft1Y;
 		private int minishaft2X;
 		private int minishaft2Y;
-
-		public static int mineshaftChestX = -1;
-		public static int mineshaftChestY = -1;
 		
 		public static bool foundChemist = false;
 		public static bool foundSlimeCard = false;
-		
+
 		public override void Initialize() {
 			foundChemist = false;
 			foundSlimeCard = false;
 		}
-		
+
 		public override TagCompound Save() {
 			var downed = new List<string>();
 
 			if (foundChemist) {
 				downed.Add("chemist");
 			}
-			
-			if (foundSlimeCard) {	
+
+			if (foundSlimeCard) {
 				downed.Add("slimecard");
 			}
 
@@ -112,27 +105,48 @@ namespace OrchidMod
 			BitsByte flags = reader.ReadByte();
 			foundChemist = flags[0];
 		}
-		
+
 		public void PlaceMSRoomTiles(int i, int j, int[,] MS, int[,]MSWall) {
 			int barRand = Main.rand.Next(6);
 			int wallrand = Main.rand.Next(5);
+			bool trapRoom = (Main.rand.Next(5) == 0);
+			bool normalRoom = (!trapRoom && (Main.rand.Next(3) == 0));
 			for (int y = 0; y < MS.GetLength(0); y++) {
 				for (int x = 0; x < MS.GetLength(1); x++) {
 					int k = i - 3 + x;
 					int l = j - 6 + y;
 					int allowPlatforms = Main.rand.Next(3);
-					if (WorldGen.InWorld(k, l, 30)){
+					if (WorldGen.InWorld(k, l, 30)) {
 						Tile tile = Framing.GetTileSafely(k, l);
 						tile.ClearTile();
 						int allowPlatforms2 = Main.rand.Next(3); // One room out of 3 will have a plaftorm above every air block instead of wood.
 						int forceWood = Main.rand.Next(2);
 						switch (MS[y, x]) {
 							case 1:
-								if (Framing.GetTileSafely(k, l+1).active() == false) {
-									if  (allowPlatforms == 0) WorldGen.PlaceTile(k, l, 19); // One room out of 3 will have a plaftorm above every air block instead of wood.
-									if 	(allowPlatforms != 0 && allowPlatforms2 == 0) WorldGen.PlaceTile(k, l, 19); // Other 2 rooms, have a 1 in 3 chance to get every wood block above air to be a platform
+								bool canSpawnTile = true;
+								if (trapRoom) {
+									for (int w = 0; w < 3 ; w ++) {
+										if (Framing.GetTileSafely(k, l - 1 + w).active()) {
+											canSpawnTile = false;
+										}
+									}
+									if (canSpawnTile) {
+										WorldGen.PlaceTile(k, l, TileType<Tiles.Ambient.FragileWood>());
+									}
+								} else if (!normalRoom) {
+									if (Framing.GetTileSafely(k, l+1).active() == false) {
+										if  (allowPlatforms == 0) {
+											WorldGen.PlaceTile(k, l, 19); // One room out of 3 will have a plaftorm above every air block instead of wood.
+											canSpawnTile = true;
+										}
+										if 	(allowPlatforms != 0 && allowPlatforms2 == 0) {
+											WorldGen.PlaceTile(k, l, 19); // Other 2 rooms, have a 1 in 3 chance to get every wood block above air to be a platform
+											canSpawnTile = true;
+										}
+									}
 								}
-								else {
+
+								if (!canSpawnTile || normalRoom) { // If neither platform or trap could be placed
 									if (Main.rand.Next(10) != 0) {
 										tile.type = 30; //Wood (and every wood block has a 1/10 chance not to be spawned)
 										if (Framing.GetTileSafely(k, l+1).type == TileID.Stone || Framing.GetTileSafely(k, l-1).type == TileID.Stone) tile.type = TileID.Stone;
@@ -142,10 +156,6 @@ namespace OrchidMod
 										if (forceWood == 0) tile.type = 30;
 									}
 								}
-								tile.active(true);
-								break;
-							case 2:
-								WorldGen.PlaceTile(k, l, 19); // Plaform
 								tile.active(true);
 								break;
 							case 3:
@@ -193,9 +203,6 @@ namespace OrchidMod
 								tile.type = 178; // Amethyst
 								tile.active(true);
 								break;
-							case 15: 
-								WorldGen.PlaceObject(k, l, 215); // campfire
-								break;
 							case 16:
 								if (Main.rand.Next(3) > 1) WorldGen.PlaceObject(k, l-1, 330); // Copper Coins
 								else {
@@ -206,7 +213,7 @@ namespace OrchidMod
 							default :
 								break;
 						}
-						
+
 						switch (MSWall[y, x])
 						{
 							case 1:
@@ -230,7 +237,7 @@ namespace OrchidMod
 				}
 			}
 		}
-		
+
 		public void PlaceMSRoomFurnitures(int i, int j, int[,] MS, int[,]MSWall) {
 			int barRand = Main.rand.Next(6);
 			int wallrand = Main.rand.Next(5);
@@ -241,6 +248,10 @@ namespace OrchidMod
 					if (WorldGen.InWorld(k, l, 30)){
 						Tile tile = Framing.GetTileSafely(k, l);
 						switch (MS[y, x]) {
+							case 2:
+								WorldGen.PlaceTile(k, l, 19); // Platform
+								tile.active(true);
+								break;
 							case 3:
 								tile.type = TileID.Cobweb;
 								tile.active(true);
@@ -257,12 +268,8 @@ namespace OrchidMod
 								tile.type = 178; // Amethyst
 								tile.active(true);
 								break;
-							case 15: 
-								WorldGen.PlaceObject(k, l-1, 215); // campfire
-								WorldGen.PlaceObject(k, l, 215);
-								WorldGen.PlaceObject(k, l+1, 215);
-								WorldGen.PlaceObject(k-1, l, 215);
-								WorldGen.PlaceObject(k+1, l, 215);
+							case 15:
+								WorldGen.PlaceObject(k, l, 215); // campfire
 								break;
 							case 16:
 								if (Main.rand.Next(3) > 1) WorldGen.PlaceObject(k, l-1, 330); // Copper Coins
@@ -281,7 +288,7 @@ namespace OrchidMod
 
 		public void PlaceMSFurnitures(int i, int j, int[,] MS, int[,]MSWall) {
 			Tile tile;
-			
+
 			for (int y = 0; y < MS.GetLength(0); y++)
 			{
 				for (int x = 0; x < MS.GetLength(1); x++)
@@ -300,7 +307,7 @@ namespace OrchidMod
 								}
 								WorldGen.PlaceObject(k, l, 42, true, 6); // 33 = candle /42 = Lantern
 								break;
-							case 7:	
+							case 7:
 								for (int w = 0; w < 3; w ++) {
 									for (int q = 0; q < 3; q++) {
 										tile = Framing.GetTileSafely(k + w - 1, l + q - 1);
@@ -323,20 +330,60 @@ namespace OrchidMod
 								}
 								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftCrate>());
 								break;
-								
 							case 18:
-								mineshaftChestX = k;
-								mineshaftChestY = l;
+								for (int w = 0; w < 2; w ++) {
+									for (int q = 0; q < 2; q++) {
+										tile = Framing.GetTileSafely(k - w, l - q);
+										if (tile.type == 314) {
+											break;
+										} else {
+											tile.ClearTile();
+										}
+									}
+								}
+								WorldGen.PlaceTile(k, l + 1, 19);
+								WorldGen.PlaceTile(k + 1, l + 1, 19);
+								WorldGen.PlaceChest(k, l, (ushort)ModContent.TileType<Tiles.Chests.MinersLockbox>(), false, 0);
 								break;
 							case 19:
 								WorldGen.PlaceObject(k, l, 82, true, 3);
+								break;
+							case 20:
+								for (int w = 0; w < 3; w ++) {
+									for (int q = 0; q < 3; q++) {
+										tile = Framing.GetTileSafely(k + w - 1, l + q - 1);
+										tile.ClearEverything();
+										tile.wall = 27;
+									}
+								}
+								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftHookTile>());
+								break;
+							case 21:
+								for (int w = 0; w < 3; w ++) {
+									for (int q = 0; q < 2; q++) {
+										tile = Framing.GetTileSafely(k - w + 1, l - q);
+										tile.ClearTile();
+									}
+								}
+								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftToolboxTile>());
+								break;
+							case 22:
+								for (int w = 0; w < 2; w ++) {
+									for (int q = 0; q < 2; q++) {
+										tile = Framing.GetTileSafely(k - w, l - q);
+										tile.ClearTile();
+									}
+								}
+								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftStaticTile>());
+								break;
+							default:
 								break;
 						}
 					}
 				}
 			}
 		}
-		
+
 		// private int[,] GenerateRArray(int RLenght, int RHeight) {
 			// int [,] ruins = new int[RLenght,RHeight];
 			// for (int i = 0; i < RLenght ; i++ ) { // FILL GRID WITH NORMAL ROOMS
@@ -344,7 +391,7 @@ namespace OrchidMod
 					// ruins[i,j] = 1;
 				// }
 			// }
-	
+
 			// for (int j = 0; j < RHeight ; j++ ) { // STAIR ROOMS
 				// int rand = Main.rand.Next((RLenght - 2) + 1);
 				// ruins[rand,j] = 2;
@@ -352,7 +399,7 @@ namespace OrchidMod
 			// }
 			// return ruins;
 		// }
-		
+
 		private int[,] GenerateSmallMSArray(int MSLenght, int MSHeight) {
 			int[,] mineshaft = new int[MSLenght,MSHeight];
 			int treasureNumber = 1; // Scale with size ? / CAN BE CHANGED
@@ -366,7 +413,7 @@ namespace OrchidMod
 					mineshaft[i,j] = 1;
 				}
 			}
-			
+
 			for (int i = 0; i < MSHeight ; i++ ) { // DELETE A RANDOM AMOUNT OF ROOMS ON SIDES
 				for (int j = 0; j < Main.rand.Next(sidesrand) ; j++ ) {
 					mineshaft[j,i] = 0;
@@ -375,7 +422,7 @@ namespace OrchidMod
 					mineshaft[j,i] = 0;
 				}
 			}
-			
+
 			for (int i = 0; i < MSHeight - 1 ; i++ ) { // PLACE STAIRS
 				tries = 0;
 				placed = false;
@@ -389,7 +436,7 @@ namespace OrchidMod
 					}
 				}
 			}
-			
+
 			for (int i = 0; i < MSHeight ; i++ ) {  // REPLACE RIGHT MOST ROOM WITH "RIGHT END" ROOM
 				placed = false;
 				int j = MSLenght-1;
@@ -431,7 +478,7 @@ namespace OrchidMod
 			}
 			return mineshaft;
 		}
-		
+
 		private int[,] GenerateMSArray(int MSLenght, int MSHeight) {
 			int[,] mineshaft = new int[MSLenght,MSHeight];
 			int treasureNumber = 3; // Scale with size ? / CAN BE CHANGED
@@ -439,6 +486,9 @@ namespace OrchidMod
 			int bigStairsNumber = 2; // same ? DO NOT CHANGE FOR NOW
 			int bossNumber = 1; // CAN BE CHANGED
 			int gemNumber = 1; // CAN BE CHANGED - don't go over MSHeight-1
+			int hookNumber = 1; // CAN BE CHANGED
+			int staticNumber = 1; // CAN BE CHANGED
+			int toolboxNumber = 2; // CAN BE CHANGED
 			int randL;
 			int randH;
 			bool placed;
@@ -547,15 +597,39 @@ namespace OrchidMod
 			}
 			while (treasureNumber > 0) { // PLACE TREASURE ROOMS
 				randL = Main.rand.Next(MSLenght);
-				randH = Main.rand.Next(MSHeight-1);
+				randH = Main.rand.Next(MSHeight - 1);
 				if (mineshaft[randL,randH] == 1) {
 					treasureNumber --;
 					mineshaft[randL,randH] = 3;
 				}
 			}
+			while (hookNumber > 0) { // PLACE HOOK ROOMS
+				randL = Main.rand.Next(MSLenght);
+				randH = Main.rand.Next(MSHeight - 1);
+				if (mineshaft[randL,randH] == 1) {
+					hookNumber --;
+					mineshaft[randL,randH] = 10;
+				}
+			}
+			while (staticNumber > 0) { // PLACE STATIC NODE ROOMS
+				randL = Main.rand.Next(MSLenght);
+				randH = Main.rand.Next(MSHeight);
+				if (mineshaft[randL,randH] == 1) {
+					staticNumber --;
+					mineshaft[randL,randH] = 12;
+				}
+			}
+			while (toolboxNumber > 0) { // PLACE TOOLBOX ROOMS
+				randL = Main.rand.Next(MSLenght);
+				randH = Main.rand.Next(MSHeight);
+				if (mineshaft[randL,randH] == 1) {
+					toolboxNumber -= 1 + Main.rand.Next(2);
+					mineshaft[randL,randH] = 11;
+				}
+			}
 			return mineshaft;
 		}
-		
+
 		// public void PlaceRuins(int[,] ruins, int RLenght, int RHeight, int PosX, int MinPosY) {
 			// int PosY = MinPosY; // same
 			// for (int i = 0; i < RLenght ; i++ ) {
@@ -572,7 +646,7 @@ namespace OrchidMod
 			// PosX += 15;
 			// }
 		// }
-		
+
 		public void PlaceFossil(int i, int j, int[,] fossil) {
 			for (int y = 0; y < fossil.GetLength(0); y++) {
 				for (int x = 0; x < fossil.GetLength(1); x++) {
@@ -587,7 +661,7 @@ namespace OrchidMod
 				}
 			}
 		}
-		
+
 		public void PlaceMineshaft(int[,] mineshaft, int MSLenght, int MSHeight, int PosX, int MinPosY) { //Used to spawn the majority of the mineshaft tiles, before worlgen smoothes things.
 			int PosY = MinPosY; // same
 			for (int i = 0; i < MSLenght ; i++ ) {
@@ -737,6 +811,18 @@ namespace OrchidMod
 								break;
 						}
 					}
+					if (mineshaft[i,j] == 10) {
+						arrayWalls = OrchidMSarrays.mSWall1;
+						arrayShape = OrchidMSarrays.mSshapeHook;
+					}
+					if (mineshaft[i,j] == 11) {
+						arrayWalls = OrchidMSarrays.mSWall1;
+						arrayShape = OrchidMSarrays.mSshapeToolbox;
+					}
+					if (mineshaft[i,j] == 12) {
+						arrayWalls = OrchidMSarrays.mSWall1;
+						arrayShape = OrchidMSarrays.mSshapeStatic;
+					}
 					if (arrayShape != null && arrayWalls != null) {
 						PlaceMSRoomTiles(PosX, PosY + yOffSet, arrayShape, arrayWalls);
 						PlaceMSRoomFurnitures(PosX, PosY + yOffSet, arrayShape, arrayWalls);
@@ -755,9 +841,9 @@ namespace OrchidMod
 				PosX += 15;
 			}
 		}
-		
+
 		public void EndMineshaft(int[,] mineshaft, int MSLenght, int MSHeight, int PosX, int MinPosY){ // Used to spawn what we WANT to spawn (furniture, ...)
-			int PosY = MinPosY; 
+			int PosY = MinPosY;
 			for (int i = 0; i < MSLenght ; i++ ) {
 				for (int j = 0; j < MSHeight ; j++ ) {
 					if (mineshaft[i,j] == 1) {
@@ -796,10 +882,8 @@ namespace OrchidMod
 							case 10:
 								PlaceMSFurnitures(PosX, PosY, OrchidMSarrays.mSshape11, OrchidMSarrays.mSWall1);
 								break;
-							
+
 						}
-						Framing.GetTileSafely((Main.maxTilesX-(OrchidMSarrays.MSLenght+1))+i, (Main.maxTilesY-(OrchidMSarrays.MSHeight+1))+j).type = 63;
-						Framing.GetTileSafely((Main.maxTilesX-(OrchidMSarrays.MSLenght+1))+i, (Main.maxTilesY-(OrchidMSarrays.MSHeight+1))+j).active(true);
 					}
 					if (mineshaft[i,j] == 2) {
 						switch (Main.rand.Next(3)) // Update this when adding rooms.
@@ -814,8 +898,6 @@ namespace OrchidMod
 								PlaceMSFurnitures(PosX, PosY, OrchidMSarrays.mSshapeStairs3, OrchidMSarrays.mSWallStairs1);
 								break;
 						}
-						Framing.GetTileSafely((Main.maxTilesX-(OrchidMSarrays.MSLenght+1))+i, (Main.maxTilesY-(OrchidMSarrays.MSHeight+1))+j).type = 64;
-						Framing.GetTileSafely((Main.maxTilesX-(OrchidMSarrays.MSLenght+1))+i, (Main.maxTilesY-(OrchidMSarrays.MSHeight+1))+j).active(true);
 					}
 					if (mineshaft[i,j] == 3) {
 						switch (Main.rand.Next(3)) // Update this when adding rooms.
@@ -830,8 +912,6 @@ namespace OrchidMod
 								PlaceMSFurnitures(PosX, PosY, OrchidMSarrays.mSshapeTreasure3, OrchidMSarrays.mSWallTreasure1);
 								break;
 						}
-						Framing.GetTileSafely((Main.maxTilesX-16)+i, (Main.maxTilesY-16)+j).type = 63;
-						Framing.GetTileSafely((Main.maxTilesX-16)+i, (Main.maxTilesY-16)+j).active(true);
 					}
 					if (mineshaft[i,j] == 4) {
 						switch (Main.rand.Next(3)) // Update this when adding rooms.
@@ -846,8 +926,6 @@ namespace OrchidMod
 								PlaceMSFurnitures(PosX, PosY, OrchidMSarrays.mSshapeER3, OrchidMSarrays.mSWall1);
 								break;
 						}
-						Framing.GetTileSafely((Main.maxTilesX-16)+i, (Main.maxTilesY-16)+j).type = 63;
-						Framing.GetTileSafely((Main.maxTilesX-16)+i, (Main.maxTilesY-16)+j).active(true);
 					}
 					if (mineshaft[i,j] == 5) {
 						switch (Main.rand.Next(2)) // Update this when adding rooms.
@@ -876,8 +954,6 @@ namespace OrchidMod
 								PlaceMSFurnitures(PosX, PosY, OrchidMSarrays.mSshapeGems, OrchidMSarrays.mSWallGems);
 								break;
 						}
-						Framing.GetTileSafely((Main.maxTilesX-(OrchidMSarrays.MSLenght+1))+i, (Main.maxTilesY-(OrchidMSarrays.MSHeight+1))+j).type = 63;
-						Framing.GetTileSafely((Main.maxTilesX-(OrchidMSarrays.MSLenght+1))+i, (Main.maxTilesY-(OrchidMSarrays.MSHeight+1))+j).active(true);
 					}
 					if (mineshaft[i,j] == 8) {
 						switch (Main.rand.Next(3)) // Update this when adding rooms.
@@ -892,8 +968,6 @@ namespace OrchidMod
 								PlaceMSFurnitures(PosX, PosY, OrchidMSarrays.mSshapeEL3, OrchidMSarrays.mSWall1);
 								break;
 						}
-						Framing.GetTileSafely((Main.maxTilesX-(OrchidMSarrays.MSLenght+1))+i, (Main.maxTilesY-(OrchidMSarrays.MSHeight+1))+j).type = 63;
-						Framing.GetTileSafely((Main.maxTilesX-(OrchidMSarrays.MSLenght+1))+i, (Main.maxTilesY-(OrchidMSarrays.MSHeight+1))+j).active(true);
 					}
 					if (mineshaft[i,j] == 9) {
 						switch (Main.rand.Next(1)) // Update this when adding rooms.
@@ -905,84 +979,93 @@ namespace OrchidMod
 								break;
 						}
 					}
+					if (mineshaft[i,j] == 10) {
+						PlaceMSFurnitures(PosX, PosY, OrchidMSarrays.mSshapeHook, OrchidMSarrays.mSWall1);
+					}
+					if (mineshaft[i,j] == 11) {
+						PlaceMSFurnitures(PosX, PosY, OrchidMSarrays.mSshapeToolbox, OrchidMSarrays.mSWall1);
+					}
+					if (mineshaft[i,j] == 12) {
+						PlaceMSFurnitures(PosX, PosY, OrchidMSarrays.mSshapeStatic, OrchidMSarrays.mSWall1);
+					}
 				PosY += 14;
 				}
 			PosY = MinPosY;
 			PosX += 15;
 			}
 		}
-		
-		private void placeQuartz(GenerationProgress progress) {
-			for (int k = 0; k < (int)((OrchidMSarrays.MSLenght * 15 * OrchidMSarrays.MSHeight * 8) * 1E-02); k++) {
+
+		private void placeQuartz() {
+			for (int k = 0; k < (int)((OrchidMSarrays.MSLenght * 15 * OrchidMSarrays.MSHeight * 8) / 6); k++) {
 				int x = WorldGen.genRand.Next((int)(Main.maxTilesX / 2)- (int)((OrchidMSarrays.MSLenght * 15) / 2) - 50, (int)(Main.maxTilesX/2) + (int)((OrchidMSarrays.MSLenght * 15) / 2) + 50);
 				int y = WorldGen.genRand.Next((int)(Main.maxTilesY / 3) + 50, (int)(Main.maxTilesY / 3) + (OrchidMSarrays.MSHeight * 8) + 200);
 
 				Tile tile = Framing.GetTileSafely(x, y);
-				if (tile.active() && (tile.type == 147 || tile.type == 1)) // snow/stone
-				{
-					WorldGen.TileRunner(x, y, WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(5, 8), ModContent.TileType<Tiles.Ores.StaticQuartzOre>());
+				if (!tile.active() && ((WorldGen.SolidTile(x - 1, y)) || (WorldGen.SolidTile(x, y + 1)) || (WorldGen.SolidTile(x, y - 1)) || (WorldGen.SolidTile(x + 1, y)))) {
+					WorldGen.PlaceTile(x, y, TileType<Tiles.Ores.StaticQuartzGem>());
+					tile.active(true);
 				}
 			}
 		}
-		
-		public void placeFossils(int fossilQuantity) {
-					for (int i = 0 ; i < fossilQuantity ; i ++) {
-						
-						int [,]	fossilShape;
-						switch (Main.rand.Next(4)) {
-							case 0:
-								fossilShape = OrchidFossilsArrays.FossilShape1;
-								break;
-							case 1:
-								fossilShape = OrchidFossilsArrays.FossilShape2;
-								break;
-							case 2:
-								fossilShape = OrchidFossilsArrays.FossilShape3;
-								break;
-							case 3:
-								fossilShape = OrchidFossilsArrays.FossilShape4;
-								break;
-							default:
-								fossilShape = OrchidFossilsArrays.FossilShape1;
-								break;
-						}
-						
-						bool fossilPlaced = false;
-						int attempts = 0;
-						while (!fossilPlaced && attempts < 100000) {
-							
-							int x = WorldGen.genRand.Next(300, Main.maxTilesX - 300);
-							int y = WorldGen.genRand.Next((int)(Main.worldSurface + 150), Main.maxTilesY - 300);
-							
-							int validCount = 0;
-							
-							if (Framing.GetTileSafely(x, y).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
-								validCount ++;
-							if (Framing.GetTileSafely(x + 34, y + 27).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
-								validCount ++;
-							if (Framing.GetTileSafely(x, y + 27).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
-								validCount ++;
-							if (Framing.GetTileSafely(x + 34, y).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
-								validCount ++;
-							if (Framing.GetTileSafely(x + 17, y + 13).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
-								validCount ++;
-							
-							if (validCount > 2) {
-								fossilPlaced = true;
-								PlaceFossil(x, y, fossilShape);
-							}
-							attempts++;
-						}
+
+		public void placeFossils() {
+			int fossilQuantity = WorldGen.genRand.Next(5, 5 + (int)(2f * (Main.maxTilesX / 800f)));
+			for (int i = 0 ; i < fossilQuantity ; i ++) {
+
+				int [,]	fossilShape;
+				switch (Main.rand.Next(4)) {
+					case 0:
+						fossilShape = OrchidFossilsArrays.FossilShape1;
+						break;
+					case 1:
+						fossilShape = OrchidFossilsArrays.FossilShape2;
+						break;
+					case 2:
+						fossilShape = OrchidFossilsArrays.FossilShape3;
+						break;
+					case 3:
+						fossilShape = OrchidFossilsArrays.FossilShape4;
+						break;
+					default:
+						fossilShape = OrchidFossilsArrays.FossilShape1;
+						break;
+				}
+
+				bool fossilPlaced = false;
+				int attempts = 0;
+				while (!fossilPlaced && attempts < 100000) {
+
+					int x = WorldGen.genRand.Next(300, Main.maxTilesX - 300);
+					int y = WorldGen.genRand.Next((int)(Main.worldSurface + 150), Main.maxTilesY - 300);
+					int validCount = 0;
+
+					if (Framing.GetTileSafely(x, y).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+						validCount ++;
+					if (Framing.GetTileSafely(x + 34, y + 27).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+						validCount ++;
+					if (Framing.GetTileSafely(x, y + 27).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+						validCount ++;
+					if (Framing.GetTileSafely(x + 34, y).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+						validCount ++;
+					if (Framing.GetTileSafely(x + 17, y + 13).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+						validCount ++;
+
+					if (validCount > 2) {
+						fossilPlaced = true;
+						PlaceFossil(x, y, fossilShape);
 					}
+					attempts++;
+				}
+			}
 		}
-		
+
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
 		{
 			// int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
 			// if (ShiniesIndex != -1) {
 				// tasks.Insert(ShiniesIndex + 1, new PassLegacy("Static Quartz", placeQuartz));
 			// }
-			
+
 			int LivingTreesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Living Trees"));
 			if (LivingTreesIndex != -1)
 			{
@@ -991,47 +1074,49 @@ namespace OrchidMod
 					mineshaft = new int[OrchidMSarrays.MSLenght,OrchidMSarrays.MSHeight];
 					minishaft1	= new int[5,3];
 					minishaft2	= new int[5,3];
-					
+
 					ruins = new int[RLenght,RHeight];
-					mineshaft = GenerateMSArray(OrchidMSarrays.MSLenght, OrchidMSarrays.MSHeight); 
+					mineshaft = GenerateMSArray(OrchidMSarrays.MSLenght, OrchidMSarrays.MSHeight);
 					// ruins = GenerateRArray(RLenght,RHeight);
 					MSMinPosX = (Main.maxTilesX/2)-((OrchidMSarrays.MSLenght*15)/2);
 					MSMinPosY = (Main.maxTilesY/3 + 100);
 					RMinPosX = (Main.maxTilesX/2);
 					RMinPosY = (Main.maxTilesY/5);
-					
+
 					progress.Message = "Generating mineshaft";
 					PlaceMineshaft(mineshaft, OrchidMSarrays.MSLenght, OrchidMSarrays.MSHeight, MSMinPosX, MSMinPosY);
 					//PlaceRuins(ruins, RLenght, RHeight, RMinPosX, RMinPosY);
-					
+
 					progress.Message = "Generating minishafts";
-					
+
 					minishaft1X = (Main.maxTilesX/2) - 750 + Main.rand.Next(300);
 					minishaft1Y = (Main.maxTilesY/3) + 200 - Main.rand.Next(300);
-					
+
 					while (!(Framing.GetTileSafely(minishaft1X, minishaft1Y).active())) {
 						minishaft1X = (Main.maxTilesX/2) - 750 + Main.rand.Next(300);
 						minishaft1Y = (Main.maxTilesY/3) + 200 - Main.rand.Next(300);
 					}
-					
+
 					minishaft2X = (Main.maxTilesX/2) + 750 - Main.rand.Next(300);
 					minishaft2Y = (Main.maxTilesY/3) + 200 - Main.rand.Next(300);
-					
+
 					while (!(Framing.GetTileSafely(minishaft2X, minishaft2Y).active())) {
 						minishaft2X = (Main.maxTilesX/2) + 750 - Main.rand.Next(300);
 						minishaft2Y = (Main.maxTilesY/3) + 200 - Main.rand.Next(300);
 					}
-					
-					minishaft1 = GenerateSmallMSArray(5, 3); 
+
+					minishaft1 = GenerateSmallMSArray(5, 3);
 					PlaceMineshaft(minishaft1, 5, 3, minishaft1X, minishaft1Y);
-					minishaft2 = GenerateSmallMSArray(5, 3); 
+					minishaft2 = GenerateSmallMSArray(5, 3);
 					PlaceMineshaft(minishaft2, 5, 3, minishaft2X, minishaft2Y);
 					
-					// fossilsNumber = WorldGen.genRand.Next(5, 5 + (int)(2f * (Main.maxTilesX / 800f)));
-					// placeFossils(fossilsNumber);
+					progress.Message = "Generating Static Quartz";
+					this.placeQuartz();
+
+				//	placeFossils();
 				}));
 			}
-			
+
 			int ChestsIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Surface Chests"));
 			if (ChestsIndex != -1)
 			{
@@ -1072,14 +1157,14 @@ namespace OrchidMod
 										y++;
 										continue;
 									}
-									
+
 									int chestIndex = WorldGen.PlaceChest(x - 1, y - 1, (ushort)ModLoader.GetMod("OrchidMod").TileType("ShamanBiomeChest"), false, 1);
-									
+
 									if (chestIndex < 0)
 									{
 										break;
 									}
-									
+
 									chest = Main.chest[chestIndex];
 								}
 							}
@@ -1088,7 +1173,7 @@ namespace OrchidMod
 				}));
 			}
 		}
-		
+
 		public bool placeInChest(Chest chest, int itemToPlace, int quantity) {
 			if (chest != null) {
 				for (int inventoryIndex = 39; inventoryIndex > 1; inventoryIndex--) {
@@ -1106,24 +1191,13 @@ namespace OrchidMod
 			}
 			return true;
 		}
-		
+
 		public override void PostWorldGen()
         {
 			EndMineshaft(mineshaft, OrchidMSarrays.MSLenght, OrchidMSarrays.MSHeight, MSMinPosX, MSMinPosY);
 			EndMineshaft(minishaft1, 5, 3, minishaft1X, minishaft1Y);
 			EndMineshaft(minishaft2, 5, 3, minishaft2X, minishaft2Y);
-			
-			Tile tile = Framing.GetTileSafely(mineshaftChestX, mineshaftChestY-1);
-			for (int w=2;w>0; w--) {
-				for (int q=2; q>0; q--) {
-					tile = Framing.GetTileSafely(mineshaftChestX - w, mineshaftChestY - q);
-					tile.ClearTile();
-				}
-			}
-			WorldGen.PlaceTile(mineshaftChestX, mineshaftChestY + 1, 19);
-			WorldGen.PlaceTile(mineshaftChestX - 1, mineshaftChestY + 1, 19);
-			WorldGen.PlaceChest(mineshaftChestX, mineshaftChestY, (ushort)ModLoader.GetMod("OrchidMod").TileType("MinersLockbox"), false, 0);
-			
+
 			bool spawnedEmbersCard = false;
 			bool spawnedAdornedBranch = false;
 			bool spawnedEmberVial = false;
@@ -1149,7 +1223,7 @@ namespace OrchidMod
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
 				Chest chest = Main.chest[chestIndex];
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)ModLoader.GetMod("OrchidMod").TileType("MinersLockbox"))
 				{
 					int rand = Main.rand.Next(10);
@@ -1183,20 +1257,20 @@ namespace OrchidMod
 					chest.item[7 + flareGun].SetDefaults(71); // Copper Coin
 					chest.item[7 + flareGun].stack = Main.rand.Next(80, 99);
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)ModLoader.GetMod("OrchidMod").TileType("ShamanBiomeChest"))
 				{
 					chest.item[0].SetDefaults(mod.ItemType("ShroomiteScepter"));
 					chest.item[1].SetDefaults(183); // Glowing Mushroom
-					chest.item[1].stack = Main.rand.Next(10) + 20; 
+					chest.item[1].stack = Main.rand.Next(10) + 20;
 					chest.item[2].SetDefaults(188); // Healing Potion
-					chest.item[2].stack = Main.rand.Next(5) + 3; 
+					chest.item[2].stack = Main.rand.Next(5) + 3;
 					chest.item[3].SetDefaults(298); // Shine Potion
-					chest.item[3].stack = Main.rand.Next(3) + 1; 
+					chest.item[3].stack = Main.rand.Next(3) + 1;
 					chest.item[4].SetDefaults(289); // Regeneration Potion
-					chest.item[4].stack = Main.rand.Next(3) + 1; 
+					chest.item[4].stack = Main.rand.Next(3) + 1;
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 0 * 36
 				&& !((Main.tile[chest.x, chest.y].wall >= 94 && Main.tile[chest.x, chest.y].wall <= 99) || (Main.tile[chest.x, chest.y].wall >= 7 && Main.tile[chest.x, chest.y].wall <= 9)))
 				{
@@ -1211,7 +1285,7 @@ namespace OrchidMod
 						}
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 17 * 36)
 				{
 					if (Main.rand.Next(5) == 0) {
@@ -1221,7 +1295,7 @@ namespace OrchidMod
 						spawnedSeafoamVial = placeInChest(chest, ItemType<Alchemist.Weapons.Water.SeafoamVial>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 12 * 36)
 				{
 					if (Main.rand.Next(2) == 0) {
@@ -1231,7 +1305,7 @@ namespace OrchidMod
 						spawnedLivingSapVial = placeInChest(chest, ItemType<Alchemist.Weapons.Nature.LivingSapVial>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 1 * 36
 					&& !(Main.tile[chest.x, chest.y].wall == 34))
 				{
@@ -1250,13 +1324,13 @@ namespace OrchidMod
 						}
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 2 * 36)
 				{
 					if(Main.rand.Next(2) == 0) {
 						spawnedTiamatRelic += placeInChest(chest, ItemType<Gambler.Misc.TiamatRelic>(), 1) ? 1 : 0;
 					}
-					
+
 					if(Main.rand.Next(2) == 0) {
 						int rand = Main.rand.Next(4);
 						if (rand == 0) {
@@ -1270,7 +1344,7 @@ namespace OrchidMod
 						}
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 4 * 36)
 				{
 					if(Main.rand.Next(3) == 0) {
@@ -1282,7 +1356,7 @@ namespace OrchidMod
 						}
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 11 * 36)
 				{
 					if (Main.rand.Next(5) == 0) {
@@ -1292,7 +1366,7 @@ namespace OrchidMod
 						spawnedAvalancheScepter = placeInChest(chest, ItemType<Shaman.Weapons.AvalancheScepter>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 10 * 36)
 				{
 					if(Main.rand.Next(5) < 2) {
@@ -1304,7 +1378,7 @@ namespace OrchidMod
 					}
 				}
 			}
-			
+
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++) {
 				Chest chest = Main.chest[chestIndex];
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 0 * 36
@@ -1320,7 +1394,7 @@ namespace OrchidMod
 						spawnedEmberVial = placeInChest(chest, ItemType<Alchemist.Weapons.Fire.EmberVial>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 17 * 36)
 				{
 					if (!spawnedBubbleCard) {
@@ -1330,7 +1404,7 @@ namespace OrchidMod
 						spawnedSeafoamVial = placeInChest(chest, ItemType<Alchemist.Weapons.Water.SeafoamVial>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 12 * 36)
 				{
 					if (!spawnedSapCard) {
@@ -1340,7 +1414,7 @@ namespace OrchidMod
 						spawnedLivingSapVial = placeInChest(chest, ItemType<Alchemist.Weapons.Nature.LivingSapVial>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 1 * 36
 					&& !(Main.tile[chest.x, chest.y].wall == 34))
 				{
@@ -1354,7 +1428,7 @@ namespace OrchidMod
 						spawnedCloudInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.CouldInAVial>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 2 * 36)
 				{
 					if (spawnedTiamatRelic < 3) {
@@ -1373,7 +1447,7 @@ namespace OrchidMod
 						spawnedRusalka = placeInChest(chest, ItemType<Gambler.Weapons.Chips.Rusalka>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 4 * 36)
 				{
 					if (!spawnedFireBatScepter) {
@@ -1383,7 +1457,7 @@ namespace OrchidMod
 						spawnedShadowChestFlask = placeInChest(chest, ItemType<Alchemist.Weapons.Air.ShadowChestFlask>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 11 * 36)
 				{
 					if (!spawnedIceChestCard) {
@@ -1393,7 +1467,7 @@ namespace OrchidMod
 						spawnedAvalancheScepter = placeInChest(chest, ItemType<Shaman.Weapons.AvalancheScepter>(), 1);
 					}
 				}
-				
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 10 * 36)
 				{
 					if (!spawnedDeepForestCharm) {

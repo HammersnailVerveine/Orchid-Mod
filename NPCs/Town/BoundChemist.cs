@@ -27,6 +27,7 @@ namespace OrchidMod.NPCs.Town
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.friendly = true;
+			npc.rarity = 1;
 			npc.value = Item.buyPrice(0, 0, 0, 0);
 		}
 
@@ -40,20 +41,16 @@ namespace OrchidMod.NPCs.Town
 		}
 
 		public override string GetChat() {
+			if (Main.netMode == NetmodeID.SinglePlayer) {
+				npc.Transform(NPCType<NPCs.Town.Chemist>());
+				OrchidWorld.foundChemist = true;
+			}
 			return "Thanks, you spared me a lot of troubles right there, or... Let's not talk about it.";
 		}
 		
 		public override void AI()
 		{
-			if (Main.netMode == NetmodeID.SinglePlayer) {
-				Player player = Main.player[Main.myPlayer];
-				if (player.talkNPC > -1) {
-					if (Main.npc[player.talkNPC].type == npc.type) {
-						npc.Transform(NPCType<NPCs.Town.Chemist>());
-						OrchidWorld.foundChemist = true;
-					}
-				}
-			} else {
+			if (Main.netMode != NetmodeID.SinglePlayer) {
 				for (int index = 0; index < Main.player.Length; index++) {
 					if (Main.player[index].talkNPC > -1) {
 						if (Main.player[index].active && Main.npc[Main.player[index].talkNPC].type == npc.type) {

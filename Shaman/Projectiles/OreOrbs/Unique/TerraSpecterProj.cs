@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
             projectile.width = 7;
             projectile.height = 7;
             projectile.friendly = true;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
             projectile.extraUpdates = 3;
             projectile.timeLeft = 90;	
 			projectile.scale = 0.5f;

@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.height = 14;
             projectile.friendly = true;
 			projectile.scale = 0f;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
 			projectile.timeLeft = 45;
 			projectile.tileCollide = true;
             this.empowermentType = 5;

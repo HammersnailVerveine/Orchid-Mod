@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Misc
     public override void SetStaticDefaults()
     {
       DisplayName.SetDefault("Shamanic Empowerment Potion");
-      Tooltip.SetDefault("Increases the effectiveness of all your shamanic empowerments");
+      Tooltip.SetDefault("Increases the effectiveness of all your shamanic bonds");
     }
 		public override void AddRecipes()
 		{

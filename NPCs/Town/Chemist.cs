@@ -189,15 +189,17 @@ namespace OrchidMod.NPCs.Town
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.ReactionItem>());
 			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("EmptyFlask"));
+			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.EmptyFlask>());
 			nextSlot++;
 			if (NPC.downedQueenBee) {
-			shop.item[nextSlot].SetDefaults(mod.ItemType("AlchemicStabilizer"));
-			nextSlot++;
+				shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.AlchemicStabilizer>());
+				nextSlot++;
 			}
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Accessories.WeightedBottles>());
 			nextSlot++;
-			shop.item[nextSlot].SetDefaults(mod.ItemType("AttractiteFlask"));
+			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Weapons.Catalysts.IronCatalyst>());
+			nextSlot++;
+			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>());
 			nextSlot++;
 		}
 

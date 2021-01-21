@@ -28,7 +28,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			DisplayName.SetDefault("Playing Card : Desert");
 		    Tooltip.SetDefault("Rapidly fires thorns"
-							+  "\nChances to summon a cacti, replicating the attack");
+							+  "\nChances to summon a cactus, replicating the attack");
 		}
 	}
 }

@@ -246,7 +246,7 @@ namespace OrchidMod.NPCs.Town
 		// }
 
 		// Make this Town NPC teleport to the King and/or Queen statue when triggered.
-		public override bool CanGoToStatue(bool toQueenStatue) {
+		public override bool CanGoToStatue(bool toKingStatue) {
 			return true;
 		}
 

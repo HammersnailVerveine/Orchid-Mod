@@ -6,13 +6,12 @@ using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
 	public class StaticQuartzHealer : ModItem
 	{
-		Mod thoriumMod;
-		
 		public override void SetDefaults() {
 			item.damage = 7;
 			item.magic = true;
@@ -26,25 +25,33 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			item.noUseGraphic = true;
 			item.autoReuse = true;
 			item.knockBack = 6.5f;
-			item.value = Item.sellPrice(0, 0, 10, 0);
+			item.value = Item.sellPrice(0, 0, 5, 0);
 			item.rare = 1;
 			item.UseSound = SoundID.Item1;
 			item.shoot = mod.ProjectileType("StaticQuartzHealerPro");
 			item.shootSpeed = 0.1f;
 			item.crit = 0;
-			this.thoriumMod = ModLoader.GetMod("ThoriumMod");
 		}
 		
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Static Quartz Scythe");
 			Tooltip.SetDefault("Rapidly spins a static quartz scythe all around you"
-							+  "\nDeals increased damage while actively moving");
+							+  "\nDeals increased damage while moving");
 		}
-
+		
+		public override void AddRecipes()
+		{
+		    ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);
+			recipe.AddIngredient(ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 12);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
 			if (thoriumMod != null) {
-				ModPlayer thoriumPlayer = player.GetModPlayer(this.thoriumMod, "ThoriumPlayer");
+				ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
 				FieldInfo field1 = thoriumPlayer.GetType().GetField("flatRadiantDamage", BindingFlags.Public | BindingFlags.Instance);
 				FieldInfo field2 = thoriumPlayer.GetType().GetField("radiantBoost", BindingFlags.Public | BindingFlags.Instance);
 				
@@ -60,6 +67,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 		}
 		
 		public override void GetWeaponCrit(Player player, ref int crit) {
+			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
 			if (thoriumMod != null) {
 				ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
 				FieldInfo field = thoriumPlayer.GetType().GetField("radiantCrit", BindingFlags.Public | BindingFlags.Instance);
@@ -80,6 +88,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 		}
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
 			Player player = Main.player[Main.myPlayer];
 			
 			if (thoriumMod != null) {

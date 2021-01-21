@@ -28,9 +28,8 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blinkroot Extract");
-		    Tooltip.SetDefault("Deals double damage if another element is used in the reaction"
-							+  "\nHitting a target coated in alchemic fire deals bonus damage"
-							+  "\nReleases lingering fire spores"
+		    Tooltip.SetDefault("Hitting a target coated in alchemic fire deals bonus damage"
+							+  "\nReleases fire spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
 							+  "\n20% increased damage in caverns");
 		}

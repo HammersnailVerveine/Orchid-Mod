@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Accessories
 		{
 			DisplayName.SetDefault("Diabolist Rune");
 			Tooltip.SetDefault("Allows you to cauterize your injuries if you take heavy damage while a shamanic earth bond is active"
-							+  "\nThe cauterization will occur if you loose over 50% of your total health without interruption, and has a 1 minute cooldown");
+							+  "\nThe cauterization will occur if you lose over 50% of your total health without interruption, and has a 1 minute cooldown");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -24,9 +25,9 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			item.autoReuse = true;
 			item.maxStack = 999;
 			item.consumable = true;
-			item.createTile = TileType<Tiles.Ores.StaticQuartzOre>();
-			item.rare = 1;
-			item.value = 500;
+			item.createTile = TileType<Tiles.Ores.StaticQuartzGem>();
+			item.rare = 0;
+			item.value = Item.sellPrice(0, 0, 1, 50);
 		}
 	}
 }

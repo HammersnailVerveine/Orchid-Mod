@@ -17,7 +17,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			item.height = 30;
 			item.rare = 1;
 			item.value = Item.sellPrice(0, 0, 20, 0);
-			this.potencyCost = 3;
+			this.potencyCost = 2;
 			this.element = AlchemistElement.NATURE;
 			this.rightClickDust = 60;
 			this.colorR = 155;
@@ -29,7 +29,8 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 		{
 			DisplayName.SetDefault("Attractite Flask");
 		    Tooltip.SetDefault("Hit target will attract most nearby alchemical lingering projectiles"
-							+  "\nThe attractivity buff will jump to the nearest target on miss");
+							+  "\nThe attractivity buff will jump to the nearest target on miss"
+							+  "\nCounts as an extract when spawning spores");
 		}
 	}
 }

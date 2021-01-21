@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
             projectile.width = 34;
             projectile.height = 34;
             projectile.friendly = true;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
 			projectile.timeLeft = 100;
             projectile.penetrate = 15;
 			this.projectileTrail = true;

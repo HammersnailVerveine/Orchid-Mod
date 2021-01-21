@@ -62,7 +62,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			float offsetY = player.Center.Y - center.Y;
 			float distance = (float)Math.Sqrt(offsetX * offsetX + offsetY * offsetY);
 			if (distance < 100f) {
-				player.AddBuff(BuffType<Alchemist.Buffs.MushroomHeal>(), 1);
+				player.AddBuff(BuffType<Alchemist.Buffs.MushroomHeal>(), 300);
 			}
 		}
 		

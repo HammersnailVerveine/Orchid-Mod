@@ -33,7 +33,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		  DisplayName.SetDefault("Cobalt Scepter");
 		  Tooltip.SetDefault("Shoots a potent cobalt bolt, hitting your enemy 3 times"
 							+"\nHitting the same target with all 3 shots will grant you a cobalt orb"
-							+"\nIf you have 5 cobalt orbs, your next attack will resplenish 75 mana on hit");
+							+"\nIf you have 5 cobalt orbs, your next attack will partially fill all active shamanic bonds");
 		}
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

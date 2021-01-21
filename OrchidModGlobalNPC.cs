@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OrchidMod.WorldgenArrays;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod
@@ -15,6 +16,7 @@ namespace OrchidMod
 		public bool shamanWater = false;
 		public bool shamanWind = false;
 		public bool alchemistHit = false;
+		public bool gamblerHit = false;
 
 		public override bool InstancePerEntity => true;
 		
@@ -26,6 +28,19 @@ namespace OrchidMod
 				}
 				if (this.alchemistHit && Main.rand.Next(4) == 0) {
 					Item.NewItem(npc.getRect(), ItemType<Alchemist.Misc.Potency>());
+				}
+				if (this.gamblerHit && Main.rand.Next(4) == 0) {
+					Item.NewItem(npc.getRect(), ItemType<Gambler.Misc.Chip>());
+				}
+			}
+			
+			if (npc.type == 21 || npc.type == -46 || npc.type == -47 || npc.type == 201 || npc.type == -48 || npc.type == -49 || npc.type == 202 || npc.type == -50 || npc.type == -51 || npc.type == 203 || npc.type == -52 || npc.type == -53 || npc.type == 167) { // Skeletons & vikings in mineshaft
+				Player player = Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)];
+				int MSMinPosX = (Main.maxTilesX / 2) - ((OrchidMSarrays.MSLenght * 15) / 2);
+				int MSMinPosY = (Main.maxTilesY/3 + 100);
+				Rectangle rect = new Rectangle(MSMinPosX, MSMinPosY, (OrchidMSarrays.MSLenght * 15), (OrchidMSarrays.MSHeight * 14));
+				if (rect.Contains(new Point((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f)))) {
+					Item.NewItem((int) npc.position.X + Main.rand.Next(npc.width), (int) npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), Main.rand.Next(3) + 1, false, 0, false, false);
 				}
 			}
 			
@@ -49,7 +64,7 @@ namespace OrchidMod
 			}
 			if (npc.type == 490 || npc.type == 489) // Drippler / Blood Zombie
 			{
-               if (Main.rand.Next(50) == 0)
+               if (Main.rand.Next(40) == 0)
                {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Weapons.Water.BloodMoonFlask>());
 				}
@@ -470,9 +485,8 @@ namespace OrchidMod
 				
 				if ((npc.type == NPCID.Vulture))
 				{
-					for (int i = Main.rand.Next(2) ; i < 2 ; i ++) {
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Misc.VultureTalon>());
-					}
+					int rand = Main.rand.Next(2) + 1;
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Misc.VultureTalon>(), rand);
 				}
 			}
         }

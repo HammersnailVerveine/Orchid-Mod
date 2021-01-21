@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Projectiles
         {
             projectile.width = 14;
             projectile.height = 14;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
 			projectile.timeLeft = 160;
             projectile.friendly = true;
             projectile.tileCollide = true;

@@ -66,7 +66,7 @@ namespace OrchidMod.Prefixes
         {
             if (!item.social && pShamanTimer > 0)
             {
-				TooltipLine line = new TooltipLine(mod, "pShamanTimer", "+" + pShamanTimer + "s shamanic empowerment duration") {
+				TooltipLine line = new TooltipLine(mod, "pShamanTimer", "+" + pShamanTimer + "s shamanic bond duration") {
 					isModifier = true
 				};
                 tooltips.Add(line);

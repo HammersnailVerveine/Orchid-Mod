@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
             projectile.height = 8;
             projectile.friendly = true;
 			projectile.scale = 1f;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
 			projectile.timeLeft = 20;
 			projectile.tileCollide = true;
 			projectile.extraUpdates = 1;

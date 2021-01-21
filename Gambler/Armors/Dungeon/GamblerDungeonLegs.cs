@@ -20,7 +20,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tiamat Leggings");
+			DisplayName.SetDefault("Tyche Leggings");
 			Tooltip.SetDefault("10% increased gambling damage");
 		}
 

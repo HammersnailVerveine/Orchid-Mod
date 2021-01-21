@@ -26,8 +26,8 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Shuffle");
-		    Tooltip.SetDefault("Randomly shoots a selection of clovers, spades, diamonds and hearts"
-							+  "\nEach projectile has its own properties and bahaviour"
+		    Tooltip.SetDefault("Randomly shoots a selection of clubs, spades, diamonds and hearts"
+							+  "\nEach projectile has its own properties and behaviour"
 							+  "\nDamage increases with the number of cards in your deck");
 		}
 	}

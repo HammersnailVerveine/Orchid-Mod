@@ -19,7 +19,7 @@ namespace OrchidMod.Gambler.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tiamat Relic");
+			DisplayName.SetDefault("Tyche Relic");
 		}
 	}
 }

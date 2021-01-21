@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
             projectile.width = 14;
             projectile.height = 14;
             projectile.friendly = true;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
 			projectile.timeLeft = 25;
 			projectile.scale = 1f;
 			projectile.alpha = 255;
@@ -82,9 +82,12 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			if (modPlayer.orbCountBig == 15)
 				Projectile.NewProjectile(player.Center.X + 30, player.position.Y - 30, 0f, 0f, mod.ProjectileType("CobaltOrb"), 0, 0, projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 15) {
-				if (Main.myPlayer == player.whoAmI)
-					player.ManaEffect(75);
-				player.statMana += 75;
+				int maxBufftimer = 60 * modPlayer.shamanBuffTimer;
+				int toAdd = 180;
+				modPlayer.shamanFireTimer = modPlayer.shamanFireBuff == 0 ? 0 : modPlayer.shamanFireTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanFireTimer + toAdd;
+				modPlayer.shamanWaterTimer = modPlayer.shamanWaterBuff == 0 ? 0 : modPlayer.shamanWaterTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanWaterTimer + toAdd;
+				modPlayer.shamanAirTimer = modPlayer.shamanAirBuff == 0 ? 0 : modPlayer.shamanAirTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanAirTimer + toAdd;
+				modPlayer.shamanEarthTimer = modPlayer.shamanEarthBuff == 0 ? 0 : modPlayer.shamanEarthTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanEarthTimer + toAdd;
 				modPlayer.orbCountBig = -3;
 			}
 		}

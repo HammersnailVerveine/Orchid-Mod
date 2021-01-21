@@ -47,6 +47,13 @@ namespace OrchidMod
 	
 		public int customCrit = 0;
 		
+		/*General*/
+		
+		public bool generalTools = false;
+		public bool generalStatic = false;
+		
+		public int generalStaticTimer = 0;
+		
 		/*Dancer*/
 		
 		public float dancerDamage = 1.0f;
@@ -211,8 +218,8 @@ namespace OrchidMod
 		public bool harpyAnkletLock = true;
 		public int shamanTimerCrimson = 0;
 		public int shamanTimerViscount = 0;
-		public int shamanTimerHellDamage = 0;
-		public int shamanTimerHellDefense = 0;
+		public int shamanTimerHellDamage = 600;
+		public int shamanTimerHellDefense = 300;
 		public int shamanTimerDestroyer = 0;
 		public int shamanDestroyerCount = 0;
 		public int shamanTimerDiabolist = 0;
@@ -270,6 +277,7 @@ namespace OrchidMod
 			this.updateBuffEffects();
 			this.updateItemEffects();
 			
+			this.generalPostUpdateEquips();
 			this.shamanPostUpdateEquips();
 			this.alchemistPostUpdateEquips();
 			this.gamblerPostUpdateEquips();
@@ -290,6 +298,8 @@ namespace OrchidMod
 			this.alchemistCrit += this.customCrit;
 			this.gamblerCrit += this.customCrit;
 			this.dancerCrit += this.customCrit;
+			
+			this.CheckWoodBreak(player);
 		}
 		
 		public override void PostUpdate() {
@@ -478,11 +488,14 @@ namespace OrchidMod
 				player.AddBuff((mod.BuffType("BrokenPower")), 60 * 15);
 			}
 			
-			if (this.shamanHell && this.shamanTimerHellDefense == 300 && this.shamanWaterTimer > 0) {
+			if (this.shamanHell && this.shamanTimerHellDefense == 300 && this.shamanEarthTimer > 0) {
 				this.shamanTimerHellDefense = 0;
 				int dmg = (int)(50 * this.shamanDamage);
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, mod.ProjectileType("ShamanHellExplosion"), dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
-				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 14);
+				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ProjectileType<Shaman.Projectiles.Equipment.Hell.ShamanHellExplosion>(), dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
+				Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 14);
+				OrchidModProjectile.spawnDustCircle(player.Center, 6, 10, 15, true, 1f, 1f, 8f, true, true, false, 0, 0, true);
+				OrchidModProjectile.spawnDustCircle(player.Center, 6, 10, 15, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
+				OrchidModProjectile.spawnDustCircle(player.Center, 6, 10, 15, true, 2f, 1f, 3f, true, true, false, 0, 0, true);
 			}
 			
 			if (this.shamanDiabolist && this.shamanEarthTimer > 0) {
@@ -766,16 +779,14 @@ namespace OrchidMod
 			}
 		}
 		
-		public override void ResetEffects()
-		{
-			if (this.getNbAlchemistFlasks() == 0) {
-				clearAlchemistFlasks();
-				clearAlchemistElements();
-				clearAlchemistDusts();
-				clearAlchemistColors();
-			}
-			
+		public override void ResetEffects() {
 			customCrit = 0;
+			
+			/*General*/
+			generalTools = false;
+			generalStatic = false;
+			
+			/*Dancer*/
 			
 			dancerDamage = 1.0f;
 			dancerCrit = 0;
@@ -791,6 +802,15 @@ namespace OrchidMod
 				}
 			}
 			
+			/*Alchemist*/
+			
+			if (this.getNbAlchemistFlasks() == 0) {
+				clearAlchemistFlasks();
+				clearAlchemistElements();
+				clearAlchemistDusts();
+				clearAlchemistColors();
+			}
+			
 			alchemistPotencyMax = 8;
 			alchemistRegenPotency = 60;
 			alchemistNbElementsMax = 2;
@@ -804,6 +824,8 @@ namespace OrchidMod
 			alchemistFlowerSet = false;
 			alchemistMushroomSpores = false;
 			
+			/*Gambler*/
+			
 			gamblerDamage = 1.0f;
 			gamblerCrit = 0;
 			gamblerChipsMax = 5;
@@ -813,13 +835,14 @@ namespace OrchidMod
 			gamblerRedrawCooldownMax = 1800;
 			gamblerShuffleCooldownMax = 600;
 			gamblerAttackInHand = false;
-			gamblerHasCardInDeck = this.gamblerCardsItem[0].type != 0;
 			
 			gamblerDungeon = false;
 			gamblerLuckySprout = false;
 			gamblerPennant = false;
 			gamblerVulture = false;
 			gamblerSlimyLollipop = false;
+			
+			/*Shaman*/
 			
 			shamanCrit = 0;
 			shamanDamage = 1.0f;
@@ -1008,6 +1031,7 @@ namespace OrchidMod
 		}
 		
 		public void gamblerPostUpdateEquips() {
+			this.gamblerHasCardInDeck = this.gamblerCardsItem[0].type != 0;
 			if (this.gamblerRedrawsMax > 0) {
 				this.gamblerRedrawCooldown = this.gamblerRedraws >= this.gamblerRedrawsMax ? this.gamblerRedrawCooldownMax : this.gamblerRedrawCooldown;
 				this.gamblerRedrawCooldown = this.gamblerRedrawCooldown > this.gamblerRedrawCooldownMax ? this.gamblerRedrawCooldownMax : this.gamblerRedrawCooldown;
@@ -1051,6 +1075,19 @@ namespace OrchidMod
 					default:
 						break;
 				}
+			}
+		}
+		
+		public void generalPostUpdateEquips() {
+			generalStaticTimer = (generalStatic && player.velocity.X == 0f && player.velocity.Y == 0f) ? generalStaticTimer < 300 ? generalStaticTimer + 1 : 300 : 0;
+			if ((player.velocity.X != 0f || player.velocity.Y) != 0f && generalStaticTimer >= 300) {
+				// Main.PlaySound(SoundID.Item29, player.position); // change sound
+				player.AddBuff(mod.BuffType<Buffs.StaticQuartArmorBuff>(), 60 * 10);
+				// for (int i = 0 ; i < 10 ; i ++) {
+					// int dust = Dust.NewDust(new player.position.X, player.position.Y, player.width, player.height, 60);
+					// Main.dust[dust].noGravity = true;
+					// Main.dust[dust].scale *= 1.5f;
+				// }
 			}
 		}
 		
@@ -1816,6 +1853,24 @@ namespace OrchidMod
 					return;
 			}
 			this.shamanHitDelay = 8;
+		}
+		
+		public void CheckWoodBreak(Player player) { // From Vanilla Source
+			if (player.velocity.Y <= 1f || this.generalTools)
+				return;
+			Vector2 vector2 = player.position + player.velocity;
+			int num1 = (int) (vector2.X / 16.0);
+			int num2 = (int) ((vector2.X + (double) player.width) / 16.0);
+			int num3 = (int) ((player.position.Y + (double) player.height + 1.0) / 16.0);
+			for (int i = num1; i <= num2; ++i) {
+				for (int j = num3; j <= num3 + 1; ++j) {
+					if (Main.tile[i, j].nactive() && (int) Main.tile[i, j].type == TileType<Tiles.Ambient.FragileWood>() && !WorldGen.SolidTile(i, j - 1)) {
+						WorldGen.KillTile(i, j, false, false, false);
+						// if (Main.netMode == 1)
+							// NetMessage.SendData(17, -1, -1, (NetworkText) null, 0, (float) i, (float) j, 0.0f, 0, 0, 0);
+					}
+				}
+			}
 		}
 		
 		public override void clientClone(ModPlayer clientClone) {

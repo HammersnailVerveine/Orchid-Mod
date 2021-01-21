@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Accessories
 		public override void SetStaticDefaults()
 		{
 		  DisplayName.SetDefault("Spectral Skull");
-		  Tooltip.SetDefault("While under the effect of a shamanic water bond, your shamanic critical strikes will release a lost soul to chase down your enemies");
+		  Tooltip.SetDefault("Active water bonds allows your shamanic critical strikes to release homing lost souls");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

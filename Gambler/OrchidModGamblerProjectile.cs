@@ -30,9 +30,11 @@ namespace OrchidMod.Gambler
 		{
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
 			if (target.type != NPCID.TargetDummy && this.gamblingChipChance > 0) {
 				modPlayer.addGamblerChip(this.gamblingChipChance);
 			}
+			modTarget.gamblerHit = true;
 			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);
 		}
     }

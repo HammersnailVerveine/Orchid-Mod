@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
             projectile.width = 10;
             projectile.height = 10;
             projectile.friendly = true;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
 			projectile.timeLeft = 120;
 			projectile.alpha = 255;
 			projectile.penetrate = 3;

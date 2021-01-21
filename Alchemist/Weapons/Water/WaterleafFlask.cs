@@ -28,9 +28,8 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Waterleaf Extract");
-		    Tooltip.SetDefault("Deals double damage if another element is used in the reaction"
-							+  "\nHitting a target coated in alchemic water deals bonus damage"
-							+  "\nReleases lingering water spores"
+		    Tooltip.SetDefault("Hitting a target coated in alchemic water deals bonus damage"
+							+  "\nReleases water spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
 							+  "\n20% increased damage during rain");
 		}

@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.width = 14;
             projectile.height = 14;
             projectile.friendly = true;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 90;
             projectile.extraUpdates = 5;

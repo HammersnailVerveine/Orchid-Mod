@@ -4,112 +4,122 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
  
 namespace OrchidMod.Alchemist.Projectiles.Air
 {
     public class AirSporeProj: OrchidModAlchemistProjectile
-    {
-        public override void SetStaticDefaults()
-        {
+    {	
+		public bool hasTarget = false;
+	
+        public override void SetStaticDefaults() {
             DisplayName.SetDefault("Air Spore");
         } 
 		
-        public override void SafeSetDefaults()
-        {
+        public override void SafeSetDefaults() {
             projectile.width = 10;
             projectile.height = 10;
-            projectile.friendly = true;
+            projectile.friendly = false;
             projectile.aiStyle = 0;
 			projectile.alpha = 126;
 			projectile.timeLeft = 600;
+			projectile.penetrate = -1;
+			projectile.tileCollide = false;
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			this.projectileTrail = true;
         }
 		
-		public override Color? GetAlpha(Color lightColor)
-        {
+		public override Color? GetAlpha(Color lightColor) {
             return Color.White;
         }
 		
-		public override void AI()
-        {
-			if (projectile.timeLeft == 600) {
+		public override void AI() {
+			if (!this.initialized) {
 				projectile.ai[1] = Main.rand.Next(2) == 0 ? -1 : 1;
+				projectile.ai[0] = 150;
 				projectile.timeLeft -= Main.rand.Next(15);
 				projectile.netUpdate = true;
+				this.initialized = true;
 			}
-			projectile.velocity = (projectile.velocity.RotatedByRandom(MathHelper.ToRadians(5)));
 			
 			if (projectile.timeLeft % 50 == 0) {
 				for(int i=0; i<5; i++)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 15);
+					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 16);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].noLight = true;
 				}
 			}
 
 			if (projectile.timeLeft <= 550) {
-				
 				if (projectile.timeLeft == 550) {
 					projectile.velocity *= (float)((4 + Main.rand.Next(3)) / 10f);
-				projectile.netUpdate = true;
-				}
-				
-				projectile.friendly = true;
-				
-				Vector2 move = Vector2.Zero;
-				float distance = 2000f;
-				bool target = false;
-				for (int k = 0; k < 200; k++)
-				{
-					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].HasBuff(mod.BuffType("Attraction")))
-					{
-						Vector2 newMove = Main.npc[k].Center - projectile.Center;
-						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-						if (distanceTo < distance)
-						{
-							move = newMove;
-							distance = distanceTo;
-							target = true;
+					projectile.friendly = true;
+					projectile.netUpdate = true;
+				} else {		
+					Vector2 move = Vector2.Zero;
+					float distance = 2000f;
+					int flag = -1;
+					for (int k = 0; k < 200; k++) {
+						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 
+						&& Main.npc[k].HasBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>())) {
+							Vector2 newMove = Main.npc[k].Center - projectile.Center;
+							float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+							if (distanceTo < distance) {
+								move = newMove;
+								distance = distanceTo;
+								flag = k;
+							}
 						}
 					}
-				}
-				
-				if (target) {
-					AdjustMagnitude(ref move);
-					projectile.velocity = (5 * projectile.velocity + move) / 1f;
-					AdjustMagnitude(ref projectile.velocity);
 					
-					if (projectile.timeLeft % 50 == 0) {
-						projectile.timeLeft --;
-					}
-					projectile.timeLeft ++;
-					if (Main.rand.Next(4) == 0) {
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 15);
-						Main.dust[dust].noGravity = true;
-						Main.dust[dust].noLight = true;
+					if (flag > -1) {
+						this.hasTarget = true;
+						
+						float npcPosX = Main.npc[flag].Center.X;
+						float npcPosY = Main.npc[flag].Center.Y;
+						float projPosX = projectile.Center.X;
+						float projPosY = projectile.Center.Y;
+						if (Math.Abs(npcPosY - projPosY) > 5f) {
+							if (npcPosY > projPosY) {
+								projectile.velocity.Y += projectile.velocity.X < 5f ? 0.75f : 0f;
+							} else {
+								projectile.velocity.Y -= projectile.velocity.Y > -5f ? 0.75f : 0f;	
+							}
+							projectile.velocity.X *= 0.9f;
+						} else {
+							if (npcPosX > projPosX) {
+								projectile.velocity.X += projectile.velocity.X < 8f ? 0.75f : 0f;
+							} else {
+								projectile.velocity.X -= projectile.velocity.X > -8f ? 0.75f : 0f;	
+							}
+							projectile.velocity.Y *= 0.9f;
+						}
+						
+						// Vector2 newVel = Main.npc[flag].Center - projectile.Center;
+						// newVel.Normalize();
+						// projectile.ai[0] -= projectile.ai[0] > 0f ? 1f : 0f;
+						// projectile.velocity = newVel.RotatedBy(0.01f * (int)projectile.ai[0] * (int)projectile.ai[1]) * (6f + 0.05f * (int)projectile.ai[0]);
+						
+						if (Main.rand.Next(4) == 0) {
+							int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 16);
+							Main.dust[dust].noGravity = true;
+							Main.dust[dust].noLight = true;
+							Main.dust[dust].scale *= 1.5f;
+						}
+						
+						projectile.timeLeft ++;
+					} else {
+						this.hasTarget = false;
+						int angle = (int)(5 * projectile.ai[1]);
+						move = projectile.velocity.RotatedBy(MathHelper.ToRadians(angle));
+						move.Normalize();
+						move *= 3f;
+						projectile.velocity = move;
 					}
 				}
-				
-
-				projectile.ai[0] = target ? Main.rand.Next(10) - 5 : 5 * projectile.ai[1];
-				projectile.netUpdate = true;
-				Vector2 projectileVelocity = ( new Vector2(projectile.velocity.X, projectile.velocity.Y ).RotatedBy(MathHelper.ToRadians(projectile.ai[0])));
-				projectile.velocity = projectileVelocity;
-			} else {
-				projectile.friendly = false;
 			}
         }
-		
-		private void AdjustMagnitude(ref Vector2 vector)
-		{
-			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-			if (magnitude > 6f)
-			{
-				vector *= 6f / magnitude;
-			}
-		}
 		
 		public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -123,14 +133,16 @@ namespace OrchidMod.Alchemist.Projectiles.Air
         {
             for(int i = 0; i < 5; i++)
             {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 15);
+                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 16);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = true;
             }
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-		{
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+			if (target.HasBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>()) || !this.hasTarget) {
+				projectile.Kill();
+			}
         }
     }
 }

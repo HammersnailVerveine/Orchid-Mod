@@ -27,8 +27,10 @@ namespace OrchidMod.Alchemist.Projectiles
 		private int lightDust = -1;
 		private int darkDust = -1;
 		private Color glowColor = new Color(0, 0, 0);
-		private bool noCatalyticSpawn = false;
 		private bool hitNPC = false;
+		
+		private bool noCatalyticSpawn = false;
+		private int nbElementsNoExtract = 0;
 		
         public override void SafeSetDefaults()
         {
@@ -275,7 +277,7 @@ namespace OrchidMod.Alchemist.Projectiles
 							proj.Kill();
 						}
 					}
-					nb = this.nbElements;
+					nb = this.nbElements + this.nbElementsNoExtract;
 					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
 					for (int i = 0 ; i < nb ; i ++) {
 							Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
@@ -297,6 +299,16 @@ namespace OrchidMod.Alchemist.Projectiles
 					for (int i = 0 ; i < rand ; i ++) {
 						Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(180)));
 						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>(), dmg, 0.5f * this.nbElements, projectile.owner);
+					}
+				}
+				if (this.waterFlask == ItemType<Alchemist.Weapons.Water.SlimeFlask>()) {
+					if (this.fireFlask != 0) {
+						int type = ProjectileType<Alchemist.Projectiles.Water.SlimeFlaskProj>();
+						int dmg = (int)((5 * this.nbElements) * modPlayer.alchemistDamage);
+						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, type, dmg, 0.5f, projectile.owner);
+						OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1f, 1f, 5f, true, true, false, 0, 0, true);
+						OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, true);
+						Main.PlaySound(2, (int)projectile.Center.X ,(int)projectile.Center.Y, 45);
 					}
 				}
 			}
@@ -335,11 +347,11 @@ namespace OrchidMod.Alchemist.Projectiles
 						}
 					}
 						
-					nb = this.nbElements;
+					nb = this.nbElements + this.nbElementsNoExtract;
 					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
 					for (int i = 0 ; i < nb ; i ++) {
 						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = (int)((this.nbElements + 18) * modPlayer.alchemistDamage);
+						int dmg = (int)((this.nbElements + 22) * modPlayer.alchemistDamage);
 						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>(), dmg, 0f, projectile.owner);
 					}
 				}
@@ -357,11 +369,11 @@ namespace OrchidMod.Alchemist.Projectiles
 						}
 					}
 						
-					nb = this.nbElements;
+					nb = this.nbElements + this.nbElementsNoExtract;
 					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
 					for (int i = 0 ; i < nb ; i ++) {
 						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = (int)((this.nbElements + 10) * modPlayer.alchemistDamage);
+						int dmg = (int)((this.nbElements + 14) * modPlayer.alchemistDamage);
 						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>(), dmg, 0f, projectile.owner);
 					}
 				}
@@ -413,9 +425,22 @@ namespace OrchidMod.Alchemist.Projectiles
 						}
 					}
 					if (!spawnedMushroom) {
-						int dmg = (int)((this.nbElements + 3) * modPlayer.alchemistDamage);
+						int duration = (int)((this.nbElements + 3) * modPlayer.alchemistDamage);
 						Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProj>(), dmg, 0f, projectile.owner);
+						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProj>(), duration, 0f, projectile.owner);
+					}
+				}
+				if (this.natureFlask == ItemType<Alchemist.Weapons.Nature.SunflowerFlask>()) {
+					int nb = 2 + Main.rand.Next(2);
+					for (int i = 0 ; i < nb ; i ++) {
+						Vector2	vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
+						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj4>();
+						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+					}
+					if (this.waterFlask != 0) {
+						int dmg = (int)((this.nbElements + 6) * modPlayer.alchemistDamage);
+						Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
+						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj1>(), dmg, 0f, projectile.owner);
 					}
 				}
 				if (this.natureFlask == ItemType<Alchemist.Weapons.Nature.MoonglowFlask>()) {
@@ -431,7 +456,7 @@ namespace OrchidMod.Alchemist.Projectiles
 							proj.Kill();
 						}
 					}
-					nb = this.nbElements;
+					nb = this.nbElements + this.nbElementsNoExtract;
 					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
 					for (int i = 0 ; i < nb ; i ++) {
 						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
@@ -452,7 +477,7 @@ namespace OrchidMod.Alchemist.Projectiles
 							proj.Kill();
 						}
 					}
-					nb = this.nbElements;
+					nb = this.nbElements + this.nbElementsNoExtract;
 					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
 					for (int i = 0 ; i < nb ; i ++) {
 						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
@@ -493,7 +518,7 @@ namespace OrchidMod.Alchemist.Projectiles
 							proj.Kill();
 						}
 					}
-					nb = this.nbElements;
+					nb = this.nbElements + this.nbElementsNoExtract;
 					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
 					for (int i = 0 ; i < nb ; i ++) {
 						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
@@ -613,7 +638,7 @@ namespace OrchidMod.Alchemist.Projectiles
 							proj.Kill();
 						}
 					}
-					nb = this.nbElements;
+					nb = this.nbElements + this.nbElementsNoExtract;
 					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
 					for (int i = 0 ; i < nb ; i ++) {
 						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
@@ -634,7 +659,7 @@ namespace OrchidMod.Alchemist.Projectiles
 							proj.Kill();
 						}
 					}
-					nb = this.nbElements;
+					nb = this.nbElements + this.nbElementsNoExtract;
 					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
 					for (int i = 0 ; i < nb ; i ++) {
 						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
@@ -734,7 +759,8 @@ namespace OrchidMod.Alchemist.Projectiles
 				if (this.waterFlask == ItemType<Alchemist.Weapons.Water.WaterleafFlask>()) {
 					if (modTarget.alchemistWater > 0) {
 						Main.PlaySound(2, (int)target.Center.X ,(int)target.Center.Y, 45);
-						target.StrikeNPCNoInteraction(7 * this.nbElements, 0f, 0);
+						int dmg = 7 * this.nbElements;
+						player.ApplyDamageToNPC(target, Main.DamageVar(dmg), 0f, Main.LocalPlayer.direction, true);
 						for (int i = 0 ; i < 10 ; i ++) {
 							int dust = Dust.NewDust(target.position - new Vector2(2f, 2f), target.width + 4, target.height + 4, 33, target.velocity.X * 0.4f, target.velocity.Y * 0.4f, 100, default(Color), 3.5f);
 							Main.dust[dust].noGravity = true;
@@ -752,7 +778,8 @@ namespace OrchidMod.Alchemist.Projectiles
 				if (this.fireFlask == ItemType<Alchemist.Weapons.Fire.FireblossomFlask>()) {
 					if (modTarget.alchemistFire > 0) {
 						Main.PlaySound(2, (int)target.Center.X ,(int)target.Center.Y, 45);
-						target.StrikeNPCNoInteraction(10 * this.nbElements, 0f, 0);
+						int dmg = 10 * this.nbElements;
+						player.ApplyDamageToNPC(target, Main.DamageVar(dmg), 0f, Main.LocalPlayer.direction, true);
 						for (int i = 0 ; i < 10 ; i ++) {
 							int dust = Dust.NewDust(target.position - new Vector2(2f, 2f), target.width + 4, target.height + 4, 6, target.velocity.X * 0.4f, target.velocity.Y * 0.4f, 100, default(Color), 3.5f);
 							Main.dust[dust].noGravity = true;
@@ -763,7 +790,8 @@ namespace OrchidMod.Alchemist.Projectiles
 				if (this.fireFlask == ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>()) {
 					if (modTarget.alchemistFire > 0) {
 						Main.PlaySound(2, (int)target.Center.X ,(int)target.Center.Y, 45);
-						target.StrikeNPCNoInteraction(6 * this.nbElements, 0f, 0);
+						int dmg = 6 * this.nbElements;
+						player.ApplyDamageToNPC(target, Main.DamageVar(dmg), 0f, Main.LocalPlayer.direction, true);
 						for (int i = 0 ; i < 10 ; i ++) {
 							int dust = Dust.NewDust(target.position - new Vector2(2f, 2f), target.width + 4, target.height + 4, 6, target.velocity.X * 0.4f, target.velocity.Y * 0.4f, 100, default(Color), 3.5f);
 							Main.dust[dust].noGravity = true;
@@ -791,7 +819,8 @@ namespace OrchidMod.Alchemist.Projectiles
 				if (this.natureFlask == ItemType<Alchemist.Weapons.Nature.MoonglowFlask>()) {
 					if (modTarget.alchemistNature > 0) {
 						Main.PlaySound(2, (int)target.Center.X ,(int)target.Center.Y, 45);
-						target.StrikeNPCNoInteraction(9 * this.nbElements, 0f, 0);
+						int dmg = 9 * this.nbElements;
+						player.ApplyDamageToNPC(target, Main.DamageVar(dmg), 0f, Main.LocalPlayer.direction, true);
 						for (int i = 0 ; i < 10 ; i ++) {
 							int dust = Dust.NewDust(target.position - new Vector2(2f, 2f), target.width + 4, target.height + 4, 163, target.velocity.X * 0.4f, target.velocity.Y * 0.4f, 100, default(Color), 3.5f);
 							Main.dust[dust].noGravity = true;
@@ -803,7 +832,8 @@ namespace OrchidMod.Alchemist.Projectiles
 				if (this.natureFlask == ItemType<Alchemist.Weapons.Nature.DaybloomFlask>()) {
 					if (modTarget.alchemistNature > 0) {
 						Main.PlaySound(2, (int)target.Center.X ,(int)target.Center.Y, 45);
-						target.StrikeNPCNoInteraction(5 * this.nbElements, 0f, 0);
+						int dmg = 5 * this.nbElements;
+						player.ApplyDamageToNPC(target, Main.DamageVar(dmg), 0f, Main.LocalPlayer.direction, true);
 						for (int i = 0 ; i < 10 ; i ++) {
 							int dust = Dust.NewDust(target.position - new Vector2(2f, 2f), target.width + 4, target.height + 4, 163, target.velocity.X * 0.4f, target.velocity.Y * 0.4f, 100, default(Color), 3.5f);
 							Main.dust[dust].noGravity = true;
@@ -816,7 +846,8 @@ namespace OrchidMod.Alchemist.Projectiles
 					target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60 * (this.nbElements * 3));
 					if (modTarget.alchemistNature > 0) {
 						Main.PlaySound(2, (int)target.Center.X ,(int)target.Center.Y, 45);
-						target.StrikeNPCNoInteraction(10 * this.nbElements, 0f, 0);
+						int dmg = 10 * this.nbElements;
+						player.ApplyDamageToNPC(target, Main.DamageVar(dmg), 0f, Main.LocalPlayer.direction, true);
 						for (int i = 0 ; i < 10 ; i ++) {
 							int dust = Dust.NewDust(target.position - new Vector2(2f, 2f), target.width + 4, target.height + 4, 163, target.velocity.X * 0.4f, target.velocity.Y * 0.4f, 100, default(Color), 3.5f);
 							Main.dust[dust].noGravity = true;
@@ -855,7 +886,8 @@ namespace OrchidMod.Alchemist.Projectiles
 				if (this.airFlask == ItemType<Alchemist.Weapons.Air.DeathweedFlask>()) {
 					if (modTarget.alchemistAir > 0) {
 						Main.PlaySound(2, (int)target.Center.X ,(int)target.Center.Y, 45);
-						target.StrikeNPCNoInteraction(9 * this.nbElements, 0f, 0);
+						int dmg = 9 * this.nbElements;
+						player.ApplyDamageToNPC(target, Main.DamageVar(dmg), 0f, Main.LocalPlayer.direction, true);
 						for (int i = 0 ; i < 10 ; i ++) {
 							int dust = Dust.NewDust(target.position - new Vector2(2f, 2f), target.width + 4, target.height + 4, 15, target.velocity.X * 0.4f, target.velocity.Y * 0.4f, 100, default(Color), 3.5f);
 							Main.dust[dust].noGravity = true;
@@ -867,7 +899,8 @@ namespace OrchidMod.Alchemist.Projectiles
 				if (this.airFlask == ItemType<Alchemist.Weapons.Air.ShiverthornFlask>()) {
 					if (modTarget.alchemistAir > 0) {
 						Main.PlaySound(2, (int)target.Center.X ,(int)target.Center.Y, 45);
-						target.StrikeNPCNoInteraction(8 * this.nbElements, 0f, 0);
+						int dmg = 8 * this.nbElements;
+						player.ApplyDamageToNPC(target, Main.DamageVar(dmg), 0f, Main.LocalPlayer.direction, true);
 						for (int i = 0 ; i < 10 ; i ++) {
 							int dust = Dust.NewDust(target.position - new Vector2(2f, 2f), target.width + 4, target.height + 4, 15, target.velocity.X * 0.4f, target.velocity.Y * 0.4f, 100, default(Color), 3.5f);
 							Main.dust[dust].noGravity = true;
@@ -915,19 +948,21 @@ namespace OrchidMod.Alchemist.Projectiles
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			
+			this.nbElementsNoExtract += this.nbElements;
+			
 			if (this.fireFlask != 0) {
 				if (this.fireFlask == ItemType<Alchemist.Weapons.Fire.FireblossomFlask>()) {
-					projectile.damage += this.nbElements > 1 ? (int)(22 * modPlayer.alchemistDamage) : 0;
+					this.nbElementsNoExtract --;
 				}
 				
 				if (this.fireFlask == ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>()) {
-					projectile.damage += this.nbElements > 1 ? (int)(10 * modPlayer.alchemistDamage) : 0;
+					this.nbElementsNoExtract --;
 				}
 			}
 			
 			if (this.waterFlask != 0) {
 				if (this.waterFlask == ItemType<Alchemist.Weapons.Water.WaterleafFlask>()) {
-					projectile.damage += this.nbElements > 1 ? (int)(12 * modPlayer.alchemistDamage) : 0;
+					this.nbElementsNoExtract --;
 				}
 				if (this.waterFlask == ItemType<Alchemist.Weapons.Water.GoblinArmyFlask>()) {
 					if (this.fireFlask != 0) {
@@ -939,26 +974,32 @@ namespace OrchidMod.Alchemist.Projectiles
 						projectile.damage += (int)(50 * modPlayer.alchemistDamage);
 					}
 				}
+				if (this.natureFlask == ItemType<Alchemist.Weapons.Nature.SunflowerFlask>()) {
+					projectile.damage += (int)(3 * modPlayer.alchemistDamage);
+				}
 			}
 			
 			if (this.natureFlask != 0) {
 				if (this.natureFlask == ItemType<Alchemist.Weapons.Nature.MoonglowFlask>()) {
-					projectile.damage += this.nbElements > 1 ? (int)(16 * modPlayer.alchemistDamage) : 0;
+					this.nbElementsNoExtract --;
 				}
 				if (this.natureFlask == ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>()) {
-					projectile.damage += this.nbElements > 1 ? (int)(24 * modPlayer.alchemistDamage) : 0;
+					this.nbElementsNoExtract --;
+				}
+				if (this.natureFlask == ItemType<Alchemist.Weapons.Nature.AttractiteFlask>()) {
+					this.nbElementsNoExtract --;
 				}
 				if (this.natureFlask == ItemType<Alchemist.Weapons.Nature.DaybloomFlask>()) {
-					projectile.damage += this.nbElements > 1 ? (int)(8 * modPlayer.alchemistDamage) : 0;
+					this.nbElementsNoExtract --;
 				}
 			}
 			
 			if (this.airFlask != 0) {
 				if (this.airFlask == ItemType<Alchemist.Weapons.Air.DeathweedFlask>()) {
-					projectile.damage += this.nbElements > 1 ? (int)(20 * modPlayer.alchemistDamage) : 0;
+					this.nbElementsNoExtract --;
 				}
 				if (this.airFlask == ItemType<Alchemist.Weapons.Air.ShiverthornFlask>()) {
-					projectile.damage += this.nbElements > 1 ? (int)(14 * modPlayer.alchemistDamage) : 0;
+					this.nbElementsNoExtract --;
 				}
 			}
 		}

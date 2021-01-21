@@ -27,7 +27,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			DisplayName.SetDefault("Playing Card : Guardian of the Night");
 		    Tooltip.SetDefault("Summons a servant of cthulhu, dashing at your cursor"
-							+  "\nThe servant wll only attack if your cursor is far enough from its location");
+							+  "\nThe servant will only attack if your cursor is far enough from its location");
 		}
 	}
 }

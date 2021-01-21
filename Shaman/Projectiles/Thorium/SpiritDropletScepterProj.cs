@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
             projectile.width = 16;
             projectile.height = 16;
             projectile.friendly = true;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
 			projectile.timeLeft = 100;
             this.empowermentType = 1;
             this.empowermentLevel = 2;

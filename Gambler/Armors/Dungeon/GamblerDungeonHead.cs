@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Tiamat Headgear");
+		  DisplayName.SetDefault("Tyche Headgear");
 		  Tooltip.SetDefault("Maximum chips increased by 5");
 		}
 

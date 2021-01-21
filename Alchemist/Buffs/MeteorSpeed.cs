@@ -16,7 +16,7 @@ namespace OrchidMod.Alchemist.Buffs
 		
         public override void Update(Player player, ref int buffIndex)
 		{
-			player.moveSpeed += 0.5f;;
+			player.moveSpeed += 0.5f;
 		}
     }
 }
