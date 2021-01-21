@@ -14,7 +14,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
         {
             item.width = 26;
             item.height = 16;
-            item.value = Item.sellPrice(0, 0, 15, 50);
+            item.value = Item.sellPrice(0, 0, 5, 0);
             item.rare = 2;
             item.defense = 1;
         }
@@ -26,8 +26,8 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 		
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-			int chestPiece = ItemType<General.Items.Sets.StaticQuartz.StaticQuartz.Armor.StaticQuartzArmorChest>();
-			int legPiece = ItemType<General.Items.Sets.StaticQuartz.StaticQuartz.Armor.StaticQuartzArmorLegs>();
+			int chestPiece = ItemType<General.Items.Sets.StaticQuartz.Armor.StaticQuartzArmorChest>();
+			int legPiece = ItemType<General.Items.Sets.StaticQuartz.Armor.StaticQuartzArmorLegs>();
             return body.type == chestPiece && legs.type == legPiece;
         }
 		

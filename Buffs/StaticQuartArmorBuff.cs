@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace OrchidMod.Buffs
 {
-    public class StaticQuartzArmorBuff : ModBuff
+    public class StaticQuartArmorBuff : ModBuff
     {
         public override void SetDefaults()
         {

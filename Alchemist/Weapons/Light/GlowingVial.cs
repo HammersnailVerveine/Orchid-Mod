@@ -29,7 +29,8 @@ namespace OrchidMod.Alchemist.Weapons.Light
 		{
 			DisplayName.SetDefault("Glowing Vial");
 			
-		    Tooltip.SetDefault("Confuses your target briefly");
+		    Tooltip.SetDefault("Confuses your target briefly"
+							+  "\n[c/FF0000:Test Item]");
 		}
 	}
 }

@@ -29,7 +29,8 @@ namespace OrchidMod.Alchemist.Weapons.Dark
 		{
 			DisplayName.SetDefault("Emo Vial");
 			
-		    Tooltip.SetDefault("Briefly shadowburns your target");
+		    Tooltip.SetDefault("Briefly shadowburns your target"
+							+  "\n[c/FF0000:Test Item]");
 		}
 	}
 }

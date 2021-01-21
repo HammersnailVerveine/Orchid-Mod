@@ -1079,16 +1079,23 @@ namespace OrchidMod
 		}
 		
 		public void generalPostUpdateEquips() {
-			generalStaticTimer = (generalStatic && player.velocity.X == 0f && player.velocity.Y == 0f) ? generalStaticTimer < 300 ? generalStaticTimer + 1 : 300 : 0;
-			if ((player.velocity.X != 0f || player.velocity.Y) != 0f && generalStaticTimer >= 300) {
-				// Main.PlaySound(SoundID.Item29, player.position); // change sound
-				player.AddBuff(mod.BuffType<Buffs.StaticQuartArmorBuff>(), 60 * 10);
-				// for (int i = 0 ; i < 10 ; i ++) {
-					// int dust = Dust.NewDust(new player.position.X, player.position.Y, player.width, player.height, 60);
-					// Main.dust[dust].noGravity = true;
-					// Main.dust[dust].scale *= 1.5f;
-				// }
+			if (generalStaticTimer == 299) {
+				Main.PlaySound(SoundID.Item93, player.position);
+				for (int i = 0 ; i < 10 ; i ++) {
+					int dust = Dust.NewDust(player.position, player.width, player.height, 60);
+					Main.dust[dust].noGravity = true;
+					Main.dust[dust].scale *= 1.5f;
+				}
 			}
+			if ((player.velocity.X != 0f || player.velocity.Y != 0f) && generalStaticTimer >= 300) {
+				player.AddBuff(BuffType<Buffs.StaticQuartArmorBuff>(), 60 * 10);
+				for (int i = 0 ; i < 10 ; i ++) {
+					int dust = Dust.NewDust(player.position, player.width, player.height, 60);
+					Main.dust[dust].noGravity = true;
+					Main.dust[dust].scale *= 1.5f;
+				}
+			}
+			generalStaticTimer = (generalStatic && player.velocity.X == 0f && player.velocity.Y == 0f) ? generalStaticTimer < 300 ? generalStaticTimer + 1 : 300 : 0;
 		}
 		
 		public void shamanPostUpdateEquips() {

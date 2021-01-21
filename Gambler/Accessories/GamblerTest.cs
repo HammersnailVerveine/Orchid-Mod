@@ -23,7 +23,8 @@ namespace OrchidMod.Gambler.Accessories
 							+  "\n50% chance not to consume chips"
 							+  "\nMaximum chips increased by 45"
 							+  "\nRedraws cooldown reduced by 29 seconds"
-							+  "\nMaximum redraws increased by 4");
+							+  "\nMaximum redraws increased by 4"
+							+  "\n[c/FF0000:Test Item]");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {

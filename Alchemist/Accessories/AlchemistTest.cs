@@ -21,7 +21,8 @@ namespace OrchidMod.Alchemist.Accessories
 			DisplayName.SetDefault("Alchemist Test Accessory");
 			Tooltip.SetDefault("Maximum number of simultaneous alchemical elements increased by 4"
 							+  "\nMaximum potency increased by 20"
-							+  "\n50% increased potency regeneration");
+							+  "\n50% increased potency regeneration"
+							+  "\n[c/FF0000:Test Item]");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {

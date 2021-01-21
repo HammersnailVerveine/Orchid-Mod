@@ -14,7 +14,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
         {
             item.width = 30;
             item.height = 18;
-            item.value = Item.sellPrice(0, 0, 25, 50);
+            item.value = Item.sellPrice(0, 0, 10, 0);
             item.rare = 2;
             item.defense = 2;
         }
@@ -22,14 +22,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 		public override void SetStaticDefaults()
 		{
 		  DisplayName.SetDefault("Static Quartz Chestplate");
-		  Tooltip.SetDefault("8% increased shamanic critical strike chance");
 		}
-
-        public override void UpdateEquip(Player player)
-        {
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.shamanCrit += 8;
-        }
 		
 		public override void AddRecipes()
 		{
