@@ -15,7 +15,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
             item.width = 26;
             item.height = 16;
             item.value = Item.sellPrice(0, 0, 5, 0);
-            item.rare = 2;
+            item.rare = 1;
             item.defense = 1;
         }
 

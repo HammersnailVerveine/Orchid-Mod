@@ -1,5 +1,5 @@
 author = Verveine
-version = 1.3.0.3
+version = 1.3.0.4
 displayName = Orchid Mod
 hideCode = true
 hideResources = true

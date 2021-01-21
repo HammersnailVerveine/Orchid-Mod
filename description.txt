@@ -1,5 +1,4 @@
-v1.3.0.3 : (Hopefully) last patch before next content update :)
-Some polishing, bug fixes, and some QoL features including a chest failsafe, guaranteeing that all orchid chest items will generate at least once in a world. 
+v1.3.0.4 : Mineshaft content, bugfixes, alchemist dust tweaks
 
 Hello there,
 My name is Verveine, and this mod will be covering the ideas I had the courage to bring to life in the game.

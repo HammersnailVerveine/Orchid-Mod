@@ -65,7 +65,7 @@ namespace OrchidMod.General.Items.Misc
 
 		public override void GrappleTargetPoint(Player player, ref float grappleX, ref float grappleY) {
 			Vector2 dirToPlayer = projectile.DirectionTo(player.Center);
-			float hangDist = 0f;
+			float hangDist = 1f;
 			grappleX += dirToPlayer.X * hangDist;
 			grappleY += dirToPlayer.Y * hangDist;
 		}

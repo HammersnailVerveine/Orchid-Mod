@@ -487,7 +487,7 @@ namespace OrchidMod
 			int bossNumber = 1; // CAN BE CHANGED
 			int gemNumber = 1; // CAN BE CHANGED - don't go over MSHeight-1
 			int hookNumber = 1; // CAN BE CHANGED
-			int staticNumber = 1; // CAN BE CHANGED
+			int staticNumber = 0; // CAN BE CHANGED
 			int toolboxNumber = 2; // CAN BE CHANGED
 			int randL;
 			int randH;
