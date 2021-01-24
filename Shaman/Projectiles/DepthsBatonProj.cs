@@ -9,6 +9,8 @@ namespace OrchidMod.Shaman.Projectiles
 {
     public class DepthsBatonProj : OrchidModShamanProjectile
     {
+		private bool willBreak = false;
+		
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Depths Blast");
@@ -40,6 +42,10 @@ namespace OrchidMod.Shaman.Projectiles
 				projectile.ai[0] = (Main.rand.Next(50) - 25);
 				projectile.ai[1] = (Main.rand.Next(50) - 25);
 				projectile.netUpdate = true;
+				bool lineOfSight = Collision.CanHitLine(projectile.position, projectile.width, projectile.height, projectile.position + projectile.velocity * 30f, projectile.width, projectile.height);
+				if (lineOfSight) {
+					projectile.tileCollide = false;
+				}
 			}	
 		    for (int index1 = 0; index1 < 9; ++index1)
                 {	
@@ -66,7 +72,6 @@ namespace OrchidMod.Shaman.Projectiles
 			}		
             if (projectile.timeLeft == 40)
             {	
-				projectile.tileCollide = false;
 				projectile.velocity.Y = projectile.velocity.Y + projectile.ai[0];
 				projectile.velocity.X = projectile.velocity.X + projectile.ai[1];
 			}

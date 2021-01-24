@@ -10,8 +10,8 @@ namespace OrchidMod.Shaman.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.width = 22;
-			item.height = 20;
+			item.width = 24;
+			item.height = 24;
 			item.maxStack = 99;
 			item.value = Item.sellPrice(0, 0, 3, 50);
 		}

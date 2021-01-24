@@ -71,6 +71,7 @@ namespace OrchidMod
 		/*Gambler*/
 		
 		public float gamblerDamage = 1.0f;
+		public float gamblerChipChance = 1.0f;
 		public int gamblerCrit = 0;
 		public Item[] gamblerCardsItem = new Item[20];
 		public Item[] gamblerCardNext = new Item[3];
@@ -827,6 +828,7 @@ namespace OrchidMod
 			/*Gambler*/
 			
 			gamblerDamage = 1.0f;
+			gamblerChipChance = 1.0f;
 			gamblerCrit = 0;
 			gamblerChipsMax = 5;
 			gamblerChipsConsume = 0;
@@ -1654,6 +1656,7 @@ namespace OrchidMod
 		}
 		
 		public void addGamblerChip(int chance) {
+			chance = (int)(chance * this.gamblerChipChance);
 			if (Main.rand.Next(100) < chance) {
 				this.gamblerChips += this.gamblerChips < this.gamblerChipsMax ? 1 : 0;
 			}
