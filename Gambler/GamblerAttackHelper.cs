@@ -303,7 +303,7 @@ namespace OrchidMod.Gambler
 				Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
 				vel = vel * scale; 
 				int newProj = Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI);
-				Main.projectile[newProj].damage += modPlayer.getNbGamblerCards() * 2;
+				Main.projectile[newProj].damage += OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) * 2;
 				Main.projectile[newProj].damage += rand == 3 ? 2 : 0;
 				Main.projectile[newProj].netUpdate = true;
 				OrchidModProjectile.spawnDustCircle(position + vel * 2f, rand < 2 ? 60 : 63, 5, 10, true, 1.5f, 0.5f, 3f);

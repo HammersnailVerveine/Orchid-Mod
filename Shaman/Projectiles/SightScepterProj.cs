@@ -34,7 +34,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{	
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int buffs = modPlayer.getNbShamanicBonds();
+			int buffs = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			
 			if (projectile.timeLeft == 90 && buffs < 4) projectile.timeLeft = 60;
 			if (projectile.timeLeft % 30 == 0) projectile.netUpdate = true; 

@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int BuffsCount = modPlayer.getNbShamanicBonds();
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 
 			if (BuffsCount > 2) {
 				modPlayer.shamanFireBonus ++;

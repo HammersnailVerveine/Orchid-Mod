@@ -66,7 +66,7 @@ namespace OrchidMod.Shaman.Projectiles.Bonds
         // {
 			// Player player = Main.player[projectile.owner];
 			// OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			// int nbEmpowerments = modPlayer.getNbShamanicBonds();
+			// int nbEmpowerments = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			// Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, mod.ProjectileType("MoltenResidueScepterProjExplosion"), projectile.damage + (5 * nbEmpowerments), 0.0f, projectile.owner, 0.0f, 0.0f);
 			// Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
 			

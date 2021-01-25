@@ -57,7 +57,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
                 }
             }
 			
-			if (modPlayer.getNbShamanicBonds() > 2) {
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2) {
 				Projectile.NewProjectile(projectile.position.X, projectile.position.Y - 300, 0f, 0f, mod.ProjectileType("CoznixScepterProjPortal"), 0, 0.0f, projectile.owner, 0.0f, 0.0f);
 			}
 		}

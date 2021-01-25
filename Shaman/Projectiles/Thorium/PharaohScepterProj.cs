@@ -76,7 +76,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			float randX = target.position.X + (target.width / 2) + Main.rand.Next(700) - 350;
 			float randY = target.position.Y + (target.height / 2) - Main.rand.Next(200) - 100;
 			
-			if (Main.rand.Next(20) < modPlayer.getNbShamanicBonds()) {
+			if (Main.rand.Next(20) < OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod)) {
 				Projectile.NewProjectile(randX, randY, 0f, 0f, mod.ProjectileType("PharaohScepterPortal"), 0, 0.0f, projectile.owner, 0.0f, 0.0f);
 			}
 		}

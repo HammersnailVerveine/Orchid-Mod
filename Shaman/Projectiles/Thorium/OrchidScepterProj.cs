@@ -33,12 +33,16 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		
         public override void AI()
         {
+			Player player = Main.player[projectile.owner];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			
 			if (projectile.timeLeft == 30) {
 				float rand = (float)(Main.rand.Next(4) - 2f);
 				projectile.velocity.X += rand;
 				projectile.velocity.Y += rand;
 				
-				if (Main.player[projectile.owner].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() > 2) {
+				if (nbBonds > 2) {
 					projectile.penetrate = 2;
 				}
 			}

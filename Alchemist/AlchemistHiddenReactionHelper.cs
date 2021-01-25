@@ -10,13 +10,13 @@ using static Terraria.ModLoader.ModContent;
 namespace OrchidMod.Alchemist
 {
 	public class AlchemistHiddenReactionHelper
-	{	
+	{
 		public static void triggerAlchemistReaction(Mod mod, Player player, OrchidModPlayer modPlayer) {
 			bool reaction = false;
 			string floatingTextStr = "Failed reaction ...";
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>()) 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.KingSlimeFlask>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>(), player, modPlayer, mod) 
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.KingSlimeFlask>(), player, modPlayer, mod)) {
 				if (Main.myPlayer == player.whoAmI)
 					player.HealEffect(25, true);
 				player.statLife += 25;	
@@ -34,8 +34,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.FireblossomFlask>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>()))
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>()))) {
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.FireblossomFlask>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>(), player, modPlayer, mod))
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer, mod))) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 20);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 45);
@@ -46,7 +46,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].velocity *= 2f;
 					Main.dust[dust].scale *= 1.5f;
 				}
-				int dmg = modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>()) ? (int)((14) * modPlayer.alchemistDamage) : (int)((22) * modPlayer.alchemistDamage); 
+				int dmg = OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>(), player, modPlayer, mod) ? (int)((14) * modPlayer.alchemistDamage) : (int)((22) * modPlayer.alchemistDamage); 
 				for (int i = 0 ; i < 10 ; i ++) {
 					Vector2 vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>();
@@ -59,7 +59,7 @@ namespace OrchidMod.Alchemist
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.FireSporeProjAlt>();
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
 				}
-				if (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>())) {
+				if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer, mod)) {
 					for (int i = 0 ; i < 5 ; i ++) {
 						Vector2 vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>();
@@ -76,8 +76,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.WaterleafFlask>()))
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>()))) {
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.WaterleafFlask>(), player, modPlayer, mod))
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer, mod))) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 20);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 45);
@@ -101,7 +101,7 @@ namespace OrchidMod.Alchemist
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Water.WaterSporeProjAlt>();
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
 				}
-				if (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>())) {
+				if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer, mod)) {
 					for (int i = 0 ; i < 5 ; i ++) {
 						Vector2 vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>();
@@ -118,8 +118,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.DeathweedFlask>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.ShiverthornFlask>()))
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>()))) {
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.DeathweedFlask>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.ShiverthornFlask>(), player, modPlayer, mod))
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer, mod))) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 20);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 45);
@@ -130,7 +130,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].velocity *= 2f;
 					Main.dust[dust].scale *= 1.5f;
 				}
-				int dmg = modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.DeathweedFlask>()) ? (int)((15) * modPlayer.alchemistDamage) : (int)((10) * modPlayer.alchemistDamage); 
+				int dmg = OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.DeathweedFlask>(), player, modPlayer, mod) ? (int)((15) * modPlayer.alchemistDamage) : (int)((10) * modPlayer.alchemistDamage); 
 				for (int i = 0 ; i < 10 ; i ++) {
 					Vector2 vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>();
@@ -143,7 +143,7 @@ namespace OrchidMod.Alchemist
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProjAlt>();
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
 				}
-				if (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>())) {
+				if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer, mod)) {
 					for (int i = 0 ; i < 5 ; i ++) {
 						Vector2 vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>();
@@ -160,8 +160,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>())
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>(), player, modPlayer, mod)
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 5);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 25);
@@ -177,8 +177,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.ShiverthornFlask>())
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.WaterleafFlask>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.ShiverthornFlask>(), player, modPlayer, mod)
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.WaterleafFlask>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff(109, 60 * 30); // Flipper
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 30);
@@ -194,8 +194,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.FireblossomFlask>()) 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.WaterleafFlask>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.FireblossomFlask>(), player, modPlayer, mod) 
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.WaterleafFlask>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff(1, 60 * 30); // Obsidian Skin
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 30);
@@ -211,9 +211,9 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 3 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.DaybloomFlask>()) 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>())
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>()))) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.DaybloomFlask>(), player, modPlayer, mod) 
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>(), player, modPlayer, mod)
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>(), player, modPlayer, mod))) {
 				reaction = true;
 				player.AddBuff(8, 60 * 30); // Featherfall
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 30);
@@ -229,8 +229,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.MoonglowFlask>())
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.MoonglowFlask>(), player, modPlayer, mod)
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff(10, 60 * 30); // Invisibility
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 30);
@@ -246,8 +246,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.DaybloomFlask>()) 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.DaybloomFlask>(), player, modPlayer, mod) 
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff(12, 60 * 30); // Night Owl
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 30);
@@ -263,8 +263,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.GunpowderFlask>())
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>()))) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.GunpowderFlask>(), player, modPlayer, mod)
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>(), player, modPlayer, mod))) {
 				reaction = true;
 				player.jump = 1;
 				player.velocity.Y = -15f;
@@ -288,8 +288,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>()))
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.KingSlimeFlask>())) {
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>(), player, modPlayer, mod))
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.KingSlimeFlask>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 20);
 				for(int i=0; i < 10; i++)
@@ -309,8 +309,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>()))
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.LivingSapVial>())) {
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>(), player, modPlayer, mod))
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.LivingSapVial>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 20);
 				for(int i=0; i < 10; i++)
@@ -330,9 +330,9 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 3 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>())
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.ShiverthornFlask>())
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.MoonglowFlask>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>(), player, modPlayer, mod)
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.ShiverthornFlask>(), player, modPlayer, mod)
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.MoonglowFlask>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff(107, 60 * 30); // Builder
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 30);
@@ -348,8 +348,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>()))
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.SeafoamVial>())) {
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>(), player, modPlayer, mod))
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.SeafoamVial>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 20);
 				for(int i=0; i < 10; i++)
@@ -369,8 +369,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>()))
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.GoblinArmyFlask>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.HellOil>()))) {
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>(), player, modPlayer, mod))
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.GoblinArmyFlask>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.HellOil>(), player, modPlayer, mod))) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 15);
 				for(int i=0; i < 10; i++)
@@ -390,8 +390,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.QueenBeeFlask>())
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.PoisonVial>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.QueenBeeFlask>(), player, modPlayer, mod)
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.PoisonVial>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 25);
 				
@@ -421,8 +421,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>()))
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.PoisonVial>())) {
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>(), player, modPlayer, mod))
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.PoisonVial>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 20);
 				for(int i=0; i < 10; i++)
@@ -442,8 +442,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& (modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>()) || modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>()))
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.DungeonFlask>())) {
+			&& (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.CouldInAVial>(), player, modPlayer, mod) || OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.FartInAVial>(), player, modPlayer, mod))
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.DungeonFlask>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 20);
 				for(int i=0; i < 10; i++)
@@ -463,8 +463,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.SeafoamVial>()) 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.PoisonVial>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.SeafoamVial>(), player, modPlayer, mod) 
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.PoisonVial>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 15);
 				
@@ -484,8 +484,8 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.SlimeFlask>()) 
-			&& modPlayer.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.SunflowerFlask>())) {
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.SlimeFlask>(), player, modPlayer, mod) 
+			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.SunflowerFlask>(), player, modPlayer, mod)) {
 				reaction = true;
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 15);
 				
@@ -560,12 +560,12 @@ namespace OrchidMod.Alchemist
 				Main.projectile[smokeProj].ai[1] = colorBlue;
 			}
 			
-			modPlayer.clearAlchemistDusts();
+			OrchidModAlchemistHelper.clearAlchemistDusts(player, modPlayer, mod);
 			modPlayer.alchemistFlaskDamage = 0;
 			modPlayer.alchemistNbElements = 0;
-			modPlayer.clearAlchemistElements();
-			modPlayer.clearAlchemistFlasks();
-			modPlayer.clearAlchemistColors();
+			OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);
+			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);
+			OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
 			modPlayer.alchemistSelectUIDisplay = false;
 		}
 	}

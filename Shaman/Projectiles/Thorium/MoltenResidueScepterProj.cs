@@ -70,8 +70,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
         {
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbEmpowerments = modPlayer.getNbShamanicBonds();
-			Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, mod.ProjectileType("MoltenResidueScepterProjExplosion"), projectile.damage + (5 * nbEmpowerments), 0.0f, projectile.owner, 0.0f, 0.0f);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+
+			Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, mod.ProjectileType("MoltenResidueScepterProjExplosion"), projectile.damage + (5 * nbBonds), 0.0f, projectile.owner, 0.0f, 0.0f);
 			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
 			
 			float oldVelocityX = 0 + projectile.velocity.X / 2;
@@ -79,7 +80,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.velocity.X *= 0;
 			projectile.velocity.Y *= 0;
 			
-			for (int i = 1 ; i < nbEmpowerments + 1 ; i ++) {
+			for (int i = 1 ; i < nbBonds + 1 ; i ++) {
 				spawnDustCircle(6, 15 * i);
 			}
 			
@@ -88,13 +89,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			
 			projectile.position.X += projectile.velocity.X;
 			projectile.position.Y += projectile.velocity.Y;
-			spawnDustCircle(6, player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() * 15 + 15);
+			spawnDustCircle(6, nbBonds * 15 + 15);
 			projectile.position.X += projectile.velocity.X * 3;
 			projectile.position.Y += projectile.velocity.Y * 3;
-			spawnDustCircle(6, player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() * 10 + 10);
+			spawnDustCircle(6, nbBonds * 10 + 10);
 			projectile.position.X += projectile.velocity.X * 3;
 			projectile.position.Y += projectile.velocity.Y * 3;
-			spawnDustCircle(6, player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() * 5 + 5);
+			spawnDustCircle(6, nbBonds * 5 + 5);
 			projectile.velocity *= 0;
         }
 		

@@ -73,7 +73,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				this.initialized = true;
 				Player player = Main.player[projectile.owner];
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-				int newCrit = 10 * modPlayer.getNbShamanicBonds() + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
+				int newCrit = 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
 				OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 				modProjectile.baseCritChance = newCrit;
 			}

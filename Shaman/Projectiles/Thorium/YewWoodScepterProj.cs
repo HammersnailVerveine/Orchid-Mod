@@ -62,7 +62,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			float randX = target.position.X + (target.width / 2) + Main.rand.Next(700) - 350;
 			float randY = target.position.Y + (target.height / 2) - Main.rand.Next(300) - 100;
 			
-			if (modPlayer.getNbShamanicBonds() > 2 && Main.rand.Next(7) == 0) {
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2 && Main.rand.Next(7) == 0) {
 				Projectile.NewProjectile(randX, randY, 0f, 0f, mod.ProjectileType("YewWoodScepterPortal"), 0, 0.0f, projectile.owner, 0.0f, 0.0f);
 			}
 		}

@@ -37,14 +37,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 			{
 				position += muzzleOffset;
 			}
 			
-			int BuffsCount = player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds();
-			int numberProjectiles = 1 + Main.rand.Next(2) + BuffsCount;
+			int numberProjectiles = 1 + Main.rand.Next(2) + nbBonds;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(12));

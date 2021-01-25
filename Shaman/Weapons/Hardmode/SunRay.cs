@@ -30,7 +30,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		}
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
-			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage + (player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() * 0.1f);
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			mult *= modPlayer.shamanDamage + (nbBonds * 0.1f);
 			if (!Main.dayTime) add -= 0.1f;
 		}
 

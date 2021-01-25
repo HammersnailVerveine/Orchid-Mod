@@ -127,7 +127,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			if (randA == 3)
 				Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaWind"), 100, 3, player.whoAmI);
 			
-			if (modPlayer.getNbShamanicBonds() > 2) {
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2) {
 				if (randF == 3)
 					Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaFire"), 100, 3, player.whoAmI);
 				if (randF == 2)

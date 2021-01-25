@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		
 		public override void UpdateInventory(Player player) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			item.crit = 4 + 10 * modPlayer.getNbShamanicBonds() + modPlayer.shamanCrit;
+			item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit;
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

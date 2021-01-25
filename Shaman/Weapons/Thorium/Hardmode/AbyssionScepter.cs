@@ -42,11 +42,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+			OrchidModPlayer modPlayer =  player.GetModPlayer<OrchidModPlayer>();
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 				position += muzzleOffset;
 			
-			int damageCost = 25 - player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() * 5;
+			int damageCost = 25 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 5;
 			if (player.statLife - damageCost > 0) { 
 				player.statLife -= damageCost;
 			} else {

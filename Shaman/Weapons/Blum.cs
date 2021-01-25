@@ -37,9 +37,10 @@ namespace OrchidMod.Shaman.Weapons
 		}
 		
 		public override void UpdateInventory(Player player) {
-			int BuffsCount = player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds();
-			item.useTime = 18 - (BuffsCount * 2);
-			item.useAnimation = 18 - (BuffsCount * 2);
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			item.useTime = 18 - (nbBonds * 2);
+			item.useAnimation = 18 - (nbBonds * 2);
 		}
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

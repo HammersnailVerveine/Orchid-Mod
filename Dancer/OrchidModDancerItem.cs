@@ -60,11 +60,11 @@ namespace OrchidMod.Dancer
 				float speedYAlt = this.vertical ? heading.Y : 0f;
 				
 				modPlayer.dancerVelocity = new Vector2(speedXAlt, speedYAlt);
-				modPlayer.removeDancerPoise(this.poiseChance, this.poiseCost);
 				modPlayer.dancerWeaponDamage = item.damage;
 				modPlayer.dancerWeaponKnockback = item.knockBack;
 				modPlayer.dancerWeaponType = this.dancerItemType;
 				modPlayer.dancerDashTimer = this.dashTimer;
+				OrchidModDancerHelper.removeDancerPoise(this.poiseChance, this.poiseCost, player, modPlayer, mod);
 			}
 			return base.CanUseItem(player);
 		}

@@ -42,9 +42,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void Kill(int timeLeft)
         {
 			Player player = Main.player[projectile.owner];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			
 			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
 			
-			for (int i = 0 ; i < player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() ; i ++) {	
+			for (int i = 0 ; i < nbBonds ; i ++) {	
 				Vector2 perturbedSpeed = new Vector2(projectile.velocity.X / (Main.rand.Next(3) + 2), -3f).RotatedByRandom(MathHelper.ToRadians(30));
 				Projectile.NewProjectile(projectile.position.X, projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("BoreanStriderScepterProjAlt"), (int)(projectile.damage * 0.70), 0.0f, player.whoAmI, 0.0f, 0.0f);
 			}

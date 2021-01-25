@@ -41,18 +41,21 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 			{
-			position += muzzleOffset;
+				position += muzzleOffset;
 			}
 			return true;
 		}
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
-			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage + (player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() * 0.1f);
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			mult *= modPlayer.shamanDamage + (nbBonds * 0.1f);
 		}
 		
-		public override void UpdateInventory(Player player) {	
-			int BuffsCount = Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds();
-			item.shootSpeed = 13f + (2f * BuffsCount);
+		public override void UpdateInventory(Player player) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			item.shootSpeed = 13f + (2f * nbBonds);
 		}
     }
 }

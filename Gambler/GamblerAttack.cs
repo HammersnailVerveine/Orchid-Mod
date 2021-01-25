@@ -40,20 +40,20 @@ namespace OrchidMod.Gambler
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			Item currentCard = modPlayer.gamblerCardCurrent;
 			bool firstUse = item.useAnimation == 1 && item.useTime == 1;
-			if (modPlayer.getNbGamblerCards() > 0) {
+			if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) > 0) {
 				if (player.altFunctionUse == 2) {
 					if (modPlayer.gamblerRedraws > 0 && modPlayer.gamblerRedrawCooldownUse <= 0) {
 						modPlayer.gamblerRedraws --;
 						modPlayer.gamblerRedrawCooldownUse = 30;
 						Main.PlaySound(SoundID.Item64, player.position);
-						modPlayer.drawGamblerCard();
+						OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
 						currentCard = modPlayer.gamblerCardCurrent;
 						this.checkStats(currentCard, modPlayer);
 					}
 					return false;
 				} else {
 					if (modPlayer.gamblerShuffleCooldown <= 0) {
-						modPlayer.drawGamblerCard();
+						OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
 						Main.PlaySound(SoundID.Item64, player.position);
 						currentCard = modPlayer.gamblerCardCurrent;
 						this.checkStats(currentCard, modPlayer);

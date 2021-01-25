@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			
 			mult *= modPlayer.shamanDamage;
-			if (modPlayer.getNbShamanicBonds() > 3) mult *= 1.5f;
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 3) mult *= 1.5f;
 		}
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

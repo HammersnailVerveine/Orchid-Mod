@@ -48,7 +48,7 @@ namespace OrchidMod.Gambler
 			if (modPlayer.gamblerChips < this.chipCost || modPlayer.gamblerCardCurrent.type == 0) {
 				return false;
 			} else {
-				modPlayer.removeGamblerChip(this.consumeChance, this.chipCost);
+				OrchidModGamblerHelper.removeGamblerChip(this.consumeChance, this.chipCost, player, modPlayer, mod);
 			}
 			return base.CanUseItem(player);
 		}

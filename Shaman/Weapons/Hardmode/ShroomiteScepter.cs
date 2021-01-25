@@ -37,6 +37,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 				position += muzzleOffset;
@@ -52,7 +55,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			
 			Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX - 8, (float)Main.mouseY);
 			int newProj = Projectile.NewProjectile(target.X, target.Y, 0f, 10f, mod.ProjectileType("ShroomiteScepterProj1"), damage, knockBack, player.whoAmI);
-			Main.projectile[newProj].ai[1] = player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds();
+			Main.projectile[newProj].ai[1] = nbBonds;
 			Main.projectile[newProj].netUpdate = true;
 			return false;
 		}		

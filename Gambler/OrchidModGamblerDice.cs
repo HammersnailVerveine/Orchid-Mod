@@ -42,8 +42,8 @@ namespace OrchidMod.Gambler
 		
 		public override bool UseItem(Player player) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.removeGamblerChip(100, this.diceCost);
-			modPlayer.rollGamblerDice(this.diceID, this.diceDuration);
+			OrchidModGamblerHelper.removeGamblerChip(100, this.diceCost, player, modPlayer, mod);
+			OrchidModGamblerHelper.rollGamblerDice(this.diceID, this.diceDuration, player, modPlayer, mod);
 			return true;
 		}
 		

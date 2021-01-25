@@ -50,8 +50,10 @@ namespace OrchidMod.Shaman.Projectiles
 				projectile.damage = 0;
 				dustScale += 0.0195f;
 				dustSpawned = false;
-
-				if (Main.player[projectile.owner].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() > 3) {
+	
+				Player player = Main.player[projectile.owner];
+				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+				if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 3) {
 					projectile.timeLeft --;
 					dustScale += 0.0195f;
 					projectile.netUpdate = true;

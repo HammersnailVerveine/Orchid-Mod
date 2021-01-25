@@ -37,21 +37,22 @@ namespace OrchidMod.Shaman.Weapons
 							+ "\nIf you have 3 or more active shamanic bonds, the bats will home towards enemies");
 		}
 		
-		public override void UpdateInventory(Player player) {	
-			int nbEmpowerments = Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds();
-			item.useTime = 35 - 3 * nbEmpowerments;
-			item.useAnimation = 35 - 3 * nbEmpowerments;
+		public override void UpdateInventory(Player player) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			item.useTime = 35 - 3 * nbBonds;
+			item.useAnimation = 35 - 3 * nbBonds;
 		}
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			int numberProjectiles = 1 + Main.rand.Next(2);
-			int nbEmpowerments = Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds();
 			
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(25));
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, nbEmpowerments < 3 ? type : mod.ProjectileType("FireBatScepterProjHoming"), damage, knockBack, player.whoAmI);
+				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, nbBonds < 3 ? type : mod.ProjectileType("FireBatScepterProjHoming"), damage, knockBack, player.whoAmI);
 			}
 
 			return false;

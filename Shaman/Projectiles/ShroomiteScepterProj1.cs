@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OrchidMod.Shaman;
 
 namespace OrchidMod.Shaman.Projectiles
 {
@@ -57,7 +58,7 @@ namespace OrchidMod.Shaman.Projectiles
 							if (projectile.ai[1] >= 3) {
 								OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
 								modTarget.shamanShroom = 300;
-								modPlayer.addShamanicEmpowerment(4, 4);
+								OrchidModShamanHelper.addShamanicEmpowerment(4, 4, player, modPlayer, mod);
 							}
 							target.netUpdate = true;
 						}

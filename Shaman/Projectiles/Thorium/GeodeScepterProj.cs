@@ -34,7 +34,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
 			
-			for (int i = 0 ; i < 3 + modPlayer.getNbShamanicBonds() ; i ++) {	
+			for (int i = 0 ; i < 3 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) ; i ++) {	
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(40));
 				Projectile.NewProjectile(projectile.position.X, projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("GeodeScepterProjAlt"), (int)(projectile.damage * 0.70), 0.0f, player.whoAmI, 0.0f, 0.0f);
 			}

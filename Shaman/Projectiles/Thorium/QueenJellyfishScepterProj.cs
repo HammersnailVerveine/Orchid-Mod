@@ -63,7 +63,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
         {
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			projectile.damage += (2 + modPlayer.getNbShamanicBonds());
+			projectile.damage += (2 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod));
 			
 			projectile.penetrate--;
 			projectile.timeLeft = 90;

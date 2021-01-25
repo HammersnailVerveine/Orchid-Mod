@@ -32,12 +32,16 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
         public override void AI()
         {	
+			Player player = Main.player[projectile.owner];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			
 			if (projectile.timeLeft > 480) {
 				projectile.friendly = false;
 			} else {
 				projectile.friendly = true;
 				
-				if (Main.player[projectile.owner].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() > 2) {
+				if (nbBonds > 2) {
 					projectile.extraUpdates = 1;
 					ProjectileID.Sets.Homing[projectile.type] = true;
 					

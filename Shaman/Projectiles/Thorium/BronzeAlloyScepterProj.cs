@@ -53,7 +53,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			target.AddBuff(BuffID.Poisoned, 60 * 3 * modPlayer.getNbShamanicBonds());
+			target.AddBuff(BuffID.Poisoned, 60 * 3 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod));
 		}
     }
 }

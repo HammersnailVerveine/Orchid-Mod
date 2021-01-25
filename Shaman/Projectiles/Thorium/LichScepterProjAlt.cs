@@ -41,6 +41,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
         public override void AI()
         {	
+			Player player = Main.player[projectile.owner];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			
 			if (this.projType == 0) {
 				this.projType = Main.rand.Next(2) + 1;
 				projectile.frame = this.projType - 1;
@@ -51,7 +55,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			} else {
 				projectile.friendly = true;
 				
-				if (Main.player[projectile.owner].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() > 3) {
+				if (nbBonds > 3) {
 					projectile.extraUpdates = 1;
 					ProjectileID.Sets.Homing[projectile.type] = true;
 					

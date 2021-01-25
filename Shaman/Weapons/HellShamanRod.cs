@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Weapons
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (modPlayer.getNbShamanicBonds() > 1) {
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 1) {
 				mult *= modPlayer.shamanDamage * 2f;
 			}
 		}
@@ -64,7 +64,7 @@ namespace OrchidMod.Shaman.Weapons
 			for (int i = 0; i < 3; i++) {
 				int newProj = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 				Main.projectile[newProj].ai[1] = i;
-				if (modPlayer.getNbShamanicBonds() > 1) {
+				if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 1) {
 					Main.projectile[newProj].ai[1] += 4;
 				}
 				Main.projectile[newProj].netUpdate = true;

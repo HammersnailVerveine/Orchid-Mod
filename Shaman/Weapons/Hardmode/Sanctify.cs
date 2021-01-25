@@ -47,7 +47,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				position += muzzleOffset;
 			}
 			
-			if (modPlayer.getNbShamanicBonds() > 2) {
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2) {
 				for (int i = 0; i < 2; i ++) {
 					Vector2 projectileVelocity = ( new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(i == 0 ? -20 : 20)));
 					Projectile.NewProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("SanctifyProjAlt"), (int)(item.damage*0.75), knockBack, item.owner);

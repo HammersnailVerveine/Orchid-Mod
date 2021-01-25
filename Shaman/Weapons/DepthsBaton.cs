@@ -45,7 +45,8 @@ namespace OrchidMod.Shaman.Weapons
 				position += muzzleOffset;
 			}
 			
-			int BuffsCount = player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds();
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			if (BuffsCount > 2) {
 				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("DepthBatonProjAlt"), damage - 10, knockBack, player.whoAmI);
 			}

@@ -60,7 +60,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			
 			float speedYalt = new Vector2(speedX, speedY).Length();
 			int newProj = Projectile.NewProjectile(position.X, position.Y, 0f, -1f * speedYalt, type, damage, knockBack, player.whoAmI);
-			if (modPlayer.getNbShamanicBonds() > 2) {
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2) {
 				Main.projectile[newProj].ai[1] = 3;
 			}
 			Main.projectile[newProj].netUpdate = true;

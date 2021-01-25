@@ -67,7 +67,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			if (modPlayer.getNbShamanicBonds() > 4 && player.statLifeMax2 > player.statLife) {
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 4 && player.statLifeMax2 > player.statLife) {
 				if (Main.myPlayer == player.whoAmI)
 					player.HealEffect(5, true);
 				player.statLife += 5;

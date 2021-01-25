@@ -74,7 +74,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				Main.dust[dust].noGravity = true;
             }
 			
-			for (int i = 0 ; i < modPlayer.getNbShamanicBonds() ; i ++) {
+			for (int i = 0 ; i < OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) ; i ++) {
 				if (Main.rand.Next(4) == 0) {
 					if (player.strongBees && Main.rand.Next(2) == 0) 
 						Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 566, (int) (dmg * 1.15f), 0f, projectile.owner, 0f, 0f);

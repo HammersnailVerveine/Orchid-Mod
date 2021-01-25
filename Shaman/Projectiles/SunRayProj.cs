@@ -34,9 +34,12 @@ namespace OrchidMod.Shaman.Projectiles
 		
         public override void AI()
 		{
+			Player player = Main.player[projectile.owner];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			if (projectile.timeLeft == 45)
 			{
-				for (int i =0 ; i < Main.player[projectile.owner].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() ; i ++) {
+				for (int i =0 ; i < nbBonds ; i ++) {
 					sizeBonus += 2;
 					projectile.damage += 5;
 				}

@@ -40,12 +40,13 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{			
-			int BuffsCount = Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds();
+		{
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			
 			int projectilesNumber = 0;
 			
-			switch (BuffsCount) {
+			switch (nbBonds) {
 				case 1:
 					projectilesNumber = 2;
 					break;

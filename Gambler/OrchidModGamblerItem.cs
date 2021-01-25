@@ -66,11 +66,11 @@ namespace OrchidMod.Gambler
 			if (player == Main.player[Main.myPlayer]) {
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				Item[] cards = modPlayer.gamblerCardsItem;
-				int count = modPlayer.getNbGamblerCards();
-				if (modPlayer.containsGamblerCard(item) || player.altFunctionUse == 2 || count < this.cardRequirement || count >= 20) {
+				int count = OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer);
+				if (OrchidModGamblerHelper.containsGamblerCard(item, player, modPlayer) || player.altFunctionUse == 2 || count < this.cardRequirement || count >= 20) {
 					return false;
 				} else {
-					if (modPlayer.getNbGamblerCards() <= 0) {
+					if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) <= 0) {
 						bool found = false;
 						int gamblerDeck = ItemType<Gambler.GamblerAttack>();
 						for (int i = 0; i < Main.maxInventory; i++) {
@@ -90,11 +90,11 @@ namespace OrchidMod.Gambler
 						if (cards[i].type == 0) {
 							cards[i] = new Item();
 							cards[i].SetDefaults(item.type, true);
-							modPlayer.clearGamblerCardCurrent();
-							modPlayer.clearGamblerCardsNext();
+							OrchidModGamblerHelper.clearGamblerCardCurrent(player, modPlayer);
+							OrchidModGamblerHelper.clearGamblerCardsNext(player, modPlayer);
 							modPlayer.gamblerShuffleCooldown = 0;
 							modPlayer.gamblerRedraws = 0;
-							modPlayer.drawGamblerCard();
+							OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
 							return true;
 						}
 					}
@@ -117,9 +117,10 @@ namespace OrchidMod.Gambler
 				tt.text = damageValue + " gambling " + damageWord;
 			}
 			
-			OrchidModPlayer modPlayer = Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>();
+			Player player = Main.player[Main.myPlayer];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			Item[] cards = modPlayer.gamblerCardsItem;
-			int count = modPlayer.getNbGamblerCards();
+			int count = OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer);
 			int diff = this.cardRequirement - count;
 			
 			int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
@@ -152,7 +153,7 @@ namespace OrchidMod.Gambler
 				overrideColor = new Color(255, 200, 100)
 			});
 			
-			if (modPlayer.containsGamblerCard(item)) {
+			if (OrchidModGamblerHelper.containsGamblerCard(item, player, modPlayer)) {
 				tooltips.Insert(1, new TooltipLine(mod, "UseTag", "Currently in your deck")
 				{
 					overrideColor = new Color(255, 100, 100)

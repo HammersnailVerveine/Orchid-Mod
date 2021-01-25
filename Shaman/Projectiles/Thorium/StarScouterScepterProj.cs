@@ -91,6 +91,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void Kill(int timeLeft)
         {
 			Player player = Main.player[projectile.owner];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			
 			for (int i = 1 ; i < 6 ; i ++) {
 				spawnDustCircle(62, i * 10);
@@ -98,7 +100,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 91);
 			Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, mod.ProjectileType("StarScouterScepterProjExplosion"), projectile.damage, 0.0f, player.whoAmI, 0.0f, 0.0f);
 			
-			if (player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() > 2) {
+			if (nbBonds > 2) {
 				for (int i = 0 ; i < 3 ; i ++) {
 					
 					Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(30));

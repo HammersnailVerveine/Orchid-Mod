@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			
 			projectile.rotation += 0.1f;
 
-			if (projectile.timeLeft % (15 - modPlayer.getNbShamanicBonds() * 2) == 0) {
+			if (projectile.timeLeft % (15 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 2) == 0) {
 				if (projectile.damage < (150) * modPlayer.shamanDamage) {
 					spawnDustCircle(111, 10);
 					projectile.damage ++;

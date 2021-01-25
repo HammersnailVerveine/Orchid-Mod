@@ -48,8 +48,9 @@ namespace OrchidMod.Shaman.Weapons
 		}
 		
 		public override void UpdateInventory(Player player) {
-			int BuffsCount = player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds();
-			item.shootSpeed = 7f + 2f * BuffsCount;
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			item.shootSpeed = 7f + 2f * nbBonds;
 		}
 		
 		public override void AddRecipes()

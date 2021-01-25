@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Weapons
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (modPlayer.getNbShamanicBonds() > 3) {
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 3) {
 				flat += 7f;
 			}
 		}

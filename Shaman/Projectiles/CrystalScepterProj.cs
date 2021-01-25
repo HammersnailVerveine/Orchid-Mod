@@ -48,7 +48,7 @@ namespace OrchidMod.Shaman.Projectiles
 				Player player = Main.player[projectile.owner];
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				
-				for (int i = 0; i < 2 + modPlayer.getNbShamanicBonds(); i++)
+				for (int i = 0; i < 2 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod); i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(projectile.velocity.X / 3, projectile.velocity.Y / 3).RotatedByRandom(MathHelper.ToRadians(360));
 					Projectile.NewProjectile(projectile.position.X, projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("CrystalScepterProj2"), (int)(projectile.damage * 0.6), (float)(projectile.knockBack * 0.35), projectile.owner, 0f, 0f);

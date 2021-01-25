@@ -134,15 +134,15 @@ namespace OrchidMod.Alchemist.Projectiles
 		
 		public void initializeAlchemistProjectile() {
 			Player player = Main.player[projectile.owner];
-			OrchidModPlayer orchidModPlayer = player.GetModPlayer<OrchidModPlayer>();
-			bool[] elements = orchidModPlayer.alchemistElements;
-			int[] flasks = orchidModPlayer.alchemistFlasks;
-			int[] dusts =  orchidModPlayer.alchemistDusts;
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			bool[] elements = modPlayer.alchemistElements;
+			int[] flasks = modPlayer.alchemistFlasks;
+			int[] dusts =  modPlayer.alchemistDusts;
 			
 			this.projOwner = (projectile.owner == Main.myPlayer);
 				
-			this.nbElements = orchidModPlayer.alchemistNbElements;
-			projectile.damage = (int)(orchidModPlayer.alchemistFlaskDamage * orchidModPlayer.alchemistDamage + 5E-06f);
+			this.nbElements = modPlayer.alchemistNbElements;
+			projectile.damage = (int)(modPlayer.alchemistFlaskDamage * modPlayer.alchemistDamage + 5E-06f);
 		
 			if (elements[0]) {
 				this.waterFlask = flasks[0];
@@ -175,21 +175,21 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 				
 			this.addVariousEffects();
-			this.glowColor = new Color(orchidModPlayer.alchemistColorR, orchidModPlayer.alchemistColorG, orchidModPlayer.alchemistColorB);
+			this.glowColor = new Color(modPlayer.alchemistColorR, modPlayer.alchemistColorG, modPlayer.alchemistColorB);
 				
-			orchidModPlayer.alchemistFlaskDamage = 0;
-			orchidModPlayer.alchemistNbElements = 0;
-			orchidModPlayer.clearAlchemistElements();
-			orchidModPlayer.clearAlchemistFlasks();	
-			orchidModPlayer.clearAlchemistDusts();
-			orchidModPlayer.clearAlchemistColors();
+			modPlayer.alchemistFlaskDamage = 0;
+			modPlayer.alchemistNbElements = 0;
+			OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);
+			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);	
+			OrchidModAlchemistHelper.clearAlchemistDusts(player, modPlayer, mod);
+			OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
 				
 			if (this.fireFlask == ItemType<Alchemist.Weapons.Fire.GunpowderFlask>()) {
 				this.noCatalyticSpawn = true;
 			}
 				
 			if (this.nbElements > 2) {
-				if (orchidModPlayer.alchemistMeteor) {
+				if (modPlayer.alchemistMeteor) {
 					player.AddBuff((BuffType<Alchemist.Buffs.MeteorSpeed>()), 60 * 3);
 				}
 			}

@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			if (projectile.penetrate == 10) {
 				Player player = Main.player[projectile.owner];
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();	
-				projectile.penetrate = 1 + modPlayer.getNbShamanicBonds();
+				projectile.penetrate = 1 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			}
 			
 

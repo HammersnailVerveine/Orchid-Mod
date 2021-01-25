@@ -9,8 +9,6 @@ namespace OrchidMod.Shaman.Projectiles
 {
     public class DepthsBatonProj : OrchidModShamanProjectile
     {
-		private bool willBreak = false;
-		
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Depths Blast");

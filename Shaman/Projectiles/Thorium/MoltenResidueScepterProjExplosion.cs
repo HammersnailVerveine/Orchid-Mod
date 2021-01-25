@@ -34,7 +34,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			
-			int size = 30 + 30 * modPlayer.getNbShamanicBonds();
+			int size = 30 + 30 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			projectile.width = size;
 			projectile.height = size;
 			

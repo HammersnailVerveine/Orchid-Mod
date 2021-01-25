@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			if (target.type != NPCID.TargetDummy) {
-				modPlayer.addShamanicEmpowerment(this.empowermentType, this.empowermentLevel);
+				OrchidModShamanHelper.addShamanicEmpowerment(this.empowermentType, this.empowermentLevel, player, modPlayer, mod);
 				modPlayer.shamanPollSpirit += this.spiritPollLoad;
 			}
 			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);

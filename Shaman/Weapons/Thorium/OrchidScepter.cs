@@ -44,14 +44,9 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			int numberProjectiles = 1 + Main.rand.Next(2);
-			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() > 1) {
-				numberProjectiles ++;
-			}
-
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() > 3) {
-				numberProjectiles ++;
-			}
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			numberProjectiles += nbBonds > 1 ? nbBonds > 3 ? 2 : 1 : 0;
 		
 			for (int i = 0; i < numberProjectiles; i++)
 			{

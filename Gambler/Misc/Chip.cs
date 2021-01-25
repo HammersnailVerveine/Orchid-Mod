@@ -32,7 +32,7 @@ namespace OrchidMod.Gambler.Misc
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			Color floatingTextColor = new Color(255, 200, 0);
 			CombatText.NewText(player.Hitbox, floatingTextColor, 1);
-			modPlayer.addGamblerChip(100);
+			OrchidModGamblerHelper.addGamblerChip(100, player, modPlayer);
 			Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y, 65);
 			return false;
 		}

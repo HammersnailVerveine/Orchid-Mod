@@ -45,6 +45,9 @@ namespace OrchidMod.Shaman.Weapons
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			
 			player.ClearBuff(mod.BuffType("SporeEmpowerment"));
 			
             for (int l = 0; l < Main.projectile.Length; l++)
@@ -60,7 +63,7 @@ namespace OrchidMod.Shaman.Weapons
 			{
 				position += muzzleOffset;
 			}
-			for (int i = 0; i < player.GetModPlayer<OrchidModPlayer>().getNbShamanicBonds() + 2; i++)
+			for (int i = 0; i < nbBonds + 2; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);

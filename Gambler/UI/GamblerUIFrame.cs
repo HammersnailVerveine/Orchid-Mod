@@ -82,7 +82,7 @@ namespace OrchidMod.Gambler.UI
 						string msg3 = "";
 						int[] nbCards = new int[20];
 						int maxReq = 0;
-						int playerNbCards = modPlayer.getNbGamblerCards();
+						int playerNbCards = OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer);
 						for (int i = 0; i < 20; i ++) {
 							nbCards[i] = 0;
 						}
@@ -122,15 +122,15 @@ namespace OrchidMod.Gambler.UI
 								if (currentRectangle.Contains(new Point((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y))) {
 									if (((Main.mouseLeft && Main.mouseLeftRelease) || (Main.mouseRight && Main.mouseRightRelease)) && canRemove) {
 										player.QuickSpawnItem(currentItem.type, 1);
-										modPlayer.removeGamblerCard(currentItem);
-										if (modPlayer.getNbGamblerCards() > 0) {
-											modPlayer.clearGamblerCardCurrent();
-											modPlayer.clearGamblerCardsNext();
+										OrchidModGamblerHelper.removeGamblerCard(currentItem, player, modPlayer);
+										if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) > 0) {
+											OrchidModGamblerHelper.clearGamblerCardCurrent(player, modPlayer);
+											OrchidModGamblerHelper.clearGamblerCardsNext(player, modPlayer);
 											modPlayer.gamblerShuffleCooldown = 0;
 											modPlayer.gamblerRedraws = 0;
-											modPlayer.drawGamblerCard();
+											OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
 										} else {
-											modPlayer.onRespawnGambler();
+											OrchidModGamblerHelper.onRespawnGambler(player, modPlayer);
 										}
 									}
 									msg = currentItem.Name;
