@@ -36,7 +36,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 		{
 		    ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddTile(TileID.WorkBenches);		
-			recipe.AddIngredient(ItemID.Glass, 5);
+			recipe.AddIngredient(ItemID.Bottle, 1);
 			recipe.AddIngredient(ItemID.Sunflower, 1);
 			recipe.AddIngredient(ItemID.Mushroom, 3);
 			recipe.SetResult(this);

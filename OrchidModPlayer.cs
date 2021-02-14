@@ -134,8 +134,9 @@ namespace OrchidMod
 		public bool alchemistShootProjectile = false;
 		
 		public bool alchemistMeteor = false;
-		public bool alchemistFlowerSet	= false;
+		public bool alchemistFlowerSet = false;
 		public bool alchemistMushroomSpores	= false;
+		public bool alchemistReactiveVials = false;
 		public int alchemistFlower = 0;
 		public int alchemistFlowerTimer = 0;
 	

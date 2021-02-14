@@ -203,8 +203,8 @@ namespace OrchidMod.NPCs.Town
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>());
 			nextSlot++;
-			if (modPlayer.alchemistKnownReactions.Count > 3) {	
-				shop.item[nextSlot].SetDefaults(1);
+			if (modPlayer.alchemistKnownReactions.Count > 4) {	
+				shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Accessories.ReactiveVials>());
 				nextSlot++;
 			}
 		}

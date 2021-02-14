@@ -36,7 +36,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		{
 		    ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddTile(TileID.WorkBenches);		
-			recipe.AddIngredient(ItemID.Glass, 5);
+			recipe.AddIngredient(ItemID.Bottle, 1);
 			recipe.AddIngredient(ItemID.Gel, 5);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

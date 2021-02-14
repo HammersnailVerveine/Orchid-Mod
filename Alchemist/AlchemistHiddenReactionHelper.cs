@@ -568,6 +568,8 @@ namespace OrchidMod.Alchemist
 				Main.projectile[smokeProj].ai[1] = colorBlue;
 			}
 			
+			AlchemistHiddenReactionHelper.bonusReactionEffects(mod, player, modPlayer);
+			
 			OrchidModAlchemistHelper.clearAlchemistDusts(player, modPlayer, mod);
 			modPlayer.alchemistFlaskDamage = 0;
 			modPlayer.alchemistNbElements = 0;
@@ -575,6 +577,12 @@ namespace OrchidMod.Alchemist
 			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);
 			OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
 			modPlayer.alchemistSelectUIDisplay = false;
+		}
+		
+		public static void bonusReactionEffects(Mod mod, Player player, OrchidModPlayer modPlayer) {
+			if (modPlayer.alchemistReactiveVials) {
+				player.AddBuff(BuffType<Alchemist.Buffs.ReactiveVialsBuff>(), 60 * 10);
+			}
 		}
 	}
 }

@@ -1002,6 +1002,12 @@ namespace OrchidMod.Alchemist.Projectiles
 					this.nbElementsNoExtract --;
 				}
 			}
+			
+			int buffType = BuffType<Alchemist.Buffs.ReactiveVialsBuff>();
+			if (player.HasBuff(buffType)) {
+				projectile.damage = (int)(projectile.damage * 1.1f);
+				player.ClearBuff(buffType);
+			}
 		}
 		
 		public void spawnKillDusts(int timeLeft) {

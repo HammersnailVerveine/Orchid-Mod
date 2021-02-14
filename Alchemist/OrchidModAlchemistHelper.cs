@@ -106,6 +106,7 @@ namespace OrchidMod.Alchemist
 			modPlayer.alchemistMeteor = false;
 			modPlayer.alchemistFlowerSet = false;
 			modPlayer.alchemistMushroomSpores = false;
+			modPlayer.alchemistReactiveVials = false;
 		}
 		
 		public static void onRespawnAlchemist(Player player, OrchidModPlayer modPlayer, Mod mod) {
