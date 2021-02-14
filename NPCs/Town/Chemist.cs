@@ -185,6 +185,8 @@ namespace OrchidMod.NPCs.Town
 		}
 
 		public override void SetupShop(Chest shop, ref int nextSlot) {
+			Player player = Main.player[Main.myPlayer];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.UIItem>());
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.ReactionItem>());
@@ -201,6 +203,10 @@ namespace OrchidMod.NPCs.Town
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>());
 			nextSlot++;
+			if (modPlayer.alchemistKnownReactions.Count > 3) {	
+				shop.item[nextSlot].SetDefaults(1);
+				nextSlot++;
+			}
 		}
 
 		// public override void NPCLoot() {

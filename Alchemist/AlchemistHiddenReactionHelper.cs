@@ -14,6 +14,7 @@ namespace OrchidMod.Alchemist
 		public static void triggerAlchemistReaction(Mod mod, Player player, OrchidModPlayer modPlayer) {
 			bool reaction = false;
 			string floatingTextStr = "Failed reaction ...";
+			AlchemistHiddenReaction hiddenReaction = AlchemistHiddenReaction.NULL;
 			if (modPlayer.alchemistNbElements == 2 
 			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>(), player, modPlayer, mod) 
 			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.KingSlimeFlask>(), player, modPlayer, mod)) {
@@ -31,6 +32,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].scale *= 1.5f;
 				}
 				floatingTextStr = "Healing !";
+				hiddenReaction = AlchemistHiddenReaction.GLOWSHROOMHEALING;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2
@@ -73,6 +75,7 @@ namespace OrchidMod.Alchemist
 					}
 				}
 				floatingTextStr = "Fire Spores !";
+				hiddenReaction = AlchemistHiddenReaction.FIRESPORES;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -115,6 +118,7 @@ namespace OrchidMod.Alchemist
 					}
 				}
 				floatingTextStr = "Water Spores !";
+				hiddenReaction = AlchemistHiddenReaction.WATERSPORES;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2
@@ -157,6 +161,7 @@ namespace OrchidMod.Alchemist
 					}
 				}
 				floatingTextStr = "Air Spores !";
+				hiddenReaction = AlchemistHiddenReaction.AIRSPORES;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -174,6 +179,7 @@ namespace OrchidMod.Alchemist
 				}
 				player.QuickSpawnItem(mod.ItemType("MushroomThread"), 1);
 				floatingTextStr = "Mushroom Thread !";
+				hiddenReaction = AlchemistHiddenReaction.MUSHROOMTHREAD;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -191,23 +197,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].scale *= 1.5f;
 				}
 				floatingTextStr = "Flipper !";
-			}
-			
-			if (modPlayer.alchemistNbElements == 2 
-			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.FireblossomFlask>(), player, modPlayer, mod) 
-			&& OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Water.WaterleafFlask>(), player, modPlayer, mod)) {
-				reaction = true;
-				player.AddBuff(1, 60 * 30); // Obsidian Skin
-				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 30);
-				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 25);
-				for(int i=0; i < 10; i++)
-				{
-					int dust = Dust.NewDust(player.Center, 10, 10, 33);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].velocity *= 2f;
-					Main.dust[dust].scale *= 1.5f;
-				}
-				floatingTextStr = "Flipper !";
+				hiddenReaction = AlchemistHiddenReaction.POTIONFLIPPER;
 			}
 			
 			if (modPlayer.alchemistNbElements == 3 
@@ -226,6 +216,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].scale *= 1.5f;
 				}
 				floatingTextStr = "Featherfall !";
+				hiddenReaction = AlchemistHiddenReaction.POTIONFEATHERFALL;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -243,6 +234,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].scale *= 1.5f;
 				}
 				floatingTextStr = "Invisiblity !";
+				hiddenReaction = AlchemistHiddenReaction.POTIONINVISIBILITY;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -260,6 +252,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].scale *= 1.5f;
 				}
 				floatingTextStr = "Night Owl !";
+				hiddenReaction = AlchemistHiddenReaction.POTIONNIGHTOWL;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -285,6 +278,7 @@ namespace OrchidMod.Alchemist
 				}
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 14);
 				floatingTextStr = "Propulsion !";
+				hiddenReaction = AlchemistHiddenReaction.PROPULSION;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -306,6 +300,7 @@ namespace OrchidMod.Alchemist
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, proj, dmg, 0f, player.whoAmI);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 85);
 				floatingTextStr = "Slime Bubble !";
+				hiddenReaction = AlchemistHiddenReaction.BUBBLESLIME;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -327,6 +322,7 @@ namespace OrchidMod.Alchemist
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, proj, dmg, 0f, player.whoAmI);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 85);
 				floatingTextStr = "Sap Bubble !";
+				hiddenReaction = AlchemistHiddenReaction.BUBBLESAP;
 			}
 			
 			if (modPlayer.alchemistNbElements == 3 
@@ -345,6 +341,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].scale *= 1.5f;
 				}
 				floatingTextStr = "Builder !";
+				hiddenReaction = AlchemistHiddenReaction.POTIONBUILDER;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -366,6 +363,7 @@ namespace OrchidMod.Alchemist
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, proj, dmg, 0f, player.whoAmI);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 85);
 				floatingTextStr = "Seafoam Bubble !";
+				hiddenReaction = AlchemistHiddenReaction.BUBBLESEAFOAM;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -387,6 +385,7 @@ namespace OrchidMod.Alchemist
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, proj, dmg, 0f, player.whoAmI);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 85);
 				floatingTextStr = "Oil Bubble !";
+				hiddenReaction = AlchemistHiddenReaction.BUBBLEOIL;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -418,6 +417,7 @@ namespace OrchidMod.Alchemist
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
 				}
 				floatingTextStr = "Bee Swarm !";
+				hiddenReaction = AlchemistHiddenReaction.BEESWARM;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -439,6 +439,7 @@ namespace OrchidMod.Alchemist
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, proj, dmg, 0f, player.whoAmI);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 85);
 				floatingTextStr = "Poison Bubble !";
+				hiddenReaction = AlchemistHiddenReaction.BUBBLEPOISON;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -460,6 +461,7 @@ namespace OrchidMod.Alchemist
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, proj, dmg, 0f, player.whoAmI);
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 85);
 				floatingTextStr = "Spirited Bubble !";
+				hiddenReaction = AlchemistHiddenReaction.BUBBLESPIRITED;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -481,6 +483,7 @@ namespace OrchidMod.Alchemist
 				}
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 85);
 				floatingTextStr = "Bubbles !";
+				hiddenReaction = AlchemistHiddenReaction.BUBBLES;
 			}
 			
 			if (modPlayer.alchemistNbElements == 2 
@@ -503,6 +506,7 @@ namespace OrchidMod.Alchemist
 				}
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 85);
 				floatingTextStr = "Sunflower Seeds !";
+				hiddenReaction = AlchemistHiddenReaction.SUNFLOWERSEEDS;
 			}
 			
 			// end of reactions //
@@ -526,6 +530,10 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].scale *= 1.5f;
 				}
 				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 16);
+			} else {
+				if (!(modPlayer.alchemistKnownReactions.Contains((int)hiddenReaction))) {
+					modPlayer.alchemistKnownReactions.Add((int)hiddenReaction);
+				}
 			}
 			
 			int colorRed = modPlayer.alchemistColorR;

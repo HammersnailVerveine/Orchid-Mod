@@ -263,7 +263,7 @@ namespace OrchidMod
 		{
 			gamblerCardsItem = tag.GetList<TagCompound>("GamblerCardsItem").Select(ItemIO.Load).ToArray();
 			alchemistChemistFirstInteraction = tag.GetBool("ChemistHint");
-			alchemistKnownReactions = tag.Get<List<int>>("AlchemistHiddenKeys");
+			alchemistKnownReactions = tag.Get<List<int>>("AlchemistHidden");
 		}
 
 		public override void PreUpdate() {
