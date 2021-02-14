@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reactive Vials");
-			Tooltip.SetDefault("After using a hidden reaction, your next chemical attacks deals 10% more damage");
+			Tooltip.SetDefault("Your first chemical mixture after using a hidden reaction deals 10% more damage");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {

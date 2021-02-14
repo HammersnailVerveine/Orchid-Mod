@@ -9,7 +9,7 @@ namespace OrchidMod.Alchemist.Buffs
         {
             Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Reactive Elements");
-			Description.SetDefault("10% increased chemical damage");
+			Description.SetDefault("10% increased chemical damage for your next chemical mixture");
             Main.buffNoTimeDisplay[Type] = true;
 			Main.buffNoSave[Type] = true;
         }
