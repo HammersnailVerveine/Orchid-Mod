@@ -35,17 +35,26 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 		
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Static Quartz Scythe");
+			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			if (thoriumMod == null) {
+				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
+								+ "\n[c/970000:This is a cross-content weapon]");
+				return;
+			}
 			Tooltip.SetDefault("Rapidly spins a static quartz scythe all around you"
 							+  "\nDeals increased damage while moving");
 		}
 		
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 12);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			if (thoriumMod != null) {
+				ModRecipe recipe = new ModRecipe(mod);
+				recipe.AddTile(TileID.Anvils);
+				recipe.AddIngredient(ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 12);
+				recipe.SetResult(this);
+				recipe.AddRecipe();
+			}
 		}
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {

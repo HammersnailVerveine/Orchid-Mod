@@ -23,6 +23,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.alpha = 128;
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			aiType = ProjectileID.Bullet; 
+            this.empowermentType = 1;
+            this.empowermentLevel = 2;
+            this.spiritPollLoad = 0;
         }
 		
 		public override void SetStaticDefaults()

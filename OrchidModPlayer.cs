@@ -356,11 +356,11 @@ namespace OrchidMod
 		ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource) {
 			bool toReturn = true;
 			
-			if (OrchidModShamanHelper.PreHurtShaman(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, player, this, mod)) {
+			if (!OrchidModShamanHelper.PreHurtShaman(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, player, this, mod)) {
 				toReturn = false;
 			}
 			
-			if (OrchidModDancerHelper.PreHurtDancer(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, player, this, mod)) {
+			if (!OrchidModDancerHelper.PreHurtDancer(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, player, this, mod)) {
 				toReturn = false;
 			}
 			return toReturn;

@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.alpha = 128;
 			aiType = ProjectileID.Bullet; 
             this.empowermentType = 1;
-            this.empowermentLevel = 1;
+            this.empowermentLevel = 2;
             this.spiritPollLoad = 0;
         }
 		
