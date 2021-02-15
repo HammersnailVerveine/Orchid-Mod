@@ -36,7 +36,7 @@ namespace OrchidMod.Gambler.Projectiles
         {
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int cardType = modPlayer.gamblerCardCurrent.type;
+			int cardType = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			
 			this.bounceDelay -= this.bounceDelay > 0 ? 1 : 0;
 			
@@ -69,10 +69,12 @@ namespace OrchidMod.Gambler.Projectiles
 				int rand = Main.rand.Next(2) + 1;
 				for (int i = 0 ; i < rand ; i ++) {
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-					if (player.strongBees && Main.rand.Next(2) == 0) 
-							Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, 566, (int) (projectile.damage * 1.15f), 0f, projectile.owner, 0f, 0f);
-					else {
-						int newProj = Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, 181, projectile.damage, 0f, projectile.owner, 0f, 0f);
+					if (player.strongBees && Main.rand.Next(2) == 0) {
+							bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+							GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, 566, (int) (projectile.damage * 1.15f), 0f, projectile.owner, 0f, 0f), dummy);
+					} else {
+						bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+						int newProj = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, 181, projectile.damage, 0f, projectile.owner, 0f, 0f), dummy);
 						OrchidModGlobalProjectile modProjectile = Main.projectile[newProj].GetGlobalProjectile<OrchidModGlobalProjectile>();
 						modProjectile.gamblerProjectile = true;
 						modProjectile.baseCritChance = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().baseCritChance;

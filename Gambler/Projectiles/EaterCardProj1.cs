@@ -33,7 +33,7 @@ namespace OrchidMod.Gambler.Projectiles
         {
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int cardType = modPlayer.gamblerCardCurrent.type;
+			int cardType = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			int projType = ProjectileType<Gambler.Projectiles.EaterCardProj2>();
 			this.bounceDelay -= this.bounceDelay > 0 ? 1 : 0;
 			projectile.rotation += 0.05f;
@@ -109,7 +109,8 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.dust[dust].scale *= 1f;
             }
 			projType = ProjectileType<Gambler.Projectiles.EaterCardProj3>();
-			Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, projectile.damage * 5, 0, projectile.owner);
+			bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, projectile.damage * 5, 0, projectile.owner), dummy);
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 18, 5, 3 + Main.rand.Next(5), false, 1.5f, 1f, 7f, true, true, false, 0, 0, true);
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 18, 10, 5  + Main.rand.Next(5), false, 1f, 1f, 5f, true, true, false, 0, 0, true);
 			Main.PlaySound(2, (int)projectile.Center.X ,(int)projectile.Center.Y, 83);

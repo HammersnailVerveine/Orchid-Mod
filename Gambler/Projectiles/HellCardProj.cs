@@ -54,7 +54,8 @@ namespace OrchidMod.Gambler.Projectiles
             Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 25, 10, true, 1.5f, 1f, 5f);
 			int projType = ProjectileType<Gambler.Projectiles.MushroomCardProjExplosion>();
-			Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, projType, projectile.damage, 3f, projectile.owner, 0.0f, 0.0f);
+			bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, projType, projectile.damage, 3f, projectile.owner, 0.0f, 0.0f), dummy);
 			int dustType = 6;
 			Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
 			int rand = 15 - (modPlayer.gamblerLuckySprout ? 3 : 0);

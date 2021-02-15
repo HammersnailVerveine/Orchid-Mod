@@ -36,7 +36,7 @@ namespace OrchidMod.Gambler.Projectiles
         {
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int cardType = modPlayer.gamblerCardCurrent.type;
+			int cardType = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			
 			projectile.rotation = projectile.velocity.ToRotation();
 			projectile.direction = projectile.spriteDirection;

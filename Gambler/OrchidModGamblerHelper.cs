@@ -207,6 +207,31 @@ namespace OrchidMod.Gambler
 			modPlayer.gamblerUIDisplayTimer = 300 + (600 - modPlayer.gamblerShuffleCooldownMax);
 		}
 		
+		public static void drawDummyCard(Player player, OrchidModPlayer modPlayer) {
+			if (modPlayer.gamblerCardDummy.type == 0) {
+				if (modPlayer.gamblerCardsItem[0].type != 0) {
+					modPlayer.gamblerCardDummy = new Item();
+					modPlayer.gamblerCardDummy.SetDefaults(modPlayer.gamblerCardsItem[0].type, true);
+				}
+			}
+			
+			for (int i = 0; i < 20 ; i ++) {
+				if (modPlayer.gamblerCardsItem[i].type == modPlayer.gamblerCardDummy.type) {
+					if (modPlayer.gamblerCardsItem[i + 1].type != 0) {
+						modPlayer.gamblerCardDummy = new Item();
+						modPlayer.gamblerCardDummy.SetDefaults(modPlayer.gamblerCardsItem[i + 1].type, true);
+					} else {
+						modPlayer.gamblerCardDummy = new Item();
+						modPlayer.gamblerCardDummy.SetDefaults(modPlayer.gamblerCardsItem[0].type, true);
+					}
+					break;
+				} if (i == 19) {
+					modPlayer.gamblerCardDummy = new Item();
+					modPlayer.gamblerCardDummy.SetDefaults(modPlayer.gamblerCardsItem[0].type, true);
+				}
+			}
+		}
+		
 		public static void drawGamblerCard(Player player, OrchidModPlayer modPlayer) {
 			modPlayer.gamblerJustSwitched = true;
 			

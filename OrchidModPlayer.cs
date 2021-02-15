@@ -76,6 +76,7 @@ namespace OrchidMod
 		public Item[] gamblerCardsItem = new Item[20];
 		public Item[] gamblerCardNext = new Item[3];
 		public Item gamblerCardCurrent = new Item();
+		public Item gamblerCardDummy = new Item();
 		public int gamblerShuffleCooldown = 0;
 		public int gamblerShuffleCooldownMax = 600;
 		public int gamblerChips = 0;

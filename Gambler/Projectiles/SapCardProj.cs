@@ -32,7 +32,7 @@ namespace OrchidMod.Gambler.Projectiles
         {
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int cardType = modPlayer.gamblerCardCurrent.type;
+			int cardType = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			projectile.rotation += 0.05f;
 			
 			if (projectile.timeLeft > 120) {
@@ -81,7 +81,8 @@ namespace OrchidMod.Gambler.Projectiles
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 102, 150, 20, false, 1.5f, 1f, 5f);
 			int dmg = projectile.damage + (int)((1200 - timeLeft) / 10);
 			int projType = ProjectileType<Gambler.Projectiles.SapCardProjExplosion>();
-			Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, projType, dmg, 3f, projectile.owner, 0.0f, 0.0f);
+			bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, projType, dmg, 3f, projectile.owner, 0.0f, 0.0f), dummy);
 		}
     }
 }

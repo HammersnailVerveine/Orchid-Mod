@@ -329,7 +329,7 @@ namespace OrchidMod.Alchemist.Projectiles
 					}
 				}
 				if (this.fireFlask == ItemType<Alchemist.Weapons.Fire.GunpowderFlask>()) {
-					int dmg = (int)((5 * this.nbElements + 15) * modPlayer.alchemistDamage);
+					int dmg = (int)((5 * this.nbElements + 22) * modPlayer.alchemistDamage);
 					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ProjectileType<Alchemist.Projectiles.Fire.GunpowderFlaskProj>(), dmg, 3f, projectile.owner, 0.0f, 0.0f);
 					Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
 				}

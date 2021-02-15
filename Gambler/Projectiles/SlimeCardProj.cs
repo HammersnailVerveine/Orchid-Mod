@@ -38,7 +38,7 @@ namespace OrchidMod.Gambler.Projectiles
         {
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int cardType = modPlayer.gamblerCardCurrent.type;
+			int cardType = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			projectile.velocity.Y += (projectile.wet || projectile.lavaWet || projectile.honeyWet) ? projectile.velocity.Y > -5f ? -0.5f : 0f : projectile.velocity.Y < 5f ? 0.3f : 0f;
 			projectile.frame = projectile.velocity.Y < 0f ? 1 : 0;
 			this.justHit -= this.justHit > 0 ? 1 : 0;

@@ -45,7 +45,7 @@ namespace OrchidMod.Gambler.Projectiles
 			
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int cardType = modPlayer.gamblerCardCurrent.type;
+			int cardType = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			if (projectile.ai[1] == 2f && projectile.timeLeft % 10 == 0 && projectile.velocity.Y > 0f) {
 				projectile.damage ++;
 			}

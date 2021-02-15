@@ -10,7 +10,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler
 {
-	public class GamblerAttack : ModItem
+	public class GamblerDummy : ModItem
 	{
 		public	override void SetDefaults() {
 			item.melee = false;
@@ -25,8 +25,8 @@ namespace OrchidMod.Gambler
 			item.useStyle = 1;
 			item.noUseGraphic = true;
 			//item.UseSound = SoundID.Item7;
-			item.useAnimation = 1;
-			item.useTime = 1;
+			item.useAnimation = 30;
+			item.useTime = 30;
 			item.knockBack = 1f;
 			item.damage = 1;
 			item.rare = 1;
@@ -38,39 +38,24 @@ namespace OrchidMod.Gambler
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			Item currentCard = modPlayer.gamblerCardCurrent;
-			bool firstUse = item.useAnimation == 1 && item.useTime == 1;
+			Item currentCard = modPlayer.gamblerCardDummy;
 			if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) > 0) {
-				if (player.altFunctionUse == 2) {
-					if (modPlayer.gamblerRedraws > 0 && modPlayer.gamblerRedrawCooldownUse <= 0) {
-						modPlayer.gamblerRedraws --;
-						modPlayer.gamblerRedrawCooldownUse = 30;
-						Main.PlaySound(SoundID.Item64, player.position);
-						OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
-						currentCard = modPlayer.gamblerCardCurrent;
-						this.checkStats(currentCard, modPlayer);
-					}
+				if (player.altFunctionUse == 2 || modPlayer.gamblerCardDummy.type == 0) {
+					Main.PlaySound(SoundID.Item64, player.position);
+					OrchidModGamblerHelper.drawDummyCard(player, modPlayer);
+					currentCard = modPlayer.gamblerCardDummy;
+					this.checkStats(currentCard, modPlayer);
+					Color floatingTextColor = new Color(255, 200, 0);
+					CombatText.NewText(player.Hitbox, floatingTextColor, modPlayer.gamblerCardDummy.Name);
 					return false;
-				} else {
-					if (modPlayer.gamblerShuffleCooldown <= 0) {
-						OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
-						Main.PlaySound(SoundID.Item64, player.position);
-						currentCard = modPlayer.gamblerCardCurrent;
-						this.checkStats(currentCard, modPlayer);
-					}
 				}
 			} else {
 				return false;
 			}
 			
-			currentCard = modPlayer.gamblerCardCurrent;
-			
-			if (firstUse) {
-				return false;
-			} else {
-				this.checkStats(currentCard, modPlayer);
-				GamblerAttackHelper.GamblerShoot(player, position, speedX, speedY, type, item.damage, item.knockBack, currentCard.type);	
-			}
+			currentCard = modPlayer.gamblerCardDummy;
+			this.checkStats(currentCard, modPlayer);
+			GamblerAttackHelper.GamblerShoot(player, position, speedX, speedY, type, item.damage, item.knockBack, currentCard.type, true);	
 			return false;
 		}
 		
@@ -78,7 +63,7 @@ namespace OrchidMod.Gambler
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.gamblerAttackInHand = true;
 			if (Main.mouseLeft) {
-				GamblerAttackHelper.shootBonusProjectiles(player, player.Center, modPlayer.gamblerCardCurrent.type);
+				GamblerAttackHelper.shootBonusProjectiles(player, player.Center, modPlayer.gamblerCardDummy.type, true);
 			}
 		}
 		
@@ -115,7 +100,7 @@ namespace OrchidMod.Gambler
 			}
 			Player player = Main.player[Main.myPlayer]; 
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			Item currentCard = modPlayer.gamblerCardCurrent;
+			Item currentCard = modPlayer.gamblerCardDummy;
 			if (currentCard.type != 0) {
 				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
 				if (index != -1)
@@ -130,8 +115,11 @@ namespace OrchidMod.Gambler
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gambler Deck");
-		    Tooltip.SetDefault("Allows you to use your gambler abilities");
+			DisplayName.SetDefault("Gambler Dummy Card");
+		    Tooltip.SetDefault("Allows the use of specific gambler cards"
+							+  "\nRight click to cycle through your deck"
+							+  "\nCan only deal damage to dummies"
+							+  "\nUtility cards may have no effect");
 		}
 		
 		public void checkStats(Item currentCard, OrchidModPlayer modPlayer) {

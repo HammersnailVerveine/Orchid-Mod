@@ -10,7 +10,15 @@ namespace OrchidMod.Gambler
 {
 	public class GamblerAttackHelper
 	{
-		public static void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, int cardType) {
+		public static int DummyProjectile(int proj, bool dummy) {
+			if (dummy) {
+				OrchidModGlobalProjectile modProjectile = Main.projectile[proj].GetGlobalProjectile<OrchidModGlobalProjectile>();
+				modProjectile.gamblerDummyProj = true;
+			}
+			return proj;
+		}
+		
+		public static void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, int cardType, bool dummy = false) {
 			//shootBonusProjectiles(player, position, cardType);
 			if (cardType == ItemType<Gambler.Weapons.Cards.ForestCard>()) {
 				int rand = Main.rand.Next(3) + 1;
@@ -19,13 +27,13 @@ namespace OrchidMod.Gambler
 				for (int i = 0; i < rand; i++) {
 					Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
 					vel = vel * scale; 
-					Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI);
+					GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
 				}
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				return;
 			}
 			
-			if (cardType == ItemType<Gambler.Weapons.Cards.HealingPotionCard>()) {
+			if (cardType == ItemType<Gambler.Weapons.Cards.HealingPotionCard>() && !dummy) {
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				modPlayer.gamblerShuffleCooldown -= (int)(modPlayer.gamblerShuffleCooldownMax / 5);
 				if (modPlayer.gamblerShuffleCooldown < 0) modPlayer.gamblerShuffleCooldown = 0;
@@ -50,21 +58,21 @@ namespace OrchidMod.Gambler
 				
 				vel.Normalize();
 				vel *= new Vector2(speedX, speedY).Length();
-				Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI);
+				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				return;
 			}
 			
 			if (cardType == ItemType<Gambler.Weapons.Cards.HellCard>()) {
 				int projType = ProjectileType<Gambler.Projectiles.HellCardProj>();
-				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				return;
 			}
 			
 			if (cardType == ItemType<Gambler.Weapons.Cards.OceanCard>()) {
 				int projType = ProjectileType<Gambler.Projectiles.OceanCardProj>();
-				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				return;
 			}
@@ -81,7 +89,7 @@ namespace OrchidMod.Gambler
 					} 
 				}
 				if (!found) {
-					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+					GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				} else {
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
@@ -101,7 +109,7 @@ namespace OrchidMod.Gambler
 					} 
 				}
 				if (!found) {
-					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+					GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				} else {
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
@@ -121,7 +129,7 @@ namespace OrchidMod.Gambler
 					} 
 				}
 				if (!found) {
-					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+					GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				} else {
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
@@ -142,7 +150,7 @@ namespace OrchidMod.Gambler
 						} 
 					}
 					modPlayer.gamblerJustSwitched = false;
-					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+					GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				} else {
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
@@ -163,7 +171,7 @@ namespace OrchidMod.Gambler
 						} 
 					}
 					modPlayer.gamblerJustSwitched = false;
-					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+					GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				} else {
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
@@ -183,7 +191,7 @@ namespace OrchidMod.Gambler
 					} 
 				}
 				if (!found) {
-					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+					GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				} else {
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
@@ -204,7 +212,7 @@ namespace OrchidMod.Gambler
 				}
 				if (!found) {
 					for (int i = 0; i < 3 ; i ++) {	
-						int newProj = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+						int newProj = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 						Main.projectile[newProj].ai[1] = (float)(i);
 						Main.projectile[newProj].ai[0] = (float)(i == 0 ? 300 : 0);
 						Main.projectile[newProj].friendly = i == 0;
@@ -229,7 +237,7 @@ namespace OrchidMod.Gambler
 					} 
 				}
 				if (!found) {
-					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+					GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				} else {
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
@@ -249,7 +257,7 @@ namespace OrchidMod.Gambler
 					} 
 				}
 				if (!found) {
-					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+					GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				} else {
 					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
@@ -269,14 +277,14 @@ namespace OrchidMod.Gambler
 					}
 				}
 				newPos.Y = player.position.Y - newPos.Y > Main.screenHeight / 2 ? player.position.Y - Main.screenHeight / 2 : newPos.Y;
-				Projectile.NewProjectile(newPos.X, newPos.Y, 0f, 12.5f, projType, damage, knockBack, player.whoAmI);
+				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(newPos.X, newPos.Y, 0f, 12.5f, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 30);
 				return;
 			}
 			
 			if (cardType == ItemType<Gambler.Weapons.Cards.MushroomCard>()) {
 				int projType = ProjectileType<Gambler.Projectiles.MushroomCardProj>();
-				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI);
+				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				return;
 			}
@@ -302,7 +310,7 @@ namespace OrchidMod.Gambler
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
 				vel = vel * scale; 
-				int newProj = Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI);
+				int newProj = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.projectile[newProj].damage += OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) * 2;
 				Main.projectile[newProj].damage += rand == 3 ? 2 : 0;
 				Main.projectile[newProj].netUpdate = true;
@@ -317,7 +325,7 @@ namespace OrchidMod.Gambler
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				Vector2 vel = new Vector2(0f, -3f).RotatedByRandom(MathHelper.ToRadians(30));
 				vel = vel * scale; 
-				Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI);
+				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 86);
 				return;
 			}
@@ -327,7 +335,7 @@ namespace OrchidMod.Gambler
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
 				vel = vel * scale; 
-				int newProj = Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI);
+				int newProj = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.projectile[newProj].ai[1] = Main.rand.Next(4);
 				Main.projectile[newProj].netUpdate = true;
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 9);
@@ -339,7 +347,7 @@ namespace OrchidMod.Gambler
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(20));
 				vel = vel * scale; 
-				Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI);
+				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
 				return;
 			}
@@ -347,7 +355,7 @@ namespace OrchidMod.Gambler
 			if (cardType == ItemType<Gambler.Weapons.Cards.JungleCard>()) {
 				Vector2 vel = new Vector2(speedX, speedY / 5f).RotatedByRandom(MathHelper.ToRadians(15));
 				int projType = ProjectileType<Gambler.Projectiles.JungleCardProj>();
-				Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI);
+				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				return;
 			}
@@ -355,13 +363,13 @@ namespace OrchidMod.Gambler
 			if (cardType == ItemType<Gambler.Weapons.Cards.EmbersCard>()) {
 				Vector2 vel = new Vector2(speedX, speedY / 5f).RotatedByRandom(MathHelper.ToRadians(15));
 				int projType = ProjectileType<Gambler.Projectiles.EmbersCardProj>();
-				Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI);
+				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 				return;
 			}
 		}
 		
-		public static void shootBonusProjectiles(Player player, Vector2 position, int cardType) {
+		public static void shootBonusProjectiles(Player player, Vector2 position, int cardType, bool dummy = false) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			
 			if (modPlayer.gamblerSlimyLollipop) {
@@ -377,7 +385,7 @@ namespace OrchidMod.Gambler
 						heading *= new Vector2(0f, 5f).Length();
 						Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(30));
 						vel = vel * scale; 
-						int newProjectile = Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, 15, 0f, player.whoAmI);
+						int newProjectile = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, 15, 0f, player.whoAmI), dummy);
 						Main.projectile[newProjectile].ai[1] = 1f;
 						Main.projectile[newProjectile].netUpdate = true;
 					}
@@ -403,7 +411,7 @@ namespace OrchidMod.Gambler
 								heading *= new Vector2(0f, 10f).Length();
 								Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(30));
 								vel = vel * scale; 
-								int newProjectile = Projectile.NewProjectile(proj.Center.X, proj.Center.Y, vel.X, vel.Y, projType, proj.damage, proj.knockBack, player.whoAmI);
+								int newProjectile = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(proj.Center.X, proj.Center.Y, vel.X, vel.Y, projType, proj.damage, proj.knockBack, player.whoAmI), dummy);
 								Main.projectile[newProjectile].ai[1] = 1f;
 								Main.projectile[newProjectile].netUpdate = true;
 								if (i == 0) {
@@ -424,7 +432,7 @@ namespace OrchidMod.Gambler
 							heading.Normalize();
 							heading *= new Vector2(0f, 10f).Length();
 							Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(15));
-							int newProjectile = Projectile.NewProjectile(proj.Center.X, proj.Center.Y, vel.X, vel.Y, projType, proj.damage, proj.knockBack, player.whoAmI);
+							int newProjectile = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(proj.Center.X, proj.Center.Y, vel.X, vel.Y, projType, proj.damage, proj.knockBack, player.whoAmI), dummy);
 							Main.projectile[newProjectile].localAI[1] = 1f;
 							Main.projectile[newProjectile].netUpdate = true;
 							OrchidModProjectile.spawnDustCircle(proj.Center - new Vector2(4, 4), 44, 10, 4, false, 1f, 1.5f, 5f, true, true, false, 0, 0, true);
@@ -444,7 +452,7 @@ namespace OrchidMod.Gambler
 							heading *= new Vector2(0f, 8f).Length();
 							Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(20));
 							vel = vel * scale; 
-							int newProjectile = Projectile.NewProjectile(proj.Center.X, proj.Center.Y, vel.X, vel.Y, projType, proj.damage, proj.knockBack, player.whoAmI);
+							int newProjectile = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(proj.Center.X, proj.Center.Y, vel.X, vel.Y, projType, proj.damage, proj.knockBack, player.whoAmI), dummy);
 							Main.projectile[newProjectile].ai[1] = 1f;
 							Main.projectile[newProjectile].netUpdate = true;
 							OrchidModProjectile.spawnDustCircle(proj.Center, 31, 5, 4, true, 1f, 1f, 5f, true, true, false, 0, 0, true);
@@ -461,7 +469,7 @@ namespace OrchidMod.Gambler
 							Vector2 heading = target - proj.position;
 							heading.Normalize();
 							heading *= new Vector2(0f, 5f).Length();
-							int newProjectile = Projectile.NewProjectile(proj.Center.X, proj.Center.Y, heading.X, heading.Y, projType, proj.damage, proj.knockBack, player.whoAmI);
+							int newProjectile = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(proj.Center.X, proj.Center.Y, heading.X, heading.Y, projType, proj.damage, proj.knockBack, player.whoAmI), dummy);
 							Main.projectile[newProjectile].ai[1] = 1f;
 							Main.projectile[newProjectile].netUpdate = true;
 							OrchidModProjectile.spawnDustCircle(proj.Center, 31, 10, 10, true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
@@ -478,7 +486,7 @@ namespace OrchidMod.Gambler
 							Vector2 heading = target - proj.position;
 							heading.Normalize();
 							heading *= new Vector2(0f, 15f).Length();
-							int newProjectile = Projectile.NewProjectile(proj.Center.X, proj.Center.Y, heading.X, heading.Y, projType, proj.damage, proj.knockBack, player.whoAmI);
+							int newProjectile = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(proj.Center.X, proj.Center.Y, heading.X, heading.Y, projType, proj.damage, proj.knockBack, player.whoAmI), dummy);
 							Main.projectile[newProjectile].ai[1] = 1f;
 							Main.projectile[newProjectile].netUpdate = true;
 							OrchidModProjectile.spawnDustCircle(proj.Center, 6, 10, 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
@@ -495,7 +503,7 @@ namespace OrchidMod.Gambler
 							Vector2 heading = target - proj.position;
 							heading.Normalize();
 							heading *= new Vector2(0f, 10f).Length();
-							int newProjectile = Projectile.NewProjectile(proj.Center.X, proj.Center.Y, heading.X, heading.Y, projType, proj.damage, proj.knockBack, player.whoAmI);
+							int newProjectile = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(proj.Center.X, proj.Center.Y, heading.X, heading.Y, projType, proj.damage, proj.knockBack, player.whoAmI), dummy);
 							Main.projectile[newProjectile].ai[1] = 1f;
 							Main.projectile[newProjectile].netUpdate = true;
 							OrchidModProjectile.spawnDustCircle(proj.Center, 172, 25, 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
@@ -519,7 +527,7 @@ namespace OrchidMod.Gambler
 							}
 							vel.Normalize();
 							vel *= new Vector2(0f, 5f).Length();
-							int newProjectile = Projectile.NewProjectile(proj.Center.X, proj.Center.Y, vel.X, vel.Y, projType, proj.damage, proj.knockBack, player.whoAmI);
+							int newProjectile = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(proj.Center.X, proj.Center.Y, vel.X, vel.Y, projType, proj.damage, proj.knockBack, player.whoAmI), dummy);
 							Main.projectile[newProjectile].ai[1] = 1f;
 							Main.projectile[newProjectile].netUpdate = true;
 							OrchidModProjectile.spawnDustCircle(proj.Center, 31, 25, 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);

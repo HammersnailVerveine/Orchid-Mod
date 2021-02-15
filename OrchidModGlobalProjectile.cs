@@ -16,6 +16,7 @@ namespace OrchidMod
 		public bool gamblerProjectile = false;
 		public int gamblerInternalCooldown  = 0;
 		public int baseCritChance = 0;
+		public bool gamblerDummyProj = false;
 		
 		public override bool InstancePerEntity => true;
 		
@@ -34,6 +35,16 @@ namespace OrchidMod
 					damage = (int)(damage * 0.1f);
 				}
 			}
+		}
+		
+		public override bool? CanHitNPC(Projectile projectile, NPC target) {
+			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			if (modProjectile.gamblerDummyProj) {
+				if (target.type != 488) {
+					return false;
+				}
+			}
+			return null;
 		}
 	}
 }  

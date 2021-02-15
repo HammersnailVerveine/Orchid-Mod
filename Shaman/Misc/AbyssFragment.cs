@@ -6,9 +6,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class AbyssFragment : ModItem
+	public class AbyssFragment : OrchidModShamanItem
 	{
-		public override void SetDefaults()
+		public override void SafeSetDefaults()
 		{
 
 
@@ -21,13 +21,11 @@ namespace OrchidMod.Shaman.Misc
 			ItemID.Sets.ItemNoGravity[item.type] = true;
 		}
 
-
 		public override void SetStaticDefaults()
 		{
 		  DisplayName.SetDefault("Abyss Fragment");
 		  Tooltip.SetDefault("'A feeling of pure immensity emanates from this fragment'");
 		}
-
 		
 		public override void PostUpdate()
 		{
