@@ -11,7 +11,9 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Ripple");
 			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
-							+ "\nUpon successful catalysis, releases a burst of homing water bolts");
+							+ "\nUpon successful catalysis, releases a burst of homing water bolts"
+							+ "\nHit an enemy to apply catalyzed"
+							+ "\nCatalyzed replaces most alchemical debuffs");
 		}
 		
 		public override void SafeSetDefaults()

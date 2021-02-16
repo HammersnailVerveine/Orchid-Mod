@@ -396,8 +396,14 @@ namespace OrchidMod.Gambler
 			{  
 				Projectile proj = Main.projectile[l];
 				if (proj.active && proj.owner == player.whoAmI) {
+					bool dummyProj = Main.projectile[proj].GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+					if (dummyProj != dummy) {
+						return;
+					}
+						
 					if (proj.type == ProjectileType<Gambler.Projectiles.ForestCardProjAlt>())
 					{
+						
 						OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
 						if (modProjectile.gamblerInternalCooldown == 0) {
 							modProjectile.gamblerInternalCooldown = 30;

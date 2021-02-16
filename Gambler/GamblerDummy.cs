@@ -33,6 +33,7 @@ namespace OrchidMod.Gambler
 			item.shootSpeed = 1f;
 			item.shoot = 1;
 			item.autoReuse = true;
+			item.value = Item.sellPrice(0, 0, 2, 0);
 		}
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

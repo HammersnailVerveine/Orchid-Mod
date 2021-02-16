@@ -108,6 +108,11 @@ namespace OrchidMod.Alchemist
 			}
 		}
 		
+		public static bool AttractiteCanHome(NPC npc) {
+			bool canHome = (npc.HasBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>()) || npc.HasBuff(BuffType<Alchemist.Buffs.Debuffs.Catalyzed>()));
+			return canHome;
+		}
+		
 		public override void ResetEffects(NPC npc) {
 			this.alchemistFire -= this.alchemistFire > 0 ? 1 : 0;
 			this.alchemistWater -= this.alchemistWater > 0 ? 1 : 0;

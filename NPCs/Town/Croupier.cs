@@ -183,6 +183,8 @@ namespace OrchidMod.NPCs.Town
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.ShuffleCard>());
 			nextSlot++;
+			shop.item[nextSlot].SetDefaults(ItemType<Gambler.GamblerDummy>());
+			nextSlot++;
 			
             if (!player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneSkyHeight  && !player.ZoneCrimson && !player.ZoneHoly && !player.ZoneJungle && !player.ZoneSnow && !player.ZoneDesert && !player.ZoneGlowshroom && player.ZoneOverworldHeight) {
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.ForestCard>());

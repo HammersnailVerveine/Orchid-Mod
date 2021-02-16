@@ -12,7 +12,9 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Corrupt Catalyst");
 			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
-							+ "\nUpon successful catalysis, burns nearby enemies in shadowflames");
+							+ "\nUpon successful catalysis, burns nearby enemies in shadowflames"
+							+ "\nHit an enemy to apply catalyzed"
+							+ "\nCatalyzed replaces most alchemical debuffs");
 		}
 		
 		public override void SafeSetDefaults()

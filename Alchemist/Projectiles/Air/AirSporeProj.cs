@@ -62,7 +62,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 					int flag = -1;
 					for (int k = 0; k < 200; k++) {
 						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 
-						&& Main.npc[k].HasBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>())) {
+						&& OrchidModAlchemistNPC.AttractiteCanHome(Main.npc[k])) {
 							Vector2 newMove = Main.npc[k].Center - projectile.Center;
 							float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 							if (distanceTo < distance) {
@@ -140,7 +140,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 		}
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-			if (target.HasBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>()) || !this.hasTarget) {
+			if (OrchidModAlchemistNPC.AttractiteCanHome(target) || !this.hasTarget) {
 				projectile.Kill();
 			}
         }

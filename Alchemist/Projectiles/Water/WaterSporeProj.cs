@@ -58,7 +58,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 					for (int k = 0; k < 200; k++)
 					{
 						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 
-						&& Main.npc[k].HasBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>())) {
+						&& OrchidModAlchemistNPC.AttractiteCanHome(Main.npc[k])) {
 							Vector2 newMove = Main.npc[k].Center - projectile.Center;
 							float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 							if (distanceTo < distance) {
@@ -71,7 +71,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 					
 					if (target) {
 						move.Normalize();
-						float vel = (0.5f + (distance * 0.03f));
+						float vel = (1f + (distance * 0.03f));
 						vel = vel > 10f ? 10f : vel;
 						move *= vel;
 						projectile.velocity = move;
