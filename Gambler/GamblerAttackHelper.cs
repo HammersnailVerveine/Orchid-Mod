@@ -396,7 +396,7 @@ namespace OrchidMod.Gambler
 			{  
 				Projectile proj = Main.projectile[l];
 				if (proj.active && proj.owner == player.whoAmI) {
-					bool dummyProj = Main.projectile[proj].GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+					bool dummyProj = proj.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 					if (dummyProj != dummy) {
 						return;
 					}
