@@ -99,9 +99,10 @@ namespace OrchidMod.Gambler.Projectiles
 				Vector2 move = Vector2.Zero;
 				float distance = 150f;
 				bool target = false;
+				bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 				for (int k = 0; k < 200; k++)
 				{
-					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && projectile.timeLeft < 240)
+					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && ((!dummy && Main.npc[k].type != NPCID.TargetDummy) || (dummy && Main.npc[k].type == NPCID.TargetDummy)) && projectile.timeLeft < 240)
 					{
 						Vector2 newMove = Main.npc[k].Center - projectile.Center;
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
