@@ -102,6 +102,8 @@ namespace OrchidMod.Alchemist
 			modPlayer.alchemistVelocity = 1.0f;
 			modPlayer.alchemistSelectUIDisplay = modPlayer.alchemistSelectUIItem ? modPlayer.alchemistSelectUIDisplay : false;
 			modPlayer.alchemistSelectUIItem = false;
+			modPlayer.alchemistBookUIDisplay = modPlayer.alchemistBookUIItem ? modPlayer.alchemistBookUIDisplay : false;
+			modPlayer.alchemistBookUIItem = false;
 			
 			modPlayer.alchemistMeteor = false;
 			modPlayer.alchemistFlowerSet = false;

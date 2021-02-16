@@ -24,9 +24,17 @@ namespace OrchidMod.Alchemist.Misc
 			item.UseSound = SoundID.Item7;
 		}
 		
+		public override bool AltFunctionUse(Player player) {
+			return true;
+		}
+		
 		public override bool CanUseItem(Player player) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (modPlayer.alchemistNbElements < 2 || player.FindBuffIndex(mod.BuffType("ReactionCooldown")) > -1) {
+			if (player.altFunctionUse == 2 && Main.mouseRightRelease) {
+				modPlayer.alchemistBookUIInitialize = modPlayer.alchemistBookUIDisplay ? false : true;
+				modPlayer.alchemistBookUIDisplay = !modPlayer.alchemistBookUIDisplay;
+				return false;
+			} else if (modPlayer.alchemistNbElements < 2 || player.FindBuffIndex(mod.BuffType("ReactionCooldown")) > -1 || modPlayer.alchemistBookUIDisplay) {
 				return false;
 			}
 			return base.CanUseItem(player);
@@ -46,6 +54,11 @@ namespace OrchidMod.Alchemist.Misc
 					overrideColor = new Color(155, 255, 55)
 				});
 			}
+		}
+		
+		public override void HoldItem(Player player) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.alchemistBookUIItem = true;
 		}
 
 		public override void SetStaticDefaults()

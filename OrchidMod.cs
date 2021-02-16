@@ -18,12 +18,14 @@ using OrchidMod.Alchemist.UI;
 using OrchidMod.Gambler.UI;
 using OrchidMod;
 using OrchidMod.Shaman;
+using OrchidMod.Alchemist;
 
 
 namespace OrchidMod
 {
 	public class OrchidMod : Mod
 	{
+		public static List<AlchemistHiddenReactionRecipe> alchemistReactionRecipes;
 		public static ModHotKey AlchemistReactionHotKey;
 		public static ModHotKey AlchemistCatalystHotKey;
 		public static ModHotKey ShamanBondHotKey;
@@ -33,11 +35,13 @@ namespace OrchidMod
 		internal UserInterface orchidModShamanCharacterInterface;
 		internal UserInterface orchidModAlchemistInterface;
 		internal UserInterface orchidModAlchemistSelectInterface;
+		internal UserInterface orchidModAlchemistBookInterface;
 		internal UserInterface orchidModGamblerInterface;
 		internal ShamanUIState shamanUIState;
 		internal ShamanCharacterUIState shamanCharacterUIState;
 		internal AlchemistUIState alchemistUIState;
 		internal AlchemistSelectUIState alchemistSelectUIState;
+		internal AlchemistBookUIState alchemistBookUIState;
 		internal GamblerUIState gamblerUIState;
 		public static bool reloadShamanUI;
 			
@@ -264,6 +268,7 @@ namespace OrchidMod
 			AlchemistReactionHotKey = RegisterHotKey("Alchemist Hidden Reaction", "Mouse3");
 			AlchemistCatalystHotKey = RegisterHotKey("Alchemist Catalyst Tool Shortcut", "Z");
 			ShamanBondHotKey = RegisterHotKey("Shaman Bond Abilities", "Mouse3");
+			alchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
 			
 			if (!Main.dedServ)
 			{
@@ -271,12 +276,14 @@ namespace OrchidMod
 				shamanCharacterUIState = new ShamanCharacterUIState();
 				alchemistUIState = new AlchemistUIState();
 				alchemistSelectUIState = new AlchemistSelectUIState();
+				alchemistBookUIState = new AlchemistBookUIState();
 				gamblerUIState = new GamblerUIState();
 				
 				orchidModShamanInterface = new UserInterface();
 				orchidModShamanCharacterInterface = new UserInterface();
 				orchidModAlchemistInterface = new UserInterface();
 				orchidModAlchemistSelectInterface = new UserInterface();
+				orchidModAlchemistBookInterface = new UserInterface();
 				orchidModGamblerInterface = new UserInterface();
 				
 				shamanUIState.Activate();
@@ -290,6 +297,9 @@ namespace OrchidMod
 				
 				alchemistSelectUIState.Activate();
 				orchidModAlchemistSelectInterface.SetState(alchemistSelectUIState);
+				
+				alchemistBookUIState.Activate();
+				orchidModAlchemistBookInterface.SetState(alchemistBookUIState);
 				
 				gamblerUIState.Activate();
 				orchidModGamblerInterface.SetState(gamblerUIState);
@@ -306,6 +316,7 @@ namespace OrchidMod
 						orchidModShamanCharacterInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModAlchemistInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModAlchemistSelectInterface.Draw(Main.spriteBatch, new GameTime());
+						orchidModAlchemistBookInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModGamblerInterface.Draw(Main.spriteBatch, new GameTime());
 						return true;
 					},
@@ -328,6 +339,10 @@ namespace OrchidMod
 				alchemistSelectUIState = new AlchemistSelectUIState();
 				alchemistSelectUIState.Activate();
 				orchidModAlchemistSelectInterface.SetState(alchemistSelectUIState);
+				
+				alchemistBookUIState = new AlchemistBookUIState();
+				alchemistBookUIState.Activate();
+				orchidModAlchemistBookInterface.SetState(alchemistBookUIState);
 				
 				gamblerUIState = new GamblerUIState();
 				gamblerUIState.Activate();
@@ -360,6 +375,9 @@ namespace OrchidMod
 				AlchemistSelectUIFrame.resourceCross = null;
 				AlchemistSelectUIFrame.resourceSelected = null;
 				AlchemistSelectUIFrame.resourceBorder = null;
+				
+				AlchemistBookUIFrame.ressourceBookPage = null;
+				AlchemistBookUIFrame.ressourceBookSlot = null;
 				
 				ShamanUIFrame.shamanUIMainFrame = null;
 				ShamanUIFrame.shamanUILevel = null;
@@ -462,16 +480,19 @@ namespace OrchidMod
 			orchidModShamanCharacterInterface = null;
 			orchidModAlchemistInterface = null;
 			orchidModAlchemistSelectInterface = null;
+			orchidModAlchemistBookInterface = null;
 			orchidModGamblerInterface = null;
 			shamanUIState = null;
 			shamanCharacterUIState = null;
 			alchemistUIState = null;
 			alchemistSelectUIState = null;
+			alchemistBookUIState = null;
 			gamblerUIState = null;
 			Instance = null;
 			AlchemistReactionHotKey = null;
 			AlchemistCatalystHotKey = null;
 			ShamanBondHotKey = null;
+			alchemistReactionRecipes = null;
 		}
 		
 		public override void HandlePacket(BinaryReader reader, int whoAmI) {

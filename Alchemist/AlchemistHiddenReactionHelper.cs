@@ -1,10 +1,17 @@
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework;
 using OrchidMod;
+using OrchidMod.Alchemist.Weapons.Nature;
+using OrchidMod.Alchemist.Weapons.Fire;
+using OrchidMod.Alchemist.Weapons.Water;
+using OrchidMod.Alchemist.Weapons.Air;
+using OrchidMod.Alchemist.Weapons.Light;
+using OrchidMod.Alchemist.Weapons.Dark;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist
@@ -583,6 +590,39 @@ namespace OrchidMod.Alchemist
 			if (modPlayer.alchemistReactiveVials) {
 				player.AddBuff(BuffType<Alchemist.Buffs.ReactiveVialsBuff>(), 60 * 10);
 			}
+		}
+		
+		public static List<AlchemistHiddenReactionRecipe> ListReactions() {
+			List<AlchemistHiddenReactionRecipe> returnList = new List<AlchemistHiddenReactionRecipe>();
+			
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.SUNFLOWERSEEDS, "Sunflower Seeds", 
+			ItemType<SunflowerFlask>(), ItemType<SlimeFlask>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.GLOWSHROOMHEALING, "Glowshroom Healing", 
+			ItemType<GlowingMushroomVial>(), ItemType<KingSlimeFlask>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONFEATHERFALL, "Featherfall Potion", 
+			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>(), ItemType<CouldInAVial>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONFEATHERFALL, "Featherfall Potion", 
+			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>(), ItemType<CouldInAVial>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.MUSHROOMTHREAD, "Mushroom Thread", 
+			ItemType<GlowingMushroomVial>(), ItemType<BlinkrootFlask>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.MUSHROOMTHREAD, "Mushroom Thread", 
+			ItemType<GlowingMushroomVial>(), ItemType<BlinkrootFlask>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.MUSHROOMTHREAD, "Mushroom Thread", 
+			ItemType<GlowingMushroomVial>(), ItemType<BlinkrootFlask>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.MUSHROOMTHREAD, "Mushroom Thread", 
+			ItemType<GlowingMushroomVial>(), ItemType<BlinkrootFlask>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.MUSHROOMTHREAD, "Mushroom Thread", 
+			ItemType<GlowingMushroomVial>(), ItemType<BlinkrootFlask>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.MUSHROOMTHREAD, "Mushroom Thread", 
+			ItemType<GlowingMushroomVial>(), ItemType<BlinkrootFlask>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONFEATHERFALL, "Featherfall Potion", 
+			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>(), ItemType<CouldInAVial>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONFEATHERFALL, "Featherfall Potion", 
+			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>(), ItemType<CouldInAVial>()));
+			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONFEATHERFALL, "Featherfall Potion", 
+			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>(), ItemType<CouldInAVial>()));
+			
+			return returnList;
 		}
 	}
 }

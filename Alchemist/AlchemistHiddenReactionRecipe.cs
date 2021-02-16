@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist
 {
-	public abstract class AlchemistHiddenReactionRecipe
+	public class AlchemistHiddenReactionRecipe
 	{
 		public AlchemistHiddenReaction reactionType = AlchemistHiddenReaction.NULL;
 		public string reactionText = "blank";
