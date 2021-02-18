@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 18;
+			item.damage = 13;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 2;
@@ -23,13 +23,13 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.colorR = 165;
 			this.colorG = 0;
 			this.colorB = 236;
+			this.secondaryDamage = 18;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Deathweed Extract");
-		    Tooltip.SetDefault("Hitting a target coated in alchemical air deals bonus damage"
-							+  "\nReleases air spores, the less other extracts used, the more"
+		    Tooltip.SetDefault("Releases air spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
 							+  "\n20% increased damage in evil biomes");
 		}

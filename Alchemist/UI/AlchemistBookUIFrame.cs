@@ -83,11 +83,13 @@ namespace OrchidMod.Alchemist.UI
 					
 					if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowLeft.Contains(mousePoint)) {
 						this.bookPageIndex -= this.bookPageIndex > 0 ? 1 : 0;
+						Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
 					}
 					
 					if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowRight.Contains(mousePoint)) {
 						int maxPages = (int)(OrchidMod.alchemistReactionRecipes.Count / recipesPerPage);
 						this.bookPageIndex += this.bookPageIndex < maxPages ? 1 : 0;
+						Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
 					}
 				}
 			}

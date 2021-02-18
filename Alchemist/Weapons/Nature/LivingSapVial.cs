@@ -23,6 +23,8 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.colorR = 255;
 			this.colorG = 148;
 			this.colorB = 0;
+			this.secondaryDamage = 0;
+			this.secondaryScaling = 3f;
 		}
 
 		public override void SetStaticDefaults()

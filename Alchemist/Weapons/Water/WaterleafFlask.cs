@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 12;
+			item.damage = 10;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 1;
@@ -23,13 +23,13 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.colorR = 22;
 			this.colorG = 121;
 			this.colorB = 82;
+			this.secondaryDamage = 12;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Waterleaf Extract");
-		    Tooltip.SetDefault("Hitting a target coated in alchemic water deals bonus damage"
-							+  "\nReleases water spores, the less other extracts used, the more"
+		    Tooltip.SetDefault("Releases water spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
 							+  "\n20% increased damage during rain");
 		}

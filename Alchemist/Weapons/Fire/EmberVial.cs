@@ -23,6 +23,8 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			this.colorR = 253;
 			this.colorG = 62;
 			this.colorB = 3;
+			this.secondaryDamage = 8;
+			this.secondaryScaling = 1f;
 		}
 
 		public override void SetStaticDefaults()

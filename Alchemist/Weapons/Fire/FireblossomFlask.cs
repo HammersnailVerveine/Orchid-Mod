@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 20;
+			item.damage = 15;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 3;
@@ -23,13 +23,13 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			this.colorR = 255;
 			this.colorG = 84;
 			this.colorB = 0;
+			this.secondaryDamage = 30;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fireblossom Extract");
-		    Tooltip.SetDefault("Hitting a target coated in alchemic fire deals bonus damage"
-							+  "\nReleases fire spores, the less other extracts used, the more"
+		    Tooltip.SetDefault("Releases fire spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
 							+  "\n20% increased damage in hell");
 		}

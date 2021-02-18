@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 32;
+			item.damage = 25;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 3;
@@ -23,6 +23,8 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.colorR = 139;
 			this.colorG = 42;
 			this.colorB = 156;
+			this.secondaryDamage = 10;
+			this.secondaryScaling = 20f;
 		}
 
 		public override void SetStaticDefaults()

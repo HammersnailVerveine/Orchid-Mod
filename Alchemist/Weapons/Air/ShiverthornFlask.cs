@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 14;
+			item.damage = 10;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 1;
@@ -23,13 +23,13 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.colorR = 25;
 			this.colorG = 33;
 			this.colorB = 191;
+			this.secondaryDamage = 14;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shiverthorn Extract");
-		    Tooltip.SetDefault("Hitting a target coated in alchemic air deals bonus damage"
-							+  "\nReleases air spores, the less other extracts used, the more"
+		    Tooltip.SetDefault("Releases air spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
 							+  "\n20% increased damage in the snow biome");
 		}

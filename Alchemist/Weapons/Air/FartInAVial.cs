@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 18;
+			item.damage = 12;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 1;

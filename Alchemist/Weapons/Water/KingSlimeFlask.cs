@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 19;
+			item.damage = 16;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 1;
@@ -23,6 +23,8 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.colorR = 21;
 			this.colorG = 83;
 			this.colorB = 214;
+			this.secondaryDamage = 5;
+			this.secondaryScaling = 4f;
 		}
 
 		public override void SetStaticDefaults()

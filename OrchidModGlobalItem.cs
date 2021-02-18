@@ -22,6 +22,8 @@ namespace OrchidMod
 		public int alchemistColorB = 0;
 		public int alchemistRightClickDust = 0;
 		public int alchemistPotencyCost = 0;
+		public int alchemistSecondaryDamage = 0;
+		public float alchemistSecondaryScaling = 1f;
 		public int gamblerCardRequirement = 0;
 		public List<string> gamblerCardSets = new List<string>();
 		public AlchemistElement alchemistElement = AlchemistElement.NULL;

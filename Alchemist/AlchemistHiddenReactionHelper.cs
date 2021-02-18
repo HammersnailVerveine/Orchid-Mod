@@ -74,9 +74,14 @@ namespace OrchidMod.Alchemist
 			
 			int dmg = 0;
 			int nb = 0;
+			
 			int spawnProj = 0;
 			int spawnProj2 = 0;
 			//int spawnProj3 = 0;
+			
+			int itemType = 0;
+			int itemType2 = 0;
+			
 			int dust = 0;
 			int alpha = 0;
 			
@@ -93,7 +98,9 @@ namespace OrchidMod.Alchemist
 						Main.dust[dust].velocity *= 2f;
 						Main.dust[dust].scale *= 1.5f;
 					}
-					dmg = (int)((10) * modPlayer.alchemistDamage); 
+					
+					itemType = ItemType<QueenBeeFlask>();
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					for (int i = 0 ; i < 10 ; i ++) {
 						vel = ( new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(80)));
 						if (player.strongBees && Main.rand.Next(2) == 0) 
@@ -120,7 +127,8 @@ namespace OrchidMod.Alchemist
 						Main.dust[dust].scale *= 1f;
 					}
 					
-					dmg = (int)(18 * modPlayer.alchemistDamage);
+					itemType = ItemType<DungeonFlask>();
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SpiritedBubble>();
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 					break;
@@ -136,7 +144,8 @@ namespace OrchidMod.Alchemist
 						Main.dust[dust].scale *= 1f;
 					}
 					
-					dmg = (int)(18 * modPlayer.alchemistDamage);
+					itemType = ItemType<PoisonVial>();
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.PoisonBubble>();
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 					break;
@@ -168,7 +177,8 @@ namespace OrchidMod.Alchemist
 						Main.dust[dust].scale *= 1f;
 					}
 					
-					dmg = (int)(12 * modPlayer.alchemistDamage);
+					itemType = ItemType<SeafoamVial>();
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SeafoamBubble>();
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 					break;
@@ -184,7 +194,8 @@ namespace OrchidMod.Alchemist
 						Main.dust[dust].scale *= 1f;
 					}
 					
-					dmg = (int)(15 * modPlayer.alchemistDamage);
+					itemType = ItemType<LivingSapVial>();
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 25, false);
 					spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.LivingSapBubble>();
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 					Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 85);
@@ -201,7 +212,8 @@ namespace OrchidMod.Alchemist
 						Main.dust[dust].scale *= 1f;
 					}
 					
-					dmg = (int)(12 * modPlayer.alchemistDamage);
+					itemType = ItemType<KingSlimeFlask>();
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubble>();
 					Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 					break;
@@ -296,7 +308,10 @@ namespace OrchidMod.Alchemist
 						Main.dust[dust].velocity *= 2f;
 						Main.dust[dust].scale *= 1.5f;
 					}
-					dmg = OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Air.DeathweedFlask>(), player, modPlayer, mod) ? (int)((15) * modPlayer.alchemistDamage) : (int)((10) * modPlayer.alchemistDamage); 
+					itemType = ItemType<DeathweedFlask>();
+					itemType2 = ItemType<ShiverthornFlask>();
+					itemType = OrchidModAlchemistHelper.containsAlchemistFlask(itemType, player, modPlayer, mod) ? itemType : itemType2;
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					for (int i = 0 ; i < 10 ; i ++) {
 						vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 						spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>();
@@ -309,7 +324,7 @@ namespace OrchidMod.Alchemist
 						spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProjAlt>();
 						Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
 					}
-					if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer, mod)) {
+					if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<GlowingAttractiteFlask>(), player, modPlayer, mod)) {
 						for (int i = 0 ; i < 5 ; i ++) {
 							vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 							spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>();
@@ -333,7 +348,8 @@ namespace OrchidMod.Alchemist
 						Main.dust[dust].velocity *= 2f;
 						Main.dust[dust].scale *= 1.5f;
 					}
-					dmg = (int)((10) * modPlayer.alchemistDamage); 
+					itemType = ItemType<WaterleafFlask>();
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					for (int i = 0 ; i < 10 ; i ++) {
 						vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 						spawnProj = ProjectileType<Alchemist.Projectiles.Water.WaterSporeProj>();
@@ -346,7 +362,7 @@ namespace OrchidMod.Alchemist
 						spawnProj = ProjectileType<Alchemist.Projectiles.Water.WaterSporeProjAlt>();
 						Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
 					}
-					if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer, mod)) {
+					if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<GlowingAttractiteFlask>(), player, modPlayer, mod)) {
 						for (int i = 0 ; i < 5 ; i ++) {
 							vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 							spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>();
@@ -370,7 +386,10 @@ namespace OrchidMod.Alchemist
 						Main.dust[dust].velocity *= 2f;
 						Main.dust[dust].scale *= 1.5f;
 					}
-					dmg = OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>(), player, modPlayer, mod) ? (int)((14) * modPlayer.alchemistDamage) : (int)((22) * modPlayer.alchemistDamage); 
+					itemType = ItemType<BlinkrootFlask>();
+					itemType2 = ItemType<FireblossomFlask>();
+					itemType = OrchidModAlchemistHelper.containsAlchemistFlask(itemType, player, modPlayer, mod) ? itemType : itemType2;
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					for (int i = 0 ; i < 10 ; i ++) {
 						vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 						spawnProj = ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>();
@@ -383,7 +402,7 @@ namespace OrchidMod.Alchemist
 						spawnProj = ProjectileType<Alchemist.Projectiles.Fire.FireSporeProjAlt>();
 						Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
 					}
-					if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer, mod)) {
+					if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<GlowingAttractiteFlask>(), player, modPlayer, mod)) {
 						for (int i = 0 ; i < 5 ; i ++) {
 							vel = ( new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
 							spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>();
@@ -417,7 +436,8 @@ namespace OrchidMod.Alchemist
 					debuffDuration = 15;
 					soundType = 2;
 					soundID = 85;
-					dmg = (int)(18 * modPlayer.alchemistDamage);
+					itemType = ItemType<PoisonVial>();
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					
 					for (int i = 0 ; i < 7 ; i ++) {
 						spawnProj = Main.rand.Next(2) == 0 ? ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProj>() : ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProj>();
@@ -435,7 +455,8 @@ namespace OrchidMod.Alchemist
 					soundType = 2;
 					soundID = 85;
 					
-					dmg = (int)(8 * modPlayer.alchemistDamage);
+					itemType = ItemType<SunflowerFlask>();
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 					nb = 5 + Main.rand.Next(4);
 					
 					for (int i = 0 ; i < 5 ; i ++) {
@@ -465,7 +486,7 @@ namespace OrchidMod.Alchemist
 		
 		public static bool checkSubstitutes(int ingredientID, Mod mod, Player player, OrchidModPlayer modPlayer) {
 			List<int> ingredientToCompare = new List<int>();
-			ingredientToCompare.Add(ItemType<Alchemist.Weapons.Air.FartInAVial>());
+			ingredientToCompare.Add(ItemType<FartInAVial>());
 			
 			foreach (int ingredient in ingredientToCompare) {
 				if (ingredientID == ItemType<CouldInAVial>()) {
@@ -535,6 +556,11 @@ namespace OrchidMod.Alchemist
 			} else {
 				if (!(modPlayer.alchemistKnownReactions.Contains((int)hiddenReaction))) {
 					modPlayer.alchemistKnownReactions.Add((int)hiddenReaction);
+					floatingTextColor = new Color(255, 187, 0);
+					floatingTextStr = "New Entry";
+					Rectangle rect = player.Hitbox;
+					rect.Y -= 50;
+					CombatText.NewText(rect, floatingTextColor, floatingTextStr);
 				}
 			}
 			

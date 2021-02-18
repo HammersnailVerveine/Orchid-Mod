@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 16;
+			item.damage = 12;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 3;
@@ -23,13 +23,13 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.colorR = 10;
 			this.colorG = 176;
 			this.colorB = 230;
+			this.secondaryDamage = 20;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Moonglow Extract");	
-		    Tooltip.SetDefault("Hitting a target coated in alchemic nature deals bonus damage"
-							+  "\nReleases nature spores, the less other extracts used, the more"
+		    Tooltip.SetDefault("Releases nature spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
 							+  "\n20% increased damage during the night");
 		}

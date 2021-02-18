@@ -12,6 +12,8 @@ namespace OrchidMod.Alchemist
 	public abstract class OrchidModAlchemistItem : ModItem
 	{
 		public int potencyCost = 0;
+		public int secondaryDamage = 0;
+		public float secondaryScaling = 1f;
 		public AlchemistElement element = AlchemistElement.NULL;
 		public int rightClickDust = -1;
 		public int colorR = 255;
@@ -46,6 +48,8 @@ namespace OrchidMod.Alchemist
 			orchidItem.alchemistRightClickDust = this.rightClickDust;
 			orchidItem.alchemistPotencyCost = this.potencyCost;
 			orchidItem.alchemistElement = this.element;
+			orchidItem.alchemistSecondaryDamage = this.secondaryDamage;
+			orchidItem.alchemistSecondaryScaling = this.secondaryScaling;
 			orchidItem.alchemistWeapon = true;
 		}
 

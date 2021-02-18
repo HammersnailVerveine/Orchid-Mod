@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 18;
+			item.damage = 15;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 3;
@@ -23,6 +23,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.colorR = 5;
 			this.colorG = 149;
 			this.colorB = 235;
+			this.secondaryDamage = 22;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,7 +31,6 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			DisplayName.SetDefault("Glowing Attractite Flask");
 		    Tooltip.SetDefault("Hit target will attract most nearby alchemical lingering projectiles"
 							+  "\nThe attractivity buff will jump to the nearest target on miss"
-							+  "\nHitting a target coated in alchemic nature deals bonus damage"
 							+  "\nReleases lingering spores"
 							+  "\n20% increased damage during the night");
 		}

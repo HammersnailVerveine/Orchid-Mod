@@ -23,6 +23,8 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.colorR = 6;
 			this.colorG = 13;
 			this.colorB = 144;
+			this.secondaryDamage = 12;
+			this.secondaryScaling = 7f;
 		}
 
 		public override void SetStaticDefaults()

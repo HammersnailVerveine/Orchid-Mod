@@ -135,7 +135,6 @@ namespace OrchidMod
 		public bool alchemistShootProjectile = false;
 		public bool alchemistBookUIDisplay = false;
 		public bool alchemistBookUIItem = false;
-		public bool alchemistBookUIInitialize = false;
 		
 		public bool alchemistMeteor = false;
 		public bool alchemistFlowerSet = false;

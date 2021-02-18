@@ -23,13 +23,13 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.colorR = 255;
 			this.colorG = 198;
 			this.colorB = 0;
+			this.secondaryDamage = 12;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Daybloom Extract");
-		    Tooltip.SetDefault("Hitting a target coated in alchemic nature deals bonus damage"
-							+  "\nReleases nature spores, the less other extracts used, the more"
+		    Tooltip.SetDefault("Releases nature spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
 							+  "\n20% increased damage during the day");
 		}

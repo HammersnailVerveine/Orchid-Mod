@@ -31,7 +31,7 @@ namespace OrchidMod.Alchemist.Misc
 		public override bool CanUseItem(Player player) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			if (player.altFunctionUse == 2 && Main.mouseRightRelease) {
-				modPlayer.alchemistBookUIInitialize = modPlayer.alchemistBookUIDisplay ? false : true;
+				Main.PlaySound(modPlayer.alchemistBookUIDisplay ? 11 : 10, (int)player.Center.X ,(int)player.Center.Y, 0);
 				modPlayer.alchemistBookUIDisplay = !modPlayer.alchemistBookUIDisplay;
 				return false;
 			} else if (modPlayer.alchemistNbElements < 2 || player.FindBuffIndex(mod.BuffType("ReactionCooldown")) > -1 || modPlayer.alchemistBookUIDisplay) {
