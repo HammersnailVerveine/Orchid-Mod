@@ -13,8 +13,8 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 
         public override void SafeSetDefaults()
         {
-            item.width = 26;
-            item.height = 22;
+            item.width = 24;
+            item.height = 12;
             item.value = Item.sellPrice(0, 0, 20, 0);
             item.rare = 1;
             item.defense = 2;

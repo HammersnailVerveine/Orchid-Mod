@@ -378,6 +378,8 @@ namespace OrchidMod
 				
 				AlchemistBookUIFrame.ressourceBookPage = null;
 				AlchemistBookUIFrame.ressourceBookSlot = null;
+				AlchemistBookUIFrame.ressourceBookSlotEmpty = null;
+				AlchemistBookUIFrame.ressourceBookPopup = null;
 				
 				ShamanUIFrame.shamanUIMainFrame = null;
 				ShamanUIFrame.shamanUILevel = null;

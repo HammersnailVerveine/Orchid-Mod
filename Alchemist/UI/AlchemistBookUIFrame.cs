@@ -19,10 +19,13 @@ namespace OrchidMod.Alchemist.UI
 	public class AlchemistBookUIFrame : UIElement
     {
 		private int bookPageIndex = 0;
+		private AlchemistHiddenReactionRecipe bookPopupRecipe = new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.NULL, "", "");
+		private bool drawpause = false;
 		public Color backgroundColor = Color.White;	
 		public static Texture2D ressourceBookPage;
 		public static Texture2D ressourceBookSlot;
 		public static Texture2D ressourceBookSlotEmpty;
+		public static Texture2D ressourceBookPopup;
 		
 		protected override void DrawSelf(SpriteBatch spriteBatch) {
 			Vector2 vector = new Vector2((float)((int)(Main.LocalPlayer.position.X - Main.screenPosition.X) - Main.GameViewMatrix.Translation.X - (float)(Main.LocalPlayer.bodyFrame.Width / 2) + (float)(Main.LocalPlayer.width / 2)), (float)((int)(Main.LocalPlayer.position.Y - Main.screenPosition.Y) - Main.GameViewMatrix.Translation.Y + (float)Main.LocalPlayer.height - (float)Main.LocalPlayer.bodyFrame.Height + 12f)) + Main.LocalPlayer.bodyPosition + new Vector2((float)(Main.LocalPlayer.bodyFrame.Width / 2));
@@ -48,8 +51,8 @@ namespace OrchidMod.Alchemist.UI
             Point point = new Point((int)dimensions.X - (bookWidth / 2), (int)dimensions.Y - (bookHeight / 2));
 			Point mousePoint = new Point((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y);
 			
-			Rectangle rectangleArrowLeft = new Rectangle(point.X + 270, point.Y + 484, 36, 34);
-			Rectangle rectangleArrowRight = new Rectangle(point.X + 326, point.Y + 484, 36, 34);
+			Rectangle rectangleArrowLeft = new Rectangle(point.X + 270, point.Y + 478, 36, 34);
+			Rectangle rectangleArrowRight = new Rectangle(point.X + 326, point.Y + 478, 36, 34);
 			
 			if (!player.dead) {
 				if (modPlayer.alchemistBookUIDisplay) {
@@ -58,6 +61,9 @@ namespace OrchidMod.Alchemist.UI
 					int offSetY = baseOffSetY;
 					int offSetX = baseOffSetX;
 					int index = 0;
+					string msg = "";
+					
+					Item item = null;
 						
 					foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes) {
 						if (index < ((this.bookPageIndex * recipesPerPage) + recipesPerPage) && index >= (this.bookPageIndex * recipesPerPage)) {
@@ -66,13 +72,25 @@ namespace OrchidMod.Alchemist.UI
 								if (knownRecipe) {
 									Texture2D itemTexture = Main.itemTexture[ingredientID];
 									spriteBatch.Draw(ressourceBookSlot, new Rectangle(point.X + offSetX, point.Y + offSetY, 36, 36), backgroundColor);
-									spriteBatch.Draw(itemTexture, new Rectangle(point.X + offSetX + 2, point.Y + offSetY + 2, 30, 30), backgroundColor);
+									Rectangle itemRectangle = new Rectangle(point.X + offSetX + 2, point.Y + offSetY + 2, 30, 30);
+									spriteBatch.Draw(itemTexture, itemRectangle, backgroundColor);
+									if (itemRectangle.Contains(mousePoint) && this.bookPopupRecipe.reactionType == AlchemistHiddenReaction.NULL) {
+										item = new Item();
+										item.SetDefaults(ingredientID);
+									}
+									Rectangle lineRectangle = new Rectangle(point.X, point.Y + offSetY + 2, bookWidth, 36);
+									if (lineRectangle.Contains(mousePoint) && (Main.mouseLeft && Main.mouseLeftRelease) 
+									&& this.bookPopupRecipe.reactionType == AlchemistHiddenReaction.NULL) {
+										this.bookPopupRecipe = recipe;
+										Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
+										this.drawpause = true;
+									}
 								} else {
 									spriteBatch.Draw(ressourceBookSlotEmpty, new Rectangle(point.X + offSetX, point.Y + offSetY, 36, 36), backgroundColor);
 								}
 								offSetX += 40;
 							}
-							string msg = knownRecipe ? recipe.reactionText : "Unknown Reaction";
+							msg = knownRecipe ? recipe.reactionText : "Unknown Reaction";
 							//Color textColor = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor);
 							ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, new Vector2(point.X + offSetX, point.Y + offSetY + 7), backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 							offSetX = baseOffSetX;
@@ -81,16 +99,57 @@ namespace OrchidMod.Alchemist.UI
 						index ++;
 					}
 					
-					if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowLeft.Contains(mousePoint)) {
-						this.bookPageIndex -= this.bookPageIndex > 0 ? 1 : 0;
-						Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
+					int maxPages = (int)(OrchidMod.alchemistReactionRecipes.Count / recipesPerPage);
+					if (this.bookPopupRecipe.reactionType == AlchemistHiddenReaction.NULL) {
+						if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowLeft.Contains(mousePoint)) {
+							this.bookPageIndex -= this.bookPageIndex > 0 ? 1 : 0;
+							Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
+						}
+						
+						if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowRight.Contains(mousePoint)) {
+							this.bookPageIndex += this.bookPageIndex < maxPages ? 1 : 0;
+							Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
+						}
+					} else {
+						int offSetPopupX = 34;
+						int offSetPopupY = 158;
+						if ((Main.mouseLeft && Main.mouseLeftRelease) && !this.drawpause) {
+							this.bookPopupRecipe = new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.NULL, "null");
+							Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
+						}
+						
+						spriteBatch.Draw(ressourceBookPopup, new Rectangle(point.X + offSetPopupX, point.Y + offSetPopupY, 318, 200), backgroundColor);
+						offSetX = 194;
+						int offSetPopup = 0;
+						offSetPopup = ((int)(40 * this.bookPopupRecipe.reactionIngredients.Count / 2));
+						foreach(int ingredientID in this.bookPopupRecipe.reactionIngredients) {
+							Texture2D itemTexturePopup = Main.itemTexture[ingredientID];
+							spriteBatch.Draw(ressourceBookSlot, new Rectangle(point.X + offSetX - offSetPopup, point.Y + offSetPopupY + 16, 36, 36), backgroundColor);
+							Rectangle itemRectangle = new Rectangle(point.X + offSetX + 2 - offSetPopup, point.Y + offSetPopupY + 18, 30, 30);
+							spriteBatch.Draw(itemTexturePopup, itemRectangle, backgroundColor);
+							if (itemRectangle.Contains(mousePoint)) {
+								item = new Item();
+								item.SetDefaults(ingredientID);
+							}
+							offSetX += 40;
+						}
+						Vector2 textPos = new Vector2(point.X + offSetPopupX + 25, point.Y + offSetPopupY + 70);
+						msg = this.bookPopupRecipe.reactionText;
+						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, textPos, backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+						msg = this.bookPopupRecipe.reactionDescription;
+						textPos.Y += 40;
+						textPos.X -= 12;
+						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, textPos, backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 					}
 					
-					if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowRight.Contains(mousePoint)) {
-						int maxPages = (int)(OrchidMod.alchemistReactionRecipes.Count / recipesPerPage);
-						this.bookPageIndex += this.bookPageIndex < maxPages ? 1 : 0;
-						Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
+					if (item != null) {
+						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, item.Name, Main.MouseScreen + new Vector2(15f, 15f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 					}
+					
+					this.drawpause = this.drawpause ? Main.mouseLeftRelease : false;
+					
+					msg = "Page " + this.bookPageIndex + "/" + maxPages;
+					ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, new Vector2(point.X + 282, point.Y + 508), backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 				}
 			}
 		}
@@ -99,6 +158,7 @@ namespace OrchidMod.Alchemist.UI
 			if (ressourceBookPage == null) ressourceBookPage = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistBookPage");
 			if (ressourceBookSlot == null) ressourceBookSlot = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistBookSlot");
 			if (ressourceBookSlotEmpty == null) ressourceBookSlotEmpty = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistBookSlotEmpty");
+			if (ressourceBookPopup == null) ressourceBookPopup = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistBookPopup");
 		}
 	}
 }

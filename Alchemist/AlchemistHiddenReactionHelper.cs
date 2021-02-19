@@ -20,51 +20,72 @@ namespace OrchidMod.Alchemist
 	{
 		
 		public static List<AlchemistHiddenReactionRecipe> ListReactions() {
-			List<AlchemistHiddenReactionRecipe> returnList = new List<AlchemistHiddenReactionRecipe>();
+			List<AlchemistHiddenReactionRecipe> recipes = new List<AlchemistHiddenReactionRecipe>();
 			
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.SUNFLOWERSEEDS, "Sunflower Seeds", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.SUNFLOWERSEEDS, "Sunflower Seeds",
+			"Releases damaging sunflower seeds around the player",
 			ItemType<SunflowerFlask>(), ItemType<SlimeFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.GLOWSHROOMHEALING, "Glowshroom Healing", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.GLOWSHROOMHEALING, "Glowshroom Healing", 
+			"Heals the player for 25 health",
 			ItemType<GlowingMushroomVial>(), ItemType<KingSlimeFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.MUSHROOMTHREAD, "Mushroom Thread", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.MUSHROOMTHREAD, "Mushroom Thread", 
+			"Creates a sample of Mushroom Thread, which can be used to create armor",
 			ItemType<GlowingMushroomVial>(), ItemType<BlinkrootFlask>()));
 			
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.FIRESPORES, "Fire Spores", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.FIRESPORES, "Fire Spores", 
+			"Releases a sizeable amount of fire spores, which doesn't destroy existing ones",
 			ItemType<AttractiteFlask>(), ItemType<BlinkrootFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.WATERSPORES, "Water Spores", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.WATERSPORES, "Water Spores", 
+			"Releases a sizeable amount of water spores, which doesn't destroy existing ones",
 			ItemType<AttractiteFlask>(), ItemType<WaterleafFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.AIRSPORES, "Air Spores", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.AIRSPORES, "Air Spores", 
+			"Releases a sizeable amount of air spores, which doesn't destroy existing ones",
 			ItemType<AttractiteFlask>(), ItemType<ShiverthornFlask>()));
 			
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.PROPULSION, "Propulsion", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.PROPULSION, "Propulsion", 
+			"Vertically propels the player",
 			ItemType<GunpowderFlask>(), ItemType<CouldInAVial>()));
 			
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLESLIME, "Slime Bubble", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLESLIME, "Slime Bubble", 
+			"Creates a catalytic slime bubble",
 			ItemType<CouldInAVial>(), ItemType<KingSlimeFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLESAP, "Sap Bubble", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLESAP, "Sap Bubble", 
+			"Creates a catalytic sap bubble",
 			ItemType<CouldInAVial>(), ItemType<LivingSapVial>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLEOIL, "Oil Bubble", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLEOIL, "Oil Bubble", 
+			"Creates a catalytic oil bubble",
 			ItemType<CouldInAVial>(), ItemType<GoblinArmyFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLESPIRITED, "Spirited Bubble", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLESPIRITED, "Spirited Bubble", 
+			"Creates a catalytic spirit bubble",
 			ItemType<CouldInAVial>(), ItemType<DungeonFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLESEAFOAM, "Seafoam Bubble", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLESEAFOAM, "Seafoam Bubble", 
+			"Creates a catalytic seafoam bubble",
 			ItemType<CouldInAVial>(), ItemType<SeafoamVial>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLEPOISON, "Poison Bubble", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BUBBLEPOISON, "Poison Bubble", 
+			"Creates a catalytic poison bubble",
 			ItemType<CouldInAVial>(), ItemType<PoisonVial>()));
 			
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BEESWARM, "Bee Swarm", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.BEESWARM, "Bee Swarm", 
+			"Releases a swarm of harmful bees around the player",
 			ItemType<QueenBeeFlask>(), ItemType<PoisonVial>()));
 			
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONFLIPPER, "Flipper Potion", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONFLIPPER, "Flipper Potion", 
+			"Gives 30 seconds of Flipper Potion effect",
 			ItemType<ShiverthornFlask>(), ItemType<WaterleafFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONNIGHTOWL, "Night Owl Potion", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONNIGHTOWL, "Night Owl Potion", 
+			"Gives 30 seconds of Night Owl Potion effect",
 			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONBUILDER, "Builder Potion", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONINVISIBILITY, "Invisibility Potion", 
+			"Gives 30 seconds of Invisibility Potion effect",
+			ItemType<BlinkrootFlask>(), ItemType<MoonglowFlask>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONBUILDER, "Builder Potion", 
+			"Gives 30 seconds of Builder Potion effect",
 			ItemType<BlinkrootFlask>(), ItemType<ShiverthornFlask>(), ItemType<MoonglowFlask>()));
-			returnList.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONFEATHERFALL, "Featherfall Potion", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.POTIONFEATHERFALL, "Featherfall Potion", 
+			"Gives 30 seconds of Featherfall Potion effect",
 			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>(), ItemType<CouldInAVial>()));
 			
-			return returnList;
+			return recipes;
 		}
 		
 		public static void triggerAlchemistReactionEffects(AlchemistHiddenReaction hiddenReaction, Mod mod, Player player, OrchidModPlayer modPlayer) {
@@ -88,10 +109,22 @@ namespace OrchidMod.Alchemist
 			Vector2 vel = new Vector2(0f, 0f);
 			
 			switch (hiddenReaction) {
+				case AlchemistHiddenReaction.MUSHROOMTHREAD :
+					debuffDuration = 5;
+					soundType = 2;
+					soundID = 25;
+					for(int i=0; i < 10; i++) {
+						dust = Dust.NewDust(player.Center, 10, 10, 56);
+						Main.dust[dust].noGravity = true;
+						Main.dust[dust].velocity *= 2f;
+						Main.dust[dust].scale *= 1.5f;
+					}
+					player.QuickSpawnItem(ItemType<Alchemist.Misc.MushroomThread>(), 1);
+					break;
 				case AlchemistHiddenReaction.BEESWARM :
 					debuffDuration = 25;
 					soundType = 2;
-					soundID = 67;
+					soundID = 97;
 					for (int i=0; i < 10; i++) {
 						dust = Dust.NewDust(player.Center, 10, 10, 16);
 						Main.dust[dust].noGravity = true;
@@ -525,17 +558,29 @@ namespace OrchidMod.Alchemist
 						hiddenReaction = recipe.reactionType;
 						floatingTextStr = recipe.reactionText;
 						reaction = true;
+						
+						int val = 0;
+						Item item = new Item();
+						foreach(int ingredientID in recipe.reactionIngredients) {
+							item.SetDefaults(ingredientID);
+							OrchidModGlobalItem globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
+							val += globalItem.alchemistPotencyCost;
+						}
+						val = (int)(val / 2);
+						CombatText.NewText(player.Hitbox, new Color(128, 255, 0), val);
+						modPlayer.alchemistPotency += modPlayer.alchemistPotency + val > modPlayer.alchemistPotencyMax ? modPlayer.alchemistPotencyMax : modPlayer.alchemistPotency;
 						break;
 					}
 				}
 			}
 			
+			Color floatingTextColor = reaction ? new Color(128, 255, 0) : new Color(255, 0, 0);
+			CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
+			
 			if (hiddenReaction != AlchemistHiddenReaction.NULL) {
 				triggerAlchemistReactionEffects(hiddenReaction, mod, player, modPlayer);
 			}
 			
-			Color floatingTextColor = reaction ? new Color(128, 255, 0) : new Color(255, 0, 0);
-			CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
 			if (reaction == false) {
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 5);
 				for(int i=0; i < 15; i++)
