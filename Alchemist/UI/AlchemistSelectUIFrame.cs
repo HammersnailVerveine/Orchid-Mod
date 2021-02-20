@@ -169,7 +169,11 @@ namespace OrchidMod.Alchemist.UI
 								spriteBatch.Draw(resourceBorder, this.displayRectangles[i], borderColor);
 								resourceItem = Main.itemTexture[item.type];
 								Rectangle insideRectangle = new Rectangle(displayRectangles[i].X + 6, displayRectangles[i].Y + 4, 30, 30);
-								spriteBatch.Draw(resourceItem, insideRectangle, color);
+								Rectangle itemRectangle = insideRectangle;
+								if ((resourceItem.Width / 2) % 2 != 0) {
+									itemRectangle = new Rectangle(displayRectangles[i].X + 7, displayRectangles[i].Y + 4, 28, 28);
+								}
+								spriteBatch.Draw(resourceItem, itemRectangle, color);
 								msg = selected ? item.Name : msg;
 							}
 						} else {
