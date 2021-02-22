@@ -15,10 +15,12 @@ namespace OrchidMod.Alchemist
 		public string reactionText = "blank";
 		public string reactionDescription = "blank description";
 		public List<int> reactionIngredients = new List<int>();
+		public int reactionLevel = 0;
 		
-		public AlchemistHiddenReactionRecipe(AlchemistHiddenReaction rType, string rText, string rDesc = "blank description", params int[] rItems) {
+		public AlchemistHiddenReactionRecipe(AlchemistHiddenReaction rType, int rLevel, string rText, string rDesc = "blank description", params int[] rItems) {
 			this.reactionType = rType;
 			this.reactionText = rText;
+			this.reactionLevel = rLevel;
 			
 			string newDesc = "";
 			int len = rDesc.Length;
