@@ -107,6 +107,7 @@ namespace OrchidMod
 		/*Alchemist*/
 		
 		public List<int> alchemistKnownReactions = new List<int>();
+		public List<int> alchemistKnownHints = new List<int>();
 		public float alchemistDamage = 1.0f;
 		public float alchemistVelocity = 1.0f;
 		public int alchemistCrit = 0;
@@ -251,6 +252,7 @@ namespace OrchidMod
 			OrchidModShamanHelper.onRespawnShaman(player, this, mod);
 			OrchidModGamblerHelper.onRespawnGambler(player, this);
 			this.alchemistKnownReactions = new List<int>();
+			this.alchemistKnownHints = new List<int>();
         }
 		
 		public override TagCompound Save()
@@ -259,7 +261,8 @@ namespace OrchidMod
 			{
 				["GamblerCardsItem"] = gamblerCardsItem.Select(ItemIO.Save).ToList(),
 				["ChemistHint"] = alchemistChemistFirstInteraction,
-				["AlchemistHidden"] = alchemistKnownReactions.ToList()
+				["AlchemistHidden"] = alchemistKnownReactions.ToList(),
+				["AlchemistHints"] = alchemistKnownHints.ToList()
 			};
 		}
 		
@@ -268,6 +271,7 @@ namespace OrchidMod
 			gamblerCardsItem = tag.GetList<TagCompound>("GamblerCardsItem").Select(ItemIO.Load).ToArray();
 			alchemistChemistFirstInteraction = tag.GetBool("ChemistHint");
 			alchemistKnownReactions = tag.Get<List<int>>("AlchemistHidden");
+			alchemistKnownHints = tag.Get<List<int>>("AlchemistHints");
 		}
 
 		public override void PreUpdate() {
