@@ -74,7 +74,7 @@ namespace OrchidMod.Alchemist.UI
 									Texture2D itemTexture = Main.itemTexture[ingredientID];
 									spriteBatch.Draw(ressourceBookSlot, new Rectangle(point.X + offSetX, point.Y + offSetY, 36, 36), backgroundColor);
 									Rectangle itemRectangle = new Rectangle(point.X + offSetX + 2, point.Y + offSetY + 2, 30, 30);
-									spriteBatch.Draw(itemTexture, itemRectangle, backgroundColor);
+									spriteBatch.Draw(itemTexture, itemRectangle, knownRecipe ? backgroundColor : Color.Gray);
 									if (itemRectangle.Contains(mousePoint) && this.bookPopupRecipe.reactionType == AlchemistHiddenReaction.NULL) {
 										item = new Item();
 										item.SetDefaults(ingredientID);

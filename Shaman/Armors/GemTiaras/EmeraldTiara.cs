@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Emerald Tiara");
+		  DisplayName.SetDefault("Emerald Circlet");
 		  Tooltip.SetDefault("Increases the effectivenees of your shamanic air bonds"
 							+"\nYour shamanic bonds will last 3 seconds longer"
 							+"\n6% increased shamanic damage");

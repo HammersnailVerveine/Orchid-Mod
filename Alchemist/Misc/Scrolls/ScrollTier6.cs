@@ -8,13 +8,13 @@ using System.Collections.Generic;
 
 namespace OrchidMod.Alchemist.Misc.Scrolls
 {
-	public class ScrollTier1 : OrchidModAlchemistScroll
+	public class ScrollTier6 : OrchidModAlchemistScroll
 	{
 		public override void SafeSetDefaults()
 		{
 			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 1;
-			this.hintLevel = 1;
+			item.rare = 8;
+			this.hintLevel = 6;
 		}
 
 		public override void SetStaticDefaults()

@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Diamond Tiara");
+		  DisplayName.SetDefault("Diamond Circlet");
 		  Tooltip.SetDefault("5% increased shamanic critical stike chance"
 							+"\nYour shamanic bonds will last 3 seconds longer"
 							+"\n10% increased shamanic damage");

@@ -14,7 +14,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 		{
 			item.damage = 12;
 			item.width = 28;
-			item.height = 36;
+			item.height = 30;
 			item.rare = 1;
 			item.value = Item.sellPrice(0, 1, 0, 0);
 			this.potencyCost = 1;

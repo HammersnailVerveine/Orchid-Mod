@@ -8,27 +8,29 @@ using System.Collections.Generic;
 
 namespace OrchidMod.Alchemist.Weapons.Air
 {
-	public class CorruptionFlask : OrchidModAlchemistItem
+	public class SunplateFlask : OrchidModAlchemistItem
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 12;
-			item.width = 28;
+			item.damage = 15;
+			item.width = 30;
 			item.height = 30;
-			item.rare = 1;
+			item.rare = 2;
 			item.value = Item.sellPrice(0, 1, 0, 0);
-			this.potencyCost = 1;
+			this.potencyCost = 2;
 			this.element = AlchemistElement.AIR;
 			this.rightClickDust = 16;
-			this.colorR = 121;
-			this.colorG = 152;
-			this.colorB = 239;
+			this.colorR = 190;
+			this.colorG = 18;
+			this.colorB = 148;
+			this.secondaryDamage = 8;
+			this.secondaryScaling = 4f;
 		}
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Corruption Flask");
-		    Tooltip.SetDefault("e");
+			DisplayName.SetDefault("Stellar Talk");
+		    Tooltip.SetDefault("Creates orbiting stars on impact");
 		}
 	}
 }

@@ -22,9 +22,12 @@ namespace OrchidMod.Alchemist
 		public static List<AlchemistHiddenReactionRecipe> ListReactions() {
 			/* Hint levels :
 			<1 : Special
-			1 : Rarity 1 Vanilla
-			2 : Rarity 2 Vanilla
-			3 : Rarity 3 Vanilla
+			1 : Pre EoC Vanilla
+			2 : Pre Skeletron Vanilla
+			3 : Pre WoF Vanilla
+			4 : Pre Mechs Vanilla
+			5 : Pre Plantera Vanilla
+			6 : Endgame Vanilla
 			*/
 			
 			List<AlchemistHiddenReactionRecipe> recipes = new List<AlchemistHiddenReactionRecipe>();
@@ -671,21 +674,28 @@ namespace OrchidMod.Alchemist
 		public static void addAlchemistHint(Player player, OrchidModPlayer modPlayer, int hintLevel) {
 			Color floatingTextColor = new Color(0,0,0);
 			string floatingTextStr = "";
+			List<AlchemistHiddenReactionRecipe> validHints = new List<AlchemistHiddenReactionRecipe>();
+			
 			foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes) {
 				if (recipe.reactionLevel == hintLevel) {
 					if (!(modPlayer.alchemistKnownReactions.Contains((int)recipe.reactionType) || modPlayer.alchemistKnownHints.Contains((int)recipe.reactionType))) {
-						modPlayer.alchemistKnownHints.Add((int)recipe.reactionType);
-						floatingTextColor = new Color(255, 187, 0);
-						floatingTextStr = "New Hidden Reaction Hint";
-						CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
-						return;
+						validHints.Add(recipe);
 					}
 				}
 			}
-			floatingTextColor = new Color(255, 92, 0);
-			floatingTextStr = "No hints left for this tier";
-			CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
-			return;
+			
+			if (validHints.Count == 0) {
+				floatingTextColor = new Color(255, 92, 0);
+				floatingTextStr = "No hints left for this tier";
+				CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
+			} else {
+				int rand = Main.rand.Next(validHints.Count);
+				AlchemistHiddenReactionRecipe hint = validHints[rand];
+				modPlayer.alchemistKnownHints.Add((int)hint.reactionType);
+				floatingTextColor = new Color(255, 187, 0);
+				floatingTextStr = "New Hidden Reaction Hint";
+				CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
+			}
 		}
 	}
 }
