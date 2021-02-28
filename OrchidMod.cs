@@ -19,7 +19,7 @@ using OrchidMod.Gambler.UI;
 using OrchidMod;
 using OrchidMod.Shaman;
 using OrchidMod.Alchemist;
-
+using System.Linq;
 
 namespace OrchidMod
 {
@@ -44,7 +44,9 @@ namespace OrchidMod
 		internal AlchemistBookUIState alchemistBookUIState;
 		internal GamblerUIState gamblerUIState;
 		public static bool reloadShamanUI;
-			
+
+		private static HashSet<ILoadable> Loadables; // Files that need to be loaded and unloaded
+
 		public OrchidMod()
 		{
 			Instance = this;
@@ -265,11 +267,13 @@ namespace OrchidMod
 		
 		public override void Load()
 		{
+			LoadLoadables();
+
 			AlchemistReactionHotKey = RegisterHotKey("Alchemist Hidden Reaction", "Mouse3");
 			AlchemistCatalystHotKey = RegisterHotKey("Alchemist Catalyst Tool Shortcut", "Z");
 			ShamanBondHotKey = RegisterHotKey("Shaman Bond Abilities", "Mouse3");
 			alchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
-			
+
 			if (!Main.dedServ)
 			{
 				shamanUIState = new ShamanUIState();
@@ -305,7 +309,22 @@ namespace OrchidMod
 				orchidModGamblerInterface.SetState(gamblerUIState);
 			}
 		}
-		
+
+		private void LoadLoadables()
+		{
+			Loadables = new HashSet<ILoadable>();
+
+			foreach (var type in Code.GetTypes())
+			{
+				if (type.GetInterfaces().Contains(typeof(ILoadable)) && !type.IsAbstract)
+				{
+					Loadables.Add(Activator.CreateInstance(type) as ILoadable);
+				}
+			}
+
+			foreach (var elem in Loadables) elem.Load();
+		}
+
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
 			int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
 			if (mouseTextIndex != -1) {
@@ -352,7 +371,10 @@ namespace OrchidMod
 			}
 		}
 		
-		public override void Unload() {
+		public override void Unload()
+		{
+			UnloadLoadables();
+
 			if (!Main.dedServ)
             {
 				AlchemistUIFrame.ressourceBottom = null;
@@ -494,7 +516,15 @@ namespace OrchidMod
 			ShamanBondHotKey = null;
 			alchemistReactionRecipes = null;
 		}
-		
+
+		private void UnloadLoadables()
+		{
+			foreach (var elem in Loadables) elem.Unload();
+
+			Loadables = null;
+		}
+
+
 		public override void HandlePacket(BinaryReader reader, int whoAmI) {
 			OrchidModMessageType msgType = (OrchidModMessageType)reader.ReadByte();
 			switch (msgType) {
