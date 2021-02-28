@@ -89,8 +89,7 @@ namespace OrchidMod.Alchemist
 						}
 					}
 				}
-				for (int l = 0; l < Main.npc.Length; l++)
-				{  
+				for (int l = 0; l < Main.npc.Length; l++) {  
 					NPC target = Main.npc[l];
 					if (hitbox.Intersects(target.Hitbox))  {
 						target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Catalyzed>(), 60 * 10);

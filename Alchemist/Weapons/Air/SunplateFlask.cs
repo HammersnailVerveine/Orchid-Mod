@@ -19,7 +19,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			item.value = Item.sellPrice(0, 1, 0, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.AIR;
-			this.rightClickDust = 16;
+			this.rightClickDust = 21;
 			this.colorR = 190;
 			this.colorG = 18;
 			this.colorB = 148;

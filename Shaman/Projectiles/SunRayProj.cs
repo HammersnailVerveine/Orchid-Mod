@@ -63,28 +63,24 @@ namespace OrchidMod.Shaman.Projectiles
 				spawnDustCircle(169, - (int)(- 10 - projectile.timeLeft));
         }
 		
-		public override void Kill(int timeLeft)
-		{
-		}
-		
-		
 		public void spawnDustCircle(int dustType, int distToCenter) {
+			int angle = (int)(360 / 30);
 			for (int i = 0 ; i < 30; i ++ )
 			{
-				double dustDeg = (double) projectile.ai[1] * (i * (36 + 5 - Main.rand.Next(10)));
+				double dustDeg = i * angle;
 				double dustRad = dustDeg * (Math.PI / 180);
 				
-				float posX = projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - projectile.width/2;
-				float posY = projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - projectile.height/2;
-				
+				float posX = projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter);
+				float posY = projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter);
+
 				Vector2 dustPosition = new Vector2(posX, posY);
+				int dust = Dust.NewDust(dustPosition, 1, 1, dustType);
+				Dust myDust = Main.dust[dust];
 				
-				int index1 = Dust.NewDust(dustPosition, 1, 1, dustType, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
-				
-				Main.dust[index1].velocity = projectile.velocity / 2;
-				Main.dust[index1].fadeIn = 1f;
-				Main.dust[index1].scale = 1.5f;
-				Main.dust[index1].noGravity = true;
+				myDust.velocity = projectile.velocity / 2;
+				myDust.fadeIn = 1f;
+				myDust.scale = 1.5f;
+				myDust.noGravity = true;
 			}
 		}
 		

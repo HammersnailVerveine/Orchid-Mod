@@ -1416,8 +1416,7 @@ namespace OrchidMod
 				}
 
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 1 * 36
-					&& !(Main.tile[chest.x, chest.y].wall == 34))
-				{
+					&& !(Main.tile[chest.x, chest.y].wall == 34)) {
 					if (!spawnedGoldChestCard) {
 						spawnedGoldChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.GoldChestCard>(), 1);
 					}
@@ -1429,8 +1428,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 2 * 36)
-				{
+				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 2 * 36) {
 					if (spawnedTiamatRelic < 3) {
 						spawnedTiamatRelic += placeInChest(chest, ItemType<Gambler.Misc.TiamatRelic>(), 1) ? 0 : 1;
 					}
@@ -1448,8 +1446,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 4 * 36)
-				{
+				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 4 * 36) {
 					if (!spawnedFireBatScepter) {
 						spawnedFireBatScepter = placeInChest(chest, ItemType<Shaman.Weapons.FireBatScepter>(), 1);
 					}
@@ -1458,8 +1455,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 11 * 36)
-				{
+				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 11 * 36) {
 					if (!spawnedIceChestCard) {
 						spawnedIceChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.IceChestCard>(), 1);
 					}
@@ -1468,8 +1464,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 10 * 36)
-				{
+				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 10 * 36) {
 					if (!spawnedDeepForestCharm) {
 						spawnedDeepForestCharm = placeInChest(chest, ItemType<Shaman.Accessories.DeepForestCharm>(), 1);
 					}
