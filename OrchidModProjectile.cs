@@ -36,8 +36,6 @@ namespace OrchidMod
 		public virtual void AltSetDefaults() {}
 		
 		public virtual void SafeSetDefaults() {}
-		
-		public virtual void SafePreDraw(SpriteBatch spriteBatch, Color lightColor) {}
 			
 		public virtual void SafePostAI() {}
 	
@@ -45,13 +43,16 @@ namespace OrchidMod
 			AltSetDefaults();
 		}
 		
-		public sealed override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) {
-			SafePreDraw(spriteBatch, lightColor);
-			if (this.projectileTrail) {
+		public sealed override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			if (projectileTrail) 
+			{
 				PreDrawTrail(spriteBatch, lightColor);
 			}
-			return true;
+			return OrchidPreDraw(spriteBatch, lightColor);
 		}
+
+		public virtual bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor) { return true; }
 		
 		public sealed override void PostAI() {
 			SafePostAI();
