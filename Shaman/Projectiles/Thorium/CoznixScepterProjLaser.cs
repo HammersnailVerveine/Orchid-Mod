@@ -116,12 +116,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
 
-		public override void SafePreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			if (projectile.velocity == Vector2.Zero)
-			{
-				return;
-			}
+			if (projectile.velocity == Vector2.Zero) return true;
+
 			Texture2D texture2D19 = Main.projectileTexture[projectile.type];
 			Texture2D texture2D20 = mod.GetTexture("Shaman/Projectiles/Thorium/CoznixScepterProjLaser_Beam");
 			Texture2D texture2D21 = mod.GetTexture("Shaman/Projectiles/Thorium/CoznixScepterProjLaser_End");
@@ -159,6 +157,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Vector2 arg_B1FF_2 = value20 - Main.screenPosition;
 			sourceRectangle2 = null;
 			arg_B1FF_0.Draw(arg_B1FF_1, arg_B1FF_2, sourceRectangle2, color44, projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), new Vector2(Math.Min(projectile.ai[1], charge) / charge, 1f), SpriteEffects.None, 0f);
+
+			return true;
 		}
 	}
 }
