@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			if (projectile.timeLeft == 80) spawnDustCircle(62, 20);
 		}
 		
-		public override void SafePreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			float offSet = this.projectileTrailOffset + 0.5f;
 			Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * offSet, projectile.height * offSet);
@@ -48,6 +48,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
 				spriteBatch.Draw(Main.projectileTexture[ProjectileType<Shaman.Projectiles.Thorium.StarScouterScepterProjAltExplosion>()], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0.3f);
 			}
+			return true;
 		}
 		
 		public override void SafePostAI() {
