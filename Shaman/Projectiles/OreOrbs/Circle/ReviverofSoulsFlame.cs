@@ -108,7 +108,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
             projectile.oldPos[0] = projectile.position;
         }
 		
-		public override void SafePreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Texture2D flameTexture = ModContent.GetTexture("OrchidMod/Shaman/Projectiles/OreOrbs/Circle/ReviverOfSoulsFlameTexture");
 			Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 1f, projectile.height * 1f);
@@ -120,6 +120,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k*5) / (float)projectile.oldPos.Length);
 				spriteBatch.Draw(flameTexture, drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0.3f);
 			}
+			return true;
 		}
 		
 		public override void Kill(int timeLeft)
