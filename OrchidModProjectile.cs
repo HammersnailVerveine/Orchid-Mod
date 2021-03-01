@@ -15,12 +15,27 @@ namespace OrchidMod
 		public float projectileTrailOffset = 0f; // Offcenters the afterimages a bit. useless without projectileTrail activated. Looks terrible on most projectiles.
 		public bool initialized; // Used in various AI.
 		public bool projOwner = false;
+		
+		protected bool spawned; // Required for OnSpawn()
+
+		public sealed override bool PreAI()
+		{
+			if (!spawned)
+			{
+				spawned = true;
+				OnSpawn();
+			}
+
+			return OrchidPreAI();
+		}
+
+		public virtual bool OrchidPreAI() { return true; }
+
+		public virtual void OnSpawn() { } // Called when projectile is created
 
 		public virtual void AltSetDefaults() {}
 		
 		public virtual void SafeSetDefaults() {}
-		
-		public virtual void SafePreDraw(SpriteBatch spriteBatch, Color lightColor) {}
 			
 		public virtual void SafePostAI() {}
 	
@@ -28,13 +43,16 @@ namespace OrchidMod
 			AltSetDefaults();
 		}
 		
-		public sealed override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) {
-			SafePreDraw(spriteBatch, lightColor);
-			if (this.projectileTrail) {
+		public sealed override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			if (projectileTrail) 
+			{
 				PreDrawTrail(spriteBatch, lightColor);
 			}
-			return true;
+			return OrchidPreDraw(spriteBatch, lightColor);
 		}
+
+		public virtual bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor) { return true; }
 		
 		public sealed override void PostAI() {
 			SafePostAI();

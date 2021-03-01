@@ -72,74 +72,22 @@ namespace OrchidMod.Shaman
 				}
 			}
 			
-			if (this.empowermentType > 0) {
-				string emp = "";
-				Color col = new Color(0, 0, 0);
-				switch (this.empowermentType) {
-					case 1:
-						emp = "Fire";
-						col = new Color(194, 38, 31);
-						break;
-					case 2:
-						emp = "Water";
-						col = new Color(0, 119, 190);
-						break;
-					case 3:
-						emp = "Air";
-						col = new Color(75, 139, 59);
-						break;
-					case 4:
-						emp = "Earth";
-						col = new Color(255, 255, 102);
-						break;
-					case 5:
-						emp = "Spirit";
-						col = new Color(138, 43, 226);
-						break;
-					default:
-						break;
-				}
-				
-				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
-				if (index != -1)
+			if (empowermentType > 0)
+			{
+				Color[] colors = new Color[5]
 				{
-					tooltips.Insert(index, new TooltipLine(mod, "BondType", emp + " bond")
-					{
-						overrideColor = col
-					});
-				}
-			}
-			
-			if (this.empowermentLevel > 0) {
-				string lev = "";
-				switch (this.empowermentLevel) {
-					case 1:
-						lev = "I";
-						break;
-					case 2:
-						lev = "II";
-						break;
-					case 3:
-						lev = "III";
-						break;
-					case 4:
-						lev = "IV";
-						break;
-					case 5:
-						lev = "V";
-						break;
-					default:
-						break;
-				}
-				
+					new Color(194, 38, 31),
+					new Color(0, 119, 190),
+				    new Color(75, 139, 59),
+					new Color(255, 255, 102),
+					new Color(138, 43, 226)
+				};
+
+				string[] strType = new string[5] { "Fire", "Water", "Air", "Earth", "Spirit" };
+				string[] strLevel = new string[5] { "I", "II", "III", "IV", "V" };
+
 				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
-				if (index != -1)
-				{
-					tooltips.Insert(index, new TooltipLine(mod, "BondLevel", "Shamanic bond level " + lev)
-					{
-						overrideColor = new Color(0, 192, 255)
-					});
-				}
+				if (index != -1) tooltips.Insert(index, new TooltipLine(mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[empowermentType - 1]).Hex3()}:{strType[empowermentType - 1]} {strLevel[empowermentLevel - 1]}]"));
 			}
 		}
 	}
