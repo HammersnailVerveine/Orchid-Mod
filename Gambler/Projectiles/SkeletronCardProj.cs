@@ -123,7 +123,7 @@ namespace OrchidMod.Gambler.Projectiles
             projectile.oldPos[0] = projectile.position;
         }
 		
-		public override void SafePreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			if (projectile.ai[1] == 1f && projectile.rotation == 0f) {
 				Texture2D flameTexture = ModContent.GetTexture("OrchidMod/Gambler/Projectiles/SkeletronCardProj_Glow");
@@ -137,6 +137,7 @@ namespace OrchidMod.Gambler.Projectiles
 					spriteBatch.Draw(flameTexture, drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0.3f);
 				}
 			}
+			return true;
 		}
 		
 		public void spawnDust(int dustType, int distToCenter) {
