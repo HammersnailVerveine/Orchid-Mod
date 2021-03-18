@@ -54,7 +54,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomTunic_Glowmask"), new Color(250, 250, 250, 200), rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomTunic_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
 		}
 
 		public override void DrawPlayerGlowmask(PlayerDrawInfo drawInfo)
