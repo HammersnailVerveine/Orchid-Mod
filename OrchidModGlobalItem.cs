@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using OrchidMod;
 using OrchidMod.Alchemist;
+using OrchidMod.Interfaces;
 
 namespace OrchidMod
 {
@@ -34,6 +35,32 @@ namespace OrchidMod
 			get
 			{
 				return true;
+			}
+		}
+
+		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+		{
+			CrossmodTooltips(item, tooltips);
+		}
+
+		private void CrossmodTooltips(Item item, List<TooltipLine> tooltips)
+		{
+			if (item.modItem is ICrossmodItem crossmod)
+			{
+				string text = "This is a cross-content item: ";
+
+				if (crossmod.CrossmodName == "Thorium Mod")
+				{
+					if (OrchidMod.ThoriumMod == null) text += crossmod.CrossmodName;
+					else return;
+				}
+				else text += "Unknown Mod";
+
+				var tooltip = new TooltipLine(mod, "Crossmod", text)
+				{
+					overrideColor = new Color(255, 85, 60)
+				};
+				tooltips.Add(tooltip);
 			}
 		}
 	}

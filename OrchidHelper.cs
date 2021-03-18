@@ -19,8 +19,10 @@ namespace OrchidMod
 			if (player.head > 0 && !player.invis)
 			{
 				Vector2 position = new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(player.bodyFrame.Width / 2) + (float)(player.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)player.height - (float)player.bodyFrame.Height + 4f))) + player.headPosition + drawInfo.headOrigin;
-				var drawData = new DrawData(texture, position, new Rectangle?(player.bodyFrame), color, player.headRotation, drawInfo.headOrigin, 1f, drawInfo.spriteEffects, 0);
-				drawData.shader = drawInfo.headArmorShader;
+				var drawData = new DrawData(texture, position, new Rectangle?(player.bodyFrame), color, player.headRotation, drawInfo.headOrigin, 1f, drawInfo.spriteEffects, 0)
+				{
+					shader = drawInfo.headArmorShader
+				};
 				Main.playerDrawData.Add(drawData);
 			}
 		}
