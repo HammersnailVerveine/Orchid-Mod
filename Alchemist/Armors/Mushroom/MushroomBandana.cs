@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace OrchidMod.Alchemist.Armors.Mushroom
 {
@@ -15,14 +16,16 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
             item.width = 24;
             item.height = 12;
             item.value = Item.sellPrice(0, 0, 3, 0);
-            item.rare = 1;
+            item.rare = ItemRarityID.Blue;
             item.defense = 2;
+
+			glowmask = true;
         }
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Phosphorescent Bandana");
-		  Tooltip.SetDefault("5% increased potency regeneration");
+			DisplayName.SetDefault("Phosphorescent Bandana");
+			Tooltip.SetDefault("5% increased potency regeneration");
 		}
 
         public override void UpdateEquip(Player player)
@@ -42,11 +45,8 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
             player.setBonus = "Maximum number of simultaneous alchemical elements increased by 1";
 			modPlayer.alchemistNbElementsMax += 1;
         }
-		
-        public override bool DrawHead()
-        {
-            return true;
-        }
+
+		public override bool DrawHead() => true;
 		
 		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
         {
@@ -64,5 +64,21 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-    }
+
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+		{
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomBandana_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
+		}
+
+		public override void DrawPlayerGlowmask(PlayerDrawInfo drawInfo)
+		{
+			OrchidHelper.DrawSimpleHeadGlowmask(drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomBandana_Head_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress);
+		}
+
+		public override void UpdateVanity(Player player, EquipType type)
+		{
+			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
+			Lighting.AddLight(player.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+		}
+	}
 }
