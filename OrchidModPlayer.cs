@@ -145,7 +145,7 @@ namespace OrchidMod
 		public bool alchemistReactiveVials = false;
 		public int alchemistFlower = 0;
 		public int alchemistFlowerTimer = 0;
-	
+
 		/*Shaman*/
 		public float shamanDamage = 1.0f;
 		public int shamanCrit = 0;
@@ -466,12 +466,74 @@ namespace OrchidMod
 
 		public override void ModifyDrawLayers(List<PlayerLayer> layers)
 		{
-			int index = layers.FindIndex(i => i.Name == "HeldItem");
+			/*
+			 * player.armor[0-2] is armor slots
+			 * player.armor[3-9] is accesories
+			 * player.armor[10-12] is vanity armor
+			 * player.armor[13-19] is vanity accesories
+			*/
 
-			if (index >= 0)
+			// Item Glowmask // Need to improve in the future...
 			{
-				ItemGlowmaskLayer.visible = true;
-				layers.Insert(index + 1, ItemGlowmaskLayer);
+				int index = layers.FindIndex(i => i.Name == "HeldItem");
+
+				if (index >= 0)
+				{
+					ItemGlowmaskLayer.visible = true;
+					layers.Insert(index + 1, ItemGlowmaskLayer);
+				}
+			}
+
+			// Head Glowmask
+			{
+				var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Head"));
+				Action<PlayerDrawInfo> action = new Action<PlayerDrawInfo>((drawInfo) =>
+				{
+					Player player = drawInfo.drawPlayer;
+					if (player.armor[0].modItem is OrchidModItem armor && armor.glowmask && player.armor[10].IsAir) armor.DrawPlayerGlowmask(drawInfo);
+					else if (player.armor[10].modItem is OrchidModItem vanity && vanity.glowmask) vanity.DrawPlayerGlowmask(drawInfo);
+				});
+				layers.Insert(index + 1, new PlayerLayer(mod.Name, "HeadGlowmask", action));
+				action = null;
+			}
+
+			// Body Glowmask
+			{
+				var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Body"));
+				Action<PlayerDrawInfo> action = new Action<PlayerDrawInfo>((drawInfo) =>
+				{
+					Player player = drawInfo.drawPlayer;
+					if (player.armor[1].modItem is OrchidModItem armor && armor.glowmask && player.armor[11].IsAir) armor.DrawPlayerGlowmask(drawInfo);
+					else if (player.armor[11].modItem is OrchidModItem vanity && vanity.glowmask) vanity.DrawPlayerGlowmask(drawInfo);
+				});
+				layers.Insert(index + 1, new PlayerLayer(mod.Name, "BodyGlowmask", action));
+				action = null;
+			}
+
+			// Legs Glowmask
+			{
+				var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Legs"));
+				Action<PlayerDrawInfo> action = new Action<PlayerDrawInfo>((drawInfo) =>
+				{
+					Player player = drawInfo.drawPlayer;
+					if (player.armor[2].modItem is OrchidModItem armor && armor.glowmask && player.armor[12].IsAir) armor.DrawPlayerGlowmask(drawInfo);
+					else if (player.armor[12].modItem is OrchidModItem vanity && vanity.glowmask) vanity.DrawPlayerGlowmask(drawInfo);
+				});
+				layers.Insert(index + 1, new PlayerLayer(mod.Name, "LegsGlowmask", action));
+				action = null;
+			}
+
+			// Arms Glowmask // I do not know how to combine this with .DrawPlayerGlowmask() ...
+			{
+				var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Arms"));
+				Action<PlayerDrawInfo> action = new Action<PlayerDrawInfo>((drawInfo) =>
+				{
+					Player player = drawInfo.drawPlayer;
+					if (player.armor[1].modItem is OrchidModItem armor && armor.glowmask && player.armor[11].IsAir) armor.DrawPlayerArmsGlowmask(drawInfo);
+					else if (player.armor[11].modItem is OrchidModItem vanity && vanity.glowmask) vanity.DrawPlayerArmsGlowmask(drawInfo);
+				});
+				layers.Insert(index + 1, new PlayerLayer(mod.Name, "ArmsGlowmask", action));
+				action = null;
 			}
 		}
 

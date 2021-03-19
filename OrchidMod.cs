@@ -25,11 +25,14 @@ namespace OrchidMod
 {
 	public class OrchidMod : Mod
 	{
+		public static OrchidMod Instance { get; set; }
+
+		public static Mod ThoriumMod { get; private set; }
+
 		public static List<AlchemistHiddenReactionRecipe> alchemistReactionRecipes;
 		public static ModHotKey AlchemistReactionHotKey;
 		public static ModHotKey AlchemistCatalystHotKey;
 		public static ModHotKey ShamanBondHotKey;
-		internal static OrchidMod Instance;
 		
 		internal UserInterface orchidModShamanInterface;
 		internal UserInterface orchidModShamanCharacterInterface;
@@ -49,8 +52,9 @@ namespace OrchidMod
 		{
 			Instance = this;
 		}
-		
-		public override void PostSetupContent() {
+
+		public override void PostSetupContent()
+		{
 			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
 			Mod censusMod = ModLoader.GetMod("Census");
 			if(censusMod != null)
@@ -265,6 +269,8 @@ namespace OrchidMod
 		
 		public override void Load()
 		{
+			ThoriumMod = ModLoader.GetMod("ThoriumMod");
+
 			AlchemistReactionHotKey = RegisterHotKey("Alchemist Hidden Reaction", "Mouse3");
 			AlchemistCatalystHotKey = RegisterHotKey("Alchemist Catalyst Tool Shortcut", "Z");
 			ShamanBondHotKey = RegisterHotKey("Shaman Bond Abilities", "Mouse3");
@@ -352,7 +358,8 @@ namespace OrchidMod
 			}
 		}
 		
-		public override void Unload() {
+		public override void Unload()
+		{
 			if (!Main.dedServ)
             {
 				AlchemistUIFrame.ressourceBottom = null;
@@ -490,11 +497,13 @@ namespace OrchidMod
 			alchemistSelectUIState = null;
 			alchemistBookUIState = null;
 			gamblerUIState = null;
-			Instance = null;
 			AlchemistReactionHotKey = null;
 			AlchemistCatalystHotKey = null;
 			ShamanBondHotKey = null;
 			alchemistReactionRecipes = null;
+
+			ThoriumMod = null;
+			Instance = null;
 		}
 		
 		public override void HandlePacket(BinaryReader reader, int whoAmI) {

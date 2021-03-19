@@ -55,6 +55,8 @@ namespace OrchidMod
 		public static bool foundChemist = false;
 		public static bool foundSlimeCard = false;
 
+		public static float alchemistMushroomArmorProgress = 0.5f; // 0.5f -> 1f -> 0.5f -> ...
+
 		public override void Initialize() {
 			foundChemist = false;
 			foundSlimeCard = false;
@@ -104,6 +106,14 @@ namespace OrchidMod
 		public override void NetReceive(BinaryReader reader) {
 			BitsByte flags = reader.ReadByte();
 			foundChemist = flags[0];
+		}
+
+		public override void PreUpdate()
+		{
+			// Mushroom Armor Lighting Progress
+			{
+				alchemistMushroomArmorProgress = (float)Math.Abs(Math.Sin(Main.time / 50f)) * 0.5f + 0.5f;
+			}
 		}
 
 		public void PlaceMSRoomTiles(int i, int j, int[,] MS, int[,]MSWall) {
