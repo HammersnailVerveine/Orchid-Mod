@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-    public class ValadiumScepter : OrchidModShamanItem
+    public class ValadiumScepter : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 45;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.useTime = 40;
 			item.useAnimation = 40;
 			item.knockBack = 0f;
-			item.rare = 5;
+			item.rare = ItemRarityID.Pink;
 			item.value = Item.sellPrice(0, 2, 0, 0);
 			item.UseSound = SoundID.Item117;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Valadium Scepter");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Shoots a potent valadium bolt, hitting your enemy 3 times"
 							+"\nHitting the same target with all 3 shots will grant you a valadium orb"
 							+"\nIf you have 5 orbs, your next hit will deal massive damage and send your target flying"
@@ -60,11 +57,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.MythrilAnvil);
-				recipe.AddIngredient(null, "ValadiumIngot", 8);
+				recipe.AddIngredient(thoriumMod, "ValadiumIngot", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

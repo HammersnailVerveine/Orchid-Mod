@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-	public class OrchidScepter : OrchidModShamanItem
+	public class OrchidScepter : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 18;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.useTime = 25;
 			item.useAnimation = 25;
 			item.knockBack = 4f;
-			item.rare = 2;
+			item.rare = ItemRarityID.Green;
 			item.value = Item.sellPrice(0, 0, 30, 0);
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Orchid Scepter");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Shoots a volley of piercing petals"
 							+ "\nThe number of petals increase with active shamanic bonds"
 							+ "\nHaving 3 or more bonds will allow the petals to pierce more enemies");
@@ -58,11 +55,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(thoriumMod.TileType("ArcaneArmorFabricator"));		
-				recipe.AddIngredient(null, "Petal", 8);
+				recipe.AddIngredient(thoriumMod, "Petal", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

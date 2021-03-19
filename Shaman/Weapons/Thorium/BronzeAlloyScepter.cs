@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-	public class BronzeAlloyScepter : OrchidModShamanItem
-    {
+	public class BronzeAlloyScepter : OrchidModShamanItem, ICrossmodItem
+	{
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 23;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.useTime = 18;
 			item.useAnimation = 18;
 			item.knockBack = 2.75f;
-			item.rare = 3;
+			item.rare = ItemRarityID.Orange;
 			item.value = Item.sellPrice(0, 0, 50, 0);
 			item.UseSound = SoundID.Item43;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Basilisk's Fang");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Fires out a poisonous basilisk fang"
 							+ "\nThe number of active shamanic bonds will increase the poison duration"
 							+ "\nThe weapon itself can critically strike, releasing a petrifying projectile"
@@ -62,11 +59,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.Anvils);		
-				recipe.AddIngredient(null, "BronzeFragments", 10);
+				recipe.AddIngredient(thoriumMod, "BronzeFragments", 10);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

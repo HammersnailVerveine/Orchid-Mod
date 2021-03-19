@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-	public class QueenJellyfishScepter : OrchidModShamanItem
-    {
+	public class QueenJellyfishScepter : OrchidModShamanItem, ICrossmodItem
+	{
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 20;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.useTime = 42;
 			item.useAnimation = 42;
 			item.knockBack = 5.5f;
-			item.rare = 2;
+			item.rare = ItemRarityID.Green;
 			item.value = Item.sellPrice(0, 0, 30, 0);
 			item.UseSound = SoundID.Item43;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Jellyfish Dynamizer");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Launches a bouncy jellyfish, gaining in damage with each rebound"
 							+ "\nDamage increase depends on your number of active shamanic bonds"
 							+ "\n'Apparently waterproof'");

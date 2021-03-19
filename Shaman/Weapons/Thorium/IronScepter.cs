@@ -5,11 +5,14 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Chat;
- 
+using OrchidMod.Interfaces;
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-    public class IronScepter : OrchidModShamanItem
+    public class IronScepter : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 23;
@@ -18,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.useTime = 72;
 			item.useAnimation = 72;
 			item.knockBack = 4f;
-			item.rare = 0;
+			item.rare = ItemRarityID.White;
 			item.value = Item.sellPrice(0, 0, 10 , 0);
 			item.UseSound = SoundID.Item45;
 			item.shootSpeed = 7f;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Opal Scepter");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("\nHitting an enemy will grant you an Opal orb"
 							+"\nIf you have 3 opal orbs, your next hit will increase your shamanic critical strike damage for 15 seconds");
 		}
@@ -52,11 +49,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.Anvils);		
-				recipe.AddIngredient(null, "Opal", 8);
+				recipe.AddIngredient(thoriumMod, "Opal", 8);
 				recipe.AddIngredient(ItemID.IronBar, 10);
 				recipe.SetResult(this);
 				recipe.AddRecipe();

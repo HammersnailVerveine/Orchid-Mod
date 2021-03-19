@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-    public class TitanicScepter : OrchidModShamanItem
+    public class TitanicScepter : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 53;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.useTime = 45;
 			item.useAnimation = 45;
 			item.knockBack = 4.65f;
-			item.rare = 6;
+			item.rare = ItemRarityID.LightPurple;
 			item.value = Item.sellPrice(0, 1, 50, 0);
 			item.UseSound = SoundID.Item117;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Titan Scepter");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Shoots a potent titanic energy bolt, hitting your enemy 3 times"
 							+"\nHitting the same target with all 3 shots will grant you an titan orb"
 							+"\nIf you have 5 orbs, your next hit will boost your critical strikes abilities for a while"
@@ -59,11 +56,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(thoriumMod.TileType("SoulForge"));		
-				recipe.AddIngredient(null, "TitanBar", 8);
+				recipe.AddIngredient(thoriumMod, "TitanBar", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-    public class Monowai : OrchidModShamanItem
+    public class Monowai : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 30;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Monowai"); // Named after an undersea volcano
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Shoots elemental bolts, hitting your enemy 2 times"
 							+"\nHitting the same target twice will grant you a volcanic orb"
 							+"\nIf you have 5 orbs, your next hit will explode, throwing enemies in the air"
@@ -60,14 +57,14 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		
 		public override void AddRecipes()
 		{
-			Mod orchidMod = ModLoader.GetMod("OrchidMod");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.Anvils);
-				recipe.AddIngredient(orchidMod.ItemType("MagmaScepter"), 1);
-				recipe.AddIngredient(orchidMod.ItemType("AquaiteScepter"), 1);
-				recipe.AddIngredient(null, "aDarksteelAlloy", 10);
+				recipe.AddIngredient(mod.ItemType("MagmaScepter"), 1);
+				recipe.AddIngredient(mod.ItemType("AquaiteScepter"), 1);
+				recipe.AddIngredient(thoriumMod, "aDarksteelAlloy", 10);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
