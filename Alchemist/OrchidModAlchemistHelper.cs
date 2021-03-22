@@ -35,7 +35,6 @@ namespace OrchidMod.Alchemist
 				modPlayer.alchemistNbElements = 0;
 				OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);
 				OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);
-				OrchidModAlchemistHelper.clearAlchemistDusts(player, modPlayer, mod);
 				OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
 			}
 			
@@ -90,7 +89,6 @@ namespace OrchidMod.Alchemist
 			if (OrchidModAlchemistHelper.getNbAlchemistFlasks(player, modPlayer, mod) == 0) {
 				OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);
 				OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);
-				OrchidModAlchemistHelper.clearAlchemistDusts(player, modPlayer, mod);
 				OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
 			}
 			
@@ -118,7 +116,6 @@ namespace OrchidMod.Alchemist
 			modPlayer.alchemistPotencyDisplayTimer = 0;
 			OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);
 			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);
-			OrchidModAlchemistHelper.clearAlchemistDusts(player, modPlayer, mod);
 			OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
 		}
 		
@@ -129,10 +126,10 @@ namespace OrchidMod.Alchemist
 		}
 		
 		public static void clearAlchemistFlasks(Player player, OrchidModPlayer modPlayer, Mod mod) {
-			modPlayer.alchemistFlasks = new int[6];
+			modPlayer.alchemistFlasks = new Item[6];
 			
 			for (int i = 0 ; i < 6 ; i ++) {
-				modPlayer.alchemistFlasks[i] = 0;
+				modPlayer.alchemistFlasks[i] = new Item();
 			}
 		}
 		
@@ -144,25 +141,17 @@ namespace OrchidMod.Alchemist
 			}
 		}
 		
-		public static void clearAlchemistDusts(Player player, OrchidModPlayer modPlayer, Mod mod) {
-			modPlayer.alchemistDusts = new int[6];
-			
-			for (int i = 0 ; i < 6 ; i ++) {
-				modPlayer.alchemistDusts[i] = -1;
-			}
-		}
-		
 		public static int getNbAlchemistFlasks(Player player, OrchidModPlayer modPlayer, Mod mod) {
 			int val = 0;
 			for (int i = 0; i < 6; i ++) {
-				val += modPlayer.alchemistFlasks[i] != 0 ? 1 : 0;
+				val += modPlayer.alchemistFlasks[i].type != 0 ? 1 : 0;
 			}
 			return val;
 		}
 		
 		public static bool containsAlchemistFlask(int flaskType, Player player, OrchidModPlayer modPlayer, Mod mod) {
 			for (int i = 0; i < 6; i ++) {
-				if (modPlayer.alchemistFlasks[i] == flaskType) {
+				if (modPlayer.alchemistFlasks[i].type == flaskType) {
 					return true;
 				}
 			}

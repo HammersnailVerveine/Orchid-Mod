@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Light
 {
@@ -31,6 +33,11 @@ namespace OrchidMod.Alchemist.Weapons.Light
 			
 		    Tooltip.SetDefault("Confuses your target briefly"
 							+  "\n[c/FF0000:Test Item]");
+		}
+		
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, 
+		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
+			target.AddBuff(BuffID.Confused, 60 * (alchProj.nbElements));
 		}
 	}
 }

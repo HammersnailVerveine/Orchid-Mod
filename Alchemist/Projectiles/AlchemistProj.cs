@@ -19,24 +19,24 @@ namespace OrchidMod.Alchemist.Projectiles
 {	
     public class AlchemistProj : OrchidModAlchemistProjectile
     {
-		private int nbElements = 0;
-		private int waterFlask = 0;
-		private int fireFlask = 0;
-		private int natureFlask = 0;
-		private int airFlask = 0;
-		private int lightFlask = 0;
-		private int darkFlask = 0;
-		private int waterDust = -1;
-		private int fireDust = -1;
-		private int natureDust = -1;
-		private int airDust = -1;
-		private int lightDust = -1;
-		private int darkDust = -1;
-		private Color glowColor = new Color(0, 0, 0);
-		private bool hitNPC = false;
+		public int nbElements = 0;
+		public Item waterFlask = new Item();
+		public Item fireFlask = new Item();
+		public Item natureFlask = new Item();
+		public Item airFlask = new Item();
+		public Item lightFlask = new Item();
+		public Item darkFlask = new Item();
+		public OrchidModGlobalItem waterFlaskGlobal = null;
+		public OrchidModGlobalItem fireFlaskGlobal = null;
+		public OrchidModGlobalItem natureFlaskGlobal = null;
+		public OrchidModGlobalItem airFlaskGlobal = null;
+		public OrchidModGlobalItem lightFlaskGlobal = null;
+		public OrchidModGlobalItem darkFlaskGlobal = null;
+		public Color glowColor = new Color(0, 0, 0);
+		public bool hitNPC = false;
 		
-		private bool noCatalyticSpawn = false;
-		private int nbElementsNoExtract = 0;
+		public bool noCatalyticSpawn = false;
+		public int nbElementsNoExtract = 0;
 		
         public override void SafeSetDefaults()
         {
@@ -91,54 +91,54 @@ namespace OrchidMod.Alchemist.Projectiles
 				}
 			}
 			
-			if (this.waterDust != -1) {
+			if (this.waterFlaskGlobal != null) {
 				if (Main.rand.Next(8) > this.nbElements) {
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.waterDust);
+					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.waterFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
 				}
 			}
 			
-			if (this.fireDust != -1) {
+			if (this.fireFlaskGlobal != null) {
 				if (Main.rand.Next(8) > this.nbElements) {
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.fireDust);
+					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.fireFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
 				}
 			}
 			
-			if (this.natureDust != -1) {
+			if (this.natureFlaskGlobal != null) {
 				if (Main.rand.Next(8) > this.nbElements) {
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.natureDust);
+					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.natureFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
 				}
 			}
 			
-			if (this.airDust != -1) {
+			if (this.airFlaskGlobal != null) {
 				if (Main.rand.Next(8) > this.nbElements) {
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.airDust);
+					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.airFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
 				}
 			}
 			
-			if (this.lightDust != -1) {
+			if (this.lightFlaskGlobal != null) {
 				if (Main.rand.Next(8) > this.nbElements) {
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.lightDust);
+					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.lightFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
 				}
 			}
 			
-			if (this.darkDust != -1) {
+			if (this.darkFlaskGlobal != null) {
 				if (Main.rand.Next(8) > this.nbElements) {
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.darkDust);
+					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.darkFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
@@ -150,8 +150,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			bool[] elements = modPlayer.alchemistElements;
-			int[] flasks = modPlayer.alchemistFlasks;
-			int[] dusts =  modPlayer.alchemistDusts;
+			Item[] flasks = modPlayer.alchemistFlasks;
 			
 			this.projOwner = (projectile.owner == Main.myPlayer);
 				
@@ -160,32 +159,32 @@ namespace OrchidMod.Alchemist.Projectiles
 		
 			if (elements[0]) {
 				this.waterFlask = flasks[0];
-				this.waterDust = dusts[0];
+				this.waterFlaskGlobal = this.waterFlask.GetGlobalItem<OrchidModGlobalItem>();
 			}
-					
+				
 			if (elements[1]) {
 				this.fireFlask = flasks[1];
-				this.fireDust = dusts[1];
+				this.fireFlaskGlobal = this.fireFlask.GetGlobalItem<OrchidModGlobalItem>();
 			}
 				
 			if (elements[2]) {
 				this.natureFlask = flasks[2];
-				this.natureDust = dusts[2];
+				this.natureFlaskGlobal = this.natureFlask.GetGlobalItem<OrchidModGlobalItem>();
 			}
 				
 			if (elements[3]) {
 				this.airFlask = flasks[3];
-				this.airDust = dusts[3];
+				this.airFlaskGlobal = this.airFlask.GetGlobalItem<OrchidModGlobalItem>();
 			}
 				
 			if (elements[4]) {
 				this.lightFlask = flasks[4];
-				this.lightDust = dusts[4];
+				this.lightFlaskGlobal = this.lightFlask.GetGlobalItem<OrchidModGlobalItem>();
 			}
 				
 			if (elements[5]) {
 				this.darkFlask = flasks[5];
-				this.darkDust = dusts[5];
+				this.darkFlaskGlobal = this.darkFlask.GetGlobalItem<OrchidModGlobalItem>();
 			}
 				
 			this.addVariousEffects();
@@ -194,11 +193,10 @@ namespace OrchidMod.Alchemist.Projectiles
 			modPlayer.alchemistFlaskDamage = 0;
 			modPlayer.alchemistNbElements = 0;
 			OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);
-			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);	
-			OrchidModAlchemistHelper.clearAlchemistDusts(player, modPlayer, mod);
+			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);
 			OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
 				
-			if (this.fireFlask == ItemType<GunpowderFlask>()) {
+			if (this.fireFlask.type == ItemType<GunpowderFlask>()) {
 				this.noCatalyticSpawn = true;
 			}
 				
@@ -249,702 +247,196 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 		
-		
-		
 		public void KillFirst(int timeLeft, Player player, OrchidModPlayer modPlayer) {
+			if (this.fireFlaskGlobal != null) {
+				fireFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.fireFlaskGlobal);
+			}
 			
+			if (this.waterFlaskGlobal != null) {
+				waterFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.waterFlaskGlobal);
+			}
+			
+			if (this.natureFlaskGlobal != null) {
+				natureFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.natureFlaskGlobal);
+			}
+			
+			if (this.airFlaskGlobal != null) {
+				airFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.airFlaskGlobal);
+			}
+			
+			if (this.lightFlaskGlobal != null) {
+				lightFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.lightFlaskGlobal);
+			}
+			
+			if (this.darkFlaskGlobal != null) {
+				darkFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.darkFlaskGlobal);
+			}
 		}
 		
 		public void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer) {
-			if (this.waterFlask != 0) {
-				int flaskType = this.waterFlask;
-				if (this.waterFlask == ItemType<SeafoamVial>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(90)));
-						int spawnProj = this.natureFlask == ItemType<PoisonVial>() ? ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProjAlt>() : ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-					int shoot = ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProj>();
-					if (this.natureFlask == ItemType<PoisonVial>()) {
-						dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, this.natureFlask, this.nbElements);
-						shoot = ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProj>();
-					}
-					nb = this.hasCloud() ? 2 : 1;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -2.5f).RotatedByRandom(MathHelper.ToRadians(30)));
-						vel *= (float)(1 - (Main.rand.Next(10) / 10));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, shoot, dmg, 0.5f, projectile.owner);
-					}
-				}
-				if (this.waterFlask == ItemType<WaterleafFlask>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Water.WaterSporeProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					for (int l = 0; l < Main.projectile.Length; l++) {  
-						Projectile proj = Main.projectile[l];
-						if (proj.active == true && proj.type == ProjectileType<Alchemist.Projectiles.Water.WaterSporeProj>() && proj.owner == projectile.owner && proj.localAI[1] != 1f) {
-							proj.Kill();
-						}
-					}
-					nb = this.nbElements + this.nbElementsNoExtract;
-					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Water.WaterSporeProj>(), dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.waterFlask == ItemType<DungeonFlask>()) {
-					int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-					
-					int rand = this.nbElements + Main.rand.Next(2);
-					for (int i = 0 ; i < rand ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Water.DungeonFlaskProj>(), dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.waterFlask == ItemType<BloodMoonFlask>()) {
-					int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-					int rand =  2 + this.nbElements + Main.rand.Next(2);
-					for (int i = 0 ; i < rand ; i ++) {
-						Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(180)));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>(), dmg, 0.5f * this.nbElements, projectile.owner);
-					}
-				}
-				if (this.waterFlask == ItemType<SlimeFlask>()) {
-					if (this.fireFlask != 0) {
-						int type = ProjectileType<Alchemist.Projectiles.Water.SlimeFlaskProj>();
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, type, dmg, 0.5f, projectile.owner);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1f, 1f, 5f, true, true, false, 0, 0, true);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, true);
-						Main.PlaySound(2, (int)projectile.Center.X ,(int)projectile.Center.Y, 45);
-					}
-				}
+			if (this.fireFlaskGlobal != null) {
+				fireFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.fireFlaskGlobal);
 			}
 			
-			if (this.fireFlask != 0) {
-				int flaskType = this.fireFlask;
-				if (this.fireFlask == ItemType<EmberVial>()) {
-					int nb = 2 + Main.rand.Next(3);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(80)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.EmberVialProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, 0);
-					int rand = this.nbElements + Main.rand.Next(2);
-					for (int i = 0 ; i < rand ; i ++) {
-						Vector2 vel = (new Vector2(0f, -3f).RotatedByRandom(MathHelper.ToRadians(60)));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Fire.EmberVialProj>(), dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.fireFlask == ItemType<GunpowderFlask>()) {
-					int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ProjectileType<Alchemist.Projectiles.Fire.GunpowderFlaskProj>(), dmg, 3f, projectile.owner, 0.0f, 0.0f);
-					Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
-				}
-				if (this.fireFlask == ItemType<FireblossomFlask>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.FireSporeProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					for (int l = 0; l < Main.projectile.Length; l++) {  
-						Projectile proj = Main.projectile[l];
-						if (proj.active == true && proj.type == ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>() && proj.owner == projectile.owner && proj.localAI[1] != 1f) {
-							proj.Kill();
-						}
-					}
-						
-					nb = this.nbElements + this.nbElementsNoExtract;
-					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>(), dmg, 0f, projectile.owner);
-					}
-				}
-				
-				if (this.fireFlask == ItemType<BlinkrootFlask>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.FireSporeProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					for (int l = 0; l < Main.projectile.Length; l++) {  
-						Projectile proj = Main.projectile[l];
-						if (proj.active == true && proj.type == ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>() && proj.owner == projectile.owner && proj.localAI[1] != 1f) {
-							proj.Kill();
-						}
-					}
-						
-					nb = this.nbElements + this.nbElementsNoExtract;
-					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>(), dmg, 0f, projectile.owner);
-					}
-				}
+			if (this.waterFlaskGlobal != null) {
+				waterFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.waterFlaskGlobal);
 			}
 			
-			if (this.natureFlask != 0) {
-				int flaskType = this.natureFlask;
-				if (this.natureFlask == ItemType<LivingSapVial>()) {
-					int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-					int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.LivingSapVialProj>();
-					Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(90)));
-						spawnProj = ProjectileType<Alchemist.Projectiles.Nature.LivingSapVialProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-				}
-				if (this.natureFlask == ItemType<PoisonVial>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(90)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-					nb = this.hasCloud() ? 2 : 1;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -2.5f).RotatedByRandom(MathHelper.ToRadians(30)));
-						vel *= (float)(1 - (Main.rand.Next(10) / 10));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProj>(), dmg, 0.5f, projectile.owner);
-					}
-				}
-				if (this.natureFlask == ItemType<GlowingMushroomVial>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2	vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProjAlt2>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					bool spawnedMushroom = false;
-					for (int l = 0; l < Main.projectile.Length; l++) {  
-						Projectile proj = Main.projectile[l];
-						int projType = ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProj>();
-						int projTypeAlt = ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProjAlt>();
-						if (proj.active == true && (proj.type == projType || proj.type == projTypeAlt) && proj.owner == projectile.owner) {
-							spawnedMushroom = true;
-							break;
-						}
-					}
-					if (!spawnedMushroom) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProj>(), dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.natureFlask == ItemType<SunflowerFlask>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2	vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj4>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					if (this.waterFlask != 0) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj1>(), dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.natureFlask == ItemType<MoonglowFlask>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					for (int l = 0; l < Main.projectile.Length; l++) {  
-						Projectile proj = Main.projectile[l];
-						if (proj.active == true && proj.type == ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>() && proj.owner == projectile.owner && proj.localAI[1] != 1f) {
-							proj.Kill();
-						}
-					}
-					nb = this.nbElements + this.nbElementsNoExtract;
-					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>(), dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.natureFlask == ItemType<DaybloomFlask>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					for (int l = 0; l < Main.projectile.Length; l++) {  
-						Projectile proj = Main.projectile[l];
-						if (proj.active == true && proj.type == ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>() && proj.owner == projectile.owner && proj.localAI[1] != 1f) {
-							proj.Kill();
-						}
-					}
-					nb = this.nbElements + this.nbElementsNoExtract;
-					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>(), dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.natureFlask == ItemType<GlowingAttractiteFlask>()) {
-					if (!this.hitNPC) {
-						float baseRange = 50f;
-						int usedElements = this.nbElements > 3 ? 3 : this.nbElements;
-						float distance = 20f + usedElements * baseRange;
-						NPC attractiteTarget = null;
-						for (int k = 0; k < 200; k++)
-						{
-							if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly){
-								Vector2 newMove = Main.npc[k].Center - projectile.Center;
-								float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-								if (distanceTo < distance) {
-									distance = distanceTo;
-									attractiteTarget = Main.npc[k];
-								}
-							}
-						}
-						if (attractiteTarget != null) {
-							attractiteTarget.AddBuff(mod.BuffType("Attraction"), 60 * (this.nbElements * 3));
-						}
-					}
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					for (int l = 0; l < Main.projectile.Length; l++) {  
-						Projectile proj = Main.projectile[l];
-						if (proj.active == true && proj.type == ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>() && proj.owner == projectile.owner && proj.localAI[1] != 1f) {
-							proj.Kill();
-						}
-					}
-					nb = this.nbElements + this.nbElementsNoExtract;
-					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, mod.ProjectileType("NatureSporeProj"), dmg, 0f, projectile.owner);
-					}
-					if (this.nbElements == 1) {
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 20, 20, true, 1.5f, 1f, 3f);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 20, 20, true, 1.5f, 1f, 3f, true, false);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 20, 20, true, 1.5f, 1f, 3f, false, true);
-					} else if (this.nbElements == 2) {
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 20, 30, true, 1.5f, 1f, 8f);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 20, 30, true, 1.5f, 1f, 8f, true, false);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 20, 30, true, 1.5f, 1f, 8f, false, true);
-					} else if (this.nbElements > 2) {
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 20, 40, true, 1.5f, 1f, 13f);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 20, 40, true, 1.5f, 1f, 13f, true, false);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 20, 40, true, 1.5f, 1f, 13f, false, true);
-					}
-				}
-				if (this.natureFlask == ItemType<AttractiteFlask>()) {
-					if (this.nbElements == 1) {
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 20, 20, true, 1.5f, 1f, 3f);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 20, 20, true, 1.5f, 1f, 3f, true, false);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 20, 20, true, 1.5f, 1f, 3f, false, true);
-					} else if (this.nbElements == 2) {
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 20, 30, true, 1.5f, 1f, 8f);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 20, 30, true, 1.5f, 1f, 8f, true, false);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 20, 30, true, 1.5f, 1f, 8f, false, true);
-					} else if (this.nbElements > 2) {
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 20, 40, true, 1.5f, 1f, 13f);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 20, 40, true, 1.5f, 1f, 13f, true, false);
-						OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 20, 40, true, 1.5f, 1f, 13f, false, true);
-					}
-					if (!this.hitNPC) {
-						float baseRange = 50f;
-						int usedElements = this.nbElements > 3 ? 3 : this.nbElements;
-						float distance = 20f + usedElements * baseRange;
-						NPC attractiteTarget = null;
-						for (int k = 0; k < 200; k++)
-						{
-							if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly){
-								Vector2 newMove = Main.npc[k].Center - projectile.Center;
-								float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-								if (distanceTo < distance) {
-									distance = distanceTo;
-									attractiteTarget = Main.npc[k];
-								}
-							}
-						}
-						if (attractiteTarget != null) {
-							attractiteTarget.AddBuff(mod.BuffType("Attraction"), 60 * (this.nbElements * 3));
-						}
-					}
-				}
+			if (this.natureFlaskGlobal != null) {
+				natureFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.natureFlaskGlobal);
 			}
 			
-			if (this.airFlask != 0) {
-				int flaskType = this.airFlask;
-				if (this.hasCloud()) {
-					int nb = 2 + Main.rand.Next(3);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -(float)((3 * this.nbElements) + Main.rand.Next(3))).RotatedByRandom(MathHelper.ToRadians(10)));
-						int spawnProj = Main.rand.Next(3) == 0 ? ProjectileType<Alchemist.Projectiles.AlchemistSmoke3>() : ProjectileType<Alchemist.Projectiles.AlchemistSmoke2>();
-						int smokeProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-						Main.projectile[smokeProj].localAI[0] = this.glowColor.R;
-						Main.projectile[smokeProj].localAI[1] = this.glowColor.G;
-						Main.projectile[smokeProj].ai[1] = this.glowColor.B;
-					}
-					if (this.waterFlask == ItemType<BloodMoonFlask>()) {
-						for (int i = 0 ; i < nb ; i ++) {
-							int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, this.waterFlask, this.nbElements);
-							Vector2 vel = (new Vector2(0f, -(float)((3 * this.nbElements) + Main.rand.Next(3))).RotatedByRandom(MathHelper.ToRadians(10)));
-							int spawnProj = ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>();
-							Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
-						}
-					}
-				}
-				if (this.airFlask == ItemType<ShadowChestFlask>()) {
-					int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-					int spawnProj = ProjectileType<Alchemist.Projectiles.Air.ShadowChestFlaskProj>();
-					for (int i = 0 ; i < 4 ; i ++) {
-						Vector2 vel = (new Vector2(0f, 5f * this.nbElements).RotatedBy(MathHelper.ToRadians(90 * i)));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.airFlask == ItemType<SunplateFlask>()) {
-					int rand = Main.rand.Next(180);
-					int rand2 = Main.rand.Next(3);
-					for (int i = 0 ; i < 2 ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(rand + (180 * i))));
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						int spawnProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Air.SunplateFlaskProj>(), dmg, 0.1f, projectile.owner);
-						Main.projectile[spawnProj].ai[1] = 180f * i;
-						Main.projectile[spawnProj].ai[0] = rand2;
-						Main.projectile[spawnProj].netUpdate = true;
-					}
-				}
-				if (this.airFlask == ItemType<QueenBeeFlask>()) {
-					int nb = 2 + Main.rand.Next(2);
-					if (this.fireFlask == 0) {
-						for (int i = 0 ; i < nb ; i ++) {
-							Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-							int spawnProj = ProjectileType<Alchemist.Projectiles.Air.QueenBeeFlaskProj>();
-							Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-						}
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						int rand = this.nbElements + Main.rand.Next(3) + 1;
-						for (int i = 0 ; i < rand ; i ++) {
-							Vector2 vel = ( new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(80)));
-							if (player.strongBees && Main.rand.Next(2) == 0) 
-									Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, 566, (int) (dmg * 1.15f), 0f, projectile.owner, 0f, 0f);
-							else {
-								Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, 181, dmg, 0f, projectile.owner, 0f, 0f);
-							}
-						}
-					}
-				}
-				if (this.airFlask == ItemType<ShiverthornFlask>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					for (int l = 0; l < Main.projectile.Length; l++) {  
-						Projectile proj = Main.projectile[l];
-						if (proj.active == true && proj.type == ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>() && proj.owner == projectile.owner && proj.localAI[1] != 1f) {
-							proj.Kill();
-						}
-					}
-					nb = this.nbElements + this.nbElementsNoExtract;
-					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>(), dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.airFlask == ItemType<DeathweedFlask>()) {
-					int nb = 2 + Main.rand.Next(2);
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-						int spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProjAlt>();
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-					}
-					for (int l = 0; l < Main.projectile.Length; l++) {  
-						Projectile proj = Main.projectile[l];
-						if (proj.active == true && proj.type == ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>() && proj.owner == projectile.owner && proj.localAI[1] != 1f) {
-							proj.Kill();
-						}
-					}
-					nb = this.nbElements + this.nbElementsNoExtract;
-					nb += player.HasBuff(BuffType<Alchemist.Buffs.MushroomHeal>()) ? Main.rand.Next(3) : 0;
-					for (int i = 0 ; i < nb ; i ++) {
-						Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>(), dmg, 0f, projectile.owner);
-					}
-				}
+			if (this.airFlaskGlobal != null) {
+				airFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.airFlaskGlobal);
 			}
 			
-			if (this.lightFlask != 0) {
-				int flaskType = this.lightFlask;
+			if (this.lightFlaskGlobal != null) {
+				lightFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.lightFlaskGlobal);
 			}
 			
-			if (this.darkFlask != 0) {
-				int flaskType = this.darkFlask;
+			if (this.darkFlaskGlobal != null) {
+				darkFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.darkFlaskGlobal);
 			}
 		}
 		
 		public void KillThird(int timeLeft, Player player, OrchidModPlayer modPlayer) {
+			if (this.fireFlaskGlobal != null) {
+				fireFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.fireFlaskGlobal);
+			}
 			
+			if (this.waterFlaskGlobal != null) {
+				waterFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.waterFlaskGlobal);
+			}
+			
+			if (this.natureFlaskGlobal != null) {
+				natureFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.natureFlaskGlobal);
+			}
+			
+			if (this.airFlaskGlobal != null) {
+				airFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.airFlaskGlobal);
+			}
+			
+			if (this.lightFlaskGlobal != null) {
+				lightFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.lightFlaskGlobal);
+			}
+			
+			if (this.darkFlaskGlobal != null) {
+				darkFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.darkFlaskGlobal);
+			}
 		}
 		
 		public void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal) {
+			if (this.fireFlaskGlobal != null) {
+				fireFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.fireFlaskGlobal);
+			}
+			
+			if (this.waterFlaskGlobal != null) {
+				waterFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.waterFlaskGlobal);
+			}
+			
+			if (this.natureFlaskGlobal != null) {
+				natureFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.natureFlaskGlobal);
+			}
+			
+			if (this.airFlaskGlobal != null) {
+				airFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.airFlaskGlobal);
+			}
+			
+			if (this.lightFlaskGlobal != null) {
+				lightFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.lightFlaskGlobal);
+			}
+			
+			if (this.darkFlaskGlobal != null) {
+				darkFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.darkFlaskGlobal);
+			}
 		}
 		
 		public void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal) {
-			if (this.waterFlask != 0) {
-				int flaskType = this.waterFlask;
-				if (this.waterFlask == ItemType<KingSlimeFlask>()) {
-					if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f) {
-						target.AddBuff(mod.BuffType("SlimeSlow"), 90 * (this.nbElements * 2));
-					}
-					if (Main.rand.Next(10) < this.nbElements && !this.noCatalyticSpawn) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						int proj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubble>();
-						Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.waterFlask == ItemType<GoblinArmyFlask>()) {
-					if (this.fireFlask != 0) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						modTarget.spreadOilFire(target.Center, dmg, Main.player[projectile.owner]);
-						Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 45);
-					}
-					modTarget.alchemistOil = 60 * 10;
-						
-					int rand = this.nbElements;
-					rand += this.hasCloud() ? 2 : 0;
-					if (Main.rand.Next(6) < rand && !this.noCatalyticSpawn) {
-						int dmg = 0;
-						int proj = ProjectileType<Alchemist.Projectiles.Reactive.OilBubble>();
-						Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
-					}
-					modTarget.alchemistWater = 60 * 5;
-				}
-				if (this.waterFlask == ItemType<HellOil>()) {
-					if (this.fireFlask != 0) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						modTarget.spreadOilFire(target.Center, dmg, Main.player[projectile.owner]);
-						Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 45);
-					}
-					modTarget.alchemistOil = 60 * 10;
-						
-					int rand = this.nbElements;
-					rand += this.hasCloud() ? 2 : 0;
-					if (Main.rand.Next(6) < rand && !this.noCatalyticSpawn) {
-						int dmg = 0;
-						int proj = ProjectileType<Alchemist.Projectiles.Reactive.OilBubble>();
-						Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
-					}
-					modTarget.alchemistWater = 60 * 5;
-				}
-				if (this.waterFlask == ItemType<SeafoamVial>()) {
-					int rand = this.nbElements;
-					rand += this.hasCloud() ? 2 : 0;
-					if (Main.rand.Next(10) < rand && !this.noCatalyticSpawn) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						int proj = ProjectileType<Alchemist.Projectiles.Reactive.SeafoamBubble>();
-						if (this.natureFlask == ItemType<PoisonVial>()) {
-							dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, this.natureFlask, this.nbElements);
-							proj = ProjectileType<Alchemist.Projectiles.Reactive.PoisonBubble>();
-						}
-						Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.waterFlask == ItemType<DungeonFlask>()) {
-					int rand = this.nbElements;
-					rand += this.hasCloud() ? 2 : 0;
-					if (Main.rand.Next(10) < rand && !this.noCatalyticSpawn) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						int proj = ProjectileType<Alchemist.Projectiles.Reactive.SpiritedBubble>();
-						Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
-					}
-				}
+			if (this.fireFlaskGlobal != null) {
+				fireFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.fireFlaskGlobal);
 			}
 			
-			if (this.fireFlask != 0) {
-				int flaskType = this.fireFlask;
-				if (this.fireFlask == ItemType<EmberVial>()) {
-					target.AddBuff(BuffID.OnFire, (60 * 3 ) + (60 * (this.nbElements)));
-				}
+			if (this.waterFlaskGlobal != null) {
+				waterFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.waterFlaskGlobal);
 			}
 			
-			if (this.natureFlask != 0) {
-				int flaskType = this.natureFlask;
-				if (this.natureFlask == ItemType<AttractiteFlask>()) {
-					target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60 * (this.nbElements * 3));
-				}
-				if (this.natureFlask == ItemType<PoisonVial>()) {
-					target.AddBuff(BuffID.Poisoned, 60 * 5);
-					int rand = this.nbElements;
-					rand += this.hasCloud() ? 2 : 0;
-					if (Main.rand.Next(10) < rand && !this.noCatalyticSpawn) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						int proj = ProjectileType<Alchemist.Projectiles.Reactive.PoisonBubble>();
-						Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
-					}
-				}
-
-				if (this.natureFlask == ItemType<LivingSapVial>()) {
-					int rand = this.nbElements;
-					rand += this.hasCloud() ? 2 : 0;
-					if (Main.rand.Next(10) < rand) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements + 5);
-						int proj = ProjectileType<Alchemist.Projectiles.Reactive.LivingSapBubble>();
-						Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
-					}
-				}
+			if (this.natureFlaskGlobal != null) {
+				natureFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.natureFlaskGlobal);
 			}
 			
-			if (this.airFlask != 0) {
-				int flaskType = this.airFlask;
-				if (this.airFlask == ItemType<QueenBeeFlask>()) {
-					int rand = this.nbElements;
-					if (Main.rand.Next(10) < rand) {
-						int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, flaskType, this.nbElements);
-						int proj = ProjectileType<Alchemist.Projectiles.Reactive.AlchemistHive>();
-						Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
-					}
-				}
-				if (this.hasCloud()) {
-					if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f) {
-						target.velocity.Y = -((float) this.nbElements * 4);
-					}
-				}
+			if (this.airFlaskGlobal != null) {
+				airFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.airFlaskGlobal);
 			}
 			
-			if (this.lightFlask != 0) {
-				//int flaskType = this.lightFlask;
-				if (this.lightFlask == ItemType<GlowingVial>()) {
-					target.AddBuff(BuffID.Confused, 60 * (this.nbElements));
-				}
+			if (this.lightFlaskGlobal != null) {
+				lightFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.lightFlaskGlobal);
 			}
 			
-			if (this.darkFlask != 0) {
-				//int flaskType = this.darkFlask;
-				if (this.darkFlask == ItemType<EmoVial>()) {
-					target.AddBuff(153, 60 * ((((int)(this.nbElements / 2)) == 0) ? 1 : ((int)(this.nbElements / 2)))); // Shadowflame
-				}
+			if (this.darkFlaskGlobal != null) {
+				darkFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.darkFlaskGlobal);
 			}
 		}
 		
 		public void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal) {
-			if (this.waterFlask != 0) {
-				//int flaskType = this.waterFlask;
-				if (this.waterFlask == ItemType<GoblinArmyFlask>()) {
-					modTarget.alchemistOil = 60 * 10;
-					modTarget.alchemistWater = 60 * 5;
-				}
-				if (this.waterFlask == ItemType<HellOil>()) {
-					modTarget.alchemistOil = 60 * 10;
-					modTarget.alchemistWater = 60 * 5;
-				}
+			if (this.fireFlaskGlobal != null) {
+				fireFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.fireFlaskGlobal);
 			}
 			
-			if (this.fireFlask != 0) {
-				//int flaskType = this.fireFlask;
-				if (this.fireFlask == ItemType<EmberVial>()) {
-					modTarget.alchemistFire = 60 * 5;
-				}
+			if (this.waterFlaskGlobal != null) {
+				waterFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.waterFlaskGlobal);
+			}
+			
+			if (this.natureFlaskGlobal != null) {
+				natureFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.natureFlaskGlobal);
+			}
+			
+			if (this.airFlaskGlobal != null) {
+				airFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.airFlaskGlobal);
+			}
+			
+			if (this.lightFlaskGlobal != null) {
+				lightFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.lightFlaskGlobal);
+			}
+			
+			if (this.darkFlaskGlobal != null) {
+				darkFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.darkFlaskGlobal);
 			}
 		}
-		
-		
+				
 		public void addVariousEffects() {
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			
 			this.nbElementsNoExtract += this.nbElements;
 			
-			if (this.fireFlask != 0) {
-				if (this.fireFlask == ItemType<FireblossomFlask>()) {
-					this.nbElementsNoExtract --;
-				}
-				
-				if (this.fireFlask == ItemType<BlinkrootFlask>()) {
-					this.nbElementsNoExtract --;
-				}
-			}
-			
-			if (this.waterFlask != 0) {
-				if (this.waterFlask == ItemType<WaterleafFlask>()) {
-					this.nbElementsNoExtract --;
-				}
-				if (this.waterFlask == ItemType<GoblinArmyFlask>()) {
-					if (this.fireFlask != 0) {
-						projectile.damage += (int)(30 * modPlayer.alchemistDamage);
-					}
-				}
-				if (this.waterFlask == ItemType<HellOil>()) {
-					if (this.fireFlask != 0) {
-						projectile.damage += (int)(50 * modPlayer.alchemistDamage);
-					}
-				}
-				if (this.natureFlask == ItemType<SunflowerFlask>()) {
-					projectile.damage += (int)(3 * modPlayer.alchemistDamage);
-				}
-			}
-			
-			if (this.natureFlask != 0) {
-				if (this.natureFlask == ItemType<MoonglowFlask>()) {
-					this.nbElementsNoExtract --;
-				}
-				if (this.natureFlask == ItemType<GlowingAttractiteFlask>()) {
-					this.nbElementsNoExtract --;
-				}
-				if (this.natureFlask == ItemType<AttractiteFlask>()) {
-					this.nbElementsNoExtract --;
-				}
-				if (this.natureFlask == ItemType<DaybloomFlask>()) {
-					this.nbElementsNoExtract --;
-				}
-			}
-			
-			if (this.airFlask != 0) {
-				if (this.airFlask == ItemType<DeathweedFlask>()) {
-					this.nbElementsNoExtract --;
-				}
-				if (this.airFlask == ItemType<ShiverthornFlask>()) {
-					this.nbElementsNoExtract --;
-				}
-			}
-			
 			int buffType = BuffType<Alchemist.Buffs.ReactiveVialsBuff>();
 			if (player.HasBuff(buffType)) {
 				projectile.damage = (int)(projectile.damage * 1.1f);
 				player.ClearBuff(buffType);
+			}
+			
+			if (this.fireFlaskGlobal != null) {
+				fireFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+			}
+			
+			if (this.waterFlaskGlobal != null) {
+				waterFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+			}
+			
+			if (this.natureFlaskGlobal != null) {
+				natureFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+			}
+			
+			if (this.airFlaskGlobal != null) {
+				airFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+			}
+			
+			if (this.lightFlaskGlobal != null) {
+				lightFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+			}
+			
+			if (this.darkFlaskGlobal != null) {
+				darkFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
 			}
 		}
 		
@@ -977,60 +469,60 @@ namespace OrchidMod.Alchemist.Projectiles
 				Main.projectile[smokeProj].ai[1] = this.glowColor.B;
 			}
 			
-			if (this.waterDust != -1) {
+			if (this.waterFlaskGlobal != null) {
 				for (int i = 0 ; i < 8 - this.nbElements ; i ++ ) {
 					if (Main.rand.Next(3) < 2) {
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.waterDust);
+						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.waterFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
 				}
 			}
 			
-			if (this.fireDust != -1) {
+			if (this.fireFlaskGlobal != null) {
 				for (int i = 0 ; i < 8 - this.nbElements ; i ++ ) {
 					if (Main.rand.Next(3) < 2) {
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.fireDust);
+						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.fireFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
 				}
 			}
 			
-			if (this.natureDust != -1) {
+			if (this.natureFlaskGlobal != null) {
 				for (int i = 0 ; i < 8 - this.nbElements ; i ++ ) {
 					if (Main.rand.Next(3) < 2) {
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.natureDust);
+						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.natureFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
 				}
 			}
 			
-			if (this.airDust != -1) {
+			if (this.airFlaskGlobal != null) {
 				for (int i = 0 ; i < 8 - this.nbElements ; i ++ ) {
 					if (Main.rand.Next(3) < 2) {
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.airDust);
+						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.airFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
 				}
 			}
 			
-			if (this.lightDust != -1) {
+			if (this.lightFlaskGlobal != null) {
 				for (int i = 0 ; i < 8 - this.nbElements ; i ++ ) {
 					if (Main.rand.Next(3) < 2) {
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.lightDust);
+						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.lightFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
 				}
 			}
 			
-			if (this.darkDust != -1) {
+			if (this.darkFlaskGlobal != null) {
 				for (int i = 0 ; i < 8 - this.nbElements ; i ++ ) {
 					if (Main.rand.Next(3) < 2) {
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.darkDust);
+						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.darkFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
@@ -1039,7 +531,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		}
 		
 		public bool hasCloud() {
-			return (this.airFlask == ItemType<CouldInAVial>() || this.airFlask == ItemType<FartInAVial>());
+			return (this.airFlask.type == ItemType<CouldInAVial>() || this.airFlask.type == ItemType<FartInAVial>());
 		}
     }
 }

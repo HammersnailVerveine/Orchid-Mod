@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Water
 {
@@ -32,6 +34,16 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			DisplayName.SetDefault("Blood Mist Flask");
 		    Tooltip.SetDefault("Creates a lingering cloud of damaging mist"
 							+  "\nThe mist knockback heavily scales with the number of elements used");
+		}
+		
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
+			int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+			int rand =  2 + alchProj.nbElements + Main.rand.Next(2);
+			float kb = 0.5f * alchProj.nbElements;
+			for (int i = 0 ; i < rand ; i ++) {
+				Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(180)));
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>(), dmg, kb, projectile.owner);
+			}
 		}
 	}
 }

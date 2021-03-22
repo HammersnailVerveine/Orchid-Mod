@@ -51,7 +51,6 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				} else {	
 					Vector2 move = Vector2.Zero;
 					float distance = 2000f;
-					bool target = false;
 					for (int k = 0; k < 200; k++)
 					{
 						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 

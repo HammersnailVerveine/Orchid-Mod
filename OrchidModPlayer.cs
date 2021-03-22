@@ -112,9 +112,8 @@ namespace OrchidMod
 		public float alchemistDamage = 1.0f;
 		public float alchemistVelocity = 1.0f;
 		public int alchemistCrit = 0;
-		public bool[] alchemistElements = new bool[6]; // mp Sync
-		public int[] alchemistFlasks = new int[6]; // mp Sync
-		public int[] alchemistDusts = new int[6]; // mp Sync
+		public bool[] alchemistElements = new bool[6];
+		public Item[] alchemistFlasks = new Item[6];
 		public int alchemistFlaskDamage = 0;
 		public int alchemistNbElements = 0; // mp Sync
 		public int alchemistNbElementsMax = 2;
@@ -753,13 +752,6 @@ namespace OrchidMod
 			clone.shamanSpiritBuff = this.shamanSpiritBuff;
 			
 			clone.gamblerHasCardInDeck = this.gamblerHasCardInDeck;
-			
-			// clone.alchemistElements = this.alchemistElements;
-			// clone.alchemistFlasks = this.alchemistFlasks;
-			// clone.alchemistDusts = this.alchemistDusts;
-			// clone.alchemistColorR = this.alchemistColorR;
-			// clone.alchemistColorG = this.alchemistColorG;
-			// clone.alchemistColorB = this.alchemistColorB;
 		}
 		
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) {
@@ -792,28 +784,6 @@ namespace OrchidMod
 			packet.Write(shamanSpiritTimer);
 			
 			packet.Write(gamblerHasCardInDeck);
-			
-			// packet.Write(alchemistElements[0]);
-			// packet.Write(alchemistElements[1]);
-			// packet.Write(alchemistElements[2]);
-			// packet.Write(alchemistElements[3]);
-			// packet.Write(alchemistElements[4]);
-			// packet.Write(alchemistElements[5]);
-			// packet.Write(alchemistFlasks[0]);
-			// packet.Write(alchemistFlasks[1]);
-			// packet.Write(alchemistFlasks[2]);
-			// packet.Write(alchemistFlasks[3]);
-			// packet.Write(alchemistFlasks[4]);
-			// packet.Write(alchemistFlasks[5]);
-			// packet.Write(alchemistDusts[0]);
-			// packet.Write(alchemistDusts[1]);
-			// packet.Write(alchemistDusts[2]);
-			// packet.Write(alchemistDusts[3]);
-			// packet.Write(alchemistDusts[4]);
-			// packet.Write(alchemistDusts[5]);
-			// packet.Write(alchemistColorR);
-			// packet.Write(alchemistColorG);
-			// packet.Write(alchemistColorB);
 
 			packet.Send(toWho, fromWho);
 		}
@@ -992,174 +962,6 @@ namespace OrchidMod
 				packet.Write(gamblerHasCardInDeck);
 				packet.Send();
 			}
-			
-			// if (clone.alchemistElements[0] != alchemistElements[0]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED0);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistElements[0]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistElements[1] != alchemistElements[1]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED1);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistElements[1]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistElements[2] != alchemistElements[2]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED2);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistElements[2]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistElements[3] != alchemistElements[3]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED3);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistElements[3]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistElements[4] != alchemistElements[4]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED4);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistElements[4]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistElements[5] != alchemistElements[5]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED5);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistElements[5]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistFlasks[0] != alchemistFlasks[0]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED0);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistFlasks[0]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistFlasks[1] != alchemistFlasks[1]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED1);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistFlasks[1]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistFlasks[2] != alchemistFlasks[2]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED2);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistFlasks[2]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistFlasks[3] != alchemistFlasks[3]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED3);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistFlasks[3]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistFlasks[4] != alchemistFlasks[4]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED4);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistFlasks[4]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistFlasks[5] != alchemistFlasks[5]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED5);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistFlasks[5]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistDusts[0] != alchemistDusts[0]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED0);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistDusts[0]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistDusts[1] != alchemistDusts[1]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED1);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistDusts[1]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistDusts[2] != alchemistDusts[2]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED2);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistDusts[2]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistDusts[3] != alchemistDusts[3]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED3);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistDusts[3]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistDusts[4] != alchemistDusts[4]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED4);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistDusts[4]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistDusts[5] != alchemistDusts[5]) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED5);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistDusts[5]);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistColorR != alchemistColorR) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTCOLORCHANGEDR);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistColorR);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistColorG != alchemistColorG) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTCOLORCHANGEDG);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistColorG);
-				// packet.Send();
-			// }
-			
-			// if (clone.alchemistColorB != alchemistColorB) {
-				// var packet = mod.GetPacket();
-				// packet.Write((byte)OrchidModMessageType.ALCHEMISTCOLORCHANGEDB);
-				// packet.Write((byte)player.whoAmI);
-				// packet.Write(alchemistColorB);
-				// packet.Send();
-			// }
 		}
 	}
 }

@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using OrchidMod;
 using OrchidMod.Alchemist;
+using OrchidMod.Alchemist.Projectiles;
 using OrchidMod.Interfaces;
 
 namespace OrchidMod
@@ -21,13 +22,29 @@ namespace OrchidMod
 		public int alchemistColorR = 0;
 		public int alchemistColorG = 0;
 		public int alchemistColorB = 0;
-		public int alchemistRightClickDust = 0;
+		public int alchemistRightClickDust = -1;
 		public int alchemistPotencyCost = 0;
 		public int alchemistSecondaryDamage = 0;
 		public float alchemistSecondaryScaling = 1f;
 		public int gamblerCardRequirement = 0;
 		public List<string> gamblerCardSets = new List<string>();
 		public AlchemistElement alchemistElement = AlchemistElement.NULL;
+				
+		public delegate void KillFirstDelegate(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void KillSecondDelegate(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void KillThirdDelegate(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void OnHitNPCFirstDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void OnHitNPCSecondDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void OnHitNPCThirdDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void AddVariousEffectsDelegate(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		
+		public KillFirstDelegate killFirstDelegate;
+		public KillSecondDelegate killSecondDelegate;
+		public KillThirdDelegate killThirdDelegate;
+		public OnHitNPCFirstDelegate onHitNPCFirstDelegate;
+		public OnHitNPCSecondDelegate onHitNPCSecondDelegate;
+		public OnHitNPCThirdDelegate onHitNPCThirdDelegate;
+		public AddVariousEffectsDelegate addVariousEffectsDelegate;
 
 		public override bool InstancePerEntity => true;
 		

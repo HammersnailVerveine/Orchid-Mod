@@ -656,7 +656,6 @@ namespace OrchidMod.Alchemist
 			
 			AlchemistHiddenReactionHelper.bonusReactionEffects(mod, player, modPlayer);
 			
-			OrchidModAlchemistHelper.clearAlchemistDusts(player, modPlayer, mod);
 			modPlayer.alchemistFlaskDamage = 0;
 			modPlayer.alchemistNbElements = 0;
 			OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);

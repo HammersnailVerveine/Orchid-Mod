@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -21,6 +22,16 @@ namespace OrchidMod.Alchemist
 		public int colorB = 255;
 		
 		public virtual void SafeSetDefaults() {}
+		
+		public virtual void KillFirst(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {}
+		public virtual void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {}
+		public virtual void KillThird(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {}
+		
+		public virtual void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {}
+		public virtual void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {}
+		public virtual void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {}
+		
+		public virtual void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {}
 
 		public sealed override void SetDefaults() {
 			SafeSetDefaults();
@@ -51,6 +62,14 @@ namespace OrchidMod.Alchemist
 			orchidItem.alchemistSecondaryDamage = this.secondaryDamage;
 			orchidItem.alchemistSecondaryScaling = this.secondaryScaling;
 			orchidItem.alchemistWeapon = true;
+			
+			orchidItem.killFirstDelegate = KillFirst;
+			orchidItem.killSecondDelegate = KillSecond;
+			orchidItem.killThirdDelegate = KillThird;
+			orchidItem.onHitNPCFirstDelegate = OnHitNPCFirst;
+			orchidItem.onHitNPCSecondDelegate = OnHitNPCSecond;
+			orchidItem.onHitNPCThirdDelegate = OnHitNPCThird;
+			orchidItem.addVariousEffectsDelegate = AddVariousEffects;
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
@@ -230,17 +249,16 @@ namespace OrchidMod.Alchemist
 		public static void playerAddFlask(Player player, AlchemistElement element, int flaskType, int damage, int potencyCost, int rightClickDust, int colorR, int colorG, int colorB) {
 			OrchidModPlayer orchidModPlayer = player.GetModPlayer<OrchidModPlayer>();
 			bool[] elements = orchidModPlayer.alchemistElements;
-			int[] flasks = orchidModPlayer.alchemistFlasks;
-			int[] dusts = orchidModPlayer.alchemistDusts;
+			Item[] flasks = orchidModPlayer.alchemistFlasks;
 			
 			int index = (int)element - 1;
 			
 			orchidModPlayer.alchemistPotency -= potencyCost;
 			orchidModPlayer.alchemistPotencyWait = 300;
 			
-			dusts[index] = rightClickDust;
 			elements[index] = true;
-			flasks[index] = flaskType;
+			flasks[index] = new Item();
+			flasks[index].SetDefaults(flaskType);
 			orchidModPlayer.alchemistFlaskDamage += damage;
 			orchidModPlayer.alchemistNbElements ++;
 			
@@ -252,6 +270,11 @@ namespace OrchidMod.Alchemist
 			orchidModPlayer.alchemistColorR = orchidModPlayer.alchemistColorR > 255 ? 255 : orchidModPlayer.alchemistColorR;
 			orchidModPlayer.alchemistColorG = orchidModPlayer.alchemistColorG > 255 ? 255 : orchidModPlayer.alchemistColorG;
 			orchidModPlayer.alchemistColorB = orchidModPlayer.alchemistColorB > 255 ? 255 : orchidModPlayer.alchemistColorB;
+		}
+		
+		public int getSecondaryDamage(OrchidModPlayer modPlayer, int bonusDamage = 0, bool bonusDamageScaling = true) {
+			int dmg = (int)((this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f))) * modPlayer.alchemistDamage);
+			return dmg;
 		}
 	}
 }

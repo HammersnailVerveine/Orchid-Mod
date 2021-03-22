@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Air
 {
@@ -32,6 +34,15 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			DisplayName.SetDefault("Demon Breath");
 		    Tooltip.SetDefault("Releases returning demon flames"
 							+ "\nCoats hit enemies in alchemical air");
+		}
+		
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
+			int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+			int spawnProj = ProjectileType<Alchemist.Projectiles.Air.ShadowChestFlaskProj>();
+			for (int i = 0 ; i < 4 ; i ++) {
+				Vector2 vel = (new Vector2(0f, 5f * alchProj.nbElements).RotatedBy(MathHelper.ToRadians(90 * i)));
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
+			}
 		}
 	}
 }

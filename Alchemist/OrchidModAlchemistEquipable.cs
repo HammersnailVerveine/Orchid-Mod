@@ -16,11 +16,11 @@ namespace OrchidMod.Alchemist
 		}
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
-			mult *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
+			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
 		}
 		
 		public override void GetWeaponCrit(Player player, ref int crit) {
-			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
+			crit += player.GetModPlayer<OrchidModPlayer>().alchemistCrit;
 		}
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {

@@ -1,10 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
+using static Terraria.ModLoader.ModContent;
+
 
 namespace OrchidMod.Alchemist.Weapons.Nature
 {
@@ -43,5 +46,29 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.SetResult(this);
 			recipe.AddRecipe();
         }
+		
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
+			int nb = 2 + Main.rand.Next(2);
+			for (int i = 0 ; i < nb ; i ++) {
+				Vector2	vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
+				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProjAlt2>();
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+			}
+			bool spawnedMushroom = false;
+			for (int l = 0; l < Main.projectile.Length; l++) {  
+				Projectile proj = Main.projectile[l];
+				int projType = ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProj>();
+				int projTypeAlt = ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProjAlt>();
+				if (proj.active == true && (proj.type == projType || proj.type == projTypeAlt) && proj.owner == projectile.owner) {
+					spawnedMushroom = true;
+					break;
+				}
+			}
+			if (!spawnedMushroom) {
+				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProj>(), dmg, 0f, projectile.owner);
+			}
+		}
 	}
 }
