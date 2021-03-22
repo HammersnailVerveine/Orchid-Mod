@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-	public class GeodeScepter : OrchidModShamanItem
+	public class GeodeScepter : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 31;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.useTime = 42;
 			item.useAnimation = 42;
 			item.knockBack = 8f;
-			item.rare = 4;
+			item.rare = ItemRarityID.LightRed;
 			item.value = Item.sellPrice(0, 2, 0, 0);
 			item.UseSound = SoundID.Item43;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Geode Scepter");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Launches Heavy Geodes, exploding after a while"
 							+ "\nThe explosion will release a burst of crystal shards"
 							+ "\nThe more shamanic bonds you have, the more shards will appear");
@@ -51,12 +48,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		}
 		
 		public override void AddRecipes()
-		{		
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+		{
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.MythrilAnvil);	
-				recipe.AddIngredient(null, "Geode", 8);
+				recipe.AddIngredient(thoriumMod, "Geode", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

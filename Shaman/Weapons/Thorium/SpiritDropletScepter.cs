@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-	public class SpiritDropletScepter : OrchidModShamanItem
-    {
+	public class SpiritDropletScepter : OrchidModShamanItem, ICrossmodItem
+	{
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 14;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.useTime = 30;
 			item.useAnimation = 30;
 			item.knockBack = 4f;
-			item.rare = 3;
+			item.rare = ItemRarityID.Orange;
 			item.value = Item.sellPrice(0, 0, 50, 0);
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fibula");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Conjures a volley of ethereal bones"
 							+ "\nThe number of bones increase with active shamanic bonds");
 		}
@@ -60,11 +57,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.Anvils);		
-				recipe.AddIngredient(null, "SpiritDroplet", 8);
+				recipe.AddIngredient(thoriumMod, "SpiritDroplet", 8);
 				recipe.AddIngredient(ItemID.Bone, 20);
 				recipe.SetResult(this);
 				recipe.AddRecipe();

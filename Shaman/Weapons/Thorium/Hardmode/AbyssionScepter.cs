@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-	public class AbyssionScepter : OrchidModShamanItem
+	public class AbyssionScepter : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 250;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.useTime = 40;
 			item.useAnimation = 40;
 			item.knockBack = 4.25f;
-			item.rare = 8;
+			item.rare = ItemRarityID.Yellow;
 			item.value = Item.sellPrice(0, 10, 0, 0);
 			item.UseSound = SoundID.Item43;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Will of the Lurker");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Summons bolts of dark energy that lingers for a while before returning to you"
 							+ "\nCosts 25 health to cast, reduced by 5 for each active shamanic bond");
 		}

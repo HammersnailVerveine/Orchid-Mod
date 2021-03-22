@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-	public class ThoriumScepter : OrchidModShamanItem
-    {
+	public class ThoriumScepter : OrchidModShamanItem, ICrossmodItem
+	{
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 14;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Thorium Scepter");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Fires out a bolt of magic, dividing upon hitting a foe"
 							+ "\nIf you have 3 or more active shamanic bonds, the bonus projectiles will home at nearby enemies");
 		}
@@ -51,11 +48,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(thoriumMod.TileType("ThoriumAnvil"));		
-				recipe.AddIngredient(null, "ThoriumBar", 8);
+				recipe.AddIngredient(thoriumMod, "ThoriumBar", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

@@ -5,11 +5,14 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Chat;
- 
+using OrchidMod.Interfaces;
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-    public class IceShardScepter : OrchidModShamanItem
+    public class IceShardScepter : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 14;
@@ -18,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.useTime = 35;
 			item.useAnimation = 35;
 			item.knockBack = 3f;
-			item.rare = 0;
+			item.rare = ItemRarityID.White;
 			item.value = Item.sellPrice(0, 0, 5, 30);
 			item.UseSound = SoundID.Item20;
 			item.autoReuse = false;
@@ -26,18 +29,11 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shoot = mod.ProjectileType("IceShardScepterProj");
 			this.empowermentType = 2;
 			this.empowermentLevel = 1;
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ice Scepter");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Shoots frostburn bolts, growing for an instant before being launched"
 							+  "\nCritical strike chance increases with the number of active shamanic bonds");
 		}
@@ -59,11 +55,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.WorkBenches);		
-				recipe.AddIngredient(null, "IcyShard", 7);
+				recipe.AddIngredient(thoriumMod, "IcyShard", 7);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

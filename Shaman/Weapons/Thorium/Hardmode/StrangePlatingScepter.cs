@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-	public class StrangePlatingScepter : OrchidModShamanItem
+	public class StrangePlatingScepter : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 65;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.useTime = 18;
 			item.useAnimation = 18;
 			item.knockBack = 1.25f;
-			item.rare = 6;
+			item.rare = ItemRarityID.LightPurple;
 			item.value = Item.sellPrice(0, 6, 0, 0);
 			item.UseSound = SoundID.Item12;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Prime's Laser");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("The weapon itself can critically strike, releasing a powerful blast"
 							+ "\nThe more shamanic bonds you have, the higher the chances of critical strike");
 		}
@@ -57,12 +54,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		
 		public override void AddRecipes()
 		{
-			Mod orchidMod = ModLoader.GetMod("OrchidMod");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.MythrilAnvil);
-				recipe.AddIngredient(null, "StrangePlating", 12);
+				recipe.AddIngredient(thoriumMod, "StrangePlating", 12);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

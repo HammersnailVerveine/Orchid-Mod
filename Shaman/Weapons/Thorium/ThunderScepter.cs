@@ -5,11 +5,14 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Chat;
- 
+using OrchidMod.Interfaces;
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-    public class ThunderScepter : OrchidModShamanItem
-    {
+    public class ThunderScepter : OrchidModShamanItem, ICrossmodItem
+	{
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 12;
@@ -31,12 +34,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Thunder Scepter");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Rapidly zaps your foes"
 							+ "\nHitting will charge up energy above you"
 							+ "\nWhen fully loaded, potent wind gusts will be released");
@@ -47,7 +44,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 70f;
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 			{
-			position += muzzleOffset;
+				position += muzzleOffset;
 			}
 			return true;
 		}

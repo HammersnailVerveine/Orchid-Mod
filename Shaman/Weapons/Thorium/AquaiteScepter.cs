@@ -15,12 +15,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SafeSetDefaults()
 		{
 			item.damage = 20;
-			item.width = 46;
-			item.height = 46;
+			item.width = 38;
+			item.height = 38;
 			item.useTime = 40;
 			item.useAnimation = 40;
 			item.knockBack = 4.75f;
-			item.rare = 2;
+			item.rare = ItemRarityID.Green;
 			item.value = Item.sellPrice(0, 0, 30, 0);
 			item.UseSound = SoundID.Item21;
 			item.autoReuse = true;
@@ -55,15 +55,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
-				recipe.AddTile(TileID.Anvils);		
-				recipe.AddIngredient(null, "AquaiteBar", 14);
-				recipe.AddIngredient(null, "DepthScale", 6);
+				recipe.AddTile(TileID.Anvils);
+				recipe.AddIngredient(thoriumMod, "AquaiteBar", 14);
+				recipe.AddIngredient(thoriumMod, "DepthScale", 6);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
+		}
 	}
 }

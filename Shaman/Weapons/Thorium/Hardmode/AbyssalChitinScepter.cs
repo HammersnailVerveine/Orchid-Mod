@@ -6,11 +6,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.UI.Chat;
 using System;
+using OrchidMod.Interfaces;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-    public class AbyssalChitinScepter : OrchidModShamanItem
-    {
+    public class AbyssalChitinScepter : OrchidModShamanItem, ICrossmodItem
+	{
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 10;
@@ -25,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.useTime = 60;
 			item.useAnimation = 60;
 			item.knockBack = 3.15f;
-			item.rare = 4;
+			item.rare = ItemRarityID.LightRed;
 			item.value = Item.sellPrice(0, 2, 0, 0);
 			item.UseSound = SoundID.Item43;
 			item.shootSpeed = 5f;
@@ -37,12 +40,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Naga Fizzler");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Spits out a burst of bubbles, growing stronger with time"
 							+ "\nOnly one set of bubbles can be active at once"
 							+ "\nYour number of active shamanic bonds increases the damage increase rate"
@@ -73,112 +70,32 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			}
 			return false;
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> tooltips) // Useful because of damage range
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			int index = -1;
-			for (int m = 0; m < tooltips.Count; m++)
-            {
-                if (tooltips[m].Name.Equals("Damage")) { index = m; break;}
-            }
-            string oldTooltip = tooltips[index].text;
-            string[] split = oldTooltip.Split(' ');
-			int dmg2 = 0;
-			Int32.TryParse(split[0], out dmg2);
-			dmg2 *= 15;
-            tooltips.RemoveAt(index);
-            tooltips.Insert(index, new TooltipLine(mod, "Damage", split[0] + " - " + dmg2 + " shamanic damage"));
-			
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
-				index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
-				if (index != -1)
+			base.ModifyTooltips(tooltips);
+
+			var tooltip = tooltips.Find(i => i.Name.Equals("Damage") && i.mod == "Terraria");
+			if (tooltip != null)
+			{
+				string[] split = tooltip.text.Split(' ');
+				if (Int32.TryParse(split[0], out int dmg2))
 				{
-					tooltips.Insert(index + 1, new TooltipLine(mod, "ShamanTag", "-Shaman Class-") // 00C0FF
-					{
-						overrideColor = new Color(0, 192, 255)
-					});
-				}
-			}
-			
-			if (this.empowermentType > 0) {
-				string emp = "";
-				Color col = new Color(0, 0, 0);
-				switch (this.empowermentType) {
-					case 1:
-						emp = "Fire";
-						col = new Color(194, 38, 31);
-						break;
-					case 2:
-						emp = "Water";
-						col = new Color(0, 119, 190);
-						break;
-					case 3:
-						emp = "Air";
-						col = new Color(75, 139, 59);
-						break;
-					case 4:
-						emp = "Earth";
-						col = new Color(255, 255, 102);
-						break;
-					case 5:
-						emp = "Spirit";
-						col = new Color(138, 43, 226);
-						break;
-					default:
-						break;
-				}
-				
-				index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
-				if (index != -1)
-				{
-					tooltips.Insert(index, new TooltipLine(mod, "BondType", emp + " bond")
-					{
-						overrideColor = col
-					});
-				}
-			}
-			
-			if (this.empowermentLevel > 0) {
-				string lev = "";
-				switch (this.empowermentLevel) {
-					case 1:
-						lev = "I";
-						break;
-					case 2:
-						lev = "II";
-						break;
-					case 3:
-						lev = "III";
-						break;
-					case 4:
-						lev = "IV";
-						break;
-					case 5:
-						lev = "V";
-						break;
-					default:
-						break;
-				}
-				
-				index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
-				if (index != -1)
-				{
-					tooltips.Insert(index, new TooltipLine(mod, "BondLevel", "Shamanic bond level " + lev)
-					{
-						overrideColor = new Color(0, 192, 255)
-					});
+					dmg2 *= 15;
+					split[0] = split[0] + " - " + dmg2;
+					tooltip.text = String.Join(" ", split);
 				}
 			}
 		}
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.MythrilAnvil);
-				recipe.AddIngredient(null, "AbyssalChitin", 9);
+				recipe.AddIngredient(thoriumMod, "AbyssalChitin", 9);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}

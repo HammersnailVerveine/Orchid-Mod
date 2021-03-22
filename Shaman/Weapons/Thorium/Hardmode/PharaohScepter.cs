@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +8,10 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-	public class PharaohScepter : OrchidModShamanItem
+	public class PharaohScepter : OrchidModShamanItem, ICrossmodItem
     {
+		public string CrossmodName => "Thorium Mod";
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 35;
@@ -17,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.useTime = 35;
 			item.useAnimation = 35;
 			item.knockBack = 3.25f;
-			item.rare = 4;
+			item.rare = ItemRarityID.LightRed;
 			item.value = Item.sellPrice(0, 7, 50, 0);
 			item.UseSound = SoundID.Item45;
 			item.autoReuse = true;
@@ -30,12 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Isis' Command");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod == null) {
-				Tooltip.SetDefault("[c/FF0000:Thorium Mod is not loaded]"
-								+ "\n[c/970000:This is a cross-content weapon]");
-				return;
-			}
 			Tooltip.SetDefault("Fires out an ancient magic spell"
 							+ "\nHitting may summon a golden miror, replicating your shots"
 							+ "\nThe more shamanic bonds you have, the greater the chance to summon a mirror");
@@ -69,12 +66,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				ModRecipe recipe = new ModRecipe(thoriumMod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 2);
-				recipe.AddIngredient(null, "PharaohsBreath", 8);
+				recipe.AddIngredient(thoriumMod, "PharaohsBreath", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
