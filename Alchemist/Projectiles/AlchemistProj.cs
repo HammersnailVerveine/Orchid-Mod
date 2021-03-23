@@ -83,11 +83,12 @@ namespace OrchidMod.Alchemist.Projectiles
 				this.initialized = true;
 			}
 			
-			
-			for (int l = 0; l < Main.npc.Length; l++) {  
-				NPC target = Main.npc[l];
-				if (projectile.Hitbox.Intersects(target.Hitbox))  {
-					target.immune[projectile.owner] = 0;
+			if (!this.hitNPC) {
+				for (int l = 0; l < Main.npc.Length; l++) {  
+					NPC target = Main.npc[l];
+					if (projectile.Hitbox.Intersects(target.Hitbox))  {
+						target.immune[projectile.owner] = 0;
+					}
 				}
 			}
 			
