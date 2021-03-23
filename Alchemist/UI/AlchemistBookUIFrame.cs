@@ -19,7 +19,7 @@ namespace OrchidMod.Alchemist.UI
 	public class AlchemistBookUIFrame : UIElement
     {
 		private int bookPageIndex = 0;
-		private AlchemistHiddenReactionRecipe bookPopupRecipe = new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.NULL, 0, "", "");
+		private AlchemistHiddenReactionRecipe bookPopupRecipe = AlchemistHiddenReaction.NullRecipe;
 		private bool drawpause = false;
 		public Color backgroundColor = Color.White;	
 		public static Texture2D ressourceBookPage;
@@ -75,13 +75,13 @@ namespace OrchidMod.Alchemist.UI
 									spriteBatch.Draw(ressourceBookSlot, new Rectangle(point.X + offSetX, point.Y + offSetY, 36, 36), backgroundColor);
 									Rectangle itemRectangle = new Rectangle(point.X + offSetX + 2, point.Y + offSetY + 2, 30, 30);
 									spriteBatch.Draw(itemTexture, itemRectangle, knownRecipe ? backgroundColor : Color.Gray);
-									if (itemRectangle.Contains(mousePoint) && this.bookPopupRecipe.reactionType == AlchemistHiddenReaction.NULL) {
+									if (itemRectangle.Contains(mousePoint) && this.bookPopupRecipe.reactionType == AlchemistHiddenReactionType.NULL) {
 										item = new Item();
 										item.SetDefaults(ingredientID);
 									}
 									Rectangle lineRectangle = new Rectangle(point.X, point.Y + offSetY + 2, bookWidth, 36);
 									if (lineRectangle.Contains(mousePoint) && (Main.mouseLeft && Main.mouseLeftRelease) 
-									&& this.bookPopupRecipe.reactionType == AlchemistHiddenReaction.NULL && knownRecipe) {
+									&& this.bookPopupRecipe.reactionType == AlchemistHiddenReactionType.NULL && knownRecipe) {
 										this.bookPopupRecipe = recipe;
 										Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
 										this.drawpause = true;
@@ -101,7 +101,7 @@ namespace OrchidMod.Alchemist.UI
 					}
 					
 					int maxPages = (int)(OrchidMod.alchemistReactionRecipes.Count / recipesPerPage);
-					if (this.bookPopupRecipe.reactionType == AlchemistHiddenReaction.NULL) {
+					if (this.bookPopupRecipe.reactionType == AlchemistHiddenReactionType.NULL) {
 						if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowLeft.Contains(mousePoint)) {
 							this.bookPageIndex -= this.bookPageIndex > 0 ? 1 : 0;
 							Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
@@ -115,7 +115,7 @@ namespace OrchidMod.Alchemist.UI
 						int offSetPopupX = 34;
 						int offSetPopupY = 158;
 						if ((Main.mouseLeft && Main.mouseLeftRelease) && !this.drawpause) {
-							this.bookPopupRecipe = new AlchemistHiddenReactionRecipe(AlchemistHiddenReaction.NULL, 0, "null");
+							this.bookPopupRecipe = AlchemistHiddenReaction.NullRecipe;
 							Main.PlaySound(10, (int)player.Center.X ,(int)player.Center.Y, 0);
 						}
 						

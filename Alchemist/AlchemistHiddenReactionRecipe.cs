@@ -11,16 +11,26 @@ namespace OrchidMod.Alchemist
 {
 	public class AlchemistHiddenReactionRecipe
 	{
-		public AlchemistHiddenReaction reactionType = AlchemistHiddenReaction.NULL;
+		public AlchemistHiddenReactionType reactionType = AlchemistHiddenReactionType.NULL;
 		public string reactionText = "blank";
 		public string reactionDescription = "blank description";
 		public List<int> reactionIngredients = new List<int>();
 		public int reactionLevel = 0;
+		public int debuffDuration = 0;
+		public int soundType = 0;
+		public int soundID = 0;
 		
-		public AlchemistHiddenReactionRecipe(AlchemistHiddenReaction rType, int rLevel, string rText, string rDesc = "blank description", params int[] rItems) {
+		public delegate void RecipeEffect(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer);
+		public RecipeEffect recipeEffect;
+		
+		public AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType rType, int rLevel, string rText, string rDesc, int rDuration, int rSoundType, int rSoundID, RecipeEffect rRecipeEffect, params int[] rItems) {
 			this.reactionType = rType;
 			this.reactionText = rText;
 			this.reactionLevel = rLevel;
+			this.debuffDuration = rDuration;
+			this.soundType = rSoundType;
+			this.soundID = rSoundID;
+			this.recipeEffect = rRecipeEffect;
 			
 			string newDesc = "";
 			int len = rDesc.Length;

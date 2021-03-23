@@ -149,7 +149,7 @@ namespace OrchidMod.Alchemist
 			return val;
 		}
 		
-		public static bool containsAlchemistFlask(int flaskType, Player player, OrchidModPlayer modPlayer, Mod mod) {
+		public static bool containsAlchemistFlask(int flaskType, Player player, OrchidModPlayer modPlayer) {
 			for (int i = 0; i < 6; i ++) {
 				if (modPlayer.alchemistFlasks[i].type == flaskType) {
 					return true;
