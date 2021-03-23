@@ -138,7 +138,6 @@ namespace OrchidMod.Alchemist
 		}
 		
 		public static void triggerAlchemistReaction(Mod mod, Player player, OrchidModPlayer modPlayer) {
-			bool reaction = false;
 			string floatingTextStr = "Failed reaction ...";
 			AlchemistHiddenReactionRecipe hiddenReaction = AlchemistHiddenReaction.NullRecipe;
 			
@@ -156,7 +155,6 @@ namespace OrchidMod.Alchemist
 					if (goodIngredients) {
 						hiddenReaction = recipe;
 						floatingTextStr = recipe.reactionText;
-						reaction = true;
 						
 						int val = 0;
 						Item item = new Item();
