@@ -213,9 +213,15 @@ namespace OrchidMod.Gambler
 					modPlayer.gamblerCardDummy = new Item();
 					modPlayer.gamblerCardDummy.SetDefaults(modPlayer.gamblerCardsItem[0].type, true);
 				}
+				return;
 			}
 			
 			for (int i = 0; i < 20 ; i ++) {
+				if (i == 19) {
+					modPlayer.gamblerCardDummy = new Item();
+					modPlayer.gamblerCardDummy.SetDefaults(modPlayer.gamblerCardsItem[0].type, true);
+				}
+				
 				if (modPlayer.gamblerCardsItem[i].type == modPlayer.gamblerCardDummy.type) {
 					if (modPlayer.gamblerCardsItem[i + 1].type != 0) {
 						modPlayer.gamblerCardDummy = new Item();
@@ -225,10 +231,7 @@ namespace OrchidMod.Gambler
 						modPlayer.gamblerCardDummy.SetDefaults(modPlayer.gamblerCardsItem[0].type, true);
 					}
 					break;
-				} if (i == 19) {
-					modPlayer.gamblerCardDummy = new Item();
-					modPlayer.gamblerCardDummy.SetDefaults(modPlayer.gamblerCardsItem[0].type, true);
-				}
+				} 
 			}
 		}
 		
@@ -317,6 +320,14 @@ namespace OrchidMod.Gambler
 					}
 				}
 			}
+		}
+		
+		public static int DummyProjectile(int proj, bool dummy) {
+			if (dummy) {
+				OrchidModGlobalProjectile modProjectile = Main.projectile[proj].GetGlobalProjectile<OrchidModGlobalProjectile>();
+				modProjectile.gamblerDummyProj = true;
+			}
+			return proj;
 		}
 	}
 }

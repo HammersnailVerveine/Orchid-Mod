@@ -37,6 +37,7 @@ namespace OrchidMod
 		public delegate void OnHitNPCSecondDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void OnHitNPCThirdDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void AddVariousEffectsDelegate(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void GamblerShootDelegate(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false);
 		
 		public KillFirstDelegate killFirstDelegate;
 		public KillSecondDelegate killSecondDelegate;
@@ -45,6 +46,7 @@ namespace OrchidMod
 		public OnHitNPCSecondDelegate onHitNPCSecondDelegate;
 		public OnHitNPCThirdDelegate onHitNPCThirdDelegate;
 		public AddVariousEffectsDelegate addVariousEffectsDelegate;
+		public GamblerShootDelegate gamblerShootDelegate;
 
 		public override bool InstancePerEntity => true;
 		

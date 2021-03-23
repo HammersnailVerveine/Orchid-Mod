@@ -56,7 +56,7 @@ namespace OrchidMod.Gambler
 			
 			currentCard = modPlayer.gamblerCardDummy;
 			this.checkStats(currentCard, modPlayer);
-			GamblerAttackHelper.GamblerShoot(player, position, speedX, speedY, type, item.damage, item.knockBack, currentCard.type, true);	
+			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, position, speedX, speedY, type, item.damage, item.knockBack, true);
 			return false;
 		}
 		
@@ -64,7 +64,7 @@ namespace OrchidMod.Gambler
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.gamblerAttackInHand = true;
 			if (Main.mouseLeft) {
-				GamblerAttackHelper.shootBonusProjectiles(player, player.Center, modPlayer.gamblerCardDummy.type, true);
+				GamblerAttackHelper.shootBonusProjectiles(player, player.Center, modPlayer.gamblerCardCurrent.type, true);
 			}
 		}
 		

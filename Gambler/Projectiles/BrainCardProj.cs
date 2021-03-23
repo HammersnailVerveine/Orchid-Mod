@@ -159,7 +159,7 @@ namespace OrchidMod.Gambler.Projectiles
 			this.gamblingChipChance = 50;
 			int projType = ProjectileType<Gambler.Projectiles.BrainCardProj2>();
 			bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-			GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, projectile.damage, 0, projectile.owner), dummy);
+			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, projectile.damage, 0, projectile.owner), dummy);
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 5, 10, 5  + Main.rand.Next(5), false, 1f, 1f, 5f, true, true, false, 0, 0, true);
 			Main.PlaySound(2, (int)projectile.Center.X ,(int)projectile.Center.Y, 83);
 			projectile.ai[0] = 0f;

@@ -69,7 +69,7 @@ namespace OrchidMod.Gambler
 				return false;
 			} else {
 				this.checkStats(currentCard, modPlayer);
-				GamblerAttackHelper.GamblerShoot(player, position, speedX, speedY, type, item.damage, item.knockBack, currentCard.type);	
+				currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, position, speedX, speedY, type, item.damage, item.knockBack);
 			}
 			return false;
 		}

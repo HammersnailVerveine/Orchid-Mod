@@ -83,7 +83,7 @@ namespace OrchidMod.Gambler.Projectiles
 								projMove *= 10f / distanceTo;
 								int projType = ProjectileType<Gambler.Projectiles.SkeletronCardProjAlt>();
 								bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-								GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projMove.X, projMove.Y, projType, (int)(projectile.damage * 2), projectile.knockBack, projectile.owner), dummy);
+								OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projMove.X, projMove.Y, projType, (int)(projectile.damage * 2), projectile.knockBack, projectile.owner), dummy);
 								Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 8);
 								this.projectilePoll -= this.projectilePoll - 1 <= 0 ? 0 : 1;
 								this.fireProj = 0;

@@ -14,6 +14,8 @@ namespace OrchidMod.Gambler
 		public int cardRequirement = -1;
 		public List<string> gamblerCardSets = new List<string>();
 		
+		public virtual void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false) {}
+		
 		public virtual void SafeSetDefaults() {}
 		
 		public sealed override void SetDefaults() {
@@ -34,6 +36,7 @@ namespace OrchidMod.Gambler
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.gamblerCardRequirement = this.cardRequirement;
 			orchidItem.gamblerCardSets = this.gamblerCardSets;
+			orchidItem.gamblerShootDelegate = GamblerShoot;
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {

@@ -71,10 +71,10 @@ namespace OrchidMod.Gambler.Projectiles
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
 					if (player.strongBees && Main.rand.Next(2) == 0) {
 							bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-							GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, 566, (int) (projectile.damage * 1.15f), 0f, projectile.owner, 0f, 0f), dummy);
+							OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, 566, (int) (projectile.damage * 1.15f), 0f, projectile.owner, 0f, 0f), dummy);
 					} else {
 						bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-						int newProj = GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, 181, projectile.damage, 0f, projectile.owner, 0f, 0f), dummy);
+						int newProj = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, 181, projectile.damage, 0f, projectile.owner, 0f, 0f), dummy);
 						OrchidModGlobalProjectile modProjectile = Main.projectile[newProj].GetGlobalProjectile<OrchidModGlobalProjectile>();
 						modProjectile.gamblerProjectile = true;
 						modProjectile.baseCritChance = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().baseCritChance;

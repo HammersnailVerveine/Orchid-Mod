@@ -82,7 +82,7 @@ namespace OrchidMod.Gambler.Projectiles
 			int dmg = projectile.damage + (int)((1200 - timeLeft) / 10);
 			int projType = ProjectileType<Gambler.Projectiles.SapCardProjExplosion>();
 			bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-			GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, projType, dmg, 3f, projectile.owner, 0.0f, 0.0f), dummy);
+			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, projType, dmg, 3f, projectile.owner, 0.0f, 0.0f), dummy);
 		}
     }
 }

@@ -42,7 +42,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (modPlayer.timer120 % 30 == 0) {
 				int projType = ProjectileType<Gambler.Projectiles.SlimeRainCardProj2>();
 				bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-				GamblerAttackHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X + Main.rand.Next(projectile.width - 10) + 5, projectile.Center.Y, 0f, 5f, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X + Main.rand.Next(projectile.width - 10) + 5, projectile.Center.Y, 0f, 5f, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
 			}
 			
 			if (Main.rand.Next(15) == 0) {

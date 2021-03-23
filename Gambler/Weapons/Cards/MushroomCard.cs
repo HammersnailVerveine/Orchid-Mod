@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using System.Collections.Generic;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
 {
@@ -30,6 +31,12 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		    Tooltip.SetDefault("Throws bouncy mushrooms, exploding on second contact"
 							+  "\nThe projectile cannot deal damage before bouncing once"
 							+  "\nChances to summon a fungi, replicating the attack");
+		}
+		
+		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false) {
+			int projType = ProjectileType<Gambler.Projectiles.MushroomCardProj>();
+			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
+			Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
 		}
 	}
 }
