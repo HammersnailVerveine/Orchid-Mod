@@ -8,16 +8,21 @@ namespace OrchidMod.Gambler
     public abstract class OrchidModGamblerProjectile : OrchidModProjectile
     {	
 		public int gamblingChipChance = 0;
+		public bool bonusTrigger = false;
 	
 		public virtual void SafeAI() {}
 		
 		public virtual void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
+		
+		public virtual void BonusProjectiles(Player player, OrchidModPlayer modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy = false) {}
 	
 		public sealed override void AltSetDefaults() {
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.gamblerProjectile = true;
 			modProjectile.baseCritChance = this.baseCritChance;
+			modProjectile.gamblerBonusTrigger = this.bonusTrigger;
+			modProjectile.gamblerBonusProjectilesDelegate = BonusProjectiles;
 		}
 		
 		public override void AI() {

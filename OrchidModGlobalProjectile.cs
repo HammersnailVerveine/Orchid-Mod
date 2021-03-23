@@ -17,6 +17,10 @@ namespace OrchidMod
 		public int gamblerInternalCooldown  = 0;
 		public int baseCritChance = 0;
 		public bool gamblerDummyProj = false;
+		public bool gamblerBonusTrigger = false;
+		
+		public delegate void GamblerBonusProjectilesDelegate(Player player, OrchidModPlayer modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy = false);
+		public GamblerBonusProjectilesDelegate gamblerBonusProjectilesDelegate;
 		
 		public override bool InstancePerEntity => true;
 		

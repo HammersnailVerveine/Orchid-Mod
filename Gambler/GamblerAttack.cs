@@ -78,7 +78,7 @@ namespace OrchidMod.Gambler
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.gamblerAttackInHand = true;
 			if (Main.mouseLeft) {
-				GamblerAttackHelper.shootBonusProjectiles(player, player.Center, modPlayer.gamblerCardCurrent.type);
+				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, false);
 			}
 		}
 		

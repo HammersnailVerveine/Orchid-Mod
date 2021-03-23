@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
 {
@@ -20,6 +21,7 @@ namespace OrchidMod.Gambler.Projectiles
             projectile.aiStyle = 0;
 			projectile.tileCollide = false;
 			projectile.timeLeft = 600;
+			this.bonusTrigger = true;
 		}
 		
 		public override void Kill(int timeLeft) {
@@ -34,6 +36,22 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			projectile.rotation += 0.01f;
 			projectile.velocity *= 0.95f;
+		}
+		
+		public override void BonusProjectiles(Player player, OrchidModPlayer modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy) {
+			if (modProjectile.gamblerInternalCooldown == 0) {
+				modProjectile.gamblerInternalCooldown = 30;
+				int projType = ProjectileType<Gambler.Projectiles.JungleCardProj>();
+				Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+				Vector2 heading = target - projectile.position;
+				heading.Normalize();
+				heading *= new Vector2(0f, 10f).Length();
+				Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(15));
+				int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, player.whoAmI), dummy);
+				Main.projectile[newProjectile].localAI[1] = 1f;
+				Main.projectile[newProjectile].netUpdate = true;
+				OrchidModProjectile.spawnDustCircle(projectile.Center - new Vector2(4, 4), 44, 10, 4, false, 1f, 1.5f, 5f, true, true, false, 0, 0, true);
+			}
 		}
 	}
 }

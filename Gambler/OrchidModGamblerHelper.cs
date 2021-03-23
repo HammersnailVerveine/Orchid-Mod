@@ -329,5 +329,39 @@ namespace OrchidMod.Gambler
 			}
 			return proj;
 		}
+		
+		public static void ShootBonusProjectiles(Player player, Vector2 position, bool dummy) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			
+			if (modPlayer.gamblerSlimyLollipop) {
+				OrchidModGlobalItem orchidItem = modPlayer.gamblerCardCurrent.GetGlobalItem<OrchidModGlobalItem>();
+				if (orchidItem.gamblerCardSets.Contains("Slime") && Main.rand.Next(180) == 0) {
+					float scale = 1f - (Main.rand.NextFloat() * .3f);
+					int rand = Main.rand.Next(3) + 1;
+					int projType = ProjectileType<Gambler.Projectiles.SlimeRainCardProj2>();
+					for (int i = 0; i < rand; i++) {
+						Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+						Vector2 heading = target - player.position;
+						heading.Normalize();
+						heading *= new Vector2(0f, 5f).Length();
+						Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(30));
+						vel = vel * scale; 
+						int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, 15, 0f, player.whoAmI), dummy);
+						Main.projectile[newProjectile].ai[1] = 1f;
+						Main.projectile[newProjectile].netUpdate = true;
+					}
+				}
+			}
+			
+			for (int l = 0; l < Main.projectile.Length; l++) {  
+				Projectile projectile = Main.projectile[l];
+				if (projectile.active && projectile.owner == player.whoAmI) {
+					OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+					if (modProjectile.gamblerDummyProj == dummy && modProjectile.gamblerBonusTrigger) {
+						modProjectile.gamblerBonusProjectilesDelegate(player, modPlayer, projectile, modProjectile, dummy);
+					}
+				}
+			}	
+		}
 	}
 }
