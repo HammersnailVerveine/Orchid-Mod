@@ -486,7 +486,7 @@ namespace OrchidMod
 				else if (player.armor[10].modItem is Interfaces.IDrawOnPlayer vanity) vanity.DrawOnPlayer(drawInfo);
 			}
 			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Head"));
-			layers.Insert(index + 1, new PlayerLayer(mod.Name, "HeadGlowmask", HeadGlowmaskLayer));
+			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "HeadGlowmask", HeadGlowmaskLayer));
 
 			void BodyGlowmaskLayer(PlayerDrawInfo drawInfo)
 			{
@@ -494,7 +494,7 @@ namespace OrchidMod
 				else if (player.armor[11].modItem is Interfaces.IDrawOnPlayer vanity) vanity.DrawOnPlayer(drawInfo);
 			}
 			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Body"));
-			layers.Insert(index + 1, new PlayerLayer(mod.Name, "BodyGlowmask", BodyGlowmaskLayer));
+			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "BodyGlowmask", BodyGlowmaskLayer));
 
 			void ArmsGlowmaskLayer(PlayerDrawInfo drawInfo)
 			{
@@ -502,7 +502,7 @@ namespace OrchidMod
 				else if (player.armor[11].modItem is Interfaces.IDrawOnPlayerWithArms vanity) vanity.DrawOnArms(drawInfo);
 			}
 			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Arms"));
-			layers.Insert(index + 1, new PlayerLayer(mod.Name, "ArmsGlowmask", ArmsGlowmaskLayer));
+			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "ArmsGlowmask", ArmsGlowmaskLayer));
 
 			void LegsGlowmaskLayer(PlayerDrawInfo drawInfo)
 			{
@@ -510,7 +510,7 @@ namespace OrchidMod
 				else if (player.armor[12].modItem is Interfaces.IDrawOnPlayer vanity) vanity.DrawOnPlayer(drawInfo);
 			}
 			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Legs"));
-			layers.Insert(index + 1, new PlayerLayer(mod.Name, "LegsGlowmask", LegsGlowmaskLayer));
+			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "LegsGlowmask", LegsGlowmaskLayer));
 		}
 
 		public void updateItemEffects() {
