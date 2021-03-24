@@ -473,68 +473,44 @@ namespace OrchidMod
 			 * player.armor[13-19] is vanity accesories
 			*/
 
-			// Item Glowmask // Need to improve in the future...
+			void ItemGlowmaskLayer(PlayerDrawInfo drawInfo)
 			{
-				int index = layers.FindIndex(i => i.Name == "HeldItem");
-
-				if (index >= 0)
-				{
-					ItemGlowmaskLayer.visible = true;
-					layers.Insert(index + 1, ItemGlowmaskLayer);
-				}
+				if (drawInfo.drawPlayer.HeldItem.modItem is Interfaces.IGlowingItem glowItem) glowItem.DrawItemGlowmask(drawInfo);
 			}
+			var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "HeldItem"));
+			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "HeldItemGlowmask", ItemGlowmaskLayer));
 
-			// Head Glowmask
+			void HeadGlowmaskLayer(PlayerDrawInfo drawInfo)
 			{
-				var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Head"));
-				Action<PlayerDrawInfo> action = new Action<PlayerDrawInfo>((drawInfo) =>
-				{
-					Player player = drawInfo.drawPlayer;
-					if (player.armor[0].modItem is OrchidModItem armor && armor.glowmask && player.armor[10].IsAir) armor.DrawPlayerGlowmask(drawInfo);
-					else if (player.armor[10].modItem is OrchidModItem vanity && vanity.glowmask) vanity.DrawPlayerGlowmask(drawInfo);
-				});
-				layers.Insert(index + 1, new PlayerLayer(mod.Name, "HeadGlowmask", action));
-				action = null;
+				if (player.armor[0].modItem is Interfaces.IDrawOnPlayer armor && player.armor[10].IsAir) armor.DrawOnPlayer(drawInfo);
+				else if (player.armor[10].modItem is Interfaces.IDrawOnPlayer vanity) vanity.DrawOnPlayer(drawInfo);
 			}
+			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Head"));
+			layers.Insert(index + 1, new PlayerLayer(mod.Name, "HeadGlowmask", HeadGlowmaskLayer));
 
-			// Body Glowmask
+			void BodyGlowmaskLayer(PlayerDrawInfo drawInfo)
 			{
-				var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Body"));
-				Action<PlayerDrawInfo> action = new Action<PlayerDrawInfo>((drawInfo) =>
-				{
-					Player player = drawInfo.drawPlayer;
-					if (player.armor[1].modItem is OrchidModItem armor && armor.glowmask && player.armor[11].IsAir) armor.DrawPlayerGlowmask(drawInfo);
-					else if (player.armor[11].modItem is OrchidModItem vanity && vanity.glowmask) vanity.DrawPlayerGlowmask(drawInfo);
-				});
-				layers.Insert(index + 1, new PlayerLayer(mod.Name, "BodyGlowmask", action));
-				action = null;
+				if (player.armor[1].modItem is Interfaces.IDrawOnPlayer armor && player.armor[11].IsAir) armor.DrawOnPlayer(drawInfo);
+				else if (player.armor[11].modItem is Interfaces.IDrawOnPlayer vanity) vanity.DrawOnPlayer(drawInfo);
 			}
+			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Body"));
+			layers.Insert(index + 1, new PlayerLayer(mod.Name, "BodyGlowmask", BodyGlowmaskLayer));
 
-			// Legs Glowmask
+			void ArmsGlowmaskLayer(PlayerDrawInfo drawInfo)
 			{
-				var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Legs"));
-				Action<PlayerDrawInfo> action = new Action<PlayerDrawInfo>((drawInfo) =>
-				{
-					Player player = drawInfo.drawPlayer;
-					if (player.armor[2].modItem is OrchidModItem armor && armor.glowmask && player.armor[12].IsAir) armor.DrawPlayerGlowmask(drawInfo);
-					else if (player.armor[12].modItem is OrchidModItem vanity && vanity.glowmask) vanity.DrawPlayerGlowmask(drawInfo);
-				});
-				layers.Insert(index + 1, new PlayerLayer(mod.Name, "LegsGlowmask", action));
-				action = null;
+				if (player.armor[1].modItem is Interfaces.IDrawOnPlayerWithArms armor && player.armor[11].IsAir) armor.DrawOnArms(drawInfo);
+				else if (player.armor[11].modItem is Interfaces.IDrawOnPlayerWithArms vanity) vanity.DrawOnArms(drawInfo);
 			}
+			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Arms"));
+			layers.Insert(index + 1, new PlayerLayer(mod.Name, "ArmsGlowmask", ArmsGlowmaskLayer));
 
-			// Arms Glowmask // I do not know how to combine this with .DrawPlayerGlowmask() ...
+			void LegsGlowmaskLayer(PlayerDrawInfo drawInfo)
 			{
-				var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Arms"));
-				Action<PlayerDrawInfo> action = new Action<PlayerDrawInfo>((drawInfo) =>
-				{
-					Player player = drawInfo.drawPlayer;
-					if (player.armor[1].modItem is OrchidModItem armor && armor.glowmask && player.armor[11].IsAir) armor.DrawPlayerArmsGlowmask(drawInfo);
-					else if (player.armor[11].modItem is OrchidModItem vanity && vanity.glowmask) vanity.DrawPlayerArmsGlowmask(drawInfo);
-				});
-				layers.Insert(index + 1, new PlayerLayer(mod.Name, "ArmsGlowmask", action));
-				action = null;
+				if (player.armor[2].modItem is Interfaces.IDrawOnPlayer armor && player.armor[12].IsAir) armor.DrawOnPlayer(drawInfo);
+				else if (player.armor[12].modItem is Interfaces.IDrawOnPlayer vanity) vanity.DrawOnPlayer(drawInfo);
 			}
+			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Legs"));
+			layers.Insert(index + 1, new PlayerLayer(mod.Name, "LegsGlowmask", LegsGlowmaskLayer));
 		}
 
 		public void updateItemEffects() {
@@ -602,135 +578,6 @@ namespace OrchidMod
 				}
 			}
 		}
-
-		private static readonly PlayerLayer ItemGlowmaskLayer = new PlayerLayer("OrchidMod", "Orchid Mod: Item Glowmask", delegate (PlayerDrawInfo drawInfo)
-		{
-			// Vanilla code
-
-			Player drawPlayer = drawInfo.drawPlayer;
-			Item heldItem = drawPlayer.inventory[drawPlayer.selectedItem];
-
-			if (!(heldItem.modItem is OrchidModItem orchidItem) || !orchidItem.glowmask) return;
-
-			if (drawPlayer.shadow != 0f || drawPlayer.frozen || ((drawPlayer.itemAnimation <= 0 || heldItem.useStyle == 0) && (heldItem.holdStyle <= 0 || drawPlayer.pulley)) || heldItem.type <= ItemID.None || drawPlayer.dead || heldItem.noUseGraphic || (drawPlayer.wet && heldItem.noWet))
-			{
-				return;
-			}
-
-			Texture2D texture = OrchidMod.Instance.GetTexture($"Glowmasks/{heldItem.modItem.GetType().Name}_Glowmask");
-			Color color20 = Lighting.GetColor((int)((double)drawInfo.position.X + (double)drawPlayer.width * 0.5) / 16, (int)(((double)drawInfo.position.Y + (double)drawPlayer.height * 0.5) / 16.0));
-			Vector2 vector = drawInfo.itemLocation;
-
-			if (drawPlayer.shroomiteStealth && heldItem.ranged)
-			{
-				float num64 = drawPlayer.stealth;
-				if ((double)num64 < 0.03)
-				{
-					num64 = 0.03f;
-				}
-				float num65 = (1f + num64 * 10f) / 11f;
-				color20 = new Color((int)((byte)((float)color20.R * num64)), (int)((byte)((float)color20.G * num64)), (int)((byte)((float)color20.B * num65)), (int)((byte)((float)color20.A * num64)));
-			}
-
-			if (drawPlayer.setVortex && heldItem.ranged)
-			{
-				float num66 = drawPlayer.stealth;
-				if ((double)num66 < 0.03)
-				{
-					num66 = 0.03f;
-				}
-				float num67 = (1f + num66 * 10f) / 11f;
-				color20 = color20.MultiplyRGBA(new Color(Vector4.Lerp(Vector4.One, new Vector4(0f, 0.12f, 0.16f, 0f), 1f - num66)));
-			}
-
-			Color color24 = new Color(250, 250, 250, drawPlayer.inventory[drawPlayer.selectedItem].alpha);
-			Vector2 zero = Vector2.Zero;
-			SpriteEffects effect = SpriteEffects.FlipHorizontally;
-
-			if (drawPlayer.gravDir == 1f)
-			{
-				if (drawPlayer.direction == 1) effect = SpriteEffects.None;
-				else effect = SpriteEffects.FlipHorizontally;
-			}
-			else
-			{
-				if (drawPlayer.direction == 1) effect = SpriteEffects.FlipVertically;
-				else effect = (SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically);
-			}
-
-			ItemSlot.GetItemLight(ref color20, drawPlayer.inventory[drawPlayer.selectedItem], false);
-
-			if (heldItem.useStyle == ItemUseStyleID.HoldingOut)
-			{
-				if (Item.staff[heldItem.type])
-				{
-					float num84 = drawPlayer.itemRotation + 0.785f * (float)drawPlayer.direction;
-					int num85 = 0;
-					int num86 = 0;
-					Vector2 zero2 = new Vector2(0f, texture.Height);
-					
-					if (drawPlayer.gravDir == -1f)
-					{
-						if (drawPlayer.direction == -1)
-						{
-							num84 += 1.57f;
-							zero2 = new Vector2(texture.Width, 0f);
-							num85 -= texture.Width;
-						}
-						else
-						{
-							num84 -= 1.57f;
-							zero2 = Vector2.Zero;
-						}
-					}
-					else if (drawPlayer.direction == -1)
-					{
-						zero2 = new Vector2(texture.Width, texture.Height);
-						num85 -= texture.Width;
-					}
-
-					Vector2 zero3 = Vector2.Zero;
-					ItemLoader.HoldoutOrigin(drawPlayer, ref zero3);
-					var drawData = new DrawData(texture, new Vector2((float)((int)(vector.X - Main.screenPosition.X + zero2.X + (float)num85)), (float)((int)(vector.Y - Main.screenPosition.Y + (float)num86))), new Rectangle?(new Rectangle(0, 0, texture.Width, texture.Height)), new Color(250, 250, 250, heldItem.alpha), num84, zero2 + zero3, heldItem.scale, effect, 0);
-					Main.playerDrawData.Add(drawData);
-
-					return;
-				}
-				else
-				{
-					Vector2 vector5 = new Vector2((float)(texture.Width / 2), (float)(texture.Height / 2));
-					Vector2 vector6 = new Vector2(10f, (float)(texture.Height / 2));
-					ItemLoader.HoldoutOffset(drawPlayer.gravDir, heldItem.type, ref vector6);
-
-					int num87 = (int)vector6.X;
-					vector5.Y = vector6.Y;
-					Vector2 origin3 = new Vector2(-(float)num87, (float)(texture.Height / 2));
-
-					if (drawPlayer.direction == -1)
-					{
-						origin3 = new Vector2((float)(texture.Width + num87), (float)(texture.Height / 2));
-					}
-
-					var drawData = new DrawData(texture, new Vector2((float)((int)(vector.X - Main.screenPosition.X + vector5.X)), (float)((int)(vector.Y - Main.screenPosition.Y + vector5.Y))), new Rectangle?(new Rectangle(0, 0, texture.Width, texture.Height)), new Color(250, 250, 250, heldItem.alpha), drawPlayer.itemRotation, origin3, heldItem.scale, effect, 0);
-					Main.playerDrawData.Add(drawData);
-
-					return;
-				}
-			}
-			else if (drawPlayer.gravDir == -1f)
-			{
-				var drawData = new DrawData(texture, new Vector2((float)((int)(vector.X - Main.screenPosition.X)), (float)((int)(vector.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(0, 0, texture.Width, texture.Height)), new Color(250, 250, 250, heldItem.alpha), drawPlayer.itemRotation, new Vector2((float)texture.Width * 0.5f - (float)texture.Width * 0.5f * (float)drawPlayer.direction, 0f) + zero, heldItem.scale, effect, 0);
-				Main.playerDrawData.Add(drawData);
-
-				return;
-			}
-			else
-			{
-				var drawData = new DrawData(texture, new Vector2((float)((int)(vector.X - Main.screenPosition.X)), (float)((int)(vector.Y - Main.screenPosition.Y))), new Rectangle?(new Rectangle(0, 0, texture.Width, texture.Height)), new Color(250, 250, 250, heldItem.alpha), drawPlayer.itemRotation, new Vector2((float)texture.Width * 0.5f - (float)texture.Width * 0.5f * (float)drawPlayer.direction, (float)texture.Height) + zero, heldItem.scale, effect, 0);
-				Main.playerDrawData.Add(drawData);
-			}
-		});
-
 		public override void clientClone(ModPlayer clientClone) {
 			OrchidModPlayer clone = clientClone as OrchidModPlayer;
 

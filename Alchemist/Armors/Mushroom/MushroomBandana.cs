@@ -5,11 +5,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Interfaces;
 
 namespace OrchidMod.Alchemist.Armors.Mushroom
 {
 	[AutoloadEquip(EquipType.Head)]
-    public class MushroomBandana : OrchidModAlchemistEquipable
+    public class MushroomBandana : OrchidModAlchemistEquipable, IDrawOnPlayer
     {
         public override void SafeSetDefaults()
         {
@@ -18,8 +19,6 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
             item.value = Item.sellPrice(0, 0, 3, 0);
             item.rare = ItemRarityID.Blue;
             item.defense = 2;
-
-			glowmask = true;
         }
 
 		public override void SetStaticDefaults()
@@ -65,20 +64,26 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
             recipe.AddRecipe();
         }
 
+		public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
+			Lighting.AddLight(item.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+		}
+
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
 			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomBandana_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
-		}
-
-		public override void DrawPlayerGlowmask(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimpleHeadGlowmask(drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomBandana_Head_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress);
 		}
 
 		public override void UpdateVanity(Player player, EquipType type)
 		{
 			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
 			Lighting.AddLight(player.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+		}
+
+		public void DrawOnPlayer(PlayerDrawInfo drawInfo)
+		{
+			OrchidHelper.DrawSimplePlayerGlowmask(EquipType.Head, drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomBandana_Head_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress);
 		}
 	}
 }

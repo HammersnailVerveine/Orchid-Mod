@@ -7,9 +7,6 @@ namespace OrchidMod
 {
 	public abstract class OrchidModItem : ModItem
     {
-		public bool glowmask; // Does this item have a glowmask?
-
-		public virtual void DrawPlayerGlowmask(PlayerDrawInfo drawInfo) { }
-		public virtual void DrawPlayerArmsGlowmask(PlayerDrawInfo drawInfo) { }
+		// Hehe 'Te Nandayo?!
 	}
 }

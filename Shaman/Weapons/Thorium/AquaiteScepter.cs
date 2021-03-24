@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.useTime = 40;
 			item.useAnimation = 40;
 			item.knockBack = 4.75f;
-			item.rare = 2;
+			item.rare = ItemRarityID.Green;
 			item.value = Item.sellPrice(0, 0, 30, 0);
 			item.UseSound = SoundID.Item21;
 			item.autoReuse = true;

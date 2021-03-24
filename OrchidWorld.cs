@@ -110,9 +110,9 @@ namespace OrchidMod
 
 		public override void PreUpdate()
 		{
-			// Mushroom Armor Lighting Progress
+			// Mushroom Armor Lighting Progress and ... Shroomite Scepter
 			{
-				alchemistMushroomArmorProgress = (float)Math.Abs(Math.Sin(Main.time / 50f)) * 0.5f + 0.5f;
+				alchemistMushroomArmorProgress = (float)Math.Sin(Main.GlobalTime * (Math.PI / 2f)) * 0.25f + 0.75f;
 			}
 		}
 
