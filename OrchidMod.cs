@@ -55,13 +55,6 @@ namespace OrchidMod
 
 		public override void PostSetupContent()
 		{
-			/*Instance.Logger.Info("---");
-			foreach (var elem in ThoriumMod.Code.GetTypes())
-			{
-				if (elem.IsAbstract) Instance.Logger.Info(elem.Name);
-			}
-			Instance.Logger.Info("---");*/
-
 			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
 			Mod censusMod = ModLoader.GetMod("Census");
 			if(censusMod != null)
