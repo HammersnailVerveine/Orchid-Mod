@@ -63,11 +63,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 
 			var projectile = CreateNewProjectile(item, player, projectileType);
-
-			/*Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX - 8, (float)Main.mouseY);
-			int newProj = Projectile.NewProjectile(target.X, target.Y, 0f, 10f, projectileType, damage, knockBack, player.whoAmI);
-			Main.projectile[newProj].ai[1] = nbBonds;
-			Main.projectile[newProj].netUpdate = true;*/
+			projectile.ai[1] = nbBonds;
+			projectile.netUpdate = true;
+			
 			return false;
 		}
 
