@@ -16,7 +16,6 @@ namespace OrchidMod.Alchemist
 		public virtual void SafeSetDefaults() {}
 
 		public sealed override void SetDefaults() {
-			SafeSetDefaults();
 			item.width = 36;
 			item.height = 32;
 			item.melee = false;
@@ -32,6 +31,8 @@ namespace OrchidMod.Alchemist
 			item.useAnimation = 10;
 			item.useTime = 10;
 			item.maxStack = 99;
+			item.value = Item.sellPrice(0, 0, 5, 0);
+			SafeSetDefaults();
 		}
 		
 		public override bool AltFunctionUse(Player player) {
@@ -44,12 +45,12 @@ namespace OrchidMod.Alchemist
 			return true;
 		}
 		
-		// public override bool CloneNewInstances {
-			// get
-			// {
-				// return true;
-			// }
-		// }
+		public override bool CloneNewInstances {
+			get
+			{
+				return true;
+			}
+		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
 			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");

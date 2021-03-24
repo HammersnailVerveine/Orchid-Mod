@@ -149,7 +149,7 @@ namespace OrchidMod.Alchemist.UI
 					
 					this.drawpause = this.drawpause ? Main.mouseLeftRelease : false;
 					
-					msg = "Page " + this.bookPageIndex + "/" + maxPages;
+					msg = "Page " + (this.bookPageIndex + 1) + "/" + (maxPages + 1);
 					ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, new Vector2(point.X + 282, point.Y + 508), backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 				}
 			}

@@ -12,7 +12,6 @@ namespace OrchidMod.Alchemist.Misc.Scrolls
 	{
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 10, 0);
 			item.rare = 1;
 			this.hintLevel = 1;
 		}

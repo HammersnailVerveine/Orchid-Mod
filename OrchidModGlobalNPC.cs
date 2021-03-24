@@ -292,6 +292,9 @@ namespace OrchidMod
 						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.KingSlimeCard>());
 					}
 				}
+				if (alchemistHit) {
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier1>());
+				}
 			}
 			if ((npc.type == NPCID.Plantera))
             {
