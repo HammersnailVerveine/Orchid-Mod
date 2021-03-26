@@ -56,10 +56,5 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
 			target.AddBuff(BuffID.OnFire, (60 * 3 ) + (60 * (alchProj.nbElements)));
 		}
-		
-		public override void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, 
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
-			modTarget.alchemistFire = 60 * 5;
-		}
 	}
 }

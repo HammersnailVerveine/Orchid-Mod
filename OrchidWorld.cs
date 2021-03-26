@@ -1367,6 +1367,13 @@ namespace OrchidMod
 					}
 				}
 
+				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 13 * 36)
+				{
+					if (Main.rand.Next(4) == 0) {
+						spawnedIceChestCard = placeInChest(chest, ItemType<Alchemist.Weapons.Air.SunplateFlask>(), 1);
+					}
+				}
+
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 11 * 36)
 				{
 					if (Main.rand.Next(5) == 0) {
@@ -1374,6 +1381,9 @@ namespace OrchidMod
 					}
 					if(Main.rand.Next(7) == 0) {
 						spawnedAvalancheScepter = placeInChest(chest, ItemType<Shaman.Weapons.AvalancheScepter>(), 1);
+					}
+					if (Main.rand.Next(4) == 0) {
+						spawnedIceChestCard = placeInChest(chest, ItemType<Alchemist.Weapons.Air.BlizzardInAVial>(), 1);
 					}
 				}
 

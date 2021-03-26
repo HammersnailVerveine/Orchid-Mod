@@ -29,6 +29,7 @@ namespace OrchidMod
 
 		public static Mod ThoriumMod { get; private set; }
 
+		public static Texture2D[] coatingTextures;
 		public static List<AlchemistHiddenReactionRecipe> alchemistReactionRecipes;
 		public static ModHotKey AlchemistReactionHotKey;
 		public static ModHotKey AlchemistCatalystHotKey;
@@ -309,6 +310,14 @@ namespace OrchidMod
 				
 				gamblerUIState.Activate();
 				orchidModGamblerInterface.SetState(gamblerUIState);
+				
+				coatingTextures = new Texture2D[6];
+				coatingTextures[0] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingFire");
+				coatingTextures[1] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingWater");
+				coatingTextures[2] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingNature");
+				coatingTextures[3] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingAir");
+				coatingTextures[4] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingLight");
+				coatingTextures[5] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingDark");
 			}
 		}
 		
@@ -483,6 +492,8 @@ namespace OrchidMod
 				GamblerUIFrame.UIRedraw = null;
 				GamblerUIFrame.UIDeckbuilding = null;
 				GamblerUIFrame.UIDeckbuildingBlock = null;
+				
+				coatingTextures = null;
 			}
 			
 			orchidModShamanInterface = null;
@@ -580,71 +591,6 @@ namespace OrchidMod
 					//Gambler Card in Deck
 					bool cardInDeck = reader.ReadBoolean();
 					modPlayer.gamblerHasCardInDeck = cardInDeck;
-					
-					
-					// Alchemist Misc
-					// bool alchElement0 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[0] = alchElement0;
-					
-					// bool alchElement1 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[1] = alchElement1;
-					
-					// bool alchElement2 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[2] = alchElement2;
-					
-					// bool alchElement3 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[3] = alchElement3;
-					
-					// bool alchElement4 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[4] = alchElement4;
-					
-					// bool alchElement5 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[5] = alchElement5;
-					
-					// int alchFlask0 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[0] = alchFlask0;
-					
-					// int alchFlask1 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[1] = alchFlask1;
-					
-					// int alchFlask2 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[2] = alchFlask2;
-					
-					// int alchFlask3 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[3] = alchFlask3;
-					
-					// int alchFlask4 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[4] = alchFlask4;
-					
-					// int alchFlask5 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[5] = alchFlask5;
-					
-					// int alchDust0 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[0] = alchDust0;
-					
-					// int alchDust1 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[1] = alchDust1;
-					
-					// int alchDust2 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[2] = alchDust2;
-					
-					// int alchDust3 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[3] = alchDust3;
-					
-					// int alchDust4 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[4] = alchDust4;
-					
-					// int alchDust5 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[5] = alchDust5;
-					
-					// int alchColorR = reader.ReadInt32();
-					// modPlayer.alchemistColorR = alchColorR;
-					
-					// int alchColorG = reader.ReadInt32();
-					// modPlayer.alchemistColorG = alchColorG;
-					
-					// int alchColorB = reader.ReadInt32();
-					// modPlayer.alchemistColorB = alchColorB;
 					break;
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDSMALL:
 					playernumber = reader.ReadByte();
@@ -944,299 +890,6 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
-				// case OrchidModMessageType.ALCHEMISTELEMENTCHANGED0:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchElement0 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[0] = alchElement0;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED0);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistElements[0]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTELEMENTCHANGED1:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchElement1 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[1] = alchElement1;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED1);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistElements[1]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTELEMENTCHANGED2:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchElement2 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[2] = alchElement2;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED2);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistElements[2]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTELEMENTCHANGED3:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchElement3 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[3] = alchElement3;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED3);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistElements[3]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTELEMENTCHANGED4:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchElement4 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[4] = alchElement4;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED4);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistElements[4]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTELEMENTCHANGED5:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchElement5 = reader.ReadBoolean();
-					// modPlayer.alchemistElements[5] = alchElement5;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTELEMENTCHANGED5);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistElements[5]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTFLASKCHANGED0:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchFlask0 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[0] = alchFlask0;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED0);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistFlasks[0]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTFLASKCHANGED1:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchFlask1 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[1] = alchFlask1;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED1);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistFlasks[1]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTFLASKCHANGED2:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchFlask2 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[2] = alchFlask2;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED2);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistFlasks[2]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTFLASKCHANGED3:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchFlask3 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[3] = alchFlask3;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED3);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistFlasks[3]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTFLASKCHANGED4:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchFlask4 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[4] = alchFlask4;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED4);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistFlasks[4]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTFLASKCHANGED5:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchFlask5 = reader.ReadInt32();
-					// modPlayer.alchemistFlasks[5] = alchFlask5;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTFLASKCHANGED5);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistFlasks[5]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTDUSTCHANGED0:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchDust0 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[0] = alchDust0;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED0);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistDusts[0]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTDUSTCHANGED1:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchDust1 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[1] = alchDust1;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED1);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistDusts[1]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTDUSTCHANGED2:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchDust2 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[2] = alchDust2;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED2);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistDusts[2]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTDUSTCHANGED3:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchDust3 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[3] = alchDust3;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED3);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistDusts[3]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTDUSTCHANGED4:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchDust4 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[4] = alchDust4;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED4);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistDusts[4]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTDUSTCHANGED5:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchDust5 = reader.ReadInt32();
-					// modPlayer.alchemistDusts[5] = alchDust5;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTDUSTCHANGED5);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistDusts[5]);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTCOLORCHANGEDR:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchColorR = reader.ReadInt32();
-					// modPlayer.alchemistColorR = alchColorR;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTCOLORCHANGEDR);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistColorR);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTCOLORCHANGEDG:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchColorG = reader.ReadInt32();
-					// modPlayer.alchemistColorG = alchColorG;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTCOLORCHANGEDG);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistColorG);
-						// packet.Send(-1, playernumber);
-					// }
-					// break;
-					
-				// case OrchidModMessageType.ALCHEMISTCOLORCHANGEDB:
-					// playernumber = reader.ReadByte();
-					// modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					// alchColorB = reader.ReadInt32();
-					// modPlayer.alchemistColorB = alchColorB;
-					// if (Main.netMode == NetmodeID.Server) {
-						// var packet = GetPacket();
-						// packet.Write((byte)OrchidModMessageType.ALCHEMISTCOLORCHANGEDB);
-						// packet.Write(playernumber);
-						// packet.Write(modPlayer.alchemistColorB);
-						// packet.Send(-1, playernumber);
-					// }
 				
 				default:
 					Logger.WarnFormat("OrchidMod: Unknown Message type: {0}", msgType);

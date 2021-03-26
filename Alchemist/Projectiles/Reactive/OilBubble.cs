@@ -67,7 +67,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo < distance) {
 						OrchidModAlchemistNPC modTarget = Main.npc[k].GetGlobalNPC<OrchidModAlchemistNPC>();
-						modTarget.alchemistOil = 600;
+						modTarget.alchemistWater = 60 * 10;
 					}
 				}
 			}

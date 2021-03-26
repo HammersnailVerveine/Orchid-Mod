@@ -31,7 +31,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stellar Talk");
+			DisplayName.SetDefault("Stellar Talc");
 		    Tooltip.SetDefault("Creates orbiting stars on impact");
 		}
 		

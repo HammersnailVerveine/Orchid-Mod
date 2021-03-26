@@ -118,11 +118,15 @@ namespace OrchidMod.Alchemist
 		
 		public static bool checkSubstitutes(int ingredientID, Mod mod, Player player, OrchidModPlayer modPlayer) {
 			List<int> ingredientToCompare = new List<int>();
-			ingredientToCompare.Add(ItemType<FartInAVial>());
+			ingredientToCompare.Add(ItemType<CouldInAVial>());
+			ingredientToCompare.Add(ItemType<AttractiteFlask>());
+			ingredientToCompare.Add(ItemType<BlinkrootFlask>());
+			ingredientToCompare.Add(ItemType<ShiverthornFlask>());
 			
 			foreach (int ingredient in ingredientToCompare) {
 				if (ingredientID == ItemType<CouldInAVial>()) {
-					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<FartInAVial>(), player, modPlayer);
+					return (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<FartInAVial>(), player, modPlayer)
+					|| OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<BlizzardInAVial>(), player, modPlayer));
 				}
 				if (ingredientID == ItemType<AttractiteFlask>()) {
 					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<GlowingAttractiteFlask>(), player, modPlayer);

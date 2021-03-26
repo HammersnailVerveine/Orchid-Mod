@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,7 +16,6 @@ namespace OrchidMod.Alchemist
 		public int alchemistNature = 0;
 		public int alchemistLight = 0;
 		public int alchemistDark = 0;
-		public int alchemistOil = 0;
 		
 		public bool airborne = false;
 		
@@ -32,10 +32,10 @@ namespace OrchidMod.Alchemist
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 						if (distanceTo < distance) {
 							OrchidModAlchemistNPC modTarget = Main.npc[k].GetGlobalNPC<OrchidModAlchemistNPC>();
-							if (modTarget.alchemistOil > 0) {
+							if (modTarget.alchemistWater > 0) {
 								player.ApplyDamageToNPC(Main.npc[k], Main.DamageVar(damage), 5f, Main.LocalPlayer.direction, true);
-								modTarget.alchemistOil = 0;
-								modTarget.alchemistFire = 60 * 5;
+								modTarget.alchemistWater = 0;
+								modTarget.alchemistFire = 60 * 10;
 							}
 						}
 					}
@@ -43,65 +43,70 @@ namespace OrchidMod.Alchemist
 			}
 		}
 		
-		public override void DrawEffects(NPC npc, ref Color drawColor) {
-			if (this.alchemistFire > 0) {
-				if (Main.rand.Next(15) == 0) {
-					int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 6, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].velocity *= 0.5f;
-					Main.dust[dust].velocity.X *= 0f;
-					if (Main.rand.NextBool(4)) {
-						Main.dust[dust].noGravity = false;
-						Main.dust[dust].scale *= 0.5f;
-					}
-				}
-				Lighting.AddLight(npc.position, 0.5f, 0.2f, 0f);
+		public void setOffset(ref int offSetX, ref int offSetY, ref int nbCoatings) {
+			offSetX = -9;
+			while (nbCoatings > 0 && offSetX > -29) {
+				nbCoatings --;
+				offSetX -= 10;
 			}
+			offSetY -= 20;
+		}
+		
+		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor) {
+			int nbCoatings = -1;
+			nbCoatings += this.alchemistFire > 0 ? 1 : 0;
+			nbCoatings += this.alchemistWater > 0 ? 1 : 0;
+			nbCoatings += this.alchemistNature > 0 ? 1 : 0;
+			nbCoatings += this.alchemistAir > 0 ? 1 : 0;
+			nbCoatings += this.alchemistLight > 0 ? 1 : 0;
+			nbCoatings += this.alchemistDark > 0 ? 1 : 0;
+			int offSetX = -9;
+			int offSetY = -30;
+			setOffset(ref offSetX, ref offSetY, ref nbCoatings);
+			nbCoatings --;
 			
-			if (this.alchemistOil > 0) {
-				if (Main.rand.Next(15) == 0) {
-					int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 184, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].velocity *= 0.5f;
-					Main.dust[dust].velocity.X *= 0f;
-					Main.dust[dust].scale *= 0.5f;
-				}
-				Lighting.AddLight(npc.position, 0.5f, 0.5f, 0f);
+			if (this.alchemistFire > 0) {
+				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
+				spriteBatch.Draw(OrchidMod.coatingTextures[0], rect, null, Color.White);
+				offSetX += 20;
+				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
 			
 			if (this.alchemistWater > 0) {
-				if (Main.rand.Next(15) == 0) {
-					int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 33, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].velocity *= 0.5f;
-					Main.dust[dust].velocity.X *= 0f;
-					Main.dust[dust].scale *= 0.5f;
-				}
-				Lighting.AddLight(npc.position, 0f, 0f, 0.5f);
+				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
+				spriteBatch.Draw(OrchidMod.coatingTextures[1], rect, null, Color.White);
+				offSetX += 20;
+				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
 			
 			if (this.alchemistNature > 0) {
-				if (Main.rand.Next(15) == 0) {
-					int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 163, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].velocity *= 0.5f;
-					Main.dust[dust].velocity.X *= 0f;
-					Main.dust[dust].scale *= 0.5f;
-				}
-				Lighting.AddLight(npc.position, 0f, 0.5f, 0.2f);
+				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
+				spriteBatch.Draw(OrchidMod.coatingTextures[2], rect, null, Color.White);
+				offSetX += 20;
+				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
 			
 			if (this.alchemistAir > 0) {
-				if (Main.rand.Next(15) == 0) {
-					int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 16, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].velocity *= 0.5f;
-					Main.dust[dust].velocity.X *= 0f;
-					Main.dust[dust].scale *= 0.5f;
-				}
-				Lighting.AddLight(npc.position, 0.1f, 0.3f, 0.3f);
+				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
+				spriteBatch.Draw(OrchidMod.coatingTextures[3], rect, null, Color.White);
+				offSetX += 20;
+				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
 			
+			if (this.alchemistLight > 0) {
+				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
+				spriteBatch.Draw(OrchidMod.coatingTextures[4], rect, null, Color.White);
+				offSetX += 20;
+				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
+			}
+			
+			if (this.alchemistDark > 0) {
+				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
+				spriteBatch.Draw(OrchidMod.coatingTextures[5], rect, null, Color.White);
+			}
+		}
+		
+		public override void DrawEffects(NPC npc, ref Color drawColor) {
 			if (npc.HasBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>()) && Main.time % 90 == 0) {
 				OrchidModProjectile.spawnDustCircle(npc.Center, 60, 10, 10, true, 1.5f, 1f, 2f);
 				OrchidModProjectile.spawnDustCircle(npc.Center, 60, 10, 12, true, 1.5f, 1f, 4f);
@@ -120,7 +125,6 @@ namespace OrchidMod.Alchemist
 			this.alchemistNature -= this.alchemistNature > 0 ? 1 : 0;
 			this.alchemistLight -= this.alchemistLight > 0 ? 1 : 0;
 			this.alchemistDark -= this.alchemistDark > 0 ? 1 : 0;
-			this.alchemistOil -= this.alchemistOil > 0 ? 1 : 0;
 			this.airborne = npc.velocity.Y != 0 ? true : false;
 		}
 	}

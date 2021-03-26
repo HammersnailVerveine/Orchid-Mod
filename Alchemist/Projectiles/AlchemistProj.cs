@@ -532,7 +532,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		}
 		
 		public bool hasCloud() {
-			return (this.airFlask.type == ItemType<CouldInAVial>() || this.airFlask.type == ItemType<FartInAVial>());
+			return (this.airFlask.type == ItemType<CouldInAVial>() || this.airFlask.type == ItemType<FartInAVial>() || this.airFlask.type == ItemType<BlizzardInAVial>());
 		}
     }
 }

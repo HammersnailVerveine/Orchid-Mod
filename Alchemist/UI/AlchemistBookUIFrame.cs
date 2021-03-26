@@ -48,7 +48,7 @@ namespace OrchidMod.Alchemist.UI
 			int baseOffSetY = 12;
 			int recipesPerPage = 13;
 			
-            Point point = new Point((int)dimensions.X - (bookWidth / 2), (int)dimensions.Y - (bookHeight / 2));
+            Point point = new Point((int)dimensions.X - (bookWidth / 2), (int)dimensions.Y - (bookHeight / 2) + (int)player.gfxOffY);
 			Point mousePoint = new Point((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y);
 			
 			Rectangle rectangleArrowLeft = new Rectangle(point.X + 270, point.Y + 478, 36, 34);
