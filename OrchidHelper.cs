@@ -45,7 +45,7 @@ namespace OrchidMod
 					}
 					break;
 				case EquipType.Legs:
-					if (player.legs > 0 && (player.shoe != 15 || player.wearsRobe) && !player.invis)
+					if (player.legs > 0 && (player.shoe != 15 && !player.wearsRobe) && !player.invis)
 					{
 						Vector2 position = new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(player.legFrame.Width / 2) + (float)(player.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)player.height - (float)player.legFrame.Height + 4f))) + player.legPosition + drawInfo.legOrigin;
 						var drawData = new DrawData(texture, position, new Rectangle?(player.legFrame), color * player.stealth, player.legRotation, drawInfo.legOrigin, 1f, drawInfo.spriteEffects, 0)
