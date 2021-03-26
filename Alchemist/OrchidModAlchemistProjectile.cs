@@ -8,7 +8,7 @@ namespace OrchidMod.Alchemist
 {
     public abstract class OrchidModAlchemistProjectile : OrchidModProjectile
     {
-		public virtual void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
+		public virtual void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
 		
 		public sealed override void AltSetDefaults() {
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
@@ -23,7 +23,8 @@ namespace OrchidMod.Alchemist
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
 			modTarget.alchemistHit = true;
-			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);
+			OrchidModAlchemistNPC modTargetAlch = target.GetGlobalNPC<OrchidModAlchemistNPC>();
+			SafeOnHitNPC(target, modTargetAlch, damage, knockback, crit, player, modPlayer);
 		}
     }
 }

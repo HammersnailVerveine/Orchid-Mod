@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			DisplayName.SetDefault("Deathweed Extract");
 		    Tooltip.SetDefault("Releases air spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
-							+  "\n20% increased damage in evil biomes");
+							+  "\nSpores deals 10% increased damage against fire-coated enemies");
 		}
 		
 		public override void AddRecipes()

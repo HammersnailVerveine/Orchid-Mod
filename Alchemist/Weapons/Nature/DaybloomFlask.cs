@@ -33,12 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			DisplayName.SetDefault("Daybloom Extract");
 		    Tooltip.SetDefault("Releases nature spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
-							+  "\n20% increased damage during the day");
-		}
-		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
-			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
-			if (Main.dayTime) mult *= 1.2f;
+							+  "\nSpores deals 10% increased damage against fire-coated enemies");
 		}
 		
 		public override void AddRecipes()

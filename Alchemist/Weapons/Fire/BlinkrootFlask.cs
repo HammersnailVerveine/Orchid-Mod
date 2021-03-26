@@ -33,12 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			DisplayName.SetDefault("Blinkroot Extract");
 		    Tooltip.SetDefault("Releases fire spores, the less other extracts used, the more"
 							+  "\nOnly one set of spores can exist at once"
-							+  "\n20% increased damage in caverns");
-		}
-		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
-			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
-			if (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight) mult *= 1.2f;
+							+  "\nSpores deals 10% increased damage against fire-coated enemies");
 		}
 		
 		public override void AddRecipes()

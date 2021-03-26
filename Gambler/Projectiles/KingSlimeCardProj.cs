@@ -135,12 +135,12 @@ namespace OrchidMod.Gambler.Projectiles
 		
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
+			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			projectile.velocity.Y = -10;
 			projectile.velocity.X *= 0.5f;
 			this.justHit = 30;
 			projectile.ai[1] = 1f;
-			int projType = ProjectileType<Gambler.Projectiles.KingSlimeCardProj2>();
-			Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, projectile.damage, 0, projectile.owner);
+			int newProjectile = OrchidModGamblerHelper.DummyProjectile(ProjectileType<Gambler.Projectiles.KingSlimeCardProj2>(), modProjectile.gamblerDummyProj);
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 59, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, false, true);
         }
 		

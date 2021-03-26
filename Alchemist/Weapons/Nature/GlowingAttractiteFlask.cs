@@ -33,13 +33,8 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			DisplayName.SetDefault("Glowing Attractite Flask");
 		    Tooltip.SetDefault("Hit target will attract most nearby alchemical lingering projectiles"
 							+  "\nThe attractivity buff will jump to the nearest target on miss"
-							+  "\nReleases lingering spores"
-							+  "\n20% increased damage during the night");
-		}
-		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
-			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
-			if (!Main.dayTime) mult *= 1.2f;
+							+  "\nReleases nature spores, the less other extracts used, the more"
+							+  "\nSpores deals 10% increased damage against fire-coated enemies");
 		}
 		
 		public override void AddRecipes()

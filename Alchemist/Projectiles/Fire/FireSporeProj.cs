@@ -100,6 +100,12 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 			}
         }
 		
+		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
+			if (modTarget.alchemistFire > 0) {
+				damage = (int)(damage * 1.1f);
+			}
+		}
+		
 		public override bool OnTileCollide(Vector2 oldVelocity) {
             if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X;
             if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y;
