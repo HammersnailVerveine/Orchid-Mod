@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace OrchidMod.Shaman.Armors.Abyss
 {
@@ -15,23 +16,17 @@ namespace OrchidMod.Shaman.Armors.Abyss
             item.width = 24;
             item.height = 24;
             item.value = 0;
-            item.rare = 10;
+            item.rare = ItemRarityID.Red;
             item.defense = 18;
         }
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Abyssal Helm");
-		  Tooltip.SetDefault("Your shamanic bonds will last 5 seconds longer"
-							+"\n7% increased shamanic damage and critical strike chance");
+			DisplayName.SetDefault("Abyssal Helm");
+			Tooltip.SetDefault("Your shamanic bonds will last 5 seconds longer"
+								+ "\n7% increased shamanic damage and critical strike chance");
 		}
 
-
-		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-		
         public override void UpdateEquip(Player player)
         {
 			Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanBuffTimer += 5;
@@ -40,20 +35,9 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			Lighting.AddLight(player.position, 0.15f, 0.15f, 0.8f);			
         }
 		
-		public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
-        {
-            color = drawPlayer.GetImmuneAlphaPure(Color.White, shadow);
-        }
-		
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("AbyssalChestplate") && legs.type == mod.ItemType("AbyssalGreaves");
-        }
-		
-		public override void ArmorSetShadows(Player player)
-        {
-            player.armorEffectDrawOutlines = true;
-            player.armorEffectDrawShadowSubtle = true;
         }
 		
         public override void UpdateArmorSet(Player player)
@@ -87,10 +71,15 @@ namespace OrchidMod.Shaman.Armors.Abyss
 		{
 		    ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.LunarBar, 8);
-			recipe.AddIngredient(null, "AbyssFragment", 10);
+			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 10);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-    }
+
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+		{
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssalHelm_Glowmask"), Color.White, rotation, scale);
+		}
+	}
 }
