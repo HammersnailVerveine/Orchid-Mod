@@ -15,67 +15,6 @@ namespace OrchidMod
 {
 	public static class OrchidHelper
 	{
-		public static void DrawSimplePlayerGlowmask(EquipType type, PlayerDrawInfo drawInfo, Texture2D texture, Color? drawColor = null)
-		{
-			Player player = drawInfo.drawPlayer;
-			Color color = drawColor ?? new Color(250, 250, 250);
-
-			switch (type)
-			{
-				case EquipType.Head:
-					if (player.head > 0 && !player.invis)
-					{
-						Vector2 position = new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(player.bodyFrame.Width / 2) + (float)(player.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)player.height - (float)player.bodyFrame.Height + 4f))) + player.headPosition + drawInfo.headOrigin;
-						var drawData = new DrawData(texture, position, new Rectangle?(player.bodyFrame), color * player.stealth, player.headRotation, drawInfo.headOrigin, 1f, drawInfo.spriteEffects, 0)
-						{
-							shader = drawInfo.headArmorShader
-						};
-						Main.playerDrawData.Add(drawData);
-					}
-					break;
-				case EquipType.Body:
-					if (player.body > 0 && !player.invis)
-					{
-						Vector2 position = new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (player.bodyFrame.Width / 2) + (player.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + player.height - player.bodyFrame.Height + 4f))) + player.bodyPosition + new Vector2(player.bodyFrame.Width / 2, player.bodyFrame.Height / 2);
-						var drawData = new DrawData(texture, position, new Rectangle?(player.bodyFrame), color * player.stealth, player.bodyRotation, drawInfo.bodyOrigin, 1f, drawInfo.spriteEffects, 0)
-						{
-							shader = drawInfo.bodyArmorShader
-						};
-						Main.playerDrawData.Add(drawData);
-					}
-					break;
-				case EquipType.Legs:
-					if (player.legs > 0 && (player.shoe != 15 && !player.wearsRobe) && !player.invis)
-					{
-						Vector2 position = new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(player.legFrame.Width / 2) + (float)(player.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)player.height - (float)player.legFrame.Height + 4f))) + player.legPosition + drawInfo.legOrigin;
-						var drawData = new DrawData(texture, position, new Rectangle?(player.legFrame), color * player.stealth, player.legRotation, drawInfo.legOrigin, 1f, drawInfo.spriteEffects, 0)
-						{
-							shader = drawInfo.legArmorShader
-						};
-						Main.playerDrawData.Add(drawData);
-					}
-					break;
-				default:
-					break;
-			}
-		}
-
-		public static void DrawSimpleArmsGlowmask(PlayerDrawInfo drawInfo, Texture2D texture, Color? drawColor = null)
-		{
-			Player player = drawInfo.drawPlayer;
-			Color color = drawColor ?? new Color(250, 250, 250);
-
-			if (player.body > 0 && !player.invis)
-			{
-				Vector2 position = new Vector2((float)((int)(drawInfo.position.X - Main.screenPosition.X - (float)(player.bodyFrame.Width / 2) + (float)(player.width / 2))), (float)((int)(drawInfo.position.Y - Main.screenPosition.Y + (float)player.height - (float)player.bodyFrame.Height + 4f))) + player.bodyPosition + new Vector2((float)(player.bodyFrame.Width / 2), (float)(player.bodyFrame.Height / 2));
-				var drawData = new DrawData(texture, position, new Rectangle?(player.bodyFrame), color * player.stealth, player.bodyRotation, drawInfo.bodyOrigin, 1f, drawInfo.spriteEffects, 0)
-				{
-					shader = drawInfo.bodyArmorShader
-				};
-				Main.playerDrawData.Add(drawData);
-			}
-		}
-
 		public static void DrawSimpleItemGlowmaskInWorld(Item item, SpriteBatch spriteBatch, Texture2D texture, Color color, float rotation, float scale)
 		{
 			Vector2 offset = new Vector2(0, 2); // Unnecessary in 1.4
