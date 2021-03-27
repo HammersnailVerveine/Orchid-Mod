@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,8 +9,8 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class AbyssPrecinct : OrchidModShamanItem
-    {
+    public class AbyssPrecinct : OrchidModShamanItem, IGlowingItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 120;
@@ -17,11 +19,11 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.useTime = 60;
 			item.useAnimation = 60;
 			item.knockBack = 6.15f;
-			item.rare = 10;
+			item.rare = ItemRarityID.Red;
 			item.value = Item.sellPrice(0, 10, 0, 0);
 			item.UseSound = SoundID.Item122;
 			item.autoReuse = true;
-			item.shoot = mod.ProjectileType("AbyssPrecinctProj");
+			item.shoot = ModContent.ProjectileType<Projectiles.OreOrbs.Big.AbyssPrecinctProj>();
 			item.shootSpeed = 10f;
 			this.empowermentType = 2;
 			this.empowermentLevel = 5;
@@ -29,16 +31,11 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Abyss Precinct");
-		  Tooltip.SetDefault("Shoots an abyssal vortex, pulsating with energy"
-							+"\nHitting an enemy grants you an abyss fragment"
-							+"\nIf you have 5 abyss fragments, your next hit will make your shamanic bonds more effective for 15 seconds");
+			DisplayName.SetDefault("Abyss Precinct");
+			Tooltip.SetDefault("Shoots an abyssal vortex, pulsating with energy"
+								+ "\nHitting an enemy grants you an abyss fragment"
+								+ "\nIf you have 5 abyss fragments, your next hit will make your shamanic bonds more effective for 15 seconds");
 		}
-		
-		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
@@ -58,10 +55,20 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void AddRecipes()
 		{
 		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "AbyssFragment", 18);
+			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
-    }
+
+		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
+		{
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssPrecinct_Glowmask"), Color.White, rotation, scale);
+		}
+
+		public void DrawItemGlowmask(PlayerDrawInfo drawInfo)
+		{
+			OrchidHelper.DrawSimpleItemGlowmaskOnPlayer(drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssPrecinct_Glowmask"));
+		}
+	}
 }
