@@ -464,55 +464,6 @@ namespace OrchidMod
 			return true;
 		}
 
-		public override void ModifyDrawLayers(List<PlayerLayer> layers)
-		{
-			/*
-			 * player.armor[0-2] is armor slots
-			 * player.armor[3-9] is accesories
-			 * player.armor[10-12] is vanity armor
-			 * player.armor[13-19] is vanity accesories
-			*/
-
-			void ItemGlowmaskLayer(PlayerDrawInfo drawInfo)
-			{
-				if (drawInfo.drawPlayer.HeldItem.modItem is Interfaces.IGlowingItem glowItem) glowItem.DrawItemGlowmask(drawInfo);
-			}
-			var index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "HeldItem"));
-			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "HeldItemGlowmask", ItemGlowmaskLayer));
-
-			void HeadGlowmaskLayer(PlayerDrawInfo drawInfo)
-			{
-				if (player.armor[0].modItem is Interfaces.IDrawOnPlayer armor && player.armor[10].IsAir) armor.DrawOnPlayer(drawInfo);
-				else if (player.armor[10].modItem is Interfaces.IDrawOnPlayer vanity) vanity.DrawOnPlayer(drawInfo);
-			}
-			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Head"));
-			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "HeadGlowmask", HeadGlowmaskLayer));
-
-			void BodyGlowmaskLayer(PlayerDrawInfo drawInfo)
-			{
-				if (player.armor[1].modItem is Interfaces.IDrawOnPlayer armor && player.armor[11].IsAir) armor.DrawOnPlayer(drawInfo);
-				else if (player.armor[11].modItem is Interfaces.IDrawOnPlayer vanity) vanity.DrawOnPlayer(drawInfo);
-			}
-			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Body"));
-			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "BodyGlowmask", BodyGlowmaskLayer));
-
-			void ArmsGlowmaskLayer(PlayerDrawInfo drawInfo)
-			{
-				if (player.armor[1].modItem is Interfaces.IDrawOnPlayerWithArms armor && player.armor[11].IsAir) armor.DrawOnArms(drawInfo);
-				else if (player.armor[11].modItem is Interfaces.IDrawOnPlayerWithArms vanity) vanity.DrawOnArms(drawInfo);
-			}
-			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Arms"));
-			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "ArmsGlowmask", ArmsGlowmaskLayer));
-
-			void LegsGlowmaskLayer(PlayerDrawInfo drawInfo)
-			{
-				if (player.armor[2].modItem is Interfaces.IDrawOnPlayer armor && player.armor[12].IsAir) armor.DrawOnPlayer(drawInfo);
-				else if (player.armor[12].modItem is Interfaces.IDrawOnPlayer vanity) vanity.DrawOnPlayer(drawInfo);
-			}
-			index = layers.IndexOf(layers.FirstOrDefault(i => i.Name == "Legs"));
-			if (index >= 0) layers.Insert(index + 1, new PlayerLayer(mod.Name, "LegsGlowmask", LegsGlowmaskLayer));
-		}
-
 		public void updateItemEffects() {
 			if (player.armor[1].type == 374) this.customCrit += 3;// COBALT BREASPLATE
 			if (player.armor[1].type == 1208) this.customCrit += 2; // PALLADIUM BREASTPLATE
