@@ -10,7 +10,7 @@ using OrchidMod.Interfaces;
 namespace OrchidMod.Alchemist.Armors.Mushroom
 {
 	[AutoloadEquip(EquipType.Body)]
-    public class MushroomTunic : OrchidModAlchemistEquipable, IDrawOnPlayerWithArms
+    public class MushroomTunic : OrchidModAlchemistEquipable
 	{
         public override void SafeSetDefaults()
         {
@@ -66,20 +66,6 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 		{
 			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
 			Lighting.AddLight(player.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-		}
-
-		public void DrawOnArms(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimpleArmsGlowmask(drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomTunic_Arms_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress);
-		}
-
-		public void DrawOnPlayer(PlayerDrawInfo drawInfo)
-		{
-			Texture2D texture;
-			if (drawInfo.drawPlayer.Male) texture = ModContent.GetTexture("OrchidMod/Glowmasks/MushroomTunic_Body_Glowmask");
-			else texture = ModContent.GetTexture("OrchidMod/Glowmasks/MushroomTunic_FemaleBody_Glowmask");
-
-			OrchidHelper.DrawSimplePlayerGlowmask(EquipType.Body, drawInfo, texture, new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress);
 		}
 	}
 }

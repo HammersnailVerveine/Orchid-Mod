@@ -10,7 +10,7 @@ using OrchidMod.Interfaces;
 namespace OrchidMod.Alchemist.Armors.Mushroom
 {
 	[AutoloadEquip(EquipType.Head)]
-    public class MushroomBandana : OrchidModAlchemistEquipable, IDrawOnPlayer
+    public class MushroomBandana : OrchidModAlchemistEquipable
     {
         public override void SafeSetDefaults()
         {
@@ -79,11 +79,6 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 		{
 			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
 			Lighting.AddLight(player.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-		}
-
-		public void DrawOnPlayer(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimplePlayerGlowmask(EquipType.Head, drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomBandana_Head_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress);
 		}
 	}
 }

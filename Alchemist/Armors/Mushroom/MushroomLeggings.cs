@@ -10,7 +10,7 @@ using OrchidMod.Interfaces;
 namespace OrchidMod.Alchemist.Armors.Mushroom
 {
 	[AutoloadEquip(EquipType.Legs)]
-    public class MushroomLeggings : OrchidModAlchemistEquipable, IDrawOnPlayer
+    public class MushroomLeggings : OrchidModAlchemistEquipable
     {
         public override void SafeSetDefaults()
         {
@@ -59,11 +59,6 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 		{
 			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
 			Lighting.AddLight(player.Center, color.R / 255f, color.G / 255f, color.B / 255f);
-		}
-
-		public void DrawOnPlayer(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimplePlayerGlowmask(EquipType.Legs, drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomLeggings_Legs_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress);
 		}
 	}
 }
