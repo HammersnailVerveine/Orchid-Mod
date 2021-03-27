@@ -35,10 +35,9 @@ namespace OrchidMod.Shaman.Armors.Abyss
         }
 		
 		public override void ArmorSetShadows(Player player)
-        {
-            player.armorEffectDrawOutlines = true;
-            player.armorEffectDrawShadowSubtle = true;
-        }
+		{
+			player.armorEffectDrawShadowLokis = true;
+		}
 		
 		public override void AddRecipes()
 		{
