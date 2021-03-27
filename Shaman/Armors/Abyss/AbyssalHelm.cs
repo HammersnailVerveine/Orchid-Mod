@@ -35,6 +35,11 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			Lighting.AddLight(player.position, 0.15f, 0.15f, 0.8f);			
         }
 		
+		public override void ArmorSetShadows(Player player)
+		{
+			player.armorEffectDrawShadowLokis = true;
+		}
+		
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == mod.ItemType("AbyssalChestplate") && legs.type == mod.ItemType("AbyssalGreaves");
