@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Interfaces;
 
 namespace OrchidMod.Alchemist.Armors.Mushroom
 {
@@ -18,8 +19,6 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
             item.value = Item.sellPrice(0, 0, 4, 0);
             item.rare = ItemRarityID.Blue;
             item.defense = 3;
-
-			glowmask = true;
         }
 
 		public override void SetStaticDefaults()
@@ -45,14 +44,15 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
             recipe.AddRecipe();
         }
 
+		public override void Update(ref float gravity, ref float maxFallSpeed)
+		{
+			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
+			Lighting.AddLight(item.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+		}
+
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
 			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomLeggings_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
-		}
-
-		public override void DrawPlayerGlowmask(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimpleLegsGlowmask(drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomLeggings_Legs_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress);
 		}
 
 		public override void UpdateVanity(Player player, EquipType type)
