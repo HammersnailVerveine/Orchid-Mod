@@ -22,9 +22,9 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.potencyCost = 2;
 			this.element = AlchemistElement.AIR;
 			this.rightClickDust = 92;
-			this.colorR = 25;
-			this.colorG = 33;
-			this.colorB = 191;
+			this.colorR = 231;
+			this.colorG = 245;
+			this.colorB = 249;
 			this.secondaryDamage = 14;
 		}
 

@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		{
 			DisplayName.SetDefault("Hellfire Oil");
 		    Tooltip.SetDefault("nUsing a fire element in the same attack will drastically increase damage"
-							+  "\nThis will also spread alchemical fire to all nearby water coated enemies"
+							+  "\nThis will also damage and spread alchemical fire to all nearby water coated enemies"
 							+  "\nHas a chance to release a catalytic oil bubble, coating nearby enemies in water on reaction");
 		}
 		
@@ -64,11 +64,6 @@ namespace OrchidMod.Alchemist.Weapons.Water
 					Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
 			}
-		}
-		
-		public override void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, 
-			OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
-			modTarget.alchemistWater = 60 * 10;
 		}
 		
 		public override void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {

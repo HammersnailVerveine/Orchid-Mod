@@ -22,9 +22,9 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			this.potencyCost = 2;
 			this.element = AlchemistElement.FIRE;
 			this.rightClickDust = 57;
-			this.colorR = 191;
-			this.colorG = 82;
-			this.colorB = 0;
+			this.colorR = 35;
+			this.colorG = 54;
+			this.colorB = 20;
 			this.secondaryDamage = 16;
 		}
 
