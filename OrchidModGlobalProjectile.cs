@@ -14,6 +14,7 @@ namespace OrchidMod
 		public bool alchemistReactiveProjectile = false;
 		public bool shamanProjectile = false;
 		public bool gamblerProjectile = false;
+		public bool dancerProjectile = false;
 		public int gamblerInternalCooldown  = 0;
 		public int baseCritChance = 0;
 		public bool gamblerDummyProj = false;

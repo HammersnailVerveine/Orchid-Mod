@@ -26,27 +26,34 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.colorR = 121;
 			this.colorG = 152;
 			this.colorB = 239;
-			this.secondaryDamage = 30;
+			this.secondaryDamage = 40;
 			this.secondaryScaling = 30f;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vitriol Mycelium");
-		    Tooltip.SetDefault("e");
+		    Tooltip.SetDefault("Grows a mushroom, exploding after a while or when being catalyzed"
+							+  "\nThe more ingredients used, the more delayed the explosion"
+							+  "\nThe mushroom will absorb the properties of nearby spores, creating more of them"
+							+  "\nOnly one mushroom can exist at once");
 		}
 		
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
-			// int nb = 2 + Main.rand.Next(2);
-			// for (int i = 0 ; i < nb ; i ++) {
-				// Vector2	vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-				// int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProjAlt2>();
-				// Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
-			// }
-			
-			int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
 			int projType = ProjectileType<Alchemist.Projectiles.Air.CorruptionFlaskProj>();
-			Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, -0.1f, projType, dmg, 0f, projectile.owner);
+			bool spawnedMushroom = false;
+			for (int l = 0; l < Main.projectile.Length; l++) {  
+				Projectile proj = Main.projectile[l];
+				if (proj.active == true && proj.type == projType && proj.owner == projectile.owner) {
+					spawnedMushroom = true;
+					break;
+				}
+			}
+			
+			if (!spawnedMushroom) {
+				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 10, 0f, 0f, projType, dmg, 0f, projectile.owner);
+			}
 		}
 	}
 }

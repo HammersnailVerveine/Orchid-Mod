@@ -25,8 +25,7 @@ namespace OrchidMod.Alchemist
 			if (Main.myPlayer == player.whoAmI) {
 				Vector2 move = Vector2.Zero;
 				float distance = 1000f;
-				for (int k = 0; k < 200; k++)
-				{
+				for (int k = 0; k < 200; k++) {
 					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly){
 						Vector2 newMove = Main.npc[k].Center - startPosition;
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);

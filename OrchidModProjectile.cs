@@ -106,6 +106,27 @@ namespace OrchidMod
 			}
 		}
 		
+		public static void spawnGenericExplosion(Projectile projectile, int damage, float kb, int dimensions = 250, int damageType = 0, bool explosionGore = false, int soundType = 14) {
+			if (soundType != 0) Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
+			if (explosionGore) OrchidModProjectile.spawnExplosionGore(projectile);
+			int projType = ProjectileType<General.Projectiles.GenericExplosion>();
+			int newProjectileInt = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, kb, projectile.owner);
+			Projectile newProjectile = Main.projectile[newProjectileInt];
+			newProjectile.width = dimensions;
+			newProjectile.height = dimensions;
+			
+			if (damageType != 0) {
+				OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+				OrchidModGlobalProjectile modProjectileNew = newProjectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+				modProjectileNew.baseCritChance = modProjectile.baseCritChance;
+				
+				if (damageType == 1) modProjectileNew.shamanProjectile = true;
+				if (damageType == 2) modProjectileNew.alchemistProjectile = true;
+				if (damageType == 3) modProjectileNew.gamblerProjectile = true;
+				if (damageType == 4) modProjectileNew.dancerProjectile = true;
+			}
+		}
+		
 		public static void spawnDustCircle(Vector2 position, int dustType, double distToCenter, int number, bool noGravity = true, float dustScale = 1f, float velocityMult = 1f, float expandingSpeed = 0f, bool expandingHorizontal = true, bool expandingVertical = true, bool inwards = false, int offsetX = 0, int offsetY = 0, bool randomness = false, bool noLight = false) {
 			int angle = (int)(360 / number);
 			for (int i = 0 ; i < number ; i ++ )

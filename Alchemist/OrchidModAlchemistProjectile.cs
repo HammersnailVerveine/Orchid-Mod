@@ -8,6 +8,8 @@ namespace OrchidMod.Alchemist
 {
     public abstract class OrchidModAlchemistProjectile : OrchidModProjectile
     {
+		public bool catalytic = false;
+		
 		public virtual void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
 		
 		public sealed override void AltSetDefaults() {
@@ -15,6 +17,7 @@ namespace OrchidMod.Alchemist
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
 			modProjectile.baseCritChance = this.baseCritChance;
+			modProjectile.alchemistReactiveProjectile = this.catalytic;
 		}
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

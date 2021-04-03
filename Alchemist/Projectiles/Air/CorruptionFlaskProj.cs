@@ -11,19 +11,21 @@ namespace OrchidMod.Alchemist.Projectiles.Air
     public class CorruptionFlaskProj : OrchidModAlchemistProjectile
     {
 		private double dustVal = 0;
-		private int sporeType = 0;
+		private int sporeType = 21;
 		private int sporeDamage = 0;
+		private int range = 50;
 		
         public override void SafeSetDefaults()
         {
             projectile.width = 28;
-            projectile.height = 26;
+            projectile.height = 24;
             projectile.aiStyle = 0;
-			projectile.timeLeft = 120;
+			projectile.timeLeft = 60;
 			projectile.scale = 1f;
 			projectile.penetrate = -1;
 			projectile.friendly = false;
 			Main.projFrames[projectile.type] = 7;
+			this.catalytic = true;
         }
 		
 		public override void SetStaticDefaults()
@@ -35,16 +37,22 @@ namespace OrchidMod.Alchemist.Projectiles.Air
         {
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			projectile.velocity.Y += 0.01f;
+			
+			if (projectile.velocity.Y > 0) projectile.timeLeft ++;
+			projectile.velocity.Y += 0.05f;
+			
+			this.dustVal ++;
+			if (modPlayer.timer120 % 3 == 0) {
+					this.spawnDust(sporeType, range);
+			}
 			
 			if (projectile.timeLeft == 1) {
-				projectile.timeLeft = projectile.damage;
+				projectile.timeLeft = 10 + (int)(projectile.damage / 5) ;
 				projectile.frame ++;
 				if (projectile.frame >= 7) projectile.Kill();
 			}
 			
-			int range = 50;
-			if (this.sporeType == 0) {
+			if (this.sporeType == 21) {
 				for (int l = 0; l < Main.projectile.Length; l++) {  
 					Projectile proj = Main.projectile[l];
 					if (proj.active && Main.rand.Next(2) == 0)  {
@@ -78,8 +86,6 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 						}
 					}
 				}
-			} else if (modPlayer.timer120 % 2 == 0) {
-					this.spawnDust(sporeType, range);
 			}
 		}
 		
@@ -105,6 +111,47 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				Main.dust[index2].fadeIn = 1f;
 				Main.dust[index2].scale = projectile.velocity.X == 0 ? 1.5f :(float) Main.rand.Next(70, 110) * 0.013f;
 				Main.dust[index2].noGravity = true;
+			}
+		}
+		
+		
+		
+		public override void Kill(int timeLeft) {
+			spawnGenericExplosion(projectile, projectile.damage, projectile.knockBack, 250, 2, true, 14);
+			int spawnProj = 0;
+			int spawnProj2 = 0;
+			
+			switch (sporeType) {
+				case 6 :
+					spawnProj = ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>();
+					spawnProj2 = ProjectileType<Alchemist.Projectiles.Fire.FireSporeProjAlt>();
+					break;
+				case 59 :
+					spawnProj = ProjectileType<Alchemist.Projectiles.Water.WaterSporeProj>();
+					spawnProj2 = ProjectileType<Alchemist.Projectiles.Water.WaterSporeProjAlt>();
+					break;
+				case 61 :
+					spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>();
+					spawnProj2 = ProjectileType<Alchemist.Projectiles.Air.AirSporeProjAlt>();
+					break;
+				case 63 :
+					spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>();
+					spawnProj2 = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProjAlt>();
+					break;
+				default :
+					break;
+			}
+			
+			if (spawnProj != 0) {
+				for (int i = 0 ; i < 5 ; i ++) {
+					Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
+					int newSpore = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, this.sporeDamage, 0f, projectile.owner);
+					Main.projectile[newSpore].localAI[1] = 1f;
+				}
+				for (int i = 0 ; i < 5 ; i ++) {
+					Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
+					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj2, 0, 0f, projectile.owner);
+				}
 			}
 		}
     }
