@@ -33,6 +33,12 @@ namespace OrchidMod.Alchemist.Weapons.Misc
 			item.consumable = true;
 			item.shoot = ProjectileType<Alchemist.Projectiles.Misc.AttractiteShurikenProj>();
 		}
+		
+		public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+            Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+            return false;
+        }
 
 		public override bool OnPickup(Player player) {
 			return !this.alreadyInInventory(player);
