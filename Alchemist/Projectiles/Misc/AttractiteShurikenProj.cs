@@ -32,7 +32,7 @@ namespace OrchidMod.Alchemist.Projectiles.Misc
 		
 		public override bool OnTileCollide(Vector2 oldVelocity) {
             Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
-            return false;
+            return true;
         }
 		
 		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
