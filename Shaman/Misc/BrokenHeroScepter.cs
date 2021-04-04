@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class BrokenHeroScepter : ModItem
+	public class BrokenHeroScepter : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

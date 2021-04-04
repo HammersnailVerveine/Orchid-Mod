@@ -11,7 +11,7 @@ using OrchidMod.Interfaces;
 
 namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
-	public class StaticQuartzHealer : ModItem, ICrossmodItem
+	public class StaticQuartzHealer : OrchidModItem, ICrossmodItem
 	{
 		public string CrossmodName => "Thorium Mod";
 

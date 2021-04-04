@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler.Misc
 {
-	public class Chip : ModItem
+	public class Chip : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

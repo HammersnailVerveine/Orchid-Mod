@@ -10,7 +10,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler
 {
-	public class GamblerDummy : ModItem
+	public class GamblerDummy : OrchidModItem
 	{
 		public	override void SetDefaults() {
 			item.melee = false;

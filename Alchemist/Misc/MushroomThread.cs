@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
-	public class MushroomThread : ModItem
+	public class MushroomThread : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class DownpourCrystal : ModItem
+	public class DownpourCrystal : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

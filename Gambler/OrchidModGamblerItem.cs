@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler
 {
-	public abstract class OrchidModGamblerItem : ModItem
+	public abstract class OrchidModGamblerItem : OrchidModItem
 	{
 		public int cardRequirement = -1;
 		public List<string> gamblerCardSets = new List<string>();

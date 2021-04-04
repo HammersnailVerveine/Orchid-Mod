@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class HarpyTalon : ModItem
+	public class HarpyTalon : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

@@ -66,7 +66,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 					}
 				}
 				if (attractiteTarget != null) {
-					attractiteTarget.AddBuff(mod.BuffType("Attraction"), 60 * (alchProj.nbElements * 3));
+					attractiteTarget.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
 				}
 			}
 			int nb = 2 + Main.rand.Next(2);

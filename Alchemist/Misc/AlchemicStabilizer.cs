@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
-	public class AlchemicStabilizer : ModItem
+	public class AlchemicStabilizer : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

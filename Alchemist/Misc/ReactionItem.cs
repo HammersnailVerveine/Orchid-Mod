@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace OrchidMod.Alchemist.Misc
 {
-	public class ReactionItem : ModItem
+	public class ReactionItem : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

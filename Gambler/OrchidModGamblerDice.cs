@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler
 {
-	public abstract class OrchidModGamblerDie : ModItem
+	public abstract class OrchidModGamblerDie : OrchidModItem
 	{
 		public int diceID = -1;
 		public int diceCost = 0;

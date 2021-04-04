@@ -6,7 +6,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class FragileWood : ModItem
+	public class FragileWood : OrchidModItem
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Fragile Wood");

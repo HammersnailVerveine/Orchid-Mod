@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class EmptyTiara : ModItem
+	public class EmptyTiara : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

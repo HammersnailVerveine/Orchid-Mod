@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Accessories
 {
-    public class MiniatureTools : ModItem
+    public class MiniatureTools : OrchidModItem
     {
         public override void SetDefaults()
         {

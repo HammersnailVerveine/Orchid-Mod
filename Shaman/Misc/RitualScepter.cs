@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class RitualScepter : ModItem
+	public class RitualScepter : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

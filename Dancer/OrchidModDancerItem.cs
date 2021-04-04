@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Dancer
 {
-	public abstract class OrchidModDancerItem: ModItem
+	public abstract class OrchidModDancerItem: OrchidModItem
 	{
 		public int poiseCost = 0;
 		public int poiseChance = 100;

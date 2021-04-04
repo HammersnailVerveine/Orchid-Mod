@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
-	public class EmptyFlask : ModItem
+	public class EmptyFlask : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

@@ -39,7 +39,8 @@ namespace OrchidMod.Alchemist
 		BUBBLESPIRITED = 18,
 		BUBBLES = 19,
 		SUNFLOWERSEEDS = 20,
-		STELLARTALCORBIT = 21
+		STELLARTALCORBIT = 21,
+		ATTRACTITESHURIKENS = 22
     }
 	
 	public class AlchemistHiddenReaction {
@@ -54,6 +55,16 @@ namespace OrchidMod.Alchemist
 				Main.dust[dust].scale *= 1.5f;
 			}
 			player.QuickSpawnItem(ItemType<Alchemist.Misc.MushroomThread>(), 1);
+		}
+		
+		public static void AttractiteShurikens(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			for(int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 56);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+			player.QuickSpawnItem(ItemType<Alchemist.Weapons.Misc.AttractiteShuriken>(), 5);
 		}
 		
 		public static void BeeSwarm(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class ShroomKey : ModItem
+	public class ShroomKey : OrchidModItem
 	{
 		public override void SetStaticDefaults()
 		{

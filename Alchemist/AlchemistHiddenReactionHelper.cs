@@ -58,6 +58,9 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.PROPULSION, 1, "Propulsion", 
 			"Vertically propels the player", 10, 2, 14, AlchemistHiddenReaction.Propulsion,
 			ItemType<GunpowderFlask>(), ItemType<CouldInAVial>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.ATTRACTITESHURIKENS, 1, "Attractite Shurikens", 
+			"Creates a maximum of 5 attractite shuriken, inflicting attractite to hit enemies", 15, 2, 25, AlchemistHiddenReaction.AttractiteShurikens,
+			ItemType<AttractiteFlask>(), ItemType<KingSlimeFlask>()));
 			
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESLIME, 1, "Slime Bubble", 
 			"Creates a catalytic slime bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleSlime,

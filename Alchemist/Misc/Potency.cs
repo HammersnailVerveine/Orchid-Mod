@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
-	public class Potency : ModItem
+	public class Potency : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

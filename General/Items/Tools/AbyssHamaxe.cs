@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Tools
 {
-	public class AbyssHamaxe : ModItem, IGlowingItem
+	public class AbyssHamaxe : OrchidModItem, IGlowingItem
 	{
 		public override void SetDefaults()
 		{

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class CopperKey : ModItem
+	public class CopperKey : OrchidModItem
 	{
 		public override void SetStaticDefaults()
 		{

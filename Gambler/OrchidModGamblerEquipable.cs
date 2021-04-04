@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OrchidMod.Gambler
 {
-	public abstract class OrchidModGamblerEquipable : ModItem
+	public abstract class OrchidModGamblerEquipable : OrchidModItem
 	{
 		public virtual void SafeSetDefaults() {}
 

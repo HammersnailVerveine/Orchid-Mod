@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Tools
 {
-	public class AbyssPickaxe : ModItem, IGlowingItem
+	public class AbyssPickaxe : OrchidModItem, IGlowingItem
 	{
 		public override void SetDefaults()
 		{

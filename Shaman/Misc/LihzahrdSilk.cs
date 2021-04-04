@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class LihzahrdSilk : ModItem
+	public class LihzahrdSilk : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

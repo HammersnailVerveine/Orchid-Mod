@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace OrchidMod.Gambler
 {
-	public class GamblerReset : ModItem
+	public class GamblerReset : OrchidModItem
 	{
 		public	override void SetDefaults() {
 			item.melee = false;

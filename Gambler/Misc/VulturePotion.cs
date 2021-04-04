@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
  
 namespace OrchidMod.Gambler.Misc
 {
-    public class VulturePotion : ModItem
+    public class VulturePotion : OrchidModItem
     {
         public override void SetDefaults()
         {

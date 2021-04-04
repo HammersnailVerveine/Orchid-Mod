@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Tools
 {
-	public class MineshaftPickaxe : ModItem
+	public class MineshaftPickaxe : OrchidModItem
 	{
 		public override void SetStaticDefaults() {
 			Tooltip.SetDefault("Can mine meteorite");

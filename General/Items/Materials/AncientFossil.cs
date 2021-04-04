@@ -4,7 +4,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.General.Items.Materials
 {
-	public class AncientFossil : ModItem
+	public class AncientFossil : OrchidModItem
 	{
 		public override void SetStaticDefaults()
 		{

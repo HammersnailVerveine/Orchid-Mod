@@ -6,7 +6,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
-	public class StaticQuartzWarrior : ModItem
+	public class StaticQuartzWarrior : OrchidModItem
 	{
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Static Quartz Spear");

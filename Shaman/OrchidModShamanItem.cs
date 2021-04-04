@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OrchidMod.Shaman
 {
-	public abstract class OrchidModShamanItem : ModItem
+	public abstract class OrchidModShamanItem : OrchidModItem
 	{
 		public int empowermentType = 0;
 		public int empowermentLevel = 0;

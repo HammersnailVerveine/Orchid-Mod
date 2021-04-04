@@ -8,7 +8,7 @@ using static Terraria.ModLoader.ModContent;
 namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-    public class StaticQuartzArmorHead : ModItem
+    public class StaticQuartzArmorHead : OrchidModItem
     {
         public override void SetDefaults()
         {

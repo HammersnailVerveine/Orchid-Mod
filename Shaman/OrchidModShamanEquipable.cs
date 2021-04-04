@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OrchidMod.Shaman
 {
-	public abstract class OrchidModShamanEquipable : ModItem
+	public abstract class OrchidModShamanEquipable : OrchidModItem
 	{
 		public virtual void SafeSetDefaults() {}
 

@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler
 {
-	public abstract class OrchidModGamblerChipItem : ModItem
+	public abstract class OrchidModGamblerChipItem : OrchidModItem
 	{
 		public int chipCost = 0;
 		public int consumeChance = 100;

@@ -10,7 +10,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist
 {
-	public abstract class OrchidModAlchemistItem : ModItem
+	public abstract class OrchidModAlchemistItem : OrchidModItem
 	{
 		public int potencyCost = 0;
 		public int secondaryDamage = 0;
@@ -82,7 +82,7 @@ namespace OrchidMod.Alchemist
 		
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).shamanCrit)
+			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).alchemistCrit)
                 crit = true;
 			else crit = false;
 		}

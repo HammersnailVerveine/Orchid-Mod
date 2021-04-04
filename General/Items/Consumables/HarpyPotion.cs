@@ -8,7 +8,7 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.General.Items.Consumables
 {
-    public class HarpyPotion : ModItem
+    public class HarpyPotion : OrchidModItem
     {
         public override void SetDefaults()
         {

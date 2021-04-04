@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist
 {
-	public abstract class OrchidModAlchemistScroll : ModItem
+	public abstract class OrchidModAlchemistScroll : OrchidModItem
 	{
 		public int hintLevel = 0;
 		

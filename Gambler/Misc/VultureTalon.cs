@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler.Misc
 {
-	public class VultureTalon : ModItem
+	public class VultureTalon : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

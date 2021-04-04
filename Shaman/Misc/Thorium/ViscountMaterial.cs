@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc.Thorium
 {
-	public class ViscountMaterial : ModItem
+	public class ViscountMaterial : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

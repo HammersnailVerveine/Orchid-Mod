@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler.Misc
 {
-	public class TiamatRelic : ModItem
+	public class TiamatRelic : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

@@ -8,7 +8,7 @@ using Terraria.ModLoader;
  
 namespace OrchidMod.Shaman.Misc
 {
-    public class ShamanicEmpowermentPotion : ModItem
+    public class ShamanicEmpowermentPotion : OrchidModItem
     {
         public override void SetDefaults()
         {

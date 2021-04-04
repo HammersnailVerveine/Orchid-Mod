@@ -5,7 +5,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
-	public class StaticQuartzDart : ModItem
+	public class StaticQuartzDart : OrchidModItem
 	{
 		public override void SetStaticDefaults() {
 			Tooltip.SetDefault("Damage doubles after hitting a tile");

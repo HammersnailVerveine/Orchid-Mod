@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class ShamanBiomeChest : ModItem
+	public class ShamanBiomeChest : OrchidModItem
 	{
 		public override void SetDefaults()
 		{

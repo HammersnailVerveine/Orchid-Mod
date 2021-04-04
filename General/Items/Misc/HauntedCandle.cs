@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class HauntedCandle : ModItem
+	public class HauntedCandle : OrchidModItem
 	{
 		public override void SetStaticDefaults()
 		{

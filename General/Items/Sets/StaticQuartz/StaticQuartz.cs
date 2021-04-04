@@ -5,7 +5,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
-	public class StaticQuartz : ModItem
+	public class StaticQuartz : OrchidModItem
 	{
 		public override void SetStaticDefaults()
 		{

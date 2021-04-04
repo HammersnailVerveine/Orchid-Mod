@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class OrchidEmblem : ModItem
+	public class OrchidEmblem : OrchidModItem
 	{
 		public override void SetStaticDefaults()
 		{

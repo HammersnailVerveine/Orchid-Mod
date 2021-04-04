@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class MinersLockbox : ModItem
+	public class MinersLockbox : OrchidModItem
 	{
 
 		public override void SetDefaults()
