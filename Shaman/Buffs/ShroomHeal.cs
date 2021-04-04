@@ -11,10 +11,10 @@ namespace OrchidMod.Shaman.Buffs
 			DisplayName.SetDefault("Shroom Regeneration");
 			Description.SetDefault("Increased life regeneration");
         }
+
         public override void Update(Player player, ref int buffIndex)
 		{
-			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.lifeRegen += 3;
+			player.lifeRegen += 3;
 		}
     }
 }
