@@ -84,6 +84,9 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLES, 2, "Bubbles", 
 			"Releases bubbles over a large area", 15, 2, 85, AlchemistHiddenReaction.Bubbles,
 			ItemType<SeafoamVial>(), ItemType<PoisonVial>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.STELLARTALCORBIT, 2, "Stellar Talc Orbit", 
+			"Stellar Talc projectiles will orbit the user", 20, 2, 85, AlchemistHiddenReaction.StellarTalcOrbit,
+			ItemType<SunplateFlask>(), ItemType<AttractiteFlask>()));
 			
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONFLIPPER, 1, "Flipper Potion", 
 			"Gives 30 seconds of Flipper Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionFlipper,

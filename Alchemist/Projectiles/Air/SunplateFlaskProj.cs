@@ -48,23 +48,27 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				if (projectile.timeLeft == 880) {
 					projectile.friendly = true;
 					projectile.netUpdate = true;
-				} else {	
-					Vector2 move = Vector2.Zero;
+				} else {
 					float distance = 2000f;
-					for (int k = 0; k < 200; k++)
-					{
-						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 
-						&& OrchidModAlchemistNPC.AttractiteCanHome(Main.npc[k])) {
-							Vector2 newMove = Main.npc[k].Center - projectile.Center;
-							float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-							if (distanceTo < distance) {
-								distance = distanceTo;
-								orbitPoint = Main.npc[k].Center;
+					Player player = Main.player[projectile.owner];
+					if (player.HasBuff(BuffType<Alchemist.Buffs.StellarTalcBuff>())) {
+						orbitPoint = player.Center;
+					} else {
+						for (int k = 0; k < 200; k++)
+						{
+							if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 
+							&& OrchidModAlchemistNPC.AttractiteCanHome(Main.npc[k])) {
+								Vector2 newMove = Main.npc[k].Center - projectile.Center;
+								float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+								if (distanceTo < distance) {
+									distance = distanceTo;
+									orbitPoint = Main.npc[k].Center;
+								}
 							}
 						}
 					}
 					
-					move = orbitPoint - projectile.Center + new Vector2(0f, 100f).RotatedBy(MathHelper.ToRadians(projectile.ai[1]));
+					Vector2 move = orbitPoint - projectile.Center + new Vector2(0f, 100f).RotatedBy(MathHelper.ToRadians(projectile.ai[1]));
 					distance = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
 					move.Normalize();
 					float vel = (1f + (distance * 0.05f));

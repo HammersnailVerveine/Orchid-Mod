@@ -7,10 +7,9 @@ namespace OrchidMod.Alchemist.Buffs
     {
         public override void SetDefaults()
         {
-            Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Meteor Speed");
 			Description.SetDefault("Increased movement speed");
-            Main.buffNoTimeDisplay[Type] = true;
+            Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
         }
 		

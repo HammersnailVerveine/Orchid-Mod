@@ -7,7 +7,6 @@ namespace OrchidMod.Alchemist.Buffs
     {
         public override void SetDefaults()
         {
-            Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Mushroom Spores");
 			Description.SetDefault("Alchemist attacks will create more spores");
             Main.buffNoTimeDisplay[Type] = true;

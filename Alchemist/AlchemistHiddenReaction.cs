@@ -38,7 +38,8 @@ namespace OrchidMod.Alchemist
 		BUBBLEPOISON = 17,
 		BUBBLESPIRITED = 18,
 		BUBBLES = 19,
-		SUNFLOWERSEEDS = 20
+		SUNFLOWERSEEDS = 20,
+		STELLARTALCORBIT = 21
     }
 	
 	public class AlchemistHiddenReaction {
@@ -393,6 +394,16 @@ namespace OrchidMod.Alchemist
 				Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj4>();
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
+			}
+		}
+		
+		public static void StellarTalcOrbit(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(BuffType<Alchemist.Buffs.StellarTalcBuff>(), 60 * 60);
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 15);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
 			}
 		}
 	}

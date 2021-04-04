@@ -7,10 +7,9 @@ namespace OrchidMod.Alchemist.Buffs
     {
         public override void SetDefaults()
         {
-            Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Reactive Elements");
 			Description.SetDefault("10% increased chemical damage for your next chemical mixture");
-            Main.buffNoTimeDisplay[Type] = true;
+            Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
         }
 		
