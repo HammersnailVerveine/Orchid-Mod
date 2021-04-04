@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.colorG = 152;
 			this.colorB = 239;
 			this.secondaryDamage = 40;
-			this.secondaryScaling = 30f;
+			this.secondaryScaling = 40f;
 		}
 
 		public override void SetStaticDefaults()

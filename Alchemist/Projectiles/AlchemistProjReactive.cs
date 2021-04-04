@@ -14,12 +14,17 @@ namespace OrchidMod.Alchemist.Projectiles
 		
 		public virtual void Despawn() {}
 		
+		public virtual void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile) {
+			projectile.Kill();
+		}
+		
 		public sealed override void AltSetDefaults() {
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
 			modProjectile.alchemistReactiveProjectile = true;
 			modProjectile.baseCritChance = this.baseCritChance;
+			modProjectile.alchemistCatalyticTriggerDelegate = Catalyze;
 		}
 		
 		public override void AI()

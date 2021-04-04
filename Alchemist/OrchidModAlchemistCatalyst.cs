@@ -84,7 +84,7 @@ namespace OrchidMod.Alchemist
 					if (proj.active && hitbox.Intersects(proj.Hitbox))  {
 						OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
 						if (modProjectile.alchemistReactiveProjectile) {
-							proj.Kill();
+							modProjectile.alchemistCatalyticTriggerDelegate(player, proj, modProjectile);
 							GeneralCatalystInteractionEffect(player);
 						}
 					}

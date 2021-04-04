@@ -12,12 +12,17 @@ namespace OrchidMod.Alchemist
 		
 		public virtual void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
 		
+		public virtual void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile) {
+			projectile.Kill();
+		}
+		
 		public sealed override void AltSetDefaults() {
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
 			modProjectile.baseCritChance = this.baseCritChance;
 			modProjectile.alchemistReactiveProjectile = this.catalytic;
+			modProjectile.alchemistCatalyticTriggerDelegate = Catalyze;
 		}
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

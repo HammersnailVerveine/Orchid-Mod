@@ -85,6 +85,15 @@ namespace OrchidMod
             projectile.oldPos[0] = projectile.position;
         }
 		
+		public static void resetIFrames(Projectile projectile) {
+			for (int l = 0; l < Main.npc.Length; l++) {  
+				NPC target = Main.npc[l];
+				if (projectile.Hitbox.Intersects(target.Hitbox))  {
+					target.immune[projectile.owner] = 0;
+				}
+			}
+		}
+		
 		public static void spawnExplosionGore(Projectile projectile) {
 			for (int g = 0; g < 2; g++) {
 				int goreIndex = Gore.NewGore(new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);

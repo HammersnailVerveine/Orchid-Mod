@@ -22,6 +22,10 @@ namespace OrchidMod.General.Projectiles
 			projectile.penetrate = -1;
         }
 		
+		public override void AI() {
+			OrchidModProjectile.resetIFrames(projectile);
+		}
+		
 		public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Explosion");
