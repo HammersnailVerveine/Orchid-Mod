@@ -20,7 +20,7 @@ namespace OrchidMod.Effects
 			if (Main.netMode != NetmodeID.Server)
 			{
 				ShroomiteZoneEffect = OrchidMod.Instance.GetEffect("Effects/ShroomiteScepter");
-				ShroomiteZoneEffect.Parameters["perlinTexture"].SetValue(ModContent.GetTexture("OrchidMod/Effects/Textures/Perlin"));
+				ShroomiteZoneEffect.Parameters["perlinTexture"].SetValue(PerlinNoiseTexture);
 			}
 		}
 
