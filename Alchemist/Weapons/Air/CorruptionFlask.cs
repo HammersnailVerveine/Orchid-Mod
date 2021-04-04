@@ -39,6 +39,17 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+  "\nOnly one mushroom can exist at once");
 		}
 		
+		public override void AddRecipes()
+		{
+		    ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(ItemID.Bottle, 1);
+			recipe.AddIngredient(ItemID.RottenChunk, 3);
+			recipe.AddIngredient(ItemID.VileMushroom, 5);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+        }
+		
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
 			int projType = ProjectileType<Alchemist.Projectiles.Air.CorruptionFlaskProj>();
 			bool spawnedMushroom = false;
