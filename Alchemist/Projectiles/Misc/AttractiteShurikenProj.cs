@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,6 +20,19 @@ namespace OrchidMod.Alchemist.Projectiles.Misc
 			projectile.timeLeft = 600;
 			projectile.friendly = true;
 			projectile.penetrate = 3;
+        }
+		
+		public override void AI() {
+			if (Main.rand.Next(4) == 0) {
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 60);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		public override bool OnTileCollide(Vector2 oldVelocity) {
+            Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+            return false;
         }
 		
 		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
