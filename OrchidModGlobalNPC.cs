@@ -252,6 +252,9 @@ namespace OrchidMod
 						}
 				    }
 				}
+				if (alchemistHit) {
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+				}
 			}
 			if ((npc.type == NPCID.MoonLordCore))
             {
@@ -332,6 +335,9 @@ namespace OrchidMod
 						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.EyeCard>());
 					}
 				}
+				if (alchemistHit) {
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier1>());
+				}
 			}
 			
 			if ((npc.type == 35))  // Skeletron
@@ -339,6 +345,9 @@ namespace OrchidMod
 				if (!Main.expertMode)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.SkeletronCard>());
+				}
+				if (alchemistHit) {
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 				}
 			}
 			
@@ -354,6 +363,9 @@ namespace OrchidMod
 						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.BrainCard>());
 					}
 				}
+				if (alchemistHit) {
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+				}
 			}
 			
 			if (Array.IndexOf(new int[]{ NPCID.EaterofWorldsBody, NPCID.EaterofWorldsHead, NPCID.EaterofWorldsTail }, npc.type) > -1 && npc.boss) {
@@ -366,6 +378,9 @@ namespace OrchidMod
 					if (Main.rand.Next(3) == 0) {
 						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.EaterCard>());
 					}
+				}
+				if (alchemistHit) {
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 				}
 			}
 			
@@ -382,6 +397,9 @@ namespace OrchidMod
 							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.ThunderScepter>());
 						}
 					}
+					if (alchemistHit) {
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier1>());
+					}
 				}
 				
 				if ((npc.type == thoriumMod.NPCType("QueenJelly")))
@@ -393,6 +411,9 @@ namespace OrchidMod
 							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.QueenJellyfishScepter>());
 						}
 					}
+					if (alchemistHit) {
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+					}
 				}
 				
 				if ((npc.type == thoriumMod.NPCType("GranityEnergyStorm")))
@@ -403,6 +424,9 @@ namespace OrchidMod
 						{
 							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.GraniteEnergyScepter>());
 						}
+					}
+					if (alchemistHit) {
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 					}
 				}
 				
@@ -416,6 +440,9 @@ namespace OrchidMod
 						}
 						Item.NewItem((int) npc.position.X + Main.rand.Next(npc.width), (int) npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<Shaman.Misc.Thorium.ViscountMaterial>(), 30, false, 0, false, false);
 					}
+					if (alchemistHit) {
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+					}
 				}
 				
 				if ((npc.type == thoriumMod.NPCType("ThePrimeScouter")))
@@ -426,6 +453,9 @@ namespace OrchidMod
 						{
 							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.StarScouterScepter>());
 						}
+					}
+					if (alchemistHit) {
+						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 					}
 				}
 				
