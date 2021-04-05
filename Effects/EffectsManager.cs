@@ -14,7 +14,7 @@ namespace OrchidMod.Effects
 	{
 		public static void Load()
 		{
-			PerlinNoiseTexture = ModContent.GetTexture("OrchidMod/Effects/Textures/Perlin");
+			PerlinNoiseTexture = ModContent.GetTexture("Terraria/Misc/Perlin");
 			RadialGradientTexture = ModContent.GetTexture("OrchidMod/Effects/Textures/RadialGradient");
 
 			if (Main.netMode != NetmodeID.Server)
