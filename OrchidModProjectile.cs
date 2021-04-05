@@ -61,6 +61,15 @@ namespace OrchidMod
 			}
 		}
 		
+		public void Bounce(Vector2 oldVelocity, float speedMult = 1f, bool reducePenetrate = false) {
+			if (reducePenetrate) {
+				projectile.penetrate --;
+				if (projectile.penetrate < 0) projectile.Kill();
+			}
+            if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X  * speedMult;
+            if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y * speedMult;
+		}
+		
 		public static void DrawProjectileGlowmask(Projectile projectile, SpriteBatch spriteBatch, Texture2D texture, Color color, float offsetX = 0, float offsetY = 0) {
 			spriteBatch.Draw(texture, projectile.position - Main.screenPosition + projectile.Size * 0.5f + new Vector2(offsetX, offsetY), null, color, projectile.rotation, texture.Size() * 0.5f, projectile.scale, projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
 		}
@@ -123,6 +132,8 @@ namespace OrchidMod
 			Projectile newProjectile = Main.projectile[newProjectileInt];
 			newProjectile.width = dimensions;
 			newProjectile.height = dimensions;
+			newProjectile.position.X = projectile.Center.X - (newProjectile.width / 2);
+			newProjectile.position.Y = projectile.Center.Y - (newProjectile.width / 2);
 			
 			if (damageType != 0) {
 				OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();

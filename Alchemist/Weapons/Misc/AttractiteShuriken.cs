@@ -35,7 +35,7 @@ namespace OrchidMod.Alchemist.Weapons.Misc
 		}
 
 		public override bool OnPickup(Player player) {
-			return !this.alreadyInInventory(player);
+			return !this.alreadyInInventory(player, true);
 		}
 	}
 }

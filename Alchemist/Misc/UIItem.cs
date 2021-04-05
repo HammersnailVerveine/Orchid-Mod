@@ -15,7 +15,7 @@ namespace OrchidMod.Alchemist.Misc
 			item.width = 32;
 			item.height = 34;
 			item.maxStack = 1;
-			item.value = Item.sellPrice(0, 0, 20, 0);
+			item.value = Item.sellPrice(0, 0, 2, 0);
 			item.useAnimation = 30;
 			item.useTime = 30;
 			item.useStyle = 1;

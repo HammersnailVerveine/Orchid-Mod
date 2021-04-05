@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using static Terraria.ModLoader.ModContent;
 
-
 namespace OrchidMod.Alchemist.Weapons.Air
 {
 	public class CorruptionFlask : OrchidModAlchemistItem
@@ -19,13 +18,13 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			item.width = 28;
 			item.height = 30;
 			item.rare = 1;
-			item.value = Item.sellPrice(0, 1, 0, 0);
+			item.value = Item.sellPrice(0, 0, 15, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.AIR;
 			this.rightClickDust = 16;
-			this.colorR = 121;
-			this.colorG = 152;
-			this.colorB = 239;
+			this.colorR = 104;
+			this.colorG = 90;
+			this.colorB = 144;
 			this.secondaryDamage = 40;
 			this.secondaryScaling = 40f;
 		}
@@ -43,8 +42,8 @@ namespace OrchidMod.Alchemist.Weapons.Air
 		{
 		    ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddIngredient(ItemID.Bottle, 1);
-			recipe.AddIngredient(ItemID.RottenChunk, 3);
+			recipe.AddIngredient(null, "EmptyFlask", 1);
+			recipe.AddIngredient(ItemID.RottenChunk, 5);
 			recipe.AddIngredient(ItemID.VileMushroom, 5);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

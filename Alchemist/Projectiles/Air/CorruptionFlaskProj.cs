@@ -138,12 +138,12 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 					spawnProj2 = ProjectileType<Alchemist.Projectiles.Water.WaterSporeProjAlt>();
 					break;
 				case 61 :
-					spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>();
-					spawnProj2 = ProjectileType<Alchemist.Projectiles.Air.AirSporeProjAlt>();
-					break;
-				case 63 :
 					spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>();
 					spawnProj2 = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProjAlt>();
+					break;
+				case 63 :
+					spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>();
+					spawnProj2 = ProjectileType<Alchemist.Projectiles.Air.AirSporeProjAlt>();
 					break;
 				default :
 					break;

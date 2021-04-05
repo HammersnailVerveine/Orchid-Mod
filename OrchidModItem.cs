@@ -8,10 +8,11 @@ namespace OrchidMod
 	public abstract class OrchidModItem : ModItem
     {
 		// Hehe 'Te Nandayo?!
-		public bool alreadyInInventory(Player player) {
+		public bool alreadyInInventory(Player player, bool addStack = false) {
 			for (int i = 0; i < Main.maxInventory; i++) {
 				Item invItem = player.inventory[i];
 				if (invItem.type == item.type) {
+					if (addStack) invItem.stack = invItem.stack + item.stack <= invItem.maxStack ? invItem.stack + item.stack : invItem.stack + item.stack;
 					return true;
 				}
 			}
