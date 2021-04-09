@@ -33,7 +33,6 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 		{
 			DisplayName.SetDefault("Ember Flask");
 		    Tooltip.SetDefault("Burns your target briefly"
-							+ "\nCoats your target in alchemical fire"
 							+ "\nReleases lingering embers");
 		}
 		

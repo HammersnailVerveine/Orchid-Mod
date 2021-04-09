@@ -1218,6 +1218,8 @@ namespace OrchidMod
 			bool spawnedGoldChestCard = false;
 			bool spawnedEnchantedScepter = false;
 			bool spawnedCloudInAVial = false;
+			bool spawnedBlizzardInAVial = false;
+			bool spawnedFlashFreeze = false;
 			int spawnedTiamatRelic = 0;
 			bool spawnedSpiritedWater = false;
 			bool spawnedDungeonFlask = false;
@@ -1383,7 +1385,9 @@ namespace OrchidMod
 						spawnedAvalancheScepter = placeInChest(chest, ItemType<Shaman.Weapons.AvalancheScepter>(), 1);
 					}
 					if (Main.rand.Next(4) == 0) {
-						spawnedIceChestCard = placeInChest(chest, ItemType<Alchemist.Weapons.Air.BlizzardInAVial>(), 1);
+						spawnedBlizzardInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.BlizzardInAVial>(), 1);
+					} else if (Main.rand.Next(3) == 0) {
+						spawnedFlashFreeze = placeInChest(chest, ItemType<Alchemist.Weapons.Water.IceChestFlask>(), 1);
 					}
 				}
 
@@ -1481,6 +1485,12 @@ namespace OrchidMod
 					}
 					if (!spawnedAvalancheScepter) {
 						spawnedAvalancheScepter = placeInChest(chest, ItemType<Shaman.Weapons.AvalancheScepter>(), 1);
+					}
+					if (!spawnedBlizzardInAVial) {
+						spawnedBlizzardInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.BlizzardInAVial>(), 1);
+					}
+					if (!spawnedFlashFreeze) {
+						spawnedFlashFreeze = placeInChest(chest, ItemType<Alchemist.Weapons.Water.IceChestFlask>(), 1);
 					}
 				}
 

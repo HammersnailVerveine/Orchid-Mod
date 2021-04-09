@@ -25,9 +25,9 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			this.projectileTrail = true;
         }
 		
-		public override Color? GetAlpha(Color lightColor) {
-            return Color.White;
-        }
+		// public override Color? GetAlpha(Color lightColor) {
+            // return Color.White;
+        // }
 		
 		public override void AI() {
 			projectile.velocity.Y += projectile.velocity.Y < 3f ? 0.1f : 0f;

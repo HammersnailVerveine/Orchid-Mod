@@ -90,6 +90,11 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			}
 		}
 		
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough) {            
+			fallThrough = false; //so it sticks to platforms
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough); 
+		}
+		
 		public override bool OnTileCollide(Vector2 oldVelocity)
         {
             projectile.velocity *= 0f;

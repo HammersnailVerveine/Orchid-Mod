@@ -132,7 +132,8 @@ namespace OrchidMod.Alchemist
 			foreach (int ingredient in ingredientToCompare) {
 				if (ingredientID == ItemType<CouldInAVial>()) {
 					return (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<FartInAVial>(), player, modPlayer)
-					|| OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<BlizzardInAVial>(), player, modPlayer));
+					|| OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<BlizzardInAVial>(), player, modPlayer)
+					|| OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<TsunamiInAVial>(), player, modPlayer));
 				}
 				if (ingredientID == ItemType<AttractiteFlask>()) {
 					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<GlowingAttractiteFlask>(), player, modPlayer);

@@ -31,7 +31,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Attractite Flask");
-		    Tooltip.SetDefault("Hit target will attract most nearby alchemical lingering projectiles"
+		    Tooltip.SetDefault("Hit target will attract alchemic spores and lingering particles"
 							+  "\nThe attractivity buff will jump to the nearest target on miss"
 							+  "\nCounts as an extract when spawning spores");
 		}
@@ -75,6 +75,10 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, 
 		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
 			target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
+		}
+		
+		public override void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile proj, OrchidModGlobalItem globalItem) {
+			alchProj.nbElementsNoExtract --;
 		}
 	}
 }

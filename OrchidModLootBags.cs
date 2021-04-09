@@ -96,6 +96,9 @@ namespace OrchidMod
 				if (Main.rand.Next(45) == 0) {
 					player.QuickSpawnItem(ItemType<Gambler.Weapons.Cards.EmbersCard>(), 1);
 				}
+				if (Main.rand.Next(40) == 0) {
+					player.QuickSpawnItem(ItemType<Alchemist.Weapons.Air.TsunamiInAVial>(), 1);
+				}
 			}
 			if (context == "crate" && arg == 2335) { // IRON CRATE
 				if (Main.rand.Next(20) == 0) {
@@ -103,6 +106,9 @@ namespace OrchidMod
 				}
 				if (Main.rand.Next(20) == 0) {
 					player.QuickSpawnItem(ItemType<Alchemist.Weapons.Water.SeafoamVial>(), 1);
+				}
+				if (Main.rand.Next(20) == 0) {
+					player.QuickSpawnItem(ItemType<Alchemist.Weapons.Air.TsunamiInAVial>(), 1);
 				}
 			}
 			if (context == "lockBox") { // GOLDEN LOCK BOX

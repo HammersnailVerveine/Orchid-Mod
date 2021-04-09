@@ -34,8 +34,13 @@ namespace OrchidMod.Alchemist.Projectiles.Air
         public override void AI() {
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			this.initialized = true;
 			projectile.velocity *= 0.95f;
+			
+			if (!this.initialized) {
+				this.initialized = true;
+				projectile.frame = Main.rand.Next(3);
+			}
+			
 			if (projectile.timeLeft % 10 == 0) projectile.frame = projectile.frame == 2 ? 0 : projectile.frame + 1;
 			
 			if (projectile.ai[1] != 0f) {
@@ -55,8 +60,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 		
 		public override void Kill(int timeLeft) {
 			int range = 50;
-			int nb = 10;
-			OrchidModProjectile.spawnDustCircle(projectile.Center, sporeType, (int)(range / 2), nb, true, 1.5f, 1f, 2f);
+			OrchidModProjectile.spawnDustCircle(projectile.Center, sporeType, (int)(range / 3), 5, true, 1.25f, 1f, 4f, true, true, false, 0, 0, true);
 			spawnGenericExplosion(projectile, projectile.damage, projectile.knockBack, range * 3, 2, false, 14);
 			
 			if (Main.rand.Next(2) == 0) {

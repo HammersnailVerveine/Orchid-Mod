@@ -8,7 +8,7 @@ namespace OrchidMod.Alchemist.Buffs.Debuffs
 	{
 		public override void SetDefaults() {
 			DisplayName.SetDefault("Slime Slow");
-			Description.SetDefault("Reduces Movement Speed");
+			Description.SetDefault("Reduced Movement Speed");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;

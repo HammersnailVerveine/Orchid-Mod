@@ -33,6 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		{
 			DisplayName.SetDefault("Spirited Water");
 		    Tooltip.SetDefault("Releases lingering water flames"
+							+ "\nThe flames are considered as lingering particles"
 							+ "\nHas a chance to release a catalytic spirited bubble");
 		}
 		

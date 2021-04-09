@@ -25,13 +25,13 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.colorR = 238;
 			this.colorG = 97;
 			this.colorB = 94;
-			this.secondaryDamage = 5;
-			this.secondaryScaling = 10f;
+			this.secondaryDamage = 10;
+			this.secondaryScaling = 5f;
 		}
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Corruption Flask");
+			DisplayName.SetDefault("Visceral Mycelium");
 		    Tooltip.SetDefault("Releases floating mushrooms, exploding after a while or when being catalyzed"
 							+  "\nThe mushrooms will absorb the properties of nearby spores, creating more of them"
 							+  "\nOnly one set of mushrooms can exist at once");
@@ -66,8 +66,8 @@ namespace OrchidMod.Alchemist.Weapons.Air
 				for (int i = 0 ; i < nb ; i ++) {
 					float speed = (5f / (nb + 1)) * (i + 1); 
 					Vector2 vel = (new Vector2(0f, speed).RotatedByRandom(MathHelper.ToRadians(180)));
-					Projectile newProj = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 5, vel.X, vel.Y, projType, dmg, 0f, projectile.owner)];
-					newProj.timeLeft = 70 + 15 * i;
+					Projectile newProj = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 5, vel.X, vel.Y, projType, dmg, 0.1f, projectile.owner)];
+					newProj.timeLeft = 70 + (((20 - nb) > 10 ? (20 - nb) : 10) * i);
 					newProj.netUpdate = true;
 				}
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 5, 0f, 0f, projType2, 0, 0f, projectile.owner);
