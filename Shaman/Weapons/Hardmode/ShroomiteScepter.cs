@@ -39,15 +39,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				+ "\nHaving 5 active shamanic bonds increases nearby players health regeneration");
 		}
 
-		public override bool CanUseItem(Player player)
-		{
-			/*Point point = new Point((int)((float)Main.mouseX + Main.screenPosition.X) / 16, (int)((float)Main.mouseY + Main.screenPosition.Y) / 16);
-			var tile = Main.tile[point.X, point.Y];
-
-			if (tile == null || Main.tileSolid[tile.type]) return false;
-			else */return true;
-		}
-
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
@@ -71,7 +62,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{
-			Color color = new Color(0.37f, 0.8f, 1f) * 0.25f;
+			Color color = new Color(0.3f, 0.35f, 0.9f) * 0.25f;
 			Lighting.AddLight(item.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 		}
 
