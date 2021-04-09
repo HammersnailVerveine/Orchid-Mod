@@ -19,56 +19,43 @@ namespace OrchidMod.Shaman.Weapons
 			item.useTime = 20;
 			item.useAnimation = 20;
 			item.knockBack = 0f;
-			item.rare = 3;
+			item.rare = ItemRarityID.Orange;
 			item.value = Item.sellPrice(0, 0, 40, 0);
 			item.UseSound = SoundID.Item65;
 			item.shootSpeed = 8f;
-			item.shoot = mod.ProjectileType("HellShamanRodProj");
-			this.empowermentType = 4;
-			this.empowermentLevel = 2;
+			item.shoot = ModContent.ProjectileType<Projectiles.HellShamanRodProj>();
+
+			empowermentType = 4;
+			empowermentLevel = 2;
 		}
 		
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Depths Weaver Rod");
-		  Tooltip.SetDefault("Shoots lingering fire leaves"
-							+ "\nOnly one set can be active at once"
-							+ "\nHaving 2 or more active shamanic bonds increases damage and slows on hit");
+			DisplayName.SetDefault("Depths Weaver Rod");
+			Tooltip.SetDefault("Shoots lingering fire leaves" +
+							   "\nOnly one set can be active at once" +
+							   "\nHaving 2 or more active shamanic bonds increases damage and slows on hit");
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 1) {
-				mult *= modPlayer.shamanDamage * 2f;
-			}
+
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), mod) > 1) mult *= modPlayer.shamanDamage * 2f;
 		}
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			
-            for (int l = 0; l < Main.projectile.Length; l++)
-            {  
-                Projectile proj = Main.projectile[l];
-				int deleteproj = mod.ProjectileType("ShamanRodProj");
-                if (proj.active && (proj.type == item.shoot || proj.type == deleteproj) && proj.owner == player.whoAmI)
-                {
-                    proj.active = false;
-                }
-            }
+			ShamanRod.RemoveAllShamanRodProjs(player);
+
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 			{
 				position += muzzleOffset;
 			}
-			for (int i = 0; i < 3; i++) {
-				int newProj = Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
-				Main.projectile[newProj].ai[1] = i;
-				if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 1) {
-					Main.projectile[newProj].ai[1] += 4;
-				}
-				Main.projectile[newProj].netUpdate = true;
-			}
+
+			for (int i = 0; i < 3; i++) Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, ai1: i + 1);
+
 			return false;
 		}
 		
@@ -76,7 +63,7 @@ namespace OrchidMod.Shaman.Weapons
 		{
 		    ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddTile(TileID.Anvils);	
-			recipe.AddIngredient(null, "ShamanRod", 1);
+			recipe.AddIngredient(ModContent.ItemType<ShamanRod>(), 1);
 			recipe.AddIngredient(ItemID.HellstoneBar, 12);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

@@ -19,7 +19,7 @@ using OrchidMod.Gambler.UI;
 using OrchidMod;
 using OrchidMod.Shaman;
 using OrchidMod.Alchemist;
-
+using OrchidMod.Effects;
 
 namespace OrchidMod
 {
@@ -271,6 +271,8 @@ namespace OrchidMod
 		public override void Load()
 		{
 			ThoriumMod = ModLoader.GetMod("ThoriumMod");
+			
+			EffectsManager.Load();
 
 			AlchemistReactionHotKey = RegisterHotKey("Alchemist Hidden Reaction", "Mouse3");
 			AlchemistCatalystHotKey = RegisterHotKey("Alchemist Catalyst Tool Shortcut", "Z");
@@ -512,6 +514,8 @@ namespace OrchidMod
 			AlchemistCatalystHotKey = null;
 			ShamanBondHotKey = null;
 			alchemistReactionRecipes = null;
+			
+			EffectsManager.Unload();
 
 			ThoriumMod = null;
 			Instance = null;
