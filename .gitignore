@@ -333,3 +333,8 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 *.xcf
+/Effects/fxcompiler.exe
+/Effects/Microsoft.Xna.Framework.Content.Pipeline.dll
+/Effects/Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll
+/Effects/ShroomiteScepter.fx
+/OrchidMod.sln
