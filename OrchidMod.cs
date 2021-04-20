@@ -47,6 +47,9 @@ namespace OrchidMod
 		internal AlchemistSelectUIState alchemistSelectUIState;
 		internal AlchemistBookUIState alchemistBookUIState;
 		internal GamblerUIState gamblerUIState;
+
+		internal CroupierGUI croupierGUI;
+
 		public static bool reloadShamanUI;
 			
 		public OrchidMod()
@@ -271,8 +274,14 @@ namespace OrchidMod
 		public override void Load()
 		{
 			ThoriumMod = ModLoader.GetMod("ThoriumMod");
-			
+
 			EffectsManager.Load();
+			CroupierGUI.Load();
+
+			if (!Main.dedServ)
+			{
+				croupierGUI = new CroupierGUI();
+			}
 
 			AlchemistReactionHotKey = RegisterHotKey("Alchemist Hidden Reaction", "Mouse3");
 			AlchemistCatalystHotKey = RegisterHotKey("Alchemist Catalyst Tool Shortcut", "Z");
@@ -287,7 +296,7 @@ namespace OrchidMod
 				alchemistSelectUIState = new AlchemistSelectUIState();
 				alchemistBookUIState = new AlchemistBookUIState();
 				gamblerUIState = new GamblerUIState();
-				
+
 				orchidModShamanInterface = new UserInterface();
 				orchidModShamanCharacterInterface = new UserInterface();
 				orchidModAlchemistInterface = new UserInterface();
@@ -312,7 +321,7 @@ namespace OrchidMod
 				
 				gamblerUIState.Activate();
 				orchidModGamblerInterface.SetState(gamblerUIState);
-				
+
 				coatingTextures = new Texture2D[6];
 				coatingTextures[0] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingFire");
 				coatingTextures[1] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingWater");
@@ -322,8 +331,9 @@ namespace OrchidMod
 				coatingTextures[5] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingDark");
 			}
 		}
-		
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
+
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+		{
 			int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
 			if (mouseTextIndex != -1) {
 				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
@@ -364,7 +374,7 @@ namespace OrchidMod
 				gamblerUIState = new GamblerUIState();
 				gamblerUIState.Activate();
 				orchidModGamblerInterface.SetState(gamblerUIState);
-				
+
 				reloadShamanUI = false;
 			}
 		}
@@ -514,8 +524,11 @@ namespace OrchidMod
 			AlchemistCatalystHotKey = null;
 			ShamanBondHotKey = null;
 			alchemistReactionRecipes = null;
-			
+
 			EffectsManager.Unload();
+			CroupierGUI.Unload();
+
+			croupierGUI = null;
 
 			ThoriumMod = null;
 			Instance = null;

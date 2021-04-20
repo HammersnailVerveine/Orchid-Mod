@@ -28,7 +28,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			DisplayName.SetDefault("Playing Card : The Hivemind");
 		    Tooltip.SetDefault("Summons 3 brains around you, one of them following your cursor"
-							+  "\nOnly one of them is real, and deals contact damage."
+							+  "\nOnly one of them is real, and deals contact damage"
 							+  "\nHitting randomly changes the true brain, and increases damage a lot"
 							+  "\nBrains cannot deal damage if they are too close to you");
 		}

@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.UI.Chat;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.NPCs.Town
@@ -112,7 +114,8 @@ namespace OrchidMod.NPCs.Town
 			}*/
 		}
 
-		public override string GetChat() {
+		public override string GetChat()
+		{
 			switch (Main.rand.Next(7)) {
 				case 0:
 					return "Cards turnin' your way?";
@@ -131,42 +134,72 @@ namespace OrchidMod.NPCs.Town
 			}
 		}
 
-		public override void SetChatButtons(ref string button, ref string button2) {
+		public override void SetChatButtons(ref string button, ref string button2)
+		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			button = Language.GetTextValue("LegacyInterface.28");
-			
-			bool found = false;
-			for (int i = 0; i < Main.maxInventory; i++) {
-				Item item = Main.LocalPlayer.inventory[i];
-				if (item.type == ItemType<Gambler.GamblerAttack>()) {
-					found = true;
-					break;
-				}
+
+			if (!OrchidMod.Instance.croupierGUI.Visible)
+			{
+				button = Language.GetTextValue("LegacyInterface.28");
+
+				string deckBuilding = $"[c/{Colors.AlphaDarken(new Color(255, 200, 0)).Hex3()}:Deck Building]";
+				button2 = player.HasItem(ItemType<Gambler.GamblerAttack>()) ? deckBuilding : "Get a New Deck";
 			}
-			string str = found ? "Deck Building" : "Get a New Deck";
-			button2 = str;
+			else
+			{
+				button = "Return Back";
+			}
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop) {
+		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int gamblerDeck = ItemType<Gambler.GamblerAttack>();
-			if (firstButton) {
-				shop = true;
-			} else {
-				bool found = false;
-				for (int i = 0; i < Main.maxInventory; i++) {
-					Item item = Main.LocalPlayer.inventory[i];
-					if (item.type == gamblerDeck) {
-						found = true;
-						break;
-					}
+
+			if (firstButton)
+			{
+				if (OrchidMod.Instance.croupierGUI.Visible)
+				{
+					OrchidMod.Instance.croupierGUI.Visible = false;
+
+					Main.npcShop = 0;
+					Main.npcChatCornerItem = 0;
+					Recipe.FindRecipes();
+					Main.npcChatText = Main.npc[player.talkNPC].GetChat();
 				}
-				if (found) {
-					Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.";
-					modPlayer.gamblerUIDeckDisplay = true;
-				} else {
+				else shop = true;
+			}
+			else
+			{
+				if (player.HasItem(gamblerDeck))
+				{
+					switch (Main.rand.Next(0, 3))
+					{
+						case 0:
+							Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.\n" +
+								$"Calamity - best mod...";
+							break;
+						case 1:
+							Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.\n" +
+								$"Ehe te nandayo!?";
+							break;
+						case 2:
+							Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.\n" +
+								$"Test new GUI...";
+							break;
+					}
+
+					Main.npcChatText += "\n\n\n\n\n";
+					Main.npcChatFocus2 = false;
+					Main.npcChatFocus3 = false;
+
+					OrchidMod.Instance.croupierGUI.UpdateOnChatButtonClicked();
+					OrchidMod.Instance.croupierGUI.Visible = true;
+				}
+				else
+				{
 					Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
 					player.QuickSpawnItem(gamblerDeck, 1);
 				}

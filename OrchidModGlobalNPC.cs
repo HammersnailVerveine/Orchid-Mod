@@ -19,8 +19,13 @@ namespace OrchidMod
 		public bool gamblerHit = false;
 
 		public override bool InstancePerEntity => true;
-		
-        public override void NPCLoot(NPC npc)
+
+		public override void GetChat(NPC npc, ref string chat)
+		{
+			OrchidMod.Instance.croupierGUI.Visible = false;
+		}
+
+		public override void NPCLoot(NPC npc)
         {
 			if (npc.lifeMax > 5 && npc.value > 0f) {
 				if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].ZoneGlowshroom && Main.hardMode && Main.rand.Next(100) == 0) {

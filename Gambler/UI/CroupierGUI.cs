@@ -1,0 +1,384 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.UI.Chat;
+using Terraria.ID;
+using Terraria.GameContent.UI;
+using Terraria.GameInput;
+using Terraria.Localization;
+
+namespace OrchidMod.Gambler.UI
+{
+	// I'm sure it can be written much better
+
+	public class CroupierGUI
+	{
+		public static Texture2D BackgroundTexture;
+		public static Texture2D BorderTexture;
+		public static Texture2D DeckTexture;
+		public static Texture2D DeckBlockTexture;
+
+		public static RasterizerState RasterizerState;
+
+		public Rectangle drawZone;
+
+		public const int fontScale = 8;
+
+		public int linesCount = -1;
+		public int emptyLinesCount = -1;
+		public int scrollValue = 0;
+		public int scrollMax = 0;
+		public int hoverCardType = -1;
+
+		public bool ignoreScrollHotbar = false;
+
+		public bool Visible { get; set; }
+
+		public int FontOffsetY => (int)(30 * (fontScale / 10f));
+
+		public static void Load()
+		{
+			BackgroundTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIBackground");
+			BorderTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIBorder");
+			DeckTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIDeck");
+			DeckBlockTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/DeckUIBlock");
+
+			RasterizerState = new RasterizerState
+			{
+				CullMode = CullMode.None,
+				ScissorTestEnable = true
+			};
+
+			On.Terraria.Main.GUIChatDrawInner += (orig, self) =>
+			{
+				orig(self);
+
+				ref var Interface = ref OrchidMod.Instance.croupierGUI;
+				if (Interface.Visible)
+				{
+					Interface.Update();
+					Interface.Draw(Main.spriteBatch);
+				}
+			};
+
+			On.Terraria.Player.ScrollHotbar += (orig, self, offset) =>
+			{
+				// I couldn't think of anything better...
+				ref var Interface = ref OrchidMod.Instance.croupierGUI;
+				if (Interface.Visible && Interface.ignoreScrollHotbar) return;
+
+				orig(self, offset);
+			};
+		}
+
+		public static void Unload()
+		{
+			BackgroundTexture = null;
+			BorderTexture = null;
+			DeckTexture = null;
+			DeckBlockTexture = null;
+
+			RasterizerState = null;
+		}
+
+		public void Update()
+		{
+			drawZone = new Rectangle(Main.screenWidth / 2 - Main.chatBackTexture.Width / 2 + 2, 120 + (linesCount - emptyLinesCount) * 30, Main.chatBackTexture.Width - 4, emptyLinesCount * 30);
+
+			if (drawZone.Contains(Main.MouseScreen.ToPoint()))
+			{
+				ignoreScrollHotbar = true;
+			}
+			else ignoreScrollHotbar = false;
+		}
+
+		public void UpdateOnChatButtonClicked()
+		{
+			List<List<TextSnippet>> list = Utils.WordwrapStringSmart(Main.npcChatText, Color.White, Main.fontMouseText, 460, 10);
+
+			linesCount = list.Count;
+			emptyLinesCount = list.FindAll(i => i.Contains(i.Find(j => j.Text == ""))).Count;
+		}
+
+		public void OnCardClick(Item item, Player player, OrchidModPlayer orchidPlayer)
+		{
+			player.QuickSpawnItem(item.type, 1);
+			OrchidModGamblerHelper.removeGamblerCard(item, player, orchidPlayer);
+
+			if (OrchidModGamblerHelper.getNbGamblerCards(player, orchidPlayer) > 0)
+			{
+				OrchidModGamblerHelper.clearGamblerCardCurrent(player, orchidPlayer);
+				OrchidModGamblerHelper.clearGamblerCardsNext(player, orchidPlayer);
+				orchidPlayer.gamblerShuffleCooldown = 0;
+				orchidPlayer.gamblerRedraws = 0;
+				OrchidModGamblerHelper.drawGamblerCard(player, orchidPlayer);
+			}
+			else
+			{
+				OrchidModGamblerHelper.onRespawnGambler(player, orchidPlayer);
+			}
+		}
+
+		public string GetCardInfo(Item item, int maxReq, bool canRemove)
+		{
+			string hmm = $"[c/{Color.Gray.Hex3()}: | ]";
+
+			var player = Main.player[Main.myPlayer];
+			var gamblerPlayer = player.GetModPlayer<OrchidModPlayer>();
+			var gamblerItem = item.modItem as OrchidModGamblerItem;
+
+			string knockbackText;
+			{
+				float num = player.GetWeaponKnockback(item, item.knockBack);
+				if (num == 0f) knockbackText = Language.GetTextValue("LegacyTooltip.14");
+				else if (num <= 1.5) knockbackText = Language.GetTextValue("LegacyTooltip.15");
+				else if (num <= 3f) knockbackText = Language.GetTextValue("LegacyTooltip.16");
+				else if (num <= 4f) knockbackText = Language.GetTextValue("LegacyTooltip.17");
+				else if (num <= 6f) knockbackText = Language.GetTextValue("LegacyTooltip.18");
+				else if (num <= 7f) knockbackText = Language.GetTextValue("LegacyTooltip.19");
+				else if (num <= 9f) knockbackText = Language.GetTextValue("LegacyTooltip.20");
+				else if (num <= 11f) knockbackText = Language.GetTextValue("LegacyTooltip.21");
+				else knockbackText = Language.GetTextValue("LegacyTooltip.22");
+			}
+
+			// Card Name
+			string cardTooltipText = item.HoverName.Replace("Playing Card : ", "") + "\n";
+
+			// Can be removed / Cannot be removed
+			cardTooltipText += (canRemove ? "Can be removed" : "Cannot be removed\nYour highest cost card requires at least " + maxReq + " cards") + "\n";
+
+			// Damage + Crit
+			cardTooltipText += $"Damage: {player.GetWeaponDamage(item)}" + hmm +
+				$"Crit: {item.crit + gamblerPlayer.gamblerCrit}%" + "\n";
+
+			// Knockback
+			cardTooltipText += knockbackText + "\n";
+
+			// Set + Requires Cards
+			{
+				int tagCount = gamblerItem.gamblerCardSets.Count - 1;
+				if (tagCount > -1)
+				{
+					string text = "";
+					List<string> alreadyDone = new List<string>();
+					foreach (string tag in gamblerItem.gamblerCardSets)
+					{
+						if (!alreadyDone.Contains(tag))
+						{
+							text += alreadyDone.Count > 0 ? ", " : "";
+							text += tag;
+							tagCount--;
+							alreadyDone.Add(tag);
+						}
+					}
+					cardTooltipText += (alreadyDone.Count > 1 ? "Sets: " : "Set: ") + $"[c/{new Color(175, 255, 175).Hex3()}:{text}]";
+				}
+				else cardTooltipText += "Set: -";
+
+				cardTooltipText += hmm + "Requires cards: " + $"[c/{new Color(255, 200, 100).Hex3()}:{item.GetGlobalItem<OrchidModGlobalItem>().gamblerCardRequirement}]" + "\n";
+			}
+
+			/*// Tooltips
+			{
+				for (int j = 0; j < item.ToolTip.Lines; j++) cardTooltipText += item.ToolTip.GetLine(j) + "\n";
+			}*/
+
+			return cardTooltipText;
+		}
+
+		public void Draw(SpriteBatch spriteBatch)
+		{
+			Vector2 deckPosition = new Vector2(drawZone.X + 12, drawZone.Y + drawZone.Height * 0.5f - DeckTexture.Height * 0.5f);
+
+			// Background
+			{
+				Color color = new Color(25, 25, 45, 160);
+				DrawSeparation(spriteBatch, new Vector2(drawZone.X + 6, drawZone.Y), 6, color);
+				DrawSeparation(spriteBatch, new Vector2(drawZone.X + DeckTexture.Width + 12, drawZone.Y), 6, color);
+				DrawSeparation(spriteBatch, new Vector2(drawZone.X + drawZone.Width - 12, drawZone.Y), 6, color);
+
+				DrawPanel(spriteBatch, BackgroundTexture, new Color(25, 25, 60, 140));
+				DrawPanel(spriteBatch, BorderTexture, new Color(25, 25, 45, 160));
+
+				spriteBatch.Draw(DeckTexture, new Vector2(deckPosition.X, deckPosition.Y) + DeckTexture.Size() * 0.5f, null, Color.White, 0f, DeckTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+			}
+
+			// Cards and Info
+			{
+				Player player = Main.player[Main.myPlayer];
+				OrchidModPlayer orchidPlayer = player.GetModPlayer<OrchidModPlayer>();
+
+				if (!player.dead)
+				{
+					int[] nbCards = new int[20];
+					for (int i = 0; i < 20; i++) nbCards[i] = 0;
+
+					int maxReq = 0;
+					int playerNbCards = OrchidModGamblerHelper.getNbGamblerCards(player, orchidPlayer);
+
+					for (int i = 0; i < playerNbCards; i++)
+					{
+						Item currentItem = orchidPlayer.gamblerCardsItem[i];
+						if (currentItem.type != ItemID.None)
+						{
+							OrchidModGlobalItem orchidItem = currentItem.GetGlobalItem<OrchidModGlobalItem>();
+							int cardReq = orchidItem.gamblerCardRequirement;
+							nbCards[cardReq]++;
+							maxReq = cardReq > maxReq ? cardReq : maxReq;
+						}
+					}
+
+					for (int i = 0; i < playerNbCards; i++)
+					{
+						Item currentItem = orchidPlayer.gamblerCardsItem[i];					
+						if (currentItem.type != ItemID.None)
+						{
+							OrchidModGlobalItem orchidItem = currentItem.GetGlobalItem<OrchidModGlobalItem>();
+							int cardReq = orchidItem.gamblerCardRequirement;
+							bool canRemove = (playerNbCards > maxReq + 1) || (cardReq == maxReq);
+
+							DrawCard(currentItem, spriteBatch, new Vector2(deckPosition.X + 8 + (i % 5 * 26), deckPosition.Y + 8 + (i == 0 ? 0 : i / 5) * 32), player, orchidPlayer, maxReq, canRemove);
+						}
+					}
+				}
+			}
+		}
+
+		public void DrawCard(Item item, SpriteBatch spriteBatch, Vector2 position, Player player, OrchidModPlayer orchidPlayer, int maxReq, bool canRemove = true)
+		{
+			if (item == null || item.type < ItemID.None) return;
+
+			var cardTexture = Main.itemTexture[item.type];
+			var cardRect = new Rectangle((int)position.X, (int)position.Y, cardTexture.Width, cardTexture.Height);
+
+			spriteBatch.Draw(cardTexture, cardRect, Color.White);
+			if (!canRemove) spriteBatch.Draw(DeckBlockTexture, new Rectangle(cardRect.X - 2, cardRect.Y - 2, DeckBlockTexture.Width, DeckBlockTexture.Height), Color.White);
+
+			if (cardRect.Contains(Main.MouseScreen.ToPoint()))
+			{
+				player.mouseInterface = true;
+
+				if (hoverCardType != item.type)
+				{
+					hoverCardType = item.type;
+					scrollValue = 0;
+				}
+
+				// Scrolling
+				{
+					int num = -PlayerInput.ScrollWheelDelta / 120;
+					int sign = Math.Sign(num);
+					int progr = FontOffsetY;
+
+					while (num != 0)
+					{
+						if (num < 0)
+						{
+							if (scrollValue >= progr) scrollValue -= progr;
+						}
+						else
+						{
+							if (scrollValue < (scrollMax - 5 * progr)) scrollValue += progr;
+						}
+						num -= sign;
+					}
+				}
+
+				Rectangle tooltipRectangle = new Rectangle(drawZone.X + DeckTexture.Width + 24, drawZone.Y + 14, Math.Abs(drawZone.Width - DeckTexture.Width - 42), drawZone.Height - 28);
+				DrawCardInfo(item, spriteBatch, tooltipRectangle, GetCardInfo(item, maxReq, canRemove));
+
+				if ((Main.mouseLeft && Main.mouseLeftRelease || Main.mouseRight && Main.mouseRightRelease) && canRemove) OnCardClick(item, player, orchidPlayer);
+			}
+		}
+
+		public void DrawCardInfo(Item item, SpriteBatch spriteBatch, Rectangle rect, string text)
+		{
+			if (item == null || item.type < ItemID.None) return;
+
+			List<List<TextSnippet>> list = Utils.WordwrapStringSmart(text, Color.White, Main.fontMouseText, (int)(rect.Width * 1.22f), fontScale);
+			foreach (var elem in list[0]) elem.Color = ItemRarity.GetColor(item.rare);
+
+			int offsetY = FontOffsetY;
+			scrollMax = (list.Count - 1) * offsetY;
+			Color backgroundColor = new Color(25, 25, 45, 160) * 0.75f;
+
+			Rectangle nameRectangle = new Rectangle(rect.X - 2, rect.Y - 2, rect.Width + 4, offsetY + 4);
+			Rectangle tooltipRectangle = new Rectangle(nameRectangle.X, nameRectangle.Y + offsetY + 6, nameRectangle.Width + 1, rect.Height + 4 - offsetY - 6);
+
+			// Card Name
+			{
+				spriteBatch.Draw(Main.magicPixel, nameRectangle, backgroundColor);
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, list[0].ToArray(), new Vector2(nameRectangle.X + 4, nameRectangle.Y + 6), 0f, Vector2.Zero, Vector2.One * (fontScale / 10f), out _, -1f, 2f);
+			}
+
+			Rectangle oldScissorRectangle = spriteBatch.GraphicsDevice.ScissorRectangle;
+			SamplerState anisotropicClamp = SamplerState.AnisotropicClamp;
+
+			spriteBatch.End();
+			spriteBatch.GraphicsDevice.ScissorRectangle = Rectangle.Intersect(GetClippingRectangle(tooltipRectangle, spriteBatch), spriteBatch.GraphicsDevice.ScissorRectangle);
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, RasterizerState, null, Main.UIScaleMatrix);
+
+			// Info
+			{
+				spriteBatch.Draw(Main.magicPixel, tooltipRectangle, backgroundColor);
+				for (int i = 0; i < list.Count - 1; i++)
+				{
+					Vector2 drawPosition = new Vector2(tooltipRectangle.X + 4, (float)(tooltipRectangle.Y + offsetY * i - scrollValue) + 4);
+					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, list[i + 1].ToArray(), drawPosition, 0f, Vector2.Zero, Vector2.One * (fontScale / 10f), out _, -1f, 2f);
+				}
+			}
+
+			spriteBatch.End();
+			spriteBatch.GraphicsDevice.ScissorRectangle = oldScissorRectangle;
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, spriteBatch.GraphicsDevice.RasterizerState, null, Main.UIScaleMatrix);
+		}
+
+		private void DrawSeparation(SpriteBatch spriteBatch, Vector2 position, int width, Color color)
+		{
+			spriteBatch.Draw(Main.magicPixel, new Rectangle((int)position.X, (int)position.Y, width, drawZone.Height), color);
+		}
+
+		private void DrawPanel(SpriteBatch spriteBatch, Texture2D texture, Color color)
+		{
+			const int CORNER_SIZE = 12;
+			const int BAR_SIZE = 4;
+
+			Point point = new Point(drawZone.X, drawZone.Y);
+			Point point2 = new Point(point.X + drawZone.Width - CORNER_SIZE, point.Y + drawZone.Height - CORNER_SIZE);
+			int width = point2.X - point.X - CORNER_SIZE;
+			int height = point2.Y - point.Y - CORNER_SIZE;
+
+			spriteBatch.Draw(texture, new Rectangle(point.X, point.Y, CORNER_SIZE, CORNER_SIZE), new Rectangle?(new Rectangle(0, 0, CORNER_SIZE, CORNER_SIZE)), color);
+			spriteBatch.Draw(texture, new Rectangle(point2.X, point.Y, CORNER_SIZE, CORNER_SIZE), new Rectangle?(new Rectangle(CORNER_SIZE + BAR_SIZE, 0, CORNER_SIZE, CORNER_SIZE)), color);
+			spriteBatch.Draw(texture, new Rectangle(point.X, point2.Y, CORNER_SIZE, CORNER_SIZE), new Rectangle?(new Rectangle(0, CORNER_SIZE + BAR_SIZE, CORNER_SIZE, CORNER_SIZE)), color);
+			spriteBatch.Draw(texture, new Rectangle(point2.X, point2.Y, CORNER_SIZE, CORNER_SIZE), new Rectangle?(new Rectangle(CORNER_SIZE + BAR_SIZE, CORNER_SIZE + BAR_SIZE, CORNER_SIZE, CORNER_SIZE)), color);
+			spriteBatch.Draw(texture, new Rectangle(point.X + CORNER_SIZE, point.Y, width, CORNER_SIZE), new Rectangle?(new Rectangle(CORNER_SIZE, 0, BAR_SIZE, CORNER_SIZE)), color);
+			spriteBatch.Draw(texture, new Rectangle(point.X + CORNER_SIZE, point2.Y, width, CORNER_SIZE), new Rectangle?(new Rectangle(CORNER_SIZE, CORNER_SIZE + BAR_SIZE, BAR_SIZE, CORNER_SIZE)), color);
+			spriteBatch.Draw(texture, new Rectangle(point.X, point.Y + CORNER_SIZE, CORNER_SIZE, height), new Rectangle?(new Rectangle(0, CORNER_SIZE, CORNER_SIZE, BAR_SIZE)), color);
+			spriteBatch.Draw(texture, new Rectangle(point2.X, point.Y + CORNER_SIZE, CORNER_SIZE, height), new Rectangle?(new Rectangle(CORNER_SIZE + BAR_SIZE, CORNER_SIZE, CORNER_SIZE, BAR_SIZE)), color);
+			spriteBatch.Draw(texture, new Rectangle(point.X + CORNER_SIZE, point.Y + CORNER_SIZE, width, height), new Rectangle?(new Rectangle(CORNER_SIZE, CORNER_SIZE, BAR_SIZE, BAR_SIZE)), color);
+		}
+
+		private Rectangle GetClippingRectangle(Rectangle rect, SpriteBatch spriteBatch)
+		{
+			Vector2 vector = new Vector2((int)rect.X, (int)rect.Y);
+			Vector2 vector2 = new Vector2((int)rect.Width, (int)rect.Height) + vector;
+			vector = Vector2.Transform(vector, Main.UIScaleMatrix);
+			vector2 = Vector2.Transform(vector2, Main.UIScaleMatrix);
+			Rectangle rectangle = new Rectangle((int)vector.X, (int)vector.Y, (int)(vector2.X - vector.X), (int)(vector2.Y - vector.Y));
+			int width = spriteBatch.GraphicsDevice.Viewport.Width;
+			int height = spriteBatch.GraphicsDevice.Viewport.Height;
+			rectangle.X = Utils.Clamp<int>(rectangle.X, 0, width);
+			rectangle.Y = Utils.Clamp<int>(rectangle.Y, 0, height);
+			rectangle.Width = Utils.Clamp<int>(rectangle.Width, 0, width - rectangle.X);
+			rectangle.Height = Utils.Clamp<int>(rectangle.Height, 0, height - rectangle.Y);
+			return rectangle;
+		}
+	}
+}
