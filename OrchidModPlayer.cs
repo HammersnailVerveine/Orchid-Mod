@@ -48,6 +48,8 @@ namespace OrchidMod
 	
 		public int customCrit = 0;
 
+		public bool ignoreScrollHotbar = false;
+
 		/*General*/
 
 		public bool generalTools = false;
@@ -317,7 +319,10 @@ namespace OrchidMod
 			this.CheckWoodBreak(player);
 		}
 		
-		public override void PostUpdate() {
+		public override void PostUpdate()
+		{
+			ignoreScrollHotbar = false;
+
 			OrchidModShamanHelper.postUpdateShaman(player, this, mod);
 			OrchidModGamblerHelper.postUpdateGambler(player, this, mod);
 			OrchidModAlchemistHelper.postUpdateAlchemist(player, this, mod);

@@ -175,21 +175,15 @@ namespace OrchidMod.NPCs.Town
 			{
 				if (player.HasItem(gamblerDeck))
 				{
-					switch (Main.rand.Next(0, 3))
+					Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.";
+
+					/*switch (Main.rand.Next(0, 1))
 					{
 						case 0:
 							Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.\n" +
 								$"Calamity - best mod...";
 							break;
-						case 1:
-							Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.\n" +
-								$"Ehe te nandayo!?";
-							break;
-						case 2:
-							Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.\n" +
-								$"Test new GUI...";
-							break;
-					}
+					}*/
 
 					Main.npcChatText += "\n\n\n\n\n";
 					Main.npcChatFocus2 = false;

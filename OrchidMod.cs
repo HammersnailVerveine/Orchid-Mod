@@ -51,7 +51,7 @@ namespace OrchidMod
 		internal CroupierGUI croupierGUI;
 
 		public static bool reloadShamanUI;
-			
+
 		public OrchidMod()
 		{
 			Instance = this;
@@ -283,6 +283,8 @@ namespace OrchidMod
 				croupierGUI = new CroupierGUI();
 			}
 
+			LoadHooks();
+
 			AlchemistReactionHotKey = RegisterHotKey("Alchemist Hidden Reaction", "Mouse3");
 			AlchemistCatalystHotKey = RegisterHotKey("Alchemist Catalyst Tool Shortcut", "Z");
 			ShamanBondHotKey = RegisterHotKey("Shaman Bond Abilities", "Mouse3");
@@ -332,6 +334,30 @@ namespace OrchidMod
 			}
 		}
 
+		private void LoadHooks()
+		{
+			On.Terraria.Main.GUIChatDrawInner += (orig, self) =>
+			{
+				orig(self);
+
+				if (croupierGUI.Visible)
+				{
+					croupierGUI.Update();
+					croupierGUI.Draw(Main.spriteBatch);
+				}
+			};
+
+			// I couldn't think of anything better...
+			On.Terraria.Player.ScrollHotbar += (orig, self, offset) =>
+			{
+				Main.NewText(croupierGUI.Visible && Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar);
+
+				if (croupierGUI.Visible && Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar) return;
+
+				orig(self, offset);
+			};
+		}
+
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
@@ -378,7 +404,7 @@ namespace OrchidMod
 				reloadShamanUI = false;
 			}
 		}
-		
+
 		public override void Unload()
 		{
 			if (!Main.dedServ)

@@ -36,8 +36,6 @@ namespace OrchidMod.Gambler.UI
 		public int scrollMax = 0;
 		public int hoverCardType = -1;
 
-		public bool ignoreScrollHotbar = false;
-
 		public bool Visible { get; set; }
 
 		public int FontOffsetY => (int)(30 * (fontScale / 10f));
@@ -54,27 +52,6 @@ namespace OrchidMod.Gambler.UI
 				CullMode = CullMode.None,
 				ScissorTestEnable = true
 			};
-
-			On.Terraria.Main.GUIChatDrawInner += (orig, self) =>
-			{
-				orig(self);
-
-				ref var Interface = ref OrchidMod.Instance.croupierGUI;
-				if (Interface.Visible)
-				{
-					Interface.Update();
-					Interface.Draw(Main.spriteBatch);
-				}
-			};
-
-			On.Terraria.Player.ScrollHotbar += (orig, self, offset) =>
-			{
-				// I couldn't think of anything better...
-				ref var Interface = ref OrchidMod.Instance.croupierGUI;
-				if (Interface.Visible && Interface.ignoreScrollHotbar) return;
-
-				orig(self, offset);
-			};
 		}
 
 		public static void Unload()
@@ -89,13 +66,11 @@ namespace OrchidMod.Gambler.UI
 
 		public void Update()
 		{
+			if (Main.npc[Main.player[Main.myPlayer].talkNPC]?.type != ModContent.NPCType<NPCs.Town.Croupier>()) Visible = false;
+
 			drawZone = new Rectangle(Main.screenWidth / 2 - Main.chatBackTexture.Width / 2 + 2, 120 + (linesCount - emptyLinesCount) * 30, Main.chatBackTexture.Width - 4, emptyLinesCount * 30);
 
-			if (drawZone.Contains(Main.MouseScreen.ToPoint()))
-			{
-				ignoreScrollHotbar = true;
-			}
-			else ignoreScrollHotbar = false;
+			if (drawZone.Contains(Main.MouseScreen.ToPoint())) Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar = true;
 		}
 
 		public void UpdateOnChatButtonClicked()
@@ -151,7 +126,7 @@ namespace OrchidMod.Gambler.UI
 			string cardTooltipText = item.HoverName.Replace("Playing Card : ", "") + "\n";
 
 			// Can be removed / Cannot be removed
-			cardTooltipText += (canRemove ? "Can be removed" : "Cannot be removed\nYour highest cost card requires at least " + maxReq + " cards") + "\n";
+			cardTooltipText += (canRemove ? "Can be removed" : "Cannot be removed\nMost expensive card in deck: " + $"[c/{new Color(215, 65, 65).Hex3()}:{maxReq}]") + "\n";
 
 			// Damage + Crit
 			cardTooltipText += $"Damage: {player.GetWeaponDamage(item)}" + hmm +
@@ -160,7 +135,7 @@ namespace OrchidMod.Gambler.UI
 			// Knockback
 			cardTooltipText += knockbackText + "\n";
 
-			// Set + Requires Cards
+			// Set + Required Cards
 			{
 				int tagCount = gamblerItem.gamblerCardSets.Count - 1;
 				if (tagCount > -1)
@@ -181,7 +156,7 @@ namespace OrchidMod.Gambler.UI
 				}
 				else cardTooltipText += "Set: -";
 
-				cardTooltipText += hmm + "Requires cards: " + $"[c/{new Color(255, 200, 100).Hex3()}:{item.GetGlobalItem<OrchidModGlobalItem>().gamblerCardRequirement}]" + "\n";
+				cardTooltipText += hmm + "Required cards: " + $"[c/{new Color(255, 200, 100).Hex3()}:{item.GetGlobalItem<OrchidModGlobalItem>().gamblerCardRequirement}]" + "\n";
 			}
 
 			/*// Tooltips
