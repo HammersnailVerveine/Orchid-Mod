@@ -350,9 +350,7 @@ namespace OrchidMod
 			// I couldn't think of anything better...
 			On.Terraria.Player.ScrollHotbar += (orig, self, offset) =>
 			{
-				Main.NewText(croupierGUI.Visible && Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar);
-
-				if (croupierGUI.Visible && Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar) return;
+				if (Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar) return;
 
 				orig(self, offset);
 			};

@@ -66,8 +66,6 @@ namespace OrchidMod.Gambler.UI
 
 		public void Update()
 		{
-			if (Main.npc[Main.player[Main.myPlayer].talkNPC]?.type != ModContent.NPCType<NPCs.Town.Croupier>()) Visible = false;
-
 			drawZone = new Rectangle(Main.screenWidth / 2 - Main.chatBackTexture.Width / 2 + 2, 120 + (linesCount - emptyLinesCount) * 30, Main.chatBackTexture.Width - 4, emptyLinesCount * 30);
 
 			if (drawZone.Contains(Main.MouseScreen.ToPoint())) Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar = true;
