@@ -86,10 +86,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Vector2 offset = new Vector2(-7, -22);
 			Vector2 drawPosition = projectile.position - Main.screenPosition + projectile.Size * 0.5f;
-			Color color = Lighting.GetColor((int)(projectile.position.X / 16f), (int)(projectile.position.Y / 16f), Color.White);
-			SpriteEffects spriteEffect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 			// Light Effect
 			EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, blendState: BlendState.Additive);
@@ -106,20 +103,28 @@ namespace OrchidMod.Shaman.Projectiles
 				effect.Parameters["radius"].SetValue(Radius);
 				effect.Parameters["thickness"].SetValue(2.5f);
 				effect.Parameters["color"].SetValue(new Vector4(73, 76, 219, 85) / 255f);
+				effect.Parameters["color2"].SetValue(new Vector4(73, 110, 219, 85) / 255f);
 
 				if (zoneTexture != null) spriteBatch.Draw(zoneTexture, drawPosition, null, Color.White, projectile.rotation, zoneTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 			}
 			EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
 
-			// Projectile and Glowmask
+			return false; // Let's draw the projectile ourselves
+		}
+
+		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			Vector2 offset = new Vector2(-7, -22);
+			Vector2 drawPosition = projectile.position - Main.screenPosition + projectile.Size * 0.5f;
+			Color color = Lighting.GetColor((int)(projectile.position.X / 16f), (int)(projectile.position.Y / 16f), Color.White);
+			SpriteEffects spriteEffect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
 			spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPosition + offset, null, color, projectile.rotation, projectile.Size * 0.5f, projectile.scale, spriteEffect, 0f);
 			EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, blendState: BlendState.Additive);
 			{
-				spriteBatch.Draw(ModContent.GetTexture("OrchidMod/Glowmasks/ShroomiteScepterProj_Glowmask"), drawPosition + offset, null, new Color(250, 250, 250, 100), projectile.rotation, projectile.Size * 0.5f, projectile.scale, spriteEffect, 0f);
+				spriteBatch.Draw(ModContent.GetTexture("OrchidMod/Glowmasks/ShroomiteScepterProj_Glowmask"), drawPosition + offset, null, new Color(250, 250, 250, 150), projectile.rotation, projectile.Size * 0.5f, projectile.scale, spriteEffect, 0f);
 			}
 			EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
-
-			return false; // Let's draw the projectile ourselves
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity) => false;

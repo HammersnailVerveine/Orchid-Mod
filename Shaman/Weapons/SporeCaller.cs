@@ -73,100 +73,19 @@ namespace OrchidMod.Shaman.Weapons
 			return false;
 		}
 		
-		public override void ModifyTooltips(List<TooltipLine> tooltips) // Useful because of damage range
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			int index = -1;
-			for (int m = 0; m < tooltips.Count; m++)
-            {
-                if (tooltips[m].Name.Equals("Damage")) { index = m; break;}
-            }
-            string oldTooltip = tooltips[index].text;
-            string[] split = oldTooltip.Split(' ');
-			int dmg2 = 0;
-			Int32.TryParse(split[0], out dmg2);
-			dmg2 += 45;
-            tooltips.RemoveAt(index);
-            tooltips.Insert(index, new TooltipLine(mod, "Damage", split[0] + " - " + dmg2 + " shamanic damage"));
-			
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
-				index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
-				if (index != -1)
+			base.ModifyTooltips(tooltips);
+
+			var tooltip = tooltips.Find(i => i.Name.Equals("Damage") && i.mod == "Terraria");
+			if (tooltip != null)
+			{
+				string[] split = tooltip.text.Split(' ');
+				if (Int32.TryParse(split[0], out int dmg2))
 				{
-					tooltips.Insert(index + 1, new TooltipLine(mod, "ShamanTag", "-Shaman Class-") // 00C0FF
-					{
-						overrideColor = new Color(0, 192, 255)
-					});
-				}
-			}
-			
-			if (this.empowermentType > 0) {
-				string emp = "";
-				Color col = new Color(0, 0, 0);
-				switch (this.empowermentType) {
-					case 1:
-						emp = "Fire";
-						col = new Color(194, 38, 31);
-						break;
-					case 2:
-						emp = "Water";
-						col = new Color(0, 119, 190);
-						break;
-					case 3:
-						emp = "Air";
-						col = new Color(75, 139, 59);
-						break;
-					case 4:
-						emp = "Earth";
-						col = new Color(255, 255, 102);
-						break;
-					case 5:
-						emp = "Spirit";
-						col = new Color(138, 43, 226);
-						break;
-					default:
-						break;
-				}
-				
-				index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
-				if (index != -1)
-				{
-					tooltips.Insert(index, new TooltipLine(mod, "BondType", emp + " bond")
-					{
-						overrideColor = col
-					});
-				}
-			}
-			
-			if (this.empowermentLevel > 0) {
-				string lev = "";
-				switch (this.empowermentLevel) {
-					case 1:
-						lev = "I";
-						break;
-					case 2:
-						lev = "II";
-						break;
-					case 3:
-						lev = "III";
-						break;
-					case 4:
-						lev = "IV";
-						break;
-					case 5:
-						lev = "V";
-						break;
-					default:
-						break;
-				}
-				
-				index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
-				if (index != -1)
-				{
-					tooltips.Insert(index, new TooltipLine(mod, "BondLevel", "Shamanic bond level " + lev)
-					{
-						overrideColor = new Color(0, 192, 255)
-					});
+					dmg2 += 45;
+					split[0] = split[0] + " - " + dmg2;
+					tooltip.text = String.Join(" ", split);
 				}
 			}
 		}

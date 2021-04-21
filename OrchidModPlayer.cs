@@ -47,9 +47,11 @@ namespace OrchidMod
 		public bool doubleTapLock = false;
 	
 		public int customCrit = 0;
-		
+
+		public bool ignoreScrollHotbar = false;
+
 		/*General*/
-		
+
 		public bool generalTools = false;
 		public bool generalStatic = false;
 		
@@ -275,7 +277,8 @@ namespace OrchidMod
 			alchemistKnownHints = tag.Get<List<int>>("AlchemistHints");
 		}
 
-		public override void PreUpdate() {
+		public override void PreUpdate()
+		{
 			if (player.whoAmI == Main.myPlayer) {
 				if (autoRevertSelectedItem) {
 					if (player.itemTime == 0 && player.itemAnimation == 0) {
@@ -316,7 +319,10 @@ namespace OrchidMod
 			this.CheckWoodBreak(player);
 		}
 		
-		public override void PostUpdate() {
+		public override void PostUpdate()
+		{
+			ignoreScrollHotbar = false;
+
 			OrchidModShamanHelper.postUpdateShaman(player, this, mod);
 			OrchidModGamblerHelper.postUpdateGambler(player, this, mod);
 			OrchidModAlchemistHelper.postUpdateAlchemist(player, this, mod);

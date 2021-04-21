@@ -18,23 +18,27 @@ namespace OrchidMod.Shaman.Weapons
 			item.useTime = 30;
 			item.useAnimation = 30;
 			item.knockBack = 5.5f;
-			item.rare = 1;
+			item.rare = ItemRarityID.Blue;
 			item.value = Item.sellPrice(0, 0, 15, 0);
 			item.UseSound = SoundID.Item8;
 			item.autoReuse = true;
 			item.shootSpeed = 9.5f;
-			item.shoot = mod.ProjectileType("StarpowerScepterProj");
-			this.empowermentType = 3;
-			this.empowermentLevel = 1;
+			item.shoot = ModContent.ProjectileType<Projectiles.StarpowerScepterProj>();
+			item.crit = 4;
+
+			empowermentType = 3;
+			empowermentLevel = 1;
 		}
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Scepter of Starpower");
-		  Tooltip.SetDefault("Critical strike chance increases with the number of active shamanic bonds");
+			DisplayName.SetDefault("Scepter of Starpower");
+			Tooltip.SetDefault("Critical strike chance increases with the number of active shamanic bonds");
 		}
-		
-		public override void UpdateInventory(Player player) {
+
+		public override void UpdateInventory(Player player)
+		{
+			// I hate it
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit;
 		}
@@ -42,10 +46,8 @@ namespace OrchidMod.Shaman.Weapons
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 40f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
+			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0)) position += muzzleOffset;
+
 			return true;
 		}
 		
