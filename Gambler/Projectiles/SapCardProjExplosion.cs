@@ -27,5 +27,9 @@ namespace OrchidMod.Gambler.Projectiles
         {
             DisplayName.SetDefault("Explosion");
         }
+		
+		public override void AI() {
+			OrchidModProjectile.resetIFrames(projectile);
+		}
     }
 }

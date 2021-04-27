@@ -128,7 +128,8 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 				int rand = Main.rand.Next(3) + 1;
 				for (int i = 0 ; i < rand ; i ++) {
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, projType, this.sporeDamage, 0f, projectile.owner);
+					int spawnProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, projType, this.sporeDamage, 0f, projectile.owner);
+					Main.projectile[spawnProj].localAI[1] = 1f;
 				}
 			}
 		}

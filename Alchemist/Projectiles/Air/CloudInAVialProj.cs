@@ -5,17 +5,17 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Alchemist.Projectiles.Water
+namespace OrchidMod.Alchemist.Projectiles.Air
 {
-    public class SlimeFlaskProj : OrchidModAlchemistProjectile
+    public class CloudInAVialProj : OrchidModAlchemistProjectile
     {
         public override void SafeSetDefaults()
         {
-            projectile.width = 200;
-            projectile.height = 200;
+            projectile.width = 100;
+            projectile.height = 100;
             projectile.friendly = true;
             projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
+			projectile.timeLeft = 3;
 			projectile.tileCollide = false;
 			projectile.scale = 1f;
 			projectile.alpha = 255;
@@ -24,11 +24,16 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 		
 		public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Explosion");
+            DisplayName.SetDefault("Airxplosion");
         }
 		
 		public override void AI() {
-			OrchidModProjectile.resetIFrames(projectile);
+			for (int l = 0; l < Main.npc.Length; l++) {  
+				NPC target = Main.npc[l];
+				if (projectile.Hitbox.Intersects(target.Hitbox))  {
+					target.velocity.Y = -(projectile.ai[1] * 4);
+				}
+			}
 		}
     }
 }

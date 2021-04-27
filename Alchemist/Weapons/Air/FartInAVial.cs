@@ -53,13 +53,11 @@ namespace OrchidMod.Alchemist.Weapons.Air
 					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
 				}
 			}
-		}
-		
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, 
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
-			if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f) {
-				target.velocity.Y = -((float) alchProj.nbElements * 4);
-			}
+			
+			int type = ProjectileType<Alchemist.Projectiles.Air.CloudInAVialProj>();
+			int newProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, type, 0, 0.5f, projectile.owner);
+			Main.projectile[newProj].ai[1] = alchProj.nbElements;
+			Main.projectile[newProj].netUpdate = true;
 		}
 	}
 }
