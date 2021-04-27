@@ -19,8 +19,13 @@ namespace OrchidMod
 		public bool gamblerHit = false;
 
 		public override bool InstancePerEntity => true;
-		
-        public override void NPCLoot(NPC npc)
+
+		public override void GetChat(NPC npc, ref string chat)
+		{
+			OrchidMod.Instance.croupierGUI.Visible = false;
+		}
+
+		public override void NPCLoot(NPC npc)
         {
 			if (npc.lifeMax > 5 && npc.value > 0f) {
 				if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].ZoneGlowshroom && Main.hardMode && Main.rand.Next(100) == 0) {
@@ -227,6 +232,17 @@ namespace OrchidMod
 					rand = Main.rand.Next(49) + 12;
                 Item.NewItem((int) npc.position.X + Main.rand.Next(npc.width), (int) npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<Shaman.Misc.AbyssFragment>(), rand, false, 0, false, false);
             }
+			/*if (npc.aiStyle == 94) // Celestial Pillar AI 
+			{
+				float numberOfPillars = 4;
+				int quantity = (int)(Main.rand.Next(25, 41) / 2 / numberOfPillars);
+				if (Main.expertMode) quantity = (int)(quantity * 1.5f);
+
+				for (int i = 0; i < quantity; i++)
+				{
+					Item.NewItem((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ModContent.ItemType<Shaman.Misc.AbyssFragment>(), Main.rand.Next(1, 4), false, 0, false, false);
+				}
+			}*/
 			
 			// BOSSES
 			if ((npc.type == NPCID.QueenBee))

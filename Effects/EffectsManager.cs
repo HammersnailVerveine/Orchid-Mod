@@ -14,6 +14,7 @@ namespace OrchidMod.Effects
 	{
 		public static void Load()
 		{
+			LensFlareTexture = ModContent.GetTexture("OrchidMod/Effects/Textures/LensFlare");
 			PerlinNoiseTexture = ModContent.GetTexture("Terraria/Misc/Perlin");
 			RadialGradientTexture = ModContent.GetTexture("OrchidMod/Effects/Textures/RadialGradient");
 
@@ -26,6 +27,7 @@ namespace OrchidMod.Effects
 
 		public static void Unload()
 		{
+			LensFlareTexture = null;
 			PerlinNoiseTexture = null;
 			RadialGradientTexture = null;
 
@@ -48,6 +50,7 @@ namespace OrchidMod.Effects
 		public static Effect ShroomiteZoneEffect { get; private set; }
 
 		// Textures
+		public static Texture2D LensFlareTexture { get; private set; }
 		public static Texture2D PerlinNoiseTexture { get; private set; }
 		public static Texture2D RadialGradientTexture { get; private set; }
 	}

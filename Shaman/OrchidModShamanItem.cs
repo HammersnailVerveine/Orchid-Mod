@@ -29,39 +29,38 @@ namespace OrchidMod.Shaman
 			orchidItem.shamanWeapon = true;
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
 		}
 		
-		public override void GetWeaponCrit(Player player, ref int crit) {
+		public override void GetWeaponCrit(Player player, ref int crit)
+		{
 			crit += player.GetModPlayer<OrchidModPlayer>().shamanCrit;
 		}
 		
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).shamanCrit)
-                crit = true;
+			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).shamanCrit) crit = true;
 			else crit = false;
 		}
 		
-		public override bool CloneNewInstances {
-			get
-			{
-				return true;
-			}
-		}
+		public override bool CloneNewInstances => true;
 
-		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
 			if (tt != null) {
 				string[] splitText = tt.text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " shamanic " + damageWord;
+				tt.text = damageValue + " shamanic damage";
 			}
 			
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
+			Mod thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
 				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
 				if (index != -1)
 				{
@@ -72,7 +71,7 @@ namespace OrchidMod.Shaman
 				}
 			}
 			
-			if (empowermentType > 0)
+			if (empowermentType > 0 && empowermentLevel > 0)
 			{
 				Color[] colors = new Color[5]
 				{
@@ -86,8 +85,8 @@ namespace OrchidMod.Shaman
 				string[] strType = new string[5] { "Fire", "Water", "Air", "Earth", "Spirit" };
 				string[] strLevel = new string[5] { "I", "II", "III", "IV", "V" };
 
-				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
-				if (index != -1) tooltips.Insert(index, new TooltipLine(mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[empowermentType - 1]).Hex3()}:{strType[empowermentType - 1]} {strLevel[empowermentLevel - 1]}]"));
+				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[empowermentType - 1]).Hex3()}:{strType[empowermentType - 1]} {strLevel[empowermentLevel - 1]}]"));
 			}
 		}
 	}
