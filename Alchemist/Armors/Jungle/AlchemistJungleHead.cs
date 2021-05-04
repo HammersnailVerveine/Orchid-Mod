@@ -22,7 +22,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Blooming Hood");
+		  DisplayName.SetDefault("Lily Hood");
 		  Tooltip.SetDefault("20% increased potency regeneration"
 							+  "\nMaximum number of simultaneous alchemical elements increased by 1");
 		}
@@ -60,7 +60,9 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 		public override void AddRecipes()
 		{
 		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(331, 8); // Jungle Spores
+			recipe.AddIngredient(null, "JungleLilyItemBloomed", 1);
+			recipe.AddIngredient(210, 1); // Vine
+			recipe.AddIngredient(331, 3); // Jungle Spores
 			recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

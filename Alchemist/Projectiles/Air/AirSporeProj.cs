@@ -41,15 +41,6 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				projectile.netUpdate = true;
 				this.initialized = true;
 			}
-			
-			if (projectile.timeLeft % 50 == 0) {
-				for(int i=0; i<5; i++)
-				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 16);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].noLight = true;
-				}
-			}
 
 			if (projectile.timeLeft <= 550) {
 				if (projectile.timeLeft == 550) {

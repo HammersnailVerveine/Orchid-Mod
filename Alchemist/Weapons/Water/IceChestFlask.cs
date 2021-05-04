@@ -54,6 +54,14 @@ namespace OrchidMod.Alchemist.Weapons.Water
 				newProjectile.position.X = projectile.Center.X - (newProjectile.width / 2);
 				newProjectile.position.Y = projectile.Center.Y - (newProjectile.width / 2);
 				newProjectile.netUpdate = true;
+				
+				for (int i = 0 ; i < 20 ; i ++) {
+					int dust = Dust.NewDust(newProjectile.position, newProjectile.width, newProjectile.height, 261);
+					Main.dust[dust].scale = 1.2f;
+					Main.dust[dust].noGravity = true;
+					Main.dust[dust].velocity.X /= 3;
+					Main.dust[dust].velocity.Y /= 3;
+				}
 			}
 		}
 		

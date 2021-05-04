@@ -42,8 +42,13 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f) {
 				target.AddBuff(mod.BuffType("SlimeSlow"), 90 * (alchProj.nbElements * 2));
 			}
-			if (Main.rand.Next(10) < alchProj.nbElements && !alchProj.noCatalyticSpawn) {
+			
+			int rand = alchProj.nbElements;
+			rand += alchProj.hasCloud() ? 2 : 0;
+			rand += player.HasBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>()) ? 2 : 0;
+			if (Main.rand.Next(10) < rand && !alchProj.noCatalyticSpawn) {
 				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				dmg += player.HasBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>()) ? 5 : 0;
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);

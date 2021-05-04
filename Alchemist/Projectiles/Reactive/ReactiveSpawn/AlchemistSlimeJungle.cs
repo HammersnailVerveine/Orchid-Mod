@@ -7,13 +7,15 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 {
-	public class AlchemistSlimeLava : OrchidModAlchemistProjectile
+	public class AlchemistSlimeJungle : OrchidModAlchemistProjectile
 	{
-		public override void SetStaticDefaults() {
-            DisplayName.SetDefault("Alchemic Lava Slime");
+		public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Alchemic Spiked Slime");
         } 
 		
-		public override void SafeSetDefaults() {
+		public override void SafeSetDefaults()
+		{
 			projectile.width = 14;
             projectile.height = 10;
             projectile.aiStyle = 63;
@@ -30,24 +32,20 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 			if (projectile.velocity.X > 5) projectile.velocity.X = 5;
 			if (projectile.velocity.X < -5) projectile.velocity.X = -5;
 			projectile.frame = projectile.velocity.Y < 0f ? 1 : 0;
-			
-			if (Main.rand.Next(10) == 0) {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
-				Main.dust[dust].scale = 1.5f;
-				Main.dust[dust].noGravity = true;
-			}
 		}
 		
-		public override bool OnTileCollide(Vector2 oldVelocity) {
+		public override bool OnTileCollide(Vector2 oldVelocity)
+        {
             projectile.velocity.Y = -3;
             return false;
         }
 		
-		public override void Kill(int timeLeft) {
+		public override void Kill(int timeLeft)
+        {
             for(int i=0; i<5; i++)
             {
                 int Alpha = 175;
-                Color newColor = new Color(255, 80, 0, 0);
+                Color newColor = new Color(60, 120, 30, 0);
 			    int dust = Dust.NewDust(projectile.position + Vector2.One * 6f, projectile.width, projectile.height, 4, 0.0f, 0.0f, Alpha, newColor, 1.2f);
 			    Main.dust[dust].noGravity = true;
 			    Main.dust[dust].scale = 1.7f;
@@ -57,7 +55,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
         }
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-			target.AddBuff(BuffID.OnFire, 60 * 3);
+			target.AddBuff(20, 60 * 5); // Poisoned
 		}
     }
 }

@@ -40,7 +40,14 @@ namespace OrchidMod.Alchemist
 		BUBBLES = 19,
 		SUNFLOWERSEEDS = 20,
 		STELLARTALCORBIT = 21,
-		ATTRACTITESHURIKENS = 22
+		ATTRACTITESHURIKENS = 22,
+		JUNGLELILYPURIFICATION = 23,
+		BUBBLESLIMELAVA = 24,
+		PERMANENTFREEZE = 25,
+		POISONOUSSLIME = 26,
+		LILIESPURIFICATION = 27,
+		BURNINGSAMPLES = 28,
+		LIVINGBEEHIVE = 29
     }
 	
 	public class AlchemistHiddenReaction {
@@ -178,6 +185,21 @@ namespace OrchidMod.Alchemist
 			int itemType = ItemType<KingSlimeFlask>();
 			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubble>();
+			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
+		}
+		
+		public static void BubbleSlimeLava(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			for (int i=0; i < 10; i++) {
+				int alpha = 175;
+				Color newColor = new Color(0, 80, (int) byte.MaxValue, 100);
+				int dust = Dust.NewDust(player.Center, 10, 10, 4, 0.0f, 0.0f, alpha, newColor, 1.2f);
+				Main.dust[dust].velocity *= 1.5f;
+				Main.dust[dust].scale *= 1f;
+			}
+			
+			int itemType = ItemType<HellSlimeFlask>();
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubbleLava>();
 			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 		}
 		
@@ -416,6 +438,63 @@ namespace OrchidMod.Alchemist
 				Main.dust[dust].velocity *= 2f;
 				Main.dust[dust].scale *= 1.5f;
 			}
+		}
+		
+		public static void PermanentFreeze(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(BuffType<Alchemist.Buffs.IceChestFlaskBuff>(), 60 * 60);
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 261);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		public static void PoisonousSlime(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>(), 60 * 60);
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 44);
+				Main.dust[dust].noGravity = false;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		public static void LiliesPurification(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(BuffType<Alchemist.Buffs.JungleLilyExtractBuff>(), 60 * 60);
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 15);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		public static void BurningSamples(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(BuffType<Alchemist.Buffs.SlimeFlaskBuff>(), 60 * 60);
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 29);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		public static void LivingBeehive(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(BuffType<Alchemist.Buffs.QueenBeeFlaskBuff>(), 60 * 60);
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 153);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		public static void JungleLilyPurification(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.JungleLilyFlaskReaction>();
+			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, spawnProj, 0, 0f, player.whoAmI);
+			OrchidModProjectile.spawnDustCircle(player.Center, 15, 10, 7, true, 1.5f, 1f, 3f);
+			OrchidModProjectile.spawnDustCircle(player.Center, 15, 15, 10, true, 1.5f, 1f, 5f);
 		}
 	}
 }  

@@ -34,6 +34,9 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.SUNFLOWERSEEDS, -1, "Sunflower Seeds",
 			"Releases damaging sunflower seeds around the player", 15, 2, 85, AlchemistHiddenReaction.SunflowerSeeds,
 			ItemType<SunflowerFlask>(), ItemType<SlimeFlask>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BURNINGSAMPLES, -1, "Burning Samples",
+			"Using slimy samples with a fire element will release damaging embers", 15, 2, 85, AlchemistHiddenReaction.BurningSamples,
+			ItemType<SlimeFlask>(), ItemType<EmberVial>()));
 			
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.GLOWSHROOMHEALING, 1, "Glowshroom Healing", 
 			"Heals the player for 25 health", 30, 2, 25, AlchemistHiddenReaction.GlowshroomHealing,
@@ -57,33 +60,51 @@ namespace OrchidMod.Alchemist
 			
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.PROPULSION, 1, "Propulsion", 
 			"Vertically propels the player", 10, 2, 14, AlchemistHiddenReaction.Propulsion,
-			ItemType<GunpowderFlask>(), ItemType<CouldInAVial>()));
+			ItemType<GunpowderFlask>(), ItemType<CloudInAVial>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.ATTRACTITESHURIKENS, 1, "Attractite Shurikens", 
 			"Creates a maximum of 5 attractite shuriken, inflicting attractite to hit enemies", 15, 2, 25, AlchemistHiddenReaction.AttractiteShurikens,
 			ItemType<AttractiteFlask>(), ItemType<KingSlimeFlask>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.PERMANENTFREEZE, 1, "Permanent Freeze", 
+			"Constantly applies the flash freeze aura around the player", 15, 2, 25, AlchemistHiddenReaction.PermanentFreeze,
+			ItemType<IceChestFlask>(), ItemType<GunpowderFlask>(), ItemType<CloudInAVial>()));
 			
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESLIME, 1, "Slime Bubble", 
 			"Creates a catalytic slime bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleSlime,
-			ItemType<CouldInAVial>(), ItemType<KingSlimeFlask>()));
+			ItemType<CloudInAVial>(), ItemType<KingSlimeFlask>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESAP, 1, "Sap Bubble", 
 			"Creates a catalytic sap bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleSap,
-			ItemType<CouldInAVial>(), ItemType<LivingSapVial>()));
+			ItemType<CloudInAVial>(), ItemType<LivingSapVial>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLEOIL, 1, "Oil Bubble", 
 			"Creates a catalytic oil bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleOil,
-			ItemType<CouldInAVial>(), ItemType<GoblinArmyFlask>()));
+			ItemType<CloudInAVial>(), ItemType<GoblinArmyFlask>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESPIRITED, 2, "Spirited Bubble", 
 			"Creates a catalytic spirit bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleSpirited,
-			ItemType<CouldInAVial>(), ItemType<DungeonFlask>()));
+			ItemType<CloudInAVial>(), ItemType<DungeonFlask>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESEAFOAM, 1, "Seafoam Bubble", 
 			"Creates a catalytic seafoam bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleSeafoam,
-			ItemType<CouldInAVial>(), ItemType<SeafoamVial>()));
+			ItemType<CloudInAVial>(), ItemType<SeafoamVial>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLEPOISON, 2, "Poison Bubble", 
 			"Creates a catalytic poison bubble", 20, 2, 85, AlchemistHiddenReaction.BubblePoison,
-			ItemType<CouldInAVial>(), ItemType<PoisonVial>()));
+			ItemType<CloudInAVial>(), ItemType<PoisonVial>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESLIMELAVA, 2, "Lava Slime Bubble", 
+			"Creates a catalytic lava slime bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleSlimeLava,
+			ItemType<CloudInAVial>(), ItemType<HellSlimeFlask>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.JUNGLELILYPURIFICATION, 2, "Lily Purification", 
+			"Cleanses most common early-game debuffs and blooms jungle lilies around the user", 10, 2, 85, AlchemistHiddenReaction.JungleLilyPurification,
+			ItemType<JungleLilyFlask>(), ItemType<CorruptionFlask>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.LILIESPURIFICATION, 2, "Purifying Lilies", 
+			"Each alchemical attack using 2 or more elements will release a purifying aura", 10, 2, 85, AlchemistHiddenReaction.LiliesPurification,
+			ItemType<JungleLilyFlask>(), ItemType<CorruptionFlask>(), ItemType<GunpowderFlask>()));
 			
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POISONOUSSLIME, 2, "Poisonous Slime", 
+			"Increases the likelyhood of spawning slime bubbles, creating spiked jungle slimes", 20, 2, 85, AlchemistHiddenReaction.PoisonousSlime,
+			ItemType<KingSlimeFlask>(), ItemType<PoisonVial>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BEESWARM, 2, "Bee Swarm", 
 			"Releases a swarm of harmful bees around the player", 25, 2, 97, AlchemistHiddenReaction.BeeSwarm,
 			ItemType<QueenBeeFlask>(), ItemType<PoisonVial>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.LIVINGBEEHIVE, 2, "Living Beehive", 
+			"Every attack using 3 or more element will summon bees", 25, 2, 97, AlchemistHiddenReaction.LivingBeehive,
+			ItemType<QueenBeeFlask>(), ItemType<GunpowderFlask>(), ItemType<JungleLilyFlask>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLES, 2, "Bubbles", 
 			"Releases bubbles over a large area", 15, 2, 85, AlchemistHiddenReaction.Bubbles,
 			ItemType<SeafoamVial>(), ItemType<PoisonVial>()));
@@ -105,7 +126,7 @@ namespace OrchidMod.Alchemist
 			ItemType<BlinkrootFlask>(), ItemType<ShiverthornFlask>(), ItemType<MoonglowFlask>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONFEATHERFALL, 1, "Featherfall Potion", 
 			"Gives 30 seconds of Featherfall Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionFeatherFall,
-			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>(), ItemType<CouldInAVial>()));
+			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>(), ItemType<CloudInAVial>()));
 			
 			return recipes;
 		}
@@ -124,13 +145,14 @@ namespace OrchidMod.Alchemist
 		
 		public static bool checkSubstitutes(int ingredientID, Mod mod, Player player, OrchidModPlayer modPlayer) {
 			List<int> ingredientToCompare = new List<int>();
-			ingredientToCompare.Add(ItemType<CouldInAVial>());
+			ingredientToCompare.Add(ItemType<CloudInAVial>());
 			ingredientToCompare.Add(ItemType<AttractiteFlask>());
 			ingredientToCompare.Add(ItemType<BlinkrootFlask>());
 			ingredientToCompare.Add(ItemType<ShiverthornFlask>());
+			ingredientToCompare.Add(ItemType<CorruptionFlask>());
 			
 			foreach (int ingredient in ingredientToCompare) {
-				if (ingredientID == ItemType<CouldInAVial>()) {
+				if (ingredientID == ItemType<CloudInAVial>()) {
 					return (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<FartInAVial>(), player, modPlayer)
 					|| OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<BlizzardInAVial>(), player, modPlayer)
 					|| OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<TsunamiInAVial>(), player, modPlayer));
@@ -143,6 +165,9 @@ namespace OrchidMod.Alchemist
 				}
 				if (ingredientID == ItemType<ShiverthornFlask>()) {
 					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<DeathweedFlask>(), player, modPlayer);
+				}
+				if (ingredientID == ItemType<CorruptionFlask>()) {
+					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<CrimsonFlask>(), player, modPlayer);
 				}
 			}
 			return false;

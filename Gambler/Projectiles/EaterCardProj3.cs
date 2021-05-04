@@ -24,6 +24,7 @@ namespace OrchidMod.Gambler.Projectiles
 		
         public override void SafeAI()
         {
+			OrchidModProjectile.resetIFrames(projectile);
 			for (int i = 0 ; i < 10 ; i ++) {
 				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 18);
 				Main.dust[dust2].scale = 1.2f;

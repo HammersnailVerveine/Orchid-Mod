@@ -1017,6 +1017,27 @@ namespace OrchidMod
 				}
 			}
 		}
+		
+		private void placeLilies() {
+			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 0.02); k++) {
+				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
+				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+				
+				if (!Framing.GetTileSafely(x, y).active() && !Framing.GetTileSafely(x + 1, y).active() && 
+				!Framing.GetTileSafely(x , y - 1).active() && !Framing.GetTileSafely(x + 1 , y - 1).active()) {
+					if (Framing.GetTileSafely(x, y + 1).type == 60 && Framing.GetTileSafely(x + 1, y + 1).type == 60) {
+						
+						for (int w = 0; w < 2; w ++) {
+							for (int q = 0; q < 2; q++) {
+								Tile tile = Framing.GetTileSafely(x + w, y - q);
+								tile.ClearTile();
+							}
+						}
+						WorldGen.PlaceTile(x, y, TileType<Tiles.Ambient.JungleLilyTile>());
+					}
+				}
+			}
+		}
 
 		public void placeFossils() {
 			int fossilQuantity = WorldGen.genRand.Next(5, 5 + (int)(2f * (Main.maxTilesX / 800f)));
@@ -1122,6 +1143,9 @@ namespace OrchidMod
 					
 					progress.Message = "Generating Static Quartz";
 					this.placeQuartz();
+					
+					progress.Message = "Generating Jungle Lilies";
+					this.placeLilies();
 
 				//	placeFossils();
 				}));
@@ -1255,7 +1279,7 @@ namespace OrchidMod
 						flareGun++;
 					}
 					if (rand == 8) chest.item[1].SetDefaults(ItemType<Shaman.Weapons.EnchantedScepter>());
-					if (rand == 9) chest.item[1].SetDefaults(ItemType<Alchemist.Weapons.Air.CouldInAVial>());
+					if (rand == 9) chest.item[1].SetDefaults(ItemType<Alchemist.Weapons.Air.CloudInAVial>());
 					chest.item[2 + flareGun].SetDefaults(965); // Rope
 					chest.item[2 + flareGun].stack = Main.rand.Next(50, 100);
 					chest.item[3 + flareGun].SetDefaults(166); // Bomb
@@ -1329,7 +1353,7 @@ namespace OrchidMod
 							spawnedEnchantedScepter = placeInChest(chest, ItemType<Shaman.Weapons.EnchantedScepter>(), 1);
 						} else {
 							if (Main.rand.Next(100) > 0) {
-								spawnedCloudInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.CouldInAVial>(), 1);
+								spawnedCloudInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), 1);
 							} else {
 								spawnedCloudInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.FartInAVial>(), 1);
 							}
@@ -1448,7 +1472,7 @@ namespace OrchidMod
 						spawnedEnchantedScepter = placeInChest(chest, ItemType<Shaman.Weapons.EnchantedScepter>(), 1);
 					}
 					if (!spawnedCloudInAVial) {
-						spawnedCloudInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.CouldInAVial>(), 1);
+						spawnedCloudInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), 1);
 					}
 				}
 

@@ -53,6 +53,22 @@ namespace OrchidMod.Alchemist.Weapons.Water
 				OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1f, 1f, 5f, true, true, false, 0, 0, true);
 				OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, true);
 				Main.PlaySound(2, (int)projectile.Center.X ,(int)projectile.Center.Y, 45);
+				
+				if (player.HasBuff(BuffType<Alchemist.Buffs.SlimeFlaskBuff>())) {
+					int nb = 2 + Main.rand.Next(3);
+					for (int i = 0 ; i < nb ; i ++) {
+						Vector2 vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(80)));
+						int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.EmberVialProjAlt>();
+						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+					}
+					int itemType = ItemType<Alchemist.Weapons.Fire.EmberVial>();
+					int dmgAlt = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, alchProj.nbElements, true);
+					int rand = alchProj.nbElements + Main.rand.Next(2);
+					for (int i = 0 ; i < rand ; i ++) {
+						Vector2 vel = (new Vector2(0f, -3f).RotatedByRandom(MathHelper.ToRadians(60)));
+						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Fire.EmberVialProj>(), dmgAlt, 0f, projectile.owner);
+					}
+				}
 			}
 		}
 	}

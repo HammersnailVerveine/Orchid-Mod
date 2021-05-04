@@ -68,14 +68,6 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 		
         public override void AI()
         {
-			for (int i = 0 ; i < 20 ; i ++) {
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 261);
-				Main.dust[dust2].scale = 1.2f;
-				Main.dust[dust2].noGravity = true;
-				Main.dust[dust2].velocity.X /= 3;
-				Main.dust[dust2].velocity.Y /= 3;
-			}
-			
 			for (int l = 0; l < Main.npc.Length; l++) {  
 				NPC target = Main.npc[l];
 				if (projectile.Hitbox.Intersects(target.Hitbox))  {

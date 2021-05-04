@@ -54,7 +54,9 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 				target.AddBuff(mod.BuffType("SlimeSlow"), 90 * (alchProj.nbElements * 2));
 			}
 			
-			if (Main.rand.Next(10) < alchProj.nbElements && !alchProj.noCatalyticSpawn) {
+			int rand = alchProj.nbElements;
+			rand += alchProj.hasCloud() ? 2 : 0;
+			if (Main.rand.Next(10) < rand && !alchProj.noCatalyticSpawn) {
 				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubbleLava>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
@@ -62,10 +64,10 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			}
 			
 			if (modTarget.alchemistFire > 0) {
-				int rand = Main.rand.Next(3) + 3;
+				int nb = Main.rand.Next(3) + 3;
 				int dmg = (int)(getSecondaryDamage(modPlayer, alchProj.nbElements) * 1.5);
 				int proj = ProjectileType<Alchemist.Projectiles.Fire.HellSlimeFlaskProj>();
-				for (int i = 0 ; i < rand ; i ++) {
+				for (int i = 0 ; i < nb ; i ++) {
 					Vector2 perturbedSpeed = projectile.velocity.RotatedByRandom(MathHelper.ToRadians(15)) * 0.75f;
 					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 1f, projectile.owner);
 				}

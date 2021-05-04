@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Blooming Leggings");
+		  DisplayName.SetDefault("Lily Leggings");
 		  Tooltip.SetDefault("10% increased chemical damage");
 		}
 
@@ -33,8 +33,9 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 		public override void AddRecipes()
 		{
 		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(331, 8); // Jungle Spores
+			recipe.AddIngredient(null, "JungleLilyItemBloomed", 1);
 			recipe.AddIngredient(210, 2); // Vine
+			recipe.AddIngredient(331, 3); // Jungle Spores
 			recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

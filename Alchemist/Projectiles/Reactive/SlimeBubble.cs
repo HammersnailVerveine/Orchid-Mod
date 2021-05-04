@@ -56,7 +56,8 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 		public override void SafeKill(int timeLeft, Player player, OrchidModPlayer modPlayer)
         {
 			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 85);
-			int proj = ProjectileType<Alchemist.Projectiles.Reactive.ReactiveSpawn.AlchemistSlime>();
+			int proj = player.HasBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>()) ? ProjectileType<Alchemist.Projectiles.Reactive.ReactiveSpawn.AlchemistSlimeJungle>()
+			: ProjectileType<Alchemist.Projectiles.Reactive.ReactiveSpawn.AlchemistSlime>();
 			int dmg = projectile.damage;
 			int rand = Main.rand.Next(3) + 2;
             for(int i=0; i<rand; i++)

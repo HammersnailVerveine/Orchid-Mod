@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blooming Tunic");
+			DisplayName.SetDefault("Lily Tunic");
 			Tooltip.SetDefault("Maximum potency increased by 3"
 							+  "\nIncreases alchemic main projectile velocity by 20%");
 		}
@@ -35,8 +35,9 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 		public override void AddRecipes()
 		{
 		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(331, 16); // Jungle Spores
-			recipe.AddIngredient(209, 10); // Stinger
+			recipe.AddIngredient(null, "JungleLilyItemBloomed", 1);
+			recipe.AddIngredient(210, 1); // Vine
+			recipe.AddIngredient(331, 5); // Jungle Spores
 			recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
