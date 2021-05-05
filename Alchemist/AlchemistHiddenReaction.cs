@@ -47,7 +47,10 @@ namespace OrchidMod.Alchemist
 		POISONOUSSLIME = 26,
 		LILIESPURIFICATION = 27,
 		BURNINGSAMPLES = 28,
-		LIVINGBEEHIVE = 29
+		LIVINGBEEHIVE = 29,
+		DEMONREEKS = 30,
+		SPIRITEDDROPLETS = 31,
+		MISTYSTEPS = 32
     }
 	
 	public class AlchemistHiddenReaction {
@@ -484,6 +487,37 @@ namespace OrchidMod.Alchemist
 			player.AddBuff(BuffType<Alchemist.Buffs.QueenBeeFlaskBuff>(), 60 * 60);
 			for (int i=0; i < 10; i++) {
 				int dust = Dust.NewDust(player.Center, 10, 10, 153);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		public static void DemonReeks(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(BuffType<Alchemist.Buffs.DemonBreathFlaskBuff>(), 60 * 60);
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 21);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		public static void SpiritedDroplets(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(BuffType<Alchemist.Buffs.SpiritedWaterBuff>(), 60 * 60);
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 29);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		
+		public static void MistySteps(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(BuffType<Alchemist.Buffs.BloodMistFlaskBuff>(), 60 * 60);
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 5);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 2f;
 				Main.dust[dust].scale *= 1.5f;

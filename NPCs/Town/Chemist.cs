@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Alchemist;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -149,7 +151,7 @@ namespace OrchidMod.NPCs.Town
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			button = Language.GetTextValue("LegacyInterface.28");
-			button2 = modPlayer.alchemistChemistFirstInteraction ? "Reaction Hint" : "Alchemy Basics";
+			button2 = checkUniqueHints(player, modPlayer, false) == "" ? "Reaction Hint" : "Special Hint!";
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop) {
@@ -157,29 +159,50 @@ namespace OrchidMod.NPCs.Town
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			if (firstButton) {
 				shop = true;
-			}
-			else {
-				if (!modPlayer.alchemistChemistFirstInteraction) {
-					Main.npcChatText = $"Since it's your first time talking to me, I will give you a reminder to check your modded keybinds, the hidden reaction system is really important for an alchemist!  Talk to me again if you want hints to find some of them based on your progression.";
-					modPlayer.alchemistChemistFirstInteraction = true;
-				} else {
-					switch (Main.rand.Next(5)) {
-						case 0:
-							Main.npcChatText = $"If you happen to need some corrosion-resistant lab equipment, glowing mushroom extract makes an excellent plastic filament when mixed with bioluminescent root. Don't expect it to sell for much, though. That mushroom smell never washes off.";
-							break;
-						case 1:
-							Main.npcChatText = $"What keeps clouds in the sky? Who knows! How could you get one up there? Gunpowder, probably. Got any clouds to try it with?";
-							break;
-						case 2:
-							Main.npcChatText = $"You know, brewing something drinkable isn't exactly rocket science. You could probably do it on the fly with the right ingredients.";
-							break;
-						case 3:
-							Main.npcChatText = $"Attractite has some interesting chemistry with plant matter, seeming to function as some form of hormonal accelerant. Just keep it outside of my room. Getting all of those spores out of my hair was a nightmare...";
-							break;
-						default:
-							Main.npcChatText = $"Clouds are pretty useful for bubbling up a reaction quicker! Or a bath. I could use a nice bath.";
-							break;
+			} else {
+				string uniqueStr = checkUniqueHints(player, modPlayer, true);
+				if (uniqueStr == "") {
+					if (!modPlayer.alchemistDailyHint) {
+						if (this.getDailyHint(player, modPlayer)) {
+							modPlayer.alchemistDailyHint = true;
+							switch (Main.rand.Next(6)) {
+								case 0:
+									Main.npcChatText = $"Here's your daily recipe... note that it itself is not an ingredient.";
+									break;
+								case 1:
+									Main.npcChatText = $"There you go, try not to lose a hand with this one.";
+									break;
+								case 2:
+									Main.npcChatText = $"I didn't take the time to try that one, if I don't see you tomorrow, I'll assume it doesn't work.";
+									break;
+								case 3:
+									Main.npcChatText = $"And one perfectly fine recipe, completely free of charge! Or is it?";
+									break;
+								case 4:
+									Main.npcChatText = $"That one should work. Maybe. Possibly. I wouldn't put you in danger, would I?";
+									break;
+								default:
+									Main.npcChatText = $"If it's free, you're probably the product, you say? Naaah... please, just don't try it in the vicinity.";
+									break;
+							}
+						} else {
+							Main.npcChatText = $"I need time to think about more recipes. Maybe can you go and kill a few baddies, meanwhile?";
+						}
+					} else {
+						switch (Main.rand.Next(3)) {
+							case 0:
+								Main.npcChatText = $"Over-exposure to my brilliant ideas may be dangerous for a trainee.";
+								break;
+							case 1:
+								Main.npcChatText = $"I already gave you one today, why don't you try and come up with your own recipes?";
+								break;
+							default:
+								Main.npcChatText = $"There's nothing I need you to test for me right now. Wait, what did I just say?";
+								break;
+						}
 					}
+				} else {
+					Main.npcChatText = uniqueStr;
 				}
 			}
 		}
@@ -246,6 +269,85 @@ namespace OrchidMod.NPCs.Town
 		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset) {
 			multiplier = 12f;
 			randomOffset = 2f;
+		}
+		
+		public bool getDailyHint(Player player, OrchidModPlayer modPlayer) {
+			int progression = OrchidModAlchemistHelper.getProgressLevel();
+			
+			while (progression > 0) {
+				bool validHint = false;
+				foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes) {
+					if (recipe.reactionLevel == progression) {
+						if (!(modPlayer.alchemistKnownReactions.Contains((int)recipe.reactionType) || modPlayer.alchemistKnownHints.Contains((int)recipe.reactionType))) {
+							validHint = true;
+							break;
+						}
+					}
+				}
+				
+				if (validHint) {
+					int scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier1>();
+					switch (progression) {
+						case 2:
+							scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier2>();
+							break;
+						case 3:
+							scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier3>();
+							break;
+						case 4:
+							scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier4>();
+							break;
+						case 5:
+							scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier5>();
+							break;
+						case 6:
+							scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier6>();
+							break;
+						default:
+							scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier1>();
+							break;
+					}
+					player.QuickSpawnItem(scrollType, 1);
+					return true;
+				} else {
+					progression --;
+				}
+			} 
+			return false;
+		}
+		
+		public string checkUniqueHints(Player player, OrchidModPlayer modPlayer, bool buttonClicked) {
+			List<int> reactions = new List<int>(modPlayer.alchemistKnownReactions);
+			reactions.AddRange(modPlayer.alchemistKnownHints);
+			
+			if (!reactions.Contains((int)AlchemistHiddenReactionType.FIRESPORES)
+			|| !reactions.Contains((int)AlchemistHiddenReactionType.WATERSPORES)
+			|| !reactions.Contains((int)AlchemistHiddenReactionType.AIRSPORES)) {
+				if (buttonClicked) {
+					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -3, false);
+					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -3, false);
+					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -3, false);
+				}
+				return "Since this is your first time asking, here are three hints for the price of one! I'd highly advise getting your hands on a hidden reactions codex, now...";
+			}
+			
+			if (!reactions.Contains((int)AlchemistHiddenReactionType.MUSHROOMTHREAD)
+			&& (player.HasItem(183) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>()))) {
+				if (buttonClicked) {
+					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -2, false);
+				}
+				return "I see you found some glowing mushrooms. Did you know that you can make a pretty good thread with them? Here's the recipe.";
+			}
+			
+			if (!reactions.Contains((int)AlchemistHiddenReactionType.JUNGLELILYPURIFICATION)
+			&& (player.HasItem(ModContent.ItemType<Alchemist.Misc.JungleLilyItem>()) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.JungleLilyFlask>()))) {
+				if (buttonClicked) {
+					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -4, false);
+				}
+				return "Jungle lilies, I love these flowers! I bet you're wondering how to make them bloom ain't you? Here's the solution.";
+			}
+			
+			return "";
 		}
 	}
 }

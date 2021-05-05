@@ -45,6 +45,10 @@ namespace OrchidMod
 					if (Main.rand.Next(2) == 0) player.QuickSpawnItem(ItemType<Shaman.Weapons.Hardmode.BulbScepter>(), 1);
 					else player.QuickSpawnItem(ItemType<Shaman.Accessories.FloralStinger>(), 1);
 				}
+				
+				if (Main.rand.Next(20) == 0) {
+					player.QuickSpawnItem(ItemType<General.Items.Vanity.OrnateOrchid>(), 1);
+				}
 			}
 			if (context == "bossBag" && arg == ItemID.GolemBossBag) {
 				if (Main.rand.Next(6) == 0) {

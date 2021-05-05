@@ -241,13 +241,6 @@ namespace OrchidMod.Alchemist.Projectiles
 		}
 		
 		public void KillFirst(int timeLeft, Player player, OrchidModPlayer modPlayer) {
-			if (this.nbElements > 1 && player.HasBuff(BuffType<Alchemist.Buffs.JungleLilyExtractBuff>())) {
-				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.JungleLilyFlaskReaction>();
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, spawnProj, 0, 0f, projectile.owner);
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 10, 7, true, 1.5f, 1f, 3f);
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 15, 10, true, 1.5f, 1f, 5f);
-			}
-			
 			if (this.fireFlaskGlobal != null) {
 				fireFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.fireFlaskGlobal);
 			}
@@ -271,23 +264,16 @@ namespace OrchidMod.Alchemist.Projectiles
 			if (this.darkFlaskGlobal != null) {
 				darkFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.darkFlaskGlobal);
 			}
+			
+			if (this.nbElements > 1 && player.HasBuff(BuffType<Alchemist.Buffs.JungleLilyExtractBuff>())) {
+				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.JungleLilyFlaskReaction>();
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, spawnProj, 0, 0f, projectile.owner);
+				OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 10, 7, true, 1.5f, 1f, 3f);
+				OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 15, 10, true, 1.5f, 1f, 5f);
+			}
 		}
 		
 		public void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer) {
-			if (this.nbElements > 2 && player.HasBuff(BuffType<Alchemist.Buffs.QueenBeeFlaskBuff>())) {
-				int itemType = ItemType<QueenBeeFlask>();
-				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, this.nbElements, true);
-				int rand = this.nbElements + Main.rand.Next(3);
-				for (int i = 0 ; i < rand ; i ++) {
-					Vector2 vel = ( new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(80)));
-					if (player.strongBees && Main.rand.Next(2) == 0) 
-							Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, 566, (int) (dmg * 1.15f), 0f, player.whoAmI, 0f, 0f);
-					else {
-						Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, 181, dmg, 0f, player.whoAmI, 0f, 0f);
-					}
-				}
-			}
-			
 			if (this.fireFlaskGlobal != null) {
 				fireFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.fireFlaskGlobal);
 			}
@@ -310,6 +296,30 @@ namespace OrchidMod.Alchemist.Projectiles
 			
 			if (this.darkFlaskGlobal != null) {
 				darkFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.darkFlaskGlobal);
+			}
+			
+			if (this.nbElements > 2 && player.HasBuff(BuffType<Alchemist.Buffs.QueenBeeFlaskBuff>())) {
+				int itemType = ItemType<QueenBeeFlask>();
+				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, this.nbElements, true);
+				int rand = this.nbElements + Main.rand.Next(3);
+				for (int i = 0 ; i < rand ; i ++) {
+					Vector2 vel = ( new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(80)));
+					if (player.strongBees && Main.rand.Next(2) == 0) 
+							Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, 566, (int) (dmg * 1.15f), 0f, player.whoAmI, 0f, 0f);
+					else {
+						Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, 181, dmg, 0f, player.whoAmI, 0f, 0f);
+					}
+				}
+			}
+			
+			if (player.HasBuff(BuffType<Alchemist.Buffs.SpiritedWaterBuff>())) {
+				int spawnProj = ProjectileType<Alchemist.Projectiles.Water.DungeonFlaskProj>();
+				int itemType = ItemType<DungeonFlask>();
+				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, this.nbElements, true);
+				for (int i = 0 ; i < this.nbElements ; i ++) {
+					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
+					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
+				}
 			}
 		}
 		

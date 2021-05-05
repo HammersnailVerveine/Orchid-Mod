@@ -33,6 +33,7 @@ namespace OrchidMod
 		
 		public bool abyssalWings = false;
 		public bool hauntedCandle = false;
+		public bool remoteCopterPet = false;
 		public bool spawnedGhost = false;
 		public bool doubleJumpHarpy = false;
 		public bool harpySpaceKeyReleased = false;
@@ -134,11 +135,12 @@ namespace OrchidMod
 		public bool alchemistSelectUIDisplay = true;
 		public bool alchemistSelectUIItem = false;
 		public bool alchemistSelectUIInitialize = false;
-		public bool alchemistChemistFirstInteraction = false;
 		public bool alchemistShootProjectile = false;
 		public bool alchemistBookUIDisplay = false;
 		public bool alchemistBookUIItem = false;
 		public bool alchemistBookUIInitialize = false;
+		public bool alchemistDailyHint = false;
+		public bool alchemistEntryTextCooldown = false;
 		
 		public bool alchemistMeteor = false;
 		public bool alchemistFlowerSet = false;
@@ -263,16 +265,16 @@ namespace OrchidMod
 			return new TagCompound
 			{
 				["GamblerCardsItem"] = gamblerCardsItem.Select(ItemIO.Save).ToList(),
-				["ChemistHint"] = alchemistChemistFirstInteraction,
+				["ChemistHint"] = alchemistDailyHint,
 				["AlchemistHidden"] = alchemistKnownReactions.ToList(),
-				["AlchemistHints"] = alchemistKnownHints.ToList()
+				["AlchemistHints"] = alchemistKnownHints.ToList(),
 			};
 		}
 		
 		public override void Load(TagCompound tag)
 		{
 			gamblerCardsItem = tag.GetList<TagCompound>("GamblerCardsItem").Select(ItemIO.Load).ToArray();
-			alchemistChemistFirstInteraction = tag.GetBool("ChemistHint");
+			alchemistDailyHint = tag.GetBool("ChemistHint");
 			alchemistKnownReactions = tag.Get<List<int>>("AlchemistHidden");
 			alchemistKnownHints = tag.Get<List<int>>("AlchemistHints");
 		}
@@ -418,6 +420,7 @@ namespace OrchidMod
 		
 		public override void ResetEffects() {
 			customCrit = 0;
+			remoteCopterPet = false;
 			
 			generalTools = false;
 			generalStatic = false;

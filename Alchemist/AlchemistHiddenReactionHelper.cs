@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist
 			2 : Pre Skeletron Vanilla
 			3 : Pre WoF Vanilla
 			4 : Pre Mechs Vanilla
-			5 : Pre Plantera Vanilla
+			5 : Pre Golem Vanilla
 			6 : Endgame Vanilla
 			*/
 			
@@ -34,7 +34,7 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.SUNFLOWERSEEDS, -1, "Sunflower Seeds",
 			"Releases damaging sunflower seeds around the player", 15, 2, 85, AlchemistHiddenReaction.SunflowerSeeds,
 			ItemType<SunflowerFlask>(), ItemType<SlimeFlask>()));
-			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BURNINGSAMPLES, -1, "Burning Samples",
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BURNINGSAMPLES, 1, "Burning Samples",
 			"Using slimy samples with a fire element will release damaging embers", 15, 2, 85, AlchemistHiddenReaction.BurningSamples,
 			ItemType<SlimeFlask>(), ItemType<EmberVial>()));
 			
@@ -64,9 +64,15 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.ATTRACTITESHURIKENS, 1, "Attractite Shurikens", 
 			"Creates a maximum of 5 attractite shuriken, inflicting attractite to hit enemies", 15, 2, 25, AlchemistHiddenReaction.AttractiteShurikens,
 			ItemType<AttractiteFlask>(), ItemType<KingSlimeFlask>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.MISTYSTEPS, 1, "Misty Steps", 
+			"Releases harmful mist when moving", 20, 2, 85, AlchemistHiddenReaction.MistySteps,
+			ItemType<BloodMoonFlask>(), ItemType<CloudInAVial>(), ItemType<GlowingMushroomVial>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.PERMANENTFREEZE, 1, "Permanent Freeze", 
 			"Constantly applies the flash freeze aura around the player", 15, 2, 25, AlchemistHiddenReaction.PermanentFreeze,
 			ItemType<IceChestFlask>(), ItemType<GunpowderFlask>(), ItemType<CloudInAVial>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.STELLARTALCORBIT, 2, "Stellar Talc Orbit", 
+			"Stellar Talc projectiles will orbit the user", 20, 2, 85, AlchemistHiddenReaction.StellarTalcOrbit,
+			ItemType<SunplateFlask>(), ItemType<AttractiteFlask>()));
 			
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESLIME, 1, "Slime Bubble", 
 			"Creates a catalytic slime bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleSlime,
@@ -77,7 +83,7 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLEOIL, 1, "Oil Bubble", 
 			"Creates a catalytic oil bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleOil,
 			ItemType<CloudInAVial>(), ItemType<GoblinArmyFlask>()));
-			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESPIRITED, 2, "Spirited Bubble", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESPIRITED, 3, "Spirited Bubble", 
 			"Creates a catalytic spirit bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleSpirited,
 			ItemType<CloudInAVial>(), ItemType<DungeonFlask>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESEAFOAM, 1, "Seafoam Bubble", 
@@ -86,10 +92,10 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLEPOISON, 2, "Poison Bubble", 
 			"Creates a catalytic poison bubble", 20, 2, 85, AlchemistHiddenReaction.BubblePoison,
 			ItemType<CloudInAVial>(), ItemType<PoisonVial>()));
-			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESLIMELAVA, 2, "Lava Slime Bubble", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLESLIMELAVA, 3, "Lava Slime Bubble", 
 			"Creates a catalytic lava slime bubble", 20, 2, 85, AlchemistHiddenReaction.BubbleSlimeLava,
 			ItemType<CloudInAVial>(), ItemType<HellSlimeFlask>()));
-			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.JUNGLELILYPURIFICATION, 2, "Lily Purification", 
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.JUNGLELILYPURIFICATION, -4, "Lily Purification", 
 			"Cleanses most common early-game debuffs and blooms jungle lilies around the user", 10, 2, 85, AlchemistHiddenReaction.JungleLilyPurification,
 			ItemType<JungleLilyFlask>(), ItemType<CorruptionFlask>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.LILIESPURIFICATION, 2, "Purifying Lilies", 
@@ -108,9 +114,12 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BUBBLES, 2, "Bubbles", 
 			"Releases bubbles over a large area", 15, 2, 85, AlchemistHiddenReaction.Bubbles,
 			ItemType<SeafoamVial>(), ItemType<PoisonVial>()));
-			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.STELLARTALCORBIT, 2, "Stellar Talc Orbit", 
-			"Stellar Talc projectiles will orbit the user", 20, 2, 85, AlchemistHiddenReaction.StellarTalcOrbit,
-			ItemType<SunplateFlask>(), ItemType<AttractiteFlask>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.SPIRITEDDROPLETS, 3, "Spirited Droplets", 
+			"Chemical attacks will release spirited water flames", 20, 2, 85, AlchemistHiddenReaction.SpiritedDroplets,
+			ItemType<DungeonFlask>(), ItemType<GunpowderFlask>(), ItemType<AttractiteFlask>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.DEMONREEKS, 3, "Demon Reeks", 
+			"Demon breath projectiles will replicate on death", 20, 2, 85, AlchemistHiddenReaction.DemonReeks,
+			ItemType<ShadowChestFlask>(), ItemType<GoblinArmyFlask>()));
 			
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONFLIPPER, 1, "Flipper Potion", 
 			"Gives 30 seconds of Flipper Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionFlipper,
@@ -291,7 +300,7 @@ namespace OrchidMod.Alchemist
 			}
 		}
 		
-		public static void addAlchemistHint(Player player, OrchidModPlayer modPlayer, int hintLevel) {
+		public static void addAlchemistHint(Player player, OrchidModPlayer modPlayer, int hintLevel, bool negativeMessage = true) {
 			Color floatingTextColor = new Color(0,0,0);
 			string floatingTextStr = "";
 			List<AlchemistHiddenReactionRecipe> validHints = new List<AlchemistHiddenReactionRecipe>();
@@ -305,16 +314,21 @@ namespace OrchidMod.Alchemist
 			}
 			
 			if (validHints.Count == 0) {
-				floatingTextColor = new Color(255, 92, 0);
-				floatingTextStr = "No hints left for this tier";
-				CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
+				if (negativeMessage) {
+					floatingTextColor = new Color(255, 92, 0);
+					floatingTextStr = "No hints left for this tier";
+					CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
+				}
 			} else {
 				int rand = Main.rand.Next(validHints.Count);
 				AlchemistHiddenReactionRecipe hint = validHints[rand];
 				modPlayer.alchemistKnownHints.Add((int)hint.reactionType);
-				floatingTextColor = new Color(255, 187, 0);
-				floatingTextStr = "New Hidden Reaction Hint";
-				CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
+				if (!modPlayer.alchemistEntryTextCooldown) {
+					floatingTextColor = new Color(255, 187, 0);
+					floatingTextStr = "New Hidden Reaction Hint";
+					CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
+					modPlayer.alchemistEntryTextCooldown = true;
+				}
 			}
 		}
 	}

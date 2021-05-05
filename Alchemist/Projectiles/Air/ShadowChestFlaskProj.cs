@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
  
 namespace OrchidMod.Alchemist.Projectiles.Air
 {
@@ -24,7 +25,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
             projectile.friendly = true;
 			projectile.scale = 1f;
 			projectile.alpha = 172;
-            projectile.aiStyle = 29;
+            projectile.aiStyle = 0;
 			projectile.timeLeft = 120;
 			projectile.penetrate = -1; 
         }
@@ -65,6 +66,21 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].velocity *= 3f;
             }
+			
+			if (Main.player[projectile.owner].HasBuff(BuffType<Alchemist.Buffs.DemonBreathFlaskBuff>()) && projectile.ai[1] != 2f) {
+				Vector2 vel = projectile.velocity.RotatedBy(MathHelper.ToRadians(45));
+				int newProjInt = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
+				Projectile newProj = Main.projectile[newProjInt];
+				newProj.ai[1] = 2f;
+				newProj.netUpdate = true;
+			}
+        }
+		
+		public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+			projectile.friendly = false;
+			projectile.velocity = oldVelocity;
+			return false;
         }
 		
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

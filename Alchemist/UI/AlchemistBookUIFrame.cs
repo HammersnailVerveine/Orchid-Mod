@@ -66,9 +66,11 @@ namespace OrchidMod.Alchemist.UI
 					Item item = null;
 						
 					foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes) {
-						if (index < ((this.bookPageIndex * recipesPerPage) + recipesPerPage) && index >= (this.bookPageIndex * recipesPerPage)) {
-							bool knownRecipe = modPlayer.alchemistKnownReactions.Contains((int)recipe.reactionType);
-							bool knownHint = modPlayer.alchemistKnownHints.Contains((int)recipe.reactionType);
+						int progression = OrchidModAlchemistHelper.getProgressLevel();
+						bool knownRecipe = modPlayer.alchemistKnownReactions.Contains((int)recipe.reactionType);
+						bool knownHint = modPlayer.alchemistKnownHints.Contains((int)recipe.reactionType);
+						if (index < ((this.bookPageIndex * recipesPerPage) + recipesPerPage) && index >= (this.bookPageIndex * recipesPerPage) 
+						&& (knownRecipe || knownHint || (progression >= recipe.reactionLevel && recipe.reactionLevel > 0))) {
 							foreach(int ingredientID in recipe.reactionIngredients) {
 								if (knownRecipe || knownHint) {
 									Texture2D itemTexture = Main.itemTexture[ingredientID];
@@ -97,7 +99,7 @@ namespace OrchidMod.Alchemist.UI
 							offSetX = baseOffSetX;
 							offSetY += 35;
 						}
-						index ++;
+						index += (recipe.reactionLevel > 0 || knownRecipe || knownHint) ? 1 : 0;
 					}
 					
 					int maxPages = (int)(OrchidMod.alchemistReactionRecipes.Count / recipesPerPage);

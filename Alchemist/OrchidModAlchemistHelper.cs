@@ -92,6 +92,8 @@ namespace OrchidMod.Alchemist
 				OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
 			}
 			
+			modPlayer.alchemistDailyHint = (Main.dayTime && Main.time == 0) ? false : modPlayer.alchemistDailyHint;
+			
 			modPlayer.alchemistPotencyMax = 8;
 			modPlayer.alchemistRegenPotency = 60;
 			modPlayer.alchemistNbElementsMax = 2;
@@ -102,6 +104,7 @@ namespace OrchidMod.Alchemist
 			modPlayer.alchemistSelectUIItem = false;
 			modPlayer.alchemistBookUIDisplay = modPlayer.alchemistBookUIItem ? modPlayer.alchemistBookUIDisplay : false;
 			modPlayer.alchemistBookUIItem = false;
+			modPlayer.alchemistEntryTextCooldown = false;
 			
 			modPlayer.alchemistMeteor = false;
 			modPlayer.alchemistFlowerSet = false;
@@ -164,6 +167,16 @@ namespace OrchidMod.Alchemist
 			OrchidModGlobalItem globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			int dmg = (int)((globalItem.alchemistSecondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? globalItem.alchemistSecondaryScaling : 1f))) * modPlayer.alchemistDamage);
 			return dmg;
+		}
+		
+		public static int getProgressLevel() {
+			int progression = 1;
+			progression = NPC.downedBoss2 ? 2 : progression;
+			progression = NPC.downedBoss3 ? 3 : progression;
+			progression = Main.hardMode ? 4 : progression;
+			progression = NPC.downedMechBossAny ? 5 : progression;
+			progression = NPC.downedGolemBoss ? 6 : progression;
+			return progression;
 		}
 	}
 }

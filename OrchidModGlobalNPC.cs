@@ -223,6 +223,16 @@ namespace OrchidMod
 				    }
 				}
             }
+			if (NPC.downedBoss1 == true)
+            {
+				if ((npc.type == 347)) // Elf Copter
+				{
+                    if (Main.rand.Next(50) == 0)
+                    {
+                        Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<General.Items.Misc.RCRemote>());
+				    }
+				}
+            }
 			if ((npc.type == NPCID.CultistBoss))
             {
                 int rand;
@@ -363,7 +373,7 @@ namespace OrchidMod
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.SkeletronCard>());
 				}
 				if (alchemistHit) {
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier3>());
 				}
 			}
 			
