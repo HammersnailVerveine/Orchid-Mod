@@ -61,7 +61,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 		public override void Kill(int timeLeft) {
 			int range = 50;
 			OrchidModProjectile.spawnDustCircle(projectile.Center, sporeType, (int)(range / 3), 5, true, 1.25f, 1f, 4f, true, true, false, 0, 0, true);
-			spawnGenericExplosion(projectile, projectile.damage, projectile.knockBack, range * 3, 2, false, 14);
+			spawnGenericExplosion(projectile, projectile.damage, projectile.knockBack, range * 3, 2, false);
 			
 			if (Main.rand.Next(2) == 0) {
 				int spawnProj = 0;

@@ -164,6 +164,11 @@ namespace OrchidMod
 					}
 				}
 			}
+			if (context == "crate" && arg == 3206) { // SKY CRATE
+				if (Main.rand.Next(4) == 0) {
+					player.QuickSpawnItem(ItemType<Alchemist.Weapons.Air.SunplateFlask>(), 1);
+				}
+			}
 			
 			// THORIUM
 			

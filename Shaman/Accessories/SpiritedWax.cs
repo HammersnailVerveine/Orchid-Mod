@@ -30,6 +30,9 @@ namespace OrchidMod.Shaman.Accessories
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.shamanHoney = true;
 			modPlayer.shamanWaterHoney = true;
+			if (modPlayer.shamanWaterTimer > 0) {
+				modPlayer.shamanCrit += 10;
+			}
         }
 		public override void AddRecipes()
 		{

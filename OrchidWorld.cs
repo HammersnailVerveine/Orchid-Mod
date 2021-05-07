@@ -1255,6 +1255,7 @@ namespace OrchidMod
 			bool spawnedAvalancheScepter = false;
 			bool spawnedDeepForestCharm = false;
 			bool spawnedBloomingBud = false;
+			bool spawnedStellarTalc = false;
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
@@ -1262,36 +1263,21 @@ namespace OrchidMod
 
 				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)ModLoader.GetMod("OrchidMod").TileType("MinersLockbox"))
 				{
-					int rand = Main.rand.Next(10);
-					int flareGun = 0;
+					int[] specialItemPoll = {49, 50, 53, 54, 55, 975, 997, 930, ItemType<Shaman.Weapons.EnchantedScepter>()
+					, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), ItemType<Gambler.Weapons.Cards.GoldChestCard>()};
+					int rand = Main.rand.Next(specialItemPoll);
+					
 					chest.item[0].SetDefaults(mod.ItemType("HauntedCandle"));
-					if (rand == 0) chest.item[1].SetDefaults(49); // Band of Regeneration
-					if (rand == 1) chest.item[1].SetDefaults(50); // Magic Mirror
-					if (rand == 2) chest.item[1].SetDefaults(53); // Cloud in a bottle
-					if (rand == 3) chest.item[1].SetDefaults(54); // Hermes Boots
-					if (rand == 4) chest.item[1].SetDefaults(55); // Enchanted Boomerang
-					if (rand == 5) chest.item[1].SetDefaults(975); // Shoes spikes
-					if (rand == 6) chest.item[1].SetDefaults(997); // Extractinator
-					if (rand == 7) {
-						chest.item[1].SetDefaults(930); // Flare gun
-						chest.item[2].SetDefaults(931);
-						chest.item[2].stack = Main.rand.Next(21) + 30;
-						flareGun++;
-					}
-					if (rand == 8) chest.item[1].SetDefaults(ItemType<Shaman.Weapons.EnchantedScepter>());
-					if (rand == 9) chest.item[1].SetDefaults(ItemType<Alchemist.Weapons.Air.CloudInAVial>());
-					chest.item[2 + flareGun].SetDefaults(965); // Rope
-					chest.item[2 + flareGun].stack = Main.rand.Next(50, 100);
-					chest.item[3 + flareGun].SetDefaults(166); // Bomb
-					chest.item[3 + flareGun].stack = Main.rand.Next(10, 20);
-					chest.item[4 + flareGun].SetDefaults(22); // Iron Bar
-					chest.item[4 + flareGun].stack = Main.rand.Next(5, 15);
-					chest.item[5 + flareGun].SetDefaults(28); // Healing Pots
-					chest.item[5 + flareGun].stack = Main.rand.Next(3, 8);
-					chest.item[6 + flareGun].SetDefaults(72); // Silver Coin
-					chest.item[6 + flareGun].stack = Main.rand.Next(80, 99);
-					chest.item[7 + flareGun].SetDefaults(71); // Copper Coin
-					chest.item[7 + flareGun].stack = Main.rand.Next(80, 99);
+					placeInChest(chest, 71, Main.rand.Next(80, 99)); // Copper Coins
+					placeInChest(chest, 72, Main.rand.Next(80, 99)); // Silver Coins
+					placeInChest(chest, 28, Main.rand.Next(3, 8)); // Healing Pots
+					placeInChest(chest, 2, Main.rand.Next(5, 15)); // Iron Bars
+					placeInChest(chest, 166, Main.rand.Next(10, 20)); // Bombs
+					placeInChest(chest, 965, Main.rand.Next(50, 100)); // Ropes
+					placeInChest(chest, ItemType<Gambler.Weapons.Cards.DetonatorCard>(), 1); // Ropes
+			
+					if (rand == 930) placeInChest(chest, 931, Main.rand.Next(21) + 30); // Flares
+					placeInChest(chest, rand, 1);
 				}
 
 				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)ModLoader.GetMod("OrchidMod").TileType("ShamanBiomeChest"))
@@ -1396,7 +1382,7 @@ namespace OrchidMod
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 13 * 36)
 				{
 					if (Main.rand.Next(4) == 0) {
-						spawnedIceChestCard = placeInChest(chest, ItemType<Alchemist.Weapons.Air.SunplateFlask>(), 1);
+						spawnedStellarTalc = placeInChest(chest, ItemType<Alchemist.Weapons.Air.SunplateFlask>(), 1);
 					}
 				}
 
@@ -1460,6 +1446,13 @@ namespace OrchidMod
 					}
 					if (!spawnedLivingSapVial) {
 						spawnedLivingSapVial = placeInChest(chest, ItemType<Alchemist.Weapons.Nature.LivingSapVial>(), 1);
+					}
+				}
+
+				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 13 * 36)
+				{
+					if (!spawnedStellarTalc) {
+						spawnedStellarTalc = placeInChest(chest, ItemType<Alchemist.Weapons.Air.SunplateFlask>(), 1);
 					}
 				}
 

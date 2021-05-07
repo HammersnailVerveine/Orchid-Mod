@@ -78,7 +78,7 @@ namespace OrchidMod.Shaman
 				modPlayer.shamanPollAir += modPlayer.timer120 % 20 == 0 && vel > 1f ? vel > 3.5f ? vel > 6f ? 3 : 2 : 1 : 0;
 				
 				if (modPlayer.shamanDripping) {
-					if (modPlayer.shamanSpiritTimer % 10 == 0)
+					if (modPlayer.timer120 % 10 == 0)
 					{
 						int dmg = (int)(30 * modPlayer.shamanDamage + 5E-06f);
 						Projectile.NewProjectile(player.Center.X - 10 + (Main.rand.Next(20)), player.Center.Y + 16, 0f, -0.001f, mod.ProjectileType("LavaDroplet"), dmg, 0f, player.whoAmI);

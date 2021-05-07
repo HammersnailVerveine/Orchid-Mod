@@ -63,7 +63,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hidden reactions Codex");
+			DisplayName.SetDefault("Hidden Reactions Codex");
 			Tooltip.SetDefault("Left click to trigger alchemist hidden reactions"
 							+  "\nThe 'Hidden Reaction' key can be used instead of this item"
 							+  "\nRight click to open the hidden reactions codex");
