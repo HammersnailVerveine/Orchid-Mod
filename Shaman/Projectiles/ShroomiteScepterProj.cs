@@ -14,7 +14,9 @@ namespace OrchidMod.Shaman.Projectiles
 	{
 		public Texture2D zoneTexture;
 
-		public ref float Radius => ref projectile.ai[0];
+		public int maxRadius;
+
+		public ref float RadiusProgress => ref projectile.ai[0];
 		public ref float NbBonds => ref projectile.ai[1];
 
 		public override void SetStaticDefaults()
@@ -37,13 +39,18 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void OnSpawn()
 		{
-			Radius = 200 + (int)NbBonds * 50;
+			maxRadius = 200 + (int)NbBonds * 50;
+			RadiusProgress = 0;
 
-			zoneTexture = new Texture2D(Main.graphics.GraphicsDevice, (int)Radius * 2, (int)Radius * 2);
+			zoneTexture = new Texture2D(Main.graphics.GraphicsDevice, maxRadius, maxRadius);
 		}
 
 		public override void AI()
 		{
+			if (RadiusProgress < 1) RadiusProgress += 0.075f;
+			else if (RadiusProgress != 1) RadiusProgress = 1;
+
+			float pr = MathHelper.SmoothStep(0, maxRadius, RadiusProgress);
 			Player owner = Main.player[projectile.owner];
 
 			projectile.velocity.X = 0f;
@@ -55,7 +62,7 @@ namespace OrchidMod.Shaman.Projectiles
 			{
 				foreach (var target in Main.npc)
 				{
-					if (!target.active || !target.CanBeChasedBy() || Vector2.Distance(projectile.Center, target.Center) > Radius) continue;
+					if (!target.active || !target.CanBeChasedBy() || Vector2.Distance(projectile.Center, target.Center) > pr) continue;
 
 					target.StrikeNPCNoInteraction(projectile.damage, 0f, 0);
 					if (NbBonds >= 3)
@@ -72,7 +79,7 @@ namespace OrchidMod.Shaman.Projectiles
 			{
 				Player buffPlayer = Main.player[Main.myPlayer]; // I hope it works
 
-				if (Vector2.Distance(buffPlayer.Center, projectile.Center) <= Radius) buffPlayer.AddBuff(ModContent.BuffType<Buffs.ShroomHeal>(), 1);
+				if (Vector2.Distance(buffPlayer.Center, projectile.Center) <= pr) buffPlayer.AddBuff(ModContent.BuffType<Buffs.ShroomHeal>(), 1);
 			}
 
 			Color color = new Color(36, 129, 234) * 0.4f;
@@ -97,15 +104,11 @@ namespace OrchidMod.Shaman.Projectiles
 
 			// Aura
 			var effect = EffectsManager.ShroomiteZoneEffect;
-			EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, effect, blendState: BlendState.Additive);
+			spriteBatch.End();
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, Main.instance.Rasterizer, effect, Main.GameViewMatrix.TransformationMatrix);
 			{
-				effect.Parameters["time"].SetValue(Main.GlobalTime);
-				effect.Parameters["radius"].SetValue(Radius);
-				effect.Parameters["thickness"].SetValue(2.5f);
-				effect.Parameters["color"].SetValue(new Vector4(73, 76, 219, 85) / 255f);
-				effect.Parameters["color2"].SetValue(new Vector4(73, 110, 219, 85) / 255f);
-
-				if (zoneTexture != null) spriteBatch.Draw(zoneTexture, drawPosition, null, Color.White, projectile.rotation, zoneTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+				SetEffectParameters(ref effect);
+				if (zoneTexture != null) spriteBatch.Draw(zoneTexture, drawPosition, null, Color.White, projectile.rotation, zoneTexture.Size() * 0.5f, 2f * MathHelper.SmoothStep(0, 1, RadiusProgress), SpriteEffects.None, 0f);
 			}
 			EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
 
@@ -141,6 +144,15 @@ namespace OrchidMod.Shaman.Projectiles
 				dust.scale = Main.rand.NextFloat(2f, 3.5f);
 				dust.rotation = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
 			}
+		}
+
+		private void SetEffectParameters(ref Effect effect)
+		{
+			effect.Parameters["time"].SetValue(Main.GlobalTime);
+			effect.Parameters["radius"].SetValue(maxRadius);
+			effect.Parameters["thickness"].SetValue(2.5f);
+			effect.Parameters["color"].SetValue(new Vector4(73, 76, 219, 85) / 255f * RadiusProgress);
+			effect.Parameters["color2"].SetValue(new Vector4(73, 110, 219, 85) / 255f * RadiusProgress);
 		}
 	}
 }

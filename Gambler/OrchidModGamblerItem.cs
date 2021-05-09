@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Linq;
 using static Terraria.ModLoader.ModContent;
+using Terraria.Utilities;
 
 namespace OrchidMod.Gambler
 {
@@ -110,6 +111,9 @@ namespace OrchidMod.Gambler
 		public override bool UseItem(Player player) {
 			return true;
 		}
+
+		// Since cards should not have prefixes, we do so to avoid errors with rarity
+		public override bool? PrefixChance(int pre, UnifiedRandom rand) => false;
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
