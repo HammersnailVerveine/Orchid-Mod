@@ -62,7 +62,7 @@ namespace OrchidMod.Gambler
 		
 		public override void HoldItem(Player player) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.gamblerAttackInHand = true;
+			modPlayer.GamblerDeckInHand = true;
 			if (Main.mouseLeft) {
 				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, true);
 			}

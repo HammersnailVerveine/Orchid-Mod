@@ -82,7 +82,7 @@ namespace OrchidMod.Gambler.Projectiles
 				}
 			}
 
-			if (Main.myPlayer == projectile.owner && modPlayer.gamblerAttackInHand) {
+			if (Main.myPlayer == projectile.owner && modPlayer.GamblerDeckInHand) {
 				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.QueenBeeCard>() && this.bounceDelay <= 0) {
 					Vector2 newMove = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);

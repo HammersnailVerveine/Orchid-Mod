@@ -46,7 +46,7 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.dust[dust].scale *= 1f;
             }
 			if (Main.myPlayer == projectile.owner) {
-				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.SapCard>() && modPlayer.gamblerAttackInHand) {
+				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.SapCard>() && modPlayer.GamblerDeckInHand) {
 					Vector2 newMove = Main.screenPosition + new Vector2((float)Main.mouseX - 8, (float)Main.mouseY) - projectile.Center;
 					AdjustMagnitude(ref newMove);
 					projectile.velocity = (5 * projectile.velocity + newMove);

@@ -102,7 +102,7 @@ namespace OrchidMod.Gambler
 			modPlayer.gamblerRedrawsMax = 0;
 			modPlayer.gamblerRedrawCooldownMax = 1800;
 			modPlayer.gamblerShuffleCooldownMax = 600;
-			modPlayer.gamblerAttackInHand = false;
+			modPlayer.GamblerDeckInHand = false;
 			
 			modPlayer.gamblerDungeon = false;
 			modPlayer.gamblerLuckySprout = false;
@@ -320,6 +320,17 @@ namespace OrchidMod.Gambler
 					}
 				}
 			}
+		}
+		
+		public static bool hasGamblerDeck(Player player) {
+			for (int i = 0; i < Main.maxInventory; i++) {
+				Item item = player.inventory[i];
+				if (item.type != ItemID.None) {
+					OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+					if (orchidItem.gamblerDeck) return true;
+				}
+			}
+			return false;
 		}
 		
 		public static int DummyProjectile(int proj, bool dummy) {

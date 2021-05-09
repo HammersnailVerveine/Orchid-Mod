@@ -75,7 +75,7 @@ namespace OrchidMod.Gambler
 				} else {
 					if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) <= 0) {
 						bool found = false;
-						int gamblerDeck = ItemType<Gambler.GamblerAttack>();
+						int gamblerDeck = ItemType<Gambler.GamblerDeck>();
 						for (int i = 0; i < Main.maxInventory; i++) {
 							Item item = Main.LocalPlayer.inventory[i];
 							if (item.type == gamblerDeck) {

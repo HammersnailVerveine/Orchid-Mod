@@ -10,9 +10,12 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler
 {
-	public class GamblerAttack : OrchidModItem
+	public abstract class GamblerDeck : OrchidModItem
 	{
+		public virtual void SafeSetDefaults() {}
+		
 		public	override void SetDefaults() {
+			SafeSetDefaults();
 			item.melee = false;
 			item.ranged = false;
 			item.magic = false;
@@ -33,6 +36,8 @@ namespace OrchidMod.Gambler
 			item.shootSpeed = 1f;
 			item.shoot = 1;
 			item.autoReuse = true;
+			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			orchidItem.gamblerDeck = true;
 		}
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -76,7 +81,7 @@ namespace OrchidMod.Gambler
 		
 		public override void HoldItem(Player player) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.gamblerAttackInHand = true;
+			modPlayer.GamblerDeckInHand = true;
 			if (Main.mouseLeft) {
 				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, false);
 			}
@@ -126,12 +131,6 @@ namespace OrchidMod.Gambler
 					});
 				}
 			}
-		}
-		
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Gambler Deck");
-		    Tooltip.SetDefault("Allows you to use your gambler abilities");
 		}
 		
 		public void checkStats(Item currentCard, OrchidModPlayer modPlayer) {

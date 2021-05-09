@@ -98,7 +98,7 @@ namespace OrchidMod
 		public int gamblerUIDisplayTimer = 0;
 		public bool gamblerUIDeckDisplay = true;
 		public bool gamblerJustSwitched = false;
-		public bool gamblerAttackInHand = false;
+		public bool GamblerDeckInHand = false;
 		public bool gamblerHasCardInDeck = false;
 		
 		public int gamblerTimerHoney = 0;

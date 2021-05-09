@@ -27,6 +27,7 @@ namespace OrchidMod
 		public int alchemistSecondaryDamage = 0;
 		public float alchemistSecondaryScaling = 1f;
 		public int gamblerCardRequirement = 0;
+		public bool gamblerDeck = false;
 		public List<string> gamblerCardSets = new List<string>();
 		public AlchemistElement alchemistElement = AlchemistElement.NULL;
 				

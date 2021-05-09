@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Gambler;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -144,11 +145,11 @@ namespace OrchidMod.NPCs.Town
 				button = Language.GetTextValue("LegacyInterface.28");
 
 				string deckBuilding = $"[c/{Colors.AlphaDarken(new Color(255, 200, 0)).Hex3()}:Deck Building]";
-				button2 = player.HasItem(ItemType<Gambler.GamblerAttack>()) ? deckBuilding : "Get a New Deck";
+				button2 = OrchidModGamblerHelper.hasGamblerDeck(player) ? deckBuilding : "Get a New Deck";
 			}
 			else
 			{
-				button = "Return Back";
+				button = "Return";
 			}
 		}
 
@@ -156,7 +157,6 @@ namespace OrchidMod.NPCs.Town
 		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int gamblerDeck = ItemType<Gambler.GamblerAttack>();
 
 			if (firstButton)
 			{
@@ -173,8 +173,7 @@ namespace OrchidMod.NPCs.Town
 			}
 			else
 			{
-				if (player.HasItem(gamblerDeck))
-				{
+				if (OrchidModGamblerHelper.hasGamblerDeck(player)){
 					Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.";
 
 					/*switch (Main.rand.Next(0, 1))
@@ -195,6 +194,7 @@ namespace OrchidMod.NPCs.Town
 				else
 				{
 					Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
+					int gamblerDeck = ItemType<Gambler.Decks.GamblerAttack>();
 					player.QuickSpawnItem(gamblerDeck, 1);
 				}
 			}

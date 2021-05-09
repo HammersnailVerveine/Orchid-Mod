@@ -56,7 +56,7 @@ namespace OrchidMod.Gambler.Projectiles
             }
 			
 			if (Main.myPlayer == projectile.owner && !this.initialized) {
-				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.SlimeRainCard>() && modPlayer.gamblerAttackInHand) {
+				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.SlimeRainCard>() && modPlayer.GamblerDeckInHand) {
 						Vector2 newMove = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - projectile.Center;
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 						if (distanceTo > 5f) {

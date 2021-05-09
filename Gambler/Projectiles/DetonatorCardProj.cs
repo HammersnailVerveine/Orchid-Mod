@@ -53,7 +53,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 
 			if (Main.myPlayer == projectile.owner) {
-				if (!(Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.DetonatorCard>() && modPlayer.gamblerAttackInHand) && projectile.timeLeft < 840) {
+				if (!(Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.DetonatorCard>() && modPlayer.GamblerDeckInHand) && projectile.timeLeft < 840) {
 					bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 					OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 15, true, 1.3f, 1f, 8f, true, true, false, 0, 0, true);
 					OrchidModGamblerHelper.DummyProjectile(spawnGenericExplosion(projectile, projectile.damage, projectile.knockBack, 150, 3, true, 14), dummy);
