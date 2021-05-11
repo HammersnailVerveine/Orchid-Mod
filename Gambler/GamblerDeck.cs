@@ -14,7 +14,7 @@ namespace OrchidMod.Gambler
 	{
 		public virtual void SafeSetDefaults() {}
 		
-		public	override void SetDefaults() {
+		public sealed override void SetDefaults() {
 			SafeSetDefaults();
 			item.melee = false;
 			item.ranged = false;

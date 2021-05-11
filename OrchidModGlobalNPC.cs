@@ -62,9 +62,11 @@ namespace OrchidMod
 			}
 			if (npc.type == 26 || npc.type == 27 || npc.type == 28 || npc.type == 29 || npc.type == 111) // Goblins
 			{
-				if (Main.rand.Next(50) == 0)
-				{
+				if (Main.rand.Next(50) == 0) {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Weapons.Water.GoblinArmyFlask>());
+				}
+				if (Main.rand.Next(50) == 0) {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.GoblinArmyCard>());
 				}
 			}
 			if (npc.type == 490 || npc.type == 489) // Drippler / Blood Zombie
@@ -151,9 +153,11 @@ namespace OrchidMod
 			}
 			if ((npc.type == NPCID.PirateShip))
             {
-                if (Main.rand.Next(10) == 0)
-                {
+                if (Main.rand.Next(10) == 0) {
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.PiratesGlory>());
+				}
+                if (Main.rand.Next(20) == 0) {
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Decks.DeckPirate>());
 				}
             }
 			if ((npc.type == NPCID.GoblinSummoner))
