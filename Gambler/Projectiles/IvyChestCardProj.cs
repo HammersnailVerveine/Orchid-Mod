@@ -54,7 +54,7 @@ namespace OrchidMod.Gambler.Projectiles
 				float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 				
 				if (distanceTo < distance) {
-					if (projectile.timeLeft % 20 == 0) {
+					if (projectile.timeLeft % 15 == 0) {
 						projectile.damage ++;
 					}
 					

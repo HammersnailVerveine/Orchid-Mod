@@ -10,7 +10,7 @@ namespace OrchidMod.Gambler.Decks
 		{
 			DisplayName.SetDefault("Pirate Gambler Deck");
 		    Tooltip.SetDefault("Allows the use of gambler abilities"
-							+  "\n'+ 1 parrot affinity'");
+							+  "\n'+1 parrot affinity'");
 		}
 		
 		public override void SafeSetDefaults() {

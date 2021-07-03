@@ -53,6 +53,7 @@ namespace OrchidMod.Gambler
 			modPlayer.GamblerDeckInHand = true;
 			modPlayer.gamblerUIFightDisplay = true;
 			if (Main.mouseLeft) {
+				this.checkStats(modPlayer.gamblerCardCurrent, modPlayer);
 				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, false);
 			}
 		}
@@ -68,7 +69,7 @@ namespace OrchidMod.Gambler
 		// public override void UpdateInventory(Player player) {
 			// OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			// Item currentCard = modPlayer.gamblerCardCurrent;
-			// this.checkStats(currentCard);
+			// this.checkStats(currentCard, modPlayer);
 		// }
 		
 		public override bool AltFunctionUse(Player player) {

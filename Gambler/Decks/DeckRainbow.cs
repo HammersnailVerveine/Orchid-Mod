@@ -10,7 +10,7 @@ namespace OrchidMod.Gambler.Decks
 		{
 			DisplayName.SetDefault("Rainbow Gambler Deck");
 		    Tooltip.SetDefault("Allows the use of gambler abilities"
-							+  "\n'+ 7 colorfulness'");
+							+  "\n'+7 colorfulness'");
 		}
 		
 		public override void AddRecipes()

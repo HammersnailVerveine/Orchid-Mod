@@ -26,7 +26,6 @@ namespace OrchidMod.Gambler.Projectiles
             projectile.height = 20;
             projectile.friendly = true;
             projectile.aiStyle = 0;
-			projectile.timeLeft = 620;
 			projectile.penetrate = -1;
 			projectile.alpha = 64;
 			ProjectileID.Sets.Homing[projectile.type] = true;
@@ -112,12 +111,12 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			if (justHit == 0) {
 				projectile.damage += 2;
+				OrchidModProjectile.spawnDustCircle(projectile.Center, 178, 10, 10, true, 1.5f, 1f, 2f);
 			}
 			
 			projectile.velocity.Y = -6;
 			projectile.velocity.X *= 0.5f;
 			this.justHit = 30;
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 178, 10, 10, true, 1.5f, 1f, 2f);
         }
 		
 		public override void Kill(int timeLeft) {

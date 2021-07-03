@@ -92,6 +92,13 @@ namespace OrchidMod
 				}
 			}
 			
+			if (npc.type == 59) // Lava Slime
+			{
+				if (Main.rand.Next(25) == 0) {
+                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.LavaSlimeCard>());
+				}
+			}
+			
 			if (npc.type == 1 || npc.type == -3 || npc.type == -8 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10) // Most Surface Slimes
 			{
 				if (Main.rand.Next(!OrchidWorld.foundSlimeCard ? 5 : 1000) == 0) {

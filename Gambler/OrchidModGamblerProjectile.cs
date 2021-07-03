@@ -43,5 +43,9 @@ namespace OrchidMod.Gambler
 			modTarget.gamblerHit = true;
 			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);
 		}
+		
+		public bool getDummy() {
+			return projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+		}
     }
 }

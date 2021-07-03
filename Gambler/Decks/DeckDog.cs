@@ -10,7 +10,7 @@ namespace OrchidMod.Gambler.Decks
 		{
 			DisplayName.SetDefault("Dog Gambler Deck");
 		    Tooltip.SetDefault("Allows the use of gambler abilities"
-							+  "\n'+ 1 bork'");
+							+  "\n'+1 bork'");
 		}
 		
 		public override void SafeSetDefaults() {

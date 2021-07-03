@@ -29,7 +29,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Spirit Tear");
-		    Tooltip.SetDefault("Releases damaging sparkles");
+		    Tooltip.SetDefault("Fires a burst of spirit bolts"
+							+  "\nHitting the same target with all projectiles will rip a part of their soul"
+							+  "\nPicking it up will deal a large amount of damage");
 		}
 		
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false) {
