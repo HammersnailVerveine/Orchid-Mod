@@ -26,7 +26,6 @@ namespace OrchidMod.Gambler.Projectiles
             projectile.height = 36;
             projectile.friendly = false;
             projectile.aiStyle = 0;
-			projectile.timeLeft = 900;
 			projectile.penetrate = -1;	
 			projectile.alpha = 100;	
 			this.gamblingChipChance = 5;
@@ -72,7 +71,7 @@ namespace OrchidMod.Gambler.Projectiles
 				bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, heading.X, heading.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
 					OrchidModProjectile.spawnDustCircle(projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
-				fireTimerRef -= fireTimerRef > 15 ? 3 : 0;
+				fireTimerRef -= fireTimerRef > 15 ? 4 : 0;
 				fireTimer = fireTimerRef;
 				Main.PlaySound(2, (int)projectile.Center.X, (int)projectile.Center.Y, 8);
 			}

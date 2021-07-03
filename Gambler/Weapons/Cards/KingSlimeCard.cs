@@ -38,12 +38,12 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			bool found = false;
 			for (int l = 0; l < Main.projectile.Length; l++) {  
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == projType && proj.owner == player.whoAmI)
-				{
+				if (proj.active && proj.type == projType && proj.owner == player.whoAmI) {
 					found = true;
 					break;
 				} 
 			}
+			
 			if (!found) {
 				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
 				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);

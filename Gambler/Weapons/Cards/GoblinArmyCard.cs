@@ -22,6 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			item.useTime = 60;
 			item.shootSpeed = 0.75f;
 			this.cardRequirement = 4;
+			this.gamblerCardSets.Add("Elemental");
 		}
 
 		public override void SetStaticDefaults()

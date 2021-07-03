@@ -157,7 +157,7 @@ namespace OrchidMod.Gambler.UI
 					}
 				}
 				
-				if (modPlayer.gamblerUIDisplayTimer > 0 || modPlayer.gamblerChips > 0) {
+				if ((modPlayer.gamblerUIDisplayTimer > 0 || modPlayer.gamblerChips > 0) && modPlayer.gamblerUIFightDisplay) {
 					
 					if (modPlayer.gamblerCardCurrent.type != this.cardID) {
 						UICard = this.getUiCardTexture(modPlayer, 0);
@@ -197,15 +197,17 @@ namespace OrchidMod.Gambler.UI
 						drawSide += 4;
 					}
 					
+					int unit = (int)(modPlayer.gamblerShuffleCooldownMax / 34) + 1;
 					int val = 0;
 					spriteBatch.Draw(ressourceBar, new Rectangle(point.X + 36, point.Y + 116 , 12, 76), backgroundColor);
 					while (val < modPlayer.gamblerShuffleCooldown) {
 						spriteBatch.Draw(ressourceBarFull, new Rectangle(point.X + 40, point.Y + 116 + drawHeight , 4, 2), backgroundColor);
 						drawHeight -= 2;
-						val += 19;
+						val += unit;
 					}
 					
 					if (val > 0) {
+						drawHeight += 2;
 						spriteBatch.Draw(ressourceBarTop, new Rectangle(point.X + 40, point.Y + 116 + drawHeight , 4, 2), backgroundColor);
 					}
 					

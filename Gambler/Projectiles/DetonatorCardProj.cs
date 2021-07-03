@@ -21,8 +21,8 @@ namespace OrchidMod.Gambler.Projectiles
             projectile.height = 24;
             projectile.friendly = true;
             projectile.aiStyle = 0;
-			projectile.timeLeft = 900;
 			projectile.penetrate = -1;
+			projectile.timeLeft = 900;
 			projectile.friendly = false;
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			this.gamblingChipChance = 5;

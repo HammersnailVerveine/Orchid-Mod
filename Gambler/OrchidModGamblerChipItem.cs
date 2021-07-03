@@ -15,6 +15,7 @@ namespace OrchidMod.Gambler
 		public int consumeChance = 100;
 
 		public virtual void SafeSetDefaults() {}
+		public virtual void SafeHoldItem() {}
 
 		public sealed override void SetDefaults() {
 			SafeSetDefaults();
@@ -32,6 +33,12 @@ namespace OrchidMod.Gambler
 			{
 				return true;
 			}
+		}
+		
+		public sealed override void HoldItem(Player player) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.gamblerUIFightDisplay = true;
+			SafeHoldItem();
 		}
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {

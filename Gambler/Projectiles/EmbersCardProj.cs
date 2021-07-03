@@ -143,9 +143,8 @@ namespace OrchidMod.Gambler.Projectiles
             }
 		}
 		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
-		{
-			target.AddBuff(BuffID.OnFire, 60 * 1);
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
+			target.AddBuff(BuffID.OnFire, modPlayer.gamblerElementalLens ? 60 * 5 : 60 * 1);
         }
     }
 }

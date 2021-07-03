@@ -16,6 +16,7 @@ namespace OrchidMod.Gambler
 		public int diceDuration = 0;
 
 		public virtual void SafeSetDefaults() {}
+			public virtual void SafeHoldItem() {}
 
 		public sealed override void SetDefaults() {
 			SafeSetDefaults();
@@ -38,6 +39,12 @@ namespace OrchidMod.Gambler
 			{
 				return true;
 			}
+		}
+		
+		public sealed override void HoldItem(Player player) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.gamblerUIFightDisplay = true;
+			SafeHoldItem();
 		}
 		
 		public override bool UseItem(Player player) {

@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(thoriumMod);
+				ModRecipe recipe = new ModRecipe(mod);
 				recipe.AddTile(thoriumMod.TileType("ArcaneArmorFabricator"));		
 				recipe.AddIngredient(thoriumMod, "YewWood", 20);
 				recipe.AddIngredient(ItemID.Amethyst, 2);

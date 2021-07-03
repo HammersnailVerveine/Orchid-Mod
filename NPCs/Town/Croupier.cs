@@ -246,26 +246,20 @@ namespace OrchidMod.NPCs.Town
 				nextSlot++;	
 			}
 			
-			int sproutCheck = 0;
-			int bossCheck = 0;
-			int slimeCheck = 0;
-			for (int i = 0; i < 20; i++)
-			{
-				OrchidModGlobalItem orchidItem = modPlayer.gamblerCardsItem[i].GetGlobalItem<OrchidModGlobalItem>();
-				sproutCheck += orchidItem.gamblerCardSets.Contains("Biome") ? 1 : 0;
-				bossCheck += orchidItem.gamblerCardSets.Contains("Boss") ? 1 : 0;
-				slimeCheck += orchidItem.gamblerCardSets.Contains("Slime") ? 1 : 0;
-			}
-			if (slimeCheck > 2) {
+			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Slime") > 2) {
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.SlimyLollipop>());
 				nextSlot++;	
 			}
-			if (sproutCheck > 2) {
+			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Biome") > 2) {
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.LuckySprout>());
 				nextSlot++;	
 			}
-			if (bossCheck > 2) {
+			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Boss") > 2) {
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.ConquerorsPennant>());
+				nextSlot++;	
+			}
+			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Elemental") > 2) {
+				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.ElementalLens>());
 				nextSlot++;	
 			}
 		}

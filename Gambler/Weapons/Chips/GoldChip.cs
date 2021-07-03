@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			item.UseSound = SoundID.Item1;
 			item.useAnimation = 25;
 			item.useTime = 25;
-			item.knockBack = 3f;
+			item.knockBack = 6f;
 			item.damage = 25;
 			item.crit = 4; 
 			item.rare = 1;

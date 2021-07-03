@@ -10,7 +10,7 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Goblin Portal");
+            DisplayName.SetDefault("Goblin Bolt");
         } 
 		
         public override Color? GetAlpha(Color lightColor)
@@ -46,5 +46,11 @@ namespace OrchidMod.Gambler.Projectiles
 			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
 		}
+		
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
+			if (modPlayer.gamblerElementalLens) {
+				target.AddBuff(153, 60 * 2); // Shadowflame
+			}
+        }
 	}
 }

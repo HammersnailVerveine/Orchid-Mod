@@ -31,7 +31,7 @@ namespace OrchidMod.Gambler
 			
 			modPlayer.gamblerRedrawCooldownUse -= modPlayer.gamblerRedrawCooldownUse > 0 ? 1 : 0;
 			modPlayer.gamblerShuffleCooldown -= modPlayer.gamblerShuffleCooldown > 0 ? 1 : 0;
-			modPlayer.gamblerUIDisplayTimer = modPlayer.gamblerShuffleCooldown <= 0 && modPlayer.gamblerDiceDuration <= 0 ? modPlayer.gamblerUIDisplayTimer > 0 ? modPlayer.gamblerUIDisplayTimer - 1 : modPlayer.gamblerUIDisplayTimer : 300 + (600 - modPlayer.gamblerShuffleCooldownMax);
+			modPlayer.gamblerUIDisplayTimer = modPlayer.gamblerShuffleCooldown <= 0 && modPlayer.gamblerDiceDuration <= 0 ? modPlayer.gamblerUIDisplayTimer > 0 ? modPlayer.gamblerUIDisplayTimer - 1 : modPlayer.gamblerUIDisplayTimer : 300;
 			if (modPlayer.gamblerChips > 0 && modPlayer.gamblerUIDisplayTimer <= 0 && modPlayer.timer120 % 60 == 0) {
 				modPlayer.gamblerChips --;
 				modPlayer.gamblerUIDisplayTimer = modPlayer.gamblerChips == 0 ? 60 : 0;
@@ -101,12 +101,14 @@ namespace OrchidMod.Gambler
 			modPlayer.gamblerSeeCards = 0;
 			modPlayer.gamblerRedrawsMax = 0;
 			modPlayer.gamblerRedrawCooldownMax = 1800;
-			modPlayer.gamblerShuffleCooldownMax = 600;
+			modPlayer.gamblerShuffleCooldownMax = 900;
 			modPlayer.GamblerDeckInHand = false;
+			modPlayer.gamblerUIFightDisplay = false;
 			
 			modPlayer.gamblerDungeon = false;
 			modPlayer.gamblerLuckySprout = false;
 			modPlayer.gamblerPennant = false;
+			modPlayer.gamblerElementalLens = false;
 			modPlayer.gamblerVulture = false;
 			modPlayer.gamblerSlimyLollipop = false;
 		}
@@ -195,7 +197,7 @@ namespace OrchidMod.Gambler
 			if (Main.rand.Next(100) < chance) {
 				modPlayer.gamblerChips += modPlayer.gamblerChips < modPlayer.gamblerChipsMax ? 1 : 0;
 			}
-			modPlayer.gamblerUIDisplayTimer = 300 + (600 - modPlayer.gamblerShuffleCooldownMax);
+			modPlayer.gamblerUIDisplayTimer = 300;
 		}
 		
 		public static void removeGamblerChip(int chance, int number, Player player, OrchidModPlayer modPlayer, Mod mod) {
@@ -204,7 +206,7 @@ namespace OrchidMod.Gambler
 					modPlayer.gamblerChips --;
 				}
 			}
-			modPlayer.gamblerUIDisplayTimer = 300 + (600 - modPlayer.gamblerShuffleCooldownMax);
+			modPlayer.gamblerUIDisplayTimer = 300;
 		}
 		
 		public static void drawDummyCard(Player player, OrchidModPlayer modPlayer) {
@@ -340,6 +342,15 @@ namespace OrchidMod.Gambler
 			}
 			return proj;
 		}
+		
+		public static int checkSetCardsInDeck(OrchidModPlayer modPlayer, string setName) {
+			int nbCards = 0;
+			for (int i = 0; i < 20; i++) {
+				OrchidModGlobalItem orchidItem = modPlayer.gamblerCardsItem[i].GetGlobalItem<OrchidModGlobalItem>();
+				nbCards += orchidItem.gamblerCardSets.Contains(setName) ? 1 : 0;
+			}
+			return nbCards;
+		}	
 		
 		public static void ShootBonusProjectiles(Player player, Vector2 position, bool dummy) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();

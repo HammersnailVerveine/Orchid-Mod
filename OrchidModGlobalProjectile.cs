@@ -46,8 +46,9 @@ namespace OrchidMod
 		
 		public override bool? CanHitNPC(Projectile projectile, NPC target) {
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			Player player = Main.player[projectile.owner];
 			if (modProjectile.gamblerDummyProj) {
-				if (target.type != 488) {
+				if (target.type != 488 && player.HeldItem.type != ItemType<Gambler.GamblerDummyTest>()) {
 					return false;
 				}
 			}

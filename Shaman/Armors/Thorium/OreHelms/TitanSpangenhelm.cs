@@ -66,7 +66,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 		{
 			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
 			if (thoriumMod != null) {
-				ModRecipe recipe = new ModRecipe(thoriumMod);
+				ModRecipe recipe = new ModRecipe(mod);
 				recipe.AddTile(thoriumMod.TileType("SoulForge"));		
 				recipe.AddIngredient(null, "TitanBar", 12);
 				recipe.SetResult(this);

@@ -84,5 +84,11 @@ namespace OrchidMod.Gambler.Projectiles
 			bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, projType, dmg, 3f, projectile.owner, 0.0f, 0.0f), dummy);
 		}
+		
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
+			if (modPlayer.gamblerElementalLens) {
+				target.AddBuff(20, 60 * 5); // Poisoned
+			}
+        }
     }
 }

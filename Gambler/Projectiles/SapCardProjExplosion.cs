@@ -31,5 +31,11 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void AI() {
 			OrchidModProjectile.resetIFrames(projectile);
 		}
+		
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
+			if (modPlayer.gamblerElementalLens) {
+				target.AddBuff(20, 60 * 5); // Poisoned
+			}
+        }
     }
 }

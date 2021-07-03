@@ -49,7 +49,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(thoriumMod);
+				ModRecipe recipe = new ModRecipe(mod);
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(ItemType<StaticQuartz>(), 12);
 				recipe.SetResult(this);

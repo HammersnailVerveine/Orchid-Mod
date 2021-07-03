@@ -69,7 +69,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(thoriumMod);
+				ModRecipe recipe = new ModRecipe(mod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 2);
 				recipe.AddIngredient(thoriumMod, "PharaohsBreath", 8);

@@ -49,8 +49,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 		
-		public override void Kill(int timeLeft)
-        {
+		public override void Kill(int timeLeft) {
             for(int i=0; i<4; i++)
             {
                 int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 217);
@@ -58,6 +57,12 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.dust[dust].scale *= 1f;
             }
 			Main.PlaySound(2, (int)projectile.Center.X ,(int)projectile.Center.Y - 200, 54);
+        }
+		
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
+			if (modPlayer.gamblerElementalLens) {
+				target.AddBuff(44, 60 * 5); // Frostburn
+			}
         }
     }
 }

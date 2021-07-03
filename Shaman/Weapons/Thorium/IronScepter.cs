@@ -50,9 +50,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				ModRecipe recipe = new ModRecipe(thoriumMod);
+			if (thoriumMod != null) {
+				ModRecipe recipe = new ModRecipe(mod);
 				recipe.AddTile(TileID.Anvils);		
 				recipe.AddIngredient(thoriumMod, "Opal", 8);
 				recipe.AddIngredient(ItemID.IronBar, 10);

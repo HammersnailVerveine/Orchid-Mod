@@ -22,7 +22,6 @@ namespace OrchidMod.Gambler.Projectiles
             projectile.friendly = false;
             projectile.aiStyle = 0;
 			projectile.alpha = 255;
-			projectile.timeLeft = 1500;
         }
 		
 		public override void SafeAI()

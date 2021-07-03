@@ -8,6 +8,8 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 {
 	public class StaticQuartzDartProj : ModProjectile
 	{
+		private bool collided = false;
+		
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Static Quartz Dart");
 		}
@@ -28,7 +30,10 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 			Main.PlaySound(SoundID.Item10, projectile.Center);
 			projectile.velocity *= 0f;
 			projectile.aiStyle = 0;
-			projectile.damage = (int)(projectile.damage * 2f);
+			if (!collided) {
+				projectile.damage = (int)(projectile.damage * 2f);
+				collided = true;
+			}
 			return false;
 		}
 

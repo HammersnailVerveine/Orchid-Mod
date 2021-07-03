@@ -1019,7 +1019,7 @@ namespace OrchidMod
 		}
 		
 		private void placeLilies() {
-			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 0.02); k++) {
+			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 0.015); k++) {
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
 				
@@ -1254,6 +1254,7 @@ namespace OrchidMod
 			bool spawnedIceChestCard = false;
 			bool spawnedAvalancheScepter = false;
 			bool spawnedDeepForestCharm = false;
+			bool spawnedIvyChestCard= false;
 			bool spawnedBloomingBud = false;
 			bool spawnedStellarTalc = false;
 
@@ -1403,12 +1404,20 @@ namespace OrchidMod
 
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 10 * 36)
 				{
-					if(Main.rand.Next(5) < 2) {
+					if (Main.rand.Next(5) < 2) {
 						if (Main.rand.Next(2) == 0) {
 							spawnedDeepForestCharm = placeInChest(chest, ItemType<Shaman.Accessories.DeepForestCharm>(), 1);
 						} else {
 							spawnedBloomingBud = placeInChest(chest, ItemType<Alchemist.Accessories.BloomingBud>(), 1);
 						}
+					}
+					
+					if (Main.rand.Next(20) == 0) {
+						placeInChest(chest, ItemType<Gambler.Decks.DeckJungle>(), 1);
+					}
+					
+					if (Main.rand.Next(5) == 0) {
+						spawnedIvyChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.IvyChestCard>(), 1);
 					}
 				}
 			}
@@ -1515,8 +1524,13 @@ namespace OrchidMod
 					if (!spawnedDeepForestCharm) {
 						spawnedDeepForestCharm = placeInChest(chest, ItemType<Shaman.Accessories.DeepForestCharm>(), 1);
 					}
+					
 					if (!spawnedBloomingBud) {
 						spawnedBloomingBud = placeInChest(chest, ItemType<Alchemist.Accessories.BloomingBud>(), 1);
+					}
+					
+					if (!spawnedIvyChestCard) {
+						spawnedIvyChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.IvyChestCard>(), 1);
 					}
 				}
 			}

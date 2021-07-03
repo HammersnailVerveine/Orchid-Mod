@@ -110,10 +110,13 @@ namespace OrchidMod.Gambler.Projectiles
 		
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
+			if (justHit == 0) {
+				projectile.damage += 2;
+			}
+			
 			projectile.velocity.Y = -6;
 			projectile.velocity.X *= 0.5f;
 			this.justHit = 30;
-			projectile.damage += 2;
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 178, 10, 10, true, 1.5f, 1f, 2f);
         }
 		

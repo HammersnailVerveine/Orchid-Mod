@@ -78,5 +78,11 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType)].noGravity = true;
 			}
 		}
+		
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
+			if (modPlayer.gamblerElementalLens) {
+				target.AddBuff(31, 60 * 2); // Confused
+			}
+        }
 	}
 }

@@ -154,6 +154,14 @@ namespace OrchidMod
 				if (Main.rand.Next(2) == 0) {
 					player.QuickSpawnItem(ItemType<Alchemist.Misc.JungleLilyItem>(), 1);
 				}
+				
+				if (Main.rand.Next(20) == 0) {
+					player.QuickSpawnItem(ItemType<Gambler.Decks.DeckJungle>(), 1);
+				}
+				
+				if (Main.rand.Next(5) == 0) {
+					player.QuickSpawnItem(ItemType<Gambler.Weapons.Cards.IvyChestCard>(), 1);
+				}
 			}
 			if (context == "crate" && arg == 3204) { // CRIMSON CRATE
 				if (Main.rand.Next(2) == 0) {

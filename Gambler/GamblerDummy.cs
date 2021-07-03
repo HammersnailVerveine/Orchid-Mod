@@ -87,7 +87,13 @@ namespace OrchidMod.Gambler
 		}
 		
 		public override bool CanUseItem(Player player) {
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			if (player == Main.LocalPlayer) {
+				if (player.altFunctionUse == 2) {
+					item.useAnimation = 20;
+					item.useTime = 20;
+					item.reuseDelay = 0;
+				}
+			}
 			return base.CanUseItem(player);
 		}
 		
@@ -130,6 +136,7 @@ namespace OrchidMod.Gambler
 				item.crit = currentCard.crit + modPlayer.gamblerCrit;
 				item.useAnimation = currentCard.useAnimation;
 				item.useTime = currentCard.useTime;
+				item.reuseDelay = currentCard.reuseDelay;
 				item.knockBack = currentCard.knockBack;
 				item.shootSpeed = currentCard.shootSpeed;
 			} else {
@@ -138,6 +145,7 @@ namespace OrchidMod.Gambler
 				item.crit = 0;
 				item.useAnimation = 1;
 				item.useTime = 1;
+				item.reuseDelay = 0;
 				item.knockBack = 1f;
 				item.shootSpeed = 1f;
 			}

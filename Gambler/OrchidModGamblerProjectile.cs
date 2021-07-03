@@ -18,6 +18,7 @@ namespace OrchidMod.Gambler
 	
 		public sealed override void AltSetDefaults() {
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			projectile.timeLeft = 1500;
 			SafeSetDefaults();
 			modProjectile.gamblerProjectile = true;
 			modProjectile.baseCritChance = this.baseCritChance;

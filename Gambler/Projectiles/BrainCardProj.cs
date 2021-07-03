@@ -24,7 +24,6 @@ namespace OrchidMod.Gambler.Projectiles
             projectile.height = 26;
             projectile.friendly = true;
             projectile.aiStyle = 0;
-			projectile.timeLeft = 750;
 			projectile.penetrate = -1;
 			projectile.tileCollide = false;
 			ProjectileID.Sets.Homing[projectile.type] = true;

@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			item.useAnimation = 10;
 			item.useTime = 10;
 			item.shootSpeed = 8f;
-			this.cardRequirement = 1;
+			this.cardRequirement = 3;
 			this.gamblerCardSets.Add("Biome");
 		}
 

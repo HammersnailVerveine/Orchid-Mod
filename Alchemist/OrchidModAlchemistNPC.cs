@@ -23,6 +23,7 @@ namespace OrchidMod.Alchemist
 		
 		public void spreadOilFire(Vector2 startPosition, int damage, Player player) {
 			if (Main.myPlayer == player.whoAmI) {
+				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				Vector2 move = Vector2.Zero;
 				float distance = 1000f;
 				for (int k = 0; k < 200; k++) {
@@ -32,7 +33,8 @@ namespace OrchidMod.Alchemist
 						if (distanceTo < distance) {
 							OrchidModAlchemistNPC modTarget = Main.npc[k].GetGlobalNPC<OrchidModAlchemistNPC>();
 							if (modTarget.alchemistWater > 0) {
-								player.ApplyDamageToNPC(Main.npc[k], Main.DamageVar(damage), 5f, Main.LocalPlayer.direction, true);
+								bool crit = (Main.rand.Next(101) <= modPlayer.alchemistCrit + 4);
+								player.ApplyDamageToNPC(Main.npc[k], Main.DamageVar(damage), 5f, player.direction, crit);
 								modTarget.alchemistWater = 0;
 								modTarget.alchemistFire = 60 * 10;
 							}

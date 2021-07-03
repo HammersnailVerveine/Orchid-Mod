@@ -26,7 +26,6 @@ namespace OrchidMod.Gambler.Projectiles
             projectile.height = 22;
             projectile.friendly = true;
             projectile.aiStyle = 0;
-			projectile.timeLeft = 620;
 			projectile.penetrate = -1;
 			projectile.alpha = 64;
 			ProjectileID.Sets.Homing[projectile.type] = true;
@@ -53,6 +52,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (projectile.ai[1] == 0f || projectile.ai[1] == 2f) {
 				projectile.velocity.Y += (projectile.wet || projectile.lavaWet || projectile.honeyWet) ? projectile.velocity.Y > -7.5f ? -0.5f : 0f : projectile.velocity.Y < 7.5f ? 0.4f : 0f;
 			}
+			
 			projectile.frame = projectile.velocity.Y < 0f ? 1 : 0;
 			this.justHit -= this.justHit > 0 ? 1 : 0;
 			
@@ -133,14 +133,14 @@ namespace OrchidMod.Gambler.Projectiles
 			OrchidModProjectile.DrawProjectileGlowmask(projectile, spriteBatch, texture, Color.White);
 		}
 		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
-		{
-			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
-			projectile.velocity.Y = -10;
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
+			projectile.velocity.Y = -10f;
 			projectile.velocity.X *= 0.5f;
 			this.justHit = 30;
 			projectile.ai[1] = 1f;
-			int newProjectile = OrchidModGamblerHelper.DummyProjectile(ProjectileType<Gambler.Projectiles.KingSlimeCardProj2>(), modProjectile.gamblerDummyProj);
+			bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			int projType = ProjectileType<Gambler.Projectiles.KingSlimeCardProj2>();
+			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 59, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, false, true);
         }
 		

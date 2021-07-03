@@ -35,8 +35,7 @@ namespace OrchidMod.Gambler.Projectiles
         {
 			if (!this.initialized) {
 				this.initialized = true;
-				for (int l = 0; l < Main.projectile.Length; l++)
-				{  
+				for (int l = 0; l < Main.projectile.Length; l++) {  
 					Projectile proj = Main.projectile[l];
 					if (proj.active && proj.owner == Main.myPlayer) {
 						if (proj.type == ProjectileType<Gambler.Projectiles.JungleCardProj>()) {	

@@ -82,7 +82,7 @@ namespace OrchidMod
 		public Item gamblerCardCurrent = new Item();
 		public Item gamblerCardDummy = new Item();
 		public int gamblerShuffleCooldown = 0;
-		public int gamblerShuffleCooldownMax = 600;
+		public int gamblerShuffleCooldownMax = 900;
 		public int gamblerChips = 0;
 		public int gamblerChipsMax = 5;
 		public int gamblerChipsConsume = 0;
@@ -96,6 +96,7 @@ namespace OrchidMod
 		public int gamblerDiceValue = 0;
 		public int gamblerDiceDuration = 0;
 		public int gamblerUIDisplayTimer = 0;
+		public bool gamblerUIFightDisplay = false;
 		public bool gamblerUIDeckDisplay = true;
 		public bool gamblerJustSwitched = false;
 		public bool GamblerDeckInHand = false;
@@ -105,6 +106,7 @@ namespace OrchidMod
 		public bool gamblerDungeon = false;
 		public bool gamblerLuckySprout = false;
 		public bool gamblerPennant = false;
+		public bool gamblerElementalLens = false;
 		public bool gamblerVulture = false;
 		public bool gamblerSlimyLollipop = false;
 	

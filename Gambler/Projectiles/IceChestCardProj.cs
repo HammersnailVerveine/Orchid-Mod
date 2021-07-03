@@ -62,5 +62,11 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.dust[dust].noLight = true;
             }
         }
+		
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {
+			if (modPlayer.gamblerElementalLens) {
+				target.AddBuff(44, 60 * 5); // Frostburn
+			}
+        }
     }
 }
