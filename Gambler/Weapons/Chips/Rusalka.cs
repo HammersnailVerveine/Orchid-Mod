@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			item.useAnimation = 20;
 			item.useTime = 20;
 			item.knockBack = 4f;
-			item.damage = 42;
+			item.damage = 32;
 			item.crit = 4; 
 			item.rare = 2;
 			item.shootSpeed = 15f;
@@ -34,17 +34,15 @@ namespace OrchidMod.Gambler.Weapons.Chips
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			if (Main.rand.Next(4) == 0) {
-				int projType = ProjectileType<Gambler.Projectiles.Chips.RusalkaProjAlt>();
-				Projectile.NewProjectile(position.X, position.Y, speedX * 1.05f, speedY * 1.05f, projType, (int)(damage * 3), knockBack, player.whoAmI);	
-			}
+			int projType = ProjectileType<Gambler.Projectiles.Chips.RusalkaProjAlt>();
+			Projectile.NewProjectile(position.X, position.Y, speedX * 1.05f, speedY * 1.05f, projType, damage, knockBack, player.whoAmI);	
 			return true;
 		}
 		
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rusalka");
-		    Tooltip.SetDefault("25% chance of sending a delayed projectile, dealing triple damage"
+		    Tooltip.SetDefault("Sends delayed projectiles, dealing 50% more damage"
 							+  "\n25% chance not to consume chip");
 		}
 	}

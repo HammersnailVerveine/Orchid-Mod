@@ -39,12 +39,14 @@ namespace OrchidMod
 		internal UserInterface orchidModShamanCharacterInterface;
 		internal UserInterface orchidModAlchemistInterface;
 		internal UserInterface orchidModAlchemistSelectInterface;
+		internal UserInterface orchidModAlchemistSelectKeysInterface;
 		internal UserInterface orchidModAlchemistBookInterface;
 		internal UserInterface orchidModGamblerInterface;
 		internal ShamanUIState shamanUIState;
 		internal ShamanCharacterUIState shamanCharacterUIState;
 		internal AlchemistUIState alchemistUIState;
 		internal AlchemistSelectUIState alchemistSelectUIState;
+		internal AlchemistSelectKeysUIState alchemistSelectKeysUIState;
 		internal AlchemistBookUIState alchemistBookUIState;
 		internal GamblerUIState gamblerUIState;
 
@@ -296,6 +298,7 @@ namespace OrchidMod
 				shamanCharacterUIState = new ShamanCharacterUIState();
 				alchemistUIState = new AlchemistUIState();
 				alchemistSelectUIState = new AlchemistSelectUIState();
+				alchemistSelectKeysUIState = new AlchemistSelectKeysUIState();
 				alchemistBookUIState = new AlchemistBookUIState();
 				gamblerUIState = new GamblerUIState();
 
@@ -303,6 +306,7 @@ namespace OrchidMod
 				orchidModShamanCharacterInterface = new UserInterface();
 				orchidModAlchemistInterface = new UserInterface();
 				orchidModAlchemistSelectInterface = new UserInterface();
+				orchidModAlchemistSelectKeysInterface = new UserInterface();
 				orchidModAlchemistBookInterface = new UserInterface();
 				orchidModGamblerInterface = new UserInterface();
 				
@@ -317,6 +321,9 @@ namespace OrchidMod
 				
 				alchemistSelectUIState.Activate();
 				orchidModAlchemistSelectInterface.SetState(alchemistSelectUIState);
+				
+				alchemistSelectKeysUIState.Activate();
+				orchidModAlchemistSelectKeysInterface.SetState(alchemistSelectKeysUIState);
 				
 				alchemistBookUIState.Activate();
 				orchidModAlchemistBookInterface.SetState(alchemistBookUIState);
@@ -367,6 +374,7 @@ namespace OrchidMod
 						orchidModShamanCharacterInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModAlchemistInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModAlchemistSelectInterface.Draw(Main.spriteBatch, new GameTime());
+						orchidModAlchemistSelectKeysInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModAlchemistBookInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModGamblerInterface.Draw(Main.spriteBatch, new GameTime());
 						return true;
@@ -390,6 +398,10 @@ namespace OrchidMod
 				alchemistSelectUIState = new AlchemistSelectUIState();
 				alchemistSelectUIState.Activate();
 				orchidModAlchemistSelectInterface.SetState(alchemistSelectUIState);
+				
+				alchemistSelectKeysUIState = new AlchemistSelectKeysUIState();
+				alchemistSelectKeysUIState.Activate();
+				orchidModAlchemistSelectKeysInterface.SetState(alchemistSelectKeysUIState);
 				
 				alchemistBookUIState = new AlchemistBookUIState();
 				alchemistBookUIState.Activate();
@@ -427,6 +439,8 @@ namespace OrchidMod
 				AlchemistSelectUIFrame.resourceCross = null;
 				AlchemistSelectUIFrame.resourceSelected = null;
 				AlchemistSelectUIFrame.resourceBorder = null;
+				
+				AlchemistSelectKeysUIFrame.emptyTexture = null;
 				
 				AlchemistBookUIFrame.ressourceBookPage = null;
 				AlchemistBookUIFrame.ressourceBookSlot = null;
@@ -536,12 +550,14 @@ namespace OrchidMod
 			orchidModShamanCharacterInterface = null;
 			orchidModAlchemistInterface = null;
 			orchidModAlchemistSelectInterface = null;
+			orchidModAlchemistSelectKeysInterface = null;
 			orchidModAlchemistBookInterface = null;
 			orchidModGamblerInterface = null;
 			shamanUIState = null;
 			shamanCharacterUIState = null;
 			alchemistUIState = null;
 			alchemistSelectUIState = null;
+			alchemistSelectKeysUIState = null;
 			alchemistBookUIState = null;
 			gamblerUIState = null;
 			AlchemistReactionHotKey = null;

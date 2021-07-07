@@ -46,6 +46,7 @@ namespace OrchidMod
 		public int doubleTap = 0;
 		public int doubleTapCooldown = 0;
 		public bool doubleTapLock = false;
+		public int keepSelected = -1;
 	
 		public int customCrit = 0;
 
@@ -137,6 +138,9 @@ namespace OrchidMod
 		public bool alchemistSelectUIDisplay = true;
 		public bool alchemistSelectUIItem = false;
 		public bool alchemistSelectUIInitialize = false;
+		public bool alchemistSelectUIKeysDisplay = true;
+		public bool alchemistSelectUIKeysItem = false;
+		public bool alchemistSelectUIKeysInitialize = false;
 		public bool alchemistShootProjectile = false;
 		public bool alchemistBookUIDisplay = false;
 		public bool alchemistBookUIItem = false;
@@ -431,6 +435,11 @@ namespace OrchidMod
 			OrchidModAlchemistHelper.ResetEffectsAlchemist(player, this, mod);
 			OrchidModGamblerHelper.ResetEffectsGambler(player, this, mod);
 			OrchidModShamanHelper.ResetEffectsShaman(player, this, mod);
+			
+			if (this.keepSelected != -1) {
+				player.selectedItem = keepSelected;
+				this.keepSelected = -1;
+			}
 		}
 		
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource) {

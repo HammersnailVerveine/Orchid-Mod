@@ -173,7 +173,7 @@ namespace OrchidMod.NPCs.Town
 									Main.npcChatText = $"There you go, try not to lose a hand with this one.";
 									break;
 								case 2:
-									Main.npcChatText = $"I didn't take the time to try that one, if I don't see you tomorrow, I'll assume it doesn't work.";
+									Main.npcChatText = $"I didn't take the time to try that one. If I don't see you tomorrow, I'll assume it doesn't work.";
 									break;
 								case 3:
 									Main.npcChatText = $"And one perfectly fine recipe, completely free of charge! Or is it?";
@@ -211,6 +211,8 @@ namespace OrchidMod.NPCs.Town
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.UIItem>());
+			nextSlot++;
+			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.UIItemKeys>());
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.ReactionItem>());
 			nextSlot++;

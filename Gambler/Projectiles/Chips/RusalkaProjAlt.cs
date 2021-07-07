@@ -29,8 +29,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
             // return Color.White;
         // }
 		
-		public override void SafeAI()
-		{
+		public override void SafeAI() {
 			bool moreDust = projectile.timeLeft > 300;
 			if (Main.rand.Next(moreDust ? 5 : 10) == 0) {
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 29 : 59);
@@ -51,6 +50,15 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 				projectile.alpha = 0;
 				projectile.friendly = true;
 				projectile.aiStyle = 2;
+			}
+		}
+		
+		public override void Kill(int timeLeft) {
+			for (int i = 0 ; i < 10 ; i ++) {
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 29 : 59);
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+				Main.dust[dust].noGravity = true;	
 			}
 		}
 	}

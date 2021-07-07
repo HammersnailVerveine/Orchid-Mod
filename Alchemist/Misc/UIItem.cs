@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using System.Linq;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Misc
 {
@@ -22,6 +23,7 @@ namespace OrchidMod.Alchemist.Misc
 			item.noUseGraphic = true;
 			item.rare = 1;
 			item.UseSound = SoundID.Item7;
+			item.shoot = ProjectileType<Alchemist.Projectiles.AlchemistRightClick>();
 		}
 		
 		public override bool AltFunctionUse(Player player) {
@@ -38,14 +40,25 @@ namespace OrchidMod.Alchemist.Misc
 			return base.CanUseItem(player);
 		}
 		
-		public override bool UseItem(Player player) {
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (!modPlayer.alchemistSelectUIDisplay && Main.mouseLeftRelease) {
+			if (!modPlayer.alchemistSelectUIDisplay) {
 				modPlayer.alchemistSelectUIDisplay = true;
-				modPlayer.alchemistSelectUIInitialize = modPlayer.alchemistSelectUIDisplay ? true : false;
+				modPlayer.alchemistSelectUIInitialize = true;
 			}
 			return true;
 		}
+		
+		/*
+		public override bool UseItem(Player player) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			if (!modPlayer.alchemistSelectUIDisplay) {
+				modPlayer.alchemistSelectUIDisplay = true;
+				modPlayer.alchemistSelectUIInitialize = true;
+			}
+			return true;
+		}
+		*/
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips) {
 			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
@@ -65,7 +78,7 @@ namespace OrchidMod.Alchemist.Misc
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("The Alchemist's Cookbook");
-			Tooltip.SetDefault("Allows to mix alchemical weapons by clicking"
+			Tooltip.SetDefault("Allows mixing alchemical weapons by clicking"
 							+  "\nRight click on an item icon to mix it"
 							+  "\nLeft click to launch the attack"
 							+  "\nUp to 18 items can be displayed at once");

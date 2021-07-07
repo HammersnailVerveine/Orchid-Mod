@@ -9,7 +9,7 @@ namespace OrchidMod.Alchemist.Buffs
         public override void SetDefaults()
         {
 			DisplayName.SetDefault("Misty Steps");
-			Description.SetDefault("Periodically releases blood mist while walking");
+			Description.SetDefault("Periodically releases blood mist while moving");
             Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
         }
