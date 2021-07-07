@@ -1,7 +1,12 @@
-v1.3.0.4 : Mineshaft content, bugfixes, alchemist dust tweaks
+v1.3.0.5 : Hidden Reactions rework, Gambler/Alchemist polishing.
 
-Hello there,
-My name is Verveine, and this mod will be covering the ideas I had the courage to bring to life in the game.
+The Orchid Mod aims to add content to the game in polished and refreshing ways.
+You will not find the usual vanilla class items load here, most of Orchid content is, and will be based on
+new classes, with unique and complex mechanics, and new interesting biomes/structures to explore.
+
+Orchid's content is heavily inspired, and tries to respect vanilla guidelines as much as possible.
+Thus, the mod is balanced around the main game, nothing should overpower it, and the classes
+should blend in as much as possible with the main ones.
 
 It adds :
 - 3 new classes : The Gambler, Alchemist and Shaman.
