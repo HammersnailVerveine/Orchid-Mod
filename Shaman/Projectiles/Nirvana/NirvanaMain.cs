@@ -22,8 +22,6 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			projectile.alpha = 255;
             this.empowermentType = 5;
-            this.empowermentLevel = 5;
-            this.spiritPollLoad = 0;
 		}
 		
 		public override void SetStaticDefaults()

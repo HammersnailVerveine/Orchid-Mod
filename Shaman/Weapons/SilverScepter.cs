@@ -24,14 +24,13 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 7.5f;
 			item.shoot = mod.ProjectileType("SilverScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 1;
 		}
 
 		public override void SetStaticDefaults()
 		{
 		  DisplayName.SetDefault("Sapphire Scepter");
 		  Tooltip.SetDefault("\nHitting an enemy will grant you a sapphire orb"
-							+"\nIf you have 3 sapphire orbs, your next hit will empower your shamanic water bonds for 15 seconds");
+							+"\nIf you have 3 sapphire orbs, your next hit will increase your shamanic critical strike chance for 30 seconds");
 		}
 			
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

@@ -22,8 +22,7 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.scale = 0f;	
 			projectile.timeLeft = 140;
 			this.empowermentType = 4;
-			this.empowermentLevel = 5;
-        }
+			}
 		
 		public override void SetStaticDefaults()
         {

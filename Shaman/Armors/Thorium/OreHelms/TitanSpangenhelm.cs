@@ -24,16 +24,15 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 		public override void SetStaticDefaults()
 		{
 		  DisplayName.SetDefault("Titan Spangenhelm");
-		  Tooltip.SetDefault("Your shamanic bonds will last 4 seconds longer"
-							+"\nIncreases the effectiveness of your shamanic fire and water bonds");
+		  Tooltip.SetDefault("Your shamanic bonds will last 4 seconds longer");
 		}
 
         public override void UpdateEquip(Player player)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.shamanBuffTimer += 4;
-			modPlayer.shamanFireBonus += 1;
-			modPlayer.shamanWaterBonus += 1;
+			//modPlayer.shamanFireBonus += 1;
+			//modPlayer.shamanWaterBonus += 1;
         }
 		
 		public override bool IsArmorSet(Item head, Item body, Item legs)

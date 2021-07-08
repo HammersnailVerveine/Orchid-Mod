@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 7f;
 			item.shoot = mod.ProjectileType("SpineScepterProj");
 			this.empowermentType = 2;
-			this.empowermentLevel = 1;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
 		}

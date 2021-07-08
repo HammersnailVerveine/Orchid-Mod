@@ -17,16 +17,19 @@ namespace OrchidMod.Shaman.Accessories
             item.rare = 1;
             item.accessory = true;
         }
+		
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Amethyst Idol");
 			Tooltip.SetDefault("Increases the effectiveness of your shamanic spirit bonds");
 		}
+		
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.shamanSpiritBonus += 1;
+			//modPlayer.shamanSpiritBonus += 1;
         }
+		
 		public override void AddRecipes()
 		{
 		    ModRecipe recipe = new ModRecipe(mod);

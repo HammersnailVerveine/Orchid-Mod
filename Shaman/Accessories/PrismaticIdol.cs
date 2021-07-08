@@ -31,11 +31,11 @@ namespace OrchidMod.Shaman.Accessories
 			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 
 			if (BuffsCount > 2) {
-				modPlayer.shamanFireBonus ++;
-				modPlayer.shamanWaterBonus ++;		
-				modPlayer.shamanAirBonus ++;	
-				modPlayer.shamanEarthBonus ++;	
-				modPlayer.shamanSpiritBonus ++;	
+				//modPlayer.shamanFireBonus ++;
+				//modPlayer.shamanWaterBonus ++;		
+				//modPlayer.shamanAirBonus ++;	
+				//modPlayer.shamanEarthBonus ++;	
+				//modPlayer.shamanSpiritBonus ++;	
 			}
 			modPlayer.shamanBuffTimer += 3;
 			modPlayer.shamanAmber = true;

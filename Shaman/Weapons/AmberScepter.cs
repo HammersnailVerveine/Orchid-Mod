@@ -25,14 +25,13 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 9f;
 			item.shoot = mod.ProjectileType("AmberScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 2;
 		}
 
 		public override void SetStaticDefaults()
 		{
 		  DisplayName.SetDefault("Amber Scepter");
 		  Tooltip.SetDefault("\nHitting an enemy will grant you an amber orb"
-							+"\nIf you have 3 amber orbs, your next hit will restore 10 life and increase your armor by 3 for 15 seconds");
+							+"\nIf you have 3 amber orbs, your next hit will increase your maximum life for 30 seconds");
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

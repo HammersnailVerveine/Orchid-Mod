@@ -10,7 +10,6 @@ namespace OrchidMod.Shaman
 	public abstract class OrchidModShamanItem : OrchidModItem
 	{
 		public int empowermentType = 0;
-		public int empowermentLevel = 0;
 		
 		public virtual void SafeSetDefaults() {}
 
@@ -71,7 +70,7 @@ namespace OrchidMod.Shaman
 				}
 			}
 			
-			if (empowermentType > 0 && empowermentLevel > 0)
+			if (empowermentType > 0)
 			{
 				Color[] colors = new Color[5]
 				{
@@ -83,10 +82,9 @@ namespace OrchidMod.Shaman
 				};
 
 				string[] strType = new string[5] { "Fire", "Water", "Air", "Earth", "Spirit" };
-				string[] strLevel = new string[5] { "I", "II", "III", "IV", "V" };
 
 				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[empowermentType - 1]).Hex3()}:{strType[empowermentType - 1]} {strLevel[empowermentLevel - 1]}]"));
+				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[empowermentType - 1]).Hex3()}:{strType[empowermentType - 1]}]"));
 			}
 		}
 	}

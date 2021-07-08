@@ -17,8 +17,6 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.aiStyle = 1;
 			projectile.timeLeft = 50;	
             this.empowermentType = 1;
-            this.empowermentLevel = 1;
-            this.spiritPollLoad = 0;		
         }
 		
 		public override void SetStaticDefaults()

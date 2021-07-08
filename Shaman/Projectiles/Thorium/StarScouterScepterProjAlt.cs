@@ -20,8 +20,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.timeLeft = 90;
 			projectile.scale = 1f;
             this.empowermentType = 3;
-            this.empowermentLevel = 2;
-            this.spiritPollLoad = 0;
         }
 		
 		public override void SetStaticDefaults()

@@ -11,10 +11,10 @@ namespace OrchidMod.Shaman.Buffs
 			DisplayName.SetDefault("Diamond Empowerment");
 			Description.SetDefault("Increases the duration of your shamanic bonds by 3 seconds");
         }
-        public override void Update(Player player, ref int buffIndex)
-		{
-			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanBuffTimer += 3;
+		
+        public override void Update(Player player, ref int buffIndex) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.shamanBuffTimer += 3;
 		}
     }
 }

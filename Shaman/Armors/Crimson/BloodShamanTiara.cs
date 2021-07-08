@@ -39,11 +39,11 @@ namespace OrchidMod.Shaman.Armors.Crimson
         public override void UpdateArmorSet(Player player)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-            player.setBonus = "Shamanic earth bonds are more effective and cause attacks to steal life"
+            player.setBonus = "Shamanic earth cause attacks to steal life"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
 			modPlayer.shamanBuffTimer += 3;
 			modPlayer.shamanCrimtane = true;
-			modPlayer.shamanEarthBonus += 1;
+			//modPlayer.shamanEarthBonus += 1;
         }
 		
         public override bool DrawHead()

@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 6f;
 			item.shoot = mod.ProjectileType("CopperScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 1;
 		}
 
 		public override void SetStaticDefaults()

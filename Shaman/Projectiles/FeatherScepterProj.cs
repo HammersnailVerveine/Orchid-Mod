@@ -25,9 +25,7 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.timeLeft = 200;
             projectile.penetrate = -1;
             this.empowermentType = 3;
-            this.empowermentLevel = 2;
-            this.spiritPollLoad = 0;
-			this.projectileTrail = true;
+            this.projectileTrail = true;
 		}
 		
         public override void AI()

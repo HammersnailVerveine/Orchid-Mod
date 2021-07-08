@@ -26,7 +26,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shoot = mod.ProjectileType("MeteorPhasestaffProj");
 			item.UseSound = SoundID.Item15;
 			this.empowermentType = 1;
-			this.empowermentLevel = 2;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 		}
 

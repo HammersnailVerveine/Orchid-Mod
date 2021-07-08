@@ -31,7 +31,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("FeatherScepterProj");
 			this.empowermentType = 3;
-			this.empowermentLevel = 2;
 		}
 
 		public override void SetStaticDefaults()

@@ -23,8 +23,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.tileCollide = false;
 			projectile.timeLeft = 600;
 			this.empowermentType = 1;
-			this.empowermentLevel = 3;
-			this.spiritPollLoad = 0;
 		}
 
 		public override Color? GetAlpha(Color lightColor)

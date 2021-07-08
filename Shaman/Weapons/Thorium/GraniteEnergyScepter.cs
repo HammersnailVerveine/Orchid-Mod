@@ -27,7 +27,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("GraniteEnergyScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 2;
 		}
 
 		public override void SetStaticDefaults()

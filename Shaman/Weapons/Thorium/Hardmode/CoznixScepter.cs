@@ -27,7 +27,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("CoznixScepterProj");
 			this.empowermentType = 1;
-			this.empowermentLevel = 3;
 		}
 
 		public override void SetStaticDefaults()

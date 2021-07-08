@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("CorruptConeProj");
 			this.empowermentType = 1;
-			this.empowermentLevel = 3;
 		}
 
 		public override void SetStaticDefaults()

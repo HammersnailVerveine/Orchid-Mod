@@ -17,16 +17,19 @@ namespace OrchidMod.Shaman.Accessories
             item.rare = 1;
             item.accessory = true;
         }
+		
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ruby Idol");
 			Tooltip.SetDefault("Increases the effectiveness of your shamanic fire bonds");
 		}
+		
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.shamanFireBonus += 1;
+			//modPlayer.shamanFireBonus += 1;
         }
+		
 		public override void AddRecipes()
 		{
 		    ModRecipe recipe = new ModRecipe(mod);

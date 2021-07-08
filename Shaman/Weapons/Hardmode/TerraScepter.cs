@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("TerraSpecterProj2");
 			this.empowermentType = 5;
-			this.empowermentLevel = 4;
 		}
 
 		public override void SetStaticDefaults()
@@ -42,22 +41,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	    {
 			
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int BuffsCount = 0;
-			if (modPlayer.shamanWaterBuff != 0)
-				BuffsCount ++;
-			
-			if (modPlayer.shamanAirBuff != 0)
-				BuffsCount ++;
-			
-			if (modPlayer.shamanEarthBuff != 0)
-				BuffsCount ++;
-				
-			if (modPlayer.shamanSpiritBuff != 0)
-				BuffsCount ++;
-			
-			if (modPlayer.shamanFireBuff != 0)
-				BuffsCount ++;
-			
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			BuffsCount -= BuffsCount > 0 ? 1 : 0;
 			
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;

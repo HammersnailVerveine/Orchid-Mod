@@ -20,8 +20,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.scale = 1f;
 			Main.projFrames[projectile.type] = 5;
 			this.empowermentType = 3;
-			this.empowermentLevel = 2;
-			this.spiritPollLoad = 0;
         }
 		
 		public override void SetStaticDefaults()

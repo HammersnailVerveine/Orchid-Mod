@@ -9,12 +9,11 @@ namespace OrchidMod.Shaman.Buffs
         {
             Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Ruby Empowerment");
-			Description.SetDefault("Increases the effectiveness your shamanic fire bonds");
+			Description.SetDefault("Increases life regeneration");
         }
-        public override void Update(Player player, ref int buffIndex)
-		{
-			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanFireBonus += 1;
+		
+        public override void Update(Player player, ref int buffIndex) {
+			player.lifeRegen += 2;
 		}
     }
 }

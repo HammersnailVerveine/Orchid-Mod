@@ -26,8 +26,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.timeLeft = 1200;
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			this.empowermentType = 3;
-			this.empowermentLevel = 2;
-			this.spiritPollLoad = 0;
 			this.projectileTrail = true;
         }
 		

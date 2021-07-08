@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 5f;
 			item.shoot = mod.ProjectileType("NirvanaMain");
 			this.empowermentType = 5;
-			this.empowermentLevel = 5;
 		}
 
 		public override void SetStaticDefaults()

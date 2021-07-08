@@ -21,8 +21,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.ignoreWater = true;   
 			projectile.alpha = 255;
             this.empowermentType = 3;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 0;
         }
 		
 		public override void SetStaticDefaults()

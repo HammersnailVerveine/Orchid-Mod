@@ -19,8 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 			projectile.scale = 0f;
 			projectile.tileCollide = false;
             this.empowermentType = 3;
-            this.empowermentLevel = 4;
-            this.spiritPollLoad = 6;
         }
 		
 		public override void SetStaticDefaults()

@@ -19,8 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			projectile.tileCollide = false;
 			projectile.alpha = 192;
             this.empowermentType = 2;
-            this.empowermentLevel = 5;
-            this.spiritPollLoad = 10;
         }
 		
 		public override void SetStaticDefaults()
@@ -147,7 +145,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			if (modPlayer.orbCountBig == 15)
 				Projectile.NewProjectile(player.Center.X + 38, player.position.Y - 18, 0f, 0f, mod.ProjectileType("AbyssOrb"), 0, 0, projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 15) {
-				player.AddBuff(mod.BuffType("AbyssEmpowerment"), 60 * 15);
+				player.AddBuff(mod.BuffType("AbyssEmpowerment"), 60 * 30);
 				modPlayer.orbCountBig = -3;
 			}
 		}

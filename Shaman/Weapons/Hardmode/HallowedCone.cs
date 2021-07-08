@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 12f;
 			item.shoot = mod.ProjectileType("CrystalScepterProj");
 			this.empowermentType = 5;
-			this.empowermentLevel = 3;
 		}
 
 		public override void SetStaticDefaults()

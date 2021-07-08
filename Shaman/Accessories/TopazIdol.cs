@@ -22,11 +22,13 @@ namespace OrchidMod.Shaman.Accessories
 			DisplayName.SetDefault("Topaz Idol");
 			Tooltip.SetDefault("Increases the effectiveness of your shamanic earth bonds");
 		}
+		
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.shamanEarthBonus += 1;
+			//modPlayer.shamanEarthBonus += 1;
         }
+		
 		public override void AddRecipes()
 		{
 		    ModRecipe recipe = new ModRecipe(mod);

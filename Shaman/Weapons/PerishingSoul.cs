@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("PerishingSoulProj");
 			this.empowermentType = 1;
-			this.empowermentLevel = 2;
 		}
 
 		public override void SetStaticDefaults()

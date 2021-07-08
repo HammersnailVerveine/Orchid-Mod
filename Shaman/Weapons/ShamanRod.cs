@@ -24,9 +24,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.UseSound = SoundID.Item65;
 			item.shootSpeed = 7f;
 			item.shoot = ModContent.ProjectileType<Projectiles.ShamanRodProj>();
-
 			empowermentType = 4;
-			empowermentLevel = 2;
 		}
 		
 		public override void SetStaticDefaults()

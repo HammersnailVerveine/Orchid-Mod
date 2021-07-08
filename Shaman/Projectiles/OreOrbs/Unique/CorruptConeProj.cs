@@ -27,8 +27,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			aiType = ProjectileID.Bullet; 
 			projectile.penetrate = 3;
             this.empowermentType = 1;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 3;
         }
 
         public override void AI()

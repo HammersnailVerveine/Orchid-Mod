@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 8f;
 			item.shoot = mod.ProjectileType("BulbScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 4;
 		}
 
 		public override void SetStaticDefaults()

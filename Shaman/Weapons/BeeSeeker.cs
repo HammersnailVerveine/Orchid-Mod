@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 6f;
 			item.shoot = mod.ProjectileType("HoneyProj");
 			this.empowermentType = 2;
-			this.empowermentLevel = 2;
 		}
 
 		public override void SetStaticDefaults()

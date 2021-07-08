@@ -30,7 +30,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 10f;
 			item.shoot = ModContent.ProjectileType<Projectiles.AbyssShardS>();
 			this.empowermentType = 1;
-			this.empowermentLevel = 5;
 
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;

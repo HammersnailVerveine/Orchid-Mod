@@ -20,8 +20,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 			projectile.timeLeft = 40;	
 			projectile.scale = 1f;
             this.empowermentType = 4;
-            this.empowermentLevel = 2;
-            this.spiritPollLoad = 10;	
 			this.projectileTrail = true;			
         }
 		
@@ -83,9 +81,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 
 			if (modPlayer.orbCountSmall > 3) {
 				if (Main.myPlayer == player.whoAmI)
-					player.HealEffect(10, true);
-				player.statLife += 10;
-				player.AddBuff(mod.BuffType("AmberEmpowerment"), 60 * 15);
+					player.HealEffect(20, true);
+				player.statLife += 20;
 				modPlayer.orbCountSmall = 0;
 			}
 		}

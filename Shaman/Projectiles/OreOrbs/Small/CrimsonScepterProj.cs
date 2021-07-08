@@ -21,9 +21,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 			projectile.timeLeft = 45;	
 			projectile.scale = 1f;	
             this.empowermentType = 1;
-            this.empowermentLevel = 1;
-            this.spiritPollLoad = 10;
-			this.projectileTrail = true;	
+            this.projectileTrail = true;	
         }
 		
         public override Color? GetAlpha(Color lightColor)
@@ -84,8 +82,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 
 			if (modPlayer.orbCountSmall > 3) {
 				if (Main.myPlayer == player.whoAmI)
-					player.HealEffect(5, true);
-				player.statLife += 5;
+					player.HealEffect(10, true);
+				player.statLife += 10;
 				modPlayer.orbCountSmall = 0;
 			}
 		}

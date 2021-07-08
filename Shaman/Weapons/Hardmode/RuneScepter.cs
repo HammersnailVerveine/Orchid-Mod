@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 13f;
 			item.shoot = mod.ProjectileType("RuneScepterProj");
 			this.empowermentType = 1;
-			this.empowermentLevel = 3;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
 		}

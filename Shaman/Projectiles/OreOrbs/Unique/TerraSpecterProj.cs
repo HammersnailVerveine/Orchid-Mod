@@ -19,8 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
             projectile.timeLeft = 90;	
 			projectile.scale = 0.5f;
             this.empowermentType = 5;
-            this.empowermentLevel = 4;
-            this.spiritPollLoad = 0;
         }
 		
 		public override void SetStaticDefaults()

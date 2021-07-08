@@ -19,8 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			projectile.scale = 1f;
 			projectile.alpha = 255;
             this.empowermentType = 4;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 4;
         }
 		
 		public override void SetStaticDefaults()
@@ -84,7 +82,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 				Projectile.NewProjectile(player.Center.X + 30, player.position.Y - 30, 0f, 0f, mod.ProjectileType("MythrilOrb"), 0, 0, projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 15) {
 
-				player.AddBuff(mod.BuffType("MythrilDefense"), 60 * 15);
+				player.AddBuff(mod.BuffType("MythrilDefense"), 60 * 30);
 				modPlayer.orbCountBig = -3;
 			}
 		}

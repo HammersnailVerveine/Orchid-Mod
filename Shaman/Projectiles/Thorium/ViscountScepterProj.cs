@@ -21,8 +21,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.scale = 1f;
 			aiType = ProjectileID.Bullet; 
             this.empowermentType = 3;
-            this.empowermentLevel = 2;
-            this.spiritPollLoad = 0;
         }
 		
 		public override Color? GetAlpha(Color lightColor)

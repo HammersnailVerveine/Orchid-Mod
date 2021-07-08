@@ -27,7 +27,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 8f;
 			item.shoot = mod.ProjectileType("AbyssionScepterProj");
 			this.empowermentType =2;
-			this.empowermentLevel = 4;
 		}
 
 		public override void SetStaticDefaults()

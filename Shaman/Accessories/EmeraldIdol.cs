@@ -17,16 +17,19 @@ namespace OrchidMod.Shaman.Accessories
             item.rare = 1;
             item.accessory = true;
         }
+		
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Emerald Idol");
 			Tooltip.SetDefault("Increases the effectiveness of your shamanic air bonds");
 		}
+		
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.shamanAirBonus += 1;
+			//modPlayer.shamanAirBonus += 1;
         }
+		
 		public override void AddRecipes()
 		{
 		    ModRecipe recipe = new ModRecipe(mod);

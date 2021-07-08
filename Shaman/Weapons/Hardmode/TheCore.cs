@@ -26,7 +26,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("TheCoreProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 5;
 		}
 
 		public override void SetStaticDefaults()
@@ -45,25 +44,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-			position += muzzleOffset;
+			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0)) {
+				position += muzzleOffset;
 			}
-			int BuffsCount = 0;
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanFireBuff != 0)
-				BuffsCount ++;
 			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanWaterBuff != 0)
-				BuffsCount ++;
-			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanAirBuff != 0)
-				BuffsCount ++;
-			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanEarthBuff != 0)
-				BuffsCount ++;
-				
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanSpiritBuff != 0)
-				BuffsCount ++;
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			
 			int numberProjectiles = 2 + BuffsCount;
 		

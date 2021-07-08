@@ -21,9 +21,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 			projectile.timeLeft = 40;	
 			projectile.scale = 1f;	
             this.empowermentType = 4;
-            this.empowermentLevel = 1;
-            this.spiritPollLoad = 10;
-			this.projectileTrail = true;
+            this.projectileTrail = true;
         }
 		
         public override Color? GetAlpha(Color lightColor)
@@ -60,31 +58,31 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 		
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
         {
-			if (player.GetModPlayer<OrchidModPlayer>().shamanOrbSmall != ShamanOrbSmall.TOPAZ) {
-				player.GetModPlayer<OrchidModPlayer>().shamanOrbSmall = ShamanOrbSmall.TOPAZ;
-				player.GetModPlayer<OrchidModPlayer>().orbCountSmall = 0;
+			if (modPlayer.shamanOrbSmall != ShamanOrbSmall.TOPAZ) {
+				modPlayer.shamanOrbSmall = ShamanOrbSmall.TOPAZ;
+				modPlayer.orbCountSmall = 0;
 			}
-			player.GetModPlayer<OrchidModPlayer>().orbCountSmall ++;
+			modPlayer.orbCountSmall ++;
 			
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountSmall == 1) 
+			if (modPlayer.orbCountSmall == 1) 
 				{
 				Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 20, 0f, 0f, mod.ProjectileType("TopazOrb"), 0, 0, projectile.owner, 0f, 0f);
 				
 				if (player.FindBuffIndex(mod.BuffType("ShamanicBaubles")) > -1)
 				{
-					player.GetModPlayer<OrchidModPlayer>().orbCountSmall ++;
+					modPlayer.orbCountSmall ++;
 					Projectile.NewProjectile(player.Center.X , player.position.Y - 25, 0f, 0f, mod.ProjectileType("TopazOrb"), 1, 0, projectile.owner, 0f, 0f);
 					player.ClearBuff(mod.BuffType("ShamanicBaubles"));
 				}
 			}
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountSmall == 2)
+			if (modPlayer.orbCountSmall == 2)
 				Projectile.NewProjectile(player.Center.X , player.position.Y - 25, 0f, 0f, mod.ProjectileType("TopazOrb"), 0, 0, projectile.owner, 0f, 0f);
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountSmall == 3)
+			if (modPlayer.orbCountSmall == 3)
 				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 20, 0f, 0f, mod.ProjectileType("TopazOrb"), 0, 0, projectile.owner, 0f, 0f);
 
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountSmall > 3) {
-				player.AddBuff(mod.BuffType("TopazEmpowerment"), 60 * 15);
-				player.GetModPlayer<OrchidModPlayer>().orbCountSmall = 0;
+			if (modPlayer.orbCountSmall > 3) {
+				player.AddBuff(mod.BuffType("TopazEmpowerment"), 60 * 30);
+				modPlayer.orbCountSmall = 0;
 			}
 		}
     }

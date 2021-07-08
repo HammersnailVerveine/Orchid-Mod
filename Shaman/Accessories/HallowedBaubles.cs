@@ -28,13 +28,7 @@ namespace OrchidMod.Shaman.Accessories
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			
-			if (modPlayer.shamanFireBuff +
-				modPlayer.shamanWaterBuff +
-				modPlayer.shamanAirBuff +
-				modPlayer.shamanEarthBuff +
-				modPlayer.shamanSpiritBuff != 0)
-			{
-				
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 0) {		
 				if (modPlayer.orbCountSmall == 0 && modPlayer.shamanOrbSmall != ShamanOrbSmall.NULL)
 				{
 					player.AddBuff(mod.BuffType("ShamanicBaubles"), 10 * 60);

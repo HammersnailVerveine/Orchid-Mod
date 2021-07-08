@@ -30,10 +30,7 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.aiStyle = 0;
 			projectile.timeLeft = 1801;
             projectile.penetrate = -1;
-
 			empowermentType = 4;
-			empowermentLevel = 2;
-			spiritPollLoad = 0;
 		}
 
 		public override void OnSpawn()

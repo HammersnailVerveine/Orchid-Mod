@@ -24,8 +24,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Main.projFrames[projectile.type] = 3;
 			this.crystalType = 0;
             this.empowermentType = 4;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 0;
         }
 		
 		public override void SetStaticDefaults()

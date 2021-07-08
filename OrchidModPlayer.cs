@@ -174,23 +174,11 @@ namespace OrchidMod
 		public int orbCountUnique = 0;
 		public int orbCountCircle = 0;
 		
-		public int shamanFireBuff = 0;
-		public int shamanWaterBuff = 0;
-		public int shamanAirBuff = 0;
-		public int shamanEarthBuff = 0;
-		public int shamanSpiritBuff = 0;
-		
 		public int shamanFireTimer = 0;
 		public int shamanWaterTimer = 0;
 		public int shamanAirTimer = 0;
 		public int shamanEarthTimer = 0;
 		public int shamanSpiritTimer = 0;
-		
-		public int shamanFireBonus = 0;
-		public int shamanWaterBonus = 0;
-		public int shamanAirBonus = 0;
-		public int shamanEarthBonus = 0;
-		public int shamanSpiritBonus = 0;
 		
 		public int shamanFireBondLoading = 0;
 		public int shamanWaterBondLoading = 0;
@@ -407,10 +395,6 @@ namespace OrchidMod
 				}
 			}
 			
-			if (OrchidMod.ShamanBondHotKey.JustPressed) {
-				OrchidModShamanHelper.BondHotKeyPressed(player, this, mod);
-			}
-			
 			if (OrchidMod.AlchemistReactionHotKey.JustPressed) {
 				if (this.alchemistNbElements < 2 || player.FindBuffIndex(mod.BuffType("ReactionCooldown")) > -1) {
 					return;
@@ -563,12 +547,6 @@ namespace OrchidMod
 			clone.orbCountUnique = this.orbCountUnique;
 			clone.orbCountCircle = this.orbCountCircle;
 			
-			clone.shamanFireBuff = this.shamanFireBuff;
-			clone.shamanWaterBuff = this.shamanWaterBuff;
-			clone.shamanAirBuff = this.shamanAirBuff;
-			clone.shamanEarthBuff = this.shamanEarthBuff;
-			clone.shamanSpiritBuff = this.shamanSpiritBuff;
-			
 			clone.gamblerHasCardInDeck = this.gamblerHasCardInDeck;
 		}
 		
@@ -588,12 +566,6 @@ namespace OrchidMod
 			packet.Write(orbCountLarge);
 			packet.Write(orbCountUnique);
 			packet.Write(orbCountCircle);
-			
-			packet.Write(shamanFireBuff);
-			packet.Write(shamanWaterBuff);
-			packet.Write(shamanAirBuff);
-			packet.Write(shamanEarthBuff);
-			packet.Write(shamanSpiritBuff);
 			
 			packet.Write(shamanFireTimer);
 			packet.Write(shamanWaterTimer);
@@ -688,47 +660,6 @@ namespace OrchidMod
 				packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDCIRCLE);
 				packet.Write((byte)player.whoAmI);
 				packet.Write(orbCountCircle);
-				packet.Send();
-			}
-			
-			// Empowerment Levels
-			if (clone.shamanFireBuff != shamanFireBuff) {
-				var packet = mod.GetPacket();
-				packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDATTACK);
-				packet.Write((byte)player.whoAmI);
-				packet.Write(shamanFireBuff);
-				packet.Send();
-			}
-			
-			if (clone.shamanWaterBuff != shamanWaterBuff) {
-				var packet = mod.GetPacket();
-				packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDARMOR);
-				packet.Write((byte)player.whoAmI);
-				packet.Write(shamanWaterBuff);
-				packet.Send();
-			}
-			
-			if (clone.shamanAirBuff != shamanAirBuff) {
-				var packet = mod.GetPacket();
-				packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDCRITICAL);
-				packet.Write((byte)player.whoAmI);
-				packet.Write(shamanAirBuff);
-				packet.Send();
-			}
-			
-			if (clone.shamanEarthBuff != shamanEarthBuff) {
-				var packet = mod.GetPacket();
-				packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDREGENERATION);
-				packet.Write((byte)player.whoAmI);
-				packet.Write(shamanEarthBuff);
-				packet.Send();
-			}
-			
-			if (clone.shamanSpiritBuff != shamanSpiritBuff) {
-				var packet = mod.GetPacket();
-				packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDSPEED);
-				packet.Write((byte)player.whoAmI);
-				packet.Write(shamanSpiritBuff);
 				packet.Send();
 			}
 			

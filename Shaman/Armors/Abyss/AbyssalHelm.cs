@@ -50,15 +50,14 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			player.armorEffectDrawShadow = true;
 			String dir = Main.ReversedUpDownArmorSetBonuses ? "DOWN" : "UP";
-			player.setBonus = "All shamanic bonds are more effective"
-							+ "\n             Double tap " + dir + " to summon an abyss portal"
-							+ "\n             Portal damage grants an air V shamanic bond";
+			player.setBonus = "\n             Double tap " + dir + " to summon an abyss portal"
+							+ "\n             Portal damage grants an air shamanic bond";
 
-			modPlayer.shamanFireBonus += 1;
-			modPlayer.shamanWaterBonus += 1;
-			modPlayer.shamanAirBonus += 1;
-			modPlayer.shamanEarthBonus += 1;
-			modPlayer.shamanSpiritBonus += 1;
+			//modPlayer.shamanFireBonus += 1;
+			//modPlayer.shamanWaterBonus += 1;
+			//modPlayer.shamanAirBonus += 1;
+			//modPlayer.shamanEarthBonus += 1;
+			//modPlayer.shamanSpiritBonus += 1;
 			modPlayer.abyssSet = true;
         }
 		

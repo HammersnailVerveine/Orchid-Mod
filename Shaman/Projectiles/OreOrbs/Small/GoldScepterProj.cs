@@ -19,8 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
             projectile.aiStyle = 0;
 			projectile.timeLeft = 40;
             this.empowermentType = 4;
-            this.empowermentLevel = 1;
-            this.spiritPollLoad = 10;	
 			this.projectileTrail = true;				
         }
 		
@@ -81,7 +79,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 20, 0f, 0f, mod.ProjectileType("RubyOrb"), 0, 0, projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountSmall > 3) {
-				player.AddBuff(mod.BuffType("RubyEmpowerment"), 60 * 15);
+				player.AddBuff(mod.BuffType("RubyEmpowerment"), 60 * 30);
 				modPlayer.orbCountSmall = 0;
 			}
 		}

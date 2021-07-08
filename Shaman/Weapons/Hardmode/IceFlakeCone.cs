@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 12f;
 			item.shoot = mod.ProjectileType("IceFlakeConeProj");
 			this.empowermentType = 2;
-			this.empowermentLevel = 4;
 		}
 
 		public override void SetStaticDefaults()
@@ -36,21 +35,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			int BuffsCount = 0;
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanFireBuff != 0)
-				BuffsCount ++;
-			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanWaterBuff != 0)
-				BuffsCount ++;
-			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanAirBuff != 0)
-				BuffsCount ++;
-			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanEarthBuff != 0)
-				BuffsCount ++;
-				
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanSpiritBuff != 0)
-				BuffsCount ++;
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			
 			int numberProjectiles = 1 + Main.rand.Next(2 + BuffsCount);
 		

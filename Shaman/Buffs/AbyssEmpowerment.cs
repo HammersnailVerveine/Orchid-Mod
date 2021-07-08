@@ -13,16 +13,12 @@ namespace OrchidMod.Shaman.Buffs
         {
             Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Abyss Empowerment");
-			Description.SetDefault("Increases the effectiveness of all your shamanic bonds");
+			Description.SetDefault("Increases shamanic damage by 20%");
         }
-        public override void Update(Player player, ref int buffIndex)
-		{
-			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanFireBonus += 1;
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanWaterBonus += 1;
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanAirBonus += 1;
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanEarthBonus += 1;
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanSpiritBonus += 1;
+		
+        public override void Update(Player player, ref int buffIndex) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.shamanDamage += 0.2f;
 		}
-    }
+	}
 }

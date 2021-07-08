@@ -26,8 +26,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.timeLeft = 1200;
 			projectile.penetrate = 15;	
 			this.empowermentType = 2;
-			this.empowermentLevel = 3;
-			this.spiritPollLoad = 0;	
         }
 		
         public override Color? GetAlpha(Color lightColor)

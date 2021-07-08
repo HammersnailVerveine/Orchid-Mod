@@ -27,7 +27,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 1f;
 			item.shoot = mod.ProjectileType("LichScepterProj");
 			this.empowermentType = 3;
-			this.empowermentLevel = 4;
 		}
 
 		public override void SetStaticDefaults()

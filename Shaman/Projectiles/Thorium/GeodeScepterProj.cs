@@ -23,9 +23,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
             projectile.aiStyle = 2;
 			projectile.timeLeft = 45;
             this.empowermentType = 4;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 0;
-			this.projectileTrail = true;
+            this.projectileTrail = true;
 		}
 		
 		public override void Kill(int timeLeft)

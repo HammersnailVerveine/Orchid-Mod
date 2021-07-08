@@ -19,8 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			projectile.scale = 1f;
 			projectile.alpha = 255;
             this.empowermentType = 4;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 4;
         }
 		
 		public override void SetStaticDefaults()
@@ -84,10 +82,10 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			if (modPlayer.orbCountBig > 15) {
 				int maxBufftimer = 60 * modPlayer.shamanBuffTimer;
 				int toAdd = 180;
-				modPlayer.shamanFireTimer = modPlayer.shamanFireBuff == 0 ? 0 : modPlayer.shamanFireTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanFireTimer + toAdd;
-				modPlayer.shamanWaterTimer = modPlayer.shamanWaterBuff == 0 ? 0 : modPlayer.shamanWaterTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanWaterTimer + toAdd;
-				modPlayer.shamanAirTimer = modPlayer.shamanAirBuff == 0 ? 0 : modPlayer.shamanAirTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanAirTimer + toAdd;
-				modPlayer.shamanEarthTimer = modPlayer.shamanEarthBuff == 0 ? 0 : modPlayer.shamanEarthTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanEarthTimer + toAdd;
+				modPlayer.shamanFireTimer = modPlayer.shamanFireTimer == 0 ? 0 : modPlayer.shamanFireTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanFireTimer + toAdd;
+				modPlayer.shamanWaterTimer = modPlayer.shamanWaterTimer == 0 ? 0 : modPlayer.shamanWaterTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanWaterTimer + toAdd;
+				modPlayer.shamanAirTimer = modPlayer.shamanAirTimer == 0 ? 0 : modPlayer.shamanAirTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanAirTimer + toAdd;
+				modPlayer.shamanEarthTimer = modPlayer.shamanEarthTimer == 0 ? 0 : modPlayer.shamanEarthTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanEarthTimer + toAdd;
 				modPlayer.orbCountBig = -3;
 			}
 		}

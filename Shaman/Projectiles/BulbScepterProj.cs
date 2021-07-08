@@ -24,8 +24,6 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.scale = 0.7f;		
 			projectile.penetrate = 3;
 			this.empowermentType = 4;
-			this.empowermentLevel = 4;
-			this.spiritPollLoad = 0;
         }
 		
         public override void AI()

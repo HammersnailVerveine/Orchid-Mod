@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.shamanDamage += 0.06f;
-			modPlayer.shamanEarthBonus += 1;
+			//modPlayer.shamanEarthBonus += 1;
 			modPlayer.shamanBuffTimer += 3;
         }
 		

@@ -39,11 +39,8 @@ namespace OrchidMod.Shaman.Armors.Downpour
         public override void UpdateArmorSet(Player player)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-            player.setBonus = "Shamanic fire and air bonds are more effective"
-							+ "\n             Dealing damage with 3 or more bonds has a chance to electrocute the enemy"; // + bonds affects alchemic stats
+            player.setBonus = " Dealing damage with 3 or more active bonds has a chance to electrocute the enemy"; // + bonds affects alchemic stats
 			modPlayer.shamanDownpour = true;
-			modPlayer.shamanFireBonus += 1;
-			modPlayer.shamanAirBonus += 1;
         }
 		
         public override bool DrawHead()

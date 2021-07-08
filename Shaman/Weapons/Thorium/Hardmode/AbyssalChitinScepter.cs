@@ -34,7 +34,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 5f;
 			item.shoot = mod.ProjectileType("AbyssalChitinScepterProj");
 			this.empowermentType = 2;
-			this.empowermentLevel = 3;
 		}
 		
 		public override void SetStaticDefaults()

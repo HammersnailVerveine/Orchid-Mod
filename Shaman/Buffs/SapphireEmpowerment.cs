@@ -9,12 +9,12 @@ namespace OrchidMod.Shaman.Buffs
         {
             Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Sapphire Empowerment");
-			Description.SetDefault("Increases the effectiveness your shamanic water bonds");
+			Description.SetDefault("Increases shamanic critical strike chance by 10%");
         }
-        public override void Update(Player player, ref int buffIndex)
-		{
-			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanWaterBonus += 1;
+		
+        public override void Update(Player player, ref int buffIndex) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.shamanCrit += 10;
 		}
     }
 }

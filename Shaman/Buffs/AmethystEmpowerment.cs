@@ -9,12 +9,12 @@ namespace OrchidMod.Shaman.Buffs
         {
             Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Amethyst Empowerment");
-			Description.SetDefault("Increases the effectiveness your shamanic spirit bonds");
+			Description.SetDefault("Increases shamanic damage by 10%");
         }
-        public override void Update(Player player, ref int buffIndex)
-		{
-			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanSpiritBonus += 1;
+		
+        public override void Update(Player player, ref int buffIndex) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.shamanDamage += 0.1f;
 		}
     }
 }

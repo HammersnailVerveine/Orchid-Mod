@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 3f;
 			item.shoot = mod.ProjectileType("GoblinStickProj");
 			this.empowermentType = 3;
-			this.empowermentLevel = 3;
 		}
 
 		public override void SetStaticDefaults()

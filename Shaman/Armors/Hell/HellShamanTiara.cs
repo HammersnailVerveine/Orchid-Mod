@@ -39,11 +39,9 @@ namespace OrchidMod.Shaman.Armors.Hell
         public override void UpdateArmorSet(Player player)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-            player.setBonus = "Shamanic fire bonds are more effective and cause attacks to release spreading fire"
-							+ "\n             Shamanic earth bonds are more effective and reflect damage to nearby enemies"
+            player.setBonus = "Shamanic fire bonds and causes attacks to release spreading fire"
+							+ "\n             Shamanic earth bonds causes you reflect damage to nearby enemies"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
-			modPlayer.shamanFireBonus += 1;
-			modPlayer.shamanEarthBonus += 1;
 			modPlayer.shamanBuffTimer += 3;
 			modPlayer.shamanHell = true;
         }

@@ -20,8 +20,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.alpha = 255;
 			projectile.penetrate = -1;
             this.empowermentType = 2;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 0;
         }
 		
 		public override void SetStaticDefaults()

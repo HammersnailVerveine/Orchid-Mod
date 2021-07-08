@@ -19,8 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			projectile.scale = 1f;
 			aiType = ProjectileID.Bullet; 
             this.empowermentType = 1;
-            this.empowermentLevel = 4;
-            this.spiritPollLoad = 3;
         }
 		
 		public override void SetStaticDefaults()

@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 16f;
 			item.shoot = mod.ProjectileType("BlumProj");
 			this.empowermentType = 2;
-			this.empowermentLevel = 2;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}

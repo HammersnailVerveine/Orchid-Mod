@@ -22,8 +22,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			aiType = ProjectileID.Bullet; 
 			projectile.penetrate = 2;
             this.empowermentType = 4;
-            this.empowermentLevel = 2;
-            this.spiritPollLoad = 0;
         }
 		
 		public override void SetStaticDefaults()

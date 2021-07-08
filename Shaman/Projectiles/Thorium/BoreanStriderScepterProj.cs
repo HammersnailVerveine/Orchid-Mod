@@ -23,9 +23,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
             projectile.aiStyle = 1;
 			projectile.timeLeft = 45;
             this.empowermentType = 2;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 0;
-			this.projectileTrail = true;
+            this.projectileTrail = true;
 		}
 		
         public override void AI()

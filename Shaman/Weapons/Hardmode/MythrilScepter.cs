@@ -28,7 +28,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("MythrilScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 3;
 		}
 
 		public override void SetStaticDefaults()
@@ -36,7 +35,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		  DisplayName.SetDefault("Mythril Scepter");
 		  Tooltip.SetDefault("Shoots a potent mythril bolt, hitting your enemy 3 times"
 							+"\nHitting the same target with all 3 shots will grant you a mythril orb"
-							+"\nIf you have 5 mythril orbs, your next hit will empower your shamanic earth bonds for 15 seconds");
+							+"\nIf you have 5 mythril orbs, your next hit will increase your defense by 8 for 30 seconds");
 		}
 		
 		public override void AddRecipes()

@@ -28,7 +28,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("TrueDepthProj");
 			this.empowermentType = 5;
-			this.empowermentLevel = 3;
 		}
 
 		public override void SetStaticDefaults()

@@ -26,7 +26,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 12f;
 			item.shoot = mod.ProjectileType("DepthsBatonProj");
 			this.empowermentType = 5;
-			this.empowermentLevel = 2;
 		}
 
 		public override void SetStaticDefaults()

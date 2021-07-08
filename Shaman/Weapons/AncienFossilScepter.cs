@@ -27,7 +27,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 9.5f;
 			item.shoot = mod.ProjectileType("AncientFossilScepterProjFire");
 			this.empowermentType = 5;
-			this.empowermentLevel = 1;
 		}
 
 		// public override void SetStaticDefaults()
@@ -51,21 +50,8 @@ namespace OrchidMod.Shaman.Weapons
 				position += muzzleOffset;
 			}
 			
-			int BuffsCount = 0;
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanFireBuff != 0)
-				BuffsCount ++;
-			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanWaterBuff != 0)
-				BuffsCount ++;
-			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanAirBuff != 0)
-				BuffsCount ++;
-			
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanEarthBuff != 0)
-				BuffsCount ++;
-				
-			if (Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanSpiritBuff != 0)
-				BuffsCount ++;
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			
 			if (BuffsCount > 1) {
 				Vector2 perturbedSpeed = new Vector2(speedX/2, speedY/2).RotatedByRandom(MathHelper.ToRadians(15));

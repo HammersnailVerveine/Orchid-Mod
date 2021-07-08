@@ -8,8 +8,6 @@ namespace OrchidMod.Shaman
     public abstract class OrchidModShamanProjectile : OrchidModProjectile
     {
 		public int empowermentType = 0;
-		public int empowermentLevel = 0;
-		public int spiritPollLoad = 0;
 		
 		public virtual void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
 		
@@ -26,8 +24,7 @@ namespace OrchidMod.Shaman
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			if (target.type != NPCID.TargetDummy) {
-				OrchidModShamanHelper.addShamanicEmpowerment(this.empowermentType, this.empowermentLevel, player, modPlayer, mod);
-				modPlayer.shamanPollSpirit += this.spiritPollLoad;
+				OrchidModShamanHelper.addShamanicEmpowerment(this.empowermentType, player, modPlayer, mod);
 			}
 			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);
 		}

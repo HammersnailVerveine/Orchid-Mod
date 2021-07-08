@@ -28,14 +28,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shootSpeed = 7.5f;
 			item.shoot = mod.ProjectileType("OnyxScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 1;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Onyx Scepter");
 			Tooltip.SetDefault("\nHitting an enemy will grant you an Onyx orb"
-							+"\nIf you have 3 onyx orbs, your next hit will give you 3 armor penetration for 15 seconds");
+							+"\nIf you have 3 onyx orbs, your next hit will give you 3 armor penetration for 30 seconds");
 		}
 			
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

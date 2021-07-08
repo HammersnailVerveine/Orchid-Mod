@@ -25,8 +25,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.timeLeft = 120;
 			Main.projFrames[projectile.type] = 2;
             this.empowermentType = 3;
-            this.empowermentLevel = 2;
-            this.spiritPollLoad = 0;
 		}
 		
         public override void AI()

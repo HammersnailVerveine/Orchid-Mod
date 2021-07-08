@@ -24,8 +24,6 @@ namespace OrchidMod.Shaman
 			}
 			
 			if (modPlayer.shamanFireTimer > 0) {
-				modPlayer.shamanFireTimer -= player.HasBuff(BuffType<Shaman.Buffs.SpiritBuffMana>()) ? 0 : 1;
-				modPlayer.shamanPollFire += modPlayer.timer120 % 15 == 0 ? modPlayer.shamanTimerCombat > 0 ? 2 : 1 : 0;
 				if (modPlayer.shamanPollFire > 0) {
 					modPlayer.shamanPollFire --;
 					modPlayer.shamanFireBondLoading += modPlayer.shamanFireBondLoading < 100 ? 1 : 0;
@@ -45,7 +43,6 @@ namespace OrchidMod.Shaman
 					Projectile.NewProjectile((int)(player.Center.X + 25 - randX), (int)(player.Center.Y  + 15 - randY), 0f, 0f, mod.ProjectileType("Smite"), dmg, 0f, player.whoAmI);
 				}
 				
-				//shamanDamage += (0.04f * shamanFireBuff) + (0.04f * shamanFireBonus);
 				modPlayer.shamanTimerCombat -= modPlayer.shamanTimerCombat > 0 ? 1 : 0;
 			} else {
 				modPlayer.shamanFireBondLoading -= modPlayer.shamanFireBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
@@ -54,12 +51,10 @@ namespace OrchidMod.Shaman
 			}
 			
 			if (modPlayer.shamanWaterTimer > 0) {
-				modPlayer.shamanWaterTimer -= player.HasBuff(BuffType<Shaman.Buffs.SpiritBuffMana>()) ? 0 : 1;
 				if (modPlayer.shamanPollWater > 0) {
 					modPlayer.shamanPollWater --;
 					modPlayer.shamanWaterBondLoading += modPlayer.shamanWaterBondLoading < 100 ? 1 : 0;
 				}
-				//player.endurance += (0.04f * shamanWaterBuff) + (0.04f * shamanWaterBonus);
 				
 				if (modPlayer.shamanHeavy) {
 					player.statDefense += 10;
@@ -68,14 +63,10 @@ namespace OrchidMod.Shaman
 				
 			} else {
 				modPlayer.shamanWaterBondLoading -= modPlayer.shamanWaterBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
-				modPlayer.shamanPollWater = 0;
 			}
 			
 			if (modPlayer.shamanAirTimer > 0) {
-				modPlayer.shamanAirTimer -= player.HasBuff(BuffType<Shaman.Buffs.SpiritBuffMana>()) ? 0 : 1;
-				//shamanCrit += (4 * shamanAirBuff) + (4 * shamanAirBonus);
 				float vel = Math.Abs(player.velocity.X) + Math.Abs(player.velocity.Y);
-				modPlayer.shamanPollAir += modPlayer.timer120 % 20 == 0 && vel > 1f ? vel > 3.5f ? vel > 6f ? 3 : 2 : 1 : 0;
 				
 				if (modPlayer.shamanDripping) {
 					if (modPlayer.timer120 % 10 == 0)
@@ -99,18 +90,9 @@ namespace OrchidMod.Shaman
 				}
 			} else {
 				modPlayer.shamanAirBondLoading -= modPlayer.shamanAirBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
-				modPlayer.shamanPollAir = 0;
 			}
 			
 			if (modPlayer.shamanEarthTimer > 0) {
-				modPlayer.shamanEarthTimer -= player.HasBuff(BuffType<Shaman.Buffs.SpiritBuffMana>()) ? 0 : 1;
-				//player.lifeRegen += (2 * shamanEarthBuff) + (2 * shamanEarthBonus);
-				modPlayer.shamanTimerImmobile = player.velocity == player.velocity * 0f ? modPlayer.shamanTimerImmobile < 240 ? modPlayer.shamanTimerImmobile + 1 : modPlayer.shamanTimerImmobile : 0;
-				
-				if (modPlayer.timer120 % 8 == 0) {
-					modPlayer.shamanPollEarth += modPlayer.shamanTimerImmobile >= 80 ? modPlayer.shamanTimerImmobile >= 160 ? modPlayer.shamanTimerImmobile >= 240 ? 3 : 2 : 1 : 0;
-				}
-				
 				if (modPlayer.shamanPollEarth > 0) {
 					modPlayer.shamanPollEarth --;
 					modPlayer.shamanEarthBondLoading += modPlayer.shamanEarthBondLoading < 100 ? 1 : 0;
@@ -143,20 +125,15 @@ namespace OrchidMod.Shaman
 				
 			} else {
 				modPlayer.shamanEarthBondLoading -= modPlayer.shamanEarthBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
-				modPlayer.shamanPollEarth = 0;
-				modPlayer.shamanTimerImmobile = 0;
 			}
 			
 			if (modPlayer.shamanSpiritTimer > 0) {
-				modPlayer.shamanSpiritTimer -= player.HasBuff(BuffType<Shaman.Buffs.SpiritBuffMana>()) ? 0 : 1;
-				//player.moveSpeed += (0.05f * shamanSpiritBuff) + (0.05f * shamanSpiritBonus);
 				if (modPlayer.shamanPollSpirit > 0) {
 					modPlayer.shamanPollSpirit --;
 					modPlayer.shamanSpiritBondLoading += modPlayer.shamanSpiritBondLoading < 100 ? 1 : 0;
 				}
 			} else {
 				modPlayer.shamanSpiritBondLoading -= modPlayer.shamanSpiritBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
-				modPlayer.shamanPollSpirit = 0;
 			}
 			
 			if (modPlayer.doubleJumpHarpy)  // Vanilla double jump code is insanely weird.
@@ -220,22 +197,12 @@ namespace OrchidMod.Shaman
 				}
 			}
 			
-			if (modPlayer.shamanFireTimer <= 0) modPlayer.shamanFireBuff = 0;
-			else modPlayer.UIDisplayTimer = modPlayer.UIDisplayDelay;
-			if (modPlayer.shamanWaterTimer <= 0) modPlayer.shamanWaterBuff = 0;
-			else modPlayer.UIDisplayTimer = modPlayer.UIDisplayDelay;
-			if (modPlayer.shamanAirTimer <= 0) modPlayer.shamanAirBuff = 0;
-			else modPlayer.UIDisplayTimer = modPlayer.UIDisplayDelay;
-			if (modPlayer.shamanEarthTimer <= 0) modPlayer.shamanEarthBuff = 0;
-			else modPlayer.UIDisplayTimer = modPlayer.UIDisplayDelay;
-			if (modPlayer.shamanSpiritTimer <= 0) modPlayer.shamanSpiritBuff = 0;
-			else modPlayer.UIDisplayTimer = modPlayer.UIDisplayDelay;
-			
-			if (modPlayer.shamanFireBuff + modPlayer.shamanWaterBuff + modPlayer.shamanAirBuff + modPlayer.shamanEarthBuff + modPlayer.shamanSpiritBuff == 0 && modPlayer.UIDisplayTimer > 0) {
-				modPlayer.UIDisplayTimer --;
+			if (modPlayer.shamanFireTimer + modPlayer.shamanWaterTimer + modPlayer.shamanAirTimer + modPlayer.shamanEarthTimer + modPlayer.shamanSpiritTimer == 0) {
+				modPlayer.UIDisplayTimer -= modPlayer.UIDisplayTimer > 0 ? 1 : 0;
+			} else {
+				modPlayer.UIDisplayTimer = modPlayer.UIDisplayDelay;
 			}
 			
-				
 			modPlayer.OchidScreenH = Main.screenHeight;
 			modPlayer.OchidScreenW = Main.screenWidth;
 			if (modPlayer.OchidScreenHCompare != modPlayer.OchidScreenH || modPlayer.OchidScreenWCompare != modPlayer.OchidScreenW) {
@@ -344,7 +311,7 @@ namespace OrchidMod.Shaman
 		public static void OnHitNPCWithProjShaman(Projectile projectile, NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, Mod mod) {
 			modPlayer.shamanTimerCombat = 120;
 				
-			if (modPlayer.shamanCrimtane && modPlayer.shamanEarthBuff != 0 && modPlayer.shamanTimerCrimson == 30) {
+			if (modPlayer.shamanCrimtane && modPlayer.shamanEarthTimer > 0 && modPlayer.shamanTimerCrimson == 30) {
 				modPlayer.shamanTimerCrimson = 0;
 				if (Main.myPlayer == player.whoAmI)
 					player.HealEffect(2, true);
@@ -405,7 +372,8 @@ namespace OrchidMod.Shaman
 					&& projectile.type != mod.ProjectileType("DeepForestCharmProj")
 					&& projectile.type != mod.ProjectileType("Smite")
 					){
-					if (modPlayer.shamanFireBuff > 0) {
+						
+					if (modPlayer.shamanFireTimer > 0) {
 						if (modPlayer.shamanPoison) target.AddBuff((20), 5 * 60);
 						if (modPlayer.shamanVenom) target.AddBuff((70), 5 * 60);
 						if (modPlayer.shamanFire) target.AddBuff((24), 5 * 60);
@@ -413,7 +381,7 @@ namespace OrchidMod.Shaman
 						if (modPlayer.shamanDemonite) target.AddBuff(153, 20); // Shadowflame
 					}
 						
-					if (crit == true && modPlayer.shamanSkull && modPlayer.shamanWaterBuff != 0) {	
+					if (crit == true && modPlayer.shamanSkull && modPlayer.shamanWaterTimer > 0) {	
 						int dmg = (int)(80 * modPlayer.shamanDamage + 5E-06f);
 						Vector2 mouseTarget = Main.screenPosition + new Vector2((float)Main.mouseX - 8, (float)Main.mouseY);
 						Vector2 heading = mouseTarget - Main.player[projectile.owner].position;
@@ -423,7 +391,7 @@ namespace OrchidMod.Shaman
 						Projectile.NewProjectile(Main.player[projectile.owner].Center.X, Main.player[projectile.owner].Center.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("LostSoul"), dmg, 0f, projectile.owner, 0f, 0f);
 					}
 						
-					if (crit == true && modPlayer.shamanWaterHoney && modPlayer.shamanWaterBuff != 0 && modPlayer.timerVial == 30) {
+					if (crit == true && modPlayer.shamanWaterHoney && modPlayer.shamanWaterTimer > 0 && modPlayer.timerVial == 30) {
 						modPlayer.timerVial = 0;
 						player.HealEffect(3, true);
 						player.statLife += 3;
@@ -508,221 +476,6 @@ namespace OrchidMod.Shaman
 			return true;
 		}
 		
-		public static void BondHotKeyPressed(Player player, OrchidModPlayer modPlayer, Mod mod) {
-			if (modPlayer.shamanFireBondLoading >= 100) {
-				int level = (modPlayer.shamanFireBuff + modPlayer.shamanFireBonus);
-				int dmg = (int)(10 * level * modPlayer.shamanDamage + 5E-06f);
-				float spd = 4f + (float)(level / 3);
-				int proj = mod.ProjectileType("FireBondProj1");
-				if (level >= 3) proj = mod.ProjectileType("FireBondProj2");
-				if (level >= 5) proj = mod.ProjectileType("FireBondProj3");
-				if (level >= 8) proj = mod.ProjectileType("FireBondProj4");
-				if (level >= 12) proj = mod.ProjectileType("FireBondProj5");
-				Vector2 mouseTarget = Main.screenPosition + new Vector2((float)Main.mouseX - 8, (float)Main.mouseY);
-				Vector2 heading = mouseTarget - player.position;
-				heading.Normalize();
-				heading *= new Vector2(spd, spd).Length();
-				//Vector2 vel = ( new Vector2(heading.X, heading.Y).RotatedByRandom(MathHelper.ToRadians(10)));
-				Vector2 vel = (new Vector2(heading.X, heading.Y));
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, proj, dmg, 0f, player.whoAmI);
-				modPlayer.shamanFireBondLoading = 0;
-				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 45);
-			}
-			
-			if (modPlayer.shamanWaterBondLoading >= 100) {
-				int level = (modPlayer.shamanWaterBuff + modPlayer.shamanWaterBonus);
-				int dmg = (int)(5 * level * modPlayer.shamanDamage + 5E-06f);
-				int nb = 3;
-				int proj = mod.ProjectileType("WaterBondProj");
-				int rotation = -25;
-				int ai = 0;
-				
-				if (level >= 3) {
-					nb ++;
-					ai ++;
-				}
-				
-				if (level >= 5) {
-					nb ++;
-					ai ++;
-				}
-				
-				if (level >= 8) {
-					nb ++;
-					ai ++;
-				}
-				
-				if (level >= 12) {
-					nb ++;
-					ai ++;
-				}
-				
-				Vector2 heading = new Vector2(player.position.X, player.position.Y - 10f);
-				heading = heading - player.position;
-				heading.Normalize();
-				heading *= new Vector2(-5f, -5f).Length();
-				int rotationVal = (int)(50 / nb);
-				while (nb > 0) {
-					Vector2 vel = (new Vector2(heading.X, heading.Y).RotatedBy(MathHelper.ToRadians(rotation)));
-					int waterProj = Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, proj, dmg, 0f, player.whoAmI);
-					Main.projectile[waterProj].ai[0] = ai;
-					Main.projectile[waterProj].netUpdate = true;
-					rotation += rotationVal;
-					nb --;
-				}
-				modPlayer.shamanWaterBondLoading = 0;
-				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 45);
-			}
-			
-			if (modPlayer.shamanAirBondLoading >= 100) {
-				int level = (modPlayer.shamanAirBuff + modPlayer.shamanAirBonus);
-				int dmg = (int)(10 * level * modPlayer.shamanDamage + 5E-06f);
-				int proj = mod.ProjectileType("WindBondProj1");
-				int ai = 0;
-				
-				if (level >= 3) {
-					ai ++;
-				}
-				
-				if (level >= 5) {
-					ai ++;
-				}
-				
-				if (level >= 8) {
-					ai ++;
-				}
-				
-				if (level >= 12) {
-					ai ++;
-				}
-				
-				int airProj = Projectile.NewProjectile(player.Center.X, player.position.Y - 300, 0f, 1f, proj, 0, 0.0f, player.whoAmI);
-				Main.projectile[airProj].ai[1] = ai;
-				Main.projectile[airProj].netUpdate = true;
-				modPlayer.shamanAirBondLoading = 0;
-				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 45);
-			}
-			
-			if (modPlayer.shamanEarthBondLoading >= 100) {
-				int level = (modPlayer.shamanEarthBuff + modPlayer.shamanEarthBonus);
-				
-				if (level >= 3 && level < 8) {
-					float posX = player.position.X;
-					float posY = player.position.Y;
-					
-					for (int k = 0; k < 255; k++) {
-						Player targetPlayer = Main.player[k];
-						if (MathHelper.Distance(posX, targetPlayer.position.X) < 100f && MathHelper.Distance(posY, targetPlayer.position.Y) < 100f) {
-							targetPlayer.AddBuff((mod.BuffType("EarthDefense")), 60 * 10);
-						}
-					}
-				}
-				
-				if (level >= 8) {
-					float posX = player.position.X;
-					float posY = player.position.Y;
-					
-					for (int k = 0; k < 255; k++) {
-						Player targetPlayer = Main.player[k];
-						if (MathHelper.Distance(posX, targetPlayer.position.X) < 100f && MathHelper.Distance(posY, targetPlayer.position.Y) < 100f) {
-							targetPlayer.AddBuff((mod.BuffType("EarthRegeneration")), 60 * 10);
-						}
-					}
-				}
-				
-				if (level >= 5) {
-					int projTotem = mod.ProjectileType("EarthBondProj");
-					
-					for (int l = 0; l < Main.projectile.Length; l++)
-					{  
-						Projectile proj = Main.projectile[l];
-						if (proj.active && proj.type == projTotem && proj.owner == player.whoAmI)
-						{
-							proj.active = false;
-						}
-					}
-					
-					int earthProj = Projectile.NewProjectile(player.Center.X, player.position.Y, 0f, 1f, projTotem, 0, 0.0f, player.whoAmI);
-					
-					 
-					if (level >= 12) {
-						Main.projectile[earthProj].ai[1] = 1;
-					} else {
-						Main.projectile[earthProj].ai[1] = 0;
-					}
-					Main.projectile[earthProj].netUpdate = true;
-				}
-				
-				if (Main.myPlayer == player.whoAmI)
-					player.HealEffect(15 * level, true);
-				player.statLife += 10 * level;	
-				
-				modPlayer.shamanEarthBondLoading = 0;
-				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 45);
-			}
-			
-			if (modPlayer.shamanSpiritBondLoading >= 100) {
-				int level = (modPlayer.shamanSpiritBuff + modPlayer.shamanSpiritBonus);
-				
-				if (level >= 3 && level < 8) {
-					float posX = player.position.X;
-					float posY = player.position.Y;
-					
-					for (int k = 0; k < 255; k++) {
-						Player targetPlayer = Main.player[k];
-						if (MathHelper.Distance(posX, targetPlayer.position.X) < 100f && MathHelper.Distance(posY, targetPlayer.position.Y) < 100f) {
-							targetPlayer.AddBuff((mod.BuffType("SpiritAttack")), 60 * 10);
-						}
-					}
-				}
-				
-				if (level >= 8) {
-					float posX = player.position.X;
-					float posY = player.position.Y;
-					
-					for (int k = 0; k < 255; k++) {
-						Player targetPlayer = Main.player[k];
-						if (MathHelper.Distance(posX, targetPlayer.position.X) < 100f && MathHelper.Distance(posY, targetPlayer.position.Y) < 100f) {
-							targetPlayer.AddBuff((mod.BuffType("SpiritRegeneration")), 60 * 10);
-						}
-					}
-				}
-				
-				if (level >= 5) {
-					int projTotem = mod.ProjectileType("SpiritBondProj1");
-					
-					for (int l = 0; l < Main.projectile.Length; l++)
-					{  
-						Projectile proj = Main.projectile[l];
-						if (proj.active && proj.type == projTotem && proj.owner == player.whoAmI)
-						{
-							proj.active = false;
-						}
-					}
-					
-					int earthProj = Projectile.NewProjectile(player.Center.X, player.position.Y, 0f, -1f, projTotem, 0, 0.0f, player.whoAmI);
-					
-					 
-					if (level >= 12) {
-						Main.projectile[earthProj].ai[1] = 1;
-					} else {
-						Main.projectile[earthProj].ai[1] = 0;
-					}
-					Main.projectile[earthProj].netUpdate = true;
-				}
-				
-				int maxBufftimer = 60 * modPlayer.shamanBuffTimer;
-				int toAdd = 90 + (30 * level);
-				modPlayer.shamanFireTimer = modPlayer.shamanFireBuff == 0 ? 0 : modPlayer.shamanFireTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanFireTimer + toAdd;
-				modPlayer.shamanWaterTimer = modPlayer.shamanWaterBuff == 0 ? 0 : modPlayer.shamanWaterTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanWaterTimer + toAdd;
-				modPlayer.shamanAirTimer = modPlayer.shamanAirBuff == 0 ? 0 : modPlayer.shamanAirTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanAirTimer + toAdd;
-				modPlayer.shamanEarthTimer = modPlayer.shamanEarthBuff == 0 ? 0 : modPlayer.shamanEarthTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanEarthTimer + toAdd;
-				
-				modPlayer.shamanSpiritBondLoading = 0;
-				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 45);
-			}
-		}
-		
 		public static void ResetEffectsShaman(Player player, OrchidModPlayer modPlayer, Mod mod) {
 			modPlayer.shamanCrit = 0;
 			modPlayer.shamanDamage = 1.0f;
@@ -732,12 +485,6 @@ namespace OrchidMod.Shaman
 			modPlayer.doubleJumpHarpy = false;
 			modPlayer.abyssalWings = false;
 			modPlayer.abyssSet = false;
-			
-			modPlayer.shamanFireBonus = 0;
-			modPlayer.shamanWaterBonus = 0;
-			modPlayer.shamanAirBonus = 0;
-			modPlayer.shamanEarthBonus = 0;
-			modPlayer.shamanSpiritBonus = 0;
 			
 			modPlayer.shamanFire = false;
 			modPlayer.shamanIce = false;
@@ -769,6 +516,12 @@ namespace OrchidMod.Shaman
 			modPlayer.shamanSunBelt = false;
 			
 			modPlayer.shamanHitDelay -= modPlayer.shamanHitDelay > 0 && modPlayer.timer120 % 5 == 0 ? 1 : 0;
+			
+			modPlayer.shamanFireTimer -= modPlayer.shamanFireTimer > 0 ? 1 : 0;
+			modPlayer.shamanWaterTimer -= modPlayer.shamanWaterTimer > 0 ? 1 : 0;
+			modPlayer.shamanAirTimer -= modPlayer.shamanAirTimer > 0 ? 1 : 0;
+			modPlayer.shamanEarthTimer -= modPlayer.shamanEarthTimer > 0 ? 1 : 0;
+			modPlayer.shamanSpiritTimer -= modPlayer.shamanSpiritTimer > 0 ? 1 : 0;
 		}
 		
 		public static void onRespawnShaman(Player player, OrchidModPlayer modPlayer, Mod mod) {
@@ -785,40 +538,35 @@ namespace OrchidMod.Shaman
 			modPlayer.shamanOrbCircle = ShamanOrbCircle.NULL;
 			
 			modPlayer.shamanFireTimer = 0;
-			modPlayer.shamanFireBuff = 0;
 			modPlayer.shamanWaterTimer = 0;
-			modPlayer.shamanWaterBuff = 0;
 			modPlayer.shamanAirTimer = 0;
-			modPlayer.shamanAirBuff = 0;
 			modPlayer.shamanEarthTimer = 0;
-			modPlayer.shamanEarthBuff = 0;
 			modPlayer.shamanSpiritTimer = 0;
-			modPlayer.shamanSpiritBuff = 0;
 			modPlayer.UIDisplayTimer = 0;
 		}
 		
 		public static int getNbShamanicBonds(Player player, OrchidModPlayer modPlayer, Mod mod) {
 			int val = 0;
 			
-			if (modPlayer.shamanFireBuff != 0)
+			if (modPlayer.shamanFireTimer != 0)
 				val ++;
 			
-			if (modPlayer.shamanWaterBuff != 0)
+			if (modPlayer.shamanWaterTimer != 0)
 				val ++;
 			
-			if (modPlayer.shamanAirBuff != 0)
+			if (modPlayer.shamanAirTimer != 0)
 				val ++;
 			
-			if (modPlayer.shamanEarthBuff != 0)
+			if (modPlayer.shamanEarthTimer != 0)
 				val ++;
 				
-			if (modPlayer.shamanSpiritBuff != 0)
+			if (modPlayer.shamanSpiritTimer != 0)
 				val ++;
 			
 			return val;
 		}
 		
-		public static void addShamanicEmpowerment(int type, int level, Player player, OrchidModPlayer modPlayer, Mod mod) {
+		public static void addShamanicEmpowerment(int type, Player player, OrchidModPlayer modPlayer, Mod mod) {
 			if (type == 0) {
 				return;
 			}
@@ -861,16 +609,10 @@ namespace OrchidMod.Shaman
 			}
 				
 			newEmpowerment = currentTimer == 0;
-			if (currentTimer == lowestDuration) modPlayer.shamanPollWater += 3;
-			if (currentTimer < (modPlayer.shamanBuffTimer * 60) / 2) modPlayer.shamanPollWater += 2;
-			if (currentTimer < ((modPlayer.shamanBuffTimer * 60) / 4) * 3) modPlayer.shamanPollWater += 2;
-			if (currentTimer < (modPlayer.shamanBuffTimer * 60) / 4) modPlayer.shamanPollWater += 2;
 				
 			if (newEmpowerment) {
-				modPlayer.shamanPollWater += 2;
 				if (modPlayer.shamanDryad && OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 0) {
 					int lowestNoZeroDuation = 60 * modPlayer.shamanBuffTimer + 1;
-							
 					lowestNoZeroDuation = (modPlayer.shamanFireTimer != 0 && modPlayer.shamanFireTimer < lowestDuration) ? 0 + modPlayer.shamanFireTimer : lowestDuration;
 					lowestNoZeroDuation = (modPlayer.shamanWaterTimer != 0 && modPlayer.shamanWaterTimer < lowestDuration) ? 0 +modPlayer.shamanWaterTimer : lowestDuration;
 					lowestNoZeroDuation = (modPlayer.shamanAirTimer != 0 && modPlayer.shamanAirTimer < lowestDuration) ? 0 + modPlayer.shamanAirTimer : lowestDuration;
@@ -886,26 +628,21 @@ namespace OrchidMod.Shaman
 			}
 			
 			int maxBufftimer = 60 * modPlayer.shamanBuffTimer;
-			int toAdd = (int)(maxBufftimer / (2 + modPlayer.shamanHitDelay - (player.HasBuff(BuffType<Shaman.Buffs.SpiritRegeneration>()) ? 1 : 0)));
+			int toAdd = (int)(maxBufftimer / (2 + modPlayer.shamanHitDelay));
 			switch (type) {
 				case 1:
-					modPlayer.shamanFireBuff = level > modPlayer.shamanFireBuff ? level : modPlayer.shamanFireBuff;
 					modPlayer.shamanFireTimer = modPlayer.shamanFireTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanFireTimer + toAdd;
 					break;
 				case 2:
-					modPlayer.shamanWaterBuff = level > modPlayer.shamanWaterBuff ? level : modPlayer.shamanWaterBuff;
 					modPlayer.shamanWaterTimer = modPlayer.shamanWaterTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanWaterTimer + toAdd;
 					break;
 				case 3:
-					modPlayer.shamanAirBuff = level > modPlayer.shamanAirBuff ? level : modPlayer.shamanAirBuff;
 					modPlayer.shamanAirTimer = modPlayer.shamanAirTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanAirTimer + toAdd;
 					break;
 				case 4:
-					modPlayer.shamanEarthBuff = level > modPlayer.shamanEarthBuff ? level : modPlayer.shamanEarthBuff;
 					modPlayer.shamanEarthTimer = modPlayer.shamanEarthTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanEarthTimer + toAdd;
 					break;
 				case 5:
-					modPlayer.shamanSpiritBuff = level > modPlayer.shamanSpiritBuff ? level : modPlayer.shamanSpiritBuff;
 					modPlayer.shamanSpiritTimer = modPlayer.shamanSpiritTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanSpiritTimer + toAdd;
 					break;
 				default:

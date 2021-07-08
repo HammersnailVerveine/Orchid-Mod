@@ -24,8 +24,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 			Main.projFrames[projectile.type] = 4;
 			projectile.timeLeft = 100;
             this.empowermentType = 5;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 5;
 		}
 		
 		public override Color? GetAlpha(Color lightColor)

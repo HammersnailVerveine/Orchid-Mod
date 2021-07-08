@@ -29,9 +29,9 @@ namespace OrchidMod.Shaman.Accessories
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.shamanRage = true;
 			
-			if (player.statLife < (int)(player.statLifeMax2 / 2) && modPlayer.shamanEarthBuff != 0) {
-				modPlayer.shamanFireBonus += 5;
-				modPlayer.shamanEarthBonus += 3;
+			if (player.statLife < (int)(player.statLifeMax2 / 2) && modPlayer.shamanEarthTimer > 0) {
+				//modPlayer.shamanFireBonus += 5;
+				//modPlayer.shamanEarthBonus += 3;
 				player.AddBuff((mod.BuffType("JungleRage")), 1);
 			}
         }

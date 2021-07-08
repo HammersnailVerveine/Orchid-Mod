@@ -24,8 +24,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.alpha = 126;
 			projectile.ignoreWater = true;   
             this.empowermentType = 2;
-            this.empowermentLevel = 2;
-            this.spiritPollLoad = 0;
         }
 
 		public override void AI()

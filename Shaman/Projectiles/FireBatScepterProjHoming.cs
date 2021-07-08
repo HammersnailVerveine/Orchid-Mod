@@ -22,8 +22,7 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.extraUpdates = 1;
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			this.empowermentType = 3;
-			this.empowermentLevel = 2;
-        }
+		}
 		
 		public override void SetStaticDefaults()
         {

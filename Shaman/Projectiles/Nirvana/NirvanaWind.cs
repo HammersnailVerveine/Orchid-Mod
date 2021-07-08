@@ -20,8 +20,6 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			projectile.timeLeft = 200;
             projectile.extraUpdates = 5;	
             this.empowermentType = 5;
-            this.empowermentLevel = 5;
-            this.spiritPollLoad = 0;		
         }
         public override Color? GetAlpha(Color lightColor)
         {

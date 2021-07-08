@@ -19,8 +19,6 @@ namespace OrchidMod.Shaman.Projectiles
 			aiType = 123;
 			projectile.timeLeft = 23;
             this.empowermentType = 2;
-            this.empowermentLevel = 2;
-            this.spiritPollLoad = 0;
 		}
 		
 		public override bool PreKill(int timeLeft)

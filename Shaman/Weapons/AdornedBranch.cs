@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 3f;
 			item.shoot = mod.ProjectileType("AdornedBranchProj");
 			this.empowermentType = 1;
-			this.empowermentLevel = 1;
 		}
 
 		public override void SetStaticDefaults()

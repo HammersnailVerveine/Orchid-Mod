@@ -68,7 +68,7 @@ namespace OrchidMod.Shaman.Projectiles
 					if (NbBonds >= 3)
 					{
 						target.GetGlobalNPC<OrchidModGlobalNPC>().shamanShroom = 300;
-						OrchidModShamanHelper.addShamanicEmpowerment(4, 4, owner, owner.GetModPlayer<OrchidModPlayer>(), mod);
+						OrchidModShamanHelper.addShamanicEmpowerment(4, owner, owner.GetModPlayer<OrchidModPlayer>(), mod);
 					}
 					target.netUpdate = true;
 				}

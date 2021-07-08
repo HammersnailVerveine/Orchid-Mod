@@ -18,11 +18,11 @@ namespace OrchidMod.Shaman.Buffs
         public override void Update(Player player, ref int buffIndex)
 		{
 			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanFireBonus += 1;
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanWaterBonus += 1;
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanAirBonus += 1;
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanEarthBonus += 1;
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanSpiritBonus += 1;
+			// modPlayer.GetModPlayer<OrchidModPlayer>().shamanFireBonus += 1;
+			// modPlayer.GetModPlayer<OrchidModPlayer>().shamanWaterBonus += 1;
+			// modPlayer.GetModPlayer<OrchidModPlayer>().shamanAirBonus += 1;
+			// modPlayer.GetModPlayer<OrchidModPlayer>().shamanEarthBonus += 1;
+			// modPlayer.GetModPlayer<OrchidModPlayer>().shamanSpiritBonus += 1;
 		}
     }
 }

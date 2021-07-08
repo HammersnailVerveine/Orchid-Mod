@@ -29,7 +29,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("ReviverofSoulsProj");
 			this.empowermentType = 3;
-			this.empowermentLevel = 4;
 		}
 
 		public override void SetStaticDefaults()

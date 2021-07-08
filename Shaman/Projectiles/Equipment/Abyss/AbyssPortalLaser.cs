@@ -26,8 +26,6 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 			projectile.timeLeft = 7200;
 			projectile.tileCollide = false;
             this.empowermentType = 3;
-            this.empowermentLevel = 3;
-            this.spiritPollLoad = 0;
 		}
 
 		internal const float charge = 20f;

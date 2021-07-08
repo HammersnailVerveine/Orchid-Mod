@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 7f;
 			item.shoot = mod.ProjectileType("MartianBeamerProj");
 			this.empowermentType = 1;
-			this.empowermentLevel = 4;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}

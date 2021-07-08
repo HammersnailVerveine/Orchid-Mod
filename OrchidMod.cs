@@ -33,7 +33,6 @@ namespace OrchidMod
 		public static List<AlchemistHiddenReactionRecipe> alchemistReactionRecipes;
 		public static ModHotKey AlchemistReactionHotKey;
 		public static ModHotKey AlchemistCatalystHotKey;
-		public static ModHotKey ShamanBondHotKey;
 		
 		internal UserInterface orchidModShamanInterface;
 		internal UserInterface orchidModShamanCharacterInterface;
@@ -289,7 +288,6 @@ namespace OrchidMod
 
 			AlchemistReactionHotKey = RegisterHotKey("Alchemist Hidden Reaction", "Mouse3");
 			AlchemistCatalystHotKey = RegisterHotKey("Alchemist Catalyst Tool Shortcut", "Z");
-			ShamanBondHotKey = RegisterHotKey("Shaman Bond Abilities", "Mouse3");
 			alchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
 			
 			if (!Main.dedServ)
@@ -448,7 +446,6 @@ namespace OrchidMod
 				AlchemistBookUIFrame.ressourceBookPopup = null;
 				
 				ShamanUIFrame.shamanUIMainFrame = null;
-				ShamanUIFrame.shamanUILevel = null;
 				ShamanUIFrame.resourceDuration = null;
 				ShamanUIFrame.resourceDurationEnd = null;
 				ShamanUIFrame.resourceFire = null;
@@ -466,26 +463,6 @@ namespace OrchidMod
 				ShamanUIFrame.AirSymbolBasic = null;
 				ShamanUIFrame.EarthSymbolBasic = null;
 				ShamanUIFrame.SpiritSymbolBasic = null;
-				ShamanUIFrame.Bonus1Symbol = null;
-				ShamanUIFrame.Bonus2Symbol = null;
-				ShamanUIFrame.Bonus3Symbol = null;
-				ShamanUIFrame.Bonus4Symbol = null;
-				ShamanUIFrame.Bonus5Symbol = null;
-				ShamanUIFrame.Bonus6Symbol = null;
-				ShamanUIFrame.Bonus7Symbol = null;
-				ShamanUIFrame.Bonus8Symbol = null;
-				ShamanUIFrame.Bonus9Symbol = null;
-				ShamanUIFrame.Bonus10Symbol = null;
-				ShamanUIFrame.Bonus11Symbol = null;
-				ShamanUIFrame.Bonus12Symbol = null;
-				ShamanUIFrame.Bonus13Symbol = null;
-				ShamanUIFrame.Bonus14Symbol = null;
-				ShamanUIFrame.Bonus15Symbol = null;
-				ShamanUIFrame.Level1Symbol = null;
-				ShamanUIFrame.Level2Symbol = null;
-				ShamanUIFrame.Level3Symbol = null;
-				ShamanUIFrame.Level4Symbol = null;
-				ShamanUIFrame.Level5Symbol = null;
 				ShamanUIFrame.SymbolFire = null;
 				ShamanUIFrame.SymbolIce = null;
 				ShamanUIFrame.SymbolPoison = null;
@@ -562,7 +539,6 @@ namespace OrchidMod
 			gamblerUIState = null;
 			AlchemistReactionHotKey = null;
 			AlchemistCatalystHotKey = null;
-			ShamanBondHotKey = null;
 			alchemistReactionRecipes = null;
 
 			EffectsManager.Unload();
@@ -612,22 +588,6 @@ namespace OrchidMod
 					
 					int countCircle = reader.ReadInt32();
 					modPlayer.orbCountCircle = countCircle;
-					
-					// Buff Levels
-					int attackBuff = reader.ReadInt32();
-					modPlayer.shamanFireBuff = attackBuff;
-					
-					int armorBuff = reader.ReadInt32();
-					modPlayer.shamanWaterBuff = armorBuff;
-					
-					int criticalBuff = reader.ReadInt32();
-					modPlayer.shamanAirBuff = criticalBuff;
-					
-					int regenerationBuff = reader.ReadInt32();
-					modPlayer.shamanEarthBuff = regenerationBuff;
-					
-					int speedBuff = reader.ReadInt32();
-					modPlayer.shamanSpiritBuff = speedBuff;
 					
 					// Buff Timers
 					int attackTimer = reader.ReadInt32();
@@ -790,76 +750,6 @@ namespace OrchidMod
 						packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDCIRCLE);
 						packet.Write(playernumber);
 						packet.Write(modPlayer.orbCountCircle);
-						packet.Send(-1, playernumber);
-					}
-					break;
-					
-				case OrchidModMessageType.SHAMANBUFFCHANGEDATTACK:
-					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					attackBuff = reader.ReadInt32();
-					modPlayer.shamanFireBuff = attackBuff;
-					if (Main.netMode == NetmodeID.Server) {
-						var packet = GetPacket();
-						packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDATTACK);
-						packet.Write(playernumber);
-						packet.Write(modPlayer.shamanFireBuff);
-						packet.Send(-1, playernumber);
-					}
-					break;
-					
-				case OrchidModMessageType.SHAMANBUFFCHANGEDARMOR:
-					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					armorBuff = reader.ReadInt32();
-					modPlayer.shamanWaterBuff = armorBuff;
-					if (Main.netMode == NetmodeID.Server) {
-						var packet = GetPacket();
-						packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDARMOR);
-						packet.Write(playernumber);
-						packet.Write(modPlayer.shamanWaterBuff);
-						packet.Send(-1, playernumber);
-					}
-					break;
-					
-				case OrchidModMessageType.SHAMANBUFFCHANGEDCRITICAL:
-					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					criticalBuff = reader.ReadInt32();
-					modPlayer.shamanAirBuff = criticalBuff;
-					if (Main.netMode == NetmodeID.Server) {
-						var packet = GetPacket();
-						packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDCRITICAL);
-						packet.Write(playernumber);
-						packet.Write(modPlayer.shamanAirBuff);
-						packet.Send(-1, playernumber);
-					}
-					break;
-					
-				case OrchidModMessageType.SHAMANBUFFCHANGEDREGENERATION:
-					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					regenerationBuff = reader.ReadInt32();
-					modPlayer.shamanEarthBuff = regenerationBuff;
-					if (Main.netMode == NetmodeID.Server) {
-						var packet = GetPacket();
-						packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDCRITICAL);
-						packet.Write(playernumber);
-						packet.Write(modPlayer.shamanEarthBuff);
-						packet.Send(-1, playernumber);
-					}
-					break;
-					
-				case OrchidModMessageType.SHAMANBUFFCHANGEDSPEED:
-					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					speedBuff = reader.ReadInt32();
-					modPlayer.shamanSpiritBuff = speedBuff;
-					if (Main.netMode == NetmodeID.Server) {
-						var packet = GetPacket();
-						packet.Write((byte)OrchidModMessageType.SHAMANBUFFCHANGEDSPEED);
-						packet.Write(playernumber);
-						packet.Write(modPlayer.shamanSpiritBuff);
 						packet.Send(-1, playernumber);
 					}
 					break;

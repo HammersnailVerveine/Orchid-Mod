@@ -21,8 +21,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 			projectile.timeLeft = 45;	
 			projectile.scale = 1f;		
             this.empowermentType = 2;
-            this.empowermentLevel = 1;
-            this.spiritPollLoad = 10;		
 			this.projectileTrail = true;			
         }
 		
@@ -83,7 +81,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 20, 0f, 0f, mod.ProjectileType("DemoniteOrb"), 0, 0, projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountSmall > 3) {
-				player.AddBuff(mod.BuffType("ShadowEmpowerment"), 60 * 15);
+				player.AddBuff(mod.BuffType("ShadowEmpowerment"), 60 * 30);
 				modPlayer.orbCountSmall = 0;
 			}
 		}

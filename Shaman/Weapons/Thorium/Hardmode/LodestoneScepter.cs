@@ -27,7 +27,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("LodestoneScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 3;
 		}
 
 		public override void SetStaticDefaults()

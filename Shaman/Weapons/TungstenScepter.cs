@@ -25,14 +25,13 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 8f;
 			item.shoot = mod.ProjectileType("TungstenScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 1;
 		}
 
 		public override void SetStaticDefaults()
 		{
 		  DisplayName.SetDefault("Emerald Scepter");
 		  Tooltip.SetDefault("\nHitting an enemy will grant you an emerald orb"
-							+"\nIf you have 3 emerald orbs, your next hit will empower your shamanic air bonds for 15 seconds");
+							+"\nIf you have 3 emerald orbs, your next hit will increase your movement speed for 30 seconds");
 		}
 			
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

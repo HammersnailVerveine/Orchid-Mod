@@ -28,7 +28,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("IceShardScepterProj");
 			this.empowermentType = 2;
-			this.empowermentLevel = 1;
 		}
 
 		public override void SetStaticDefaults()

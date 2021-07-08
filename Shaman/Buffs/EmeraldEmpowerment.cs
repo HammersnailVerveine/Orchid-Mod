@@ -9,12 +9,11 @@ namespace OrchidMod.Shaman.Buffs
         {
             Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Emerald Empowerment");
-			Description.SetDefault("Increases the effectiveness your shamanic air bonds");
+			Description.SetDefault("Increases movement speed by 10%");
         }
-        public override void Update(Player player, ref int buffIndex)
-		{
-			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.GetModPlayer<OrchidModPlayer>().shamanAirBonus += 1;
+		
+        public override void Update(Player player, ref int buffIndex) {
+			player.moveSpeed += 0.1f;
 		}
     }
 }

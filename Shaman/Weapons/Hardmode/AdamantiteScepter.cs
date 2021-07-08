@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("AdamantiteScepterProj");
 			this.empowermentType = 4;
-			this.empowermentLevel = 3;
 		}
 
 		public override void SetStaticDefaults()

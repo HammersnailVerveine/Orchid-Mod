@@ -26,8 +26,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			projectile.timeLeft = 350;
             this.empowermentType = 3;
-            this.empowermentLevel = 5;
-            this.spiritPollLoad = 0;
 		}
 		
 		public override Color? GetAlpha(Color lightColor)
