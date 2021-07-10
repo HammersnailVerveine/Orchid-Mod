@@ -205,6 +205,7 @@ namespace OrchidMod.Alchemist.Projectiles
         {
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.alchemistLastAttackDelay = 0;
 			
 			int soundNb = this.nbElements == 1 ? 1 : this.nbElements == 2 ? 2 : 3;
 			switch (soundNb) {

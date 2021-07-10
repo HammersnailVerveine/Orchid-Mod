@@ -21,13 +21,13 @@ namespace OrchidMod.Shaman.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sapphire Idol");
-			Tooltip.SetDefault("Increases the effectiveness of your shamanic water bonds");
+			Tooltip.SetDefault("Having an active water bond increases shamanic critical strike chance by 10%");
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			//modPlayer.shamanWaterBonus += 1;
+			modPlayer.shamanSapphire = true;
         }
 		
 		public override void AddRecipes()

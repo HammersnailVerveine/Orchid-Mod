@@ -20,8 +20,7 @@ namespace OrchidMod
 
 		public sealed override bool PreAI()
 		{
-			if (!spawned)
-			{
+			if (!spawned) {
 				spawned = true;
 				OnSpawn();
 			}

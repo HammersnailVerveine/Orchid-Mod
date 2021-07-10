@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Accessories
 		  DisplayName.SetDefault("Sinister Present");
 		  Tooltip.SetDefault("30% increased shamanic damage"
 						   + "\nYour shamanic bonds will last 10 seconds longer"
-						   + "\nHowever, taking direct damage will reduce their current duration by 5 seconds"
+						   + "\nTaking direct damage will reduce their current duration by 5 seconds"
 						   + "\nIt will also nullify the damage increase for 15 seconds");
 		}
 

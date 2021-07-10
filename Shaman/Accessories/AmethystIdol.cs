@@ -21,13 +21,13 @@ namespace OrchidMod.Shaman.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Amethyst Idol");
-			Tooltip.SetDefault("Increases the effectiveness of your shamanic spirit bonds");
+			Tooltip.SetDefault("Having an active spirit bond increases shamanic damage by 10%");
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			//modPlayer.shamanSpiritBonus += 1;
+			modPlayer.shamanAmethyst = true;
         }
 		
 		public override void AddRecipes()

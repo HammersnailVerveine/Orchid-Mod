@@ -21,13 +21,13 @@ namespace OrchidMod.Shaman.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ruby Idol");
-			Tooltip.SetDefault("Increases the effectiveness of your shamanic fire bonds");
+			Tooltip.SetDefault("Having an active fire bond increases life regeneration");
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			//modPlayer.shamanFireBonus += 1;
+			modPlayer.shamanRuby = true;
         }
 		
 		public override void AddRecipes()

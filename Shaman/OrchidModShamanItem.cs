@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Shaman
 {
@@ -12,9 +13,9 @@ namespace OrchidMod.Shaman
 		public int empowermentType = 0;
 		
 		public virtual void SafeSetDefaults() {}
+		public virtual void SafeHoldItem() {}
 
 		public sealed override void SetDefaults() {
-			SafeSetDefaults();
 			item.melee = false;
 			item.ranged = false;
 			item.magic = false;
@@ -26,6 +27,24 @@ namespace OrchidMod.Shaman
 			item.useStyle = 5;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeapon = true;
+			SafeSetDefaults();
+		}
+		
+		public sealed override void HoldItem(Player player) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			if (modPlayer.shamanCatalyst < 1) {
+				int projType = ProjectileType<CatalystAnchor>();
+				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projType, 0, 0f, player.whoAmI);
+			}
+			
+			if (modPlayer.shamanSelectedItem != item.type) {
+				modPlayer.shamanSelectedItem = item.type;
+				string textureLocation = "OrchidMod/Shaman/CatalystTextures/" + this.Name + "_Catalyst";
+				modPlayer.shamanCatalystTexture = ModContent.GetTexture(textureLocation);
+			}
+			
+			modPlayer.shamanCatalyst = 3;
+			SafeHoldItem();
 		}
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)

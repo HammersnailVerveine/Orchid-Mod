@@ -140,15 +140,12 @@ namespace OrchidMod.NPCs.Town
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (!OrchidMod.Instance.croupierGUI.Visible)
-			{
+			if (!OrchidMod.Instance.croupierGUI.Visible) {
 				button = Language.GetTextValue("LegacyInterface.28");
 
 				string deckBuilding = $"[c/{Colors.AlphaDarken(new Color(255, 200, 0)).Hex3()}:Deck Building]";
 				button2 = OrchidModGamblerHelper.hasGamblerDeck(player) ? deckBuilding : "Get a New Deck";
-			}
-			else
-			{
+			} else {
 				button = "Return";
 			}
 		}
@@ -170,9 +167,7 @@ namespace OrchidMod.NPCs.Town
 					Main.npcChatText = Main.npc[player.talkNPC].GetChat();
 				}
 				else shop = true;
-			}
-			else
-			{
+			} else {
 				if (OrchidModGamblerHelper.hasGamblerDeck(player)){
 					Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.";
 
@@ -190,12 +185,17 @@ namespace OrchidMod.NPCs.Town
 
 					OrchidMod.Instance.croupierGUI.UpdateOnChatButtonClicked();
 					OrchidMod.Instance.croupierGUI.Visible = true;
-				}
-				else
-				{
-					Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
-					int gamblerDeck = ItemType<Gambler.Decks.GamblerAttack>();
-					player.QuickSpawnItem(gamblerDeck, 1);
+				} else {
+					for (int i = 0; i < 50; i++) {
+						Item item = Main.LocalPlayer.inventory[i];
+						if (item.type == 0) {
+							Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
+							int gamblerDeck = ItemType<Gambler.Decks.GamblerAttack>();
+							player.QuickSpawnItem(gamblerDeck, 1);
+							return;
+						}
+					}
+					Main.npcChatText = $"My man, your pockets are full. You wouldn't let a brand new deck sitting on the ground, would ya?";
 				}
 			}
 		}

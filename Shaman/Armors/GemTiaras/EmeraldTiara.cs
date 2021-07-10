@@ -23,16 +23,14 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 		public override void SetStaticDefaults()
 		{
 		  DisplayName.SetDefault("Emerald Circlet");
-		  Tooltip.SetDefault("Increases the effectivenees of your shamanic air bonds"
-							+"\nYour shamanic bonds will last 3 seconds longer"
-							+"\n6% increased shamanic damage");
+		  Tooltip.SetDefault("Having an active air bond increases movement speed by 10%"
+							+"\nYour shamanic bonds will last 3 seconds longer");
 		}
 
         public override void UpdateEquip(Player player)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.shamanDamage += 0.06f;
-			//modPlayer.shamanAirBonus += 1;
+			modPlayer.shamanEmerald = true;
 			modPlayer.shamanBuffTimer += 3;
         }
 		
