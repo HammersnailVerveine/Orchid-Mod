@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 {
 	public class StarScouterScepterProj : OrchidModShamanProjectile
 	{
-		public int State { get { return (int)projectile.ai[0]; } set { projectile.ai[0] = value; } }
+		public bool IsGreen { get { return projectile.ai[0] == 1; } set { projectile.ai[0] = value.ToInt(); } }
 		public ref float GreenLightProgress => ref projectile.ai[1];
 
 		private SimpleTrail _trail;
@@ -41,39 +41,39 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			OrchidMod.Primitives?.CreateTrail(target: projectile, trail: _trail);
 
 			projectile.friendly = false;
-			this.State = 0;
+			this.IsGreen = false;
 		}
 
 		public override void AI()
 		{
 			projectile.rotation = (float)Math.Sin(projectile.timeLeft * 0.05f) * 0.5f;
 
-			if (projectile.timeLeft <= 100)
+			if (!this.IsGreen)
 			{
-				projectile.velocity *= 0.91f;
-				if (projectile.timeLeft == 1) this.UpdatePreKill();
+				if (projectile.timeLeft <= 100) projectile.velocity *= 0.9f;
+				if (projectile.velocity.Length() <= 0.2f)
+				{
+					projectile.friendly = true;
+					projectile.velocity = Vector2.Zero;
+					_trail.StartDissolving();
+
+					this.IsGreen = true;
+					this.GreenLightProgress = 0.85f;
+				}
+
+				Lighting.AddLight(new Vector2(projectile.Center.X, projectile.Center.Y), 0.53f * 0.35f, 0.12f * 0.35f, 0.35f);
+				return;
 			}
 
-			if (projectile.velocity.Length() <= 1.0f && this.State == 0)
-			{
-				projectile.friendly = true;
-				_trail.StartDissolving();
+			if (projectile.timeLeft == 1) this.UpdatePreKill();
+			if (this.GreenLightProgress > 0.5f) this.GreenLightProgress -= 0.035f;
 
-				this.State = 1;
-				this.GreenLightProgress = 0.85f;
-			}
-
-			if (this.State == 1)
-			{
-				if (this.GreenLightProgress > 0.5f) this.GreenLightProgress -= 0.035f;
-				Lighting.AddLight(new Vector2(projectile.Center.X, projectile.Center.Y), 0.44f * 0.35f, 0.92f * 0.35f, 0f);
-			}
-			else Lighting.AddLight(new Vector2(projectile.Center.X, projectile.Center.Y), 0.53f * 0.35f, 0.12f * 0.35f, 0.35f);
+			Lighting.AddLight(new Vector2(projectile.Center.X, projectile.Center.Y), 0.44f * 0.35f, 0.92f * 0.35f, 0f);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (this.State == 0)
+			if (!this.IsGreen)
 			{
 				if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X;
 				if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y;
@@ -166,7 +166,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			Vector2 drawPos = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY);
 			Texture2D texture = ModContent.GetTexture("OrchidMod/Effects/Textures/StarScouterScepter");
-			Rectangle rect = new Rectangle(0, 20 * (this.State != 0).ToInt(), 20, 20);
+			Rectangle rect = new Rectangle(0, 20 * this.IsGreen.ToInt(), 20, 20);
 			Vector2 origin = new Vector2(10, 10);
 
 			float val = (float)Math.Sin(Main.GlobalTime);
