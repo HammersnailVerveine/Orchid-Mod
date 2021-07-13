@@ -51,7 +51,6 @@ namespace OrchidMod.Effects
 
                 if (this.PreUpdate())
                 {
-                    _vertices.Clear();
                     this.UpdatePoints(maxLength: length);
                 }
                 this.PostUpdate();
