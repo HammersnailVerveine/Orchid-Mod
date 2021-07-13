@@ -11,6 +11,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	public class StarScouterScepterProj : OrchidModShamanProjectile
 	{
 		public bool IsGreen { get { return projectile.ai[0] == 1; } set { projectile.ai[0] = value.ToInt(); } }
+		
 		public ref float GreenLightProgress => ref projectile.ai[1];
 
 		private SimpleTrail _trail;
