@@ -19,7 +19,8 @@ namespace OrchidMod.Effects.Trails
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (_points.Count <= 1) return;
-
+			_vertices.Clear();
+			
             this.PreDraw(spriteBatch);
 
             float progress = 0f;
