@@ -140,7 +140,7 @@ namespace OrchidMod.NPCs.Town
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (!OrchidMod.Instance.croupierGUI.Visible)
+			if (!OrchidMod.Instance.croupierUI.Visible)
 			{
 				button = Language.GetTextValue("LegacyInterface.28");
 
@@ -160,9 +160,9 @@ namespace OrchidMod.NPCs.Town
 
 			if (firstButton)
 			{
-				if (OrchidMod.Instance.croupierGUI.Visible)
+				if (OrchidMod.Instance.croupierUI.Visible)
 				{
-					OrchidMod.Instance.croupierGUI.Visible = false;
+					OrchidMod.Instance.croupierUI.Visible = false;
 
 					Main.npcShop = 0;
 					Main.npcChatCornerItem = 0;
@@ -188,8 +188,8 @@ namespace OrchidMod.NPCs.Town
 					Main.npcChatFocus2 = false;
 					Main.npcChatFocus3 = false;
 
-					OrchidMod.Instance.croupierGUI.UpdateOnChatButtonClicked();
-					OrchidMod.Instance.croupierGUI.Visible = true;
+					OrchidMod.Instance.croupierUI.UpdateOnChatButtonClicked();
+					OrchidMod.Instance.croupierUI.Visible = true;
 				}
 				else
 				{
