@@ -167,6 +167,7 @@ namespace OrchidMod
 		public int shamanCatalyst = 0;
 		public Vector2 shamanCatalystPosition = Vector2.Zero;
 		public int shamanSelectedItem = 0;
+		public int shamanDrawWeapon = 0;
 		public Texture2D shamanCatalystTexture = null;
 		
 		public ShamanOrbSmall shamanOrbSmall = ShamanOrbSmall.NULL;

@@ -30,7 +30,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 		public override void AI() {
 			for (int l = 0; l < Main.npc.Length; l++) {  
 				NPC target = Main.npc[l];
-				if (projectile.Hitbox.Intersects(target.Hitbox))  {
+				if (projectile.Hitbox.Intersects(target.Hitbox) && !(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)  {
 					target.velocity.Y = -(projectile.ai[1] * 4);
 				}
 			}

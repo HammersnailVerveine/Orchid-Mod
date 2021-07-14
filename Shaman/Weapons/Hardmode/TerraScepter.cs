@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							+"\nThe blast produced by an orb at its maximum power will increase your shamanic damage for a time"
 							+"\nThe number of projectiles shot scales with the number of active shamanic bonds");
 		}
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 	    {
 			
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();

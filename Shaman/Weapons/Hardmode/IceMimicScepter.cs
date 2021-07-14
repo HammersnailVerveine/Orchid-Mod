@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							+"\nHaving 3 or more active shamanic bonds increases the spike attack rate");
 		}
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{	
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 		

@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nReleases icicles on impact, based on your number of active shamanic bonds");
 		}
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f; 
 			

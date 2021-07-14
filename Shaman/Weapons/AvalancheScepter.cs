@@ -36,17 +36,9 @@ namespace OrchidMod.Shaman.Weapons
 							+ "\nAfter enough hits, the icicle will be launched, dealing massive damage");
 		}
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
-			
 			Projectile.NewProjectile(position.X + Main.rand.Next(50) - 35 , position.Y - Main.rand.Next(14) + 7 , speedX, speedY, type, damage, knockBack, player.whoAmI);
-			
 			return false;
 		}
     }

@@ -45,7 +45,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+"\n'Used to be called the fizzling wand of fizzly fizzies'");
 		}
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
             for (int l = 0; l < Main.projectile.Length; l++)
             {  

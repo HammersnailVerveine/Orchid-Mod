@@ -50,7 +50,8 @@ namespace OrchidMod.Alchemist
 		LIVINGBEEHIVE = 29,
 		DEMONREEKS = 30,
 		SPIRITEDDROPLETS = 31,
-		MISTYSTEPS = 32
+		MISTYSTEPS = 32,
+		POTIONOBSIDIAN = 33
     }
 	
 	public class AlchemistHiddenReaction {
@@ -225,6 +226,16 @@ namespace OrchidMod.Alchemist
 		
 		public static void PotionBuilder(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
 			player.AddBuff(107, 60 * 30); // Builder
+			for (int i=0; i < 10; i++) {
+				int dust = Dust.NewDust(player.Center, 10, 10, 15);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].velocity *= 2f;
+				Main.dust[dust].scale *= 1.5f;
+			}
+		}
+		
+		public static void PotionObsidian(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {
+			player.AddBuff(1, 60 * 30); // Obsidian
 			for (int i=0; i < 10; i++) {
 				int dust = Dust.NewDust(player.Center, 10, 10, 15);
 				Main.dust[dust].noGravity = true;

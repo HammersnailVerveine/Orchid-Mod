@@ -57,7 +57,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.useAnimation = 18 - (2 * nbBonds);
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))

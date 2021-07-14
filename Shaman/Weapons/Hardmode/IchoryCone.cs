@@ -34,7 +34,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							+"\nYour next hit after the cyst is full will release a shower of ichor in the direction you're moving");
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 75f;
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))

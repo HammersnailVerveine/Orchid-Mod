@@ -28,8 +28,8 @@ namespace OrchidMod.Gambler
 			item.useStyle = 1;
 			item.noUseGraphic = true;
 			//item.UseSound = SoundID.Item7;
-			item.useAnimation = 1;
-			item.useTime = 1;
+			item.useAnimation = 30;
+			item.useTime = 30;
 			item.knockBack = 1f;
 			item.damage = 1;
 			item.rare = 1;
@@ -80,7 +80,6 @@ namespace OrchidMod.Gambler
 			if (player == Main.LocalPlayer) {
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				Item currentCard = modPlayer.gamblerCardCurrent;
-				bool firstUse = item.useAnimation == 1 && item.useTime == 1;
 				if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) > 0) {
 					if (player.altFunctionUse == 2) {
 						if (modPlayer.gamblerRedraws > 0 && modPlayer.gamblerRedrawCooldownUse <= 0) {

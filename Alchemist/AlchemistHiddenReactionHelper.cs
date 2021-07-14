@@ -124,6 +124,9 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONFLIPPER, 1, "Flipper Potion", 
 			"Gives 30 seconds of Flipper Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionFlipper,
 			ItemType<ShiverthornFlask>(), ItemType<WaterleafFlask>()));
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONOBSIDIAN, 1, "Obsidian Potion", 
+			"Gives 30 seconds of Obsidian Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionObsidian,
+			ItemType<FireblossomFlask>(), ItemType<WaterleafFlask>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONNIGHTOWL, 1, "Night Owl Potion", 
 			"Gives 30 seconds of Night Owl Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionNightOwl,
 			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>()));
@@ -159,6 +162,7 @@ namespace OrchidMod.Alchemist
 			ingredientToCompare.Add(ItemType<BlinkrootFlask>());
 			ingredientToCompare.Add(ItemType<ShiverthornFlask>());
 			ingredientToCompare.Add(ItemType<CorruptionFlask>());
+			ingredientToCompare.Add(ItemType<GoblinArmyFlask>());
 			
 			foreach (int ingredient in ingredientToCompare) {
 				if (ingredientID == ItemType<CloudInAVial>()) {
@@ -168,6 +172,9 @@ namespace OrchidMod.Alchemist
 				}
 				if (ingredientID == ItemType<AttractiteFlask>()) {
 					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<GlowingAttractiteFlask>(), player, modPlayer);
+				}
+				if (ingredientID == ItemType<GoblinArmyFlask>()) {
+					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<HellOil>(), player, modPlayer);
 				}
 				if (ingredientID == ItemType<BlinkrootFlask>()) {
 					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<FireblossomFlask>(), player, modPlayer);
