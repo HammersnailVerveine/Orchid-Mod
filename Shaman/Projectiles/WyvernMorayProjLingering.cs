@@ -61,7 +61,7 @@ namespace OrchidMod.Shaman.Projectiles
 			float scale = projectile.scale * 2.25f;
 
 			Effects.EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, effect: effect, blendState: BlendState.Additive);
-			for (int i = 0; i < 3; i++) spriteBatch.Draw(texture, drawPos, null, color, 0f, origin, scale, SpriteEffects.None, 0);
+			for (int i = 0; i < 2; i++) spriteBatch.Draw(texture, drawPos, null, color, 0f, origin, scale, SpriteEffects.None, 0);
 			Effects.EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
 			return false;
 		}
