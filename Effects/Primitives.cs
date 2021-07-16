@@ -1,8 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
+using Terraria.ModLoader;
+using Terraria.ModLoader.Exceptions;
+using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Effects
 {
@@ -27,7 +35,7 @@ namespace OrchidMod.Effects
             spriteBatch.End();
         }
 
-        public void UpdateTrails()
+		public void UpdateTrails()
         {
             foreach (var trail in _trails.ToList()) trail.Update();
         }
