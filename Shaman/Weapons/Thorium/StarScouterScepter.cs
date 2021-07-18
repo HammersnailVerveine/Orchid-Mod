@@ -20,12 +20,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.useTime = 40;
 			item.useAnimation = 40;
 			item.knockBack = 3.25f;
-			item.rare =3;
+			item.rare = ItemRarityID.Orange;
 			item.value = Item.sellPrice(0, 0, 54, 0);
 			item.UseSound = SoundID.Item43;
 			item.autoReuse = false;
 			item.shootSpeed = 7f;
-			item.shoot = mod.ProjectileType("StarScouterScepterProj");
+			item.shoot = ModContent.ProjectileType<Projectiles.Thorium.StarScouterScepterProj>();
+
 			this.empowermentType = 3;
 		}
 
@@ -39,8 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-				position += muzzleOffset;
+			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0)) position += muzzleOffset;
 			
 			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(4));
 			Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);

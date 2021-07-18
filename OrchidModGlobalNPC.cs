@@ -23,7 +23,7 @@ namespace OrchidMod
 
 		public override void GetChat(NPC npc, ref string chat)
 		{
-			OrchidMod.Instance.croupierGUI.Visible = false;
+			OrchidMod.Instance.croupierUI.Visible = false;
 		}
 
 		public override void NPCLoot(NPC npc)

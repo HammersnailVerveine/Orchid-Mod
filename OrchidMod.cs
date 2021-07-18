@@ -25,15 +25,17 @@ namespace OrchidMod
 {
 	public class OrchidMod : Mod
 	{
-		public static OrchidMod Instance { get; set; }
-
+		public static OrchidMod Instance { get; private set; }
 		public static Mod ThoriumMod { get; private set; }
+		public static Primitives Primitives { get; private set; }
+
+		internal CroupierUI croupierUI;
 
 		public static Texture2D[] coatingTextures;
 		public static List<AlchemistHiddenReactionRecipe> alchemistReactionRecipes;
 		public static ModHotKey AlchemistReactionHotKey;
 		public static ModHotKey AlchemistCatalystHotKey;
-		
+
 		internal UserInterface orchidModShamanInterface;
 		internal UserInterface orchidModShamanCharacterInterface;
 		internal UserInterface orchidModAlchemistInterface;
@@ -49,247 +51,244 @@ namespace OrchidMod
 		internal AlchemistBookUIState alchemistBookUIState;
 		internal GamblerUIState gamblerUIState;
 
-		internal CroupierGUI croupierGUI;
-
 		public static bool reloadShamanUI;
 
-		public OrchidMod()
-		{
-			Instance = this;
-		}
+		public OrchidMod() => Instance = this;
 
 		public override void PostSetupContent()
 		{
 			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
 			Mod censusMod = ModLoader.GetMod("Census");
-			if(censusMod != null)
+			if (censusMod != null)
 			{
 				censusMod.Call("TownNPCCondition", ModContent.NPCType<NPCs.Town.Croupier>(), $"Have a gamber card ([i:{ModContent.ItemType<Gambler.Weapons.Cards.SlimeCard>()}][i:{ModContent.ItemType<Gambler.Weapons.Cards.EmbersCard>()}] etc.) in your deck");
 				censusMod.Call("TownNPCCondition", ModContent.NPCType<NPCs.Town.Chemist>(), "Find in the main mineshaft, in the center of your world");
 			}
-			
-			if (bossChecklist != null) {
-				
+
+			if (bossChecklist != null)
+			{
+
 				// Bosses -- Vanilla
-				
+
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"QueenBee",
-					new List<int> {ModContent.ItemType<Gambler.Weapons.Cards.QueenBeeCard>(), ModContent.ItemType<Gambler.Weapons.Dice.HoneyDie>(), ModContent.ItemType<Shaman.Weapons.BeeSeeker>(), ModContent.ItemType<Shaman.Accessories.WaxyVial>(), ModContent.ItemType<Alchemist.Weapons.Air.QueenBeeFlask>()});
+					new List<int> { ModContent.ItemType<Gambler.Weapons.Cards.QueenBeeCard>(), ModContent.ItemType<Gambler.Weapons.Dice.HoneyDie>(), ModContent.ItemType<Shaman.Weapons.BeeSeeker>(), ModContent.ItemType<Shaman.Accessories.WaxyVial>(), ModContent.ItemType<Alchemist.Weapons.Air.QueenBeeFlask>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"MoonLord",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Hardmode.Nirvana>(), ModContent.ItemType<Shaman.Weapons.Hardmode.TheCore>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Hardmode.Nirvana>(), ModContent.ItemType<Shaman.Weapons.Hardmode.TheCore>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"WallofFlesh",
-					new List<int> {ModContent.ItemType<Shaman.Accessories.ShamanEmblem>()});
+					new List<int> { ModContent.ItemType<Shaman.Accessories.ShamanEmblem>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"Plantera",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Hardmode.BulbScepter>(), ModContent.ItemType<Shaman.Accessories.FloralStinger>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Hardmode.BulbScepter>(), ModContent.ItemType<Shaman.Accessories.FloralStinger>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"Golem",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Hardmode.SunRay>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Hardmode.SunRay>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"KingSlime",
-					new List<int> {ModContent.ItemType<Alchemist.Weapons.Water.KingSlimeFlask>(), ModContent.ItemType<Gambler.Weapons.Cards.KingSlimeCard>()});
+					new List<int> { ModContent.ItemType<Alchemist.Weapons.Water.KingSlimeFlask>(), ModContent.ItemType<Gambler.Weapons.Cards.KingSlimeCard>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"EaterofWorldsHead",
-					new List<int> {ModContent.ItemType<Alchemist.Accessories.PreservedCorruption>(), ModContent.ItemType<Gambler.Weapons.Cards.EaterCard>()});
+					new List<int> { ModContent.ItemType<Alchemist.Accessories.PreservedCorruption>(), ModContent.ItemType<Gambler.Weapons.Cards.EaterCard>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"BrainofCthulhu",
-					new List<int> {ModContent.ItemType<Alchemist.Accessories.PreservedCrimson>(), ModContent.ItemType<Gambler.Weapons.Cards.BrainCard>()});
+					new List<int> { ModContent.ItemType<Alchemist.Accessories.PreservedCrimson>(), ModContent.ItemType<Gambler.Weapons.Cards.BrainCard>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"EyeofCthulhu",
-					new List<int> {ModContent.ItemType<Gambler.Weapons.Cards.EyeCard>()});
+					new List<int> { ModContent.ItemType<Gambler.Weapons.Cards.EyeCard>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"SkeletronHead",
-					new List<int> {ModContent.ItemType<Gambler.Weapons.Cards.SkeletronCard>()});
-					
-					// Minibosses and Events -- Vanilla
+					new List<int> { ModContent.ItemType<Gambler.Weapons.Cards.SkeletronCard>() });
+
+				// Minibosses and Events -- Vanilla
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"Goblin Army",
-					new List<int> {ModContent.ItemType<Alchemist.Weapons.Water.GoblinArmyFlask>()});
+					new List<int> { ModContent.ItemType<Alchemist.Weapons.Water.GoblinArmyFlask>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"Blood Moon",
-					new List<int> {ModContent.ItemType<Alchemist.Weapons.Water.BloodMoonFlask>()});
+					new List<int> { ModContent.ItemType<Alchemist.Weapons.Water.BloodMoonFlask>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"Pirate Invasion",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Hardmode.PiratesGlory>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Hardmode.PiratesGlory>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"PirateShip",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Hardmode.PiratesGlory>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Hardmode.PiratesGlory>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"Frost Moon",
-					new List<int> {ModContent.ItemType<Shaman.Accessories.FragilePresent>(), ModContent.ItemType<Shaman.Weapons.Hardmode.IceFlakeCone>()});
+					new List<int> { ModContent.ItemType<Shaman.Accessories.FragilePresent>(), ModContent.ItemType<Shaman.Weapons.Hardmode.IceFlakeCone>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"SantaNK1",
-					new List<int> {ModContent.ItemType<Shaman.Accessories.FragilePresent>()});
+					new List<int> { ModContent.ItemType<Shaman.Accessories.FragilePresent>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"IceQueen",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Hardmode.IceFlakeCone>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Hardmode.IceFlakeCone>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"Pumpkin Moon",
-					new List<int> {ModContent.ItemType<Shaman.Accessories.MourningTorch>()});
+					new List<int> { ModContent.ItemType<Shaman.Accessories.MourningTorch>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"MourningWood",
-					new List<int> {ModContent.ItemType<Shaman.Accessories.MourningTorch>()});
+					new List<int> { ModContent.ItemType<Shaman.Accessories.MourningTorch>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"Martian Madness",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Hardmode.MartianBeamer>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Hardmode.MartianBeamer>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"MartianSaucer",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Hardmode.MartianBeamer>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Hardmode.MartianBeamer>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"Terraria",
 					"CultistBoss",
-					new List<int> {ModContent.ItemType<Shaman.Misc.AbyssFragment>()});
-					
-					// Bosses -- Thorium
+					new List<int> { ModContent.ItemType<Shaman.Misc.AbyssFragment>() });
+
+				// Bosses -- Thorium
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"The Grand Thunder Bird",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.ThunderScepter>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.ThunderScepter>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"The Queen Jellyfish",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.QueenJellyfishScepter>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.QueenJellyfishScepter>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"Granite Energy Storm",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.GraniteEnergyScepter>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.GraniteEnergyScepter>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"Viscount",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.ViscountScepter>(), ModContent.ItemType<Shaman.Misc.Thorium.ViscountMaterial>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.ViscountScepter>(), ModContent.ItemType<Shaman.Misc.Thorium.ViscountMaterial>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"Star Scouter",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.StarScouterScepter>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.StarScouterScepter>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"Coznix, the Fallen Beholder",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.CoznixScepter>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.CoznixScepter>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"Borean Strider",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.BoreanStriderScepter>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.BoreanStriderScepter>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"The Lich",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.LichScepter>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.LichScepter>() });
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"Abyssion, the Forgotten One",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.AbyssionScepter>()});
-					
-					// Minibosses and Events -- Thorium
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.AbyssionScepter>() });
+
+				// Minibosses and Events -- Thorium
 
 				bossChecklist.Call(
 					"AddToBossLoot",
 					"ThoriumMod",
 					"Patch Werk",
-					new List<int> {ModContent.ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>()});
+					new List<int> { ModContent.ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>() });
 			}
 		}
-		
+
 		public override void Load()
 		{
 			ThoriumMod = ModLoader.GetMod("ThoriumMod");
-
-			EffectsManager.Load();
-			CroupierGUI.Load();
+			Primitives = new Primitives();
 
 			if (!Main.dedServ)
 			{
-				croupierGUI = new CroupierGUI();
+				croupierUI = new CroupierUI();
 			}
 
+			EffectsManager.Load();
 			LoadHooks();
+
+			// ...
 
 			AlchemistReactionHotKey = RegisterHotKey("Alchemist Hidden Reaction", "Mouse3");
 			AlchemistCatalystHotKey = RegisterHotKey("Alchemist Catalyst Tool Shortcut", "Z");
 			alchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
-			
+
 			if (!Main.dedServ)
 			{
 				shamanUIState = new ShamanUIState();
@@ -307,25 +306,25 @@ namespace OrchidMod
 				orchidModAlchemistSelectKeysInterface = new UserInterface();
 				orchidModAlchemistBookInterface = new UserInterface();
 				orchidModGamblerInterface = new UserInterface();
-				
+
 				shamanUIState.Activate();
 				orchidModShamanInterface.SetState(shamanUIState);
-				
+
 				shamanCharacterUIState.Activate();
 				orchidModShamanCharacterInterface.SetState(shamanCharacterUIState);
-				
+
 				alchemistUIState.Activate();
 				orchidModAlchemistInterface.SetState(alchemistUIState);
-				
+
 				alchemistSelectUIState.Activate();
 				orchidModAlchemistSelectInterface.SetState(alchemistSelectUIState);
-				
+
 				alchemistSelectKeysUIState.Activate();
 				orchidModAlchemistSelectKeysInterface.SetState(alchemistSelectKeysUIState);
-				
+
 				alchemistBookUIState.Activate();
 				orchidModAlchemistBookInterface.SetState(alchemistBookUIState);
-				
+
 				gamblerUIState.Activate();
 				orchidModGamblerInterface.SetState(gamblerUIState);
 
@@ -345,10 +344,10 @@ namespace OrchidMod
 			{
 				orig(self);
 
-				if (croupierGUI.Visible)
+				if (croupierUI.Visible)
 				{
-					croupierGUI.Update();
-					croupierGUI.Draw(Main.spriteBatch);
+					croupierUI.Update();
+					croupierUI.Draw(Main.spriteBatch);
 				}
 			};
 
@@ -359,15 +358,24 @@ namespace OrchidMod
 
 				orig(self, offset);
 			};
+
+			On.Terraria.Main.DrawProjectiles += (orig, self) =>
+			{
+				Primitives?.DrawTrails(Main.spriteBatch);
+
+				orig(self);
+			};
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-			if (mouseTextIndex != -1) {
+			if (mouseTextIndex != -1)
+			{
 				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
 					"OrchidMod: UI",
-					delegate {
+					delegate
+					{
 						orchidModShamanInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModShamanCharacterInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModAlchemistInterface.Draw(Main.spriteBatch, new GameTime());
@@ -380,31 +388,32 @@ namespace OrchidMod
 					InterfaceScaleType.UI)
 				);
 			}
-			if (reloadShamanUI) {
+			if (reloadShamanUI)
+			{
 				shamanUIState = new ShamanUIState();
 				shamanUIState.Activate();
 				orchidModShamanInterface.SetState(shamanUIState);
-				
+
 				shamanCharacterUIState = new ShamanCharacterUIState();
 				shamanCharacterUIState.Activate();
 				orchidModShamanCharacterInterface.SetState(shamanCharacterUIState);
-				
+
 				alchemistUIState = new AlchemistUIState();
 				alchemistUIState.Activate();
 				orchidModAlchemistInterface.SetState(alchemistUIState);
-				
+
 				alchemistSelectUIState = new AlchemistSelectUIState();
 				alchemistSelectUIState.Activate();
 				orchidModAlchemistSelectInterface.SetState(alchemistSelectUIState);
-				
+
 				alchemistSelectKeysUIState = new AlchemistSelectKeysUIState();
 				alchemistSelectKeysUIState.Activate();
 				orchidModAlchemistSelectKeysInterface.SetState(alchemistSelectKeysUIState);
-				
+
 				alchemistBookUIState = new AlchemistBookUIState();
 				alchemistBookUIState.Activate();
 				orchidModAlchemistBookInterface.SetState(alchemistBookUIState);
-				
+
 				gamblerUIState = new GamblerUIState();
 				gamblerUIState.Activate();
 				orchidModGamblerInterface.SetState(gamblerUIState);
@@ -416,7 +425,7 @@ namespace OrchidMod
 		public override void Unload()
 		{
 			if (!Main.dedServ)
-            {
+			{
 				AlchemistUIFrame.ressourceBottom = null;
 				AlchemistUIFrame.ressourceTop = null;
 				AlchemistUIFrame.ressourceFull = null;
@@ -431,20 +440,20 @@ namespace OrchidMod
 				AlchemistUIFrame.symbolAir = null;
 				AlchemistUIFrame.symbolLight = null;
 				AlchemistUIFrame.symbolDark = null;
-				
+
 				AlchemistSelectUIFrame.resourceItem = null;
 				AlchemistSelectUIFrame.resourceBack = null;
 				AlchemistSelectUIFrame.resourceCross = null;
 				AlchemistSelectUIFrame.resourceSelected = null;
 				AlchemistSelectUIFrame.resourceBorder = null;
-				
+
 				AlchemistSelectKeysUIFrame.emptyTexture = null;
-				
+
 				AlchemistBookUIFrame.ressourceBookPage = null;
 				AlchemistBookUIFrame.ressourceBookSlot = null;
 				AlchemistBookUIFrame.ressourceBookSlotEmpty = null;
 				AlchemistBookUIFrame.ressourceBookPopup = null;
-				
+
 				ShamanUIFrame.shamanUIMainFrame = null;
 				ShamanUIFrame.resourceDuration = null;
 				ShamanUIFrame.resourceDurationEnd = null;
@@ -483,12 +492,13 @@ namespace OrchidMod
 				ShamanUIFrame.SymbolFeather = null;
 				ShamanUIFrame.SymbolAnklet = null;
 				ShamanUIFrame.SymbolWyvern = null;
+
 				ShamanUIFrame.SymbolAmethyst = null;
 				ShamanUIFrame.SymbolTopaz = null;
 				ShamanUIFrame.SymbolSapphire = null;
 				ShamanUIFrame.SymbolEmerald = null;
 				ShamanUIFrame.SymbolRuby = null;
-				
+
 				ShamanCharacterUIFrame.symbolAttack = null;
 				ShamanCharacterUIFrame.symbolDefense = null;
 				ShamanCharacterUIFrame.symbolCritical = null;
@@ -499,7 +509,7 @@ namespace OrchidMod
 				ShamanCharacterUIFrame.airLoaded = null;
 				ShamanCharacterUIFrame.earthLoaded = null;
 				ShamanCharacterUIFrame.spiritLoaded = null;
-				
+
 				GamblerUIFrame.ressourceBar = null;
 				GamblerUIFrame.ressourceBarFull = null;
 				GamblerUIFrame.ressourceBarTop = null;
@@ -524,10 +534,10 @@ namespace OrchidMod
 				GamblerUIFrame.UIRedraw = null;
 				GamblerUIFrame.UIDeckbuilding = null;
 				GamblerUIFrame.UIDeckbuildingBlock = null;
-				
+
 				coatingTextures = null;
 			}
-			
+
 			orchidModShamanInterface = null;
 			orchidModShamanCharacterInterface = null;
 			orchidModAlchemistInterface = null;
@@ -546,70 +556,79 @@ namespace OrchidMod
 			AlchemistCatalystHotKey = null;
 			alchemistReactionRecipes = null;
 
+			// ...
+
 			EffectsManager.Unload();
-			CroupierGUI.Unload();
 
-			croupierGUI = null;
+			croupierUI = null;
 
+			Primitives = null;
 			ThoriumMod = null;
 			Instance = null;
 		}
-		
-		public override void HandlePacket(BinaryReader reader, int whoAmI) {
+
+		public override void PostUpdateEverything()
+		{
+			Primitives?.UpdateTrails();
+		}
+
+		public override void HandlePacket(BinaryReader reader, int whoAmI)
+		{
 			OrchidModMessageType msgType = (OrchidModMessageType)reader.ReadByte();
-			switch (msgType) {
+			switch (msgType)
+			{
 				case OrchidModMessageType.ORCHIDPLAYERSYNCPLAYER:
 					byte playernumber = reader.ReadByte();
 					OrchidModPlayer modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
-					
+
 					// Orbs
 					byte readSmallOrb = reader.ReadByte();
 					modPlayer.shamanOrbSmall = (ShamanOrbSmall)readSmallOrb;
 
 					byte readBigOrb = reader.ReadByte();
 					modPlayer.shamanOrbBig = (ShamanOrbBig)readBigOrb;
-					
+
 					byte readLargeOrb = reader.ReadByte();
 					modPlayer.shamanOrbLarge = (ShamanOrbLarge)readLargeOrb;
-					
+
 					byte readUniqueOrb = reader.ReadByte();
 					modPlayer.shamanOrbUnique = (ShamanOrbUnique)readUniqueOrb;
-					
+
 					byte readCircleOrb = reader.ReadByte();
 					modPlayer.shamanOrbCircle = (ShamanOrbCircle)readCircleOrb;
-					
+
 					//Counts
 					int countSmall = reader.ReadInt32();
 					modPlayer.orbCountSmall = countSmall;
-					
+
 					int countBig = reader.ReadInt32();
 					modPlayer.orbCountBig = countBig;
-					
+
 					int countLarge = reader.ReadInt32();
 					modPlayer.orbCountLarge = countLarge;
-					
+
 					int countUnique = reader.ReadInt32();
 					modPlayer.orbCountUnique = countUnique;
-					
+
 					int countCircle = reader.ReadInt32();
 					modPlayer.orbCountCircle = countCircle;
-					
+
 					// Buff Timers
 					int attackTimer = reader.ReadInt32();
 					modPlayer.shamanFireTimer = attackTimer;
-					
+
 					int armorTimer = reader.ReadInt32();
 					modPlayer.shamanWaterTimer = armorTimer;
-					
+
 					int criticalTimer = reader.ReadInt32();
 					modPlayer.shamanAirTimer = criticalTimer;
-					
+
 					int regenerationTimer = reader.ReadInt32();
 					modPlayer.shamanEarthTimer = regenerationTimer;
-					
+
 					int speedTimer = reader.ReadInt32();
 					modPlayer.shamanSpiritTimer = speedTimer;
-					
+
 					//Gambler Card in Deck
 					bool cardInDeck = reader.ReadBoolean();
 					modPlayer.gamblerHasCardInDeck = cardInDeck;
@@ -620,7 +639,8 @@ namespace OrchidMod
 					readSmallOrb = reader.ReadByte();
 					modPlayer.shamanOrbSmall = (ShamanOrbSmall)readSmallOrb;
 
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDSMALL);
 						packet.Write(playernumber);
@@ -628,14 +648,15 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDBIG:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					readBigOrb = reader.ReadByte();
 					modPlayer.shamanOrbBig = (ShamanOrbBig)readBigOrb;
 
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDBIG);
 						packet.Write(playernumber);
@@ -643,14 +664,15 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDLARGE:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					readLargeOrb = reader.ReadByte();
 					modPlayer.shamanOrbLarge = (ShamanOrbLarge)readLargeOrb;
 
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDLARGE);
 						packet.Write(playernumber);
@@ -658,14 +680,15 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDUNIQUE:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					readUniqueOrb = reader.ReadByte();
 					modPlayer.shamanOrbUnique = (ShamanOrbUnique)readUniqueOrb;
 
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDUNIQUE);
 						packet.Write(playernumber);
@@ -673,14 +696,15 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDCIRCLE:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					readCircleOrb = reader.ReadByte();
 					modPlayer.shamanOrbCircle = (ShamanOrbCircle)readCircleOrb;
 
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDCIRCLE);
 						packet.Write(playernumber);
@@ -688,13 +712,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDSMALL:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					countSmall = reader.ReadInt32();
 					modPlayer.orbCountSmall = countSmall;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDSMALL);
 						packet.Write(playernumber);
@@ -702,13 +727,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDBIG:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					countBig = reader.ReadInt32();
 					modPlayer.orbCountBig = countBig;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDBIG);
 						packet.Write(playernumber);
@@ -716,13 +742,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDLARGE:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					countLarge = reader.ReadInt32();
 					modPlayer.orbCountLarge = countLarge;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDLARGE);
 						packet.Write(playernumber);
@@ -730,13 +757,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDUNIQUE:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					countUnique = reader.ReadInt32();
 					modPlayer.orbCountUnique = countUnique;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDUNIQUE);
 						packet.Write(playernumber);
@@ -744,13 +772,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDCIRCLE:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					countCircle = reader.ReadInt32();
 					modPlayer.orbCountCircle = countCircle;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDCIRCLE);
 						packet.Write(playernumber);
@@ -758,13 +787,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDATTACK:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					attackTimer = reader.ReadInt32();
 					modPlayer.shamanFireTimer = attackTimer;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDATTACK);
 						packet.Write(playernumber);
@@ -772,13 +802,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDARMOR:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					armorTimer = reader.ReadInt32();
 					modPlayer.shamanWaterTimer = armorTimer;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDARMOR);
 						packet.Write(playernumber);
@@ -786,13 +817,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDCRITICAL:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					criticalTimer = reader.ReadInt32();
 					modPlayer.shamanAirTimer = criticalTimer;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDCRITICAL);
 						packet.Write(playernumber);
@@ -800,13 +832,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDREGENERATION:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					regenerationTimer = reader.ReadInt32();
 					modPlayer.shamanEarthTimer = regenerationTimer;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDREGENERATION);
 						packet.Write(playernumber);
@@ -814,13 +847,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDSPEED:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					speedTimer = reader.ReadInt32();
 					modPlayer.shamanSpiritTimer = speedTimer;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDSPEED);
 						packet.Write(playernumber);
@@ -828,13 +862,14 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-					
+
 				case OrchidModMessageType.GAMBLERCARDINDECKCHANGED:
 					playernumber = reader.ReadByte();
 					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
 					cardInDeck = reader.ReadBoolean();
 					modPlayer.gamblerHasCardInDeck = cardInDeck;
-					if (Main.netMode == NetmodeID.Server) {
+					if (Main.netMode == NetmodeID.Server)
+					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.GAMBLERCARDINDECKCHANGED);
 						packet.Write(playernumber);
@@ -842,7 +877,7 @@ namespace OrchidMod
 						packet.Send(-1, playernumber);
 					}
 					break;
-				
+
 				default:
 					Logger.WarnFormat("OrchidMod: Unknown Message type: {0}", msgType);
 					break;

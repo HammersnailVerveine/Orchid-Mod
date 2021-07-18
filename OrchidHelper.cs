@@ -15,6 +15,30 @@ namespace OrchidMod
 {
 	public static class OrchidHelper
 	{
+		public static void SpawnDustCircle(Vector2 center, float radius, int count, int type, Action<Dust> onSpawn = null)
+		{
+			for (int i = 0; i < count; i++)
+			{
+				Vector2 position = center + new Vector2(radius, 0).RotatedBy(i / (float)count * MathHelper.TwoPi);
+				var dust = Dust.NewDustPerfect(position, type);
+				onSpawn?.Invoke(dust);
+			}
+		}
+
+		public static void SpawnDustCircle(Vector2 center, float radius, int count, Func<int, int> type, Action<Dust, int> onSpawn = null)
+		{
+			for (int i = 0; i < count; i++)
+			{
+				Vector2 position = center + new Vector2(radius, 0).RotatedBy(i / (float)count * MathHelper.TwoPi);
+				int dustType = type?.Invoke(i) ?? -1;
+				if (dustType != -1)
+				{
+					var dust = Dust.NewDustPerfect(position, dustType);
+					onSpawn?.Invoke(dust, i);
+				}
+			}
+		}
+
 		public static void DrawSimpleItemGlowmaskInWorld(Item item, SpriteBatch spriteBatch, Texture2D texture, Color color, float rotation, float scale)
 		{
 			Vector2 offset = new Vector2(0, 2); // Unnecessary in 1.4

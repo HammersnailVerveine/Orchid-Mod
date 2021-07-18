@@ -140,7 +140,8 @@ namespace OrchidMod.NPCs.Town
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (!OrchidMod.Instance.croupierGUI.Visible) {
+			if (!OrchidMod.Instance.croupierUI.Visible)
+			{
 				button = Language.GetTextValue("LegacyInterface.28");
 
 				string deckBuilding = $"[c/{Colors.AlphaDarken(new Color(255, 200, 0)).Hex3()}:Deck Building]";
@@ -157,9 +158,9 @@ namespace OrchidMod.NPCs.Town
 
 			if (firstButton)
 			{
-				if (OrchidMod.Instance.croupierGUI.Visible)
+				if (OrchidMod.Instance.croupierUI.Visible)
 				{
-					OrchidMod.Instance.croupierGUI.Visible = false;
+					OrchidMod.Instance.croupierUI.Visible = false;
 
 					Main.npcShop = 0;
 					Main.npcChatCornerItem = 0;

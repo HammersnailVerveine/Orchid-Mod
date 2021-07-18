@@ -17,14 +17,14 @@ namespace OrchidMod.Gambler.UI
 {
 	// I'm sure it can be written much better
 
-	public class CroupierGUI
+	public class CroupierUI
 	{
-		public static Texture2D BackgroundTexture;
-		public static Texture2D BorderTexture;
-		public static Texture2D DeckTexture;
-		public static Texture2D DeckBlockTexture;
+		public Texture2D backgroundTexture;
+		public Texture2D borderTexture;
+		public Texture2D deckTexture;
+		public Texture2D deckBlockTexture;
 
-		public static RasterizerState RasterizerState;
+		public RasterizerState rasterizerState;
 
 		public Rectangle drawZone;
 
@@ -37,31 +37,20 @@ namespace OrchidMod.Gambler.UI
 		public int hoverCardType = -1;
 
 		public bool Visible { get; set; }
-
 		public int FontOffsetY => (int)(30 * (fontScale / 10f));
 
-		public static void Load()
+		public CroupierUI()
 		{
-			BackgroundTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIBackground");
-			BorderTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIBorder");
-			DeckTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIDeck");
-			DeckBlockTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/DeckUIBlock");
+			backgroundTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIBackground");
+			borderTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIBorder");
+			deckTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIDeck");
+			deckBlockTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/DeckUIBlock");
 
-			RasterizerState = new RasterizerState
+			rasterizerState = new RasterizerState
 			{
 				CullMode = CullMode.None,
 				ScissorTestEnable = true
 			};
-		}
-
-		public static void Unload()
-		{
-			BackgroundTexture = null;
-			BorderTexture = null;
-			DeckTexture = null;
-			DeckBlockTexture = null;
-
-			RasterizerState = null;
 		}
 
 		public void Update()
@@ -167,19 +156,19 @@ namespace OrchidMod.Gambler.UI
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			Vector2 deckPosition = new Vector2(drawZone.X + 12, drawZone.Y + drawZone.Height * 0.5f - DeckTexture.Height * 0.5f);
+			Vector2 deckPosition = new Vector2(drawZone.X + 12, drawZone.Y + drawZone.Height * 0.5f - deckTexture.Height * 0.5f);
 
 			// Background
 			{
 				Color color = new Color(25, 25, 45, 160);
 				DrawSeparation(spriteBatch, new Vector2(drawZone.X + 6, drawZone.Y), 6, color);
-				DrawSeparation(spriteBatch, new Vector2(drawZone.X + DeckTexture.Width + 12, drawZone.Y), 6, color);
+				DrawSeparation(spriteBatch, new Vector2(drawZone.X + deckTexture.Width + 12, drawZone.Y), 6, color);
 				DrawSeparation(spriteBatch, new Vector2(drawZone.X + drawZone.Width - 12, drawZone.Y), 6, color);
 
-				DrawPanel(spriteBatch, BackgroundTexture, new Color(25, 25, 60, 140));
-				DrawPanel(spriteBatch, BorderTexture, new Color(25, 25, 45, 160));
+				DrawPanel(spriteBatch, backgroundTexture, new Color(25, 25, 60, 140));
+				DrawPanel(spriteBatch, borderTexture, new Color(25, 25, 45, 160));
 
-				spriteBatch.Draw(DeckTexture, new Vector2(deckPosition.X, deckPosition.Y) + DeckTexture.Size() * 0.5f, null, Color.White, 0f, DeckTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(deckTexture, new Vector2(deckPosition.X, deckPosition.Y) + deckTexture.Size() * 0.5f, null, Color.White, 0f, deckTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 			}
 
 			// Cards and Info
@@ -231,7 +220,7 @@ namespace OrchidMod.Gambler.UI
 			var cardRect = new Rectangle((int)position.X, (int)position.Y, cardTexture.Width, cardTexture.Height);
 
 			spriteBatch.Draw(cardTexture, cardRect, Color.White);
-			if (!canRemove) spriteBatch.Draw(DeckBlockTexture, new Rectangle(cardRect.X - 2, cardRect.Y - 2, DeckBlockTexture.Width, DeckBlockTexture.Height), Color.White);
+			if (!canRemove) spriteBatch.Draw(deckBlockTexture, new Rectangle(cardRect.X - 2, cardRect.Y - 2, deckBlockTexture.Width, deckBlockTexture.Height), Color.White);
 
 			if (cardRect.Contains(Main.MouseScreen.ToPoint()))
 			{
@@ -263,7 +252,7 @@ namespace OrchidMod.Gambler.UI
 					}
 				}
 
-				Rectangle tooltipRectangle = new Rectangle(drawZone.X + DeckTexture.Width + 24, drawZone.Y + 14, Math.Abs(drawZone.Width - DeckTexture.Width - 42), drawZone.Height - 28);
+				Rectangle tooltipRectangle = new Rectangle(drawZone.X + deckTexture.Width + 24, drawZone.Y + 14, Math.Abs(drawZone.Width - deckTexture.Width - 42), drawZone.Height - 28);
 				DrawCardInfo(item, spriteBatch, tooltipRectangle, GetCardInfo(item, maxReq, canRemove));
 
 				if ((Main.mouseLeft && Main.mouseLeftRelease || Main.mouseRight && Main.mouseRightRelease) && canRemove) OnCardClick(item, player, orchidPlayer);
@@ -295,7 +284,7 @@ namespace OrchidMod.Gambler.UI
 
 			spriteBatch.End();
 			spriteBatch.GraphicsDevice.ScissorRectangle = Rectangle.Intersect(GetClippingRectangle(tooltipRectangle, spriteBatch), spriteBatch.GraphicsDevice.ScissorRectangle);
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, RasterizerState, null, Main.UIScaleMatrix);
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, anisotropicClamp, DepthStencilState.None, rasterizerState, null, Main.UIScaleMatrix);
 
 			// Info
 			{
