@@ -41,7 +41,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			
 			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
 			if (thoriumMod != null) {
-                //int thoriumCrit = player.GetModPlayer<ThoriumPlayer>().allCrit; // Impossible : can't add [using ThoriumMod;] because I don't have the ThoriumMod.dll file
 				ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
 				FieldInfo field = thoriumPlayer.GetType().GetField("martianDamage", BindingFlags.Public | BindingFlags.Instance);
 				float martianDamage = (float)field.GetValue(thoriumPlayer);
