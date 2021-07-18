@@ -184,8 +184,8 @@ namespace OrchidMod.NPCs.Town
 					Main.npcChatFocus2 = false;
 					Main.npcChatFocus3 = false;
 
-					OrchidMod.Instance.croupierGUI.UpdateOnChatButtonClicked();
-					OrchidMod.Instance.croupierGUI.Visible = true;
+					OrchidMod.Instance.croupierUI.UpdateOnChatButtonClicked();
+					OrchidMod.Instance.croupierUI.Visible = true;
 				} else {
 					for (int i = 0; i < 50; i++) {
 						Item item = Main.LocalPlayer.inventory[i];
