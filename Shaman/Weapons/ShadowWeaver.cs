@@ -33,15 +33,5 @@ namespace OrchidMod.Shaman.Weapons
 		  Tooltip.SetDefault("\nHitting an enemy will grant you a shadow orb"
 							+"\nIf you have 3 shadow orbs, your next hit will empower you with dark energy for 30 seconds");
 		}
-			
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-			position += muzzleOffset;
-			}
-			return true;
-		}
     }
 }

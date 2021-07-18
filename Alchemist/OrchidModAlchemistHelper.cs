@@ -93,6 +93,7 @@ namespace OrchidMod.Alchemist
 			}
 			
 			modPlayer.alchemistDailyHint = (Main.dayTime && Main.time == 0) ? false : modPlayer.alchemistDailyHint;
+			modPlayer.alchemistLastAttackDelay += modPlayer.alchemistLastAttackDelay < 3600 ? 1 : 0;
 			
 			modPlayer.alchemistPotencyMax = 8;
 			modPlayer.alchemistRegenPotency = 60;

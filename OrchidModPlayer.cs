@@ -154,6 +154,7 @@ namespace OrchidMod
 		public bool alchemistReactiveVials = false;
 		public int alchemistFlower = 0;
 		public int alchemistFlowerTimer = 0;
+		public int alchemistLastAttackDelay = 0;
 
 		/*Shaman*/
 		public float shamanDamage = 1.0f;
@@ -161,6 +162,13 @@ namespace OrchidMod
 		public int shamanBuffTimer = 5;
 		public int UIDisplayTimer = 0;
 		public int UIDisplayDelay = 60 * 3; // 3 Seconds
+		
+		public int shamanHitDelay = 0;
+		public int shamanCatalyst = 0;
+		public Vector2 shamanCatalystPosition = Vector2.Zero;
+		public int shamanSelectedItem = 0;
+		public int shamanDrawWeapon = 0;
+		public Texture2D shamanCatalystTexture = null;
 		
 		public ShamanOrbSmall shamanOrbSmall = ShamanOrbSmall.NULL;
 		public ShamanOrbBig shamanOrbBig = ShamanOrbBig.NULL;
@@ -220,6 +228,11 @@ namespace OrchidMod
 		public bool shamanDiabolist = false;
 		public bool shamanWyvern = false;
 		public bool shamanRage = false;
+		public bool shamanAmethyst = false;
+		public bool shamanTopaz = false;
+		public bool shamanSapphire = false;
+		public bool shamanEmerald = false;
+		public bool shamanRuby = false;
 		
 		public bool harpyAnkletLock = true;
 		public int shamanTimerCrimson = 0;
@@ -230,9 +243,6 @@ namespace OrchidMod
 		public int shamanDestroyerCount = 0;
 		public int shamanTimerDiabolist = 0;
 		public int shamanDiabolistCount = 0;
-		public int shamanTimerImmobile = 0;
-		public int shamanTimerCombat = 0;
-		public int shamanHitDelay = 0;
 		
 		public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk) {
 			if (junk) {

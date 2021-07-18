@@ -76,15 +76,18 @@ namespace OrchidMod.Gambler
 				} else {
 					if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) <= 0) {
 						bool found = false;
-						int gamblerDeck = ItemType<Gambler.GamblerDeck>();
 						for (int i = 0; i < Main.maxInventory; i++) {
 							Item item = Main.LocalPlayer.inventory[i];
-							if (item.type == gamblerDeck) {
-								found = true;
-								break;
+							if (item.type != 0) {
+								OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+								if (orchidItem.gamblerDeck) {
+									found = true;
+									break;
+								}
 							}
 						}
 						if (!found) {
+							int gamblerDeck = ItemType<Gambler.Decks.GamblerAttack>();
 							player.QuickSpawnItem(gamblerDeck, 1);
 						}
 					}

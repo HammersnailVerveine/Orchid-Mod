@@ -33,14 +33,8 @@ namespace OrchidMod.Shaman.Weapons
 							+ "\nShoots more projectiles if you have 2 or more active shamanic bonds");
 		}
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
 			
 			for (int i = 0; i < Main.rand.Next(3)+3; i++)
 			{

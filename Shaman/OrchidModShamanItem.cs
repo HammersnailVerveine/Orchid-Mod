@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Shaman
 {
@@ -12,20 +13,63 @@ namespace OrchidMod.Shaman
 		public int empowermentType = 0;
 		
 		public virtual void SafeSetDefaults() {}
+		public virtual void SafeHoldItem() {}
+		
+		public virtual bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
+			return true;
+		}
 
 		public sealed override void SetDefaults() {
-			SafeSetDefaults();
 			item.melee = false;
 			item.ranged = false;
 			item.magic = false;
 			item.thrown = false;
 			item.summon = false;
 			item.noMelee = true;
+			item.noUseGraphic = true;
 			Item.staff[item.type] = true;
 			item.crit = 4;
-			item.useStyle = 5;
+			item.useStyle = 3;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeapon = true;
+			SafeSetDefaults();
+		}
+		
+		public sealed override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.shamanDrawWeapon = item.useTime;
+			Vector2 mousePosition = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+			
+			Vector2 catalystCenter = modPlayer.shamanCatalystPosition + new Vector2(modPlayer.shamanCatalystTexture.Width / 2, modPlayer.shamanCatalystTexture.Height / 2);
+			
+			if (Collision.CanHit(position, 0, 0, position + (catalystCenter - position), 0, 0)) {
+				position = catalystCenter;
+			}
+			
+			Vector2 newMove = mousePosition - position;
+			newMove.Normalize();
+			newMove *= new Vector2(speedX, speedY).Length();
+			speedX = newMove.X;
+			speedY = newMove.Y;
+			
+			return SafeShoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+		}
+		
+		public sealed override void HoldItem(Player player) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			if (modPlayer.shamanCatalyst < 1) {
+				int projType = ProjectileType<CatalystAnchor>();
+				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projType, 0, 0f, player.whoAmI);
+			}
+			
+			if (modPlayer.shamanSelectedItem != item.type) {
+				modPlayer.shamanSelectedItem = item.type;
+				string textureLocation = "OrchidMod/Shaman/CatalystTextures/" + this.Name + "_Catalyst";
+				modPlayer.shamanCatalystTexture = ModContent.GetTexture(textureLocation);
+			}
+			
+			modPlayer.shamanCatalyst = 3;
+			SafeHoldItem();
 		}
 		
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)

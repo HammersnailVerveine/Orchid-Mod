@@ -29,6 +29,10 @@ namespace OrchidMod.Shaman
 					modPlayer.shamanFireBondLoading += modPlayer.shamanFireBondLoading < 100 ? 1 : 0;
 				}
 				
+				if (modPlayer.shamanRuby) {
+					player.lifeRegen += 2;
+				}
+				
 				if (modPlayer.shamanSmite && modPlayer.timer120 % 60 == 0) {
 					int dmg = (int)(100 * modPlayer.shamanDamage);
 					
@@ -43,17 +47,19 @@ namespace OrchidMod.Shaman
 					Projectile.NewProjectile((int)(player.Center.X + 25 - randX), (int)(player.Center.Y  + 15 - randY), 0f, 0f, mod.ProjectileType("Smite"), dmg, 0f, player.whoAmI);
 				}
 				
-				modPlayer.shamanTimerCombat -= modPlayer.shamanTimerCombat > 0 ? 1 : 0;
 			} else {
 				modPlayer.shamanFireBondLoading -= modPlayer.shamanFireBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
 				modPlayer.shamanPollFire = 0;
-				modPlayer.shamanTimerCombat = 0;
 			}
 			
 			if (modPlayer.shamanWaterTimer > 0) {
 				if (modPlayer.shamanPollWater > 0) {
 					modPlayer.shamanPollWater --;
 					modPlayer.shamanWaterBondLoading += modPlayer.shamanWaterBondLoading < 100 ? 1 : 0;
+				}
+				
+				if (modPlayer.shamanSapphire) {
+					modPlayer.shamanCrit += 10;
 				}
 				
 				if (modPlayer.shamanHeavy) {
@@ -74,6 +80,10 @@ namespace OrchidMod.Shaman
 						int dmg = (int)(30 * modPlayer.shamanDamage + 5E-06f);
 						Projectile.NewProjectile(player.Center.X - 10 + (Main.rand.Next(20)), player.Center.Y + 16, 0f, -0.001f, mod.ProjectileType("LavaDroplet"), dmg, 0f, player.whoAmI);
 					}	
+				}
+				
+				if (modPlayer.shamanEmerald) {
+					player.moveSpeed += 0.1f;
 				}
 				
 				if (modPlayer.shamanFeather) {
@@ -116,6 +126,10 @@ namespace OrchidMod.Shaman
 					}
 				}
 				
+				if (modPlayer.shamanTopaz) {
+					player.statDefense += 5;
+				}
+				
 				if (modPlayer.shamanForest) {
 					player.AddBuff(mod.BuffType("DeepForestAura"), 2);
 				}
@@ -131,6 +145,10 @@ namespace OrchidMod.Shaman
 				if (modPlayer.shamanPollSpirit > 0) {
 					modPlayer.shamanPollSpirit --;
 					modPlayer.shamanSpiritBondLoading += modPlayer.shamanSpiritBondLoading < 100 ? 1 : 0;
+				}
+				
+				if (modPlayer.shamanAmethyst) {
+					modPlayer.shamanDamage += 0.1f;
 				}
 			} else {
 				modPlayer.shamanSpiritBondLoading -= modPlayer.shamanSpiritBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
@@ -309,8 +327,6 @@ namespace OrchidMod.Shaman
 		}
 		
 		public static void OnHitNPCWithProjShaman(Projectile projectile, NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, Mod mod) {
-			modPlayer.shamanTimerCombat = 120;
-				
 			if (modPlayer.shamanCrimtane && modPlayer.shamanEarthTimer > 0 && modPlayer.shamanTimerCrimson == 30) {
 				modPlayer.shamanTimerCrimson = 0;
 				if (Main.myPlayer == player.whoAmI)
@@ -448,10 +464,15 @@ namespace OrchidMod.Shaman
 		ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource, Player player, OrchidModPlayer modPlayer, Mod mod) {
 			if (modPlayer.shamanMourningTorch) {
 				modPlayer.shamanFireTimer -= 5 * 60;
+				modPlayer.shamanFireTimer = modPlayer.shamanFireTimer > 0 ? modPlayer.shamanFireTimer : 0;
 				modPlayer.shamanWaterTimer -= 5 * 60;
+				modPlayer.shamanWaterTimer = modPlayer.shamanWaterTimer > 0 ? modPlayer.shamanWaterTimer : 0;
 				modPlayer.shamanAirTimer -= 5 * 60;
+				modPlayer.shamanAirTimer = modPlayer.shamanAirTimer > 0 ? modPlayer.shamanAirTimer : 0;
 				modPlayer.shamanEarthTimer -= 5 * 60;
+				modPlayer.shamanEarthTimer = modPlayer.shamanEarthTimer > 0 ? modPlayer.shamanEarthTimer : 0;
 				modPlayer.shamanSpiritTimer -= 5 * 60;
+				modPlayer.shamanSpiritTimer = modPlayer.shamanSpiritTimer > 0 ? modPlayer.shamanSpiritTimer : 0;
 			}
 			
 			if (modPlayer.shamanSunBelt) {
@@ -477,6 +498,8 @@ namespace OrchidMod.Shaman
 		}
 		
 		public static void ResetEffectsShaman(Player player, OrchidModPlayer modPlayer, Mod mod) {
+			modPlayer.shamanCatalyst -= modPlayer.shamanCatalyst > 0 ? 1 : 0;
+			modPlayer.shamanDrawWeapon -= modPlayer.shamanDrawWeapon > 0 ? 1 : 0;
 			modPlayer.shamanCrit = 0;
 			modPlayer.shamanDamage = 1.0f;
 			modPlayer.shamanBuffTimer = 5;
@@ -510,6 +533,11 @@ namespace OrchidMod.Shaman
 			modPlayer.shamanHarpyAnklet = false;
 			modPlayer.shamanWyvern = false;
 			modPlayer.shamanRage = false;
+			modPlayer.shamanAmethyst = false;
+			modPlayer.shamanTopaz = false;
+			modPlayer.shamanSapphire = false;
+			modPlayer.shamanEmerald = false;
+			modPlayer.shamanRuby = false;
 			
 			modPlayer.shamanShadowEmpowerment = false;
 			modPlayer.shamanMourningTorch = false;
@@ -548,19 +576,19 @@ namespace OrchidMod.Shaman
 		public static int getNbShamanicBonds(Player player, OrchidModPlayer modPlayer, Mod mod) {
 			int val = 0;
 			
-			if (modPlayer.shamanFireTimer != 0)
+			if (modPlayer.shamanFireTimer > 0)
 				val ++;
 			
-			if (modPlayer.shamanWaterTimer != 0)
+			if (modPlayer.shamanWaterTimer > 0)
 				val ++;
 			
-			if (modPlayer.shamanAirTimer != 0)
+			if (modPlayer.shamanAirTimer > 0)
 				val ++;
 			
-			if (modPlayer.shamanEarthTimer != 0)
+			if (modPlayer.shamanEarthTimer > 0)
 				val ++;
 				
-			if (modPlayer.shamanSpiritTimer != 0)
+			if (modPlayer.shamanSpiritTimer > 0)
 				val ++;
 			
 			return val;

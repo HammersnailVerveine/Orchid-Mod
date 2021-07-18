@@ -493,6 +493,12 @@ namespace OrchidMod
 				ShamanUIFrame.SymbolAnklet = null;
 				ShamanUIFrame.SymbolWyvern = null;
 
+				ShamanUIFrame.SymbolAmethyst = null;
+				ShamanUIFrame.SymbolTopaz = null;
+				ShamanUIFrame.SymbolSapphire = null;
+				ShamanUIFrame.SymbolEmerald = null;
+				ShamanUIFrame.SymbolRuby = null;
+
 				ShamanCharacterUIFrame.symbolAttack = null;
 				ShamanCharacterUIFrame.symbolDefense = null;
 				ShamanCharacterUIFrame.symbolCritical = null;

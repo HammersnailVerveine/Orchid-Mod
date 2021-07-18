@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Accessories
 		{
 			DisplayName.SetDefault("Fragile Present");
 			Tooltip.SetDefault("25% increased shamanic damage"
-							+  "\nHowever, taking direct damage will nullify the damage increase for 15 seconds");
+							+  "\nTaking direct damage will nullify the damage increase for 15 seconds");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {

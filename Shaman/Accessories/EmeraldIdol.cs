@@ -21,13 +21,13 @@ namespace OrchidMod.Shaman.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Emerald Idol");
-			Tooltip.SetDefault("Increases the effectiveness of your shamanic air bonds");
+			Tooltip.SetDefault("Having an active air bond increases movement speed by 10%");
 		}
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			//modPlayer.shamanAirBonus += 1;
+			modPlayer.shamanEmerald = true;
         }
 		
 		public override void AddRecipes()

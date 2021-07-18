@@ -40,14 +40,6 @@ namespace OrchidMod.Shaman.Weapons
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit;
 		}
-			
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 40f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0)) position += muzzleOffset;
-
-			return true;
-		}
 		
 		public override void AddRecipes()
 		{

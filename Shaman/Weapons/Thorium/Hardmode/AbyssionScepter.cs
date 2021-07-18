@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nCosts 25 health to cast, reduced by 5 for each active shamanic bond");
 		}
 		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer =  player.GetModPlayer<OrchidModPlayer>();
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 

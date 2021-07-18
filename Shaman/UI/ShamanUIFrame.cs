@@ -60,6 +60,11 @@ namespace OrchidMod.Shaman.UI
 		public static Texture2D SymbolFeather;
 		public static Texture2D SymbolAnklet;
 		public static Texture2D SymbolWyvern;
+		public static Texture2D SymbolAmethyst;
+		public static Texture2D SymbolTopaz;
+		public static Texture2D SymbolSapphire;
+		public static Texture2D SymbolEmerald;
+		public static Texture2D SymbolRuby;
 		
 		public enum MouseHoverLocation {NULL,ATTACKLEVEL,ARMORLEVEL,CRITICALLEVEL,REGENERATIONLEVEL,SPEEDLEVEL,EMPOWERMENTDURATION}
 		
@@ -110,6 +115,7 @@ namespace OrchidMod.Shaman.UI
 						if (modPlayer.shamanDemonite) symbolsList.Add(SymbolDemonite);
 						if (modPlayer.shamanVenom) symbolsList.Add(SymbolVenom);
 						if (modPlayer.shamanSmite) symbolsList.Add(SymbolSmite);
+						if (modPlayer.shamanRuby) symbolsList.Add(SymbolRuby);
 						
 						this.drawSymbols(2, symbolsList, spriteBatch, point);
 					}
@@ -124,6 +130,7 @@ namespace OrchidMod.Shaman.UI
 						if (modPlayer.shamanWaterHoney) symbolsList.Add(SymbolWaterHoney);
 						if (modPlayer.shamanSkull) symbolsList.Add(SymbolSkull);
 						if (modPlayer.shamanDestroyer) symbolsList.Add(SymbolDestroyer);
+						if (modPlayer.shamanSapphire) symbolsList.Add(SymbolSapphire);
 						
 						this.drawSymbols(38, symbolsList, spriteBatch, point);
 					}
@@ -139,6 +146,7 @@ namespace OrchidMod.Shaman.UI
 						if (modPlayer.shamanHarpyAnklet) symbolsList.Add(SymbolAnklet);
 						if (modPlayer.shamanDripping) symbolsList.Add(SymbolLava);
 						if (modPlayer.shamanWyvern) symbolsList.Add(SymbolWyvern);
+						if (modPlayer.shamanEmerald) symbolsList.Add(SymbolEmerald);
 						
 						this.drawSymbols(74, symbolsList, spriteBatch, point);
 					}
@@ -157,6 +165,7 @@ namespace OrchidMod.Shaman.UI
 						if (modPlayer.shamanHeavy) symbolsList.Add(SymbolHeavy);
 						if (modPlayer.shamanForest) symbolsList.Add(SymbolForest);
 						if (modPlayer.shamanDiabolist) symbolsList.Add(SymbolDiabolist );
+						if (modPlayer.shamanTopaz) symbolsList.Add(SymbolTopaz);
 						
 						this.drawSymbols(110, symbolsList, spriteBatch, point);
 					}
@@ -168,6 +177,7 @@ namespace OrchidMod.Shaman.UI
 						this.drawDuration(timerRef, 168, buffTimerVal, spriteBatch, point);
 						
 						List<Texture2D> symbolsList = new List<Texture2D>();
+						if (modPlayer.shamanAmethyst) symbolsList.Add(SymbolAmethyst);
 						
 						this.drawSymbols(146, symbolsList, spriteBatch, point);
 					}
@@ -281,6 +291,11 @@ namespace OrchidMod.Shaman.UI
 			if (SymbolFeather == null) SymbolFeather = ModContent.GetTexture("OrchidMod/Shaman/UI/ModUITextures/Symbols/Feather");
 			if (SymbolAnklet == null) SymbolAnklet = ModContent.GetTexture("OrchidMod/Shaman/UI/ModUITextures/Symbols/Anklet");
 			if (SymbolWyvern == null) SymbolWyvern = ModContent.GetTexture("OrchidMod/Shaman/UI/ModUITextures/Symbols/Wyvern");
+			if (SymbolAmethyst == null) SymbolAmethyst = ModContent.GetTexture("OrchidMod/Shaman/UI/ModUITextures/Symbols/Amethyst");
+			if (SymbolTopaz == null) SymbolTopaz = ModContent.GetTexture("OrchidMod/Shaman/UI/ModUITextures/Symbols/Topaz");
+			if (SymbolSapphire == null) SymbolSapphire = ModContent.GetTexture("OrchidMod/Shaman/UI/ModUITextures/Symbols/Sapphire");
+			if (SymbolEmerald == null) SymbolEmerald = ModContent.GetTexture("OrchidMod/Shaman/UI/ModUITextures/Symbols/Emerald");
+			if (SymbolRuby == null) SymbolRuby = ModContent.GetTexture("OrchidMod/Shaman/UI/ModUITextures/Symbols/Ruby");
 		}
 	}
 }
