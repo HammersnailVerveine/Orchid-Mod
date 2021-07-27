@@ -4,4 +4,4 @@ displayName = Orchid Mod
 hideCode = true
 hideResources = true
 homepage = https://forums.terraria.org/index.php?threads/orchid-mod.78865/
-weakReferences = ThoriumMod
+loadAfter = ThoriumMod
