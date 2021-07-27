@@ -180,7 +180,7 @@ namespace OrchidMod
 			
 			// THORIUM
 			
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				if (context == "bossBag" && arg == thoriumMod.ItemType("ThunderBirdBag")) {
 					if (Main.rand.Next(4) == 0) {

@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman
 				tt.text = damageValue + " shamanic " + damageWord;
 			}
 			
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				tooltips.Insert(1, new TooltipLine(mod, "ShamanTag", "-Shaman Class-") // 00C0FF
 				{

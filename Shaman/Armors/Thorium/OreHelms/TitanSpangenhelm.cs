@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 		
 		public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				return body.type == thoriumMod.ItemType("TitanBreastplate") && legs.type == thoriumMod.ItemType("TitanGreaves");
 			} else {
@@ -63,7 +63,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				ModRecipe recipe = new ModRecipe(mod);
 				recipe.AddTile(thoriumMod.TileType("SoulForge"));		

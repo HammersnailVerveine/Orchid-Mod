@@ -77,7 +77,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 		
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null && Main.rand.Next(2) == 0) {
 				target.AddBuff((thoriumMod.BuffType("Singed")), 2 * 60);
 			}

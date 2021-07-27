@@ -77,7 +77,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 		
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				target.AddBuff((thoriumMod.BuffType("Melting")), 2 * 60);
 			}

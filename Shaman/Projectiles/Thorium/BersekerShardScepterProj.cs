@@ -57,7 +57,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 4) {
-				Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+				Mod thoriumMod = OrchidMod.ThoriumMod;
 				if (thoriumMod != null) {
 					target.AddBuff((thoriumMod.BuffType("BerserkSoul")), 5 * 60);
 				}

@@ -35,15 +35,14 @@ namespace OrchidMod.Gambler.Misc
     }
 		public override void AddRecipes()
 		{
-			Mod orchidMod = ModLoader.GetMod("OrchidMod");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 
 		    ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddTile(TileID.Bottles);	
 			recipe.AddIngredient(ItemID.BottledWater, 1);
 			recipe.AddIngredient(ItemID.Blinkroot, 1);
 			recipe.AddIngredient(ItemID.Cactus, 1);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : ItemType<Gambler.Misc.VultureTalon>(), 2);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : ItemType<VultureTalon>(), 2);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
         }

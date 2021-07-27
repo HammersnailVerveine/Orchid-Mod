@@ -411,7 +411,7 @@ namespace OrchidMod
 			
 			//THORIUM
 			
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				if ((npc.type == thoriumMod.NPCType("TheGrandThunderBirdv2"))) {
 					if (!Main.expertMode) {
@@ -566,7 +566,7 @@ namespace OrchidMod
 				nextSlot++;
 			}
 			
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				if (type == thoriumMod.NPCType("ConfusedZombie")) {
 					shop.item[nextSlot].SetDefaults(ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>());

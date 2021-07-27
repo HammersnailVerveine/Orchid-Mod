@@ -29,6 +29,8 @@ using System.Linq;
 using Terraria.ModLoader.IO;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Tiles.Ores;
+using OrchidMod.Tiles.Chests;
 
 namespace OrchidMod
 {
@@ -665,7 +667,7 @@ namespace OrchidMod
 					if (WorldGen.InWorld(k, l, 30) && fossil[y, x] == 1){
 						Tile tile = Framing.GetTileSafely(k, l);
 						tile.ClearTile();
-						WorldGen.PlaceTile(k, l, (ushort)ModLoader.GetMod("OrchidMod").TileType("AncientFossil"));
+						WorldGen.PlaceTile(k, l, (ushort)TileType<AncientFossil>());
 						tile.active(true);
 					}
 				}
@@ -1192,7 +1194,7 @@ namespace OrchidMod
 										continue;
 									}
 
-									int chestIndex = WorldGen.PlaceChest(x - 1, y - 1, (ushort)ModLoader.GetMod("OrchidMod").TileType("ShamanBiomeChest"), false, 1);
+									int chestIndex = WorldGen.PlaceChest(x - 1, y - 1, (ushort)TileType<ShamanBiomeChest>(), false, 1);
 
 									if (chestIndex < 0)
 									{
@@ -1262,7 +1264,7 @@ namespace OrchidMod
 			{
 				Chest chest = Main.chest[chestIndex];
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)ModLoader.GetMod("OrchidMod").TileType("MinersLockbox"))
+				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)TileType<MinersLockbox>())
 				{
 					int[] specialItemPoll = {49, 50, 53, 54, 55, 975, 997, 930, ItemType<Shaman.Weapons.EnchantedScepter>()
 					, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), ItemType<Gambler.Weapons.Cards.GoldChestCard>()};
@@ -1281,7 +1283,7 @@ namespace OrchidMod
 					placeInChest(chest, rand, 1);
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)ModLoader.GetMod("OrchidMod").TileType("ShamanBiomeChest"))
+				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)TileType<ShamanBiomeChest>())
 				{
 					chest.item[0].SetDefaults(mod.ItemType("ShroomiteScepter"));
 					chest.item[1].SetDefaults(183); // Glowing Mushroom
