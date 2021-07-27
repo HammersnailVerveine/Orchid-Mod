@@ -10,7 +10,29 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 	public class StaticQuartzHealerPro : ModProjectile
 	{
 		Mod thoriumMod = OrchidMod.ThoriumMod;
-		
+
+		/// <summary>
+		/// Flag checked when the projectile has scythe charges and a suitable NPC is hit, then set to false
+		/// </summary>
+		//true by default
+		public bool CanGiveScytheCharge
+		{
+			//Clientside only, hence localAI
+			get => projectile.localAI[0] == 0f;
+			set => projectile.localAI[0] = value ? 0f : 1f;
+		}
+
+		/// <summary>
+		/// Flag checked when the projectile hits an NPC for the first time, then set to false
+		/// </summary>
+		//true by default
+		public bool FirstHit
+		{
+			//Clientside only, hence localAI
+			get => projectile.localAI[1] == 0f;
+			set => projectile.localAI[1] = value ? 0f : 1f;
+		}
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Scythe");
@@ -21,34 +43,46 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 			projectile.width = 100;
 			projectile.height = 100;
 			projectile.aiStyle = 0;
-			projectile.penetrate = 100;
+			projectile.penetrate = -1;
 			projectile.light = 0.2f;
 			projectile.friendly = true;
 			projectile.tileCollide = false;
 			projectile.ownerHitCheck = true;
 			projectile.ignoreWater = true;
 			projectile.timeLeft = 26;
+
+			projectile.usesIDStaticNPCImmunity = true;
+			projectile.idStaticNPCHitCooldown = 10;
 		}
 
 		public override void OnHitNPC(NPC npc, int damage, float knockback, bool crit)
 		{
 			Player player = Main.player[projectile.owner];
-			ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
-			npc.immune[projectile.owner] = 10;
 			
 			//TODO thorium
-			if (thoriumMod != null) {
-				if (projectile.penetrate > 99 && npc.CanBeChasedBy())
+			if (thoriumMod != null)
+			{
+				ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
+				if (CanGiveScytheCharge && !npc.friendly && npc.lifeMax > 5 && npc.chaseable && !npc.dontTakeDamage && !npc.immortal)
 				{
-					player.AddBuff(thoriumMod.BuffType("SoulEssence"), 1800, true);
+					CanGiveScytheCharge = false;
+
+					player.AddBuff(thoriumMod.BuffType("SoulEssence"), 30 * 60, true);
 					CombatText.NewText(npc.Hitbox, new Color(100, 255, 200), 1, false, true);
 					
 					FieldInfo fieldSoul = thoriumPlayer.GetType().GetField("soulEssence", BindingFlags.Public | BindingFlags.Instance);
-					if (fieldSoul != null) {
-						
+					if (fieldSoul != null)
+					{
 						int healCharge = (int)(fieldSoul.GetValue(thoriumPlayer)) + 1;
 						fieldSoul.SetValue(thoriumPlayer, healCharge);
 					}
+				}
+
+				if (FirstHit)
+				{
+					FirstHit = false;
+
+					//Things on first hit some scythes have
 				}
 			}
 		}
