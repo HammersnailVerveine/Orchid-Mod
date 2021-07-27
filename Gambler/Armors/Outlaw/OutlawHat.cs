@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Gambler.Misc;
 
 namespace OrchidMod.Gambler.Armors.Outlaw
 {
@@ -57,13 +58,12 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			Mod orchidMod = ModLoader.GetMod("OrchidMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			
 		    ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Silk, 5);
 			recipe.AddIngredient(ItemID.GoldBar, 5);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : orchidMod.ItemType("VultureTalon"), 2);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : ItemType<VultureTalon>(), 2);
 			recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
@@ -71,7 +71,7 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Silk, 5);
 			recipe.AddIngredient(ItemID.PlatinumBar, 5);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : orchidMod.ItemType("VultureTalon"), 2);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : ItemType<VultureTalon>(), 2);
 			recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

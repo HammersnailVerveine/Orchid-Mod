@@ -24,8 +24,6 @@ namespace OrchidMod
 {
 	public class OrchidModPlayer : ModPlayer
 	{
-		public Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-		
 		public float OchidScreenH = Main.screenHeight;
 		public float OchidScreenW = Main.screenWidth;
 		public float OchidScreenHCompare;
@@ -278,6 +276,21 @@ namespace OrchidMod
 		public override void Load(TagCompound tag)
 		{
 			gamblerCardsItem = tag.GetList<TagCompound>("GamblerCardsItem").Select(ItemIO.Load).ToArray();
+			//If no cards were saved (old character, crash, etc), this can return Item[] of length 0
+			//In case of length not equaling 20, fix the array
+			if (gamblerCardsItem.Length != 20)
+			{
+				Array.Resize(ref gamblerCardsItem, 20);
+				for (int i = 0; i < gamblerCardsItem.Length; i++)
+				{
+					if (gamblerCardsItem[i] == null)
+					{
+						gamblerCardsItem[i] = new Item();
+						gamblerCardsItem[i].SetDefaults(0, true);
+					}
+				}
+			}
+
 			alchemistDailyHint = tag.GetBool("ChemistHint");
 			alchemistKnownReactions = tag.Get<List<int>>("AlchemistHidden");
 			alchemistKnownHints = tag.Get<List<int>>("AlchemistHints");
@@ -305,18 +318,17 @@ namespace OrchidMod
 			OrchidModAlchemistHelper.alchemistPostUpdateEquips(player, this, mod);
 			OrchidModGamblerHelper.gamblerPostUpdateEquips(player, this, mod);
 			OrchidModDancerHelper.dancerPostUpdateEquips(player, this, mod);
-			
-			if (thoriumMod != null) {
-                //int thoriumCrit = player.GetModPlayer<ThoriumPlayer>().allCrit; // Impossible : can't add [using ThoriumMod;] because I don't have the ThoriumMod.dll file
-				
-				ModPlayer thoriumPlayer = player.GetModPlayer(this.thoriumMod, "ThoriumPlayer");
-				FieldInfo field = thoriumPlayer.GetType().GetField("allCrit", BindingFlags.Public | BindingFlags.Instance);
-				if (field != null) {
-					int thoriumCrit = (int)field.GetValue(thoriumPlayer);
+
+			Mod thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				object result = thoriumMod.Call("GetAllCrit", player);
+				if (result is int thoriumCrit && thoriumCrit > 0)
+				{
 					this.customCrit += thoriumCrit;
 				}
-            }
-     
+			}
+
 			this.shamanCrit += this.customCrit;
 			this.alchemistCrit += this.customCrit;
 			this.gamblerCrit += this.customCrit;

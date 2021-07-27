@@ -69,7 +69,7 @@ namespace OrchidMod.Gambler
 				tt.text = damageValue + " gambling " + damageWord;
 			}
 				
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Gambler Class-")
 				{

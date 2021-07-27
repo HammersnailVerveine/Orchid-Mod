@@ -17,7 +17,12 @@ namespace OrchidMod.Gambler
 	public class OrchidModGamblerHelper
 	{
 		public static void gamblerPostUpdateEquips(Player player, OrchidModPlayer modPlayer, Mod mod) {
-			modPlayer.gamblerHasCardInDeck = modPlayer.gamblerCardsItem[0].type != 0;
+			if (player.whoAmI == Main.myPlayer)
+			{
+				//Since this is a variable that is synced through SendClientChanges, it has to only be assigned on the client aswell
+				modPlayer.gamblerHasCardInDeck = modPlayer.gamblerCardsItem[0].type != 0;
+			}
+			
 			if (modPlayer.gamblerRedrawsMax > 0) {
 				modPlayer.gamblerRedrawCooldown = modPlayer.gamblerRedraws >= modPlayer.gamblerRedrawsMax ? modPlayer.gamblerRedrawCooldownMax : modPlayer.gamblerRedrawCooldown;
 				modPlayer.gamblerRedrawCooldown = modPlayer.gamblerRedrawCooldown > modPlayer.gamblerRedrawCooldownMax ? modPlayer.gamblerRedrawCooldownMax : modPlayer.gamblerRedrawCooldown;

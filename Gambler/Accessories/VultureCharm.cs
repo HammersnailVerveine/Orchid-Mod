@@ -33,12 +33,11 @@ namespace OrchidMod.Gambler.Accessories
 		
 		public override void AddRecipes()
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			Mod orchidMod = ModLoader.GetMod("OrchidMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			
 		    ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddRecipeGroup("IronBar", 5);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : orchidMod.ItemType("VultureTalon"), 3);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : mod.ItemType("VultureTalon"), 3);
 			recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

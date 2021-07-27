@@ -70,7 +70,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 					player.HealEffect(5, true);
 				player.statLife += 5;
 				
-				Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+				Mod thoriumMod = OrchidMod.ThoriumMod;
 				if (thoriumMod != null) {
 					player.AddBuff((thoriumMod.BuffType("LifeTransfusion")), 5 * 60);
 				}

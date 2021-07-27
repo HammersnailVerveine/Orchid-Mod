@@ -34,18 +34,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		  DisplayName.SetDefault("Martian Beamer");
 		  Tooltip.SetDefault("Shoots martian homing lasers"
 							+"\nWeapon speed increases with the number of active shamanic bonds");
-		}
-		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
-			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-			
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-			if (thoriumMod != null) {
-				ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
-				FieldInfo field = thoriumPlayer.GetType().GetField("martianDamage", BindingFlags.Public | BindingFlags.Instance);
-				float martianDamage = (float)field.GetValue(thoriumPlayer);
-				mult *= martianDamage;
-            }
+
+			Mod thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				thoriumMod.Call("AddMartianItemID", item.type);
+			}
 		}
 		
 		public override void UpdateInventory(Player player) {

@@ -56,7 +56,7 @@ namespace OrchidMod.Alchemist
 				tt.text = damageValue + " chemical " + damageWord;
 			}
 			
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Alchemist Class-")
 				{

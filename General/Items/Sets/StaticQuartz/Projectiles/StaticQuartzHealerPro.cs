@@ -9,8 +9,30 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 {
 	public class StaticQuartzHealerPro : ModProjectile
 	{
-		Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
-		
+		Mod thoriumMod = OrchidMod.ThoriumMod;
+
+		/// <summary>
+		/// Flag checked when the projectile has scythe charges and a suitable NPC is hit, then set to false
+		/// </summary>
+		//true by default
+		public bool CanGiveScytheCharge
+		{
+			//Clientside only, hence localAI
+			get => projectile.localAI[0] == 0f;
+			set => projectile.localAI[0] = value ? 0f : 1f;
+		}
+
+		/// <summary>
+		/// Flag checked when the projectile hits an NPC for the first time, then set to false
+		/// </summary>
+		//true by default
+		public bool FirstHit
+		{
+			//Clientside only, hence localAI
+			get => projectile.localAI[1] == 0f;
+			set => projectile.localAI[1] = value ? 0f : 1f;
+		}
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Scythe");
@@ -21,33 +43,46 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 			projectile.width = 100;
 			projectile.height = 100;
 			projectile.aiStyle = 0;
-			projectile.penetrate = 100;
+			projectile.penetrate = -1;
 			projectile.light = 0.2f;
 			projectile.friendly = true;
 			projectile.tileCollide = false;
 			projectile.ownerHitCheck = true;
 			projectile.ignoreWater = true;
 			projectile.timeLeft = 26;
+
+			projectile.usesIDStaticNPCImmunity = true;
+			projectile.idStaticNPCHitCooldown = 10;
 		}
 
 		public override void OnHitNPC(NPC npc, int damage, float knockback, bool crit)
 		{
 			Player player = Main.player[projectile.owner];
-			ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
-			npc.immune[projectile.owner] = 10;
 			
-			if (thoriumMod != null) {
-				if (projectile.penetrate > 99 && npc.CanBeChasedBy())
+			//TODO thorium
+			if (thoriumMod != null)
+			{
+				ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
+				if (CanGiveScytheCharge && !npc.friendly && npc.lifeMax > 5 && npc.chaseable && !npc.dontTakeDamage && !npc.immortal)
 				{
-					player.AddBuff(thoriumMod.BuffType("SoulEssence"), 1800, true);
+					CanGiveScytheCharge = false;
+
+					player.AddBuff(thoriumMod.BuffType("SoulEssence"), 30 * 60, true);
 					CombatText.NewText(npc.Hitbox, new Color(100, 255, 200), 1, false, true);
 					
 					FieldInfo fieldSoul = thoriumPlayer.GetType().GetField("soulEssence", BindingFlags.Public | BindingFlags.Instance);
-					if (fieldSoul != null) {
-						
+					if (fieldSoul != null)
+					{
 						int healCharge = (int)(fieldSoul.GetValue(thoriumPlayer)) + 1;
 						fieldSoul.SetValue(thoriumPlayer, healCharge);
 					}
+				}
+
+				if (FirstHit)
+				{
+					FirstHit = false;
+
+					//Things on first hit some scythes have
 				}
 			}
 		}
@@ -55,40 +90,47 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
 			Player player = Main.player[projectile.owner];
-			ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
 			hitDirection = target.Center.X < player.Center.X ? -1 : 1;
 			
-			if (thoriumMod != null) {
-				FieldInfo critField = thoriumPlayer.GetType().GetField("radiantCrit", BindingFlags.Public | BindingFlags.Instance);
-				if (critField != null) {
+			//TODO thorium
+			if (thoriumMod != null)
+			{
+				ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
+				Type playerType = thoriumPlayer.GetType();
+				FieldInfo critField = playerType.GetField("radiantCrit", BindingFlags.Public | BindingFlags.Instance);
+				if (critField != null)
+				{
 					int healCrit = (int)critField.GetValue(thoriumPlayer);
-					if (Main.rand.Next(101) <= healCrit)
-						crit = true;
-					else crit = false;
-				} else {
+					crit = Main.rand.Next(101) <= healCrit;
+				}
+				else
+				{
 					crit = false;
 				}
-					
-				if (crit == true) {
-					FieldInfo fieldWarlock = thoriumPlayer.GetType().GetField("warlockSet", BindingFlags.Public | BindingFlags.Instance);
-					if (fieldWarlock != null) {
-						bool healWarlock = (bool)fieldWarlock.GetValue(thoriumPlayer);
-							
-						if (healWarlock) {
-							if (player.ownedProjectileCounts[mod.ProjectileType("ShadowWisp")] < 15)
-							{
-								Projectile.NewProjectile((int)target.Center.X, (int)target.Center.Y, 0f, -2f, thoriumMod.ProjectileType("ShadowWisp"), (int)(projectile.damage * 0.75f), 0, Main.myPlayer);
-							}
+
+				FieldInfo fieldWarlock = playerType.GetField("warlockSet", BindingFlags.Public | BindingFlags.Instance);
+				if (fieldWarlock != null)
+				{
+					bool healWarlock = (bool)fieldWarlock.GetValue(thoriumPlayer);
+
+					if (healWarlock && Main.rand.NextFloat() < 0.5f)
+					{
+						int shadowWispType = thoriumMod.ProjectileType("ShadowWisp");
+						if (player.ownedProjectileCounts[shadowWispType] < 15)
+						{
+							Projectile.NewProjectile((int)target.Center.X, (int)target.Center.Y, 0f, -2f, shadowWispType, (int)(projectile.damage * 0.5f), 0, Main.myPlayer);
 						}
-					}	
+					}
 				}
 				
-				FieldInfo fieldIridescent = thoriumPlayer.GetType().GetField("iridescentSet", BindingFlags.Public | BindingFlags.Instance);
-				if (fieldIridescent != null) {
+				FieldInfo fieldIridescent = playerType.GetField("iridescentSet", BindingFlags.Public | BindingFlags.Instance);
+				if (fieldIridescent != null)
+				{
 					bool healIridescent = (bool)fieldIridescent.GetValue(thoriumPlayer);
 
-					if (healIridescent && Main.rand.NextFloat() < 0.15f) {
-						Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 100, 1f, 0f);
+					if (healIridescent && Main.rand.NextFloat() < 0.15f)
+					{
+						Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 100, 1f, 0f);
 						for (int k = 0; k < 20; k++)
 						{
 							int dust = Dust.NewDust(target.position, target.width, target.height, 87, Main.rand.Next((int)-6f, (int)6f), Main.rand.Next((int)-6f, (int)6f), 0, default(Color), 1.25f);
@@ -99,21 +141,25 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 							int dust = Dust.NewDust(target.position, target.width, target.height, 91, Main.rand.Next((int)-2f, (int)2f), Main.rand.Next((int)-2f, (int)2f), 0, default(Color), 1.15f);
 							Main.dust[dust].noGravity = true;
 						}
-						for (int k = 0; k < 255; k++)
+
+						int healNoEffects = thoriumMod.ProjectileType("HealNoEffects");
+						int heal = 0;
+						if (target.type != NPCID.TargetDummy)
 						{
-							Player ally = Main.player[k];
-							if (ally.active && ally != player && ally.statLife < ally.statLifeMax2 && Vector2.Distance(ally.Center, projectile.Center) < 500)
+							for (int k = 0; k < Main.maxPlayers; k++)
 							{
-								if (target.type != NPCID.TargetDummy)
+								Player ally = Main.player[k];
+								if (ally.active && ally != player && ally.statLife < ally.statLifeMax2 && ally.DistanceSQ(projectile.Center) < 500 * 500)
 								{
-									Projectile.NewProjectile(ally.Center.X, ally.Center.Y, 0f, 0f, thoriumMod.ProjectileType("RadiantHeal"), 0, 0, projectile.owner, 0, 0f);
+									Projectile.NewProjectile(ally.Center, Vector2.Zero, healNoEffects, 0, 0, projectile.owner, heal, ally.whoAmI);
 								}
 							}
 						}
-						for (int u = 0; u < 200; u++)
+
+						for (int u = 0; u < Main.maxNPCs; u++)
 						{
 							NPC enemyTarget = Main.npc[u];
-							if (enemyTarget.active && enemyTarget.type != NPCID.TargetDummy && !enemyTarget.friendly && Vector2.Distance(enemyTarget.Center, player.Center) < 250)
+							if (enemyTarget.CanBeChasedBy() && enemyTarget.DistanceSQ(player.Center) < 250 * 250)
 							{
 								enemyTarget.AddBuff(BuffID.Confused, 120, false);
 							}
@@ -137,20 +183,13 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 				projectile.Kill();
 			}
 
-			if (player.direction > 0)
-			{
-				projectile.rotation += 0.25f;
-				projectile.spriteDirection = 1;
-			}
-			else
-			{
-				projectile.rotation -= 0.25f;
-				projectile.spriteDirection = -1;
-			}
+			int dir = (player.direction > 0).ToDirectionInt();
+			projectile.rotation += dir * 0.25f;
+			projectile.spriteDirection = dir;
 
 			player.heldProj = projectile.whoAmI;
-			projectile.position.X = player.Center.X - 50;
-			projectile.position.Y = player.Center.Y - 50;
+			projectile.Center = player.Center;
+			projectile.gfxOffY = player.gfxOffY;
 		}
 	}
 }

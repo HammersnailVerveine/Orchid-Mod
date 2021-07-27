@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman
 			item.summon = false;
 			item.noMelee = true;
 			item.noUseGraphic = true;
-			Item.staff[item.type] = true;
+			Item.staff[item.type] = true; //TODO this goes in SetStaticDefaults (and will need changing of the SetStaticDefaults hook to have a Safe version)
 			item.crit = 4;
 			item.useStyle = 3;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman
 			modPlayer.shamanDrawWeapon = item.useTime;
 			Vector2 mousePosition = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
 			
-			Vector2 catalystCenter = modPlayer.shamanCatalystPosition + new Vector2(modPlayer.shamanCatalystTexture.Width / 2, modPlayer.shamanCatalystTexture.Height / 2);
+			Vector2 catalystCenter = modPlayer.shamanCatalystPosition + modPlayer.shamanCatalystTexture?.Size() ?? Vector2.Zero;
 			
 			if (Collision.CanHit(position, 0, 0, position + (catalystCenter - position), 0, 0)) {
 				position = catalystCenter;
@@ -65,7 +65,10 @@ namespace OrchidMod.Shaman
 			if (modPlayer.shamanSelectedItem != item.type) {
 				modPlayer.shamanSelectedItem = item.type;
 				string textureLocation = "OrchidMod/Shaman/CatalystTextures/" + this.Name + "_Catalyst";
-				modPlayer.shamanCatalystTexture = ModContent.GetTexture(textureLocation);
+				if (TextureExists(textureLocation))
+				{
+					modPlayer.shamanCatalystTexture = GetTexture(textureLocation);
+				}
 			}
 			
 			modPlayer.shamanCatalyst = 3;

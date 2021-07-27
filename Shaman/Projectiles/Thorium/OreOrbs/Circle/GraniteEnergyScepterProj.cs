@@ -57,7 +57,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 		
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null) {
 				target.AddBuff((thoriumMod.BuffType("GraniteSurge")), 3 * 60);
 			}

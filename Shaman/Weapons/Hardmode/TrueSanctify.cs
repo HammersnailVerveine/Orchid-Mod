@@ -5,6 +5,8 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OrchidMod.Shaman.Misc;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
@@ -58,12 +60,11 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		
 		public override void AddRecipes()
 		{
-			Mod orchidMod = ModLoader.GetMod("OrchidMod");
-			Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+			Mod thoriumMod = OrchidMod.ThoriumMod;
 			
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(orchidMod.ItemType("Sanctify"), 1);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BrokenHeroFragment") : orchidMod.ItemType("BrokenHeroScepter"), (thoriumMod != null) ? 2 : 1);
+			recipe.AddIngredient(ItemType<Sanctify>(), 1);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BrokenHeroFragment") : ItemType<BrokenHeroScepter>(), (thoriumMod != null) ? 2 : 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
