@@ -57,7 +57,7 @@ namespace OrchidMod.NPCs.Town
 			// }
 		// }
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money) { // TODO : get it to work in mp :(
+		public override bool CanTownNPCSpawn(int numTownNPCs, int money) {
 			if (Main.netMode == NetmodeID.SinglePlayer) {
 				for (int k = 0; k < 255; k++) {
 					Player player = Main.player[k];
@@ -214,7 +214,7 @@ namespace OrchidMod.NPCs.Town
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.GamblerDummy>());
 			nextSlot++;
 			
-            if (!player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneSkyHeight  && !player.ZoneCrimson && !player.ZoneHoly && !player.ZoneJungle && !player.ZoneSnow && !player.ZoneDesert && !player.ZoneGlowshroom && player.ZoneOverworldHeight) {
+			if (!player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneSkyHeight  && !player.ZoneCrimson && !player.ZoneHoly && !player.ZoneJungle && !player.ZoneSnow && !player.ZoneDesert && !player.ZoneGlowshroom && player.ZoneOverworldHeight) {
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.ForestCard>());
 				nextSlot++;	
 			}
