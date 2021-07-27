@@ -24,8 +24,6 @@ namespace OrchidMod
 {
 	public class OrchidModPlayer : ModPlayer
 	{
-		public Mod thoriumMod = OrchidMod.ThoriumMod;
-		
 		public float OchidScreenH = Main.screenHeight;
 		public float OchidScreenW = Main.screenWidth;
 		public float OchidScreenHCompare;
@@ -320,18 +318,17 @@ namespace OrchidMod
 			OrchidModAlchemistHelper.alchemistPostUpdateEquips(player, this, mod);
 			OrchidModGamblerHelper.gamblerPostUpdateEquips(player, this, mod);
 			OrchidModDancerHelper.dancerPostUpdateEquips(player, this, mod);
-			
-			if (thoriumMod != null) {
-                //int thoriumCrit = player.GetModPlayer<ThoriumPlayer>().allCrit; // Impossible : can't add [using ThoriumMod;] because I don't have the ThoriumMod.dll file
-				
-				ModPlayer thoriumPlayer = player.GetModPlayer(this.thoriumMod, "ThoriumPlayer");
-				FieldInfo field = thoriumPlayer.GetType().GetField("allCrit", BindingFlags.Public | BindingFlags.Instance);
-				if (field != null) {
-					int thoriumCrit = (int)field.GetValue(thoriumPlayer);
+
+			Mod thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				object result = thoriumMod.Call("GetAllCrit", player);
+				if (result is int thoriumCrit && thoriumCrit > 0)
+				{
 					this.customCrit += thoriumCrit;
 				}
-            }
-     
+			}
+
 			this.shamanCrit += this.customCrit;
 			this.alchemistCrit += this.customCrit;
 			this.gamblerCrit += this.customCrit;
