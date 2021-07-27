@@ -24,7 +24,7 @@ namespace OrchidMod
 {
 	public class OrchidModPlayer : ModPlayer
 	{
-		public Mod thoriumMod = ModLoader.GetMod("ThoriumMod");
+		public Mod thoriumMod = OrchidMod.ThoriumMod;
 		
 		public float OchidScreenH = Main.screenHeight;
 		public float OchidScreenW = Main.screenWidth;
@@ -278,6 +278,21 @@ namespace OrchidMod
 		public override void Load(TagCompound tag)
 		{
 			gamblerCardsItem = tag.GetList<TagCompound>("GamblerCardsItem").Select(ItemIO.Load).ToArray();
+			//If no cards were saved (old character, crash, etc), this can return Item[] of length 0
+			//In case of length not equaling 20, fix the array
+			if (gamblerCardsItem.Length != 20)
+			{
+				Array.Resize(ref gamblerCardsItem, 20);
+				for (int i = 0; i < gamblerCardsItem.Length; i++)
+				{
+					if (gamblerCardsItem[i] == null)
+					{
+						gamblerCardsItem[i] = new Item();
+						gamblerCardsItem[i].SetDefaults(0, true);
+					}
+				}
+			}
+
 			alchemistDailyHint = tag.GetBool("ChemistHint");
 			alchemistKnownReactions = tag.Get<List<int>>("AlchemistHidden");
 			alchemistKnownHints = tag.Get<List<int>>("AlchemistHints");
