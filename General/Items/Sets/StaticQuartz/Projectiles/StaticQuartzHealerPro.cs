@@ -62,7 +62,8 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 			if (thoriumMod != null)
 			{
 				ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
-				FieldInfo critField = thoriumPlayer.GetType().GetField("radiantCrit", BindingFlags.Public | BindingFlags.Instance);
+				Type playerType = thoriumPlayer.GetType();
+				FieldInfo critField = playerType.GetField("radiantCrit", BindingFlags.Public | BindingFlags.Instance);
 				if (critField != null)
 				{
 					int healCrit = (int)critField.GetValue(thoriumPlayer);
@@ -72,26 +73,23 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 				{
 					crit = false;
 				}
-					
-				if (crit)
-				{
-					FieldInfo fieldWarlock = thoriumPlayer.GetType().GetField("warlockSet", BindingFlags.Public | BindingFlags.Instance);
-					if (fieldWarlock != null)
-					{
-						bool healWarlock = (bool)fieldWarlock.GetValue(thoriumPlayer);
 
-						if (healWarlock && Main.rand.NextFloat() < 0.5f)
+				FieldInfo fieldWarlock = playerType.GetField("warlockSet", BindingFlags.Public | BindingFlags.Instance);
+				if (fieldWarlock != null)
+				{
+					bool healWarlock = (bool)fieldWarlock.GetValue(thoriumPlayer);
+
+					if (healWarlock && Main.rand.NextFloat() < 0.5f)
+					{
+						int shadowWispType = thoriumMod.ProjectileType("ShadowWisp");
+						if (player.ownedProjectileCounts[shadowWispType] < 15)
 						{
-							int shadowWispType = thoriumMod.ProjectileType("ShadowWisp");
-							if (player.ownedProjectileCounts[shadowWispType] < 15)
-							{
-								Projectile.NewProjectile((int)target.Center.X, (int)target.Center.Y, 0f, -2f, shadowWispType, (int)(projectile.damage * 0.5f), 0, Main.myPlayer);
-							}
+							Projectile.NewProjectile((int)target.Center.X, (int)target.Center.Y, 0f, -2f, shadowWispType, (int)(projectile.damage * 0.5f), 0, Main.myPlayer);
 						}
-					}	
+					}
 				}
 				
-				FieldInfo fieldIridescent = thoriumPlayer.GetType().GetField("iridescentSet", BindingFlags.Public | BindingFlags.Instance);
+				FieldInfo fieldIridescent = playerType.GetField("iridescentSet", BindingFlags.Public | BindingFlags.Instance);
 				if (fieldIridescent != null)
 				{
 					bool healIridescent = (bool)fieldIridescent.GetValue(thoriumPlayer);
