@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Effects;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -52,17 +53,19 @@ namespace OrchidMod.Shaman.Projectiles
 			Vector2 drawPos = projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
 			Texture2D texture = Effects.EffectsManager.RadialGradientTexture;
 
-			Effect effect = mod.GetEffect("Effects/WyvernMorayLingering");
+			Effect effect = EffectsManager.WyvernMorayLingeringEffect;
 			effect.Parameters["time"].SetValue(Main.GlobalTime * 0.1f + projectile.position.X * 2);
-			effect.Parameters["texture1"].SetValue(ModContent.GetTexture("OrchidMod/Effects/Textures/CloudNoise"));
 
 			Color color = Lighting.GetColor((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16, effectColor * this.Opacity);
 			Vector2 origin = texture.Size() * 0.5f;
 			float scale = projectile.scale * 2.25f;
 
-			Effects.EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, effect: effect, blendState: BlendState.Additive);
-			for (int i = 0; i < 2; i++) spriteBatch.Draw(texture, drawPos, null, color, 0f, origin, scale, SpriteEffects.None, 0);
-			Effects.EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
+			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive, effect: effect);
+			{
+				for (int i = 0; i < 2; i++) spriteBatch.Draw(texture, drawPos, null, color, 0f, origin, scale, SpriteEffects.None, 0);
+			}
+			SetSpriteBatch(spriteBatch: spriteBatch);
+
 			return false;
 		}
 	}
