@@ -68,7 +68,7 @@ namespace OrchidMod.Gambler.Projectiles
 				}
 				projectile.position = pos - (new Vector2(projectile.width, projectile.height) / 2);
 				if (Main.myPlayer == projectile.owner) {
-					Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+					Vector2 target = Main.MouseWorld;
 					Vector2 heading = target - projectile.Center;
 					heading.Normalize();
 					heading *= 15f;

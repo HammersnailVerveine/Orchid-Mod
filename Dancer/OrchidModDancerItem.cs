@@ -53,7 +53,7 @@ namespace OrchidMod.Dancer
 			if (modPlayer.dancerPoise < this.poiseCost) {
 				return false;
 			} else {
-				Vector2 heading = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - player.Center;
+				Vector2 heading = Main.MouseWorld - player.Center;
 				heading.Normalize();
 				heading *= new Vector2(this.dashVelocity, this.dashVelocity).Length();
 				float speedXAlt = this.horizontal ? heading.X : 0f;

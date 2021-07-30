@@ -44,7 +44,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (projectile.ai[0] != -1f && Main.myPlayer == projectile.owner) {
 				if (projectile.position.Y >= projectile.ai[0]) {
 					OrchidModProjectile.spawnDustCircle(projectile.Center, 64, 5, 5, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
-					Vector2 mousePos = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+					Vector2 mousePos = Main.MouseWorld;
 					projectile.velocity.X = (mousePos.X > projectile.Center.X ? projectile.velocity.Y : - projectile.velocity.Y);
 					projectile.velocity.Y = 0f;
 					projectile.ai[0] = -1f;

@@ -49,7 +49,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (modProjectile.gamblerInternalCooldown == 0) {
 				modProjectile.gamblerInternalCooldown = 50;
 				int projType = ProjectileType<Gambler.Projectiles.OceanCardProj>();
-				Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+				Vector2 target = Main.MouseWorld;
 				Vector2 heading = target - projectile.position;
 				heading.Normalize();
 				heading *= new Vector2(0f, 5f).Length();

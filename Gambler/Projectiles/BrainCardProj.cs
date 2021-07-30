@@ -77,7 +77,7 @@ namespace OrchidMod.Gambler.Projectiles
 							}
 							this.dustVal --;
 							
-							Vector2 newMove = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - projectile.Center;
+							Vector2 newMove = Main.MouseWorld - projectile.Center;
 							float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 							
 							if (distanceTo > 5f) {

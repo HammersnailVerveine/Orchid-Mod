@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman
 		public sealed override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.shamanDrawWeapon = item.useTime;
-			Vector2 mousePosition = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+			Vector2 mousePosition = Main.MouseWorld;
 			
 			Vector2 catalystCenter = modPlayer.shamanCatalystPosition + modPlayer.shamanCatalystTexture?.Size() * 0.5f ?? Vector2.Zero;
 			

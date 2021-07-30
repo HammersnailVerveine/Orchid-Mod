@@ -246,7 +246,7 @@ namespace OrchidMod.Shaman
 				
 				if (player.controlDown && modPlayer.doubleTap > 0 && !modPlayer.doubleTapLock) {
 					if (modPlayer.abyssSet) {
-						Projectile.NewProjectile((Main.mouseX + Main.screenPosition.X), (Main.mouseY + Main.screenPosition.Y), 0f, 0f, mod.ProjectileType("AbyssPortal"), 0, 5, player.whoAmI);
+						Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.ProjectileType("AbyssPortal"), 0, 5, player.whoAmI);
 						Main.PlaySound(SoundID.Item122, player.Center);
 					}
 					modPlayer.doubleTap = 0;
@@ -265,7 +265,7 @@ namespace OrchidMod.Shaman
 				
 				if (player.controlUp && modPlayer.doubleTap > 0 && !modPlayer.doubleTapLock) {
 					if (modPlayer.abyssSet) {
-						Projectile.NewProjectile((Main.mouseX + Main.screenPosition.X), (Main.mouseY + Main.screenPosition.Y), 0f, 0f, mod.ProjectileType("AbyssPortal"), 0, 5, player.whoAmI);
+						Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.ProjectileType("AbyssPortal"), 0, 5, player.whoAmI);
 						Main.PlaySound(SoundID.Item122, player.Center);
 					}
 					modPlayer.doubleTap = 0;
@@ -399,7 +399,7 @@ namespace OrchidMod.Shaman
 						
 					if (crit == true && modPlayer.shamanSkull && modPlayer.shamanWaterTimer > 0) {	
 						int dmg = (int)(80 * modPlayer.shamanDamage + 5E-06f);
-						Vector2 mouseTarget = Main.screenPosition + new Vector2((float)Main.mouseX - 8, (float)Main.mouseY);
+						Vector2 mouseTarget = Main.MouseWorld;
 						Vector2 heading = mouseTarget - Main.player[projectile.owner].position;
 						heading.Normalize();
 						heading *= new Vector2(5f, 5f).Length();

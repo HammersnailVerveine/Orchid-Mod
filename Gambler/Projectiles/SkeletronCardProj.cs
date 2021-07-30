@@ -57,7 +57,7 @@ namespace OrchidMod.Gambler.Projectiles
 				this.dustVal --;
 				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.SkeletronCard>() && modPlayer.GamblerDeckInHand) {
 					if (this.bounceDelay <= 0) {
-						Vector2 newMove = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - projectile.Center;
+						Vector2 newMove = Main.MouseWorld - projectile.Center;
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 						if (distanceTo > 5f) {
 							newMove *= 2f / distanceTo;
@@ -78,7 +78,7 @@ namespace OrchidMod.Gambler.Projectiles
 							}
 							
 							if (this.fireProj == 5) {
-								Vector2 projMove = newMove = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - projectile.Center;
+								Vector2 projMove = newMove = Main.MouseWorld - projectile.Center;
 								projMove *= 10f / distanceTo;
 								int projType = ProjectileType<Gambler.Projectiles.SkeletronCardProjAlt>();
 								bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;

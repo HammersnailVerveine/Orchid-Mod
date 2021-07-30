@@ -36,7 +36,7 @@ namespace OrchidMod.Gambler.Projectiles
 				projectile.velocity.Y -= 0.012f;
 				if (Main.myPlayer == projectile.owner) {
 					if (!Main.mouseLeft && modPlayer.GamblerDeckInHand) {
-						Vector2 newMove = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - projectile.Center;
+						Vector2 newMove = Main.MouseWorld - projectile.Center;
 						newMove.Normalize();
 						newMove *= 10f;
 						projectile.velocity = newMove;

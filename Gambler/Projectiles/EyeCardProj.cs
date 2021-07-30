@@ -54,7 +54,7 @@ namespace OrchidMod.Gambler.Projectiles
 			
 			if (Main.myPlayer == projectile.owner) {
 				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.EyeCard>() && modPlayer.GamblerDeckInHand) {
-					Vector2 newMove = Main.screenPosition + new Vector2((float)Main.mouseX - 8, (float)Main.mouseY) - projectile.Center;
+					Vector2 newMove = Main.MouseWorld - projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (projectile.ai[1] == 0) {
 						AdjustMagnitude(ref newMove, distanceTo > 300f && this.cooldown <= 0);

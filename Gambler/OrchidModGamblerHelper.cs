@@ -315,7 +315,7 @@ namespace OrchidMod.Gambler
 				int projType = ProjectileType<Gambler.Projectiles.Equipment.VultureCharmProj>();
 				for (int i = 0; i < rand; i++) {
 					float scale = 1f - (Main.rand.NextFloat() * .3f);
-					Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+					Vector2 target = Main.MouseWorld;
 					Vector2 heading = target - player.Center;
 					heading.Normalize();
 					heading *= new Vector2(0f, 10f).Length();
@@ -367,7 +367,7 @@ namespace OrchidMod.Gambler
 					int rand = Main.rand.Next(3) + 1;
 					int projType = ProjectileType<Gambler.Projectiles.SlimeRainCardProj2>();
 					for (int i = 0; i < rand; i++) {
-						Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+						Vector2 target = Main.MouseWorld;
 						Vector2 heading = target - player.position;
 						heading.Normalize();
 						heading *= new Vector2(0f, 5f).Length();

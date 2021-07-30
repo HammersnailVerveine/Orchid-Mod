@@ -63,7 +63,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 			
 			if (fireTimer <= 0 && projectile.ai[1] == 1f) {
-				Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+				Vector2 target = Main.MouseWorld;
 				Vector2 heading = target - projectile.Center;
 				heading.Normalize();
 				heading *= 15f;

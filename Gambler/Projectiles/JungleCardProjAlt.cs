@@ -42,7 +42,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (modProjectile.gamblerInternalCooldown == 0) {
 				modProjectile.gamblerInternalCooldown = 30;
 				int projType = ProjectileType<Gambler.Projectiles.JungleCardProj>();
-				Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+				Vector2 target = Main.MouseWorld;
 				Vector2 heading = target - projectile.position;
 				heading.Normalize();
 				heading *= new Vector2(0f, 10f).Length();

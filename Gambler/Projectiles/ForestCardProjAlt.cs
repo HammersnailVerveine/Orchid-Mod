@@ -50,7 +50,7 @@ namespace OrchidMod.Gambler.Projectiles
 				int rand = Main.rand.Next(3) + 1;
 				int projType = ProjectileType<Gambler.Projectiles.ForestCardProj>();
 				for (int i = 0; i < rand; i++) {
-					Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+					Vector2 target = Main.MouseWorld;
 					Vector2 heading = target - projectile.position;
 					heading.Normalize();
 					heading *= new Vector2(0f, 10f).Length();

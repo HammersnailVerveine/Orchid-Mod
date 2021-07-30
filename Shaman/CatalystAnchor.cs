@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman
 				bool netUpdate = false;
 				
 				if (Main.myPlayer == projectile.owner) {
-					Vector2 mousePosition = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+					Vector2 mousePosition = Main.MouseWorld;
 					int mouseDir = mousePosition.X < player.Center.X ? -1 : 1;
 					int mouseUnderValid = mousePosition.Y > player.Center.Y + 30 && Collision.CanHit(player.Center, 0, 0, player.Center + (mousePosition - player.Center), 0, 0) ? 2 : 0;
 					bool tooFar = mousePosition.X < player.Center.X - 500 || mousePosition.X > player.Center.X + 500;

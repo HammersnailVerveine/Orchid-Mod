@@ -33,7 +33,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false) {
 			int projType = ProjectileType<Gambler.Projectiles.IceChestCardProj>();
-			Vector2 newPos = Main.screenPosition + new Vector2((float)Main.mouseX - 8, (float)Main.mouseY);
+			Vector2 newPos = Main.MouseWorld;
 			Vector2 offSet = new Vector2(0f, -15f);
 			for (int i = 0; i < 50; i ++) {
 				offSet = Collision.TileCollision(newPos, offSet, 14, 32, true, false, (int) player.gravDir);

@@ -49,7 +49,7 @@ namespace OrchidMod.Gambler.Projectiles
 				modProjectile.gamblerInternalCooldown = 10;
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				int projType = ProjectileType<Gambler.Projectiles.DesertCardProj>();
-				Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+				Vector2 target = Main.MouseWorld;
 				Vector2 heading = target - projectile.position;
 				heading.Normalize();
 				heading *= new Vector2(0f, 8f).Length();

@@ -49,7 +49,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
                 Projectile proj = Main.projectile[l];
                 if (proj.active && proj.type == mod.ProjectileType("PharaohScepterPortal") && proj.owner == player.whoAmI)
                 {
-					Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX - 8, (float)Main.mouseY);
+					Vector2 target = Main.MouseWorld;
 					Vector2 heading = target - proj.position;
 					heading.Normalize();
 					heading *= new Vector2(speedX, speedY).Length();

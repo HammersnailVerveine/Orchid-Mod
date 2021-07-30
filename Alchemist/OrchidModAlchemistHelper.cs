@@ -76,7 +76,7 @@ namespace OrchidMod.Alchemist
 			if (modPlayer.alchemistShootProjectile) {	
 				float shootSpeed = 10f * modPlayer.alchemistVelocity;
 				int projType = ProjectileType<Alchemist.Projectiles.AlchemistProj>();				
-				Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+				Vector2 target = Main.MouseWorld;
 				Vector2 heading = target - player.Center;
 				heading.Normalize();
 				heading *= shootSpeed;

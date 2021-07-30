@@ -49,7 +49,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (modProjectile.gamblerInternalCooldown == 0) {
 				modProjectile.gamblerInternalCooldown = 40;
 				int projType = ProjectileType<Gambler.Projectiles.SnowCardProj>();
-				Vector2 target = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
+				Vector2 target = Main.MouseWorld;
 				Vector2 vel = new Vector2(0f, 0f);
 				float absX = (float)Math.Sqrt((projectile.Center.X - target.X) * (projectile.Center.X - target.X));
 				float absY = (float)Math.Sqrt((projectile.Center.Y - target.Y) * (projectile.Center.Y - target.Y));
