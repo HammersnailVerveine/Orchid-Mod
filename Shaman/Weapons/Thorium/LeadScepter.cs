@@ -37,16 +37,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+"\nIf you have 3 onyx orbs, your next hit will give you 3 armor penetration for 30 seconds");
 		}
 			
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 40f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-			position += muzzleOffset;
-			}
-			return true;
-		}
-		
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;

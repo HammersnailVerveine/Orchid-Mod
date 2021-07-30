@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman
 			modPlayer.shamanDrawWeapon = item.useTime;
 			Vector2 mousePosition = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY);
 			
-			Vector2 catalystCenter = modPlayer.shamanCatalystPosition + modPlayer.shamanCatalystTexture?.Size() ?? Vector2.Zero;
+			Vector2 catalystCenter = modPlayer.shamanCatalystPosition + modPlayer.shamanCatalystTexture?.Size() * 0.5f ?? Vector2.Zero;
 			
 			if (Collision.CanHit(position, 0, 0, position + (catalystCenter - position), 0, 0)) {
 				position = catalystCenter;

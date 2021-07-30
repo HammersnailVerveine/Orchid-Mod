@@ -35,16 +35,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Tooltip.SetDefault("\nHitting an enemy will grant you an Opal orb"
 							+"\nIf you have 3 opal orbs, your next hit will increase your shamanic critical strike damage for 30 seconds");
 		}
-			
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 40f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-			position += muzzleOffset;
-			}
-			return true;
-		}
 		
 		public override void AddRecipes()
 		{
