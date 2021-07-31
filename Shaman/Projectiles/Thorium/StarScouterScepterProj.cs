@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Effects;
 using OrchidMod.Effects.Trails;
 using Terraria;
 using Terraria.ID;
@@ -11,7 +12,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	public class StarScouterScepterProj : OrchidModShamanProjectile
 	{
 		public bool IsGreen { get { return projectile.ai[0] == 1; } set { projectile.ai[0] = value.ToInt(); } }
-		
+
 		public ref float GreenLightProgress => ref projectile.ai[1];
 
 		private SimpleTrail _trail;
@@ -38,7 +39,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			{
 				MaxPoints = 15
 			};
-			_trail.SetEffectTexture(ModContent.GetTexture("OrchidMod/Effects/Textures/Trail_0"));
+			_trail.SetEffectTexture(EffectsManager.TrailTextures[0]);
 			OrchidMod.Primitives?.CreateTrail(target: projectile, trail: _trail);
 
 			projectile.friendly = false;
@@ -144,16 +145,17 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			Vector2 drawPos = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY);
 			Color color = projectile.GetAlpha(Lighting.GetColor((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16, Color.White));
-
 			Texture2D texture = Effects.EffectsManager.RadialGradientTexture;
-			Effects.EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, blendState: BlendState.Additive);
+
+			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
 				spriteBatch.Draw(texture, drawPos, null, new Color(0.44f, 0.92f, 0f) * 0.5f, 0f, texture.Size() * 0.5f, projectile.scale * this.GreenLightProgress, SpriteEffects.None, 0f);
 			}
-			Effects.EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
+			SetSpriteBatch(spriteBatch: spriteBatch);
 
 			texture = Main.projectileTexture[projectile.type];
 			float val = (float)Math.Sin(Main.GlobalTime + MathHelper.Pi);
+
 			for (int i = 0; i < 4; i++)
 			{
 				spriteBatch.Draw(texture, drawPos + new Vector2(5.5f, 0).RotatedBy(Main.GlobalTime + MathHelper.PiOver2 * i) * val, null, color * 0.22f, projectile.rotation, texture.Size() * 0.5f, projectile.scale, SpriteEffects.None, 0f);
@@ -166,16 +168,15 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Vector2 drawPos = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY);
-			Texture2D texture = ModContent.GetTexture("OrchidMod/Effects/Textures/StarScouterScepter");
 			Rectangle rect = new Rectangle(0, 20 * this.IsGreen.ToInt(), 20, 20);
 			Vector2 origin = new Vector2(10, 10);
 
 			float val = (float)Math.Sin(Main.GlobalTime);
 			for (int i = 0; i < 4; i++)
 			{
-				spriteBatch.Draw(texture, drawPos + new Vector2(3.5f, 0).RotatedBy(Main.GlobalTime + MathHelper.PiOver2 * i) * val, rect, Color.White * 0.35f, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(EffectsManager.ExtraTextures[1], drawPos + new Vector2(3.5f, 0).RotatedBy(Main.GlobalTime + MathHelper.PiOver2 * i) * val, rect, Color.White * 0.35f, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(texture, drawPos, rect, Color.White, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(EffectsManager.ExtraTextures[1], drawPos, rect, Color.White, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
 		}
 	}
 }

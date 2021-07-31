@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Effects;
 using OrchidMod.Effects.Trails;
 using Terraria;
 using Terraria.ID;
@@ -14,7 +15,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		private bool _death = false;
 		private float _deathProgress = 1f;
-		private Effects.Primitives.Trail _trail;
+		private Primitives.Trail _trail;
 
 		public override void SetStaticDefaults()
 		{
@@ -43,12 +44,10 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void OnSpawn()
 		{
-			_trail = new TriangularTrail(length: 16 * 13, width: (p) => 20 * (1 - p * 0.25f), color: (p) => GetCurrentColor() * (1 - p), effect: mod.GetEffect("Effects/WyvernMoray"))
+			_trail = new TriangularTrail(length: 16 * 13, width: (p) => 20 * (1 - p * 0.25f), color: (p) => GetCurrentColor() * (1 - p), effect: EffectsManager.WyvernMorayEffect)
 			{
 				MaxPoints = 35
 			};
-			_trail.SetEffectTexture(ModContent.GetTexture("OrchidMod/Effects/Textures/Trail_1"), 0);
-			_trail.SetEffectTexture(ModContent.GetTexture("OrchidMod/Effects/Textures/Cloud"), 1);
 			OrchidMod.Primitives?.CreateTrail(target: projectile, trail: _trail);
 		}
 
@@ -64,45 +63,42 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Vector2 drawPos = projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
-			Texture2D texture;
-			Color color = GetCurrentColor();
-			Effects.EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, blendState: BlendState.Additive);
-
-			// Trail
+			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
-				texture = Effects.EffectsManager.RadialGradientTexture;
-				for (int k = 1; k < projectile.oldPos.Length; k++)
+				Vector2 drawPos = projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
+				Texture2D texture;
+				Color color = GetCurrentColor();
+
+				// Trail
 				{
-					float progress = ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-					Vector2 drawPosTrail = projectile.oldPos[k] - Main.screenPosition + projectile.Size * 0.5f + new Vector2(0f, projectile.gfxOffY);
-					spriteBatch.Draw(texture, drawPosTrail, null, color * progress, projectile.rotation, texture.Size() * 0.5f, projectile.scale * 0.4f * progress, SpriteEffects.None, 0f);
+					texture = Effects.EffectsManager.RadialGradientTexture;
+					for (int k = 1; k < projectile.oldPos.Length; k++)
+					{
+						float progress = ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
+						Vector2 drawPosTrail = projectile.oldPos[k] - Main.screenPosition + projectile.Size * 0.5f + new Vector2(0f, projectile.gfxOffY);
+						spriteBatch.Draw(texture, drawPosTrail, null, color * progress, projectile.rotation, texture.Size() * 0.5f, projectile.scale * 0.4f * progress, SpriteEffects.None, 0f);
+					}
+					spriteBatch.Draw(texture, drawPos, null, color, projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, projectile.scale * 0.6f, SpriteEffects.None, 0);
 				}
-				spriteBatch.Draw(texture, drawPos, null, color, projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, projectile.scale * 0.6f, SpriteEffects.None, 0);
+
+				texture = ModContent.GetTexture("OrchidMod/Effects/Textures/AnemoTwirl");
+				spriteBatch.Draw(texture, drawPos, null, color * 0.8f, Main.GlobalTime * 5f, texture.Size() * 0.5f, projectile.scale * 0.3f, SpriteEffects.None, 0);
+				spriteBatch.Draw(EffectsManager.WhiteCircleTexture, drawPos, null, color * _deathProgress, projectile.velocity.ToRotation() + MathHelper.PiOver2, EffectsManager.WhiteCircleTexture.Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
+				spriteBatch.Draw(EffectsManager.ExtraTextures[3], drawPos + Vector2.Normalize(projectile.velocity) * 8f, null, color * MathHelper.SmoothStep(0, 1, projectile.velocity.Length() * 0.1f), projectile.velocity.ToRotation() + MathHelper.PiOver2, EffectsManager.ExtraTextures[3].Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
+
+				if (_death)
+				{
+					texture = ModContent.GetTexture("OrchidMod/Effects/Textures/Ring");
+					float progress = 1 - (float)Math.Pow(MathHelper.Lerp(0, 1, _deathProgress), 3);
+					color *= progress;
+					Vector2 origin = texture.Size() * 0.5f;
+					float scale = projectile.scale * progress;
+
+					spriteBatch.Draw(texture, drawPos, null, color * 0.6f, 0f, origin, scale, SpriteEffects.None, 0);
+					spriteBatch.Draw(texture, drawPos, null, color, 0f, origin, scale * 1.6f, SpriteEffects.None, 0);
+				}
 			}
-
-			texture = ModContent.GetTexture("OrchidMod/Effects/Textures/AnemoTwirl");
-			spriteBatch.Draw(texture, drawPos, null, color * 0.8f, Main.GlobalTime * 5f, texture.Size() * 0.5f, projectile.scale * 0.3f, SpriteEffects.None, 0);
-
-			texture = ModContent.GetTexture("OrchidMod/Effects/Textures/Circle");
-			spriteBatch.Draw(texture, drawPos, null, color * _deathProgress, projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
-
-			texture = ModContent.GetTexture("OrchidMod/Effects/Textures/Hmmm");
-			spriteBatch.Draw(texture, drawPos + Vector2.Normalize(projectile.velocity) * 8f, null, color * MathHelper.SmoothStep(0, 1, projectile.velocity.Length() * 0.1f), projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
-
-			if (_death)
-			{
-				texture = ModContent.GetTexture("OrchidMod/Effects/Textures/Ring");
-				float progress = 1 - (float)Math.Pow(MathHelper.Lerp(0, 1, _deathProgress), 3);
-				color *= progress;
-				Vector2 origin = texture.Size() * 0.5f;
-				float scale = projectile.scale * progress;
-
-				spriteBatch.Draw(texture, drawPos, null, color * 0.6f, 0f, origin, scale, SpriteEffects.None, 0);
-				spriteBatch.Draw(texture, drawPos, null, color, 0f, origin, scale * 1.6f, SpriteEffects.None, 0);
-			}
-
-			Effects.EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
+			SetSpriteBatch(spriteBatch: spriteBatch);
 		}
 
 		public void DeathUpdate()
