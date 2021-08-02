@@ -2,9 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using OrchidMod.Shaman;
 using System.Collections.Generic;
 using OrchidMod.Effects;
 
@@ -96,7 +94,7 @@ namespace OrchidMod.Shaman.Projectiles
 			Vector2 drawPosition = projectile.position - Main.screenPosition + projectile.Size * 0.5f;
 
 			// Light Effect
-			EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, blendState: BlendState.Additive);
+			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
 				Texture2D radialGradient = EffectsManager.RadialGradientTexture;
 				spriteBatch.Draw(radialGradient, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY) + new Vector2(0, -11), null, new Color(36, 129, 234) * 0.35f, 0f, radialGradient.Size() * 0.5f, 0.75f * projectile.scale, SpriteEffects.None, 0f);
@@ -104,14 +102,13 @@ namespace OrchidMod.Shaman.Projectiles
 
 			// Aura
 			var effect = EffectsManager.ShroomiteZoneEffect;
-			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointClamp, DepthStencilState.None, Main.instance.Rasterizer, effect, Main.GameViewMatrix.TransformationMatrix);
+			SetSpriteBatch(spriteBatch: spriteBatch, spriteSortMode: SpriteSortMode.Immediate, blendState: BlendState.Additive, samplerState: SamplerState.PointClamp, effect: effect);
 			{
-				SetEffectParameters(ref effect);
+				this.SetEffectParameters(ref effect);
 				if (zoneTexture != null) spriteBatch.Draw(zoneTexture, drawPosition, null, Color.White, projectile.rotation, zoneTexture.Size() * 0.5f, 2f * MathHelper.SmoothStep(0, 1, RadiusProgress), SpriteEffects.None, 0f);
 			}
-			EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
 
+			SetSpriteBatch(spriteBatch: spriteBatch);
 			return false; // Let's draw the projectile ourselves
 		}
 
@@ -123,11 +120,11 @@ namespace OrchidMod.Shaman.Projectiles
 			SpriteEffects spriteEffect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 			spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPosition + offset, null, color, projectile.rotation, projectile.Size * 0.5f, projectile.scale, spriteEffect, 0f);
-			EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, blendState: BlendState.Additive);
+			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
 				spriteBatch.Draw(ModContent.GetTexture("OrchidMod/Glowmasks/ShroomiteScepterProj_Glowmask"), drawPosition + offset, null, new Color(250, 250, 250, 150), projectile.rotation, projectile.Size * 0.5f, projectile.scale, spriteEffect, 0f);
 			}
-			EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
+			SetSpriteBatch(spriteBatch: spriteBatch);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity) => false;

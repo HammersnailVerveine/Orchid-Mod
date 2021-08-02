@@ -94,7 +94,7 @@ namespace OrchidMod.Shaman
 		
 		public override void Kill(int timeLeft) {
 			for (int i = 0 ; i < 3 ; i ++) {
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, 31)].velocity *= 0.25f;
+				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.25f;
 			}
 		}
 		
@@ -108,8 +108,6 @@ namespace OrchidMod.Shaman
 				SpriteEffects spriteEffect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 				spriteBatch.Draw(modPlayer.shamanCatalystTexture, drawPosition, null, color, projectile.rotation, projectile.Size * 0.5f, projectile.scale, spriteEffect, 0f);
-
-				EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
 			}
 			
 			if (modPlayer.shamanDrawWeapon > 0) {

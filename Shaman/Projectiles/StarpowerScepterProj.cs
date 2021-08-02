@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Effects;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,26 +14,26 @@ namespace OrchidMod.Shaman.Projectiles
 		private float startRotation = 0f;
 
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Star");
+		{
+			DisplayName.SetDefault("Star");
 
 			ProjectileID.Sets.TrailingMode[projectile.type] = 2;
 			ProjectileID.Sets.TrailCacheLength[projectile.type] = 15;
-		} 
-		
+		}
+
 		public override void SafeSetDefaults()
 		{
-            projectile.width = 14;
-            projectile.height = 14;
-            projectile.friendly = true;
-            projectile.aiStyle = 0;
+			projectile.width = 14;
+			projectile.height = 14;
+			projectile.friendly = true;
+			projectile.aiStyle = 0;
 			projectile.timeLeft = 120;
 			projectile.penetrate = -1; // Don't delete it, pls
 			empowermentType = 3;
 		}
 
-        public override void OnSpawn()
-        {
+		public override void OnSpawn()
+		{
 			// I hate it
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
@@ -56,10 +57,10 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.ai[0] = 0.35f;
 			projectile.ai[1] = 0; // Death Type
 			startRotation = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
-        }
+		}
 
-        public override void AI()
-        {
+		public override void AI()
+		{
 			projectile.rotation = projectile.velocity.Length() + startRotation;
 			projectile.velocity *= 0.95f;
 			projectile.scale = MathHelper.SmoothStep(1.4f, 0f, projectile.ai[0]);
@@ -70,34 +71,33 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Effects.EffectsManager.SetSpriteBatchEffectSettings(spriteBatch, blendState: BlendState.Additive);
-
-			// Light Effect
-			Texture2D lightTexture = Effects.EffectsManager.RadialGradientTexture;
-			Vector2 drawPosition = projectile.Center + new Vector2(0, projectile.gfxOffY) - Main.screenPosition;
-			spriteBatch.Draw(lightTexture, drawPosition, null, mainColor, projectile.rotation, lightTexture.Size() * 0.5f, projectile.scale * 0.5f, SpriteEffects.None, 0);
-
-			// Lens Flare
-			if (projectile.timeLeft < 15 && projectile.ai[1] == 2)
+			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
-				Texture2D texture = Effects.EffectsManager.LensFlareTexture;
-				float size = MathHelper.SmoothStep(1, 0, Math.Abs(1f - projectile.timeLeft * 2 / 15)) * 0.9f;
-				Color color = mainColor;
-				color.A = 200;
-				spriteBatch.Draw(texture, drawPosition, null, color, 0f, texture.Size() * 0.5f, size, SpriteEffects.None, 0);
-			}
+				// Light Effect
+				Texture2D lightTexture = Effects.EffectsManager.RadialGradientTexture;
+				Vector2 drawPosition = projectile.Center + new Vector2(0, projectile.gfxOffY) - Main.screenPosition;
+				spriteBatch.Draw(lightTexture, drawPosition, null, mainColor, projectile.rotation, lightTexture.Size() * 0.5f, projectile.scale * 0.5f, SpriteEffects.None, 0);
 
-			// Trail
-			Texture2D trailTexture = ModContent.GetTexture("OrchidMod/Effects/Textures/StarpowerScepter");
-			for (int k = 0; k < projectile.oldPos.Length; k++)
-			{
-				drawPosition = projectile.oldPos[k] + projectile.Size * 0.5f - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
-				float num = ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-				Color color = mainColor * num * 0.8f;
-				spriteBatch.Draw(trailTexture, drawPosition, null, color, projectile.oldRot[k], trailTexture.Size() * .5f, projectile.scale * num, SpriteEffects.None, 0f);
-			}
+				// Lens Flare
+				if (projectile.timeLeft < 15 && projectile.ai[1] == 2)
+				{
+					Texture2D texture = Effects.EffectsManager.LensFlareTexture;
+					float size = MathHelper.SmoothStep(1, 0, Math.Abs(1f - projectile.timeLeft * 2 / 15)) * 0.9f;
+					Color color = mainColor;
+					color.A = 200;
+					spriteBatch.Draw(texture, drawPosition, null, color, 0f, texture.Size() * 0.5f, size, SpriteEffects.None, 0);
+				}
 
-			Effects.EffectsManager.SetSpriteBatchVanillaSettings(spriteBatch);
+				// Trail
+				for (int k = 0; k < projectile.oldPos.Length; k++)
+				{
+					drawPosition = projectile.oldPos[k] + projectile.Size * 0.5f - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
+					float num = ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
+					Color color = mainColor * num * 0.8f;
+					spriteBatch.Draw(EffectsManager.ExtraTextures[0], drawPosition, null, color, projectile.oldRot[k], EffectsManager.ExtraTextures[0].Size() * .5f, projectile.scale * num, SpriteEffects.None, 0f);
+				}
+			}
+			SetSpriteBatch(spriteBatch: spriteBatch);
 			return false;
 		}
 
