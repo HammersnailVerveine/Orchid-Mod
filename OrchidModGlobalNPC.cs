@@ -222,15 +222,15 @@ namespace OrchidMod
 				}
 			}
 			
-			if ((npc.type == 163 || npc.type == 238)) // Black Recluse (ground/wall)
+			if ((npc.type == NPCID.BlackRecluse || npc.type == NPCID.BlackRecluseWall)) // Black Recluse (ground/wall)
             {
                 if (Main.rand.Next(40) == 0) {
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.VenomSigil>());
 				}
 			}
 			
-			if (npc.type == 629) // Ice Mimic
-            {
+			if (npc.type == NPCID.Mimic && npc.frame.Y >= 828 && npc.frame.Y <= 1104) //Ice Mimic
+			{
                 if (Main.rand.Next(3) == 0) {
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.IceMimicScepter>());
 				}
