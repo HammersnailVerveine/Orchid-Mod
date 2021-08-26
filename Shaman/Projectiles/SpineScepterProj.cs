@@ -23,7 +23,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.timeLeft = 30;
             projectile.extraUpdates = 10;		
 			projectile.ignoreWater = true; 	
-			this.empowermentType = 2;
         }
 		
         public override Color? GetAlpha(Color lightColor)

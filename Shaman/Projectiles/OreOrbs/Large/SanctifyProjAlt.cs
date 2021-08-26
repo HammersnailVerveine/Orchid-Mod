@@ -17,7 +17,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
             projectile.aiStyle = 0;
             projectile.extraUpdates = 1;
             projectile.timeLeft = 90;
-            this.empowermentType = 5;
         }
 		
 		public override void SetStaticDefaults()

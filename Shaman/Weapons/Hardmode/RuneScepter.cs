@@ -26,6 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.empowermentType = 1;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
+			this.energy = 10;
 		}
 		
 		public override void SetStaticDefaults()
@@ -34,18 +35,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		  Tooltip.SetDefault("Shoots short ranged rune bolts"
 							+"\nProjectile range and damage scales with the number of active shamanic bonds");
 		}
-
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
-			return true;
-		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			mult *= modPlayer.shamanDamage + (nbBonds * 0.1f);

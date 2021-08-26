@@ -24,6 +24,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 3f;
 			item.shoot = mod.ProjectileType("AdornedBranchProj");
 			this.empowermentType = 1;
+			this.energy = 5;
 		}
 
 		public override void SetStaticDefaults()
@@ -36,12 +37,12 @@ namespace OrchidMod.Shaman.Weapons
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			
-			for (int i = 0; i < Main.rand.Next(3)+3; i++)
+			for (int i = 0; i < Main.rand.Next(3) + 3; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				perturbedSpeed = perturbedSpeed * scale; 
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 1) {
@@ -50,7 +51,7 @@ namespace OrchidMod.Shaman.Weapons
 					Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
 					float scale = 1f - (Main.rand.NextFloat() * .3f);
 					perturbedSpeed = perturbedSpeed * scale; 
-					Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+					this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 				}
 			}
 			return false;

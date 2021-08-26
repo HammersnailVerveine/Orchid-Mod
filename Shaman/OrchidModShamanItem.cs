@@ -7,13 +7,23 @@ using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Shaman
-{
+{    
+	public enum ShamanCatalystType : int
+    {
+		IDLE = 0,
+		AIM = 1,
+		ROTATE = 2
+    }
+	
 	public abstract class OrchidModShamanItem : OrchidModItem
 	{
 		public int empowermentType = 0;
+		public int energy = 1;
+		public ShamanCatalystType catalystType = ShamanCatalystType.IDLE;
 		
 		public virtual void SafeSetDefaults() {}
 		public virtual void SafeHoldItem() {}
+		public virtual void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {}
 		
 		public virtual bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
 			return true;
@@ -33,6 +43,10 @@ namespace OrchidMod.Shaman
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeapon = true;
 			SafeSetDefaults();
+			
+			if (this.energy == -1) {
+				this.energy = (int)(item.useTime / 2);
+			}
 		}
 		
 		public sealed override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
@@ -40,7 +54,7 @@ namespace OrchidMod.Shaman
 			modPlayer.shamanDrawWeapon = item.useTime;
 			Vector2 mousePosition = Main.MouseWorld;
 			
-			Vector2 catalystCenter = modPlayer.shamanCatalystPosition + modPlayer.shamanCatalystTexture?.Size() * 0.5f ?? Vector2.Zero;
+			Vector2 catalystCenter = modPlayer.shamanCatalystPosition;
 			
 			if (Collision.CanHit(position, 0, 0, position + (catalystCenter - position), 0, 0)) {
 				position = catalystCenter;
@@ -52,7 +66,48 @@ namespace OrchidMod.Shaman
 			speedX = newMove.X;
 			speedY = newMove.Y;
 			
-			return SafeShoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+			switch (empowermentType) {
+				case 1 :
+					modPlayer.shamanPollFire = modPlayer.shamanPollFire < 0 ? 0 : modPlayer.shamanPollFire;
+					modPlayer.shamanPollFire += energy;
+					modPlayer.shamanPollFireMax = false;
+					break;
+				case 2 :
+					modPlayer.shamanPollWater = modPlayer.shamanPollWater < 0 ? 0 : modPlayer.shamanPollWater;
+					modPlayer.shamanPollWater += energy;
+					modPlayer.shamanPollWaterMax = false;
+					break;
+				case 3 :
+					modPlayer.shamanPollAir = modPlayer.shamanPollAir < 0 ? 0 : modPlayer.shamanPollAir;
+					modPlayer.shamanPollAir += energy;
+					modPlayer.shamanPollAirMax = false;
+					break;
+				case 4 :
+					modPlayer.shamanPollEarth = modPlayer.shamanPollEarth < 0 ? 0 : modPlayer.shamanPollEarth;
+					modPlayer.shamanPollEarth += energy;
+					modPlayer.shamanPollEarthMax = false;
+					break;
+				case 5 :
+					modPlayer.shamanPollSpirit = modPlayer.shamanPollSpirit < 0 ? 0 : modPlayer.shamanPollSpirit;
+					modPlayer.shamanPollSpirit += energy;
+					modPlayer.shamanPollSpiritMax = false;
+					break;
+				default :
+					break;
+			}
+			
+			if (SafeShoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack)) {
+				this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
+			}
+			
+			return false;
+		}
+		
+		public int newShamanProjectile(float posX, float posY, float speedX, float speedY, int type, int damage, float knockBack, int playerID, float ai0 = 0.0f, float ai1 = 0.0f) {
+			int newProjectileIndex = Projectile.NewProjectile(posX, posY, speedX, speedY, type, damage, knockBack, playerID, ai0, ai1);
+			Projectile newProjectile = Main.projectile[newProjectileIndex];
+			OrchidModProjectile.setShamanBond(newProjectile, this.empowermentType);
+			return newProjectileIndex;
 		}
 		
 		public sealed override void HoldItem(Player player) {
@@ -65,9 +120,9 @@ namespace OrchidMod.Shaman
 			if (modPlayer.shamanSelectedItem != item.type) {
 				modPlayer.shamanSelectedItem = item.type;
 				string textureLocation = "OrchidMod/Shaman/CatalystTextures/" + this.Name + "_Catalyst";
-				if (TextureExists(textureLocation))
-				{
+				if (TextureExists(textureLocation)) {
 					modPlayer.shamanCatalystTexture = GetTexture(textureLocation);
+					modPlayer.shamanCatalystType = catalystType;
 				}
 			}
 			
@@ -75,9 +130,32 @@ namespace OrchidMod.Shaman
 			SafeHoldItem();
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public sealed override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
+			
+			switch (empowermentType) {
+				case 1 :
+					mult *= modPlayer.shamanFireBondLoading < 100 ? 1f : 0.5f;
+					break;
+				case 2 :
+					mult *= modPlayer.shamanWaterBondLoading < 100 ? 1f : 0.5f;
+					break;
+				case 3 :
+					mult *= modPlayer.shamanAirBondLoading < 100 ? 1f : 0.5f;
+					break;
+				case 4 :
+					mult *= modPlayer.shamanEarthBondLoading < 100 ? 1f : 0.5f;
+					break;
+				case 5 :
+					mult *= modPlayer.shamanSpiritBondLoading < 100 ? 1f : 0.5f;
+					break;
+				default :
+					break;
+			}
+			
+			SafeModifyWeaponDamage(player, ref add, ref mult, ref flat);
 		}
 		
 		public override void GetWeaponCrit(Player player, ref int crit)

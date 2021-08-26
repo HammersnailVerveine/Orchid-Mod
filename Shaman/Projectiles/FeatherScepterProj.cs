@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.aiStyle = 0;
 			projectile.timeLeft = 200;
             projectile.penetrate = -1;
-            this.empowermentType = 3;
             this.projectileTrail = true;
 		}
 		

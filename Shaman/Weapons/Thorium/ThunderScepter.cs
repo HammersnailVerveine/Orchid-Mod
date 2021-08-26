@@ -28,6 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shootSpeed = 12f;
 			item.shoot = mod.ProjectileType("ThunderScepterProj");
 			this.empowermentType = 3;
+			this.energy = 10;
 		}
 		
 		public override void SetStaticDefaults()

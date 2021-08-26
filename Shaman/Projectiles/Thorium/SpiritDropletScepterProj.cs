@@ -22,7 +22,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
             projectile.friendly = true;
             projectile.aiStyle = 0;
 			projectile.timeLeft = 100;
-            this.empowermentType = 1;
 		}
 		
         public override void AI()

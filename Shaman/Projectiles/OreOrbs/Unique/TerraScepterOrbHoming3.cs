@@ -26,7 +26,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			Main.projFrames[projectile.type] = 10;
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			projectile.timeLeft = 350;
-            this.empowermentType = 5;
 		}
 		
 		public override Color? GetAlpha(Color lightColor)

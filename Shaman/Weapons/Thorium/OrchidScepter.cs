@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shootSpeed = 13f;
 			item.shoot = mod.ProjectileType("OrchidScepterProj");
 			this.empowermentType = 4;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -47,7 +48,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(4));
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

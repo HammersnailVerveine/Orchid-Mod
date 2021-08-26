@@ -25,6 +25,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 5f;
 			item.shoot = mod.ProjectileType("NirvanaMain");
 			this.empowermentType = 5;
+			this.catalystType = ShamanCatalystType.ROTATE;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -32,16 +34,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		  DisplayName.SetDefault("Nirvana");
 		  Tooltip.SetDefault("Shoots a bolt of elemental energy, calling all four elements upon impact"
 							+"\nIf you have 3 or more active shamanic bonds, more elements will be called");
-		}
-
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
-			return true;
 		}
 
 		public override Color? GetAlpha(Color lightColor)

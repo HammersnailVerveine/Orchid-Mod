@@ -25,6 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shoot = ModContent.ProjectileType<Projectiles.WyvernMorayProj>();
 
 			this.empowermentType = 3;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -40,10 +41,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0)) position += muzzleOffset;
-
-			var proj = Main.projectile[Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage * 2, knockBack, player.whoAmI)];
+			var proj = Main.projectile[this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, damage * 2, knockBack, player.whoAmI)];
 			if (proj.modProjectile is Projectiles.WyvernMorayProj modProj)
 			{
 				modProj.Improved = (Main.rand.Next(101) < 4 + nbBonds * 4);

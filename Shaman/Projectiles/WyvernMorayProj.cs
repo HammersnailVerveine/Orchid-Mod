@@ -34,8 +34,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.timeLeft = 150;
 			projectile.alpha = 255;
 			projectile.penetrate = -1;
-
-			this.empowermentType = 2;
 		}
 
 		private readonly Color[] _effectColors = new Color[] { new Color(113, 187, 162), new Color(40, 116, 255) };
@@ -59,6 +57,7 @@ namespace OrchidMod.Shaman.Projectiles
 		public override void AI()
 		{
 			if (_death) this.DeathUpdate();
+			else OrchidModProjectile.resetIFrames(projectile);
 		}
 
 		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -136,7 +135,7 @@ namespace OrchidMod.Shaman.Projectiles
 			return false;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
 			_death = true;
 		}

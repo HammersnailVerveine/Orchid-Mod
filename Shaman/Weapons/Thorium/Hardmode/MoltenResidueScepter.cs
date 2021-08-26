@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 1f;
 			item.shoot = mod.ProjectileType("MoltenResidueScepterProj");
 			this.empowermentType = 1;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -34,15 +35,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			DisplayName.SetDefault("Molten Bomb");
 			Tooltip.SetDefault("Fires out a magmatic bomb"
 							+ "\nThe explosion size and damage depends on your number of active shamanic bonds");
-		}
-		
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-				position += muzzleOffset;
-			
-			return true;
 		}
 		
 		public override void AddRecipes()

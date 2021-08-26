@@ -26,6 +26,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shoot = ModContent.ProjectileType<Projectiles.StarpowerScepterProj>();
 			item.crit = 4;
 			empowermentType = 3;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()

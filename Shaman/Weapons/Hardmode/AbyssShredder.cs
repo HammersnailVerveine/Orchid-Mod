@@ -16,7 +16,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void SafeSetDefaults()
 		{
 			item.damage = 110;
-			item.noUseGraphic = false;
 			item.magic = true;
 			item.width = 42;
 			item.height = 42;
@@ -33,6 +32,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -44,19 +44,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
-			
 			for (int i = 0; i < 1; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AbyssShard"), damage, knockBack, player.whoAmI);
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AbyssShardS"), damage, knockBack, player.whoAmI);
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AbyssShardD"), damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AbyssShard"), damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AbyssShardS"), damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AbyssShardD"), damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.UseSound = SoundID.Item15;
 			this.empowermentType = 1;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -37,7 +38,7 @@ namespace OrchidMod.Shaman.Weapons
 							+"\nWeapon damage doubles if you have 3 or more active shamanic bonds");
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 3) {
 				flat += 7f;

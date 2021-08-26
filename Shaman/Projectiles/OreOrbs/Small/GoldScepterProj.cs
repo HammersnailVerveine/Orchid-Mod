@@ -18,7 +18,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
             projectile.friendly = true;
             projectile.aiStyle = 0;
 			projectile.timeLeft = 40;
-            this.empowermentType = 4;
 			this.projectileTrail = true;				
         }
 		

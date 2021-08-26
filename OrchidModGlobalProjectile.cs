@@ -10,13 +10,14 @@ namespace OrchidMod
 {
     public class OrchidModGlobalProjectile : GlobalProjectile
     {
-		public bool alchemistProjectile = false;
-		public bool alchemistReactiveProjectile = false;
+		public int baseCritChance = 0;
 		public bool shamanProjectile = false;
 		public bool gamblerProjectile = false;
 		public bool dancerProjectile = false;
+		public bool alchemistProjectile = false;
+		public bool alchemistReactiveProjectile = false;
+		public int shamanEmpowermentType = 0;
 		public int gamblerInternalCooldown  = 0;
-		public int baseCritChance = 0;
 		public bool gamblerDummyProj = false;
 		public bool gamblerBonusTrigger = false;
 		

@@ -29,7 +29,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.aiStyle = 0;
 			projectile.timeLeft = 120;
 			projectile.penetrate = -1; // Don't delete it, pls
-			empowermentType = 3;
 		}
 
 		public override void OnSpawn()
@@ -115,7 +114,7 @@ namespace OrchidMod.Shaman.Projectiles
 			return false;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
 			projectile.timeLeft = 24;
 			projectile.ai[1] = 1;

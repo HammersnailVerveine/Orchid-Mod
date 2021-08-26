@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			projectile.alpha = 255;	
 			aiType = ProjectileID.Bullet; 
 			projectile.penetrate = 3;
-            this.empowermentType = 1;
         }
 
         public override void AI()

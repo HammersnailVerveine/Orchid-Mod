@@ -24,6 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("AdamantiteScepterProj");
 			this.empowermentType = 4;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -36,24 +37,19 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
 			int numberProjectiles = 3;
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountBig >= 15 && player.GetModPlayer<OrchidModPlayer>().shamanOrbBig == ShamanOrbBig.ADAMANTITE) {
 				for (int i = 0; i < 3; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-					Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AdamantiteScepterProj"), damage * 2, knockBack, player.whoAmI, 0f, 0f);
+					this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AdamantiteScepterProj"), damage * 2, knockBack, player.whoAmI);
 				}
 				player.GetModPlayer<OrchidModPlayer>().orbCountBig = -3;
 			}
 			else {
 				for (int i = 0; i < numberProjectiles; i++)
 				{
-					Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("AdamantiteScepterProj"), damage, knockBack, player.whoAmI, 0f, 0f);
+					this.newShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("AdamantiteScepterProj"), damage, knockBack, player.whoAmI);
 				}	
 			}
 			return false;

@@ -12,7 +12,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void SafeSetDefaults()
 		{
 			item.damage = 56;
-			item.noUseGraphic = false;
 			item.width = 50;
 			item.height = 50;
 			item.useTime = 45;
@@ -25,6 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("ChlorophyteScepterProj");
 			this.empowermentType = 4;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -37,15 +37,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ChlorophyteScepterProj"), damage, knockBack, player.whoAmI, 0f, 0f);
+				this.newShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ChlorophyteScepterProj"), damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

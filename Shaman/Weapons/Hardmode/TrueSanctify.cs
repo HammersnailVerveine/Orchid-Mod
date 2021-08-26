@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 9f;
 			item.shoot = mod.ProjectileType("TrueSanctifyProj");
 			this.empowermentType = 5;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -42,16 +43,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
         {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
-			
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2) {
 				for (int i = 0; i < 2; i ++) {
 					Vector2 projectileVelocity = ( new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(i == 0 ? -20 : 20)));
-					Projectile.NewProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("TrueSanctifyProjAlt"), (int)(item.damage*0.75), knockBack, item.owner);
+					this.newShamanProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("TrueSanctifyProjAlt"), (int)(item.damage*0.75), knockBack, item.owner);
 				}
 			}
 			

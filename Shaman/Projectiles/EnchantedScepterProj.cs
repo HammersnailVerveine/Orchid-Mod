@@ -22,7 +22,6 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.aiStyle = 1;
 			projectile.timeLeft = 50;
 			projectile.penetrate = 2;	
-            this.empowermentType = 1;
         }
 		
         public override Color? GetAlpha(Color lightColor)

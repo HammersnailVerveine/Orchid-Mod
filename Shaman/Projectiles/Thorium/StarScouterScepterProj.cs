@@ -30,7 +30,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.aiStyle = 0;
 			projectile.timeLeft = 120;
 
-			this.empowermentType = 3;
 		}
 
 		public override void OnSpawn()
@@ -85,7 +84,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			return false;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
 			projectile.timeLeft = 1;
 		}

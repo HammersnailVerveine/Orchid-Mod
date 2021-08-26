@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 1f;
 			item.shoot = mod.ProjectileType("LichScepterProj");
 			this.empowermentType = 3;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -34,15 +35,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			DisplayName.SetDefault("Reliquary Candle");
 			Tooltip.SetDefault("Fires out a bolt of spiritual fire, dividing upon hitting a foe"
 							+ "\nIf you have 4 or more active shamanic bonds, the bonus projectiles will home at nearby enemies");
-		}
-		
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-				position += muzzleOffset;
-			
-			return true;
 		}
     }
 }

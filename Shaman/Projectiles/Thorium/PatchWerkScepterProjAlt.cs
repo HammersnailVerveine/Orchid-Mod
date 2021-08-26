@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
             projectile.penetrate = 3;
 			projectile.scale = 1f;
 			Main.projFrames[projectile.type] = 2;
-            this.empowermentType = 4;
 		}
 		
         public override void AI()

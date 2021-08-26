@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("CoznixScepterProj");
 			this.empowermentType = 1;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -34,15 +35,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			DisplayName.SetDefault("Gate to the Fallen");
 			Tooltip.SetDefault("Fires out a void bolt"
 							+ "\nIf you have 3 or more active shamanic bonds, the bolt will summon a void portal");
-		}
-		
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-				position += muzzleOffset;
-			
-			return true;
 		}
     }
 }

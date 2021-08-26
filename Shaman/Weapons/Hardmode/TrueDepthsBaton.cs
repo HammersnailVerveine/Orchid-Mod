@@ -15,7 +15,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void SafeSetDefaults()
 		{
 			item.damage = 62;
-			item.noUseGraphic = false;
 			item.magic = true;
 			item.width = 30;
 			item.height = 30;
@@ -29,6 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("TrueDepthProj");
 			this.empowermentType = 5;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -70,7 +70,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			for (int i = 0; i < projectilesNumber; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(4));
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

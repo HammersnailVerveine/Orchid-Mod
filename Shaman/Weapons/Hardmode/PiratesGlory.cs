@@ -25,10 +25,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("PiratesGloryProj");
 			this.empowermentType = 2;
+			this.energy = 3;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 2f);
 		}
@@ -36,8 +38,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Pirates Glory");
-		  Tooltip.SetDefault("Shoots a continuous laser beam"
+			DisplayName.SetDefault("Pirates Glory");
+			Tooltip.SetDefault("Shoots a continuous laser beam"
 							+"\nWeapon damage increases with the number of active shamanic bonds"
 							+"\nHaving more than 3 of them active will make your foes drop more gold");
 		}

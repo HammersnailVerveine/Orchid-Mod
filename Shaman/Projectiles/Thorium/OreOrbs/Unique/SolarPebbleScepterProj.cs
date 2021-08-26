@@ -18,7 +18,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			projectile.timeLeft = 35;	
 			projectile.scale = 1f;
 			aiType = ProjectileID.Bullet; 
-            this.empowermentType = 1;
         }
 		
 		public override void SetStaticDefaults()

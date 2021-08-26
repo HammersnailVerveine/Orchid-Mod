@@ -25,6 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 8f;
 			item.shoot = ModContent.ProjectileType<Projectiles.HellShamanRodProj>();
 			empowermentType = 4;
+			this.energy = 10;
 		}
 		
 		public override void SetStaticDefaults()
@@ -35,7 +36,7 @@ namespace OrchidMod.Shaman.Weapons
 							   "\nHaving 2 or more active shamanic bonds increases damage and slows on hit");
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
@@ -46,7 +47,8 @@ namespace OrchidMod.Shaman.Weapons
 		{
 			ShamanRod.RemoveAllShamanRodProjs(player);
 
-			for (int i = 0; i < 3; i++) Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, ai1: i + 1);
+			for (int i = 0; i < 3; i++) 
+				this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, ai1: i + 1);
 
 			return false;
 		}

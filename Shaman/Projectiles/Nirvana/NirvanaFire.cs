@@ -19,7 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			projectile.tileCollide = false;
 			projectile.timeLeft = 200;
             projectile.extraUpdates = 5;
-            this.empowermentType = 5;
         }
 		public override void SetStaticDefaults()
         {

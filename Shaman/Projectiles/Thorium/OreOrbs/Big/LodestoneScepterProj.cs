@@ -18,7 +18,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			projectile.timeLeft = 25;
 			projectile.scale = 1f;
 			projectile.alpha = 255;
-            this.empowermentType = 4;
         }
 		
 		public override void SetStaticDefaults()

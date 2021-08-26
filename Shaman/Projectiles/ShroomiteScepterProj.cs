@@ -30,9 +30,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.timeLeft = 1800;
 			projectile.scale = 1f;
 			projectile.hide = true; // DrawBehind()
-
-			/*empowermentType = 4;
-			empowermentLevel = 4;*/
 		}
 
 		public override void OnSpawn()
@@ -65,8 +62,9 @@ namespace OrchidMod.Shaman.Projectiles
 					target.StrikeNPCNoInteraction(projectile.damage, 0f, 0);
 					if (NbBonds >= 3)
 					{
+						OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 						target.GetGlobalNPC<OrchidModGlobalNPC>().shamanShroom = 300;
-						OrchidModShamanHelper.addShamanicEmpowerment(4, owner, owner.GetModPlayer<OrchidModPlayer>(), mod);
+						OrchidModShamanHelper.addShamanicEmpowerment(modProjectile.shamanEmpowermentType, owner, owner.GetModPlayer<OrchidModPlayer>(), mod);
 					}
 					target.netUpdate = true;
 				}

@@ -22,7 +22,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.penetrate = 1;
 			projectile.tileCollide = false;
 			projectile.timeLeft = 600;
-			this.empowermentType = 1;
 		}
 
 		public override Color? GetAlpha(Color lightColor)

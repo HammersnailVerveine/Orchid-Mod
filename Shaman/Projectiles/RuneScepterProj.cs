@@ -16,7 +16,6 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.friendly = true;
             projectile.aiStyle = 0;
 			projectile.timeLeft = 50;	
-            this.empowermentType = 1;
         }
 		
 		public override void SetStaticDefaults()

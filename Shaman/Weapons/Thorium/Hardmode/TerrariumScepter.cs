@@ -28,6 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 8f;
 			item.shoot = mod.ProjectileType("TerrariumScepterProj");
 			this.empowermentType = 3;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -36,15 +37,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Tooltip.SetDefault("Fires bolts of chromatic energy"
 							+"\nHitting enemies will gradually grant you terrarium orbs"
 							+"\nWhen reaching 7 orbs, they will break free and home into your enemies");
-		}
-		
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-				position += muzzleOffset;
-			
-			return true;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

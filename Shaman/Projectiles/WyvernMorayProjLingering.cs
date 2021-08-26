@@ -32,7 +32,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.penetrate = -1;
 			projectile.tileCollide = false;
 
-			this.empowermentType = 2;
 		}
 
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

@@ -23,7 +23,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.timeLeft = 150;	
             projectile.scale = 0.7f;		
 			projectile.penetrate = 3;
-			this.empowermentType = 4;
         }
 		
         public override void AI()

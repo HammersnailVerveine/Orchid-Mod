@@ -28,6 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
 			this.empowermentType = 4;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -40,9 +41,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0)) position += muzzleOffset;
-
 			int projectileType = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), mod);
 
@@ -83,7 +81,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			{
 				point.Y++;
 			}
-			var projectile = Projectile.NewProjectile(Main.mouseX + Main.screenPosition.X, point.Y * 16 - 22, 0f, 15f, projectileType, item.damage, item.knockBack, player.whoAmI, 0f, 0f);
+			var projectile = this.newShamanProjectile(Main.mouseX + Main.screenPosition.X, point.Y * 16 - 22, 0f, 15f, projectileType, item.damage, item.knockBack, player.whoAmI);
 			return Main.projectile[projectile];
 		}
 	}

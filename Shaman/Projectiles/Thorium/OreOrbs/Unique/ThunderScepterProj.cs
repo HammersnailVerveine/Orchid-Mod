@@ -26,7 +26,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			projectile.extraUpdates = 1;
 			projectile.ignoreWater = true;   
 			projectile.alpha = 255;
-			this.empowermentType = 3;
         }
 		
         public override void AI()

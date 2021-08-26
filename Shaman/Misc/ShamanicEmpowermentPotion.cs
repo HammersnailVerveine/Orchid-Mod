@@ -24,13 +24,13 @@ namespace OrchidMod.Shaman.Misc
             item.height = 28;
             item.rare = 1;
             item.buffType = mod.BuffType("ShamanicEmpowerment"); 
-            item.buffTime = 60 * 180;
+            item.buffTime = 60 * 420;
         }
 
     public override void SetStaticDefaults()
     {
-      DisplayName.SetDefault("Shamanic Empowerment Potion");
-      Tooltip.SetDefault("Increases the effectiveness of all your shamanic bonds");
+      DisplayName.SetDefault("Shamanic Accurary Potion");
+      Tooltip.SetDefault("The source of your shamanic attacks will stay in position better");
     }
 		public override void AddRecipes()
 		{
@@ -38,8 +38,8 @@ namespace OrchidMod.Shaman.Misc
 			recipe.AddTile(TileID.Bottles);	
 			recipe.AddIngredient(ItemID.BottledWater, 1);
 			recipe.AddIngredient(ItemID.Fireblossom, 1);
-			recipe.AddIngredient(ItemID.Moonglow, 1);	
-			recipe.AddIngredient(ItemID.FallenStar, 1);
+			recipe.AddIngredient(ItemID.Shiverthorn, 1);	
+			recipe.AddIngredient(ItemID.Feather, 1);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
         }

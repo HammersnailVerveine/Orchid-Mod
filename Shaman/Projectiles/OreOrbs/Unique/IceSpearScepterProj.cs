@@ -19,7 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			projectile.penetrate = 1;
 			projectile.scale = 1f;
 			Main.projFrames[projectile.type] = 4;
-            this.empowermentType = 2;
         }
 		
 		public override void SetStaticDefaults()

@@ -107,7 +107,7 @@ namespace OrchidMod
 				}
 			}
 			
-			if (npc.type == 87) // 
+			if (npc.type == 87) // Wyvern Head
 			{
 				if (Main.rand.Next(15) == 0) {
                     Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.WyvernTailFeather>());

@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.tileCollide = false;
 			aiType = ProjectileID.Bullet; 
 			Main.projFrames[projectile.type] = 2;
-            this.empowermentType = 3;
         }
 		
 		public override Color? GetAlpha(Color lightColor)

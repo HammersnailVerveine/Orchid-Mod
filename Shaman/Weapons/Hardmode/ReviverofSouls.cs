@@ -29,6 +29,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("ReviverofSoulsProj");
 			this.empowermentType = 3;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -42,22 +43,17 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							+"\n                                                            and the weapon damage will increase more per shot");
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
 			add += (((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).shamanOrbCircle == ShamanOrbCircle.REVIVER) ? ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).orbCountCircle * 0.035f : 0;
 		}
 		
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ReviverofSoulsProj"), damage, knockBack, player.whoAmI, 0f, 0f);
+				this.newShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ReviverofSoulsProj"), damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

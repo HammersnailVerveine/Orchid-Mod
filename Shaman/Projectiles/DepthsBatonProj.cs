@@ -23,7 +23,6 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.aiStyle = 0;
 			projectile.timeLeft = 45;
 			projectile.tileCollide = true;
-            this.empowermentType = 5;
         }
 		
         public override Color? GetAlpha(Color lightColor)

@@ -19,7 +19,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.scale = 0f;
             projectile.extraUpdates = 1;		
 			projectile.tileCollide = true;
-            this.empowermentType = 5;
         }
 		
 		public override void SetStaticDefaults()

@@ -31,6 +31,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("FeatherScepterProj");
 			this.empowermentType = 3;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -48,7 +49,7 @@ namespace OrchidMod.Shaman.Weapons
 			
 			if (nbBonds > 2) {
 				Vector2 perturbedSpeed = new Vector2(speedX/2, speedY/2).RotatedByRandom(MathHelper.ToRadians(15));
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return true;
 		}

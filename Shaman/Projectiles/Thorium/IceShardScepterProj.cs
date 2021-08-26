@@ -27,7 +27,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
             projectile.tileCollide = true;
 			projectile.scale = 1f;
 			aiType = ProjectileID.Bullet;
-            this.empowermentType = 2;
         }
 		
 		public override Color? GetAlpha(Color lightColor)
@@ -54,9 +53,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				projectile.damage = storeDamage;
 				projectile.velocity = storeVelocity;
 				projectile.extraUpdates = 1;
-
 				
-				spawnDustCircle(92, 20);
+				OrchidModProjectile.spawnDustCircle(projectile.Center, 92, 20, 5, true, 1.5f, 1f, 1f, true, true, false, 0, 0, true);
+				for (int i = 0 ; i < 5 ; i ++) {
+					int index = Dust.NewDust(projectile.position, projectile.width, projectile.height, 92);
+					Main.dust[index].scale = 1.5f;
+					Main.dust[index].velocity = projectile.velocity.RotatedByRandom(MathHelper.ToRadians(20));
+					Main.dust[index].noGravity = true;
+				}
 			}
 			
 			for (int i = 0 ; i < 3 ; i ++) {
@@ -74,26 +78,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				int newCrit = 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
 				OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 				modProjectile.baseCritChance = newCrit;
-			}
-		}
-		
-		public void spawnDustCircle(int dustType, int distToCenter) {
-			for (int i = 0 ; i < 20 ; i ++ )
-			{
-				double dustDeg = (double) projectile.ai[1] * (i * (36 + 5 - Main.rand.Next(10)));
-				double dustRad = dustDeg * (Math.PI / 180);
-				
-				float posX = projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - projectile.width/2 + 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - projectile.height/2 + 4;
-				
-				Vector2 dustPosition = new Vector2(posX, posY);
-				
-				int index1 = Dust.NewDust(dustPosition, 1, 1, dustType, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
-				
-				Main.dust[index1].velocity *= 0.2f;
-				Main.dust[index1].fadeIn = 1f;
-				Main.dust[index1].scale = 1.5f;
-				Main.dust[index1].noGravity = true;
 			}
 		}
 		

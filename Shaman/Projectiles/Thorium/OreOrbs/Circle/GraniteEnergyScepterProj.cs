@@ -18,7 +18,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 			projectile.timeLeft = 35;
 			projectile.scale = 1f;
 			projectile.tileCollide = true;
-            this.empowermentType = 4;
         }
 		
 		public override void SetStaticDefaults()

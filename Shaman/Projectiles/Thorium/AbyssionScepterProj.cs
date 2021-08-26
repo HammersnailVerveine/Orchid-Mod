@@ -23,7 +23,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.alpha = 255;
 			projectile.penetrate = 3;
 			projectile.tileCollide = false;
-            this.empowermentType = 2;
         }
 		
 		public override void SetStaticDefaults()

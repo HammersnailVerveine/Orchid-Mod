@@ -25,6 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 9.5f;
 			item.shoot = mod.ProjectileType("DemoniteScepterProj");
 			this.empowermentType = 2;
+			this.energy = 5;
 		}
 
 		public override void SetStaticDefaults()

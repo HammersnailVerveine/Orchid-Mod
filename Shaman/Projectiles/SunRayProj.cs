@@ -22,7 +22,6 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.extraUpdates = 5;			
 			projectile.ignoreWater = true; 
 			projectile.alpha = 255;
-            this.empowermentType = 1;
         }
 		
 		public override void SetStaticDefaults()

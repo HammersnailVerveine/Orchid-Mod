@@ -23,7 +23,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.scale = 1f;
 			Main.projFrames[projectile.type] = 3;
 			this.crystalType = 0;
-            this.empowermentType = 4;
         }
 		
 		public override void SetStaticDefaults()

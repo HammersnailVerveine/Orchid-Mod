@@ -29,6 +29,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.empowermentType = 2;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
+			this.energy = 10;
 		}
 		
 		public override void SetStaticDefaults()
@@ -50,15 +51,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
                     proj.active = false;
                 }
             }
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
-			
+
 			float speedYalt = new Vector2(speedX, speedY).Length();
-			int newProj = Projectile.NewProjectile(position.X, position.Y, 0f, -1f * speedYalt, type, damage, knockBack, player.whoAmI);
+			int newProj = this.newShamanProjectile(position.X, position.Y, 0f, -1f * speedYalt, type, damage, knockBack, player.whoAmI);
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2) {
 				Main.projectile[newProj].ai[1] = 3;
 			}

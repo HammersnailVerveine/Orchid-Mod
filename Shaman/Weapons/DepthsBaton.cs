@@ -26,6 +26,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 12f;
 			item.shoot = mod.ProjectileType("DepthsBatonProj");
 			this.empowermentType = 5;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -41,7 +42,7 @@ namespace OrchidMod.Shaman.Weapons
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			if (BuffsCount > 2) {
-				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("DepthBatonProjAlt"), damage - 10, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("DepthBatonProjAlt"), damage - 10, knockBack, player.whoAmI);
 			}
 			return true;
 		}

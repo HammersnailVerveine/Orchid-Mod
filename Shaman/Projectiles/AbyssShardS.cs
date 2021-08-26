@@ -24,7 +24,6 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.penetrate = 15;
 			projectile.extraUpdates = 5;
 			projectile.alpha = 255;
-			this.empowermentType = 1;
 		}
 		
         public override void AI() 

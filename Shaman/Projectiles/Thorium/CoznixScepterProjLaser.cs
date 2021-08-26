@@ -23,7 +23,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.alpha = 255;
 			projectile.timeLeft = 7200;
 			projectile.tileCollide = false;
-			this.empowermentType = 1;
 		}
 
 		internal const float charge = 20f;

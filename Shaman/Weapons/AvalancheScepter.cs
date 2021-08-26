@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("IceSpearScepterProj");
 			this.empowermentType = 2;
+			this.energy = 10;
 		}
 		
 		public override void SetStaticDefaults()
@@ -38,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons
 		
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			Projectile.NewProjectile(position.X + Main.rand.Next(50) - 35 , position.Y - Main.rand.Next(14) + 7 , speedX, speedY, type, damage, knockBack, player.whoAmI);
+			this.newShamanProjectile(position.X + Main.rand.Next(50) - 35 , position.Y - Main.rand.Next(14) + 7 , speedX, speedY, type, damage, knockBack, player.whoAmI);
 			return false;
 		}
     }

@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("TitanicScepterProj");
 			this.empowermentType = 4;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -40,15 +41,10 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f;
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			{
-				position += muzzleOffset;
-			}
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, 0f, 0f);
+				this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

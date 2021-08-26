@@ -23,7 +23,6 @@ namespace OrchidMod.Shaman.Projectiles
             projectile.extraUpdates = 10;
 			projectile.alpha = 255;
 			projectile.ignoreWater = true; 
-            this.empowermentType = 5;
         }
 
         public override void AI()

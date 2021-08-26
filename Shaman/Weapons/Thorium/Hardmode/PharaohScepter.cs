@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 12f;
 			item.shoot = mod.ProjectileType("PharaohScepterProj");
 			this.empowermentType = 3;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -39,11 +40,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-				position += muzzleOffset;
-			
-			
             for (int l = 0; l < Main.projectile.Length; l++)
             {  
                 Projectile proj = Main.projectile[l];
@@ -56,7 +52,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 					float speedXAlt = heading.X;
 					float speedYAlt = heading.Y + Main.rand.Next(-40, 41) * 0.02f;
 
-                    Projectile.NewProjectile(proj.Center.X, proj.Center.Y, speedXAlt, speedYAlt, mod.ProjectileType("PharaohScepterProjAlt"), damage, knockBack, player.whoAmI);
+                    this.newShamanProjectile(proj.Center.X, proj.Center.Y, speedXAlt, speedYAlt, mod.ProjectileType("PharaohScepterProjAlt"), damage, knockBack, player.whoAmI);
                 }
             }
 			

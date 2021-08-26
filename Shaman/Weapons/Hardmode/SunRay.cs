@@ -26,9 +26,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("SunRayProj");
 			this.empowermentType = 1;
+			this.energy = 10;
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			mult *= modPlayer.shamanDamage + (nbBonds * 0.1f);

@@ -28,15 +28,27 @@ namespace OrchidMod.Shaman
 		}
 		
 		public override void AI() {
-			projectile.rotation = projectile.velocity.X * 0.035f;
-			projectile.rotation = projectile.rotation > 0.35f ? 0.35f : projectile.rotation;
-			projectile.rotation = projectile.rotation < - 0.35f ? - 0.35f : projectile.rotation;
-
 			if (active) {
 				Player player = Main.player[projectile.owner];
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				bool netUpdate = false;
 				
+				switch (modPlayer.shamanCatalystType) {
+					case ShamanCatalystType.IDLE:
+						projectile.rotation = projectile.velocity.X * 0.035f;
+						projectile.rotation = projectile.rotation > 0.35f ? 0.35f : projectile.rotation;
+						projectile.rotation = projectile.rotation < - 0.35f ? - 0.35f : projectile.rotation;
+						break;
+					case ShamanCatalystType.AIM:							
+						// Vector2 aimVector = mousePosition - projectile.Center;
+						// projectile.rotation = aimVector.ToRotation();
+						// projectile.direction = projectile.spriteDirection;
+						break;
+					case ShamanCatalystType.ROTATE:
+						projectile.rotation += 0.05f;
+						break;
+				}
+
 				if (Main.myPlayer == projectile.owner) {
 					Vector2 mousePosition = Main.MouseWorld;
 					int mouseDir = mousePosition.X < player.Center.X ? -1 : 1;
@@ -68,7 +80,7 @@ namespace OrchidMod.Shaman
 					projectile.netUpdate = true;
 				} else if (distanceTo > 0.01f) {
 					newMove.Normalize();
-					float vel = ((distanceTo * 0.075f) + (player.velocity.Length() / 2));
+					float vel = ((distanceTo * 0.075f) + (player.velocity.Length() / 2)) * (player.HasBuff(ModContent.BuffType<Shaman.Buffs.ShamanicEmpowerment>()) ? 1.5f : 1f);
 					vel = vel > 50f ? 50f : vel;
 					newMove *= vel;
 					projectile.velocity = newMove;
@@ -104,15 +116,18 @@ namespace OrchidMod.Shaman
 			Color color = Lighting.GetColor((int)(projectile.position.X / 16f), (int)(projectile.position.Y / 16f), Color.White);
 				
 			if (modPlayer.shamanCatalystTexture != null) {
-				Vector2 drawPosition = projectile.position - Main.screenPosition;
+				Vector2 drawPosition = projectile.Center - Main.screenPosition;
 				SpriteEffects spriteEffect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+				Texture2D texture = modPlayer.shamanCatalystTexture;
+				projectile.width = texture.Width;
+				projectile.height = texture.Height;
 
-				spriteBatch.Draw(modPlayer.shamanCatalystTexture, drawPosition, null, color, projectile.rotation, projectile.Size * 0.5f, projectile.scale, spriteEffect, 0f);
+				spriteBatch.Draw(texture, drawPosition, null, color, projectile.rotation, projectile.Size * 0.5f, projectile.scale, spriteEffect, 0f);
 			}
 			
 			if (modPlayer.shamanDrawWeapon > 0) {
 				Texture2D texture = Main.itemTexture[player.HeldItem.type];
-				if (texture != null) {
+				if (texture != null) {	
 					float diagonalBy2 = ((float)Math.Sqrt(texture.Width * texture.Width + texture.Height * texture.Width) / 2);
 					Vector2 drawPosition = player.position + new Vector2((player.width / 2) - diagonalBy2 + (12f * player.direction), 0f) - Main.screenPosition;
 					drawPosition += player.direction == 1 ? Vector2.Zero : new Vector2(diagonalBy2, - diagonalBy2);

@@ -18,7 +18,6 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.CloneDefaults(123);
 			aiType = 123;
 			projectile.timeLeft = 23;
-            this.empowermentType = 2;
 		}
 		
 		public override bool PreKill(int timeLeft)

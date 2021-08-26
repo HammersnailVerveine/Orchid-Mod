@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 			projectile.alpha = 255;
 			projectile.timeLeft = 7200;
 			projectile.tileCollide = false;
-            this.empowermentType = 3;
 		}
 
 		internal const float charge = 20f;

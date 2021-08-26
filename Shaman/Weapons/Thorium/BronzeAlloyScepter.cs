@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shootSpeed = 14f;
 			item.shoot = mod.ProjectileType("BronzeAlloyScepterProj");
 			this.empowermentType = 4;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -45,9 +46,9 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			
 			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(3));		
 			if (Main.rand.Next(101) < 5 + nbBonds * 5) {
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X * 1.2f, perturbedSpeed.Y * 1.2f, mod.ProjectileType("BronzeAlloyScepterProjAlt"), damage * 2, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X * 1.2f, perturbedSpeed.Y * 1.2f, mod.ProjectileType("BronzeAlloyScepterProjAlt"), damage * 2, knockBack, player.whoAmI);
 			} else {
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

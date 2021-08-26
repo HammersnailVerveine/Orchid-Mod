@@ -25,6 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("TerraSpecterProj2");
 			this.empowermentType = 5;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -44,12 +45,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			BuffsCount -= BuffsCount > 0 ? 1 : 0;
 			
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 50f;
-			
-            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-            {
-                position += muzzleOffset;
-            }			
 			float spread = 1f * 0.0574f;
             float baseSpeed = (float)Math.Sqrt(speedX * speedX + speedY * speedY);
             double startAngle = Math.Atan2(speedX, speedY) - spread;
@@ -60,7 +55,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
             for (i = 0; i < BuffsCount; i++)
             {
                 offsetAngle += deltaAngle * 4;
-                Projectile.NewProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType("TerraSpecterProj"), (int)(item.damage*0.55), knockBack, item.owner);
+                this.newShamanProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType("TerraSpecterProj"), (int)(item.damage*0.55), knockBack, item.owner);
             }
 			return true;
 	    }

@@ -23,7 +23,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.penetrate = 4;		
 			projectile.alpha = 126;
 			projectile.ignoreWater = true;   
-            this.empowermentType = 2;
         }
 
 		public override void AI()

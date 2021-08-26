@@ -23,11 +23,61 @@ namespace OrchidMod.Shaman
 				modPlayer.shamanSpiritBondLoading = 0;
 			}
 			
+ 			if (modPlayer.shamanPollFire > - 300) {
+				modPlayer.shamanPollFire --;
+				modPlayer.shamanFireBondLoading += modPlayer.shamanPollFire > 0 && modPlayer.shamanFireBondLoading < 100 ? 1 : 0;
+				modPlayer.shamanPollFireMax = modPlayer.shamanPollFireMax || modPlayer.shamanFireBondLoading == 100;
+			} else {
+				modPlayer.shamanPollFire = modPlayer.shamanPollFireMax ? - 295 : - 290;
+				modPlayer.shamanFireBondLoading -= modPlayer.shamanFireBondLoading > 0 ? 1 : 0;
+				modPlayer.shamanPollFireMax = modPlayer.shamanPollFireMax && modPlayer.shamanFireBondLoading > 0;
+			}
+				
+			if (modPlayer.shamanPollWater > - 300) {
+				modPlayer.shamanPollWater --;
+				modPlayer.shamanWaterBondLoading += modPlayer.shamanPollWater > 0 && modPlayer.shamanWaterBondLoading < 100 ? 1 : 0;
+				modPlayer.shamanPollWaterMax = modPlayer.shamanPollWaterMax || modPlayer.shamanWaterBondLoading == 100;
+			} else {
+				modPlayer.shamanPollWater = modPlayer.shamanPollWaterMax ? - 295 : - 290;
+				modPlayer.shamanWaterBondLoading -= modPlayer.shamanWaterBondLoading > 0 ? 1 : 0;
+				modPlayer.shamanPollWaterMax = modPlayer.shamanPollWaterMax && modPlayer.shamanWaterBondLoading > 0;
+			}
+			
+			if (modPlayer.shamanPollAir > - 300) {
+				modPlayer.shamanPollAir --;
+				modPlayer.shamanAirBondLoading += modPlayer.shamanPollAir > 0 && modPlayer.shamanAirBondLoading < 100 ? 1 : 0;
+				modPlayer.shamanPollAirMax = modPlayer.shamanPollAirMax || modPlayer.shamanAirBondLoading == 100;
+			} else {
+				modPlayer.shamanPollAir = modPlayer.shamanPollAirMax ? - 295 : - 290;
+				modPlayer.shamanAirBondLoading -= modPlayer.shamanAirBondLoading > 0 ? 1 : 0;
+				modPlayer.shamanPollAirMax = modPlayer.shamanPollAirMax && modPlayer.shamanAirBondLoading > 0;
+			}
+				
+			if (modPlayer.shamanPollEarth > - 300) {
+				modPlayer.shamanPollEarth --;
+				modPlayer.shamanEarthBondLoading += modPlayer.shamanPollEarth > 0 && modPlayer.shamanEarthBondLoading < 100 ? 1 : 0;
+				modPlayer.shamanPollEarthMax = modPlayer.shamanPollEarthMax || modPlayer.shamanEarthBondLoading == 100;
+			} else {
+				modPlayer.shamanPollEarth = modPlayer.shamanPollEarthMax ? - 295 : - 290;
+				modPlayer.shamanEarthBondLoading -= modPlayer.shamanEarthBondLoading > 0 ? 1 : 0;
+				modPlayer.shamanPollEarthMax = modPlayer.shamanPollEarthMax && modPlayer.shamanEarthBondLoading > 0;
+			}
+				
+			if (modPlayer.shamanPollSpirit > - 300) {
+				modPlayer.shamanPollSpirit --;
+				modPlayer.shamanSpiritBondLoading += modPlayer.shamanPollSpirit > 0 && modPlayer.shamanSpiritBondLoading < 100 ? 1 : 0;
+				modPlayer.shamanPollSpiritMax = modPlayer.shamanPollSpiritMax || modPlayer.shamanSpiritBondLoading == 100;
+			} else {
+				modPlayer.shamanPollSpirit = modPlayer.shamanPollSpiritMax ? - 295 : - 290;
+				modPlayer.shamanSpiritBondLoading -= modPlayer.shamanSpiritBondLoading > 0 ? 1 : 0;
+				modPlayer.shamanPollSpiritMax = modPlayer.shamanPollSpiritMax && modPlayer.shamanSpiritBondLoading > 0;
+			}
+			
+			if (hasAnyBondLoaded(modPlayer)) {
+				modPlayer.UIDisplayTimer = modPlayer.UIDisplayDelay;
+			}
+			
 			if (modPlayer.shamanFireTimer > 0) {
-				if (modPlayer.shamanPollFire > 0) {
-					modPlayer.shamanPollFire --;
-					modPlayer.shamanFireBondLoading += modPlayer.shamanFireBondLoading < 100 ? 1 : 0;
-				}
 				
 				if (modPlayer.shamanRuby) {
 					player.lifeRegen += 2;
@@ -47,16 +97,9 @@ namespace OrchidMod.Shaman
 					Projectile.NewProjectile((int)(player.Center.X + 25 - randX), (int)(player.Center.Y  + 15 - randY), 0f, 0f, mod.ProjectileType("Smite"), dmg, 0f, player.whoAmI);
 				}
 				
-			} else {
-				modPlayer.shamanFireBondLoading -= modPlayer.shamanFireBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
-				modPlayer.shamanPollFire = 0;
 			}
 			
 			if (modPlayer.shamanWaterTimer > 0) {
-				if (modPlayer.shamanPollWater > 0) {
-					modPlayer.shamanPollWater --;
-					modPlayer.shamanWaterBondLoading += modPlayer.shamanWaterBondLoading < 100 ? 1 : 0;
-				}
 				
 				if (modPlayer.shamanSapphire) {
 					modPlayer.shamanCrit += 10;
@@ -67,8 +110,6 @@ namespace OrchidMod.Shaman
 					player.moveSpeed -= 0.2f;
 				}
 				
-			} else {
-				modPlayer.shamanWaterBondLoading -= modPlayer.shamanWaterBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
 			}
 			
 			if (modPlayer.shamanAirTimer > 0) {
@@ -93,20 +134,9 @@ namespace OrchidMod.Shaman
 				if (modPlayer.shamanHarpyAnklet) {
 					modPlayer.doubleJumpHarpy = true;
 				}
-				
-				if (modPlayer.shamanPollAir > 0) {
-					modPlayer.shamanPollAir --;
-					modPlayer.shamanAirBondLoading += modPlayer.shamanAirBondLoading < 100 ? 1 : 0;
-				}
-			} else {
-				modPlayer.shamanAirBondLoading -= modPlayer.shamanAirBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
 			}
 			
 			if (modPlayer.shamanEarthTimer > 0) {
-				if (modPlayer.shamanPollEarth > 0) {
-					modPlayer.shamanPollEarth --;
-					modPlayer.shamanEarthBondLoading += modPlayer.shamanEarthBondLoading < 100 ? 1 : 0;
-				}
 				if (modPlayer.shamanHoney) {
 					player.AddBuff((48), 1); // Honey
 					if (modPlayer.shamanEarthTimer % 90 == 0) {
@@ -137,21 +167,13 @@ namespace OrchidMod.Shaman
 				if (modPlayer.shamanAmber)
 					player.statLifeMax2 += 50;
 				
-			} else {
-				modPlayer.shamanEarthBondLoading -= modPlayer.shamanEarthBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
 			}
 			
 			if (modPlayer.shamanSpiritTimer > 0) {
-				if (modPlayer.shamanPollSpirit > 0) {
-					modPlayer.shamanPollSpirit --;
-					modPlayer.shamanSpiritBondLoading += modPlayer.shamanSpiritBondLoading < 100 ? 1 : 0;
-				}
 				
 				if (modPlayer.shamanAmethyst) {
 					modPlayer.shamanDamage += 0.1f;
 				}
-			} else {
-				modPlayer.shamanSpiritBondLoading -= modPlayer.shamanSpiritBondLoading > 0 && modPlayer.timer120 % 10 == 0 ? 1 : 0;
 			}
 			
 			if (modPlayer.doubleJumpHarpy)  // Vanilla double jump code is insanely weird.
@@ -592,6 +614,14 @@ namespace OrchidMod.Shaman
 				val ++;
 			
 			return val;
+		}
+		
+		public static bool hasAnyBondLoaded(OrchidModPlayer modPlayer) {
+			return ((modPlayer.shamanFireBondLoading + 
+			modPlayer.shamanWaterBondLoading + 
+			modPlayer.shamanAirBondLoading + 
+			modPlayer.shamanEarthBondLoading + 
+			modPlayer.shamanSpiritBondLoading) > 0);
 		}
 		
 		public static void addShamanicEmpowerment(int type, Player player, OrchidModPlayer modPlayer, Mod mod) {

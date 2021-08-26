@@ -19,7 +19,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.scale = 1f;
 			projectile.alpha = 255;
 			projectile.penetrate = 200;
-            this.empowermentType = 3;
         }
 		
 		public override void SetStaticDefaults()

@@ -26,6 +26,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.empowermentType = 3;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -51,7 +52,7 @@ namespace OrchidMod.Shaman.Weapons
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(25));
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, nbBonds < 3 ? type : mod.ProjectileType("FireBatScepterProjHoming"), damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, nbBonds < 3 ? type : mod.ProjectileType("FireBatScepterProjHoming"), damage, knockBack, player.whoAmI);
 			}
 
 			return false;

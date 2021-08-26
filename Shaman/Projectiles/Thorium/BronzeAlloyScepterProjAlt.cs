@@ -20,7 +20,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			projectile.timeLeft = 32;
 			projectile.scale = 1f;
 			aiType = ProjectileID.Bullet; 
-            this.empowermentType = 4;
             this.projectileTrail = true;
         }
 		

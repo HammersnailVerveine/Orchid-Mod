@@ -25,9 +25,10 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 5f;
 			item.shoot = mod.ProjectileType("SporeCallerProj");
 			this.empowermentType = 3;
+			this.energy = 10;
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
 			if (Main.LocalPlayer.FindBuffIndex(mod.BuffType("SporeEmpowerment")) > -1)
 				add += 2f;
@@ -63,7 +64,7 @@ namespace OrchidMod.Shaman.Weapons
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				perturbedSpeed = perturbedSpeed * scale; 
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

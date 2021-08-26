@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.empowermentType = 2;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()

@@ -7,8 +7,6 @@ namespace OrchidMod.Shaman
 {
     public abstract class OrchidModShamanProjectile : OrchidModProjectile
     {
-		public int empowermentType = 0;
-		
 		public virtual void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
 		
 		public sealed override void AltSetDefaults() {
@@ -19,12 +17,13 @@ namespace OrchidMod.Shaman
 			modProjectile.baseCritChance = player.inventory[player.selectedItem].crit ;
 		}
 		
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public sealed override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			if (target.type != NPCID.TargetDummy) {
-				OrchidModShamanHelper.addShamanicEmpowerment(this.empowermentType, player, modPlayer, mod);
+				OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+				OrchidModShamanHelper.addShamanicEmpowerment(modProjectile.shamanEmpowermentType, player, modPlayer, mod);
 			}
 			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);
 		}

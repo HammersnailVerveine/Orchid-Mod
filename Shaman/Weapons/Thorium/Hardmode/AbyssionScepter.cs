@@ -26,7 +26,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.autoReuse = true;
 			item.shootSpeed = 8f;
 			item.shoot = mod.ProjectileType("AbyssionScepterProj");
-			this.empowermentType =2;
+			this.empowermentType = 2;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -39,9 +40,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer =  player.GetModPlayer<OrchidModPlayer>();
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-				position += muzzleOffset;
 			
 			int damageCost = 25 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 5;
 			if (player.statLife - damageCost > 0) { 

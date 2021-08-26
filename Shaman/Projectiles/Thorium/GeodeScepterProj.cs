@@ -22,7 +22,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
             projectile.friendly = true;
             projectile.aiStyle = 2;
 			projectile.timeLeft = 45;
-            this.empowermentType = 4;
             this.projectileTrail = true;
 		}
 		

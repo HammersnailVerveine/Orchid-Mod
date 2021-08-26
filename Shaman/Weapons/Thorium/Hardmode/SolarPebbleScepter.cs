@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 8f;
 			item.shoot = mod.ProjectileType("SolarPebbleScepterProj");
 			this.empowermentType = 1;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -34,15 +35,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			DisplayName.SetDefault("Ecliptic Flare");
 			Tooltip.SetDefault("Fires a storm of solar embers"
 							+ "\nHitting will charge an eclipse above you, releasing homing flames when full");
-		}
-		
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 64f; 
-			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-				position += muzzleOffset;
-			
-			return true;
 		}
 		
 		public override void AddRecipes()

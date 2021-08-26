@@ -167,6 +167,7 @@ namespace OrchidMod
 		public int shamanSelectedItem = 0;
 		public int shamanDrawWeapon = 0;
 		public Texture2D shamanCatalystTexture = null;
+		public ShamanCatalystType shamanCatalystType = ShamanCatalystType.IDLE;
 		
 		public ShamanOrbSmall shamanOrbSmall = ShamanOrbSmall.NULL;
 		public ShamanOrbBig shamanOrbBig = ShamanOrbBig.NULL;
@@ -191,6 +192,12 @@ namespace OrchidMod
 		public int shamanAirBondLoading = 0;
 		public int shamanEarthBondLoading = 0;
 		public int shamanSpiritBondLoading = 0;
+		
+		public bool shamanPollFireMax = false;
+		public bool shamanPollWaterMax = false;
+		public bool shamanPollAirMax = false;
+		public bool shamanPollEarthMax = false;
+		public bool shamanPollSpiritMax = false;
 		
 		public int shamanPollFire = 0;
 		public int shamanPollWater = 0;

@@ -25,6 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 9f;
 			item.shoot = mod.ProjectileType("EnchantedScepterProj");
 			this.empowermentType = 1;
+			this.energy = 10;
 		}
 		
 		public override void SetStaticDefaults()
@@ -33,7 +34,7 @@ namespace OrchidMod.Shaman.Weapons
 		  Tooltip.SetDefault("Weapon damage increases with the number of active shamanic bonds");
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 3f);
 		}

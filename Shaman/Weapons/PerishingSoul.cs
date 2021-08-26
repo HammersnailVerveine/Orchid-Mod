@@ -15,8 +15,8 @@ namespace OrchidMod.Shaman.Weapons
 			item.damage = 57;
 			item.width = 30;
 			item.height = 30;
-			item.useTime = 25;
-			item.useAnimation = 25;
+			item.useTime = 35;
+			item.useAnimation = 35;
 			item.knockBack = 3.15f;
 			item.rare = 3;
 			item.value = Item.sellPrice(0, 0, 47, 0);
@@ -25,6 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("PerishingSoulProj");
 			this.empowermentType = 1;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()

@@ -21,7 +21,6 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			projectile.tileCollide = false;
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			projectile.alpha = 255;
-            this.empowermentType = 5;
 		}
 		
 		public override void SetStaticDefaults()

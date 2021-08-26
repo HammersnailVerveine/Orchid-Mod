@@ -25,6 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 6f;
 			item.shoot = mod.ProjectileType("HoneyProj");
 			this.empowermentType = 2;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -37,7 +38,7 @@ namespace OrchidMod.Shaman.Weapons
 							+ "\nFilling the orb will make it explode into a swarm of bees");
 		}
 		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
 			if (Main.LocalPlayer.FindBuffIndex(48) > -1) add += 0.25f;
 		}
@@ -45,7 +46,7 @@ namespace OrchidMod.Shaman.Weapons
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-			Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+			this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			return false;
 		}
     }

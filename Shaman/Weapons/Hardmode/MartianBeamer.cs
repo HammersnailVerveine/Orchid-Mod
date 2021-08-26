@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.empowermentType = 1;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
+			this.energy = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -55,10 +56,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			for(int i = 0; i < Main.rand.Next(1, 1); i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 				
 				perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(-20));
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}
