@@ -1,15 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class TungstenScepter : OrchidModShamanItem
-    {
+	public class TungstenScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 28;
@@ -30,19 +26,19 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Emerald Scepter");
-		  Tooltip.SetDefault("\nHitting an enemy will grant you an emerald orb"
-							+"\nIf you have 3 emerald orbs, your next hit will increase your movement speed for 30 seconds");
+			DisplayName.SetDefault("Emerald Scepter");
+			Tooltip.SetDefault("\nHitting an enemy will grant you an emerald orb"
+							  + "\nIf you have 3 emerald orbs, your next hit will increase your movement speed for 30 seconds");
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.Anvils);		
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Emerald, 8);
 			recipe.AddIngredient(ItemID.TungstenBar, 10);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

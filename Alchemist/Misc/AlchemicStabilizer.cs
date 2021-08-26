@@ -1,8 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
@@ -21,7 +17,7 @@ namespace OrchidMod.Alchemist.Misc
 		{
 			DisplayName.SetDefault("Alchemical Stabilizer");
 			Tooltip.SetDefault("Used to make various alchemist weapons"
-							+  "\n'Smells like bee wax'");
+							+ "\n'Smells like bee wax'");
 		}
 
 	}

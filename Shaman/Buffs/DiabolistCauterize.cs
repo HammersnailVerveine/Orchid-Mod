@@ -3,18 +3,18 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Buffs
 {
-    public class DiabolistCauterize : ModBuff
-    {
-        public override void SetDefaults()
-        {
-            Main.buffNoTimeDisplay[Type] = false;
+	public class DiabolistCauterize : ModBuff
+	{
+		public override void SetDefaults()
+		{
+			Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Diabolist Cauterization");
 			Description.SetDefault("Quickly gaining health");
-        }
-		
-        public override void Update(Player player, ref int buffIndex)
+		}
+
+		public override void Update(Player player, ref int buffIndex)
 		{
 			player.lifeRegen += 50;
 		}
-    }
+	}
 }

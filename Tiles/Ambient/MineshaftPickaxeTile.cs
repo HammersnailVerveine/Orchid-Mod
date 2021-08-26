@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
@@ -23,7 +22,8 @@ namespace OrchidMod.Tiles.Ambient
 			disableSmartCursor = true;
 		}
 
-		public override void KillMultiTile(int i, int j, int frameX, int frameY) {
+		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		{
 			Item.NewItem(i * 16, j * 16, 32, 16, ItemType<General.Items.Tools.MineshaftPickaxe>());
 		}
 	}

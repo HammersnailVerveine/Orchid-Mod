@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -47,55 +46,60 @@ namespace OrchidMod.General.Projectiles.Pets
 			{
 				projectile.timeLeft = 2;
 			}
-			
-			
+
+
 			if (Main.rand.Next(3) <= 1) projectile.ai[0]++;
-			
-			if (projectile.ai[0] <= 155) projectile.ai[0]+=3;
-			if (projectile.ai[0] >= 365) projectile.ai[0]+=3;
-			
+
+			if (projectile.ai[0] <= 155) projectile.ai[0] += 3;
+			if (projectile.ai[0] >= 365) projectile.ai[0] += 3;
+
 			if (projectile.ai[0] <= 255)
-			{	
-				if (projectile.ai[0] >= 50) {
-					if (Main.rand.Next(255 - (int)projectile.ai[0]) <= 20) {
+			{
+				if (projectile.ai[0] >= 50)
+				{
+					if (Main.rand.Next(255 - (int)projectile.ai[0]) <= 20)
+					{
 						Vector2 pos = new Vector2(projectile.position.X + 8, projectile.position.Y - 5);
-						Main.dust[Dust.NewDust(pos, projectile.width/10 , projectile.height/10, 269, 0f, 0f, 6, default(Color), 0.8f)].velocity *= 0.1f;
+						Main.dust[Dust.NewDust(pos, projectile.width / 10, projectile.height / 10, 269, 0f, 0f, 6, default(Color), 0.8f)].velocity *= 0.1f;
 					}
 					if (Main.rand.Next(20) == 0)
 					{
 						int dustType = 16;
-						Vector2 pos = new Vector2(projectile.position.X+3, projectile.position.Y + 5);
-						Main.dust[Dust.NewDust(pos, projectile.width/2, projectile.height/2, dustType)].velocity *= 0.01f;
-					}	
+						Vector2 pos = new Vector2(projectile.position.X + 3, projectile.position.Y + 5);
+						Main.dust[Dust.NewDust(pos, projectile.width / 2, projectile.height / 2, dustType)].velocity *= 0.01f;
+					}
 				}
 				projectile.alpha = (int)(255 - projectile.ai[0]);
 			}
-			
+
 			if (projectile.ai[0] > 255 && projectile.ai[0] < 750)
 			{
-				if (projectile.ai[0] <= 450) {
-					if (Main.rand.Next(255 + ((int) projectile.ai[0])-255) <= 20) {
+				if (projectile.ai[0] <= 450)
+				{
+					if (Main.rand.Next(255 + ((int)projectile.ai[0]) - 255) <= 20)
+					{
 						Vector2 pos = new Vector2(projectile.position.X + 8, projectile.position.Y - 5);
-						Main.dust[Dust.NewDust(pos, projectile.width/10 , projectile.height/10, 269, 0f, 0f, 6, default(Color), 0.8f)].velocity *= 0.1f;
+						Main.dust[Dust.NewDust(pos, projectile.width / 10, projectile.height / 10, 269, 0f, 0f, 6, default(Color), 0.8f)].velocity *= 0.1f;
 					}
 					if (Main.rand.Next(20) == 0)
 					{
 						int dustType = 16;
-						Vector2 pos = new Vector2(projectile.position.X+3, projectile.position.Y + 5);
-						Main.dust[Dust.NewDust(pos, projectile.width/2, projectile.height/4, dustType)].velocity *= 0.01f;
-					}		
+						Vector2 pos = new Vector2(projectile.position.X + 3, projectile.position.Y + 5);
+						Main.dust[Dust.NewDust(pos, projectile.width / 2, projectile.height / 4, dustType)].velocity *= 0.01f;
+					}
 				}
 				projectile.alpha = (int)(projectile.ai[0] - 255);
 			}
-			
-			
-			if (projectile.ai[0] >= 510) {
+
+
+			if (projectile.ai[0] >= 510)
+			{
 				projectile.ai[0] = 0;
 				if (Main.rand.Next(2) == 0) projectile.position.X = player.position.X - 20;
 				else projectile.position.X = player.position.X + 20;
 				projectile.position.Y = player.position.Y;
 			}
-			
+
 			projectile.velocity.X = 0;
 			projectile.velocity.Y = 0;
 		}

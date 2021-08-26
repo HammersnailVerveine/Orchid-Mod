@@ -1,24 +1,25 @@
 using Terraria;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Projectiles
 {
-    public abstract class AlchemistProjReactive : OrchidModProjectile
-    {	
+	public abstract class AlchemistProjReactive : OrchidModProjectile
+	{
 		public int spawnTimeLeft = 0;
 		public int killTimeLeft = 0;
-	
-		public virtual void SafeKill(int timeLeft, Player player, OrchidModPlayer modPlayer) {}
-		
-		public virtual void SafeAI() {}
-		
-		public virtual void Despawn() {}
-		
-		public virtual void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile) {
+
+		public virtual void SafeKill(int timeLeft, Player player, OrchidModPlayer modPlayer) { }
+
+		public virtual void SafeAI() { }
+
+		public virtual void Despawn() { }
+
+		public virtual void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile)
+		{
 			projectile.Kill();
 		}
-		
-		public sealed override void AltSetDefaults() {
+
+		public sealed override void AltSetDefaults()
+		{
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
@@ -26,27 +27,31 @@ namespace OrchidMod.Alchemist.Projectiles
 			modProjectile.baseCritChance = this.baseCritChance;
 			modProjectile.alchemistCatalyticTriggerDelegate = Catalyze;
 		}
-		
+
 		public override void AI()
-        {
-			if (projectile.timeLeft == 1) {
+		{
+			if (projectile.timeLeft == 1)
+			{
 				Despawn();
 				projectile.active = false;
 			}
 			this.killTimeLeft = projectile.timeLeft;
 			SafeAI();
 		}
-		
+
 		public override void Kill(int timeLeft)
-        {
-			if (this.killTimeLeft < this.spawnTimeLeft) {
+		{
+			if (this.killTimeLeft < this.spawnTimeLeft)
+			{
 				Player player = Main.player[projectile.owner];
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				SafeKill(timeLeft, player, modPlayer);
 				Despawn();
-			} else {
+			}
+			else
+			{
 				return;
 			}
 		}
-    }
+	}
 }

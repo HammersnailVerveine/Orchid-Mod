@@ -1,15 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class ScepterofStarpower : OrchidModShamanItem
-    {
+	public class ScepterofStarpower : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 10;
@@ -41,15 +37,15 @@ namespace OrchidMod.Shaman.Weapons
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit;
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.WorkBenches);		
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ItemID.FallenStar, 5);
 			recipe.AddIngredient(ItemID.Wood, 10);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

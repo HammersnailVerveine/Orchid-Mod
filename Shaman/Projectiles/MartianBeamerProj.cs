@@ -1,55 +1,54 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles
 {
 	public class MartianBeamerProj : OrchidModShamanProjectile
 	{
 		public override void SafeSetDefaults()
-        {
-            projectile.width = 14;
-            projectile.height = 14;
-            projectile.friendly = true;
-            projectile.aiStyle = 0;
+		{
+			projectile.width = 14;
+			projectile.height = 14;
+			projectile.friendly = true;
+			projectile.aiStyle = 0;
 			projectile.timeLeft = 100;
 			projectile.scale = 0f;
-            projectile.extraUpdates = 10;	
-        }
-		
+			projectile.extraUpdates = 10;
+		}
+
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Martian Beam");
-        } 
-		
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-		
-        public override void AI()
-        {
-            if (projectile.alpha < 170)
-            {
-                for (int index1 = 0; index1 < 9; ++index1)
-                {	
-					if (index1%3 ==0) {
-						float x = projectile.position.X - projectile.velocity.X / 10f * (float) index1;
-						float y = projectile.position.Y - projectile.velocity.Y / 10f * (float) index1;
+		{
+			DisplayName.SetDefault("Martian Beam");
+		}
+
+		public override Color? GetAlpha(Color lightColor)
+		{
+			return Color.White;
+		}
+
+		public override void AI()
+		{
+			if (projectile.alpha < 170)
+			{
+				for (int index1 = 0; index1 < 9; ++index1)
+				{
+					if (index1 % 3 == 0)
+					{
+						float x = projectile.position.X - projectile.velocity.X / 10f * (float)index1;
+						float y = projectile.position.Y - projectile.velocity.Y / 10f * (float)index1;
 						int index2 = Dust.NewDust(new Vector2(x, y), 1, 1, 226, 0.0f, 0.0f, 0, new Color(), 1f);
 						Main.dust[index2].alpha = projectile.alpha;
 						Main.dust[index2].position.X = x;
 						Main.dust[index2].position.Y = y;
-						Main.dust[index2].scale = (float) Main.rand.Next(1, 11) * 0.13f;
+						Main.dust[index2].scale = (float)Main.rand.Next(1, 11) * 0.13f;
 						Main.dust[index2].velocity = projectile.velocity;
 						Main.dust[index2].noGravity = true;
 					}
-                }
+				}
 			}
-			
+
 			if (projectile.localAI[0] == 0f)
 			{
 				AdjustMagnitude(ref projectile.velocity);
@@ -78,7 +77,7 @@ namespace OrchidMod.Shaman.Projectiles
 				projectile.velocity = (20 * projectile.velocity + move) / 10f;
 				AdjustMagnitude(ref projectile.velocity);
 			}
-        }
+		}
 		private void AdjustMagnitude(ref Vector2 vector)
 		{
 			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -87,16 +86,16 @@ namespace OrchidMod.Shaman.Projectiles
 				vector *= 6f / magnitude;
 			}
 		}
-        
+
 		public override void Kill(int timeLeft)
-        {
-            for(int i=0; i<3; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 229);
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 229);
 				Main.dust[dust].noGravity = true;
-            }
-        }
-		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
-    }
+			}
+		}
+
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+	}
 }

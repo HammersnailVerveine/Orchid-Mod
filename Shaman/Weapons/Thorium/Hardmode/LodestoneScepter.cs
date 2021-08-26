@@ -1,15 +1,13 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-    public class LodestoneScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	public class LodestoneScepter : OrchidModShamanItem, ICrossmodItem
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -34,12 +32,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			DisplayName.SetDefault("Lodestone Scepter");
 			Tooltip.SetDefault("Shoots a defense sundering bolt, hitting your enemy 3 times"
-							+"\nHitting the same target with all 3 shots will grant you a lodestone orb"
-							+"\nIf you have 5 orbs, your next hit will create an explosion, making hit foes significantly heavier");
+							+ "\nHitting the same target with all 3 shots will grant you a lodestone orb"
+							+ "\nIf you have 5 orbs, your next hit will create an explosion, making hit foes significantly heavier");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+		{
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
@@ -59,6 +57,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }

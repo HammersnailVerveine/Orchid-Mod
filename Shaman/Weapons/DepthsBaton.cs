@@ -1,16 +1,12 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
-using System;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class DepthsBaton : OrchidModShamanItem
-    {
+	public class DepthsBaton : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 57;
@@ -31,22 +27,23 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Depths Baton");
-		  Tooltip.SetDefault("Shoots bolts of dark energy"
-							+ "\nHitting at maximum range deals increased damage" 
-							+ "\nHaving 3 or more active shamanic bonds will allow the weapon to shoot a straight beam");
-		} 
+			DisplayName.SetDefault("Depths Baton");
+			Tooltip.SetDefault("Shoots bolts of dark energy"
+							  + "\nHitting at maximum range deals increased damage"
+							  + "\nHaving 3 or more active shamanic bonds will allow the weapon to shoot a straight beam");
+		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
-			if (BuffsCount > 2) {
+			if (BuffsCount > 2)
+			{
 				this.newShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("DepthBatonProjAlt"), damage - 10, knockBack, player.whoAmI);
 			}
 			return true;
 		}
-		
+
 
 		public override void AddRecipes()
 		{
@@ -58,7 +55,7 @@ namespace OrchidMod.Shaman.Weapons
 			recipe.AddTile(TileID.DemonAltar);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-			
+
 			recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "Blum", 1);
 			recipe.AddIngredient(null, "PerishingSoul", 1);
@@ -68,5 +65,5 @@ namespace OrchidMod.Shaman.Weapons
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-    }
+	}
 }

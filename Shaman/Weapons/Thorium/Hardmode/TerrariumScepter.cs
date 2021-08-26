@@ -1,16 +1,14 @@
+using OrchidMod.Interfaces;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using System.Linq;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Linq;
-using OrchidMod.Interfaces;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
 	public class TerrariumScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -35,8 +33,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			DisplayName.SetDefault("Terrarium Scepter");
 			Tooltip.SetDefault("Fires bolts of chromatic energy"
-							+"\nHitting enemies will gradually grant you terrarium orbs"
-							+"\nWhen reaching 7 orbs, they will break free and home into your enemies");
+							+ "\nHitting enemies will gradually grant you terrarium orbs"
+							+ "\nWhen reaching 7 orbs, they will break free and home into your enemies");
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -46,7 +44,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var tt = tooltips.FirstOrDefault(x => x.Name == "ItemName" && x.mod == "Terraria");
 			if (tt != null) tt.overrideColor = Main.DiscoColor;
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -58,7 +56,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }
 

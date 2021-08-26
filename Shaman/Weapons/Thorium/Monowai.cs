@@ -1,15 +1,13 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-    public class Monowai : OrchidModShamanItem, ICrossmodItem
-    {
+	public class Monowai : OrchidModShamanItem, ICrossmodItem
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -34,13 +32,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		{
 			DisplayName.SetDefault("Monowai"); // Named after an undersea volcano
 			Tooltip.SetDefault("Shoots elemental bolts, hitting your enemy 2 times"
-							+"\nHitting the same target twice will grant you a volcanic orb"
-							+"\nIf you have 5 orbs, your next hit will explode, throwing enemies in the air"
-							+"\nAttacks might singe the target, causing extra damage");
+							+ "\nHitting the same target twice will grant you a volcanic orb"
+							+ "\nIf you have 5 orbs, your next hit will explode, throwing enemies in the air"
+							+ "\nAttacks might singe the target, causing extra damage");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+		{
 			int numberProjectiles = 2;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
@@ -48,7 +46,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			}
 			return false;
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -62,6 +60,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }

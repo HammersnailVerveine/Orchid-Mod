@@ -1,17 +1,17 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Alchemist;
+using OrchidMod.Alchemist.UI;
+using OrchidMod.Effects;
+using OrchidMod.Gambler.UI;
+using OrchidMod.Shaman;
+using OrchidMod.Shaman.UI;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using OrchidMod.Shaman.UI;
-using OrchidMod.Alchemist.UI;
-using OrchidMod.Gambler.UI;
-using OrchidMod.Shaman;
-using OrchidMod.Alchemist;
-using OrchidMod.Effects;
 
 namespace OrchidMod
 {

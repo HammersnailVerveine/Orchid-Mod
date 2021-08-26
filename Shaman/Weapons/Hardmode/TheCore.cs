@@ -1,14 +1,11 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class TheCore : OrchidModShamanItem
-    {
+	public class TheCore : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 200;
@@ -30,24 +27,24 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("The Core");
-		  Tooltip.SetDefault("Shoots life-seeking essence bolts"
-							+"\nThe number of projectiles depends on the number of active shamanic bonds"
-							+"\n'You can feel heartbeats emanating from the staff'");
+			DisplayName.SetDefault("The Core");
+			Tooltip.SetDefault("Shoots life-seeking essence bolts"
+							  + "\nThe number of projectiles depends on the number of active shamanic bonds"
+							  + "\n'You can feel heartbeats emanating from the staff'");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
+		{
+			return Color.White;
+		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
-			
+
 			int numberProjectiles = 2 + BuffsCount;
-		
+
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
@@ -55,5 +52,5 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 			return false;
 		}
-    }
+	}
 }

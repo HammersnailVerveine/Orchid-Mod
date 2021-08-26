@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -18,12 +16,14 @@ namespace OrchidMod.NPCs.Town
 
 		public override string[] AltTextures => new[] { "OrchidMod/NPCs/Town/Chemist_Alt_1" };
 
-		public override bool Autoload(ref string name) {
+		public override bool Autoload(ref string name)
+		{
 			name = "Chemist";
 			return mod.Properties.Autoload;
 		}
 
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			// DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
 			DisplayName.SetDefault("Chemist");
 			Main.npcFrameCount[npc.type] = 23;
@@ -36,7 +36,8 @@ namespace OrchidMod.NPCs.Town
 			NPCID.Sets.HatOffsetY[npc.type] = 4;
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			npc.townNPC = true;
 			npc.friendly = true;
 			npc.width = 28;
@@ -52,24 +53,27 @@ namespace OrchidMod.NPCs.Town
 		}
 
 		// public override void HitEffect(int hitDirection, double damage) {
-			// int num = npc.life > 0 ? 1 : 5;
-			// for (int k = 0; k < num; k++) {
-				// Dust.NewDust(npc.position, npc.width, npc.height, 6);
-			// }
+		// int num = npc.life > 0 ? 1 : 5;
+		// for (int k = 0; k < num; k++) {
+		// Dust.NewDust(npc.position, npc.width, npc.height, 6);
+		// }
 		// }
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money) {
+		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+		{
 			return OrchidWorld.foundChemist;
 		}
-		
+
 		// public override void AI() {
-			// if (!OrchidWorld.foundChemist) {
-				// OrchidWorld.foundChemist = true;
-			// }
+		// if (!OrchidWorld.foundChemist) {
+		// OrchidWorld.foundChemist = true;
+		// }
 		// }
 
-		public override string TownNPCName() {
-			switch (WorldGen.genRand.Next(11)) {
+		public override string TownNPCName()
+		{
+			switch (WorldGen.genRand.Next(11))
+			{
 				case 0:
 					return "Elodie";
 				case 1:
@@ -95,7 +99,8 @@ namespace OrchidMod.NPCs.Town
 			}
 		}
 
-		public override void FindFrame(int frameHeight) {
+		public override void FindFrame(int frameHeight)
+		{
 			/*npc.frame.Width = 40;
 			if (((int)Main.time / 10) % 2 == 0)
 			{
@@ -107,9 +112,12 @@ namespace OrchidMod.NPCs.Town
 			}*/
 		}
 
-		public override string GetChat() {
-			if (Main.bloodMoon) {
-				switch (Main.rand.Next(4)) {
+		public override string GetChat()
+		{
+			if (Main.bloodMoon)
+			{
+				switch (Main.rand.Next(4))
+				{
 					case 0:
 						return "Want your blood donated to science? No? Then leave.";
 					case 1:
@@ -119,8 +127,11 @@ namespace OrchidMod.NPCs.Town
 					default:
 						return "DON'T get stains on anything! I don't care if I already did!";
 				}
-			} else {
-				switch (Main.rand.Next(8 + (Main.dayTime ? 1 : 2))) {
+			}
+			else
+			{
+				switch (Main.rand.Next(8 + (Main.dayTime ? 1 : 2)))
+				{
 					case 0:
 						return "So you're interested in alchemy AND haven't exploded yet? Impressive.";
 					case 1:
@@ -147,25 +158,34 @@ namespace OrchidMod.NPCs.Town
 			}
 		}
 
-		public override void SetChatButtons(ref string button, ref string button2) {
+		public override void SetChatButtons(ref string button, ref string button2)
+		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			button = Language.GetTextValue("LegacyInterface.28");
 			button2 = checkUniqueHints(player, modPlayer, false) == "" ? "Reaction Hint" : "Special Hint!";
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop) {
+		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (firstButton) {
+			if (firstButton)
+			{
 				shop = true;
-			} else {
+			}
+			else
+			{
 				string uniqueStr = checkUniqueHints(player, modPlayer, true);
-				if (uniqueStr == "") {
-					if (!modPlayer.alchemistDailyHint) {
-						if (this.getDailyHint(player, modPlayer)) {
+				if (uniqueStr == "")
+				{
+					if (!modPlayer.alchemistDailyHint)
+					{
+						if (this.getDailyHint(player, modPlayer))
+						{
 							modPlayer.alchemistDailyHint = true;
-							switch (Main.rand.Next(6)) {
+							switch (Main.rand.Next(6))
+							{
 								case 0:
 									Main.npcChatText = $"Here's your daily recipe... note that it itself is not an ingredient.";
 									break;
@@ -185,11 +205,16 @@ namespace OrchidMod.NPCs.Town
 									Main.npcChatText = $"If it's free, you're probably the product, you say? Naaah... please, just don't try it in the vicinity.";
 									break;
 							}
-						} else {
+						}
+						else
+						{
 							Main.npcChatText = $"I need time to think about more recipes. Maybe can you go and kill a few baddies, meanwhile?";
 						}
-					} else {
-						switch (Main.rand.Next(3)) {
+					}
+					else
+					{
+						switch (Main.rand.Next(3))
+						{
 							case 0:
 								Main.npcChatText = $"Over-exposure to my brilliant ideas may be dangerous for a trainee.";
 								break;
@@ -201,13 +226,16 @@ namespace OrchidMod.NPCs.Town
 								break;
 						}
 					}
-				} else {
+				}
+				else
+				{
 					Main.npcChatText = uniqueStr;
 				}
 			}
 		}
 
-		public override void SetupShop(Chest shop, ref int nextSlot) {
+		public override void SetupShop(Chest shop, ref int nextSlot)
+		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.UIItem>());
@@ -218,7 +246,8 @@ namespace OrchidMod.NPCs.Town
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.EmptyFlask>());
 			nextSlot++;
-			if (NPC.downedQueenBee) {
+			if (NPC.downedQueenBee)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.AlchemicStabilizer>());
 				nextSlot++;
 			}
@@ -228,68 +257,81 @@ namespace OrchidMod.NPCs.Town
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>());
 			nextSlot++;
-			if (modPlayer.alchemistKnownReactions.Count > 4) {	
+			if (modPlayer.alchemistKnownReactions.Count > 4)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Accessories.ReactiveVials>());
 				nextSlot++;
 			}
 		}
 
 		// public override void NPCLoot() {
-			// Item.NewItem(npc.getRect(), ItemType<Items.Armor.ExampleCostume>());
+		// Item.NewItem(npc.getRect(), ItemType<Items.Armor.ExampleCostume>());
 		// }
 
 		// Make this Town NPC teleport to the King and/or Queen statue when triggered.
-		public override bool CanGoToStatue(bool toQueenStatue) {
+		public override bool CanGoToStatue(bool toQueenStatue)
+		{
 			return true;
 		}
 
 		// Make something happen when the npc teleports to a statue. Since this method only runs server side, any visual effects like dusts or gores have to be synced across all clients manually.
 		// public override void OnGoToStatue(bool toQueenStatue) {
-			// if (Main.netMode == NetmodeID.Server) {
-				// ModPacket packet = mod.GetPacket();
-				// packet.Write((byte)ExampleModMessageType.ExampleTeleportToStatue);
-				// packet.Write((byte)npc.whoAmI);
-				// packet.Send();
-			// }
+		// if (Main.netMode == NetmodeID.Server) {
+		// ModPacket packet = mod.GetPacket();
+		// packet.Write((byte)ExampleModMessageType.ExampleTeleportToStatue);
+		// packet.Write((byte)npc.whoAmI);
+		// packet.Send();
+		// }
 		// }
 
-		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
+		public override void TownNPCAttackStrength(ref int damage, ref float knockback)
+		{
 			damage = 20;
 			knockback = 4f;
 		}
 
-		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
+		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
+		{
 			cooldown = 30;
 			randExtraCooldown = 30;
 		}
 
-		public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
+		public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
+		{
 			projType = ProjectileType<NPCs.Town.Projectiles.ChemistProjectile>();
 			attackDelay = 1;
 		}
 
-		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset) {
+		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
+		{
 			multiplier = 12f;
 			randomOffset = 2f;
 		}
-		
-		public bool getDailyHint(Player player, OrchidModPlayer modPlayer) {
+
+		public bool getDailyHint(Player player, OrchidModPlayer modPlayer)
+		{
 			int progression = OrchidModAlchemistHelper.getProgressLevel();
-			
-			while (progression > 0) {
+
+			while (progression > 0)
+			{
 				bool validHint = false;
-				foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes) {
-					if (recipe.reactionLevel == progression) {
-						if (!(modPlayer.alchemistKnownReactions.Contains((int)recipe.reactionType) || modPlayer.alchemistKnownHints.Contains((int)recipe.reactionType))) {
+				foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes)
+				{
+					if (recipe.reactionLevel == progression)
+					{
+						if (!(modPlayer.alchemistKnownReactions.Contains((int)recipe.reactionType) || modPlayer.alchemistKnownHints.Contains((int)recipe.reactionType)))
+						{
 							validHint = true;
 							break;
 						}
 					}
 				}
-				
-				if (validHint) {
+
+				if (validHint)
+				{
 					int scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier1>();
-					switch (progression) {
+					switch (progression)
+					{
 						case 2:
 							scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier2>();
 							break;
@@ -311,44 +353,53 @@ namespace OrchidMod.NPCs.Town
 					}
 					player.QuickSpawnItem(scrollType, 1);
 					return true;
-				} else {
-					progression --;
 				}
-			} 
+				else
+				{
+					progression--;
+				}
+			}
 			return false;
 		}
-		
-		public string checkUniqueHints(Player player, OrchidModPlayer modPlayer, bool buttonClicked) {
+
+		public string checkUniqueHints(Player player, OrchidModPlayer modPlayer, bool buttonClicked)
+		{
 			List<int> reactions = new List<int>(modPlayer.alchemistKnownReactions);
 			reactions.AddRange(modPlayer.alchemistKnownHints);
-			
+
 			if (!reactions.Contains((int)AlchemistHiddenReactionType.FIRESPORES)
 			|| !reactions.Contains((int)AlchemistHiddenReactionType.WATERSPORES)
-			|| !reactions.Contains((int)AlchemistHiddenReactionType.AIRSPORES)) {
-				if (buttonClicked) {
+			|| !reactions.Contains((int)AlchemistHiddenReactionType.AIRSPORES))
+			{
+				if (buttonClicked)
+				{
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -3, false);
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -3, false);
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -3, false);
 				}
 				return "Since this is your first time asking, here are three hints for the price of one! I'd highly advise getting your hands on a hidden reactions codex, now...";
 			}
-			
+
 			if (!reactions.Contains((int)AlchemistHiddenReactionType.MUSHROOMTHREAD)
-			&& (player.HasItem(183) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>()))) {
-				if (buttonClicked) {
+			&& (player.HasItem(183) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>())))
+			{
+				if (buttonClicked)
+				{
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -2, false);
 				}
 				return "I see you found some glowing mushrooms. Did you know that you can make a pretty good thread with them? Here's the recipe.";
 			}
-			
+
 			if (!reactions.Contains((int)AlchemistHiddenReactionType.JUNGLELILYPURIFICATION)
-			&& (player.HasItem(ModContent.ItemType<Alchemist.Misc.JungleLilyItem>()) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.JungleLilyFlask>()))) {
-				if (buttonClicked) {
+			&& (player.HasItem(ModContent.ItemType<Alchemist.Misc.JungleLilyItem>()) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.JungleLilyFlask>())))
+			{
+				if (buttonClicked)
+				{
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -4, false);
 				}
 				return "Jungle lilies, I love these flowers! I bet you're wondering how to make them bloom ain't you? Here's the solution.";
 			}
-			
+
 			return "";
 		}
 	}

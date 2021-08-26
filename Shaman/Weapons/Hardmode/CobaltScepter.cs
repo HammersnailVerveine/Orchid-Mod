@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class CobaltScepter : OrchidModShamanItem
-    {
+	public class CobaltScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 31;
@@ -29,14 +27,14 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Cobalt Scepter");
-		  Tooltip.SetDefault("Shoots a potent cobalt bolt, hitting your enemy 3 times"
-							+"\nHitting the same target with all 3 shots will grant you a cobalt orb"
-							+"\nIf you have 5 cobalt orbs, your next attack will partially fill all active shamanic bonds");
+			DisplayName.SetDefault("Cobalt Scepter");
+			Tooltip.SetDefault("Shoots a potent cobalt bolt, hitting your enemy 3 times"
+							  + "\nHitting the same target with all 3 shots will grant you a cobalt orb"
+							  + "\nIf you have 5 cobalt orbs, your next attack will partially fill all active shamanic bonds");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+		{
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
@@ -44,14 +42,14 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 			return false;
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.CobaltBar, 10);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

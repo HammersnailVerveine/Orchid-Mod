@@ -1,6 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -204,13 +204,15 @@ namespace OrchidMod
 				myDust.noGravity = noGravity;
 			}
 		}
-		
-		public static void setShamanBond(Projectile projectile, int empowermentType) {
+
+		public static void setShamanBond(Projectile projectile, int empowermentType)
+		{
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			modProjectile.shamanEmpowermentType = empowermentType;
 		}
-		
-		public static void inheritShamanBond(Projectile projectileReference, Projectile projectile) {
+
+		public static void inheritShamanBond(Projectile projectileReference, Projectile projectile)
+		{
 			OrchidModGlobalProjectile modProjectileReference = projectileReference.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			modProjectile.shamanEmpowermentType = modProjectileReference.shamanEmpowermentType;

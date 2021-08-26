@@ -1,14 +1,11 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class Nirvana : OrchidModShamanItem
-    {
+	public class Nirvana : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 200;
@@ -31,14 +28,14 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Nirvana");
-		  Tooltip.SetDefault("Shoots a bolt of elemental energy, calling all four elements upon impact"
-							+"\nIf you have 3 or more active shamanic bonds, more elements will be called");
+			DisplayName.SetDefault("Nirvana");
+			Tooltip.SetDefault("Shoots a bolt of elemental energy, calling all four elements upon impact"
+							  + "\nIf you have 3 or more active shamanic bonds, more elements will be called");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-    }
+		{
+			return Color.White;
+		}
+	}
 }

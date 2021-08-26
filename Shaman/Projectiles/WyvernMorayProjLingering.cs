@@ -1,10 +1,8 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Effects;
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles
 {

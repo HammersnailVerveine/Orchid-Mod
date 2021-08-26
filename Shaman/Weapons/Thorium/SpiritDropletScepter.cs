@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
 	public class SpiritDropletScepter : OrchidModShamanItem, ICrossmodItem
@@ -36,7 +34,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Tooltip.SetDefault("Conjures a volley of ethereal bones"
 							+ "\nThe number of bones increase with active shamanic bonds");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
@@ -49,20 +47,20 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			}
 			return false;
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
 				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(TileID.Anvils);		
+				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "SpiritDroplet", 8);
 				recipe.AddIngredient(ItemID.Bone, 20);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }
 

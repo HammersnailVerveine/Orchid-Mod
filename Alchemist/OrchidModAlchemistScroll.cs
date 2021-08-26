@@ -1,21 +1,19 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Linq;
-using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist
 {
 	public abstract class OrchidModAlchemistScroll : OrchidModItem
 	{
 		public int hintLevel = 0;
-		
-		public virtual void SafeSetDefaults() {}
 
-		public sealed override void SetDefaults() {
+		public virtual void SafeSetDefaults() { }
+
+		public sealed override void SetDefaults()
+		{
 			item.width = 36;
 			item.height = 32;
 			item.melee = false;
@@ -34,27 +32,32 @@ namespace OrchidMod.Alchemist
 			item.value = Item.sellPrice(0, 0, 5, 0);
 			SafeSetDefaults();
 		}
-		
-		public override bool AltFunctionUse(Player player) {
+
+		public override bool AltFunctionUse(Player player)
+		{
 			return true;
 		}
-		
-		public override bool UseItem(Player player) {
+
+		public override bool UseItem(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, this.hintLevel);
 			return true;
 		}
-		
-		public override bool CloneNewInstances {
+
+		public override bool CloneNewInstances
+		{
 			get
 			{
 				return true;
 			}
 		}
 
-		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null) {
+			if (thoriumMod != null)
+			{
 				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Alchemist Class-")
 				{
 					overrideColor = new Color(155, 255, 55)

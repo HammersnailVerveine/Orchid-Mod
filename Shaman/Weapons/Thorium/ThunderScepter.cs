@@ -1,15 +1,10 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
 using OrchidMod.Interfaces;
+using Terraria;
+using Terraria.ID;
 
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-    public class ThunderScepter : OrchidModShamanItem, ICrossmodItem
+	public class ThunderScepter : OrchidModShamanItem, ICrossmodItem
 	{
 		public string CrossmodName => "Thorium Mod";
 
@@ -30,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.empowermentType = 3;
 			this.energy = 10;
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Thunder Scepter");
@@ -38,5 +33,5 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nHitting will charge up energy above you"
 							+ "\nWhen fully loaded, potent wind gusts will be released");
 		}
-    }
+	}
 }

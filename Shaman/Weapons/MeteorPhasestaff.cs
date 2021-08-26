@@ -1,16 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
-using System;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
 	public class MeteorPhasestaff : OrchidModShamanItem
-    {
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 7;
@@ -32,26 +27,28 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Meteor Phasestaff");
-		  Tooltip.SetDefault("Channels a disintegrating beam of energy"
-							+"\nThe beam gets weaker the further it goes"
-							+"\nWeapon damage doubles if you have 3 or more active shamanic bonds");
+			DisplayName.SetDefault("Meteor Phasestaff");
+			Tooltip.SetDefault("Channels a disintegrating beam of energy"
+							  + "\nThe beam gets weaker the further it goes"
+							  + "\nWeapon damage doubles if you have 3 or more active shamanic bonds");
 		}
-		
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 3) {
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 3)
+			{
 				flat += 7f;
 			}
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.Anvils);		
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.MeteoriteBar, 20);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

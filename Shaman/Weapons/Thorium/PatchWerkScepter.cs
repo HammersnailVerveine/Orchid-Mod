@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
 	public class PatchWerkScepter : OrchidModShamanItem, ICrossmodItem
@@ -36,6 +32,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Tooltip.SetDefault("Fires out a bolt of festering magic"
 							+ "\nIf you have 2 or more active shamanic bonds, hitting will summon maggots");
 		}
-    }
+	}
 }
 

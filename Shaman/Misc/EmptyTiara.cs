@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,7 +17,7 @@ namespace OrchidMod.Shaman.Misc
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Empty Tiara");
-		  Tooltip.SetDefault("Used to make shamanic Tiaras");
+			Tooltip.SetDefault("Used to make shamanic Tiaras");
 		}
 		public override void AddRecipes()
 		{

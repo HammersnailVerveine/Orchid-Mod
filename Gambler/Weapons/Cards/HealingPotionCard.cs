@@ -1,11 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
 {
@@ -27,17 +21,19 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Lesser Healing");
-		    Tooltip.SetDefault("Rapidly heals when used");
+			Tooltip.SetDefault("Rapidly heals when used");
 		}
-		
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false) {
-			if (!dummy) {
+
+		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		{
+			if (!dummy)
+			{
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				modPlayer.gamblerShuffleCooldown -= (int)(modPlayer.gamblerShuffleCooldownMax / 5);
 				if (modPlayer.gamblerShuffleCooldown < 0) modPlayer.gamblerShuffleCooldown = 0;
 				if (Main.myPlayer == player.whoAmI)
 					player.HealEffect(4, true);
-				player.statLife += 4;	
+				player.statLife += 4;
 			}
 		}
 	}

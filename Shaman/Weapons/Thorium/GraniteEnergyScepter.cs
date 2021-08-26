@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
 	public class GraniteEnergyScepter : OrchidModShamanItem, ICrossmodItem
@@ -37,6 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nGrants you a granite energy orb on hit"
 							+ "\nIf you have 4 energy orbs, your next hit will make them revolve around you");
 		}
-    }
+	}
 }
 

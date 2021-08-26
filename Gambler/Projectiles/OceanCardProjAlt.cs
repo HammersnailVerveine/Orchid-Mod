@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -9,30 +7,32 @@ namespace OrchidMod.Gambler.Projectiles
 	public class OceanCardProjAlt : OrchidModGamblerProjectile
 	{
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Fartling ball");
-        } 
-		
+		{
+			DisplayName.SetDefault("Fartling ball");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			projectile.width = 20;
-            projectile.height = 20;
-            projectile.friendly = false;
-            projectile.aiStyle = 0;
+			projectile.height = 20;
+			projectile.friendly = false;
+			projectile.aiStyle = 0;
 			projectile.tileCollide = false;
-			projectile.timeLeft = 600;	
+			projectile.timeLeft = 600;
 			Main.projFrames[projectile.type] = 5;
 			this.bonusTrigger = true;
 		}
-		
-		public override void Kill(int timeLeft) {
-			for (int i = 0 ; i < 10 ; i ++) {
+
+		public override void Kill(int timeLeft)
+		{
+			for (int i = 0; i < 10; i++)
+			{
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}
 		}
-		
+
 		public override void SafeAI()
 		{
 			projectile.velocity *= 0.95f;
@@ -44,9 +44,11 @@ namespace OrchidMod.Gambler.Projectiles
 			if (modPlayer.timer120 == 30) projectile.frame = 3;
 			if (modPlayer.timer120 == 40) projectile.frame = 4;
 		}
-		
-		public override void BonusProjectiles(Player player, OrchidModPlayer modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy) {
-			if (modProjectile.gamblerInternalCooldown == 0) {
+
+		public override void BonusProjectiles(Player player, OrchidModPlayer modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy)
+		{
+			if (modProjectile.gamblerInternalCooldown == 0)
+			{
 				modProjectile.gamblerInternalCooldown = 50;
 				int projType = ProjectileType<Gambler.Projectiles.OceanCardProj>();
 				Vector2 target = Main.MouseWorld;

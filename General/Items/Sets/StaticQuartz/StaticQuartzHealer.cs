@@ -1,14 +1,13 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.General.Items.Sets.StaticQuartz.Projectiles;
+using OrchidMod.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using OrchidMod.Interfaces;
-using OrchidMod.General.Items.Sets.StaticQuartz.Projectiles;
 
 namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
@@ -39,14 +38,14 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			item.shootSpeed = 0.1f;
 			item.crit = 0;
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Scythe");
 			Tooltip.SetDefault("Rapidly spins a static quartz scythe all around you"
-							+  "\nDeals increased damage while moving");
+							+ "\nDeals increased damage while moving");
 		}
-		
+
 		public override void AddRecipes()
 		{
 			if (thoriumMod != null)
@@ -58,7 +57,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 				recipe.AddRecipe();
 			}
 		}
-		
+
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			if (thoriumMod != null)
@@ -77,7 +76,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 				}
 			}
 		}
-		
+
 		public override void GetWeaponCrit(Player player, ref int crit)
 		{
 			if (thoriumMod != null)
@@ -89,7 +88,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 				}
 			}
 		}
-		
+
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			for (int k = 0; k < 2; k++)
@@ -98,7 +97,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			}
 			return true;
 		}
-		
+
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			Player player = Main.player[Main.myPlayer];
@@ -109,8 +108,9 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 				ModPlayer thoriumPlayer = player.GetModPlayer(thoriumMod, "ThoriumPlayer");
 				FieldInfo field = thoriumPlayer.GetType().GetField("darkAura", BindingFlags.Public | BindingFlags.Instance);
 				bool dark = (bool)field.GetValue(thoriumPlayer);
-				
-				if (field != null) {
+
+				if (field != null)
+				{
 					TooltipLine tooltip = tooltips.Find(tt => tt.mod.Equals("Terraria") && tt.Name.Equals("Damage"));
 					if (tooltip != null)
 					{
@@ -125,23 +125,26 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 							overrideColor = !dark ? new Color(255, 255, 91) : new Color(178, 102, 255)
 						});
 					}
-					
+
 					index = tooltips.FindIndex(tt => tt.mod.Equals("Terraria") && tt.Name.Equals("Knockback"));
 					if (index != -1)
 					{
 						tooltips.Insert(index + 1, new TooltipLine(mod, "ScytheSoulCharge", "Grants 1 soul essence on direct hit"));
 					}
-				} else {
+				}
+				else
+				{
 					TooltipLine tooltip = tooltips.Find(tt => tt.mod.Equals("Terraria") && tt.Name.Equals("Damage"));
 					if (tooltip != null)
 					{
-						tooltips.Insert(1, new TooltipLine(mod, "ReflectionFail", "Reflection Borked"){
+						tooltips.Insert(1, new TooltipLine(mod, "ReflectionFail", "Reflection Borked")
+						{
 							overrideColor = new Color(255, 0, 0)
 						});
 					}
 				}
 			}
 		}
-		
+
 	}
 }

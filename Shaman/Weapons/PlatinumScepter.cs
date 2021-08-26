@@ -1,17 +1,13 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class PlatinumScepter : OrchidModShamanItem
-    {
+	public class PlatinumScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
-		{	
+		{
 			item.damage = 36;
 			item.width = 36;
 			item.height = 38;
@@ -30,19 +26,19 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Diamond Scepter");
-		  Tooltip.SetDefault("\nHitting an enemy will grant you a diamond orb"
-							+"\nIf you have 3 diamond orbs, your next hit will increase the duration of upcoming shamanic bonds for 30 seconds");
+			DisplayName.SetDefault("Diamond Scepter");
+			Tooltip.SetDefault("\nHitting an enemy will grant you a diamond orb"
+							  + "\nIf you have 3 diamond orbs, your next hit will increase the duration of upcoming shamanic bonds for 30 seconds");
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.Anvils);		
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Diamond, 8);
 			recipe.AddIngredient(ItemID.PlatinumBar, 10);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

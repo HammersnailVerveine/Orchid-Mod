@@ -1,15 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class PerishingSoul : OrchidModShamanItem
-    {
+	public class PerishingSoul : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 57;
@@ -30,18 +26,18 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Perishing Soul");
-		  Tooltip.SetDefault("Shoots fireballs, growing for an instant before being launched"
-							+"\nProjectile will grow faster the more active shamanic bonds you have");
+			DisplayName.SetDefault("Perishing Soul");
+			Tooltip.SetDefault("Shoots fireballs, growing for an instant before being launched"
+							  + "\nProjectile will grow faster the more active shamanic bonds you have");
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.Anvils);	
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.HellstoneBar, 18);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

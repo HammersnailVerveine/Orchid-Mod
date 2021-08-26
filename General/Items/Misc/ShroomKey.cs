@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
@@ -10,7 +8,7 @@ namespace OrchidMod.General.Items.Misc
 	{
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Shroom Key");
+			DisplayName.SetDefault("Shroom Key");
 		}
 
 		public override void SetDefaults()
@@ -22,13 +20,16 @@ namespace OrchidMod.General.Items.Misc
 			item.rare = 8;
 			item.value = Item.sellPrice(0, 0, 0, 0);
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
 			string str = "";
 			if (NPC.downedPlantBoss)
 			{
 				str = "Unlocks a Shroom Chest in the dungeon";
-			} else {
+			}
+			else
+			{
 				str = "It has been cursed by a powerful Jungle creature";
 			}
 			tooltips.Insert(1, new TooltipLine(mod, "KeyTag", str));

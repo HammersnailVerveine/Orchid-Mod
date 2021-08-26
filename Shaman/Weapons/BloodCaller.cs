@@ -1,15 +1,10 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class BloodCaller : OrchidModShamanItem
-    {
+	public class BloodCaller : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 34;
@@ -30,9 +25,9 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Blood Caller");
-		  Tooltip.SetDefault("\nHitting an enemy will grant you a crimson heart"
-							+"\nIf you have 3 crimson hearts, your next hit will recover some life");
+			DisplayName.SetDefault("Blood Caller");
+			Tooltip.SetDefault("\nHitting an enemy will grant you a crimson heart"
+							  + "\nIf you have 3 crimson hearts, your next hit will recover some life");
 		}
-    }
+	}
 }

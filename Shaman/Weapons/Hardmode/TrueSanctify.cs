@@ -1,17 +1,14 @@
-using System.Collections.Generic;
-using System;
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Misc;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OrchidMod.Shaman.Misc;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class TrueSanctify : OrchidModShamanItem
-    {
+	public class TrueSanctify : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 62;
@@ -32,31 +29,33 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("True Sanctify");
-		  Tooltip.SetDefault("Casts pure light projectiles to purge your foes"
-							+"\nHitting enemies will gradually grant you hallowed orbs"
-							+"\nWhen reaching 7 orbs, they will break free and home into your enemies"
-							+"\nHaving 3 or more active shamanic bonds will release homing projectiles");
+			DisplayName.SetDefault("True Sanctify");
+			Tooltip.SetDefault("Casts pure light projectiles to purge your foes"
+							  + "\nHitting enemies will gradually grant you hallowed orbs"
+							  + "\nWhen reaching 7 orbs, they will break free and home into your enemies"
+							  + "\nHaving 3 or more active shamanic bonds will release homing projectiles");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2) {
-				for (int i = 0; i < 2; i ++) {
-					Vector2 projectileVelocity = ( new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(i == 0 ? -20 : 20)));
-					this.newShamanProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("TrueSanctifyProjAlt"), (int)(item.damage*0.75), knockBack, item.owner);
+
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2)
+			{
+				for (int i = 0; i < 2; i++)
+				{
+					Vector2 projectileVelocity = (new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(i == 0 ? -20 : 20)));
+					this.newShamanProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("TrueSanctifyProjAlt"), (int)(item.damage * 0.75), knockBack, item.owner);
 				}
 			}
-			
-            return true;
+
+			return true;
 		}
-		
+
 		public override void AddRecipes()
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
-			
+
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemType<Sanctify>(), 1);
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BrokenHeroFragment") : ItemType<BrokenHeroScepter>(), (thoriumMod != null) ? 2 : 1);
@@ -64,5 +63,5 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-    }
+	}
 }

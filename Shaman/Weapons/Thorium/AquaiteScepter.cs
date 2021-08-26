@@ -1,15 +1,13 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-    public class AquaiteScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	public class AquaiteScepter : OrchidModShamanItem, ICrossmodItem
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -34,12 +32,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		{
 			DisplayName.SetDefault("Aquaite Scepter");
 			Tooltip.SetDefault("Shoots a water bolt, hitting your enemy 2 times"
-							+"\nHitting the same target twice will grant you a water crystal"
-							+"\nIf you have 5 crystals, your next hit will summon a powerful geyser");
+							+ "\nHitting the same target twice will grant you a water crystal"
+							+ "\nIf you have 5 crystals, your next hit will summon a powerful geyser");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+		{
 			int numberProjectiles = 2;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
@@ -47,7 +45,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			}
 			return false;
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;

@@ -1,50 +1,47 @@
-using System.Collections.Generic;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 
 namespace OrchidMod.Shaman.Armors.GemTiaras
 {
 	[AutoloadEquip(EquipType.Head)]
-    public class TopazTiara : OrchidModShamanEquipable
-    {
+	public class TopazTiara : OrchidModShamanEquipable
+	{
 
-        public override void SafeSetDefaults()
-        {
-            item.width = 24;
-            item.height = 12;
-            item.value = Item.sellPrice(0, 0, 15, 0);
-            item.rare = 1;
-            item.defense = 2;
-        }
+		public override void SafeSetDefaults()
+		{
+			item.width = 24;
+			item.height = 12;
+			item.value = Item.sellPrice(0, 0, 15, 0);
+			item.rare = 1;
+			item.defense = 2;
+		}
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Topaz Circlet");
-		  Tooltip.SetDefault("Having an active earth bond defense by 5"
-							+"\nYour shamanic bonds will last 3 seconds longer");
+			DisplayName.SetDefault("Topaz Circlet");
+			Tooltip.SetDefault("Having an active earth bond defense by 5"
+							  + "\nYour shamanic bonds will last 3 seconds longer");
 		}
 
-        public override void UpdateEquip(Player player)
-        {
+		public override void UpdateEquip(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.shamanTopaz = true;
 			modPlayer.shamanBuffTimer += 3;
-        }
-		
+		}
+
 		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-        {
-            drawHair = true;
+		{
+			drawHair = true;
 			drawAltHair = false;
-        }
-		
+		}
+
 		public override bool DrawHead()
-        {
-            return true;
-        }
-		
+		{
+			return true;
+		}
+
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
@@ -54,5 +51,5 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-    }
+	}
 }

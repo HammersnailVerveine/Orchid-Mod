@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
 	public class StarScouterScepter : OrchidModShamanItem, ICrossmodItem
@@ -37,13 +35,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Tooltip.SetDefault("Launches an orbital mine, activating after a while"
 							+ "\nIf you have 3 or more bonds, the explosion will release additional bombs");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(4));
 			this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			return false;
 		}
-    }
+	}
 }
 

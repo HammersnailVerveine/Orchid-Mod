@@ -1,6 +1,3 @@
-using Terraria;
-using Terraria.ModLoader;
-
 namespace OrchidMod.Gambler.Decks
 {
 	public class GamblerAttack : GamblerDeck
@@ -8,7 +5,7 @@ namespace OrchidMod.Gambler.Decks
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gambler Deck");
-		    Tooltip.SetDefault("Allows the use of gambler abilities");
+			Tooltip.SetDefault("Allows the use of gambler abilities");
 		}
 	}
 }

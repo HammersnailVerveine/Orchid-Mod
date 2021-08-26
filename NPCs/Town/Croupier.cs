@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Gambler;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.UI.Chat;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.NPCs.Town
@@ -17,12 +14,14 @@ namespace OrchidMod.NPCs.Town
 	{
 		public override string Texture => "OrchidMod/NPCs/Town/Croupier";
 
-		public override bool Autoload(ref string name) {
+		public override bool Autoload(ref string name)
+		{
 			name = "Croupier";
 			return mod.Properties.Autoload;
 		}
 
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			// DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
 			DisplayName.SetDefault("Croupier");
 			Main.npcFrameCount[npc.type] = 26;
@@ -35,7 +34,8 @@ namespace OrchidMod.NPCs.Town
 			NPCID.Sets.HatOffsetY[npc.type] = 4;
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			npc.townNPC = true;
 			npc.friendly = true;
 			npc.width = 28;
@@ -51,33 +51,42 @@ namespace OrchidMod.NPCs.Town
 		}
 
 		// public override void HitEffect(int hitDirection, double damage) {
-			// int num = npc.life > 0 ? 1 : 5;
-			// for (int k = 0; k < num; k++) {
-				// Dust.NewDust(npc.position, npc.width, npc.height, 6);
-			// }
+		// int num = npc.life > 0 ? 1 : 5;
+		// for (int k = 0; k < num; k++) {
+		// Dust.NewDust(npc.position, npc.width, npc.height, 6);
+		// }
 		// }
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money) {
-			if (Main.netMode == NetmodeID.SinglePlayer) {
-				for (int k = 0; k < 255; k++) {
+		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+		{
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				for (int k = 0; k < 255; k++)
+				{
 					Player player = Main.player[k];
-					if (!player.active) {
+					if (!player.active)
+					{
 						continue;
 					}
 
 					OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-					if (modPlayer.gamblerHasCardInDeck) {
+					if (modPlayer.gamblerHasCardInDeck)
+					{
 						return true;
 					}
 				}
-			} else {
+			}
+			else
+			{
 				return true;
 			}
 			return false;
 		}
 
-		public override string TownNPCName() {
-			switch (WorldGen.genRand.Next(11)) {
+		public override string TownNPCName()
+		{
+			switch (WorldGen.genRand.Next(11))
+			{
 				case 0:
 					return "Capone";
 				case 1:
@@ -103,7 +112,8 @@ namespace OrchidMod.NPCs.Town
 			}
 		}
 
-		public override void FindFrame(int frameHeight) {
+		public override void FindFrame(int frameHeight)
+		{
 			/*npc.frame.Width = 40;
 			if (((int)Main.time / 10) % 2 == 0)
 			{
@@ -117,7 +127,8 @@ namespace OrchidMod.NPCs.Town
 
 		public override string GetChat()
 		{
-			switch (Main.rand.Next(7)) {
+			switch (Main.rand.Next(7))
+			{
 				case 0:
 					return "Cards turnin' your way?";
 				case 1:
@@ -146,7 +157,9 @@ namespace OrchidMod.NPCs.Town
 
 				string deckBuilding = $"[c/{Colors.AlphaDarken(new Color(255, 200, 0)).Hex3()}:Deck Building]";
 				button2 = OrchidModGamblerHelper.hasGamblerDeck(player) ? deckBuilding : "Get a New Deck";
-			} else {
+			}
+			else
+			{
 				button = "Return";
 			}
 		}
@@ -168,8 +181,11 @@ namespace OrchidMod.NPCs.Town
 					Main.npcChatText = Main.npc[player.talkNPC].GetChat();
 				}
 				else shop = true;
-			} else {
-				if (OrchidModGamblerHelper.hasGamblerDeck(player)){
+			}
+			else
+			{
+				if (OrchidModGamblerHelper.hasGamblerDeck(player))
+				{
 					Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.";
 
 					/*switch (Main.rand.Next(0, 1))
@@ -186,10 +202,14 @@ namespace OrchidMod.NPCs.Town
 
 					OrchidMod.Instance.croupierUI.UpdateOnChatButtonClicked();
 					OrchidMod.Instance.croupierUI.Visible = true;
-				} else {
-					for (int i = 0; i < 50; i++) {
+				}
+				else
+				{
+					for (int i = 0; i < 50; i++)
+					{
 						Item item = Main.LocalPlayer.inventory[i];
-						if (item.type == 0) {
+						if (item.type == 0)
+						{
 							Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
 							int gamblerDeck = ItemType<Gambler.Decks.GamblerAttack>();
 							player.QuickSpawnItem(gamblerDeck, 1);
@@ -201,10 +221,11 @@ namespace OrchidMod.NPCs.Town
 			}
 		}
 
-		public override void SetupShop(Chest shop, ref int nextSlot) {
+		public override void SetupShop(Chest shop, ref int nextSlot)
+		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			
+
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Chips.GamblingChip>());
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Dice.GamblingDie>());
@@ -213,101 +234,120 @@ namespace OrchidMod.NPCs.Town
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.GamblerDummy>());
 			nextSlot++;
-			
-			if (!player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneSkyHeight  && !player.ZoneCrimson && !player.ZoneHoly && !player.ZoneJungle && !player.ZoneSnow && !player.ZoneDesert && !player.ZoneGlowshroom && player.ZoneOverworldHeight) {
+
+			if (!player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneSkyHeight && !player.ZoneCrimson && !player.ZoneHoly && !player.ZoneJungle && !player.ZoneSnow && !player.ZoneDesert && !player.ZoneGlowshroom && player.ZoneOverworldHeight)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.ForestCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (player.ZoneSnow) {
+			if (player.ZoneSnow)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.SnowCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (player.ZoneDesert) {
+			if (player.ZoneDesert)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.DesertCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (player.ZoneBeach) {
+			if (player.ZoneBeach)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.OceanCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (player.ZoneJungle) {
+			if (player.ZoneJungle)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.JungleCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (player.ZoneGlowshroom) {
+			if (player.ZoneGlowshroom)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.MushroomCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (player.ZoneUnderworldHeight) {
+			if (player.ZoneUnderworldHeight)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.HellCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (player.ZoneUnderworldHeight) {
+			if (player.ZoneUnderworldHeight)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.HellCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (player.ZoneSkyHeight ) {
+			if (player.ZoneSkyHeight)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.SkyCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (Main.slimeRain) {
+			if (Main.slimeRain)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.SlimeRainCard>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			
-			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Slime") > 2) {
+
+			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Slime") > 2)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.SlimyLollipop>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Biome") > 2) {
+			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Biome") > 2)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.LuckySprout>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Boss") > 2) {
+			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Boss") > 2)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.ConquerorsPennant>());
-				nextSlot++;	
+				nextSlot++;
 			}
-			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Elemental") > 2) {
+			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Elemental") > 2)
+			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.ElementalLens>());
-				nextSlot++;	
+				nextSlot++;
 			}
 		}
 
 		// public override void NPCLoot() {
-			// Item.NewItem(npc.getRect(), ItemType<Items.Armor.ExampleCostume>());
+		// Item.NewItem(npc.getRect(), ItemType<Items.Armor.ExampleCostume>());
 		// }
 
 		// Make this Town NPC teleport to the King and/or Queen statue when triggered.
-		public override bool CanGoToStatue(bool toKingStatue) {
+		public override bool CanGoToStatue(bool toKingStatue)
+		{
 			return true;
 		}
 
 		// Make something happen when the npc teleports to a statue. Since this method only runs server side, any visual effects like dusts or gores have to be synced across all clients manually.
 		// public override void OnGoToStatue(bool toQueenStatue) {
-			// if (Main.netMode == NetmodeID.Server) {
-				// ModPacket packet = mod.GetPacket();
-				// packet.Write((byte)ExampleModMessageType.ExampleTeleportToStatue);
-				// packet.Write((byte)npc.whoAmI);
-				// packet.Send();
-			// }
+		// if (Main.netMode == NetmodeID.Server) {
+		// ModPacket packet = mod.GetPacket();
+		// packet.Write((byte)ExampleModMessageType.ExampleTeleportToStatue);
+		// packet.Write((byte)npc.whoAmI);
+		// packet.Send();
+		// }
 		// }
 
-		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
+		public override void TownNPCAttackStrength(ref int damage, ref float knockback)
+		{
 			damage = 20;
 			knockback = 4f;
 		}
 
-		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
+		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown)
+		{
 			cooldown = 30;
 			randExtraCooldown = 30;
 		}
 
-		public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
+		public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
+		{
 			projType = ProjectileType<NPCs.Town.Projectiles.CroupierProjectile>();
 			attackDelay = 1;
 		}
 
-		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset) {
+		public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
+		{
 			multiplier = 12f;
 			randomOffset = 2f;
 		}

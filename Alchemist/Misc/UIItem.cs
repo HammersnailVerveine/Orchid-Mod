@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Linq;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Misc
@@ -25,30 +23,35 @@ namespace OrchidMod.Alchemist.Misc
 			item.UseSound = SoundID.Item7;
 			item.shoot = ProjectileType<Alchemist.Projectiles.AlchemistRightClick>();
 		}
-		
-		public override bool AltFunctionUse(Player player) {
+
+		public override bool AltFunctionUse(Player player)
+		{
 			return true;
 		}
-		
-		public override bool CanUseItem(Player player) {
+
+		public override bool CanUseItem(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (player.altFunctionUse == 2) {
+			if (player.altFunctionUse == 2)
+			{
 				return !modPlayer.alchemistSelectUIDisplay && Main.mouseRightRelease;
 			} // else {
-				// return !modPlayer.alchemistSelectUIDisplay && Main.mouseLeftRelease;
-			// }
+			  // return !modPlayer.alchemistSelectUIDisplay && Main.mouseLeftRelease;
+			  // }
 			return base.CanUseItem(player);
 		}
-		
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
+
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (!modPlayer.alchemistSelectUIDisplay) {
+			if (!modPlayer.alchemistSelectUIDisplay)
+			{
 				modPlayer.alchemistSelectUIDisplay = true;
 				modPlayer.alchemistSelectUIInitialize = true;
 			}
 			return true;
 		}
-		
+
 		/*
 		public override bool UseItem(Player player) {
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
@@ -59,18 +62,21 @@ namespace OrchidMod.Alchemist.Misc
 			return true;
 		}
 		*/
-		
-		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null) {
+			if (thoriumMod != null)
+			{
 				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Alchemist Class-")
 				{
 					overrideColor = new Color(155, 255, 55)
 				});
 			}
 		}
-		
-		public override void HoldItem(Player player) {
+
+		public override void HoldItem(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.alchemistSelectUIItem = true;
 		}
@@ -79,9 +85,9 @@ namespace OrchidMod.Alchemist.Misc
 		{
 			DisplayName.SetDefault("The Alchemist's Cookbook");
 			Tooltip.SetDefault("Allows mixing alchemical weapons by clicking"
-							+  "\nRight click on an item icon to mix it"
-							+  "\nLeft click to launch the attack"
-							+  "\nUp to 18 items can be displayed at once");
+							+ "\nRight click on an item icon to mix it"
+							+ "\nLeft click to launch the attack"
+							+ "\nUp to 18 items can be displayed at once");
 		}
 
 	}

@@ -7,11 +7,13 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
 	public class StaticQuartzDart : OrchidModItem
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			Tooltip.SetDefault("Damage doubles after hitting a tile");
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			item.damage = 6;
 			item.ranged = true;
 			item.width = 14;
@@ -26,7 +28,8 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			item.ammo = AmmoID.Dart;
 		}
 
-		public override void AddRecipes() {
+		public override void AddRecipes()
+		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 1);
 			recipe.SetResult(this, 100);

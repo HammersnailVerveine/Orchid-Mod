@@ -1,18 +1,15 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Interfaces;
+using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Linq;
-using System;
-using OrchidMod.Interfaces;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class ShroomiteScepter : OrchidModShamanItem, IGlowingItem
-    {
+	public class ShroomiteScepter : OrchidModShamanItem, IGlowingItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 93;
@@ -53,7 +50,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			var projectile = CreateNewProjectile(item, player, projectileType);
 			projectile.ai[1] = nbBonds;
 			projectile.netUpdate = true;
-			
+
 			return false;
 		}
 

@@ -1,33 +1,28 @@
-using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 {
-    public class MythrilScepterProj : OrchidModShamanProjectile
-    {
-        public override void SafeSetDefaults()
-        {
-            projectile.width = 14;
-            projectile.height = 14;
-            projectile.friendly = true;
-            projectile.aiStyle = 0;
+	public class MythrilScepterProj : OrchidModShamanProjectile
+	{
+		public override void SafeSetDefaults()
+		{
+			projectile.width = 14;
+			projectile.height = 14;
+			projectile.friendly = true;
+			projectile.aiStyle = 0;
 			projectile.timeLeft = 25;
 			projectile.scale = 1f;
 			projectile.alpha = 255;
-        }
-		
+		}
+
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Mythril Bolt");
-        }
-		
-        public override void AI()
-        {    
-            int dust = Dust.NewDust(projectile.Center, 1, 1, 188);
+		{
+			DisplayName.SetDefault("Mythril Bolt");
+		}
+
+		public override void AI()
+		{
+			int dust = Dust.NewDust(projectile.Center, 1, 1, 188);
 			Main.dust[dust].velocity /= 1f;
 			Main.dust[dust].scale = 1f;
 			Main.dust[dust].noGravity = true;
@@ -38,34 +33,35 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			Main.dust[dust2].noGravity = true;
 			Main.dust[dust2].noLight = true;
 		}
-		
+
 		public override void Kill(int timeLeft)
-        {
-            for(int i=0; i<10; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 188);
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 188);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale /= 2f;
 				Main.dust[dust].velocity *= 4f;
-            }
-        }
-		
+			}
+		}
+
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			if (modPlayer.shamanOrbBig != ShamanOrbBig.MYTHRIL) {
+			if (modPlayer.shamanOrbBig != ShamanOrbBig.MYTHRIL)
+			{
 				modPlayer.shamanOrbBig = ShamanOrbBig.MYTHRIL;
 				modPlayer.orbCountBig = 0;
 			}
-			modPlayer.orbCountBig ++;
+			modPlayer.orbCountBig++;
 			//modPlayer.sendOrbCountPackets();
-			
+
 			if (modPlayer.orbCountBig == 3)
-				{
+			{
 				Projectile.NewProjectile(player.Center.X - 30, player.position.Y - 30, 0f, 0f, mod.ProjectileType("MythrilOrb"), 0, 0, projectile.owner, 0f, 0f);
-				
+
 				if (player.FindBuffIndex(mod.BuffType("ShamanicBaubles")) > -1)
 				{
-					modPlayer.orbCountBig +=3;
+					modPlayer.orbCountBig += 3;
 					Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, mod.ProjectileType("MythrilOrb"), 1, 0, projectile.owner, 0f, 0f);
 					player.ClearBuff(mod.BuffType("ShamanicBaubles"));
 					//modPlayer.sendOrbCountPackets();
@@ -79,11 +75,12 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 38, 0f, 0f, mod.ProjectileType("MythrilOrb"), 0, 0, projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 15)
 				Projectile.NewProjectile(player.Center.X + 30, player.position.Y - 30, 0f, 0f, mod.ProjectileType("MythrilOrb"), 0, 0, projectile.owner, 0f, 0f);
-			if (modPlayer.orbCountBig > 15) {
+			if (modPlayer.orbCountBig > 15)
+			{
 
 				player.AddBuff(mod.BuffType("MythrilDefense"), 60 * 30);
 				modPlayer.orbCountBig = -3;
 			}
 		}
-    }
+	}
 }

@@ -1,25 +1,22 @@
-using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Interfaces;
 
 namespace OrchidMod.Alchemist.Armors.Mushroom
 {
 	[AutoloadEquip(EquipType.Legs)]
-    public class MushroomLeggings : OrchidModAlchemistEquipable
-    {
-        public override void SafeSetDefaults()
-        {
-            item.width = 22;
-            item.height = 18;
-            item.value = Item.sellPrice(0, 0, 4, 0);
-            item.rare = ItemRarityID.Blue;
-            item.defense = 3;
-        }
+	public class MushroomLeggings : OrchidModAlchemistEquipable
+	{
+		public override void SafeSetDefaults()
+		{
+			item.width = 22;
+			item.height = 18;
+			item.value = Item.sellPrice(0, 0, 4, 0);
+			item.rare = ItemRarityID.Blue;
+			item.defense = 3;
+		}
 
 		public override void SetStaticDefaults()
 		{
@@ -27,22 +24,22 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 			Tooltip.SetDefault("5% increased potency regeneration");
 		}
 
-        public override void UpdateEquip(Player player)
-        {
+		public override void UpdateEquip(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.alchemistRegenPotency -= 3;
-        }
-		
+		}
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Silk, 6);
 			recipe.AddIngredient(ItemID.GlowingMushroom, 5);
 			recipe.AddIngredient(null, "MushroomThread", 1);
 			recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{

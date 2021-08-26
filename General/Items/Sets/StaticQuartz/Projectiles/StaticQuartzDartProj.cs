@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,12 +8,14 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 	public class StaticQuartzDartProj : ModProjectile
 	{
 		private bool collided = false;
-		
-		public override void SetStaticDefaults() {
+
+		public override void SetStaticDefaults()
+		{
 			DisplayName.SetDefault("Static Quartz Dart");
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			projectile.width = 8;
 			projectile.height = 8;
 			projectile.aiStyle = 1;
@@ -26,18 +27,21 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 			projectile.tileCollide = true;
 		}
 
-		public override bool OnTileCollide(Vector2 oldVelocity) {
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
 			Main.PlaySound(SoundID.Item10, projectile.Center);
 			projectile.velocity *= 0f;
 			projectile.aiStyle = 0;
-			if (!collided) {
+			if (!collided)
+			{
 				projectile.damage = (int)(projectile.damage * 2f);
 				collided = true;
 			}
 			return false;
 		}
 
-		public override void Kill(int timeLeft) {
+		public override void Kill(int timeLeft)
+		{
 			Main.PlaySound(SoundID.Item10, projectile.Center);
 		}
 	}

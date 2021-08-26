@@ -1,10 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using OrchidMod;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 {
@@ -15,9 +10,9 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		float startY = 0;
 		int orbsNumber = 0;
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Corrupt Orb");
-        } 
+		{
+			DisplayName.SetDefault("Corrupt Orb");
+		}
 		public override void SafeSetDefaults()
 		{
 			projectile.width = 26;
@@ -29,24 +24,26 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			projectile.tileCollide = false;
 			Main.projFrames[projectile.type] = 10;
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-		
-		public override bool? CanCutTiles() {
+		{
+			return Color.White;
+		}
+
+		public override bool? CanCutTiles()
+		{
 			return false;
 		}
-		
-        public override void AI()
-        {
+
+		public override void AI()
+		{
 			Player player = Main.player[projectile.owner];
-			
-			if (player != Main.player[Main.myPlayer]) {
+
+			if (player != Main.player[Main.myPlayer])
+			{
 				projectile.active = false;
 			}
-			
+
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 2)
 				projectile.frame = 0;
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 2 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 4)
@@ -67,72 +64,76 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				projectile.frame = 8;
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 18 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 20)
 				projectile.frame = 9;
-			
+
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique == 0 || player.GetModPlayer<OrchidModPlayer>().orbCountUnique > 20 || player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique != ShamanOrbUnique.CORRUPTION)
 				projectile.Kill();
-			
+
 			else orbsNumber = player.GetModPlayer<OrchidModPlayer>().orbCountUnique;
 
-			if (projectile.timeLeft == 12960000) {
+			if (projectile.timeLeft == 12960000)
+			{
 				startX = projectile.position.X - player.position.X;
 				startY = projectile.position.Y - player.position.Y;
 			}
 			projectile.velocity.X = player.velocity.X;
 			projectile.position.X = player.position.X + startX;
 			projectile.position.Y = player.position.Y + startY;
-			
-			if (Main.rand.Next(13) == 0) {
+
+			if (Main.rand.Next(13) == 0)
+			{
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 75);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 				Main.dust[dust].scale *= 1.4f;
 			}
-			if (Main.rand.Next(13) == 0) {
+			if (Main.rand.Next(13) == 0)
+			{
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 74);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 				Main.dust[dust].scale *= 1.4f;
 			}
-			
-        }
-		
+
+		}
+
 		public override void Kill(int timeLeft)
-        {
+		{
 			Player player = Main.player[projectile.owner];
-			
-			for(int i=0; i<10; i++)
-            {
-			int dust;
-			switch (Main.rand.Next(3)) {
-				case 0:
-					dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 75);
-					Main.dust[dust].velocity *= 2f;
-					Main.dust[dust].scale = 1.5f;
-					Main.dust[dust].noGravity = true;
-					break;
-				case 1:
-					dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 74);
-					Main.dust[dust].velocity *= 2f;
-					Main.dust[dust].scale = 2f;
-					Main.dust[dust].noGravity = true;
-					break;
-				case 2:
-					dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 61);
-					Main.dust[dust].velocity *= 2f;
-					Main.dust[dust].scale = 1.75f;
-					Main.dust[dust].noGravity = true;
-					break;
+
+			for (int i = 0; i < 10; i++)
+			{
+				int dust;
+				switch (Main.rand.Next(3))
+				{
+					case 0:
+						dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 75);
+						Main.dust[dust].velocity *= 2f;
+						Main.dust[dust].scale = 1.5f;
+						Main.dust[dust].noGravity = true;
+						break;
+					case 1:
+						dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 74);
+						Main.dust[dust].velocity *= 2f;
+						Main.dust[dust].scale = 2f;
+						Main.dust[dust].noGravity = true;
+						break;
+					case 2:
+						dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 61);
+						Main.dust[dust].velocity *= 2f;
+						Main.dust[dust].scale = 1.75f;
+						Main.dust[dust].noGravity = true;
+						break;
+				}
 			}
-            }
-			
+
 			int dmg = (int)((30 + (5 * (orbsNumber))) * player.GetModPlayer<OrchidModPlayer>().shamanDamage);
-			int rainCount = (int)(orbsNumber/2);
-			for (int i = 0 ; i < rainCount ; i++) {
+			int rainCount = (int)(orbsNumber / 2);
+			for (int i = 0; i < rainCount; i++)
+			{
 				Vector2 perturbedSpeed = new Vector2(projectile.velocity.X - Main.rand.Next(2) + 1, -((float)(Main.rand.Next(3) + 3))).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(player.Center.X + projectile.velocity.X, player.Center.Y - 125 + projectile.velocity.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("CorruptOrbRain"), dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
 			}
 			Main.player[projectile.owner].GetModPlayer<OrchidModPlayer>().orbCountUnique = 0;
-        }
-    }
+		}
+	}
 }
- 

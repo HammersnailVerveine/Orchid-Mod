@@ -2,11 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using OrchidMod;
-using OrchidMod.Dusts;
-using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 {
@@ -106,7 +101,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 			return DelegateMethods.CutTiles(x, y);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{

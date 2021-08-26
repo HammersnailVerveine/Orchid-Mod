@@ -1,15 +1,12 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
 	public class AbyssionScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -36,20 +33,23 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Tooltip.SetDefault("Summons bolts of dark energy that lingers for a while before returning to you"
 							+ "\nCosts 25 health to cast, reduced by 5 for each active shamanic bond");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			OrchidModPlayer modPlayer =  player.GetModPlayer<OrchidModPlayer>();
-			
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+
 			int damageCost = 25 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 5;
-			if (player.statLife - damageCost > 0) { 
+			if (player.statLife - damageCost > 0)
+			{
 				player.statLife -= damageCost;
-			} else {
+			}
+			else
+			{
 				player.statLife = 1;
 			}
-			
+
 			return true;
 		}
-    }
+	}
 }
 

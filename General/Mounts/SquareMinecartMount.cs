@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,7 +29,7 @@ namespace OrchidMod.General.Mounts
 
 			mountData.playerYOffsets = new int[] { 8, 8, 8 };
 			//mountData.xOffset = 1;
-			mountData.yOffset = 13; 
+			mountData.yOffset = 13;
 			mountData.bodyFrame = 3;
 			mountData.playerHeadOffset = 14;
 

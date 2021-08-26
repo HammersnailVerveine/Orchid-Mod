@@ -16,7 +16,7 @@ namespace OrchidMod.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).hauntedCandle= true;
+			((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).hauntedCandle = true;
 			player.buffTime[buffIndex] = 18000;
 			bool petProjectileNotSpawned = player.ownedProjectileCounts[mod.ProjectileType("HauntedCandle")] <= 0;
 			if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)

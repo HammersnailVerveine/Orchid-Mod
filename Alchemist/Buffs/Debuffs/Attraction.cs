@@ -3,9 +3,10 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Buffs.Debuffs
 {
-    public class Attraction : ModBuff
+	public class Attraction : ModBuff
 	{
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			DisplayName.SetDefault("Attraction");
 			Description.SetDefault("Attracts nearby alchemist projectiles");
 			Main.debuff[Type] = true;

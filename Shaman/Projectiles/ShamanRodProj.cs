@@ -1,6 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,21 +15,21 @@ namespace OrchidMod.Shaman.Projectiles
 		private ref float Progress => ref projectile.ai[0]; // 2 -> 0 -> 2 -> 0 ...
 
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Leaf");
+		{
+			DisplayName.SetDefault("Leaf");
 
 			ProjectileID.Sets.TrailingMode[projectile.type] = 2;
 			ProjectileID.Sets.TrailCacheLength[projectile.type] = 15;
-		} 
-		
+		}
+
 		public override void SafeSetDefaults()
 		{
-            projectile.width = 24;
-            projectile.height = 24;
-            projectile.friendly = true;
-            projectile.aiStyle = 0;
+			projectile.width = 24;
+			projectile.height = 24;
+			projectile.friendly = true;
+			projectile.aiStyle = 0;
 			projectile.timeLeft = 1801;
-            projectile.penetrate = -1;
+			projectile.penetrate = -1;
 		}
 
 		public override void OnSpawn()
@@ -41,10 +41,10 @@ namespace OrchidMod.Shaman.Projectiles
 		}
 
 		public override void AI()
-        {
+		{
 			if (Progress >= 0 && projectile.ai[1] == -1) Progress += projectile.velocity.Length() / length;
 
-			projectile.friendly = projectile.ai[1] == -1;	
+			projectile.friendly = projectile.ai[1] == -1;
 			projectile.rotation -= 0.2f;
 			projectile.position = Vector2.SmoothStep(startPosition + Vector2.Normalize(projectile.velocity) * length, startPosition, Math.Abs(1 - Progress));
 
@@ -83,17 +83,17 @@ namespace OrchidMod.Shaman.Projectiles
 		}
 
 		public override void Kill(int timeLeft)
-        {
+		{
 			Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 65);
-			
-            for (int i = 0; i < 5; i++)
-            {
+
+			for (int i = 0; i < 5; i++)
+			{
 				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Dusts.LeafDust>())];
 				dust.scale *= Main.rand.NextFloat(1.25f, 1.75f);
 				dust.velocity = new Vector2(Vector2.Normalize(projectile.velocity).X * 0.2f + Main.rand.NextFloat(-0.15f, 0.15f), Main.rand.NextFloat(0.2f, 0.45f));
 			}
-        }
-		
+		}
+
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
 			//if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f && slow)

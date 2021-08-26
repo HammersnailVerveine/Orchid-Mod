@@ -1,14 +1,10 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
 	public class Blum : OrchidModShamanItem
-    {
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 17;
@@ -31,17 +27,18 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Blum");
-		  Tooltip.SetDefault("Rapidly shoots dangerous magical bolts"
-							+ "\nThe weapon speed depends on the number of active shamanic bonds");
+			DisplayName.SetDefault("Blum");
+			Tooltip.SetDefault("Rapidly shoots dangerous magical bolts"
+							  + "\nThe weapon speed depends on the number of active shamanic bonds");
 		}
-		
-		public override void UpdateInventory(Player player) {
+
+		public override void UpdateInventory(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			item.useTime = 18 - (nbBonds * 2);
 			item.useAnimation = 18 - (nbBonds * 2);
 		}
-    }
+	}
 }
 

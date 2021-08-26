@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria;
 
 namespace OrchidMod.Gambler.Weapons.Dice
 {
@@ -19,11 +14,11 @@ namespace OrchidMod.Gambler.Weapons.Dice
 			this.diceCost = 2;
 			this.diceDuration = 15;
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gambling Die");
-		    Tooltip.SetDefault("Increases gambling damage by 2 - 12%");
+			Tooltip.SetDefault("Increases gambling damage by 2 - 12%");
 		}
 	}
 }

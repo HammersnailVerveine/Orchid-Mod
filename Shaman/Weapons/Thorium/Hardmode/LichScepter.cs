@@ -1,17 +1,13 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
 	public class LichScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	{
 		public string CrossmodName => "Thorium Mod";
-		
+
 		public override void SafeSetDefaults()
 		{
 			item.damage = 75;
@@ -36,6 +32,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Tooltip.SetDefault("Fires out a bolt of spiritual fire, dividing upon hitting a foe"
 							+ "\nIf you have 4 or more active shamanic bonds, the bonus projectiles will home at nearby enemies");
 		}
-    }
+	}
 }
 

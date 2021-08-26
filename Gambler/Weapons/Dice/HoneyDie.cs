@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria;
 
 namespace OrchidMod.Gambler.Weapons.Dice
 {
@@ -19,11 +14,11 @@ namespace OrchidMod.Gambler.Weapons.Dice
 			this.diceCost = 3;
 			this.diceDuration = 20;
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wax Die");
-		    Tooltip.SetDefault("Recovers 1 - 6 health on gambling critical strike");
+			Tooltip.SetDefault("Recovers 1 - 6 health on gambling critical strike");
 		}
 	}
 }

@@ -1,18 +1,14 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
-using OrchidMod;
-using OrchidMod.Shaman.Weapons.Hardmode;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Interfaces;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class AbyssShredder : OrchidModShamanItem, IGlowingItem
-    {
+	public class AbyssShredder : OrchidModShamanItem, IGlowingItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 110;
@@ -53,7 +49,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 			return false;
 		}
-		
+
 		public override void UpdateInventory(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
@@ -62,20 +58,20 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.useTime = 18 - (2 * nbBonds);
 			item.useAnimation = 18 - (2 * nbBonds);
 		}
-		
+
 		public override void PostUpdate()
 		{
 			Lighting.AddLight(item.Center, Color.Blue.ToVector3() * 0.55f * Main.essScale);
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{

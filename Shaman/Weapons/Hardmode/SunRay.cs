@@ -1,15 +1,10 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
-using System;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class SunRay : OrchidModShamanItem
-    {
+	public class SunRay : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 60;
@@ -28,8 +23,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.empowermentType = 1;
 			this.energy = 10;
 		}
-		
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			mult *= modPlayer.shamanDamage + (nbBonds * 0.1f);
@@ -38,10 +34,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Sun Ray");
-		  Tooltip.SetDefault("Shoots a continuous sun beam"
-						   + "\nDamage scales with the number of active shamanic bonds"
-						   + "\n10% increased damage during the day");
+			DisplayName.SetDefault("Sun Ray");
+			Tooltip.SetDefault("Shoots a continuous sun beam"
+							 + "\nDamage scales with the number of active shamanic bonds"
+							 + "\n10% increased damage during the day");
 		}
-    }
+	}
 }

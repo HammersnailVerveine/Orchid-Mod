@@ -4,21 +4,22 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Buffs
 {
-    public class IceChestFlaskBuff : ModBuff
-    {
-        public override void SetDefaults()
-        {
+	public class IceChestFlaskBuff : ModBuff
+	{
+		public override void SetDefaults()
+		{
 			DisplayName.SetDefault("Permanent Freeze");
 			Description.SetDefault("Constantly freezes various alchemical projectiles and slows enemies around you");
-            Main.buffNoTimeDisplay[Type] = false;
+			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
-        }
-		
-        public override void Update(Player player, ref int buffIndex)
+		}
+
+		public override void Update(Player player, ref int buffIndex)
 		{
 			OrchidModProjectile.spawnDustCircle(player.Center, 261, 1, 1, true, 1.5f, 1f, 16f, true, true, false, 0, 0, true);
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (modPlayer.alchemistLastAttackDelay > 60) {	
+			if (modPlayer.alchemistLastAttackDelay > 60)
+			{
 				int range = 100;
 				int projType = ProjectileType<Alchemist.Projectiles.Water.IceChestFlaskProj>();
 				int itemType = ItemType<Alchemist.Weapons.Water.IceChestFlask>();
@@ -32,5 +33,5 @@ namespace OrchidMod.Alchemist.Buffs
 				newProjectile.netUpdate = true;
 			}
 		}
-    }
+	}
 }

@@ -1,22 +1,20 @@
 using Terraria;
-using Terraria.ModLoader;
-using OrchidMod;
-using Microsoft.Xna.Framework;
-using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist
 {
-    public abstract class OrchidModAlchemistProjectile : OrchidModProjectile
-    {
+	public abstract class OrchidModAlchemistProjectile : OrchidModProjectile
+	{
 		public bool catalytic = false;
-		
-		public virtual void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
-		
-		public virtual void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile) {
+
+		public virtual void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+
+		public virtual void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile)
+		{
 			projectile.Kill();
 		}
-		
-		public sealed override void AltSetDefaults() {
+
+		public sealed override void AltSetDefaults()
+		{
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
@@ -24,7 +22,7 @@ namespace OrchidMod.Alchemist
 			modProjectile.alchemistReactiveProjectile = this.catalytic;
 			modProjectile.alchemistCatalyticTriggerDelegate = Catalyze;
 		}
-		
+
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Player player = Main.player[projectile.owner];
@@ -34,5 +32,5 @@ namespace OrchidMod.Alchemist
 			OrchidModAlchemistNPC modTargetAlch = target.GetGlobalNPC<OrchidModAlchemistNPC>();
 			SafeOnHitNPC(target, modTargetAlch, damage, knockback, crit, player, modPlayer);
 		}
-    }
+	}
 }

@@ -3,14 +3,14 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Buffs
 {
-    public class SlimeFlaskBuff : ModBuff
-    {
-        public override void SetDefaults()
-        {
+	public class SlimeFlaskBuff : ModBuff
+	{
+		public override void SetDefaults()
+		{
 			DisplayName.SetDefault("Burning Samples");
 			Description.SetDefault("Using slimy samples with a fire element will release damaging embers");
-            Main.buffNoTimeDisplay[Type] = false;
+			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
-        }
-    }
+		}
+	}
 }

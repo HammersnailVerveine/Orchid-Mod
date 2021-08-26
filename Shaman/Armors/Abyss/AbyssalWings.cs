@@ -1,10 +1,8 @@
-using System.Collections.Generic;
-using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace OrchidMod.Shaman.Armors.Abyss
 {
@@ -20,8 +18,8 @@ namespace OrchidMod.Shaman.Armors.Abyss
 		{
 			item.width = 28;
 			item.height = 30;
-            item.value = Item.sellPrice(0, 2, 0, 0);
-            item.rare = ItemRarityID.Red;
+			item.value = Item.sellPrice(0, 2, 0, 0);
+			item.rare = ItemRarityID.Red;
 			item.accessory = true;
 		}
 
@@ -49,13 +47,13 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.LunarBar, 10);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 14);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{

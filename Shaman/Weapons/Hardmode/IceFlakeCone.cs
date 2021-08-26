@@ -1,14 +1,11 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class IceFlakeCone : OrchidModShamanItem
-    {
+	public class IceFlakeCone : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 72;
@@ -29,18 +26,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Ice Flake");
-		  Tooltip.SetDefault("Shoots returning ice blades"
-							+"\nThe maximum number of projectiles launched depends on the number of active shamanic bonds");
+			DisplayName.SetDefault("Ice Flake");
+			Tooltip.SetDefault("Shoots returning ice blades"
+							  + "\nThe maximum number of projectiles launched depends on the number of active shamanic bonds");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
-			
+
 			int numberProjectiles = 1 + Main.rand.Next(2 + BuffsCount);
-		
+
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(7));
@@ -48,5 +45,5 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 			return false;
 		}
-    }
+	}
 }

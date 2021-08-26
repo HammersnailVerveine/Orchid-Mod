@@ -21,8 +21,8 @@ namespace OrchidMod.Alchemist.Misc
 		{
 			DisplayName.SetDefault("Phosphorescent Thread");
 			Tooltip.SetDefault("Result of the hidden reaction between blinkroot and glowing mushroom extracts"
-							+  "\n'Quite an unexpected outcome'");
-							//+  "\n[c/FF0000:PLEASE MAKE SURE THE HIDDEN REACTION KEYBIND IS SET]");
+							+ "\n'Quite an unexpected outcome'");
+			//+  "\n[c/FF0000:PLEASE MAKE SURE THE HIDDEN REACTION KEYBIND IS SET]");
 		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)

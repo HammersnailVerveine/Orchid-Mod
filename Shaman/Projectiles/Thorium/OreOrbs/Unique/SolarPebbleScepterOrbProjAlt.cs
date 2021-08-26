@@ -1,41 +1,39 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 {
-    public class SolarPebbleScepterOrbProjAlt	 : OrchidModShamanProjectile
-    {
+	public class SolarPebbleScepterOrbProjAlt : OrchidModShamanProjectile
+	{
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ecliptic Flame");
-        } 
-		
-        public override void SafeSetDefaults()
-        {
-            projectile.width = 8;
-            projectile.height = 8;
-            projectile.friendly = true;
-            projectile.aiStyle = 1;
+		{
+			DisplayName.SetDefault("Ecliptic Flame");
+		}
+
+		public override void SafeSetDefaults()
+		{
+			projectile.width = 8;
+			projectile.height = 8;
+			projectile.friendly = true;
+			projectile.aiStyle = 1;
 			projectile.timeLeft = 200;
 			projectile.scale = 1f;
-            projectile.extraUpdates = 2;	
-			projectile.alpha = 255;	
-			aiType = ProjectileID.Bullet; 
+			projectile.extraUpdates = 2;
+			projectile.alpha = 255;
+			aiType = ProjectileID.Bullet;
 			projectile.tileCollide = false;
 			projectile.penetrate = 3;
-        }
+		}
 
-        public override void AI()
-        {    
+		public override void AI()
+		{
 			int dust = Dust.NewDust(projectile.Center, 1, 1, 6);
 			Main.dust[dust].velocity = projectile.velocity;
-			Main.dust[dust].scale = 0.8f + ((projectile.timeLeft)/135f) * 1.8f;
+			Main.dust[dust].scale = 0.8f + ((projectile.timeLeft) / 135f) * 1.8f;
 			Main.dust[dust].noGravity = true;
-			
+
 			if (projectile.localAI[0] == 0f)
 			{
 				AdjustMagnitude(ref projectile.velocity);
@@ -64,8 +62,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 				projectile.velocity = (20 * projectile.velocity + move) / 10f;
 				AdjustMagnitude(ref projectile.velocity);
 			}
-        }
-		
+		}
+
 		private void AdjustMagnitude(ref Vector2 vector)
 		{
 			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -74,5 +72,5 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 				vector *= 6f / magnitude;
 			}
 		}
-    }
+	}
 }

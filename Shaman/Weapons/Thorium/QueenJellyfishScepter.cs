@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
 	public class QueenJellyfishScepter : OrchidModShamanItem, ICrossmodItem
@@ -37,6 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nDamage increase depends on your number of active shamanic bonds"
 							+ "\n'Apparently waterproof'");
 		}
-    }
+	}
 }
 
