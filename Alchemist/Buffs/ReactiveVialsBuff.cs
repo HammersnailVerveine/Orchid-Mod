@@ -3,20 +3,20 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Buffs
 {
-    public class ReactiveVialsBuff : ModBuff
-    {
-        public override void SetDefaults()
-        {
+	public class ReactiveVialsBuff : ModBuff
+	{
+		public override void SetDefaults()
+		{
 			DisplayName.SetDefault("Reactive Elements");
 			Description.SetDefault("10% increased chemical damage for your next chemical mixture");
-            Main.buffNoTimeDisplay[Type] = false;
+			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
-        }
-		
-        public override void Update(Player player, ref int buffIndex)
+		}
+
+		public override void Update(Player player, ref int buffIndex)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.alchemistDamage += 2.1f;
 		}
-    }
+	}
 }

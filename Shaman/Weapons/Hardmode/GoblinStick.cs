@@ -1,14 +1,11 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class GoblinStick : OrchidModShamanItem
-    {
+	public class GoblinStick : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 54;
@@ -31,29 +28,31 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			DisplayName.SetDefault("Goblin Stick");
 			Tooltip.SetDefault("Channels a volley of shadowflame balls"
-							  +"\nThe number of projectiles shot during the channeling depends on the number of active shamanic bonds");
+							  + "\nThe number of projectiles shot during the channeling depends on the number of active shamanic bonds");
 		}
-		
-		public override void UpdateInventory(Player player) {
+
+		public override void UpdateInventory(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
-			switch (nbBonds) {
-				case 0 :
+			switch (nbBonds)
+			{
+				case 0:
 					item.useTime = 60;
 					break;
-				case 1 :
+				case 1:
 					item.useTime = 30;
 					break;
-				case 2 :
+				case 2:
 					item.useTime = 20;
 					break;
-				case 3 :
+				case 3:
 					item.useTime = 15;
 					break;
-				case 4 :
+				case 4:
 					item.useTime = 12;
 					break;
-				case 5 :
+				case 5:
 					item.useTime = 10;
 					break;
 			}
@@ -69,5 +68,5 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 			return false;
 		}
-    }
+	}
 }

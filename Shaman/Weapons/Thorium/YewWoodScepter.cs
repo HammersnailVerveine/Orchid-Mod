@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
 	public class YewWoodScepter : OrchidModShamanItem, ICrossmodItem
@@ -36,20 +33,20 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Tooltip.SetDefault("Fires inaccurate bolts of shadowflame magic"
 							+ "\nIf you have 3 or more bonds, hitting has a chance to summon a shadow portal");
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
 				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(thoriumMod.TileType("ArcaneArmorFabricator"));		
+				recipe.AddTile(thoriumMod.TileType("ArcaneArmorFabricator"));
 				recipe.AddIngredient(thoriumMod, "YewWood", 20);
 				recipe.AddIngredient(ItemID.Amethyst, 2);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }
 

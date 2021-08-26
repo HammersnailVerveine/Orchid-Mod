@@ -1,9 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Nirvana
 {
@@ -11,31 +9,31 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 	{
 		public override void SafeSetDefaults()
 		{
-            projectile.width = 14;
-            projectile.height = 14;
-            projectile.friendly = true;
-            projectile.aiStyle = 0;
+			projectile.width = 14;
+			projectile.height = 14;
+			projectile.friendly = true;
+			projectile.aiStyle = 0;
 			projectile.timeLeft = 120;
-            projectile.extraUpdates = 2;
+			projectile.extraUpdates = 2;
 			projectile.scale = 1f;
 			projectile.tileCollide = false;
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			projectile.alpha = 255;
 		}
-		
+
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Nirvana Beam");
-        } 
-		
-        public override void AI()
+		{
+			DisplayName.SetDefault("Nirvana Beam");
+		}
+
+		public override void AI()
 		{
 			projectile.alpha = 100;
-			int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 66, 0.0f, 0.0f, 0, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 2.5f);	
-			Main.dust[index2].scale = (float) Main.rand.Next(70, 110) * 0.013f;
+			int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 66, 0.0f, 0.0f, 0, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 2.5f);
+			Main.dust[index2].scale = (float)Main.rand.Next(70, 110) * 0.013f;
 			Main.dust[index2].velocity *= 0.2f;
-			Main.dust[index2].noGravity = true;	
-		  
+			Main.dust[index2].noGravity = true;
+
 			if (projectile.localAI[0] == 0f)
 			{
 				AdjustMagnitude(ref projectile.velocity);
@@ -64,8 +62,8 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 				projectile.velocity = (10 * projectile.velocity + move) / 3f;
 				AdjustMagnitude(ref projectile.velocity);
 			}
-        }
-		
+		}
+
 		private void AdjustMagnitude(ref Vector2 vector)
 		{
 			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -73,8 +71,8 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			{
 				vector *= 6f / magnitude;
 			}
-        }
-		
+		}
+
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
 			int randF = Main.rand.Next(4);
@@ -87,7 +85,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			int randA = Main.rand.Next(4);
 			while (randA == randF || randA == randW || randA == randE)
 				randA = Main.rand.Next(4);
-			
+
 			if (randF == 0)
 				Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaFire"), 100, 3, player.whoAmI);
 			if (randF == 1)
@@ -96,7 +94,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 				Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaFire"), 100, 3, player.whoAmI);
 			if (randF == 3)
 				Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaFire"), 100, 3, player.whoAmI);
-			
+
 			if (randW == 0)
 				Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaWater"), 100, 3, player.whoAmI);
 			if (randW == 1)
@@ -105,7 +103,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 				Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaWater"), 100, 3, player.whoAmI);
 			if (randW == 3)
 				Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaWater"), 100, 3, player.whoAmI);
-			
+
 			if (randE == 0)
 				Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaEarth"), 100, 3, player.whoAmI);
 			if (randE == 1)
@@ -114,7 +112,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 				Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaEarth"), 100, 3, player.whoAmI);
 			if (randE == 3)
 				Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaEarth"), 100, 3, player.whoAmI);
-			
+
 			if (randA == 0)
 				Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaWind"), 100, 3, player.whoAmI);
 			if (randA == 1)
@@ -123,8 +121,9 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 				Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaWind"), 100, 3, player.whoAmI);
 			if (randA == 3)
 				Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, mod.ProjectileType("NirvanaWind"), 100, 3, player.whoAmI);
-			
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2) {
+
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2)
+			{
 				if (randF == 3)
 					Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaFire"), 100, 3, player.whoAmI);
 				if (randF == 2)
@@ -133,7 +132,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 					Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaFire"), 100, 3, player.whoAmI);
 				if (randF == 0)
 					Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaFire"), 100, 3, player.whoAmI);
-				
+
 				if (randW == 3)
 					Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaWater"), 100, 3, player.whoAmI);
 				if (randW == 2)
@@ -142,7 +141,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 					Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaWater"), 100, 3, player.whoAmI);
 				if (randW == 0)
 					Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaWater"), 100, 3, player.whoAmI);
-				
+
 				if (randE == 3)
 					Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaEarth"), 100, 3, player.whoAmI);
 				if (randE == 2)
@@ -151,7 +150,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 					Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaEarth"), 100, 3, player.whoAmI);
 				if (randE == 0)
 					Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaEarth"), 100, 3, player.whoAmI);
-				
+
 				if (randA == 3)
 					Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaWind"), 100, 3, player.whoAmI);
 				if (randA == 2)
@@ -160,7 +159,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 					Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaWind"), 100, 3, player.whoAmI);
 				if (randA == 0)
 					Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, mod.ProjectileType("NirvanaWind"), 100, 3, player.whoAmI);
-				
+
 			}
 		}
 	}

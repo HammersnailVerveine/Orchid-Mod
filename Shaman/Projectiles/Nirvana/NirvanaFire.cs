@@ -1,53 +1,52 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Nirvana
 {
 	public class NirvanaFire : OrchidModShamanProjectile
 	{
 		public override void SafeSetDefaults()
-        {
-            projectile.width = 14;
-            projectile.height = 14;
+		{
+			projectile.width = 14;
+			projectile.height = 14;
 			projectile.scale = 0f;
-            projectile.friendly = true;
-            projectile.aiStyle = 0;
+			projectile.friendly = true;
+			projectile.aiStyle = 0;
 			projectile.tileCollide = false;
 			projectile.timeLeft = 200;
-            projectile.extraUpdates = 5;
-        }
+			projectile.extraUpdates = 5;
+		}
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Nirvana Fire Element");
-        } 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-        public override void AI()
-        {
-            if (projectile.timeLeft == 200) {
-				for(int i=0; i<10; i++)
+		{
+			DisplayName.SetDefault("Nirvana Fire Element");
+		}
+		public override Color? GetAlpha(Color lightColor)
+		{
+			return Color.White;
+		}
+		public override void AI()
+		{
+			if (projectile.timeLeft == 200)
+			{
+				for (int i = 0; i < 10; i++)
 				{
 					int SDust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 60);
 					Main.dust[SDust].velocity *= 2f;
-					Main.dust[SDust].scale = (float) Main.rand.Next(70, 110) * 0.025f;
+					Main.dust[SDust].scale = (float)Main.rand.Next(70, 110) * 0.025f;
 					Main.dust[SDust].noGravity = true;
 				}
 			}
-			
+
 			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 60);
 			Main.dust[dust].velocity /= 3f;
-			Main.dust[dust].scale = (float) Main.rand.Next(70, 110) * 0.013f;
+			Main.dust[dust].scale = (float)Main.rand.Next(70, 110) * 0.013f;
 			Main.dust[dust].noGravity = true;
-			
-            if (projectile.timeLeft == 199) 
-				projectile.velocity.X *= -1;	
-			
+
+			if (projectile.timeLeft == 199)
+				projectile.velocity.X *= -1;
+
 			if (projectile.localAI[0] == 0f)
 			{
 				AdjustMagnitude(ref projectile.velocity);
@@ -76,8 +75,8 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 				projectile.velocity = (20 * projectile.velocity + move) / 10f;
 				AdjustMagnitude(ref projectile.velocity);
 			}
-        }
-		
+		}
+
 		private void AdjustMagnitude(ref Vector2 vector)
 		{
 			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -86,7 +85,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 				vector *= 6f / magnitude;
 			}
 		}
-		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
-    }
+
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+	}
 }

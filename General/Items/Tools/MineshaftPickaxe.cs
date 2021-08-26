@@ -1,17 +1,17 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Tools
 {
 	public class MineshaftPickaxe : OrchidModItem
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			Tooltip.SetDefault("Can mine meteorite");
 		}
 
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			item.CloneDefaults(ItemID.SilverPickaxe);
 			item.damage = 6;
 			item.melee = true;

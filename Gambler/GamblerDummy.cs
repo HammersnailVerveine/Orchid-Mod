@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Linq;
-using OrchidMod.Gambler;
-using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler
 {
 	public class GamblerDummy : OrchidModItem
 	{
-		public	override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			item.melee = false;
 			item.ranged = false;
 			item.magic = false;
@@ -35,13 +32,15 @@ namespace OrchidMod.Gambler
 			item.autoReuse = true;
 			item.value = Item.sellPrice(0, 0, 2, 0);
 		}
-		
+
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			Item currentCard = modPlayer.gamblerCardDummy;
-			if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) > 0) {
-				if (player.altFunctionUse == 2 || modPlayer.gamblerCardDummy.type == 0) {
+			if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) > 0)
+			{
+				if (player.altFunctionUse == 2 || modPlayer.gamblerCardDummy.type == 0)
+				{
 					Main.PlaySound(SoundID.Item64, player.position);
 					OrchidModGamblerHelper.drawDummyCard(player, modPlayer);
 					currentCard = modPlayer.gamblerCardDummy;
@@ -50,45 +49,55 @@ namespace OrchidMod.Gambler
 					CombatText.NewText(player.Hitbox, floatingTextColor, modPlayer.gamblerCardDummy.Name);
 					return false;
 				}
-			} else {
+			}
+			else
+			{
 				return false;
 			}
-			
+
 			currentCard = modPlayer.gamblerCardDummy;
 			this.checkStats(currentCard, modPlayer);
 			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, position, speedX, speedY, type, item.damage, item.knockBack, true);
 			return false;
 		}
-		
-		public override void HoldItem(Player player) {
+
+		public override void HoldItem(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.GamblerDeckInHand = true;
-			if (Main.mouseLeft) {
+			if (Main.mouseLeft)
+			{
 				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, true);
 			}
 		}
-		
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+
+		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
 		}
-		
-		public override void GetWeaponCrit(Player player, ref int crit) {
+
+		public override void GetWeaponCrit(Player player, ref int crit)
+		{
 			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
 		}
-		
+
 		// public override void UpdateInventory(Player player) {
-			// OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			// Item currentCard = modPlayer.gamblerCardCurrent;
-			// this.checkStats(currentCard);
+		// OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+		// Item currentCard = modPlayer.gamblerCardCurrent;
+		// this.checkStats(currentCard);
 		// }
-		
-		public override bool AltFunctionUse(Player player) {
+
+		public override bool AltFunctionUse(Player player)
+		{
 			return true;
 		}
-		
-		public override bool CanUseItem(Player player) {
-			if (player == Main.LocalPlayer) {
-				if (player.altFunctionUse == 2) {
+
+		public override bool CanUseItem(Player player)
+		{
+			if (player == Main.LocalPlayer)
+			{
+				if (player.altFunctionUse == 2)
+				{
 					item.useAnimation = 20;
 					item.useTime = 20;
 					item.reuseDelay = 0;
@@ -96,19 +105,22 @@ namespace OrchidMod.Gambler
 			}
 			return base.CanUseItem(player);
 		}
-		
-		public override void ModifyTooltips(List<TooltipLine> tooltips) {
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null) {
+			if (thoriumMod != null)
+			{
 				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Gambler Class-")
 				{
 					overrideColor = new Color(255, 200, 0)
 				});
 			}
-			Player player = Main.player[Main.myPlayer]; 
+			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			Item currentCard = modPlayer.gamblerCardDummy;
-			if (currentCard.type != 0) {
+			if (currentCard.type != 0)
+			{
 				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
 				if (index != -1)
 				{
@@ -119,18 +131,20 @@ namespace OrchidMod.Gambler
 				}
 			}
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gambler Dummy Card");
-		    Tooltip.SetDefault("Allows the use of specific gambler cards"
-							+  "\nRight click to cycle through your deck"
-							+  "\nCan only deal damage to dummies"
-							+  "\nUtility cards may have no effect");
+			Tooltip.SetDefault("Allows the use of specific gambler cards"
+							+ "\nRight click to cycle through your deck"
+							+ "\nCan only deal damage to dummies"
+							+ "\nUtility cards may have no effect");
 		}
-		
-		public void checkStats(Item currentCard, OrchidModPlayer modPlayer) {
-			if (currentCard.type != 0) {
+
+		public void checkStats(Item currentCard, OrchidModPlayer modPlayer)
+		{
+			if (currentCard.type != 0)
+			{
 				item.damage = (int)(currentCard.damage * modPlayer.gamblerDamage);
 				item.rare = currentCard.rare;
 				item.crit = currentCard.crit + modPlayer.gamblerCrit;
@@ -139,7 +153,9 @@ namespace OrchidMod.Gambler
 				item.reuseDelay = currentCard.reuseDelay;
 				item.knockBack = currentCard.knockBack;
 				item.shootSpeed = currentCard.shootSpeed;
-			} else {
+			}
+			else
+			{
 				item.damage = 0;
 				item.rare = 0;
 				item.crit = 0;

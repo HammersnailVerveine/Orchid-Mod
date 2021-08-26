@@ -1,15 +1,13 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class AbyssPrecinct : OrchidModShamanItem, IGlowingItem
+	public class AbyssPrecinct : OrchidModShamanItem, IGlowingItem
 	{
 		public override void SafeSetDefaults()
 		{
@@ -46,15 +44,15 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 			return false;
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{

@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class HallowedCone : OrchidModShamanItem
-    {
+	public class HallowedCone : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 38;
@@ -29,26 +27,26 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Prismatic Resonator");
-		  Tooltip.SetDefault("Shoots dividing crystalline beams"
-							+"\nHitting with the rupture point deals increased damage"
-							+"\nThe number of projectiles caused by the division scales with the number of active shamanic bonds");
+			DisplayName.SetDefault("Prismatic Resonator");
+			Tooltip.SetDefault("Shoots dividing crystalline beams"
+							  + "\nHitting with the rupture point deals increased damage"
+							  + "\nThe number of projectiles caused by the division scales with the number of active shamanic bonds");
 		}
-		
+
 		public override void PostUpdate()
 		{
 			Lighting.AddLight(item.Center, Color.Pink.ToVector3() * 0.55f * Main.essScale);
-		}	
-		
+		}
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "RitualScepter", 1);
 			recipe.AddIngredient(ItemID.CrystalShard, 20);
-			recipe.AddIngredient(ItemID.SoulofLight, 15);			
+			recipe.AddIngredient(ItemID.SoulofLight, 15);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

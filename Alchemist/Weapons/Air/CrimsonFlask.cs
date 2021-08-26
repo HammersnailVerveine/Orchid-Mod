@@ -1,11 +1,8 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Air
@@ -32,39 +29,44 @@ namespace OrchidMod.Alchemist.Weapons.Air
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Visceral Mycelium");
-		    Tooltip.SetDefault("Releases floating mushrooms, exploding after a while or when being catalyzed"
-							+  "\nThe mushrooms will absorb the properties of nearby spores, creating more of them"
-							+  "\nOnly one set of mushrooms can exist at once");
+			Tooltip.SetDefault("Releases floating mushrooms, exploding after a while or when being catalyzed"
+							+ "\nThe mushrooms will absorb the properties of nearby spores, creating more of them"
+							+ "\nOnly one set of mushrooms can exist at once");
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.Vertebrae, 5);
 			recipe.AddIngredient(2887, 5); // Viscious mushroom
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-		
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
+		}
+
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		{
 			int projType = ProjectileType<Alchemist.Projectiles.Air.CrimsonFlaskProj>();
 			int projType2 = ProjectileType<Alchemist.Projectiles.Air.CrimsonFlaskProjAlt>();
 			bool spawnedMushroom = false;
-			for (int l = 0; l < Main.projectile.Length; l++) {  
+			for (int l = 0; l < Main.projectile.Length; l++)
+			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active == true && proj.type == projType && proj.owner == projectile.owner) {
+				if (proj.active == true && proj.type == projType && proj.owner == projectile.owner)
+				{
 					spawnedMushroom = true;
 					break;
 				}
 			}
-			
-			if (!spawnedMushroom) {
+
+			if (!spawnedMushroom)
+			{
 				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
 				int nb = (alchProj.nbElements * 3) + Main.rand.Next(alchProj.nbElements * 2);
-				for (int i = 0 ; i < nb ; i ++) {
-					float speed = (5f / (nb + 1)) * (i + 1); 
+				for (int i = 0; i < nb; i++)
+				{
+					float speed = (5f / (nb + 1)) * (i + 1);
 					Vector2 vel = (new Vector2(0f, speed).RotatedByRandom(MathHelper.ToRadians(180)));
 					Projectile newProj = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 5, vel.X, vel.Y, projType, dmg, 0.1f, projectile.owner)];
 					newProj.timeLeft = 70 + (((20 - nb) > 10 ? (20 - nb) : 10) * i);

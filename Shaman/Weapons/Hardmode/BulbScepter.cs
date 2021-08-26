@@ -1,14 +1,11 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class BulbScepter : OrchidModShamanItem
-    {
+	public class BulbScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 65;
@@ -31,14 +28,14 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			DisplayName.SetDefault("Bulb Scepter");
 			Tooltip.SetDefault("Shoots spiky seeds, gaining in height on each bounce."
-							+  "\nThe number of seeds cast depends on the number of active shamanic bonds");
+							+ "\nThe number of seeds cast depends on the number of active shamanic bonds");
 		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
-			
+
 			int numberProjectiles = 1 + Main.rand.Next(2) + nbBonds;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
@@ -47,5 +44,5 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 			return false;
 		}
-    }
+	}
 }

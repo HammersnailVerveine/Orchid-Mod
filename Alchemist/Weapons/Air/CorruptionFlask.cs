@@ -1,11 +1,7 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Air
@@ -32,35 +28,39 @@ namespace OrchidMod.Alchemist.Weapons.Air
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vitriol Mycelium");
-		    Tooltip.SetDefault("Grows a mushroom, exploding after a while or when being catalyzed"
-							+  "\nThe more ingredients used, the more delayed the explosion"
-							+  "\nThe mushroom will absorb the properties of nearby spores, creating more of them"
-							+  "\nOnly one mushroom can exist at once");
+			Tooltip.SetDefault("Grows a mushroom, exploding after a while or when being catalyzed"
+							+ "\nThe more ingredients used, the more delayed the explosion"
+							+ "\nThe mushroom will absorb the properties of nearby spores, creating more of them"
+							+ "\nOnly one mushroom can exist at once");
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.RottenChunk, 5);
 			recipe.AddIngredient(ItemID.VileMushroom, 5);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-		
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
+		}
+
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		{
 			int projType = ProjectileType<Alchemist.Projectiles.Air.CorruptionFlaskProj>();
 			bool spawnedMushroom = false;
-			for (int l = 0; l < Main.projectile.Length; l++) {  
+			for (int l = 0; l < Main.projectile.Length; l++)
+			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active == true && proj.type == projType && proj.owner == projectile.owner) {
+				if (proj.active == true && proj.type == projType && proj.owner == projectile.owner)
+				{
 					spawnedMushroom = true;
 					break;
 				}
 			}
-			
-			if (!spawnedMushroom) {
+
+			if (!spawnedMushroom)
+			{
 				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 10, 0f, 0f, projType, dmg, 3f, projectile.owner);
 			}

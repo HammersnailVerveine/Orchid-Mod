@@ -1,22 +1,20 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Catalysts
 {
 	public class DemoniteCatalyst : OrchidModAlchemistCatalyst
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			DisplayName.SetDefault("Corrupt Catalyst");
 			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
 							+ "\nUpon successful catalysis, burns nearby enemies in shadowflames"
 							+ "\nHit an enemy to apply catalyzed"
 							+ "\nCatalyzed replaces most alchemical debuffs");
 		}
-		
+
 		public override void SafeSetDefaults()
 		{
 			item.width = 30;
@@ -25,8 +23,9 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 			item.value = Item.sellPrice(0, 0, 75, 0);
 			this.catalystType = 1;
 		}
-		
-		public override void CatalystInteractionEffect(Player player) {
+
+		public override void CatalystInteractionEffect(Player player)
+		{
 			for (int k = 0; k < Main.npc.Length; k++)
 			{
 				if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5)

@@ -1,15 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class AmberScepter : OrchidModShamanItem
-    {
+	public class AmberScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 30;
@@ -30,19 +26,19 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Amber Scepter");
-		  Tooltip.SetDefault("\nHitting an enemy will grant you an amber orb"
-							+"\nIf you have 3 amber orbs, your next hit will increase your maximum life for 30 seconds");
+			DisplayName.SetDefault("Amber Scepter");
+			Tooltip.SetDefault("\nHitting an enemy will grant you an amber orb"
+							  + "\nIf you have 3 amber orbs, your next hit will increase your maximum life for 30 seconds");
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.Anvils);		
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Amber, 8);
 			recipe.AddIngredient(3380, 15);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

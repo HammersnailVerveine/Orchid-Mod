@@ -1,15 +1,10 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class ShadowWeaver : OrchidModShamanItem
-    {
+	public class ShadowWeaver : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 34;
@@ -30,9 +25,9 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Shadow Weaver");
-		  Tooltip.SetDefault("\nHitting an enemy will grant you a shadow orb"
-							+"\nIf you have 3 shadow orbs, your next hit will empower you with dark energy for 30 seconds");
+			DisplayName.SetDefault("Shadow Weaver");
+			Tooltip.SetDefault("\nHitting an enemy will grant you a shadow orb"
+							  + "\nIf you have 3 shadow orbs, your next hit will empower you with dark energy for 30 seconds");
 		}
-    }
+	}
 }

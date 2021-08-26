@@ -1,16 +1,13 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
-using System;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class ShamanRod : OrchidModShamanItem
-    {
+	public class ShamanRod : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 16;
@@ -27,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons
 			empowermentType = 4;
 			this.energy = 10;
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shaman Rod");
@@ -35,14 +32,14 @@ namespace OrchidMod.Shaman.Weapons
 							   "\nOnly one set can be active at once" +
 							   "\nHaving 2 or more active shamanic bonds increases damage and slows on hit");
 		}
-		
+
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), mod) > 1) mult *= modPlayer.shamanDamage * 2f;
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			RemoveAllShamanRodProjs(player);

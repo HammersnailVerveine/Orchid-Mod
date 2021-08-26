@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class CorruptCone : OrchidModShamanItem
-    {
+	public class CorruptCone : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 30;
@@ -29,16 +27,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Corrupt Scepter");
-		  Tooltip.SetDefault("Sprays your enemies with piercing corrupt flames"
-							+"\nThe first enemy hit will fill a corrupt tank above you"
-							+"\nYour next hit after the tank is full will release a shower of corrupt flames in the direction you're moving");
+			DisplayName.SetDefault("Corrupt Scepter");
+			Tooltip.SetDefault("Sprays your enemies with piercing corrupt flames"
+							  + "\nThe first enemy hit will fill a corrupt tank above you"
+							  + "\nYour next hit after the tank is full will release a shower of corrupt flames in the direction you're moving");
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
+		{
+			return Color.White;
+		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
@@ -49,13 +47,13 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "RitualScepter", 1);
 			recipe.AddIngredient(ItemID.CursedFlame, 20);
 			recipe.AddIngredient(ItemID.SoulofNight, 15);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

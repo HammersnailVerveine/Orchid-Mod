@@ -1,15 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class GoldScepter : OrchidModShamanItem
-    {
+	public class GoldScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 32;
@@ -30,19 +26,19 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Ruby Scepter");
-		  Tooltip.SetDefault("\nHitting an enemy will grant you a ruby orb"
-							+"\nIf you have 3 ruby orbs, your next hit will increase your life regeneration for 30 seconds");
+			DisplayName.SetDefault("Ruby Scepter");
+			Tooltip.SetDefault("\nHitting an enemy will grant you a ruby orb"
+							  + "\nIf you have 3 ruby orbs, your next hit will increase your life regeneration for 30 seconds");
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.Anvils);		
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Ruby, 8);
 			recipe.AddIngredient(ItemID.GoldBar, 10);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

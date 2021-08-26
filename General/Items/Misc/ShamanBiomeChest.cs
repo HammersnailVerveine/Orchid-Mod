@@ -1,7 +1,4 @@
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
@@ -21,10 +18,10 @@ namespace OrchidMod.General.Items.Misc
 			item.value = Item.sellPrice(0, 0, 5, 0);
 			item.createTile = mod.TileType("ShamanBiomeChest");
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Shroom Chest");
+			DisplayName.SetDefault("Shroom Chest");
 		}
 	}
 }

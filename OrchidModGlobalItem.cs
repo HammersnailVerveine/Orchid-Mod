@@ -1,19 +1,15 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
-using OrchidMod;
 using OrchidMod.Alchemist;
 using OrchidMod.Alchemist.Projectiles;
 using OrchidMod.Interfaces;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod
 {
-    public class OrchidModGlobalItem : GlobalItem
-    {
+	public class OrchidModGlobalItem : GlobalItem
+	{
 		public bool shamanWeapon = false;
 		public bool shamanWeaponNoUsetimeReforge = false;
 		public bool shamanWeaponNoVelocityReforge = false;
@@ -30,7 +26,7 @@ namespace OrchidMod
 		public bool gamblerDeck = false;
 		public List<string> gamblerCardSets = new List<string>();
 		public AlchemistElement alchemistElement = AlchemistElement.NULL;
-				
+
 		public delegate void KillFirstDelegate(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void KillSecondDelegate(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void KillThirdDelegate(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
@@ -39,7 +35,7 @@ namespace OrchidMod
 		public delegate void OnHitNPCThirdDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void AddVariousEffectsDelegate(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void GamblerShootDelegate(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false);
-		
+
 		public KillFirstDelegate killFirstDelegate;
 		public KillSecondDelegate killSecondDelegate;
 		public KillThirdDelegate killThirdDelegate;
@@ -50,8 +46,9 @@ namespace OrchidMod
 		public GamblerShootDelegate gamblerShootDelegate;
 
 		public override bool InstancePerEntity => true;
-		
-		public override bool CloneNewInstances {
+
+		public override bool CloneNewInstances
+		{
 			get
 			{
 				return true;
@@ -84,4 +81,4 @@ namespace OrchidMod
 			}
 		}
 	}
-}  
+}

@@ -1,10 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -29,26 +24,32 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Blue King");
-		    Tooltip.SetDefault("Summons a bouncy slime, following your cursor, and jumping up to it"
-							+  "\nGains in damage with fall distance and enemy hits, touching on the ground resets it");
+			Tooltip.SetDefault("Summons a bouncy slime, following your cursor, and jumping up to it"
+							+ "\nGains in damage with fall distance and enemy hits, touching on the ground resets it");
 		}
-		
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false) {
+
+		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		{
 			int projType = ProjectileType<Gambler.Projectiles.KingSlimeCardProj>();
 			bool found = false;
-			for (int l = 0; l < Main.projectile.Length; l++) {  
+			for (int l = 0; l < Main.projectile.Length; l++)
+			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == projType && proj.owner == player.whoAmI) {
+				if (proj.active && proj.type == projType && proj.owner == player.whoAmI)
+				{
 					found = true;
 					break;
-				} 
+				}
 			}
-			
-			if (!found) {
+
+			if (!found)
+			{
 				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
-				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 1);
-			} else {
-				Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
+				Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
+			}
+			else
+			{
+				Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 7);
 			}
 		}
 	}

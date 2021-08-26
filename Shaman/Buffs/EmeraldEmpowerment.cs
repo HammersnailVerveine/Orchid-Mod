@@ -3,17 +3,18 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Buffs
 {
-    public class EmeraldEmpowerment : ModBuff
-    {
-        public override void SetDefaults()
-        {
-            Main.buffNoTimeDisplay[Type] = false;
+	public class EmeraldEmpowerment : ModBuff
+	{
+		public override void SetDefaults()
+		{
+			Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Emerald Empowerment");
 			Description.SetDefault("Increases movement speed by 10%");
-        }
-		
-        public override void Update(Player player, ref int buffIndex) {
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
 			player.moveSpeed += 0.1f;
 		}
-    }
+	}
 }

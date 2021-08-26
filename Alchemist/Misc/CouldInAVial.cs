@@ -1,7 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -27,10 +24,10 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(this, 1);
 			recipe.SetResult(ItemType<Alchemist.Weapons.Air.CloudInAVial>());
 			recipe.AddRecipe();
-        }
+		}
 	}
 }

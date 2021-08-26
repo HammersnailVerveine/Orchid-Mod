@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,17 +16,17 @@ namespace OrchidMod.Gambler.Weapons.Dice
 			this.diceCost = 1;
 			this.diceDuration = 15;
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gemstone Die");
-		    Tooltip.SetDefault("Gives 2 - 12% chance not to consume chips");
+			Tooltip.SetDefault("Gives 2 - 12% chance not to consume chips");
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.Anvils);		
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Amethyst, 5);
 			recipe.AddIngredient(ItemID.Topaz, 5);
 			recipe.AddIngredient(ItemID.Sapphire, 5);
@@ -38,6 +35,6 @@ namespace OrchidMod.Gambler.Weapons.Dice
 			recipe.AddIngredient(ItemID.Diamond, 5);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
+		}
 	}
 }

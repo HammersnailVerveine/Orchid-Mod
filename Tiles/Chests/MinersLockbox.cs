@@ -1,5 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -12,7 +12,8 @@ namespace OrchidMod.Tiles.Chests
 {
 	public class MinersLockbox : ModTile
 	{
-		public override void SetDefaults() {
+		public override void SetDefaults()
+		{
 			Main.tileSpelunker[Type] = true;
 			Main.tileContainer[Type] = true;
 			Main.tileShine2[Type] = true;
@@ -68,7 +69,7 @@ namespace OrchidMod.Tiles.Chests
 				return name + ": " + Main.chest[chest].name;
 			}
 		}
-		
+
 		public override void NumDust(int i, int j, bool fail, ref int num)
 		{
 			num = 1;

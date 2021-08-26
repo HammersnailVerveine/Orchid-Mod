@@ -1,48 +1,41 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
-using Terraria.ModLoader;
-using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
+using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using Terraria.ID;
-using System.Linq;
-using System.Collections.Generic;
-using System;
-using System.Diagnostics;
-using Terraria.DataStructures;
-using OrchidMod.Alchemist;
-using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.UI
 {
 	public class AlchemistSelectKeysUIState : UIState
 	{
 		public AlchemistSelectKeysUIFrame alchemistSelectKeysUIFrame = new AlchemistSelectKeysUIFrame();
-		
+
 		public override void OnInitialize()
-        {
+		{
 			alchemistSelectKeysUIFrame.Width.Set(0f, 0f);
 			alchemistSelectKeysUIFrame.Height.Set(0f, 0f);
 			alchemistSelectKeysUIFrame.Left.Set(Main.screenWidth / 2, 0f);
 			alchemistSelectKeysUIFrame.Top.Set(Main.screenHeight / 2, 0f);
-			
+
 			base.Append(alchemistSelectKeysUIFrame);
 		}
-		
-		public override void Draw(SpriteBatch spriteBatch)		
+
+		public override void Draw(SpriteBatch spriteBatch)
 		{
 			Recalculate();
 			base.Draw(spriteBatch);
 		}
-		
+
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
 		}
 	}
-	
+
 	public class AlchemistSelectKeysUIFrame : UIElement
 	{
 		public Color backgroundColor;
@@ -51,136 +44,163 @@ namespace OrchidMod.Alchemist.UI
 		public CalculatedStyle dimensions;
 		public Point point;
 		public bool releasedKey;
-		
+
 		public static Texture2D emptyTexture;
-		
+
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
 			Player player = Main.LocalPlayer;
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			
+
 			CalculatedStyle dimensions = GetDimensions();
-			
-			if (!player.dead) {
-				if (modPlayer.alchemistSelectUIKeysDisplay && modPlayer.alchemistSelectUIKeysItem) {
-					if (modPlayer.alchemistSelectUIKeysInitialize) {
+
+			if (!player.dead)
+			{
+				if (modPlayer.alchemistSelectUIKeysDisplay && modPlayer.alchemistSelectUIKeysItem)
+				{
+					if (modPlayer.alchemistSelectUIKeysInitialize)
+					{
 						this.initUI(player, modPlayer);
 						return;
 					}
 
-					if (Main.mouseLeft && Main.mouseLeftRelease) {
+					if (Main.mouseLeft && Main.mouseLeftRelease)
+					{
 						modPlayer.alchemistSelectUIKeysDisplay = false;
-						if (modPlayer.alchemistNbElements > 0) {
+						if (modPlayer.alchemistNbElements > 0)
+						{
 							modPlayer.alchemistShootProjectile = true;
-							Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y, 106);
+							Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 106);
 						}
 						return;
 					}
-					
-					if (element == AlchemistElement.NULL) {
+
+					if (element == AlchemistElement.NULL)
+					{
 						Point point = new Point((int)dimensions.X, (int)dimensions.Y);
 						Rectangle displayRectangle = new Rectangle(point.X - (emptyTexture.Width / 2), point.Y - 70, emptyTexture.Width, emptyTexture.Height);
 						spriteBatch.Draw(emptyTexture, displayRectangle, backgroundColor);
-					} else {
+					}
+					else
+					{
 						Point point = new Point((int)dimensions.X, (int)dimensions.Y);
 						int nbItems = this.displayItems.Count();
 						int offSetX = -(nbItems * 16);
 						int count = 0;
-						foreach (Item item in this.displayItems) {
-							if (item.type != 0) {
-								count ++;
+						foreach (Item item in this.displayItems)
+						{
+							if (item.type != 0)
+							{
+								count++;
 								Texture2D itemTexture = Main.itemTexture[item.type];
-								bool oddWidth = (((itemTexture.Width / 2) % 2 ) == 0);
+								bool oddWidth = (((itemTexture.Width / 2) % 2) == 0);
 								Rectangle itemRectangle = new Rectangle(point.X + offSetX + (oddWidth ? 1 : 0), point.Y - 100, oddWidth ? 28 : 30, 30);
 								spriteBatch.Draw(itemTexture, itemRectangle, backgroundColor);
 								ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, count.ToString(), new Vector2((float)(point.X + offSetX + 8), (float)(point.Y - 65)), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 								offSetX += 32;
 							}
 						}
-					
+
 						int wheelValue = PlayerInput.ScrollWheelDeltaForUI;
-						if (wheelValue != 0) {
+						if (wheelValue != 0)
+						{
 							this.scroll(wheelValue > 0);
 							this.checkInventory(wheelValue > 0, player, modPlayer);
 							return;
 						}
-						
-						if (releasedKey) {
-							if (PlayerInput.Triggers.Current.Hotbar1 && count > 0) {
+
+						if (releasedKey)
+						{
+							if (PlayerInput.Triggers.Current.Hotbar1 && count > 0)
+							{
 								this.brew(displayItems[0], player, modPlayer);
 								return;
 							}
-							
-							if (PlayerInput.Triggers.Current.Hotbar2 && count > 1) {
+
+							if (PlayerInput.Triggers.Current.Hotbar2 && count > 1)
+							{
 								this.brew(displayItems[1], player, modPlayer);
 								return;
 							}
-							
-							if (PlayerInput.Triggers.Current.Hotbar3 && count > 2) {
+
+							if (PlayerInput.Triggers.Current.Hotbar3 && count > 2)
+							{
 								this.brew(displayItems[2], player, modPlayer);
 								return;
 							}
-							
-							if (PlayerInput.Triggers.Current.Hotbar4 && count > 3) {
+
+							if (PlayerInput.Triggers.Current.Hotbar4 && count > 3)
+							{
 								this.brew(displayItems[3], player, modPlayer);
 								return;
 							}
-							
-							if (PlayerInput.Triggers.Current.Hotbar5 && count > 4) {
+
+							if (PlayerInput.Triggers.Current.Hotbar5 && count > 4)
+							{
 								this.brew(displayItems[4], player, modPlayer);
 								return;
 							}
-							
-							if (PlayerInput.Triggers.Current.Hotbar6 && count > 5) {
+
+							if (PlayerInput.Triggers.Current.Hotbar6 && count > 5)
+							{
 								this.brew(displayItems[5], player, modPlayer);
 								return;
 							}
-							
-							if (PlayerInput.Triggers.Current.Hotbar7 && count > 6) {
+
+							if (PlayerInput.Triggers.Current.Hotbar7 && count > 6)
+							{
 								this.brew(displayItems[6], player, modPlayer);
 								return;
 							}
-							
-							if (PlayerInput.Triggers.Current.Hotbar8 && count > 7) {
+
+							if (PlayerInput.Triggers.Current.Hotbar8 && count > 7)
+							{
 								this.brew(displayItems[7], player, modPlayer);
 								return;
 							}
-							
-							if (PlayerInput.Triggers.Current.Hotbar9 && count > 8) {
+
+							if (PlayerInput.Triggers.Current.Hotbar9 && count > 8)
+							{
 								this.brew(displayItems[8], player, modPlayer);
 								return;
 							}
-							
-							if (PlayerInput.Triggers.Current.Hotbar10 && count > 9) {
+
+							if (PlayerInput.Triggers.Current.Hotbar10 && count > 9)
+							{
 								this.brew(displayItems[9], player, modPlayer);
 								return;
 							}
-						} else {
+						}
+						else
+						{
 							if (!(PlayerInput.Triggers.Current.Hotbar1 || PlayerInput.Triggers.Current.Hotbar2 || PlayerInput.Triggers.Current.Hotbar3 ||
 							PlayerInput.Triggers.Current.Hotbar4 || PlayerInput.Triggers.Current.Hotbar5 || PlayerInput.Triggers.Current.Hotbar6 ||
 							PlayerInput.Triggers.Current.Hotbar7 || PlayerInput.Triggers.Current.Hotbar8 || PlayerInput.Triggers.Current.Hotbar9 ||
-							PlayerInput.Triggers.Current.Hotbar10)) {
+							PlayerInput.Triggers.Current.Hotbar10))
+							{
 								releasedKey = true;
 							}
 						}
 
 						// if (PlayerInput.Triggers.Current.Up) {
-							// this.scroll(true);
-							// return;
+						// this.scroll(true);
+						// return;
 						// }
-						
+
 						// if (PlayerInput.Triggers.Current.Down) {
-							// this.scroll(false);
-							// return;
+						// this.scroll(false);
+						// return;
 						// }
 					}
 				}
 			}
 
 		}
-		
-		public void brew(Item item, Player player, OrchidModPlayer modPlayer) {
-			if (item.type != 0) {
+
+		public void brew(Item item, Player player, OrchidModPlayer modPlayer)
+		{
+			if (item.type != 0)
+			{
 				OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 				AlchemistElement element = orchidItem.alchemistElement;
 				int damage = item.damage;
@@ -192,26 +212,37 @@ namespace OrchidMod.Alchemist.UI
 				int colorB = orchidItem.alchemistColorB;
 				bool noPotency = modPlayer.alchemistPotency < potencyCost + 1;
 				bool alreadyContains = false;
-				if ((int)element > 0 && (int)element < 7) {
+				if ((int)element > 0 && (int)element < 7)
+				{
 					alreadyContains = modPlayer.alchemistElements[(int)element - 1];
 				}
-				
-				if (alreadyContains || noPotency 
-				|| modPlayer.alchemistNbElements >= modPlayer.alchemistNbElementsMax 
-				|| element == AlchemistElement.NULL || flaskType == 0) {
-					if (noPotency && !alreadyContains) {
-						Main.PlaySound(19, (int)player.Center.X ,(int)player.Center.Y, 1);
-					} else {
-						if (Main.rand.Next(2) == 0) {
-							Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y, 112);
-						} else {
-							Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y, 111);
+
+				if (alreadyContains || noPotency
+				|| modPlayer.alchemistNbElements >= modPlayer.alchemistNbElementsMax
+				|| element == AlchemistElement.NULL || flaskType == 0)
+				{
+					if (noPotency && !alreadyContains)
+					{
+						Main.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
+					}
+					else
+					{
+						if (Main.rand.Next(2) == 0)
+						{
+							Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 112);
+						}
+						else
+						{
+							Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 111);
 						}
 					}
-				} else {
+				}
+				else
+				{
 					OrchidModAlchemistItem.playerAddFlask(player, element, flaskType, damage, potencyCost, rightClickDust, colorR, colorG, colorB);
 					int rand = Main.rand.Next(3);
-					switch (rand) {
+					switch (rand)
+					{
 						case 1:
 							rand = 86;
 							break;
@@ -222,52 +253,65 @@ namespace OrchidMod.Alchemist.UI
 							rand = 85;
 							break;
 					}
-					
-					Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y, rand);
+
+					Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, rand);
 					this.scroll(true);
 					this.checkInventory(true, player, modPlayer);
-					
-					for(int k = 0; k < 5; k ++) {
+
+					for (int k = 0; k < 5; k++)
+					{
 						int dust = Dust.NewDust(player.Center, 10, 10, rightClickDust);
-					}	
+					}
 				}
 			}
-			
+
 			releasedKey = false;
 		}
-		
-		public void initUI(Player player, OrchidModPlayer modPlayer) {
-			Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y, 7);
+
+		public void initUI(Player player, OrchidModPlayer modPlayer)
+		{
+			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 7);
 			modPlayer.alchemistSelectUIKeysInitialize = false;
 			element = AlchemistElement.NULL;
-			
-			for (int i = 0; i < Main.maxInventory; i++) {
+
+			for (int i = 0; i < Main.maxInventory; i++)
+			{
 				Item item = Main.LocalPlayer.inventory[i];
-				if (item.type != 0) {
+				if (item.type != 0)
+				{
 					OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
-					if (orchidItem.alchemistElement != AlchemistElement.NULL) {
+					if (orchidItem.alchemistElement != AlchemistElement.NULL)
+					{
 						element = orchidItem.alchemistElement;
 						break;
 					}
 				}
 			}
-			
+
 			this.checkInventory(true, player, modPlayer);
 		}
-		
-		public void checkInventory(bool up, Player player, OrchidModPlayer modPlayer) {
-			if (modPlayer.alchemistNbElements < modPlayer.alchemistNbElementsMax) {
+
+		public void checkInventory(bool up, Player player, OrchidModPlayer modPlayer)
+		{
+			if (modPlayer.alchemistNbElements < modPlayer.alchemistNbElementsMax)
+			{
 				int elementsChecked = 0;
 				this.displayItems = new List<Item>();
-				while (displayItems.Count() == 0) {
-					for (int i = 0; i < Main.maxInventory; i++) {
+				while (displayItems.Count() == 0)
+				{
+					for (int i = 0; i < Main.maxInventory; i++)
+					{
 						Item item = Main.LocalPlayer.inventory[i];
-						if (item.type != 0) {
+						if (item.type != 0)
+						{
 							OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
-							if ((int)element > 0 && (int)element < 7) {
-								if (orchidItem.alchemistElement == this.element && !modPlayer.alchemistElements[(int)element - 1]) {
+							if ((int)element > 0 && (int)element < 7)
+							{
+								if (orchidItem.alchemistElement == this.element && !modPlayer.alchemistElements[(int)element - 1])
+								{
 									this.displayItems.Add(item);
-									if (this.displayItems.Count() > 9) {
+									if (this.displayItems.Count() > 9)
+									{
 										break;
 									}
 								}
@@ -275,73 +319,89 @@ namespace OrchidMod.Alchemist.UI
 						}
 					}
 
-					if (displayItems.Count() == 0) {
-						elementsChecked ++;
-						if (elementsChecked  == 6) {
-							if (modPlayer.alchemistNbElements == 0) {
+					if (displayItems.Count() == 0)
+					{
+						elementsChecked++;
+						if (elementsChecked == 6)
+						{
+							if (modPlayer.alchemistNbElements == 0)
+							{
 								modPlayer.alchemistSelectUIKeysDisplay = false;
 								CombatText.NewText(player.Hitbox, new Color(255, 0, 0), "No ingredients");
-							} else {
+							}
+							else
+							{
 								element = AlchemistElement.NULL;
 							}
 							return;
-						} else {
+						}
+						else
+						{
 							this.scroll(up);
 						}
 					}
 				}
-			} else {
+			}
+			else
+			{
 				element = AlchemistElement.NULL;
 			}
 		}
 
-		public void scroll(bool up) {
-			if (up) {
-				switch (this.element) {
-					case AlchemistElement.WATER :
+		public void scroll(bool up)
+		{
+			if (up)
+			{
+				switch (this.element)
+				{
+					case AlchemistElement.WATER:
 						this.element = AlchemistElement.FIRE;
 						break;
-					case AlchemistElement.FIRE :
+					case AlchemistElement.FIRE:
 						this.element = AlchemistElement.NATURE;
 						break;
-					case AlchemistElement.NATURE :
+					case AlchemistElement.NATURE:
 						this.element = AlchemistElement.AIR;
 						break;
-					case AlchemistElement.AIR :
+					case AlchemistElement.AIR:
 						this.element = AlchemistElement.LIGHT;
 						break;
-					case AlchemistElement.LIGHT :
+					case AlchemistElement.LIGHT:
 						this.element = AlchemistElement.DARK;
 						break;
-					case AlchemistElement.DARK :
+					case AlchemistElement.DARK:
 						this.element = AlchemistElement.WATER;
 						break;
 				}
-			} else {
-				switch (this.element) {
-					case AlchemistElement.WATER :
+			}
+			else
+			{
+				switch (this.element)
+				{
+					case AlchemistElement.WATER:
 						this.element = AlchemistElement.DARK;
 						break;
-					case AlchemistElement.FIRE :
+					case AlchemistElement.FIRE:
 						this.element = AlchemistElement.WATER;
 						break;
-					case AlchemistElement.NATURE :
+					case AlchemistElement.NATURE:
 						this.element = AlchemistElement.FIRE;
 						break;
-					case AlchemistElement.AIR :
+					case AlchemistElement.AIR:
 						this.element = AlchemistElement.NATURE;
 						break;
-					case AlchemistElement.LIGHT :
+					case AlchemistElement.LIGHT:
 						this.element = AlchemistElement.AIR;
 						break;
-					case AlchemistElement.DARK :
+					case AlchemistElement.DARK:
 						this.element = AlchemistElement.LIGHT;
 						break;
-				} 
+				}
 			}
 		}
-		
-		public AlchemistSelectKeysUIFrame() {
+
+		public AlchemistSelectKeysUIFrame()
+		{
 			dimensions = GetDimensions();
 			point = new Point((int)dimensions.X, (int)dimensions.Y);
 			backgroundColor = Color.White;

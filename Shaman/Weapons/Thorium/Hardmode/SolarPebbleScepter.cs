@@ -1,15 +1,12 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
 	public class SolarPebbleScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -36,7 +33,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Tooltip.SetDefault("Fires a storm of solar embers"
 							+ "\nHitting will charge an eclipse above you, releasing homing flames when full");
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -49,7 +46,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }
 

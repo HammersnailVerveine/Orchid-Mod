@@ -1,10 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -28,17 +23,18 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Desert");
-		    Tooltip.SetDefault("Rapidly fires thorns"
-							+  "\nChances to summon a cactus, replicating the attack");
+			Tooltip.SetDefault("Rapidly fires thorns"
+							+ "\nChances to summon a cactus, replicating the attack");
 		}
-		
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false) {
+
+		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		{
 			int projType = ProjectileType<Gambler.Projectiles.DesertCardProj>();
 			float scale = 1f - (Main.rand.NextFloat() * .3f);
 			Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(20));
-			vel = vel * scale; 
+			vel = vel * scale;
 			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
-			Main.PlaySound(2, (int)player.Center.X ,(int)player.Center.Y - 200, 7);
+			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 7);
 		}
 	}
 }

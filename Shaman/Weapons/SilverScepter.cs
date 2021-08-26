@@ -1,15 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class SilverScepter : OrchidModShamanItem
-    {
+	public class SilverScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 24;
@@ -29,19 +25,19 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Sapphire Scepter");
-		  Tooltip.SetDefault("\nHitting an enemy will grant you a sapphire orb"
-							+"\nIf you have 3 sapphire orbs, your next hit will increase your shamanic critical strike chance for 30 seconds");
+			DisplayName.SetDefault("Sapphire Scepter");
+			Tooltip.SetDefault("\nHitting an enemy will grant you a sapphire orb"
+							  + "\nIf you have 3 sapphire orbs, your next hit will increase your shamanic critical strike chance for 30 seconds");
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddTile(TileID.Anvils);		
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Sapphire, 8);
 			recipe.AddIngredient(ItemID.SilverBar, 10);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

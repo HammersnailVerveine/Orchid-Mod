@@ -1,10 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using OrchidMod;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 {
@@ -14,11 +10,11 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		private float startY = 0;
 		private int orbsNumber = 0;
 		private bool reverseAnim;
-		
+
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Ice Spear Orb");
-        } 
+		{
+			DisplayName.SetDefault("Ice Spear Orb");
+		}
 		public override void SafeSetDefaults()
 		{
 			projectile.width = 14;
@@ -30,97 +26,117 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			projectile.tileCollide = false;
 			Main.projFrames[projectile.type] = 9;
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-		
-		public override bool? CanCutTiles() {
+		{
+			return Color.White;
+		}
+
+		public override bool? CanCutTiles()
+		{
 			return false;
 		}
-		
-        public override void AI()
-        {
+
+		public override void AI()
+		{
 			Player player = Main.player[projectile.owner];
-			
-			if (player != Main.player[Main.myPlayer]) {
+
+			if (player != Main.player[Main.myPlayer])
+			{
 				projectile.active = false;
 			}
-			
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 20 == 0) 
+
+			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 20 == 0)
 			{
 				bool done = false;
-				
-				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 5) {
-					if (!done && projectile.frame == 0) {
+
+				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 5)
+				{
+					if (!done && projectile.frame == 0)
+					{
 						projectile.frame = 1;
 						reverseAnim = false;
 						done = true;
 					}
-					
-					if (!done && projectile.frame == 2) {
+
+					if (!done && projectile.frame == 2)
+					{
 						projectile.frame = 1;
 						reverseAnim = true;
 						done = true;
 					}
-					
-					if (!done && projectile.frame == 1) {
-						if (reverseAnim) {
+
+					if (!done && projectile.frame == 1)
+					{
+						if (reverseAnim)
+						{
 							projectile.frame = 0;
 							done = true;
 						}
-						else {
+						else
+						{
 							projectile.frame = 2;
 							done = true;
 						}
 					}
 				}
-				
-				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 5 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 7){
-					if (!done && projectile.frame == 3 || projectile.frame < 3) {
+
+				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 5 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 7)
+				{
+					if (!done && projectile.frame == 3 || projectile.frame < 3)
+					{
 						projectile.frame = 4;
 						reverseAnim = false;
 						done = true;
 					}
-					
-					if (!done && projectile.frame == 5) {
+
+					if (!done && projectile.frame == 5)
+					{
 						projectile.frame = 4;
 						reverseAnim = true;
 						done = true;
 					}
-					
-					if (!done && projectile.frame == 4) {
-						if (reverseAnim){
+
+					if (!done && projectile.frame == 4)
+					{
+						if (reverseAnim)
+						{
 							projectile.frame = 3;
 							done = true;
 						}
-						else{
+						else
+						{
 							projectile.frame = 5;
 							done = true;
 						}
 					}
 				}
-				
-				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 7){
-					if (!done && projectile.frame == 6 || projectile.frame < 6) {
+
+				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 7)
+				{
+					if (!done && projectile.frame == 6 || projectile.frame < 6)
+					{
 						projectile.frame = 7;
 						reverseAnim = false;
 						done = true;
 					}
-					
-					if (!done && projectile.frame == 8) {
+
+					if (!done && projectile.frame == 8)
+					{
 						projectile.frame = 7;
 						reverseAnim = true;
 						done = true;
 					}
-					
-					if (!done && projectile.frame == 7) {
-						if (reverseAnim){
+
+					if (!done && projectile.frame == 7)
+					{
+						if (reverseAnim)
+						{
 							projectile.frame = 6;
 							done = true;
 						}
-						else {
+						else
+						{
 							projectile.frame = 8;
 							done = true;
 						}
@@ -128,35 +144,37 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				}
 			}
 
-			
+
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique == 0 || player.GetModPlayer<OrchidModPlayer>().orbCountUnique > 10 || player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique != ShamanOrbUnique.ICE)
 				projectile.Kill();
-			
+
 			else orbsNumber = player.GetModPlayer<OrchidModPlayer>().orbCountUnique;
 
-			if (projectile.timeLeft == 12960000) {
+			if (projectile.timeLeft == 12960000)
+			{
 				startX = projectile.position.X - player.position.X;
 				startY = projectile.position.Y - player.position.Y;
 			}
-			
+
 			projectile.position.X = player.position.X + startX;
 			projectile.position.Y = player.position.Y + startY;
-			
-			if (Main.rand.Next(15) == 0) {
+
+			if (Main.rand.Next(15) == 0)
+			{
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 67);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 				Main.dust[dust].scale *= 1f;
 			}
-				
+
 			if ((Main.mouseX + Main.screenPosition.X) < player.Center.X)
-				projectile.velocity.X = - 15f;
-			else 
+				projectile.velocity.X = -15f;
+			else
 				projectile.velocity.X = 15f;
-			
+
 			projectile.velocity.Y = 6f;
 		}
-	
+
 		private void AdjustMagnitude(ref Vector2 vector)
 		{
 			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -165,20 +183,19 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				vector *= 2f / magnitude;
 			}
 		}
-		
+
 		public override void Kill(int timeLeft)
-        {
+		{
 			Player player = Main.player[projectile.owner];
-			
-			for(int i=0; i<10; i++)
-            {
+
+			for (int i = 0; i < 10; i++)
+			{
 				int dust;
 				dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 67);
 				Main.dust[dust].velocity *= 2f;
 				Main.dust[dust].scale = 1.75f;
 				Main.dust[dust].noGravity = true;
-            }
-        }
-    }
+			}
+		}
+	}
 }
- 

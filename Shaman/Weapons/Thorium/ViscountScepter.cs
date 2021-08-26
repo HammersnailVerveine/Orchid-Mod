@@ -1,11 +1,7 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
 	public class ViscountScepter : OrchidModShamanItem, ICrossmodItem
@@ -37,6 +33,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nHas a chance to spawn a homing bat on hit"
 							+ "\nThe chance for a bat to spawn increases with the number of active shamanic bonds");
 		}
-    }
+	}
 }
 

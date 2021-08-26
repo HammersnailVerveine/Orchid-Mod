@@ -1,6 +1,4 @@
-﻿using Terraria.ModLoader;
-
-namespace OrchidMod.Interfaces
+﻿namespace OrchidMod.Interfaces
 {
 	public interface ICrossmodItem
 	{

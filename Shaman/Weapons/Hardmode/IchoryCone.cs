@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class IchoryCone : OrchidModShamanItem
-    {
+	public class IchoryCone : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 30;
@@ -29,10 +27,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Ichor Scepter");
-		  Tooltip.SetDefault("Sprays your enemies with piercing ichor bursts"
-							+"\nThe first enemy hit will fill an ichor cyst above you"
-							+"\nYour next hit after the cyst is full will release a shower of ichor in the direction you're moving");
+			DisplayName.SetDefault("Ichor Scepter");
+			Tooltip.SetDefault("Sprays your enemies with piercing ichor bursts"
+							  + "\nThe first enemy hit will fill an ichor cyst above you"
+							  + "\nYour next hit after the cyst is full will release a shower of ichor in the direction you're moving");
 		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -41,16 +39,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			return false;
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(null, "RitualScepter", 1);
 			recipe.AddIngredient(ItemID.Ichor, 20);
 			recipe.AddIngredient(ItemID.SoulofNight, 15);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

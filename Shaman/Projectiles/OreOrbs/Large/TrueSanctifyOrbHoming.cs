@@ -1,18 +1,16 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 {
 	public class TrueSanctifyOrbHoming : OrchidModShamanProjectile
 	{
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("True Sanctify Orb");
-        } 
+		{
+			DisplayName.SetDefault("True Sanctify Orb");
+		}
 		public override void SafeSetDefaults()
 		{
 			projectile.width = 14;
@@ -27,28 +25,28 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			projectile.timeLeft = 350;
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-		
-        public override void AI()
-        {         					
+		{
+			return Color.White;
+		}
+
+		public override void AI()
+		{
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			
+
 			if (modPlayer.timer120 == 65)
 				projectile.frame = 1;
 			if (modPlayer.timer120 == 70)
 				projectile.frame = 2;
 			if (modPlayer.timer120 == 75)
 				projectile.frame = 3;
-		   	if (modPlayer.timer120 == 80)
+			if (modPlayer.timer120 == 80)
 				projectile.frame = 4;
 			if (modPlayer.timer120 == 85)
 				projectile.frame = 5;
-		    if (modPlayer.timer120 == 90)
+			if (modPlayer.timer120 == 90)
 				projectile.frame = 6;
 			if (modPlayer.timer120 == 95)
 				projectile.frame = 7;
@@ -87,12 +85,13 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 			if (modPlayer.timer120 == 60)
 				projectile.frame = 0;
 
-			if (Main.rand.Next(5) == 0) {
+			if (Main.rand.Next(5) == 0)
+			{
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 254);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 			}
-			
+
 			if (projectile.localAI[0] == 0f)
 			{
 				AdjustMagnitude(ref projectile.velocity);
@@ -124,7 +123,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 				projectile.velocity = (10 * projectile.velocity + move) / 7f;
 				AdjustMagnitude(ref projectile.velocity);
 			}
-        }
+		}
 		private void AdjustMagnitude(ref Vector2 vector)
 		{
 			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -133,17 +132,17 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 				vector *= 6f / magnitude;
 			}
 		}
-		
+
 		public override void Kill(int timeLeft)
-        {
-            for(int i=0; i<5; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 254);
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 254);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 10f;
-            }
-        }
-		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
-    }
+			}
+		}
+
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+	}
 }

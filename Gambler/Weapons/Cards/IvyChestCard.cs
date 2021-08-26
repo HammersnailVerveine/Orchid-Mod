@@ -1,10 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -28,33 +23,38 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Deep Forest");
-		    Tooltip.SetDefault("Releases bursts of leaves, able to be pushed with the cursor"
-							+  "\nThe further they are pushed, the more damage they deal"
-							+  "\nOnly 3 sets of leaves can exist at once");
+			Tooltip.SetDefault("Releases bursts of leaves, able to be pushed with the cursor"
+							+ "\nThe further they are pushed, the more damage they deal"
+							+ "\nOnly 3 sets of leaves can exist at once");
 		}
-		
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false) {
+
+		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		{
 			int projType = ProjectileType<Gambler.Projectiles.IvyChestCardProj>();
-			
-			for (int l = 0; l < Main.projectile.Length; l++) {  
+
+			for (int l = 0; l < Main.projectile.Length; l++)
+			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == projType && proj.owner == player.whoAmI) {
-					proj.ai[1] ++;
-					if (proj.ai[1] >= 3f) {
+				if (proj.active && proj.type == projType && proj.owner == player.whoAmI)
+				{
+					proj.ai[1]++;
+					if (proj.ai[1] >= 3f)
+					{
 						proj.Kill();
 					}
 					proj.netUpdate = true;
-				} 
+				}
 			}
-			
-			for (int i = 0 ; i < 5 + Main.rand.Next(4) ; i ++) {
+
+			for (int i = 0; i < 5 + Main.rand.Next(4); i++)
+			{
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
-				vel = vel * scale; 
+				vel = vel * scale;
 				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
 			}
-			
-			Main.PlaySound(6, (int)player.Center.X ,(int)player.Center.Y, 0);
+
+			Main.PlaySound(6, (int)player.Center.X, (int)player.Center.Y, 0);
 		}
 	}
 }

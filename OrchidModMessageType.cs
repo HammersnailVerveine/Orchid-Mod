@@ -1,8 +1,3 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-
 namespace OrchidMod
 {
 	public enum OrchidModMessageType : byte
@@ -27,9 +22,9 @@ namespace OrchidMod
 		SHAMANBUFFTIMERCHANGEDCRITICAL,
 		SHAMANBUFFTIMERCHANGEDREGENERATION,
 		SHAMANBUFFTIMERCHANGEDSPEED,
-		
+
 		GAMBLERCARDINDECKCHANGED,
-		
+
 		// ALCHEMISTELEMENTCHANGED0,
 		// ALCHEMISTELEMENTCHANGED1,
 		// ALCHEMISTELEMENTCHANGED2,
@@ -51,7 +46,7 @@ namespace OrchidMod
 		// ALCHEMISTCOLORCHANGEDR,
 		// ALCHEMISTCOLORCHANGEDG,
 		// ALCHEMISTCOLORCHANGEDB,
-		
+
 		ORCHIDPLAYERSYNCPLAYER
 	}
-}  
+}

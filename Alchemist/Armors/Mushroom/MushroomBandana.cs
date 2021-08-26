@@ -1,25 +1,22 @@
-using System.Collections.Generic;
-using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Interfaces;
 
 namespace OrchidMod.Alchemist.Armors.Mushroom
 {
 	[AutoloadEquip(EquipType.Head)]
-    public class MushroomBandana : OrchidModAlchemistEquipable
-    {
-        public override void SafeSetDefaults()
-        {
-            item.width = 24;
-            item.height = 12;
-            item.value = Item.sellPrice(0, 0, 3, 0);
-            item.rare = ItemRarityID.Blue;
-            item.defense = 2;
-        }
+	public class MushroomBandana : OrchidModAlchemistEquipable
+	{
+		public override void SafeSetDefaults()
+		{
+			item.width = 24;
+			item.height = 12;
+			item.value = Item.sellPrice(0, 0, 3, 0);
+			item.rare = ItemRarityID.Blue;
+			item.defense = 2;
+		}
 
 		public override void SetStaticDefaults()
 		{
@@ -27,42 +24,42 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 			Tooltip.SetDefault("5% increased potency regeneration");
 		}
 
-        public override void UpdateEquip(Player player)
-        {
+		public override void UpdateEquip(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.alchemistRegenPotency -= 3;
-        }
-		
-        public override bool IsArmorSet(Item head, Item body, Item legs)
-        {
-            return body.type == mod.ItemType("MushroomTunic") && legs.type == mod.ItemType("MushroomLeggings");
-        }
-		
-        public override void UpdateArmorSet(Player player)
-        {
+		}
+
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			return body.type == mod.ItemType("MushroomTunic") && legs.type == mod.ItemType("MushroomLeggings");
+		}
+
+		public override void UpdateArmorSet(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-            player.setBonus = "Maximum number of simultaneous alchemical elements increased by 1";
+			player.setBonus = "Maximum number of simultaneous alchemical elements increased by 1";
 			modPlayer.alchemistNbElementsMax += 1;
-        }
+		}
 
 		public override bool DrawHead() => true;
-		
+
 		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-        {
-            drawHair = true;
+		{
+			drawHair = true;
 			drawAltHair = false;
-        }
-		
+		}
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.Silk, 4);
 			recipe.AddIngredient(ItemID.GlowingMushroom, 5);
 			recipe.AddIngredient(null, "MushroomThread", 1);
 			recipe.AddTile(TileID.WorkBenches);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{

@@ -1,10 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using OrchidMod;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 {
@@ -15,10 +10,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 		float startY = 0;
 
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Monowai Orb");
-        } 
-		
+		{
+			DisplayName.SetDefault("Monowai Orb");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			projectile.width = 14;
@@ -30,52 +25,54 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			projectile.tileCollide = false;
 			Main.projFrames[projectile.type] = 24;
 		}
-		
-		public override bool? CanCutTiles() {
+
+		public override bool? CanCutTiles()
+		{
 			return false;
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-		
+		{
+			return Color.White;
+		}
+
 		public override void Kill(int timeLeft)
-        {
-            for(int i=0; i<2; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 10f;
-            }
-			
-            for(int i=0; i<2; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 59);
+			}
+
+			for (int i = 0; i < 2; i++)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 59);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 10f;
-            }
-        }
-		
-        public override void AI()
-        {
+			}
+		}
+
+		public override void AI()
+		{
 			Player player = Main.player[projectile.owner];
-			
-			if (player != Main.player[Main.myPlayer]) {
+
+			if (player != Main.player[Main.myPlayer])
+			{
 				projectile.active = false;
 			}
-			
+
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 65)
 				projectile.frame = 1;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 70)
 				projectile.frame = 2;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 75)
 				projectile.frame = 3;
-		   	if (player.GetModPlayer<OrchidModPlayer>().timer120 == 80)
+			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 80)
 				projectile.frame = 4;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 85)
 				projectile.frame = 5;
-		    if (player.GetModPlayer<OrchidModPlayer>().timer120 == 90)
+			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 90)
 				projectile.frame = 6;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 95)
 				projectile.frame = 7;
@@ -113,65 +110,73 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 				projectile.frame = 23;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 60)
 				projectile.frame = 0;
-			
-			
+
+
 			if (player.GetModPlayer<OrchidModPlayer>().shamanOrbBig != ShamanOrbBig.VOLCANO || player.GetModPlayer<OrchidModPlayer>().orbCountBig <= 0)
 				projectile.Kill();
 
-			if (projectile.timeLeft == 12960000) {
+			if (projectile.timeLeft == 12960000)
+			{
 				int nbOrb = player.GetModPlayer<OrchidModPlayer>().orbCountBig;
 				int offsetX = 7;
-				
-				if (nbOrb > 1) {
-					startX = - 30 - offsetX;
-					startY = - 30 - offsetX;
+
+				if (nbOrb > 1)
+				{
+					startX = -30 - offsetX;
+					startY = -30 - offsetX;
 				}
-				
-				if (nbOrb > 3) {
-					startX = - 15 - offsetX;
-					startY = - 38 - offsetX;
+
+				if (nbOrb > 3)
+				{
+					startX = -15 - offsetX;
+					startY = -38 - offsetX;
 				}
-				
-				if (nbOrb > 5) {
-					startX = - 0 - offsetX;
-					startY = - 40 - offsetX;
+
+				if (nbOrb > 5)
+				{
+					startX = -0 - offsetX;
+					startY = -40 - offsetX;
 				}
-				
-				if (nbOrb > 7) {
-					startX = + 15 - offsetX;
-					startY = - 38 - offsetX;
+
+				if (nbOrb > 7)
+				{
+					startX = +15 - offsetX;
+					startY = -38 - offsetX;
 				}
-				
-				if (nbOrb > 9) {
-					startX = + 30 - offsetX;
-					startY = - 30 - offsetX;
+
+				if (nbOrb > 9)
+				{
+					startX = +30 - offsetX;
+					startY = -30 - offsetX;
 				}
-				
-				if (projectile.damage != 0) {
+
+				if (projectile.damage != 0)
+				{
 					projectile.damage = 0;
-					startX = - 30 - offsetX;
-					startY = - 30 - offsetX;
+					startX = -30 - offsetX;
+					startY = -30 - offsetX;
 				}
 			}
-			
+
 			projectile.velocity.X = player.velocity.X;
 			projectile.position.X = player.position.X + player.width / 2 + startX;
 			projectile.position.Y = player.position.Y + startY;
-			
-			if (Main.rand.Next(50) == 0) {
+
+			if (Main.rand.Next(50) == 0)
+			{
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 				Main.dust[dust].scale *= 0.7f;
 			}
-			
-			if (Main.rand.Next(50) == 0) {
+
+			if (Main.rand.Next(50) == 0)
+			{
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 59);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 				Main.dust[dust].scale *= 0.7f;
 			}
-        }
-    }
+		}
+	}
 }
- 

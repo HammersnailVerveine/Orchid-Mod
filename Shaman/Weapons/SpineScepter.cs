@@ -1,15 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class SpineScepter : OrchidModShamanItem
-    {
+	public class SpineScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 20;
@@ -32,24 +28,25 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Spine Scepter");
-		  Tooltip.SetDefault("Shoots short ranged crimson beams"
-							+ "\nThe weapon range scales with the number of active shamanic bonds");
+			DisplayName.SetDefault("Spine Scepter");
+			Tooltip.SetDefault("Shoots short ranged crimson beams"
+							  + "\nThe weapon range scales with the number of active shamanic bonds");
 		}
-		
-		public override void UpdateInventory(Player player) {
+
+		public override void UpdateInventory(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			item.shootSpeed = 7f + 2f * nbBonds;
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.CrimtaneBar, 10);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

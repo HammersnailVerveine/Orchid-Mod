@@ -1,15 +1,10 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
-    public class EnchantedScepter : OrchidModShamanItem
-    {
+	public class EnchantedScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 9;
@@ -27,16 +22,17 @@ namespace OrchidMod.Shaman.Weapons
 			this.empowermentType = 1;
 			this.energy = 10;
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Enchanted Scepter");
-		  Tooltip.SetDefault("Weapon damage increases with the number of active shamanic bonds");
+			DisplayName.SetDefault("Enchanted Scepter");
+			Tooltip.SetDefault("Weapon damage increases with the number of active shamanic bonds");
 		}
-		
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 3f);
 		}
-    }
+	}
 }

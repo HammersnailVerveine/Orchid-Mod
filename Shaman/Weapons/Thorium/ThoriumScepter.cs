@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
 	public class ThoriumScepter : OrchidModShamanItem, ICrossmodItem
@@ -36,19 +33,19 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Tooltip.SetDefault("Fires out a bolt of magic, dividing upon hitting a foe"
 							+ "\nIf you have 3 or more active shamanic bonds, the bonus projectiles will home at nearby enemies");
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
 				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(thoriumMod.TileType("ThoriumAnvil"));		
+				recipe.AddTile(thoriumMod.TileType("ThoriumAnvil"));
 				recipe.AddIngredient(thoriumMod, "ThoriumBar", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }
 

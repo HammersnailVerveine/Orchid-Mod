@@ -1,14 +1,12 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-    public class ChlorophyteScepter : OrchidModShamanItem
-    {
+	public class ChlorophyteScepter : OrchidModShamanItem
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 56;
@@ -29,14 +27,14 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Chlorophyte Scepter");
-		  Tooltip.SetDefault("Shoots a potent chlorophyte bolt, hitting your enemy 3 times"
-							+"\nHitting the same target with all 3 shots will grant you a leaf crystal"
-							+"\nIf you have 5 leaf crystals, your next hit will release harmful clouds of gas at your opponents");
+			DisplayName.SetDefault("Chlorophyte Scepter");
+			Tooltip.SetDefault("Shoots a potent chlorophyte bolt, hitting your enemy 3 times"
+							  + "\nHitting the same target with all 3 shots will grant you a leaf crystal"
+							  + "\nIf you have 5 leaf crystals, your next hit will release harmful clouds of gas at your opponents");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+		{
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
@@ -44,14 +42,14 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 			return false;
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 12);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }

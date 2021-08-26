@@ -1,15 +1,12 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
 	public class BersekerShardScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -37,15 +34,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nThe less health you have, the more damage dealt"
 							+ "\nIf you have 5 shamanic bonds, enemies hit by the staff return as aggressive spirits for a short time after dying");
 		}
-		
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
 			if (player.statLifeMax2 - player.statLife > (int)(player.statLifeMax2 * 0.75f)) add += 0.33f;
 			if (player.statLifeMax2 - player.statLife > (int)(player.statLifeMax2 * 0.5f)) add += 0.33f;
 			if (player.statLifeMax2 - player.statLife > (int)(player.statLifeMax2 * 0.25f)) add += 0.33f;
 
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -57,7 +55,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }
 

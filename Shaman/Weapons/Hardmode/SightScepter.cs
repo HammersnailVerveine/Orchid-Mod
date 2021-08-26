@@ -1,16 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
-using System;
- 
+
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
 	public class SightScepter : OrchidModShamanItem
-    {
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 25;
@@ -31,27 +26,28 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Light Concentrator");
-		  Tooltip.SetDefault("Channels a beam of prismatic energy"
-							+"\nHaving 4 or more active shamanic bonds will drastically increase the weapon damage and range");
+			DisplayName.SetDefault("Light Concentrator");
+			Tooltip.SetDefault("Channels a beam of prismatic energy"
+							  + "\nHaving 4 or more active shamanic bonds will drastically increase the weapon damage and range");
 		}
-		
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) {
+
+		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			
+
 			mult *= modPlayer.shamanDamage;
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 3) mult *= 1.5f;
 		}
-		
+
 		public override void AddRecipes()
 		{
-		    ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.HallowedBar, 12);
 			recipe.AddIngredient(549, 20);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
-        }
-    }
+		}
+	}
 }
 

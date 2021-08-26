@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -26,30 +25,42 @@ namespace OrchidMod.Tiles.Ores
 			drop = ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>();
 		}
 
-		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b) {
+		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+		{
 			r = 0.15f;
 			g = 0f;
 			b = 0f;
 		}
-		
-		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
+
+		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+		{
 			Tile tile = Main.tile[i, j];
 			tile.frameX = (short)(Main.rand.Next(5) * 16);
-			if (WorldGen.SolidTile(i, j + 1)) {
+			if (WorldGen.SolidTile(i, j + 1))
+			{
 				tile.frameY = 0;
-			} else if (WorldGen.SolidTile(i - 1, j)) {
+			}
+			else if (WorldGen.SolidTile(i - 1, j))
+			{
 				tile.frameY = 16;
-			} else if (WorldGen.SolidTile(i, j - 1)) {
+			}
+			else if (WorldGen.SolidTile(i, j - 1))
+			{
 				tile.frameY = 32;
-			} else if (WorldGen.SolidTile(i + 1, j)) {
+			}
+			else if (WorldGen.SolidTile(i + 1, j))
+			{
 				tile.frameY = 48;
-			} else {
+			}
+			else
+			{
 				WorldGen.KillTile(i, j, false, false, false);
 			}
 			return true;
 		}
 
-		public override bool CanPlace(int i, int j) {
+		public override bool CanPlace(int i, int j)
+		{
 			return ((WorldGen.SolidTile(i - 1, j)) || (WorldGen.SolidTile(i, j + 1)) || (WorldGen.SolidTile(i, j - 1)) || (WorldGen.SolidTile(i + 1, j)));
 		}
 	}

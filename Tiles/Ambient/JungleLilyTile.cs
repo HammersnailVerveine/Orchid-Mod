@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
@@ -15,11 +14,11 @@ namespace OrchidMod.Tiles.Ambient
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
 			Main.tileLavaDeath[Type] = true;
-			
+
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-			TileObjectData.newTile.AnchorValidTiles = new int[]{60}; // Jungle Grass
+			TileObjectData.newTile.AnchorValidTiles = new int[] { 60 }; // Jungle Grass
 			TileObjectData.addTile(Type);
-			
+
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Jungle Lily");
 			AddMapEntry(new Color(177, 46, 77), name);

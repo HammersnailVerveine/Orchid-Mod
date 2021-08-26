@@ -1,42 +1,41 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
- 
+
 namespace OrchidMod.Alchemist.Projectiles.Air
 {
-    public class ShadowChestFlaskProj : OrchidModAlchemistProjectile
-    {
+	public class ShadowChestFlaskProj : OrchidModAlchemistProjectile
+	{
 		Vector2 startPosition = new Vector2(0, 0);
 		Vector2 startVelocity = new Vector2(0, 0);
-		
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Alchemical Shadow");
-        } 
-		
-        public override void SafeSetDefaults()
-        {
-            projectile.width = 14;
-            projectile.height = 14;
-            projectile.friendly = true;
+
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Alchemical Shadow");
+		}
+
+		public override void SafeSetDefaults()
+		{
+			projectile.width = 14;
+			projectile.height = 14;
+			projectile.friendly = true;
 			projectile.scale = 1f;
 			projectile.alpha = 172;
-            projectile.aiStyle = 0;
+			projectile.aiStyle = 0;
 			projectile.timeLeft = 120;
-			projectile.penetrate = -1; 
-        }
-		
-        public override void AI()
-        {    
-            if (projectile.timeLeft == 120) {	
+			projectile.penetrate = -1;
+		}
+
+		public override void AI()
+		{
+			if (projectile.timeLeft == 120)
+			{
 				this.startPosition = projectile.position;
 				this.startVelocity = projectile.velocity;
-			}	
-		    if (Main.rand.Next(2) == 0) {	
+			}
+			if (Main.rand.Next(2) == 0)
+			{
 				float x = projectile.position.X - projectile.velocity.X / 10f;
 				float y = projectile.position.Y - projectile.velocity.Y / 10f;
 				int rand = Main.rand.Next(2) == 0 ? 21 : 70;
@@ -44,49 +43,51 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].velocity *= 0.5f;
 				Main.dust[dust].noGravity = true;
-            }	
-			
+			}
+
 			Vector2 newMove = projectile.Center - this.startPosition;
 			float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-			if (distanceTo < 10f && projectile.timeLeft < 100) {
+			if (distanceTo < 10f && projectile.timeLeft < 100)
+			{
 				projectile.Kill();
 			}
-			
+
 			projectile.rotation += 0.1f;
 			projectile.velocity -= this.startVelocity * 0.02f;
-        }
-		
+		}
+
 		public override void Kill(int timeLeft)
-        {
-            for(int i=0; i<10; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 70);
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 70);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = true;
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].velocity *= 3f;
-            }
-			
-			if (Main.player[projectile.owner].HasBuff(BuffType<Alchemist.Buffs.DemonBreathFlaskBuff>()) && projectile.ai[1] != 2f) {
+			}
+
+			if (Main.player[projectile.owner].HasBuff(BuffType<Alchemist.Buffs.DemonBreathFlaskBuff>()) && projectile.ai[1] != 2f)
+			{
 				Vector2 vel = projectile.velocity.RotatedBy(MathHelper.ToRadians(45));
 				int newProjInt = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, projectile.type, projectile.damage, projectile.knockBack, projectile.owner);
 				Projectile newProj = Main.projectile[newProjInt];
 				newProj.ai[1] = 2f;
 				newProj.netUpdate = true;
 			}
-        }
-		
+		}
+
 		public override bool OnTileCollide(Vector2 oldVelocity)
-        {
+		{
 			projectile.friendly = false;
 			projectile.velocity = oldVelocity;
 			return false;
-        }
-		
+		}
+
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			OrchidModAlchemistNPC modTarget = target.GetGlobalNPC<OrchidModAlchemistNPC>();
 			modTarget.alchemistAir = 600;
-        }
-    }
+		}
+	}
 }

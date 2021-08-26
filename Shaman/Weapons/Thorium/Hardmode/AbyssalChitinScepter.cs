@@ -1,16 +1,14 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
+using System;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
-using System;
-using OrchidMod.Interfaces;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-    public class AbyssalChitinScepter : OrchidModShamanItem, ICrossmodItem
+	public class AbyssalChitinScepter : OrchidModShamanItem, ICrossmodItem
 	{
 		public string CrossmodName => "Thorium Mod";
 
@@ -36,32 +34,32 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.empowermentType = 2;
 			this.energy = 10;
 		}
-		
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Naga Fizzler");
 			Tooltip.SetDefault("Spits out a burst of bubbles, growing stronger with time"
 							+ "\nOnly one set of bubbles can be active at once"
 							+ "\nYour number of active shamanic bonds increases the damage increase rate"
-							+"\n'Used to be called the fizzling wand of fizzly fizzies'");
+							+ "\n'Used to be called the fizzling wand of fizzly fizzies'");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-            for (int l = 0; l < Main.projectile.Length; l++)
-            {  
-                Projectile proj = Main.projectile[l];
-                if (proj.active && proj.type == item.shoot && proj.owner == player.whoAmI)
-                {
-                    proj.active = false;
-                }
-            }
-			
+			for (int l = 0; l < Main.projectile.Length; l++)
+			{
+				Projectile proj = Main.projectile[l];
+				if (proj.active && proj.type == item.shoot && proj.owner == player.whoAmI)
+				{
+					proj.active = false;
+				}
+			}
+
 			for (int i = 0; i < 5; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
-				perturbedSpeed = perturbedSpeed * scale; 
+				perturbedSpeed = perturbedSpeed * scale;
 				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
@@ -83,7 +81,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				}
 			}
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -95,6 +93,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }

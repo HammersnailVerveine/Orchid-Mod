@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -33,7 +31,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			
+
 			projectile.spriteDirection = projectile.velocity.X > 0f ? -1 : 1;
 
 			if (Main.rand.Next(3) == 0)
@@ -50,8 +48,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				projectile.ai[1] = -360;
 			}
 		}
-		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) {}
+
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
 
 		public override void SafePostAI()
 		{

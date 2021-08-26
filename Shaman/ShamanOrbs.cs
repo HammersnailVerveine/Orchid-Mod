@@ -1,17 +1,17 @@
 namespace OrchidMod.Shaman
 {
 	public enum ShamanOrbSize : byte
-    {
+	{
 		NULL = 0,
 		SMALL = 1,
 		BIG = 2,
 		LARGE = 3,
 		UNIQUE = 4,
 		CIRCLE = 5
-    }
-	
-    public enum ShamanOrbSmall : byte
-    {
+	}
+
+	public enum ShamanOrbSmall : byte
+	{
 		NULL = 0,
 		TOPAZ = 1,
 		AMETHYST = 2,
@@ -24,10 +24,10 @@ namespace OrchidMod.Shaman
 		AMBER = 9,
 		OPAL = 10,
 		ONYX = 11
-    }
-	
+	}
+
 	public enum ShamanOrbBig : byte
-    {
+	{
 		NULL = 0,
 		COBALT = 1,
 		PALLADIUM = 2,
@@ -44,17 +44,17 @@ namespace OrchidMod.Shaman
 		TITAN = 13,
 		VOLCANO = 14
 	}
-	
+
 	public enum ShamanOrbLarge : byte
-    {
+	{
 		NULL = 0,
 		SANCTIFY = 1,
 		TRUESANCTIFY = 2,
 		TERRARIUM = 3
 	}
-	
+
 	public enum ShamanOrbUnique : byte
-    {
+	{
 		NULL = 0,
 		CORRUPTION = 1,
 		ICHOR = 2,
@@ -64,11 +64,11 @@ namespace OrchidMod.Shaman
 		GRANDTHUNDERBIRD = 6,
 		ECLIPSE = 7
 	}
-	
+
 	public enum ShamanOrbCircle : byte
-    {
+	{
 		NULL = 0,
 		REVIVER = 1,
 		GRANITE = 2
 	}
-}  
+}

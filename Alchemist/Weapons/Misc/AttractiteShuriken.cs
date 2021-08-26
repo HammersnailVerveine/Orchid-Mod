@@ -1,19 +1,19 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Misc
 {
 	public class AttractiteShuriken : OrchidModAlchemistMisc
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults()
+		{
 			DisplayName.SetDefault("Attractite Shuriken");
 			Tooltip.SetDefault("Inflicts attractite to hit enemies");
 		}
 
-		public override void SafeSetDefaults() {
+		public override void SafeSetDefaults()
+		{
 			item.damage = 5;
 			item.crit = 4;
 			item.useStyle = 1;
@@ -34,7 +34,8 @@ namespace OrchidMod.Alchemist.Weapons.Misc
 			item.shoot = ProjectileType<Alchemist.Projectiles.Misc.AttractiteShurikenProj>();
 		}
 
-		public override bool OnPickup(Player player) {
+		public override bool OnPickup(Player player)
+		{
 			return !this.alreadyInInventory(player, true);
 		}
 	}

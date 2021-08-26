@@ -1,15 +1,13 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-    public class ValadiumScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	public class ValadiumScepter : OrchidModShamanItem, ICrossmodItem
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -34,13 +32,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			DisplayName.SetDefault("Valadium Scepter");
 			Tooltip.SetDefault("Shoots a potent valadium bolt, hitting your enemy 3 times"
-							+"\nHitting the same target with all 3 shots will grant you a valadium orb"
-							+"\nIf you have 5 orbs, your next hit will deal massive damage and send your target flying"
-							+"\nAttacks will blast enemies with inter-dimensional energy briefly");
+							+ "\nHitting the same target with all 3 shots will grant you a valadium orb"
+							+ "\nIf you have 5 orbs, your next hit will deal massive damage and send your target flying"
+							+ "\nAttacks will blast enemies with inter-dimensional energy briefly");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+		{
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
@@ -61,6 +59,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }

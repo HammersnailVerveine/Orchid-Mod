@@ -1,15 +1,13 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-    public class TitanicScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	public class TitanicScepter : OrchidModShamanItem, ICrossmodItem
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -34,13 +32,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			DisplayName.SetDefault("Titan Scepter");
 			Tooltip.SetDefault("Shoots a potent titanic energy bolt, hitting your enemy 3 times"
-							+"\nHitting the same target with all 3 shots will grant you an titan orb"
-							+"\nIf you have 5 orbs, your next hit will boost your critical strikes abilities for a while"
-							+"\nCritical strikes will deal additional damage");
+							+ "\nHitting the same target with all 3 shots will grant you an titan orb"
+							+ "\nIf you have 5 orbs, your next hit will boost your critical strikes abilities for a while"
+							+ "\nCritical strikes will deal additional damage");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
+		{
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
@@ -55,11 +53,11 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			if (thoriumMod != null)
 			{
 				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(thoriumMod.TileType("SoulForge"));		
+				recipe.AddTile(thoriumMod.TileType("SoulForge"));
 				recipe.AddIngredient(thoriumMod, "TitanBar", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }

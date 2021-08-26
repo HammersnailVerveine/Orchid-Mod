@@ -1,6 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,9 +9,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 	public class TerrariumScepterOrbProj : OrchidModShamanProjectile
 	{
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Terrarium Orb");
-        } 
+		{
+			DisplayName.SetDefault("Terrarium Orb");
+		}
 		public override void SafeSetDefaults()
 		{
 			projectile.width = 14;
@@ -26,20 +25,20 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			ProjectileID.Sets.Homing[projectile.type] = true;
 			projectile.timeLeft = 350;
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-		
-        public override void AI()
-        {         						
+		{
+			return Color.White;
+		}
+
+		public override void AI()
+		{
 			int dustType = Main.rand.Next(6) + 59;
 			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType);
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust].scale *= 1.5f;
 			Main.dust[dust].velocity /= 2f;
-			
+
 			if (projectile.localAI[0] == 0f)
 			{
 				AdjustMagnitude(ref projectile.velocity);
@@ -71,7 +70,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 				projectile.velocity = (10 * projectile.velocity + move) / 7f;
 				AdjustMagnitude(ref projectile.velocity);
 			}
-        }
+		}
 		private void AdjustMagnitude(ref Vector2 vector)
 		{
 			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
@@ -80,24 +79,25 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 				vector *= 6f / magnitude;
 			}
 		}
-		
+
 		public override void Kill(int timeLeft)
-        {
-            for(int i=0; i<5; i++)
-            {
+		{
+			for (int i = 0; i < 5; i++)
+			{
 				int dust = Main.rand.Next(6) + 59;
-                dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dust);
+				dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, dust);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 10f;
-            }
-        }
-		
+			}
+		}
+
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null) {
+			if (thoriumMod != null)
+			{
 				target.AddBuff((thoriumMod.BuffType("TerrariumMix")), 2 * 60);
 			}
 		}
-    }
+	}
 }

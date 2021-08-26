@@ -1,7 +1,7 @@
 namespace OrchidMod.WorldgenArrays
 {
 	public class OrchidRarrays
-	{	
+	{
 		public static int[,] Rshape1 = new int[,]
 		{
 			{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},
@@ -13,7 +13,7 @@ namespace OrchidMod.WorldgenArrays
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 		};
-		
+
 		public static int[,] REntrance = new int[,]
 		{
 			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -39,7 +39,7 @@ namespace OrchidMod.WorldgenArrays
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 		};
-		
+
 		public static int[,] RWall1 = new int[,]
 		{
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -51,7 +51,7 @@ namespace OrchidMod.WorldgenArrays
 			{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		};
-		
+
 		public static int[,] RWall2 = new int[,]
 		{
 			{2,2,2,2,2,2,2,2,2,2,2,2,2,2,2},

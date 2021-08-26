@@ -1,10 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using OrchidMod;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 {
@@ -16,9 +13,9 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 		float hoverY = 0;
 		bool hoverD = false;
 		public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Soul Flame");
-        } 
+		{
+			DisplayName.SetDefault("Soul Flame");
+		}
 		public override void SafeSetDefaults()
 		{
 			projectile.width = 16;
@@ -30,23 +27,25 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 			projectile.tileCollide = false;
 			Main.projFrames[projectile.type] = 7;
 		}
-		
+
 		public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-		
-        public override void AI()
-        {         					
+		{
+			return Color.White;
+		}
+
+		public override void AI()
+		{
 			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			
-			if (player != Main.player[Main.myPlayer]) {
+
+			if (player != Main.player[Main.myPlayer])
+			{
 				projectile.active = false;
 			}
-			
+
 			if (Main.LocalPlayer.FindBuffIndex(mod.BuffType("SpiritualBurst")) > -1)
-				switch (Main.rand.Next(5)) {
+				switch (Main.rand.Next(5))
+				{
 					case 1:
 						projectile.scale = 1.1f;
 						break;
@@ -66,30 +65,33 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 			else
 				projectile.scale = 1f;
 			if (Main.time % 5 == 0)
-				projectile.frame ++;
+				projectile.frame++;
 			if (projectile.frame == 7)
 				projectile.frame = 0;
-			
+
 			if (modPlayer.timer120 % 60 == 0)
 				hoverD = !hoverD;
-			
+
 			if (hoverD == false)
 				hoverY -= 0.3f;
 			else hoverY += 0.3f;
-			
+
 			if (modPlayer.shamanOrbCircle != ShamanOrbCircle.REVIVER || modPlayer.orbCountCircle <= 0)
 				projectile.Kill();
 
-			if (projectile.timeLeft == 12960000) {
+			if (projectile.timeLeft == 12960000)
+			{
 				startX = projectile.position.X - player.position.X + player.velocity.X;
 				startY = projectile.position.Y - player.position.Y + player.velocity.Y;
 			}
 			projectile.velocity.X = player.velocity.X;
 			projectile.position.X = player.position.X + startX;
 			projectile.position.Y = player.position.Y + startY - hoverY;
-			
-			if (Main.player[projectile.owner].FindBuffIndex(mod.BuffType("SpiritualBurst")) > -1) {
-				if (Main.rand.Next(10) == 0) {
+
+			if (Main.player[projectile.owner].FindBuffIndex(mod.BuffType("SpiritualBurst")) > -1)
+			{
+				if (Main.rand.Next(10) == 0)
+				{
 					int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
 					Main.dust[dust2].velocity *= 2f;
 					Main.dust[dust2].scale = 1.5f;
@@ -97,17 +99,17 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 					Main.dust[dust2].noLight = true;
 				}
 			}
-        }
-		
+		}
+
 		public override void SafePostAI()
-        {
-            for (int num46 = projectile.oldPos.Length - 5; num46 > 0; num46--)
-            {
-                projectile.oldPos[num46] = projectile.oldPos[num46 - 1];
-            }
-            projectile.oldPos[0] = projectile.position;
-        }
-		
+		{
+			for (int num46 = projectile.oldPos.Length - 5; num46 > 0; num46--)
+			{
+				projectile.oldPos[num46] = projectile.oldPos[num46 - 1];
+			}
+			projectile.oldPos[0] = projectile.position;
+		}
+
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Texture2D flameTexture = ModContent.GetTexture("OrchidMod/Shaman/Projectiles/OreOrbs/Circle/ReviverOfSoulsFlameTexture");
@@ -117,21 +119,21 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 				Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
 				drawPos.X += Main.rand.Next(6) - 3 - Main.player[projectile.owner].velocity.X;
 				drawPos.Y += Main.rand.Next(6) - 3 - Main.player[projectile.owner].velocity.Y;
-				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k*5) / (float)projectile.oldPos.Length);
+				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k * 5) / (float)projectile.oldPos.Length);
 				spriteBatch.Draw(flameTexture, drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0.3f);
 			}
 			return true;
 		}
-		
+
 		public override void Kill(int timeLeft)
-        {
-            for(int i=0; i<5; i++)
-            {
-                int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 2f;
-            }
-        }
-    }
+			}
+		}
+	}
 }
- 
+

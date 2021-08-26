@@ -1,12 +1,5 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using System;
-using System.Collections.Generic;
-using static Terraria.ModLoader.ModContent;
 
 
 namespace OrchidMod.Alchemist.Weapons.Dark
@@ -31,13 +24,14 @@ namespace OrchidMod.Alchemist.Weapons.Dark
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Emo Vial");
-			
-		    Tooltip.SetDefault("Briefly shadowburns your target"
-							+  "\n[c/FF0000:Test Item]");
+
+			Tooltip.SetDefault("Briefly shadowburns your target"
+							+ "\n[c/FF0000:Test Item]");
 		}
-		
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, 
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) {
+
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		{
 			target.AddBuff(153, 60 * ((((int)(alchProj.nbElements / 2)) == 0) ? 1 : ((int)(alchProj.nbElements / 2)))); // Shadowflame
 		}
 	}

@@ -58,7 +58,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 		public override void OnHitNPC(NPC npc, int damage, float knockback, bool crit)
 		{
 			Player player = Main.player[projectile.owner];
-			
+
 			//TODO thorium
 			if (thoriumMod != null)
 			{
@@ -69,7 +69,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 					player.AddBuff(thoriumMod.BuffType("SoulEssence"), 30 * 60, true);
 					CombatText.NewText(npc.Hitbox, new Color(100, 255, 200), 1, false, true);
-					
+
 					FieldInfo fieldSoul = thoriumPlayer.GetType().GetField("soulEssence", BindingFlags.Public | BindingFlags.Instance);
 					if (fieldSoul != null)
 					{
@@ -91,7 +91,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 		{
 			Player player = Main.player[projectile.owner];
 			hitDirection = target.Center.X < player.Center.X ? -1 : 1;
-			
+
 			//TODO thorium
 			if (thoriumMod != null)
 			{
@@ -122,7 +122,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 						}
 					}
 				}
-				
+
 				FieldInfo fieldIridescent = playerType.GetField("iridescentSet", BindingFlags.Public | BindingFlags.Instance);
 				if (fieldIridescent != null)
 				{
@@ -172,7 +172,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 		public override void AI()
 		{
 			Player player = Main.player[projectile.owner];
-			
+
 			if (projectile.timeLeft < 10)
 			{
 				projectile.alpha += 30;

@@ -1,15 +1,11 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
 	public class CoznixScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -36,6 +32,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Tooltip.SetDefault("Fires out a void bolt"
 							+ "\nIf you have 3 or more active shamanic bonds, the bolt will summon a void portal");
 		}
-    }
+	}
 }
 

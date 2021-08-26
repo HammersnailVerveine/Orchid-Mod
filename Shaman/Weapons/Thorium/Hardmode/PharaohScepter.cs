@@ -1,15 +1,13 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
 	public class PharaohScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -37,14 +35,14 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nHitting may summon a golden miror, replicating your shots"
 							+ "\nThe more shamanic bonds you have, the greater the chance to summon a mirror");
 		}
-		
+
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-            for (int l = 0; l < Main.projectile.Length; l++)
-            {  
-                Projectile proj = Main.projectile[l];
-                if (proj.active && proj.type == mod.ProjectileType("PharaohScepterPortal") && proj.owner == player.whoAmI)
-                {
+			for (int l = 0; l < Main.projectile.Length; l++)
+			{
+				Projectile proj = Main.projectile[l];
+				if (proj.active && proj.type == mod.ProjectileType("PharaohScepterPortal") && proj.owner == player.whoAmI)
+				{
 					Vector2 target = Main.MouseWorld;
 					Vector2 heading = target - proj.position;
 					heading.Normalize();
@@ -52,13 +50,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 					float speedXAlt = heading.X;
 					float speedYAlt = heading.Y + Main.rand.Next(-40, 41) * 0.02f;
 
-                    this.newShamanProjectile(proj.Center.X, proj.Center.Y, speedXAlt, speedYAlt, mod.ProjectileType("PharaohScepterProjAlt"), damage, knockBack, player.whoAmI);
-                }
-            }
-			
+					this.newShamanProjectile(proj.Center.X, proj.Center.Y, speedXAlt, speedYAlt, mod.ProjectileType("PharaohScepterProjAlt"), damage, knockBack, player.whoAmI);
+				}
+			}
+
 			return true;
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -71,7 +69,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }
 

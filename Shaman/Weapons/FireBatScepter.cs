@@ -1,14 +1,11 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons
 {
 	public class FireBatScepter : OrchidModShamanItem
-    {
+	{
 		public override void SafeSetDefaults()
 		{
 			item.damage = 23;
@@ -31,24 +28,26 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SetStaticDefaults()
 		{
-		  DisplayName.SetDefault("Fire Bat Scepter");
-		  Tooltip.SetDefault("Shoots fiery bats at your foes"
-							+ "\nThe weapon speed increases slightly with the number of active shamanic bonds"
-							+ "\nIf you have 3 or more active shamanic bonds, the bats will home towards enemies");
+			DisplayName.SetDefault("Fire Bat Scepter");
+			Tooltip.SetDefault("Shoots fiery bats at your foes"
+							  + "\nThe weapon speed increases slightly with the number of active shamanic bonds"
+							  + "\nIf you have 3 or more active shamanic bonds, the bats will home towards enemies");
 		}
-		
-		public override void UpdateInventory(Player player) {
+
+		public override void UpdateInventory(Player player)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			item.useTime = 35 - 3 * nbBonds;
 			item.useAnimation = 35 - 3 * nbBonds;
 		}
-		
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
+
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			int numberProjectiles = 1 + Main.rand.Next(2);
-			
+
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(25));
@@ -57,6 +56,6 @@ namespace OrchidMod.Shaman.Weapons
 
 			return false;
 		}
-    }
+	}
 }
 

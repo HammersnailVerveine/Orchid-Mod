@@ -1,8 +1,8 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Effects;
 using OrchidMod.Effects.Trails;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

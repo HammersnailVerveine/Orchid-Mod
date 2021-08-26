@@ -1,15 +1,12 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
 	public class GeodeScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -37,19 +34,19 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nThe explosion will release a burst of crystal shards"
 							+ "\nThe more shamanic bonds you have, the more shards will appear");
 		}
-		
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
 				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(TileID.MythrilAnvil);	
+				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "Geode", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }
 

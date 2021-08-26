@@ -1,8 +1,4 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
@@ -12,9 +8,9 @@ namespace OrchidMod.General.Items.Misc
 		{
 			DisplayName.SetDefault("Orchid Emblem");
 			Tooltip.SetDefault("While the Shamans can continue their playthrough, the journey for both Alchemists and Gamblers stops here"
-							+  "\n... For now !"
-							+  "\nContent up to Moon Lord for these classes will be added with the upcoming updates"
-							+  "\nPlease, come and say hi on Discord if you want to support me ;)");
+							+ "\n... For now !"
+							+ "\nContent up to Moon Lord for these classes will be added with the upcoming updates"
+							+ "\nPlease, come and say hi on Discord if you want to support me ;)");
 		}
 
 		public override void SetDefaults()

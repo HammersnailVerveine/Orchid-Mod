@@ -1,16 +1,12 @@
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using OrchidMod.Interfaces;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.GameContent.UI.Chat;
-using OrchidMod.Interfaces;
 
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-    public class LeadScepter : OrchidModShamanItem, ICrossmodItem
-    {
+	public class LeadScepter : OrchidModShamanItem, ICrossmodItem
+	{
 		public string CrossmodName => "Thorium Mod";
 
 		public override void SafeSetDefaults()
@@ -35,21 +31,21 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		{
 			DisplayName.SetDefault("Onyx Scepter");
 			Tooltip.SetDefault("\nHitting an enemy will grant you an Onyx orb"
-							+"\nIf you have 3 onyx orbs, your next hit will give you 3 armor penetration for 30 seconds");
+							+ "\nIf you have 3 onyx orbs, your next hit will give you 3 armor penetration for 30 seconds");
 		}
-			
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
 				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(TileID.Anvils);		
+				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "Onyx", 8);
 				recipe.AddIngredient(ItemID.LeadBar, 10);
 				recipe.SetResult(this);
 				recipe.AddRecipe();
 			}
-        }
-    }
+		}
+	}
 }
