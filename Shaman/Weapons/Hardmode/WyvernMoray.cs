@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wyvern Moray");
 			Tooltip.SetDefault("Spits lingering cloud energy"
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 
-			var proj = Main.projectile[this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, damage * 2, knockBack, player.whoAmI)];
+			var proj = Main.projectile[this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage * 2, knockBack, player.whoAmI)];
 			if (proj.modProjectile is Projectiles.WyvernMorayProj modProj)
 			{
 				modProj.Improved = (Main.rand.Next(101) < 4 + nbBonds * 4);

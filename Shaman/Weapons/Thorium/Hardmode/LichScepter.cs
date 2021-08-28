@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reliquary Candle");
 			Tooltip.SetDefault("Fires out a bolt of spiritual fire, dividing upon hitting a foe"

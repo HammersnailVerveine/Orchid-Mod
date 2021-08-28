@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Thorium Scepter");
 			Tooltip.SetDefault("Fires out a bolt of magic, dividing upon hitting a foe"

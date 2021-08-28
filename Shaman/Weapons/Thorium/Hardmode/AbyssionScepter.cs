@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Will of the Lurker");
 			Tooltip.SetDefault("Summons bolts of dark energy that lingers for a while before returning to you"

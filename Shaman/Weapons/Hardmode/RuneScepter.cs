@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rune Scepter");
 			Tooltip.SetDefault("Shoots short ranged rune bolts"

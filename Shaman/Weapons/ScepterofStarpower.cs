@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Scepter of Starpower");
 			Tooltip.SetDefault("Critical strike chance increases with the number of active shamanic bonds");

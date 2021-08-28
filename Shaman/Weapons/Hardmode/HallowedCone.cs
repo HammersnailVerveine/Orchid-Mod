@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Prismatic Resonator");
 			Tooltip.SetDefault("Shoots dividing crystalline beams"

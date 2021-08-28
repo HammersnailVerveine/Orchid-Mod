@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Isis' Command");
 			Tooltip.SetDefault("Fires out an ancient magic spell"
@@ -50,7 +50,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 					float speedXAlt = heading.X;
 					float speedYAlt = heading.Y + Main.rand.Next(-40, 41) * 0.02f;
 
-					this.newShamanProjectile(proj.Center.X, proj.Center.Y, speedXAlt, speedYAlt, mod.ProjectileType("PharaohScepterProjAlt"), damage, knockBack, player.whoAmI);
+					this.NewShamanProjectile(proj.Center.X, proj.Center.Y, speedXAlt, speedYAlt, mod.ProjectileType("PharaohScepterProjAlt"), damage, knockBack, player.whoAmI);
 				}
 			}
 

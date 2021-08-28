@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Avalanche");
 			Tooltip.SetDefault("Hitting will spawn and empower a giant icicle above your head"
@@ -34,7 +34,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			this.newShamanProjectile(position.X + Main.rand.Next(50) - 35, position.Y - Main.rand.Next(14) + 7, speedX, speedY, type, damage, knockBack, player.whoAmI);
+			this.NewShamanProjectile(position.X + Main.rand.Next(50) - 35, position.Y - Main.rand.Next(14) + 7, speedX, speedY, type, damage, knockBack, player.whoAmI);
 			return false;
 		}
 	}

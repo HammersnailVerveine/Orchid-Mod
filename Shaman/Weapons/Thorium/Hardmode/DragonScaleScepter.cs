@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Draconic Wrath");
 			Tooltip.SetDefault("Fires out a bolt of piercing dragon fire"

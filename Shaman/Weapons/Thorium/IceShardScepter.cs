@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ice Scepter");
 			Tooltip.SetDefault("Shoots frostburn bolts, growing for an instant before being launched"

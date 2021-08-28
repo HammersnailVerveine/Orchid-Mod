@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vile Spout");
 			Tooltip.SetDefault("Shoots short ranged corruption beams"
