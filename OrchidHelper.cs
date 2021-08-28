@@ -11,6 +11,10 @@ namespace OrchidMod
 {
 	public static class OrchidHelper
 	{
+		public static OrchidModPlayer GetOrchidPlayer(this Player player) => player.GetModPlayer<OrchidModPlayer>(); 
+
+		// ...
+
 		public static void SpawnDustCircle(Vector2 center, float radius, int count, int type, Action<Dust> onSpawn = null)
 		{
 			for (int i = 0; i < count; i++)

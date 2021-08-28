@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Enchanted Scepter");
 			Tooltip.SetDefault("Weapon damage increases with the number of active shamanic bonds");

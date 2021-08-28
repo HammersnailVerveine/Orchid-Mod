@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Valadium Scepter");
 			Tooltip.SetDefault("Shoots a potent valadium bolt, hitting your enemy 3 times"
@@ -43,7 +43,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				int dmg = player.GetModPlayer<OrchidModPlayer>().orbCountBig >= 15 ? damage * 2 : damage;
-				this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, dmg, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, dmg, knockBack, player.whoAmI);
 			}
 			return false;
 		}

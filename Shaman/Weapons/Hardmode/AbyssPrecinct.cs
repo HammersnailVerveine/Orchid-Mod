@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Abyss Precinct");
 			Tooltip.SetDefault("Shoots an abyssal vortex, pulsating with energy"
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				this.newShamanProjectile(position.X - 4, position.Y - 4, speedX, speedY, type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X - 4, position.Y - 4, speedX, speedY, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

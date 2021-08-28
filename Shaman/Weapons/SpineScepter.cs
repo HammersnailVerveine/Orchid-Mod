@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spine Scepter");
 			Tooltip.SetDefault("Shoots short ranged crimson beams"

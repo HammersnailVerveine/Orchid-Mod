@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reviver of Souls");
 			Tooltip.SetDefault("Summons vengeful souls, damaging your enemies 3 times"
@@ -48,7 +48,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				this.newShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ReviverofSoulsProj"), damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ReviverofSoulsProj"), damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

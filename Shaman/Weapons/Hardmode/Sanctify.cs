@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sanctify");
 			Tooltip.SetDefault("Casts radiant projectiles to purge your foes"
@@ -42,7 +42,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				for (int i = 0; i < 2; i++)
 				{
 					Vector2 projectileVelocity = (new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(i == 0 ? -20 : 20)));
-					this.newShamanProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("SanctifyProjAlt"), (int)(item.damage * 0.75), knockBack, item.owner);
+					this.NewShamanProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("SanctifyProjAlt"), (int)(item.damage * 0.75), knockBack, item.owner);
 				}
 			}
 

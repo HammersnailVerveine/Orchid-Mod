@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Terra Scepter");
 			Tooltip.SetDefault("Conjures harmful terra bolts at your enemies"
@@ -53,7 +53,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			for (i = 0; i < BuffsCount; i++)
 			{
 				offsetAngle += deltaAngle * 4;
-				this.newShamanProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType("TerraSpecterProj"), (int)(item.damage * 0.55), knockBack, item.owner);
+				this.NewShamanProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType("TerraSpecterProj"), (int)(item.damage * 0.55), knockBack, item.owner);
 			}
 			return true;
 		}

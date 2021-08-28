@@ -22,20 +22,18 @@ namespace OrchidMod.Shaman.UI
 		public static Texture2D spiritLoaded;
 		public int[] shamanTimers;
 
-		Player player = Main.player[Main.myPlayer];
-
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			Vector2 vector = new Vector2((float)((int)(Main.LocalPlayer.position.X - Main.screenPosition.X) - Main.GameViewMatrix.Translation.X - (float)(Main.LocalPlayer.bodyFrame.Width / 2) + (float)(Main.LocalPlayer.width / 2)), (float)((int)(Main.LocalPlayer.position.Y - Main.screenPosition.Y) - Main.GameViewMatrix.Translation.Y + (float)Main.LocalPlayer.height - (float)Main.LocalPlayer.bodyFrame.Height + 12f)) + Main.LocalPlayer.bodyPosition + new Vector2((float)(Main.LocalPlayer.bodyFrame.Width / 2));
-			vector *= Main.GameViewMatrix.Zoom;
-			vector /= Main.UIScale;
+			Player player = Main.LocalPlayer;
 
-			this.Left.Set(vector.X, 0f);
-			this.Top.Set(vector.Y, 0f);
+			Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gfxOffY + player.gravDir > 0 ? player.height - 10 : 10)).Floor();
+			position = Vector2.Transform(position - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix) / Main.UIScale;
+
+			this.Left.Set(position.X, 0f);
+			this.Top.Set(position.Y, 0f);
 
 			CalculatedStyle dimensions = GetDimensions();
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y);
-			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 			if (!player.dead)

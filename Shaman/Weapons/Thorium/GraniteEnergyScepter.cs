@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Coalesced Conduit");
 			Tooltip.SetDefault("Fires out a surge of energy"

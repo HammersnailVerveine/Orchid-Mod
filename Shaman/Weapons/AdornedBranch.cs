@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 5;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Adorned Branch");
 			Tooltip.SetDefault("Shoots a burst of splinters"
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				perturbedSpeed = perturbedSpeed * scale;
-				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 1)
@@ -49,7 +49,7 @@ namespace OrchidMod.Shaman.Weapons
 					Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
 					float scale = 1f - (Main.rand.NextFloat() * .3f);
 					perturbedSpeed = perturbedSpeed * scale;
-					this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+					this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 				}
 			}
 			return false;

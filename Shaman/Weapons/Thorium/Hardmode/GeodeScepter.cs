@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Geode Scepter");
 			Tooltip.SetDefault("Launches Heavy Geodes, exploding after a while"

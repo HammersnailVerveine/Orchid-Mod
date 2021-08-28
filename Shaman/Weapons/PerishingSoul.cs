@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Perishing Soul");
 			Tooltip.SetDefault("Shoots fireballs, growing for an instant before being launched"

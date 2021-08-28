@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			if (!Main.dayTime) add -= 0.1f;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sun Ray");
 			Tooltip.SetDefault("Shoots a continuous sun beam"

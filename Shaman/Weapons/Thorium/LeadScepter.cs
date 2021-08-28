@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Onyx Scepter");
 			Tooltip.SetDefault("\nHitting an enemy will grant you an Onyx orb"
