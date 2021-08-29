@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Depths Baton");
 			Tooltip.SetDefault("Shoots bolts of dark energy"
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons
 			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 			if (BuffsCount > 2)
 			{
-				this.newShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("DepthBatonProjAlt"), damage - 10, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("DepthBatonProjAlt"), damage - 10, knockBack, player.whoAmI);
 			}
 			return true;
 		}

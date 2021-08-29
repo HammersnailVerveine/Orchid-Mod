@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Festering Fork");
 			Tooltip.SetDefault("Fires out a bolt of festering magic"

@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Meteor Phasestaff");
 			Tooltip.SetDefault("Channels a disintegrating beam of energy"

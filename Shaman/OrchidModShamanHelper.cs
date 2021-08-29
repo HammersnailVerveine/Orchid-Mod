@@ -613,7 +613,6 @@ namespace OrchidMod.Shaman
 		public static void ResetEffectsShaman(Player player, OrchidModPlayer modPlayer, Mod mod)
 		{
 			modPlayer.shamanCatalyst -= modPlayer.shamanCatalyst > 0 ? 1 : 0;
-			modPlayer.shamanDrawWeapon -= modPlayer.shamanDrawWeapon > 0 ? 1 : 0;
 			modPlayer.shamanCrit = 0;
 			modPlayer.shamanDamage = 1.0f;
 			modPlayer.shamanBuffTimer = 5;

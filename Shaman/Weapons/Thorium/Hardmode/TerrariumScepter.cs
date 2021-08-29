@@ -29,7 +29,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Terrarium Scepter");
 			Tooltip.SetDefault("Fires bolts of chromatic energy"

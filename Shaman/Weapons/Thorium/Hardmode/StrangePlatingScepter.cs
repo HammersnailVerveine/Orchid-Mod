@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Prime's Laser");
 			Tooltip.SetDefault("The weapon itself can critically strike, releasing a powerful blast"
@@ -41,11 +41,11 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 			if (Main.rand.Next(101) < 4 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 4)
 			{
-				this.newShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("StrangePlatingScepterProjAlt"), damage * 2, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("StrangePlatingScepterProjAlt"), damage * 2, knockBack, player.whoAmI);
 			}
 			else
 			{
-				this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nirvana");
 			Tooltip.SetDefault("Shoots a bolt of elemental energy, calling all four elements upon impact"

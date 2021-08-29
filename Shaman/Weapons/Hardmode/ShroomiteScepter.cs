@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bloom Shroom");
 			Tooltip.SetDefault("Summons a protective shroom, harming nearby enemies"
@@ -78,7 +78,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			{
 				point.Y++;
 			}
-			var projectile = this.newShamanProjectile(Main.mouseX + Main.screenPosition.X, point.Y * 16 - 22, 0f, 15f, projectileType, item.damage, item.knockBack, player.whoAmI);
+			var projectile = this.NewShamanProjectile(Main.mouseX + Main.screenPosition.X, point.Y * 16 - 22, 0f, 15f, projectileType, item.damage, item.knockBack, player.whoAmI);
 			return Main.projectile[projectile];
 		}
 	}

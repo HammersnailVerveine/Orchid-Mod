@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Taiga Truncheon");
 			Tooltip.SetDefault("Fires out a damaging frost ball"
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(3));
-			this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+			this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			return false;
 		}
 	}

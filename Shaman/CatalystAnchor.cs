@@ -148,21 +148,6 @@ namespace OrchidMod.Shaman
 				spriteBatch.Draw(texture, drawPosition, null, color, projectile.rotation, projectile.Size * 0.5f, projectile.scale, spriteEffect, 0f);
 			}
 
-			if (modPlayer.shamanDrawWeapon > 0)
-			{
-				Texture2D texture = Main.itemTexture[player.HeldItem.type];
-				if (texture != null)
-				{
-					float diagonalBy2 = ((float)Math.Sqrt(texture.Width * texture.Width + texture.Height * texture.Width) / 2);
-					Vector2 drawPosition = player.position + new Vector2((player.width / 2) - diagonalBy2 + (12f * player.direction), 0f) - Main.screenPosition;
-					drawPosition += player.direction == 1 ? Vector2.Zero : new Vector2(diagonalBy2, -diagonalBy2);
-					drawPosition.Y += 10f;
-					SpriteEffects spriteEffect = player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-					spriteBatch.Draw(texture, drawPosition, null, color, -0.8f * player.direction, Vector2.Zero, 1f, spriteEffect, 0f);
-					//spriteBatch.Draw(texture, drawPosition, color);
-				}
-			}
-
 			return false;
 		}
 	}

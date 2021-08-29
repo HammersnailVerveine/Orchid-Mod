@@ -33,7 +33,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		}
 
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Pirates Glory");
 			Tooltip.SetDefault("Shoots a continuous laser beam"

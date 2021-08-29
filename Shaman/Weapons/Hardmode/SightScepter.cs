@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Light Concentrator");
 			Tooltip.SetDefault("Channels a beam of prismatic energy"

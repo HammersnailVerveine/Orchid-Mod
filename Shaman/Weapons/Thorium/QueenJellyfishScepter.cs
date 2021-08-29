@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Jellyfish Dynamizer");
 			Tooltip.SetDefault("Launches a bouncy jellyfish, gaining in damage with each rebound"

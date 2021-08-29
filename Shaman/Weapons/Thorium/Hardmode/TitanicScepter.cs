@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Titan Scepter");
 			Tooltip.SetDefault("Shoots a potent titanic energy bolt, hitting your enemy 3 times"
@@ -42,7 +42,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

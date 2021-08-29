@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 6;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fibula");
 			Tooltip.SetDefault("Conjures a volley of ethereal bones"
@@ -43,7 +43,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			for (int i = 0; i < nbBonds + 1; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(nbBonds + 1));
-				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

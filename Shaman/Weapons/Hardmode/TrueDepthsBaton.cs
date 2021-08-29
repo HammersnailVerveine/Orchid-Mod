@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("True Depths Baton");
 			Tooltip.SetDefault("Shoots 3 bolts of dark energy"
@@ -68,7 +68,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			for (int i = 0; i < projectilesNumber; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(4));
-				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

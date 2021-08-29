@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ice Cycle");
 			Tooltip.SetDefault("Releases a glacial spike, repeatedly impaling the closest enemy"
@@ -48,7 +48,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 
 			float speedYalt = new Vector2(speedX, speedY).Length();
-			int newProj = this.newShamanProjectile(position.X, position.Y, 0f, -1f * speedYalt, type, damage, knockBack, player.whoAmI);
+			int newProj = this.NewShamanProjectile(position.X, position.Y, 0f, -1f * speedYalt, type, damage, knockBack, player.whoAmI);
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2)
 			{
 				Main.projectile[newProj].ai[1] = 3;

@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Depths Weaver Rod");
 			Tooltip.SetDefault("Shoots lingering fire leaves" +
@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Weapons
 			ShamanRod.RemoveAllShamanRodProjs(player);
 
 			for (int i = 0; i < 3; i++)
-				this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, ai1: i + 1);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, ai1: i + 1);
 
 			return false;
 		}

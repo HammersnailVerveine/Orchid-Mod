@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Opal Scepter");
 			Tooltip.SetDefault("\nHitting an enemy will grant you an Opal orb"

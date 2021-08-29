@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Basilisk's Fang");
 			Tooltip.SetDefault("Fires out a poisonous basilisk fang"
@@ -45,11 +45,11 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(3));
 			if (Main.rand.Next(101) < 5 + nbBonds * 5)
 			{
-				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X * 1.2f, perturbedSpeed.Y * 1.2f, mod.ProjectileType("BronzeAlloyScepterProjAlt"), damage * 2, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X * 1.2f, perturbedSpeed.Y * 1.2f, mod.ProjectileType("BronzeAlloyScepterProjAlt"), damage * 2, knockBack, player.whoAmI);
 			}
 			else
 			{
-				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

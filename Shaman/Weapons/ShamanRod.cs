@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shaman Rod");
 			Tooltip.SetDefault("Shoots lingering razor-sharp leaves" +
@@ -43,7 +43,7 @@ namespace OrchidMod.Shaman.Weapons
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			RemoveAllShamanRodProjs(player);
-			for (int i = 0; i < 3; i++) this.newShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, ai1: i + 1);
+			for (int i = 0; i < 3; i++) this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, ai1: i + 1);
 
 			return false;
 		}

@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Emerald Scepter");
 			Tooltip.SetDefault("\nHitting an enemy will grant you an emerald orb"

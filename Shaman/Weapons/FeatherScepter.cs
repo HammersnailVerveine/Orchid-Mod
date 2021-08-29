@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Feather Scepter");
 			Tooltip.SetDefault("Shoots dangerous spinning feathers"
@@ -46,7 +46,7 @@ namespace OrchidMod.Shaman.Weapons
 			if (nbBonds > 2)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX / 2, speedY / 2).RotatedByRandom(MathHelper.ToRadians(15));
-				this.newShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 			return true;
 		}

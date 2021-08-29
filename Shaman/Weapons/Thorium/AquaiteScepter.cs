@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Aquaite Scepter");
 			Tooltip.SetDefault("Shoots a water bolt, hitting your enemy twice"
@@ -41,7 +41,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			int numberProjectiles = 2;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				this.newShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("AquaiteScepterProj"), damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("AquaiteScepterProj"), damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}

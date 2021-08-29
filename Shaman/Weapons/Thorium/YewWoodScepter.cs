@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			this.energy = 10;
 		}
 
-		public override void SetStaticDefaults()
+		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shadowflame Scepter");
 			Tooltip.SetDefault("Fires inaccurate bolts of shadowflame magic"
