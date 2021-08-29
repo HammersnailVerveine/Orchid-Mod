@@ -16,8 +16,9 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 			projectile.height = 14;
 			projectile.friendly = true;
 			projectile.aiStyle = 0;
-			projectile.timeLeft = 45;
+			projectile.timeLeft = 90;
 			projectile.scale = 1f;
+			projectile.penetrate = 2;
 			this.projectileTrail = true;
 		}
 
@@ -35,29 +36,24 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 				Main.dust[dust].scale *= 1.3f;
 				Main.dust[dust].noGravity = true;
 			}
-
-			if (!this.initialized)
-			{
-				this.initialized = true;
-				projectile.ai[0] = (float)(Main.rand.Next(7) - 3);
-				projectile.netUpdate = true;
+			
+			if (projectile.timeLeft < 40) {
+				projectile.velocity *= 0.9f;
 			}
-
-			projectile.rotation += 0.1f;
-			projectile.velocity = projectile.velocity.RotatedBy(MathHelper.ToRadians(projectile.ai[0] / 5));
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 258);
-				Main.dust[dust].velocity *= 3f;
-			}
+			OrchidModProjectile.spawnDustCircle(projectile.Center, 258, 5, 8, true, 1.5f, 1f, 4f, true, true, false, 0, 0, true);
+			OrchidModProjectile.spawnDustCircle(projectile.Center, 258, 5, 8, true, 1.5f, 1f, 2.5f, true, true, false, 0, 0, true);
+			OrchidModProjectile.spawnGenericExplosion(projectile, projectile.damage, projectile.knockBack, 75, 1, false, 27);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
+			projectile.friendly = false;
+			projectile.timeLeft = projectile.timeLeft > 40 ? 40 : projectile.timeLeft;
+			
 			if (modPlayer.shamanOrbSmall != ShamanOrbSmall.CRIMSON)
 			{
 				modPlayer.shamanOrbSmall = ShamanOrbSmall.CRIMSON;
@@ -88,6 +84,13 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 				player.statLife += 10;
 				modPlayer.orbCountSmall = 0;
 			}
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X / 2;
+			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y / 2;
+			return false;
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.autoReuse = true;
 			item.shootSpeed = 3f;
 			item.shoot = mod.ProjectileType("YewWoodScepterProj");
-			this.empowermentType = 1;
+			this.empowermentType = 5;
 			this.energy = 10;
 		}
 

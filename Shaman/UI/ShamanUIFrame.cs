@@ -91,11 +91,11 @@ namespace OrchidMod.Shaman.UI
 				{
 					spriteBatch.Draw(shamanUIMainFrame, new Rectangle(point.X, point.Y, width, height), backgroundColor);
 
-					this.drawnBondEffectBar(1, modPlayer.shamanFireBondLoading, spriteBatch, point);
-					this.drawnBondEffectBar(2, modPlayer.shamanWaterBondLoading, spriteBatch, point);
-					this.drawnBondEffectBar(3, modPlayer.shamanAirBondLoading, spriteBatch, point);
-					this.drawnBondEffectBar(4, modPlayer.shamanEarthBondLoading, spriteBatch, point);
-					this.drawnBondEffectBar(5, modPlayer.shamanSpiritBondLoading, spriteBatch, point);
+					this.drawnBondEffectBar(1, 100 - modPlayer.shamanFireBondLoading, spriteBatch, point);
+					this.drawnBondEffectBar(2, 100 - modPlayer.shamanWaterBondLoading, spriteBatch, point);
+					this.drawnBondEffectBar(3, 100 - modPlayer.shamanAirBondLoading, spriteBatch, point);
+					this.drawnBondEffectBar(4, 100 - modPlayer.shamanEarthBondLoading, spriteBatch, point);
+					this.drawnBondEffectBar(5, 100 - modPlayer.shamanSpiritBondLoading, spriteBatch, point);
 
 					if (modPlayer.shamanFireTimer > 0)
 					{

@@ -24,8 +24,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.autoReuse = true;
 			item.shootSpeed = 14f;
 			item.shoot = mod.ProjectileType("SpiritDropletScepterProj");
-			this.empowermentType = 1;
-			this.energy = 10;
+			this.empowermentType = 5;
+			this.energy = 6;
 		}
 
 		public override void SetStaticDefaults()

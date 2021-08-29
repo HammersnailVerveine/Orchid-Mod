@@ -172,19 +172,19 @@ namespace OrchidMod.Shaman.UI
 
 					offSetY += drawSize + 2;
 
-					if (modPlayer.shamanFireBondLoading == 100)
+					if (modPlayer.shamanPollFireMax)
 						spriteBatch.Draw(fireLoaded, new Rectangle(point.X - 38, point.Y + offSetY, drawSize, drawSize - 4), backgroundColor);
 
-					if (modPlayer.shamanWaterBondLoading == 100)
+					if (modPlayer.shamanPollWaterMax)
 						spriteBatch.Draw(waterLoaded, new Rectangle(point.X - 24, point.Y + 10 + offSetY, drawSize, drawSize - 4), backgroundColor);
 
-					if (modPlayer.shamanAirBondLoading == 100)
+					if (modPlayer.shamanPollAirMax)
 						spriteBatch.Draw(airLoaded, new Rectangle(point.X - 6, point.Y + 14 + offSetY, drawSize, drawSize - 4), backgroundColor);
 
-					if (modPlayer.shamanEarthBondLoading == 100)
+					if (modPlayer.shamanPollEarthMax)
 						spriteBatch.Draw(earthLoaded, new Rectangle(point.X + 12, point.Y + 10 + offSetY, drawSize, drawSize - 4), backgroundColor);
 
-					if (modPlayer.shamanSpiritBondLoading == 100)
+					if (modPlayer.shamanPollSpiritMax)
 						spriteBatch.Draw(spiritLoaded, new Rectangle(point.X + 26, point.Y + offSetY, drawSize, drawSize - 4), backgroundColor);
 				}
 			}

@@ -9,7 +9,7 @@ namespace OrchidMod.Shaman.Buffs
 		{
 			Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Amber Empowerment");
-			Description.SetDefault("Increases defense by 3");
+			Description.SetDefault("Increases maximum life by 20");
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{

@@ -31,7 +31,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Aquaite Scepter");
-			Tooltip.SetDefault("Shoots a water bolt, hitting your enemy 2 times"
+			Tooltip.SetDefault("Shoots a water bolt, hitting your enemy twice"
 							+ "\nHitting the same target twice will grant you a water crystal"
 							+ "\nIf you have 5 crystals, your next hit will summon a powerful geyser");
 		}

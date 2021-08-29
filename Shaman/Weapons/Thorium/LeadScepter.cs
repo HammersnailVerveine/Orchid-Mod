@@ -11,7 +11,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 26;
+			item.damage = 22;
 			item.width = 36;
 			item.height = 38;
 			item.useTime = 62;
