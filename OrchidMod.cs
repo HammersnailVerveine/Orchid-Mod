@@ -51,13 +51,6 @@ namespace OrchidMod
 		{
 			ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
-			if (!Main.dedServ)
-			{
-				Primitives = new Primitives();
-
-				croupierUI = new CroupierUI();
-			}
-
 			EffectsManager.Load(mod: this);
 			OrchidMod.LoadHooks(mod: this);
 
@@ -69,6 +62,9 @@ namespace OrchidMod
 
 			if (!Main.dedServ)
 			{
+				Primitives = new Primitives();
+
+				croupierUI = new CroupierUI();
 				shamanUIState = new ShamanUIState();
 				shamanCharacterUIState = new ShamanCharacterUIState();
 				alchemistUIState = new AlchemistUIState();
@@ -198,11 +194,15 @@ namespace OrchidMod
 				ShamanCharacterUIFrame.symbolCritical = null;
 				ShamanCharacterUIFrame.symbolRegeneration = null;
 				ShamanCharacterUIFrame.symbolSpeed = null;
+				ShamanCharacterUIFrame.symbolWeak = null;
 				ShamanCharacterUIFrame.fireLoaded = null;
 				ShamanCharacterUIFrame.waterLoaded = null;
 				ShamanCharacterUIFrame.airLoaded = null;
 				ShamanCharacterUIFrame.earthLoaded = null;
 				ShamanCharacterUIFrame.spiritLoaded = null;
+				ShamanCharacterUIFrame.resource = null;
+				ShamanCharacterUIFrame.resourceEnd = null;
+				ShamanCharacterUIFrame.resourceBar = null;
 
 				GamblerUIFrame.ressourceBar = null;
 				GamblerUIFrame.ressourceBarFull = null;

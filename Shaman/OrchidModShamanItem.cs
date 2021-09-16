@@ -49,6 +49,8 @@ namespace OrchidMod.Shaman
 			orchidItem.shamanWeapon = true;
 
 			this.SafeSetDefaults();
+			
+			orchidItem.shamanWeaponElement = this.empowermentType;
 
 			if (this.energy == -1)
 			{

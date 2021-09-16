@@ -11,6 +11,7 @@ namespace OrchidMod
 	public class OrchidModGlobalItem : GlobalItem
 	{
 		public bool shamanWeapon = false;
+		public int shamanWeaponElement = 0;
 		public bool shamanWeaponNoUsetimeReforge = false;
 		public bool shamanWeaponNoVelocityReforge = false;
 		public bool alchemistWeapon = false;

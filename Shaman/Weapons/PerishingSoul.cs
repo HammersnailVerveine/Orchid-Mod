@@ -8,7 +8,7 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 57;
+			item.damage = 65;
 			item.width = 30;
 			item.height = 30;
 			item.useTime = 35;

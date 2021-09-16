@@ -270,11 +270,6 @@ namespace OrchidMod.NPCs.Town
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.HellCard>());
 				nextSlot++;
 			}
-			if (player.ZoneUnderworldHeight)
-			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.HellCard>());
-				nextSlot++;
-			}
 			if (player.ZoneSkyHeight)
 			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.SkyCard>());
