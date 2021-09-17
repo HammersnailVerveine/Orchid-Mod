@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace OrchidMod.General.Items.Vanity
 {
@@ -11,19 +12,14 @@ namespace OrchidMod.General.Items.Vanity
 			item.width = 26;
 			item.height = 24;
 			item.value = Item.sellPrice(0, 0, 0, 0);
-			item.rare = 9;
+			item.rare = ItemRarityID.Cyan;
 			item.vanity = true;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ornate Orchid");
-			Tooltip.SetDefault("Great for impersonating Orchid Mod devs!");
-		}
-
-		public override bool DrawHead()
-		{
-			return true;
+			Tooltip.SetDefault("'Great for impersonating Orchid Devs!'");
 		}
 
 		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
@@ -31,5 +27,7 @@ namespace OrchidMod.General.Items.Vanity
 			drawHair = true;
 			drawAltHair = false;
 		}
+
+		public override bool DrawHead() => true;
 	}
 }
