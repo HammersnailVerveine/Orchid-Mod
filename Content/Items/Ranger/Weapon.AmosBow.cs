@@ -55,6 +55,8 @@ namespace OrchidMod.Content.Items.Ranger
 	{
 		private int _charge = 0;
 
+		// ...
+
 		public override string Texture => "OrchidMod/Assets/Textures/Items/AmosBow";
 
 		public override void SetDefaults()
