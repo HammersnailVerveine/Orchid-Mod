@@ -875,6 +875,16 @@ namespace OrchidMod
 
 				orig(self);
 			};
+
+			On.Terraria.Projectile.NewProjectile_float_float_float_float_int_int_float_int_float_float += (orig, x, y, speedX, speedY, type, damage, knockBack, owner, ai0, ai1) =>
+			{
+				int index = orig(x, y, speedX, speedY, type, damage, knockBack, owner, ai0, ai1);
+
+				var proj = Main.projectile[index];
+				if (proj?.modProjectile is Content.OrchidProjectile orchidProj) orchidProj.OnSpawn();
+
+				return index;
+			};
 		}
 	}
 }
