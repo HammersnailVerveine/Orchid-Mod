@@ -31,12 +31,13 @@ namespace OrchidMod.Alchemist.UI
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			Vector2 vector = new Vector2((float)((int)(Main.LocalPlayer.position.X - Main.screenPosition.X) - Main.GameViewMatrix.Translation.X - (float)(Main.LocalPlayer.bodyFrame.Width / 2) + (float)(Main.LocalPlayer.width / 2)), (float)((int)(Main.LocalPlayer.position.Y - Main.screenPosition.Y) - Main.GameViewMatrix.Translation.Y + (float)Main.LocalPlayer.height - (float)Main.LocalPlayer.bodyFrame.Height + 12f)) + Main.LocalPlayer.bodyPosition + new Vector2((float)(Main.LocalPlayer.bodyFrame.Width / 2));
-			vector *= Main.GameViewMatrix.Zoom;
-			vector /= Main.UIScale;
+			Player player = Main.LocalPlayer;
+
+			Vector2 vector = (player.position + new Vector2(player.width * 0.5f, player.gfxOffY + player.gravDir > 0 ? player.height - 10 : 10)).Floor();
+			vector = Vector2.Transform(vector - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix) / Main.UIScale;
 
 			this.Left.Set(vector.X - 60f, 0f);
-			this.Top.Set(vector.Y - 40f, 0f);
+			this.Top.Set(vector.Y - 58f, 0f);
 
 			CalculatedStyle dimensions = GetDimensions();
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y - 100);
@@ -44,7 +45,6 @@ namespace OrchidMod.Alchemist.UI
 			// point.Y -= 60;
 			int width = (int)Math.Ceiling(dimensions.Width);
 			int height = (int)Math.Ceiling(dimensions.Height);
-			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			bool[] elements = modPlayer.alchemistElements;
 
