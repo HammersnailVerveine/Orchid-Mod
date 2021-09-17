@@ -1,4 +1,3 @@
-using OrchidMod.Tiles.Chests;
 using OrchidMod.Tiles.Ores;
 using OrchidMod.WorldgenArrays;
 using System;
@@ -348,7 +347,7 @@ namespace OrchidMod
 										tile.wall = 27;
 									}
 								}
-								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftPickaxeTile>());
+								WorldGen.PlaceObject(k, l, ModContent.TileType<Content.Items.Tools.MineshaftPickaxeTile>());
 								break;
 							case 17:
 								for (int w = 0; w < 2; w++)
@@ -386,7 +385,7 @@ namespace OrchidMod
 								}
 								WorldGen.PlaceTile(k, l + 1, 19);
 								WorldGen.PlaceTile(k + 1, l + 1, 19);
-								WorldGen.PlaceChest(k, l, (ushort)ModContent.TileType<Tiles.Chests.MinersLockbox>(), false, 0);
+								WorldGen.PlaceChest(k, l, (ushort)ModContent.TileType<Content.Items.Placeables.MinersLockboxTile>(), false, 0);
 								break;
 							case 19:
 								WorldGen.PlaceObject(k, l, 82, true, 3);
@@ -1346,7 +1345,7 @@ namespace OrchidMod
 										continue;
 									}
 
-									int chestIndex = WorldGen.PlaceChest(x - 1, y - 1, (ushort)TileType<ShamanBiomeChest>(), false, 1);
+									int chestIndex = WorldGen.PlaceChest(x - 1, y - 1, (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>(), false, 1);
 
 									if (chestIndex < 0)
 									{
@@ -1423,7 +1422,7 @@ namespace OrchidMod
 			{
 				Chest chest = Main.chest[chestIndex];
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)TileType<MinersLockbox>())
+				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)TileType<Content.Items.Placeables.MinersLockboxTile>())
 				{
 					int[] specialItemPoll = {49, 50, 53, 54, 55, 975, 997, 930, ItemType<Shaman.Weapons.EnchantedScepter>()
 					, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), ItemType<Gambler.Weapons.Cards.GoldChestCard>()};
@@ -1442,7 +1441,7 @@ namespace OrchidMod
 					placeInChest(chest, rand, 1);
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)TileType<ShamanBiomeChest>())
+				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>())
 				{
 					chest.item[0].SetDefaults(mod.ItemType("ShroomiteScepter"));
 					chest.item[1].SetDefaults(183); // Glowing Mushroom

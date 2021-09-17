@@ -1,13 +1,57 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.General.Mounts
+namespace OrchidMod.Content.Items.Mounts
 {
+	public class SquareMinecart : OrchidItem
+	{
+		public override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault("Square Minecart");
+			Tooltip.SetDefault("'Great for impersonating Orchid Devs!'"); // S-Pladison
+		}
+
+		public override void SetDefaults()
+		{
+			item.width = 34;
+			item.height = 22;
+			item.rare = ItemRarityID.Cyan;
+			item.value = Item.sellPrice(0, 0, 50, 0);
+			item.mountType = ModContent.MountType<SquareMinecartMount>();
+		}
+	}
+
+	public class SquareMinecartBuff : OrchidBuff
+	{
+		public override void SetDefaults()
+		{
+			DisplayName.SetDefault("Minecart"); // Square Minecart (all vanilla minecarts have this name...)
+			Description.SetDefault("Riding in a minecart");
+
+			Main.buffNoTimeDisplay[Type] = true;
+			Main.buffNoSave[Type] = true;
+		}
+
+		public override void Update(Player player, ref int buffIndex)
+		{
+			player.mount.SetMount(ModContent.MountType<SquareMinecartMount>(), player);
+			player.buffTime[buffIndex] = 10;
+		}
+	}
+
 	public class SquareMinecartMount : ModMountData
 	{
+		public override bool Autoload(ref string name, ref string texture, IDictionary<MountTextureType, string> extraTextures)
+		{
+			texture = "OrchidMod/Assets/Textures/Mounts/SquareMinecartMount_Front";
+			extraTextures[MountTextureType.Front] = "OrchidMod/Assets/Textures/Mounts/SquareMinecartMount_Front";
+			return true;
+		}
+
 		public override void SetDefaults()
 		{
 			MountID.Sets.Cart[Type] = true;
@@ -15,7 +59,7 @@ namespace OrchidMod.General.Mounts
 			mountData.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
 
 			mountData.spawnDust = 16;
-			mountData.buff = ModContent.BuffType<Buffs.SquareMinecartBuff>();
+			mountData.buff = ModContent.BuffType<SquareMinecartBuff>();
 
 			mountData.flightTimeMax = 0;
 			mountData.fallDamage = 1f;

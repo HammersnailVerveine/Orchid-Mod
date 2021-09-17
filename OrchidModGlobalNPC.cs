@@ -32,7 +32,7 @@ namespace OrchidMod
 			{
 				if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].ZoneGlowshroom && Main.hardMode && Main.rand.Next(100) == 0)
 				{
-					Item.NewItem(npc.getRect(), ItemType<General.Items.Misc.ShroomKey>());
+					Item.NewItem(npc.getRect(), ItemType<Content.Items.Placeables.ShroomKey>());
 				}
 				if (this.alchemistHit && Main.rand.Next(4) == 0)
 				{
