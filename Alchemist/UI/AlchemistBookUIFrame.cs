@@ -21,19 +21,13 @@ namespace OrchidMod.Alchemist.UI
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			Player player = Main.LocalPlayer;
-
-			Vector2 vector = (player.position + new Vector2(player.width * 0.5f, player.gfxOffY + player.gravDir > 0 ? player.height - 10 : 10)).Floor();
-			vector = Vector2.Transform(vector - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix) / Main.UIScale;
-
-			this.Left.Set(vector.X, 0f);
-			this.Top.Set(vector.Y - 40f, 0f);
+			this.Left.Set(Main.screenWidth / 2, 0f);
+			this.Top.Set(Main.screenHeight / 2, 0f);
 
 			CalculatedStyle dimensions = GetDimensions();
 
 			int width = (int)Math.Ceiling(dimensions.Width);
 			int height = (int)Math.Ceiling(dimensions.Height);
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 			int bookWidth = 384;
 			int bookHeight = 544;
@@ -41,11 +35,14 @@ namespace OrchidMod.Alchemist.UI
 			int baseOffSetY = 12;
 			int recipesPerPage = 13;
 
-			Point point = new Point((int)dimensions.X - (bookWidth / 2), (int)dimensions.Y - (bookHeight / 2) + (int)player.gfxOffY);
+			Point point = new Point((int)dimensions.X - (bookWidth / 2), (int)dimensions.Y - (bookHeight / 2));
 			Point mousePoint = new Point((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y);
 
 			Rectangle rectangleArrowLeft = new Rectangle(point.X + 270, point.Y + 478, 36, 34);
 			Rectangle rectangleArrowRight = new Rectangle(point.X + 326, point.Y + 478, 36, 34);
+			
+			Player player = Main.LocalPlayer;
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 			if (!player.dead)
 			{
