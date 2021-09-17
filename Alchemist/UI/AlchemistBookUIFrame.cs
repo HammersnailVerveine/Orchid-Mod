@@ -60,38 +60,30 @@ namespace OrchidMod.Alchemist.UI
 
 					Item item = null;
 
-					foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes)
-					{
+					foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes) {
 						int progression = OrchidModAlchemistHelper.getProgressLevel();
 						bool knownRecipe = modPlayer.alchemistKnownReactions.Contains((int)recipe.reactionType);
 						bool knownHint = modPlayer.alchemistKnownHints.Contains((int)recipe.reactionType);
 						if (index < ((this.bookPageIndex * recipesPerPage) + recipesPerPage) && index >= (this.bookPageIndex * recipesPerPage)
-						&& (knownRecipe || knownHint || (progression >= recipe.reactionLevel && recipe.reactionLevel > 0)))
-						{
-							foreach (int ingredientID in recipe.reactionIngredients)
-							{
-								if (knownRecipe || knownHint)
-								{
+						&& (knownRecipe || knownHint || (progression >= recipe.reactionLevel && recipe.reactionLevel > 0))) {
+							foreach (int ingredientID in recipe.reactionIngredients) {
+								if (knownRecipe || knownHint) {
 									Texture2D itemTexture = Main.itemTexture[ingredientID];
 									spriteBatch.Draw(ressourceBookSlot, new Rectangle(point.X + offSetX, point.Y + offSetY, 36, 36), backgroundColor);
 									Rectangle itemRectangle = new Rectangle(point.X + offSetX + 2, point.Y + offSetY + 2, 30, 30);
 									spriteBatch.Draw(itemTexture, itemRectangle, knownRecipe ? backgroundColor : Color.Gray);
-									if (itemRectangle.Contains(mousePoint) && this.bookPopupRecipe.reactionType == AlchemistHiddenReactionType.NULL)
-									{
+									if (itemRectangle.Contains(mousePoint) && this.bookPopupRecipe.reactionType == AlchemistHiddenReactionType.NULL) {
 										item = new Item();
 										item.SetDefaults(ingredientID);
 									}
 									Rectangle lineRectangle = new Rectangle(point.X, point.Y + offSetY + 2, bookWidth, 36);
 									if (lineRectangle.Contains(mousePoint) && (Main.mouseLeft && Main.mouseLeftRelease)
-									&& this.bookPopupRecipe.reactionType == AlchemistHiddenReactionType.NULL && knownRecipe)
-									{
+									&& this.bookPopupRecipe.reactionType == AlchemistHiddenReactionType.NULL && knownRecipe) {
 										this.bookPopupRecipe = recipe;
 										Main.PlaySound(10, (int)player.Center.X, (int)player.Center.Y, 0);
 										this.drawpause = true;
 									}
-								}
-								else
-								{
+								} else {
 									spriteBatch.Draw(ressourceBookSlotEmpty, new Rectangle(point.X + offSetX, point.Y + offSetY, 36, 36), backgroundColor);
 								}
 								offSetX += 40;
@@ -102,10 +94,10 @@ namespace OrchidMod.Alchemist.UI
 							offSetX = baseOffSetX;
 							offSetY += 35;
 						}
-						index += (recipe.reactionLevel > 0 || knownRecipe || knownHint) ? 1 : 0;
+						index += ((progression >= recipe.reactionLevel && recipe.reactionLevel > 0) || knownRecipe || knownHint) ? 1 : 0;
 					}
 
-					int maxPages = (int)(OrchidMod.alchemistReactionRecipes.Count / recipesPerPage);
+					int maxPages = (int)(index / recipesPerPage);
 					if (this.bookPopupRecipe.reactionType == AlchemistHiddenReactionType.NULL)
 					{
 						if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowLeft.Contains(mousePoint))
