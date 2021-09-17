@@ -9,7 +9,7 @@ namespace OrchidMod.Shaman.Buffs
 		{
 			Main.buffNoTimeDisplay[Type] = true;
 			DisplayName.SetDefault("Jungle Rage");
-			Description.SetDefault("Effectiveness of your shamanic fire and earth bonds greatly increased");
+			Description.SetDefault("20% increased shamanic damage");
 		}
 	}
 }

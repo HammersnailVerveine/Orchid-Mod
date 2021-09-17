@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 8f;
 			item.shoot = ModContent.ProjectileType<Projectiles.HellShamanRodProj>();
 			empowermentType = 4;
-			this.energy = 10;
+			this.energy = 35;
 		}
 
 		public override void SafeSetStaticDefaults()

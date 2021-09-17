@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("BoreanStriderScepterProj");
 			this.empowermentType = 2;
-			this.energy = 10;
+			this.energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()

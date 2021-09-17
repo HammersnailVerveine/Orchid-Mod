@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("IchoryConeProj");
 			this.empowermentType = 1;
-			this.energy = 10;
+			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()

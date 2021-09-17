@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("IceSpearScepterProj");
 			this.empowermentType = 2;
-			this.energy = 10;
+			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()

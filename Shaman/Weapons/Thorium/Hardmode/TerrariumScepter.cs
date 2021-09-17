@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 8f;
 			item.shoot = mod.ProjectileType("TerrariumScepterProj");
 			this.empowermentType = 3;
-			this.energy = 10;
+			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()

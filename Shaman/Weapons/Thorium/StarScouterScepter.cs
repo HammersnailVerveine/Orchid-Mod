@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shoot = ModContent.ProjectileType<Projectiles.Thorium.StarScouterScepterProj>();
 
 			this.empowermentType = 3;
-			this.energy = 10;
+			this.energy = 13;
 		}
 
 		public override void SafeSetStaticDefaults()

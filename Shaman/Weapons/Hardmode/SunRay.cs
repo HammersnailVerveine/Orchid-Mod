@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("SunRayProj");
 			this.empowermentType = 1;
-			this.energy = 10;
+			this.energy = 2;
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)

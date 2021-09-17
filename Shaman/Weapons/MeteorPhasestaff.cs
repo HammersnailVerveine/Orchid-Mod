@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.UseSound = SoundID.Item15;
 			this.empowermentType = 1;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
-			this.energy = 10;
+			this.energy = 2;
 		}
 
 		public override void SafeSetStaticDefaults()

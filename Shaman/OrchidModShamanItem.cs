@@ -81,27 +81,27 @@ namespace OrchidMod.Shaman
 				case 1:
 					modPlayer.shamanPollFire = modPlayer.shamanPollFire < 0 ? 0 : modPlayer.shamanPollFire;
 					modPlayer.shamanPollFire += energy;
-					modPlayer.shamanPollFireMax = false;
+					modPlayer.shamanPollFireMax = modPlayer.shamanFireBondLoading == 100 ? modPlayer.shamanPollFireMax : false;
 					break;
 				case 2:
 					modPlayer.shamanPollWater = modPlayer.shamanPollWater < 0 ? 0 : modPlayer.shamanPollWater;
 					modPlayer.shamanPollWater += energy;
-					modPlayer.shamanPollWaterMax = false;
+					modPlayer.shamanPollWaterMax = modPlayer.shamanWaterBondLoading == 100 ? modPlayer.shamanPollWaterMax : false;
 					break;
 				case 3:
 					modPlayer.shamanPollAir = modPlayer.shamanPollAir < 0 ? 0 : modPlayer.shamanPollAir;
 					modPlayer.shamanPollAir += energy;
-					modPlayer.shamanPollAirMax = false;
+					modPlayer.shamanPollAirMax = modPlayer.shamanAirBondLoading == 100 ? modPlayer.shamanPollAirMax : false;
 					break;
 				case 4:
 					modPlayer.shamanPollEarth = modPlayer.shamanPollEarth < 0 ? 0 : modPlayer.shamanPollEarth;
 					modPlayer.shamanPollEarth += energy;
-					modPlayer.shamanPollEarthMax = false;
+					modPlayer.shamanPollEarthMax = modPlayer.shamanEarthBondLoading == 100 ? modPlayer.shamanPollEarthMax : false;
 					break;
 				case 5:
 					modPlayer.shamanPollSpirit = modPlayer.shamanPollSpirit < 0 ? 0 : modPlayer.shamanPollSpirit;
 					modPlayer.shamanPollSpirit += energy;
-					modPlayer.shamanPollSpiritMax = false;
+					modPlayer.shamanPollSpiritMax = modPlayer.shamanSpiritBondLoading == 100 ? modPlayer.shamanPollSpiritMax : false;
 					break;
 				default:
 					break;
@@ -128,6 +128,14 @@ namespace OrchidMod.Shaman
 			if (modPlayer.shamanCatalyst < 1)
 			{
 				int projType = ProjectileType<CatalystAnchor>();
+				
+				for (int l = 0; l < Main.projectile.Length; l++) {
+					Projectile proj = Main.projectile[l];
+					if (proj.type == projType && proj.owner == player.whoAmI) {
+						proj.Kill();
+					}
+				}
+				
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projType, 0, 0f, player.whoAmI);
 			}
 

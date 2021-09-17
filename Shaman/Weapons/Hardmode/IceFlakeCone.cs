@@ -16,12 +16,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.knockBack = 1.15f;
 			item.rare = 8;
 			item.value = Item.sellPrice(0, 4, 80, 0);
-			item.UseSound = SoundID.Item117;
+			item.UseSound = SoundID.Item20;
 			item.autoReuse = true;
 			item.shootSpeed = 12f;
 			item.shoot = mod.ProjectileType("IceFlakeConeProj");
 			this.empowermentType = 2;
-			this.energy = 10;
+			this.energy = 3;
 		}
 
 		public override void SafeSetStaticDefaults()

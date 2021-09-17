@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = mod.ProjectileType("TerraSpecterProj2");
 			this.empowermentType = 5;
-			this.energy = 10;
+			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()

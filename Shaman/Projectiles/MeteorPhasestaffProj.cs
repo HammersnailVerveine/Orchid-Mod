@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			projectile.damage -= projectile.timeLeft % 5 == 0 && projectile.damage > 1 ? 1 : 0;
 
-			int index1 = Dust.NewDust(projectile.position, 1, 1, 270, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
+			int index1 = Dust.NewDust(projectile.Center, 0, 0, 270, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 			Main.dust[index1].velocity *= 0.2f;
 			Main.dust[index1].fadeIn = 1f;
 			Main.dust[index1].scale = 0.8f + ((projectile.timeLeft) / 90f) * 1.8f;
@@ -43,7 +43,7 @@ namespace OrchidMod.Shaman.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 170, 20, 15, true, 1f, 0f);
-			int dust = Dust.NewDust(projectile.position, 1, 1, 270, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
+			int dust = Dust.NewDust(projectile.Center, 0, 0, 270, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust].velocity *= 0.2f;
 			Main.dust[dust].scale = 2.5f;

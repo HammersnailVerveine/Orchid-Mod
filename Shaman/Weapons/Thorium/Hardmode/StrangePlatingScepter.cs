@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 20f;
 			item.shoot = mod.ProjectileType("StrangePlatingScepterProj");
 			this.empowermentType = 1;
-			this.energy = 10;
+			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()

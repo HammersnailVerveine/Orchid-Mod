@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 15f;
 			item.shoot = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
 			this.empowermentType = 4;
-			this.energy = 10;
+			this.energy = 35;
 		}
 
 		public override void SafeSetStaticDefaults()

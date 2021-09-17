@@ -21,9 +21,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.autoReuse = true;
 			item.shootSpeed = 15f;
 			item.shoot = ModContent.ProjectileType<Projectiles.WyvernMorayProj>();
-
 			this.empowermentType = 3;
-			this.energy = 10;
+			this.energy = 13;
 		}
 
 		public override void SafeSetStaticDefaults()

@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shoot = ModContent.ProjectileType<Projectiles.OreOrbs.Big.AbyssPrecinctProj>();
 			item.shootSpeed = 10f;
 			this.empowermentType = 2;
-			this.energy = 10;
+			this.energy = 20;
 		}
 
 		public override void SafeSetStaticDefaults()

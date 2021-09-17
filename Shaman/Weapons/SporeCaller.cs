@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 5f;
 			item.shoot = mod.ProjectileType("SporeCallerProj");
 			this.empowermentType = 3;
-			this.energy = 10;
+			this.energy = 25;
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)

@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shootSpeed = 5f;
 			item.shoot = mod.ProjectileType("QueenJellyfishScepterProj");
 			this.empowermentType = 2;
-			this.energy = 10;
+			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()

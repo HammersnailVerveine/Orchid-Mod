@@ -16,8 +16,8 @@ namespace OrchidMod.Shaman.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Floral Stinger");
-			Tooltip.SetDefault("Under the effect of a shamanic earth bond, falling under 50% life will make you enrage"
-							+ "\nWhile enraged, the effectiveness of your shamanic fire and earth bonds is increased a lot");
+			Tooltip.SetDefault("Exhausting your Earth Bond weapons will make you enrage"
+							+ "\nWhile enraged, your shamanic damage is increased by 20%");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -25,11 +25,9 @@ namespace OrchidMod.Shaman.Accessories
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.shamanRage = true;
 
-			if (player.statLife < (int)(player.statLifeMax2 / 2) && modPlayer.shamanEarthTimer > 0)
-			{
-				//modPlayer.shamanFireBonus += 5;
-				//modPlayer.shamanEarthBonus += 3;
+			if (modPlayer.shamanPollEarthMax) {
 				player.AddBuff((mod.BuffType("JungleRage")), 1);
+				modPlayer.shamanDamage += 0.2f;
 			}
 		}
 	}
