@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Alchemist;
 using OrchidMod.Alchemist.UI;
+using OrchidMod.Common;
 using OrchidMod.Effects;
 using OrchidMod.Gambler.UI;
 using OrchidMod.Shaman;
@@ -19,7 +20,6 @@ namespace OrchidMod
 	{
 		public static OrchidMod Instance { get; private set; }
 		public static Mod ThoriumMod { get; private set; }
-		public static Primitives Primitives { get; private set; }
 
 		internal CroupierUI croupierUI;
 
@@ -62,8 +62,6 @@ namespace OrchidMod
 
 			if (!Main.dedServ)
 			{
-				Primitives = new Primitives();
-
 				croupierUI = new CroupierUI();
 				shamanUIState = new ShamanUIState();
 				shamanCharacterUIState = new ShamanCharacterUIState();
@@ -256,7 +254,6 @@ namespace OrchidMod
 
 			croupierUI = null;
 
-			Primitives = null;
 			ThoriumMod = null;
 			Instance = null;
 		}
@@ -533,7 +530,7 @@ namespace OrchidMod
 
 		public override void PostUpdateEverything()
 		{
-			Primitives?.UpdateTrails();
+			PrimitiveTrailSystem.PostUpdateEverything();
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
@@ -871,7 +868,7 @@ namespace OrchidMod
 
 			On.Terraria.Main.DrawProjectiles += (orig, self) =>
 			{
-				Primitives?.DrawTrails(Main.spriteBatch);
+				PrimitiveTrailSystem.DrawTrails(Main.spriteBatch);
 
 				orig(self);
 			};

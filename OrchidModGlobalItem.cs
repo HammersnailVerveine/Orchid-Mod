@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist;
 using OrchidMod.Alchemist.Projectiles;
-using OrchidMod.Interfaces;
+using OrchidMod.Common.Interfaces;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;

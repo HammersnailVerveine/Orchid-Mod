@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace OrchidMod.Interfaces
+namespace OrchidMod.Common.Interfaces
 {
 	public interface IGlowingItem
 	{

@@ -61,7 +61,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			if (projectile.ai[1] == -1 && Main.rand.Next(15) == 0)
 			{
-				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Dusts.LeafDust>())];
+				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Content.Dusts.LeafDust>())];
 				dust.scale *= Main.rand.NextFloat(1.25f, 1.75f);
 				dust.velocity = new Vector2(Vector2.Normalize(projectile.velocity).X * -0.33f, Main.rand.NextFloat(0.2f, 0.45f));
 			}
@@ -88,7 +88,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			for (int i = 0; i < 5; i++)
 			{
-				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Dusts.LeafDust>())];
+				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Content.Dusts.LeafDust>())];
 				dust.scale *= Main.rand.NextFloat(1.25f, 1.75f);
 				dust.velocity = new Vector2(Vector2.Normalize(projectile.velocity).X * 0.2f + Main.rand.NextFloat(-0.15f, 0.15f), Main.rand.NextFloat(0.2f, 0.45f));
 			}

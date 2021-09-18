@@ -16,7 +16,6 @@
   <ItemGroup>
     <Folder Include="Assets\Effects\" />
     <Folder Include="Assets\Sounds\" />
-    <Folder Include="Assets\Textures\Misc\" />
     <Folder Include="Glowmasks\" />
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@ namespace OrchidMod
 {
 	public static class OrchidHelper
 	{
+		public static Texture2D GetExtraTexture(int index) => ModContent.GetTexture("OrchidMod/Assets/Textures/Misc/Extra_" + index);
 		public static OrchidModPlayer GetOrchidPlayer(this Player player) => player.GetModPlayer<OrchidModPlayer>(); 
 
 		// ...

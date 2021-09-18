@@ -1,7 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
+using OrchidMod.Content.Trails;
 using OrchidMod.Effects;
-using OrchidMod.Effects.Trails;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -34,12 +35,11 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void OnSpawn()
 		{
-			_trail = new SimpleTrail(length: 16 * 6, width: (progress) => 18, color: (progress) => Color.Lerp(new Color(198, 61, 255), new Color(107, 61, 255), progress) * (1 - progress))
-			{
-				MaxPoints = 15
-			};
-			_trail.SetEffectTexture(EffectsManager.TrailTextures[0]);
-			OrchidMod.Primitives?.CreateTrail(target: projectile, trail: _trail);
+			_trail = new SimpleTrail(target: projectile, length: 16 * 6, width: (progress) => 18, color: (progress) => Color.Lerp(new Color(198, 61, 255), new Color(107, 61, 255), progress) * (1 - progress));
+			_trail.SetMaxPoints(15);
+			_trail.SetEffectTexture(OrchidHelper.GetExtraTexture(4));
+
+			PrimitiveTrailSystem.NewTrail(_trail);
 
 			projectile.friendly = false;
 			this.IsGreen = false;
@@ -144,7 +144,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			Vector2 drawPos = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY);
 			Color color = projectile.GetAlpha(Lighting.GetColor((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16, Color.White));
-			Texture2D texture = Effects.EffectsManager.RadialGradientTexture;
+			Texture2D texture = OrchidHelper.GetExtraTexture(11);
 
 			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
@@ -173,9 +173,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			float val = (float)Math.Sin(Main.GlobalTime);
 			for (int i = 0; i < 4; i++)
 			{
-				spriteBatch.Draw(EffectsManager.ExtraTextures[1], drawPos + new Vector2(3.5f, 0).RotatedBy(Main.GlobalTime + MathHelper.PiOver2 * i) * val, rect, Color.White * 0.35f, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(OrchidHelper.GetExtraTexture(1), drawPos + new Vector2(3.5f, 0).RotatedBy(Main.GlobalTime + MathHelper.PiOver2 * i) * val, rect, Color.White * 0.35f, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(EffectsManager.ExtraTextures[1], drawPos, rect, Color.White, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
+			spriteBatch.Draw(OrchidHelper.GetExtraTexture(1), drawPos, rect, Color.White, projectile.rotation, origin, projectile.scale, SpriteEffects.None, 0f);
 		}
 	}
 }

@@ -21,7 +21,7 @@ namespace OrchidMod.Glowmasks
 
 			void ItemGlowmaskLayer(PlayerDrawInfo drawInfo)
 			{
-				if (drawInfo.drawPlayer.HeldItem.modItem is Interfaces.IGlowingItem glowItem) glowItem.DrawItemGlowmask(drawInfo);
+				if (drawInfo.drawPlayer.HeldItem.modItem is Common.Interfaces.IGlowingItem glowItem) glowItem.DrawItemGlowmask(drawInfo);
 			}
 			var index = layers.IndexOf(PlayerLayer.HeldItem);
 			if (index >= 0) layers.Insert(index + 1, new PlayerLayer("OrchidMod", "HeldItemGlowmask", ItemGlowmaskLayer));
