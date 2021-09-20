@@ -51,26 +51,29 @@ namespace OrchidMod.Content.Items.Placeables
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 
-			this.CreateMapEntry("Miner's Lockbox", new Color(200, 200, 200), (name, i, j) =>
-			{
-				int left = i;
-				int top = j;
-				Tile tile = Main.tile[i, j];
-
-				if (tile.frameX % 36 != 0) left--;
-				if (tile.frameY != 0) top--;
-
-				int chest = Chest.FindChest(left, top);
-
-				if (Main.chest[chest].name == "") return name;
-				else return name + ": " + Main.chest[chest].name;
-			});
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Miner's Lockbox");
+			AddMapEntry(new Color(200, 200, 200), name, MapChestName);
 
 			disableSmartCursor = true;
 			adjTiles = new int[] { TileID.Containers };
-
 			chest = "Miner's Lockbox";
 			chestDrop = ModContent.ItemType<MinersLockbox>();
+		}
+
+		public string MapChestName(string name, int i, int j)
+		{
+			if (i < 0 || i >= Main.maxTilesX || j < 0 || j >= Main.maxTilesY)
+				return name;
+			Tile tile = Main.tile[i, j];
+			if (tile == null)
+				return name;
+			int left = i;
+			int top = j;
+			if (tile.frameX % 36 != 0) left--;
+			if (tile.frameY != 0) top--;
+			int chest = Chest.FindChest(left, top);
+			return name + ((Main.chest[chest].name != "") ? (": " + Main.chest[chest].name) : "");
 		}
 
 		public override bool HasSmartInteract() => true;
