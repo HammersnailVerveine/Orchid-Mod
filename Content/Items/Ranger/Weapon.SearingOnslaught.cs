@@ -56,7 +56,7 @@ namespace OrchidMod.Content.Items.Ranger
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Assets/Textures/Items/SearingOnslaught_Glow"), Color.White, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture(this.Texture + "_Glow"), Color.White, rotation, scale);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -71,7 +71,7 @@ namespace OrchidMod.Content.Items.Ranger
 
 		void IGlowingItem.DrawItemGlowmask(PlayerDrawInfo drawInfo)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskOnPlayer(drawInfo, ModContent.GetTexture("OrchidMod/Assets/Textures/Items/SearingOnslaught_Glow"));
+			OrchidHelper.DrawSimpleItemGlowmaskOnPlayer(drawInfo, ModContent.GetTexture(this.Texture + "_Glow"));
 		}
 	}
 
