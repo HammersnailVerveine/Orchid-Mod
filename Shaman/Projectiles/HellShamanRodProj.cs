@@ -63,7 +63,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			if (projectile.ai[1] == -1 && Main.rand.Next(15) == 0)
 			{
-				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Dusts.LeafDust>())];
+				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Content.Dusts.LeafDust>())];
 				dust.customData = 1;
 				dust.scale *= Main.rand.NextFloat(1.25f, 1.75f);
 				dust.velocity = new Vector2(Vector2.Normalize(projectile.velocity).X * -0.33f, Main.rand.NextFloat(0.2f, 0.45f));
@@ -78,7 +78,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			for (int i = 0; i < 5; i++)
 			{
-				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Dusts.LeafDust>())];
+				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Content.Dusts.LeafDust>())];
 				dust.customData = 1;
 				dust.scale *= Main.rand.NextFloat(1.25f, 1.75f);
 				dust.velocity = new Vector2(Vector2.Normalize(projectile.velocity).X * 0.2f + Main.rand.NextFloat(-0.15f, 0.15f), Main.rand.NextFloat(0.2f, 0.45f));
@@ -105,7 +105,7 @@ namespace OrchidMod.Shaman.Projectiles
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
-			Texture2D radialGradient = Effects.EffectsManager.RadialGradientTexture;
+			Texture2D radialGradient = OrchidHelper.GetExtraTexture(11);
 			spriteBatch.Draw(radialGradient, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY), null, new Color(255, 225, 0) * 0.35f, 0f, radialGradient.Size() * 0.5f, 0.75f * projectile.scale, SpriteEffects.None, 0f);
 
 			spriteBatch.End();

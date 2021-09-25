@@ -94,7 +94,7 @@ namespace OrchidMod.Shaman.Projectiles
 			// Light Effect
 			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
-				Texture2D radialGradient = EffectsManager.RadialGradientTexture;
+				Texture2D radialGradient = OrchidHelper.GetExtraTexture(11);
 				spriteBatch.Draw(radialGradient, projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY) + new Vector2(0, -11), null, new Color(36, 129, 234) * 0.35f, 0f, radialGradient.Size() * 0.5f, 0.75f * projectile.scale, SpriteEffects.None, 0f);
 			}
 
@@ -133,7 +133,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			for (int i = 0; i < 10; i++)
 			{
-				var dust = Main.dust[Dust.NewDust(projectile.position + new Vector2(-8, -26), Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height, ModContent.DustType<Dusts.StrangeSmokeDust>())];
+				var dust = Main.dust[Dust.NewDust(projectile.position + new Vector2(-8, -26), Main.projectileTexture[projectile.type].Width, Main.projectileTexture[projectile.type].Height, ModContent.DustType<Content.Dusts.StrangeSmokeDust>())];
 				dust.velocity = new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), Main.rand.NextFloat(-0.25f, 0.75f));
 				dust.alpha = 200;
 				dust.scale = Main.rand.NextFloat(2f, 3.5f);

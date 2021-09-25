@@ -1,4 +1,4 @@
-using OrchidMod.Interfaces;
+using OrchidMod.Common.Interfaces;
 using Terraria;
 using Terraria.ID;
 

@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Dusts.Thorium;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
@@ -29,7 +29,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			if (Main.rand.Next(2) == 0)
 			{
-				int DustID = Dust.NewDust(new Vector2(projectile.position.X + 4, projectile.position.Y + 4), projectile.width / 3, projectile.height / 3, DustType<ToxicDust>(), projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
+				int DustID = Dust.NewDust(new Vector2(projectile.position.X + 4, projectile.position.Y + 4), projectile.width / 3, projectile.height / 3, ModContent.DustType<Content.Dusts.ToxicDust>(), projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
 				Main.dust[DustID].noGravity = true;
 				Main.dust[DustID].velocity *= 0f;
 			}
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<ToxicDust>());
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Content.Dusts.ToxicDust>());
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity = projectile.velocity / 2;
 			}

@@ -1,4 +1,4 @@
-using OrchidMod.Interfaces;
+using OrchidMod.Common.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.General.Items.Sets.StaticQuartz.Projectiles;
-using OrchidMod.Interfaces;
+using OrchidMod.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

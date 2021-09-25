@@ -1,4 +1,4 @@
-﻿namespace OrchidMod.Interfaces
+﻿namespace OrchidMod.Common.Interfaces
 {
 	public interface ICrossmodItem
 	{
