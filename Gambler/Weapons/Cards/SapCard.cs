@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Living Sap");
+			DisplayName.SetDefault("Playing Card : Unstable Sap");
 			Tooltip.SetDefault("Releases a slow-moving sap bubble, following the cursor"
 							+ "\nUpon releasing the mouse click, the bubble will explode"
 							+ "\nThe longer the bubble exists, the more explosion damage");
