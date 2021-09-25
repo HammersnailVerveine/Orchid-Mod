@@ -1,4 +1,3 @@
-using OrchidMod.Dusts.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -43,7 +42,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				}
 			}
 
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<PollenDust>());
+			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Content.Dusts.PollenDust>());
 			Main.dust[dust].velocity *= 1.5f;
 			Main.dust[dust].noGravity = true;
 		}
@@ -52,7 +51,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<PollenDust>());
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Content.Dusts.PollenDust>());
 				Main.dust[dust].noGravity = false;
 				Main.dust[dust].scale *= 1.2f;
 				Main.dust[dust].velocity *= 2f;

@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Dusts.Thorium
+namespace OrchidMod.Content.Dusts
 {
-	public class PollenDust : ModDust
+	public class PollenDust : OrchidDust
 	{
 		public override void OnSpawn(Dust dust)
 		{
