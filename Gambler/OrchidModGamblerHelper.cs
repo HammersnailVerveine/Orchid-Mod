@@ -62,10 +62,10 @@ namespace OrchidMod.Gambler
 				switch (modPlayer.gamblerDiceID)
 				{
 					case 0:
-						modPlayer.gamblerDamage += (0.02f * modPlayer.gamblerDiceValue);
+						modPlayer.gamblerDamage += (0.03f * modPlayer.gamblerDiceValue);
 						break;
 					case 1:
-						modPlayer.gamblerChipsConsume += 2 * modPlayer.gamblerDiceValue;
+						modPlayer.gamblerChipsConsume += 4 * modPlayer.gamblerDiceValue;
 						break;
 					default:
 						break;

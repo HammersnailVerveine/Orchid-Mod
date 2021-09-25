@@ -21,6 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.shootSpeed = 12f;
 			item.shoot = mod.ProjectileType("IceFlakeConeProj");
 			this.empowermentType = 2;
+			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 3;
 		}
 

@@ -9,7 +9,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 11;
+			item.damage = 4;
 			item.width = 30;
 			item.height = 30;
 			item.rare = 1;

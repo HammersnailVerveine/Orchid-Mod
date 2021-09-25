@@ -50,14 +50,22 @@ namespace OrchidMod.Gambler.Projectiles
 				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.SapCard>() && modPlayer.GamblerDeckInHand)
 				{
 					Vector2 newMove = Main.MouseWorld - projectile.Center;
-					AdjustMagnitude(ref newMove);
-					projectile.velocity = (5 * projectile.velocity + newMove);
-					AdjustMagnitude(ref projectile.velocity);
+					
+					int oldVelocityYBy1000 = (int)(projectile.velocity.Y * 1000f);
+					int oldVelocityXBy1000 = (int)(projectile.velocity.X * 1000f);
+					
+					if (newMove.Length() < 5f) {
+						projectile.velocity *= 0f;
+						newMove *= 0f;
+					} else {
+						AdjustMagnitude(ref newMove);
+						projectile.velocity = (5 * projectile.velocity + newMove);
+						AdjustMagnitude(ref projectile.velocity);
+					}
 
 					int velocityXBy1000 = (int)(newMove.X * 1000f);
-					int oldVelocityXBy1000 = (int)(projectile.velocity.X * 1000f);
 					int velocityYBy1000 = (int)(newMove.Y * 1000f);
-					int oldVelocityYBy1000 = (int)(projectile.velocity.Y * 1000f);
+
 
 					if (velocityXBy1000 != oldVelocityXBy1000 || velocityYBy1000 != oldVelocityYBy1000)
 					{

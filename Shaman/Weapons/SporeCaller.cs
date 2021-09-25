@@ -23,6 +23,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 5f;
 			item.shoot = mod.ProjectileType("SporeCallerProj");
 			this.empowermentType = 3;
+			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 25;
 		}
 

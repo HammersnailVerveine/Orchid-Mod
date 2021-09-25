@@ -18,7 +18,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			item.useAnimation = 30;
 			item.useTime = 30;
 			item.knockBack = 5f;
-			item.damage = 20;
+			item.damage = 25;
 			item.crit = 4;
 			item.rare = 1;
 			item.shootSpeed = 10f;

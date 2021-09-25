@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shootSpeed = 7f;
 			item.shoot = mod.ProjectileType("OpalScepterProj");
 			this.empowermentType = 4;
-			this.energy = 9;
+			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()

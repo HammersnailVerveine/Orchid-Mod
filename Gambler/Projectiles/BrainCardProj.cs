@@ -199,7 +199,7 @@ namespace OrchidMod.Gambler.Projectiles
 				Projectile proj = Main.projectile[l];
 				if (proj.active && proj.type == projType && proj.owner == player.whoAmI)
 				{
-					proj.damage += 25;
+					proj.damage += 30;
 					if (proj.ai[1] != projectile.ai[1])
 					{
 						if ((Main.rand.Next(2) == 0 || skipped) && !switched)

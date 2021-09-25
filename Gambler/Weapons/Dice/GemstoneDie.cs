@@ -20,7 +20,7 @@ namespace OrchidMod.Gambler.Weapons.Dice
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gemstone Die");
-			Tooltip.SetDefault("Gives 2 - 12% chance not to consume chips");
+			Tooltip.SetDefault("Gives 4 - 24% chance not to consume chips");
 		}
 
 		public override void AddRecipes()

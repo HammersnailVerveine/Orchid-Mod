@@ -152,7 +152,7 @@ namespace OrchidMod
 		/*Shaman*/
 		public float shamanDamage = 1.0f;
 		public int shamanCrit = 0;
-		public int shamanBuffTimer = 5;
+		public int shamanBuffTimer = 6;
 		public int UIDisplayTimer = 0;
 		public int UIDisplayDelay = 60 * 3; // 3 Seconds
 

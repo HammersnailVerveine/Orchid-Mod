@@ -1,4 +1,4 @@
-v1.3.0.5 : Hidden Reactions rework, Gambler/Alchemist polishing.
+v1.3.0.6 : Shaman rework.
 
 The Orchid Mod aims to add content to the game in polished and refreshing ways.
 You will not find the usual vanilla class items load here, most of Orchid content is, and will be based on

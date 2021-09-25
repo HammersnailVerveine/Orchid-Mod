@@ -8,7 +8,7 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 23;
+			item.damage = 25;
 			item.width = 30;
 			item.height = 30;
 			item.useTime = 35;
@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons
 			this.empowermentType = 3;
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
-			this.energy = 7;
+			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()

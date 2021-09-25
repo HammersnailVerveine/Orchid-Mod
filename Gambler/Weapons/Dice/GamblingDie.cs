@@ -18,7 +18,7 @@ namespace OrchidMod.Gambler.Weapons.Dice
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gambling Die");
-			Tooltip.SetDefault("Increases gambling damage by 2 - 12%");
+			Tooltip.SetDefault("Increases gambling damage by 3 - 18%");
 		}
 	}
 }

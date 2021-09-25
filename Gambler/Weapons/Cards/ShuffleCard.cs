@@ -10,7 +10,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			item.value = Item.sellPrice(0, 0, 10, 0);
 			item.rare = 1;
-			item.damage = 5;
+			item.damage = 8;
 			item.crit = 4;
 			item.knockBack = 3f;
 			item.useAnimation = 25;
@@ -34,7 +34,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			int projType = ProjectileType<Gambler.Projectiles.ShuffleCardProj>();
 			float aiType = Main.rand.Next(4);
 			int count = 0;
-			int damageCount = damage + (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) * 1);
+			int damageCount = damage + (int)(OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) * 1.2f);
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];

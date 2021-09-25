@@ -41,21 +41,19 @@ namespace OrchidMod.Shaman.Projectiles
 				projectile.netUpdate = true;
 			}
 
-			++projectile.localAI[0];
-			if ((double)projectile.localAI[0] <= 7.0)
-				return;
 			for (int index1 = 0; index1 < 3; ++index1)
 			{
-				Vector2 Position = projectile.position - projectile.velocity * ((float)index1 * 0.25f);
-				projectile.alpha = (int)byte.MaxValue;
-				int index2 = Dust.NewDust(Position, projectile.width, projectile.height, 169, 0.0f, 0.0f, 0, new Color(), 1f);
+				int index2 = Dust.NewDust(projectile.Center, 0, 0, 169, 0.0f, 0.0f, 0, new Color(), 1f);
 				Main.dust[index2].scale = (float)(Main.rand.Next(70, 110) * 0.013f) + ((sizeBonus) * 0.15f);
 				Main.dust[index2].velocity = projectile.velocity;
 				Main.dust[index2].noGravity = true;
 			}
 
-			if (projectile.timeLeft % 5 == 0)
-				spawnDustCircle(169, -(int)(-10 - projectile.timeLeft));
+			if (projectile.timeLeft % 5 == 0) {
+				int range = projectile.timeLeft - 10;
+				range = range > 20 ? 20 : range;
+				spawnDustCircle(169, range);
+			}
 		}
 
 		public void spawnDustCircle(int dustType, int distToCenter)

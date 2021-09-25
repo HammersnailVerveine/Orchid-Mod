@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 8f;
 			item.shoot = mod.ProjectileType("TungstenScepterProj");
 			this.empowermentType = 4;
-			this.energy = 9;
+			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()

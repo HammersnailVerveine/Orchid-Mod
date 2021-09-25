@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons
 			item.shootSpeed = 9f;
 			item.shoot = mod.ProjectileType("EnchantedScepterProj");
 			this.empowermentType = 1;
-			this.energy = 8;
+			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()

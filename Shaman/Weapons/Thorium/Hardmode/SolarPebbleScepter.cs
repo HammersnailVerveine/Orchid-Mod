@@ -24,6 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.shootSpeed = 8f;
 			item.shoot = mod.ProjectileType("SolarPebbleScepterProj");
 			this.empowermentType = 1;
+			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 4;
 		}
 

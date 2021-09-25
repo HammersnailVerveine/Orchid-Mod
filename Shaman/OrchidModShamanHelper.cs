@@ -615,7 +615,7 @@ namespace OrchidMod.Shaman
 			modPlayer.shamanCatalyst -= modPlayer.shamanCatalyst > 0 ? 1 : 0;
 			modPlayer.shamanCrit = 0;
 			modPlayer.shamanDamage = 1.0f;
-			modPlayer.shamanBuffTimer = 5;
+			modPlayer.shamanBuffTimer = 6;
 			modPlayer.hauntedCandle = false;
 			modPlayer.spawnedGhost = false;
 			modPlayer.doubleJumpHarpy = false;

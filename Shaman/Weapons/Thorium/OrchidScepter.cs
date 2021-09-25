@@ -15,8 +15,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.damage = 18;
 			item.width = 30;
 			item.height = 30;
-			item.useTime = 25;
-			item.useAnimation = 25;
+			item.useTime = 35;
+			item.useAnimation = 35;
 			item.knockBack = 4f;
 			item.rare = ItemRarityID.Green;
 			item.value = Item.sellPrice(0, 0, 30, 0);

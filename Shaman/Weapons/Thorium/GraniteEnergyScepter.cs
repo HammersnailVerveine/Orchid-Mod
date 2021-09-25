@@ -23,6 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			item.shootSpeed = 10f;
 			item.shoot = mod.ProjectileType("GraniteEnergyScepterProj");
 			this.empowermentType = 4;
+			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 10;
 		}
 
