@@ -56,6 +56,8 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void AI()
 		{
+			Lighting.AddLight(projectile.Center, this.GetCurrentColor().ToVector3() * 0.25f);
+
 			if (_death) this.DeathUpdate();
 			else OrchidModProjectile.resetIFrames(projectile);
 		}
