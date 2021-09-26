@@ -84,10 +84,14 @@ namespace OrchidMod.Content.Items.Placeables
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 
-			this.CreateMapEntry("Shroom Chest", new Color(174, 129, 92), this.MapChestName);
-			this.CreateMapEntry(Name + "_Locked", "Locked Shroom Chest", new Color(174, 129, 92), this.MapChestName);
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Shroom Chest");
+			AddMapEntry(new Color(174, 129, 92), name, MapChestName);
+			name = CreateMapEntryName("_Locked" + Name);
+			name.SetDefault("Locked Shroom Chest");
+			AddMapEntry(new Color(174, 129, 92), name, MapChestName);
 
-			dustType = 53;
+			dustType = DustID.Silt;
 			disableSmartCursor = true;
 			adjTiles = new int[] { TileID.Containers };
 			chest = "Shroom Chest";
@@ -95,7 +99,9 @@ namespace OrchidMod.Content.Items.Placeables
 		}
 
 		public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].frameX / 36);
+
 		public override bool HasSmartInteract() => true;
+
 		public override bool IsLockedChest(int i, int j) => Main.tile[i, j].frameX / 36 == 1;
 
 		public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual)
@@ -108,30 +114,17 @@ namespace OrchidMod.Content.Items.Placeables
 
 		public string MapChestName(string name, int i, int j)
 		{
+			if (i < 0 || i >= Main.maxTilesX || j < 0 || j >= Main.maxTilesY)
+				return name;
+			Tile tile = Main.tile[i, j];
+			if (tile == null)
+				return name;
 			int left = i;
 			int top = j;
-			Tile tile = Main.tile[i, j];
-			if (tile.frameX % 36 != 0)
-			{
-				left--;
-			}
-			if (tile.frameY != 0)
-			{
-				top--;
-			}
+			if (tile.frameX % 36 != 0) left--;
+			if (tile.frameY != 0) top--;
 			int chest = Chest.FindChest(left, top);
-			if (chest < 0)
-			{
-				return Language.GetTextValue("LegacyChestType.0");
-			}
-			else if (Main.chest[chest].name == "")
-			{
-				return name;
-			}
-			else
-			{
-				return name + ": " + Main.chest[chest].name;
-			}
+			return name + ((Main.chest[chest].name != "") ? (": " + Main.chest[chest].name) : "");
 		}
 
 		public override void NumDust(int i, int j, bool fail, ref int num)
@@ -205,7 +198,7 @@ namespace OrchidMod.Content.Items.Placeables
 					int key = ModContent.ItemType<ShroomKey>();
 					if (player.ConsumeItem(key) && Chest.Unlock(left, top))
 					{
-						if (Main.netMode == 1)
+						if (Main.netMode == NetmodeID.MultiplayerClient)
 						{
 							NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, (float)left, (float)top);
 						}
@@ -260,8 +253,8 @@ namespace OrchidMod.Content.Items.Placeables
 			}
 			else
 			{
-				player.showItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Biome Chest";
-				if (player.showItemIconText == "Biome Chest")
+				player.showItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Shroom Chest";
+				if (player.showItemIconText == "Shroom Chest")
 				{
 					player.showItemIcon2 = ModContent.ItemType<ShamanBiomeChest>(); // Chest icon
 					if (Main.tile[left, top].frameX / 36 == 1) player.showItemIcon2 = ModContent.ItemType<ShroomKey>(); // Key icon
