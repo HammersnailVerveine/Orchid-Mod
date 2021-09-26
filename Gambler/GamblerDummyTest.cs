@@ -115,18 +115,20 @@ namespace OrchidMod.Gambler
 					overrideColor = new Color(255, 200, 0)
 				});
 			}
+
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			Item currentCard = modPlayer.gamblerCardDummy;
-			if (currentCard.type != 0)
+			Item currentCard = modPlayer.gamblerCardCurrent;
+
+			if (currentCard.type != ItemID.None)
 			{
 				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
 				if (index != -1)
 				{
-					tooltips.Insert(index, new TooltipLine(mod, "CardType", currentCard.Name)
-					{
-						overrideColor = new Color(255, 200, 0)
-					});
+					Color textColor = new Color(255, 200, 0); // Rarity Color ???
+					string text = $"Current card: [c/{Terraria.ID.Colors.AlphaDarken(textColor).Hex3()}:{currentCard.HoverName.Replace("Playing Card : ", "")}]";
+
+					tooltips.Insert(index, new TooltipLine(mod, "CardType", text));
 				}
 			}
 		}
@@ -144,7 +146,7 @@ namespace OrchidMod.Gambler
 			if (currentCard.type != ItemID.None)
 			{
 				item.damage = (int)(currentCard.damage * modPlayer.gamblerDamage);
-				item.rare = currentCard.rare;
+				//item.rare = currentCard.rare;
 				item.crit = currentCard.crit + modPlayer.gamblerCrit;
 				item.useAnimation = currentCard.useAnimation;
 				item.useTime = currentCard.useTime;
@@ -156,7 +158,7 @@ namespace OrchidMod.Gambler
 			else
 			{
 				item.damage = 0;
-				item.rare = 0;
+				//item.rare = 0;
 				item.crit = 0;
 				item.useAnimation = 1;
 				item.useTime = 1;
