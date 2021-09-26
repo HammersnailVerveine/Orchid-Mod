@@ -143,7 +143,7 @@ namespace OrchidMod.Gambler
 
 		public void checkStats(Item currentCard, OrchidModPlayer modPlayer)
 		{
-			if (currentCard.type != 0)
+			if (currentCard.type != ItemID.None)
 			{
 				item.damage = (int)(currentCard.damage * modPlayer.gamblerDamage);
 				item.rare = currentCard.rare;
@@ -153,6 +153,7 @@ namespace OrchidMod.Gambler
 				item.reuseDelay = currentCard.reuseDelay;
 				item.knockBack = currentCard.knockBack;
 				item.shootSpeed = currentCard.shootSpeed;
+				item.channel = currentCard.channel;
 			}
 			else
 			{
@@ -161,9 +162,10 @@ namespace OrchidMod.Gambler
 				item.crit = 0;
 				item.useAnimation = 1;
 				item.useTime = 1;
-				item.reuseDelay = 0;
+				item.reuseDelay = 1;
 				item.knockBack = 1f;
 				item.shootSpeed = 1f;
+				item.channel = false;
 			}
 		}
 	}
