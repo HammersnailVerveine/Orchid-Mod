@@ -26,16 +26,18 @@ namespace OrchidMod
 			}
 		}
 
-		public static void SpawnDustCircle(Vector2 center, float radius, int count, Func<int, int> type, Action<Dust, int> onSpawn = null)
+		public static void SpawnDustCircle(Vector2 center, float radius, int count, Func<int, int> type, Action<Dust, int, float> onSpawn = null)
 		{
 			for (int i = 0; i < count; i++)
 			{
-				Vector2 position = center + new Vector2(radius, 0).RotatedBy(i / (float)count * MathHelper.TwoPi);
+				float angle = i / (float)count * MathHelper.TwoPi;
+				Vector2 position = center + new Vector2(radius, 0).RotatedBy(angle);
 				int dustType = type?.Invoke(i) ?? -1;
+
 				if (dustType != -1)
 				{
 					var dust = Dust.NewDustPerfect(position, dustType);
-					onSpawn?.Invoke(dust, i);
+					onSpawn?.Invoke(dust, i, angle);
 				}
 			}
 		}

@@ -20,7 +20,6 @@ namespace OrchidMod.Gambler
 
 		public sealed override void SetDefaults()
 		{
-			SafeSetDefaults();
 			item.width = 20;
 			item.height = 26;
 			item.melee = false;
@@ -29,15 +28,17 @@ namespace OrchidMod.Gambler
 			item.thrown = false;
 			item.summon = false;
 			item.noMelee = true;
-			item.useStyle = 4;
+			item.useStyle = ItemUseStyleID.HoldingUp;
 			item.UseSound = SoundID.Item64;
 			item.consumable = true;
 			item.autoReuse = false;
 
+			this.SafeSetDefaults();
+
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.gamblerCardRequirement = this.cardRequirement;
 			orchidItem.gamblerCardSets = this.gamblerCardSets;
-			orchidItem.gamblerShootDelegate = GamblerShoot;
+			orchidItem.gamblerShootDelegate = this.GamblerShoot;
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
@@ -57,18 +58,8 @@ namespace OrchidMod.Gambler
 			else crit = false;
 		}
 
-		public override bool CloneNewInstances
-		{
-			get
-			{
-				return true;
-			}
-		}
-
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
+		public override bool CloneNewInstances => true;
+		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool CanUseItem(Player player)
 		{
