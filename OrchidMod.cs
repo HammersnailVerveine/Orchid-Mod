@@ -53,6 +53,7 @@ namespace OrchidMod
 
 			EffectsManager.Load(mod: this);
 			OrchidMod.LoadHooks(mod: this);
+			PrimitiveTrailSystem.Trail.Load();
 
 			// ...
 
@@ -112,6 +113,8 @@ namespace OrchidMod
 
 		public override void Unload()
 		{
+			PrimitiveTrailSystem.Trail.Unload();
+
 			if (!Main.dedServ)
 			{
 				AlchemistUIFrame.ressourceBottom = null;

@@ -49,8 +49,20 @@ namespace OrchidMod.Common
 
 		public abstract class Trail
 		{
-			private static readonly Effect _simpleEffect = OrchidMod.Instance.GetEffect("Effects/Primitive");
-			private static readonly Texture2D _simpleTexture = OrchidHelper.GetExtraTexture(7);
+			private static Effect _simpleEffect;
+			private static Texture2D _simpleTexture;
+
+			public static void Load()
+			{
+				_simpleEffect = OrchidMod.Instance.GetEffect("Effects/Primitive");
+				_simpleTexture = OrchidHelper.GetExtraTexture(7);
+			}
+
+			public static void Unload()
+			{
+				_simpleEffect = null;
+				_simpleTexture = null;
+			}
 
 			// ...
 

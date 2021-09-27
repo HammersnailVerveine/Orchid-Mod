@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
@@ -22,7 +23,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			item.UseSound = SoundID.Item43;
 			item.autoReuse = true;
 			item.shootSpeed = 10f;
-			item.shoot = mod.ProjectileType("BoreanStriderScepterProj");
+			item.shoot = ModContent.ProjectileType<Projectiles.Thorium.BoreanStriderScepterProj>();
+
 			this.empowermentType = 2;
 			this.energy = 8;
 		}
