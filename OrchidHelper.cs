@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -40,6 +41,18 @@ namespace OrchidMod
 					onSpawn?.Invoke(dust, i, angle);
 				}
 			}
+		}
+
+		public static T GradientValue<T>(Func<T, T, float, T> method, float percent, params T[] values)
+		{
+			if (method == null) throw new ArgumentNullException(nameof(method));
+			if (percent >= 1) return values.Last();
+
+			percent = Math.Max(percent, 0);
+			float num = 1f / (values.Length - 1);
+			int index = Math.Max(0, (int)(percent / num));
+
+			return method.Invoke(values[index], values[index + 1], (percent - num * index) / num);
 		}
 
 		public static void DrawSimpleItemGlowmaskInWorld(Item item, SpriteBatch spriteBatch, Texture2D texture, Color color, float rotation, float scale)
