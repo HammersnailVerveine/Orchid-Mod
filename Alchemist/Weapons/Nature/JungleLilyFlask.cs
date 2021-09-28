@@ -17,7 +17,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 3;
 			this.element = AlchemistElement.NATURE;
-			this.rightClickDust = DustType<Dusts.BloomingDust>();
+			this.rightClickDust = DustType<Content.Dusts.BloomingDust>();
 			this.colorR = 177;
 			this.colorG = 46;
 			this.colorB = 77;

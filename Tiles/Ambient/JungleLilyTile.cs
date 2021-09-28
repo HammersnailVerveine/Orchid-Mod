@@ -22,7 +22,7 @@ namespace OrchidMod.Tiles.Ambient
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Jungle Lily");
 			AddMapEntry(new Color(177, 46, 77), name);
-			dustType = DustType<Dusts.BloomingDust>();
+			dustType = DustType<Content.Dusts.BloomingDust>();
 		}
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{

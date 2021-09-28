@@ -1,9 +1,8 @@
 using Terraria;
-using Terraria.ModLoader;
 
-namespace OrchidMod.Dusts
+namespace OrchidMod.Content.Dusts
 {
-	public class BloomingDust : ModDust
+	public class BloomingAltDust : OrchidDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

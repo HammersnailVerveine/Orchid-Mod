@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using OrchidMod.Dusts;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -103,7 +102,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int type = projectile.frame == 1 ? DustType<BloomingDust2>() : DustType<BloomingDust>();
+				int type = projectile.frame == 1 ? DustType<Content.Dusts.BloomingAltDust>() : DustType<Content.Dusts.BloomingDust>();
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, type);
 				Main.dust[dust].noGravity = true;
 			}
