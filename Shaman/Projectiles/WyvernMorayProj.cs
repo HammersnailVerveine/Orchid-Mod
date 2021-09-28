@@ -83,9 +83,14 @@ namespace OrchidMod.Shaman.Projectiles
 				}
 
 				texture = OrchidHelper.GetExtraTexture(13);
+				spriteBatch.Draw(texture, drawPos, null, color * 0.45f, Main.GlobalTime, texture.Size() * 0.5f, projectile.scale * 0.85f, SpriteEffects.None, 0);
 				spriteBatch.Draw(texture, drawPos, null, color * 0.8f, Main.GlobalTime * 5f, texture.Size() * 0.5f, projectile.scale * 0.3f, SpriteEffects.None, 0);
-				spriteBatch.Draw(OrchidHelper.GetExtraTexture(8), drawPos, null, color * _deathProgress, projectile.velocity.ToRotation() + MathHelper.PiOver2, OrchidHelper.GetExtraTexture(8).Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
-				spriteBatch.Draw(OrchidHelper.GetExtraTexture(3), drawPos + Vector2.Normalize(projectile.velocity) * 8f, null, color * MathHelper.SmoothStep(0, 1, projectile.velocity.Length() * 0.1f), projectile.velocity.ToRotation() + MathHelper.PiOver2, OrchidHelper.GetExtraTexture(3).Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
+
+				texture = OrchidHelper.GetExtraTexture(8);
+				spriteBatch.Draw(texture, drawPos, null, color * _deathProgress, projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
+
+				texture = OrchidHelper.GetExtraTexture(3);
+				spriteBatch.Draw(texture, drawPos + Vector2.Normalize(projectile.velocity) * 8f, null, color * MathHelper.SmoothStep(0, 1, projectile.velocity.Length() * 0.1f), projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
 
 				if (_death)
 				{

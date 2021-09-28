@@ -29,20 +29,22 @@ namespace OrchidMod.Common
 		{
 			var matrix = GetTransformMatrix();
 
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-			foreach (var trail in _trails.FindAll(i => i.Active && i.BlendState == BlendState.Additive)) trail.Draw(spriteBatch, matrix);
-			spriteBatch.End();
+			void DrawTrails(bool additive)
+			{
+				spriteBatch.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+				foreach (var trail in _trails.FindAll(i => i.Active && i.Additive == additive)) trail.Draw(spriteBatch, matrix);
+				spriteBatch.End();
+			}
 
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-			foreach (var trail in _trails.FindAll(i => i.Active && i.BlendState == BlendState.AlphaBlend)) trail.Draw(spriteBatch, matrix);
-			spriteBatch.End();
+			DrawTrails(true);
+			DrawTrails(false);
 		}
 
 		public static Matrix GetTransformMatrix()
 		{
-			Matrix view = Matrix.CreateLookAt(Vector3.Zero, Vector3.UnitZ, Vector3.Up) * Main.GameViewMatrix.EffectMatrix * Matrix.CreateTranslation(Main.screenWidth / 2, -Main.screenHeight / 2, 0) * Matrix.CreateRotationZ(MathHelper.Pi);
-			Matrix projection = Matrix.CreateOrthographic(Main.screenWidth, Main.screenHeight, 0, 1000);
-			return view * Matrix.CreateScale(Main.GameViewMatrix.Zoom.X, Main.GameViewMatrix.Zoom.Y, 1) * projection;
+			Matrix m1 = Matrix.CreateLookAt(Vector3.Zero, Vector3.UnitZ, Vector3.Up) * Main.GameViewMatrix.EffectMatrix * Matrix.CreateTranslation(Main.screenWidth / 2, -Main.screenHeight / 2, 0) * Matrix.CreateRotationZ(MathHelper.Pi);
+			Matrix m3 = Matrix.CreateOrthographic(Main.screenWidth, Main.screenHeight, 0, 1000);
+			return m1 * Matrix.CreateScale(Main.GameViewMatrix.Zoom.X, Main.GameViewMatrix.Zoom.Y, 1) * m3;
 		}
 
 		// ...
@@ -67,8 +69,8 @@ namespace OrchidMod.Common
 			// ...
 
 			public bool Active { get; set; } = true;
+			public bool Additive { get; protected set; }
 			public float Length { get; protected set; }
-			public BlendState BlendState { get; }
 
 			protected readonly int _maxLength;
 			protected readonly List<Vector2> _points = new List<Vector2>();
@@ -83,8 +85,9 @@ namespace OrchidMod.Common
 			protected Func<Entity, Vector2> _customPositionMethod = null;
 
 			private readonly Effect _effect;
+			private readonly bool _additive;
 
-			public Trail(Entity target, int length, Effect effect = null, BlendState blendState = null)
+			public Trail(Entity target, int length, Effect effect = null, bool additive = false)
 			{
 				_target = target;
 				_maxLength = length;
@@ -92,7 +95,7 @@ namespace OrchidMod.Common
 				_effect = effect ?? _simpleEffect;
 				_effect.Parameters["texture0"].SetValue(_simpleTexture);
 
-				BlendState = blendState ?? BlendState.AlphaBlend;
+				this.Additive = additive;
 			}
 
 			public void Update()

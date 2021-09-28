@@ -8,7 +8,7 @@ namespace OrchidMod.Content.Trails
     {
         protected float _tipLength;
 
-        public TriangularTrail(Entity target, int length, WidthDelegate width, ColorDelegate color, Effect effect = null, BlendState blendState = null, float? tipLength = null) : base(target, length, width, color, effect, blendState)
+        public TriangularTrail(Entity target, int length, WidthDelegate width, ColorDelegate color, Effect effect = null, bool additive = false, float? tipLength = null) : base(target, length, width, color, effect, additive)
         {
             _tipLength = tipLength ?? -1;
         }

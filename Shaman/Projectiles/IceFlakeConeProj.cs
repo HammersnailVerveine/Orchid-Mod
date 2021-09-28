@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void OnSpawn()
 		{
-			var trail = new Content.Trails.RoundedTrail(target: projectile, length: 16 * 7, width: (p) => 16 * (1 - p * 0.8f), color: (p) => Color.Lerp(EffectColor, new Color(11, 26, 138), p) * (1 - p) * 0.4f, blendState: BlendState.Additive, smoothness: 15);
+			var trail = new Content.Trails.RoundedTrail(target: projectile, length: 16 * 7, width: (p) => 16 * (1 - p * 0.8f), color: (p) => Color.Lerp(EffectColor, new Color(11, 26, 138), p) * (1 - p) * 0.4f, additive: true, smoothness: 15);
 			trail.SetDissolveSpeed(0.35f);
 			trail.SetEffectTexture(OrchidHelper.GetExtraTexture(5));
 			PrimitiveTrailSystem.NewTrail(trail);
