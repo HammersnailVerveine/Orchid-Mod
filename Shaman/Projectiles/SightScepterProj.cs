@@ -11,13 +11,13 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			projectile.width = 14;
 			projectile.height = 14;
-			//projectile.friendly = true;
+			projectile.friendly = true;
 			projectile.aiStyle = 0;
 			projectile.penetrate = -1;
 			projectile.timeLeft = 90;
 			projectile.extraUpdates = 5;
 			projectile.ignoreWater = true;
-			projectile.tileCollide = false;
+			projectile.tileCollide = true;
 			projectile.alpha = 255;
 		}
 
@@ -28,18 +28,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void AI()
 		{
-			/*var owner = Main.player[projectile.owner];
-			var shaman = owner.GetOrchidPlayer();
-
-			if (shaman.shamanCatalyst <= 0)
-			{
-				projectile.Kill();
-				return;
-			}
-
-			projectile.Center = shaman.shamanCatalystPosition;
-
-			/*Player player = Main.player[projectile.owner];
+			Player player = Main.player[projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int buffs = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
 
@@ -74,7 +63,7 @@ namespace OrchidMod.Shaman.Projectiles
 					Main.dust[index2].scale = 1f;
 					Main.dust[index2].noGravity = true;
 				}
-			}*/
+			}
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
