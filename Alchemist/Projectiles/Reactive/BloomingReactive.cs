@@ -1,4 +1,3 @@
-using OrchidMod.Dusts;
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -69,7 +68,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 			if (Main.rand.Next(80) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<BloomingDust>());
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<Content.Dusts.BloomingDust>());
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 0.1f;
 			}
@@ -79,7 +78,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<BloomingDust>());
+				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<Content.Dusts.BloomingDust>());
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 5f;
 			}

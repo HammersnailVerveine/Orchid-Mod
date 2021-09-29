@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Dusts;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -547,11 +546,11 @@ namespace OrchidMod.Shaman
 				}
 			}
 
-			if (modPlayer.abyssalWings && player.controlJump)
+			if (modPlayer.abyssalWings && player.controlJump) // Don't works if it is in the vanity slot
 			{
 				if (Main.rand.Next(6) == 0 && drawInfo.shadow == 0f && player.wingTime > 0)
 				{
-					int dust = Dust.NewDust(drawInfo.position - new Vector2(15f, 2f), player.width + 30, player.height + 4, DustType<AbyssalDust>());
+					int dust = Dust.NewDust(drawInfo.position - new Vector2(15f, 2f), player.width + 30, player.height + 4, DustType<Content.Dusts.AbyssalDust>());
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.Y -= 0.5f;
 					Main.dust[dust].scale = 1.75f;
@@ -559,7 +558,7 @@ namespace OrchidMod.Shaman
 				}
 				if (Main.rand.Next(6) == 0 && drawInfo.shadow == 0f && player.wingTime > 0)
 				{
-					int dust = Dust.NewDust(drawInfo.position - new Vector2(15f, 2f), player.width + 30, player.height + 4, DustType<AbyssalDustBright>());
+					int dust = Dust.NewDust(drawInfo.position - new Vector2(15f, 2f), player.width + 30, player.height + 4, DustType<Content.Dusts.AbyssalBrightDust>());
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.Y -= 0.5f;
 					Main.dust[dust].scale = 1.75f;
