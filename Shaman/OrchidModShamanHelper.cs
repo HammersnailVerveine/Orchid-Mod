@@ -611,7 +611,6 @@ namespace OrchidMod.Shaman
 
 		public static void ResetEffectsShaman(Player player, OrchidModPlayer modPlayer, Mod mod)
 		{
-			modPlayer.shamanCatalyst -= modPlayer.shamanCatalyst > 0 ? 1 : 0;
 			modPlayer.shamanCrit = 0;
 			modPlayer.shamanDamage = 1.0f;
 			modPlayer.shamanBuffTimer = 6;
@@ -666,6 +665,8 @@ namespace OrchidMod.Shaman
 
 		public static void onRespawnShaman(Player player, OrchidModPlayer modPlayer, Mod mod)
 		{
+			modPlayer.shamanCatalystIndex = -1;
+
 			modPlayer.orbCountSmall = 0;
 			modPlayer.orbCountBig = 0;
 			modPlayer.orbCountLarge = 0;

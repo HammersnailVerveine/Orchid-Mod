@@ -56,8 +56,11 @@ namespace OrchidMod.Common
 
 			public static void Load()
 			{
-				_simpleEffect = OrchidMod.Instance.GetEffect("Effects/Primitive");
 				_simpleTexture = OrchidHelper.GetExtraTexture(7);
+
+				if (Main.dedServ) return;
+
+				_simpleEffect = OrchidMod.Instance.GetEffect("Effects/Primitive");
 			}
 
 			public static void Unload()

@@ -21,6 +21,7 @@ namespace OrchidMod.Shaman
 	{
 		public int empowermentType = 0;
 		public int energy = 1;
+		public Color? catalystEffectColor = null; // TODO: ...
 		public ShamanCatalystType catalystType = ShamanCatalystType.IDLE;
 
 		// ...
@@ -49,7 +50,7 @@ namespace OrchidMod.Shaman
 			orchidItem.shamanWeapon = true;
 
 			this.SafeSetDefaults();
-			
+
 			orchidItem.shamanWeaponElement = this.empowermentType;
 
 			if (this.energy == -1)
@@ -60,14 +61,13 @@ namespace OrchidMod.Shaman
 
 		public sealed override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-
+			OrchidModPlayer shaman = player.GetModPlayer<OrchidModPlayer>();
 			Vector2 mousePosition = Main.MouseWorld;
-			Vector2 catalystCenter = modPlayer.shamanCatalystPosition;
+			Vector2? catalystCenter = shaman.ShamanCatalystPosition;
 
-			if (Collision.CanHit(position, 0, 0, position + (catalystCenter - position), 0, 0))
+			if (catalystCenter != null && Collision.CanHit(position, 0, 0, position + (catalystCenter.Value - position), 0, 0))
 			{
-				position = catalystCenter;
+				position = catalystCenter.Value;
 			}
 
 			Vector2 newMove = mousePosition - position;
@@ -79,29 +79,29 @@ namespace OrchidMod.Shaman
 			switch (empowermentType)
 			{
 				case 1:
-					modPlayer.shamanPollFire = modPlayer.shamanPollFire < 0 ? 0 : modPlayer.shamanPollFire;
-					modPlayer.shamanPollFire += energy;
-					modPlayer.shamanPollFireMax = modPlayer.shamanFireBondLoading == 100 ? modPlayer.shamanPollFireMax : false;
+					shaman.shamanPollFire = shaman.shamanPollFire < 0 ? 0 : shaman.shamanPollFire;
+					shaman.shamanPollFire += energy;
+					shaman.shamanPollFireMax = shaman.shamanFireBondLoading == 100 ? shaman.shamanPollFireMax : false;
 					break;
 				case 2:
-					modPlayer.shamanPollWater = modPlayer.shamanPollWater < 0 ? 0 : modPlayer.shamanPollWater;
-					modPlayer.shamanPollWater += energy;
-					modPlayer.shamanPollWaterMax = modPlayer.shamanWaterBondLoading == 100 ? modPlayer.shamanPollWaterMax : false;
+					shaman.shamanPollWater = shaman.shamanPollWater < 0 ? 0 : shaman.shamanPollWater;
+					shaman.shamanPollWater += energy;
+					shaman.shamanPollWaterMax = shaman.shamanWaterBondLoading == 100 ? shaman.shamanPollWaterMax : false;
 					break;
 				case 3:
-					modPlayer.shamanPollAir = modPlayer.shamanPollAir < 0 ? 0 : modPlayer.shamanPollAir;
-					modPlayer.shamanPollAir += energy;
-					modPlayer.shamanPollAirMax = modPlayer.shamanAirBondLoading == 100 ? modPlayer.shamanPollAirMax : false;
+					shaman.shamanPollAir = shaman.shamanPollAir < 0 ? 0 : shaman.shamanPollAir;
+					shaman.shamanPollAir += energy;
+					shaman.shamanPollAirMax = shaman.shamanAirBondLoading == 100 ? shaman.shamanPollAirMax : false;
 					break;
 				case 4:
-					modPlayer.shamanPollEarth = modPlayer.shamanPollEarth < 0 ? 0 : modPlayer.shamanPollEarth;
-					modPlayer.shamanPollEarth += energy;
-					modPlayer.shamanPollEarthMax = modPlayer.shamanEarthBondLoading == 100 ? modPlayer.shamanPollEarthMax : false;
+					shaman.shamanPollEarth = shaman.shamanPollEarth < 0 ? 0 : shaman.shamanPollEarth;
+					shaman.shamanPollEarth += energy;
+					shaman.shamanPollEarthMax = shaman.shamanEarthBondLoading == 100 ? shaman.shamanPollEarthMax : false;
 					break;
 				case 5:
-					modPlayer.shamanPollSpirit = modPlayer.shamanPollSpirit < 0 ? 0 : modPlayer.shamanPollSpirit;
-					modPlayer.shamanPollSpirit += energy;
-					modPlayer.shamanPollSpiritMax = modPlayer.shamanSpiritBondLoading == 100 ? modPlayer.shamanPollSpiritMax : false;
+					shaman.shamanPollSpirit = shaman.shamanPollSpirit < 0 ? 0 : shaman.shamanPollSpirit;
+					shaman.shamanPollSpirit += energy;
+					shaman.shamanPollSpiritMax = shaman.shamanSpiritBondLoading == 100 ? shaman.shamanPollSpiritMax : false;
 					break;
 				default:
 					break;
@@ -123,19 +123,57 @@ namespace OrchidMod.Shaman
 
 		public sealed override void HoldItem(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			var shaman = player.GetOrchidPlayer();
+			var catalystType = ModContent.ProjectileType<CatalystAnchor>();
+
+			if (player.ownedProjectileCounts[catalystType] == 0)
+			{
+				var index = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, catalystType, 0, 0f, player.whoAmI);
+				shaman.shamanCatalystIndex = index;
+
+				var proj = Main.projectile[index];
+				if (!(proj.modProjectile is CatalystAnchor catalyst))
+				{
+					proj.Kill();
+					shaman.shamanCatalystIndex = -1;
+					return;
+				}
+				else
+				{
+					catalyst.OnChangeSelectedItem();
+					catalyst.SelectedItem = player.selectedItem;
+					proj.netUpdate = true;
+				}
+			}
+			else
+			{
+				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI);
+				if (proj == null || !(proj.modProjectile is CatalystAnchor catalyst)) return; // ...
+
+				if (catalyst.SelectedItem != player.selectedItem)
+				{
+					catalyst.OnChangeSelectedItem();
+					catalyst.SelectedItem = player.selectedItem;
+				}
+			}
+
+			this.SafeHoldItem();
+
+			/*OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 			if (modPlayer.shamanCatalyst < 1)
 			{
 				int projType = ProjectileType<CatalystAnchor>();
-				
-				for (int l = 0; l < Main.projectile.Length; l++) {
+
+				for (int l = 0; l < Main.projectile.Length; l++)
+				{
 					Projectile proj = Main.projectile[l];
-					if (proj.type == projType && proj.owner == player.whoAmI) {
+					if (proj.type == projType && proj.owner == player.whoAmI)
+					{
 						proj.Kill();
 					}
 				}
-				
+
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projType, 0, 0f, player.whoAmI);
 			}
 
@@ -152,8 +190,9 @@ namespace OrchidMod.Shaman
 			}
 
 			modPlayer.shamanCatalyst = 3;
+			*/
 
-			this.SafeHoldItem();
+			//this.SafeHoldItem();
 		}
 
 		public sealed override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
@@ -245,6 +284,14 @@ namespace OrchidMod.Shaman
 		public virtual void SafeHoldItem() { }
 		public virtual void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) { }
 		public virtual bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) => true;
+
+		public virtual void ExtraAICatalyst(Projectile projectile, bool after) { }
+		public virtual void PostAICatalyst(Projectile projectile) { }
+		public virtual void PostDrawCatalyst(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
+		public virtual bool PreAICatalyst(Projectile projectile) { return true; }
+		public virtual bool PreDrawCatalyst(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
+
+		public virtual string CatalystTexture => "OrchidMod/Shaman/CatalystTextures/" + this.Name + "_Catalyst";
 
 		// ...
 

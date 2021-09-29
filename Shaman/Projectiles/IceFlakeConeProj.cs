@@ -114,7 +114,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 				Vector2 vector2 = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
 				var shaman = Main.player[projectile.owner].GetOrchidPlayer();
-				var catalystPos = shaman.shamanCatalyst > 0 ? shaman.shamanCatalystPosition : Main.player[projectile.owner].MountedCenter;
+				var catalystPos = shaman.ShamanCatalystPosition ?? Main.player[projectile.owner].MountedCenter;
 
 				float num44 = catalystPos.X - vector2.X;
 				float num45 = catalystPos.Y - vector2.Y;

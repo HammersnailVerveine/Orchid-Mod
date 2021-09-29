@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 
@@ -16,6 +17,7 @@ namespace OrchidMod.Shaman.Projectiles
 			projectile.timeLeft = 90;
 			projectile.extraUpdates = 5;
 			projectile.ignoreWater = true;
+			projectile.tileCollide = true;
 			projectile.alpha = 255;
 		}
 

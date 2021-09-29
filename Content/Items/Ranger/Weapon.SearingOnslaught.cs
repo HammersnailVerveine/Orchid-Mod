@@ -26,14 +26,13 @@ namespace OrchidMod.Content.Items.Ranger
 
 		public override void SetDefaults()
 		{
-			item.autoReuse = true;
 			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.useAnimation = 14;
-			item.useTime = 14;
+			item.useAnimation = 20;
+			item.useTime = 20;
 			item.width = 24;
 			item.height = 62;
-			item.shoot = ProjectileID.WoodenArrowFriendly;
-			item.useAmmo = AmmoID.Arrow;
+			item.shoot = ModContent.ProjectileType<SearingOnslaughtProjectile>();
+			//item.useAmmo = AmmoID.Arrow;
 			item.UseSound = SoundID.Item5;
 			item.damage = 20;
 			item.knockBack = 5f;
@@ -42,6 +41,10 @@ namespace OrchidMod.Content.Items.Ranger
 			item.value = Item.sellPrice(0, 4, 0, 0);
 			item.rare = ItemRarityID.LightRed;
 			item.ranged = true;
+			item.channel = true;
+			item.noUseGraphic = true;
+			item.useTurn = true;
+			item.autoReuse = true;
 		}
 
 		public override void UseStyle(Player player)
@@ -73,6 +76,55 @@ namespace OrchidMod.Content.Items.Ranger
 		{
 			OrchidHelper.DrawSimpleItemGlowmaskOnPlayer(drawInfo, ModContent.GetTexture(this.Texture + "_Glow"));
 		}
+	}
+
+	public class SearingOnslaughtProjectile : OrchidProjectile
+	{
+		private int _charge = 0;
+
+		// ...
+
+		public override string Texture => "OrchidMod/Assets/Textures/Items/AmosBow";
+
+		public override void SetDefaults()
+		{
+			projectile.width = 20;
+			projectile.height = 20;
+			projectile.timeLeft = 2;
+
+			projectile.tileCollide = false;
+			projectile.ignoreWater = true;
+			projectile.netImportant = true;
+		}
+
+		public override void AI()
+		{
+			if (!Owner.active || Owner.dead) projectile.Kill();
+
+			if (Owner.channel)
+			{
+				Owner.heldProj = projectile.whoAmI;
+				Owner.itemAnimation = 2;
+				Owner.itemTime = 2;
+				projectile.timeLeft = 2;
+
+				projectile.Center = Owner.itemLocation;
+
+				if (projectile.Center.X > Owner.MountedCenter.X)
+				{
+					Owner.ChangeDir(1);
+					projectile.direction = 1;
+				}
+				else
+				{
+					Owner.ChangeDir(-1);
+					projectile.direction = -1;
+				}
+			}
+		}
+
+		public override bool CanDamage() => false;
+		public override bool? CanCutTiles() => false;
 	}
 
 	/*public class SearingOnslaughtArrowProjectile : OrchidProjectile
