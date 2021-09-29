@@ -157,11 +157,13 @@ namespace OrchidMod
 		public int UIDisplayDelay = 60 * 3; // 3 Seconds
 
 		public int shamanHitDelay = 0;
-		public int shamanCatalyst = 0;
-		public Vector2 shamanCatalystPosition = Vector2.Zero;
 		public int shamanSelectedItem = 0;
+		public int shamanCatalystIndex = 0;
+
+		/*public int shamanCatalyst = 0;
+		public Vector2 shamanCatalystPosition = Vector2.Zero;
 		public Texture2D shamanCatalystTexture = null;
-		public ShamanCatalystType shamanCatalystType = ShamanCatalystType.IDLE;
+		public ShamanCatalystType shamanCatalystType = ShamanCatalystType.IDLE;*/
 
 		public ShamanOrbSmall shamanOrbSmall = ShamanOrbSmall.NULL;
 		public ShamanOrbBig shamanOrbBig = ShamanOrbBig.NULL;
@@ -242,6 +244,17 @@ namespace OrchidMod
 		public int shamanDestroyerCount = 0;
 		public int shamanTimerDiabolist = 0;
 		public int shamanDiabolistCount = 0;
+
+		public Vector2? ShamanCatalystPosition
+		{
+			get
+			{
+				var proj = Main.projectile[this.shamanCatalystIndex];
+				if (proj == null || !proj.active) return null;
+
+				return proj.Center;
+			}
+		}
 
 		public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
 		{
