@@ -23,7 +23,7 @@ namespace OrchidMod.Alchemist.Buffs
 				int range = 100;
 				int projType = ProjectileType<Alchemist.Projectiles.Water.IceChestFlaskProj>();
 				int itemType = ItemType<Alchemist.Weapons.Water.IceChestFlask>();
-				int damage = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 2, true);
+				int damage = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 2, true);
 				int newProjectileInt = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projType, damage, 0f, player.whoAmI);
 				Projectile newProjectile = Main.projectile[newProjectileInt];
 				newProjectile.width = range * 2;

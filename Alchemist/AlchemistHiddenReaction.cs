@@ -86,7 +86,7 @@ namespace OrchidMod.Alchemist
 			}
 
 			int itemType = ItemType<QueenBeeFlask>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			for (int i = 0; i < 10; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(80)));
@@ -117,7 +117,7 @@ namespace OrchidMod.Alchemist
 			}
 
 			int itemType = ItemType<DungeonFlask>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SpiritedBubble>();
 			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 		}
@@ -134,7 +134,7 @@ namespace OrchidMod.Alchemist
 			}
 
 			int itemType = ItemType<PoisonVial>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.PoisonBubble>();
 			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 		}
@@ -167,7 +167,7 @@ namespace OrchidMod.Alchemist
 			}
 
 			int itemType = ItemType<SeafoamVial>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SeafoamBubble>();
 			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 		}
@@ -184,7 +184,7 @@ namespace OrchidMod.Alchemist
 			}
 
 			int itemType = ItemType<LivingSapVial>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 25, false);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 25, false);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.LivingSapBubble>();
 			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 		}
@@ -201,7 +201,7 @@ namespace OrchidMod.Alchemist
 			}
 
 			int itemType = ItemType<KingSlimeFlask>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubble>();
 			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 		}
@@ -218,7 +218,7 @@ namespace OrchidMod.Alchemist
 			}
 
 			int itemType = ItemType<HellSlimeFlask>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubbleLava>();
 			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
 		}
@@ -327,7 +327,7 @@ namespace OrchidMod.Alchemist
 			int itemType = ItemType<DeathweedFlask>();
 			int itemType2 = ItemType<ShiverthornFlask>();
 			itemType = OrchidModAlchemistHelper.containsAlchemistFlask(itemType, player, modPlayer) ? itemType : itemType2;
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			for (int i = 0; i < 10; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
@@ -370,7 +370,7 @@ namespace OrchidMod.Alchemist
 				Main.dust[dust].scale *= 1.5f;
 			}
 			int itemType = ItemType<WaterleafFlask>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			for (int i = 0; i < 10; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
@@ -415,7 +415,7 @@ namespace OrchidMod.Alchemist
 			int itemType = ItemType<BlinkrootFlask>();
 			int itemType2 = ItemType<FireblossomFlask>();
 			itemType = OrchidModAlchemistHelper.containsAlchemistFlask(itemType, player, modPlayer) ? itemType : itemType2;
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			for (int i = 0; i < 10; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
@@ -466,7 +466,7 @@ namespace OrchidMod.Alchemist
 		public static void Bubbles(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
 		{
 			int itemType = ItemType<PoisonVial>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 
 			for (int i = 0; i < 7; i++)
 			{
@@ -485,7 +485,7 @@ namespace OrchidMod.Alchemist
 		public static void SunflowerSeeds(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
 		{
 			int itemType = ItemType<SunflowerFlask>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 4, true);
+			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			int nb = 5 + Main.rand.Next(4);
 
 			for (int i = 0; i < 5; i++)

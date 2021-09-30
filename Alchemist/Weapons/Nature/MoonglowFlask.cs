@@ -67,7 +67,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			for (int i = 0; i < nb; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProj>(), dmg, 0f, projectile.owner);
 			}
 		}

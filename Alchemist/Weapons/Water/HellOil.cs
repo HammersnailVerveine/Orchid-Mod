@@ -50,7 +50,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		{
 			if (alchProj.fireFlask.type != 0)
 			{
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				modTarget.spreadOilFire(target.Center, dmg, Main.player[projectile.owner]);
 				Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 45);
 			}

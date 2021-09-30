@@ -21,7 +21,7 @@ namespace OrchidMod.Alchemist.Buffs
 			{
 				int projType = ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>();
 				int itemType = ItemType<Alchemist.Weapons.Water.BloodMoonFlask>();
-				int damage = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, 2, true);
+				int damage = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 2, true);
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projType, damage, 1f, player.whoAmI);
 			}
 		}

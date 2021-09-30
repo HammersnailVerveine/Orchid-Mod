@@ -12,7 +12,6 @@ namespace OrchidMod.Gambler.Projectiles
 		private int justHit = 0;
 		private int velocityStuck = 0;
 		private float oldPositionY = 0f;
-		private bool cursorUnder = false;
 
 		public override void SetStaticDefaults()
 		{

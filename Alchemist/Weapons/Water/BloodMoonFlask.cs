@@ -35,7 +35,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
-			int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements) + ((alchProj.airFlask.type == 0 && alchProj.fireFlask.type != 0) ? 6 : 0);
+			int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements) + ((alchProj.airFlask.type == 0 && alchProj.fireFlask.type != 0) ? 6 : 0);
 			int rand = 2 + alchProj.nbElements + Main.rand.Next(2);
 			float kb = 0.5f * alchProj.nbElements;
 			for (int i = 0; i < rand; i++)

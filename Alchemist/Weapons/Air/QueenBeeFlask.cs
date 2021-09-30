@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Air.QueenBeeFlaskProj>();
 					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
 				}
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				int rand = alchProj.nbElements + Main.rand.Next(3) + 1;
 				for (int i = 0; i < rand; i++)
 				{
@@ -63,7 +63,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			int rand = alchProj.nbElements;
 			if (Main.rand.Next(10) < rand)
 			{
-				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.AlchemistHive>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);

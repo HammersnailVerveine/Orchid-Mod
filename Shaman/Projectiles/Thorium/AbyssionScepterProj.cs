@@ -129,7 +129,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 		
-		public virtual bool? CanHitNPC(NPC target) {
+		public override bool? CanHitNPC(NPC target) {
 			return !(target.friendly || this.hitEnemies.Contains(target.whoAmI));
 		}
 

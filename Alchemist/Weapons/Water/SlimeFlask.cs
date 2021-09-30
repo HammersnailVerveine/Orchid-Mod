@@ -47,7 +47,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			if (alchProj.fireFlask.type != 0)
 			{
 				int type = ProjectileType<Alchemist.Projectiles.Water.SlimeFlaskProj>();
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, type, dmg, 0.5f, projectile.owner);
 				OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1f, 1f, 5f, true, true, false, 0, 0, true);
 				OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, true);
@@ -63,7 +63,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 						Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
 					}
 					int itemType = ItemType<Alchemist.Weapons.Fire.EmberVial>();
-					int dmgAlt = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, alchProj.nbElements, true);
+					int dmgAlt = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, alchProj.nbElements, true);
 					int rand = alchProj.nbElements + Main.rand.Next(2);
 					for (int i = 0; i < rand; i++)
 					{

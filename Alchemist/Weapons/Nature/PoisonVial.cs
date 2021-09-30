@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProjAlt>();
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
 			}
-			int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+			int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 			nb = alchProj.hasCloud() ? 2 : 1;
 			for (int i = 0; i < nb; i++)
 			{
@@ -60,7 +60,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			rand += alchProj.hasCloud() ? 2 : 0;
 			if (Main.rand.Next(10) < rand && !alchProj.noCatalyticSpawn)
 			{
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.PoisonBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);

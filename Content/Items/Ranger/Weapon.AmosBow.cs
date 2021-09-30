@@ -53,7 +53,7 @@ namespace OrchidMod.Content.Items.Ranger
 
 	public class AmosBowProjectile : OrchidProjectile
 	{
-		private int _charge = 0;
+		//private int _charge = 0;
 
 		// ...
 

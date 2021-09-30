@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
-			int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+			int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Air.ShadowChestFlaskProj>();
 			for (int i = 0; i < 4; i++)
 			{

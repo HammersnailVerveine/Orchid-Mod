@@ -186,12 +186,12 @@ namespace OrchidMod.Alchemist
 			return false;
 		}
 
-		public static int getSecondaryDamage(OrchidModPlayer modPlayer, int itemType, int bonusDamage = 0, bool bonusDamageScaling = true)
+		public static int getSecondaryDamage(Player player, OrchidModPlayer modPlayer, int itemType, int bonusDamage = 0, bool bonusDamageScaling = true)
 		{
 			Item item = new Item();
 			item.SetDefaults(itemType);
 			OrchidModGlobalItem globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
-			int dmg = (int)((globalItem.alchemistSecondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? globalItem.alchemistSecondaryScaling : 1f))) * modPlayer.alchemistDamage);
+			int dmg = (int)((globalItem.alchemistSecondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? globalItem.alchemistSecondaryScaling : 1f))) * (modPlayer.alchemistDamage + player.allDamage - 1f));
 			return dmg;
 		}
 

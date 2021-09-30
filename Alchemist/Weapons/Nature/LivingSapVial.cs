@@ -36,7 +36,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (alchProj.nbElements > 1) {
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				if (alchProj.airFlask.type == 0) {
 					dmg *= 2;
 				}
@@ -60,7 +60,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			rand += alchProj.hasCloud() ? 2 : 0;
 			if (Main.rand.Next(10) < rand)
 			{
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements + 5);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements + 5);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.LivingSapBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);

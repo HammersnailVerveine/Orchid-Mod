@@ -52,7 +52,7 @@ namespace OrchidMod.Gambler
 			modPlayer.gamblerUIFightDisplay = true;
 			if (Main.mouseLeft)
 			{
-				this.checkStats(modPlayer.gamblerCardCurrent, modPlayer);
+				this.checkStats(modPlayer.gamblerCardCurrent, player, modPlayer);
 				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, false);
 			}
 		}
@@ -70,7 +70,7 @@ namespace OrchidMod.Gambler
 		// public override void UpdateInventory(Player player) {
 		// OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 		// Item currentCard = modPlayer.gamblerCardCurrent;
-		// this.checkStats(currentCard, modPlayer);
+		// this.checkStats(currentCard, player, modPlayer);
 		// }
 
 		public override bool AltFunctionUse(Player player)
@@ -95,7 +95,7 @@ namespace OrchidMod.Gambler
 							Main.PlaySound(SoundID.Item64, player.position);
 							OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
 							currentCard = modPlayer.gamblerCardCurrent;
-							this.checkStats(currentCard, modPlayer);
+							this.checkStats(currentCard, player, modPlayer);
 						}
 						return false;
 					}
@@ -106,7 +106,7 @@ namespace OrchidMod.Gambler
 							OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
 							Main.PlaySound(SoundID.Item64, player.position);
 							currentCard = modPlayer.gamblerCardCurrent;
-							this.checkStats(currentCard, modPlayer);
+							this.checkStats(currentCard, player, modPlayer);
 						}
 					}
 				}
@@ -146,11 +146,11 @@ namespace OrchidMod.Gambler
 			}
 		}
 
-		public void checkStats(Item currentCard, OrchidModPlayer modPlayer)
+		public void checkStats(Item currentCard, Player player, OrchidModPlayer modPlayer)
 		{
 			if (currentCard.type != ItemID.None)
 			{
-				item.damage = (int)(currentCard.damage * modPlayer.gamblerDamage);
+				item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.allDamage - 1f));
 				//item.rare = currentCard.rare; //
 				item.crit = currentCard.crit + modPlayer.gamblerCrit;
 				item.useAnimation = currentCard.useAnimation;

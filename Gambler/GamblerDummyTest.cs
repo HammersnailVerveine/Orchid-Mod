@@ -43,7 +43,7 @@ namespace OrchidMod.Gambler
 					Main.PlaySound(SoundID.Item64, player.position);
 					OrchidModGamblerHelper.drawDummyCard(player, modPlayer);
 					currentCard = modPlayer.gamblerCardDummy;
-					this.checkStats(currentCard, modPlayer);
+					this.checkStats(currentCard, player, modPlayer);
 					Color floatingTextColor = new Color(255, 200, 0);
 					CombatText.NewText(player.Hitbox, floatingTextColor, modPlayer.gamblerCardDummy.Name);
 					return false;
@@ -55,7 +55,7 @@ namespace OrchidMod.Gambler
 			}
 
 			currentCard = modPlayer.gamblerCardDummy;
-			this.checkStats(currentCard, modPlayer);
+			this.checkStats(currentCard, player, modPlayer);
 			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, position, speedX, speedY, type, item.damage, item.knockBack, true);
 			return false;
 		}
@@ -141,11 +141,11 @@ namespace OrchidMod.Gambler
 							+ "\n[c/FF0000:Test Item]");
 		}
 
-		public void checkStats(Item currentCard, OrchidModPlayer modPlayer)
+		public void checkStats(Item currentCard, Player player, OrchidModPlayer modPlayer)
 		{
 			if (currentCard.type != ItemID.None)
 			{
-				item.damage = (int)(currentCard.damage * modPlayer.gamblerDamage);
+				item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.allDamage - 1f));
 				//item.rare = currentCard.rare;
 				item.crit = currentCard.crit + modPlayer.gamblerCrit;
 				item.useAnimation = currentCard.useAnimation;

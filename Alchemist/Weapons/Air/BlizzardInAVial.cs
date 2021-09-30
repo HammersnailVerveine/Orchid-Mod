@@ -46,7 +46,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			{
 				for (int i = 0; i < nb; i++)
 				{
-					int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+					int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 					Vector2 vel = (new Vector2(0f, -(float)((3 * alchProj.nbElements) + Main.rand.Next(3))).RotatedByRandom(MathHelper.ToRadians(10)));
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>();
 					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);

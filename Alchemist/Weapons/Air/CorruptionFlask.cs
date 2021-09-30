@@ -61,7 +61,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 			if (!spawnedMushroom)
 			{
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 10, 0f, 0f, projType, dmg, 3f, projectile.owner);
 			}
 		}

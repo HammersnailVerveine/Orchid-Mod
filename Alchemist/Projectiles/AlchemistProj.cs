@@ -337,7 +337,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			if (this.nbElements > 2 && player.HasBuff(BuffType<Alchemist.Buffs.QueenBeeFlaskBuff>()))
 			{
 				int itemType = ItemType<QueenBeeFlask>();
-				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, this.nbElements, true);
+				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, this.nbElements, true);
 				int rand = this.nbElements + Main.rand.Next(3);
 				for (int i = 0; i < rand; i++)
 				{
@@ -355,7 +355,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Water.DungeonFlaskProj>();
 				int itemType = ItemType<DungeonFlask>();
-				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, itemType, this.nbElements, true);
+				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, this.nbElements, true);
 				for (int i = 0; i < this.nbElements; i++)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));

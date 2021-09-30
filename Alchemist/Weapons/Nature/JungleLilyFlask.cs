@@ -61,7 +61,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			OrchidModProjectile.spawnDustCircle(projectile.Center, this.rightClickDust, (int)(range * 0.5), (int)(nb / 3), true, 1.5f, 1f, 16f, true, true, false, 0, 0, true);
 
 			int projType = ProjectileType<Alchemist.Projectiles.Nature.JungleLilyFlaskProj>();
-			int damage = getSecondaryDamage(modPlayer, alchProj.nbElements);
+			int damage = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 			int newProjectileInt = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, 0f, projectile.owner);
 			Projectile newProjectile = Main.projectile[newProjectileInt];
 			newProjectile.width = range * 2;

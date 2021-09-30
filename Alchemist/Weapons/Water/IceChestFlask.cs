@@ -87,7 +87,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 				OrchidModProjectile.spawnDustCircle(projectile.Center, this.rightClickDust, (int)(range * 0.75), nb, true, 1.5f, 1f, 8f);
 				OrchidModProjectile.spawnDustCircle(projectile.Center, this.rightClickDust, (int)(range * 0.5), (int)(nb / 3), true, 1.5f, 1f, 16f, true, true, false, 0, 0, true);
 
-				int damage = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int damage = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				/*
 				int projType = ProjectileType<Alchemist.Projectiles.Water.IceChestFlaskProj>();
 				int newProjectileInt = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, 0f, projectile.owner);

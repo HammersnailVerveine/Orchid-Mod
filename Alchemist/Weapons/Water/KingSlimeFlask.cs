@@ -46,7 +46,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			rand += player.HasBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>()) ? 2 : 0;
 			if (Main.rand.Next(10) < rand && !alchProj.noCatalyticSpawn)
 			{
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				dmg += player.HasBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>()) ? 5 : 0;
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));

@@ -80,7 +80,7 @@ namespace OrchidMod.Content.Items.Ranger
 
 	public class SearingOnslaughtProjectile : OrchidProjectile
 	{
-		private int _charge = 0;
+		//private int _charge = 0;
 
 		// ...
 

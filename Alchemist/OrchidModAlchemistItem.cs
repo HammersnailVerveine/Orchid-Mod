@@ -283,6 +283,8 @@ namespace OrchidMod.Alchemist
 			bool[] elements = orchidModPlayer.alchemistElements;
 			Item[] flasks = orchidModPlayer.alchemistFlasks;
 
+			damage = (int)(damage * player.allDamage);
+			
 			int index = (int)element - 1;
 
 			orchidModPlayer.alchemistPotency -= potencyCost;
@@ -304,9 +306,9 @@ namespace OrchidMod.Alchemist
 			orchidModPlayer.alchemistColorB = orchidModPlayer.alchemistColorB > 255 ? 255 : orchidModPlayer.alchemistColorB;
 		}
 
-		public int getSecondaryDamage(OrchidModPlayer modPlayer, int bonusDamage = 0, bool bonusDamageScaling = true)
+		public int getSecondaryDamage(Player player, OrchidModPlayer modPlayer, int bonusDamage = 0, bool bonusDamageScaling = true)
 		{
-			int dmg = (int)((this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f))) * modPlayer.alchemistDamage);
+			int dmg = (int)((this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f))) * (modPlayer.alchemistDamage + player.allDamage - 1f));
 			return dmg;
 		}
 	}

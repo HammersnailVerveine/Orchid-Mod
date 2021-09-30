@@ -40,11 +40,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 				int spawnProj = alchProj.natureFlask.type == ItemType<Alchemist.Weapons.Nature.PoisonVial>() ? ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProjAlt>() : ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProjAlt>();
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
 			}
-			int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+			int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 			int shoot = ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProj>();
 			if (alchProj.natureFlask.type == ItemType<Alchemist.Weapons.Nature.PoisonVial>())
 			{
-				dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, alchProj.natureFlask.type, alchProj.nbElements);
+				dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, alchProj.natureFlask.type, alchProj.nbElements);
 				shoot = ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProj>();
 			}
 			nb = alchProj.hasCloud() ? 2 : 1;
@@ -63,11 +63,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			rand += alchProj.hasCloud() ? 2 : 0;
 			if (Main.rand.Next(10) < rand && !alchProj.noCatalyticSpawn)
 			{
-				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SeafoamBubble>();
 				if (alchProj.natureFlask.type == ItemType<Alchemist.Weapons.Nature.PoisonVial>())
 				{
-					dmg = OrchidModAlchemistHelper.getSecondaryDamage(modPlayer, alchProj.natureFlask.type, alchProj.nbElements);
+					dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, alchProj.natureFlask.type, alchProj.nbElements);
 					proj = ProjectileType<Alchemist.Projectiles.Reactive.PoisonBubble>();
 				}
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));

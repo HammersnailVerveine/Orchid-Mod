@@ -41,7 +41,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.EmberVialProjAlt>();
 				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
 			}
-			int dmg = this.getSecondaryDamage(modPlayer, 0);
+			int dmg = this.getSecondaryDamage(player, modPlayer, 0);
 			int rand = alchProj.nbElements + Main.rand.Next(2);
 			for (int i = 0; i < rand; i++)
 			{
