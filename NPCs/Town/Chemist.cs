@@ -391,7 +391,7 @@ namespace OrchidMod.NPCs.Town
 			}
 
 			if (!reactions.Contains((int)AlchemistHiddenReactionType.JUNGLELILYPURIFICATION)
-			&& (player.HasItem(ModContent.ItemType<Alchemist.Misc.JungleLilyItem>()) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.JungleLilyFlask>())))
+			&& (player.HasItem(ModContent.ItemType<Content.Items.Materials.JungleLily>()) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.JungleLilyFlask>())))
 			{
 				if (buttonClicked)
 				{

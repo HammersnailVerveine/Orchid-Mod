@@ -28,22 +28,15 @@ namespace OrchidMod.Shaman
 			projectile.alpha = 255;
 		}
 
-		public override void OnSpawn()
+		public void OnChangeSelectedItem(Player owner)
 		{
-			var owner = Main.player[projectile.owner];
-
 			this.SelectedItem = owner.selectedItem;
-		}
-
-		public void OnChangeSelectedItem()
-		{
-			// ...
+			projectile.netUpdate = true;
 		}
 
 		public override void AI()
 		{
 			var owner = Main.player[projectile.owner];
-			var shaman = owner.GetOrchidPlayer();
 			var death = false;
 
 			if (!owner.active || owner.dead)
@@ -55,6 +48,7 @@ namespace OrchidMod.Shaman
 			var item = this.CatalystItem;
 			if (item == null || !(item.modItem is OrchidModShamanItem shamanItem))
 			{
+				projectile.Kill();
 				return;
 			}
 
@@ -177,7 +171,7 @@ namespace OrchidMod.Shaman
 			if (!ModContent.TextureExists(shamanItem.CatalystTexture)) return false;
 
 			var player = Main.player[projectile.owner];
-			var color = Lighting.GetColor((int)(projectile.position.X / 16f), (int)(projectile.position.Y / 16f), Color.White);
+			var color = Lighting.GetColor((int)(projectile.Center.X / 16f), (int)(projectile.Center.Y / 16f), Color.White);
 
 			if (shamanItem.PreDrawCatalyst(spriteBatch, projectile, player, ref color))
 			{
