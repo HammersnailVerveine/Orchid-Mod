@@ -215,7 +215,7 @@ namespace OrchidMod
 
 				if (Main.rand.Next(2) == 0)
 				{
-					player.QuickSpawnItem(ItemType<Alchemist.Misc.JungleLilyItem>(), 1);
+					player.QuickSpawnItem(ModContent.ItemType<Content.Items.Materials.JungleLily>(), 1);
 				}
 
 				if (Main.rand.Next(20) == 0)

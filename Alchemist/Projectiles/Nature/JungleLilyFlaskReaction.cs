@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Projectiles.Nature
@@ -53,7 +54,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 						if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt(size * size + size * size))
 						{
 							Tile baseTile = Framing.GetTileSafely(k, l);
-							if (baseTile.type == TileType<Tiles.Ambient.JungleLilyTile>() && baseTile.frameX == 0 && baseTile.frameY == 0)
+							if (baseTile.type == ModContent.TileType<Content.Items.Materials.JungleLilyTile>() && baseTile.frameX == 0 && baseTile.frameY == 0)
 							{
 								for (int w = 0; w < 2; w++)
 								{
@@ -65,8 +66,8 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 									}
 								}
 								//WorldGen.SquareTileFrame(k, l, true);
-								Item.NewItem((k + 1) * 16, (l + 1) * 16, 0, 0, ItemType<Alchemist.Misc.JungleLilyItemBloomed>());
-								OrchidModProjectile.spawnDustCircle(new Vector2((k + 1) * 16, (l + 1) * 16), DustType<Content.Dusts.BloomingDust>(), 5, 8, true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
+								Item.NewItem((k + 1) * 16, (l + 1) * 16, 0, 0, ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>());
+								OrchidModProjectile.spawnDustCircle(new Vector2((k + 1) * 16, (l + 1) * 16), ModContent.DustType<Content.Dusts.BloomingDust>(), 5, 8, true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
 							}
 						}
 					}

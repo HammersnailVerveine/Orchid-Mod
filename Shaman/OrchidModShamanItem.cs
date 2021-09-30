@@ -142,10 +142,14 @@ namespace OrchidMod.Shaman
 			else
 			{
 				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == catalystType);
-				if (proj != null && proj.modProjectile is CatalystAnchor catalyst && catalyst.SelectedItem != player.selectedItem)
+				if (proj != null && proj.modProjectile is CatalystAnchor catalyst)
 				{
-					catalyst.OnChangeSelectedItem(player);
+					if (catalyst.SelectedItem != player.selectedItem)
+					{
+						catalyst.OnChangeSelectedItem(player);
+					}
 				}
+				else shaman.shamanCatalystIndex = -1;
 			}
 
 			this.SafeHoldItem();

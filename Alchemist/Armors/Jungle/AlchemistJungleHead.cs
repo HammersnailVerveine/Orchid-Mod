@@ -57,9 +57,9 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(null, "JungleLilyItemBloomed", 1);
-			recipe.AddIngredient(210, 1); // Vine
-			recipe.AddIngredient(331, 3); // Jungle Spores
+			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>(), 1);
+			recipe.AddIngredient(ItemID.Vine, 1);
+			recipe.AddIngredient(ItemID.JungleSpores, 3);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
