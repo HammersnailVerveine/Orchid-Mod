@@ -52,11 +52,6 @@ namespace OrchidMod.Shaman
 			this.SafeSetDefaults();
 
 			orchidItem.shamanWeaponElement = this.empowermentType;
-
-			if (this.energy == -1)
-			{
-				this.energy = (int)(item.useTime / 2);
-			}
 		}
 
 		public sealed override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -75,32 +70,34 @@ namespace OrchidMod.Shaman
 			newMove *= new Vector2(speedX, speedY).Length();
 			speedX = newMove.X;
 			speedY = newMove.Y;
+			int exhaustion = (int)(energy * shaman.shamanExhaustionRate);
+			exhaustion = exhaustion < 0 ? 0 : exhaustion;
 
 			switch (empowermentType)
 			{
 				case 1:
 					shaman.shamanPollFire = shaman.shamanPollFire < 0 ? 0 : shaman.shamanPollFire;
-					shaman.shamanPollFire += energy;
+					shaman.shamanPollFire += exhaustion;
 					shaman.shamanPollFireMax = shaman.shamanFireBondLoading == 100 ? shaman.shamanPollFireMax : false;
 					break;
 				case 2:
 					shaman.shamanPollWater = shaman.shamanPollWater < 0 ? 0 : shaman.shamanPollWater;
-					shaman.shamanPollWater += energy;
+					shaman.shamanPollWater += exhaustion;
 					shaman.shamanPollWaterMax = shaman.shamanWaterBondLoading == 100 ? shaman.shamanPollWaterMax : false;
 					break;
 				case 3:
 					shaman.shamanPollAir = shaman.shamanPollAir < 0 ? 0 : shaman.shamanPollAir;
-					shaman.shamanPollAir += energy;
+					shaman.shamanPollAir += exhaustion;
 					shaman.shamanPollAirMax = shaman.shamanAirBondLoading == 100 ? shaman.shamanPollAirMax : false;
 					break;
 				case 4:
 					shaman.shamanPollEarth = shaman.shamanPollEarth < 0 ? 0 : shaman.shamanPollEarth;
-					shaman.shamanPollEarth += energy;
+					shaman.shamanPollEarth += exhaustion;
 					shaman.shamanPollEarthMax = shaman.shamanEarthBondLoading == 100 ? shaman.shamanPollEarthMax : false;
 					break;
 				case 5:
 					shaman.shamanPollSpirit = shaman.shamanPollSpirit < 0 ? 0 : shaman.shamanPollSpirit;
-					shaman.shamanPollSpirit += energy;
+					shaman.shamanPollSpirit += exhaustion;
 					shaman.shamanPollSpiritMax = shaman.shamanSpiritBondLoading == 100 ? shaman.shamanPollSpiritMax : false;
 					break;
 				default:

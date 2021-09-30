@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sapphire Circlet");
-			Tooltip.SetDefault("Having an active water bond increases shamanic critical strike chance by 10%"
+			Tooltip.SetDefault("Having an active water bond reduces bond exhaustion by 10%"
 							  + "\nYour shamanic bonds will last 3 seconds longer");
 		}
 

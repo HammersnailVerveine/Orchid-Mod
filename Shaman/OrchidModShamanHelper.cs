@@ -122,7 +122,7 @@ namespace OrchidMod.Shaman
 
 				if (modPlayer.shamanSapphire)
 				{
-					modPlayer.shamanCrit += 10;
+					modPlayer.shamanExhaustionRate -= 0.1f;
 				}
 
 				if (modPlayer.shamanHeavy)
@@ -613,6 +613,7 @@ namespace OrchidMod.Shaman
 		{
 			modPlayer.shamanCrit = 0;
 			modPlayer.shamanDamage = 1.0f;
+			modPlayer.shamanExhaustionRate = 1.0f;
 			modPlayer.shamanBuffTimer = 6;
 			modPlayer.hauntedCandle = false;
 			modPlayer.spawnedGhost = false;

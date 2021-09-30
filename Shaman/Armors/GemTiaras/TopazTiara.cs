@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Topaz Circlet");
-			Tooltip.SetDefault("Having an active earth bond defense by 5"
+			Tooltip.SetDefault("Having an active earth bond increases defense by 5"
 							  + "\nYour shamanic bonds will last 3 seconds longer");
 		}
 
