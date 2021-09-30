@@ -213,7 +213,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				if (modPlayer.alchemistMeteor)
 				{
-					player.AddBuff((BuffType<Alchemist.Buffs.MeteorSpeed>()), 60 * 3);
+					player.AddBuff((BuffType<Alchemist.Buffs.MeteorSpeed>()), 60 * 10);
 				}
 			}
 		}
