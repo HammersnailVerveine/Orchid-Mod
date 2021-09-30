@@ -49,6 +49,12 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+		{
+			fallThrough = projectile.timeLeft > 590;
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+		}
+
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			if (projectile.penetrate < 0) projectile.Kill();

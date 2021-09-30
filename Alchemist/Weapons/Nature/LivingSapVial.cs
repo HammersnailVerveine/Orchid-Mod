@@ -27,23 +27,29 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Living Sap Flask");
-			Tooltip.SetDefault("Creates a healing living sap bubble"
+			Tooltip.SetDefault("Creates a healing living sap bubble if used with other ingredients"
+							+ "\nIf an air element is used, healing is doubled"
 							+ "\nHas a chance to release a bigger, catalytic sap bubble"
 							+ "\nOn reaction, heals players and coats enemies in alchemical nature");
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
-			int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
-			int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.LivingSapVialProj>();
-			Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
-			Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
-			int nb = 2 + Main.rand.Next(2);
-			for (int i = 0; i < nb; i++)
-			{
-				vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(90)));
-				spawnProj = ProjectileType<Alchemist.Projectiles.Nature.LivingSapVialProjAlt>();
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+			if (alchProj.nbElements > 1) {
+				int dmg = getSecondaryDamage(modPlayer, alchProj.nbElements);
+				if (alchProj.airFlask.type == 0) {
+					dmg *= 2;
+				}
+				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.LivingSapVialProj>();
+				Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
+				int nb = 2 + Main.rand.Next(2);
+				for (int i = 0; i < nb; i++)
+				{
+					vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(90)));
+					spawnProj = ProjectileType<Alchemist.Projectiles.Nature.LivingSapVialProjAlt>();
+					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+				}
 			}
 		}
 

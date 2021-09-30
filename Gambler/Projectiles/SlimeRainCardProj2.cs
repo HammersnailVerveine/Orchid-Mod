@@ -28,11 +28,6 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void AI()
 		{
-			if (projectile.ai[1] == 1f)
-			{
-				this.initialized = true;
-			}
-
 			if (projectile.timeLeft == 180)
 			{
 				this.greenSlime = Main.rand.Next(2) == 0;

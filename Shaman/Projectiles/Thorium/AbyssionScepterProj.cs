@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
@@ -9,6 +10,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public Vector2 storedVelocity;
 		public float dustVelocity = 0f;
 		public int storedDamage = 0;
+		public Vector2 storedPosition = Vector2.Zero;
+		public List<int> hitEnemies = new List<int>();
 
 		public override void SafeSetDefaults()
 		{
@@ -37,6 +40,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				projectile.velocity *= 0f;
 				this.storedDamage = projectile.damage;
 				projectile.damage = 0;
+				storedPosition = projectile.position;
 			}
 
 			if (projectile.timeLeft > 50)
@@ -54,7 +58,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			else
 			{
 				projectile.damage = this.storedDamage;
-				projectile.velocity = storedVelocity * 1.75f;
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 27);
 				Main.dust[dust].velocity = projectile.velocity / 2f;
 				Main.dust[dust].scale = 2f;
@@ -63,6 +66,45 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				Main.dust[dust2].velocity = projectile.velocity / 3f;
 				Main.dust[dust2].scale = 2.5f;
 				Main.dust[dust2].noGravity = true;
+
+				Vector2 move = Vector2.Zero;
+				float distance = 140f;
+				bool target = false;
+				for (int k = 0; k < 200; k++)
+				{
+					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && !(hitEnemies.Contains(k)))
+					{
+						Vector2 newMove = Main.npc[k].Center - projectile.Center;
+						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+						if (distanceTo < distance)
+						{
+							move = newMove;
+							distance = distanceTo;
+							target = true;
+						}
+					}
+				}
+
+				if (target)
+				{
+					AdjustMagnitude(ref move);
+					projectile.velocity = (8 * projectile.velocity + move) / 1f;
+					AdjustMagnitude(ref projectile.velocity);
+					projectile.timeLeft ++;
+				} else {
+					projectile.position = storedPosition;
+					projectile.velocity = storedVelocity * 1.75f;
+					storedPosition = projectile.position + projectile.velocity;
+				}
+			}
+		}
+		
+		private void AdjustMagnitude(ref Vector2 vector)
+		{
+			float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+			if (magnitude > 8f)
+			{
+				vector *= 8f / magnitude;
 			}
 		}
 
@@ -86,6 +128,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				Main.dust[index2].noGravity = true;
 			}
 		}
+		
+		public virtual bool? CanHitNPC(NPC target) {
+			return !(target.friendly || this.hitEnemies.Contains(target.whoAmI));
+		}
 
 		public override void Kill(int timeLeft)
 		{
@@ -102,6 +148,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
 			target.AddBuff(153, 60 * 5); // Shadowflame
+			hitEnemies.Add(target.whoAmI);
+			projectile.position = storedPosition;
 		}
 	}
 }

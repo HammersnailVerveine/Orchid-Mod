@@ -73,11 +73,11 @@ namespace OrchidMod.Gambler.Projectiles
 					{
 						if ((float)(Main.screenPosition.X + Main.mouseX) > projectile.Center.X)
 						{
-							projectile.velocity.X += projectile.velocity.X < 4f ? this.justHit > 0 ? 0.15f : 0.25f : 0f;
+							projectile.velocity.X += projectile.velocity.X < 6f ? this.justHit > 0 ? 0.15f : 0.25f : 0f;
 						}
 						else
 						{
-							projectile.velocity.X -= projectile.velocity.X > -4f ? this.justHit > 0 ? 0.15f : 0.25f : 0f;
+							projectile.velocity.X -= projectile.velocity.X > -6f ? this.justHit > 0 ? 0.15f : 0.25f : 0f;
 						}
 					}
 					else
@@ -86,6 +86,15 @@ namespace OrchidMod.Gambler.Projectiles
 						{
 							projectile.velocity.X *= 0.9f;
 						}
+					}
+
+					bool fallThrough = Main.screenPosition.Y + Main.mouseY > projectile.Center.Y;
+					if (projectile.ai[1] == 0f && fallThrough) {
+						projectile.ai[1] = 1f;
+						projectile.netUpdate = true;
+					} else if (projectile.ai[1] == 1f && !fallThrough) {
+						projectile.ai[1] = 0f;
+						projectile.netUpdate = true;
 					}
 
 					int velocityXBy1000 = (int)(newMove.X * 1000f);
@@ -101,6 +110,12 @@ namespace OrchidMod.Gambler.Projectiles
 					projectile.Kill();
 				}
 			}
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+		{
+			fallThrough = projectile.ai[1] == 1f;
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

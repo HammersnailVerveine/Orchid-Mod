@@ -91,7 +91,7 @@ namespace OrchidMod.Content.Items.Placeables
 			name.SetDefault("Locked Shroom Chest");
 			AddMapEntry(new Color(174, 129, 92), name, MapChestName);
 
-			dustType = DustID.Silt;
+			dustType = 239;
 			disableSmartCursor = true;
 			adjTiles = new int[] { TileID.Containers };
 			chest = "Shroom Chest";

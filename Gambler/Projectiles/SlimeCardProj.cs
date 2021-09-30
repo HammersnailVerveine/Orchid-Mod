@@ -12,6 +12,7 @@ namespace OrchidMod.Gambler.Projectiles
 		private int justHit = 0;
 		private int velocityStuck = 0;
 		private float oldPositionY = 0f;
+		private bool cursorUnder = false;
 
 		public override void SetStaticDefaults()
 		{
@@ -88,6 +89,15 @@ namespace OrchidMod.Gambler.Projectiles
 						}
 					}
 
+					bool fallThrough = Main.screenPosition.Y + Main.mouseY > projectile.Center.Y;
+					if (projectile.ai[1] == 0f && fallThrough) {
+						projectile.ai[1] = 1f;
+						projectile.netUpdate = true;
+					} else if (projectile.ai[1] == 1f && !fallThrough) {
+						projectile.ai[1] = 0f;
+						projectile.netUpdate = true;
+					}
+
 					int velocityXBy1000 = (int)(newMove.X * 1000f);
 					int oldVelocityXBy1000 = (int)(projectile.velocity.X * 1000f);
 
@@ -101,6 +111,12 @@ namespace OrchidMod.Gambler.Projectiles
 					projectile.Kill();
 				}
 			}
+		}
+
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+		{
+			fallThrough = projectile.ai[1] == 1f;
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
