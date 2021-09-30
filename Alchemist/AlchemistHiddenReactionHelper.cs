@@ -119,8 +119,8 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONFLIPPER, 1, "Flipper Potion",
 			"Gives 30 seconds of Flipper Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionFlipper,
 			ItemType<ShiverthornFlask>(), ItemType<WaterleafFlask>()));
-			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONOBSIDIAN, 1, "Obsidian Potion",
-			"Gives 30 seconds of Obsidian Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionObsidian,
+			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONOBSIDIAN, 1, "Obsidian Skin Potion",
+			"Gives 30 seconds of Obsidian Skin Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionObsidian,
 			ItemType<FireblossomFlask>(), ItemType<WaterleafFlask>()));
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONNIGHTOWL, 1, "Night Owl Potion",
 			"Gives 30 seconds of Night Owl Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionNightOwl,
