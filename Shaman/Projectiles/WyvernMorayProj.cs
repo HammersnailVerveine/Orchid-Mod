@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Projectiles
 			DisplayName.SetDefault("Wyvern Spit");
 
 			ProjectileID.Sets.TrailingMode[projectile.type] = 0;
-			ProjectileID.Sets.TrailCacheLength[projectile.type] = 15;
+			ProjectileID.Sets.TrailCacheLength[projectile.type] = 12;
 		}
 
 		public override void SafeSetDefaults()
@@ -43,8 +43,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void OnSpawn()
 		{
-			_trail = new TriangularTrail(target: projectile, length: 16 * 13, width: (p) => 20 * (1 - p * 0.25f), color: (p) => GetCurrentColor() * (1 - p), effect: EffectsManager.WyvernMorayEffect);
-			_trail.SetMaxPoints(35);
+			_trail = new RoundedTrail(target: projectile, length: 16 * 7, width: (p) => 20 * (1 - p * 0.35f), color: (p) => GetCurrentColor() * (1 - p), effect: EffectsManager.WyvernMorayEffect);
 
 			PrimitiveTrailSystem.NewTrail(_trail);
 		}
@@ -83,7 +82,7 @@ namespace OrchidMod.Shaman.Projectiles
 				}
 
 				texture = OrchidHelper.GetExtraTexture(13);
-				spriteBatch.Draw(texture, drawPos, null, color * 0.45f, Main.GlobalTime, texture.Size() * 0.5f, projectile.scale * 0.85f, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos, null, color * 0.4f, Main.GlobalTime, texture.Size() * 0.5f, projectile.scale * 0.75f, SpriteEffects.None, 0);
 				spriteBatch.Draw(texture, drawPos, null, color * 0.8f, Main.GlobalTime * 5f, texture.Size() * 0.5f, projectile.scale * 0.3f, SpriteEffects.None, 0);
 
 				texture = OrchidHelper.GetExtraTexture(8);

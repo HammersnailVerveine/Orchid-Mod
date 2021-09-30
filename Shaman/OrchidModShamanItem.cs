@@ -136,63 +136,19 @@ namespace OrchidMod.Shaman
 				{
 					proj.Kill();
 					shaman.shamanCatalystIndex = -1;
-					return;
 				}
-				else
-				{
-					catalyst.OnChangeSelectedItem();
-					catalyst.SelectedItem = player.selectedItem;
-					proj.netUpdate = true;
-				}
+				else catalyst.OnChangeSelectedItem(player);
 			}
 			else
 			{
-				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI);
-				if (proj == null || !(proj.modProjectile is CatalystAnchor catalyst)) return; // ...
-
-				if (catalyst.SelectedItem != player.selectedItem)
+				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == catalystType);
+				if (proj != null && proj.modProjectile is CatalystAnchor catalyst && catalyst.SelectedItem != player.selectedItem)
 				{
-					catalyst.OnChangeSelectedItem();
-					catalyst.SelectedItem = player.selectedItem;
+					catalyst.OnChangeSelectedItem(player);
 				}
 			}
 
 			this.SafeHoldItem();
-
-			/*OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-
-			if (modPlayer.shamanCatalyst < 1)
-			{
-				int projType = ProjectileType<CatalystAnchor>();
-
-				for (int l = 0; l < Main.projectile.Length; l++)
-				{
-					Projectile proj = Main.projectile[l];
-					if (proj.type == projType && proj.owner == player.whoAmI)
-					{
-						proj.Kill();
-					}
-				}
-
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projType, 0, 0f, player.whoAmI);
-			}
-
-			if (modPlayer.shamanSelectedItem != item.type)
-			{
-				modPlayer.shamanSelectedItem = item.type;
-				string textureLocation = "OrchidMod/Shaman/CatalystTextures/" + this.Name + "_Catalyst";
-
-				if (TextureExists(textureLocation))
-				{
-					modPlayer.shamanCatalystTexture = GetTexture(textureLocation);
-					modPlayer.shamanCatalystType = catalystType;
-				}
-			}
-
-			modPlayer.shamanCatalyst = 3;
-			*/
-
-			//this.SafeHoldItem();
 		}
 
 		public sealed override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
