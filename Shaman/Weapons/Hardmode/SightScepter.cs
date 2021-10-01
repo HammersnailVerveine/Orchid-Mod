@@ -79,7 +79,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 			OrchidModProjectile.SetSpriteBatch(spriteBatch, blendState: BlendState.Additive);
 			{
-				if (player.itemAnimation > 0)
+				/*if (player.itemAnimation > 0)
 				{
 					var progress = 1 - player.itemAnimation / (float)player.itemAnimationMax;
 					var scale = projectile.scale * 0.5f * OrchidHelper.GradientValue<float>(MathHelper.Lerp, progress, 0, .8f, 1, .8f, .4f, 0);
@@ -88,7 +88,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 					position = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY) + new Vector2(MathHelper.Lerp(20f, -20f, progress), 0).RotatedBy(projectile.ai[0]);
 					color = Main.DiscoColor * 0.8f;
 					spriteBatch.Draw(texture, position, new Rectangle(0, 0, 180, 30), color, projectile.ai[0] + MathHelper.PiOver2, new Vector2(90, 30), scale, SpriteEffects.None, 0);
-				}
+				}*/
 
 				texture = OrchidHelper.GetExtraTexture(16);
 				position = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY);
@@ -98,16 +98,13 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 			OrchidModProjectile.SetSpriteBatch(spriteBatch);
 
-			texture = ModContent.GetTexture(this.CatalystTexture);
-			color = Color.White;
-			spriteBatch.Draw(texture, position, null, color, projectile.rotation, texture.Size() * 0.5f, projectile.scale, projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
-
-			return false;
+			lightColor = Color.White;
+			return true;
 		}
 
 		public override void PostDrawCatalyst(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor)
 		{
-			if (player.itemAnimation > 0)
+			/*if (player.itemAnimation > 0)
 			{
 				OrchidModProjectile.SetSpriteBatch(spriteBatch, blendState: BlendState.Additive);
 
@@ -120,7 +117,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				spriteBatch.Draw(texture, position, new Rectangle(0, 30, 180, 30), color, projectile.ai[0] + MathHelper.PiOver2, new Vector2(90, 0), scale, SpriteEffects.None, 0);
 
 				OrchidModProjectile.SetSpriteBatch(spriteBatch);
-			}
+			}*/
 		}
 	}
 }

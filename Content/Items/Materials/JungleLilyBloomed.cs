@@ -19,6 +19,14 @@ namespace OrchidMod.Content.Items.Materials
 			item.maxStack = 99;
 			item.rare = ItemRarityID.Green;
 			item.value = Item.sellPrice(0, 0, 5, 0);
+
+			item.useTurn = true;
+			item.autoReuse = true;
+			item.useAnimation = 15;
+			item.useTime = 10;
+			item.useStyle = ItemUseStyleID.SwingThrow;
+			item.consumable = true;
+			item.createTile = ModContent.TileType<JungleLilyTile>();
 		}
 	}
 }
