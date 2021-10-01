@@ -57,32 +57,31 @@ namespace OrchidMod.Gambler.Projectiles
 				}
 			}
 		}
+		
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		{
+			if (projectile.ai[1] != 1f && projectile.owner == Main.myPlayer)
+			{
+				modPlayer.gamblerSeedCount += 6 + (modPlayer.gamblerLuckySprout ? 2 : 0);
+				if (modPlayer.gamblerSeedCount > 99) {
+					modPlayer.gamblerSeedCount = 0;
+					Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
+					int projType = ProjectileType<Gambler.Projectiles.SkyCardProjAlt>();
+					bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+					OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
+					for (int i = 0; i < 5; i++)
+					{
+						int dustType = 31;
+						Main.dust[Dust.NewDust(player.Center, 10, 10, dustType)].velocity *= 0.25f;
+					}
+				}
+			}
+		}
 
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 9);
 			OrchidModProjectile.spawnDustCircle(projectile.Center, 64, 5, 5, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
-
-			bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-			int dustType = 64;
-			Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
-			int rand = 40 - (modPlayer.gamblerLuckySprout ? 8 : 0);
-			if (Main.rand.Next(rand) == 0 && projectile.ai[1] != 1f && projectile.owner == Main.myPlayer)
-			{
-				Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
-				int projType = ProjectileType<Gambler.Projectiles.SkyCardProjAlt>();
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
-				for (int i = 0; i < 5; i++)
-				{
-					Main.dust[Dust.NewDust(pos, projectile.width, projectile.height, dustType)].velocity *= 0.25f;
-				}
-			}
-			for (int i = 0; i < 3; i++)
-			{
-				Main.dust[Dust.NewDust(pos, projectile.width, projectile.height, dustType)].noGravity = true;
-			}
 		}
 	}
 }

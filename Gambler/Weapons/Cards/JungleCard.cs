@@ -24,7 +24,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			DisplayName.SetDefault("Playing Card : Jungle");
 			Tooltip.SetDefault("Releases homing spores, dealing more damage for each already active one"
-							+ "\nChances to release a seed, replicating the attack");
+							+ "\nPeriodically summons a seed, replicating the attack");
 		}
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)

@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			DisplayName.SetDefault("Playing Card : Sky");
 			Tooltip.SetDefault("Calls stars from the sky"
 							+ "\nThe stars will sharply turn upon reaching cursor height"
-							+ "\nChances to summon a skyware banana, replicating the attack");
+							+ "\nPeriodically summons a skyware banana, replicating the attack");
 		}
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)

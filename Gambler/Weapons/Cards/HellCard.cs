@@ -24,7 +24,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			DisplayName.SetDefault("Playing Card : Hell");
 			Tooltip.SetDefault("Launches fiery mortar"
-							+ "\nChances to summon a pepper, replicating the attack");
+							+ "\nPeriodically summons a pepper, replicating the attack");
 		}
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)

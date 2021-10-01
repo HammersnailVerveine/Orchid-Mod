@@ -15,7 +15,7 @@ namespace OrchidMod.Gambler.Accessories
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lucky Sprout");
-			Tooltip.SetDefault("Increases the chance for gambler 'biome' cards to spawn seeds");
+			Tooltip.SetDefault("Increases the frequency at which 'biome' cards spawns seeds");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

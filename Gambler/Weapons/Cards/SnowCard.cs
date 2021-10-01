@@ -26,7 +26,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			DisplayName.SetDefault("Playing Card : Snow");
 			Tooltip.SetDefault("Throws returning snowflakes backwards, gaining in damage over time"
 							+ "\nThe snowflakes cannot be thrown diagonally"
-							+ "\nChances to summon a pine cone, replicating the attack");
+							+ "\nPeriodically summons a pine cone, replicating the attack");
 		}
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)

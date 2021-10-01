@@ -97,6 +97,8 @@ namespace OrchidMod
 		public bool gamblerHasCardInDeck = false;
 
 		public int gamblerTimerHoney = 0;
+		public int gamblerSeedCount = 0;
+		
 		public bool gamblerDungeon = false;
 		public bool gamblerLuckySprout = false;
 		public bool gamblerPennant = false;

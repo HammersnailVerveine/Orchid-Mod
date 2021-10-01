@@ -390,6 +390,8 @@ namespace OrchidMod.Gambler
 					}
 				}
 			}
+			
+			modPlayer.gamblerSeedCount = 0;
 		}
 
 		public static bool hasGamblerDeck(Player player)

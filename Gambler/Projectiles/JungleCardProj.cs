@@ -144,11 +144,31 @@ namespace OrchidMod.Gambler.Projectiles
 				vector *= 6f / magnitude;
 			}
 		}
+		
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		{
+			target.AddBuff(20, 60 * 1);
+			
+			if (projectile.ai[1] != 1f && projectile.owner == Main.myPlayer)
+			{
+				modPlayer.gamblerSeedCount += 10 + (modPlayer.gamblerLuckySprout ? 3 : 0);
+				if (modPlayer.gamblerSeedCount > 99) {
+					modPlayer.gamblerSeedCount = 0;
+					Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
+					int projType = ProjectileType<Gambler.Projectiles.JungleCardProjAlt>();
+					bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+					OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
+					for (int i = 0; i < 5; i++)
+					{
+						int dustType = 31;
+						Main.dust[Dust.NewDust(player.Center, 10, 10, dustType)].velocity *= 0.25f;
+					}
+				}
+			}
+		}
 
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			for (int i = 0; i < 3; i++)
 			{
 				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 44);
@@ -156,24 +176,6 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.dust[dust].noLight = true;
 				Main.dust[dust].velocity *= 3f;
 			}
-			Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
-			int rand = 10 - (modPlayer.gamblerLuckySprout ? 2 : 0);
-			if (Main.rand.Next(rand) == 0 && projectile.localAI[1] != 1f && projectile.owner == Main.myPlayer)
-			{
-				Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
-				int projType = ProjectileType<Gambler.Projectiles.JungleCardProjAlt>();
-				bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X, projectile.position.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
-				for (int i = 0; i < 5; i++)
-				{
-					Main.dust[Dust.NewDust(pos, projectile.width, projectile.height, 44)].velocity *= 0.25f;
-				}
-			}
-		}
-
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
-		{
-			target.AddBuff(20, 60 * 1);
 		}
 	}
 }

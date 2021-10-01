@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			DisplayName.SetDefault("Playing Card : Glowing Mushroom");
 			Tooltip.SetDefault("Throws bouncy mushrooms, exploding on second contact"
 							+ "\nThe projectile cannot deal damage before bouncing once"
-							+ "\nChances to summon a fungi, replicating the attack");
+							+ "\nPeriodically summons a fungi, replicating the attack");
 		}
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)

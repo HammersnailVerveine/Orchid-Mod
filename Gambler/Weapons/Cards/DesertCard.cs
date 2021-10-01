@@ -24,7 +24,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			DisplayName.SetDefault("Playing Card : Desert");
 			Tooltip.SetDefault("Rapidly fires thorns"
-							+ "\nChances to summon a cactus, replicating the attack");
+							+ "\nPeriodically summons a cactus, replicating the attack");
 		}
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
