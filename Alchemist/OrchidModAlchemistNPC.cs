@@ -25,9 +25,8 @@ namespace OrchidMod.Alchemist
 			if (Main.myPlayer == player.whoAmI)
 			{
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-				Vector2 move = Vector2.Zero;
 				float distance = 1000f;
-				for (int k = 0; k < 200; k++)
+				for (int k = 0; k < Main.maxNPCs ; k++)
 				{
 					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly)
 					{

@@ -14,7 +14,7 @@ namespace OrchidMod.Alchemist.Accessories
 			item.rare = 3;
 			item.accessory = true;
 			item.crit = 4;
-			item.damage = 22;
+			item.damage = 37;
 		}
 
 		public override void SetStaticDefaults()

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Alchemist.Weapons.Air;
 using OrchidMod.Alchemist.Weapons.Fire;
 using OrchidMod.Alchemist.Weapons.Water;
+using System;
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -252,6 +253,34 @@ namespace OrchidMod.Alchemist.Projectiles
 		{
 			if (this.projOwner)
 			{
+				if (modPlayer.alchemistCovent && this.nbElements > 2 && this.airFlaskGlobal == null) { // Keystone of the Convent
+					float distance = 500f;
+					bool keystoneCrit = (Main.rand.Next(101) <= modPlayer.alchemistCrit + 4);
+					int keystoneDamage = (int)(22 * (modPlayer.alchemistDamage + player.allDamage - 1f));
+					int absorbedCount = 0;
+					int spawnProj = ProjectileType<Alchemist.Projectiles.Air.KeystoneOfTheConventProj>();
+					for (int k = 0; k < Main.maxNPCs ; k++)
+					{
+						if (Main.npc[k].active)
+						{
+							Vector2 newMove = Main.npc[k].Center - target.Center;
+							float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+							if (distanceTo < distance)
+							{
+								OrchidModAlchemistNPC modTargetSecondary = Main.npc[k].GetGlobalNPC<OrchidModAlchemistNPC>();
+								if (modTargetSecondary.alchemistAir > 0)
+								{
+									modTargetSecondary.alchemistAir = 0;
+									absorbedCount ++;
+									newMove /= -10f;
+									Projectile.NewProjectile(Main.npc[k].Center.X, Main.npc[k].Center.Y, newMove.X, newMove.Y, spawnProj, 0, 0f, projectile.owner);
+								}
+							}
+						}
+					}
+					player.ApplyDamageToNPC(target, Main.DamageVar(keystoneDamage * absorbedCount), 0f, player.direction, keystoneCrit);
+				}
+				
 				this.hitNPC = true;
 				OrchidModGlobalNPC modTargetGlobal = target.GetGlobalNPC<OrchidModGlobalNPC>();
 
