@@ -1179,7 +1179,7 @@ namespace OrchidMod
 								tile.ClearTile();
 							}
 						}
-						WorldGen.PlaceTile(x, y, ModContent.TileType<Content.Items.Materials.JungleLilyTile>());
+						WorldGen.PlaceTile(x, y, ModContent.TileType<Content.Items.Materials.JungleLilyTile>(), style: WorldGen.genRand.Next(4));
 					}
 				}
 			}
