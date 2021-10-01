@@ -13,7 +13,8 @@ namespace OrchidMod.Content.Items.Materials
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Jungle Lily Bud");
-			Tooltip.SetDefault("Maybe the chemist could help you making it bloom?");
+			Tooltip.SetDefault("It closed when you picked it up"
+							+ "\nMaybe the chemist could help you?");
 		}
 
 		public override void SetDefaults()
