@@ -8,7 +8,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 200;
+			item.damage = 130;
 			item.magic = true;
 			item.width = 64;
 			item.height = 64;
