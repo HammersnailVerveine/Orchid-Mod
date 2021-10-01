@@ -1386,7 +1386,7 @@ namespace OrchidMod
 			return true;
 		}
 
-		public override void PostWorldGen()
+		public override void PostWorldGen() // TODO : Better chest spawn & item guarantee code
 		{
 			EndMineshaft(mineshaft, OrchidMSarrays.MSLenght, OrchidMSarrays.MSHeight, MSMinPosX, MSMinPosY);
 			EndMineshaft(minishaft1, 5, 3, minishaft1X, minishaft1Y);
@@ -1417,6 +1417,7 @@ namespace OrchidMod
 			bool spawnedIvyChestCard = false;
 			bool spawnedBloomingBud = false;
 			bool spawnedStellarTalc = false;
+			bool spawnedKeystoneOfTheCovent = false;
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
@@ -1556,16 +1557,19 @@ namespace OrchidMod
 
 				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 4 * 36)
 				{
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.Next(5) < 3)
 					{
 						int rand = Main.rand.Next(2);
 						if (rand == 0)
 						{
 							spawnedFireBatScepter = placeInChest(chest, ItemType<Shaman.Weapons.FireBatScepter>(), 1);
 						}
-						else
+						else if (rand == 1)
 						{
 							spawnedShadowChestFlask = placeInChest(chest, ItemType<Alchemist.Weapons.Air.ShadowChestFlask>(), 1);
+						}
+						else {
+							spawnedKeystoneOfTheCovent = placeInChest(chest, ItemType<Alchemist.Accessories.KeystoneOfTheCovent>(), 1);
 						}
 					}
 				}
@@ -1726,6 +1730,10 @@ namespace OrchidMod
 					if (!spawnedShadowChestFlask)
 					{
 						spawnedShadowChestFlask = placeInChest(chest, ItemType<Alchemist.Weapons.Air.ShadowChestFlask>(), 1);
+					}
+					if (!spawnedKeystoneOfTheCovent)
+					{
+						spawnedKeystoneOfTheCovent = placeInChest(chest, ItemType<Alchemist.Accessories.KeystoneOfTheCovent>(), 1);
 					}
 				}
 

@@ -140,14 +140,16 @@ namespace OrchidMod
 		public bool alchemistBookUIInitialize = false;
 		public bool alchemistDailyHint = false;
 		public bool alchemistEntryTextCooldown = false;
+		public int alchemistLastAttackDelay = 0;
 
+		public int alchemistFlower = 0;
+		public int alchemistFlowerTimer = 0;
+		
 		public bool alchemistMeteor = false;
 		public bool alchemistFlowerSet = false;
 		public bool alchemistMushroomSpores = false;
 		public bool alchemistReactiveVials = false;
-		public int alchemistFlower = 0;
-		public int alchemistFlowerTimer = 0;
-		public int alchemistLastAttackDelay = 0;
+		public bool alchemistCovent = false;
 
 		/*Shaman*/
 		public float shamanDamage = 1.0f;

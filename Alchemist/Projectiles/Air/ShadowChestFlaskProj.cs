@@ -25,6 +25,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			projectile.aiStyle = 0;
 			projectile.timeLeft = 120;
 			projectile.penetrate = -1;
+			projectile.tileCollide = false;
 		}
 
 		public override void AI()
@@ -75,13 +76,6 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				newProj.ai[1] = 2f;
 				newProj.netUpdate = true;
 			}
-		}
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			projectile.friendly = false;
-			projectile.velocity = oldVelocity;
-			return false;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
