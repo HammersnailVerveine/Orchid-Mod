@@ -1559,7 +1559,7 @@ namespace OrchidMod
 				{
 					if (Main.rand.Next(5) < 3)
 					{
-						int rand = Main.rand.Next(2);
+						int rand = Main.rand.Next(3);
 						if (rand == 0)
 						{
 							spawnedFireBatScepter = placeInChest(chest, ItemType<Shaman.Weapons.FireBatScepter>(), 1);
