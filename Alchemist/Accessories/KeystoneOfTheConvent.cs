@@ -4,7 +4,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Accessories
 {
-	public class KeystoneOfTheCovent : OrchidModAlchemistEquipable
+	public class KeystoneOfTheConvent : OrchidModAlchemistEquipable
 	{
 		public override void SafeSetDefaults()
 		{
@@ -14,13 +14,14 @@ namespace OrchidMod.Alchemist.Accessories
 			item.rare = 3;
 			item.accessory = true;
 			item.crit = 4;
-			item.damage = 25;
+			item.damage = 22;
 		}
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Keystone of the Covent");
-			Tooltip.SetDefault("uwu");
+			DisplayName.SetDefault("Keystone of the Convent");
+			Tooltip.SetDefault("Attacks with at least 3 non-air ingredients will be empowered"
+							+ "\nHit target will be dealt damage for all nearby air coatings, consuming them");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

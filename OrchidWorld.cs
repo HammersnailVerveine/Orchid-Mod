@@ -1417,7 +1417,7 @@ namespace OrchidMod
 			bool spawnedIvyChestCard = false;
 			bool spawnedBloomingBud = false;
 			bool spawnedStellarTalc = false;
-			bool spawnedKeystoneOfTheCovent = false;
+			bool spawnedKeystoneOfTheConvent = false;
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
@@ -1569,7 +1569,7 @@ namespace OrchidMod
 							spawnedShadowChestFlask = placeInChest(chest, ItemType<Alchemist.Weapons.Air.ShadowChestFlask>(), 1);
 						}
 						else {
-							spawnedKeystoneOfTheCovent = placeInChest(chest, ItemType<Alchemist.Accessories.KeystoneOfTheCovent>(), 1);
+							spawnedKeystoneOfTheConvent = placeInChest(chest, ItemType<Alchemist.Accessories.KeystoneOfTheConvent>(), 1);
 						}
 					}
 				}
@@ -1731,9 +1731,9 @@ namespace OrchidMod
 					{
 						spawnedShadowChestFlask = placeInChest(chest, ItemType<Alchemist.Weapons.Air.ShadowChestFlask>(), 1);
 					}
-					if (!spawnedKeystoneOfTheCovent)
+					if (!spawnedKeystoneOfTheConvent)
 					{
-						spawnedKeystoneOfTheCovent = placeInChest(chest, ItemType<Alchemist.Accessories.KeystoneOfTheCovent>(), 1);
+						spawnedKeystoneOfTheConvent = placeInChest(chest, ItemType<Alchemist.Accessories.KeystoneOfTheConvent>(), 1);
 					}
 				}
 
