@@ -44,13 +44,14 @@ namespace OrchidMod.Shaman.Projectiles
 				Main.dust[index].noGravity = true;
 			}
 
-			if (projectile.timeLeft == 3600)
+			if (!this.initialized)
 			{
 				if (projectile.ai[1] == 3f)
 				{
 					this.faster = true;
 				}
 				projectile.ai[1] = 2f;
+				this.initialized = true;
 			}
 
 			if (projectile.ai[1] == 0f || projectile.ai[1] == 2f)

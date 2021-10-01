@@ -12,8 +12,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			item.damage = 63;
 			item.width = 48;
 			item.height = 48;
-			item.useTime = 20;
-			item.useAnimation = 20;
+			item.useTime = 45;
+			item.useAnimation = 45;
 			item.knockBack = 0f;
 			item.rare = 5;
 			item.value = Item.sellPrice(0, 5, 0, 0);

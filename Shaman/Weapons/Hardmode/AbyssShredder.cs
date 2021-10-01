@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
-			this.energy = 6;
+			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()
