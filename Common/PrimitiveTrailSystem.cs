@@ -88,7 +88,8 @@ namespace OrchidMod.Common
 			protected Func<Entity, Vector2> _customPositionMethod = null;
 
 			private readonly Effect _effect;
-			//private readonly bool _additive;
+
+			// ...
 
 			public Trail(Entity target, int length, Effect effect = null, bool additive = false)
 			{
