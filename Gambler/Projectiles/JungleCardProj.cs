@@ -149,7 +149,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			target.AddBuff(20, 60 * 1);
 			
-			if (projectile.ai[1] != 1f && projectile.owner == Main.myPlayer)
+			if (projectile.localAI[1] != 1f && projectile.owner == Main.myPlayer)
 			{
 				modPlayer.gamblerSeedCount += 10 + (modPlayer.gamblerLuckySprout ? 3 : 0);
 				if (modPlayer.gamblerSeedCount > 99) {
