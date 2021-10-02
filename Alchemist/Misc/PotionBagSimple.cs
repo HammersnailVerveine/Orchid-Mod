@@ -87,8 +87,6 @@ namespace OrchidMod.Alchemist.Misc
 						item.TurnToAir();
 					}
 				}
-			} else {
-				// sound
 			}
 		}
 	}
