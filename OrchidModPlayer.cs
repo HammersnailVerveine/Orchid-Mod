@@ -278,6 +278,13 @@ namespace OrchidMod
 			OrchidModGamblerHelper.onRespawnGambler(player, this);
 			this.alchemistKnownReactions = new List<int>();
 			this.alchemistKnownHints = new List<int>();
+			
+			this.alchemistPotionBag = new Item[16];
+			for (int i = 0; i < 16; i++)
+			{
+				this.alchemistPotionBag[i] = new Item();
+				this.alchemistPotionBag[i].SetDefaults(0, true);
+			}
 		}
 
 		public override TagCompound Save()
