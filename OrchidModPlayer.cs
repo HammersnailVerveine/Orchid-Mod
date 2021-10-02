@@ -110,6 +110,7 @@ namespace OrchidMod
 
 		public List<int> alchemistKnownReactions = new List<int>();
 		public List<int> alchemistKnownHints = new List<int>();
+		public Item[] alchemistPotionBag = new Item[16];
 		public float alchemistDamage = 1.0f;
 		public float alchemistVelocity = 1.0f;
 		public int alchemistCrit = 0;
@@ -143,6 +144,7 @@ namespace OrchidMod
 		public bool alchemistDailyHint = false;
 		public bool alchemistEntryTextCooldown = false;
 		public int alchemistLastAttackDelay = 0;
+		public int alchemistHasBag = 5;
 
 		public int alchemistFlower = 0;
 		public int alchemistFlowerTimer = 0;
@@ -283,6 +285,7 @@ namespace OrchidMod
 			return new TagCompound
 			{
 				["GamblerCardsItem"] = gamblerCardsItem.Select(ItemIO.Save).ToList(),
+				["AlchemistBag"] = alchemistPotionBag.Select(ItemIO.Save).ToList(),
 				["ChemistHint"] = alchemistDailyHint,
 				["AlchemistHidden"] = alchemistKnownReactions.ToList(),
 				["AlchemistHints"] = alchemistKnownHints.ToList(),
@@ -303,6 +306,20 @@ namespace OrchidMod
 					{
 						gamblerCardsItem[i] = new Item();
 						gamblerCardsItem[i].SetDefaults(0, true);
+					}
+				}
+			}
+			
+			alchemistPotionBag = tag.GetList<TagCompound>("AlchemistBag").Select(ItemIO.Load).ToArray();
+			if (alchemistPotionBag.Length != 16)
+			{
+				Array.Resize(ref alchemistPotionBag, 16);
+				for (int i = 0; i < alchemistPotionBag.Length; i++)
+				{
+					if (alchemistPotionBag[i] == null)
+					{
+						alchemistPotionBag[i] = new Item();
+						alchemistPotionBag[i].SetDefaults(0, true);
 					}
 				}
 			}

@@ -274,9 +274,8 @@ namespace OrchidMod.Alchemist.UI
 			modPlayer.alchemistSelectUIKeysInitialize = false;
 			element = AlchemistElement.NULL;
 
-			for (int i = 0; i < Main.maxInventory; i++)
+			foreach (Item item in this.ConcatInventories(Main.LocalPlayer, modPlayer))
 			{
-				Item item = Main.LocalPlayer.inventory[i];
 				if (item.type != 0)
 				{
 					OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
@@ -299,9 +298,8 @@ namespace OrchidMod.Alchemist.UI
 				this.displayItems = new List<Item>();
 				while (displayItems.Count() == 0)
 				{
-					for (int i = 0; i < Main.maxInventory; i++)
+					foreach (Item item in this.ConcatInventories(Main.LocalPlayer, modPlayer))
 					{
-						Item item = Main.LocalPlayer.inventory[i];
 						if (item.type != 0)
 						{
 							OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
@@ -409,6 +407,10 @@ namespace OrchidMod.Alchemist.UI
 			displayItems = new List<Item>();
 			releasedKey = true;
 			if (emptyTexture == null) emptyTexture = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistKeysUIEMpty");
+		}
+		
+		public Item[] ConcatInventories(Player player, OrchidModPlayer modPlayer) {
+            return modPlayer.alchemistPotionBag.Concat(player.inventory).ToArray();
 		}
 	}
 }

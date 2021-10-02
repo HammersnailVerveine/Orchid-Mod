@@ -244,19 +244,18 @@ namespace OrchidMod.Alchemist.UI
 			mouseDiff = new Point(point.X - (int)Main.MouseScreen.X, point.Y - (int)Main.MouseScreen.Y);
 			displayPoint.X = point.X - mouseDiff.X;
 			displayPoint.Y = point.Y - mouseDiff.Y;
-			this.checkInventory();
+			this.checkInventory(modPlayer);
 			this.setRectangles();
 		}
 
-		public void checkInventory()
+		public void checkInventory(OrchidModPlayer modPlayer)
 		{
 			this.nbAlchemistWeapons = 0;
 			int val = this.displayRectangles.Count() - 1;
 			this.displayItems = new List<Item>();
 
-			for (int i = 0; i < Main.maxInventory; i++)
+			foreach (Item item in this.ConcatInventories(Main.LocalPlayer, modPlayer))
 			{
-				Item item = Main.LocalPlayer.inventory[i];
 				if (item.type != 0)
 				{
 					OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
@@ -310,6 +309,10 @@ namespace OrchidMod.Alchemist.UI
 			this.displayRectangles.Add(new Rectangle(displayPoint.X - drawOffSet + drawSize * 2, displayPoint.Y - drawOffSet - drawSize - 2, drawSize, drawSize));
 			this.displayRectangles.Add(new Rectangle(displayPoint.X - drawOffSet + drawSize * 2, displayPoint.Y - drawOffSet + 0, drawSize, drawSize));
 			this.displayRectangles.Add(new Rectangle(displayPoint.X - drawOffSet + drawSize * 2, displayPoint.Y - drawOffSet + drawSize + 2, drawSize, drawSize));
+		}
+		
+		public Item[] ConcatInventories(Player player, OrchidModPlayer modPlayer) {
+            return modPlayer.alchemistPotionBag.Concat(player.inventory).ToArray();
 		}
 
 		public AlchemistSelectUIFrame()

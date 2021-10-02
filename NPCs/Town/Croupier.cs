@@ -226,13 +226,13 @@ namespace OrchidMod.NPCs.Town
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
+			shop.item[nextSlot].SetDefaults(ItemType<Gambler.GamblerDummy>());
+			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Chips.GamblingChip>());
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Dice.GamblingDie>());
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.ShuffleCard>());
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ItemType<Gambler.GamblerDummy>());
 			nextSlot++;
 
 			if (!player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneSkyHeight && !player.ZoneCrimson && !player.ZoneHoly && !player.ZoneJungle && !player.ZoneSnow && !player.ZoneDesert && !player.ZoneGlowshroom && player.ZoneOverworldHeight)

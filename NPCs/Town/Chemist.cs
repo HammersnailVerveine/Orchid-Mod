@@ -244,6 +244,8 @@ namespace OrchidMod.NPCs.Town
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.ReactionItem>());
 			nextSlot++;
+			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.PotionBagSimple>());
+			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.EmptyFlask>());
 			nextSlot++;
 			if (NPC.downedQueenBee)

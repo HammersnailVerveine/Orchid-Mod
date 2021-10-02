@@ -102,9 +102,20 @@ namespace OrchidMod.Alchemist
 				OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);
 				OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
 			}
+			
+			if (modPlayer.alchemistHasBag < 1 && modPlayer.alchemistPotionBag[0].type != 0) {
+				foreach (Item item in modPlayer.alchemistPotionBag) {
+					if (item.type != 0)
+					{
+						player.QuickSpawnItem(item.type, 1);
+						item.TurnToAir();
+					}
+				}
+			}
 
 			modPlayer.alchemistDailyHint = (Main.dayTime && Main.time == 0) ? false : modPlayer.alchemistDailyHint;
 			modPlayer.alchemistLastAttackDelay += modPlayer.alchemistLastAttackDelay < 3600 ? 1 : 0;
+			modPlayer.alchemistHasBag -= modPlayer.alchemistHasBag > 0 ? 1 : 0;
 
 			modPlayer.alchemistPotencyMax = 8;
 			modPlayer.alchemistRegenPotency = 60;
