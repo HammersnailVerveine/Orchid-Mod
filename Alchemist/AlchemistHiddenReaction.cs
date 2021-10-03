@@ -408,45 +408,6 @@ namespace OrchidMod.Alchemist
 			}
 		}
 
-		public static void GlowshroomHealing(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
-		{
-			if (Main.myPlayer == player.whoAmI)
-				player.HealEffect(25, true);
-			player.statLife += 25;
-
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 56);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
-		}
-
-		public static void Bubbles(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
-		{
-		}
-
-		public static void SunflowerSeeds(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
-		{
-			int itemType = ItemType<SunflowerFlask>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
-			int nb = 5 + Main.rand.Next(4);
-
-			for (int i = 0; i < 5; i++)
-			{
-				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(10)).RotatedBy(MathHelper.ToRadians(-40 + (20 * i))));
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj1>(), dmg, 0f, player.whoAmI);
-			}
-
-			for (int i = 0; i < nb; i++)
-			{
-				Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj4>();
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
-			}
-		}
-
 		public static void StellarTalcOrbit(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
 		{
 			player.AddBuff(BuffType<Alchemist.Buffs.StellarTalcBuff>(), 60 * 60);
@@ -489,18 +450,6 @@ namespace OrchidMod.Alchemist
 			for (int i = 0; i < 10; i++)
 			{
 				int dust = Dust.NewDust(player.Center, 10, 10, 15);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
-		}
-
-		public static void BurningSamples(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
-		{
-			player.AddBuff(BuffType<Alchemist.Buffs.SlimeFlaskBuff>(), 60 * 60);
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 29);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 2f;
 				Main.dust[dust].scale *= 1.5f;

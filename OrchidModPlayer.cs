@@ -333,7 +333,7 @@ namespace OrchidMod
 
 			alchemistDailyHint = tag.GetBool("ChemistHint");
 			alchemistKnownReactions = tag.Get<List<string>>("AlchemistKnownReactions");
-			alchemistKnownHints = tag.Get<List<string>>("AlchemistHKnownHints");
+			alchemistKnownHints = tag.Get<List<string>>("AlchemistKnownHints");
 		}
 
 		public override void PreUpdate()

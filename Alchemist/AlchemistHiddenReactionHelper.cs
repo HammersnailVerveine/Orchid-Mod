@@ -27,17 +27,14 @@ namespace OrchidMod.Alchemist
 
 			List<AlchemistHiddenReactionRecipe> recipes = new List<AlchemistHiddenReactionRecipe>();
 			
+			recipes.Add(new RecipeSunflowerSeeds());
 			recipes.Add(new RecipeBubbles());
+			recipes.Add(new RecipeBurningSamples());
+			recipes.Add(new RecipeGlowshroomHealing());
 		/*
-			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.SUNFLOWERSEEDS, -1, "Sunflower Seeds",
-			"Releases damaging sunflower seeds around the player", 15, 2, 85, AlchemistHiddenReaction.SunflowerSeeds,
-			ItemType<SunflowerFlask>(), ItemType<SlimeFlask>()));
-			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.BURNINGSAMPLES, 1, "Burning Samples",
-			"Using slimy samples with a fire element will release damaging embers", 15, 2, 85, AlchemistHiddenReaction.BurningSamples,
-			ItemType<SlimeFlask>(), ItemType<EmberVial>()));
 
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.GLOWSHROOMHEALING, 1, "Glowshroom Healing",
-			"Heals the player for 25 health", 30, 2, 25, AlchemistHiddenReaction.GlowshroomHealing,
+			"", 30, 2, 25, AlchemistHiddenReaction.GlowshroomHealing,
 			ItemType<GlowingMushroomVial>(), ItemType<KingSlimeFlask>()));
 
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.MUSHROOMTHREAD, -2, "Mushroom Thread",
