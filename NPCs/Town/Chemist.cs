@@ -319,9 +319,9 @@ namespace OrchidMod.NPCs.Town
 				bool validHint = false;
 				foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes)
 				{
-					if (recipe.reactionLevel == progression)
+					if (recipe.level == progression)
 					{
-						if (!(modPlayer.alchemistKnownReactions.Contains((int)recipe.reactionType) || modPlayer.alchemistKnownHints.Contains((int)recipe.reactionType)))
+						if (!(modPlayer.alchemistKnownReactions.Contains(recipe.typeName) || modPlayer.alchemistKnownHints.Contains(recipe.typeName)))
 						{
 							validHint = true;
 							break;
@@ -366,12 +366,12 @@ namespace OrchidMod.NPCs.Town
 
 		public string checkUniqueHints(Player player, OrchidModPlayer modPlayer, bool buttonClicked)
 		{
-			List<int> reactions = new List<int>(modPlayer.alchemistKnownReactions);
+			List<string> reactions = new List<string>(modPlayer.alchemistKnownReactions);
 			reactions.AddRange(modPlayer.alchemistKnownHints);
 
-			if (!reactions.Contains((int)AlchemistHiddenReactionType.FIRESPORES)
-			|| !reactions.Contains((int)AlchemistHiddenReactionType.WATERSPORES)
-			|| !reactions.Contains((int)AlchemistHiddenReactionType.AIRSPORES))
+			if (!reactions.Contains("RecipeFireSpores")
+			|| !reactions.Contains("RecipeWaterSpores")
+			|| !reactions.Contains("RecipeAirSpores"))
 			{
 				if (buttonClicked)
 				{
@@ -382,7 +382,7 @@ namespace OrchidMod.NPCs.Town
 				return "Since this is your first time asking, here are three hints for the price of one! I'd highly advise getting your hands on a hidden reactions codex, now...";
 			}
 
-			if (!reactions.Contains((int)AlchemistHiddenReactionType.MUSHROOMTHREAD)
+			if (!reactions.Contains("RecipeMushroomThread")
 			&& (player.HasItem(183) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>())))
 			{
 				if (buttonClicked)
@@ -392,7 +392,7 @@ namespace OrchidMod.NPCs.Town
 				return "I see you found some glowing mushrooms. Did you know that you can make a pretty good thread with them? Here's the recipe.";
 			}
 
-			if (!reactions.Contains((int)AlchemistHiddenReactionType.JUNGLELILYPURIFICATION)
+			if (!reactions.Contains("RecipeJungleLilyPurification")
 			&& (player.HasItem(ModContent.ItemType<Content.Items.Materials.JungleLily>()) || player.HasItem(ModContent.ItemType<Alchemist.Weapons.Nature.JungleLilyFlask>())))
 			{
 				if (buttonClicked)

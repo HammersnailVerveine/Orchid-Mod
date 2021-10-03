@@ -108,8 +108,8 @@ namespace OrchidMod
 
 		/*Alchemist*/
 
-		public List<int> alchemistKnownReactions = new List<int>();
-		public List<int> alchemistKnownHints = new List<int>();
+		public List<string> alchemistKnownReactions = new List<string>();
+		public List<string> alchemistKnownHints = new List<string>();
 		public Item[] alchemistPotionBag = new Item[16];
 		public float alchemistDamage = 1.0f;
 		public float alchemistVelocity = 1.0f;
@@ -276,8 +276,8 @@ namespace OrchidMod
 			OrchidModAlchemistHelper.onRespawnAlchemist(player, this, mod);
 			OrchidModShamanHelper.onRespawnShaman(player, this, mod);
 			OrchidModGamblerHelper.onRespawnGambler(player, this);
-			this.alchemistKnownReactions = new List<int>();
-			this.alchemistKnownHints = new List<int>();
+			this.alchemistKnownReactions = new List<string>();
+			this.alchemistKnownHints = new List<string>();
 			
 			this.alchemistPotionBag = new Item[16];
 			for (int i = 0; i < 16; i++)
@@ -294,8 +294,8 @@ namespace OrchidMod
 				["GamblerCardsItem"] = gamblerCardsItem.Select(ItemIO.Save).ToList(),
 				["AlchemistBag"] = alchemistPotionBag.Select(ItemIO.Save).ToList(),
 				["ChemistHint"] = alchemistDailyHint,
-				["AlchemistHidden"] = alchemistKnownReactions.ToList(),
-				["AlchemistHints"] = alchemistKnownHints.ToList(),
+				["AlchemistKnownReactions"] = alchemistKnownReactions.ToList(),
+				["AlchemistKnownHints"] = alchemistKnownHints.ToList(),
 			};
 		}
 
@@ -332,8 +332,8 @@ namespace OrchidMod
 			}
 
 			alchemistDailyHint = tag.GetBool("ChemistHint");
-			alchemistKnownReactions = tag.Get<List<int>>("AlchemistHidden");
-			alchemistKnownHints = tag.Get<List<int>>("AlchemistHints");
+			alchemistKnownReactions = tag.Get<List<string>>("AlchemistKnownReactions");
+			alchemistKnownHints = tag.Get<List<string>>("AlchemistHKnownHints");
 		}
 
 		public override void PreUpdate()

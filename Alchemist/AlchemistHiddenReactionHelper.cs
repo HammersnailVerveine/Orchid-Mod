@@ -3,6 +3,7 @@ using OrchidMod.Alchemist.Weapons.Air;
 using OrchidMod.Alchemist.Weapons.Fire;
 using OrchidMod.Alchemist.Weapons.Nature;
 using OrchidMod.Alchemist.Weapons.Water;
+using OrchidMod.Alchemist.Recipes;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -25,7 +26,9 @@ namespace OrchidMod.Alchemist
 			*/
 
 			List<AlchemistHiddenReactionRecipe> recipes = new List<AlchemistHiddenReactionRecipe>();
-
+			
+			recipes.Add(new RecipeBubbles());
+		/*
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.SUNFLOWERSEEDS, -1, "Sunflower Seeds",
 			"Releases damaging sunflower seeds around the player", 15, 2, 85, AlchemistHiddenReaction.SunflowerSeeds,
 			ItemType<SunflowerFlask>(), ItemType<SlimeFlask>()));
@@ -134,13 +137,13 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.POTIONFEATHERFALL, 1, "Featherfall Potion",
 			"Gives 30 seconds of Featherfall Potion effect", 30, 2, 25, AlchemistHiddenReaction.PotionFeatherFall,
 			ItemType<DaybloomFlask>(), ItemType<BlinkrootFlask>(), ItemType<CloudInAVial>()));
-
+			*/
 			return recipes;
 		}
 
 		public static void triggerAlchemistReactionEffects(AlchemistHiddenReactionRecipe recipe, Mod mod, Player player, OrchidModPlayer modPlayer)
 		{
-			recipe.recipeEffect(recipe, player, modPlayer);
+			recipe.recipeEffect(player, modPlayer);
 
 			if (recipe.debuffDuration != 0)
 			{
@@ -198,14 +201,14 @@ namespace OrchidMod.Alchemist
 		public static void triggerAlchemistReaction(Mod mod, Player player, OrchidModPlayer modPlayer)
 		{
 			string floatingTextStr = "Failed reaction ...";
-			AlchemistHiddenReactionRecipe hiddenReaction = AlchemistHiddenReaction.NullRecipe;
+			AlchemistHiddenReactionRecipe hiddenReaction = new RecipeBlank();
 
 			foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes)
 			{
 				bool goodIngredients = true;
-				if (modPlayer.alchemistNbElements == recipe.reactionIngredients.Count)
+				if (modPlayer.alchemistNbElements == recipe.ingredients.Count)
 				{
-					foreach (int ingredientID in recipe.reactionIngredients)
+					foreach (int ingredientID in recipe.ingredients)
 					{
 						if (!(OrchidModAlchemistHelper.containsAlchemistFlask(ingredientID, player, modPlayer)))
 						{
@@ -219,11 +222,11 @@ namespace OrchidMod.Alchemist
 					if (goodIngredients)
 					{
 						hiddenReaction = recipe;
-						floatingTextStr = recipe.reactionText;
+						floatingTextStr = recipe.name;
 
 						int val = 0;
 						Item item = new Item();
-						foreach (int ingredientID in recipe.reactionIngredients)
+						foreach (int ingredientID in recipe.ingredients)
 						{
 							item.SetDefaults(ingredientID);
 							OrchidModGlobalItem globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
@@ -237,10 +240,10 @@ namespace OrchidMod.Alchemist
 				}
 			}
 
-			Color floatingTextColor = hiddenReaction.reactionType != AlchemistHiddenReactionType.NULL ? new Color(128, 255, 0) : new Color(255, 0, 0);
+			Color floatingTextColor = hiddenReaction.typeName != "RecipeBlank" ? new Color(128, 255, 0) : new Color(255, 0, 0);
 			CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
 
-			if (hiddenReaction.reactionType == AlchemistHiddenReactionType.NULL)
+			if (hiddenReaction.typeName == "RecipeBlank")
 			{
 				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 5);
 				for (int i = 0; i < 15; i++)
@@ -263,13 +266,13 @@ namespace OrchidMod.Alchemist
 			{
 				triggerAlchemistReactionEffects(hiddenReaction, mod, player, modPlayer);
 
-				if (!(modPlayer.alchemistKnownReactions.Contains((int)hiddenReaction.reactionType)))
+				if (!(modPlayer.alchemistKnownReactions.Contains(hiddenReaction.typeName)))
 				{
-					if (modPlayer.alchemistKnownHints.Contains((int)hiddenReaction.reactionType))
+					if (modPlayer.alchemistKnownHints.Contains(hiddenReaction.typeName))
 					{
-						modPlayer.alchemistKnownHints.Remove((int)hiddenReaction.reactionType);
+						modPlayer.alchemistKnownHints.Remove(hiddenReaction.typeName);
 					}
-					modPlayer.alchemistKnownReactions.Add((int)hiddenReaction.reactionType);
+					modPlayer.alchemistKnownReactions.Add(hiddenReaction.typeName);
 					floatingTextColor = new Color(255, 187, 0);
 					floatingTextStr = "New Entry";
 					Rectangle rect = player.Hitbox;
@@ -339,9 +342,9 @@ namespace OrchidMod.Alchemist
 
 			foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes)
 			{
-				if (recipe.reactionLevel == hintLevel)
+				if (recipe.level == hintLevel)
 				{
-					if (!(modPlayer.alchemistKnownReactions.Contains((int)recipe.reactionType) || modPlayer.alchemistKnownHints.Contains((int)recipe.reactionType)))
+					if (!(modPlayer.alchemistKnownReactions.Contains(recipe.typeName) || modPlayer.alchemistKnownHints.Contains(recipe.typeName)))
 					{
 						validHints.Add(recipe);
 					}
@@ -361,7 +364,7 @@ namespace OrchidMod.Alchemist
 			{
 				int rand = Main.rand.Next(validHints.Count);
 				AlchemistHiddenReactionRecipe hint = validHints[rand];
-				modPlayer.alchemistKnownHints.Add((int)hint.reactionType);
+				modPlayer.alchemistKnownHints.Add(hint.typeName);
 				if (!modPlayer.alchemistEntryTextCooldown)
 				{
 					floatingTextColor = new Color(255, 187, 0);

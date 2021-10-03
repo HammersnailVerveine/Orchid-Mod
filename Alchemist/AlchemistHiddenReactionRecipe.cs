@@ -3,32 +3,41 @@ using Terraria;
 
 namespace OrchidMod.Alchemist
 {
-	public class AlchemistHiddenReactionRecipe
+	public abstract class AlchemistHiddenReactionRecipe
 	{
-		public AlchemistHiddenReactionType reactionType = AlchemistHiddenReactionType.NULL;
-		public string reactionText = "blank";
-		public string reactionDescription = "blank description";
-		public List<int> reactionIngredients = new List<int>();
-		public int reactionLevel = 0;
+		public string typeName = "blankName";
+		public string name = "blank";
+		public string description = "blank description";
+		public List<int> ingredients = new List<int>();
+		public int level = 0;
 		public int debuffDuration = 0;
 		public int soundType = 0;
 		public int soundID = 0;
 
-		public delegate void RecipeEffect(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer);
+		public delegate void RecipeEffect(Player player, OrchidModPlayer modPlayer);
 		public RecipeEffect recipeEffect;
+		
+		public static void BlankEffect(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {}
+		
+		public virtual void SetDefaults() {}
+		public virtual void Reaction(Player player, OrchidModPlayer modPlayer) {}
 
-		public AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType rType, int rLevel, string rText, string rDesc, int rDuration, int rSoundType, int rSoundID, RecipeEffect rRecipeEffect, params int[] rItems)
+		public AlchemistHiddenReactionRecipe()
 		{
-			this.reactionType = rType;
-			this.reactionText = rText;
-			this.reactionLevel = rLevel;
-			this.debuffDuration = rDuration;
-			this.soundType = rSoundType;
-			this.soundID = rSoundID;
-			this.recipeEffect = rRecipeEffect;
+			this.typeName = this.GetType().Name;
+			this.name = "blank";
+			this.description = "blank description";
+			this.level = 0;
+			this.debuffDuration = 0;
+			this.soundType = 0;
+			this.soundID = 0;
+			this.recipeEffect = this.Reaction;
+			this.ingredients = new List<int>();
+			
+			this.SetDefaults();
 
 			string newDesc = "";
-			int len = rDesc.Length;
+			int len = description.Length;
 			int refParseLength = 32;
 			int firstParse = refParseLength;
 
@@ -36,7 +45,7 @@ namespace OrchidMod.Alchemist
 			{
 				for (int i = refParseLength; i > 0; i--)
 				{
-					if (rDesc[i] == ' ')
+					if (description[i] == ' ')
 					{
 						firstParse = i;
 						break;
@@ -50,7 +59,7 @@ namespace OrchidMod.Alchemist
 			{
 				for (int i = refParseLength + firstParse; i > firstParse + 1; i--)
 				{
-					if (rDesc[i] == ' ')
+					if (description[i] == ' ')
 					{
 						secondParse = i;
 						break;
@@ -58,7 +67,7 @@ namespace OrchidMod.Alchemist
 				}
 			}
 
-			for (int i = 0; i < rDesc.Length; i++)
+			for (int i = 0; i < description.Length; i++)
 			{
 				if (i == firstParse || i == secondParse)
 				{
@@ -66,15 +75,11 @@ namespace OrchidMod.Alchemist
 				}
 				else
 				{
-					newDesc += rDesc[i];
+					newDesc += description[i];
 				}
 			}
 
-			this.reactionDescription = newDesc;
-			for (int i = 0; i < rItems.Length; i++)
-			{
-				reactionIngredients.Add(rItems[i]);
-			}
+			this.description = newDesc;
 		}
 	}
 }

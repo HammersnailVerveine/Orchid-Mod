@@ -8,48 +8,8 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist
 {
-	public enum AlchemistHiddenReactionType : int
-	{
-		NULL = 0,
-		GLOWSHROOMHEALING = 1,
-		FIRESPORES = 2,
-		WATERSPORES = 3,
-		AIRSPORES = 4,
-		MUSHROOMTHREAD = 5,
-		POTIONFLIPPER = 6,
-		POTIONFEATHERFALL = 7,
-		POTIONINVISIBILITY = 8,
-		POTIONNIGHTOWL = 9,
-		POTIONBUILDER = 10,
-		PROPULSION = 11,
-		BUBBLESLIME = 12,
-		BUBBLESAP = 13,
-		BUBBLESEAFOAM = 14,
-		BUBBLEOIL = 15,
-		BEESWARM = 16,
-		BUBBLEPOISON = 17,
-		BUBBLESPIRITED = 18,
-		BUBBLES = 19,
-		SUNFLOWERSEEDS = 20,
-		STELLARTALCORBIT = 21,
-		ATTRACTITESHURIKENS = 22,
-		JUNGLELILYPURIFICATION = 23,
-		BUBBLESLIMELAVA = 24,
-		PERMANENTFREEZE = 25,
-		POISONOUSSLIME = 26,
-		LILIESPURIFICATION = 27,
-		BURNINGSAMPLES = 28,
-		LIVINGBEEHIVE = 29,
-		DEMONREEKS = 30,
-		SPIRITEDDROPLETS = 31,
-		MISTYSTEPS = 32,
-		POTIONOBSIDIAN = 33
-	}
-
 	public class AlchemistHiddenReaction
 	{
-		public static AlchemistHiddenReactionRecipe NullRecipe = new AlchemistHiddenReactionRecipe(AlchemistHiddenReactionType.NULL, 0, "", "", 0, 0, 0, AlchemistHiddenReaction.NullReaction);
-		public static void NullReaction(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) { }
 
 		public static void MushroomThread(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
 		{
@@ -465,21 +425,6 @@ namespace OrchidMod.Alchemist
 
 		public static void Bubbles(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
 		{
-			int itemType = ItemType<PoisonVial>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
-
-			for (int i = 0; i < 7; i++)
-			{
-				int spawnProj = Main.rand.Next(2) == 0 ? ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProj>() : ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProj>();
-				Projectile.NewProjectile(player.Center.X - 120 + i * 40, player.Center.Y, 0f, -(float)(3 + Main.rand.Next(4)) * 0.5f, spawnProj, dmg, 0f, player.whoAmI);
-			}
-
-			for (int i = 0; i < 11; i++)
-			{
-				Vector2 vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(10)));
-				int spawnProj = Main.rand.Next(2) == 0 ? ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProjAlt>() : ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProjAlt>();
-				Projectile.NewProjectile(player.Center.X - 150 + i * 30, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
-			}
 		}
 
 		public static void SunflowerSeeds(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
