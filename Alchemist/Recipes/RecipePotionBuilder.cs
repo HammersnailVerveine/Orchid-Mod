@@ -16,6 +16,9 @@ namespace OrchidMod.Alchemist.Recipes
 			this.debuffDuration = 30;
 			this.soundType = 2;
 			this.soundID = 25;
+			this.dust = 15;
+			this.buff = 107;
+			this.buffDuration = 30;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>());
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.ShiverthornFlask>());
@@ -25,14 +28,6 @@ namespace OrchidMod.Alchemist.Recipes
 		
 		public override void Reaction(Player player, OrchidModPlayer modPlayer)
 		{
-			player.AddBuff(107, 60 * 30); // Builder
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 15);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
 		}
 	}
 }

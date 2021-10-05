@@ -16,6 +16,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.debuffDuration = 25;
 			this.soundType = 2;
 			this.soundID = 97;
+			this.dust = 16;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.QueenBeeFlask>());
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.PoisonVial>()); 
@@ -24,14 +25,6 @@ namespace OrchidMod.Alchemist.Recipes
 		
 		public override void Reaction(Player player, OrchidModPlayer modPlayer)
 		{
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 16);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
-
 			int itemType = ItemType<Alchemist.Weapons.Air.QueenBeeFlask>();
 			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			for (int i = 0; i < 10; i++)

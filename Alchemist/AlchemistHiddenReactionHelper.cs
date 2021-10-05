@@ -67,6 +67,20 @@ namespace OrchidMod.Alchemist
 		public static void triggerAlchemistReactionEffects(AlchemistHiddenReactionRecipe recipe, Mod mod, Player player, OrchidModPlayer modPlayer)
 		{
 			recipe.recipeEffect(player, modPlayer);
+			
+			if (recipe.dust != 0) {
+				for (int i = 0; i < 10; i++)
+				{
+					int dust = Dust.NewDust(player.Center, 10, 10, recipe.dust);
+					Main.dust[dust].noGravity = true;
+					Main.dust[dust].velocity *= 2f;
+					Main.dust[dust].scale *= 1.5f;
+				}
+			}
+			
+			if (recipe.buff != 0 && recipe.buffDuration != 0) {
+				player.AddBuff(recipe.buff, 60 * recipe.buffDuration);
+			}
 
 			if (recipe.debuffDuration != 0)
 			{

@@ -16,6 +16,9 @@ namespace OrchidMod.Alchemist.Recipes
 			this.debuffDuration = 20;
 			this.soundType = 2;
 			this.soundID = 85;
+			this.dust = 16;
+			this.buff = BuffType<Alchemist.Buffs.StellarTalcBuff>();
+			this.buffDuration = 60;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.SunplateFlask>());
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>());
@@ -24,14 +27,6 @@ namespace OrchidMod.Alchemist.Recipes
 		
 		public override void Reaction(Player player, OrchidModPlayer modPlayer)
 		{
-			player.AddBuff(BuffType<Alchemist.Buffs.StellarTalcBuff>(), 60 * 60);
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 15);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
 		}
 	}
 }

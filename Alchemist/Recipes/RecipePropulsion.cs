@@ -16,6 +16,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.debuffDuration = 10;
 			this.soundType = 2;
 			this.soundID = 14;
+			this.dust = 15;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Fire.GunpowderFlask>());
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.CloudInAVial>());
@@ -26,13 +27,7 @@ namespace OrchidMod.Alchemist.Recipes
 		{
 			player.jump = 1;
 			player.velocity.Y = -15f;
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 15);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
+
 			for (int i = 0; i < 15; i++)
 			{
 				int dust = Dust.NewDust(player.Center, 10, 10, 37);

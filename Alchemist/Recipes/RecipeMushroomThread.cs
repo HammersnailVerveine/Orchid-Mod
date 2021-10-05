@@ -16,6 +16,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.debuffDuration = 15;
 			this.soundType = 2;
 			this.soundID = 25;
+			this.dust = 56;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>());
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>());
@@ -24,13 +25,6 @@ namespace OrchidMod.Alchemist.Recipes
 		
 		public override void Reaction(Player player, OrchidModPlayer modPlayer)
 		{
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 56);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
 			player.QuickSpawnItem(ItemType<Alchemist.Misc.MushroomThread>(), 1);
 		}
 	}

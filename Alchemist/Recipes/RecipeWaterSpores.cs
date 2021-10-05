@@ -16,6 +16,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.debuffDuration = 20;
 			this.soundType = 2;
 			this.soundID = 45;
+			this.dust = 33;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>());
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Water.WaterleafFlask>());
@@ -24,13 +25,6 @@ namespace OrchidMod.Alchemist.Recipes
 		
 		public override void Reaction(Player player, OrchidModPlayer modPlayer)
 		{
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 33);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
 			int itemType = ItemType<Alchemist.Weapons.Water.WaterleafFlask>();
 			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
 			for (int i = 0; i < 10; i++)

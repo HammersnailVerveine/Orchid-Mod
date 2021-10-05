@@ -13,6 +13,9 @@ namespace OrchidMod.Alchemist
 		public int debuffDuration = 0;
 		public int soundType = 0;
 		public int soundID = 0;
+		public int buff = 0;
+		public int buffDuration = 0;
+		public int dust = 0;
 
 		public delegate void RecipeEffect(Player player, OrchidModPlayer modPlayer);
 		public RecipeEffect recipeEffect;
@@ -33,6 +36,9 @@ namespace OrchidMod.Alchemist
 			this.soundID = 0;
 			this.recipeEffect = this.Reaction;
 			this.ingredients = new List<int>();
+			this.buff = 0;
+			this.dust = 0;
+			this.buffDuration = 0;
 			
 			this.SetDefaults();
 

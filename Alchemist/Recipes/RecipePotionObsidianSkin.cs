@@ -15,6 +15,9 @@ namespace OrchidMod.Alchemist.Recipes
 			this.description = "Gives 30 seconds of obsidian skin Potion effect";
 			this.debuffDuration = 30;
 			this.soundType = 2;
+			this.dust = 15;
+			this.buff = 1;
+			this.buffDuration = 30;
 			this.soundID = 25;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Fire.FireblossomFlask>());
@@ -24,14 +27,6 @@ namespace OrchidMod.Alchemist.Recipes
 		
 		public override void Reaction(Player player, OrchidModPlayer modPlayer)
 		{
-			player.AddBuff(1, 60 * 30); // Obsidian
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 15);
-				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
 		}
 	}
 }

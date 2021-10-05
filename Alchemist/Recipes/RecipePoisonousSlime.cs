@@ -16,6 +16,9 @@ namespace OrchidMod.Alchemist.Recipes
 			this.debuffDuration = 10;
 			this.soundType = 2;
 			this.soundID = 85;
+			this.dust = 44;
+			this.buff = BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>();
+			this.buffDuration = 60;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Water.KingSlimeFlask>());
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.PoisonVial>()); 
@@ -24,14 +27,6 @@ namespace OrchidMod.Alchemist.Recipes
 		
 		public override void Reaction(Player player, OrchidModPlayer modPlayer)
 		{
-			player.AddBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>(), 60 * 60);
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 44);
-				Main.dust[dust].noGravity = false;
-				Main.dust[dust].velocity *= 2f;
-				Main.dust[dust].scale *= 1.5f;
-			}
 		}
 	}
 }
