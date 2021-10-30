@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -16,7 +17,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			item.useStyle = 1;
 			item.noUseGraphic = true;
 			item.UseSound = SoundID.Item1;
-			item.useAnimation = 25;
+			item.useAnimation = 50;
 			item.useTime = 25;
 			item.knockBack = 6f;
 			item.damage = 30;

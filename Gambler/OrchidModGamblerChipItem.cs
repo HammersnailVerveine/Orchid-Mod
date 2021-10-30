@@ -13,6 +13,9 @@ namespace OrchidMod.Gambler
 
 		public virtual void SafeSetDefaults() { }
 		public virtual void SafeHoldItem() { }
+		public virtual bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed) {
+			return true;
+		}
 
 		public sealed override void SetDefaults()
 		{
@@ -38,12 +41,14 @@ namespace OrchidMod.Gambler
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.gamblerUIFightDisplay = true;
+			modPlayer.gamblerUIChipSpinDisplay = true;
 			SafeHoldItem();
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
-		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
+		{	
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			mult *= (modPlayer.gamblerDamage + modPlayer.gamblerDamageChip);
 		}
 
 		public override void GetWeaponCrit(Player player, ref int crit)
@@ -64,6 +69,13 @@ namespace OrchidMod.Gambler
 				OrchidModGamblerHelper.removeGamblerChip(this.consumeChance, this.chipCost, player, modPlayer, mod);
 			}
 			return base.CanUseItem(player);
+		}
+		
+		public sealed override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			modPlayer.gamblerPauseChipRotation = item.useAnimation;
+			float speed = new Vector2(speedX, speedY).Length() * -1f;
+			return this.SafeShoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack, modPlayer, speed);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

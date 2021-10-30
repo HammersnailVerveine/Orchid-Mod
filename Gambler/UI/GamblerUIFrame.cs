@@ -40,6 +40,8 @@ namespace OrchidMod.Gambler.UI
 
 		public static Texture2D UIDeckbuilding;
 		public static Texture2D UIDeckbuildingBlock;
+		
+		public static Texture2D chipDirection;
 
 		public int cardID = -1;
 		public int cardIDNext1 = -1;
@@ -50,7 +52,10 @@ namespace OrchidMod.Gambler.UI
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			Vector2 vector = new Vector2((float)((int)(Main.LocalPlayer.position.X - Main.screenPosition.X) - Main.GameViewMatrix.Translation.X - (float)(Main.LocalPlayer.bodyFrame.Width / 2) + (float)(Main.LocalPlayer.width / 2)), (float)((int)(Main.LocalPlayer.position.Y - Main.screenPosition.Y) - Main.GameViewMatrix.Translation.Y + (float)Main.LocalPlayer.height - (float)Main.LocalPlayer.bodyFrame.Height + 12f)) + Main.LocalPlayer.bodyPosition + new Vector2((float)(Main.LocalPlayer.bodyFrame.Width / 2));
+			Player player = Main.player[Main.myPlayer];
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			
+			Vector2 vector = new Vector2((float)((int)(Main.LocalPlayer.position.X - Main.screenPosition.X) - Main.GameViewMatrix.Translation.X - (float)(Main.LocalPlayer.bodyFrame.Width / 2) + (float)(Main.LocalPlayer.width / 2)), (float)((int)(Main.LocalPlayer.position.Y - Main.screenPosition.Y) - Main.GameViewMatrix.Translation.Y + (float)Main.LocalPlayer.height - (float)Main.LocalPlayer.bodyFrame.Height + 12f + player.gfxOffY)) + Main.LocalPlayer.bodyPosition + new Vector2((float)(Main.LocalPlayer.bodyFrame.Width / 2));
 			vector *= Main.GameViewMatrix.Zoom;
 			vector /= Main.UIScale;
 
@@ -61,11 +66,20 @@ namespace OrchidMod.Gambler.UI
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y - 100);
 			int width = (int)Math.Ceiling(dimensions.Width);
 			int height = (int)Math.Ceiling(dimensions.Height);
-			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 			if (!player.dead)
 			{
+				if (modPlayer.gamblerUIChipSpinDisplay)
+				{
+					int widthArrow = chipDirection.Width;
+					int heightArrow = chipDirection.Height;
+					Vector2 position = new Vector2(point.X - 30, point.Y + 150);
+					float angle = MathHelper.ToRadians(modPlayer.gamblerChipSpin);
+					//	new Rectangle(point.X - 30, point.Y + 50, widthArrow, heightArrow);
+					spriteBatch.Draw(chipDirection, position, null, backgroundColor, angle, chipDirection.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
+					//spriteBatch.Draw(texture, position, null, color, projectile.rotation, texture.Size() * 0.5f, projectile.scale, effect, 0f);
+				}
+				
 				if (modPlayer.gamblerUIDeckDisplay)
 				{
 					if (player.talkNPC != -1)
@@ -375,7 +389,8 @@ namespace OrchidMod.Gambler.UI
 
 			if (UIDeckbuilding == null) UIDeckbuilding = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/DeckUI");
 			if (UIDeckbuildingBlock == null) UIDeckbuildingBlock = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/DeckUIBlock");
-
+			
+			if (chipDirection == null) chipDirection = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/ChipDirectionArrow");
 		}
 	}
 }

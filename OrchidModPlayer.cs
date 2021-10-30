@@ -69,6 +69,7 @@ namespace OrchidMod
 		/*Gambler*/
 
 		public float gamblerDamage = 1.0f;
+		public float gamblerDamageChip = 0f;
 		public float gamblerChipChance = 1.0f;
 		public int gamblerCrit = 0;
 		public Item[] gamblerCardsItem = new Item[20];
@@ -83,6 +84,7 @@ namespace OrchidMod
 		public int gamblerSeeCards = 0;
 		public int gamblerRedraws = 0;
 		public int gamblerRedrawsMax = 0;
+		public float gamblerChipSpinBonus = 0f;
 		public int gamblerRedrawCooldown = 0;
 		public int gamblerRedrawCooldownMax = 1800;
 		public int gamblerRedrawCooldownUse = 0;
@@ -92,10 +94,13 @@ namespace OrchidMod
 		public int gamblerUIDisplayTimer = 0;
 		public bool gamblerUIFightDisplay = false;
 		public bool gamblerUIDeckDisplay = true;
+		public bool gamblerUIChipSpinDisplay = false;
 		public bool gamblerJustSwitched = false;
 		public bool GamblerDeckInHand = false;
 		public bool gamblerHasCardInDeck = false;
 
+		public float gamblerChipSpin = 0;
+		public int gamblerPauseChipRotation = 0;
 		public int gamblerTimerHoney = 0;
 		public int gamblerSeedCount = 0;
 		

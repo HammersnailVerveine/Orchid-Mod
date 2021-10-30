@@ -108,9 +108,14 @@ namespace OrchidMod.Gambler
 
 		public static void ResetEffectsGambler(Player player, OrchidModPlayer modPlayer, Mod mod)
 		{
+			modPlayer.gamblerChipSpin += modPlayer.gamblerPauseChipRotation > 0 ? 0f : 1.5f + (modPlayer.gamblerChipSpinBonus * 1.5f);
+			modPlayer.gamblerChipSpin = modPlayer.gamblerChipSpin > 360f ? modPlayer.gamblerChipSpin - 360f : modPlayer.gamblerChipSpin;
+			modPlayer.gamblerPauseChipRotation -= modPlayer.gamblerPauseChipRotation > 0 ? 1 : 0;
 			modPlayer.gamblerDamage = 1.0f;
+			modPlayer.gamblerDamageChip = 0f;
 			modPlayer.gamblerChipChance = 1.0f;
 			modPlayer.gamblerCrit = 0;
+			modPlayer.gamblerChipSpinBonus = 0f;
 			modPlayer.gamblerChipsMax = 5;
 			modPlayer.gamblerChipsConsume = 0;
 			modPlayer.gamblerSeeCards = 0;
@@ -119,6 +124,7 @@ namespace OrchidMod.Gambler
 			modPlayer.gamblerShuffleCooldownMax = 900;
 			modPlayer.GamblerDeckInHand = false;
 			modPlayer.gamblerUIFightDisplay = false;
+			modPlayer.gamblerUIChipSpinDisplay = false;
 
 			modPlayer.gamblerDungeon = false;
 			modPlayer.gamblerLuckySprout = false;

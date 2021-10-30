@@ -16,7 +16,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			item.useStyle = 1;
 			item.noUseGraphic = true;
 			item.UseSound = SoundID.Item1;
-			item.useAnimation = 20;
+			item.useAnimation = 60;
 			item.useTime = 20;
 			item.knockBack = 4f;
 			item.damage = 37;
@@ -29,11 +29,14 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			this.consumeChance = 75;
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed)
 		{
+			Vector2 velocity = new Vector2(0f, speed).RotatedBy(MathHelper.ToRadians(modPlayer.gamblerChipSpin));
+			Projectile.NewProjectile(position.X, position.Y, velocity.X, velocity.Y, item.shoot, damage, knockBack, player.whoAmI);
+			
 			int projType = ProjectileType<Gambler.Projectiles.Chips.RusalkaProjAlt>();
-			Projectile.NewProjectile(position.X, position.Y, speedX * 1.05f, speedY * 1.05f, projType, damage, knockBack, player.whoAmI);
-			return true;
+			Projectile.NewProjectile(position.X, position.Y, velocity.X * 1.05f, velocity.Y * 1.05f, projType, damage, knockBack, player.whoAmI);
+			return false;
 		}
 
 		public override void SetStaticDefaults()

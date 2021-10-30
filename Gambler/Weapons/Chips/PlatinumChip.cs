@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,7 +16,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			item.useStyle = 1;
 			item.noUseGraphic = true;
 			item.UseSound = SoundID.Item1;
-			item.useAnimation = 30;
+			item.useAnimation = 60;
 			item.useTime = 30;
 			item.knockBack = 6f;
 			item.damage = 32;
@@ -32,6 +33,12 @@ namespace OrchidMod.Gambler.Weapons.Chips
 		{
 			DisplayName.SetDefault("Platinum Chip");
 			Tooltip.SetDefault("Throws gambling chips at your foes");
+		}
+		
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed) {
+			Vector2 velocity = new Vector2(0f, speed).RotatedBy(MathHelper.ToRadians(modPlayer.gamblerChipSpin));
+			Projectile.NewProjectile(position.X, position.Y, velocity.X, velocity.Y, item.shoot, damage, knockBack, player.whoAmI);
+			return false;
 		}
 
 		public override void AddRecipes()

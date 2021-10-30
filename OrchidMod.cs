@@ -229,6 +229,7 @@ namespace OrchidMod
 				GamblerUIFrame.UIRedraw = null;
 				GamblerUIFrame.UIDeckbuilding = null;
 				GamblerUIFrame.UIDeckbuildingBlock = null;
+				GamblerUIFrame.chipDirection = null;
 
 				coatingTextures = null;
 			}

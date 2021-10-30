@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			this.consumeChance = 100;
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed)
 		{
 			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 			Main.PlaySound(2, (int)position.X, (int)position.Y, 14);

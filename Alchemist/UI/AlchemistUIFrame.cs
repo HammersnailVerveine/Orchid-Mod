@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.UI
 		{
 			Player player = Main.LocalPlayer;
 
-			Vector2 vector = (player.position + new Vector2(player.width * 0.5f, player.gfxOffY + player.gravDir > 0 ? player.height - 10 : 10)).Floor();
+			Vector2 vector = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height - 10 + player.gfxOffY : 10 + player.gfxOffY)).Floor();
 			vector = Vector2.Transform(vector - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix) / Main.UIScale;
 
 			this.Left.Set(vector.X - 60f, 0f);

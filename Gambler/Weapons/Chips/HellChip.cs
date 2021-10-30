@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -16,7 +17,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			item.useStyle = 1;
 			item.noUseGraphic = true;
 			item.UseSound = SoundID.Item1;
-			item.useAnimation = 40;
+			item.useAnimation = 80;
 			item.useTime = 40;
 			item.knockBack = 8f;
 			item.damage = 48;
@@ -33,6 +34,12 @@ namespace OrchidMod.Gambler.Weapons.Chips
 		{
 			DisplayName.SetDefault("Hellfire Chip");
 			Tooltip.SetDefault("Throws explosive chips at your foes");
+		}
+		
+		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed) {
+			Vector2 velocity = new Vector2(0f, speed).RotatedBy(MathHelper.ToRadians(modPlayer.gamblerChipSpin));
+			Projectile.NewProjectile(position.X, position.Y, velocity.X, velocity.Y, item.shoot, damage, knockBack, player.whoAmI);
+			return false;
 		}
 
 		public override void AddRecipes()

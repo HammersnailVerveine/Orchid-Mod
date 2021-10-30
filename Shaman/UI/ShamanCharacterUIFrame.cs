@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.UI
 		{
 			Player player = Main.LocalPlayer;
 
-			Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gfxOffY + player.gravDir > 0 ? player.height - 10 : 10)).Floor();
+			Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gfxOffY + player.gravDir > 0 ? player.height - 10 + player.gfxOffY : 10 + player.gfxOffY)).Floor();
 			position = Vector2.Transform(position - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix) / Main.UIScale;
 
 			this.Left.Set(position.X, 0f);
