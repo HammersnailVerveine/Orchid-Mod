@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Alchemist;
 using OrchidMod.Alchemist.UI;
 using OrchidMod.Common;
+using OrchidMod.Common.Hooks;
 using OrchidMod.Effects;
 using OrchidMod.Gambler.UI;
 using OrchidMod.Shaman;
@@ -52,7 +53,7 @@ namespace OrchidMod
 			ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
 			EffectsManager.Load(mod: this);
-			OrchidMod.LoadHooks(mod: this);
+			HookLoader.Load(mod: this);
 			PrimitiveTrailSystem.Trail.Load();
 
 			// ...
@@ -255,6 +256,7 @@ namespace OrchidMod
 			// ...
 
 			EffectsManager.Unload();
+			HookLoader.Unload();
 
 			croupierUI = null;
 
@@ -847,45 +849,6 @@ namespace OrchidMod
 					Logger.WarnFormat("OrchidMod: Unknown Message type: {0}", msgType);
 					break;
 			}
-		}
-
-		private static void LoadHooks(OrchidMod mod)
-		{
-			On.Terraria.Main.GUIChatDrawInner += (orig, self) =>
-			{
-				orig(self);
-
-				if (mod.croupierUI?.Visible ?? false)
-				{
-					mod.croupierUI.Update();
-					mod.croupierUI.Draw(Main.spriteBatch);
-				}
-			};
-
-			// I couldn't think of anything better...
-			On.Terraria.Player.ScrollHotbar += (orig, self, offset) =>
-			{
-				if (Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar) return;
-
-				orig(self, offset);
-			};
-
-			On.Terraria.Main.DrawProjectiles += (orig, self) =>
-			{
-				PrimitiveTrailSystem.DrawTrails(Main.spriteBatch);
-
-				orig(self);
-			};
-
-			On.Terraria.Projectile.NewProjectile_float_float_float_float_int_int_float_int_float_float += (orig, x, y, speedX, speedY, type, damage, knockBack, owner, ai0, ai1) =>
-			{
-				int index = orig(x, y, speedX, speedY, type, damage, knockBack, owner, ai0, ai1);
-
-				var proj = Main.projectile[index];
-				if (proj?.modProjectile is Content.OrchidProjectile orchidProj) orchidProj.OnSpawn();
-
-				return index;
-			};
 		}
 	}
 }

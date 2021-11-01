@@ -10,34 +10,22 @@ namespace OrchidMod.Common
 {
 	public class PrimitiveTrailSystem : ModWorld
 	{
-		private static readonly List<Trail> _trails = new List<Trail>();
+		public static readonly List<Trail> AdditiveBlendTrails = new List<Trail>();
+		public static readonly List<Trail> AlphaBlendTrails = new List<Trail>();
 
 		// TODO 1.4: Remove 'static'
 		public static void PostUpdateEverything()
 		{
-			foreach (var trail in _trails.ToList()) trail.Update();
+			foreach (var trail in AdditiveBlendTrails.ToArray()) trail.Update();
+			foreach (var trail in AlphaBlendTrails.ToArray()) trail.Update();
 		}
 
 		public static void NewTrail(Trail trail)
 		{
 			if (Main.dedServ) return;
 
-			_trails.Add(trail);
-		}
-
-		public static void DrawTrails(SpriteBatch spriteBatch)
-		{
-			var matrix = GetTransformMatrix();
-
-			void DrawTrails(bool additive)
-			{
-				spriteBatch.Begin(SpriteSortMode.Immediate, additive ? BlendState.Additive : BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-				foreach (var trail in _trails.FindAll(i => i.Active && i.Additive == additive)) trail.Draw(spriteBatch, matrix);
-				spriteBatch.End();
-			}
-
-			DrawTrails(true);
-			DrawTrails(false);
+			if (trail.Additive) AdditiveBlendTrails.Add(trail);
+			else AlphaBlendTrails.Add(trail);
 		}
 
 		public static Matrix GetTransformMatrix()
@@ -145,7 +133,8 @@ namespace OrchidMod.Common
 			{
 				if (PreKill()) Active = false;
 
-				_trails.Remove(this);
+				if (Additive) AdditiveBlendTrails.Remove(this);
+				else AlphaBlendTrails.Remove(this);
 			}
 
 			public void StartDissolving() => _dissolving = true;
