@@ -10,7 +10,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Items.Ranger
+namespace OrchidMod.Content.Items.Ranged
 {
 	public class HeraldOfFrost : OrchidItem
 	{

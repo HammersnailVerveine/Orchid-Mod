@@ -1,13 +1,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Common.Interfaces;
 using System;
 using Terraria;
 using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles
 {
-	public class IceFlakeConeProj : OrchidModShamanProjectile
+	public class IceFlakeConeProj : OrchidModShamanProjectile, IDrawAdditive
 	{
 		public static readonly Color EffectColor = new Color(106, 210, 255);
 
@@ -74,23 +75,7 @@ namespace OrchidMod.Shaman.Projectiles
 			this.VanillaAI_003__Hit();
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
-		{
-			var drawPos = projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
-
-			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
-			{
-				var texture = OrchidHelper.GetExtraTexture(14);
-				spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.2f, projectile.timeLeft * 0.1f, texture.Size() * 0.5f, projectile.scale * 0.65f, SpriteEffects.None, 0);
-				spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.4f, projectile.timeLeft * 0.2f, texture.Size() * 0.5f, projectile.scale * 0.5f, SpriteEffects.None, 0);
-
-				texture = Main.projectileTexture[projectile.type];
-				spriteBatch.Draw(texture, drawPos, null, new Color(220, 220, 220, 230), projectile.rotation, texture.Size() * 0.5f, projectile.scale, SpriteEffects.None, 0);
-			}
-			SetSpriteBatch(spriteBatch: spriteBatch);
-
-			return false;
-		}
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor) => false;
 
 		private void VanillaAI_003(float freeFlightTime = 30f, float turnSpeed = 0.4f)
 		{
@@ -191,6 +176,18 @@ namespace OrchidMod.Shaman.Projectiles
 				projectile.netUpdate = true;
 			}
 			projectile.ai[0] = 1f;
+		}
+
+		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
+		{
+			var drawPos = projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
+			var texture = OrchidHelper.GetExtraTexture(14);
+
+			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.2f, projectile.timeLeft * 0.1f, texture.Size() * 0.5f, projectile.scale * 0.65f, SpriteEffects.None, 0);
+			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.4f, projectile.timeLeft * 0.2f, texture.Size() * 0.5f, projectile.scale * 0.5f, SpriteEffects.None, 0);
+
+			texture = Main.projectileTexture[projectile.type];
+			spriteBatch.Draw(texture, drawPos, null, new Color(220, 220, 220, 230), projectile.rotation, texture.Size() * 0.5f, projectile.scale, SpriteEffects.None, 0);
 		}
 	}
 }
