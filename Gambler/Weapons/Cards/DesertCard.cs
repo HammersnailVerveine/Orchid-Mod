@@ -13,9 +13,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			item.damage = 8;
 			item.crit = 4;
 			item.knockBack = 0.5f;
-			item.useAnimation = 10;
-			item.useTime = 10;
-			item.shootSpeed = 8f;
+			item.useAnimation = 30;
+			item.useTime = 30;
+			item.shootSpeed = 10f;
 			this.cardRequirement = 3;
 			this.gamblerCardSets.Add("Biome");
 		}
@@ -29,12 +29,30 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
 		{
-			int projType = ProjectileType<Gambler.Projectiles.DesertCardProj>();
-			float scale = 1f - (Main.rand.NextFloat() * .3f);
-			Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(20));
-			vel = vel * scale;
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
-			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 7);
+			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
+			int projType = ProjectileType<Gambler.Projectiles.DesertCardProjAlt>();
+			
+			for (int l = 0; l < Main.projectile.Length; l++)
+			{
+				Projectile proj = Main.projectile[l];
+				if (proj.active && proj.type == projType && proj.owner == player.whoAmI && proj.ai[1] == 0f)
+				{
+					float distance = (position - proj.Center).Length();
+					if (distance < 500f) {
+						return;
+					}
+				}
+			}
+			
+			Vector2 vel = (new Vector2(0f, -1f).RotatedBy(MathHelper.ToRadians(10)));
+			int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy); 
+			Main.projectile[newProjectile].ai[1] = 0f;
+			Main.projectile[newProjectile].netUpdate = true;
+			for (int i = 0; i < 5; i++)
+			{
+				int dustType = 31;
+				Main.dust[Dust.NewDust(player.Center, 10, 10, dustType)].velocity *= 0.25f;
+			}
 		}
 	}
 }
