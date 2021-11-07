@@ -51,7 +51,14 @@ namespace OrchidMod
 		public bool generalStatic = false;
 
 		public int generalStaticTimer = 0;
-
+		
+		/*Guardian*/
+		
+		public float guardianDamage = 1.0f;
+		public int guardianCrit = 0;
+		public float guardianShieldPosition = 0f;
+		public float guardianShieldDistance = 0f;
+		
 		/*Dancer*/
 
 		public float dancerDamage = 1.0f;
