@@ -41,7 +41,9 @@ namespace OrchidMod.Gambler.Projectiles
 					Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
 					int projType = ProjectileType<Gambler.Projectiles.ForestCardProjAlt>();
 					bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
+					int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
+					Main.projectile[newProjectile].ai[1] = 1f;
+					Main.projectile[newProjectile].netUpdate = true;
 					for (int i = 0; i < 5; i++)
 					{
 						int dustType = 31;

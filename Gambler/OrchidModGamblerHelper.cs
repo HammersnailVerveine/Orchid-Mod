@@ -449,13 +449,7 @@ namespace OrchidMod.Gambler
 					int projType = ProjectileType<Gambler.Projectiles.SlimeRainCardProj2>();
 					for (int i = 0; i < rand; i++)
 					{
-						Vector2 target = Main.MouseWorld;
-						Vector2 heading = target - player.position;
-						heading.Normalize();
-						heading *= new Vector2(0f, 5f).Length();
-						Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(30));
-						vel = vel * scale;
-						int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, 15, 0f, player.whoAmI), dummy);
+						int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 5f, projType, 15, 0f, player.whoAmI), dummy);
 						Main.projectile[newProjectile].ai[1] = 1f;
 						Main.projectile[newProjectile].netUpdate = true;
 					}
