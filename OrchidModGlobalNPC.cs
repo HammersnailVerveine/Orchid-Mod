@@ -688,9 +688,9 @@ namespace OrchidMod
 			}
 		}
 		
-		public virtual void SetupTravelShop(int[] shop, ref int nextSlot) {
+		public override void SetupTravelShop(int[] shop, ref int nextSlot) {
 			if (Main.rand.Next(2) == 0) {
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.PileOfChips>());
+				shop[nextSlot] = ItemType<Gambler.Accessories.PileOfChips>();
 				nextSlot++;
 			}
 		}
