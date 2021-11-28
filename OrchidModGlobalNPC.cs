@@ -687,6 +687,13 @@ namespace OrchidMod
 				}
 			}
 		}
+		
+		public virtual void SetupTravelShop(int[] shop, ref int nextSlot) {
+			if (Main.rand.Next(2) == 0) {
+				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.PileOfChips>());
+				nextSlot++;
+			}
+		}
 
 		public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
 		{

@@ -50,7 +50,7 @@ namespace OrchidMod.Gambler.Projectiles
 				heading *= new Vector2(0f, 10f).Length();
 				Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(15));
 				int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, player.whoAmI), dummy);
-				Main.projectile[newProjectile].localAI[1] = 1f;
+				Main.projectile[newProjectile].localAI[1] = projectile.ai[1];
 				Main.projectile[newProjectile].netUpdate = true;
 				OrchidModProjectile.spawnDustCircle(projectile.Center - new Vector2(4, 4), 44, 10, 4, false, 1f, 1.5f, 5f, true, true, false, 0, 0, true);
 			}

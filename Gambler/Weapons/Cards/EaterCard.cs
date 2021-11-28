@@ -22,9 +22,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Corrupted Nightmare");
-			Tooltip.SetDefault("Summon a corrupted eye, following your cursor"
+			Tooltip.SetDefault("Summon a corrupted worm, following your cursor"
 							+ "\nRandomly releases rotten meat chunks"
-							+ "\nCollecting them increases the eye damage and size");
+							+ "\nCollecting them increases the worm damage and length");
 		}
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
@@ -42,7 +42,14 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			}
 			if (!found)
 			{
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
+				int newProjectile2 = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X - speedX * 3f, position.Y - speedY * 3f, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy));
+				Main.projectile[newProjectile2].ai[0] = 1f;
+				int newProjectile = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy));
+				Main.projectile[newProjectile].ai[0] = 0f;
+				Main.projectile[newProjectile2].ai[1] = newProjectile;
+				Main.projectile[newProjectile].localAI[0] = newProjectile2;
+				Main.projectile[newProjectile].netUpdate = true;
+				Main.projectile[newProjectile2].netUpdate = true;
 				Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
 			}
 			else
