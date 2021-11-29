@@ -62,7 +62,7 @@ namespace OrchidMod.Guardian
 			{
 				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Guardian Class-")
 				{
-					overrideColor = new Color(155, 64, 0)
+					overrideColor = new Color(165, 130, 100)
 				});
 			}
 		}

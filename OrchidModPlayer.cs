@@ -58,6 +58,7 @@ namespace OrchidMod
 		public int guardianCrit = 0;
 		public float guardianShieldPosition = 0f;
 		public float guardianShieldDistance = 0f;
+		public int guardianShieldIndex = 0;
 		
 		/*Dancer*/
 

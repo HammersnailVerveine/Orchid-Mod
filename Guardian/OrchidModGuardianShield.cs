@@ -1,23 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Guardian;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
-using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
-using System;
-using Microsoft.Xna.Framework.Graphics;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Guardian
 {
 	public abstract class OrchidModGuardianShield : OrchidModGuardianItem
 	{
-		public override bool CloneNewInstances => true;
-
-		public sealed override void SetStaticDefaults()
-		{
-			this.SafeSetStaticDefaults();
+		public virtual string ShieldTexture => "OrchidMod/Guardian/ShieldTextures/" + this.Name + "_Shield";
+		public virtual void ExtraAIShield(Projectile projectile, bool after) { }
+		public virtual void PostAIShield(Projectile projectile) { }
+		public virtual void PostDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
+		public virtual bool PreAIShield(Projectile projectile) { return true; }
+		public virtual bool PreDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
+		
+		public virtual void SafeHoldItem(Player player) { }
+		public virtual void Block(Player player, Projectile shield, Projectile projectile) { 
+			projectile.Kill();
 		}
+		
+		public float distance = 25f;
 
 		public sealed override void SetDefaults()
 		{
@@ -33,93 +39,44 @@ namespace OrchidMod.Guardian
 
 			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.guardianWeapon = true;
+			
+			this.distance = 10f;
 
 			this.SafeSetDefaults();
 		}
-
-		public sealed override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			this.SafeShoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
-			return false;
-		}
-
-		/*
-		public sealed override void UseStyle(Player player)
-		{
-			player.itemLocation = (player.MountedCenter + new Vector2(player.direction * 12, player.gravDir * 24)).Floor();
-			player.itemRotation = -player.direction * player.gravDir * MathHelper.PiOver4;
-		}
-		*/
-
-		/*
+		
 		public sealed override void HoldItem(Player player)
 		{
-			var shaman = player.GetOrchidPlayer();
-			var catalystType = ModContent.ProjectileType<CatalystAnchor>();
+			var guardian = player.GetOrchidPlayer();
+			var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
 
-			if (player.ownedProjectileCounts[catalystType] == 0)
+			if (player.ownedProjectileCounts[projectileType] == 0)
 			{
-				var index = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, catalystType, 0, 0f, player.whoAmI);
-				shaman.shamanCatalystIndex = index;
+				var index = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
+				guardian.guardianShieldIndex = index;
 
 				var proj = Main.projectile[index];
-				if (!(proj.modProjectile is CatalystAnchor catalyst))
+				if (!(proj.modProjectile is GuardianShieldAnchor shield))
 				{
 					proj.Kill();
-					shaman.shamanCatalystIndex = -1;
+					guardian.guardianShieldIndex = -1;
 				}
-				else catalyst.OnChangeSelectedItem(player);
+				else shield.OnChangeSelectedItem(player);
 			}
 			else
 			{
-				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == catalystType);
-				if (proj != null && proj.modProjectile is CatalystAnchor catalyst)
+				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+				if (proj != null && proj.modProjectile is GuardianShieldAnchor shield)
 				{
-					if (catalyst.SelectedItem != player.selectedItem)
+					if (shield.SelectedItem != player.selectedItem)
 					{
-						catalyst.OnChangeSelectedItem(player);
+						shield.OnChangeSelectedItem(player);
 					}
 				}
-				else shaman.shamanCatalystIndex = -1;
+				else guardian.guardianShieldIndex = -1;
 			}
-
-			this.SafeHoldItem();
-		}
-		*/
-
-		public sealed override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
-		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-			this.SafeModifyWeaponDamage(player, ref add, ref mult, ref flat);
+			this.SafeHoldItem(player);
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().shamanCrit;
-		}
-
-		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
-		{
-			if (Main.rand.Next(101) <= player.GetOrchidPlayer().shamanCrit) crit = true;
-			else crit = false;
-		}
-
-		// ...
-
-		public virtual void SafeSetStaticDefaults() { }
-		public virtual void SafeHoldItem() { }
-		public virtual void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) { }
-		public virtual bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) => true;
-
-		public virtual void ExtraAICatalyst(Projectile projectile, bool after) { }
-		public virtual void PostAICatalyst(Projectile projectile) { }
-		public virtual void PostDrawCatalyst(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
-		public virtual bool PreAICatalyst(Projectile projectile) { return true; }
-		public virtual bool PreDrawCatalyst(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
-
-		public virtual string ShieldTexture => "OrchidMod/Guardian/ShieldTextures/" + this.Name + "_Shield";
-
-		// ...
 	}
 }
