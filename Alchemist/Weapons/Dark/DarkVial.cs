@@ -8,10 +8,10 @@ namespace OrchidMod.Alchemist.Weapons.Dark
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 5;
-			item.width = 24;
-			item.height = 24;
-			item.rare = 1;
+			Item.damage = 5;
+			Item.width = 24;
+			Item.height = 24;
+			Item.rare = 1;
 			this.potencyCost = 1;
 			this.element = AlchemistElement.DARK;
 			this.rightClickDust = 27;

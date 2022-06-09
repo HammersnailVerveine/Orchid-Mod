@@ -6,7 +6,7 @@ namespace OrchidMod.Alchemist.Buffs.Debuffs
 {
 	public class SlimeSlow : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Slime Slow");
 			Description.SetDefault("Reduced Movement Speed");

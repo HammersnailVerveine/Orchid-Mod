@@ -10,13 +10,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 30;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 30;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,14 +26,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 
 		public override void AI()
 		{
-			projectile.velocity.Y -= 0.15f;
+			Projectile.velocity.Y -= 0.15f;
 
-			int dust = Dust.NewDust(projectile.position, 1, 1, 70);
+			int dust = Dust.NewDust(Projectile.position, 1, 1, 70);
 			Main.dust[dust].velocity /= 10f;
 			Main.dust[dust].scale = 1f;
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust].noLight = false;
-			int dust2 = Dust.NewDust(projectile.position, 1, 1, 112);
+			int dust2 = Dust.NewDust(Projectile.position, 1, 1, 112);
 			Main.dust[dust2].velocity /= 1f;
 			Main.dust[dust2].scale = 0.8f;
 			Main.dust[dust2].noGravity = true;
@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 70);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 70);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 10f;
 			}
@@ -58,8 +58,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 				double deg = (i * (72 + 5 - Main.rand.Next(10)));
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - projectile.width / 2 + projectile.velocity.X + 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - projectile.height / 2 + projectile.velocity.Y + 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - Projectile.width / 2 + Projectile.velocity.X + 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - Projectile.height / 2 + Projectile.velocity.Y + 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
@@ -77,7 +77,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null && Main.rand.Next(2) == 0)
 			{
-				target.AddBuff((thoriumMod.BuffType("LightCurse")), 1 * 60);
+				target.AddBuff((thoriumMod.Find<ModBuff>("LightCurse").Type), 1 * 60);
 			}
 
 			if (modPlayer.shamanOrbBig != ShamanOrbBig.VALADIUM)
@@ -89,31 +89,31 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 
 			if (modPlayer.orbCountBig == 3)
 			{
-				Projectile.NewProjectile(player.Center.X - 30, player.position.Y - 30, 0f, 0f, mod.ProjectileType("ValadiumOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X - 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("ValadiumOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
-				if (player.FindBuffIndex(mod.BuffType("ShamanicBaubles")) > -1)
+				if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1)
 				{
 					modPlayer.orbCountBig += 3;
-					Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, mod.ProjectileType("ValadiumOrb"), 1, 0, projectile.owner, 0f, 0f);
-					player.ClearBuff(mod.BuffType("ShamanicBaubles"));
+					Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("ValadiumOrb").Type, 1, 0, Projectile.owner, 0f, 0f);
+					player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				}
 			}
 			if (modPlayer.orbCountBig == 6)
-				Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, mod.ProjectileType("ValadiumOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("ValadiumOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 9)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 40, 0f, 0f, mod.ProjectileType("ValadiumOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 40, 0f, 0f, Mod.Find<ModProjectile>("ValadiumOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 12)
-				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 38, 0f, 0f, mod.ProjectileType("ValadiumOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("ValadiumOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 15)
-				Projectile.NewProjectile(player.Center.X + 30, player.position.Y - 30, 0f, 0f, mod.ProjectileType("ValadiumOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X + 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("ValadiumOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 15)
 			{
 				knockback = 0f;
 				if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
 				{
-					target.velocity.X = projectile.velocity.X > 0f ? 8f : -8f;
+					target.velocity.X = Projectile.velocity.X > 0f ? 8f : -8f;
 					target.velocity.Y = -10f;
-					target.AddBuff((mod.BuffType("AquaBump")), 10 * 60);
+					target.AddBuff((Mod.Find<ModBuff>("AquaBump").Type), 10 * 60);
 				}
 				spawnDustCircle(70, 35);
 				modPlayer.orbCountBig = -3;

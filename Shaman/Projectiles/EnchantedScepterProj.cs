@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 
 namespace OrchidMod.Shaman.Projectiles
 {
@@ -12,12 +13,12 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 10;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 50;
-			projectile.penetrate = 2;
+			Projectile.width = 10;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 50;
+			Projectile.penetrate = 2;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -31,18 +32,18 @@ namespace OrchidMod.Shaman.Projectiles
 			if (Type == 0) Type = 15;
 			if (Type == 1) Type = 57;
 			if (Type == 2) Type = 58;
-			int index2 = Dust.NewDust(projectile.position - projectile.velocity * 0.25f, projectile.width, projectile.height, Type, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(80, 110) * 0.013f);
+			int index2 = Dust.NewDust(Projectile.position - Projectile.velocity * 0.25f, Projectile.width, Projectile.height, Type, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(80, 110) * 0.013f);
 			Main.dust[index2].velocity *= 0.2f;
 			Main.dust[index2].noGravity = true;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.penetrate--;
-			if (projectile.penetrate < 0) projectile.Kill();
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X / 2;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y / 2;
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+			Projectile.penetrate--;
+			if (Projectile.penetrate < 0) Projectile.Kill();
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X / 2;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y / 2;
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
 			return false;
 		}
 
@@ -50,7 +51,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			for (int i = 0; i < 13; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 15);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 15);
 			}
 		}
 

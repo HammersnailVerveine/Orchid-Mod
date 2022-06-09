@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class SpiritedWaterBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spirited Droplets");
 			Description.SetDefault("Chemical attacks will release spirited water flames");

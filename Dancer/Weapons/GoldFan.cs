@@ -8,19 +8,19 @@ namespace OrchidMod.Dancer.Weapons
 
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 0, 20);
-			item.width = 42;
-			item.height = 42;
-			item.useStyle = 1;
-			item.noUseGraphic = true;
-			item.UseSound = SoundID.Item101;
-			item.knockBack = 3f;
-			item.damage = 8;
-			item.crit = 4;
-			item.rare = 0;
-			item.autoReuse = true;
-			item.useAnimation = 30;
-			item.useTime = 30;
+			Item.value = Item.sellPrice(0, 0, 0, 20);
+			Item.width = 42;
+			Item.height = 42;
+			Item.useStyle = 1;
+			Item.noUseGraphic = true;
+			Item.UseSound = SoundID.Item101;
+			Item.knockBack = 3f;
+			Item.damage = 8;
+			Item.crit = 4;
+			Item.rare = 0;
+			Item.autoReuse = true;
+			Item.useAnimation = 30;
+			Item.useTime = 30;
 			this.dashTimer = 10;
 			this.poiseCost = 0;
 			this.dashVelocity = 30f;

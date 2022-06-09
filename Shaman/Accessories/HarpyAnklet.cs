@@ -8,13 +8,13 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 28;
-			item.height = 26;
-			item.value = Item.sellPrice(0, 0, 11, 50);
-			item.rare = 1;
-			item.crit = 4;
-			item.accessory = true;
-			item.damage = 12;
+			Item.width = 28;
+			Item.height = 26;
+			Item.value = Item.sellPrice(0, 0, 11, 50);
+			Item.rare = 1;
+			Item.crit = 4;
+			Item.accessory = true;
+			Item.damage = 12;
 		}
 
 		public override void SetStaticDefaults()
@@ -32,16 +32,16 @@ namespace OrchidMod.Shaman.Accessories
 			modPlayer.shamanHarpyAnklet = true;
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).shamanDamage;
-			if (Main.LocalPlayer.FindBuffIndex(mod.BuffType("HarpyAgility")) > -1)
+			mult *= ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).shamanDamage;
+			if (Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("HarpyAgility").Type) > -1)
 				add += 1.1f;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(null, "HarpyTalon", 1);
 			recipe.AddIngredient(ItemID.Feather, 4);

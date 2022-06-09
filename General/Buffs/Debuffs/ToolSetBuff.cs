@@ -5,7 +5,7 @@ namespace OrchidMod.General.Buffs.Debuffs
 {
 	public class ToolSetBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Miner's Demise");

@@ -15,33 +15,33 @@ namespace OrchidMod.Gambler
 			SafeSetDefaults();
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
-				string[] splitText = tt.text.Split(' ');
+				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " gambling " + damageWord;
+				tt.Text = damageValue + " gambling " + damageWord;
 			}
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Gambler Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Gambler Class-")
 				{
-					overrideColor = new Color(255, 200, 0)
+					OverrideColor = new Color(255, 200, 0)
 				});
 			}
 		}

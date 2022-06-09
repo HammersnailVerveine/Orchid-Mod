@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 
 namespace OrchidMod.Gambler.Projectiles
 {
@@ -7,13 +8,13 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 20;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 300;
-			projectile.scale = 1f;
-			projectile.alpha = 128;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 300;
+			Projectile.scale = 1f;
+			Projectile.alpha = 128;
 			this.gamblingChipChance = 10;
 		}
 
@@ -24,31 +25,31 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeAI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			projectile.rotation += 0.02f;
-			projectile.velocity.X *= 0.98f;
-			projectile.damage += (projectile.timeLeft % 20 == 0 && projectile.timeLeft > 150) ? 1 : 0;
+			Projectile.rotation += 0.02f;
+			Projectile.velocity.X *= 0.98f;
+			Projectile.damage += (Projectile.timeLeft % 20 == 0 && Projectile.timeLeft > 150) ? 1 : 0;
 
-			if (projectile.ai[1] <= 0f)
+			if (Projectile.ai[1] <= 0f)
 			{
-				projectile.velocity.Y -= 0.012f;
-				if (Main.myPlayer == projectile.owner)
+				Projectile.velocity.Y -= 0.012f;
+				if (Main.myPlayer == Projectile.owner)
 				{
 					if (!Main.mouseLeft && modPlayer.GamblerDeckInHand)
 					{
-						Vector2 newMove = Main.MouseWorld - projectile.Center;
+						Vector2 newMove = Main.MouseWorld - Projectile.Center;
 						newMove.Normalize();
 						newMove *= 10f;
-						projectile.velocity = newMove;
-						projectile.ai[1] = 1f; ;
-						projectile.netUpdate = true;
+						Projectile.velocity = newMove;
+						Projectile.ai[1] = 1f; ;
+						Projectile.netUpdate = true;
 					}
 				}
 			}
 			else
 			{
-				projectile.velocity.Y *= 0.98f;
+				Projectile.velocity.Y *= 0.98f;
 			}
 		}
 
@@ -56,11 +57,11 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 217);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 217);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}
-			Main.PlaySound(2, (int)projectile.Center.X, (int)projectile.Center.Y - 200, 54);
+			SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y - 200, 54);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)

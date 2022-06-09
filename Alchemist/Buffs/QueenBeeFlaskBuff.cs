@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class QueenBeeFlaskBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Human Beehive");
 			Description.SetDefault("Attacking with 3 or more element will summon bees");

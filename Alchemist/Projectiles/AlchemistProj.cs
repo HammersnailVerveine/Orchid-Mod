@@ -5,6 +5,7 @@ using OrchidMod.Alchemist.Weapons.Fire;
 using OrchidMod.Alchemist.Weapons.Water;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -33,13 +34,13 @@ namespace OrchidMod.Alchemist.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 18;
-			projectile.friendly = true;
-			projectile.aiStyle = 2;
-			projectile.timeLeft = 300;
-			projectile.scale = 1f;
-			projectile.penetrate = 2;
+			Projectile.width = 14;
+			Projectile.height = 18;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 2;
+			Projectile.timeLeft = 300;
+			Projectile.scale = 1f;
+			Projectile.penetrate = 2;
 		}
 
 		public override void SetStaticDefaults()
@@ -47,30 +48,30 @@ namespace OrchidMod.Alchemist.Projectiles
 			DisplayName.SetDefault("Alchemical Solution");
 		}
 
-		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override void PostDraw(Color lightColor)
 		{
 			Texture2D texture = ModContent.GetTexture("OrchidMod/Alchemist/Projectiles/AlchemistProj_Glow");
-			OrchidModProjectile.DrawProjectileGlowmask(projectile, spriteBatch, texture, glowColor);
+			OrchidModProjectile.DrawProjectileGlowmask(Projectile, spriteBatch, texture, glowColor);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.penetrate--;
+			Projectile.penetrate--;
 			return false;
 		}
 
 		public override void AI()
 		{
-			if (projectile.penetrate == 1)
+			if (Projectile.penetrate == 1)
 			{
-				Vector2 oldCenter = new Vector2(projectile.Center.X, projectile.Center.Y);
+				Vector2 oldCenter = new Vector2(Projectile.Center.X, Projectile.Center.Y);
 				//projectile.tileCollide = false;
-				projectile.penetrate = -1;
-				projectile.width = 48;
-				projectile.height = 48;
-				projectile.timeLeft = 1;
-				projectile.alpha = 255;
-				projectile.Center = oldCenter;
+				Projectile.penetrate = -1;
+				Projectile.width = 48;
+				Projectile.height = 48;
+				Projectile.timeLeft = 1;
+				Projectile.alpha = 255;
+				Projectile.Center = oldCenter;
 			}
 
 			if (!this.initialized)
@@ -79,13 +80,13 @@ namespace OrchidMod.Alchemist.Projectiles
 				this.initialized = true;
 			}
 
-			if (!this.hitNPC) OrchidModProjectile.resetIFrames(projectile);
+			if (!this.hitNPC) OrchidModProjectile.resetIFrames(Projectile);
 
 			if (this.waterFlaskGlobal != null)
 			{
 				if (Main.rand.Next(8) > this.nbElements)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.waterFlaskGlobal.alchemistRightClickDust);
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.waterFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
@@ -96,7 +97,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				if (Main.rand.Next(8) > this.nbElements)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.fireFlaskGlobal.alchemistRightClickDust);
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.fireFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
@@ -107,7 +108,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				if (Main.rand.Next(8) > this.nbElements)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.natureFlaskGlobal.alchemistRightClickDust);
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.natureFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
@@ -118,7 +119,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				if (Main.rand.Next(8) > this.nbElements)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.airFlaskGlobal.alchemistRightClickDust);
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.airFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
@@ -129,7 +130,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				if (Main.rand.Next(8) > this.nbElements)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.lightFlaskGlobal.alchemistRightClickDust);
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.lightFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
@@ -140,7 +141,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				if (Main.rand.Next(8) > this.nbElements)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.darkFlaskGlobal.alchemistRightClickDust);
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.darkFlaskGlobal.alchemistRightClickDust);
 					Main.dust[dust].velocity /= 3f;
 					Main.dust[dust].scale *= 1.3f;
 					Main.dust[dust].noGravity = true;
@@ -150,15 +151,15 @@ namespace OrchidMod.Alchemist.Projectiles
 
 		public void initializeAlchemistProjectile()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			bool[] elements = modPlayer.alchemistElements;
 			Item[] flasks = modPlayer.alchemistFlasks;
 
-			this.projOwner = (projectile.owner == Main.myPlayer);
+			this.projOwner = (Projectile.owner == Main.myPlayer);
 
 			this.nbElements = modPlayer.alchemistNbElements;
-			projectile.damage = (int)(modPlayer.alchemistFlaskDamage * modPlayer.alchemistDamage + 5E-06f);
+			Projectile.damage = (int)(modPlayer.alchemistFlaskDamage * modPlayer.alchemistDamage + 5E-06f);
 
 			if (elements[0])
 			{
@@ -201,9 +202,9 @@ namespace OrchidMod.Alchemist.Projectiles
 
 			modPlayer.alchemistFlaskDamage = 0;
 			modPlayer.alchemistNbElements = 0;
-			OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);
-			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);
-			OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
+			OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, Mod);
+			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, Mod);
+			OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, Mod);
 
 			if (this.fireFlask.type == ItemType<GunpowderFlask>())
 			{
@@ -221,7 +222,7 @@ namespace OrchidMod.Alchemist.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.alchemistLastAttackDelay = 0;
 
@@ -229,13 +230,13 @@ namespace OrchidMod.Alchemist.Projectiles
 			switch (soundNb)
 			{
 				case 1:
-					Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 27);
+					SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
 					break;
 				case 2:
-					Main.PlaySound(13, (int)projectile.position.X, (int)projectile.position.Y, 0);
+					SoundEngine.PlaySound(13, (int)Projectile.position.X, (int)Projectile.position.Y, 0);
 					break;
 				default:
-					Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 107);
+					SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 107);
 					break;
 			}
 
@@ -273,7 +274,7 @@ namespace OrchidMod.Alchemist.Projectiles
 									modTargetSecondary.alchemistAir = 0;
 									absorbedCount ++;
 									newMove /= -10f;
-									Projectile.NewProjectile(Main.npc[k].Center.X, Main.npc[k].Center.Y, newMove.X, newMove.Y, spawnProj, 0, 0f, projectile.owner);
+									Projectile.NewProjectile(Main.npc[k].Center.X, Main.npc[k].Center.Y, newMove.X, newMove.Y, spawnProj, 0, 0f, Projectile.owner);
 								}
 							}
 						}
@@ -294,40 +295,40 @@ namespace OrchidMod.Alchemist.Projectiles
 		{
 			if (this.fireFlaskGlobal != null)
 			{
-				fireFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.fireFlaskGlobal);
+				fireFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.waterFlaskGlobal != null)
 			{
-				waterFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.waterFlaskGlobal);
+				waterFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, Projectile, this.waterFlaskGlobal);
 			}
 
 			if (this.natureFlaskGlobal != null)
 			{
-				natureFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.natureFlaskGlobal);
+				natureFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, Projectile, this.natureFlaskGlobal);
 			}
 
 			if (this.airFlaskGlobal != null)
 			{
-				airFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.airFlaskGlobal);
+				airFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, Projectile, this.airFlaskGlobal);
 			}
 
 			if (this.lightFlaskGlobal != null)
 			{
-				lightFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.lightFlaskGlobal);
+				lightFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, Projectile, this.lightFlaskGlobal);
 			}
 
 			if (this.darkFlaskGlobal != null)
 			{
-				darkFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, projectile, this.darkFlaskGlobal);
+				darkFlaskGlobal.killFirstDelegate(timeLeft, player, modPlayer, this, Projectile, this.darkFlaskGlobal);
 			}
 
 			if (this.nbElements > 1 && player.HasBuff(BuffType<Alchemist.Buffs.JungleLilyExtractBuff>()))
 			{
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.JungleLilyFlaskReaction>();
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, spawnProj, 0, 0f, projectile.owner);
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 10, 7, true, 1.5f, 1f, 3f);
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 15, 15, 10, true, 1.5f, 1f, 5f);
+				Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, spawnProj, 0, 0f, Projectile.owner);
+				OrchidModProjectile.spawnDustCircle(Projectile.Center, 15, 10, 7, true, 1.5f, 1f, 3f);
+				OrchidModProjectile.spawnDustCircle(Projectile.Center, 15, 15, 10, true, 1.5f, 1f, 5f);
 			}
 		}
 
@@ -335,32 +336,32 @@ namespace OrchidMod.Alchemist.Projectiles
 		{
 			if (this.fireFlaskGlobal != null)
 			{
-				fireFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.fireFlaskGlobal);
+				fireFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.waterFlaskGlobal != null)
 			{
-				waterFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.waterFlaskGlobal);
+				waterFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, Projectile, this.waterFlaskGlobal);
 			}
 
 			if (this.natureFlaskGlobal != null)
 			{
-				natureFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.natureFlaskGlobal);
+				natureFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, Projectile, this.natureFlaskGlobal);
 			}
 
 			if (this.airFlaskGlobal != null)
 			{
-				airFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.airFlaskGlobal);
+				airFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, Projectile, this.airFlaskGlobal);
 			}
 
 			if (this.lightFlaskGlobal != null)
 			{
-				lightFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.lightFlaskGlobal);
+				lightFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, Projectile, this.lightFlaskGlobal);
 			}
 
 			if (this.darkFlaskGlobal != null)
 			{
-				darkFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, projectile, this.darkFlaskGlobal);
+				darkFlaskGlobal.killSecondDelegate(timeLeft, player, modPlayer, this, Projectile, this.darkFlaskGlobal);
 			}
 
 			if (this.nbElements > 2 && player.HasBuff(BuffType<Alchemist.Buffs.QueenBeeFlaskBuff>()))
@@ -388,7 +389,7 @@ namespace OrchidMod.Alchemist.Projectiles
 				for (int i = 0; i < this.nbElements; i++)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
+					Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, Projectile.owner);
 				}
 			}
 		}
@@ -397,32 +398,32 @@ namespace OrchidMod.Alchemist.Projectiles
 		{
 			if (this.fireFlaskGlobal != null)
 			{
-				fireFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.fireFlaskGlobal);
+				fireFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.waterFlaskGlobal != null)
 			{
-				waterFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.waterFlaskGlobal);
+				waterFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, Projectile, this.waterFlaskGlobal);
 			}
 
 			if (this.natureFlaskGlobal != null)
 			{
-				natureFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.natureFlaskGlobal);
+				natureFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, Projectile, this.natureFlaskGlobal);
 			}
 
 			if (this.airFlaskGlobal != null)
 			{
-				airFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.airFlaskGlobal);
+				airFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, Projectile, this.airFlaskGlobal);
 			}
 
 			if (this.lightFlaskGlobal != null)
 			{
-				lightFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.lightFlaskGlobal);
+				lightFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, Projectile, this.lightFlaskGlobal);
 			}
 
 			if (this.darkFlaskGlobal != null)
 			{
-				darkFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, projectile, this.darkFlaskGlobal);
+				darkFlaskGlobal.killThirdDelegate(timeLeft, player, modPlayer, this, Projectile, this.darkFlaskGlobal);
 			}
 		}
 
@@ -430,32 +431,32 @@ namespace OrchidMod.Alchemist.Projectiles
 		{
 			if (this.fireFlaskGlobal != null)
 			{
-				fireFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.fireFlaskGlobal);
+				fireFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.waterFlaskGlobal != null)
 			{
-				waterFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.waterFlaskGlobal);
+				waterFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.waterFlaskGlobal);
 			}
 
 			if (this.natureFlaskGlobal != null)
 			{
-				natureFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.natureFlaskGlobal);
+				natureFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.natureFlaskGlobal);
 			}
 
 			if (this.airFlaskGlobal != null)
 			{
-				airFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.airFlaskGlobal);
+				airFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.airFlaskGlobal);
 			}
 
 			if (this.lightFlaskGlobal != null)
 			{
-				lightFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.lightFlaskGlobal);
+				lightFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.lightFlaskGlobal);
 			}
 
 			if (this.darkFlaskGlobal != null)
 			{
-				darkFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.darkFlaskGlobal);
+				darkFlaskGlobal.onHitNPCFirstDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.darkFlaskGlobal);
 			}
 		}
 
@@ -463,32 +464,32 @@ namespace OrchidMod.Alchemist.Projectiles
 		{
 			if (this.fireFlaskGlobal != null)
 			{
-				fireFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.fireFlaskGlobal);
+				fireFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.waterFlaskGlobal != null)
 			{
-				waterFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.waterFlaskGlobal);
+				waterFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.waterFlaskGlobal);
 			}
 
 			if (this.natureFlaskGlobal != null)
 			{
-				natureFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.natureFlaskGlobal);
+				natureFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.natureFlaskGlobal);
 			}
 
 			if (this.airFlaskGlobal != null)
 			{
-				airFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.airFlaskGlobal);
+				airFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.airFlaskGlobal);
 			}
 
 			if (this.lightFlaskGlobal != null)
 			{
-				lightFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.lightFlaskGlobal);
+				lightFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.lightFlaskGlobal);
 			}
 
 			if (this.darkFlaskGlobal != null)
 			{
-				darkFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.darkFlaskGlobal);
+				darkFlaskGlobal.onHitNPCSecondDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.darkFlaskGlobal);
 			}
 		}
 
@@ -496,38 +497,38 @@ namespace OrchidMod.Alchemist.Projectiles
 		{
 			if (this.fireFlaskGlobal != null)
 			{
-				fireFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.fireFlaskGlobal);
+				fireFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.waterFlaskGlobal != null)
 			{
-				waterFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.waterFlaskGlobal);
+				waterFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.waterFlaskGlobal);
 			}
 
 			if (this.natureFlaskGlobal != null)
 			{
-				natureFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.natureFlaskGlobal);
+				natureFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.natureFlaskGlobal);
 			}
 
 			if (this.airFlaskGlobal != null)
 			{
-				airFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.airFlaskGlobal);
+				airFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.airFlaskGlobal);
 			}
 
 			if (this.lightFlaskGlobal != null)
 			{
-				lightFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.lightFlaskGlobal);
+				lightFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.lightFlaskGlobal);
 			}
 
 			if (this.darkFlaskGlobal != null)
 			{
-				darkFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, projectile, this.darkFlaskGlobal);
+				darkFlaskGlobal.onHitNPCThirdDelegate(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal, this, Projectile, this.darkFlaskGlobal);
 			}
 		}
 
 		public void addVariousEffects()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 			this.nbElementsNoExtract += this.nbElements;
@@ -535,38 +536,38 @@ namespace OrchidMod.Alchemist.Projectiles
 			int buffType = BuffType<Alchemist.Buffs.ReactiveVialsBuff>();
 			if (player.HasBuff(buffType))
 			{
-				projectile.damage = (int)(projectile.damage * 1.1f);
+				Projectile.damage = (int)(Projectile.damage * 1.1f);
 				player.ClearBuff(buffType);
 			}
 
 			if (this.fireFlaskGlobal != null)
 			{
-				fireFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+				fireFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.waterFlaskGlobal != null)
 			{
-				waterFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+				waterFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.natureFlaskGlobal != null)
 			{
-				natureFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+				natureFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.airFlaskGlobal != null)
 			{
-				airFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+				airFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.lightFlaskGlobal != null)
 			{
-				lightFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+				lightFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, Projectile, this.fireFlaskGlobal);
 			}
 
 			if (this.darkFlaskGlobal != null)
 			{
-				darkFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, projectile, this.fireFlaskGlobal);
+				darkFlaskGlobal.addVariousEffectsDelegate(player, modPlayer, this, Projectile, this.fireFlaskGlobal);
 			}
 		}
 
@@ -577,7 +578,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				int proj = ProjectileType<Alchemist.Projectiles.AlchemistSmoke1>();
 				Vector2 vel = (new Vector2(0f, -((float)(2 + Main.rand.Next(5)))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int smokeProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, projectile.owner);
+				int smokeProj = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, Projectile.owner);
 				Main.projectile[smokeProj].localAI[0] = this.glowColor.R;
 				Main.projectile[smokeProj].localAI[1] = this.glowColor.G;
 				Main.projectile[smokeProj].ai[1] = this.glowColor.B;
@@ -587,7 +588,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				int proj = ProjectileType<Alchemist.Projectiles.AlchemistSmoke2>();
 				Vector2 vel = (new Vector2(0f, -((float)(2 + Main.rand.Next(5)))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int smokeProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, projectile.owner);
+				int smokeProj = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, Projectile.owner);
 				Main.projectile[smokeProj].localAI[0] = this.glowColor.R;
 				Main.projectile[smokeProj].localAI[1] = this.glowColor.G;
 				Main.projectile[smokeProj].ai[1] = this.glowColor.B;
@@ -597,7 +598,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				int proj = ProjectileType<Alchemist.Projectiles.AlchemistSmoke3>();
 				Vector2 vel = (new Vector2(0f, -((float)(2 + Main.rand.Next(5)))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int smokeProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, projectile.owner);
+				int smokeProj = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, Projectile.owner);
 				Main.projectile[smokeProj].localAI[0] = this.glowColor.R;
 				Main.projectile[smokeProj].localAI[1] = this.glowColor.G;
 				Main.projectile[smokeProj].ai[1] = this.glowColor.B;
@@ -609,7 +610,7 @@ namespace OrchidMod.Alchemist.Projectiles
 				{
 					if (Main.rand.Next(3) < 2)
 					{
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.waterFlaskGlobal.alchemistRightClickDust);
+						int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.waterFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
@@ -622,7 +623,7 @@ namespace OrchidMod.Alchemist.Projectiles
 				{
 					if (Main.rand.Next(3) < 2)
 					{
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.fireFlaskGlobal.alchemistRightClickDust);
+						int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.fireFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
@@ -635,7 +636,7 @@ namespace OrchidMod.Alchemist.Projectiles
 				{
 					if (Main.rand.Next(3) < 2)
 					{
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.natureFlaskGlobal.alchemistRightClickDust);
+						int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.natureFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
@@ -648,7 +649,7 @@ namespace OrchidMod.Alchemist.Projectiles
 				{
 					if (Main.rand.Next(3) < 2)
 					{
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.airFlaskGlobal.alchemistRightClickDust);
+						int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.airFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
@@ -661,7 +662,7 @@ namespace OrchidMod.Alchemist.Projectiles
 				{
 					if (Main.rand.Next(3) < 2)
 					{
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.lightFlaskGlobal.alchemistRightClickDust);
+						int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.lightFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}
@@ -674,7 +675,7 @@ namespace OrchidMod.Alchemist.Projectiles
 				{
 					if (Main.rand.Next(3) < 2)
 					{
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.darkFlaskGlobal.alchemistRightClickDust);
+						int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.darkFlaskGlobal.alchemistRightClickDust);
 						Main.dust[dust].velocity *= 3f;
 						Main.dust[dust].scale *= 1.2f;
 					}

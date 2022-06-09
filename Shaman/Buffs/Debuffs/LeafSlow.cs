@@ -5,7 +5,7 @@ namespace OrchidMod.Shaman.Buffs.Debuffs
 {
 	public class LeafSlow : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Leaf Slow");
 			Description.SetDefault("Reduced Movement Speed");

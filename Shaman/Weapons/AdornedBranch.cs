@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons
 {
@@ -8,17 +9,17 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 5;
-			item.width = 34;
-			item.height = 32;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 1.25f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.UseSound = SoundID.Item8;
-			item.shootSpeed = 3f;
-			item.shoot = mod.ProjectileType("AdornedBranchProj");
+			Item.damage = 5;
+			Item.width = 34;
+			Item.height = 32;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 1.25f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.UseSound = SoundID.Item8;
+			Item.shootSpeed = 3f;
+			Item.shoot = Mod.Find<ModProjectile>("AdornedBranchProj").Type;
 			this.empowermentType = 1;
 			this.energy = 5;
 		}
@@ -42,7 +43,7 @@ namespace OrchidMod.Shaman.Weapons
 				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 			}
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 1)
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 1)
 			{
 				for (int i = 0; i < Main.rand.Next(3); i++)
 				{

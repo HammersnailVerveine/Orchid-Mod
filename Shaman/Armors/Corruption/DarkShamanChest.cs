@@ -10,11 +10,11 @@ namespace OrchidMod.Shaman.Armors.Corruption
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 16;
-			item.value = Item.sellPrice(0, 0, 60, 0);
-			item.rare = 2;
-			item.defense = 5;
+			Item.width = 30;
+			Item.height = 16;
+			Item.value = Item.sellPrice(0, 0, 60, 0);
+			Item.rare = 2;
+			Item.defense = 5;
 		}
 
 		public override void SetStaticDefaults()
@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Armors.Corruption
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.DemoniteBar, 25);
 			recipe.AddIngredient(ItemID.ShadowScale, 20);
 			recipe.AddTile(TileID.Anvils);

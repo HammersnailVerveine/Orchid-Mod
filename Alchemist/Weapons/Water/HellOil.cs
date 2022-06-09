@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -11,11 +12,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 15;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 3;
-			item.value = Item.sellPrice(0, 3, 20, 0);
+			Item.damage = 15;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 3;
+			Item.value = Item.sellPrice(0, 3, 20, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.WATER;
 			this.rightClickDust = 184;
@@ -36,7 +37,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(null, "GoblinArmyFlask", 1);
 			recipe.AddIngredient(ItemID.HellstoneBar, 10);
@@ -52,7 +53,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			{
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				modTarget.spreadOilFire(target.Center, dmg, Main.player[projectile.owner]);
-				Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 45);
+				SoundEngine.PlaySound(2, (int)target.position.X, (int)target.position.Y, 45);
 			}
 
 			int rand = alchProj.nbElements;

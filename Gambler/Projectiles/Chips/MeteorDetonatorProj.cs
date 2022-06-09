@@ -6,41 +6,41 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 50;
-			projectile.height = 50;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.tileCollide = false;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
+			Projectile.width = 50;
+			Projectile.height = 50;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.tileCollide = false;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
 			this.gamblingChipChance = 5;
 		}
 
 		public override void SafeAI()
 		{
-			Player player = Main.player[projectile.owner];
-			projectile.width = projectile.damage * 4;
-			projectile.height = projectile.width;
-			projectile.position.X = player.Center.X - projectile.width / 2;
-			projectile.position.Y = player.Center.Y - projectile.width / 2;
+			Player player = Main.player[Projectile.owner];
+			Projectile.width = Projectile.damage * 4;
+			Projectile.height = Projectile.width;
+			Projectile.position.X = player.Center.X - Projectile.width / 2;
+			Projectile.position.Y = player.Center.Y - Projectile.width / 2;
 
 			for (int i = 0; i < 20; i++)
 			{
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 				Main.dust[dust2].scale = 1.2f;
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust2].velocity.X /= 3;
 				Main.dust[dust2].velocity.Y /= 3;
 			}
-			OrchidModProjectile.spawnExplosionGore(projectile);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 6, (int)(projectile.width / 6), 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 6, (int)(projectile.width / 3), 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 6, (int)(projectile.width / 2), 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 6, (int)(projectile.width / 6), 15, true, 1.5f, 1f, 5f);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 6, (int)(projectile.width / 3), 15, true, 1.5f, 1f, 5f);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 6, (int)(projectile.width / 2), 15, true, 1.5f, 1f, 5f);
+			OrchidModProjectile.spawnExplosionGore(Projectile);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 6, (int)(Projectile.width / 6), 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 6, (int)(Projectile.width / 3), 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 6, (int)(Projectile.width / 2), 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 6, (int)(Projectile.width / 6), 15, true, 1.5f, 1f, 5f);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 6, (int)(Projectile.width / 3), 15, true, 1.5f, 1f, 5f);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 6, (int)(Projectile.width / 2), 15, true, 1.5f, 1f, 5f);
 		}
 
 		public override void SetStaticDefaults()

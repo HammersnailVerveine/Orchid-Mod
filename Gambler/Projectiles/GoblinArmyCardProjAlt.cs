@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 
 namespace OrchidMod.Gambler.Projectiles
 {
@@ -17,24 +18,24 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 90;
-			projectile.penetrate = 3;
-			projectile.alpha = 128;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 90;
+			Projectile.penetrate = 3;
+			Projectile.alpha = 128;
 			this.gamblingChipChance = 5;
 			this.projectileTrail = true;
 		}
 
 		public override void SafeAI()
 		{
-			projectile.rotation += 0.2f;
+			Projectile.rotation += 0.2f;
 
 			if (Main.rand.Next(2) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 27);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27);
 				Main.dust[dust].scale *= 1.5f;
 				Main.dust[dust].noGravity = true;
 			}
@@ -42,8 +43,8 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)

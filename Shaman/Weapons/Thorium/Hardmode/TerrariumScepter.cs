@@ -13,18 +13,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 94;
-			item.width = 56;
-			item.height = 56;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.knockBack = 3.5f;
-			item.rare = ItemRarityID.Red;
-			item.value = Item.sellPrice(0, 13, 50, 0);
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shootSpeed = 8f;
-			item.shoot = mod.ProjectileType("TerrariumScepterProj");
+			Item.damage = 94;
+			Item.width = 56;
+			Item.height = 56;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.knockBack = 3.5f;
+			Item.rare = ItemRarityID.Red;
+			Item.value = Item.sellPrice(0, 13, 50, 0);
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
+			Item.shootSpeed = 8f;
+			Item.shoot = Mod.Find<ModProjectile>("TerrariumScepterProj").Type;
 			this.empowermentType = 3;
 			this.energy = 4;
 		}
@@ -41,8 +41,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			base.ModifyTooltips(tooltips);
 
-			var tt = tooltips.FirstOrDefault(x => x.Name == "ItemName" && x.mod == "Terraria");
-			if (tt != null) tt.overrideColor = Main.DiscoColor;
+			var tt = tooltips.FirstOrDefault(x => x.Name == "ItemName" && x.Mod == "Terraria");
+			if (tt != null) tt.OverrideColor = Main.DiscoColor;
 		}
 
 		public override void AddRecipes()
@@ -50,7 +50,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.LunarCraftingStation);
 				recipe.AddIngredient(thoriumMod, "TerrariumCore", 9);
 				recipe.SetResult(this);

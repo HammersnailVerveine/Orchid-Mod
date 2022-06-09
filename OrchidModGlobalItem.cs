@@ -64,7 +64,7 @@ namespace OrchidMod
 
 		private void CrossmodTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			if (item.modItem is ICrossmodItem crossmod)
+			if (item.ModItem is ICrossmodItem crossmod)
 			{
 				string text = "This is a cross-content item: ";
 
@@ -75,9 +75,9 @@ namespace OrchidMod
 				}
 				else text += "Unknown Mod";
 
-				var tooltip = new TooltipLine(mod, "Crossmod", text)
+				var tooltip = new TooltipLine(Mod, "Crossmod", text)
 				{
-					overrideColor = new Color(255, 85, 60)
+					OverrideColor = new Color(255, 85, 60)
 				};
 				tooltips.Add(tooltip);
 			}

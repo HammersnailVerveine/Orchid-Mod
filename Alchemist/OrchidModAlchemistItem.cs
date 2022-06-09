@@ -3,6 +3,7 @@ using OrchidMod.Alchemist.Projectiles;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -35,24 +36,24 @@ namespace OrchidMod.Alchemist
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = true;
-			item.crit = 4;
-			item.useStyle = 1;
-			item.UseSound = SoundID.Item106;
-			item.consumable = false;
-			item.noUseGraphic = true;
-			item.useAnimation = 30;
-			item.useTime = 30;
-			item.autoReuse = false;
-			item.shootSpeed = 10f;
-			item.knockBack = 1f;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = true;
+			Item.crit = 4;
+			Item.useStyle = 1;
+			Item.UseSound = SoundID.Item106;
+			Item.consumable = false;
+			Item.noUseGraphic = true;
+			Item.useAnimation = 30;
+			Item.useTime = 30;
+			Item.autoReuse = false;
+			Item.shootSpeed = 10f;
+			Item.knockBack = 1f;
 
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.alchemistColorR = this.colorR;
 			orchidItem.alchemistColorG = this.colorG;
 			orchidItem.alchemistColorB = this.colorB;
@@ -72,19 +73,19 @@ namespace OrchidMod.Alchemist
 			orchidItem.addVariousEffectsDelegate = AddVariousEffects;
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().alchemistCrit;
 		}
 
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).alchemistCrit)
+			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).alchemistCrit)
 				crit = true;
 			else crit = false;
 		}
@@ -111,26 +112,26 @@ namespace OrchidMod.Alchemist
 
 				if (player.altFunctionUse == 2)
 				{
-					item.useAnimation = 10;
-					item.useTime = 10;
+					Item.useAnimation = 10;
+					Item.useTime = 10;
 					bool noPotency = orchidModPlayer.alchemistPotency < this.potencyCost + 1;
 
 					if (alreadyContains || noPotency || orchidModPlayer.alchemistNbElements >= orchidModPlayer.alchemistNbElementsMax)
 					{
 						if (noPotency && !alreadyContains)
 						{
-							item.UseSound = SoundID.Item7;
-							Main.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
+							Item.UseSound = SoundID.Item7;
+							SoundEngine.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
 						}
 						else
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								item.UseSound = SoundID.Item112;
+								Item.UseSound = SoundID.Item112;
 							}
 							else
 							{
-								item.UseSound = SoundID.Item111;
+								Item.UseSound = SoundID.Item111;
 							}
 						}
 					}
@@ -140,16 +141,16 @@ namespace OrchidMod.Alchemist
 						switch (rand)
 						{
 							case 1:
-								item.UseSound = SoundID.Item86;
+								Item.UseSound = SoundID.Item86;
 								break;
 							case 2:
-								item.UseSound = SoundID.Item87;
+								Item.UseSound = SoundID.Item87;
 								break;
 							default:
-								item.UseSound = SoundID.Item85;
+								Item.UseSound = SoundID.Item85;
 								break;
 						}
-						playerAddFlask(player, element, item.type, item.damage, potencyCost, rightClickDust, colorR, colorG, colorB);
+						playerAddFlask(player, element, Item.type, Item.damage, potencyCost, rightClickDust, colorR, colorG, colorB);
 						if (this.rightClickDust != -1)
 						{
 							for (int i = 0; i < 5; i++)
@@ -159,26 +160,26 @@ namespace OrchidMod.Alchemist
 							}
 						}
 					}
-					item.shoot = mod.ProjectileType("AlchemistRightClick");
+					Item.shoot = Mod.Find<ModProjectile>("AlchemistRightClick").Type;
 				}
 				else
 				{
 					if (!alreadyContains && orchidModPlayer.alchemistPotency > this.potencyCost && orchidModPlayer.alchemistNbElements < orchidModPlayer.alchemistNbElementsMax)
 					{
-						playerAddFlask(player, element, item.type, item.damage, potencyCost, rightClickDust, colorR, colorG, colorB);
+						playerAddFlask(player, element, Item.type, Item.damage, potencyCost, rightClickDust, colorR, colorG, colorB);
 					}
 
 					if (orchidModPlayer.alchemistNbElements > 0)
 					{
-						item.shootSpeed = 10f * orchidModPlayer.alchemistVelocity;
-						item.shoot = ProjectileType<Alchemist.Projectiles.AlchemistProj>();
-						item.UseSound = SoundID.Item106;
-						item.useAnimation = 30;
-						item.useTime = 30;
+						Item.shootSpeed = 10f * orchidModPlayer.alchemistVelocity;
+						Item.shoot = ProjectileType<Alchemist.Projectiles.AlchemistProj>();
+						Item.UseSound = SoundID.Item106;
+						Item.useAnimation = 30;
+						Item.useTime = 30;
 					}
 					else
 					{
-						Main.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
+						SoundEngine.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
 						return false;
 					}
 				}
@@ -200,78 +201,78 @@ namespace OrchidMod.Alchemist
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
-				string[] splitText = tt.text.Split(' ');
+				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " chemical " + damageWord;
+				tt.Text = damageValue + " chemical " + damageWord;
 			}
 
 			switch (this.element)
 			{
 				case AlchemistElement.WATER:
-					tooltips.Insert(1, new TooltipLine(mod, "ElementTag", "Water Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Water Element")
 					{
-						overrideColor = new Color(0, 119, 190)
+						OverrideColor = new Color(0, 119, 190)
 					});
 					break;
 				case AlchemistElement.FIRE:
-					tooltips.Insert(1, new TooltipLine(mod, "ElementTag", "Fire Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Fire Element")
 					{
-						overrideColor = new Color(194, 38, 31)
+						OverrideColor = new Color(194, 38, 31)
 					});
 					break;
 				case AlchemistElement.NATURE:
-					tooltips.Insert(1, new TooltipLine(mod, "ElementTag", "Nature Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Nature Element")
 					{
-						overrideColor = new Color(75, 139, 59)
+						OverrideColor = new Color(75, 139, 59)
 					});
 					break;
 				case AlchemistElement.AIR:
-					tooltips.Insert(1, new TooltipLine(mod, "ElementTag", "Air Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Air Element")
 					{
-						overrideColor = new Color(166, 231, 255)
+						OverrideColor = new Color(166, 231, 255)
 					});
 					break;
 				case AlchemistElement.LIGHT:
-					tooltips.Insert(1, new TooltipLine(mod, "ElementTag", "Light Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Light Element")
 					{
-						overrideColor = new Color(255, 255, 102)
+						OverrideColor = new Color(255, 255, 102)
 					});
 					break;
 				case AlchemistElement.DARK:
-					tooltips.Insert(1, new TooltipLine(mod, "ElementTag", "Dark Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Dark Element")
 					{
-						overrideColor = new Color(138, 43, 226)
+						OverrideColor = new Color(138, 43, 226)
 					});
 					break;
 				default:
 					break;
 			}
 
-			tooltips.Insert(1, new TooltipLine(mod, "Mix", "Right click to mix")
+			tooltips.Insert(1, new TooltipLine(Mod, "Mix", "Right click to mix")
 			{
-				overrideColor = new Color(155, 255, 155)
+				OverrideColor = new Color(155, 255, 155)
 			});
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Alchemist Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Alchemist Class-")
 				{
-					overrideColor = new Color(155, 255, 55)
+					OverrideColor = new Color(155, 255, 55)
 				});
 			}
 
 			// tt = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.mod == "Terraria");
 			// if (tt != null) tooltips.Remove(tt);
 
-			tt = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.mod == "Terraria");
-			if (tt != null) tt.text = "Uses " + this.potencyCost + " potency";
+			tt = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.Mod == "Terraria");
+			if (tt != null) tt.Text = "Uses " + this.potencyCost + " potency";
 
-			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.mod == "Terraria");
+			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 
 			//tooltips.Insert(tooltips.Count - 1, new TooltipLine(mod, "PotencyUse", "Uses " + this.potencyCost + " potency"));

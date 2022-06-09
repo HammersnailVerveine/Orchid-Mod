@@ -11,111 +11,271 @@ namespace OrchidMod.Guardian
 	public class GuardianShieldAnchor : OrchidModProjectile
 	{
 		public int SelectedItem { get; set; } = -1;
-		public Item ShieldItem => Main.player[projectile.owner].inventory[this.SelectedItem];
+		public Item ShieldItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
+		
+		public float bashDistanceRef = 0f;
+		public bool shieldEffectReady = true;
+		public Vector2 aimedLocation = Vector2.Zero;
+		public Vector2 oldOwnerPos = Vector2.Zero;
+		
+		public Vector2 hitbox = Vector2.Zero;
+		public Vector2 hitboxOrigin = Vector2.Zero;
 
 		// ...
 
 		public override void AltSetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 20;
-			projectile.friendly = false;
-			projectile.tileCollide = false;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 60;
-			projectile.penetrate = -1;
-			projectile.netImportant = true;
-			projectile.alpha = 255;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 60;
+			Projectile.penetrate = -1;
+			Projectile.netImportant = true;
+			Projectile.alpha = 255;
 		}
 
 		public void OnChangeSelectedItem(Player owner)
 		{
 			this.SelectedItem = owner.selectedItem;
-			projectile.netUpdate = true;
+			Projectile.ai[0] = 0f;
+			Projectile.ai[1] = 0f;
+			Projectile.netUpdate = true;
 		}
 
 		public override void AI()
 		{
-			var owner = Main.player[projectile.owner];
+			var owner = Main.player[Projectile.owner];
 			var death = false;
 
 			if (!owner.active || owner.dead)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 				return;
 			}
 
 			var item = this.ShieldItem;
-			if (item == null || !(item.modItem is OrchidModGuardianShield guardianItem))
+			if (item == null || !(item.ModItem is OrchidModGuardianShield guardianItem))
 			{
-				projectile.Kill();
+				Projectile.Kill();
 				return;
 			}
 
-			if (this.SelectedItem < 0 || !(owner.HeldItem.modItem is OrchidModGuardianShield))
+			if (this.SelectedItem < 0 || !(owner.HeldItem.ModItem is OrchidModGuardianShield))
 			{
-				projectile.netUpdate = true;
+				Projectile.netUpdate = true;
 				death = true;
 			}
 			
 			if (!death)
 			{
-				Vector2 aimedLocation = Main.MouseWorld - owner.Center;
-				aimedLocation.Normalize();
-				aimedLocation *= guardianItem.distance * - 10f;
+				float addedDistance = 0f;
+				if (Projectile.ai[1] > 0f) { // Shield bash code
 				
-				projectile.rotation = aimedLocation.ToRotation();
-				projectile.direction = projectile.spriteDirection;
-				
-				aimedLocation = owner.Center - aimedLocation - new Vector2(projectile.width / 2f, projectile.height / 2f); 
-				projectile.position = aimedLocation;
+					if (bashDistanceRef == 0f) {
+						bashDistanceRef = Projectile.ai[1] / 2;
+						Projectile.damage = guardianItem.Item.damage;
+						Projectile.knockBack = guardianItem.Item.knockBack;
+						Projectile.friendly = true;
+						guardianItem.Slam(owner, Projectile);
+					}
 					
-				projectile.timeLeft = 30;
-			}
-			
-			for (int l = 0; l < Main.projectile.Length; l++)
-			{
-				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.hostile && projectile.Hitbox.Intersects(proj.Hitbox))
-				{
-					guardianItem.Block(owner, projectile, proj);
+					for (int k = 0; k < Main.maxNPCs ; k++)
+					{
+						NPC target = Main.npc[k];
+						if (target.active && !target.dontTakeDamage && !target.friendly && Projectile.Hitbox.Intersects(target.Hitbox))
+						{
+							guardianItem.SlamHit(owner, Projectile, target);
+							if (this.shieldEffectReady) {
+								guardianItem.SlamHitFirst(owner, Projectile, target);
+								this.shieldEffectReady = false;
+							}
+						}
+					}
+					
+					if (Projectile.ai[1] > bashDistanceRef) {
+						addedDistance = bashDistanceRef * 2 - Projectile.ai[1];
+					} else {
+						addedDistance = Projectile.ai[1];
+					}
+					
+					Projectile.ai[1] -= (bashDistanceRef * 2) / guardianItem.Item.useTime;
+					Projectile.ai[1] = Projectile.ai[1] > 0f ? Projectile.ai[1] : 0f;
+				} else {
+					bashDistanceRef = 0f;
+					Projectile.friendly = false;
 				}
+				
+				
+			
+				if (Projectile.ai[0] > 0f) {
+					aimedLocation += owner.position - oldOwnerPos;
+					Point p1 = new Point((int)this.hitboxOrigin.X, (int)this.hitboxOrigin.Y);
+					Point p2 = new Point((int)(this.hitboxOrigin.X + this.hitbox.X), (int)(this.hitboxOrigin.Y + this.hitbox.Y));
+					
+					OrchidModPlayer modPlayer = owner.GetModPlayer<OrchidModPlayer>();
+					modPlayer.guardianSlamRecharge = (int)(OrchidModGuardianHelper.guardianRechargeTime * modPlayer.guardianRecharge);
+					
+					for (int l = 0; l < Main.projectile.Length; l++)
+					{
+						Projectile proj = Main.projectile[l];
+						if (proj.active && proj.hostile && this.LineIntersectsRect(p1, p2, proj.Hitbox))
+						{
+							guardianItem.Block(owner, Projectile, proj);
+							if (this.shieldEffectReady) {
+								guardianItem.Protect(owner, Projectile);
+								this.shieldEffectReady = false;
+							}
+						}
+					}
+					
+					for (int k = 0; k < Main.maxNPCs ; k++)
+					{
+						NPC target = Main.npc[k];
+						if (target.active && !target.dontTakeDamage && !target.friendly && this.LineIntersectsRect(p2, p1, target.Hitbox))
+						{
+							//int blockDuration = projectile.ai[0] > 60f ? (int)projectile.ai[0] : 60;
+							modPlayer.guardianBlockedEnemies.Add(new BlockedEnemy(target, (int)Projectile.ai[0] + 60));
+							
+							if (target.knockBackResist > 0f) 
+							{								
+								Vector2 push = Projectile.Center - owner.Center;
+								push.Normalize();
+								push += owner.position - oldOwnerPos;
+								target.velocity = push;
+								guardianItem.Push(owner, Projectile, target);
+								if (this.shieldEffectReady) {
+									modPlayer.guardianSlam ++;
+									guardianItem.Protect(owner, Projectile);
+									this.shieldEffectReady = false;
+								}
+							}
+						}
+					}
+					
+					Projectile.ai[0] -= 1f;
+					Projectile.ai[0] = Projectile.ai[0] > 0f ? Projectile.ai[0] : 0f;
+					
+					if (Projectile.ai[0] == 0f) {
+						this.spawnDusts();
+					}
+				} else {
+					aimedLocation = Main.MouseWorld - owner.Center;
+					aimedLocation.Normalize();
+					Projectile.velocity = aimedLocation;
+					aimedLocation *= (guardianItem.distance + addedDistance) * - 1f;
+					
+					Projectile.rotation = aimedLocation.ToRotation();
+					Projectile.direction = Projectile.spriteDirection;
+					
+					aimedLocation = owner.Center - aimedLocation - new Vector2(Projectile.width / 2f, Projectile.height / 2f); 
+					
+				}
+					
+				Projectile.position = aimedLocation;
+				Projectile.timeLeft = 5;
+				
+				this.UpdateHitbox();
+				//this.SeeHitbox();
 			}
 			
-			guardianItem.ExtraAIShield(projectile, true);
+			this.oldOwnerPos = owner.position;
+			guardianItem.ExtraAIShield(Projectile, true);
+		}
+		
+		// https://stackoverflow.com/questions/5514366/how-to-know-if-a-line-intersects-a-rectangle
+		// Laziness kicking in, might redo with Cohen-Sutherland algorithm
+		public bool LineIntersectsRect(Point p1, Point p2, Rectangle r)
+		{
+			return LineIntersectsLine(p1, p2, new Point(r.X, r.Y), new Point(r.X + r.Width, r.Y)) ||
+				   LineIntersectsLine(p1, p2, new Point(r.X + r.Width, r.Y), new Point(r.X + r.Width, r.Y + r.Height)) ||
+				   LineIntersectsLine(p1, p2, new Point(r.X + r.Width, r.Y + r.Height), new Point(r.X, r.Y + r.Height)) ||
+				   LineIntersectsLine(p1, p2, new Point(r.X, r.Y + r.Height), new Point(r.X, r.Y)) ||
+				   (r.Contains(p1) && r.Contains(p2));
+		}
+
+		private bool LineIntersectsLine(Point l1p1, Point l1p2, Point l2p1, Point l2p2)
+		{
+			float q = (l1p1.Y - l2p1.Y) * (l2p2.X - l2p1.X) - (l1p1.X - l2p1.X) * (l2p2.Y - l2p1.Y);
+			float d = (l1p2.X - l1p1.X) * (l2p2.Y - l2p1.Y) - (l1p2.Y - l1p1.Y) * (l2p2.X - l2p1.X);
+
+			if( d == 0 )
+			{
+				return false;
+			}
+
+			float r = q / d;
+
+			q = (l1p1.Y - l2p1.Y) * (l1p2.X - l1p1.X) - (l1p1.X - l2p1.X) * (l1p2.Y - l1p1.Y);
+			float s = q / d;
+
+			if( r < 0 || r > 1 || s < 0 || s > 1 )
+			{
+				return false;
+			}
+
+			return true;
+		}
+		// end of Stackoverflow code :P
+		
+		public void UpdateHitbox() {
+			this.hitboxOrigin = Projectile.Center + Vector2.UnitY * Projectile.gfxOffY;
+			this.hitboxOrigin -= new Vector2(0f, Projectile.height / 2f).RotatedBy(Projectile.rotation);
+			hitboxOrigin -= new Vector2(4f, 4f);
+			
+			this.hitbox = new Vector2(0f, Projectile.height).RotatedBy(Projectile.rotation);
+		}
+		
+		public void SeeHitbox() {
+			Vector2 vector = this.hitbox;
+			vector.Normalize();
+			for (int i = 0; i < this.hitbox.Length() ; i ++) {
+				Vector2 pos = this.hitboxOrigin + vector * i;
+				Dust dust = Main.dust[Dust.NewDust(pos, 0, 0, 6)];
+				dust.velocity *= 0f;
+				dust.noGravity = true;
+			}
+		}
+		
+		public void spawnDusts() {						
+			int dustType = 31;
+			Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+			for (int i = 0 ; i < 5 ; i ++) {
+				Main.dust[Dust.NewDust(pos, 20, 20, dustType)].velocity *= 0.25f;
+			}
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.25f;
+				Main.dust[Dust.NewDust(Projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.25f;
 			}
 		}
 
 		public override bool? CanCutTiles() => false;
-		public override bool CanDamage() => false;
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			if (!(this.ShieldItem.modItem is OrchidModGuardianShield guardianItem)) return false;
-			if (!ModContent.TextureExists(guardianItem.ShieldTexture)) return false;
+			if (!(this.ShieldItem.ModItem is OrchidModGuardianShield guardianItem)) return false;
+			if (!ModContent.HasAsset(guardianItem.ShieldTexture)) return false;
 
-			var player = Main.player[projectile.owner];
-			var color = Lighting.GetColor((int)(projectile.Center.X / 16f), (int)(projectile.Center.Y / 16f), Color.White);
+			var player = Main.player[Projectile.owner];
+			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
 
-			if (guardianItem.PreDrawShield(spriteBatch, projectile, player, ref color))
+			if (guardianItem.PreDrawShield(spriteBatch, Projectile, player, ref color))
 			{
 				var texture = ModContent.GetTexture(guardianItem.ShieldTexture);
-				var position = projectile.Center - Main.screenPosition + Vector2.UnitY * projectile.gfxOffY;
-				var effect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+				var position = Projectile.Center - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 				
-				projectile.width = texture.Width;
-				projectile.height = texture.Height;
+				Projectile.width = texture.Width;
+				Projectile.height = texture.Height;
 
-				spriteBatch.Draw(texture, position, null, color, projectile.rotation, texture.Size() * 0.5f, projectile.scale, effect, 0f);
+				spriteBatch.Draw(texture, position, null, color * (Projectile.ai[1] + Projectile.ai[0] > 0 ? 1f : 0.75f), Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
-			guardianItem.PostDrawShield(spriteBatch, projectile, player, color);
+			guardianItem.PostDrawShield(spriteBatch, Projectile, player, color);
 
 			return false;
 		}

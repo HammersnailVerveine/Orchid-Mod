@@ -20,131 +20,131 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 22;
-			projectile.height = 20;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.penetrate = -1;
-			projectile.alpha = 64;
-			ProjectileID.Sets.Homing[projectile.type] = true;
-			Main.projFrames[projectile.type] = 2;
+			Projectile.width = 22;
+			Projectile.height = 20;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.alpha = 64;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+			Main.projFrames[Projectile.type] = 2;
 			this.gamblingChipChance = 10;
 		}
 
 		public override void SafeAI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int cardType = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
-			projectile.velocity.Y += (projectile.wet || projectile.lavaWet || projectile.honeyWet) ? projectile.velocity.Y > -5f ? -0.5f : 0f : projectile.velocity.Y < 5f ? 0.3f : 0f;
-			projectile.frame = projectile.velocity.Y < 0f ? 1 : 0;
+			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			Projectile.velocity.Y += (Projectile.wet || Projectile.lavaWet || Projectile.honeyWet) ? Projectile.velocity.Y > -5f ? -0.5f : 0f : Projectile.velocity.Y < 5f ? 0.3f : 0f;
+			Projectile.frame = Projectile.velocity.Y < 0f ? 1 : 0;
 			this.justHit -= this.justHit > 0 ? 1 : 0;
 
-			this.velocityStuck = projectile.Center.Y == oldPositionY ? this.velocityStuck + 1 : 0;
-			this.oldPositionY = 0f + projectile.Center.Y;
+			this.velocityStuck = Projectile.Center.Y == oldPositionY ? this.velocityStuck + 1 : 0;
+			this.oldPositionY = 0f + Projectile.Center.Y;
 
-			if (projectile.velocity.X > 5f)
+			if (Projectile.velocity.X > 5f)
 			{
-				projectile.velocity.X = 5f;
+				Projectile.velocity.X = 5f;
 			}
-			if (projectile.velocity.X < -5f)
+			if (Projectile.velocity.X < -5f)
 			{
-				projectile.velocity.X = -5f;
+				Projectile.velocity.X = -5f;
 			}
 
 			if (!this.initialized)
 			{
-				this.baseDamage = projectile.damage;
+				this.baseDamage = Projectile.damage;
 				this.initialized = true;
 			}
 
-			if (Main.myPlayer == projectile.owner)
+			if (Main.myPlayer == Projectile.owner)
 			{
 				if (velocityStuck >= 5)
 				{
-					projectile.velocity.Y = -5;
+					Projectile.velocity.Y = -5;
 					this.velocityStuck = 0;
 				}
 				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.JungleSlimeCard>() && modPlayer.GamblerDeckInHand)
 				{
-					Vector2 newMove = new Vector2(Main.screenPosition.X + (float)Main.mouseX, (float)projectile.Center.Y) - projectile.Center;
+					Vector2 newMove = new Vector2(Main.screenPosition.X + (float)Main.mouseX, (float)Projectile.Center.Y) - Projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo > 5f)
 					{
-						if ((float)(Main.screenPosition.X + Main.mouseX) > projectile.Center.X)
+						if ((float)(Main.screenPosition.X + Main.mouseX) > Projectile.Center.X)
 						{
-							projectile.velocity.X += projectile.velocity.X < 6f ? this.justHit > 0 ? 0.15f : 0.25f : 0f;
+							Projectile.velocity.X += Projectile.velocity.X < 6f ? this.justHit > 0 ? 0.15f : 0.25f : 0f;
 						}
 						else
 						{
-							projectile.velocity.X -= projectile.velocity.X > -6f ? this.justHit > 0 ? 0.15f : 0.25f : 0f;
+							Projectile.velocity.X -= Projectile.velocity.X > -6f ? this.justHit > 0 ? 0.15f : 0.25f : 0f;
 						}
 					}
 					else
 					{
-						if (projectile.velocity.Length() > 0.01f)
+						if (Projectile.velocity.Length() > 0.01f)
 						{
-							projectile.velocity.X *= 0.9f;
+							Projectile.velocity.X *= 0.9f;
 						}
 					}
 
-					bool fallThrough = Main.screenPosition.Y + Main.mouseY > projectile.Center.Y;
-					if (projectile.ai[1] == 0f && fallThrough) {
-						projectile.ai[1] = 1f;
-						projectile.netUpdate = true;
-					} else if (projectile.ai[1] == 1f && !fallThrough) {
-						projectile.ai[1] = 0f;
-						projectile.netUpdate = true;
+					bool fallThrough = Main.screenPosition.Y + Main.mouseY > Projectile.Center.Y;
+					if (Projectile.ai[1] == 0f && fallThrough) {
+						Projectile.ai[1] = 1f;
+						Projectile.netUpdate = true;
+					} else if (Projectile.ai[1] == 1f && !fallThrough) {
+						Projectile.ai[1] = 0f;
+						Projectile.netUpdate = true;
 					}
 
 					int velocityXBy1000 = (int)(newMove.X * 1000f);
-					int oldVelocityXBy1000 = (int)(projectile.velocity.X * 1000f);
+					int oldVelocityXBy1000 = (int)(Projectile.velocity.X * 1000f);
 
 					if (velocityXBy1000 != oldVelocityXBy1000)
 					{
-						projectile.netUpdate = true;
+						Projectile.netUpdate = true;
 					}
 				}
 				else
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 			}
 		}
 
-		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
-			fallThrough = projectile.ai[1] == 1f;
+			fallThrough = Projectile.ai[1] == 1f;
 			return base.TileCollideStyle(ref width, ref height, ref fallThrough);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 			for (int i = 0; i < 3; i++)
 			{
 				int projType = ProjectileType<Gambler.Projectiles.JungleSlimeCardProjAlt>();
 				Vector2 vel = new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(20 * (i - 1)));
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X + (5 * (i - 1)), projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(projectile.damage * 0.75f), projectile.knockBack, projectile.owner), dummy);
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
 			}
 
-			if (projectile.velocity.Y > 0f)
+			if (Projectile.velocity.Y > 0f)
 			{
-				projectile.velocity.Y = -8;
-				if (this.baseDamage < projectile.damage)
+				Projectile.velocity.Y = -8;
+				if (this.baseDamage < Projectile.damage)
 				{
-					projectile.damage = this.baseDamage;
-					OrchidModProjectile.spawnDustCircle(projectile.Center, 60, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, false, true);
+					Projectile.damage = this.baseDamage;
+					OrchidModProjectile.spawnDustCircle(Projectile.Center, 60, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, false, true);
 				}
 			}
 			else
 			{
-				projectile.velocity.Y = 1f;
+				Projectile.velocity.Y = 1f;
 			}
-			if (projectile.velocity.X != oldVelocity.X)
+			if (Projectile.velocity.X != oldVelocity.X)
 			{
-				projectile.velocity.X = -oldVelocity.X;
-				projectile.velocity.Y = 0f;
+				Projectile.velocity.X = -oldVelocity.X;
+				Projectile.velocity.Y = 0f;
 			}
 
 			return false;
@@ -154,20 +154,20 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			if (justHit == 0)
 			{
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 178, 10, 10, true, 1.5f, 1f, 2f);
-				projectile.damage += 4;
+				OrchidModProjectile.spawnDustCircle(Projectile.Center, 178, 10, 10, true, 1.5f, 1f, 2f);
+				Projectile.damage += 4;
 
-				bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 				for (int i = 0; i < 5; i++)
 				{
 					int projType = ProjectileType<Gambler.Projectiles.JungleSlimeCardProjAlt>();
 					Vector2 vel = new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(15 * (i - 2)));
-					OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.position.X + (5 * (i - 1)), projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(projectile.damage * 0.75f), projectile.knockBack, projectile.owner), dummy);
+					OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
 				}
 			}
 
-			projectile.velocity.Y = -8;
-			projectile.velocity.X *= 0.5f;
+			Projectile.velocity.Y = -8;
+			Projectile.velocity.X *= 0.5f;
 			this.justHit = 30;
 		}
 
@@ -175,7 +175,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			for (int i = 0; i < 7; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 4, 0.0f, 0.0f, 175, new Color(70, 255, 0, 0));
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 4, 0.0f, 0.0f, 175, new Color(70, 255, 0, 0));
 			}
 		}
 	}

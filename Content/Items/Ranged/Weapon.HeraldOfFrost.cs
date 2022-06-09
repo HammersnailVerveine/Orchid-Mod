@@ -22,28 +22,28 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void SetDefaults()
 		{
-			item.autoReuse = true;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.useAnimation = 14;
-			item.useTime = 14;
-			item.width = 24;
-			item.height = 58;
-			item.shoot = ProjectileID.WoodenArrowFriendly;
-			item.useAmmo = AmmoID.Arrow;
-			item.UseSound = SoundID.Item5;
-			item.damage = 20;
-			item.knockBack = 5f;
-			item.shootSpeed = 6f;
-			item.noMelee = true;
-			item.value = Item.sellPrice(0, 4, 0, 0);
-			item.rare = ItemRarityID.Pink;
-			item.ranged = true;
+			Item.autoReuse = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useAnimation = 14;
+			Item.useTime = 14;
+			Item.width = 24;
+			Item.height = 58;
+			Item.shoot = ProjectileID.WoodenArrowFriendly;
+			Item.useAmmo = AmmoID.Arrow;
+			Item.UseSound = SoundID.Item5;
+			Item.damage = 20;
+			Item.knockBack = 5f;
+			Item.shootSpeed = 6f;
+			Item.noMelee = true;
+			Item.value = Item.sellPrice(0, 4, 0, 0);
+			Item.rare = ItemRarityID.Pink;
+			Item.ranged = true;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.RemoveAll(i => i.Name != "ItemName");
-			tooltips.Add(new TooltipLine(mod, "ExtraInfo", "'This item will be available later'"));
+			tooltips.Add(new TooltipLine(Mod, "ExtraInfo", "'This item will be available later'"));
 		}
 
 		public override Vector2? HoldoutOffset() => new Vector2(2, 0);

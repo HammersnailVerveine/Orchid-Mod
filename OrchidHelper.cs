@@ -112,7 +112,7 @@ namespace OrchidMod
 
 			ItemSlot.GetItemLight(ref color20, drawPlayer.inventory[drawPlayer.selectedItem], false);
 
-			if (heldItem.useStyle == ItemUseStyleID.HoldingOut)
+			if (heldItem.useStyle == ItemUseStyleID.Shoot)
 			{
 				if (Item.staff[heldItem.type])
 				{

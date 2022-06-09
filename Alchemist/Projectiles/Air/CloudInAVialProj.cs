@@ -7,15 +7,15 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 100;
-			projectile.height = 100;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 3;
-			projectile.tileCollide = false;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
+			Projectile.width = 100;
+			Projectile.height = 100;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 3;
+			Projectile.tileCollide = false;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
 		}
 
 		public override void SetStaticDefaults()
@@ -28,9 +28,9 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			for (int l = 0; l < Main.npc.Length; l++)
 			{
 				NPC target = Main.npc[l];
-				if (projectile.Hitbox.Intersects(target.Hitbox) && !(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
+				if (Projectile.Hitbox.Intersects(target.Hitbox) && !(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
 				{
-					target.velocity.Y = -(projectile.ai[1] * 4);
+					target.velocity.Y = -(Projectile.ai[1] * 4);
 				}
 			}
 		}

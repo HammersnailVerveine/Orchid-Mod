@@ -6,11 +6,11 @@ namespace OrchidMod.Guardian.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 24;
-			item.height = 28;
-			item.value = Item.sellPrice(0, 0, 30, 0);
-			item.rare = -11;
-			item.accessory = true;
+			Item.width = 24;
+			Item.height = 28;
+			Item.value = Item.sellPrice(0, 0, 30, 0);
+			Item.rare = -11;
+			Item.accessory = true;
 		}
 		public override void SetStaticDefaults()
 		{

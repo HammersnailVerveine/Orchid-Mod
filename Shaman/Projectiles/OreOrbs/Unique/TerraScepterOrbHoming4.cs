@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 {
@@ -13,17 +14,17 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 58;
-			projectile.height = 26;
-			projectile.aiStyle = 0;
-			projectile.friendly = true;
-			projectile.timeLeft = 12960000;
-			projectile.scale = 1f;
-			projectile.tileCollide = false;
-			projectile.extraUpdates = 1;
-			Main.projFrames[projectile.type] = 10;
-			ProjectileID.Sets.Homing[projectile.type] = true;
-			projectile.timeLeft = 350;
+			Projectile.width = 58;
+			Projectile.height = 26;
+			Projectile.aiStyle = 0;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 12960000;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = false;
+			Projectile.extraUpdates = 1;
+			Main.projFrames[Projectile.type] = 10;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+			Projectile.timeLeft = 350;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -33,34 +34,34 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
-			if (projectile.timeLeft == 349 && player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique == ShamanOrbUnique.TERRA)
+			if (Projectile.timeLeft == 349 && player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique == ShamanOrbUnique.TERRA)
 			{
 				player.GetModPlayer<OrchidModPlayer>().orbCountUnique = 0;
 			}
 
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 5 == 0)
-				projectile.frame++;
-			if (projectile.frame == 10)
-				projectile.frame = 0;
+				Projectile.frame++;
+			if (Projectile.frame == 10)
+				Projectile.frame = 0;
 
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 157);
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 157);
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust].velocity /= 2f;
-			int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 269);
+			int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 269);
 			Main.dust[dust2].noGravity = true;
 			Main.dust[dust2].velocity /= 2f;
 
-			if (projectile.localAI[0] == 0f)
+			if (Projectile.localAI[0] == 0f)
 			{
-				AdjustMagnitude(ref projectile.velocity);
-				projectile.localAI[0] = 1f;
+				AdjustMagnitude(ref Projectile.velocity);
+				Projectile.localAI[0] = 1f;
 			}
 
 			Vector2 move = Vector2.Zero;
 			float distance;
-			if (projectile.timeLeft < 300)
+			if (Projectile.timeLeft < 300)
 				distance = 1000f;
 			else distance = 10f;
 			bool target = false;
@@ -68,7 +69,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			{
 				if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
 				{
-					Vector2 newMove = Main.npc[k].Center - projectile.Center;
+					Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo < distance)
 					{
@@ -81,8 +82,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			if (target)
 			{
 				AdjustMagnitude(ref move);
-				projectile.velocity = (10 * projectile.velocity + move) / 7f;
-				AdjustMagnitude(ref projectile.velocity);
+				Projectile.velocity = (10 * Projectile.velocity + move) / 7f;
+				AdjustMagnitude(ref Projectile.velocity);
 			}
 		}
 
@@ -99,10 +100,10 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 269);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 269);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 5f;
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 157);
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 157);
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust2].velocity *= 5f;
 			}
@@ -110,7 +111,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			player.AddBuff(mod.BuffType("TerraBlast"), 60 * 15);
+			player.AddBuff(Mod.Find<ModBuff>("TerraBlast").Type, 60 * 15);
 		}
 	}
 }

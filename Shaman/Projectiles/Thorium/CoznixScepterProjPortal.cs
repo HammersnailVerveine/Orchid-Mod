@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -8,18 +9,18 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Void Gate");
-			Main.projFrames[projectile.type] = 4;
+			Main.projFrames[Projectile.type] = 4;
 		}
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 46;
-			projectile.height = 46;
-			projectile.aiStyle = -1;
-			projectile.friendly = true;
-			projectile.penetrate = 1;
-			projectile.tileCollide = false;
-			projectile.timeLeft = 600;
+			Projectile.width = 46;
+			Projectile.height = 46;
+			Projectile.aiStyle = -1;
+			Projectile.friendly = true;
+			Projectile.penetrate = 1;
+			Projectile.tileCollide = false;
+			Projectile.timeLeft = 600;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -29,23 +30,23 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			projectile.spriteDirection = projectile.velocity.X > 0f ? -1 : 1;
+			Projectile.spriteDirection = Projectile.velocity.X > 0f ? -1 : 1;
 
 			if (Main.rand.Next(3) == 0)
 			{
-				int DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 62, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 125, default(Color), 1f);
+				int DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 62, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 125, default(Color), 1f);
 				Main.dust[DustID].noGravity = true;
 			}
 
-			projectile.ai[1]++;
-			if (projectile.ai[1] >= 0)
+			Projectile.ai[1]++;
+			if (Projectile.ai[1] >= 0)
 			{
 				int dmg = (int)(35 * modPlayer.shamanDamage + 5E-06f);
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y + 4, 0f, 14f, mod.ProjectileType("CoznixScepterProjLaser"), dmg, 0f, projectile.owner, projectile.whoAmI, 0f);
-				projectile.ai[1] = -360;
+				Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y + 4, 0f, 14f, Mod.Find<ModProjectile>("CoznixScepterProjLaser").Type, dmg, 0f, Projectile.owner, Projectile.whoAmI, 0f);
+				Projectile.ai[1] = -360;
 			}
 		}
 
@@ -53,15 +54,15 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SafePostAI()
 		{
-			projectile.frameCounter++;
-			if (projectile.frameCounter > 3)
+			Projectile.frameCounter++;
+			if (Projectile.frameCounter > 3)
 			{
-				projectile.frame++;
-				projectile.frameCounter = 0;
+				Projectile.frame++;
+				Projectile.frameCounter = 0;
 			}
-			if (projectile.frame >= 4)
+			if (Projectile.frame >= 4)
 			{
-				projectile.frame = 0;
+				Projectile.frame = 0;
 				return;
 			}
 		}

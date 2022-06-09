@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 35;
-			item.width = 52;
-			item.height = 52;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 3.25f;
-			item.rare = ItemRarityID.LightRed;
-			item.value = Item.sellPrice(0, 7, 50, 0);
-			item.UseSound = SoundID.Item45;
-			item.autoReuse = true;
-			item.shootSpeed = 12f;
-			item.shoot = mod.ProjectileType("PharaohScepterProj");
+			Item.damage = 35;
+			Item.width = 52;
+			Item.height = 52;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 3.25f;
+			Item.rare = ItemRarityID.LightRed;
+			Item.value = Item.sellPrice(0, 7, 50, 0);
+			Item.UseSound = SoundID.Item45;
+			Item.autoReuse = true;
+			Item.shootSpeed = 12f;
+			Item.shoot = Mod.Find<ModProjectile>("PharaohScepterProj").Type;
 			this.empowermentType = 3;
 			this.energy = 7;
 		}
@@ -41,7 +41,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == mod.ProjectileType("PharaohScepterPortal") && proj.owner == player.whoAmI)
+				if (proj.active && proj.type == Mod.Find<ModProjectile>("PharaohScepterPortal").Type && proj.owner == player.whoAmI)
 				{
 					Vector2 target = Main.MouseWorld;
 					Vector2 heading = target - proj.position;
@@ -50,7 +50,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 					float speedXAlt = heading.X;
 					float speedYAlt = heading.Y + Main.rand.Next(-40, 41) * 0.02f;
 
-					this.NewShamanProjectile(proj.Center.X, proj.Center.Y, speedXAlt, speedYAlt, mod.ProjectileType("PharaohScepterProjAlt"), damage, knockBack, player.whoAmI);
+					this.NewShamanProjectile(proj.Center.X, proj.Center.Y, speedXAlt, speedYAlt, Mod.Find<ModProjectile>("PharaohScepterProjAlt").Type, damage, knockBack, player.whoAmI);
 				}
 			}
 
@@ -62,7 +62,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 2);
 				recipe.AddIngredient(thoriumMod, "PharaohsBreath", 8);

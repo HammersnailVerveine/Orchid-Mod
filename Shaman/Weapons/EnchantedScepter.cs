@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons
 {
@@ -7,18 +8,18 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 9;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 28;
-			item.useAnimation = 28;
-			item.knockBack = 3.15f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 1, 0, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 9f;
-			item.shoot = mod.ProjectileType("EnchantedScepterProj");
+			Item.damage = 9;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 28;
+			Item.useAnimation = 28;
+			Item.knockBack = 3.15f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 1, 0, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 9f;
+			Item.shoot = Mod.Find<ModProjectile>("EnchantedScepterProj").Type;
 			this.empowermentType = 1;
 			this.energy = 7;
 		}
@@ -32,7 +33,7 @@ namespace OrchidMod.Shaman.Weapons
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 3f);
+			flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 3f);
 		}
 	}
 }

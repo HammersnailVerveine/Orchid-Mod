@@ -14,19 +14,19 @@ namespace OrchidMod.Alchemist
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().alchemistCrit;
 		}
@@ -34,7 +34,7 @@ namespace OrchidMod.Alchemist
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
 			SafeModifyHitNPC(player, target, ref damage, ref knockBack, ref crit);
-			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).alchemistCrit)
+			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).alchemistCrit)
 				crit = true;
 			else crit = false;
 		}
@@ -49,21 +49,21 @@ namespace OrchidMod.Alchemist
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
-				string[] splitText = tt.text.Split(' ');
+				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " chemical " + damageWord;
+				tt.Text = damageValue + " chemical " + damageWord;
 			}
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Alchemist Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Alchemist Class-")
 				{
-					overrideColor = new Color(155, 255, 55)
+					OverrideColor = new Color(155, 255, 55)
 				});
 			}
 		}

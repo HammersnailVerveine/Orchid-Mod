@@ -18,7 +18,7 @@ namespace OrchidMod.Content.Items.Tools
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.LunarBar, 12);
 			recipe.AddIngredient(ModContent.ItemType<Shaman.Misc.AbyssFragment>(), 14);
 			recipe.AddTile(TileID.LunarCraftingStation);
@@ -33,7 +33,7 @@ namespace OrchidMod.Content.Items.Tools
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.LunarBar, 10);
 			recipe.AddIngredient(ModContent.ItemType<Shaman.Misc.AbyssFragment>(), 12);
 			recipe.AddTile(TileID.LunarCraftingStation);
@@ -68,22 +68,22 @@ namespace OrchidMod.Content.Items.Tools
 
 		public sealed override void SetDefaults()
 		{
-			item.CloneDefaults(_itemCloneType);
+			Item.CloneDefaults(_itemCloneType);
 		}
 
-		public sealed override void UseStyle(Player player)
+		public sealed override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
 			Lighting.AddLight(player.itemLocation, _lightColor.ToVector3() * 0.2f);
 		}
 
 		public sealed override void PostUpdate()
 		{
-			Lighting.AddLight(item.Center, _lightColor.ToVector3() * 0.2f);
+			Lighting.AddLight(Item.Center, _lightColor.ToVector3() * 0.2f);
 		}
 
 		public sealed override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture(this.Texture + "_Glow"), Color.White, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture(this.Texture + "_Glow"), Color.White, rotation, scale);
 		}
 
 		// ...

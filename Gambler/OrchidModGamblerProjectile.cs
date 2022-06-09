@@ -16,8 +16,8 @@ namespace OrchidMod.Gambler
 
 		public sealed override void AltSetDefaults()
 		{
-			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
-			projectile.timeLeft = 1500;
+			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			Projectile.timeLeft = 1500;
 			SafeSetDefaults();
 			modProjectile.gamblerProjectile = true;
 			modProjectile.baseCritChance = this.baseCritChance;
@@ -28,13 +28,13 @@ namespace OrchidMod.Gambler
 		public override void AI()
 		{
 			this.SafeAI();
-			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			modProjectile.gamblerInternalCooldown -= modProjectile.gamblerInternalCooldown > 0 ? 1 : 0;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
 			if (target.type != NPCID.TargetDummy && this.gamblingChipChance > 0)
@@ -47,7 +47,11 @@ namespace OrchidMod.Gambler
 
 		public bool getDummy()
 		{
-			return projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			return Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+		}
+		
+		public int getCardType(OrchidModPlayer modPlayer) {
+			return Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 		}
 	}
 }

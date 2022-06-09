@@ -6,7 +6,7 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class BloodMistFlaskBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Misty Steps");
 			Description.SetDefault("Periodically releases blood mist while moving");

@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class ReactiveVialsBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reactive Elements");
 			Description.SetDefault("10% increased chemical damage for your next chemical mixture");

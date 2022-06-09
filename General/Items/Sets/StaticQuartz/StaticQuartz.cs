@@ -8,25 +8,25 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 	{
 		public override void SetStaticDefaults()
 		{
-			ItemID.Sets.SortingPriorityMaterials[item.type] = 59;
+			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
 			DisplayName.SetDefault("Static Quartz");
 			Tooltip.SetDefault("Has electromagnetic properties");
 		}
 
 		public override void SetDefaults()
 		{
-			item.width = 18;
-			item.height = 28;
-			item.useStyle = 1;
-			item.useTurn = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.autoReuse = true;
-			item.maxStack = 999;
-			item.consumable = true;
-			item.createTile = TileType<Tiles.Ores.StaticQuartzGem>();
-			item.rare = 0;
-			item.value = Item.sellPrice(0, 0, 1, 50);
+			Item.width = 18;
+			Item.height = 28;
+			Item.useStyle = 1;
+			Item.useTurn = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.autoReuse = true;
+			Item.maxStack = 999;
+			Item.consumable = true;
+			Item.createTile = TileType<Tiles.Ores.StaticQuartzGem>();
+			Item.rare = 0;
+			Item.value = Item.sellPrice(0, 0, 1, 50);
 		}
 	}
 }

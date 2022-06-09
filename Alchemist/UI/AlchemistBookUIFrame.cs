@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
@@ -65,7 +67,7 @@ namespace OrchidMod.Alchemist.UI
 						&& (knownRecipe || knownHint || (progression >= recipe.level && recipe.level > 0))) {
 							foreach (int ingredientID in recipe.ingredients) {
 								if (knownRecipe || knownHint) {
-									Texture2D itemTexture = Main.itemTexture[ingredientID];
+									Texture2D itemTexture = TextureAssets.Item[ingredientID].Value;
 									spriteBatch.Draw(ressourceBookSlot, new Rectangle(point.X + offSetX, point.Y + offSetY, 36, 36), backgroundColor);
 									Rectangle itemRectangle = new Rectangle(point.X + offSetX + 2, point.Y + offSetY + 2, 30, 30);
 									spriteBatch.Draw(itemTexture, itemRectangle, knownRecipe ? backgroundColor : Color.Gray);
@@ -77,7 +79,7 @@ namespace OrchidMod.Alchemist.UI
 									if (lineRectangle.Contains(mousePoint) && (Main.mouseLeft && Main.mouseLeftRelease)
 									&& this.bookPopupRecipe.typeName == "RecipeBlank" && knownRecipe) {
 										this.bookPopupRecipe = recipe;
-										Main.PlaySound(10, (int)player.Center.X, (int)player.Center.Y, 0);
+										SoundEngine.PlaySound(10, (int)player.Center.X, (int)player.Center.Y, 0);
 										this.drawpause = true;
 									}
 								} else {
@@ -87,7 +89,7 @@ namespace OrchidMod.Alchemist.UI
 							}
 							msg = knownRecipe ? recipe.name : "Unknown Reaction";
 							Color textColor = knownRecipe ? backgroundColor : new Color(175, 175, 175);
-							ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, new Vector2(point.X + offSetX, point.Y + offSetY + 7), textColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+							ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, new Vector2(point.X + offSetX, point.Y + offSetY + 7), textColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 							offSetX = baseOffSetX;
 							offSetY += 35;
 						}
@@ -100,13 +102,13 @@ namespace OrchidMod.Alchemist.UI
 						if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowLeft.Contains(mousePoint))
 						{
 							this.bookPageIndex -= this.bookPageIndex > 0 ? 1 : 0;
-							Main.PlaySound(10, (int)player.Center.X, (int)player.Center.Y, 0);
+							SoundEngine.PlaySound(10, (int)player.Center.X, (int)player.Center.Y, 0);
 						}
 
 						if ((Main.mouseLeft && Main.mouseLeftRelease) && rectangleArrowRight.Contains(mousePoint))
 						{
 							this.bookPageIndex += this.bookPageIndex < maxPages ? 1 : 0;
-							Main.PlaySound(10, (int)player.Center.X, (int)player.Center.Y, 0);
+							SoundEngine.PlaySound(10, (int)player.Center.X, (int)player.Center.Y, 0);
 						}
 					}
 					else
@@ -116,7 +118,7 @@ namespace OrchidMod.Alchemist.UI
 						if ((Main.mouseLeft && Main.mouseLeftRelease) && !this.drawpause)
 						{
 							this.bookPopupRecipe = new Alchemist.Recipes.RecipeBlank();
-							Main.PlaySound(10, (int)player.Center.X, (int)player.Center.Y, 0);
+							SoundEngine.PlaySound(10, (int)player.Center.X, (int)player.Center.Y, 0);
 						}
 
 						spriteBatch.Draw(ressourceBookPopup, new Rectangle(point.X + offSetPopupX, point.Y + offSetPopupY, 318, 200), backgroundColor);
@@ -125,7 +127,7 @@ namespace OrchidMod.Alchemist.UI
 						offSetPopup = ((int)(40 * this.bookPopupRecipe.ingredients.Count / 2));
 						foreach (int ingredientID in this.bookPopupRecipe.ingredients)
 						{
-							Texture2D itemTexturePopup = Main.itemTexture[ingredientID];
+							Texture2D itemTexturePopup = TextureAssets.Item[ingredientID].Value;
 							spriteBatch.Draw(ressourceBookSlot, new Rectangle(point.X + offSetX - offSetPopup, point.Y + offSetPopupY + 16, 36, 36), backgroundColor);
 							Rectangle itemRectangle = new Rectangle(point.X + offSetX + 2 - offSetPopup, point.Y + offSetPopupY + 18, 30, 30);
 							spriteBatch.Draw(itemTexturePopup, itemRectangle, backgroundColor);
@@ -138,22 +140,22 @@ namespace OrchidMod.Alchemist.UI
 						}
 						Vector2 textPos = new Vector2(point.X + offSetPopupX + 25, point.Y + offSetPopupY + 70);
 						msg = this.bookPopupRecipe.name;
-						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, textPos, backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, textPos, backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 						msg = this.bookPopupRecipe.description;
 						textPos.Y += 40;
 						textPos.X -= 12;
-						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, textPos, backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, textPos, backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 					}
 
 					if (item != null)
 					{
-						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, item.Name, Main.MouseScreen + new Vector2(15f, 15f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, item.Name, Main.MouseScreen + new Vector2(15f, 15f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 					}
 
 					this.drawpause = this.drawpause ? Main.mouseLeftRelease : false;
 
 					msg = "Page " + (this.bookPageIndex + 1) + "/" + (maxPages + 1);
-					ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, new Vector2(point.X + 282, point.Y + 508), backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+					ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, new Vector2(point.X + 282, point.Y + 508), backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 				}
 			}
 		}

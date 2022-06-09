@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
@@ -7,29 +8,29 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 12;
-			item.channel = true;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 6;
-			item.useAnimation = 30;
-			item.knockBack = 0.5f;
-			item.rare = 5;
-			item.value = Item.sellPrice(0, 3, 50, 0);
-			item.UseSound = SoundID.Item15;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("PiratesGloryProj");
+			Item.damage = 12;
+			Item.channel = true;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 6;
+			Item.useAnimation = 30;
+			Item.knockBack = 0.5f;
+			Item.rare = 5;
+			Item.value = Item.sellPrice(0, 3, 50, 0);
+			Item.UseSound = SoundID.Item15;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("PiratesGloryProj").Type;
 			this.empowermentType = 2;
 			this.energy = 3;
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 2f);
+			flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 2f);
 		}
 
 

@@ -15,12 +15,12 @@ namespace OrchidMod.General.Items.Misc
 
 		public override void SetDefaults()
 		{
-			item.width = 36;
-			item.height = 32;
-			item.maxStack = 1;
-			item.useStyle = 0;
-			item.rare = -11;
-			item.value = Item.sellPrice(0, 1, 0, 0);
+			Item.width = 36;
+			Item.height = 32;
+			Item.maxStack = 1;
+			Item.useStyle = 0;
+			Item.rare = -11;
+			Item.value = Item.sellPrice(0, 1, 0, 0);
 		}
 	}
 }

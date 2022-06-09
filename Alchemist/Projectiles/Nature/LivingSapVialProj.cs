@@ -10,14 +10,14 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 20;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 600;
-			projectile.scale = 1f;
-			projectile.alpha = 128;
-			projectile.penetrate = 10;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 600;
+			Projectile.scale = 1f;
+			Projectile.alpha = 128;
+			Projectile.penetrate = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -27,18 +27,18 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void AI()
 		{
-			projectile.velocity *= 0.95f; ;
-			projectile.rotation += 0.02f;
+			Projectile.velocity *= 0.95f; ;
+			Projectile.rotation += 0.02f;
 
-			if (projectile.damage != 0)
+			if (Projectile.damage != 0)
 			{
-				this.heal += projectile.damage;
-				projectile.damage = 0;
+				this.heal += Projectile.damage;
+				Projectile.damage = 0;
 			}
 
 			if (Main.rand.Next(20) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
 				Main.dust[dust].velocity *= 0.1f;
 				Main.dust[dust].scale *= 1f;
 			}
@@ -46,11 +46,11 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 			//Player player = Main.player[projectile.owner];
 			Player player = Main.player[Main.myPlayer]; // < TEST MP
-			Vector2 center = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
+			Vector2 center = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
 			float offsetX = player.Center.X - center.X;
 			float offsetY = player.Center.Y - center.Y;
 			float distance = (float)Math.Sqrt(offsetX * offsetX + offsetY * offsetY);
-			if (distance < 50f && projectile.position.X < player.position.X + player.width && projectile.position.X + projectile.width > player.position.X && projectile.position.Y < player.position.Y + player.height && projectile.position.Y + projectile.height > player.position.Y)
+			if (distance < 50f && Projectile.position.X < player.position.X + player.width && Projectile.position.X + Projectile.width > player.position.X && Projectile.position.Y < player.position.Y + player.height && Projectile.position.Y + Projectile.height > player.position.Y)
 			{
 				if (!Main.LocalPlayer.moonLeech)
 				{
@@ -63,7 +63,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 					{
 						player.HealEffect(this.heal, true);
 						player.statLife += this.heal;
-						projectile.Kill();
+						Projectile.Kill();
 					}
 				}
 			}
@@ -73,7 +73,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}

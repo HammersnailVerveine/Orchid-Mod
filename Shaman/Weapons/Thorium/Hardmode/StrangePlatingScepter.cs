@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 65;
-			item.width = 50;
-			item.height = 50;
-			item.useTime = 18;
-			item.useAnimation = 18;
-			item.knockBack = 1.25f;
-			item.rare = ItemRarityID.LightPurple;
-			item.value = Item.sellPrice(0, 6, 0, 0);
-			item.UseSound = SoundID.Item12;
-			item.autoReuse = true;
-			item.shootSpeed = 20f;
-			item.shoot = mod.ProjectileType("StrangePlatingScepterProj");
+			Item.damage = 65;
+			Item.width = 50;
+			Item.height = 50;
+			Item.useTime = 18;
+			Item.useAnimation = 18;
+			Item.knockBack = 1.25f;
+			Item.rare = ItemRarityID.LightPurple;
+			Item.value = Item.sellPrice(0, 6, 0, 0);
+			Item.UseSound = SoundID.Item12;
+			Item.autoReuse = true;
+			Item.shootSpeed = 20f;
+			Item.shoot = Mod.Find<ModProjectile>("StrangePlatingScepterProj").Type;
 			this.empowermentType = 1;
 			this.energy = 7;
 		}
@@ -39,9 +39,9 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (Main.rand.Next(101) < 4 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 4)
+			if (Main.rand.Next(101) < 4 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 4)
 			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("StrangePlatingScepterProjAlt"), damage * 2, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("StrangePlatingScepterProjAlt").Type, damage * 2, knockBack, player.whoAmI);
 			}
 			else
 			{
@@ -55,7 +55,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "StrangePlating", 12);
 				recipe.SetResult(this);

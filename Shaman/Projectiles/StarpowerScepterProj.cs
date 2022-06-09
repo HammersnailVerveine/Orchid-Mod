@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Effects;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles
@@ -16,27 +17,27 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			DisplayName.SetDefault("Star");
 
-			ProjectileID.Sets.TrailingMode[projectile.type] = 2;
-			ProjectileID.Sets.TrailCacheLength[projectile.type] = 15;
+			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
 		}
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 120;
-			projectile.penetrate = -1; // Don't delete it, pls
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 120;
+			Projectile.penetrate = -1; // Don't delete it, pls
 		}
 
 		public override void OnSpawn()
 		{
 			// I hate it
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int newCrit = 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
-			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			int newCrit = 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
+			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			modProjectile.baseCritChance = newCrit;
 
 			switch (Main.rand.Next(3))
@@ -52,19 +53,19 @@ namespace OrchidMod.Shaman.Projectiles
 					break;
 			}
 
-			projectile.ai[0] = 0.35f;
-			projectile.ai[1] = 0; // Death Type
+			Projectile.ai[0] = 0.35f;
+			Projectile.ai[1] = 0; // Death Type
 			startRotation = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
 		}
 
 		public override void AI()
 		{
-			projectile.rotation = projectile.velocity.Length() + startRotation;
-			projectile.velocity *= 0.95f;
-			projectile.scale = MathHelper.SmoothStep(1.4f, 0f, projectile.ai[0]);
+			Projectile.rotation = Projectile.velocity.Length() + startRotation;
+			Projectile.velocity *= 0.95f;
+			Projectile.scale = MathHelper.SmoothStep(1.4f, 0f, Projectile.ai[0]);
 
-			if (projectile.timeLeft < 25 && projectile.ai[1] == 0) projectile.ai[1] = 2;
-			if (projectile.ai[1] > 0) DeathFunction();
+			if (Projectile.timeLeft < 25 && Projectile.ai[1] == 0) Projectile.ai[1] = 2;
+			if (Projectile.ai[1] > 0) DeathFunction();
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -73,62 +74,62 @@ namespace OrchidMod.Shaman.Projectiles
 			{
 				// Light Effect
 				Texture2D lightTexture = OrchidHelper.GetExtraTexture(11);
-				Vector2 drawPosition = projectile.Center + new Vector2(0, projectile.gfxOffY) - Main.screenPosition;
-				spriteBatch.Draw(lightTexture, drawPosition, null, mainColor, projectile.rotation, lightTexture.Size() * 0.5f, projectile.scale * 0.5f, SpriteEffects.None, 0);
+				Vector2 drawPosition = Projectile.Center + new Vector2(0, Projectile.gfxOffY) - Main.screenPosition;
+				spriteBatch.Draw(lightTexture, drawPosition, null, mainColor, Projectile.rotation, lightTexture.Size() * 0.5f, Projectile.scale * 0.5f, SpriteEffects.None, 0);
 
 				// Lens Flare
-				if (projectile.timeLeft < 15 && projectile.ai[1] == 2)
+				if (Projectile.timeLeft < 15 && Projectile.ai[1] == 2)
 				{
 					Texture2D texture = OrchidHelper.GetExtraTexture(6);
-					float size = MathHelper.SmoothStep(1, 0, Math.Abs(1f - projectile.timeLeft * 2 / 15)) * 0.9f;
+					float size = MathHelper.SmoothStep(1, 0, Math.Abs(1f - Projectile.timeLeft * 2 / 15)) * 0.9f;
 					Color color = mainColor;
 					color.A = 200;
 					spriteBatch.Draw(texture, drawPosition, null, color, 0f, texture.Size() * 0.5f, size, SpriteEffects.None, 0);
 				}
 
 				// Trail
-				for (int k = 0; k < projectile.oldPos.Length; k++)
+				for (int k = 0; k < Projectile.oldPos.Length; k++)
 				{
-					drawPosition = projectile.oldPos[k] + projectile.Size * 0.5f - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
-					float num = ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
+					drawPosition = Projectile.oldPos[k] + Projectile.Size * 0.5f - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+					float num = ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 					Color color = mainColor * num * 0.8f;
-					spriteBatch.Draw(OrchidHelper.GetExtraTexture(0), drawPosition, null, color, projectile.oldRot[k], OrchidHelper.GetExtraTexture(0).Size() * .5f, projectile.scale * num, SpriteEffects.None, 0f);
+					spriteBatch.Draw(OrchidHelper.GetExtraTexture(0), drawPosition, null, color, Projectile.oldRot[k], OrchidHelper.GetExtraTexture(0).Size() * .5f, Projectile.scale * num, SpriteEffects.None, 0f);
 				}
 			}
 			SetSpriteBatch(spriteBatch: spriteBatch);
 			return false;
 		}
 
-		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override void PostDraw(Color lightColor)
 		{
-			Vector2 drawPosition = projectile.Center + new Vector2(0, projectile.gfxOffY) - Main.screenPosition;
-			Texture2D texture = Main.projectileTexture[projectile.type];
-			spriteBatch.Draw(texture, drawPosition, null, Lighting.GetColor((int)projectile.Center.X / 16, (int)projectile.Center.Y / 16, Color.White), projectile.rotation, texture.Size() * .5f, projectile.scale, SpriteEffects.None, 0f);
+			Vector2 drawPosition = Projectile.Center + new Vector2(0, Projectile.gfxOffY) - Main.screenPosition;
+			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+			spriteBatch.Draw(texture, drawPosition, null, Lighting.GetColor((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16, Color.White), Projectile.rotation, texture.Size() * .5f, Projectile.scale, SpriteEffects.None, 0f);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.timeLeft = 24;
-			projectile.ai[1] = 1;
+			Projectile.timeLeft = 24;
+			Projectile.ai[1] = 1;
 			return false;
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			projectile.timeLeft = 24;
-			projectile.ai[1] = 1;
+			Projectile.timeLeft = 24;
+			Projectile.ai[1] = 1;
 		}
 
 		private void DeathFunction()
 		{
-			projectile.damage = 0;
-			projectile.tileCollide = false;
+			Projectile.damage = 0;
+			Projectile.tileCollide = false;
 
-			if (projectile.timeLeft < 25)
+			if (Projectile.timeLeft < 25)
 			{
-				if (projectile.timeLeft >= 20) projectile.ai[0] -= 0.035f;
-				else projectile.ai[0] += 0.06f;
-				if (projectile.ai[0] > 1f) projectile.Kill();
+				if (Projectile.timeLeft >= 20) Projectile.ai[0] -= 0.035f;
+				else Projectile.ai[0] += 0.06f;
+				if (Projectile.ai[0] > 1f) Projectile.Kill();
 			}
 		}
 	}

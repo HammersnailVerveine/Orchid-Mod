@@ -7,7 +7,7 @@ namespace OrchidMod.Tiles.Ambient
 {
 	public class MineshaftCrate : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSolidTop[Type] = true;
 			Main.tileSpelunker[Type] = true;
@@ -19,7 +19,7 @@ namespace OrchidMod.Tiles.Ambient
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Mineshaft Crate");
 			AddMapEntry(new Color(100, 75, 50), name);
-			dustType = 7;
+			DustType = 7;
 			disableSmartCursor = true;
 		}
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
@@ -34,7 +34,7 @@ namespace OrchidMod.Tiles.Ambient
 			if (rand >= 60 && rand < 70) for (int k = 0; k < Main.rand.Next(2) + 1; k++) Item.NewItem(i * 16, j * 16, 32, 16, 705); // tungsten bar
 			if (rand >= 70 && rand < 80) for (int k = 0; k < Main.rand.Next(2) + 1; k++) Item.NewItem(i * 16, j * 16, 32, 16, 706); // platinum bar
 			if (rand >= 80 && rand < 87) for (int k = 0; k < Main.rand.Next(6) + 5; k++) Item.NewItem(i * 16, j * 16, 32, 16, 166); // bomb
-			if (rand == 87) Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("EnchantedScepter"));
+			if (rand == 87) Item.NewItem(i * 16, j * 16, 32, 16, Mod.Find<ModItem>("EnchantedScepter").Type);
 			if (rand == 88) Item.NewItem(i * 16, j * 16, 32, 16, 88); // Mining helmet
 			if (rand == 89) Item.NewItem(i * 16, j * 16, 32, 16, 410); // Mining shirt
 			if (rand == 90) Item.NewItem(i * 16, j * 16, 32, 16, 411); // Mininng pants

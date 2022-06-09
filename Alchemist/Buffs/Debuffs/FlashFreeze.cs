@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs.Debuffs
 {
 	public class FlashFreeze : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Frozen");
 			Description.SetDefault("Reduced Movement Speed");

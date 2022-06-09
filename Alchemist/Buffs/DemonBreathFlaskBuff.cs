@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class DemonBreathFlaskBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Demon Reek");
 			Description.SetDefault("Demon breath will create more projectiles");

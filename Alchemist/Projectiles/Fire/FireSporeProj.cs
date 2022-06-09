@@ -16,13 +16,13 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 10;
-			projectile.height = 10;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.alpha = 126;
-			projectile.timeLeft = 600;
-			ProjectileID.Sets.Homing[projectile.type] = true;
+			Projectile.width = 10;
+			Projectile.height = 10;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.alpha = 126;
+			Projectile.timeLeft = 600;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 			this.projectileTrail = true;
 		}
 
@@ -35,19 +35,19 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 		{
 			if (!this.initialized)
 			{
-				projectile.ai[1] = Main.rand.Next(2) == 0 ? -1 : 1;
-				projectile.timeLeft -= Main.rand.Next(15);
-				projectile.netUpdate = true;
+				Projectile.ai[1] = Main.rand.Next(2) == 0 ? -1 : 1;
+				Projectile.timeLeft -= Main.rand.Next(15);
+				Projectile.netUpdate = true;
 				this.initialized = true;
 			}
 
-			if (projectile.timeLeft <= 550)
+			if (Projectile.timeLeft <= 550)
 			{
-				if (projectile.timeLeft == 550)
+				if (Projectile.timeLeft == 550)
 				{
-					projectile.velocity *= (float)((4 + Main.rand.Next(3)) / 10f);
-					projectile.friendly = true;
-					projectile.netUpdate = true;
+					Projectile.velocity *= (float)((4 + Main.rand.Next(3)) / 10f);
+					Projectile.friendly = true;
+					Projectile.netUpdate = true;
 				}
 				else
 				{
@@ -59,7 +59,7 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5
 						&& OrchidModAlchemistNPC.AttractiteCanHome(Main.npc[k]))
 						{
-							Vector2 newMove = Main.npc[k].Center - projectile.Center;
+							Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 							float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 							if (distanceTo < distance)
 							{
@@ -77,12 +77,12 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 							move.Normalize();
 							move *= 7f;
 							move = move.RotatedByRandom(MathHelper.ToRadians(20));
-							projectile.velocity = move;
+							Projectile.velocity = move;
 							this.dashCooldown = 60;
-							projectile.netUpdate = true;
+							Projectile.netUpdate = true;
 							for (int i = 0; i < 5; i++)
 							{
-								int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
+								int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 								Main.dust[dust].noGravity = true;
 								Main.dust[dust].noLight = true;
 								Main.dust[dust].scale *= 1.5f;
@@ -91,14 +91,14 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 						else
 						{
 							this.dashCooldown--;
-							projectile.velocity *= 0.95f;
+							Projectile.velocity *= 0.95f;
 						}
 
-						projectile.timeLeft++;
+						Projectile.timeLeft++;
 
 						if (Main.rand.Next(4) == 0)
 						{
-							int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
+							int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 							Main.dust[dust].noGravity = true;
 							Main.dust[dust].noLight = true;
 							Main.dust[dust].scale *= 1.5f;
@@ -106,11 +106,11 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 					}
 					else
 					{
-						int angle = (int)(5 * projectile.ai[1]);
-						move = projectile.velocity.RotatedBy(MathHelper.ToRadians(angle));
+						int angle = (int)(5 * Projectile.ai[1]);
+						move = Projectile.velocity.RotatedBy(MathHelper.ToRadians(angle));
 						move.Normalize();
 						move *= 3f;
-						projectile.velocity = move;
+						Projectile.velocity = move;
 					}
 				}
 			}
@@ -126,9 +126,9 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y;
-			projectile.ai[1] *= -1f;
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
+			Projectile.ai[1] *= -1f;
 			return false;
 		}
 
@@ -136,7 +136,7 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = true;
 			}

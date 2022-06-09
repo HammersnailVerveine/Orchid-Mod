@@ -11,19 +11,19 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 62;
-			item.magic = true;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 42;
-			item.useAnimation = 42;
-			item.knockBack = 1.15f;
-			item.rare = 8;
-			item.value = Item.sellPrice(0, 10, 0, 0);
-			item.UseSound = SoundID.Item117;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("TrueDepthProj");
+			Item.damage = 62;
+			Item.magic = true;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 42;
+			Item.useAnimation = 42;
+			Item.knockBack = 1.15f;
+			Item.rare = 8;
+			Item.value = Item.sellPrice(0, 10, 0, 0);
+			Item.UseSound = SoundID.Item117;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("TrueDepthProj").Type;
 			this.empowermentType = 5;
 			this.energy = 14;
 		}
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
 			int projectilesNumber = 0;
 
@@ -98,9 +98,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemType<DepthsBaton>(), 1);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BrokenHeroFragment") : ItemType<BrokenHeroScepter>(), (thoriumMod != null) ? 2 : 1);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BrokenHeroFragment").Type : ItemType<BrokenHeroScepter>(), (thoriumMod != null) ? 2 : 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

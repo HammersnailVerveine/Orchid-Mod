@@ -6,7 +6,7 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class IceChestFlaskBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Permanent Freeze");
 			Description.SetDefault("Constantly freezes various alchemical projectiles and slows enemies around you");

@@ -7,16 +7,16 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 26;
-			projectile.height = 26;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 300;
-			projectile.scale = 1f;
-			projectile.penetrate = 1;
-			projectile.friendly = true;
-			Main.projFrames[projectile.type] = 3;
+			Projectile.width = 26;
+			Projectile.height = 26;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 300;
+			Projectile.scale = 1f;
+			Projectile.penetrate = 1;
+			Projectile.friendly = true;
+			Main.projFrames[Projectile.type] = 3;
 			this.projectileTrail = true;
-			projectile.alpha = 128;
+			Projectile.alpha = 128;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -31,17 +31,17 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 
 		public override void AI()
 		{
-			projectile.velocity.Y += 0.05f;
-			projectile.rotation += (projectile.velocity.Y * 1.5f) / 20f;
+			Projectile.velocity.Y += 0.05f;
+			Projectile.rotation += (Projectile.velocity.Y * 1.5f) / 20f;
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			int range = 125;
 			// OrchidModProjectile.spawnDustCircle(projectile.Center, 67, (int)(range / 2), 10, true, 1.5f, 1f, 6f, true, true, false, 0, 0, true);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 67, 15, 8, true, 1.5f, 1f, 8f);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 67, 10, 6, true, 1.5f, 1f, 6f);
-			spawnGenericExplosion(projectile, projectile.damage, 1f, range * 2, 2, false, 27);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 67, 15, 8, true, 1.5f, 1f, 8f);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 67, 10, 6, true, 1.5f, 1f, 6f);
+			spawnGenericExplosion(Projectile, Projectile.damage, 1f, range * 2, 2, false, 27);
 		}
 	}
 }

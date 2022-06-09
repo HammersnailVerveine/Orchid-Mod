@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
@@ -51,7 +53,7 @@ namespace OrchidMod.Alchemist.UI
 						{
 							float shootSpeed = 10f * modPlayer.alchemistVelocity;
 							int projType = ProjectileType<Alchemist.Projectiles.AlchemistProj>();
-							Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 106);
+							SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 106);
 							modPlayer.alchemistSelectUIDisplay = false;
 							modPlayer.alchemistShootProjectile = true;
 							return;
@@ -94,17 +96,17 @@ namespace OrchidMod.Alchemist.UI
 										{
 											if (noPotency && !alreadyContains)
 											{
-												Main.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
+												SoundEngine.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
 											}
 											else
 											{
 												if (Main.rand.Next(2) == 0)
 												{
-													Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 112);
+													SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 112);
 												}
 												else
 												{
-													Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 111);
+													SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 111);
 												}
 											}
 										}
@@ -124,7 +126,7 @@ namespace OrchidMod.Alchemist.UI
 													rand = 85;
 													break;
 											}
-											Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, rand);
+											SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, rand);
 											for (int k = 0; k < 5; k++)
 											{
 												int dust = Dust.NewDust(player.Center, 10, 10, rightClickDust);
@@ -191,7 +193,7 @@ namespace OrchidMod.Alchemist.UI
 								Color color = selected ? elementSelected ? backgroundColorDark : backgroundColor : elementSelected ? backgroundColorGrayed : backgroundColorDark;
 								spriteBatch.Draw(resourceBack, this.displayRectangles[i], color);
 								spriteBatch.Draw(resourceBorder, this.displayRectangles[i], borderColor);
-								resourceItem = Main.itemTexture[item.type];
+								resourceItem = TextureAssets.Item[item.type].Value;
 								Rectangle insideRectangle = new Rectangle(displayRectangles[i].X + 6, displayRectangles[i].Y + 6, 30, 30);
 								Rectangle itemRectangle = insideRectangle;
 								if (((resourceItem.Width / 2) % 2) == 0)
@@ -215,7 +217,7 @@ namespace OrchidMod.Alchemist.UI
 					}
 					if (msg != "")
 					{
-						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, Main.MouseScreen + new Vector2(15f, 15f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+						ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, Main.MouseScreen + new Vector2(15f, 15f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 					}
 
 					if (!noReposition && !anySelected && ((Main.mouseRight && Main.mouseRightRelease) || (Main.mouseLeft && Main.mouseLeftRelease)))
@@ -240,7 +242,7 @@ namespace OrchidMod.Alchemist.UI
 			CalculatedStyle dimensions = GetDimensions();
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y);
 			modPlayer.alchemistSelectUIInitialize = false;
-			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 7);
+			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 7);
 			mouseDiff = new Point(point.X - (int)Main.MouseScreen.X, point.Y - (int)Main.MouseScreen.Y);
 			displayPoint.X = point.X - mouseDiff.X;
 			displayPoint.Y = point.Y - mouseDiff.Y;

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -8,14 +9,14 @@ namespace OrchidMod.Gambler.Weapons.Cards
 	{
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 1;
-			item.damage = 43;
-			item.crit = 4;
-			item.knockBack = 0.5f;
-			item.shootSpeed = 10f;
-			item.useAnimation = 30;
-			item.useTime = 30;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = 1;
+			Item.damage = 43;
+			Item.crit = 4;
+			Item.knockBack = 0.5f;
+			Item.shootSpeed = 10f;
+			Item.useAnimation = 30;
+			Item.useTime = 30;
 			this.cardRequirement = 3;
 			this.gamblerCardSets.Add("Slime");
 		}
@@ -44,11 +45,11 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			if (!found)
 			{
 				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy);
-				Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
+				SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
 			}
 			else
 			{
-				Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 7);
+				SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 7);
 			}
 		}
 	}

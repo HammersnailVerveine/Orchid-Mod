@@ -30,23 +30,23 @@ namespace OrchidMod.Shaman
 
 		public sealed override void SetStaticDefaults()
 		{
-			Item.staff[item.type] = true;
+			Item.staff[Item.type] = true;
 
 			this.SafeSetStaticDefaults();
 		}
 
 		public sealed override void SetDefaults()
 		{
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = true;
-			item.crit = 4;
-			item.useStyle = ItemUseStyleID.Stabbing;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = true;
+			Item.crit = 4;
+			Item.useStyle = ItemUseStyleID.Thrust;
 
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeapon = true;
 
 			this.SafeSetDefaults();
@@ -112,7 +112,7 @@ namespace OrchidMod.Shaman
 			return false;
 		}
 
-		public sealed override void UseStyle(Player player)
+		public sealed override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
 			player.itemLocation = (player.MountedCenter + new Vector2(player.direction * 12, player.gravDir * 24)).Floor();
 			player.itemRotation = -player.direction * player.gravDir * MathHelper.PiOver4;
@@ -129,7 +129,7 @@ namespace OrchidMod.Shaman
 				shaman.shamanCatalystIndex = index;
 
 				var proj = Main.projectile[index];
-				if (!(proj.modProjectile is CatalystAnchor catalyst))
+				if (!(proj.ModProjectile is CatalystAnchor catalyst))
 				{
 					proj.Kill();
 					shaman.shamanCatalystIndex = -1;
@@ -139,7 +139,7 @@ namespace OrchidMod.Shaman
 			else
 			{
 				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == catalystType);
-				if (proj != null && proj.modProjectile is CatalystAnchor catalyst)
+				if (proj != null && proj.ModProjectile is CatalystAnchor catalyst)
 				{
 					if (catalyst.SelectedItem != player.selectedItem)
 					{
@@ -152,7 +152,7 @@ namespace OrchidMod.Shaman
 			this.SafeHoldItem();
 		}
 
-		public sealed override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public sealed override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
@@ -181,7 +181,7 @@ namespace OrchidMod.Shaman
 			this.SafeModifyWeaponDamage(player, ref add, ref mult, ref flat);
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().shamanCrit;
 		}
@@ -194,24 +194,24 @@ namespace OrchidMod.Shaman
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
-				string[] splitText = tt.text.Split(' ');
+				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " shamanic damage";
+				tt.Text = damageValue + " shamanic damage";
 			}
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
+				int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
 				if (index != -1)
 				{
-					tooltips.Insert(index + 1, new TooltipLine(mod, "ShamanTag", "-Shaman Class-") // 00C0FF
+					tooltips.Insert(index + 1, new TooltipLine(Mod, "ShamanTag", "-Shaman Class-") // 00C0FF
 					{
-						overrideColor = new Color(0, 192, 255)
+						OverrideColor = new Color(0, 192, 255)
 					});
 				}
 			}
@@ -229,8 +229,8 @@ namespace OrchidMod.Shaman
 
 				string[] strType = new string[5] { "Fire", "Water", "Air", "Earth", "Spirit" };
 
-				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[empowermentType - 1]).Hex3()}:{strType[empowermentType - 1]}]"));
+				int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(Mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[empowermentType - 1]).Hex3()}:{strType[empowermentType - 1]}]"));
 			}
 		}
 

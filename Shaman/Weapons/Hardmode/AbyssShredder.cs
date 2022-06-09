@@ -11,22 +11,22 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 110;
-			item.magic = true;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 18;
-			item.useAnimation = 18;
-			item.knockBack = 1.15f;
-			item.rare = ItemRarityID.Red;
-			item.value = Item.sellPrice(0, 10, 0, 0);
-			item.UseSound = SoundID.Item122;
-			item.autoReuse = true;
-			item.shootSpeed = 10f;
-			item.shoot = ModContent.ProjectileType<Projectiles.AbyssShardS>();
+			Item.damage = 110;
+			Item.magic = true;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 18;
+			Item.useAnimation = 18;
+			Item.knockBack = 1.15f;
+			Item.rare = ItemRarityID.Red;
+			Item.value = Item.sellPrice(0, 10, 0, 0);
+			Item.UseSound = SoundID.Item122;
+			Item.autoReuse = true;
+			Item.shootSpeed = 10f;
+			Item.shoot = ModContent.ProjectileType<Projectiles.AbyssShardS>();
 			this.empowermentType = 1;
 
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 			this.energy = 5;
 		}
@@ -43,9 +43,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			for (int i = 0; i < 1; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AbyssShard"), damage, knockBack, player.whoAmI);
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AbyssShardS"), damage, knockBack, player.whoAmI);
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AbyssShardD"), damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("AbyssShard").Type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("AbyssShardS").Type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("AbyssShardD").Type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}
@@ -53,20 +53,20 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void UpdateInventory(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
-			item.useTime = 18 - (2 * nbBonds);
-			item.useAnimation = 18 - (2 * nbBonds);
+			Item.useTime = 18 - (2 * nbBonds);
+			Item.useAnimation = 18 - (2 * nbBonds);
 		}
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(item.Center, Color.Blue.ToVector3() * 0.55f * Main.essScale);
+			Lighting.AddLight(Item.Center, Color.Blue.ToVector3() * 0.55f * Main.essScale);
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
@@ -75,7 +75,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssShredder_Glowmask"), Color.White, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssShredder_Glowmask"), Color.White, rotation, scale);
 		}
 
 		public void DrawItemGlowmask(PlayerDrawInfo drawInfo)

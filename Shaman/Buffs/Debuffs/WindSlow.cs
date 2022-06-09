@@ -5,7 +5,7 @@ namespace OrchidMod.Shaman.Buffs.Debuffs
 {
 	public class WindSlow : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wind Slow");
 			Description.SetDefault("Reduced Movement Speed");

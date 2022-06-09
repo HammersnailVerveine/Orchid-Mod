@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
@@ -8,19 +9,19 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 100;
-			item.magic = true;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 24;
-			item.useAnimation = 24;
-			item.knockBack = 4.15f;
-			item.rare = 10;
-			item.value = Item.sellPrice(0, 20, 0, 0);
-			item.UseSound = SoundID.Item117;
-			item.autoReuse = true;
-			item.shootSpeed = 10f;
-			item.shoot = mod.ProjectileType("TheCoreProj");
+			Item.damage = 100;
+			Item.magic = true;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 24;
+			Item.useAnimation = 24;
+			Item.knockBack = 4.15f;
+			Item.rare = 10;
+			Item.value = Item.sellPrice(0, 20, 0, 0);
+			Item.UseSound = SoundID.Item117;
+			Item.autoReuse = true;
+			Item.shootSpeed = 10f;
+			Item.shoot = Mod.Find<ModProjectile>("TheCoreProj").Type;
 			this.empowermentType = 4;
 			this.energy = 8;
 		}
@@ -41,7 +42,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
 			int numberProjectiles = 2 + BuffsCount;
 

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,14 +11,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 20;
-			projectile.scale = 1f;
-			projectile.alpha = 128;
-			aiType = ProjectileID.Bullet;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 20;
+			Projectile.scale = 1f;
+			Projectile.alpha = 128;
+			AIType = ProjectileID.Bullet;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,14 +31,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 
 			for (int i = 0; i < 2; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
-				Main.dust[dust].velocity = projectile.velocity / 3;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
+				Main.dust[dust].velocity = Projectile.velocity / 3;
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = false;
 			}
 
-			int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 35);
+			int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 35);
 			Main.dust[dust2].velocity /= 1f;
 			Main.dust[dust2].scale = 1.2f;
 			Main.dust[dust2].noGravity = true;
@@ -48,7 +49,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 10f;
 			}
@@ -61,8 +62,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 				double deg = (i * (36 + 5 - Main.rand.Next(10)));
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - projectile.width / 2 + projectile.velocity.X + 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - projectile.height / 2 + projectile.velocity.Y + 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - Projectile.width / 2 + Projectile.velocity.X + 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - Projectile.height / 2 + Projectile.velocity.Y + 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
@@ -80,7 +81,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null && Main.rand.Next(2) == 0)
 			{
-				target.AddBuff((thoriumMod.BuffType("Singed")), 2 * 60);
+				target.AddBuff((thoriumMod.Find<ModBuff>("Singed").Type), 2 * 60);
 			}
 
 			if (modPlayer.shamanOrbBig != ShamanOrbBig.MAGMA)
@@ -92,29 +93,29 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 
 			if (modPlayer.orbCountBig == 2)
 			{
-				Projectile.NewProjectile(player.Center.X - 30, player.position.Y - 30, 0f, 0f, mod.ProjectileType("MagmaOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X - 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
-				if (player.FindBuffIndex(mod.BuffType("ShamanicBaubles")) > -1)
+				if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1)
 				{
 					modPlayer.orbCountBig += 2;
-					Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, mod.ProjectileType("MagmaOrb"), 1, 0, projectile.owner, 0f, 0f);
-					player.ClearBuff(mod.BuffType("ShamanicBaubles"));
+					Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 1, 0, Projectile.owner, 0f, 0f);
+					player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				}
 			}
 			if (modPlayer.orbCountBig == 4)
-				Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, mod.ProjectileType("MagmaOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 6)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 40, 0f, 0f, mod.ProjectileType("MagmaOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 40, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 8)
-				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 38, 0f, 0f, mod.ProjectileType("MagmaOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 10)
-				Projectile.NewProjectile(player.Center.X + 30, player.position.Y - 30, 0f, 0f, mod.ProjectileType("MagmaOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X + 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 10)
 			{
 
 				int dmg = (int)(50 * modPlayer.shamanDamage);
-				Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, mod.ProjectileType("MagmaScepterProjExplosion"), dmg, 0.0f, projectile.owner, 0.0f, 0.0f);
-				Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
+				Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("MagmaScepterProjExplosion").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
+				SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
 
 				spawnDustCircle(6, 75);
 				spawnDustCircle(6, 50);

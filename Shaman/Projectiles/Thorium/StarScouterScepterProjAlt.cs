@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -8,12 +10,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 2;
-			projectile.timeLeft = 90;
-			projectile.scale = 1f;
+			Projectile.width = 8;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 2;
+			Projectile.timeLeft = 90;
+			Projectile.scale = 1f;
 		}
 
 		public override void SetStaticDefaults()
@@ -25,22 +27,22 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			if (Main.rand.Next(5) == 0)
 			{
-				int DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 62, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
+				int DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 62, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
 				Main.dust[DustID].noGravity = true;
 			}
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			for (int i = 1; i < 3; i++)
 			{
 				spawnDustCircle(62, i * 10);
 			}
 
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 91);
-			Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, mod.ProjectileType("StarScouterScepterProjAltExplosion"), projectile.damage, 0.0f, projectile.owner, 0.0f, 0.0f);
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 91);
+			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("StarScouterScepterProjAltExplosion").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);
 		}
 
 		public void spawnDustCircle(int dustType, int distToCenter)
@@ -50,8 +52,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				double dustDeg = (double)(i * (36));
 				double dustRad = dustDeg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - projectile.width / 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - projectile.height / 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - Projectile.width / 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - Projectile.height / 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 

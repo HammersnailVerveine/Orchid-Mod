@@ -14,14 +14,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 26;
-			projectile.height = 26;
-			projectile.aiStyle = 0;
-			projectile.friendly = true;
-			projectile.timeLeft = 12960000;
-			projectile.scale = 1f;
-			projectile.tileCollide = false;
-			Main.projFrames[projectile.type] = 8;
+			Projectile.width = 26;
+			Projectile.height = 26;
+			Projectile.aiStyle = 0;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 12960000;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = false;
+			Main.projFrames[Projectile.type] = 8;
 		}
 
 		// public override Color? GetAlpha(Color lightColor)
@@ -36,34 +36,34 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			if (player != Main.player[Main.myPlayer])
 			{
-				projectile.active = false;
+				Projectile.active = false;
 			}
 
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 10 == 0)
-				projectile.frame++;
-			if (projectile.frame == 8)
-				projectile.frame = 0;
+				Projectile.frame++;
+			if (Projectile.frame == 8)
+				Projectile.frame = 0;
 
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique == 0 || player.GetModPlayer<OrchidModPlayer>().orbCountUnique > 19 || player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique != ShamanOrbUnique.HONEY)
-				projectile.Kill();
+				Projectile.Kill();
 			else orbsNumber = player.GetModPlayer<OrchidModPlayer>().orbCountUnique;
 
-			if (projectile.timeLeft == 12960000)
+			if (Projectile.timeLeft == 12960000)
 			{
-				startX = projectile.position.X - player.position.X;
-				startY = projectile.position.Y - player.position.Y;
+				startX = Projectile.position.X - player.position.X;
+				startY = Projectile.position.Y - player.position.Y;
 			}
-			projectile.velocity.X = player.velocity.X;
-			projectile.position.X = player.position.X + startX;
-			projectile.position.Y = player.position.Y + startY;
+			Projectile.velocity.X = player.velocity.X;
+			Projectile.position.X = player.position.X + startX;
+			Projectile.position.Y = player.position.Y + startY;
 
 			if (Main.rand.Next(13) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 153);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 153);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 				Main.dust[dust].scale *= 1.4f;
@@ -75,20 +75,20 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 153);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 153);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 5f;
 			}
 
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int dmg = (int)(10 * modPlayer.shamanDamage);
 			for (int i = 0; i < 2 + (int)(modPlayer.orbCountUnique / 2); i++)
 			{
-				if (Main.player[projectile.owner].strongBees && Main.rand.Next(2) == 0)
-					Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 566, (int)(dmg * 1.15f), 0f, projectile.owner, 0f, 0f);
+				if (Main.player[Projectile.owner].strongBees && Main.rand.Next(2) == 0)
+					Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 566, (int)(dmg * 1.15f), 0f, Projectile.owner, 0f, 0f);
 				else
-					Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 181, dmg, 0f, projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 181, dmg, 0f, Projectile.owner, 0f, 0f);
 			}
 			modPlayer.orbCountUnique = 0;
 		}

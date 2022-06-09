@@ -9,11 +9,11 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 4;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 15, 0);
+			Item.damage = 4;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 15, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.NATURE;
 			this.rightClickDust = 153;

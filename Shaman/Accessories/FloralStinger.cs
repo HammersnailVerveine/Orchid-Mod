@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Accessories
 {
@@ -6,11 +7,11 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 34;
-			item.height = 40;
-			item.value = Item.sellPrice(0, 5, 0, 0);
-			item.rare = 7;
-			item.accessory = true;
+			Item.width = 34;
+			Item.height = 40;
+			Item.value = Item.sellPrice(0, 5, 0, 0);
+			Item.rare = 7;
+			Item.accessory = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,7 +27,7 @@ namespace OrchidMod.Shaman.Accessories
 			modPlayer.shamanRage = true;
 
 			if (modPlayer.shamanPollEarthMax) {
-				player.AddBuff((mod.BuffType("JungleRage")), 1);
+				player.AddBuff((Mod.Find<ModBuff>("JungleRage").Type), 1);
 				modPlayer.shamanDamage += 0.2f;
 			}
 		}

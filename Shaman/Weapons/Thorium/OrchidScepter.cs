@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 18;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 4f;
-			item.rare = ItemRarityID.Green;
-			item.value = Item.sellPrice(0, 0, 30, 0);
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shootSpeed = 13f;
-			item.shoot = mod.ProjectileType("OrchidScepterProj");
+			Item.damage = 18;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 4f;
+			Item.rare = ItemRarityID.Green;
+			Item.value = Item.sellPrice(0, 0, 30, 0);
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
+			Item.shootSpeed = 13f;
+			Item.shoot = Mod.Find<ModProjectile>("OrchidScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 4;
 		}
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		{
 			int numberProjectiles = 1 + Main.rand.Next(2);
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 			numberProjectiles += nbBonds > 1 ? nbBonds > 3 ? 2 : 1 : 0;
 
 			for (int i = 0; i < numberProjectiles; i++)
@@ -56,8 +56,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(thoriumMod.TileType("ArcaneArmorFabricator"));
+				ModRecipe recipe = new ModRecipe(Mod);
+				recipe.AddTile(thoriumMod.Find<ModTile>("ArcaneArmorFabricator").Type);
 				recipe.AddIngredient(thoriumMod, "Petal", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();

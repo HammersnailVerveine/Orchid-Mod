@@ -12,32 +12,32 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 38;
-			projectile.height = 38;
-			projectile.friendly = true;
-			projectile.aiStyle = 2;
-			projectile.timeLeft = 150;
-			projectile.scale = 0.7f;
-			projectile.penetrate = 3;
+			Projectile.width = 38;
+			Projectile.height = 38;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 2;
+			Projectile.timeLeft = 150;
+			Projectile.scale = 0.7f;
+			Projectile.penetrate = 3;
 		}
 
 		public override void AI()
 		{
 			for (int index1 = 0; index1 < 1; ++index1)
 			{
-				projectile.velocity = projectile.velocity * 1.002f;
+				Projectile.velocity = Projectile.velocity * 1.002f;
 			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.velocity.X != oldVelocity.X)
+			if (Projectile.velocity.X != oldVelocity.X)
 			{
-				projectile.velocity.X = -oldVelocity.X;
+				Projectile.velocity.X = -oldVelocity.X;
 			}
-			if (projectile.velocity.Y != oldVelocity.Y)
+			if (Projectile.velocity.Y != oldVelocity.Y)
 			{
-				projectile.velocity.Y = -oldVelocity.Y;
+				Projectile.velocity.Y = -oldVelocity.Y;
 			}
 			return false;
 		}
@@ -46,8 +46,8 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 248);
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 248);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 248);
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 248);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust].scale = 1.5f;

@@ -9,18 +9,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 30;
-			item.width = 60;
-			item.height = 60;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.knockBack = 4.15f;
-			item.rare = 4;
-			item.value = Item.sellPrice(0, 7, 50, 0);
-			item.UseSound = SoundID.Item13;
-			item.autoReuse = true;
-			item.shootSpeed = 10f;
-			item.shoot = mod.ProjectileType("CorruptConeProj");
+			Item.damage = 30;
+			Item.width = 60;
+			Item.height = 60;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.knockBack = 4.15f;
+			Item.rare = 4;
+			Item.value = Item.sellPrice(0, 7, 50, 0);
+			Item.UseSound = SoundID.Item13;
+			Item.autoReuse = true;
+			Item.shootSpeed = 10f;
+			Item.shoot = Mod.Find<ModProjectile>("CorruptConeProj").Type;
 			this.empowermentType = 1;
 			this.energy = 4;
 		}
@@ -47,7 +47,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "RitualScepter", 1);
 			recipe.AddIngredient(ItemID.CursedFlame, 20);
 			recipe.AddIngredient(ItemID.SoulofNight, 15);

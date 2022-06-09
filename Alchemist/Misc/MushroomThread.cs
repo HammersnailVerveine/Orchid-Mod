@@ -10,11 +10,11 @@ namespace OrchidMod.Alchemist.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.width = 28;
-			item.height = 20;
-			item.maxStack = 99;
-			item.value = Item.sellPrice(0, 0, 0, 0);
-			item.rare = ItemRarityID.White;
+			Item.width = 28;
+			Item.height = 20;
+			Item.maxStack = 99;
+			Item.value = Item.sellPrice(0, 0, 0, 0);
+			Item.rare = ItemRarityID.White;
 		}
 
 		public override void SetStaticDefaults()
@@ -28,12 +28,12 @@ namespace OrchidMod.Alchemist.Misc
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{
 			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
-			Lighting.AddLight(item.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			Lighting.AddLight(Item.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomThread_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomThread_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
 		}
 	}
 }

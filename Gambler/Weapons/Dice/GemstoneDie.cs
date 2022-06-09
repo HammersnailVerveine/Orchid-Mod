@@ -8,10 +8,10 @@ namespace OrchidMod.Gambler.Weapons.Dice
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 24;
-			item.height = 24;
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 1;
+			Item.width = 24;
+			Item.height = 24;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = 1;
 			this.diceID = 1;
 			this.diceCost = 1;
 			this.diceDuration = 15;
@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler.Weapons.Dice
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Amethyst, 5);
 			recipe.AddIngredient(ItemID.Topaz, 5);

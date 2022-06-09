@@ -11,17 +11,17 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 6;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.knockBack = 3.15f;
-			item.rare = 3;
-			item.value = Item.sellPrice(0, 0, 54, 0);
-			item.UseSound = SoundID.Item43;
-			item.shootSpeed = 5f;
-			item.shoot = mod.ProjectileType("SporeCallerProj");
+			Item.damage = 6;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.knockBack = 3.15f;
+			Item.rare = 3;
+			Item.value = Item.sellPrice(0, 0, 54, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.shootSpeed = 5f;
+			Item.shoot = Mod.Find<ModProjectile>("SporeCallerProj").Type;
 			this.empowermentType = 3;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 25;
@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Weapons
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-			if (Main.LocalPlayer.FindBuffIndex(mod.BuffType("SporeEmpowerment")) > -1)
+			if (Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("SporeEmpowerment").Type) > -1)
 				add += 2f;
 		}
 
@@ -46,14 +46,14 @@ namespace OrchidMod.Shaman.Weapons
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
-			player.ClearBuff(mod.BuffType("SporeEmpowerment"));
+			player.ClearBuff(Mod.Find<ModBuff>("SporeEmpowerment").Type);
 
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == item.shoot && proj.owner == player.whoAmI)
+				if (proj.active && proj.type == Item.shoot && proj.owner == player.whoAmI)
 				{
 					proj.active = false;
 				}
@@ -73,22 +73,22 @@ namespace OrchidMod.Shaman.Weapons
 		{
 			base.ModifyTooltips(tooltips);
 
-			var tooltip = tooltips.Find(i => i.Name.Equals("Damage") && i.mod == "Terraria");
+			var tooltip = tooltips.Find(i => i.Name.Equals("Damage") && i.Mod == "Terraria");
 			if (tooltip != null)
 			{
-				string[] split = tooltip.text.Split(' ');
+				string[] split = tooltip.Text.Split(' ');
 				if (Int32.TryParse(split[0], out int dmg2))
 				{
 					dmg2 += 45;
 					split[0] = split[0] + " - " + dmg2;
-					tooltip.text = String.Join(" ", split);
+					tooltip.Text = String.Join(" ", split);
 				}
 			}
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.JungleSpores, 8);
 			recipe.AddIngredient(ItemID.Stinger, 5);

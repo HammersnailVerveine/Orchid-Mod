@@ -8,10 +8,10 @@ namespace OrchidMod.Tiles.Ambient
 {
 	public class MineshaftStaticTile : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSpelunker[Type] = true;
-			Main.tileValue[Type] = 280;
+			Main.tileOreFinderPriority[Type] = 280;
 			Main.tileShine2[Type] = true;
 			Main.tileShine[Type] = 500;
 			Main.tileObsidianKill[Type] = true;
@@ -24,7 +24,7 @@ namespace OrchidMod.Tiles.Ambient
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Static Quartz Node");
 			AddMapEntry(new Color(216, 21, 54), name);
-			dustType = 60;
+			DustType = 60;
 			disableSmartCursor = true;
 		}
 

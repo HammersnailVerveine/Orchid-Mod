@@ -40,15 +40,15 @@ namespace OrchidMod.Prefixes
 				switch (randValue)
 				{
 					case 0:
-						return mod.PrefixType("Natural");
+						return Mod.Find<ModPrefix>("Natural").Type;
 					case 1:
-						return mod.PrefixType("Spiritual");
+						return Mod.Find<ModPrefix>("Spiritual").Type;
 					case 2:
-						return mod.PrefixType("Brewing");
+						return Mod.Find<ModPrefix>("Brewing").Type;
 					case 3:
-						return mod.PrefixType("Loaded");
+						return Mod.Find<ModPrefix>("Loaded").Type;
 					case 4:
-						return mod.PrefixType("Crooked");
+						return Mod.Find<ModPrefix>("Crooked").Type;
 					default:
 						break;
 				}
@@ -56,37 +56,37 @@ namespace OrchidMod.Prefixes
 			return -1;
 		}
 
-		public override bool NewPreReforge(Item item)
+		public override bool PreReforge(Item item)
 		{
 			pShamanTimer = 0;
 			pAlchemistPotency = 0;
 			pGamblerChip = 0;
-			return base.NewPreReforge(item);
+			return base.PreReforge(item);
 		}
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
 			if (!item.social && pShamanTimer > 0)
 			{
-				TooltipLine line = new TooltipLine(mod, "pShamanTimer", "+" + pShamanTimer + "s shamanic bond duration")
+				TooltipLine line = new TooltipLine(Mod, "pShamanTimer", "+" + pShamanTimer + "s shamanic bond duration")
 				{
-					isModifier = true
+					IsModifier = true
 				};
 				tooltips.Add(line);
 			}
 			if (!item.social && pAlchemistPotency > 0)
 			{
-				TooltipLine line = new TooltipLine(mod, "pAlchemistPotency", "+" + pAlchemistPotency + " potency")
+				TooltipLine line = new TooltipLine(Mod, "pAlchemistPotency", "+" + pAlchemistPotency + " potency")
 				{
-					isModifier = true
+					IsModifier = true
 				};
 				tooltips.Add(line);
 			}
 			if (!item.social && pGamblerChip > 0)
 			{
-				TooltipLine line = new TooltipLine(mod, "pGamblerChip", "+" + pGamblerChip + " maximum chips")
+				TooltipLine line = new TooltipLine(Mod, "pGamblerChip", "+" + pGamblerChip + " maximum chips")
 				{
-					isModifier = true
+					IsModifier = true
 				};
 				tooltips.Add(line);
 			}

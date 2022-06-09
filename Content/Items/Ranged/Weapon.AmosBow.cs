@@ -22,24 +22,24 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void SetDefaults()
 		{
-			item.autoReuse = true;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.useAnimation = 14;
-			item.useTime = 14;
-			item.width = 18;
-			item.height = 46;
-			item.shoot = ModContent.ProjectileType<AmosBowProjectile>();
-			item.useAmmo = AmmoID.Arrow;
-			item.UseSound = SoundID.Item5;
-			item.damage = 20;
-			item.knockBack = 5f;
-			item.shootSpeed = 6f;
-			item.noMelee = true;
-			item.value = Item.sellPrice(0, 4, 0, 0);
-			item.rare = ItemRarityID.Cyan;
-			item.ranged = true;
-			item.noUseGraphic = true;
-			item.channel = true;
+			Item.autoReuse = true;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useAnimation = 14;
+			Item.useTime = 14;
+			Item.width = 18;
+			Item.height = 46;
+			Item.shoot = ModContent.ProjectileType<AmosBowProjectile>();
+			Item.useAmmo = AmmoID.Arrow;
+			Item.UseSound = SoundID.Item5;
+			Item.damage = 20;
+			Item.knockBack = 5f;
+			Item.shootSpeed = 6f;
+			Item.noMelee = true;
+			Item.value = Item.sellPrice(0, 4, 0, 0);
+			Item.rare = ItemRarityID.Cyan;
+			Item.ranged = true;
+			Item.noUseGraphic = true;
+			Item.channel = true;
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -61,11 +61,11 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void SetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 20;
+			Projectile.width = 20;
+			Projectile.height = 20;
 
-			projectile.tileCollide = false;
-			projectile.ignoreWater = true;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
 		}
 
 		public override void AI()

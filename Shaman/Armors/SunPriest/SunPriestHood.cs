@@ -9,11 +9,11 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 26;
-			item.height = 24;
-			item.value = Item.sellPrice(0, 7, 50, 0);
-			item.rare = 8;
-			item.defense = 20;
+			Item.width = 26;
+			Item.height = 24;
+			Item.value = Item.sellPrice(0, 7, 50, 0);
+			Item.rare = 8;
+			Item.defense = 20;
 		}
 
 		public override void SetStaticDefaults()
@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == mod.ItemType("SunPriestRobe") && legs.type == mod.ItemType("SunPriestPants");
+			return body.type == Mod.Find<ModItem>("SunPriestRobe").Type && legs.type == Mod.Find<ModItem>("SunPriestPants").Type;
 		}
 
 		public override void UpdateArmorSet(Player player)
@@ -55,7 +55,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "LihzahrdSilk", 3);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 12);
 			recipe.AddTile(TileID.MythrilAnvil);

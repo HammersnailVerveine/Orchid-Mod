@@ -5,7 +5,7 @@ namespace OrchidMod.Shaman.Buffs.Debuffs
 {
 	public class WindDamage : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wind Damage");
 			Description.SetDefault("Kills");

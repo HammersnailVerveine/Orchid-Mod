@@ -6,6 +6,7 @@ using OrchidMod.Alchemist.Weapons.Water;
 using OrchidMod.Alchemist.Recipes;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -39,6 +40,7 @@ namespace OrchidMod.Alchemist
 			recipes.Add(new RecipeMistySteps());
 			recipes.Add(new RecipePermanentFreeze());
 			recipes.Add(new RecipeStellarTalcOrbit());
+			recipes.Add(new RecipeAttractiteAuraLesser());
 			recipes.Add(new RecipeBubbleSlime());
 			recipes.Add(new RecipeBubbleSap());
 			recipes.Add(new RecipeBubbleOil());
@@ -89,7 +91,7 @@ namespace OrchidMod.Alchemist
 
 			if (recipe.soundID != 0 && recipe.soundType != 0)
 			{
-				Main.PlaySound(recipe.soundType, (int)player.position.X, (int)player.position.Y, recipe.soundID);
+				SoundEngine.PlaySound(recipe.soundType, (int)player.position.X, (int)player.position.Y, recipe.soundID);
 			}
 		}
 
@@ -197,7 +199,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].velocity *= 2f;
 					Main.dust[dust].scale *= 1.5f;
 				}
-				Main.PlaySound(2, (int)player.position.X, (int)player.position.Y, 16);
+				SoundEngine.PlaySound(2, (int)player.position.X, (int)player.position.Y, 16);
 			}
 			else
 			{

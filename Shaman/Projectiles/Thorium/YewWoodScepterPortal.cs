@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -7,16 +8,16 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 38;
-			projectile.height = 40;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 500;
-			projectile.scale = 1f;
-			Main.projFrames[projectile.type] = 4;
-			projectile.alpha = 32;
-			projectile.tileCollide = false;
-			projectile.penetrate = 10;
+			Projectile.width = 38;
+			Projectile.height = 40;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 500;
+			Projectile.scale = 1f;
+			Main.projFrames[Projectile.type] = 4;
+			Projectile.alpha = 32;
+			Projectile.tileCollide = false;
+			Projectile.penetrate = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,36 +27,36 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
-			if (projectile.timeLeft == 500)
+			if (Projectile.timeLeft == 500)
 			{
 				for (int i = 0; i < 10; i++)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 27);
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].scale = 2f;
 				}
 			}
 
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 7 == 0)
-				projectile.frame++;
-			if (projectile.frame == 4)
-				projectile.frame = 0;
+				Projectile.frame++;
+			if (Projectile.frame == 4)
+				Projectile.frame = 0;
 
 			if (Main.rand.Next(3) == 0)
 			{
-				Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
-				int dust = Dust.NewDust(pos, projectile.width, projectile.height, 27, 0f, 0f);
+				Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+				int dust = Dust.NewDust(pos, Projectile.width, Projectile.height, 27, 0f, 0f);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale = 1f;
 			}
 
-			if (projectile.timeLeft % 60 == 0)
+			if (Projectile.timeLeft % 60 == 0)
 			{
 				int dmg = (int)(18 * player.GetModPlayer<OrchidModPlayer>().shamanDamage);
-				Projectile.NewProjectile(projectile.position.X + projectile.width / 2, projectile.position.Y + projectile.height / 2, 0f, 0f, mod.ProjectileType("YewWoodScepterPortalProj"), dmg, 0.0f, projectile.owner, 0.0f, 0.0f);
-				projectile.netUpdate = true;
+				Projectile.NewProjectile(Projectile.position.X + Projectile.width / 2, Projectile.position.Y + Projectile.height / 2, 0f, 0f, Mod.Find<ModProjectile>("YewWoodScepterPortalProj").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
+				Projectile.netUpdate = true;
 			}
 		}
 
@@ -63,7 +64,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 27);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale = 2f;
 			}

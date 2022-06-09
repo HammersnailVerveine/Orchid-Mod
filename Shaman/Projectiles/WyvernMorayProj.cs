@@ -5,6 +5,7 @@ using OrchidMod.Content.Trails;
 using OrchidMod.Effects;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +13,7 @@ namespace OrchidMod.Shaman.Projectiles
 {
 	public class WyvernMorayProj : OrchidModShamanProjectile
 	{
-		public bool Improved { get => projectile.ai[1] == 1; set => projectile.ai[1] = value.ToInt(); }
+		public bool Improved { get => Projectile.ai[1] == 1; set => Projectile.ai[1] = value.ToInt(); }
 
 		private bool _death = false;
 		private float _deathProgress = 1f;
@@ -22,19 +23,19 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			DisplayName.SetDefault("Wyvern Spit");
 
-			ProjectileID.Sets.TrailingMode[projectile.type] = 0;
-			ProjectileID.Sets.TrailCacheLength[projectile.type] = 12;
+			ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
+			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
 		}
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.aiStyle = 2;
-			projectile.friendly = true;
-			projectile.timeLeft = 150;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.aiStyle = 2;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 150;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
 		}
 
 		private readonly Color[] _effectColors = new Color[] { new Color(113, 187, 162), new Color(40, 116, 255) };
@@ -43,7 +44,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void OnSpawn()
 		{
-			_trail = new RoundedTrail(target: projectile, length: 16 * 7, width: (p) => 20 * (1 - p * 0.35f), color: (p) => GetCurrentColor() * (1 - p), effect: EffectsManager.WyvernMorayEffect);
+			_trail = new RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 20 * (1 - p * 0.35f), color: (p) => GetCurrentColor() * (1 - p), effect: EffectsManager.WyvernMorayEffect);
 
 			PrimitiveTrailSystem.NewTrail(_trail);
 		}
@@ -55,41 +56,41 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void AI()
 		{
-			Lighting.AddLight(projectile.Center, this.GetCurrentColor().ToVector3() * 0.25f);
+			Lighting.AddLight(Projectile.Center, this.GetCurrentColor().ToVector3() * 0.25f);
 
 			if (_death) this.DeathUpdate();
-			else OrchidModProjectile.resetIFrames(projectile);
+			else OrchidModProjectile.resetIFrames(Projectile);
 		}
 
-		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override void PostDraw(Color lightColor)
 		{
 			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
-				Vector2 drawPos = projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
+				Vector2 drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 				Texture2D texture;
 				Color color = GetCurrentColor();
 
 				// Trail
 				{
 					texture = OrchidHelper.GetExtraTexture(11);
-					for (int k = 1; k < projectile.oldPos.Length; k++)
+					for (int k = 1; k < Projectile.oldPos.Length; k++)
 					{
-						float progress = ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-						Vector2 drawPosTrail = projectile.oldPos[k] - Main.screenPosition + projectile.Size * 0.5f + new Vector2(0f, projectile.gfxOffY);
-						spriteBatch.Draw(texture, drawPosTrail, null, color * progress, projectile.rotation, texture.Size() * 0.5f, projectile.scale * 0.4f * progress, SpriteEffects.None, 0f);
+						float progress = ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+						Vector2 drawPosTrail = Projectile.oldPos[k] - Main.screenPosition + Projectile.Size * 0.5f + new Vector2(0f, Projectile.gfxOffY);
+						spriteBatch.Draw(texture, drawPosTrail, null, color * progress, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale * 0.4f * progress, SpriteEffects.None, 0f);
 					}
-					spriteBatch.Draw(texture, drawPos, null, color, projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, projectile.scale * 0.6f, SpriteEffects.None, 0);
+					spriteBatch.Draw(texture, drawPos, null, color, Projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, Projectile.scale * 0.6f, SpriteEffects.None, 0);
 				}
 
 				texture = OrchidHelper.GetExtraTexture(13);
-				spriteBatch.Draw(texture, drawPos, null, color * 0.4f, Main.GlobalTime, texture.Size() * 0.5f, projectile.scale * 0.75f, SpriteEffects.None, 0);
-				spriteBatch.Draw(texture, drawPos, null, color * 0.8f, Main.GlobalTime * 5f, texture.Size() * 0.5f, projectile.scale * 0.3f, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos, null, color * 0.4f, Main.GlobalTimeWrappedHourly, texture.Size() * 0.5f, Projectile.scale * 0.75f, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos, null, color * 0.8f, Main.GlobalTimeWrappedHourly * 5f, texture.Size() * 0.5f, Projectile.scale * 0.3f, SpriteEffects.None, 0);
 
 				texture = OrchidHelper.GetExtraTexture(8);
-				spriteBatch.Draw(texture, drawPos, null, color * _deathProgress, projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos, null, color * _deathProgress, Projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
 
 				texture = OrchidHelper.GetExtraTexture(3);
-				spriteBatch.Draw(texture, drawPos + Vector2.Normalize(projectile.velocity) * 8f, null, color * MathHelper.SmoothStep(0, 1, projectile.velocity.Length() * 0.1f), projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, projectile.scale * 0.4f, SpriteEffects.None, 0);
+				spriteBatch.Draw(texture, drawPos + Vector2.Normalize(Projectile.velocity) * 8f, null, color * MathHelper.SmoothStep(0, 1, Projectile.velocity.Length() * 0.1f), Projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
 
 				if (_death)
 				{
@@ -97,7 +98,7 @@ namespace OrchidMod.Shaman.Projectiles
 					float progress = 1 - (float)Math.Pow(MathHelper.Lerp(0, 1, _deathProgress), 3);
 					color *= progress;
 					Vector2 origin = texture.Size() * 0.5f;
-					float scale = projectile.scale * progress;
+					float scale = Projectile.scale * progress;
 
 					spriteBatch.Draw(texture, drawPos, null, color * 0.6f, 0f, origin, scale, SpriteEffects.None, 0);
 					spriteBatch.Draw(texture, drawPos, null, color, 0f, origin, scale * 1.6f, SpriteEffects.None, 0);
@@ -108,19 +109,19 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public void DeathUpdate()
 		{
-			projectile.velocity = Vector2.Zero;
-			projectile.timeLeft = 2;
+			Projectile.velocity = Vector2.Zero;
+			Projectile.timeLeft = 2;
 
 			if (_deathProgress == 1f)
 			{
-				Main.PlaySound(SoundID.Item, (int)projectile.position.X, (int)projectile.position.Y, 34);
+				SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 34);
 
-				projectile.friendly = false;
-				projectile.tileCollide = false;
+				Projectile.friendly = false;
+				Projectile.tileCollide = false;
 				_trail.StartDissolving();
 
-				var proj = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<WyvernMorayProjLingering>(), (int)(projectile.damage * 0.6f), 0.0f, projectile.owner, 0.0f, 0.0f)];
-				if (proj.modProjectile is WyvernMorayProjLingering hehe)
+				var proj = Main.projectile[Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<WyvernMorayProjLingering>(), (int)(Projectile.damage * 0.6f), 0.0f, Projectile.owner, 0.0f, 0.0f)];
+				if (proj.ModProjectile is WyvernMorayProjLingering hehe)
 				{
 					hehe.effectColor = GetCurrentColor();
 					hehe.Improved = this.Improved;
@@ -130,12 +131,12 @@ namespace OrchidMod.Shaman.Projectiles
 
 			_deathProgress -= 0.085f;
 
-			if (_deathProgress <= 0f) projectile.Kill();
+			if (_deathProgress <= 0f) Projectile.Kill();
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.velocity = oldVelocity;
+			Projectile.velocity = oldVelocity;
 
 			_death = true;
 			return false;

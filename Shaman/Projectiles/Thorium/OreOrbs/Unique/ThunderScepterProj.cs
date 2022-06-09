@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 {
@@ -12,40 +13,40 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 8;
-			projectile.friendly = true;
-			projectile.scale = 1f;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 20;
-			projectile.tileCollide = true;
-			projectile.extraUpdates = 1;
-			projectile.ignoreWater = true;
-			projectile.alpha = 255;
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.friendly = true;
+			Projectile.scale = 1f;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 20;
+			Projectile.tileCollide = true;
+			Projectile.extraUpdates = 1;
+			Projectile.ignoreWater = true;
+			Projectile.alpha = 255;
 		}
 
 		public override void AI()
 		{
-			if (projectile.timeLeft == 20)
+			if (Projectile.timeLeft == 20)
 			{
-				projectile.ai[0] = (Main.rand.Next(40) + 20);
+				Projectile.ai[0] = (Main.rand.Next(40) + 20);
 
-				if (Main.player[projectile.owner].velocity.Y == 0)
+				if (Main.player[Projectile.owner].velocity.Y == 0)
 				{
-					projectile.ai[0] /= 2;
+					Projectile.ai[0] /= 2;
 				}
 
 				if (Main.rand.Next(2) == 0)
 				{
-					projectile.ai[0] = -projectile.ai[0];
+					Projectile.ai[0] = -Projectile.ai[0];
 				}
 
 				for (int index1 = 0; index1 < 5; ++index1)
 				{
-					float x = projectile.position.X - projectile.velocity.X / 2f * (float)index1;
-					float y = projectile.position.Y - projectile.velocity.Y / 2f * (float)index1;
+					float x = Projectile.position.X - Projectile.velocity.X / 2f * (float)index1;
+					float y = Projectile.position.Y - Projectile.velocity.Y / 2f * (float)index1;
 					int index2 = Dust.NewDust(new Vector2(x, y), 1, 1, 159, 0.0f, 0.0f, 0, new Color(), 1f);
-					Main.dust[index2].alpha = projectile.alpha;
+					Main.dust[index2].alpha = Projectile.alpha;
 					Main.dust[index2].position.X = x;
 					Main.dust[index2].position.Y = y;
 					Main.dust[index2].scale = (float)150 * 0.015f;
@@ -58,19 +59,19 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			{
 				if (index1 % 3 == 0)
 				{
-					float x = projectile.position.X - projectile.velocity.X / 10f * (float)index1;
-					float y = projectile.position.Y - projectile.velocity.Y / 10f * (float)index1;
+					float x = Projectile.position.X - Projectile.velocity.X / 10f * (float)index1;
+					float y = Projectile.position.Y - Projectile.velocity.Y / 10f * (float)index1;
 					int index2 = Dust.NewDust(new Vector2(x, y), 1, 1, 159, 0.0f, 0.0f, 0, new Color(), 1f);
-					Main.dust[index2].alpha = projectile.alpha;
+					Main.dust[index2].alpha = Projectile.alpha;
 					Main.dust[index2].position.X = x;
 					Main.dust[index2].position.Y = y;
 
 					Main.dust[index2].scale = 65f * 0.015f;
-					if (projectile.timeLeft > 12)
+					if (Projectile.timeLeft > 12)
 					{
 						Main.dust[index2].scale = 95f * 0.015f;
 					}
-					else if (projectile.timeLeft > 8)
+					else if (Projectile.timeLeft > 8)
 					{
 						Main.dust[index2].scale = 80f * 0.015f;
 					}
@@ -80,22 +81,22 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 				}
 			}
 
-			if (projectile.timeLeft == 20)
+			if (Projectile.timeLeft == 20)
 			{
-				Vector2 projectileVelocity = (new Vector2(projectile.velocity.X, projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(projectile.ai[0] / 2)));
-				projectile.velocity = projectileVelocity;
+				Vector2 projectileVelocity = (new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(Projectile.ai[0] / 2)));
+				Projectile.velocity = projectileVelocity;
 			}
 
-			if (projectile.timeLeft == 12)
+			if (Projectile.timeLeft == 12)
 			{
-				Vector2 projectileVelocity = (new Vector2(projectile.velocity.X, projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-((projectile.ai[0]) * 2))));
-				projectile.velocity = projectileVelocity;
+				Vector2 projectileVelocity = (new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-((Projectile.ai[0]) * 2))));
+				Projectile.velocity = projectileVelocity;
 			}
 
-			if (projectile.timeLeft == 8)
+			if (Projectile.timeLeft == 8)
 			{
-				Vector2 projectileVelocity = (new Vector2(projectile.velocity.X, projectile.velocity.Y).RotatedBy(MathHelper.ToRadians((projectile.ai[0]) * 2)));
-				projectile.velocity = projectileVelocity;
+				Vector2 projectileVelocity = (new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians((Projectile.ai[0]) * 2)));
+				Projectile.velocity = projectileVelocity;
 			}
 		}
 
@@ -118,20 +119,20 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			//modPlayer.sendOrbCountPackets();
 
 			if (modPlayer.orbCountUnique == 5)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("ThunderScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("ThunderScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
-			if (player.FindBuffIndex(mod.BuffType("ShamanicBaubles")) > -1 && modPlayer.orbCountUnique < 5)
+			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountUnique < 5)
 			{
 				modPlayer.orbCountUnique += 5;
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("ThunderScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
-				player.ClearBuff(mod.BuffType("ShamanicBaubles"));
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("ThunderScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				//modPlayer.sendOrbCountPackets();
 			}
 
 			if (modPlayer.orbCountUnique == 20)
 			{
 				modPlayer.orbCountUnique = 0;
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 5f, mod.ProjectileType("ThunderScepterOrbProj"), 0, 0.0f, projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 5f, Mod.Find<ModProjectile>("ThunderScepterOrbProj").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
 			}
 		}
 	}

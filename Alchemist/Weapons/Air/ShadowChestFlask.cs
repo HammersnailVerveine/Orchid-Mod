@@ -9,11 +9,11 @@ namespace OrchidMod.Alchemist.Weapons.Air
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 25;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 3;
-			item.value = Item.sellPrice(0, 2, 50, 0);
+			Item.damage = 25;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 3;
+			Item.value = Item.sellPrice(0, 2, 50, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.AIR;
 			this.rightClickDust = 21;

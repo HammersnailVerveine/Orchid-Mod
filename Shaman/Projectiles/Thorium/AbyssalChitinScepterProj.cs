@@ -14,13 +14,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.alpha = 196;
-			projectile.timeLeft = 1800;
-			ProjectileID.Sets.Homing[projectile.type] = true;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.alpha = 196;
+			Projectile.timeLeft = 1800;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
 
 		// public override Color? GetAlpha(Color lightColor)
@@ -30,17 +30,17 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			projectile.rotation += 0.1f;
+			Projectile.rotation += 0.1f;
 
-			if (projectile.timeLeft % (15 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 2) == 0)
+			if (Projectile.timeLeft % (15 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 2) == 0)
 			{
-				if (projectile.damage < (150) * modPlayer.shamanDamage)
+				if (Projectile.damage < (150) * modPlayer.shamanDamage)
 				{
 					spawnDustCircle(111, 10);
-					projectile.damage++;
+					Projectile.damage++;
 				}
 				else
 				{
@@ -50,54 +50,54 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 			if (Main.rand.Next(10) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 101);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 101);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = true;
 			}
 
-			if (projectile.timeLeft < 1760)
+			if (Projectile.timeLeft < 1760)
 			{
-				projectile.ai[1]++;
-				if (projectile.ai[1] == 10)
+				Projectile.ai[1]++;
+				if (Projectile.ai[1] == 10)
 				{
-					projectile.ai[1] = 0;
-					projectile.netUpdate = true;
+					Projectile.ai[1] = 0;
+					Projectile.netUpdate = true;
 					switch (Main.rand.Next(4))
 					{
 						case 0:
-							projectile.velocity.Y = 1;
-							projectile.velocity.X = 1;
+							Projectile.velocity.Y = 1;
+							Projectile.velocity.X = 1;
 							break;
 						case 1:
-							projectile.velocity.Y = -1;
-							projectile.velocity.X = -1;
+							Projectile.velocity.Y = -1;
+							Projectile.velocity.X = -1;
 							break;
 						case 2:
-							projectile.velocity.Y = -1;
-							projectile.velocity.X = 1;
+							Projectile.velocity.Y = -1;
+							Projectile.velocity.X = 1;
 							break;
 						case 3:
-							projectile.velocity.Y = 1;
-							projectile.velocity.X = -1;
+							Projectile.velocity.Y = 1;
+							Projectile.velocity.X = -1;
 							break;
 					}
 				}
 				for (int index1 = 0; index1 < 1; ++index1)
 				{
-					projectile.velocity = projectile.velocity * 0.75f;
+					Projectile.velocity = Projectile.velocity * 0.75f;
 				}
-				if (projectile.alpha > 70)
+				if (Projectile.alpha > 70)
 				{
-					projectile.alpha -= 15;
-					if (projectile.alpha < 70)
+					Projectile.alpha -= 15;
+					if (Projectile.alpha < 70)
 					{
-						projectile.alpha = 70;
+						Projectile.alpha = 70;
 					}
 				}
-				if (projectile.localAI[0] == 0f)
+				if (Projectile.localAI[0] == 0f)
 				{
-					AdjustMagnitude(ref projectile.velocity);
-					projectile.localAI[0] = 1f;
+					AdjustMagnitude(ref Projectile.velocity);
+					Projectile.localAI[0] = 1f;
 				}
 				Vector2 move = Vector2.Zero;
 				float distance = 200f;
@@ -106,7 +106,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				{
 					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
 					{
-						Vector2 newMove = Main.npc[k].Center - projectile.Center;
+						Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 						if (distanceTo < distance)
 						{
@@ -119,8 +119,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				if (target)
 				{
 					AdjustMagnitude(ref move);
-					projectile.velocity = (5 * projectile.velocity + move) / 1f;
-					AdjustMagnitude(ref projectile.velocity);
+					Projectile.velocity = (5 * Projectile.velocity + move) / 1f;
+					AdjustMagnitude(ref Projectile.velocity);
 				}
 			}
 		}
@@ -132,8 +132,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				double deg = (i * (72 + 5 - Main.rand.Next(10)));
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - projectile.width / 2 + projectile.velocity.X + 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - projectile.height / 2 + projectile.velocity.Y + 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - Projectile.width / 2 + Projectile.velocity.X + 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - Projectile.height / 2 + Projectile.velocity.Y + 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
@@ -159,7 +159,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 101);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 101);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = true;
 			}

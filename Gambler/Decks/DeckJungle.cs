@@ -13,7 +13,7 @@ namespace OrchidMod.Gambler.Decks
 
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 20, 0);
+			Item.value = Item.sellPrice(0, 0, 20, 0);
 		}
 	}
 }

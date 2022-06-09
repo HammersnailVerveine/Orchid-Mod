@@ -11,11 +11,11 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void SafeSetDefaults()
 		{
-			item.width = 18;
-			item.height = 18;
-			item.value = Item.sellPrice(0, 2, 25, 0);
-			item.rare = 4;
-			item.defense = 9;
+			Item.width = 18;
+			Item.height = 18;
+			Item.value = Item.sellPrice(0, 2, 25, 0);
+			Item.rare = 4;
+			Item.defense = 9;
 		}
 
 		public override void SetStaticDefaults()
@@ -61,7 +61,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.MythrilBar, 10);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);

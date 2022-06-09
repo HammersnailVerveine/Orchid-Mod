@@ -7,20 +7,20 @@ namespace OrchidMod.Gambler
 	{
 		public override void SetDefaults()
 		{
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = true;
-			item.maxStack = 1;
-			item.width = 20;
-			item.height = 26;
-			item.useStyle = 4;
-			item.UseSound = SoundID.Item64;
-			item.useAnimation = 20;
-			item.useTime = 20;
-			item.rare = -12;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = true;
+			Item.maxStack = 1;
+			Item.width = 20;
+			Item.height = 26;
+			Item.useStyle = 4;
+			Item.UseSound = SoundID.Item64;
+			Item.useAnimation = 20;
+			Item.useTime = 20;
+			Item.rare = -12;
 		}
 
 		public override bool AltFunctionUse(Player player)

@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 14;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 25;
-			item.useAnimation = 25;
-			item.knockBack = 3.25f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 28, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = false;
-			item.shootSpeed = 10f;
-			item.shoot = mod.ProjectileType("ThoriumScepterProj");
+			Item.damage = 14;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 25;
+			Item.useAnimation = 25;
+			Item.knockBack = 3.25f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 28, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = false;
+			Item.shootSpeed = 10f;
+			Item.shoot = Mod.Find<ModProjectile>("ThoriumScepterProj").Type;
 			this.empowermentType = 1;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 6;
@@ -40,8 +40,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(thoriumMod.TileType("ThoriumAnvil"));
+				ModRecipe recipe = new ModRecipe(Mod);
+				recipe.AddTile(thoriumMod.Find<ModTile>("ThoriumAnvil").Type);
 				recipe.AddIngredient(thoriumMod, "ThoriumBar", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();

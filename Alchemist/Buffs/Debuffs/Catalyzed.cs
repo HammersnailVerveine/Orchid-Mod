@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs.Debuffs
 {
 	public class Catalyzed : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Catalyzed");
 			Description.SetDefault("Triggers various alchemical properties");

@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Common
 {
-	public class PrimitiveTrailSystem : ModWorld
+	public class PrimitiveTrailSystem : ModSystem
 	{
 		public static readonly List<Trail> AdditiveBlendTrails = new List<Trail>();
 		public static readonly List<Trail> AlphaBlendTrails = new List<Trail>();
@@ -189,7 +189,7 @@ namespace OrchidMod.Common
 				effect.Parameters["transformMatrix"].SetValue(matrix);
 				foreach (var param in effect.Parameters)
 				{
-					if (param.Name == "time") effect.Parameters["time"].SetValue(Main.GlobalTime);
+					if (param.Name == "time") effect.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly);
 				}
 			}
 

@@ -11,11 +11,11 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 9;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.damage = 9;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.FIRE;
 			this.rightClickDust = 57;
@@ -35,7 +35,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.Blinkroot, 3);

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Equipment
 {
@@ -15,15 +16,15 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 18;
-			projectile.height = 18;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.magic = true;
-			projectile.penetrate = -1;
-			projectile.tileCollide = false;
-			projectile.timeLeft = 12960000;
-			projectile.extraUpdates = 1;
+			Projectile.width = 18;
+			Projectile.height = 18;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.magic = true;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			Projectile.timeLeft = 12960000;
+			Projectile.extraUpdates = 1;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -33,48 +34,48 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			projectile.rotation += 0.1f;
+			Projectile.rotation += 0.1f;
 
-			switch (projectile.damage)
+			switch (Projectile.damage)
 			{
 				case 1:
 					this.pos = 1;
-					projectile.damage = (int)(15 * modPlayer.shamanDamage);
-					projectile.rotation += 0.7f;
+					Projectile.damage = (int)(15 * modPlayer.shamanDamage);
+					Projectile.rotation += 0.7f;
 					break;
 				case 2:
 					this.pos = 2;
-					projectile.damage = (int)(15 * modPlayer.shamanDamage);
-					projectile.rotation += 0.2f;
+					Projectile.damage = (int)(15 * modPlayer.shamanDamage);
+					Projectile.rotation += 0.2f;
 					break;
 				default:
-					if (projectile.damage < 3)
+					if (Projectile.damage < 3)
 					{
-						projectile.Kill();
+						Projectile.Kill();
 					}
 					break;
 			}
 
-			if (!(player.FindBuffIndex(mod.BuffType("DeepForestAura")) > -1))
+			if (!(player.FindBuffIndex(Mod.Find<ModBuff>("DeepForestAura").Type) > -1))
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
 			if (Main.rand.Next(5) == 0)
 			{
-				float x = projectile.position.X - projectile.velocity.X / 10f;
-				float y = projectile.position.Y - projectile.velocity.Y / 10f;
-				int index2 = Dust.NewDust(new Vector2(x, y), projectile.width, projectile.height, 3, 0.0f, 0.0f, 0, new Color(), 1f);
-				Main.dust[index2].alpha = projectile.alpha;
+				float x = Projectile.position.X - Projectile.velocity.X / 10f;
+				float y = Projectile.position.Y - Projectile.velocity.Y / 10f;
+				int index2 = Dust.NewDust(new Vector2(x, y), Projectile.width, Projectile.height, 3, 0.0f, 0.0f, 0, new Color(), 1f);
+				Main.dust[index2].alpha = Projectile.alpha;
 				Main.dust[index2].scale = (float)Main.rand.Next(70, 110) * 0.013f;
 				Main.dust[index2].velocity *= 0f;
 				Main.dust[index2].noGravity = true;
 			}
 
-			double deg = (double)projectile.ai[1];
+			double deg = (double)Projectile.ai[1];
 			double rad = deg * (Math.PI / 180);
 			double rad2 = rad + (90 * (Math.PI / 180));
 			double dist = 152;
@@ -82,26 +83,26 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 			switch (this.pos)
 			{
 				case 1:
-					projectile.position.X = player.Center.X - (int)(Math.Cos(rad) * dist) - projectile.width / 2;
-					projectile.position.Y = player.Center.Y - (int)(Math.Sin(rad) * dist) - projectile.height / 2;
+					Projectile.position.X = player.Center.X - (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
+					Projectile.position.Y = player.Center.Y - (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
 					break;
 				case 2:
-					projectile.position.X = player.Center.X + (int)(Math.Cos(rad) * dist) - projectile.width / 2;
-					projectile.position.Y = player.Center.Y + (int)(Math.Sin(rad) * dist) - projectile.height / 2;
+					Projectile.position.X = player.Center.X + (int)(Math.Cos(rad) * dist) - Projectile.width / 2;
+					Projectile.position.Y = player.Center.Y + (int)(Math.Sin(rad) * dist) - Projectile.height / 2;
 					break;
 				default:
-					projectile.Kill();
+					Projectile.Kill();
 					break;
 			}
 
-			projectile.ai[1] += 1.5f;
+			Projectile.ai[1] += 1.5f;
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 3);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 3);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 2f;
 			}

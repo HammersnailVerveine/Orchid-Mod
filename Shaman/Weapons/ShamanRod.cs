@@ -10,17 +10,17 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 16;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.knockBack = 0f;
-			item.rare = ItemRarityID.Green;
-			item.value = Item.sellPrice(0, 0, 40, 0);
-			item.UseSound = SoundID.Item65;
-			item.shootSpeed = 7f;
-			item.shoot = ModContent.ProjectileType<Projectiles.ShamanRodProj>();
+			Item.damage = 16;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.knockBack = 0f;
+			Item.rare = ItemRarityID.Green;
+			Item.value = Item.sellPrice(0, 0, 40, 0);
+			Item.UseSound = SoundID.Item65;
+			Item.shootSpeed = 7f;
+			Item.shoot = ModContent.ProjectileType<Projectiles.ShamanRodProj>();
 			empowermentType = 4;
 			this.energy = 35;
 		}
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Weapons
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), mod) > 1) mult *= modPlayer.shamanDamage * 2f;
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), Mod) > 1) mult *= modPlayer.shamanDamage * 2f;
 		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

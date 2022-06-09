@@ -11,11 +11,11 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 20;
-			item.value = Item.sellPrice(0, 0, 4, 0);
-			item.rare = 1;
-			item.defense = 2;
+			Item.width = 30;
+			Item.height = 20;
+			Item.value = Item.sellPrice(0, 0, 4, 0);
+			Item.rare = 1;
+			Item.defense = 2;
 		}
 
 		public override void SetStaticDefaults()
@@ -57,18 +57,18 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.Silk, 5);
 			recipe.AddIngredient(ItemID.GoldBar, 5);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : ItemType<VultureTalon>(), 2);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 2);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(mod);
+			recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.Silk, 5);
 			recipe.AddIngredient(ItemID.PlatinumBar, 5);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : ItemType<VultureTalon>(), 2);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 2);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

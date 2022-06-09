@@ -14,22 +14,22 @@ namespace OrchidMod.Alchemist
 
 		public sealed override void SetDefaults()
 		{
-			item.width = 36;
-			item.height = 32;
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = true;
-			item.useStyle = 4;
-			item.UseSound = SoundID.Item64;
-			item.consumable = true;
-			item.autoReuse = false;
-			item.useAnimation = 10;
-			item.useTime = 10;
-			item.maxStack = 99;
-			item.value = Item.sellPrice(0, 0, 5, 0);
+			Item.width = 36;
+			Item.height = 32;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = true;
+			Item.useStyle = 4;
+			Item.UseSound = SoundID.Item64;
+			Item.consumable = true;
+			Item.autoReuse = false;
+			Item.useAnimation = 10;
+			Item.useTime = 10;
+			Item.maxStack = 99;
+			Item.value = Item.sellPrice(0, 0, 5, 0);
 			SafeSetDefaults();
 		}
 
@@ -38,7 +38,7 @@ namespace OrchidMod.Alchemist
 			return true;
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)/* Suggestion: Return null instead of false */
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, this.hintLevel);
@@ -58,9 +58,9 @@ namespace OrchidMod.Alchemist
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Alchemist Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Alchemist Class-")
 				{
-					overrideColor = new Color(155, 255, 55)
+					OverrideColor = new Color(155, 255, 55)
 				});
 			}
 		}

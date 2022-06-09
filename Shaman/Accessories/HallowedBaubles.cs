@@ -8,11 +8,11 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 28;
-			item.height = 26;
-			item.value = Item.sellPrice(0, 1, 12, 75);
-			item.rare = 4;
-			item.accessory = true;
+			Item.width = 28;
+			Item.height = 26;
+			Item.value = Item.sellPrice(0, 1, 12, 75);
+			Item.rare = 4;
+			Item.accessory = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,11 +26,11 @@ namespace OrchidMod.Shaman.Accessories
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 0)
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 0)
 			{
 				if (modPlayer.orbCountSmall == 0 && modPlayer.shamanOrbSmall != ShamanOrbSmall.NULL)
 				{
-					player.AddBuff(mod.BuffType("ShamanicBaubles"), 10 * 60);
+					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
 					modPlayer.shamanOrbSmall = ShamanOrbSmall.NULL;
 
 					if (Main.myPlayer == player.whoAmI)
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Accessories
 
 				if (modPlayer.orbCountBig == 0 && modPlayer.shamanOrbBig != ShamanOrbBig.NULL)
 				{
-					player.AddBuff(mod.BuffType("ShamanicBaubles"), 10 * 60);
+					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
 					modPlayer.shamanOrbBig = ShamanOrbBig.NULL;
 
 					if (Main.myPlayer == player.whoAmI)
@@ -50,7 +50,7 @@ namespace OrchidMod.Shaman.Accessories
 
 				if (modPlayer.orbCountLarge == 0 && modPlayer.shamanOrbLarge != ShamanOrbLarge.NULL)
 				{
-					player.AddBuff(mod.BuffType("ShamanicBaubles"), 10 * 60);
+					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
 					modPlayer.shamanOrbLarge = ShamanOrbLarge.NULL;
 
 					if (Main.myPlayer == player.whoAmI)
@@ -60,7 +60,7 @@ namespace OrchidMod.Shaman.Accessories
 
 				if (modPlayer.orbCountUnique == 0 && modPlayer.shamanOrbUnique != ShamanOrbUnique.NULL)
 				{
-					player.AddBuff(mod.BuffType("ShamanicBaubles"), 10 * 60);
+					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
 					modPlayer.shamanOrbUnique = ShamanOrbUnique.NULL;
 
 					if (Main.myPlayer == player.whoAmI)
@@ -72,7 +72,7 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "TreasuredBaubles", 1);
 			recipe.AddIngredient(ItemID.PixieDust, 10);
 			recipe.AddIngredient(ItemID.UnicornHorn, 2);

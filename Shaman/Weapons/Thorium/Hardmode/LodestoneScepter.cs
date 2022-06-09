@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 51;
-			item.width = 54;
-			item.height = 54;
-			item.useTime = 50;
-			item.useAnimation = 50;
-			item.knockBack = 4.15f;
-			item.rare = ItemRarityID.Pink;
-			item.value = Item.sellPrice(0, 2, 70, 0);
-			item.UseSound = SoundID.Item117;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("LodestoneScepterProj");
+			Item.damage = 51;
+			Item.width = 54;
+			Item.height = 54;
+			Item.useTime = 50;
+			Item.useAnimation = 50;
+			Item.knockBack = 4.15f;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(0, 2, 70, 0);
+			Item.UseSound = SoundID.Item117;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("LodestoneScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "LodeStoneIngot", 8);
 				recipe.SetResult(this);

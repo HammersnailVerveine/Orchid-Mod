@@ -9,11 +9,11 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 24;
-			item.height = 28;
-			item.value = Item.sellPrice(0, 0, 70, 0);
-			item.rare = 2;
-			item.accessory = true;
+			Item.width = 24;
+			Item.height = 28;
+			Item.value = Item.sellPrice(0, 0, 70, 0);
+			Item.rare = 2;
+			Item.accessory = true;
 		}
 		public override void SetStaticDefaults()
 		{
@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.Diamond, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);

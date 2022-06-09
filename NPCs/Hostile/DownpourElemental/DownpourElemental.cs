@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,43 +12,43 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Storm Spirit");
-			Main.npcFrameCount[npc.type] = 12;
+			Main.npcFrameCount[NPC.type] = 12;
 		}
 
 		public override void SetDefaults()
 		{
-			npc.width = 178;
-			npc.height = 110;
-			npc.aiStyle = 14;
-			npc.damage = 40;
-			npc.defense = 30;
-			npc.lifeMax = 5000;
-			npc.HitSound = SoundID.NPCHit30;
-			npc.DeathSound = SoundID.NPCDeath33;
-			npc.value = 15000f;
-			npc.knockBackResist = 0.05f;
-			npc.friendly = false;
-			npc.alpha = 16;
-			npc.noTileCollide = true;
+			NPC.width = 178;
+			NPC.height = 110;
+			NPC.aiStyle = 14;
+			NPC.damage = 40;
+			NPC.defense = 30;
+			NPC.lifeMax = 5000;
+			NPC.HitSound = SoundID.NPCHit30;
+			NPC.DeathSound = SoundID.NPCDeath33;
+			NPC.value = 15000f;
+			NPC.knockBackResist = 0.05f;
+			NPC.friendly = false;
+			NPC.alpha = 16;
+			NPC.noTileCollide = true;
 		}
 
-		public override void NPCLoot()
+		public override void OnKill()
 		{
-			Item.NewItem(npc.getRect(), mod.ItemType("DownpourCrystal"));
+			Item.NewItem(NPC.getRect(), Mod.Find<ModItem>("DownpourCrystal").Type);
 		}
 
 		public override void HitEffect(int hitDirection, double damage)
 		{
 			for (int i = 0; i < 15; i++)
 			{
-				Dust dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, 16, 2 * hitDirection, -2f, 100);
+				Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 16, 2 * hitDirection, -2f, 100);
 				dust.noGravity = true;
 			}
 		}
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return Main.raining && spawnInfo.player.ZoneSkyHeight && Main.hardMode ? .03f : 0f;
+			return Main.raining && spawnInfo.Player.ZoneSkyHeight && Main.hardMode ? .03f : 0f;
 		}
 
 		private const int AI_State_Slot = 0;
@@ -60,26 +61,26 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 
 		public float AI_State
 		{
-			get => npc.ai[AI_State_Slot];
-			set => npc.ai[AI_State_Slot] = value;
+			get => NPC.ai[AI_State_Slot];
+			set => NPC.ai[AI_State_Slot] = value;
 		}
 
 		public float AI_Timer
 		{
-			get => npc.ai[AI_Timer_Slot];
-			set => npc.ai[AI_Timer_Slot] = value;
+			get => NPC.ai[AI_Timer_Slot];
+			set => NPC.ai[AI_Timer_Slot] = value;
 		}
 
 		public float AI_Anim
 		{
-			get => npc.ai[AI_Anim_Slot];
-			set => npc.ai[AI_Anim_Slot] = value;
+			get => NPC.ai[AI_Anim_Slot];
+			set => NPC.ai[AI_Anim_Slot] = value;
 		}
 
 		public float AI_Count
 		{
-			get => npc.ai[AI_State_Count];
-			set => npc.ai[AI_State_Count] = value;
+			get => NPC.ai[AI_State_Count];
+			set => NPC.ai[AI_State_Count] = value;
 		}
 
 		public override void AI()
@@ -105,18 +106,18 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 
 			if (AI_State == State_Casting)
 			{
-				npc.velocity.Y = 0;
-				npc.velocity.X = 0;
+				NPC.velocity.Y = 0;
+				NPC.velocity.X = 0;
 
 				if ((int)AI_Count % 12 == 0)
 				{
-					Projectile.NewProjectile(npc.Center.X, npc.Center.Y - 200, 0f, 0f, mod.ProjectileType("DownpourElementalCloud"), 0, 0f, Main.myPlayer);
-					if ((int)AI_Count != 0 && npc.target == Main.myPlayer)
+					Projectile.NewProjectile(NPC.Center.X, NPC.Center.Y - 200, 0f, 0f, Mod.Find<ModProjectile>("DownpourElementalCloud").Type, 0, 0f, Main.myPlayer);
+					if ((int)AI_Count != 0 && NPC.target == Main.myPlayer)
 					{
-						Player player = Main.player[npc.target];
+						Player player = Main.player[NPC.target];
 						Vector2 delta;
-						delta.X = player.Center.X - npc.Center.X;
-						delta.Y = player.Center.Y - npc.Center.Y + 200;
+						delta.X = player.Center.X - NPC.Center.X;
+						delta.Y = player.Center.Y - NPC.Center.Y + 200;
 						float magnitude = (float)Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y);
 						if (magnitude > 0)
 						{
@@ -132,21 +133,21 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 							damage = (int)(damage / Main.expertDamage);
 						}
 						delta *= 2f;
-						Projectile.NewProjectile(npc.Center.X, npc.Center.Y - 200, delta.X, delta.Y, mod.ProjectileType("DownpourElementalCloudProj"), damage, 3f, Main.myPlayer);
-						Main.PlaySound(2, (int)npc.Center.X, (int)npc.Center.Y - 200, 93);
+						Projectile.NewProjectile(NPC.Center.X, NPC.Center.Y - 200, delta.X, delta.Y, Mod.Find<ModProjectile>("DownpourElementalCloudProj").Type, damage, 3f, Main.myPlayer);
+						SoundEngine.PlaySound(2, (int)NPC.Center.X, (int)NPC.Center.Y - 200, 93);
 					}
-					npc.netUpdate = true;
+					NPC.netUpdate = true;
 				}
 			}
 
-			Dust dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, 16, 0f, 0f, 100);
+			Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 16, 0f, 0f, 100);
 			dust.noGravity = true;
 		}
 
 		public override void FindFrame(int frameHeight)
 		{
-			npc.spriteDirection = npc.direction;
-			npc.frame.Y = (int)AI_Anim * frameHeight;
+			NPC.spriteDirection = NPC.direction;
+			NPC.frame.Y = (int)AI_Anim * frameHeight;
 		}
 	}
 }

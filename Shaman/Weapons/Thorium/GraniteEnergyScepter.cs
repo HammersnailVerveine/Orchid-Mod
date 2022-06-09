@@ -1,6 +1,7 @@
 using OrchidMod.Common.Interfaces;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
@@ -10,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 35;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.knockBack = 3.25f;
-			item.rare = ItemRarityID.Orange;
-			item.value = Item.sellPrice(0, 0, 50, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 10f;
-			item.shoot = mod.ProjectileType("GraniteEnergyScepterProj");
+			Item.damage = 35;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.knockBack = 3.25f;
+			Item.rare = ItemRarityID.Orange;
+			Item.value = Item.sellPrice(0, 0, 50, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 10f;
+			Item.shoot = Mod.Find<ModProjectile>("GraniteEnergyScepterProj").Type;
 			this.empowermentType = 4;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 10;

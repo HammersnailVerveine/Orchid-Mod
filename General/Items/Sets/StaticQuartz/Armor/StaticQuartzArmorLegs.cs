@@ -10,11 +10,11 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 	{
 		public override void SetDefaults()
 		{
-			item.width = 22;
-			item.height = 14;
-			item.value = Item.sellPrice(0, 0, 7, 50);
-			item.rare = 1;
-			item.defense = 2;
+			Item.width = 22;
+			Item.height = 14;
+			Item.value = Item.sellPrice(0, 0, 7, 50);
+			Item.rare = 1;
+			Item.defense = 2;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,7 +30,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 10);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);

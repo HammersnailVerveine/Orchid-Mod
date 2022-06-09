@@ -9,11 +9,11 @@ namespace OrchidMod.General.Items.Vanity
 	{
 		public override void SetDefaults()
 		{
-			item.width = 26;
-			item.height = 24;
-			item.value = Item.sellPrice(0, 0, 0, 0);
-			item.rare = ItemRarityID.Cyan;
-			item.vanity = true;
+			Item.width = 26;
+			Item.height = 24;
+			Item.value = Item.sellPrice(0, 0, 0, 0);
+			Item.rare = ItemRarityID.Cyan;
+			Item.vanity = true;
 		}
 
 		public override void SetStaticDefaults()

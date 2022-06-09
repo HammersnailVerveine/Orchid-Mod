@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -14,23 +16,23 @@ namespace OrchidMod.Content.Items.Placeables
 	{
 		public override void SetDefaults()
 		{
-			item.width = 26;
-			item.height = 22;
-			item.maxStack = 99;
-			item.useTurn = true;
-			item.autoReuse = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.consumable = true;
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.createTile = ModContent.TileType<MinersLockboxTile>();
+			Item.width = 26;
+			Item.height = 22;
+			Item.maxStack = 99;
+			Item.useTurn = true;
+			Item.autoReuse = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.consumable = true;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.createTile = ModContent.TileType<MinersLockboxTile>();
 		}
 	}
 
 	public class MinersLockboxTile : OrchidTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSpelunker[Type] = true;
 			Main.tileContainer[Type] = true;
@@ -38,7 +40,7 @@ namespace OrchidMod.Content.Items.Placeables
 			Main.tileShine[Type] = 500;
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
-			Main.tileValue[Type] = 500;
+			Main.tileOreFinderPriority[Type] = 500;
 			TileID.Sets.HasOutlines[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.newTile.Origin = new Point16(0, 1);
@@ -56,9 +58,9 @@ namespace OrchidMod.Content.Items.Placeables
 			AddMapEntry(new Color(200, 200, 200), name, MapChestName);
 
 			disableSmartCursor = true;
-			adjTiles = new int[] { TileID.Containers };
+			AdjTiles = new int[] { TileID.Containers };
 			chest = "Miner's Lockbox";
-			chestDrop = ModContent.ItemType<MinersLockbox>();
+			ChestDrop = ModContent.ItemType<MinersLockbox>();
 		}
 
 		public string MapChestName(string name, int i, int j)
@@ -70,13 +72,13 @@ namespace OrchidMod.Content.Items.Placeables
 				return name;
 			int left = i;
 			int top = j;
-			if (tile.frameX % 36 != 0) left--;
-			if (tile.frameY != 0) top--;
+			if (tile.TileFrameX % 36 != 0) left--;
+			if (tile.TileFrameY != 0) top--;
 			int chest = Chest.FindChest(left, top);
 			return name + ((Main.chest[chest].name != "") ? (": " + Main.chest[chest].name) : "");
 		}
 
-		public override bool HasSmartInteract() => true;
+		public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 
 		public override void NumDust(int i, int j, bool fail, ref int num)
 		{
@@ -85,35 +87,35 @@ namespace OrchidMod.Content.Items.Placeables
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(i * 16, j * 16, 32, 32, chestDrop);
+			Item.NewItem(i * 16, j * 16, 32, 32, ChestDrop);
 			Chest.DestroyChest(i, j);
 		}
 
-		public override bool NewRightClick(int i, int j)
+		public override bool RightClick(int i, int j)
 		{
 			Player player = Main.LocalPlayer;
 			Tile tile = Main.tile[i, j];
 			Main.mouseRightRelease = false;
 			int left = i;
 			int top = j;
-			if (tile.frameX % 36 != 0)
+			if (tile.TileFrameX % 36 != 0)
 			{
 				left--;
 			}
-			if (tile.frameY != 0)
+			if (tile.TileFrameY != 0)
 			{
 				top--;
 			}
 			if (player.sign >= 0)
 			{
-				Main.PlaySound(SoundID.MenuClose);
+				SoundEngine.PlaySound(SoundID.MenuClose);
 				player.sign = -1;
 				Main.editSign = false;
 				Main.npcChatText = "";
 			}
 			if (Main.editChest)
 			{
-				Main.PlaySound(SoundID.MenuTick);
+				SoundEngine.PlaySound(SoundID.MenuTick);
 				Main.editChest = false;
 				Main.npcChatText = "";
 			}
@@ -128,7 +130,7 @@ namespace OrchidMod.Content.Items.Placeables
 				{
 					player.chest = -1;
 					Recipe.FindRecipes();
-					Main.PlaySound(SoundID.MenuClose);
+					SoundEngine.PlaySound(SoundID.MenuClose);
 				}
 				else
 				{
@@ -145,7 +147,7 @@ namespace OrchidMod.Content.Items.Placeables
 					if (chest == player.chest)
 					{
 						player.chest = -1;
-						Main.PlaySound(SoundID.MenuClose);
+						SoundEngine.PlaySound(SoundID.MenuClose);
 					}
 					else
 					{
@@ -154,7 +156,7 @@ namespace OrchidMod.Content.Items.Placeables
 						Main.recBigList = false;
 						player.chestX = left;
 						player.chestY = top;
-						Main.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
+						SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
 					}
 					Recipe.FindRecipes();
 				}
@@ -168,41 +170,41 @@ namespace OrchidMod.Content.Items.Placeables
 			Tile tile = Main.tile[i, j];
 			int left = i;
 			int top = j;
-			if (tile.frameX % 36 != 0)
+			if (tile.TileFrameX % 36 != 0)
 			{
 				left--;
 			}
-			if (tile.frameY != 0)
+			if (tile.TileFrameY != 0)
 			{
 				top--;
 			}
 			int chest = Chest.FindChest(left, top);
-			player.showItemIcon2 = -1;
+			player.cursorItemIconID = -1;
 			if (chest < 0)
 			{
-				player.showItemIconText = Language.GetTextValue("LegacyChestType.0");
+				player.cursorItemIconText = Language.GetTextValue("LegacyChestType.0");
 			}
 			else
 			{
-				player.showItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Miner's Lockbox";
-				if (player.showItemIconText == "Miner's Lockbox")
+				player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Miner's Lockbox";
+				if (player.cursorItemIconText == "Miner's Lockbox")
 				{
-					player.showItemIcon2 = ModContent.ItemType<MinersLockbox>();
-					player.showItemIconText = "";
+					player.cursorItemIconID = ModContent.ItemType<MinersLockbox>();
+					player.cursorItemIconText = "";
 				}
 			}
 			player.noThrow = 2;
-			player.showItemIcon = true;
+			player.cursorItemIconEnabled = true;
 		}
 
 		public override void MouseOverFar(int i, int j)
 		{
 			MouseOver(i, j);
 			Player player = Main.LocalPlayer;
-			if (player.showItemIconText == "")
+			if (player.cursorItemIconText == "")
 			{
-				player.showItemIcon = false;
-				player.showItemIcon2 = 0;
+				player.cursorItemIconEnabled = false;
+				player.cursorItemIconID = 0;
 			}
 		}
 	}

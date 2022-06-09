@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -15,73 +16,73 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 26;
-			projectile.height = 26;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 600;
-			projectile.penetrate = 10;
+			Projectile.width = 26;
+			Projectile.height = 26;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 600;
+			Projectile.penetrate = 10;
 			this.gamblingChipChance = 5;
 		}
 
 		public override void SafeAI()
 		{
-			projectile.velocity.Y += 0.1f;
-			if (projectile.velocity.Y > 0.5f)
+			Projectile.velocity.Y += 0.1f;
+			if (Projectile.velocity.Y > 0.5f)
 			{
 				this.firstCollide = false;
 			}
-			if (projectile.velocity.X > 0f && projectile.velocity.X < 3f)
+			if (Projectile.velocity.X > 0f && Projectile.velocity.X < 3f)
 			{
-				projectile.velocity.X = 3f;
+				Projectile.velocity.X = 3f;
 			}
-			if (projectile.velocity.X <= 0f && projectile.velocity.X > -3f)
+			if (Projectile.velocity.X <= 0f && Projectile.velocity.X > -3f)
 			{
-				projectile.velocity.X = -3f;
+				Projectile.velocity.X = -3f;
 			}
 
-			projectile.rotation += projectile.velocity.X > 0 ? 0.15f : -0.15f;
-			if (projectile.timeLeft % 600 == 0)
+			Projectile.rotation += Projectile.velocity.X > 0 ? 0.15f : -0.15f;
+			if (Projectile.timeLeft % 600 == 0)
 			{
 				int dustType = 31;
-				Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
-				Main.dust[Dust.NewDust(pos, projectile.width, projectile.height, dustType)].velocity *= 0.25f;
+				Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+				Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
 			}
 		}
 
-		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
+		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
-			fallThrough = projectile.timeLeft > 590;
+			fallThrough = Projectile.timeLeft > 590;
 			return base.TileCollideStyle(ref width, ref height, ref fallThrough);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.penetrate < 0) projectile.Kill();
-			projectile.velocity.Y = oldVelocity.Y < 0f ? -oldVelocity.Y : 0f;
+			if (Projectile.penetrate < 0) Projectile.Kill();
+			Projectile.velocity.Y = oldVelocity.Y < 0f ? -oldVelocity.Y : 0f;
 			if (!firstCollide)
 			{
 				firstCollide = true;
 			}
-			if (projectile.velocity.X != oldVelocity.X)
+			if (Projectile.velocity.X != oldVelocity.X)
 			{
-				projectile.Kill();
-				Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+				Projectile.Kill();
+				SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
 			}
 			return false;
 		}
 		
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			if (projectile.ai[1] != 1f && projectile.owner == Main.myPlayer)
+			if (Projectile.ai[1] != 1f && Projectile.owner == Main.myPlayer)
 			{
 				modPlayer.gamblerSeedCount += 10 + (modPlayer.gamblerLuckySprout ? 3 : 0);
 				if (modPlayer.gamblerSeedCount > 99) {
 					modPlayer.gamblerSeedCount = 0;
 					Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
 					int projType = ProjectileType<Gambler.Projectiles.OceanCardProjAlt>();
-					bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
+					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+					int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 					Main.projectile[newProjectile].ai[1] = 1f;
 					Main.projectile[newProjectile].netUpdate = true;
 					for (int i = 0; i < 5; i++)
@@ -97,7 +98,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			int dustType = 31;
 			for (int i = 0 ; i < 5 ; i ++) {
-				Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType)].velocity *= 0.25f;
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
 			}
 		}
 	}

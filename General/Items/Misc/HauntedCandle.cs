@@ -1,5 +1,7 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
@@ -13,25 +15,25 @@ namespace OrchidMod.General.Items.Misc
 
 		public override void SetDefaults()
 		{
-			item.damage = 0;
-			item.useStyle = 1;
-			item.shoot = mod.ProjectileType("HauntedCandle");
-			item.width = 16;
-			item.height = 30;
-			item.UseSound = SoundID.Item2;
-			item.useAnimation = 20;
-			item.useTime = 20;
-			item.rare = 1;
-			item.noMelee = true;
-			item.value = Item.sellPrice(0, 0, 20, 0);
-			item.buffType = mod.BuffType("HauntedCandle");
+			Item.damage = 0;
+			Item.useStyle = 1;
+			Item.shoot = Mod.Find<ModProjectile>("HauntedCandle").Type;
+			Item.width = 16;
+			Item.height = 30;
+			Item.UseSound = SoundID.Item2;
+			Item.useAnimation = 20;
+			Item.useTime = 20;
+			Item.rare = 1;
+			Item.noMelee = true;
+			Item.value = Item.sellPrice(0, 0, 20, 0);
+			Item.buffType = Mod.Find<ModBuff>("HauntedCandle").Type;
 		}
 
-		public override void UseStyle(Player player)
+		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
 			if (player.whoAmI == Main.myPlayer && player.itemTime == 0)
 			{
-				player.AddBuff(item.buffType, 3600, true);
+				player.AddBuff(Item.buffType, 3600, true);
 			}
 		}
 	}

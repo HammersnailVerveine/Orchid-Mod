@@ -11,15 +11,15 @@ namespace OrchidMod.Shaman.Projectiles
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 8;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.tileCollide = true;
-			projectile.timeLeft = 70;
-			projectile.penetrate = 15;
-			projectile.extraUpdates = 5;
-			projectile.alpha = 255;
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.tileCollide = true;
+			Projectile.timeLeft = 70;
+			Projectile.penetrate = 15;
+			Projectile.extraUpdates = 5;
+			Projectile.alpha = 255;
 		}
 
 		public override void AI()
@@ -28,10 +28,10 @@ namespace OrchidMod.Shaman.Projectiles
 			{
 				if (index1 % 2 == 0)
 				{
-					float x = projectile.Center.X - projectile.velocity.X / 10f * (float)index1;
-					float y = projectile.Center.Y - projectile.velocity.Y / 10f * (float)index1;
+					float x = Projectile.Center.X - Projectile.velocity.X / 10f * (float)index1;
+					float y = Projectile.Center.Y - Projectile.velocity.Y / 10f * (float)index1;
 					int index2 = Dust.NewDust(new Vector2(x, y), 1, 1, 172, 0.0f, 0.0f, 0, new Color(), 1f);
-					Main.dust[index2].alpha = projectile.alpha;
+					Main.dust[index2].alpha = Projectile.alpha;
 					Main.dust[index2].position.X = x;
 					Main.dust[index2].position.Y = y;
 					Main.dust[index2].scale = (float)Main.rand.Next(70, 110) * 0.013f;
@@ -39,21 +39,21 @@ namespace OrchidMod.Shaman.Projectiles
 					Main.dust[index2].noGravity = true;
 				}
 			}
-			if (projectile.timeLeft == 70)
+			if (Projectile.timeLeft == 70)
 			{
-				projectile.ai[0] = (Main.rand.Next(50) - 25);
-				projectile.ai[1] = (Main.rand.Next(50) - 25);
+				Projectile.ai[0] = (Main.rand.Next(50) - 25);
+				Projectile.ai[1] = (Main.rand.Next(50) - 25);
 			}
 
-			if (projectile.timeLeft == 18)
+			if (Projectile.timeLeft == 18)
 			{
-				projectile.velocity.Y = projectile.velocity.Y + projectile.ai[0];
-				projectile.velocity.X = projectile.velocity.X + projectile.ai[1];
+				Projectile.velocity.Y = Projectile.velocity.Y + Projectile.ai[0];
+				Projectile.velocity.X = Projectile.velocity.X + Projectile.ai[1];
 			}
-			if (projectile.timeLeft == 15)
+			if (Projectile.timeLeft == 15)
 			{
-				projectile.velocity.Y = projectile.velocity.Y - projectile.ai[0];
-				projectile.velocity.X = projectile.velocity.X - projectile.ai[1];
+				Projectile.velocity.Y = Projectile.velocity.Y - Projectile.ai[0];
+				Projectile.velocity.X = Projectile.velocity.X - Projectile.ai[1];
 			}
 		}
 	}

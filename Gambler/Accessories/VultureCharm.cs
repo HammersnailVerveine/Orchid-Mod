@@ -8,13 +8,13 @@ namespace OrchidMod.Gambler.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 20;
-			item.height = 20;
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 1;
-			item.accessory = true;
-			item.crit = 4;
-			item.damage = 12;
+			Item.width = 20;
+			Item.height = 20;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = 1;
+			Item.accessory = true;
+			Item.crit = 4;
+			Item.damage = 12;
 		}
 
 		public override void SetStaticDefaults()
@@ -33,9 +33,9 @@ namespace OrchidMod.Gambler.Accessories
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddRecipeGroup("IronBar", 5);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BirdTalon") : mod.ItemType("VultureTalon"), 3);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : Mod.Find<ModItem>("VultureTalon").Type, 3);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

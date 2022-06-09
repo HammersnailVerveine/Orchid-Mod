@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -70,7 +72,7 @@ namespace OrchidMod.Alchemist.UI
 						if (modPlayer.alchemistNbElements > 0)
 						{
 							modPlayer.alchemistShootProjectile = true;
-							Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 106);
+							SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 106);
 						}
 						return;
 					}
@@ -92,11 +94,11 @@ namespace OrchidMod.Alchemist.UI
 							if (item.type != 0)
 							{
 								count++;
-								Texture2D itemTexture = Main.itemTexture[item.type];
+								Texture2D itemTexture = TextureAssets.Item[item.type].Value;
 								bool oddWidth = (((itemTexture.Width / 2) % 2) == 0);
 								Rectangle itemRectangle = new Rectangle(point.X + offSetX + (oddWidth ? 1 : 0), point.Y - 100, oddWidth ? 28 : 30, 30);
 								spriteBatch.Draw(itemTexture, itemRectangle, backgroundColor);
-								ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, count.ToString(), new Vector2((float)(point.X + offSetX + 8), (float)(point.Y - 65)), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+								ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, count.ToString(), new Vector2((float)(point.X + offSetX + 8), (float)(point.Y - 65)), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 								offSetX += 32;
 							}
 						}
@@ -223,17 +225,17 @@ namespace OrchidMod.Alchemist.UI
 				{
 					if (noPotency && !alreadyContains)
 					{
-						Main.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
+						SoundEngine.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
 					}
 					else
 					{
 						if (Main.rand.Next(2) == 0)
 						{
-							Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 112);
+							SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 112);
 						}
 						else
 						{
-							Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 111);
+							SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 111);
 						}
 					}
 				}
@@ -254,7 +256,7 @@ namespace OrchidMod.Alchemist.UI
 							break;
 					}
 
-					Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, rand);
+					SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, rand);
 					this.scroll(true);
 					this.checkInventory(true, player, modPlayer);
 
@@ -270,7 +272,7 @@ namespace OrchidMod.Alchemist.UI
 
 		public void initUI(Player player, OrchidModPlayer modPlayer)
 		{
-			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 7);
+			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 7);
 			modPlayer.alchemistSelectUIKeysInitialize = false;
 			element = AlchemistElement.NULL;
 

@@ -156,6 +156,11 @@ namespace OrchidMod
 				{
 					player.QuickSpawnItem(ItemType<Alchemist.Weapons.Air.TsunamiInAVial>(), 1);
 				}
+
+				if (Main.rand.Next(20) == 0)
+				{
+					player.QuickSpawnItem(ItemType<Gambler.Decks.DeckEnchanted>(), 1);
+				}
 			}
 			if (context == "lockBox")
 			{ // GOLDEN LOCK BOX
@@ -182,6 +187,11 @@ namespace OrchidMod
 					else
 					{
 						player.QuickSpawnItem(ItemType<Gambler.Weapons.Chips.Rusalka>(), 1);
+					}
+
+					if (Main.rand.Next(20) == 0)
+					{
+						player.QuickSpawnItem(ItemType<Gambler.Decks.DeckBone>(), 1);
 					}
 				}
 			}
@@ -255,7 +265,7 @@ namespace OrchidMod
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				if (context == "bossBag" && arg == thoriumMod.ItemType("ThunderBirdBag"))
+				if (context == "bossBag" && arg == thoriumMod.Find<ModItem>("ThunderBirdBag").Type)
 				{
 					if (Main.rand.Next(4) == 0)
 					{
@@ -263,7 +273,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (context == "bossBag" && arg == thoriumMod.ItemType("JellyFishBag"))
+				if (context == "bossBag" && arg == thoriumMod.Find<ModItem>("JellyFishBag").Type)
 				{
 					if (Main.rand.Next(5) == 0)
 					{
@@ -271,7 +281,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (context == "bossBag" && arg == thoriumMod.ItemType("GraniteBag"))
+				if (context == "bossBag" && arg == thoriumMod.Find<ModItem>("GraniteBag").Type)
 				{
 					if (Main.rand.Next(5) == 0)
 					{
@@ -279,7 +289,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (context == "bossBag" && arg == thoriumMod.ItemType("CountBag"))
+				if (context == "bossBag" && arg == thoriumMod.Find<ModItem>("CountBag").Type)
 				{
 					if (Main.rand.Next(7) == 0)
 					{
@@ -288,7 +298,7 @@ namespace OrchidMod
 					player.QuickSpawnItem(ItemType<Shaman.Misc.Thorium.ViscountMaterial>(), 30);
 				}
 
-				if (context == "bossBag" && arg == thoriumMod.ItemType("ScouterBag"))
+				if (context == "bossBag" && arg == thoriumMod.Find<ModItem>("ScouterBag").Type)
 				{
 					if (Main.rand.Next(6) == 0)
 					{
@@ -296,7 +306,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (context == "bossBag" && arg == thoriumMod.ItemType("BeholderBag"))
+				if (context == "bossBag" && arg == thoriumMod.Find<ModItem>("BeholderBag").Type)
 				{
 					if (Main.rand.Next(5) == 0)
 					{
@@ -304,7 +314,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (context == "bossBag" && arg == thoriumMod.ItemType("BoreanBag"))
+				if (context == "bossBag" && arg == thoriumMod.Find<ModItem>("BoreanBag").Type)
 				{
 					if (Main.rand.Next(5) == 0)
 					{
@@ -312,7 +322,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (context == "bossBag" && arg == thoriumMod.ItemType("LichBag"))
+				if (context == "bossBag" && arg == thoriumMod.Find<ModItem>("LichBag").Type)
 				{
 					if (Main.rand.Next(7) == 0)
 					{
@@ -320,7 +330,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (context == "bossBag" && arg == thoriumMod.ItemType("AbyssionBag"))
+				if (context == "bossBag" && arg == thoriumMod.Find<ModItem>("AbyssionBag").Type)
 				{
 					if (Main.rand.Next(6) == 0)
 					{

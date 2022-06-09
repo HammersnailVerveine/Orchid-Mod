@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
@@ -18,14 +19,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 16;
-			projectile.height = 26;
-			projectile.aiStyle = 0;
-			projectile.friendly = true;
-			projectile.timeLeft = 12960000;
-			projectile.scale = 1f;
-			projectile.tileCollide = false;
-			Main.projFrames[projectile.type] = 7;
+			Projectile.width = 16;
+			Projectile.height = 26;
+			Projectile.aiStyle = 0;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 12960000;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = false;
+			Main.projFrames[Projectile.type] = 7;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -35,39 +36,39 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 			if (player != Main.player[Main.myPlayer])
 			{
-				projectile.active = false;
+				Projectile.active = false;
 			}
 
-			if (Main.LocalPlayer.FindBuffIndex(mod.BuffType("SpiritualBurst")) > -1)
+			if (Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("SpiritualBurst").Type) > -1)
 				switch (Main.rand.Next(5))
 				{
 					case 1:
-						projectile.scale = 1.1f;
+						Projectile.scale = 1.1f;
 						break;
 					case 2:
-						projectile.scale = 1.2f;
+						Projectile.scale = 1.2f;
 						break;
 					case 3:
-						projectile.scale = 1.3f;
+						Projectile.scale = 1.3f;
 						break;
 					case 4:
-						projectile.scale = 1.4f;
+						Projectile.scale = 1.4f;
 						break;
 					case 5:
-						projectile.scale = 1.5f;
+						Projectile.scale = 1.5f;
 						break;
 				}
 			else
-				projectile.scale = 1f;
+				Projectile.scale = 1f;
 			if (Main.time % 5 == 0)
-				projectile.frame++;
-			if (projectile.frame == 7)
-				projectile.frame = 0;
+				Projectile.frame++;
+			if (Projectile.frame == 7)
+				Projectile.frame = 0;
 
 			if (modPlayer.timer120 % 60 == 0)
 				hoverD = !hoverD;
@@ -77,22 +78,22 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 			else hoverY += 0.3f;
 
 			if (modPlayer.shamanOrbCircle != ShamanOrbCircle.REVIVER || modPlayer.orbCountCircle <= 0)
-				projectile.Kill();
+				Projectile.Kill();
 
-			if (projectile.timeLeft == 12960000)
+			if (Projectile.timeLeft == 12960000)
 			{
-				startX = projectile.position.X - player.position.X + player.velocity.X;
-				startY = projectile.position.Y - player.position.Y + player.velocity.Y;
+				startX = Projectile.position.X - player.position.X + player.velocity.X;
+				startY = Projectile.position.Y - player.position.Y + player.velocity.Y;
 			}
-			projectile.velocity.X = player.velocity.X;
-			projectile.position.X = player.position.X + startX;
-			projectile.position.Y = player.position.Y + startY - hoverY;
+			Projectile.velocity.X = player.velocity.X;
+			Projectile.position.X = player.position.X + startX;
+			Projectile.position.Y = player.position.Y + startY - hoverY;
 
-			if (Main.player[projectile.owner].FindBuffIndex(mod.BuffType("SpiritualBurst")) > -1)
+			if (Main.player[Projectile.owner].FindBuffIndex(Mod.Find<ModBuff>("SpiritualBurst").Type) > -1)
 			{
 				if (Main.rand.Next(10) == 0)
 				{
-					int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
+					int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172);
 					Main.dust[dust2].velocity *= 2f;
 					Main.dust[dust2].scale = 1.5f;
 					Main.dust[dust2].noGravity = true;
@@ -103,24 +104,24 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 
 		public override void SafePostAI()
 		{
-			for (int num46 = projectile.oldPos.Length - 5; num46 > 0; num46--)
+			for (int num46 = Projectile.oldPos.Length - 5; num46 > 0; num46--)
 			{
-				projectile.oldPos[num46] = projectile.oldPos[num46 - 1];
+				Projectile.oldPos[num46] = Projectile.oldPos[num46 - 1];
 			}
-			projectile.oldPos[0] = projectile.position;
+			Projectile.oldPos[0] = Projectile.position;
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Texture2D flameTexture = ModContent.GetTexture("OrchidMod/Shaman/Projectiles/OreOrbs/Circle/ReviverOfSoulsFlameTexture");
-			Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 1f, projectile.height * 1f);
-			for (int k = 0; k < projectile.oldPos.Length; k++)
+			Vector2 drawOrigin = new Vector2(TextureAssets.Projectile[Projectile.type].Value.Width * 1f, Projectile.height * 1f);
+			for (int k = 0; k < Projectile.oldPos.Length; k++)
 			{
-				Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-				drawPos.X += Main.rand.Next(6) - 3 - Main.player[projectile.owner].velocity.X;
-				drawPos.Y += Main.rand.Next(6) - 3 - Main.player[projectile.owner].velocity.Y;
-				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k * 5) / (float)projectile.oldPos.Length);
-				spriteBatch.Draw(flameTexture, drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0.3f);
+				Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+				drawPos.X += Main.rand.Next(6) - 3 - Main.player[Projectile.owner].velocity.X;
+				drawPos.Y += Main.rand.Next(6) - 3 - Main.player[Projectile.owner].velocity.Y;
+				Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k * 5) / (float)Projectile.oldPos.Length);
+				spriteBatch.Draw(flameTexture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0.3f);
 			}
 			return true;
 		}
@@ -129,7 +130,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 2f;
 			}

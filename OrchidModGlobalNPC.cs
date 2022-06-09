@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.WorldgenArrays;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -26,7 +27,7 @@ namespace OrchidMod
 			OrchidMod.Instance.croupierUI.Visible = false;
 		}
 
-		public override void NPCLoot(NPC npc)
+		public override void OnKill(NPC npc)
 		{
 			if (npc.lifeMax > 5 && npc.value > 0f)
 			{
@@ -509,7 +510,7 @@ namespace OrchidMod
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				if ((npc.type == thoriumMod.NPCType("TheGrandThunderBirdv2")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("TheGrandThunderBirdv2").Type))
 				{
 					if (!Main.expertMode)
 					{
@@ -524,7 +525,7 @@ namespace OrchidMod
 					}
 				}
 
-				if ((npc.type == thoriumMod.NPCType("QueenJelly")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("QueenJelly").Type))
 				{
 					if (!Main.expertMode)
 					{
@@ -539,7 +540,7 @@ namespace OrchidMod
 					}
 				}
 
-				if ((npc.type == thoriumMod.NPCType("GranityEnergyStorm")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("GranityEnergyStorm").Type))
 				{
 					if (!Main.expertMode)
 					{
@@ -554,7 +555,7 @@ namespace OrchidMod
 					}
 				}
 
-				if ((npc.type == thoriumMod.NPCType("Viscount")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("Viscount").Type))
 				{
 					if (!Main.expertMode)
 					{
@@ -570,7 +571,7 @@ namespace OrchidMod
 					}
 				}
 
-				if ((npc.type == thoriumMod.NPCType("ThePrimeScouter")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("ThePrimeScouter").Type))
 				{
 					if (!Main.expertMode)
 					{
@@ -585,7 +586,7 @@ namespace OrchidMod
 					}
 				}
 
-				if ((npc.type == thoriumMod.NPCType("FallenDeathBeholder")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("FallenDeathBeholder").Type))
 				{
 					if (!Main.expertMode)
 					{
@@ -596,7 +597,7 @@ namespace OrchidMod
 					}
 				}
 
-				if ((npc.type == thoriumMod.NPCType("BoreanStriderPopped")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("BoreanStriderPopped").Type))
 				{
 					if (!Main.expertMode)
 					{
@@ -607,7 +608,7 @@ namespace OrchidMod
 					}
 				}
 
-				if ((npc.type == thoriumMod.NPCType("Lich")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("Lich").Type))
 				{
 					if (!Main.expertMode)
 					{
@@ -618,7 +619,7 @@ namespace OrchidMod
 					}
 				}
 
-				if ((npc.type == thoriumMod.NPCType("Abyssion")) || (npc.type == thoriumMod.NPCType("AbyssionCracked")) || (npc.type == thoriumMod.NPCType("AbyssionReleased")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("Abyssion").Type) || (npc.type == thoriumMod.Find<ModNPC>("AbyssionCracked").Type) || (npc.type == thoriumMod.Find<ModNPC>("AbyssionReleased").Type))
 				{
 					if (!Main.expertMode)
 					{
@@ -629,7 +630,7 @@ namespace OrchidMod
 					}
 				}
 
-				if ((npc.type == thoriumMod.NPCType("PatchWerk")))
+				if ((npc.type == thoriumMod.Find<ModNPC>("PatchWerk").Type))
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>());
 				}
@@ -680,7 +681,7 @@ namespace OrchidMod
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				if (type == thoriumMod.NPCType("ConfusedZombie"))
+				if (type == thoriumMod.Find<ModNPC>("ConfusedZombie").Type)
 				{
 					shop.item[nextSlot].SetDefaults(ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>());
 					nextSlot++;
@@ -689,7 +690,7 @@ namespace OrchidMod
 		}
 		
 		public override void SetupTravelShop(int[] shop, ref int nextSlot) {
-			if (Main.rand.Next(2) == 0) {
+			if (Main.rand.Next(3) == 0) {
 				shop[nextSlot] = ItemType<Gambler.Accessories.PileOfChips>();
 				nextSlot++;
 			}
@@ -730,7 +731,7 @@ namespace OrchidMod
 
 				if (this.shamanBomb == 1)
 				{
-					Main.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 45);
+					SoundEngine.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 45);
 					npc.StrikeNPCNoInteraction(500, 0f, 0);
 					for (int i = 0; i < 15; i++)
 					{

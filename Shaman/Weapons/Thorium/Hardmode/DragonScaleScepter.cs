@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 45;
-			item.width = 50;
-			item.height = 50;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 4.25f;
-			item.rare = ItemRarityID.LightRed;
-			item.value = Item.sellPrice(0, 2, 0, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 8f;
-			item.shoot = mod.ProjectileType("DragonScaleScepterProj");
+			Item.damage = 45;
+			Item.width = 50;
+			Item.height = 50;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 4.25f;
+			Item.rare = ItemRarityID.LightRed;
+			Item.value = Item.sellPrice(0, 2, 0, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 8f;
+			Item.shoot = Mod.Find<ModProjectile>("DragonScaleScepterProj").Type;
 			this.empowermentType = 5;
 			this.energy = 10;
 		}
@@ -39,9 +39,9 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
-				recipe.AddIngredient(mod.ItemType("RitualScepter"), 1);
+				recipe.AddIngredient(Mod.Find<ModItem>("RitualScepter").Type, 1);
 				recipe.AddIngredient(thoriumMod, "GreenDragonScale", 9);
 				recipe.SetResult(this);
 				recipe.AddRecipe();

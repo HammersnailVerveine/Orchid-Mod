@@ -6,12 +6,12 @@ namespace OrchidMod.NPCs.Town.Projectiles
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 26;
-			projectile.height = 26;
-			projectile.friendly = true;
-			projectile.aiStyle = 2;
-			projectile.timeLeft = 300;
-			projectile.scale = 1f;
+			Projectile.width = 26;
+			Projectile.height = 26;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 2;
+			Projectile.timeLeft = 300;
+			Projectile.scale = 1f;
 		}
 
 		public override void SetStaticDefaults()

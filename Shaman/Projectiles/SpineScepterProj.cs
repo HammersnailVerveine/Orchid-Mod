@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 
 namespace OrchidMod.Shaman.Projectiles
 {
@@ -11,14 +12,14 @@ namespace OrchidMod.Shaman.Projectiles
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 8;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.penetrate = 5;
-			projectile.timeLeft = 30;
-			projectile.extraUpdates = 10;
-			projectile.ignoreWater = true;
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = 5;
+			Projectile.timeLeft = 30;
+			Projectile.extraUpdates = 10;
+			Projectile.ignoreWater = true;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -30,7 +31,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 258);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
 				Main.dust[dust].velocity /= 3f;
 				Main.dust[dust].scale = 1.3f;
 				Main.dust[dust].noGravity = true;
@@ -40,8 +41,8 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.Kill();
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+			Projectile.Kill();
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
 			return false;
 		}
 
@@ -49,7 +50,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			for (int i = 0; i < 7; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 258);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
 			}
 		}
 

@@ -12,11 +12,11 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 24;
-			item.height = 24;
-			item.value = 0;
-			item.rare = ItemRarityID.Red;
-			item.defense = 18;
+			Item.width = 24;
+			Item.height = 24;
+			Item.value = 0;
+			Item.rare = ItemRarityID.Red;
+			Item.defense = 18;
 		}
 
 		public override void SetStaticDefaults()
@@ -41,7 +41,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == mod.ItemType("AbyssalChestplate") && legs.type == mod.ItemType("AbyssalGreaves");
+			return body.type == Mod.Find<ModItem>("AbyssalChestplate").Type && legs.type == Mod.Find<ModItem>("AbyssalGreaves").Type;
 		}
 
 		public override void UpdateArmorSet(Player player)
@@ -72,7 +72,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.LunarBar, 8);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 10);
 			recipe.AddTile(TileID.LunarCraftingStation);
@@ -82,7 +82,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssalHelm_Glowmask"), Color.White, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssalHelm_Glowmask"), Color.White, rotation, scale);
 		}
 	}
 }

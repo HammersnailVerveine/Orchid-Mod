@@ -8,15 +8,15 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 20;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.tileCollide = false;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.tileCollide = false;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
 		}
 
 		public override void AI()
@@ -24,7 +24,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 			for (int l = 0; l < Main.npc.Length; l++)
 			{
 				NPC target = Main.npc[l];
-				if (projectile.Hitbox.Intersects(target.Hitbox))
+				if (Projectile.Hitbox.Intersects(target.Hitbox))
 				{
 					OrchidModAlchemistNPC modTarget = target.GetGlobalNPC<OrchidModAlchemistNPC>();
 					target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.FlashFreeze>(), modTarget.alchemistWater > 0 ? 60 * 30 : 60 * 3);
@@ -34,20 +34,20 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (projectile.owner == proj.owner && proj.active && projectile.Hitbox.Intersects(proj.Hitbox))
+				if (Projectile.owner == proj.owner && proj.active && Projectile.Hitbox.Intersects(proj.Hitbox))
 				{
 					if (IceChestFlask.smallProjectiles.Contains(proj.type))
 					{
-						int damage = projectile.damage;
+						int damage = Projectile.damage;
 						int projType = ProjectileType<IceChestFlaskProjSmall>();
-						Projectile.NewProjectile(proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage, 1f, projectile.owner);
+						Projectile.NewProjectile(proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage, 1f, Projectile.owner);
 						proj.active = false;
 					}
 					if (IceChestFlask.bigProjectiles.Contains(proj.type))
 					{
-						int damage = projectile.damage * 5;
+						int damage = Projectile.damage * 5;
 						int projType = ProjectileType<IceChestFlaskProjBig>();
-						Projectile.NewProjectile(proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage, 5f, projectile.owner);
+						Projectile.NewProjectile(proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage, 5f, Projectile.owner);
 						proj.active = false;
 					}
 				}

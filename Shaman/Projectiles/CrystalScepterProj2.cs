@@ -13,27 +13,27 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 40;
-			projectile.extraUpdates = 2;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 40;
+			Projectile.extraUpdates = 2;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
 		}
 
 		public override void AI()
 		{
 			if (Main.rand.Next(3) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 185);
-				Main.dust[dust].velocity = projectile.velocity;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 185);
+				Main.dust[dust].velocity = Projectile.velocity;
 				Main.dust[dust].scale = 1f;
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = false;
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 62);
-				Main.dust[dust2].velocity = projectile.velocity;
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 62);
+				Main.dust[dust2].velocity = Projectile.velocity;
 				Main.dust[dust2].scale = 1f;
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust2].noLight = true;
@@ -52,8 +52,8 @@ namespace OrchidMod.Shaman.Projectiles
 				double dustDeg = (i * (36)) + 5 - Main.rand.Next(10);
 				double dustRad = dustDeg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - projectile.width / 4 - 1;
-				float posY = projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - projectile.height / 4 + 2;
+				float posX = Projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - Projectile.width / 4 - 1;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - Projectile.height / 4 + 2;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 

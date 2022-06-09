@@ -1,11 +1,17 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
 {
 	public class ForestCardProj : OrchidModGamblerProjectile
 	{
+		//private Texture2D texture;
+		
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Acorn");
@@ -13,41 +19,89 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 12;
-			projectile.height = 12;
-			projectile.friendly = true;
-			projectile.aiStyle = 2;
-			projectile.timeLeft = 100;
-			this.gamblingChipChance = 5;
+			Projectile.width = 18;
+			Projectile.height = 22;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 200;
+			this.gamblingChipChance = 10;
+			Main.projFrames[Projectile.type] = 2;
+		}
+		
+		public override void OnSpawn() {
+			int dustType = 31;
+			Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+			Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
+			if (Main.rand.Next(100) == 0) {
+				Projectile.frame = 1;
+			} else {
+				Projectile.frame = 0;
+			}
 		}
 
 		public override void SafeAI()
 		{
-			if (projectile.timeLeft == 100)
-			{
-				int dustType = 31;
-				Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
-				Main.dust[Dust.NewDust(pos, projectile.width, projectile.height, dustType)].velocity *= 0.25f;
+			this.checkMouseDrag();
+			
+			if (Projectile.ai[1] == 2f) {
+				Projectile.velocity.Y += 0.2f;
+				Projectile.rotation += Projectile.velocity.Length() / 30f * (Projectile.velocity.X > 0 ? 1f : -1f);
 			}
 		}
 		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
-		{
-			if (projectile.ai[1] != 1f && projectile.owner == Main.myPlayer)
-			{
-				modPlayer.gamblerSeedCount += 8 + (modPlayer.gamblerLuckySprout ? 2 : 0);
-				if (modPlayer.gamblerSeedCount > 99) {
-					modPlayer.gamblerSeedCount = 0;
-					Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
-					int projType = ProjectileType<Gambler.Projectiles.ForestCardProjAlt>();
-					bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
-					Main.projectile[newProjectile].ai[1] = 1f;
-					Main.projectile[newProjectile].netUpdate = true;
-					for (int i = 0; i < 5; i++)
-					{
-						int dustType = 31;
-						Main.dust[Dust.NewDust(player.Center, 10, 10, dustType)].velocity *= 0.25f;
+		public void checkMouseDrag() {
+			Projectile proj = Main.projectile[(int)Projectile.ai[0]];
+			
+			if (proj.type != ProjectileType<Gambler.Projectiles.ForestCardBase>() || proj.active == false) {
+				Projectile.Kill();
+			}
+			
+			if (Projectile.ai[1] == 0f) {
+				proj.ai[0] ++;
+				Projectile.timeLeft ++;
+				if (Projectile.velocity.X > 0f) {
+					Projectile.localAI[1] = Projectile.velocity.X;
+					Projectile.velocity.X = 0f;
+				}
+				
+				Projectile.position = proj.Center - new Vector2(Projectile.width, Projectile.height - 20) * 0.5f;
+				
+				if (Main.mouseLeft && Main.mouseLeftRelease) {
+					Vector2 newMove = Main.MouseWorld - Projectile.Center;
+					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+					if (distanceTo < 25f) {
+						Projectile.ai[1] = 1f;
+						Projectile.netUpdate = true;
+						Projectile.localAI[0] = Main.myPlayer;
+					}
+				}
+			}
+			
+			if (Projectile.ai[1] == 1f) {
+				proj.ai[0] ++;
+				Projectile.timeLeft ++;
+				if ((int)Projectile.localAI[0] == Main.myPlayer) {
+					if (Main.mouseLeft) {
+						Vector2 newMove = Main.MouseWorld - proj.Center;
+						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+						float range = 40f;
+						if (distanceTo > range) {
+							newMove.Normalize();
+							Projectile.position = proj.Center + newMove * range - new Vector2(Projectile.width, Projectile.height) * 0.5f;
+						} else {
+							Projectile.position = Main.MouseWorld - new Vector2(Projectile.width, Projectile.height) * 0.5f;
+						}
+					} else {
+						Vector2 newMove = proj.Center - Projectile.Center;
+						newMove.Normalize();
+						newMove *= Projectile.localAI[1];
+						Projectile.velocity = newMove;
+						Projectile.ai[1] = 2f;
+						Projectile.tileCollide = true;
+						Projectile.friendly = true;
+						Projectile.netUpdate = true;
+						SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y - 200, 1);
 					}
 				}
 			}
@@ -56,7 +110,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			int dustType = 31;
-			Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, dustType)].velocity *= 0.25f;
+			Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
 		}
 	}
 }

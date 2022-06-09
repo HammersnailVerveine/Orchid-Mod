@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 40;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.knockBack = 3.25f;
-			item.rare = ItemRarityID.Orange;
-			item.value = Item.sellPrice(0, 0, 54, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = false;
-			item.shootSpeed = 7f;
-			item.shoot = ModContent.ProjectileType<Projectiles.Thorium.StarScouterScepterProj>();
+			Item.damage = 40;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
+			Item.knockBack = 3.25f;
+			Item.rare = ItemRarityID.Orange;
+			Item.value = Item.sellPrice(0, 0, 54, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = false;
+			Item.shootSpeed = 7f;
+			Item.shoot = ModContent.ProjectileType<Projectiles.Thorium.StarScouterScepterProj>();
 
 			this.empowermentType = 3;
 			this.energy = 13;

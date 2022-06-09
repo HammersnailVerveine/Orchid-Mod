@@ -10,11 +10,11 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 26;
-			item.height = 20;
-			item.value = Item.sellPrice(0, 0, 60, 0);
-			item.rare = 3;
-			item.defense = 6;
+			Item.width = 26;
+			Item.height = 20;
+			Item.value = Item.sellPrice(0, 0, 60, 0);
+			Item.rare = 3;
+			Item.defense = 6;
 		}
 
 		public override void SetStaticDefaults()
@@ -56,7 +56,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>(), 1);
 			recipe.AddIngredient(ItemID.Vine, 1);
 			recipe.AddIngredient(ItemID.JungleSpores, 3);

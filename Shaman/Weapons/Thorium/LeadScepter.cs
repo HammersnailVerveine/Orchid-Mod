@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 22;
-			item.width = 36;
-			item.height = 38;
-			item.useTime = 62;
-			item.useAnimation = 62;
-			item.autoReuse = true;
-			item.knockBack = 4f;
-			item.rare = ItemRarityID.Blue;
-			item.value = Item.sellPrice(0, 0, 25, 0);
-			item.UseSound = SoundID.Item45;
-			item.shootSpeed = 7.5f;
-			item.shoot = mod.ProjectileType("OnyxScepterProj");
+			Item.damage = 22;
+			Item.width = 36;
+			Item.height = 38;
+			Item.useTime = 62;
+			Item.useAnimation = 62;
+			Item.autoReuse = true;
+			Item.knockBack = 4f;
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.sellPrice(0, 0, 25, 0);
+			Item.UseSound = SoundID.Item45;
+			Item.shootSpeed = 7.5f;
+			Item.shoot = Mod.Find<ModProjectile>("OnyxScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 7;
 		}
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "Onyx", 8);
 				recipe.AddIngredient(ItemID.LeadBar, 10);

@@ -8,13 +8,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 35;
-			projectile.scale = 1f;
-			projectile.tileCollide = true;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 35;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -31,10 +31,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				float x = projectile.position.X - projectile.velocity.X / 10f * (float)i;
-				float y = projectile.position.Y - projectile.velocity.Y / 10f * (float)i;
-				int index2 = Dust.NewDust(new Vector2(x, y), projectile.width, projectile.height, 172, 0.0f, 0.0f, 0, new Color(), 1f);
-				Main.dust[index2].alpha = projectile.alpha;
+				float x = Projectile.position.X - Projectile.velocity.X / 10f * (float)i;
+				float y = Projectile.position.Y - Projectile.velocity.Y / 10f * (float)i;
+				int index2 = Dust.NewDust(new Vector2(x, y), Projectile.width, Projectile.height, 172, 0.0f, 0.0f, 0, new Color(), 1f);
+				Main.dust[index2].alpha = Projectile.alpha;
 				Main.dust[index2].scale = (float)Main.rand.Next(70, 110) * 0.013f;
 				Main.dust[index2].velocity *= 0.0f;
 				Main.dust[index2].noGravity = true;
@@ -45,7 +45,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 3f;
 			}
@@ -56,10 +56,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				target.AddBuff((thoriumMod.BuffType("GraniteSurge")), 3 * 60);
+				target.AddBuff((thoriumMod.Find<ModBuff>("GraniteSurge").Type), 3 * 60);
 			}
 
-			if (Main.LocalPlayer.FindBuffIndex(mod.BuffType("GraniteAura")) > -1 || Main.LocalPlayer.FindBuffIndex(mod.BuffType("SpiritualBurst")) > -1)
+			if (Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("GraniteAura").Type) > -1 || Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("SpiritualBurst").Type) > -1)
 			{
 				return;
 			}
@@ -73,30 +73,30 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 
 			if (modPlayer.orbCountCircle == 1)
 			{
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 100, 0f, 0f, mod.ProjectileType("GraniteEnergyScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 100, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			}
 
 			if (modPlayer.orbCountCircle == 2)
-				Projectile.NewProjectile(player.Center.X + 110, player.position.Y + 10, 0f, 0f, mod.ProjectileType("GraniteEnergyScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X + 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 
 			if (modPlayer.orbCountCircle == 3)
-				Projectile.NewProjectile(player.Center.X, player.position.Y + 120, 0f, 0f, mod.ProjectileType("GraniteEnergyScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y + 120, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 
 			if (modPlayer.orbCountCircle == 4)
-				Projectile.NewProjectile(player.Center.X - 110, player.position.Y + 10, 0f, 0f, mod.ProjectileType("GraniteEnergyScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X - 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 
 			if (modPlayer.orbCountCircle == 5)
 			{
 				modPlayer.orbCountCircle = 0;
 
-				player.AddBuff(mod.BuffType("GraniteAura"), 60 * 30);
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 100, 0f, 0f, mod.ProjectileType("GraniteEnergyScepterOrbProj"), 1, 0, projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(player.Center.X + 110, player.position.Y + 10, 0f, 0f, mod.ProjectileType("GraniteEnergyScepterOrbProj"), 2, 0, projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(player.Center.X, player.position.Y + 120, 0f, 0f, mod.ProjectileType("GraniteEnergyScepterOrbProj"), 3, 0, projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(player.Center.X - 110, player.position.Y + 10, 0f, 0f, mod.ProjectileType("GraniteEnergyScepterOrbProj"), 4, 0, projectile.owner, 0f, 0f);
+				player.AddBuff(Mod.Find<ModBuff>("GraniteAura").Type, 60 * 30);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 100, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 1, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X + 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 2, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y + 120, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 3, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X - 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 4, 0, Projectile.owner, 0f, 0f);
 			}
 		}
 	}

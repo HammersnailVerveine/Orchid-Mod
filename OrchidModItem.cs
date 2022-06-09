@@ -8,19 +8,19 @@ namespace OrchidMod
 		// Hehe 'Te Nandayo?!
 		public bool alreadyInInventory(Player player, bool addStack = false)
 		{
-			for (int i = 0; i < Main.maxInventory; i++)
+			for (int i = 0; i < Main.InventorySlotsTotal; i++)
 			{
 				Item invItem = player.inventory[i];
-				if (invItem.type == item.type)
+				if (invItem.type == Item.type)
 				{
-					if (addStack) invItem.stack = invItem.stack + item.stack <= invItem.maxStack ? invItem.stack + item.stack : invItem.stack + item.stack;
+					if (addStack) invItem.stack = invItem.stack + Item.stack <= invItem.maxStack ? invItem.stack + Item.stack : invItem.stack + Item.stack;
 					return true;
 				}
 			}
 
 			for (int i = 0; i < 20; i++)
 			{
-				if (player.armor[i].type == item.type)
+				if (player.armor[i].type == Item.type)
 				{
 					return true;
 				}
@@ -28,7 +28,7 @@ namespace OrchidMod
 
 			for (int i = 0; i < 10; i++)
 			{
-				if (player.dye[i].type == item.type)
+				if (player.dye[i].type == Item.type)
 				{
 					return true;
 				}
@@ -36,11 +36,11 @@ namespace OrchidMod
 
 			for (int i = 0; i < 5; i++)
 			{
-				if (player.miscEquips[i].type == item.type)
+				if (player.miscEquips[i].type == Item.type)
 				{
 					return true;
 				}
-				if (player.miscDyes[i].type == item.type)
+				if (player.miscDyes[i].type == Item.type)
 				{
 					return true;
 				}

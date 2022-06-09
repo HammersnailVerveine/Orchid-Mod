@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 
 namespace OrchidMod.Alchemist.Misc
 {
@@ -7,15 +8,15 @@ namespace OrchidMod.Alchemist.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.width = 18;
-			item.height = 18;
-			item.maxStack = 99;
-			item.rare = 0;
+			Item.width = 18;
+			Item.height = 18;
+			Item.maxStack = 99;
+			Item.rare = 0;
 		}
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(item.Center, Color.Green.ToVector3() * 0.4f * Main.essScale);
+			Lighting.AddLight(Item.Center, Color.Green.ToVector3() * 0.4f * Main.essScale);
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -35,7 +36,7 @@ namespace OrchidMod.Alchemist.Misc
 			int val = 6;
 			CombatText.NewText(player.Hitbox, floatingTextColor, val);
 			modPlayer.alchemistPotency += modPlayer.alchemistPotency + val > modPlayer.alchemistPotencyMax ? modPlayer.alchemistPotencyMax : modPlayer.alchemistPotency;
-			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 85);
+			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 85);
 			return false;
 		}
 	}

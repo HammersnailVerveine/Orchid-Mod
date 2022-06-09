@@ -6,16 +6,16 @@ namespace OrchidMod.Gambler.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 28;
-			item.height = 28;
-			item.value = Item.sellPrice(0, 0, 40, 0);
-			item.rare = 1;
-			item.accessory = true;
+			Item.width = 28;
+			Item.height = 28;
+			Item.value = Item.sellPrice(0, 0, 40, 0);
+			Item.rare = 1;
+			Item.accessory = true;
 		}
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lucky Sprout");
-			Tooltip.SetDefault("Increases the frequency at which 'biome' cards spawns seeds");
+			Tooltip.SetDefault("Bushes from the 'biome' set will linger intead of disappearing");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

@@ -4,15 +4,15 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 200;
-			projectile.height = 200;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.tileCollide = false;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
+			Projectile.width = 200;
+			Projectile.height = 200;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.tileCollide = false;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
 		}
 
 		public override void SetStaticDefaults()
@@ -22,7 +22,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 
 		public override void AI()
 		{
-			OrchidModProjectile.resetIFrames(projectile);
+			OrchidModProjectile.resetIFrames(Projectile);
 		}
 	}
 }

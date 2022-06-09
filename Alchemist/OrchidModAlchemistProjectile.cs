@@ -15,7 +15,7 @@ namespace OrchidMod.Alchemist
 
 		public sealed override void AltSetDefaults()
 		{
-			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
 			modProjectile.baseCritChance = this.baseCritChance;
@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
 			modTarget.alchemistHit = true;

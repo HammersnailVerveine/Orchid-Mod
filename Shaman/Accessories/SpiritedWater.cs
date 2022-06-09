@@ -6,11 +6,11 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 28;
-			item.value = Item.sellPrice(0, 0, 35, 0);
-			item.rare = 2;
-			item.accessory = true;
+			Item.width = 30;
+			Item.height = 28;
+			Item.value = Item.sellPrice(0, 0, 35, 0);
+			Item.rare = 2;
+			Item.accessory = true;
 		}
 		public override void SetStaticDefaults()
 		{

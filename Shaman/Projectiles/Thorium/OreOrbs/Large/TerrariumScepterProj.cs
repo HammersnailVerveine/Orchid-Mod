@@ -17,14 +17,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 8;
-			projectile.aiStyle = 44;
-			projectile.friendly = true;
-			projectile.scale = 1f;
-			projectile.extraUpdates = 1;
-			projectile.alpha = 255;
-			projectile.timeLeft = 120;
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.aiStyle = 44;
+			Projectile.friendly = true;
+			Projectile.scale = 1f;
+			Projectile.extraUpdates = 1;
+			Projectile.alpha = 255;
+			Projectile.timeLeft = 120;
 		}
 
 		public override void AI()
@@ -34,17 +34,17 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 				dustType = Main.rand.Next(6) + 59;
 				spawnDustCircle(this.dustType, 15);
 			}
-			projectile.rotation += 0.1f;
+			Projectile.rotation += 0.1f;
 
-			int dust = Dust.NewDust(projectile.position, 0, 0, this.dustType, 0f, 0f);
-			Main.dust[dust].velocity = projectile.velocity / 3;
+			int dust = Dust.NewDust(Projectile.position, 0, 0, this.dustType, 0f, 0f);
+			Main.dust[dust].velocity = Projectile.velocity / 3;
 			Main.dust[dust].scale = 1.5f;
 			Main.dust[dust].noGravity = true;
 
-			if (projectile.localAI[0] == 0f)
+			if (Projectile.localAI[0] == 0f)
 			{
-				AdjustMagnitude(ref projectile.velocity);
-				projectile.localAI[0] = 1f;
+				AdjustMagnitude(ref Projectile.velocity);
+				Projectile.localAI[0] = 1f;
 			}
 			Vector2 move = Vector2.Zero;
 			float distance = 500f;
@@ -53,7 +53,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			{
 				if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
 				{
-					Vector2 newMove = Main.npc[k].Center - projectile.Center;
+					Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo < distance)
 					{
@@ -66,8 +66,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			if (target)
 			{
 				AdjustMagnitude(ref move);
-				projectile.velocity = (20 * projectile.velocity + move) / 10f;
-				AdjustMagnitude(ref projectile.velocity);
+				Projectile.velocity = (20 * Projectile.velocity + move) / 10f;
+				AdjustMagnitude(ref Projectile.velocity);
 			}
 		}
 
@@ -87,14 +87,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 				double deg = (i * (48 + 5 - Main.rand.Next(10)));
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
 				int index2 = Dust.NewDust(dustPosition, 1, 1, dustType, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 
-				Main.dust[index2].velocity = projectile.velocity / 2;
+				Main.dust[index2].velocity = Projectile.velocity / 2;
 				Main.dust[index2].fadeIn = 1f;
 				Main.dust[index2].scale = 1.5f;
 				Main.dust[index2].noGravity = true;
@@ -112,7 +112,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				target.AddBuff((thoriumMod.BuffType("TerrariumMix")), 2 * 60);
+				target.AddBuff((thoriumMod.Find<ModBuff>("TerrariumMix").Type), 2 * 60);
 			}
 
 			if (modPlayer.shamanOrbLarge != ShamanOrbLarge.TERRARIUM)
@@ -125,37 +125,37 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			float orbX = player.position.X + player.width / 2;
 			float orbY = player.position.Y;
 
-			if (player.FindBuffIndex(mod.BuffType("ShamanicBaubles")) > -1 && modPlayer.orbCountLarge < 5)
+			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountLarge < 5)
 			{
 				modPlayer.orbCountLarge += 5;
-				Projectile.NewProjectile(orbX - 43, orbY - 38, 0f, 0f, mod.ProjectileType("TerrariumScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
-				player.ClearBuff(mod.BuffType("ShamanicBaubles"));
+				Projectile.NewProjectile(orbX - 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TerrariumScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 			}
 
 			if (modPlayer.orbCountLarge == 5)
-				Projectile.NewProjectile(orbX - 43, orbY - 38, 0f, 0f, mod.ProjectileType("TerrariumScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX - 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TerrariumScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 10)
-				Projectile.NewProjectile(orbX - 30, orbY - 48, 0f, 0f, mod.ProjectileType("TerrariumScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX - 30, orbY - 48, 0f, 0f, Mod.Find<ModProjectile>("TerrariumScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 15)
-				Projectile.NewProjectile(orbX - 15, orbY - 53, 0f, 0f, mod.ProjectileType("TerrariumScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX - 15, orbY - 53, 0f, 0f, Mod.Find<ModProjectile>("TerrariumScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 20)
-				Projectile.NewProjectile(orbX, orbY - 55, 0f, 0f, mod.ProjectileType("TerrariumScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX, orbY - 55, 0f, 0f, Mod.Find<ModProjectile>("TerrariumScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 25)
-				Projectile.NewProjectile(orbX + 15, orbY - 53, 0f, 0f, mod.ProjectileType("TerrariumScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX + 15, orbY - 53, 0f, 0f, Mod.Find<ModProjectile>("TerrariumScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 30)
-				Projectile.NewProjectile(orbX + 30, orbY - 48, 0f, 0f, mod.ProjectileType("TerrariumScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX + 30, orbY - 48, 0f, 0f, Mod.Find<ModProjectile>("TerrariumScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 35)
-				Projectile.NewProjectile(orbX + 43, orbY - 38, 0f, 0f, mod.ProjectileType("TerrariumScepterOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX + 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TerrariumScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge > 35)
 			{
 				int dmg = (int)(80 * player.GetModPlayer<OrchidModPlayer>().shamanDamage);
-				Projectile.NewProjectile(orbX - 43, orbY - 38, -3f, -5f, mod.ProjectileType("TerrariumScepterOrbProj"), dmg, 0f, projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX - 30, orbY - 48, -2f, -5f, mod.ProjectileType("TerrariumScepterOrbProj"), dmg, 0f, projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX - 15, orbY - 53, -1f, -5f, mod.ProjectileType("TerrariumScepterOrbProj"), dmg, 0f, projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX, orbY - 55, 0f, -5f, mod.ProjectileType("TerrariumScepterOrbProj"), dmg, 0f, projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX + 15, orbY - 53, 1f, -5f, mod.ProjectileType("TerrariumScepterOrbProj"), dmg, 0f, projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX + 30, orbY - 48, 2f, -5f, mod.ProjectileType("TerrariumScepterOrbProj"), dmg, 0f, projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX + 43, orbY - 38, 3f, -5f, mod.ProjectileType("TerrariumScepterOrbProj"), dmg, 0f, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX - 43, orbY - 38, -3f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX - 30, orbY - 48, -2f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX - 15, orbY - 53, -1f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX, orbY - 55, 0f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX + 15, orbY - 53, 1f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX + 30, orbY - 48, 2f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(orbX + 43, orbY - 38, 3f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 				modPlayer.orbCountLarge = 0;
 			}
 		}

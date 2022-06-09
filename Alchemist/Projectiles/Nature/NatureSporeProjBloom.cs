@@ -11,20 +11,20 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 50;
-			projectile.height = 50;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.alpha = 255;
-			projectile.timeLeft = 60;
+			Projectile.width = 50;
+			Projectile.height = 50;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.alpha = 255;
+			Projectile.timeLeft = 60;
 		}
 
 		public override void AI()
 		{
-			if (projectile.timeLeft == 1)
+			if (Projectile.timeLeft == 1)
 			{
-				projectile.friendly = true;
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 44, 5, 5 + Main.rand.Next(3), true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
+				Projectile.friendly = true;
+				OrchidModProjectile.spawnDustCircle(Projectile.Center, 44, 5, 5 + Main.rand.Next(3), true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
 			}
 		}
 	}

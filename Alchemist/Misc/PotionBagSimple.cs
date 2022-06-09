@@ -8,11 +8,11 @@ namespace OrchidMod.Alchemist.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.width = 30;
-			item.height = 28;
-			item.maxStack = 1;
-			item.value = Item.sellPrice(0, 0, 40, 0);
-			item.rare = 1;
+			Item.width = 30;
+			Item.height = 28;
+			Item.maxStack = 1;
+			Item.value = Item.sellPrice(0, 0, 40, 0);
+			Item.rare = 1;
 		}
 
 		public override void SetStaticDefaults()
@@ -62,7 +62,7 @@ namespace OrchidMod.Alchemist.Misc
 			}
 			
 			
-			while (modPlayer.alchemistPotionBag[potionBag.Length - 1].type == 0 && index < Main.maxInventory) {
+			while (modPlayer.alchemistPotionBag[potionBag.Length - 1].type == 0 && index < Main.InventorySlotsTotal) {
 				Item item = Main.LocalPlayer.inventory[index];
 				index ++;
 				if (item.type != 0)

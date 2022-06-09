@@ -17,17 +17,17 @@ namespace OrchidMod.Content.Items.Mounts
 
 		public override void SetDefaults()
 		{
-			item.width = 34;
-			item.height = 22;
-			item.rare = ItemRarityID.Cyan;
-			item.value = Item.sellPrice(0, 0, 50, 0);
-			item.mountType = ModContent.MountType<SquareMinecartMount>();
+			Item.width = 34;
+			Item.height = 22;
+			Item.rare = ItemRarityID.Cyan;
+			Item.value = Item.sellPrice(0, 0, 50, 0);
+			Item.mountType = ModContent.MountType<SquareMinecartMount>();
 		}
 	}
 
 	public class SquareMinecartBuff : OrchidBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Minecart"); // Square Minecart (all vanilla minecarts have this name...)
 			Description.SetDefault("Riding in a minecart");
@@ -43,7 +43,7 @@ namespace OrchidMod.Content.Items.Mounts
 		}
 	}
 
-	public class SquareMinecartMount : ModMountData
+	public class SquareMinecartMount : ModMount
 	{
 		public override bool Autoload(ref string name, ref string texture, IDictionary<MountTextureType, string> extraTextures)
 		{
@@ -52,53 +52,53 @@ namespace OrchidMod.Content.Items.Mounts
 			return true;
 		}
 
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			MountID.Sets.Cart[Type] = true;
-			mountData.Minecart = true;
-			mountData.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
+			MountData.Minecart = true;
+			MountData.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
 
-			mountData.spawnDust = 16;
-			mountData.buff = ModContent.BuffType<SquareMinecartBuff>();
+			MountData.spawnDust = 16;
+			MountData.buff = ModContent.BuffType<SquareMinecartBuff>();
 
-			mountData.flightTimeMax = 0;
-			mountData.fallDamage = 1f;
-			mountData.runSpeed = 13f;
-			mountData.dashSpeed = 13f;
-			mountData.acceleration = 0.04f;
-			mountData.jumpHeight = 15;
-			mountData.jumpSpeed = 5.15f;
-			mountData.blockExtraJumps = true;
-			mountData.heightBoost = 10;
+			MountData.flightTimeMax = 0;
+			MountData.fallDamage = 1f;
+			MountData.runSpeed = 13f;
+			MountData.dashSpeed = 13f;
+			MountData.acceleration = 0.04f;
+			MountData.jumpHeight = 15;
+			MountData.jumpSpeed = 5.15f;
+			MountData.blockExtraJumps = true;
+			MountData.heightBoost = 10;
 
-			mountData.playerYOffsets = new int[] { 8, 8, 8 };
+			MountData.playerYOffsets = new int[] { 8, 8, 8 };
 			//mountData.xOffset = 1;
-			mountData.yOffset = 13;
-			mountData.bodyFrame = 3;
-			mountData.playerHeadOffset = 14;
+			MountData.yOffset = 13;
+			MountData.bodyFrame = 3;
+			MountData.playerHeadOffset = 14;
 
-			mountData.totalFrames = 3;
-			mountData.standingFrameCount = 1;
-			mountData.standingFrameDelay = 12;
-			mountData.standingFrameStart = 0;
-			mountData.runningFrameCount = 3;
-			mountData.runningFrameDelay = 12;
-			mountData.runningFrameStart = 0;
-			mountData.flyingFrameCount = 0;
-			mountData.flyingFrameDelay = 0;
-			mountData.flyingFrameStart = 0;
-			mountData.inAirFrameCount = 0;
-			mountData.inAirFrameDelay = 0;
-			mountData.inAirFrameStart = 0;
-			mountData.idleFrameCount = 0;
-			mountData.idleFrameDelay = 0;
-			mountData.idleFrameStart = 0;
-			mountData.idleFrameLoop = false;
+			MountData.totalFrames = 3;
+			MountData.standingFrameCount = 1;
+			MountData.standingFrameDelay = 12;
+			MountData.standingFrameStart = 0;
+			MountData.runningFrameCount = 3;
+			MountData.runningFrameDelay = 12;
+			MountData.runningFrameStart = 0;
+			MountData.flyingFrameCount = 0;
+			MountData.flyingFrameDelay = 0;
+			MountData.flyingFrameStart = 0;
+			MountData.inAirFrameCount = 0;
+			MountData.inAirFrameDelay = 0;
+			MountData.inAirFrameStart = 0;
+			MountData.idleFrameCount = 0;
+			MountData.idleFrameDelay = 0;
+			MountData.idleFrameStart = 0;
+			MountData.idleFrameLoop = false;
 
 			if (Main.netMode != NetmodeID.Server)
 			{
-				mountData.textureWidth = mountData.frontTexture.Width;
-				mountData.textureHeight = mountData.frontTexture.Height;
+				MountData.textureWidth = MountData.frontTexture.Width;
+				MountData.textureHeight = MountData.frontTexture.Height;
 			}
 		}
 	}

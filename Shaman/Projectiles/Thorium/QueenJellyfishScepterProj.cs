@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -12,25 +13,25 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 22;
-			projectile.height = 30;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 90;
-			projectile.penetrate = 4;
-			projectile.alpha = 126;
-			projectile.ignoreWater = true;
+			Projectile.width = 22;
+			Projectile.height = 30;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 90;
+			Projectile.penetrate = 4;
+			Projectile.alpha = 126;
+			Projectile.ignoreWater = true;
 		}
 
 		public override void AI()
 		{
-			Lighting.AddLight(projectile.Center, 0.5f, 0.5f, 0f);
-			projectile.velocity.Y += 0.1f;
+			Lighting.AddLight(Projectile.Center, 0.5f, 0.5f, 0f);
+			Projectile.velocity.Y += 0.1f;
 
 			if (Main.rand.Next(3) == 0)
 			{
-				int index2 = Dust.NewDust(projectile.position - projectile.velocity * 0.25f, projectile.width, projectile.height, 64, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(80, 110) * 0.013f);
-				Main.dust[index2].velocity = projectile.velocity / 3;
+				int index2 = Dust.NewDust(Projectile.position - Projectile.velocity * 0.25f, Projectile.width, Projectile.height, 64, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(80, 110) * 0.013f);
+				Main.dust[index2].velocity = Projectile.velocity / 3;
 				Main.dust[index2].noGravity = true;
 			}
 		}
@@ -42,8 +43,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				double deg = (i * (36 + 5 - Main.rand.Next(10)));
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - projectile.width / 2;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - projectile.height / 2;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - Projectile.width / 2;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - Projectile.height / 2;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
@@ -58,18 +59,18 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			projectile.damage += (2 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod));
+			Projectile.damage += (2 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod));
 
-			projectile.penetrate--;
-			projectile.timeLeft = 90;
+			Projectile.penetrate--;
+			Projectile.timeLeft = 90;
 			spawnDustCircle(64, 20);
-			if (projectile.penetrate < 0) projectile.Kill();
-			projectile.velocity.X = (projectile.velocity.X != oldVelocity.X) ? -oldVelocity.X : projectile.velocity.X * 0.8f;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y * 1.2f;
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 87);
-			projectile.netUpdate = true;
+			if (Projectile.penetrate < 0) Projectile.Kill();
+			Projectile.velocity.X = (Projectile.velocity.X != oldVelocity.X) ? -oldVelocity.X : Projectile.velocity.X * 0.8f;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y * 1.2f;
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 87);
+			Projectile.netUpdate = true;
 			return false;
 		}
 
@@ -77,13 +78,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 13; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 64);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 64);
 			}
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			projectile.Kill();
+			Projectile.Kill();
 			spawnDustCircle(64, 20);
 		}
 	}

@@ -8,19 +8,19 @@ namespace OrchidMod.Shaman.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.UseSound = SoundID.Item3;
-			item.useStyle = 2;
-			item.useTurn = true;
-			item.useAnimation = 16;
-			item.useTime = 16;
-			item.maxStack = 30;
-			item.consumable = true;
-			item.value = Item.sellPrice(0, 0, 2, 0);
-			item.width = 20;
-			item.height = 28;
-			item.rare = 1;
-			item.buffType = mod.BuffType("ShamanicEmpowerment");
-			item.buffTime = 60 * 420;
+			Item.UseSound = SoundID.Item3;
+			Item.useStyle = 2;
+			Item.useTurn = true;
+			Item.useAnimation = 16;
+			Item.useTime = 16;
+			Item.maxStack = 30;
+			Item.consumable = true;
+			Item.value = Item.sellPrice(0, 0, 2, 0);
+			Item.width = 20;
+			Item.height = 28;
+			Item.rare = 1;
+			Item.buffType = Mod.Find<ModBuff>("ShamanicEmpowerment").Type;
+			Item.buffTime = 60 * 420;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Misc
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Bottles);
 			recipe.AddIngredient(ItemID.BottledWater, 1);
 			recipe.AddIngredient(ItemID.Fireblossom, 1);

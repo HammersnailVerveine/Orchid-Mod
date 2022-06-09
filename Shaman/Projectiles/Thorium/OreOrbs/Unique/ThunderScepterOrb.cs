@@ -18,14 +18,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 16;
-			projectile.height = 34;
-			projectile.aiStyle = 0;
-			projectile.friendly = true;
-			projectile.timeLeft = 12960000;
-			projectile.scale = 1f;
-			projectile.tileCollide = false;
-			Main.projFrames[projectile.type] = 12;
+			Projectile.width = 16;
+			Projectile.height = 34;
+			Projectile.aiStyle = 0;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 12960000;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = false;
+			Main.projFrames[Projectile.type] = 12;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -40,11 +40,11 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			if (player != Main.player[Main.myPlayer])
 			{
-				projectile.active = false;
+				Projectile.active = false;
 			}
 
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 10 == 0)
@@ -53,44 +53,44 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 10)
 				{
-					if (!done && projectile.frame == 0)
+					if (!done && Projectile.frame == 0)
 					{
-						projectile.frame = 1;
+						Projectile.frame = 1;
 						reverseAnim = false;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 3)
+					if (!done && Projectile.frame == 3)
 					{
-						projectile.frame = 2;
+						Projectile.frame = 2;
 						reverseAnim = true;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 1)
+					if (!done && Projectile.frame == 1)
 					{
 						if (reverseAnim)
 						{
-							projectile.frame = 0;
+							Projectile.frame = 0;
 							done = true;
 						}
 						else
 						{
-							projectile.frame = 2;
+							Projectile.frame = 2;
 							done = true;
 						}
 					}
 
-					if (!done && projectile.frame == 2)
+					if (!done && Projectile.frame == 2)
 					{
 						if (reverseAnim)
 						{
-							projectile.frame = 1;
+							Projectile.frame = 1;
 							done = true;
 						}
 						else
 						{
-							projectile.frame = 3;
+							Projectile.frame = 3;
 							done = true;
 						}
 					}
@@ -98,44 +98,44 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 10 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 15)
 				{
-					if (!done && projectile.frame == 4 || projectile.frame < 4)
+					if (!done && Projectile.frame == 4 || Projectile.frame < 4)
 					{
-						projectile.frame = 5;
+						Projectile.frame = 5;
 						reverseAnim = false;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 7)
+					if (!done && Projectile.frame == 7)
 					{
-						projectile.frame = 6;
+						Projectile.frame = 6;
 						reverseAnim = true;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 5)
+					if (!done && Projectile.frame == 5)
 					{
 						if (reverseAnim)
 						{
-							projectile.frame = 4;
+							Projectile.frame = 4;
 							done = true;
 						}
 						else
 						{
-							projectile.frame = 6;
+							Projectile.frame = 6;
 							done = true;
 						}
 					}
 
-					if (!done && projectile.frame == 6)
+					if (!done && Projectile.frame == 6)
 					{
 						if (reverseAnim)
 						{
-							projectile.frame = 5;
+							Projectile.frame = 5;
 							done = true;
 						}
 						else
 						{
-							projectile.frame = 7;
+							Projectile.frame = 7;
 							done = true;
 						}
 					}
@@ -143,44 +143,44 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 15)
 				{
-					if (!done && projectile.frame == 8 || projectile.frame < 8)
+					if (!done && Projectile.frame == 8 || Projectile.frame < 8)
 					{
-						projectile.frame = 9;
+						Projectile.frame = 9;
 						reverseAnim = false;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 11)
+					if (!done && Projectile.frame == 11)
 					{
-						projectile.frame = 10;
+						Projectile.frame = 10;
 						reverseAnim = true;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 9)
+					if (!done && Projectile.frame == 9)
 					{
 						if (reverseAnim)
 						{
-							projectile.frame = 8;
+							Projectile.frame = 8;
 							done = true;
 						}
 						else
 						{
-							projectile.frame = 10;
+							Projectile.frame = 10;
 							done = true;
 						}
 					}
 
-					if (!done && projectile.frame == 10)
+					if (!done && Projectile.frame == 10)
 					{
 						if (reverseAnim)
 						{
-							projectile.frame = 9;
+							Projectile.frame = 9;
 							done = true;
 						}
 						else
 						{
-							projectile.frame = 11;
+							Projectile.frame = 11;
 							done = true;
 						}
 					}
@@ -191,24 +191,24 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			|| player.GetModPlayer<OrchidModPlayer>().orbCountUnique > 20
 			|| player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique != ShamanOrbUnique.GRANDTHUNDERBIRD)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
 			else orbsNumber = player.GetModPlayer<OrchidModPlayer>().orbCountUnique;
 
-			if (projectile.timeLeft == 12960000)
+			if (Projectile.timeLeft == 12960000)
 			{
-				startX = projectile.position.X - player.position.X;
-				startY = projectile.position.Y - player.position.Y;
+				startX = Projectile.position.X - player.position.X;
+				startY = Projectile.position.Y - player.position.Y;
 			}
 
-			projectile.velocity.X = player.velocity.X;
-			projectile.position.X = player.position.X + startX;
-			projectile.position.Y = player.position.Y + startY;
+			Projectile.velocity.X = player.velocity.X;
+			Projectile.position.X = player.position.X + startX;
+			Projectile.position.Y = player.position.Y + startY;
 
 			if (Main.rand.Next(20) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 229);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 			}
@@ -225,12 +225,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			for (int i = 0; i < 10; i++)
 			{
 				int dust;
-				dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 229);
+				dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 229);
 				Main.dust[dust].velocity *= 2f;
 				Main.dust[dust].scale = 1.75f;
 				Main.dust[dust].noGravity = true;

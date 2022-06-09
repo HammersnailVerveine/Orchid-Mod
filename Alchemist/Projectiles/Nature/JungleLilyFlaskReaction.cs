@@ -23,15 +23,15 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 100;
-			projectile.height = 100;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.tileCollide = false;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
+			Projectile.width = 100;
+			Projectile.height = 100;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.tileCollide = false;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
 		}
 
 		public override void SetStaticDefaults()
@@ -41,11 +41,11 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void AI()
 		{
-			if (projectile.owner == Main.myPlayer)
+			if (Projectile.owner == Main.myPlayer)
 			{
 				int size = 4;
-				int i = (int)(projectile.Center.X / 16);
-				int j = (int)(projectile.Center.Y / 16);
+				int i = (int)(Projectile.Center.X / 16);
+				int j = (int)(Projectile.Center.Y / 16);
 
 				for (int k = i - size; k <= i + size; k++)
 				{
@@ -54,14 +54,14 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 						if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt(size * size + size * size))
 						{
 							Tile baseTile = Framing.GetTileSafely(k, l);
-							if (baseTile.type == ModContent.TileType<Content.Items.Materials.JungleLilyTile>() && baseTile.frameX == 0 && baseTile.frameY == 0)
+							if (baseTile.TileType == ModContent.TileType<Content.Items.Materials.JungleLilyTile>() && baseTile.TileFrameX % 36 == 0 && baseTile.TileFrameY == 0)
 							{
 								for (int w = 0; w < 2; w++)
 								{
 									for (int q = 0; q < 2; q++)
 									{
 										Tile tile = Framing.GetTileSafely(k + w, l + q);
-										tile.active(false);
+										tile.HasTile = false;
 										NetMessage.SendTileSquare(-1, k, l, 1);
 									}
 								}

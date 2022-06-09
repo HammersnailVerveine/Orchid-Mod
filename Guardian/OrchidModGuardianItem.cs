@@ -13,13 +13,13 @@ namespace OrchidMod.Guardian
 		public override void SetDefaults()
 		{
 			SafeSetDefaults();
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = true;
-			item.maxStack = 1;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = true;
+			Item.maxStack = 1;
 		}
 
 		public override bool CloneNewInstances
@@ -30,12 +30,12 @@ namespace OrchidMod.Guardian
 			}
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().guardianDamage;
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().guardianCrit;
 		}
@@ -48,21 +48,21 @@ namespace OrchidMod.Guardian
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
-				string[] splitText = tt.text.Split(' ');
+				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " opposing " + damageWord;
+				tt.Text = damageValue + " opposing " + damageWord;
 			}
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Guardian Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Guardian Class-")
 				{
-					overrideColor = new Color(165, 130, 100)
+					OverrideColor = new Color(165, 130, 100)
 				});
 			}
 		}

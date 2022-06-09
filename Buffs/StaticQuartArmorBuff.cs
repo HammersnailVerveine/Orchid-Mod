@@ -5,7 +5,7 @@ namespace OrchidMod.Buffs
 {
 	public class StaticQuartArmorBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Static Power");

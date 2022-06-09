@@ -16,22 +16,22 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 6;
-			projectile.height = 10;
-			projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.timeLeft = 100;
-			projectile.light = 0.10f;
-			projectile.alpha = 126;
-			projectile.extraUpdates = 1;
-			projectile.scale = 1f;
-			aiType = 1;
+			Projectile.width = 6;
+			Projectile.height = 10;
+			Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 100;
+			Projectile.light = 0.10f;
+			Projectile.alpha = 126;
+			Projectile.extraUpdates = 1;
+			Projectile.scale = 1f;
+			AIType = 1;
 		}
 		public override void AI()
 		{
 			if (Main.rand.Next(3) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 				Main.dust[dust].velocity /= 10f;
 				Main.dust[dust].scale = 1f;
 				Main.dust[dust].noGravity = true;
@@ -41,7 +41,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				int index2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 6, projectile.velocity.X, projectile.velocity.Y, 100, new Color(), 1f);
+				int index2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y, 100, new Color(), 1f);
 				Main.dust[index2].noGravity = true;
 				Main.dust[index2].velocity *= 0.5f;
 				Main.dust[index2].scale = 1.35f;

@@ -6,14 +6,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 200;
-			projectile.height = 200;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = 200;
+			Projectile.width = 200;
+			Projectile.height = 200;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = 200;
 		}
 
 		public override void SetStaticDefaults()

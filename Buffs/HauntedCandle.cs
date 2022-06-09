@@ -6,7 +6,7 @@ namespace OrchidMod.Buffs
 {
 	public class HauntedCandle : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Haunted Candle");
 			Description.SetDefault("Kinda unreliable");
@@ -16,12 +16,12 @@ namespace OrchidMod.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).hauntedCandle = true;
+			((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).hauntedCandle = true;
 			player.buffTime[buffIndex] = 18000;
-			bool petProjectileNotSpawned = player.ownedProjectileCounts[mod.ProjectileType("HauntedCandle")] <= 0;
+			bool petProjectileNotSpawned = player.ownedProjectileCounts[Mod.Find<ModProjectile>("HauntedCandle").Type] <= 0;
 			if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, mod.ProjectileType("HauntedCandle"), 0, 0f, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, Mod.Find<ModProjectile>("HauntedCandle").Type, 0, 0f, player.whoAmI, 0f, 0f);
 			}
 			if ((player.controlDown && player.releaseDown))
 			{
@@ -29,7 +29,7 @@ namespace OrchidMod.Buffs
 				{
 					for (int j = 0; j < 1000; j++)
 					{
-						if (Main.projectile[j].active && Main.projectile[j].type == mod.ProjectileType("HauntedCandle") && Main.projectile[j].owner == player.whoAmI)
+						if (Main.projectile[j].active && Main.projectile[j].type == Mod.Find<ModProjectile>("HauntedCandle").Type && Main.projectile[j].owner == player.whoAmI)
 						{
 							Projectile lightpet = Main.projectile[j];
 							Vector2 vectorToMouse = Main.MouseWorld - lightpet.Center;

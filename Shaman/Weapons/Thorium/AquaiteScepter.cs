@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 20;
-			item.width = 38;
-			item.height = 38;
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.knockBack = 4.75f;
-			item.rare = ItemRarityID.Green;
-			item.value = Item.sellPrice(0, 0, 30, 0);
-			item.UseSound = SoundID.Item21;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("AquaiteScepterProj");
+			Item.damage = 20;
+			Item.width = 38;
+			Item.height = 38;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
+			Item.knockBack = 4.75f;
+			Item.rare = ItemRarityID.Green;
+			Item.value = Item.sellPrice(0, 0, 30, 0);
+			Item.UseSound = SoundID.Item21;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("AquaiteScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 8;
 		}
@@ -41,7 +41,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			int numberProjectiles = 2;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("AquaiteScepterProj"), damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("AquaiteScepterProj").Type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}
@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "AquaiteBar", 14);
 				recipe.AddIngredient(thoriumMod, "DepthScale", 6);

@@ -6,11 +6,11 @@ namespace OrchidMod.Alchemist.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.width = 30;
-			item.height = 30;
-			item.maxStack = 99;
-			item.value = Item.sellPrice(0, 0, 4, 0);
-			item.rare = 0;
+			Item.width = 30;
+			Item.height = 30;
+			Item.maxStack = 99;
+			Item.value = Item.sellPrice(0, 0, 4, 0);
+			Item.rare = 0;
 		}
 
 

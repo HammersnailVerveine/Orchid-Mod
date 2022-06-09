@@ -11,14 +11,14 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 18;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 60;
-			projectile.scale = 1f;
-			projectile.penetrate = -1;
-			projectile.friendly = false;
-			Main.projFrames[projectile.type] = 3;
+			Projectile.width = 14;
+			Projectile.height = 18;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 60;
+			Projectile.scale = 1f;
+			Projectile.penetrate = -1;
+			Projectile.friendly = false;
+			Main.projFrames[Projectile.type] = 3;
 			this.catalytic = true;
 		}
 
@@ -31,20 +31,20 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			projectile.velocity *= 0.95f;
+			Projectile.velocity *= 0.95f;
 
 			if (!this.initialized)
 			{
 				this.initialized = true;
-				projectile.frame = Main.rand.Next(3);
+				Projectile.frame = Main.rand.Next(3);
 			}
 
-			if (projectile.timeLeft % 10 == 0) projectile.frame = projectile.frame == 2 ? 0 : projectile.frame + 1;
+			if (Projectile.timeLeft % 10 == 0) Projectile.frame = Projectile.frame == 2 ? 0 : Projectile.frame + 1;
 
-			if (projectile.ai[1] != 0f)
+			if (Projectile.ai[1] != 0f)
 			{
-				sporeType = (int)projectile.ai[1];
-				this.sporeDamage = (int)projectile.ai[0];
+				sporeType = (int)Projectile.ai[1];
+				this.sporeDamage = (int)Projectile.ai[0];
 			}
 		}
 
@@ -62,8 +62,8 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 		public override void Kill(int timeLeft)
 		{
 			int range = 50;
-			OrchidModProjectile.spawnDustCircle(projectile.Center, sporeType, (int)(range / 3), 5, true, 1.25f, 1f, 4f, true, true, false, 0, 0, true);
-			spawnGenericExplosion(projectile, projectile.damage, projectile.knockBack, range * 3, 2, false);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, sporeType, (int)(range / 3), 5, true, 1.25f, 1f, 4f, true, true, false, 0, 0, true);
+			spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, range * 3, 2, false);
 
 			if (Main.rand.Next(2) == 0)
 			{
@@ -95,10 +95,10 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				if (spawnProj != 0)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
-					int newSpore = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, this.sporeDamage, 0f, projectile.owner);
+					int newSpore = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj, this.sporeDamage, 0f, Projectile.owner);
 					Main.projectile[newSpore].localAI[1] = 1f;
 					vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj2, 0, 0f, projectile.owner);
+					Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj2, 0, 0f, Projectile.owner);
 				}
 			}
 		}

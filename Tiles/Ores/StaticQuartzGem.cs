@@ -7,10 +7,10 @@ namespace OrchidMod.Tiles.Ores
 {
 	public class StaticQuartzGem : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSpelunker[Type] = true;
-			Main.tileValue[Type] = 280;
+			Main.tileOreFinderPriority[Type] = 280;
 			Main.tileShine2[Type] = true;
 			Main.tileShine[Type] = 500;
 			Main.tileObsidianKill[Type] = true;
@@ -21,8 +21,8 @@ namespace OrchidMod.Tiles.Ores
 			name.SetDefault("Static Quartz");
 			AddMapEntry(new Color(216, 21, 54), name);
 
-			dustType = 60;
-			drop = ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>();
+			DustType = 60;
+			ItemDrop = ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>();
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
@@ -35,22 +35,22 @@ namespace OrchidMod.Tiles.Ores
 		public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
 		{
 			Tile tile = Main.tile[i, j];
-			tile.frameX = (short)(Main.rand.Next(5) * 16);
+			tile.TileFrameX = (short)(Main.rand.Next(5) * 16);
 			if (WorldGen.SolidTile(i, j + 1))
 			{
-				tile.frameY = 0;
+				tile.TileFrameY = 0;
 			}
 			else if (WorldGen.SolidTile(i - 1, j))
 			{
-				tile.frameY = 16;
+				tile.TileFrameY = 16;
 			}
 			else if (WorldGen.SolidTile(i, j - 1))
 			{
-				tile.frameY = 32;
+				tile.TileFrameY = 32;
 			}
 			else if (WorldGen.SolidTile(i + 1, j))
 			{
-				tile.frameY = 48;
+				tile.TileFrameY = 48;
 			}
 			else
 			{

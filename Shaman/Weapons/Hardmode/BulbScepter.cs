@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
@@ -8,18 +9,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 65;
-			item.width = 50;
-			item.height = 50;
-			item.useTime = 36;
-			item.useAnimation = 36;
-			item.knockBack = 3.15f;
-			item.rare = 7;
-			item.value = Item.sellPrice(0, 10, 0, 0);
-			item.UseSound = SoundID.Item42;
-			item.autoReuse = true;
-			item.shootSpeed = 8f;
-			item.shoot = mod.ProjectileType("BulbScepterProj");
+			Item.damage = 65;
+			Item.width = 50;
+			Item.height = 50;
+			Item.useTime = 36;
+			Item.useAnimation = 36;
+			Item.knockBack = 3.15f;
+			Item.rare = 7;
+			Item.value = Item.sellPrice(0, 10, 0, 0);
+			Item.UseSound = SoundID.Item42;
+			Item.autoReuse = true;
+			Item.shootSpeed = 8f;
+			Item.shoot = Mod.Find<ModProjectile>("BulbScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 10;
 		}
@@ -34,7 +35,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
 			int numberProjectiles = 1 + Main.rand.Next(2) + nbBonds;
 			for (int i = 0; i < numberProjectiles; i++)

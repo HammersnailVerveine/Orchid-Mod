@@ -17,33 +17,33 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 6;
-			projectile.height = 6;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.alpha = 126;
-			projectile.timeLeft = 180;
-			ProjectileID.Sets.Homing[projectile.type] = true;
+			Projectile.width = 6;
+			Projectile.height = 6;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.alpha = 126;
+			Projectile.timeLeft = 180;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 			this.gamblingChipChance = 5;
 		}
 
 		public override void SafeAI()
 		{
 			this.count++;
-			projectile.rotation += 0.1f;
+			Projectile.rotation += 0.1f;
 
-			if (projectile.wet)
+			if (Projectile.wet)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
-			if (projectile.timeLeft > 120)
+			if (Projectile.timeLeft > 120)
 			{
-				projectile.velocity.Y += 0.01f;
-				projectile.velocity.X *= 0.95f;
+				Projectile.velocity.Y += 0.01f;
+				Projectile.velocity.X *= 0.95f;
 			}
 
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust].noLight = true;
 
@@ -53,28 +53,28 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 			if (started == true)
 			{
-				projectile.ai[1]++;
-				if (projectile.ai[1] == 10)
+				Projectile.ai[1]++;
+				if (Projectile.ai[1] == 10)
 				{
-					projectile.ai[1] = 0;
-					projectile.netUpdate = true;
+					Projectile.ai[1] = 0;
+					Projectile.netUpdate = true;
 					switch (Main.rand.Next(4))
 					{
 						case 0:
-							projectile.velocity.Y = 1;
-							projectile.velocity.X = 1;
+							Projectile.velocity.Y = 1;
+							Projectile.velocity.X = 1;
 							break;
 						case 1:
-							projectile.velocity.Y = -1;
-							projectile.velocity.X = -1;
+							Projectile.velocity.Y = -1;
+							Projectile.velocity.X = -1;
 							break;
 						case 2:
-							projectile.velocity.Y = -1;
-							projectile.velocity.X = 1;
+							Projectile.velocity.Y = -1;
+							Projectile.velocity.X = 1;
 							break;
 						case 3:
-							projectile.velocity.Y = 1;
-							projectile.velocity.X = -1;
+							Projectile.velocity.Y = 1;
+							Projectile.velocity.X = -1;
 							break;
 					}
 				}
@@ -84,30 +84,30 @@ namespace OrchidMod.Gambler.Projectiles
 				// projectile.velocity = projectile.velocity * 0.75f;		
 				// }
 
-				if (projectile.alpha > 70)
+				if (Projectile.alpha > 70)
 				{
-					projectile.alpha -= 15;
-					if (projectile.alpha < 70)
+					Projectile.alpha -= 15;
+					if (Projectile.alpha < 70)
 					{
-						projectile.alpha = 70;
+						Projectile.alpha = 70;
 					}
 				}
 
-				if (projectile.localAI[0] == 0f)
+				if (Projectile.localAI[0] == 0f)
 				{
-					AdjustMagnitude(ref projectile.velocity);
-					projectile.localAI[0] = 1f;
+					AdjustMagnitude(ref Projectile.velocity);
+					Projectile.localAI[0] = 1f;
 				}
 
 				Vector2 move = Vector2.Zero;
 				float distance = 150f;
 				bool target = false;
-				bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 				for (int k = 0; k < 200; k++)
 				{
-					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && ((!dummy && Main.npc[k].type != NPCID.TargetDummy) || (dummy && Main.npc[k].type == NPCID.TargetDummy)) && projectile.timeLeft < 240)
+					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && ((!dummy && Main.npc[k].type != NPCID.TargetDummy) || (dummy && Main.npc[k].type == NPCID.TargetDummy)) && Projectile.timeLeft < 240)
 					{
-						Vector2 newMove = Main.npc[k].Center - projectile.Center;
+						Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 						if (distanceTo < distance)
 						{
@@ -121,8 +121,8 @@ namespace OrchidMod.Gambler.Projectiles
 				if (target)
 				{
 					AdjustMagnitude(ref move);
-					projectile.velocity = (5 * projectile.velocity + move) / 1f;
-					AdjustMagnitude(ref projectile.velocity);
+					Projectile.velocity = (5 * Projectile.velocity + move) / 1f;
+					AdjustMagnitude(ref Projectile.velocity);
 				}
 			}
 		}
@@ -139,7 +139,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = true;
 				Main.dust[dust].velocity *= 3f;

@@ -9,23 +9,23 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 13;
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 33;
-			item.useAnimation = 33;
-			item.knockBack = 0f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 20, 0);
-			item.UseSound = SoundID.Item45;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("FeatherScepterProj");
+			Item.damage = 13;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 33;
+			Item.useAnimation = 33;
+			Item.knockBack = 0f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 20, 0);
+			Item.UseSound = SoundID.Item45;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("FeatherScepterProj").Type;
 			this.empowermentType = 3;
 			this.energy = 6;
 		}
@@ -41,7 +41,7 @@ namespace OrchidMod.Shaman.Weapons
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
 			if (nbBonds > 2)
 			{
@@ -53,7 +53,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(null, "HarpyTalon", 2);
 			recipe.AddIngredient(ItemID.Feather, 5);

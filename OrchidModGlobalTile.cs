@@ -12,18 +12,18 @@ namespace OrchidMod
 			{
 				if (Main.rand.Next(1500) == 0)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, mod.ItemType("HealingPotionCard"));
+					Item.NewItem(i * 16, j * 16, 32, 32, Mod.Find<ModItem>("HealingPotionCard").Type);
 				}
 			}
-			if (type == TileID.ShadowOrbs && Main.tile[i, j].frameY == 0 && Main.tile[i, j].frameX % 36 == 0)
+			if (type == TileID.ShadowOrbs && Main.tile[i, j].TileFrameY == 0 && Main.tile[i, j].TileFrameX % 36 == 0)
 			{
 				if (Main.rand.Next(6) == 0)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, (Main.tile[i, j].frameX == 0) ? mod.ItemType("ShadowWeaver") : mod.ItemType("BloodCaller"));
+					Item.NewItem(i * 16, j * 16, 32, 32, (Main.tile[i, j].TileFrameX == 0) ? Mod.Find<ModItem>("ShadowWeaver").Type : Mod.Find<ModItem>("BloodCaller").Type);
 				}
 				if (Main.rand.Next(5) == 0)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, (Main.tile[i, j].frameX == 0) ? mod.ItemType("DemoniteCatalyst") : mod.ItemType("CrimtaneCatalyst"));
+					Item.NewItem(i * 16, j * 16, 32, 32, (Main.tile[i, j].TileFrameX == 0) ? Mod.Find<ModItem>("DemoniteCatalyst").Type : Mod.Find<ModItem>("CrimtaneCatalyst").Type);
 				}
 			}
 			return base.Drop(i, j, type);

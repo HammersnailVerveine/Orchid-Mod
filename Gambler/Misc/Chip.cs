@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 
 namespace OrchidMod.Gambler.Misc
 {
@@ -7,15 +8,15 @@ namespace OrchidMod.Gambler.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.width = 18;
-			item.height = 18;
-			item.maxStack = 99;
-			item.rare = 0;
+			Item.width = 18;
+			Item.height = 18;
+			Item.maxStack = 99;
+			Item.rare = 0;
 		}
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(item.Center, Color.Gold.ToVector3() * 0.2f * Main.essScale);
+			Lighting.AddLight(Item.Center, Color.Gold.ToVector3() * 0.2f * Main.essScale);
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -34,7 +35,7 @@ namespace OrchidMod.Gambler.Misc
 			Color floatingTextColor = new Color(255, 200, 0);
 			CombatText.NewText(player.Hitbox, floatingTextColor, 1);
 			OrchidModGamblerHelper.addGamblerChip(100, player, modPlayer);
-			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 65);
+			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 65);
 			return false;
 		}
 	}

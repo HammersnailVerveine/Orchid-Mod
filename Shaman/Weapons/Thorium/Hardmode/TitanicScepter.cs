@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 53;
-			item.width = 54;
-			item.height = 54;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.knockBack = 4.65f;
-			item.rare = ItemRarityID.LightPurple;
-			item.value = Item.sellPrice(0, 1, 50, 0);
-			item.UseSound = SoundID.Item117;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("TitanicScepterProj");
+			Item.damage = 53;
+			Item.width = 54;
+			Item.height = 54;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.knockBack = 4.65f;
+			Item.rare = ItemRarityID.LightPurple;
+			Item.value = Item.sellPrice(0, 1, 50, 0);
+			Item.UseSound = SoundID.Item117;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("TitanicScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -52,8 +52,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(thoriumMod.TileType("SoulForge"));
+				ModRecipe recipe = new ModRecipe(Mod);
+				recipe.AddTile(thoriumMod.Find<ModTile>("SoulForge").Type);
 				recipe.AddIngredient(thoriumMod, "TitanBar", 8);
 				recipe.SetResult(this);
 				recipe.AddRecipe();

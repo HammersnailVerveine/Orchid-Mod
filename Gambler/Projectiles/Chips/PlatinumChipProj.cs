@@ -9,12 +9,12 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 26;
-			projectile.height = 26;
-			projectile.friendly = true;
-			projectile.aiStyle = 2;
-			projectile.timeLeft = 250;
-			projectile.penetrate = 3;
+			Projectile.width = 26;
+			Projectile.height = 26;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 2;
+			Projectile.timeLeft = 250;
+			Projectile.penetrate = 3;
 		}
 	}
 }

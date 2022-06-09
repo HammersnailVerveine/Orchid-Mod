@@ -9,11 +9,11 @@ namespace OrchidMod.Shaman.Armors.Hell
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 22;
-			item.height = 14;
-			item.value = Item.sellPrice(0, 0, 60, 0);
-			item.rare = 3;
-			item.defense = 7;
+			Item.width = 22;
+			Item.height = 14;
+			Item.value = Item.sellPrice(0, 0, 60, 0);
+			Item.rare = 3;
+			Item.defense = 7;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.HellstoneBar, 10);
 			recipe.AddIngredient(ItemID.Silk, 10);
 			recipe.AddIngredient(ItemID.Bone, 10);

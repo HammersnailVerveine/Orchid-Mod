@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,27 +11,27 @@ namespace OrchidMod.Gambler
 	{
 		public override void SetDefaults()
 		{
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = true;
-			item.maxStack = 1;
-			item.width = 34;
-			item.height = 34;
-			item.useStyle = 1;
-			item.noUseGraphic = true;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = true;
+			Item.maxStack = 1;
+			Item.width = 34;
+			Item.height = 34;
+			Item.useStyle = 1;
+			Item.noUseGraphic = true;
 			//item.UseSound = SoundID.Item7;
-			item.useAnimation = 30;
-			item.useTime = 30;
-			item.knockBack = 1f;
-			item.damage = 1;
-			item.rare = 1;
-			item.shootSpeed = 1f;
-			item.shoot = 1;
-			item.autoReuse = true;
-			item.value = Item.sellPrice(0, 0, 2, 0);
+			Item.useAnimation = 30;
+			Item.useTime = 30;
+			Item.knockBack = 1f;
+			Item.damage = 1;
+			Item.rare = 1;
+			Item.shootSpeed = 1f;
+			Item.shoot = 1;
+			Item.autoReuse = true;
+			Item.value = Item.sellPrice(0, 0, 2, 0);
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -41,7 +42,7 @@ namespace OrchidMod.Gambler
 			{
 				if (player.altFunctionUse == 2 || modPlayer.gamblerCardDummy.type == 0)
 				{
-					Main.PlaySound(SoundID.Item64, player.position);
+					SoundEngine.PlaySound(SoundID.Item64, player.position);
 					OrchidModGamblerHelper.drawDummyCard(player, modPlayer);
 					currentCard = modPlayer.gamblerCardDummy;
 					this.checkStats(currentCard, player, modPlayer);
@@ -57,7 +58,7 @@ namespace OrchidMod.Gambler
 
 			currentCard = modPlayer.gamblerCardDummy;
 			this.checkStats(currentCard, player, modPlayer);
-			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, position, speedX, speedY, type, item.damage, item.knockBack, true);
+			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, position, speedX, speedY, type, Item.damage, Item.knockBack, true);
 			return false;
 		}
 
@@ -71,12 +72,12 @@ namespace OrchidMod.Gambler
 			}
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
 		}
@@ -98,9 +99,9 @@ namespace OrchidMod.Gambler
 			{
 				if (player.altFunctionUse == 2)
 				{
-					item.useAnimation = 20;
-					item.useTime = 20;
-					item.reuseDelay = 0;
+					Item.useAnimation = 20;
+					Item.useTime = 20;
+					Item.reuseDelay = 0;
 				}
 			}
 			return base.CanUseItem(player);
@@ -111,9 +112,9 @@ namespace OrchidMod.Gambler
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Gambler Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Gambler Class-")
 				{
-					overrideColor = new Color(255, 200, 0)
+					OverrideColor = new Color(255, 200, 0)
 				});
 			}
 
@@ -123,13 +124,13 @@ namespace OrchidMod.Gambler
 
 			if (currentCard.type != ItemID.None)
 			{
-				int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
+				int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
 				if (index != -1)
 				{
 					Color textColor = new Color(255, 200, 0); // Rarity Color ???
 					string text = $"Current card: [c/{Terraria.ID.Colors.AlphaDarken(textColor).Hex3()}:{currentCard.HoverName.Replace("Playing Card : ", "")}]";
 
-					tooltips.Insert(index, new TooltipLine(mod, "CardType", text));
+					tooltips.Insert(index, new TooltipLine(Mod, "CardType", text));
 				}
 			}
 		}
@@ -147,27 +148,27 @@ namespace OrchidMod.Gambler
 		{
 			if (currentCard.type != ItemID.None)
 			{
-				item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.allDamage - 1f));
+				Item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.allDamage - 1f));
 				//item.rare = currentCard.rare;
-				item.crit = currentCard.crit + modPlayer.gamblerCrit;
-				item.useAnimation = currentCard.useAnimation;
-				item.useTime = currentCard.useTime;
-				item.reuseDelay = currentCard.reuseDelay;
-				item.knockBack = currentCard.knockBack;
-				item.shootSpeed = currentCard.shootSpeed;
-				item.channel = currentCard.channel;
+				Item.crit = currentCard.crit + modPlayer.gamblerCrit;
+				Item.useAnimation = currentCard.useAnimation;
+				Item.useTime = currentCard.useTime;
+				Item.reuseDelay = currentCard.reuseDelay;
+				Item.knockBack = currentCard.knockBack;
+				Item.shootSpeed = currentCard.shootSpeed;
+				Item.channel = currentCard.channel;
 			}
 			else
 			{
-				item.damage = 0;
+				Item.damage = 0;
 				//item.rare = 0;
-				item.crit = 0;
-				item.useAnimation = 1;
-				item.useTime = 1;
-				item.reuseDelay = 1;
-				item.knockBack = 1f;
-				item.shootSpeed = 1f;
-				item.channel = false;
+				Item.crit = 0;
+				Item.useAnimation = 1;
+				Item.useTime = 1;
+				Item.reuseDelay = 1;
+				Item.knockBack = 1f;
+				Item.shootSpeed = 1f;
+				Item.channel = false;
 			}
 		}
 	}

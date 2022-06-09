@@ -9,18 +9,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 33;
-			item.width = 46;
-			item.height = 46;
-			item.useTime = 50;
-			item.useAnimation = 50;
-			item.knockBack = 4.15f;
-			item.rare = 4;
-			item.value = Item.sellPrice(0, 1, 76, 0);
-			item.UseSound = SoundID.Item117;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("PalladiumScepterProj");
+			Item.damage = 33;
+			Item.width = 46;
+			Item.height = 46;
+			Item.useTime = 50;
+			Item.useAnimation = 50;
+			Item.knockBack = 4.15f;
+			Item.rare = 4;
+			Item.value = Item.sellPrice(0, 1, 76, 0);
+			Item.UseSound = SoundID.Item117;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("PalladiumScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -38,14 +38,14 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("PalladiumScepterProj"), damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("PalladiumScepterProj").Type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.PalladiumBar, 12);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);

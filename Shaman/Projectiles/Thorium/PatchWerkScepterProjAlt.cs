@@ -12,35 +12,35 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 10;
-			projectile.aiStyle = 63;
-			projectile.friendly = true;
-			projectile.timeLeft = 180;
-			projectile.penetrate = 3;
-			projectile.scale = 1f;
-			Main.projFrames[projectile.type] = 2;
+			Projectile.width = 14;
+			Projectile.height = 10;
+			Projectile.aiStyle = 63;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 180;
+			Projectile.penetrate = 3;
+			Projectile.scale = 1f;
+			Main.projFrames[Projectile.type] = 2;
 		}
 
 		public override void AI()
 		{
-			projectile.frameCounter++;
+			Projectile.frameCounter++;
 
-			if (projectile.frameCounter > 5)
+			if (Projectile.frameCounter > 5)
 			{
-				projectile.frame++;
-				projectile.frameCounter = 0;
+				Projectile.frame++;
+				Projectile.frameCounter = 0;
 			}
-			if (projectile.frame > 2)
+			if (Projectile.frame > 2)
 			{
-				projectile.frame = 0;
+				Projectile.frame = 0;
 			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.velocity.X = 0;
-			projectile.velocity.Y = -3;
+			Projectile.velocity.X = 0;
+			Projectile.velocity.Y = -3;
 			return false;
 		}
 
@@ -48,10 +48,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 16);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 16);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale *= 1.5f;
-				Main.dust[dust].velocity = projectile.velocity / 2;
+				Main.dust[dust].velocity = Projectile.velocity / 2;
 			}
 		}
 	}

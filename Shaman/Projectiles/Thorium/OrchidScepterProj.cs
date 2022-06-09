@@ -9,14 +9,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 28;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 30;
-			projectile.scale = 1f;
-			aiType = ProjectileID.Bullet;
-			projectile.penetrate = 2;
+			Projectile.width = 14;
+			Projectile.height = 28;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 30;
+			Projectile.scale = 1f;
+			AIType = ProjectileID.Bullet;
+			Projectile.penetrate = 2;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,23 +26,23 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
-			if (projectile.timeLeft == 30)
+			if (Projectile.timeLeft == 30)
 			{
 				float rand = (float)(Main.rand.Next(4) - 2f);
-				projectile.velocity.X += rand;
-				projectile.velocity.Y += rand;
+				Projectile.velocity.X += rand;
+				Projectile.velocity.Y += rand;
 
 				if (nbBonds > 2)
 				{
-					projectile.penetrate = 2;
+					Projectile.penetrate = 2;
 				}
 			}
 
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Content.Dusts.PollenDust>());
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Content.Dusts.PollenDust>());
 			Main.dust[dust].velocity *= 1.5f;
 			Main.dust[dust].noGravity = true;
 		}
@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, ModContent.DustType<Content.Dusts.PollenDust>());
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Content.Dusts.PollenDust>());
 				Main.dust[dust].noGravity = false;
 				Main.dust[dust].scale *= 1.2f;
 				Main.dust[dust].velocity *= 2f;
@@ -63,7 +63,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				player.AddBuff((thoriumMod.BuffType("OverGrowth")), 3 * 60);
+				player.AddBuff((thoriumMod.Find<ModBuff>("OverGrowth").Type), 3 * 60);
 			}
 		}
 	}

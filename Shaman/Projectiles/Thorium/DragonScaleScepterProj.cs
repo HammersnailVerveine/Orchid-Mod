@@ -8,15 +8,15 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 60;
-			projectile.penetrate = 10;
-			projectile.scale = 1f;
-			aiType = ProjectileID.Bullet;
-			projectile.alpha = 196;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 60;
+			Projectile.penetrate = 10;
+			Projectile.scale = 1f;
+			AIType = ProjectileID.Bullet;
+			Projectile.alpha = 196;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,13 +26,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			projectile.rotation += 0.2f;
+			Projectile.rotation += 0.2f;
 
-			if (projectile.penetrate == 10)
+			if (Projectile.penetrate == 10)
 			{
-				Player player = Main.player[projectile.owner];
+				Player player = Main.player[Projectile.owner];
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-				projectile.penetrate = 1 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+				Projectile.penetrate = 1 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 			}
 
 
@@ -54,9 +54,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 			for (int i = 0; i < 2; i++)
 			{
-				int DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, dust, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
+				int DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, dust, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
 				Main.dust[DustID].noGravity = true;
-				Main.dust[DustID].velocity = projectile.velocity / 3;
+				Main.dust[DustID].velocity = Projectile.velocity / 3;
 			}
 		}
 
@@ -64,9 +64,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 75);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 75);
 				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity = projectile.velocity / 2;
+				Main.dust[dust].velocity = Projectile.velocity / 2;
 			}
 		}
 

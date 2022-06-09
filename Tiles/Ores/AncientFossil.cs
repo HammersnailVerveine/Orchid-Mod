@@ -8,11 +8,11 @@ namespace OrchidMod.Tiles.Ores
 {
 	public class AncientFossil : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			TileID.Sets.Ore[Type] = true;
 			Main.tileSpelunker[Type] = true;
-			Main.tileValue[Type] = 415;
+			Main.tileOreFinderPriority[Type] = 415;
 			//Main.tileShine2[Type] = true;
 			Main.tileShine[Type] = 2400; // How often tiny dust appear off this tile. Larger is less frequently
 			Main.tileMergeDirt[Type] = true;
@@ -23,12 +23,12 @@ namespace OrchidMod.Tiles.Ores
 			name.SetDefault("Ancient Fossil");
 			AddMapEntry(new Color(178, 178, 138), name);
 
-			dustType = 18;
-			drop = ItemType<General.Items.Materials.AncientFossil>();
+			DustType = 18;
+			ItemDrop = ItemType<General.Items.Materials.AncientFossil>();
 			soundType = 21;
 			soundStyle = 1;
-			mineResist = 1f;
-			minPick = 35;
+			MineResist = 1f;
+			MinPick = 35;
 		}
 	}
 }

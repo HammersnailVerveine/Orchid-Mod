@@ -9,13 +9,13 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 7;
-			projectile.height = 7;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.extraUpdates = 3;
-			projectile.timeLeft = 90;
-			projectile.scale = 0.5f;
+			Projectile.width = 7;
+			Projectile.height = 7;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.extraUpdates = 3;
+			Projectile.timeLeft = 90;
+			Projectile.scale = 0.5f;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,21 +30,21 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void AI()
 		{
-			Lighting.AddLight(projectile.Center, 0.010f, 0.010f, 0f);  //this defines the projectile light color
+			Lighting.AddLight(Projectile.Center, 0.010f, 0.010f, 0f);  //this defines the projectile light color
 			for (int i = 0; i < 2; i++)
 			{
-				Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
-				int dust2 = Dust.NewDust(pos, projectile.width, projectile.height / 2, 157, projectile.velocity.X * 1f, projectile.velocity.Y * 1f);
+				Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+				int dust2 = Dust.NewDust(pos, Projectile.width, Projectile.height / 2, 157, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f);
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust2].scale = 1f;
 				Main.dust[dust2].velocity /= 10f;
 				Main.dust[dust2].noLight = true;
 			}
 
-			if (projectile.localAI[0] == 0f)
+			if (Projectile.localAI[0] == 0f)
 			{
-				AdjustMagnitude(ref projectile.velocity);
-				projectile.localAI[0] = 1f;
+				AdjustMagnitude(ref Projectile.velocity);
+				Projectile.localAI[0] = 1f;
 			}
 			Vector2 move = Vector2.Zero;
 			float distance = 400f;
@@ -53,7 +53,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			{
 				if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
 				{
-					Vector2 newMove = Main.npc[k].Center - projectile.Center;
+					Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo < distance)
 					{
@@ -66,8 +66,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			if (target)
 			{
 				AdjustMagnitude(ref move);
-				projectile.velocity = (10 * projectile.velocity + move) / 1f;
-				AdjustMagnitude(ref projectile.velocity);
+				Projectile.velocity = (10 * Projectile.velocity + move) / 1f;
+				AdjustMagnitude(ref Projectile.velocity);
 			}
 		}
 
@@ -84,7 +84,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 157);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 157);
 				Main.dust[dust].noGravity = true;
 			}
 		}

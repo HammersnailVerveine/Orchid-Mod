@@ -1,6 +1,7 @@
 using OrchidMod.Common.Interfaces;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
@@ -10,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 35;
-			item.width = 54;
-			item.height = 54;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.knockBack = 3.25f;
-			item.rare = ItemRarityID.Pink;
-			item.value = Item.sellPrice(0, 3, 0, 0);
-			item.UseSound = SoundID.Item45;
-			item.autoReuse = false;
-			item.shootSpeed = 10f;
-			item.shoot = mod.ProjectileType("CoznixScepterProj");
+			Item.damage = 35;
+			Item.width = 54;
+			Item.height = 54;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.knockBack = 3.25f;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(0, 3, 0, 0);
+			Item.UseSound = SoundID.Item45;
+			Item.autoReuse = false;
+			Item.shootSpeed = 10f;
+			Item.shoot = Mod.Find<ModProjectile>("CoznixScepterProj").Type;
 			this.empowermentType = 1;
 			this.energy = 25;
 		}

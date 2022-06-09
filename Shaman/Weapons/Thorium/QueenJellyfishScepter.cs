@@ -1,6 +1,7 @@
 using OrchidMod.Common.Interfaces;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
@@ -10,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 20;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 42;
-			item.useAnimation = 42;
-			item.knockBack = 5.5f;
-			item.rare = ItemRarityID.Green;
-			item.value = Item.sellPrice(0, 0, 30, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 5f;
-			item.shoot = mod.ProjectileType("QueenJellyfishScepterProj");
+			Item.damage = 20;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 42;
+			Item.useAnimation = 42;
+			Item.knockBack = 5.5f;
+			Item.rare = ItemRarityID.Green;
+			Item.value = Item.sellPrice(0, 0, 30, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 5f;
+			Item.shoot = Mod.Find<ModProjectile>("QueenJellyfishScepterProj").Type;
 			this.empowermentType = 2;
 			this.energy = 7;
 		}

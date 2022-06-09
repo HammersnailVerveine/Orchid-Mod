@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
@@ -8,18 +9,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 54;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 25;
-			item.useAnimation = 60;
-			item.knockBack = 3.15f;
-			item.rare = 5;
-			item.value = Item.sellPrice(0, 2, 0, 0);
-			item.UseSound = SoundID.Item103;
-			item.autoReuse = false;
-			item.shootSpeed = 3f;
-			item.shoot = mod.ProjectileType("GoblinStickProj");
+			Item.damage = 54;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 25;
+			Item.useAnimation = 60;
+			Item.knockBack = 3.15f;
+			Item.rare = 5;
+			Item.value = Item.sellPrice(0, 2, 0, 0);
+			Item.UseSound = SoundID.Item103;
+			Item.autoReuse = false;
+			Item.shootSpeed = 3f;
+			Item.shoot = Mod.Find<ModProjectile>("GoblinStickProj").Type;
 			this.empowermentType = 3;
 			this.energy = 7;
 		}
@@ -34,26 +35,26 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void UpdateInventory(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 			switch (nbBonds)
 			{
 				case 0:
-					item.useTime = 60;
+					Item.useTime = 60;
 					break;
 				case 1:
-					item.useTime = 30;
+					Item.useTime = 30;
 					break;
 				case 2:
-					item.useTime = 20;
+					Item.useTime = 20;
 					break;
 				case 3:
-					item.useTime = 15;
+					Item.useTime = 15;
 					break;
 				case 4:
-					item.useTime = 12;
+					Item.useTime = 12;
 					break;
 				case 5:
-					item.useTime = 10;
+					Item.useTime = 10;
 					break;
 			}
 		}

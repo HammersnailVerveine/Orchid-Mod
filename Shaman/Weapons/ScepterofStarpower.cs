@@ -8,19 +8,19 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 10;
-			item.width = 38;
-			item.height = 38;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.knockBack = 5.5f;
-			item.rare = ItemRarityID.Blue;
-			item.value = Item.sellPrice(0, 0, 15, 0);
-			item.UseSound = SoundID.Item8;
-			item.autoReuse = true;
-			item.shootSpeed = 9.5f;
-			item.shoot = ModContent.ProjectileType<Projectiles.StarpowerScepterProj>();
-			item.crit = 4;
+			Item.damage = 10;
+			Item.width = 38;
+			Item.height = 38;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.knockBack = 5.5f;
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.sellPrice(0, 0, 15, 0);
+			Item.UseSound = SoundID.Item8;
+			Item.autoReuse = true;
+			Item.shootSpeed = 9.5f;
+			Item.shoot = ModContent.ProjectileType<Projectiles.StarpowerScepterProj>();
+			Item.crit = 4;
 			empowermentType = 3;
 			this.energy = 5;
 		}
@@ -35,12 +35,12 @@ namespace OrchidMod.Shaman.Weapons
 		{
 			// I hate it
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit;
+			Item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + modPlayer.shamanCrit;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ItemID.FallenStar, 5);
 			recipe.AddIngredient(ItemID.Wood, 10);

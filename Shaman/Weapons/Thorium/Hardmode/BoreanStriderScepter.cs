@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 35;
-			item.width = 56;
-			item.height = 56;
-			item.useTime = 34;
-			item.useAnimation = 34;
-			item.knockBack = 2.75f;
-			item.rare = ItemRarityID.Pink;
-			item.value = Item.sellPrice(0, 2, 0, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 10f;
-			item.shoot = ModContent.ProjectileType<Projectiles.Thorium.BoreanStriderScepterProj>();
+			Item.damage = 35;
+			Item.width = 56;
+			Item.height = 56;
+			Item.useTime = 34;
+			Item.useAnimation = 34;
+			Item.knockBack = 2.75f;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(0, 2, 0, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 10f;
+			Item.shoot = ModContent.ProjectileType<Projectiles.Thorium.BoreanStriderScepterProj>();
 
 			this.empowermentType = 2;
 			this.energy = 8;

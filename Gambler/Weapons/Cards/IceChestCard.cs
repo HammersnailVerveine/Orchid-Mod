@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -8,14 +9,14 @@ namespace OrchidMod.Gambler.Weapons.Cards
 	{
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 1;
-			item.damage = 32;
-			item.crit = 4;
-			item.knockBack = 4f;
-			item.useAnimation = 25;
-			item.useTime = 25;
-			item.shootSpeed = 12.5f;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = 1;
+			Item.damage = 32;
+			Item.crit = 4;
+			Item.knockBack = 4f;
+			Item.useAnimation = 25;
+			Item.useTime = 25;
+			Item.shootSpeed = 12.5f;
 			this.cardRequirement = 2;
 			this.gamblerCardSets.Add("Elemental");
 		}
@@ -42,7 +43,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			}
 			newPos.Y = player.position.Y - newPos.Y > Main.screenHeight / 2 ? player.position.Y - Main.screenHeight / 2 : newPos.Y;
 			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(newPos.X, newPos.Y, 0f, 12.5f, projType, damage, knockBack, player.whoAmI), dummy);
-			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 30);
+			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 30);
 		}
 	}
 }

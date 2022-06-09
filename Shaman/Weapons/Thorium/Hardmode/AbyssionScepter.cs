@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
@@ -11,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 250;
-			item.width = 50;
-			item.height = 50;
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.knockBack = 4.25f;
-			item.rare = ItemRarityID.Yellow;
-			item.value = Item.sellPrice(0, 10, 0, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 8f;
-			item.shoot = mod.ProjectileType("AbyssionScepterProj");
+			Item.damage = 250;
+			Item.width = 50;
+			Item.height = 50;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
+			Item.knockBack = 4.25f;
+			Item.rare = ItemRarityID.Yellow;
+			Item.value = Item.sellPrice(0, 10, 0, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 8f;
+			Item.shoot = Mod.Find<ModProjectile>("AbyssionScepterProj").Type;
 			this.empowermentType = 2;
 			this.energy = 3;
 		}
@@ -38,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			int damageCost = 25 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) * 5;
+			int damageCost = 25 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 5;
 			if (player.statLife - damageCost > 0)
 			{
 				player.statLife -= damageCost;

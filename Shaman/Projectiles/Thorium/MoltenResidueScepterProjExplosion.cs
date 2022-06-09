@@ -6,14 +6,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 30;
-			projectile.height = 30;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = 200;
+			Projectile.width = 30;
+			Projectile.height = 30;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = 200;
 		}
 
 		public override void SetStaticDefaults()
@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			int size = 30 + 30 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
-			projectile.width = size;
-			projectile.height = size;
+			int size = 30 + 30 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+			Projectile.width = size;
+			Projectile.height = size;
 
-			projectile.position.X -= size / 2;
-			projectile.position.Y -= size / 2;
+			Projectile.position.X -= size / 2;
+			Projectile.position.Y -= size / 2;
 
 			// for (int i = 0 ; i < (int)(projectile.width / 2) ; i ++) {
 			// int index1 = Dust.NewDust(projectile.position, size, 1, 6, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);

@@ -1,5 +1,6 @@
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
+using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 
 
@@ -9,11 +10,11 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 15;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 40, 0);
+			Item.damage = 15;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 40, 0);
 			this.potencyCost = 4;
 			this.element = AlchemistElement.FIRE;
 			this.rightClickDust = 37;
@@ -35,7 +36,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 		{
 			int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 			Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, ProjectileType<Alchemist.Projectiles.Fire.GunpowderFlaskProj>(), dmg, 3f, projectile.owner, 0.0f, 0.0f);
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
+			SoundEngine.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
 		}
 	}
 }

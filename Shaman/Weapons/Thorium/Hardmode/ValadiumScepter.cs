@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 45;
-			item.width = 54;
-			item.height = 54;
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.knockBack = 0f;
-			item.rare = ItemRarityID.Pink;
-			item.value = Item.sellPrice(0, 2, 0, 0);
-			item.UseSound = SoundID.Item117;
-			item.autoReuse = true;
-			item.shootSpeed = 13f;
-			item.shoot = mod.ProjectileType("ValadiumScepterProj");
+			Item.damage = 45;
+			Item.width = 54;
+			Item.height = 54;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
+			Item.knockBack = 0f;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(0, 2, 0, 0);
+			Item.UseSound = SoundID.Item117;
+			Item.autoReuse = true;
+			Item.shootSpeed = 13f;
+			Item.shoot = Mod.Find<ModProjectile>("ValadiumScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -53,7 +53,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "ValadiumIngot", 8);
 				recipe.SetResult(this);

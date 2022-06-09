@@ -36,11 +36,11 @@ namespace OrchidMod.Prefixes
 				return false;
 			}
 
-			mod.AddPrefix("Natural", new OrchidAccessoryPrefix(1, 0, 0));
-			mod.AddPrefix("Spiritual", new OrchidAccessoryPrefix(2, 0, 0));
-			mod.AddPrefix("Brewing", new OrchidAccessoryPrefix(0, 1, 0));
-			mod.AddPrefix("Crooked", new OrchidAccessoryPrefix(0, 0, 1));
-			mod.AddPrefix("Loaded", new OrchidAccessoryPrefix(0, 0, 2));
+			Mod.AddPrefix("Natural", new OrchidAccessoryPrefix(1, 0, 0));
+			Mod.AddPrefix("Spiritual", new OrchidAccessoryPrefix(2, 0, 0));
+			Mod.AddPrefix("Brewing", new OrchidAccessoryPrefix(0, 1, 0));
+			Mod.AddPrefix("Crooked", new OrchidAccessoryPrefix(0, 0, 1));
+			Mod.AddPrefix("Loaded", new OrchidAccessoryPrefix(0, 0, 2));
 
 			return false;
 		}

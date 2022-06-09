@@ -9,18 +9,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 38;
-			item.width = 38;
-			item.height = 38;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 1.15f;
-			item.rare = 4;
-			item.value = Item.sellPrice(0, 7, 50, 0);
-			item.UseSound = SoundID.Item101;
-			item.autoReuse = true;
-			item.shootSpeed = 12f;
-			item.shoot = mod.ProjectileType("CrystalScepterProj");
+			Item.damage = 38;
+			Item.width = 38;
+			Item.height = 38;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 1.15f;
+			Item.rare = 4;
+			Item.value = Item.sellPrice(0, 7, 50, 0);
+			Item.UseSound = SoundID.Item101;
+			Item.autoReuse = true;
+			Item.shootSpeed = 12f;
+			Item.shoot = Mod.Find<ModProjectile>("CrystalScepterProj").Type;
 			this.empowermentType = 5;
 			this.energy = 10;
 		}
@@ -35,12 +35,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(item.Center, Color.Pink.ToVector3() * 0.55f * Main.essScale);
+			Lighting.AddLight(Item.Center, Color.Pink.ToVector3() * 0.55f * Main.essScale);
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "RitualScepter", 1);
 			recipe.AddIngredient(ItemID.CrystalShard, 20);
 			recipe.AddIngredient(ItemID.SoulofLight, 15);

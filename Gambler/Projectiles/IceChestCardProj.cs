@@ -7,12 +7,12 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 32;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 120;
-			projectile.scale = 1f;
+			Projectile.width = 14;
+			Projectile.height = 32;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 120;
+			Projectile.scale = 1f;
 			this.projectileTrail = true;
 		}
 
@@ -23,17 +23,17 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return projectile.timeLeft < 119 ? Color.White : Color.Black;
+			return Projectile.timeLeft < 119 ? Color.White : Color.Black;
 		}
 
 		public override void SafeAI()
 		{
-			if (projectile.timeLeft == 120)
+			if (Projectile.timeLeft == 120)
 			{
 				for (int i = 0; i < 3; i++)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 67);
-					Main.dust[dust].velocity = -projectile.velocity / 5;
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67);
+					Main.dust[dust].velocity = -Projectile.velocity / 5;
 					Main.dust[dust].scale = 1f;
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].noLight = true;
@@ -42,7 +42,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 			if (Main.rand.Next(6) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 67);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67);
 				Main.dust[dust].velocity /= 10f;
 				Main.dust[dust].scale = 1f;
 				Main.dust[dust].noGravity = true;
@@ -54,10 +54,10 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 67);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale = 1.5f;
-				Main.dust[dust].velocity = projectile.velocity / 2;
+				Main.dust[dust].velocity = Projectile.velocity / 2;
 				Main.dust[dust].noLight = true;
 			}
 		}

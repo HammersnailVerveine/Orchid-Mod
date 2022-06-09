@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -20,12 +21,12 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 36;
-			projectile.height = 36;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.penetrate = -1;
-			projectile.alpha = 100;
+			Projectile.width = 36;
+			Projectile.height = 36;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.alpha = 100;
 			this.gamblingChipChance = 5;
 		}
 
@@ -34,50 +35,50 @@ namespace OrchidMod.Gambler.Projectiles
 			if (!this.initialized)
 			{
 				this.initialized = true;
-				this.baseVelocity = projectile.velocity;
+				this.baseVelocity = Projectile.velocity;
 			}
 
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int cardType = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
-			projectile.rotation += projectile.ai[1] * 0.05f;
+			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			Projectile.rotation += Projectile.ai[1] * 0.05f;
 			this.fireTimer--;
 			this.dustVal--;
-			projectile.velocity += this.baseVelocity / 100f;
+			Projectile.velocity += this.baseVelocity / 100f;
 
 			if (Main.rand.Next(20) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 27);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27);
 				Main.dust[dust].scale *= 1.5f;
 				Main.dust[dust].noGravity = true;
 			}
 
-			if (Main.myPlayer == projectile.owner)
+			if (Main.myPlayer == Projectile.owner)
 			{
-				Vector2 vectorDist = player.Center - projectile.Center;
+				Vector2 vectorDist = player.Center - Projectile.Center;
 				float distanceTo = (float)Math.Sqrt(vectorDist.X * vectorDist.X + vectorDist.Y * vectorDist.Y);
-				if ((!(Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.GoblinArmyCard>() && modPlayer.GamblerDeckInHand) && projectile.timeLeft < 840) || distanceTo > distance)
+				if ((!(Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.GoblinArmyCard>() && modPlayer.GamblerDeckInHand) && Projectile.timeLeft < 840) || distanceTo > distance)
 				{
-					bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					OrchidModProjectile.spawnDustCircle(projectile.Center, 27, 5, 5, true, 1.3f, 1f, 5f, true, true, false, 0, 0, true);
-					OrchidModProjectile.spawnDustCircle(projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
-					projectile.Kill();
+					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+					OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 5f, true, true, false, 0, 0, true);
+					OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
+					Projectile.Kill();
 				}
 			}
 
-			if (fireTimer <= 0 && projectile.ai[1] == 1f)
+			if (fireTimer <= 0 && Projectile.ai[1] == 1f)
 			{
 				Vector2 target = Main.MouseWorld;
-				Vector2 heading = target - projectile.Center;
+				Vector2 heading = target - Projectile.Center;
 				heading.Normalize();
 				heading *= 15f;
 				int projType = ProjectileType<Gambler.Projectiles.GoblinArmyCardProjAlt>();
-				bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, heading.X, heading.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
+				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, heading.X, heading.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+				OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
 				fireTimerRef -= fireTimerRef > 15 ? 4 : 0;
 				fireTimer = fireTimerRef;
-				Main.PlaySound(2, (int)projectile.Center.X, (int)projectile.Center.Y, 8);
+				SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y, 8);
 			}
 
 			this.spawnDust(27, (int)distance);
@@ -90,14 +91,14 @@ namespace OrchidMod.Gambler.Projectiles
 				double deg = (2 * (42 + this.dustVal) + i * 120);
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) + projectile.velocity.X - 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) + projectile.velocity.Y - 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) + Projectile.velocity.X - 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) + Projectile.velocity.Y - 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
 				int index2 = Dust.NewDust(dustPosition, 1, 1, dustType, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 
-				Main.dust[index2].velocity = projectile.velocity / 2;
+				Main.dust[index2].velocity = Projectile.velocity / 2;
 				Main.dust[index2].scale = 2f;
 				Main.dust[index2].noGravity = true;
 				Main.dust[index2].noLight = true;

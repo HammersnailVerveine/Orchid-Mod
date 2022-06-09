@@ -20,40 +20,40 @@ namespace OrchidMod.Gambler
 
 		public sealed override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 26;
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = true;
-			item.useStyle = ItemUseStyleID.HoldingUp;
-			item.UseSound = SoundID.Item64;
-			item.consumable = true;
-			item.autoReuse = false;
+			Item.width = 20;
+			Item.height = 26;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = true;
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.UseSound = SoundID.Item64;
+			Item.consumable = true;
+			Item.autoReuse = false;
 
 			this.SafeSetDefaults();
 
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.gamblerCardRequirement = this.cardRequirement;
 			orchidItem.gamblerCardSets = this.gamblerCardSets;
 			orchidItem.gamblerShootDelegate = this.GamblerShoot;
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
 		}
 
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).gamblerCrit)
+			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).gamblerCrit)
 				crit = true;
 			else crit = false;
 		}
@@ -68,7 +68,7 @@ namespace OrchidMod.Gambler
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				Item[] cards = modPlayer.gamblerCardsItem;
 				int count = OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer);
-				if (OrchidModGamblerHelper.containsGamblerCard(item, player, modPlayer) || player.altFunctionUse == 2 || count < this.cardRequirement || count >= 20)
+				if (OrchidModGamblerHelper.containsGamblerCard(Item, player, modPlayer) || player.altFunctionUse == 2 || count < this.cardRequirement || count >= 20)
 				{
 					return false;
 				}
@@ -77,7 +77,7 @@ namespace OrchidMod.Gambler
 					if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) <= 0)
 					{
 						bool found = false;
-						for (int i = 0; i < Main.maxInventory; i++)
+						for (int i = 0; i < Main.InventorySlotsTotal; i++)
 						{
 							Item item = Main.LocalPlayer.inventory[i];
 							if (item.type != 0)
@@ -96,14 +96,14 @@ namespace OrchidMod.Gambler
 							player.QuickSpawnItem(gamblerDeck, 1);
 						}
 					}
-					item.useAnimation = 20;
-					item.useTime = 20;
+					Item.useAnimation = 20;
+					Item.useTime = 20;
 					for (int i = 0; i < 20; i++)
 					{
 						if (cards[i].type == 0)
 						{
 							cards[i] = new Item();
-							cards[i].SetDefaults(item.type, true);
+							cards[i].SetDefaults(Item.type, true);
 							OrchidModGamblerHelper.clearGamblerCardCurrent(player, modPlayer);
 							OrchidModGamblerHelper.clearGamblerCardsNext(player, modPlayer);
 							modPlayer.gamblerShuffleCooldown = 0;
@@ -118,7 +118,7 @@ namespace OrchidMod.Gambler
 			return base.CanUseItem(player);
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)/* Suggestion: Return null instead of false */
 		{
 			return true;
 		}
@@ -128,13 +128,13 @@ namespace OrchidMod.Gambler
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
-				string[] splitText = tt.text.Split(' ');
+				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " gambling " + damageWord;
+				tt.Text = damageValue + " gambling " + damageWord;
 			}
 
 			Player player = Main.player[Main.myPlayer];
@@ -143,7 +143,7 @@ namespace OrchidMod.Gambler
 			int count = OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer);
 			int diff = this.cardRequirement - count;
 
-			int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
 			if (index != -1)
 			{
 				int tagCount = this.gamblerCardSets.Count - 1;
@@ -163,60 +163,60 @@ namespace OrchidMod.Gambler
 					}
 					tags += alreadyDone.Count > 1 ? " sets" : " set";
 
-					tooltips.Insert(index, new TooltipLine(mod, "TagsTag", tags)
+					tooltips.Insert(index, new TooltipLine(Mod, "TagsTag", tags)
 					{
-						overrideColor = new Color(175, 255, 175)
+						OverrideColor = new Color(175, 255, 175)
 					});
 				}
 			}
 
-			tooltips.Insert(1, new TooltipLine(mod, "CardsNeeded", "Requires " + this.cardRequirement + " cards (Deck : " + count + ")")
+			tooltips.Insert(1, new TooltipLine(Mod, "CardsNeeded", "Requires " + this.cardRequirement + " cards (Deck : " + count + ")")
 			{
-				overrideColor = new Color(255, 200, 100)
+				OverrideColor = new Color(255, 200, 100)
 			});
 
-			if (OrchidModGamblerHelper.containsGamblerCard(item, player, modPlayer))
+			if (OrchidModGamblerHelper.containsGamblerCard(Item, player, modPlayer))
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "UseTag", "Currently in your deck")
+				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Currently in your deck")
 				{
-					overrideColor = new Color(255, 100, 100)
+					OverrideColor = new Color(255, 100, 100)
 				});
 			}
 			else if (count == 20)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "UseTag", "Your deck is full")
+				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Your deck is full")
 				{
-					overrideColor = new Color(255, 100, 100)
+					OverrideColor = new Color(255, 100, 100)
 				});
 			}
 			else if (count < this.cardRequirement)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "UseTag", "Requires " + diff + " more cards")
+				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Requires " + diff + " more cards")
 				{
-					overrideColor = new Color(255, 100, 100)
+					OverrideColor = new Color(255, 100, 100)
 				});
 			}
 			else
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "UseTag", "Use to add to your deck")
+				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Use to add to your deck")
 				{
-					overrideColor = new Color(255, 200, 100)
+					OverrideColor = new Color(255, 200, 100)
 				});
 			}
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Gambler Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Gambler Class-")
 				{
-					overrideColor = new Color(255, 200, 0)
+					OverrideColor = new Color(255, 200, 0)
 				});
 			}
 
-			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.mod == "Terraria");
+			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 
-			tt = tooltips.FirstOrDefault(x => x.Name == "Consumable" && x.mod == "Terraria");
+			tt = tooltips.FirstOrDefault(x => x.Name == "Consumable" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 		}
 	}

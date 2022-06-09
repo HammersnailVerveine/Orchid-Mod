@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class SlimeFlaskBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Burning Samples");
 			Description.SetDefault("Using slimy samples with a fire element will release damaging embers");

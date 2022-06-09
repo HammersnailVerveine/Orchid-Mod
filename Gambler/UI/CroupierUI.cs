@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.GameContent.UI;
 using Terraria.GameInput;
 using Terraria.ID;
@@ -59,7 +60,7 @@ namespace OrchidMod.Gambler.UI
 
 		public void UpdateOnChatButtonClicked()
 		{
-			List<List<TextSnippet>> list = Utils.WordwrapStringSmart(Main.npcChatText, Color.White, Main.fontMouseText, 460, 10);
+			List<List<TextSnippet>> list = Utils.WordwrapStringSmart(Main.npcChatText, Color.White, FontAssets.MouseText.Value, 460, 10);
 
 			linesCount = list.Count;
 			emptyLinesCount = list.FindAll(i => i.Contains(i.Find(j => j.Text == ""))).Count;
@@ -90,7 +91,7 @@ namespace OrchidMod.Gambler.UI
 
 			var player = Main.player[Main.myPlayer];
 			var gamblerPlayer = player.GetModPlayer<OrchidModPlayer>();
-			var gamblerItem = item.modItem as OrchidModGamblerItem;
+			var gamblerItem = item.ModItem as OrchidModGamblerItem;
 
 			string knockbackText;
 			{
@@ -213,7 +214,7 @@ namespace OrchidMod.Gambler.UI
 		{
 			if (item == null || item.type < ItemID.None) return;
 
-			var cardTexture = Main.itemTexture[item.type];
+			var cardTexture = TextureAssets.Item[item.type].Value;
 			var cardRect = new Rectangle((int)position.X, (int)position.Y, cardTexture.Width, cardTexture.Height);
 
 			spriteBatch.Draw(cardTexture, cardRect, Color.White);
@@ -260,7 +261,7 @@ namespace OrchidMod.Gambler.UI
 		{
 			if (item == null || item.type < ItemID.None) return;
 
-			List<List<TextSnippet>> list = Utils.WordwrapStringSmart(text, Color.White, Main.fontMouseText, (int)(rect.Width * 1.22f), fontScale);
+			List<List<TextSnippet>> list = Utils.WordwrapStringSmart(text, Color.White, FontAssets.MouseText.Value, (int)(rect.Width * 1.22f), fontScale);
 			foreach (var elem in list[0]) elem.Color = ItemRarity.GetColor(item.rare);
 
 			int offsetY = FontOffsetY;
@@ -272,8 +273,8 @@ namespace OrchidMod.Gambler.UI
 
 			// Card Name
 			{
-				spriteBatch.Draw(Main.magicPixel, nameRectangle, backgroundColor);
-				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, list[0].ToArray(), new Vector2(nameRectangle.X + 4, nameRectangle.Y + 6), 0f, Vector2.Zero, Vector2.One * (fontScale / 10f), out _, -1f, 2f);
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, nameRectangle, backgroundColor);
+				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, list[0].ToArray(), new Vector2(nameRectangle.X + 4, nameRectangle.Y + 6), 0f, Vector2.Zero, Vector2.One * (fontScale / 10f), out _, -1f, 2f);
 			}
 
 			Rectangle oldScissorRectangle = spriteBatch.GraphicsDevice.ScissorRectangle;
@@ -285,11 +286,11 @@ namespace OrchidMod.Gambler.UI
 
 			// Info
 			{
-				spriteBatch.Draw(Main.magicPixel, tooltipRectangle, backgroundColor);
+				spriteBatch.Draw(TextureAssets.MagicPixel.Value, tooltipRectangle, backgroundColor);
 				for (int i = 0; i < list.Count - 1; i++)
 				{
 					Vector2 drawPosition = new Vector2(tooltipRectangle.X + 4, (float)(tooltipRectangle.Y + offsetY * i - scrollValue) + 4);
-					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, list[i + 1].ToArray(), drawPosition, 0f, Vector2.Zero, Vector2.One * (fontScale / 10f), out _, -1f, 2f);
+					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, list[i + 1].ToArray(), drawPosition, 0f, Vector2.Zero, Vector2.One * (fontScale / 10f), out _, -1f, 2f);
 				}
 			}
 
@@ -300,7 +301,7 @@ namespace OrchidMod.Gambler.UI
 
 		private void DrawSeparation(SpriteBatch spriteBatch, Vector2 position, int width, Color color)
 		{
-			spriteBatch.Draw(Main.magicPixel, new Rectangle((int)position.X, (int)position.Y, width, drawZone.Height), color);
+			spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle((int)position.X, (int)position.Y, width, drawZone.Height), color);
 		}
 
 		private void DrawPanel(SpriteBatch spriteBatch, Texture2D texture, Color color)

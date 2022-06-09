@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -8,13 +9,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 18;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 40;
-			projectile.scale = 1f;
-			aiType = ProjectileID.Bullet;
+			Projectile.width = 14;
+			Projectile.height = 18;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 40;
+			Projectile.scale = 1f;
+			AIType = ProjectileID.Bullet;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -31,7 +32,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			if (Main.rand.Next(2) == 0)
 			{
-				int DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 258, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
+				int DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 258, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
 				Main.dust[DustID].noGravity = true;
 			}
 		}
@@ -40,17 +41,17 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 258);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 258);
 				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity = projectile.velocity / 2;
+				Main.dust[dust].velocity = Projectile.velocity / 2;
 			}
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			if (Main.rand.Next(8) < (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + 1))
+			if (Main.rand.Next(8) < (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + 1))
 			{
-				Projectile.NewProjectile(player.position.X, player.position.Y, projectile.velocity.X, projectile.velocity.Y, mod.ProjectileType("ViscountScepterBat"), projectile.damage, 0f, 0, 0f, 0f);
+				Projectile.NewProjectile(player.position.X, player.position.Y, Projectile.velocity.X, Projectile.velocity.Y, Mod.Find<ModProjectile>("ViscountScepterBat").Type, Projectile.damage, 0f, 0, 0f, 0f);
 			}
 		}
 	}

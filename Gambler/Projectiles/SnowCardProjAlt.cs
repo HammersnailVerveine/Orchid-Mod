@@ -1,6 +1,9 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -9,67 +12,44 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pine Cone");
+			DisplayName.SetDefault("Ice Flake");
 		}
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 24;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.tileCollide = false;
-			projectile.timeLeft = 600;
-			projectile.alpha = 64;
-			Main.projFrames[projectile.type] = 4;
-			this.bonusTrigger = true;
+			Projectile.width = 22;
+			Projectile.height = 26;
+			Projectile.friendly = true;
+			Projectile.tileCollide = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 180;
+			Projectile.penetrate = -1;
+			this.gamblingChipChance = 5;
 		}
-
-		public override void Kill(int timeLeft)
-		{
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31);
-				Main.dust[dust].velocity *= 1.5f;
-				Main.dust[dust].scale *= 1f;
+		
+		public override void OnSpawn() {
+			for (int i = 0 ; i < 3 ; i ++) {
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67)].noGravity = true;
 			}
 		}
 
 		public override void SafeAI()
 		{
-			projectile.velocity *= 0.95f;
-			Player player = Main.player[projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (modPlayer.timer120 % 10 == 0)
-			{
-				projectile.frame = projectile.frame + 1 == 4 ? 0 : projectile.frame + 1;
-			}
+			Projectile.velocity *= 0.95f;
+			Projectile.rotation += (10f - Projectile.velocity.Length()) / 45f;
+		}
+		
+		public override bool OnTileCollide(Vector2 oldVelocity) {
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X / 2;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y / 2;
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 50);
+			return false;
 		}
 
-		public override void BonusProjectiles(Player player, OrchidModPlayer modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy)
+		public override void Kill(int timeLeft)
 		{
-			if (modProjectile.gamblerInternalCooldown == 0)
-			{
-				modProjectile.gamblerInternalCooldown = 40;
-				int projType = ProjectileType<Gambler.Projectiles.SnowCardProj>();
-				Vector2 target = Main.MouseWorld;
-				Vector2 vel = new Vector2(0f, 0f);
-				float absX = (float)Math.Sqrt((projectile.Center.X - target.X) * (projectile.Center.X - target.X));
-				float absY = (float)Math.Sqrt((projectile.Center.Y - target.Y) * (projectile.Center.Y - target.Y));
-				if (absX > absY)
-				{
-					vel.X = target.X < projectile.Center.X ? 1f : -1f;
-				}
-				else
-				{
-					vel.Y = target.Y < projectile.Center.Y ? 1f : -1f;
-				}
-				vel.Normalize();
-				vel *= new Vector2(0f, 5f).Length();
-				int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, player.whoAmI), dummy);
-				Main.projectile[newProjectile].ai[1] = projectile.ai[1];
-				Main.projectile[newProjectile].netUpdate = true;
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 31, 25, 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
+			for (int i = 0 ; i < 5 ; i ++) {
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67)].noGravity = true;
 			}
 		}
 	}

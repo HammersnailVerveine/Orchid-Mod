@@ -6,20 +6,20 @@ namespace OrchidMod.General.Projectiles
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 250;
-			projectile.height = 250;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.tileCollide = false;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
+			Projectile.width = 250;
+			Projectile.height = 250;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.tileCollide = false;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
 		}
 
 		public override void AI()
 		{
-			OrchidModProjectile.resetIFrames(projectile);
+			OrchidModProjectile.resetIFrames(Projectile);
 		}
 
 		public override void SetStaticDefaults()

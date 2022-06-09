@@ -12,41 +12,41 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 22;
-			projectile.height = 20;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.alpha = 255;
+			Projectile.width = 22;
+			Projectile.height = 20;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.alpha = 255;
 		}
 
 		public override void SafeAI()
 		{
-			if (projectile.owner != Main.myPlayer)
+			if (Projectile.owner != Main.myPlayer)
 			{
-				projectile.active = false;
+				Projectile.active = false;
 			}
 
 			if (!this.initialized)
 			{
-				if (projectile.timeLeft < 1440)
+				if (Projectile.timeLeft < 1440)
 				{
 					this.initialized = true;
-					projectile.velocity *= 0f;
-					projectile.alpha = 0;
-					projectile.damage = 1;
+					Projectile.velocity *= 0f;
+					Projectile.alpha = 0;
+					Projectile.damage = 1;
 					for (int i = 0; i < 4; i++)
 					{
-						int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 18);
+						int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 18);
 						Main.dust[dust].velocity *= 1.5f;
 						Main.dust[dust].scale *= 1f;
 					}
 				}
 				else
 				{
-					projectile.velocity.Y += 0.1f;
+					Projectile.velocity.Y += 0.1f;
 					if (Main.rand.Next(3) == 0)
 					{
-						int dust = Dust.NewDust(projectile.Center, 1, 1, 18);
+						int dust = Dust.NewDust(Projectile.Center, 1, 1, 18);
 						Main.dust[dust].velocity *= 0f;
 						Main.dust[dust].noGravity = true;
 					}
@@ -55,15 +55,15 @@ namespace OrchidMod.Gambler.Projectiles
 
 			if (Main.rand.Next(10) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 18);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 18);
 				Main.dust[dust].velocity *= 0f;
 			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y;
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
 			return false;
 		}
 
@@ -73,7 +73,7 @@ namespace OrchidMod.Gambler.Projectiles
 			{
 				for (int i = 0; i < 4; i++)
 				{
-					int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 18);
+					int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 18);
 					Main.dust[dust].velocity *= 1.5f;
 					Main.dust[dust].scale *= 1f;
 				}

@@ -11,11 +11,11 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 22;
-			item.height = 18;
-			item.value = Item.sellPrice(0, 0, 4, 0);
-			item.rare = ItemRarityID.Blue;
-			item.defense = 3;
+			Item.width = 22;
+			Item.height = 18;
+			Item.value = Item.sellPrice(0, 0, 4, 0);
+			Item.rare = ItemRarityID.Blue;
+			Item.defense = 3;
 		}
 
 		public override void SetStaticDefaults()
@@ -32,7 +32,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.Silk, 6);
 			recipe.AddIngredient(ItemID.GlowingMushroom, 5);
 			recipe.AddIngredient(null, "MushroomThread", 1);
@@ -44,15 +44,15 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{
 			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
-			Lighting.AddLight(item.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			Lighting.AddLight(Item.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomLeggings_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomLeggings_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
 		}
 
-		public override void UpdateVanity(Player player, EquipType type)
+		public override void EquipFrameEffects(Player player, EquipType type)
 		{
 			Color color = new Color(63, 67, 207) * 0.2f * OrchidWorld.alchemistMushroomArmorProgress;
 			Lighting.AddLight(player.Center, color.R / 255f, color.G / 255f, color.B / 255f);

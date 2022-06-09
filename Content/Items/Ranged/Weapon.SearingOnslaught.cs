@@ -26,46 +26,46 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void SetDefaults()
 		{
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.useAnimation = 20;
-			item.useTime = 20;
-			item.width = 24;
-			item.height = 62;
-			item.shoot = ModContent.ProjectileType<SearingOnslaughtProjectile>();
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.useAnimation = 20;
+			Item.useTime = 20;
+			Item.width = 24;
+			Item.height = 62;
+			Item.shoot = ModContent.ProjectileType<SearingOnslaughtProjectile>();
 			//item.useAmmo = AmmoID.Arrow;
-			item.UseSound = SoundID.Item5;
-			item.damage = 20;
-			item.knockBack = 5f;
-			item.shootSpeed = 6f;
-			item.noMelee = true;
-			item.value = Item.sellPrice(0, 4, 0, 0);
-			item.rare = ItemRarityID.LightRed;
-			item.ranged = true;
-			item.channel = true;
-			item.noUseGraphic = true;
-			item.useTurn = true;
-			item.autoReuse = true;
+			Item.UseSound = SoundID.Item5;
+			Item.damage = 20;
+			Item.knockBack = 5f;
+			Item.shootSpeed = 6f;
+			Item.noMelee = true;
+			Item.value = Item.sellPrice(0, 4, 0, 0);
+			Item.rare = ItemRarityID.LightRed;
+			Item.ranged = true;
+			Item.channel = true;
+			Item.noUseGraphic = true;
+			Item.useTurn = true;
+			Item.autoReuse = true;
 		}
 
-		public override void UseStyle(Player player)
+		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
 			Lighting.AddLight(player.itemLocation, _lightColor.ToVector3() * 0.2f);
 		}
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(item.Center, _lightColor.ToVector3() * 0.2f);
+			Lighting.AddLight(Item.Center, _lightColor.ToVector3() * 0.2f);
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture(this.Texture + "_Glow"), Color.White, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture(this.Texture + "_Glow"), Color.White, rotation, scale);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.RemoveAll(i => i.Name != "ItemName");
-			tooltips.Add(new TooltipLine(mod, "ExtraInfo", "'This item will be available later'"));
+			tooltips.Add(new TooltipLine(Mod, "ExtraInfo", "'This item will be available later'"));
 		}
 
 		public override Vector2? HoldoutOffset() => new Vector2(2, 0);
@@ -88,42 +88,42 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void SetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 20;
-			projectile.timeLeft = 2;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.timeLeft = 2;
 
-			projectile.tileCollide = false;
-			projectile.ignoreWater = true;
-			projectile.netImportant = true;
+			Projectile.tileCollide = false;
+			Projectile.ignoreWater = true;
+			Projectile.netImportant = true;
 		}
 
 		public override void AI()
 		{
-			if (!Owner.active || Owner.dead) projectile.Kill();
+			if (!Owner.active || Owner.dead) Projectile.Kill();
 
 			if (Owner.channel)
 			{
-				Owner.heldProj = projectile.whoAmI;
+				Owner.heldProj = Projectile.whoAmI;
 				Owner.itemAnimation = 2;
 				Owner.itemTime = 2;
-				projectile.timeLeft = 2;
+				Projectile.timeLeft = 2;
 
-				projectile.Center = Owner.itemLocation;
+				Projectile.Center = Owner.itemLocation;
 
-				if (projectile.Center.X > Owner.MountedCenter.X)
+				if (Projectile.Center.X > Owner.MountedCenter.X)
 				{
 					Owner.ChangeDir(1);
-					projectile.direction = 1;
+					Projectile.direction = 1;
 				}
 				else
 				{
 					Owner.ChangeDir(-1);
-					projectile.direction = -1;
+					Projectile.direction = -1;
 				}
 			}
 		}
 
-		public override bool CanDamage() => false;
+		public override bool? CanDamage()/* Suggestion: Return null instead of false */ => false;
 		public override bool? CanCutTiles() => false;
 	}
 

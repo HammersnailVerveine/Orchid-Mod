@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 56;
-			item.width = 54;
-			item.height = 54;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.knockBack = 3.25f;
-			item.rare = ItemRarityID.LightRed;
-			item.value = Item.sellPrice(0, 7, 50, 0);
-			item.UseSound = SoundID.Item45;
-			item.autoReuse = true;
-			item.shootSpeed = 1f;
-			item.shoot = mod.ProjectileType("MoltenResidueScepterProj");
+			Item.damage = 56;
+			Item.width = 54;
+			Item.height = 54;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.knockBack = 3.25f;
+			Item.rare = ItemRarityID.LightRed;
+			Item.value = Item.sellPrice(0, 7, 50, 0);
+			Item.UseSound = SoundID.Item45;
+			Item.autoReuse = true;
+			Item.shootSpeed = 1f;
+			Item.shoot = Mod.Find<ModProjectile>("MoltenResidueScepterProj").Type;
 			this.empowermentType = 1;
 			this.energy = 15;
 		}
@@ -39,9 +39,9 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
-				recipe.AddIngredient(mod.ItemType("RitualScepter"), 1);
+				recipe.AddIngredient(Mod.Find<ModItem>("RitualScepter").Type, 1);
 				recipe.AddIngredient(thoriumMod, "MoltenResidue", 8);
 				recipe.AddIngredient(ItemID.SoulofNight, 7);
 				recipe.SetResult(this);

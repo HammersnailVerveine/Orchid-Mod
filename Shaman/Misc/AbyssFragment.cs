@@ -9,17 +9,17 @@ namespace OrchidMod.Shaman.Misc
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 24;
-			item.height = 24;
-			item.maxStack = 999;
-			item.value = Item.sellPrice(0, 0, 20, 0);
-			item.rare = ItemRarityID.Cyan;
+			Item.width = 24;
+			Item.height = 24;
+			Item.maxStack = 999;
+			Item.value = Item.sellPrice(0, 0, 20, 0);
+			Item.rare = ItemRarityID.Cyan;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			ItemID.Sets.ItemIconPulse[item.type] = true;
-			ItemID.Sets.ItemNoGravity[item.type] = true;
+			ItemID.Sets.ItemIconPulse[Item.type] = true;
+			ItemID.Sets.ItemNoGravity[Item.type] = true;
 
 			DisplayName.SetDefault("Abyss Fragment");
 			Tooltip.SetDefault("'A feeling of pure immensity emanates from this fragment'");
@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Misc
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(item.Center, Color.Blue.ToVector3() * 0.55f * Main.essScale);
+			Lighting.AddLight(Item.Center, Color.Blue.ToVector3() * 0.55f * Main.essScale);
 		}
 
 		public override Color? GetAlpha(Color lightColor) => Color.White;

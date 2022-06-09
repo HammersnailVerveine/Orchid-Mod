@@ -36,14 +36,14 @@ namespace OrchidMod.Prefixes
 			return myClone;
 		}
 
-		public override bool NewPreReforge(Item item)
+		public override bool PreReforge(Item item)
 		{
 			pDamage = 0;
 			pMana = 0;
 			pUseTime = 0;
 			pVelocity = 0;
 			pKnockback = 0;
-			return base.NewPreReforge(item);
+			return base.PreReforge(item);
 		}
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
@@ -75,71 +75,71 @@ namespace OrchidMod.Prefixes
 					switch (randValue)
 					{                           // DMG - KNB - MNA - USE - VEL
 						case 0:
-							return mod.PrefixType("Voodoo");        //  /	 /     /     /     + // Keen
+							return Mod.Find<ModPrefix>("Voodoo").Type;        //  /	 /     /     /     + // Keen
 						case 1:
-							return mod.PrefixType("Superior");      //  +	 +     /     /     /
+							return Mod.Find<ModPrefix>("Superior").Type;      //  +	 +     /     /     /
 						case 2:
-							return mod.PrefixType("Forceful");      //  /	 +     /     /     /
+							return Mod.Find<ModPrefix>("Forceful").Type;      //  /	 +     /     /     /
 						case 3:
-							return mod.PrefixType("Broken");        //  -	 -     /     /     /
+							return Mod.Find<ModPrefix>("Broken").Type;        //  -	 -     /     /     /
 						case 4:
-							return mod.PrefixType("Damaged");       //  -	 /     /     /     /
+							return Mod.Find<ModPrefix>("Damaged").Type;       //  -	 /     /     /     /
 						case 5:
-							return mod.PrefixType("Shoddy");        //  -	 /     /     /     /
+							return Mod.Find<ModPrefix>("Shoddy").Type;        //  -	 /     /     /     /
 						case 6:
-							return mod.PrefixType("Hurtful");       //  +	 /     /     /     /
+							return Mod.Find<ModPrefix>("Hurtful").Type;       //  +	 /     /     /     /
 						case 7:
-							return mod.PrefixType("Strong");        //  /	 +     /     /     /
+							return Mod.Find<ModPrefix>("Strong").Type;        //  /	 +     /     /     /
 						case 8:
-							return mod.PrefixType("Unpleasant");    //  +	 +     /     /     /
+							return Mod.Find<ModPrefix>("Unpleasant").Type;    //  +	 +     /     /     /
 						case 9:
-							return mod.PrefixType("Weak");          //  /	 -     /     /     /
+							return Mod.Find<ModPrefix>("Weak").Type;          //  /	 -     /     /     /
 						case 10:
-							return mod.PrefixType("Ruthless");      //  +	 -     /     /     /
+							return Mod.Find<ModPrefix>("Ruthless").Type;      //  +	 -     /     /     /
 						case 11:
-							return mod.PrefixType("Occult");        //  +	 +     /     /     + // Godly
+							return Mod.Find<ModPrefix>("Occult").Type;        //  +	 +     /     /     + // Godly
 						case 12:
-							return mod.PrefixType("Diabolic");      //  +	 /     /     /     + // Demonic
+							return Mod.Find<ModPrefix>("Diabolic").Type;      //  +	 /     /     /     + // Demonic
 						case 13:
-							return mod.PrefixType("Spirited");      //  /	 /     /     /     + // Zealous
+							return Mod.Find<ModPrefix>("Spirited").Type;      //  /	 /     /     /     + // Zealous
 						case 14:
-							return mod.PrefixType("Quick");         //  /	 /     /     +     /
+							return Mod.Find<ModPrefix>("Quick").Type;         //  /	 /     /     +     /
 						case 15:
-							return mod.PrefixType("Deadly");        //  +	 /     /     +     /
+							return Mod.Find<ModPrefix>("Deadly").Type;        //  +	 /     /     +     /
 						case 16:
-							return mod.PrefixType("Magnetic");      //  /	 /     /     +     + // Agile
+							return Mod.Find<ModPrefix>("Magnetic").Type;      //  /	 /     /     +     + // Agile
 						case 17:
-							return mod.PrefixType("Nimble");        //  /	 /     /     +     /
+							return Mod.Find<ModPrefix>("Nimble").Type;        //  /	 /     /     +     /
 						case 18:
-							return mod.PrefixType("Runic");         //  +	 /     /     +     + // Murderous
+							return Mod.Find<ModPrefix>("Runic").Type;         //  +	 /     /     +     + // Murderous
 						case 19:
-							return mod.PrefixType("Slow");          //  /	 /     /     -     /
+							return Mod.Find<ModPrefix>("Slow").Type;          //  /	 /     /     -     /
 						case 20:
-							return mod.PrefixType("Sluggish");      //  /	 /     /     -     /
+							return Mod.Find<ModPrefix>("Sluggish").Type;      //  /	 /     /     -     /
 						case 21:
-							return mod.PrefixType("Lazy");          //  /	 /     /     -     /
+							return Mod.Find<ModPrefix>("Lazy").Type;          //  /	 /     /     -     /
 						case 22:
-							return mod.PrefixType("Annoying");      //  -	 /     /     -     /
+							return Mod.Find<ModPrefix>("Annoying").Type;      //  -	 /     /     -     /
 						case 23:
-							return mod.PrefixType("Conjuring");     //  +	 +     /     -     + // Nasty
+							return Mod.Find<ModPrefix>("Conjuring").Type;     //  +	 +     /     -     + // Nasty
 						case 24:
-							return mod.PrefixType("Studious");      //  +	 /     +     /     /
+							return Mod.Find<ModPrefix>("Studious").Type;      //  +	 /     +     /     /
 						case 25:
-							return mod.PrefixType("Unique");        //  +	 +     +     /     /
+							return Mod.Find<ModPrefix>("Unique").Type;        //  +	 +     +     /     /
 						case 26:
-							return mod.PrefixType("Balanced");      //  /	 +     -     +     /
+							return Mod.Find<ModPrefix>("Balanced").Type;      //  /	 +     -     +     /
 						case 27:
-							return mod.PrefixType("Hopeful");       //  /	 /     +     /     /
+							return Mod.Find<ModPrefix>("Hopeful").Type;       //  /	 /     +     /     /
 						case 28:
-							return mod.PrefixType("Enraged");       //  +	 +     -     /     /
+							return Mod.Find<ModPrefix>("Enraged").Type;       //  +	 +     -     /     /
 						case 29:
-							return mod.PrefixType("Effervescent");  //  +	 +     +     -     /
+							return Mod.Find<ModPrefix>("Effervescent").Type;  //  +	 +     +     -     /
 						case 30:
-							return mod.PrefixType("Ethereal");      //  +	 +     +     +     +
+							return Mod.Find<ModPrefix>("Ethereal").Type;      //  +	 +     +     +     +
 						case 31:
-							return mod.PrefixType("Focused");       //  +	 /     +     /     /
+							return Mod.Find<ModPrefix>("Focused").Type;       //  +	 /     +     /     /
 						case 32:
-							return mod.PrefixType("Complex");       //  -	 /     +     +     /
+							return Mod.Find<ModPrefix>("Complex").Type;       //  -	 /     +     +     /
 						default:
 							break;
 					}

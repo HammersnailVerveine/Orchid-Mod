@@ -9,14 +9,14 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental.Projectiles
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 14;
-			projectile.hostile = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 350;
-			projectile.scale = 1f;
-			aiType = ProjectileID.Bullet;
-			projectile.alpha = 255;
+			Projectile.width = 8;
+			Projectile.height = 14;
+			Projectile.hostile = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 350;
+			Projectile.scale = 1f;
+			AIType = ProjectileID.Bullet;
+			Projectile.alpha = 255;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,17 +26,17 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental.Projectiles
 
 		public override void AI()
 		{
-			int DustID2 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 226, 0f, 0f, 125, default(Color), 1f);
+			int DustID2 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 226, 0f, 0f, 125, default(Color), 1f);
 			Main.dust[DustID2].noGravity = true;
-			Main.dust[DustID2].velocity = projectile.velocity / 2;
+			Main.dust[DustID2].velocity = Projectile.velocity / 2;
 
-			projectile.tileCollide = projectile.timeLeft < 320;
+			Projectile.tileCollide = Projectile.timeLeft < 320;
 
-			if (projectile.timeLeft % 15 == 0)
+			if (Projectile.timeLeft % 15 == 0)
 			{
-				projectile.ai[0] = (Main.rand.Next(40) - 20);
-				Vector2 projectileVelocity = (new Vector2(projectile.velocity.X, projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(projectile.ai[0] / 2)));
-				projectile.velocity = projectileVelocity;
+				Projectile.ai[0] = (Main.rand.Next(40) - 20);
+				Vector2 projectileVelocity = (new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(Projectile.ai[0] / 2)));
+				Projectile.velocity = projectileVelocity;
 			}
 		}
 	}

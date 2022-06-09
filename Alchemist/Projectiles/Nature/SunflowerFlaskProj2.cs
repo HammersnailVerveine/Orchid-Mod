@@ -12,19 +12,19 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 18;
-			projectile.height = 20;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 300;
-			ProjectileID.Sets.Homing[projectile.type] = true;
+			Projectile.width = 18;
+			Projectile.height = 20;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 300;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 3);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 3);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = true;
 			}

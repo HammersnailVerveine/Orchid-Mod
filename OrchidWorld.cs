@@ -9,12 +9,12 @@ using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.World.Generation;
 using static Terraria.ModLoader.ModContent;
+using Terraria.WorldBuilding;
 
 namespace OrchidMod
 {
-	public class OrchidWorld : ModWorld
+	public class OrchidWorld : ModSystem
 	{
 		private static int RLenght = 5;
 		private static int RHeight = 2;
@@ -39,13 +39,13 @@ namespace OrchidMod
 
 		public static float alchemistMushroomArmorProgress = 0.5f; // 0.5f -> 1f -> 0.5f -> ...
 
-		public override void Initialize()
+		public override void OnWorldLoad()
 		{
 			foundChemist = false;
 			foundSlimeCard = false;
 		}
 
-		public override TagCompound Save()
+		public override void SaveWorldData(TagCompound tag)/* Suggestion: Edit tag parameter rather than returning new TagCompound */
 		{
 			var downed = new List<string>();
 
@@ -65,7 +65,7 @@ namespace OrchidMod
 			};
 		}
 
-		public override void Load(TagCompound tag)
+		public override void LoadWorldData(TagCompound tag)
 		{
 			var downed = tag.GetList<string>("downed");
 			foundChemist = downed.Contains("chemist");
@@ -83,7 +83,7 @@ namespace OrchidMod
 			}
 			else
 			{
-				mod.Logger.WarnFormat("OrchidMod: Unknown loadVersion: {0}", loadVersion);
+				Mod.Logger.WarnFormat("OrchidMod: Unknown loadVersion: {0}", loadVersion);
 			}
 		}
 
@@ -101,11 +101,11 @@ namespace OrchidMod
 			foundChemist = flags[0];
 		}
 
-		public override void PreUpdate()
+		public override void PreUpdateWorld()
 		{
 			// Mushroom Armor Lighting Progress and ... Shroomite Scepter
 			{
-				alchemistMushroomArmorProgress = (float)Math.Sin(Main.GlobalTime * (Math.PI / 2f)) * 0.25f + 0.75f;
+				alchemistMushroomArmorProgress = (float)Math.Sin(Main.GlobalTimeWrappedHourly * (Math.PI / 2f)) * 0.25f + 0.75f;
 			}
 		}
 
@@ -136,7 +136,7 @@ namespace OrchidMod
 								{
 									for (int w = 0; w < 3; w++)
 									{
-										if (Framing.GetTileSafely(k, l - 1 + w).active())
+										if (Framing.GetTileSafely(k, l - 1 + w).HasTile)
 										{
 											canSpawnTile = false;
 										}
@@ -148,7 +148,7 @@ namespace OrchidMod
 								}
 								else if (!normalRoom)
 								{
-									if (Framing.GetTileSafely(k, l + 1).active() == false)
+									if (Framing.GetTileSafely(k, l + 1).HasTile == false)
 									{
 										if (allowPlatforms == 0)
 										{
@@ -167,60 +167,60 @@ namespace OrchidMod
 								{ // If neither platform or trap could be placed
 									if (Main.rand.Next(10) != 0)
 									{
-										tile.type = 30; //Wood (and every wood block has a 1/10 chance not to be spawned)
-										if (Framing.GetTileSafely(k, l + 1).type == TileID.Stone || Framing.GetTileSafely(k, l - 1).type == TileID.Stone) tile.type = TileID.Stone;
-										if (Framing.GetTileSafely(k, l + 1).type == TileID.Granite || Framing.GetTileSafely(k, l - 1).type == TileID.Granite) tile.type = TileID.Granite;
-										if (Framing.GetTileSafely(k, l + 1).type == TileID.Marble || Framing.GetTileSafely(k, l - 1).type == TileID.Marble) tile.type = TileID.Marble;
-										if (Framing.GetTileSafely(k, l + 1).type == TileID.IceBlock || Framing.GetTileSafely(k, l - 1).type == TileID.IceBlock) tile.type = TileID.IceBlock;
-										if (forceWood == 0) tile.type = 30;
+										tile.TileType = 30; //Wood (and every wood block has a 1/10 chance not to be spawned)
+										if (Framing.GetTileSafely(k, l + 1).TileType == TileID.Stone || Framing.GetTileSafely(k, l - 1).TileType == TileID.Stone) tile.TileType = TileID.Stone;
+										if (Framing.GetTileSafely(k, l + 1).TileType == TileID.Granite || Framing.GetTileSafely(k, l - 1).TileType == TileID.Granite) tile.TileType = TileID.Granite;
+										if (Framing.GetTileSafely(k, l + 1).TileType == TileID.Marble || Framing.GetTileSafely(k, l - 1).TileType == TileID.Marble) tile.TileType = TileID.Marble;
+										if (Framing.GetTileSafely(k, l + 1).TileType == TileID.IceBlock || Framing.GetTileSafely(k, l - 1).TileType == TileID.IceBlock) tile.TileType = TileID.IceBlock;
+										if (forceWood == 0) tile.TileType = 30;
 									}
 								}
-								tile.active(true);
+								tile.HasTile = true;
 								break;
 							case 3:
-								tile.type = TileID.Cobweb;
-								tile.active(true);
+								tile.TileType = TileID.Cobweb;
+								tile.HasTile = true;
 								break;
 							case 5:
-								tile.type = TileID.Chain;
-								tile.active(true);
+								tile.TileType = TileID.Chain;
+								tile.HasTile = true;
 								break;
 							case 6:
 								WorldGen.PlaceObject(k, l, 239, true, barRand); // Bars
-								tile.active(true);
+								tile.HasTile = true;
 								break;
 							case 8:
-								tile.type = 124; //Wooden Beam
-								tile.active(true);
+								tile.TileType = 124; //Wooden Beam
+								tile.HasTile = true;
 								break;
 							case 9:
-								tile.type = TileID.Rope;
-								tile.active(true);
+								tile.TileType = TileID.Rope;
+								tile.HasTile = true;
 								break;
 							case 10: // Same as 1, without that rand bullcrap. Spawns a block, that's it.
-								tile.type = 30; //Wood (and every wood block has a 1/10 chance not to be spawned)
-								if (Framing.GetTileSafely(k, l + 1).type == TileID.Stone || Framing.GetTileSafely(k, l - 1).type == TileID.Stone) tile.type = TileID.Stone;
-								if (Framing.GetTileSafely(k, l + 1).type == TileID.Granite || Framing.GetTileSafely(k, l - 1).type == TileID.Granite) tile.type = TileID.Granite;
-								if (Framing.GetTileSafely(k, l + 1).type == TileID.Marble || Framing.GetTileSafely(k, l - 1).type == TileID.Marble) tile.type = TileID.Marble;
-								if (Framing.GetTileSafely(k, l + 1).type == TileID.IceBlock || Framing.GetTileSafely(k, l - 1).type == TileID.IceBlock) tile.type = TileID.IceBlock;
-								if (forceWood == 0) tile.type = 30;
-								tile.active(true);
+								tile.TileType = 30; //Wood (and every wood block has a 1/10 chance not to be spawned)
+								if (Framing.GetTileSafely(k, l + 1).TileType == TileID.Stone || Framing.GetTileSafely(k, l - 1).TileType == TileID.Stone) tile.TileType = TileID.Stone;
+								if (Framing.GetTileSafely(k, l + 1).TileType == TileID.Granite || Framing.GetTileSafely(k, l - 1).TileType == TileID.Granite) tile.TileType = TileID.Granite;
+								if (Framing.GetTileSafely(k, l + 1).TileType == TileID.Marble || Framing.GetTileSafely(k, l - 1).TileType == TileID.Marble) tile.TileType = TileID.Marble;
+								if (Framing.GetTileSafely(k, l + 1).TileType == TileID.IceBlock || Framing.GetTileSafely(k, l - 1).TileType == TileID.IceBlock) tile.TileType = TileID.IceBlock;
+								if (forceWood == 0) tile.TileType = 30;
+								tile.HasTile = true;
 								break;
 							case 11:
-								tile.type = 0; // Dirt
-								tile.active(true);
+								tile.TileType = 0; // Dirt
+								tile.HasTile = true;
 								break;
 							case 12:
-								tile.type = TileID.Stone;
-								tile.active(true);
+								tile.TileType = TileID.Stone;
+								tile.HasTile = true;
 								break;
 							case 13:
-								tile.type = 67; // Amethyst
-								tile.active(true);
+								tile.TileType = 67; // Amethyst
+								tile.HasTile = true;
 								break;
 							case 14:
-								tile.type = 178; // Amethyst
-								tile.active(true);
+								tile.TileType = 178; // Amethyst
+								tile.HasTile = true;
 								break;
 							case 16:
 								if (Main.rand.Next(3) > 1) WorldGen.PlaceObject(k, l - 1, 330); // Copper Coins
@@ -237,19 +237,19 @@ namespace OrchidMod
 						switch (MSWall[y, x])
 						{
 							case 1:
-								if (wallrand == 0) if (Main.rand.Next(5) != 0) tile.wall = 27; //PlankedWall
-								if (wallrand == 1) if (Main.rand.Next(2) != 0) tile.wall = 2; //Dirt
-								if (wallrand == 2) if (Main.rand.Next(2) != 0) tile.wall = 1; //Stone
+								if (wallrand == 0) if (Main.rand.Next(5) != 0) tile.WallType = 27; //PlankedWall
+								if (wallrand == 1) if (Main.rand.Next(2) != 0) tile.WallType = 2; //Dirt
+								if (wallrand == 2) if (Main.rand.Next(2) != 0) tile.WallType = 1; //Stone
 								if (wallrand == 3)
 								{
-									if (Main.rand.Next(5) >= 3) tile.wall = 27; //PlankedWall + Stone
-									else tile.wall = 1;
+									if (Main.rand.Next(5) >= 3) tile.WallType = 27; //PlankedWall + Stone
+									else tile.WallType = 1;
 								}
 								if (wallrand == 4)
 								{ // mash
-									if (Main.rand.Next(3) == 0) tile.wall = 27; //PlankedWall + Stone
-									if (Main.rand.Next(3) == 0) tile.wall = 2;
-									if (Main.rand.Next(3) == 0) tile.wall = 1;
+									if (Main.rand.Next(3) == 0) tile.WallType = 27; //PlankedWall + Stone
+									if (Main.rand.Next(3) == 0) tile.WallType = 2;
+									if (Main.rand.Next(3) == 0) tile.WallType = 1;
 								}
 								break;
 							default:
@@ -277,23 +277,23 @@ namespace OrchidMod
 						{
 							case 2:
 								WorldGen.PlaceTile(k, l, 19); // Platform
-								tile.active(true);
+								tile.HasTile = true;
 								break;
 							case 3:
-								tile.type = TileID.Cobweb;
-								tile.active(true);
+								tile.TileType = TileID.Cobweb;
+								tile.HasTile = true;
 								break;
 							case 5:
-								tile.type = TileID.Chain;
-								tile.active(true);
+								tile.TileType = TileID.Chain;
+								tile.HasTile = true;
 								break;
 							case 6:
 								WorldGen.PlaceObject(k, l, 239, true, barRand); // Bars
-								tile.active(true);
+								tile.HasTile = true;
 								break;
 							case 14:
-								tile.type = 178; // Amethyst
-								tile.active(true);
+								tile.TileType = 178; // Amethyst
+								tile.HasTile = true;
 								break;
 							case 15:
 								WorldGen.PlaceObject(k, l, 215); // campfire
@@ -330,10 +330,10 @@ namespace OrchidMod
 						{
 							case 4:
 								tile = Framing.GetTileSafely(k, l - 1);
-								if (tile.active() == false)
+								if (tile.HasTile == false)
 								{
-									tile.type = 30;
-									tile.active(true);
+									tile.TileType = 30;
+									tile.HasTile = true;
 								}
 								WorldGen.PlaceObject(k, l, 42, true, 6); // 33 = candle /42 = Lantern
 								break;
@@ -344,7 +344,7 @@ namespace OrchidMod
 									{
 										tile = Framing.GetTileSafely(k + w - 1, l + q - 1);
 										tile.ClearEverything();
-										tile.wall = 27;
+										tile.WallType = 27;
 									}
 								}
 								WorldGen.PlaceObject(k, l, ModContent.TileType<Content.Items.Tools.MineshaftPickaxeTile>());
@@ -355,7 +355,7 @@ namespace OrchidMod
 									for (int q = 0; q < 2; q++)
 									{
 										tile = Framing.GetTileSafely(k - w, l - q);
-										if (tile.type == 314)
+										if (tile.TileType == 314)
 										{
 											break;
 										}
@@ -373,7 +373,7 @@ namespace OrchidMod
 									for (int q = 0; q < 2; q++)
 									{
 										tile = Framing.GetTileSafely(k - w, l - q);
-										if (tile.type == 314)
+										if (tile.TileType == 314)
 										{
 											break;
 										}
@@ -397,7 +397,7 @@ namespace OrchidMod
 									{
 										tile = Framing.GetTileSafely(k + w - 1, l + q - 1);
 										tile.ClearEverything();
-										tile.wall = 27;
+										tile.WallType = 27;
 									}
 								}
 								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftHookTile>());
@@ -761,7 +761,7 @@ namespace OrchidMod
 						Tile tile = Framing.GetTileSafely(k, l);
 						tile.ClearTile();
 						WorldGen.PlaceTile(k, l, (ushort)TileType<AncientFossil>());
-						tile.active(true);
+						tile.HasTile = true;
 					}
 				}
 			}
@@ -1150,10 +1150,10 @@ namespace OrchidMod
 				int y = WorldGen.genRand.Next((int)(Main.maxTilesY / 3) + 50, (int)(Main.maxTilesY / 3) + (OrchidMSarrays.MSHeight * 8) + 200);
 
 				Tile tile = Framing.GetTileSafely(x, y);
-				if (!tile.active() && ((WorldGen.SolidTile(x - 1, y)) || (WorldGen.SolidTile(x, y + 1)) || (WorldGen.SolidTile(x, y - 1)) || (WorldGen.SolidTile(x + 1, y))))
+				if (!tile.HasTile && ((WorldGen.SolidTile(x - 1, y)) || (WorldGen.SolidTile(x, y + 1)) || (WorldGen.SolidTile(x, y - 1)) || (WorldGen.SolidTile(x + 1, y))))
 				{
 					WorldGen.PlaceTile(x, y, TileType<Tiles.Ores.StaticQuartzGem>());
-					tile.active(true);
+					tile.HasTile = true;
 				}
 			}
 		}
@@ -1165,10 +1165,10 @@ namespace OrchidMod
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
 				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
 
-				if (!Framing.GetTileSafely(x, y).active() && !Framing.GetTileSafely(x + 1, y).active() &&
-				!Framing.GetTileSafely(x, y - 1).active() && !Framing.GetTileSafely(x + 1, y - 1).active())
+				if (!Framing.GetTileSafely(x, y).HasTile && !Framing.GetTileSafely(x + 1, y).HasTile &&
+				!Framing.GetTileSafely(x, y - 1).HasTile && !Framing.GetTileSafely(x + 1, y - 1).HasTile)
 				{
-					if (Framing.GetTileSafely(x, y + 1).type == 60 && Framing.GetTileSafely(x + 1, y + 1).type == 60)
+					if (Framing.GetTileSafely(x, y + 1).TileType == 60 && Framing.GetTileSafely(x + 1, y + 1).TileType == 60)
 					{
 
 						for (int w = 0; w < 2; w++)
@@ -1220,15 +1220,15 @@ namespace OrchidMod
 					int y = WorldGen.genRand.Next((int)(Main.worldSurface + 150), Main.maxTilesY - 300);
 					int validCount = 0;
 
-					if (Framing.GetTileSafely(x, y).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+					if (Framing.GetTileSafely(x, y).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
 						validCount++;
-					if (Framing.GetTileSafely(x + 34, y + 27).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+					if (Framing.GetTileSafely(x + 34, y + 27).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
 						validCount++;
-					if (Framing.GetTileSafely(x, y + 27).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+					if (Framing.GetTileSafely(x, y + 27).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
 						validCount++;
-					if (Framing.GetTileSafely(x + 34, y).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+					if (Framing.GetTileSafely(x + 34, y).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
 						validCount++;
-					if (Framing.GetTileSafely(x + 17, y + 13).type == TileID.Dirt || Framing.GetTileSafely(x, y).type == TileID.Stone)
+					if (Framing.GetTileSafely(x + 17, y + 13).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
 						validCount++;
 
 					if (validCount > 2)
@@ -1274,7 +1274,7 @@ namespace OrchidMod
 					minishaft1X = (Main.maxTilesX / 2) - 750 + Main.rand.Next(300);
 					minishaft1Y = (Main.maxTilesY / 3) + 200 - Main.rand.Next(300);
 
-					while (!(Framing.GetTileSafely(minishaft1X, minishaft1Y).active()))
+					while (!(Framing.GetTileSafely(minishaft1X, minishaft1Y).HasTile))
 					{
 						minishaft1X = (Main.maxTilesX / 2) - 750 + Main.rand.Next(300);
 						minishaft1Y = (Main.maxTilesY / 3) + 200 - Main.rand.Next(300);
@@ -1283,7 +1283,7 @@ namespace OrchidMod
 					minishaft2X = (Main.maxTilesX / 2) + 750 - Main.rand.Next(300);
 					minishaft2Y = (Main.maxTilesY / 3) + 200 - Main.rand.Next(300);
 
-					while (!(Framing.GetTileSafely(minishaft2X, minishaft2Y).active()))
+					while (!(Framing.GetTileSafely(minishaft2X, minishaft2Y).HasTile))
 					{
 						minishaft2X = (Main.maxTilesX / 2) + 750 - Main.rand.Next(300);
 						minishaft2Y = (Main.maxTilesY / 3) + 200 - Main.rand.Next(300);
@@ -1335,7 +1335,7 @@ namespace OrchidMod
 							attempts++;
 							int x = WorldGen.genRand.Next(MinX, MaxX);
 							int y = WorldGen.genRand.Next((int)Main.worldSurface, MaxY);
-							if (Main.wallDungeon[Main.tile[x, y].wall] && !Main.tile[x, y].active())
+							if (Main.wallDungeon[Main.tile[x, y].WallType] && !Main.tile[x, y].HasTile)
 							{
 								while (y < Main.maxTilesY - 210)
 								{
@@ -1423,13 +1423,13 @@ namespace OrchidMod
 			{
 				Chest chest = Main.chest[chestIndex];
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)TileType<Content.Items.Placeables.MinersLockboxTile>())
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.MinersLockboxTile>())
 				{
 					int[] specialItemPoll = {49, 50, 53, 54, 55, 975, 997, 930, ItemType<Shaman.Weapons.EnchantedScepter>()
 					, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), ItemType<Gambler.Weapons.Cards.GoldChestCard>()};
 					int rand = Main.rand.Next(specialItemPoll);
 
-					chest.item[0].SetDefaults(mod.ItemType("HauntedCandle"));
+					chest.item[0].SetDefaults(Mod.Find<ModItem>("HauntedCandle").Type);
 					placeInChest(chest, 71, Main.rand.Next(80, 99)); // Copper Coins
 					placeInChest(chest, 72, Main.rand.Next(80, 99)); // Silver Coins
 					placeInChest(chest, 28, Main.rand.Next(3, 8)); // Healing Pots
@@ -1442,9 +1442,9 @@ namespace OrchidMod
 					placeInChest(chest, rand, 1);
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>())
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>())
 				{
-					chest.item[0].SetDefaults(mod.ItemType("ShroomiteScepter"));
+					chest.item[0].SetDefaults(Mod.Find<ModItem>("ShroomiteScepter").Type);
 					chest.item[1].SetDefaults(183); // Glowing Mushroom
 					chest.item[1].stack = Main.rand.Next(10) + 20;
 					chest.item[2].SetDefaults(188); // Healing Potion
@@ -1455,8 +1455,8 @@ namespace OrchidMod
 					chest.item[4].stack = Main.rand.Next(3) + 1;
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 0 * 36
-				&& !((Main.tile[chest.x, chest.y].wall >= 94 && Main.tile[chest.x, chest.y].wall <= 99) || (Main.tile[chest.x, chest.y].wall >= 7 && Main.tile[chest.x, chest.y].wall <= 9)))
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 0 * 36
+				&& !((Main.tile[chest.x, chest.y].WallType >= 94 && Main.tile[chest.x, chest.y].WallType <= 99) || (Main.tile[chest.x, chest.y].WallType >= 7 && Main.tile[chest.x, chest.y].WallType <= 9)))
 				{
 					if (Main.rand.Next(5) == 0)
 					{
@@ -1475,7 +1475,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 17 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 17 * 36)
 				{
 					if (Main.rand.Next(5) == 0)
 					{
@@ -1487,7 +1487,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 12 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 12 * 36)
 				{
 					if (Main.rand.Next(2) == 0)
 					{
@@ -1499,8 +1499,8 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 1 * 36
-					&& !(Main.tile[chest.x, chest.y].wall == 34))
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36
+					&& !(Main.tile[chest.x, chest.y].WallType == 34))
 				{
 					if (Main.rand.Next(5) == 0)
 					{
@@ -1524,9 +1524,14 @@ namespace OrchidMod
 							}
 						}
 					}
+
+					if (Main.rand.Next(20) == 0)
+					{
+						placeInChest(chest, ItemType<Gambler.Decks.DeckEnchanted>(), 1);
+					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 2 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 2 * 36)
 				{
 					if (Main.rand.Next(2) == 0)
 					{
@@ -1552,10 +1557,15 @@ namespace OrchidMod
 						{
 							spawnedRusalka = placeInChest(chest, ItemType<Gambler.Weapons.Chips.Rusalka>(), 1);
 						}
+
+						if (Main.rand.Next(20) == 0)
+						{
+							placeInChest(chest, ItemType<Gambler.Decks.DeckBone>(), 1);
+						}
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 4 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 4 * 36)
 				{
 					if (Main.rand.Next(5) < 3)
 					{
@@ -1574,7 +1584,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 13 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 13 * 36)
 				{
 					if (Main.rand.Next(4) == 0)
 					{
@@ -1582,7 +1592,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 11 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 11 * 36)
 				{
 					if (Main.rand.Next(5) == 0)
 					{
@@ -1602,7 +1612,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 10 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
 				{
 					if (Main.rand.Next(5) < 2)
 					{
@@ -1631,8 +1641,8 @@ namespace OrchidMod
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
 				Chest chest = Main.chest[chestIndex];
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 0 * 36
-				&& !((Main.tile[chest.x, chest.y].wall >= 94 && Main.tile[chest.x, chest.y].wall <= 99) || (Main.tile[chest.x, chest.y].wall >= 7 && Main.tile[chest.x, chest.y].wall <= 9)))
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 0 * 36
+				&& !((Main.tile[chest.x, chest.y].WallType >= 94 && Main.tile[chest.x, chest.y].WallType <= 99) || (Main.tile[chest.x, chest.y].WallType >= 7 && Main.tile[chest.x, chest.y].WallType <= 9)))
 				{
 					if (!spawnedEmbersCard)
 					{
@@ -1648,7 +1658,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 17 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 17 * 36)
 				{
 					if (!spawnedBubbleCard)
 					{
@@ -1660,7 +1670,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 12 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 12 * 36)
 				{
 					if (!spawnedSapCard)
 					{
@@ -1672,7 +1682,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 13 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 13 * 36)
 				{
 					if (!spawnedStellarTalc)
 					{
@@ -1680,8 +1690,8 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 1 * 36
-					&& !(Main.tile[chest.x, chest.y].wall == 34))
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36
+					&& !(Main.tile[chest.x, chest.y].WallType == 34))
 				{
 					if (!spawnedGoldChestCard)
 					{
@@ -1697,7 +1707,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 2 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 2 * 36)
 				{
 					if (spawnedTiamatRelic < 3)
 					{
@@ -1721,7 +1731,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 4 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 4 * 36)
 				{
 					if (!spawnedFireBatScepter)
 					{
@@ -1737,7 +1747,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 11 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 11 * 36)
 				{
 					if (!spawnedIceChestCard)
 					{
@@ -1757,7 +1767,7 @@ namespace OrchidMod
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].type == TileID.Containers && Main.tile[chest.x, chest.y].frameX == 10 * 36)
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
 				{
 					if (!spawnedDeepForestCharm)
 					{

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -8,14 +9,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 10;
-			projectile.height = 10;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 55;
-			projectile.scale = 1f;
-			projectile.alpha = 128;
-			aiType = ProjectileID.Bullet;
+			Projectile.width = 10;
+			Projectile.height = 10;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 55;
+			Projectile.scale = 1f;
+			Projectile.alpha = 128;
+			AIType = ProjectileID.Bullet;
 		}
 
 		public override void SetStaticDefaults()
@@ -25,15 +26,15 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			int DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 60, projectile.velocity.X * 0.75f, projectile.velocity.Y * 0.75f, 125, default(Color), 1.25f);
+			int DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 60, Projectile.velocity.X * 0.75f, Projectile.velocity.Y * 0.75f, 125, default(Color), 1.25f);
 			Main.dust[DustID].scale *= 1.5f;
 			Main.dust[DustID].noGravity = true;
 
-			DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 6, projectile.velocity.X, projectile.velocity.Y * 0.75f, 125, default(Color), 1.25f);
+			DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 6, Projectile.velocity.X, Projectile.velocity.Y * 0.75f, 125, default(Color), 1.25f);
 			Main.dust[DustID].scale *= 1.5f;
 			Main.dust[DustID].noGravity = true;
 
-			DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 90, projectile.velocity.X * 1.5f, projectile.velocity.Y * 1.5f, 125, default(Color), 1.25f);
+			DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 90, Projectile.velocity.X * 1.5f, Projectile.velocity.Y * 1.5f, 125, default(Color), 1.25f);
 			Main.dust[DustID].scale *= 1f;
 			Main.dust[DustID].noGravity = true;
 		}
@@ -43,15 +44,15 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == mod.ProjectileType("CoznixScepterProjPortal") && proj.owner == player.whoAmI)
+				if (proj.active && proj.type == Mod.Find<ModProjectile>("CoznixScepterProjPortal").Type && proj.owner == player.whoAmI)
 				{
 					proj.active = false;
 				}
 			}
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2)
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
 			{
-				Projectile.NewProjectile(projectile.position.X, projectile.position.Y - 300, 0f, 0f, mod.ProjectileType("CoznixScepterProjPortal"), 0, 0.0f, projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y - 300, 0f, 0f, Mod.Find<ModProjectile>("CoznixScepterProjPortal").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
 			}
 		}
 	}

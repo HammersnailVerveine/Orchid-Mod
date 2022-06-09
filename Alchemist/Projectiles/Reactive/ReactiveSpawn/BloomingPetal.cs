@@ -2,6 +2,7 @@
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 
@@ -16,39 +17,39 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 12;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 29;
-			projectile.timeLeft = 900;
-			ProjectileID.Sets.Homing[projectile.type] = true;
-			Main.projFrames[projectile.type] = 2;
+			Projectile.width = 12;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 29;
+			Projectile.timeLeft = 900;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+			Main.projFrames[Projectile.type] = 2;
 		}
 
 		public override void AI()
 		{
-			projectile.rotation += 0.3f;
+			Projectile.rotation += 0.3f;
 
-			if (projectile.timeLeft == 900)
+			if (Projectile.timeLeft == 900)
 			{
-				projectile.frame = projectile.knockBack > 0 ? 1 : 0;
-				projectile.knockBack = 0f;
+				Projectile.frame = Projectile.knockBack > 0 ? 1 : 0;
+				Projectile.knockBack = 0f;
 			}
 
-			if (projectile.timeLeft <= 850)
+			if (Projectile.timeLeft <= 850)
 			{
 
-				if (projectile.timeLeft == 850)
+				if (Projectile.timeLeft == 850)
 				{
-					projectile.velocity *= 0.25f;
+					Projectile.velocity *= 0.25f;
 				}
 
-				projectile.friendly = true;
+				Projectile.friendly = true;
 
-				if (projectile.localAI[0] == 0f)
+				if (Projectile.localAI[0] == 0f)
 				{
-					AdjustMagnitude(ref projectile.velocity);
-					projectile.localAI[0] = 1f;
+					AdjustMagnitude(ref Projectile.velocity);
+					Projectile.localAI[0] = 1f;
 				}
 
 				Vector2 move = Vector2.Zero;
@@ -56,9 +57,9 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 				bool target = false;
 				for (int k = 0; k < 200; k++)
 				{
-					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].HasBuff(mod.BuffType("Attraction")))
+					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].HasBuff(Mod.Find<ModBuff>("Attraction").Type))
 					{
-						Vector2 newMove = Main.npc[k].Center - projectile.Center;
+						Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 						if (distanceTo < distance)
 						{
@@ -72,13 +73,13 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 				if (target)
 				{
 					AdjustMagnitude(ref move);
-					projectile.velocity = (5 * projectile.velocity + move) / 1f;
-					AdjustMagnitude(ref projectile.velocity);
+					Projectile.velocity = (5 * Projectile.velocity + move) / 1f;
+					AdjustMagnitude(ref Projectile.velocity);
 				}
 			}
 			else
 			{
-				projectile.friendly = false;
+				Projectile.friendly = false;
 			}
 		}
 
@@ -93,8 +94,8 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y;
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
 			return false;
 		}
 
@@ -102,8 +103,8 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int type = projectile.frame == 1 ? DustType<Content.Dusts.BloomingAltDust>() : DustType<Content.Dusts.BloomingDust>();
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, type);
+				int type = Projectile.frame == 1 ? DustType<Content.Dusts.BloomingAltDust>() : DustType<Content.Dusts.BloomingDust>();
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, type);
 				Main.dust[dust].noGravity = true;
 			}
 		}

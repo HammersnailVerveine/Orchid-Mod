@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
+using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Water
@@ -9,11 +10,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 10;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 30, 0);
+			Item.damage = 10;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 30, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.WATER;
 			this.rightClickDust = 184;
@@ -39,7 +40,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			{
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				modTarget.spreadOilFire(target.Center, dmg, Main.player[projectile.owner]);
-				Main.PlaySound(2, (int)target.position.X, (int)target.position.Y, 45);
+				SoundEngine.PlaySound(2, (int)target.position.X, (int)target.position.Y, 45);
 			}
 
 			int rand = alchProj.nbElements;

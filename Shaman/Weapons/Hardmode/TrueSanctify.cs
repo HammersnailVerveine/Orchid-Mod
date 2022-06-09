@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 62;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 22;
-			item.useAnimation = 22;
-			item.knockBack = 1.15f;
-			item.rare = 8;
-			item.value = Item.sellPrice(0, 10, 0, 0);
-			item.UseSound = SoundID.Item117;
-			item.autoReuse = true;
-			item.shootSpeed = 9f;
-			item.shoot = mod.ProjectileType("TrueSanctifyProj");
+			Item.damage = 62;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 22;
+			Item.useAnimation = 22;
+			Item.knockBack = 1.15f;
+			Item.rare = 8;
+			Item.value = Item.sellPrice(0, 10, 0, 0);
+			Item.UseSound = SoundID.Item117;
+			Item.autoReuse = true;
+			Item.shootSpeed = 9f;
+			Item.shoot = Mod.Find<ModProjectile>("TrueSanctifyProj").Type;
 			this.empowermentType = 5;
 			this.energy = 6;
 		}
@@ -40,12 +40,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2)
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
 			{
 				for (int i = 0; i < 2; i++)
 				{
 					Vector2 projectileVelocity = (new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(i == 0 ? -20 : 20)));
-					this.NewShamanProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("TrueSanctifyProjAlt"), (int)(item.damage * 0.75), knockBack, item.owner);
+					this.NewShamanProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, Mod.Find<ModProjectile>("TrueSanctifyProjAlt").Type, (int)(Item.damage * 0.75), knockBack, Item.playerIndexTheItemIsReservedFor);
 				}
 			}
 
@@ -56,9 +56,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemType<Sanctify>(), 1);
-			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.ItemType("BrokenHeroFragment") : ItemType<BrokenHeroScepter>(), (thoriumMod != null) ? 2 : 1);
+			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BrokenHeroFragment").Type : ItemType<BrokenHeroScepter>(), (thoriumMod != null) ? 2 : 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

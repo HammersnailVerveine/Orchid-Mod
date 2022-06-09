@@ -14,23 +14,23 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 10;
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.magic = true;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 60;
-			item.useAnimation = 60;
-			item.knockBack = 3.15f;
-			item.rare = ItemRarityID.LightRed;
-			item.value = Item.sellPrice(0, 2, 0, 0);
-			item.UseSound = SoundID.Item43;
-			item.shootSpeed = 5f;
-			item.shoot = mod.ProjectileType("AbyssalChitinScepterProj");
+			Item.damage = 10;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.magic = true;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 60;
+			Item.useAnimation = 60;
+			Item.knockBack = 3.15f;
+			Item.rare = ItemRarityID.LightRed;
+			Item.value = Item.sellPrice(0, 2, 0, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.shootSpeed = 5f;
+			Item.shoot = Mod.Find<ModProjectile>("AbyssalChitinScepterProj").Type;
 			this.empowermentType = 2;
 			this.energy = 20;
 		}
@@ -49,7 +49,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == item.shoot && proj.owner == player.whoAmI)
+				if (proj.active && proj.type == Item.shoot && proj.owner == player.whoAmI)
 				{
 					proj.active = false;
 				}
@@ -69,15 +69,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			base.ModifyTooltips(tooltips);
 
-			var tooltip = tooltips.Find(i => i.Name.Equals("Damage") && i.mod == "Terraria");
+			var tooltip = tooltips.Find(i => i.Name.Equals("Damage") && i.Mod == "Terraria");
 			if (tooltip != null)
 			{
-				string[] split = tooltip.text.Split(' ');
+				string[] split = tooltip.Text.Split(' ');
 				if (Int32.TryParse(split[0], out int dmg2))
 				{
 					dmg2 *= 15;
 					split[0] = split[0] + " - " + dmg2;
-					tooltip.text = String.Join(" ", split);
+					tooltip.Text = String.Join(" ", split);
 				}
 			}
 		}
@@ -87,7 +87,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "AbyssalChitin", 9);
 				recipe.SetResult(this);

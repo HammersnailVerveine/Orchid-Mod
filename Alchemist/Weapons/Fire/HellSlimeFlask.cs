@@ -11,11 +11,11 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 25;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.damage = 25;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.FIRE;
 			this.rightClickDust = 6;
@@ -36,7 +36,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(null, "KingSlimeFlask", 1);
 			recipe.AddIngredient(ItemID.HellstoneBar, 10);
@@ -50,7 +50,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 		{
 			if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
 			{
-				target.AddBuff(mod.BuffType("SlimeSlow"), 90 * (alchProj.nbElements * 2));
+				target.AddBuff(Mod.Find<ModBuff>("SlimeSlow").Type, 90 * (alchProj.nbElements * 2));
 			}
 
 			int rand = alchProj.nbElements;

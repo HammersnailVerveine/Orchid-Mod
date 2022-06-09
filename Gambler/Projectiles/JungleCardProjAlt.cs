@@ -1,11 +1,18 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
 {
 	public class JungleCardProjAlt : OrchidModGamblerProjectile
 	{
+		bool spinDir;
+		int baseTimeLeft;
+		
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spore");
@@ -13,46 +20,95 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 26;
-			projectile.height = 26;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.tileCollide = false;
-			projectile.timeLeft = 600;
-			this.bonusTrigger = true;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = false;
+			Projectile.tileCollide = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 600;
+			Projectile.extraUpdates = 1;
+			this.gamblingChipChance = 3;
+			Main.projFrames[Projectile.type] = 2;
 		}
-
-		public override void Kill(int timeLeft)
-		{
-			for (int i = 0; i < 10; i++)
-			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 44);
-				Main.dust[dust].velocity *= 1.5f;
-				Main.dust[dust].scale *= 1f;
+		
+		public override void OnSpawn() {
+			for (int i = 0 ; i < 3 ; i ++) {
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 163)].noGravity = true;
 			}
+			Projectile.frame = Main.rand.Next(2);
+			spinDir = Main.rand.Next(2) == 0 ? true : false;
+			baseTimeLeft = Projectile.timeLeft;
 		}
 
 		public override void SafeAI()
 		{
-			projectile.rotation += 0.01f;
-			projectile.velocity *= 0.95f;
+			if (Projectile.timeLeft < baseTimeLeft - 120) {
+				if (Projectile.friendly == false) {
+					Projectile.timeLeft -= Main.rand.Next(20);
+					Projectile.friendly = true;
+					Projectile.netUpdate = true;
+				}
+				Projectile.velocity *= 0.975f;
+				
+				Vector2 move = Vector2.Zero;
+				float distance = 200f;
+				bool target = false;
+				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				for (int k = 0; k < 200; k++)
+				{		
+					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && (dummy ? Main.npc[k].type == NPCID.TargetDummy : Main.npc[k].type != NPCID.TargetDummy))
+					{
+						Vector2 newMove = Main.npc[k].Center - Projectile.Center;
+						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+						if (distanceTo < distance)
+						{
+							move = newMove;
+							distance = distanceTo;
+							target = true;
+						}
+					}
+				}
+				if (target)
+				{
+					if (Projectile.timeLeft % 60 == 0) {
+						move.Normalize();
+						move *= 3f;
+						move = move.RotatedByRandom(MathHelper.ToRadians(Main.rand.Next(30)));
+						Projectile.velocity = move;
+						
+						for (int i = 0 ; i < 2 ; i ++) {
+							Dust dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 163)];
+							dust.velocity *= 0.5f;
+							dust.noGravity = true;
+						}
+					}
+				} else {
+					if (Projectile.timeLeft % 45 == 0) {
+						Projectile.velocity.Normalize();
+						Projectile.velocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(180));
+						for (int i = 0 ; i < 2 ; i ++) {
+							Dust dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 163)];
+							dust.velocity *= 0.5f;
+							dust.noGravity = true;
+						}
+					}
+				}
+			} else {
+				Projectile.velocity *= 0.95f;
+			}
+			Projectile.rotation += (Projectile.velocity.Length() / 45f + 0.05f) * (spinDir ? 1 : -1);
+		}
+		
+		public override bool OnTileCollide(Vector2 oldVelocity) {
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X / 2;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y / 2;
+			return false;
 		}
 
-		public override void BonusProjectiles(Player player, OrchidModPlayer modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy)
+		public override void Kill(int timeLeft)
 		{
-			if (modProjectile.gamblerInternalCooldown == 0)
-			{
-				modProjectile.gamblerInternalCooldown = 30;
-				int projType = ProjectileType<Gambler.Projectiles.JungleCardProj>();
-				Vector2 target = Main.MouseWorld;
-				Vector2 heading = target - projectile.position;
-				heading.Normalize();
-				heading *= new Vector2(0f, 10f).Length();
-				Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(15));
-				int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, player.whoAmI), dummy);
-				Main.projectile[newProjectile].localAI[1] = projectile.ai[1];
-				Main.projectile[newProjectile].netUpdate = true;
-				OrchidModProjectile.spawnDustCircle(projectile.Center - new Vector2(4, 4), 44, 10, 4, false, 1f, 1.5f, 5f, true, true, false, 0, 0, true);
+			for (int i = 0 ; i < 3 ; i ++) {
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 163)].noGravity = true;
 			}
 		}
 	}

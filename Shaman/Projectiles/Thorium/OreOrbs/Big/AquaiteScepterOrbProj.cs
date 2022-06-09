@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 {
@@ -7,15 +8,15 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 30;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 20;
-			projectile.scale = 1f;
-			projectile.alpha = 192;
-			projectile.tileCollide = false;
-			projectile.penetrate = 10;
+			Projectile.width = 30;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 20;
+			Projectile.scale = 1f;
+			Projectile.alpha = 192;
+			Projectile.tileCollide = false;
+			Projectile.penetrate = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -27,13 +28,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 29);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 29);
 				Main.dust[dust].velocity /= 10f;
 				Main.dust[dust].scale = 1f;
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].noLight = false;
 
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 33);
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 33);
 				Main.dust[dust2].velocity /= 1f;
 				Main.dust[dust2].scale = 1.7f;
 				Main.dust[dust2].noGravity = true;
@@ -45,8 +46,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 29);
-				Main.dust[dust].velocity = projectile.velocity / 2;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 29);
+				Main.dust[dust].velocity = Projectile.velocity / 2;
 				Main.dust[dust].noGravity = true;
 			}
 		}
@@ -56,7 +57,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
 			{
 				target.velocity.Y = -15f;
-				target.AddBuff((mod.BuffType("AquaBump")), 10 * 60);
+				target.AddBuff((Mod.Find<ModBuff>("AquaBump").Type), 10 * 60);
 			}
 		}
 	}

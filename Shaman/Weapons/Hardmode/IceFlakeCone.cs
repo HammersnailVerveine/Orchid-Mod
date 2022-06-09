@@ -16,18 +16,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 72;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.knockBack = 1.15f;
-			item.rare = ItemRarityID.Yellow;
-			item.value = Item.sellPrice(0, 4, 80, 0);
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shootSpeed = 12f;
-			item.shoot = ModContent.ProjectileType<Projectiles.IceFlakeConeProj>();
+			Item.damage = 72;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 10;
+			Item.useAnimation = 10;
+			Item.knockBack = 1.15f;
+			Item.rare = ItemRarityID.Yellow;
+			Item.value = Item.sellPrice(0, 4, 80, 0);
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
+			Item.shootSpeed = 12f;
+			Item.shoot = ModContent.ProjectileType<Projectiles.IceFlakeConeProj>();
 
 			this.empowermentType = 2;
 			this.catalystType = ShamanCatalystType.ROTATE;
@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			int buffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int buffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 			int numberProjectiles = 1 + Main.rand.Next(2 + buffsCount);
 
 			for (int i = 0; i < numberProjectiles; i++)

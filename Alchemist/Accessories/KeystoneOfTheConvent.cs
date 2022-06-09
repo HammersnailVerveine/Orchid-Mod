@@ -8,13 +8,13 @@ namespace OrchidMod.Alchemist.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 26;
-			item.height = 26;
-			item.value = Item.sellPrice(0, 2, 50, 0);
-			item.rare = 3;
-			item.accessory = true;
-			item.crit = 4;
-			item.damage = 37;
+			Item.width = 26;
+			Item.height = 26;
+			Item.value = Item.sellPrice(0, 2, 50, 0);
+			Item.rare = 3;
+			Item.accessory = true;
+			Item.crit = 4;
+			Item.damage = 37;
 		}
 
 		public override void SetStaticDefaults()

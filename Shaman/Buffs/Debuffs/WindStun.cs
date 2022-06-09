@@ -5,7 +5,7 @@ namespace OrchidMod.Shaman.Buffs.Debuffs
 {
 	public class WindStun : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wind Stun");
 			Description.SetDefault("Greatly reduced movement speed");

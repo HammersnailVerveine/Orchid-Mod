@@ -8,24 +8,24 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 24;
-			item.height = 28;
-			item.value = Item.sellPrice(0, 5, 50, 0);
-			item.rare = 5;
-			item.accessory = true;
+			Item.width = 24;
+			Item.height = 28;
+			Item.value = Item.sellPrice(0, 5, 50, 0);
+			Item.rare = 5;
+			Item.accessory = true;
 		}
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Prismatic Idol");
 			Tooltip.SetDefault("Your different shamanic bonds increases various stats while active"
-							+ "\nYour shamanic earth bonds empowerments will increase your maximum life by 50"
-							+ "\nIncreases the duration of your shamanic empowerments by 3 seconds"
+							+ "\nYour shamanic earth bonds will increase your maximum life by 50"
+							+ "\nIncreases the duration of your shamanic bonds by 3 seconds"
 							+ "\n10% increased shamanic damage");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
 			modPlayer.shamanBuffTimer += 3;
 			modPlayer.shamanAmber = true;
@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "AmberIdol", 1);
 			recipe.AddIngredient(null, "TopazIdol", 1);
 			recipe.AddIngredient(null, "AmethystIdol", 1);

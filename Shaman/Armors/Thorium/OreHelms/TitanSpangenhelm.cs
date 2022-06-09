@@ -10,11 +10,11 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 
 		public override void SafeSetDefaults()
 		{
-			item.width = 26;
-			item.height = 24;
-			item.value = Item.sellPrice(0, 2, 28, 0);
-			item.rare = 6;
-			item.defense = 14;
+			Item.width = 26;
+			Item.height = 24;
+			Item.value = Item.sellPrice(0, 2, 28, 0);
+			Item.rare = 6;
+			Item.defense = 14;
 		}
 
 		public override void SetStaticDefaults()
@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				return body.type == thoriumMod.ItemType("TitanBreastplate") && legs.type == thoriumMod.ItemType("TitanGreaves");
+				return body.type == thoriumMod.Find<ModItem>("TitanBreastplate").Type && legs.type == thoriumMod.Find<ModItem>("TitanGreaves").Type;
 			}
 			else
 			{
@@ -65,8 +65,8 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(thoriumMod.TileType("SoulForge"));
+				ModRecipe recipe = new ModRecipe(Mod);
+				recipe.AddTile(thoriumMod.Find<ModTile>("SoulForge").Type);
 				recipe.AddIngredient(thoriumMod, "TitanBar", 12);
 				recipe.SetResult(this);
 				recipe.AddRecipe();

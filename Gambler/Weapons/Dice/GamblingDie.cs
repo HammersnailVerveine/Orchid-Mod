@@ -6,10 +6,10 @@ namespace OrchidMod.Gambler.Weapons.Dice
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 32;
-			item.height = 34;
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 1;
+			Item.width = 32;
+			Item.height = 34;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = 1;
 			this.diceID = 0;
 			this.diceCost = 2;
 			this.diceDuration = 15;

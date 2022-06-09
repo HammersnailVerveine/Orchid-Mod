@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -9,11 +10,11 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 30;
-			item.value = Item.sellPrice(0, 4, 0, 0);
-			item.rare = 5;
-			item.accessory = true;
+			Item.width = 30;
+			Item.height = 30;
+			Item.value = Item.sellPrice(0, 4, 0, 0);
+			Item.rare = 5;
+			Item.accessory = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -38,8 +39,8 @@ namespace OrchidMod.Shaman.Accessories
 
 				if (modPlayer.shamanDestroyerCount == 5)
 				{
-					Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 33);
-					player.AddBuff((mod.BuffType("DestroyerFrenzy")), 60 * 10);
+					SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 33);
+					player.AddBuff((Mod.Find<ModBuff>("DestroyerFrenzy").Type), 60 * 10);
 
 					for (int i = 0; i < 15; i++)
 					{
@@ -54,7 +55,7 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(1225, 5); // Hallowed Bar
 			recipe.AddIngredient(548, 20); // Sould of Might
 			recipe.AddTile(TileID.MythrilAnvil);

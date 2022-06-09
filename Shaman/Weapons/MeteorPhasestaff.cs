@@ -8,20 +8,20 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 8;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 4;
-			item.useAnimation = 32;
-			item.knockBack = 0f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 48, 0);
-			item.autoReuse = true;
-			item.shootSpeed = 5.25f;
-			item.shoot = mod.ProjectileType("MeteorPhasestaffProj");
-			item.UseSound = SoundID.Item15;
+			Item.damage = 8;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 4;
+			Item.useAnimation = 32;
+			Item.knockBack = 0f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 48, 0);
+			Item.autoReuse = true;
+			Item.shootSpeed = 5.25f;
+			Item.shoot = Mod.Find<ModProjectile>("MeteorPhasestaffProj").Type;
+			Item.UseSound = SoundID.Item15;
 			this.empowermentType = 1;
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			this.energy = 2;
 		}
 
@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Weapons
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 3)
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 3)
 			{
 				flat += 7f;
 			}
@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.MeteoriteBar, 20);
 			recipe.SetResult(this);

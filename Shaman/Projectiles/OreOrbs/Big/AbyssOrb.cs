@@ -14,13 +14,13 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 24;
-			projectile.height = 24;
-			projectile.aiStyle = 0;
-			projectile.friendly = true;
-			projectile.timeLeft = 12960000;
-			projectile.scale = 1f;
-			projectile.tileCollide = false;
+			Projectile.width = 24;
+			Projectile.height = 24;
+			Projectile.aiStyle = 0;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 12960000;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = false;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -35,19 +35,19 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			if (player != Main.player[Main.myPlayer])
 			{
-				projectile.active = false;
+				Projectile.active = false;
 			}
 
-			projectile.rotation += 0.1f;
+			Projectile.rotation += 0.1f;
 
 			if (player.GetModPlayer<OrchidModPlayer>().shamanOrbBig != ShamanOrbBig.ABYSS || player.GetModPlayer<OrchidModPlayer>().orbCountBig <= 0)
-				projectile.Kill();
+				Projectile.Kill();
 
-			if (projectile.timeLeft == 12960000)
+			if (Projectile.timeLeft == 12960000)
 			{
 				int nbOrb = player.GetModPlayer<OrchidModPlayer>().orbCountBig;
 				int offsetX = 11;
@@ -82,24 +82,24 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 					startY = -26 - offsetX;
 				}
 
-				if (projectile.damage != 0)
+				if (Projectile.damage != 0)
 				{
-					projectile.damage = 0;
+					Projectile.damage = 0;
 					startX = -36 - offsetX;
 					startY = -26 - offsetX;
 				}
 			}
 
-			projectile.velocity.X = player.velocity.X;
-			projectile.position.X = player.position.X + player.width / 2 + startX;
-			projectile.position.Y = player.position.Y + startY;
+			Projectile.velocity.X = player.velocity.X;
+			Projectile.position.X = player.position.X + player.width / 2 + startX;
+			Projectile.position.Y = player.position.Y + startY;
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 59);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 59);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 10f;
 			}

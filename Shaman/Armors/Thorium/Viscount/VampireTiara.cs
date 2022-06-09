@@ -9,11 +9,11 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 22;
-			item.height = 18;
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 2;
-			item.defense = 6;
+			Item.width = 22;
+			Item.height = 18;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = 2;
+			Item.defense = 6;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == mod.ItemType("VampireTunic") && legs.type == mod.ItemType("VampireSarong");
+			return body.type == Mod.Find<ModItem>("VampireTunic").Type && legs.type == Mod.Find<ModItem>("VampireSarong").Type;
 		}
 
 		public override void UpdateArmorSet(Player player)
@@ -56,7 +56,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "ViscountMaterial", 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);

@@ -9,11 +9,11 @@ namespace OrchidMod.Shaman.Armors.Crimson
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 22;
-			item.height = 14;
-			item.value = Item.sellPrice(0, 0, 45, 0);
-			item.rare = 2;
-			item.defense = 5;
+			Item.width = 22;
+			Item.height = 14;
+			Item.value = Item.sellPrice(0, 0, 45, 0);
+			Item.rare = 2;
+			Item.defense = 5;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Armors.Crimson
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.CrimtaneBar, 20);
 			recipe.AddIngredient(ItemID.TissueSample, 15);
 			recipe.AddTile(TileID.Anvils);

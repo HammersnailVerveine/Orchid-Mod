@@ -1,4 +1,6 @@
 using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Accessories
 {
@@ -6,11 +8,11 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 36;
-			item.value = Item.sellPrice(0, 5, 0, 0);
-			item.rare = 8;
-			item.accessory = true;
+			Item.width = 30;
+			Item.height = 36;
+			Item.value = Item.sellPrice(0, 5, 0, 0);
+			Item.rare = 8;
+			Item.accessory = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -33,12 +35,12 @@ namespace OrchidMod.Shaman.Accessories
 					modPlayer.shamanDiabolistCount = 0;
 				}
 
-				if (modPlayer.shamanDiabolistCount >= player.statLifeMax2 / 2 && !player.HasBuff(mod.BuffType("DiabolistCauterizationCooldown")))
+				if (modPlayer.shamanDiabolistCount >= player.statLifeMax2 / 2 && !player.HasBuff(Mod.Find<ModBuff>("DiabolistCauterizationCooldown").Type))
 				{
 					modPlayer.shamanDiabolistCount = 0;
-					Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 74);
-					player.AddBuff((mod.BuffType("DiabolistCauterize")), 60 * 10);
-					player.AddBuff((mod.BuffType("DiabolistCauterizeCooldown")), 60 * 60);
+					SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 74);
+					player.AddBuff((Mod.Find<ModBuff>("DiabolistCauterize").Type), 60 * 10);
+					player.AddBuff((Mod.Find<ModBuff>("DiabolistCauterizeCooldown").Type), 60 * 60);
 
 					for (int i = 0; i < 15; i++)
 					{

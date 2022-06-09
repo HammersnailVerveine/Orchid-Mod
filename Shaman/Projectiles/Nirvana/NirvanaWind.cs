@@ -9,14 +9,14 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.scale = 0f;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.tileCollide = false;
-			projectile.timeLeft = 200;
-			projectile.extraUpdates = 5;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.scale = 0f;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.tileCollide = false;
+			Projectile.timeLeft = 200;
+			Projectile.extraUpdates = 5;
 		}
 		public override Color? GetAlpha(Color lightColor)
 		{
@@ -28,29 +28,29 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 		}
 		public override void AI()
 		{
-			if (projectile.timeLeft == 200)
+			if (Projectile.timeLeft == 200)
 			{
 				for (int i = 0; i < 10; i++)
 				{
-					int SDust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 61);
+					int SDust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 61);
 					Main.dust[SDust].velocity *= 2f;
 					Main.dust[SDust].scale = (float)Main.rand.Next(70, 110) * 0.025f;
 					Main.dust[SDust].noGravity = true;
 				}
 			}
 
-			int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 61);
+			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 61);
 			Main.dust[dust].velocity /= 3f;
 			Main.dust[dust].scale = (float)Main.rand.Next(70, 110) * 0.013f;
 			Main.dust[dust].noGravity = true;
 
-			if (projectile.timeLeft == 199)
-				projectile.velocity.X *= -1;
+			if (Projectile.timeLeft == 199)
+				Projectile.velocity.X *= -1;
 
-			if (projectile.localAI[0] == 0f)
+			if (Projectile.localAI[0] == 0f)
 			{
-				AdjustMagnitude(ref projectile.velocity);
-				projectile.localAI[0] = 1f;
+				AdjustMagnitude(ref Projectile.velocity);
+				Projectile.localAI[0] = 1f;
 			}
 			Vector2 move = Vector2.Zero;
 			float distance = 500f;
@@ -59,7 +59,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			{
 				if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
 				{
-					Vector2 newMove = Main.npc[k].Center - projectile.Center;
+					Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo < distance)
 					{
@@ -72,8 +72,8 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			if (target)
 			{
 				AdjustMagnitude(ref move);
-				projectile.velocity = (20 * projectile.velocity + move) / 10f;
-				AdjustMagnitude(ref projectile.velocity);
+				Projectile.velocity = (20 * Projectile.velocity + move) / 10f;
+				AdjustMagnitude(ref Projectile.velocity);
 			}
 		}
 

@@ -16,11 +16,11 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void SafeSetDefaults()
 		{
-			item.width = 28;
-			item.height = 30;
-			item.value = Item.sellPrice(0, 2, 0, 0);
-			item.rare = ItemRarityID.Red;
-			item.accessory = true;
+			Item.width = 28;
+			Item.height = 30;
+			Item.value = Item.sellPrice(0, 2, 0, 0);
+			Item.rare = ItemRarityID.Red;
+			Item.accessory = true;
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -47,7 +47,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.LunarBar, 10);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 14);
 			recipe.AddTile(TileID.LunarCraftingStation);
@@ -57,7 +57,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssalWings_Glowmask"), Color.White, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssalWings_Glowmask"), Color.White, rotation, scale);
 		}
 	}
 }

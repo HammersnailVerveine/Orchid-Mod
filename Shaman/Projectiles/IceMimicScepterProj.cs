@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles
@@ -18,11 +19,11 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 52;
-			projectile.height = 52;
-			projectile.friendly = true;
-			projectile.timeLeft = 1200;
-			projectile.penetrate = 15;
+			Projectile.width = 52;
+			Projectile.height = 52;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 1200;
+			Projectile.penetrate = 15;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -32,13 +33,13 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void AI()
 		{
-			bool moving = !(projectile.velocity.X < 1f && projectile.velocity.X > -1f && projectile.velocity.Y < 1f && projectile.velocity.Y > -1f);
+			bool moving = !(Projectile.velocity.X < 1f && Projectile.velocity.X > -1f && Projectile.velocity.Y < 1f && Projectile.velocity.Y > -1f);
 			this.slowdelay -= this.slowdelay > 0 ? 1 : 0;
-			this.projectileTrail = projectile.ai[1] == 0f || projectile.ai[1] == 2f;
+			this.projectileTrail = Projectile.ai[1] == 0f || Projectile.ai[1] == 2f;
 
 			if (Main.rand.Next(4) == 0)
 			{
-				int index = Dust.NewDust(projectile.position - projectile.velocity * 0.25f, projectile.width, projectile.height, 59, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(80, 110) * 0.013f);
+				int index = Dust.NewDust(Projectile.position - Projectile.velocity * 0.25f, Projectile.width, Projectile.height, 59, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(80, 110) * 0.013f);
 				Main.dust[index].velocity *= 0.2f;
 				Main.dust[index].scale *= 1.5f;
 				Main.dust[index].noGravity = true;
@@ -46,33 +47,33 @@ namespace OrchidMod.Shaman.Projectiles
 
 			if (!this.initialized)
 			{
-				if (projectile.ai[1] == 3f)
+				if (Projectile.ai[1] == 3f)
 				{
 					this.faster = true;
 				}
-				projectile.ai[1] = 2f;
+				Projectile.ai[1] = 2f;
 				this.initialized = true;
 			}
 
-			if (projectile.ai[1] == 0f || projectile.ai[1] == 2f)
+			if (Projectile.ai[1] == 0f || Projectile.ai[1] == 2f)
 			{
-				projectile.velocity *= 0.95f;
-				projectile.rotation = projectile.velocity.ToRotation();
-				projectile.direction = projectile.spriteDirection;
+				Projectile.velocity *= 0.95f;
+				Projectile.rotation = Projectile.velocity.ToRotation();
+				Projectile.direction = Projectile.spriteDirection;
 
 				this.rotationSpeed = this.rotationSpeed == 0f ? this.rotationSpeed : 0f;
 				if (!moving && this.slowdelay <= 0)
 				{
-					projectile.velocity *= 0f;
-					projectile.ai[1] = 1f;
-					projectile.netUpdate = true;
+					Projectile.velocity *= 0f;
+					Projectile.ai[1] = 1f;
+					Projectile.netUpdate = true;
 				}
 			}
 
-			if (projectile.ai[1] == 1f)
+			if (Projectile.ai[1] == 1f)
 			{
 				float spinValue = 0.005f;
-				projectile.rotation += this.rotationSpeed;
+				Projectile.rotation += this.rotationSpeed;
 				this.rotationSpeed += this.faster ? spinValue * 2 : spinValue;
 				if (this.rotationSpeed >= spinValue * 150)
 				{
@@ -83,7 +84,7 @@ namespace OrchidMod.Shaman.Projectiles
 					{
 						if (Main.npc[w].active && !Main.npc[w].dontTakeDamage && !Main.npc[w].friendly && Main.npc[w].lifeMax > 5 && Main.npc[w].type != NPCID.TargetDummy)
 						{
-							Vector2 newMove = Main.npc[w].Center - projectile.Center;
+							Vector2 newMove = Main.npc[w].Center - Projectile.Center;
 							float distancenewMove = (float)Math.Sqrt((newMove.X * newMove.X) + (newMove.Y * newMove.Y));
 							if (distancenewMove < distance)
 							{
@@ -94,13 +95,13 @@ namespace OrchidMod.Shaman.Projectiles
 
 							if (targetFound)
 							{
-								projectile.ai[1] = 0f;
+								Projectile.ai[1] = 0f;
 								move.Normalize();
 								move *= 25f;
-								projectile.velocity = move;
+								Projectile.velocity = move;
 								this.rotationSpeed = 0f;
 								this.slowdelay = 90;
-								projectile.netUpdate = true;
+								Projectile.netUpdate = true;
 							}
 						}
 					}
@@ -122,9 +123,9 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X / 2;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y / 2;
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 50);
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X / 2;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y / 2;
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 50);
 			return false;
 		}
 
@@ -132,7 +133,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			for (int i = 0; i < 13; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 59);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 59);
 			}
 		}
 

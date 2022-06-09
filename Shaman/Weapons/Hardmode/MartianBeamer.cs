@@ -9,20 +9,20 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 70;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 18;
-			item.useAnimation = 18;
-			item.knockBack = 1.15f;
-			item.rare = 8;
-			item.value = Item.sellPrice(0, 10, 0, 0);
-			item.UseSound = SoundID.Item91;
-			item.autoReuse = true;
-			item.shootSpeed = 7f;
-			item.shoot = mod.ProjectileType("MartianBeamerProj");
+			Item.damage = 70;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 18;
+			Item.useAnimation = 18;
+			Item.knockBack = 1.15f;
+			Item.rare = 8;
+			Item.value = Item.sellPrice(0, 10, 0, 0);
+			Item.UseSound = SoundID.Item91;
+			Item.autoReuse = true;
+			Item.shootSpeed = 7f;
+			Item.shoot = Mod.Find<ModProjectile>("MartianBeamerProj").Type;
 			this.empowermentType = 1;
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 			this.energy = 5;
 		}
@@ -36,17 +36,17 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				thoriumMod.Call("AddMartianItemID", item.type);
+				thoriumMod.Call("AddMartianItemID", Item.type);
 			}
 		}
 
 		public override void UpdateInventory(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
-			item.useTime = 18 - (2 * nbBonds);
-			item.useAnimation = 18 - (2 * nbBonds);
+			Item.useTime = 18 - (2 * nbBonds);
+			Item.useAnimation = 18 - (2 * nbBonds);
 		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)

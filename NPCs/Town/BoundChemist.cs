@@ -16,25 +16,25 @@ namespace OrchidMod.NPCs.Town
 
 		public override void SetDefaults()
 		{
-			npc.lifeMax = 250;
-			npc.damage = 10;
-			npc.defense = 15;
-			npc.knockBackResist = 0.5f;
-			npc.width = 28;
-			npc.height = 36;
-			npc.aiStyle = 0;
-			npc.noGravity = false;
-			npc.HitSound = SoundID.NPCHit1;
-			npc.DeathSound = SoundID.NPCDeath1;
-			npc.friendly = true;
-			npc.rarity = 1;
-			npc.value = Item.buyPrice(0, 0, 0, 0);
+			NPC.lifeMax = 250;
+			NPC.damage = 10;
+			NPC.defense = 15;
+			NPC.knockBackResist = 0.5f;
+			NPC.width = 28;
+			NPC.height = 36;
+			NPC.aiStyle = 0;
+			NPC.noGravity = false;
+			NPC.HitSound = SoundID.NPCHit1;
+			NPC.DeathSound = SoundID.NPCDeath1;
+			NPC.friendly = true;
+			NPC.rarity = 1;
+			NPC.value = Item.buyPrice(0, 0, 0, 0);
 		}
 
 		public override void FindFrame(int frameHeight)
 		{
-			npc.frame.Y = 0;
-			npc.rotation = 0f;
+			NPC.frame.Y = 0;
+			NPC.rotation = 0f;
 		}
 
 		public override bool CanChat()
@@ -46,7 +46,7 @@ namespace OrchidMod.NPCs.Town
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
-				npc.Transform(NPCType<NPCs.Town.Chemist>());
+				NPC.Transform(NPCType<NPCs.Town.Chemist>());
 				OrchidWorld.foundChemist = true;
 			}
 			return "Thanks, you spared me a lot of troubles right there, or... Let's not talk about it.";
@@ -60,9 +60,9 @@ namespace OrchidMod.NPCs.Town
 				{
 					if (Main.player[index].talkNPC > -1)
 					{
-						if (Main.player[index].active && Main.npc[Main.player[index].talkNPC].type == npc.type)
+						if (Main.player[index].active && Main.npc[Main.player[index].talkNPC].type == NPC.type)
 						{
-							npc.Transform(NPCType<NPCs.Town.Chemist>());
+							NPC.Transform(NPCType<NPCs.Town.Chemist>());
 							OrchidWorld.foundChemist = true;
 						}
 					}

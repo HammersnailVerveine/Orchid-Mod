@@ -10,11 +10,11 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 34;
-			item.height = 18;
-			item.value = Item.sellPrice(0, 0, 30, 0);
-			item.rare = 2;
-			item.defense = 6;
+			Item.width = 34;
+			Item.height = 18;
+			Item.value = Item.sellPrice(0, 0, 30, 0);
+			Item.rare = 2;
+			Item.defense = 6;
 		}
 
 		public override void SetStaticDefaults()
@@ -54,7 +54,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "TiamatRelic", 1);
 			recipe.AddIngredient(ItemID.Bone, 10);
 			recipe.AddTile(TileID.Anvils);

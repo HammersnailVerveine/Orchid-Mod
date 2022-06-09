@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons
 {
@@ -7,20 +8,20 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 17;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 18;
-			item.useAnimation = 18;
-			item.knockBack = 3.25f;
-			item.rare = 2;
-			item.value = Item.sellPrice(0, 0, 47, 0);
-			item.UseSound = SoundID.Item21;
-			item.autoReuse = true;
-			item.shootSpeed = 16f;
-			item.shoot = mod.ProjectileType("BlumProj");
+			Item.damage = 17;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 18;
+			Item.useAnimation = 18;
+			Item.knockBack = 3.25f;
+			Item.rare = 2;
+			Item.value = Item.sellPrice(0, 0, 47, 0);
+			Item.UseSound = SoundID.Item21;
+			Item.autoReuse = true;
+			Item.shootSpeed = 16f;
+			Item.shoot = Mod.Find<ModProjectile>("BlumProj").Type;
 			this.empowermentType = 2;
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 			this.energy = 4;
 		}
@@ -35,9 +36,9 @@ namespace OrchidMod.Shaman.Weapons
 		public override void UpdateInventory(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
-			item.useTime = 18 - (nbBonds * 2);
-			item.useAnimation = 18 - (nbBonds * 2);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+			Item.useTime = 18 - (nbBonds * 2);
+			Item.useAnimation = 18 - (nbBonds * 2);
 		}
 	}
 }

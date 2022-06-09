@@ -5,7 +5,7 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 {
 	public class TitanicBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Titan Energy");

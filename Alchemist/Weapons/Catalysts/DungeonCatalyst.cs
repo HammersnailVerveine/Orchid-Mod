@@ -17,19 +17,19 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 30;
-			item.rare = 2;
-			item.damage = 21;
-			item.crit = 4;
-			item.value = Item.sellPrice(0, 0, 75, 0);
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 2;
+			Item.damage = 21;
+			Item.crit = 4;
+			Item.value = Item.sellPrice(0, 0, 75, 0);
 			this.catalystType = 1;
 		}
 
 		public override void CatalystInteractionEffect(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int dmg = (int)(item.damage * modPlayer.alchemistDamage);
+			int dmg = (int)(Item.damage * modPlayer.alchemistDamage);
 			int rand = Main.rand.Next(3);
 			for (int i = 0; i < 4 + rand; i++)
 			{

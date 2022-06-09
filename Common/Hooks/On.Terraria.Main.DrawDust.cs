@@ -17,11 +17,11 @@ namespace OrchidMod.Common.Hooks
 
 			Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 			{
-				foreach (var proj in Main.projectile.ToList().FindAll(i => i.active && i.modProjectile is IDrawAdditive))
+				foreach (var proj in Main.projectile.ToList().FindAll(i => i.active && i.ModProjectile is IDrawAdditive))
 				{
 					try
 					{
-						(proj.modProjectile as IDrawAdditive).DrawAdditive(Main.spriteBatch);
+						(proj.ModProjectile as IDrawAdditive).DrawAdditive(Main.spriteBatch);
 					}
 					catch (Exception e)
 					{

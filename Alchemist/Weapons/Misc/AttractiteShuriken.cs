@@ -14,24 +14,24 @@ namespace OrchidMod.Alchemist.Weapons.Misc
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 5;
-			item.crit = 4;
-			item.useStyle = 1;
-			item.useAnimation = 15;
-			item.useTime = 15;
-			item.shootSpeed = 9f;
-			item.knockBack = 0f;
-			item.width = 22;
-			item.height = 22;
-			item.scale = 1f;
-			item.rare = 0;
-			item.value = Item.sellPrice(0, 0, 0, 0);
-			item.noMelee = true;
-			item.noUseGraphic = true;
-			item.maxStack = 5;
-			item.UseSound = SoundID.Item1;
-			item.consumable = true;
-			item.shoot = ProjectileType<Alchemist.Projectiles.Misc.AttractiteShurikenProj>();
+			Item.damage = 5;
+			Item.crit = 4;
+			Item.useStyle = 1;
+			Item.useAnimation = 15;
+			Item.useTime = 15;
+			Item.shootSpeed = 9f;
+			Item.knockBack = 0f;
+			Item.width = 22;
+			Item.height = 22;
+			Item.scale = 1f;
+			Item.rare = 0;
+			Item.value = Item.sellPrice(0, 0, 0, 0);
+			Item.noMelee = true;
+			Item.noUseGraphic = true;
+			Item.maxStack = 5;
+			Item.UseSound = SoundID.Item1;
+			Item.consumable = true;
+			Item.shoot = ProjectileType<Alchemist.Projectiles.Misc.AttractiteShurikenProj>();
 		}
 
 		public override bool OnPickup(Player player)

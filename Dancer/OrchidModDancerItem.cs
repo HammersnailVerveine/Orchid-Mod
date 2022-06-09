@@ -21,13 +21,13 @@ namespace OrchidMod.Dancer
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = true;
-			item.maxStack = 1;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = true;
+			Item.maxStack = 1;
 		}
 
 		public override bool CloneNewInstances
@@ -38,12 +38,12 @@ namespace OrchidMod.Dancer
 			}
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().dancerDamage;
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().dancerCrit;
 		}
@@ -65,24 +65,24 @@ namespace OrchidMod.Dancer
 				float speedYAlt = this.vertical ? heading.Y : 0f;
 
 				modPlayer.dancerVelocity = new Vector2(speedXAlt, speedYAlt);
-				modPlayer.dancerWeaponDamage = item.damage;
-				modPlayer.dancerWeaponKnockback = item.knockBack;
+				modPlayer.dancerWeaponDamage = Item.damage;
+				modPlayer.dancerWeaponKnockback = Item.knockBack;
 				modPlayer.dancerWeaponType = this.dancerItemType;
 				modPlayer.dancerDashTimer = this.dashTimer;
-				OrchidModDancerHelper.removeDancerPoise(this.poiseChance, this.poiseCost, player, modPlayer, mod);
+				OrchidModDancerHelper.removeDancerPoise(this.poiseChance, this.poiseCost, player, modPlayer, Mod);
 			}
 			return base.CanUseItem(player);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
-				string[] splitText = tt.text.Split(' ');
+				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " dancing " + damageWord;
+				tt.Text = damageValue + " dancing " + damageWord;
 			}
 
 			string str = null;
@@ -103,24 +103,24 @@ namespace OrchidMod.Dancer
 
 			if (str != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "UseTag", str)
+				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", str)
 				{
-					overrideColor = new Color(220, 200, 255)
+					OverrideColor = new Color(220, 200, 255)
 				});
 			}
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Dancer Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Dancer Class-")
 				{
-					overrideColor = new Color(255, 185, 255)
+					OverrideColor = new Color(255, 185, 255)
 				});
 			}
 
 			if (this.poiseCost > 0)
 			{
-				tooltips.Insert(tooltips.Count - 1, new TooltipLine(mod, "PoiseUse", "Uses " + this.poiseCost + " poise"));
+				tooltips.Insert(tooltips.Count - 1, new TooltipLine(Mod, "PoiseUse", "Uses " + this.poiseCost + " poise"));
 			}
 		}
 	}

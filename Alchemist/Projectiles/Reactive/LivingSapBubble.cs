@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 
 namespace OrchidMod.Alchemist.Projectiles.Reactive
 {
@@ -8,13 +9,13 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 26;
-			projectile.height = 26;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 600;
-			projectile.scale = 1f;
-			projectile.alpha = 64;
+			Projectile.width = 26;
+			Projectile.height = 26;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 600;
+			Projectile.scale = 1f;
+			Projectile.alpha = 64;
 			this.spawnTimeLeft = 600;
 		}
 
@@ -25,13 +26,13 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SafeAI()
 		{
-			projectile.velocity.Y *= 0.95f;
-			projectile.velocity.X *= 0.99f;
-			projectile.rotation += 0.02f;
+			Projectile.velocity.Y *= 0.95f;
+			Projectile.velocity.X *= 0.99f;
+			Projectile.rotation += 0.02f;
 
 			if (Main.rand.Next(20) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
 				Main.dust[dust].velocity *= 0.1f;
 				Main.dust[dust].scale *= 1f;
 			}
@@ -41,7 +42,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}
@@ -49,12 +50,12 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SafeKill(int timeLeft, Player player, OrchidModPlayer modPlayer)
 		{
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 85);
-			int dmg = projectile.damage;
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 102, 100, 20, false, 1.5f, 1f, 5f);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 102, 150, 20, false, 1.5f, 1f, 5f);
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 85);
+			int dmg = Projectile.damage;
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 102, 100, 20, false, 1.5f, 1f, 5f);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 102, 150, 20, false, 1.5f, 1f, 5f);
 			Player targetPlayer = Main.player[Main.myPlayer];
-			Vector2 center = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
+			Vector2 center = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
 			float offsetX = targetPlayer.Center.X - center.X;
 			float offsetY = targetPlayer.Center.Y - center.Y;
 			float distance = (float)Math.Sqrt(offsetX * offsetX + offsetY * offsetY);
@@ -81,7 +82,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			{
 				if (Main.npc[k].active && !Main.npc[k].friendly)
 				{
-					Vector2 newMove = Main.npc[k].Center - projectile.Center;
+					Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo < distance)
 					{

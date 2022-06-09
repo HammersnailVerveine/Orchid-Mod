@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 15;
-			item.width = 46;
-			item.height = 46;
-			item.useTime = 48;
-			item.useAnimation = 48;
-			item.knockBack = 4.35f;
-			item.rare = ItemRarityID.Blue;
-			item.value = Item.sellPrice(0, 0, 25, 0);
-			item.UseSound = SoundID.Item21;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("MagmaScepterProj");
+			Item.damage = 15;
+			Item.width = 46;
+			Item.height = 46;
+			Item.useTime = 48;
+			Item.useAnimation = 48;
+			Item.knockBack = 4.35f;
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.sellPrice(0, 0, 25, 0);
+			Item.UseSound = SoundID.Item21;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("MagmaScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 7;
 		}
@@ -52,7 +52,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "MagmaCore", 8);
 				recipe.SetResult(this);

@@ -10,7 +10,7 @@ namespace OrchidMod.Content
 {
 	public abstract class OrchidProjectile : ModProjectile
 	{
-		public Player Owner => Main.player[projectile.owner];
+		public Player Owner => Main.player[Projectile.owner];
 
 		// ...
 

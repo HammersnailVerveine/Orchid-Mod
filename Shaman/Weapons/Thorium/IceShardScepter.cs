@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 14;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 3f;
-			item.rare = ItemRarityID.White;
-			item.value = Item.sellPrice(0, 0, 5, 30);
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = false;
-			item.shootSpeed = 10f;
-			item.shoot = mod.ProjectileType("IceShardScepterProj");
+			Item.damage = 14;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 3f;
+			Item.rare = ItemRarityID.White;
+			Item.value = Item.sellPrice(0, 0, 5, 30);
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = false;
+			Item.shootSpeed = 10f;
+			Item.shoot = Mod.Find<ModProjectile>("IceShardScepterProj").Type;
 			this.empowermentType = 2;
 			this.energy = 6;
 		}
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void UpdateInventory(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit;
+			Item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + modPlayer.shamanCrit;
 		}
 
 		public override void AddRecipes()
@@ -45,7 +45,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.WorkBenches);
 				recipe.AddIngredient(thoriumMod, "IcyShard", 7);
 				recipe.SetResult(this);

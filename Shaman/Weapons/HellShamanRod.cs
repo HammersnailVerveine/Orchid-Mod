@@ -9,17 +9,17 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 32;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.knockBack = 0f;
-			item.rare = ItemRarityID.Orange;
-			item.value = Item.sellPrice(0, 0, 40, 0);
-			item.UseSound = SoundID.Item65;
-			item.shootSpeed = 8f;
-			item.shoot = ModContent.ProjectileType<Projectiles.HellShamanRodProj>();
+			Item.damage = 32;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.knockBack = 0f;
+			Item.rare = ItemRarityID.Orange;
+			Item.value = Item.sellPrice(0, 0, 40, 0);
+			Item.UseSound = SoundID.Item65;
+			Item.shootSpeed = 8f;
+			Item.shoot = ModContent.ProjectileType<Projectiles.HellShamanRodProj>();
 			empowermentType = 4;
 			this.energy = 35;
 		}
@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Weapons
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), mod) > 1) mult *= modPlayer.shamanDamage * 2f;
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), Mod) > 1) mult *= modPlayer.shamanDamage * 2f;
 		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ModContent.ItemType<ShamanRod>(), 1);
 			recipe.AddIngredient(ItemID.HellstoneBar, 12);

@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 14;
-			item.width = 34;
-			item.height = 34;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.knockBack = 4f;
-			item.rare = ItemRarityID.Orange;
-			item.value = Item.sellPrice(0, 0, 50, 0);
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shootSpeed = 14f;
-			item.shoot = mod.ProjectileType("SpiritDropletScepterProj");
+			Item.damage = 14;
+			Item.width = 34;
+			Item.height = 34;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.knockBack = 4f;
+			Item.rare = ItemRarityID.Orange;
+			Item.value = Item.sellPrice(0, 0, 50, 0);
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
+			Item.shootSpeed = 14f;
+			Item.shoot = Mod.Find<ModProjectile>("SpiritDropletScepterProj").Type;
 			this.empowermentType = 5;
 			this.energy = 6;
 		}
@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
 			for (int i = 0; i < nbBonds + 1; i++)
 			{
@@ -53,7 +53,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "SpiritDroplet", 8);
 				recipe.AddIngredient(ItemID.Bone, 20);

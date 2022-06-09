@@ -15,40 +15,40 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 34;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 200;
-			projectile.penetrate = -1;
+			Projectile.width = 14;
+			Projectile.height = 34;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 200;
+			Projectile.penetrate = -1;
 			this.projectileTrail = true;
 		}
 
 		public override void AI()
 		{
-			if (projectile.timeLeft == 200)
-				projectile.rotation += (float)Main.rand.Next(20);
+			if (Projectile.timeLeft == 200)
+				Projectile.rotation += (float)Main.rand.Next(20);
 
-			projectile.rotation += 0.6f;
-			projectile.velocity = projectile.velocity * 0.95f;
+			Projectile.rotation += 0.6f;
+			Projectile.velocity = Projectile.velocity * 0.95f;
 
-			if (projectile.timeLeft < 85)
-				projectile.alpha += 3;
+			if (Projectile.timeLeft < 85)
+				Projectile.alpha += 3;
 
-			if (projectile.timeLeft < 150 && projectile.timeLeft > 100)
+			if (Projectile.timeLeft < 150 && Projectile.timeLeft > 100)
 			{
-				projectile.rotation += 0.05f;
+				Projectile.rotation += 0.05f;
 			}
 
-			if (projectile.timeLeft == 140)
+			if (Projectile.timeLeft == 140)
 			{
-				projectile.damage += 5;
-				projectile.velocity *= 0f;
+				Projectile.damage += 5;
+				Projectile.velocity *= 0f;
 				spawnDustCircle(16, 20);
 			}
 
 			if (rapidFade)
-				projectile.alpha += 3;
+				Projectile.alpha += 3;
 		}
 
 		public void spawnDustCircle(int dustType, int distToCenter)
@@ -58,8 +58,8 @@ namespace OrchidMod.Shaman.Projectiles
 				double dustDeg = (i * (18));//    + 5 - Main.rand.Next(10)));
 				double dustRad = dustDeg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
@@ -74,9 +74,9 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.velocity.X = 0f;
-			projectile.velocity.Y = 0f;
-			projectile.timeLeft /= 2;
+			Projectile.velocity.X = 0f;
+			Projectile.velocity.Y = 0f;
+			Projectile.timeLeft /= 2;
 			rapidFade = true;
 			return false;
 		}

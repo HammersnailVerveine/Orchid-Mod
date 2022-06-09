@@ -10,18 +10,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 98;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.knockBack = 1.15f;
-			item.rare = 8;
-			item.value = Item.sellPrice(0, 20, 0, 0);
-			item.UseSound = SoundID.Item72;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("TerraSpecterProj2");
+			Item.damage = 98;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.knockBack = 1.15f;
+			Item.rare = 8;
+			Item.value = Item.sellPrice(0, 20, 0, 0);
+			Item.UseSound = SoundID.Item72;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("TerraSpecterProj2").Type;
 			this.empowermentType = 5;
 			this.energy = 5;
 		}
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 			BuffsCount -= BuffsCount > 0 ? 1 : 0;
 
 			float spread = 1f * 0.0574f;
@@ -53,7 +53,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			for (i = 0; i < BuffsCount; i++)
 			{
 				offsetAngle += deltaAngle * 4;
-				this.NewShamanProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), mod.ProjectileType("TerraSpecterProj"), (int)(item.damage * 0.55), knockBack, item.owner);
+				this.NewShamanProjectile(position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), Mod.Find<ModProjectile>("TerraSpecterProj").Type, (int)(Item.damage * 0.55), knockBack, Item.playerIndexTheItemIsReservedFor);
 			}
 			return true;
 		}
@@ -65,7 +65,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "TrueSanctify", 1);
 			recipe.AddIngredient(null, "TrueDepthsBaton", 1);
 			recipe.AddTile(TileID.MythrilAnvil);

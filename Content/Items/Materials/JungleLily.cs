@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -19,25 +20,25 @@ namespace OrchidMod.Content.Items.Materials
 
 		public override void SetDefaults()
 		{
-			item.width = 22;
-			item.height = 22;
-			item.maxStack = 99;
-			item.rare = ItemRarityID.Blue;
-			item.value = Item.sellPrice(0, 0, 5, 0);
+			Item.width = 22;
+			Item.height = 22;
+			Item.maxStack = 99;
+			Item.rare = ItemRarityID.Blue;
+			Item.value = Item.sellPrice(0, 0, 5, 0);
 			
-			item.useTurn = true;
-			item.autoReuse = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.consumable = true;
-			item.createTile = ModContent.TileType<JungleLilyTile>();
+			Item.useTurn = true;
+			Item.autoReuse = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<JungleLilyTile>();
 		}
 	}
 
 	public class JungleLilyTile : OrchidTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSpelunker[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -55,7 +56,7 @@ namespace OrchidMod.Content.Items.Materials
 
 			this.CreateMapEntry("Jungle Lily", new Color(177, 46, 77));
 
-			dustType = ModContent.DustType<Content.Dusts.BloomingDust>();
+			DustType = ModContent.DustType<Content.Dusts.BloomingDust>();
 			soundType = SoundID.Grass;
 		}
 
@@ -68,12 +69,12 @@ namespace OrchidMod.Content.Items.Materials
 			b = 0.05f * power;
 		}
 
-		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref Color drawColor, ref int nextSpecialDrawIndex)
+		public override void DrawEffects(int i, int j, SpriteBatch spriteBatch, ref TileDrawInfo drawData)
 		{
 			if (!Main.gamePaused && Main.instance.IsActive && (!Lighting.UpdateEveryFrame || Main.rand.NextBool(4)))
 			{
 				Tile tile = Main.tile[i, j];
-				short frameY = tile.frameY;
+				short frameY = tile.TileFrameY;
 
 				if (frameY == 0 && Main.rand.NextBool(20))
 				{
@@ -90,7 +91,7 @@ namespace OrchidMod.Content.Items.Materials
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{
 			var tile = Main.tile[i, j];
-			if (tile == null || tile.frameX % 36 == 0 || tile.frameY != 18) return;
+			if (tile == null || tile.TileFrameX % 36 == 0 || tile.TileFrameY != 18) return;
 
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive);
@@ -101,7 +102,7 @@ namespace OrchidMod.Content.Items.Materials
 				Vector2 zero = new Vector2(Main.offScreenRange, Main.offScreenRange);
 				if (Main.drawToScreen) zero = Vector2.Zero;
 
-				Rectangle rectangle = new Rectangle(tile.frameX - 18, 0, 36, 38);
+				Rectangle rectangle = new Rectangle(tile.TileFrameX - 18, 0, 36, 38);
 
 				var texture = ModContent.GetTexture("OrchidMod/Assets/Textures/Tiles/" + this.Name + "_Glow");
 				var offset = new Vector2(20, 22);
@@ -111,7 +112,7 @@ namespace OrchidMod.Content.Items.Materials
 
 				for (int k = 0; k < 3; k++)
 				{
-					offset = new Vector2(20, 22) + new Vector2(2 * power, 0).RotatedBy(k * 2.0943f + Main.GlobalTime * 3);
+					offset = new Vector2(20, 22) + new Vector2(2 * power, 0).RotatedBy(k * 2.0943f + Main.GlobalTimeWrappedHourly * 3);
 					position = new Vector2(i * 16 + offset.X - (int)Main.screenPosition.X, j * 16 + offset.Y - (int)Main.screenPosition.Y) + zero;
 					spriteBatch.Draw(texture, position, rectangle, Color.White * 0.35f * power, 0f, origin, 1f, SpriteEffects.None, 0f);
 				}

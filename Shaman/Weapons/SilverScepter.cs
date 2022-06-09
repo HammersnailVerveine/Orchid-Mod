@@ -8,17 +8,17 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 20;
-			item.width = 36;
-			item.height = 38;
-			item.useTime = 62;
-			item.useAnimation = 62;
-			item.knockBack = 4f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 20, 0);
-			item.UseSound = SoundID.Item45;
-			item.shootSpeed = 7.5f;
-			item.shoot = mod.ProjectileType("SilverScepterProj");
+			Item.damage = 20;
+			Item.width = 36;
+			Item.height = 38;
+			Item.useTime = 62;
+			Item.useAnimation = 62;
+			Item.knockBack = 4f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 20, 0);
+			Item.UseSound = SoundID.Item45;
+			Item.shootSpeed = 7.5f;
+			Item.shoot = Mod.Find<ModProjectile>("SilverScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 7;
 		}
@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Sapphire, 8);
 			recipe.AddIngredient(ItemID.SilverBar, 10);

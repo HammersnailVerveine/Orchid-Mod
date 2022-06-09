@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,16 +18,16 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = ItemRarityID.Blue;
-			item.damage = 10;
-			item.crit = 4;
-			item.knockBack = 0.5f;
-			item.useAnimation = 30;
-			item.useTime = 30;
-			item.shootSpeed = 3f;
-			item.UseSound = SoundID.Item1;
-			item.channel = true;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = ItemRarityID.Blue;
+			Item.damage = 10;
+			Item.crit = 4;
+			Item.knockBack = 0.5f;
+			Item.useAnimation = 30;
+			Item.useTime = 30;
+			Item.shootSpeed = 3f;
+			Item.UseSound = SoundID.Item1;
+			Item.channel = true;
 
 			this.cardRequirement = 0;
 			this.gamblerCardSets.Add("Elemental");
@@ -36,7 +37,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			type = ModContent.ProjectileType<Gambler.Projectiles.SapCardProj>();
 
-			Main.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 1);
+			SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 1);
 
 			if (player.ownedProjectileCounts[type] == 0 && player.channel) OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI), dummy);
 		}

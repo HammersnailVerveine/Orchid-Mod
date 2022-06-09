@@ -10,11 +10,11 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 
 		public override void SafeSetDefaults()
 		{
-			item.width = 24;
-			item.height = 12;
-			item.value = Item.sellPrice(0, 0, 20, 0);
-			item.rare = 1;
-			item.defense = 2;
+			Item.width = 24;
+			Item.height = 12;
+			Item.value = Item.sellPrice(0, 0, 20, 0);
+			Item.rare = 1;
+			Item.defense = 2;
 		}
 
 		public override void SetStaticDefaults()
@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.Sapphire, 1);
 			recipe.AddIngredient(null, "EmptyTiara", 1);
 			recipe.AddTile(TileID.Anvils);

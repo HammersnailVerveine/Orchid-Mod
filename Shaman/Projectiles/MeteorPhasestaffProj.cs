@@ -7,15 +7,15 @@ namespace OrchidMod.Shaman.Projectiles
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 8;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.penetrate = 100;
-			projectile.timeLeft = 60;
-			projectile.extraUpdates = 5;
-			projectile.ignoreWater = true;
-			projectile.alpha = 255;
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = 100;
+			Projectile.timeLeft = 60;
+			Projectile.extraUpdates = 5;
+			Projectile.ignoreWater = true;
+			Projectile.alpha = 255;
 		}
 
 		public override void SetStaticDefaults()
@@ -25,25 +25,25 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void AI()
 		{
-			projectile.damage -= projectile.timeLeft % 5 == 0 && projectile.damage > 1 ? 1 : 0;
+			Projectile.damage -= Projectile.timeLeft % 5 == 0 && Projectile.damage > 1 ? 1 : 0;
 
-			int index1 = Dust.NewDust(projectile.Center, 0, 0, 270, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
+			int index1 = Dust.NewDust(Projectile.Center, 0, 0, 270, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 			Main.dust[index1].velocity *= 0.2f;
 			Main.dust[index1].fadeIn = 1f;
-			Main.dust[index1].scale = 0.8f + ((projectile.timeLeft) / 90f) * 1.8f;
+			Main.dust[index1].scale = 0.8f + ((Projectile.timeLeft) / 90f) * 1.8f;
 			Main.dust[index1].noGravity = true;
 
-			if (projectile.timeLeft == 60 || projectile.timeLeft == 55)
+			if (Projectile.timeLeft == 60 || Projectile.timeLeft == 55)
 			{
-				int dist = projectile.timeLeft == 55 ? 15 : 20;
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 170, dist, 15, true, 1f, 0f);
+				int dist = Projectile.timeLeft == 55 ? 15 : 20;
+				OrchidModProjectile.spawnDustCircle(Projectile.Center, 170, dist, 15, true, 1f, 0f);
 			}
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 170, 20, 15, true, 1f, 0f);
-			int dust = Dust.NewDust(projectile.Center, 0, 0, 270, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 170, 20, 15, true, 1f, 0f);
+			int dust = Dust.NewDust(Projectile.Center, 0, 0, 270, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 			Main.dust[dust].noGravity = true;
 			Main.dust[dust].velocity *= 0.2f;
 			Main.dust[dust].scale = 2.5f;

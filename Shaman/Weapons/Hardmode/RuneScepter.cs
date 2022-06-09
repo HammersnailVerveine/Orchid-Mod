@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
@@ -7,20 +8,20 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 43;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 18;
-			item.useAnimation = 18;
-			item.knockBack = 3f;
-			item.rare = 5;
-			item.value = Item.sellPrice(0, 3, 10, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 13f;
-			item.shoot = mod.ProjectileType("RuneScepterProj");
+			Item.damage = 43;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 18;
+			Item.useAnimation = 18;
+			Item.knockBack = 3f;
+			Item.rare = 5;
+			Item.value = Item.sellPrice(0, 3, 10, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 13f;
+			Item.shoot = Mod.Find<ModProjectile>("RuneScepterProj").Type;
 			this.empowermentType = 1;
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
 			this.energy = 4;
 		}
@@ -35,15 +36,15 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 			mult *= modPlayer.shamanDamage + (nbBonds * 0.1f);
 		}
 
 		public override void UpdateInventory(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
-			item.shootSpeed = 13f + (2f * nbBonds);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+			Item.shootSpeed = 13f + (2f * nbBonds);
 		}
 	}
 }

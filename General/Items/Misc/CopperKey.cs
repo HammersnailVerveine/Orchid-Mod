@@ -11,11 +11,11 @@ namespace OrchidMod.General.Items.Misc
 
 		public override void SetDefaults()
 		{
-			item.width = 26;
-			item.height = 22;
-			item.maxStack = 1;
-			item.useStyle = 0;
-			item.value = Item.sellPrice(0, 0, 5, 0);
+			Item.width = 26;
+			Item.height = 22;
+			Item.maxStack = 1;
+			Item.useStyle = 0;
+			Item.value = Item.sellPrice(0, 0, 5, 0);
 		}
 	}
 }

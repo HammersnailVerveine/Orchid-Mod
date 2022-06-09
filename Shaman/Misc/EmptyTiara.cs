@@ -8,10 +8,10 @@ namespace OrchidMod.Shaman.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.width = 22;
-			item.height = 12;
-			item.maxStack = 99;
-			item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.width = 22;
+			Item.height = 12;
+			Item.maxStack = 99;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
 		}
 
 		public override void SetStaticDefaults()
@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Misc
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddRecipeGroup("IronBar", 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);

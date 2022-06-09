@@ -12,36 +12,36 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 18;
-			projectile.height = 16;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 180;
+			Projectile.width = 18;
+			Projectile.height = 16;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 180;
 		}
 
 		public override void AI()
 		{
-			projectile.rotation += 0.05f;
-			projectile.velocity.Y -= 0.03f;
-			projectile.velocity.X *= 0.95f;
-			projectile.alpha += 3 + Main.rand.Next(3);
-			if (projectile.alpha >= 255)
+			Projectile.rotation += 0.05f;
+			Projectile.velocity.Y -= 0.03f;
+			Projectile.velocity.X *= 0.95f;
+			Projectile.alpha += 3 + Main.rand.Next(3);
+			if (Projectile.alpha >= 255)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
-			projectile.velocity = (projectile.velocity.RotatedByRandom(MathHelper.ToRadians(5)));
+			Projectile.velocity = (Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(5)));
 			if (Main.rand.Next(10) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
 				Main.dust[dust].noGravity = true;
 			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y;
-			projectile.ai[1] = projectile.ai[1] == -1 ? 1 : -1;
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
+			Projectile.ai[1] = Projectile.ai[1] == -1 ? 1 : -1;
 			return false;
 		}
 
@@ -49,7 +49,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
 				Main.dust[dust].noGravity = true;
 			}
 		}

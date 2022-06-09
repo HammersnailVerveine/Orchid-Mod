@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Accessories
 {
@@ -6,11 +7,11 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 28;
-			item.height = 28;
-			item.value = Item.sellPrice(0, 4, 0, 0);
-			item.rare = 8;
-			item.accessory = true;
+			Item.width = 28;
+			Item.height = 28;
+			Item.value = Item.sellPrice(0, 4, 0, 0);
+			Item.rare = 8;
+			Item.accessory = true;
 		}
 		public override void SetStaticDefaults()
 		{
@@ -21,7 +22,7 @@ namespace OrchidMod.Shaman.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (!(Main.LocalPlayer.FindBuffIndex(mod.BuffType("BrokenPower")) > -1))
+			if (!(Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("BrokenPower").Type) > -1))
 			{
 				modPlayer.shamanDamage += 0.25f;
 			}

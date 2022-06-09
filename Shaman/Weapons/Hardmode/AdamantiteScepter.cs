@@ -9,18 +9,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 51;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 50;
-			item.useAnimation = 50;
-			item.knockBack = 4.15f;
-			item.rare = 4;
-			item.value = Item.sellPrice(0, 2, 70, 0);
-			item.UseSound = SoundID.Item117;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("AdamantiteScepterProj");
+			Item.damage = 51;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 50;
+			Item.useAnimation = 50;
+			Item.knockBack = 4.15f;
+			Item.rare = 4;
+			Item.value = Item.sellPrice(0, 2, 70, 0);
+			Item.UseSound = SoundID.Item117;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("AdamantiteScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -41,7 +41,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				for (int i = 0; i < 3; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-					this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, mod.ProjectileType("AdamantiteScepterProj"), damage * 2, knockBack, player.whoAmI);
+					this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("AdamantiteScepterProj").Type, damage * 2, knockBack, player.whoAmI);
 				}
 				player.GetModPlayer<OrchidModPlayer>().orbCountBig = -3;
 			}
@@ -49,7 +49,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			{
 				for (int i = 0; i < numberProjectiles; i++)
 				{
-					this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("AdamantiteScepterProj"), damage, knockBack, player.whoAmI);
+					this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("AdamantiteScepterProj").Type, damage, knockBack, player.whoAmI);
 				}
 			}
 			return false;
@@ -57,7 +57,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.AdamantiteBar, 12);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);

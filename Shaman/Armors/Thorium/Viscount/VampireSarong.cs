@@ -9,11 +9,11 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 18;
-			item.height = 18;
-			item.value = Item.sellPrice(0, 0, 12, 50);
-			item.rare = 2;
-			item.defense = 6;
+			Item.width = 18;
+			Item.height = 18;
+			Item.value = Item.sellPrice(0, 0, 12, 50);
+			Item.rare = 2;
+			Item.defense = 6;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "ViscountMaterial", 10);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);

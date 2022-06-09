@@ -14,12 +14,12 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 26;
-			projectile.height = 26;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 360;
-			projectile.alpha = 255;
+			Projectile.width = 26;
+			Projectile.height = 26;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 360;
+			Projectile.alpha = 255;
 		}
 
 		// public override Color? GetAlpha(Color lightColor)
@@ -29,10 +29,10 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 
 		public override void SafeAI()
 		{
-			bool moreDust = projectile.timeLeft > 300;
+			bool moreDust = Projectile.timeLeft > 300;
 			if (Main.rand.Next(moreDust ? 5 : 10) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 29 : 59);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Main.rand.Next(2) == 0 ? 29 : 59);
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= moreDust ? 2.5f : 1f;
@@ -41,17 +41,17 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 			if (!this.initialized)
 			{
 				this.initialized = true;
-				this.initialVelocity = new Vector2(projectile.velocity.X, projectile.velocity.Y);
-				projectile.velocity *= 0f;
+				this.initialVelocity = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
+				Projectile.velocity *= 0f;
 			}
 
-			if (projectile.timeLeft == 300)
+			if (Projectile.timeLeft == 300)
 			{
-				projectile.velocity = this.initialVelocity;
+				Projectile.velocity = this.initialVelocity;
 				this.projectileTrail = true;
-				projectile.alpha = 0;
-				projectile.friendly = true;
-				projectile.aiStyle = 2;
+				Projectile.alpha = 0;
+				Projectile.friendly = true;
+				Projectile.aiStyle = 2;
 			}
 		}
 
@@ -59,7 +59,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.Next(2) == 0 ? 29 : 59);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Main.rand.Next(2) == 0 ? 29 : 59);
 				Main.dust[dust].velocity *= 2f;
 				Main.dust[dust].scale *= 1.5f;
 				Main.dust[dust].noGravity = true;

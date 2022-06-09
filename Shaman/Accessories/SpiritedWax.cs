@@ -7,11 +7,11 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 28;
-			item.value = Item.sellPrice(0, 0, 55, 0);
-			item.rare = 3;
-			item.accessory = true;
+			Item.width = 30;
+			Item.height = 28;
+			Item.value = Item.sellPrice(0, 0, 55, 0);
+			Item.rare = 3;
+			Item.accessory = true;
 		}
 		public override void SetStaticDefaults()
 		{
@@ -34,7 +34,7 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "SpiritedWater", 1);
 			recipe.AddIngredient(null, "WaxyVial", 1);
 			recipe.AddTile(114);

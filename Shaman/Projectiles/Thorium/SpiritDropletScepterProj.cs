@@ -12,31 +12,31 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 16;
-			projectile.height = 16;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 100;
+			Projectile.width = 16;
+			Projectile.height = 16;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 100;
 		}
 
 		public override void AI()
 		{
-			if (projectile.timeLeft == 100)
+			if (Projectile.timeLeft == 100)
 			{
 				float rand = (float)(Main.rand.Next(4) - 2f);
-				projectile.velocity.X += rand;
-				projectile.velocity.Y += rand;
+				Projectile.velocity.X += rand;
+				Projectile.velocity.Y += rand;
 			}
 
-			projectile.rotation += 0.25f;
+			Projectile.rotation += 0.25f;
 
-			projectile.velocity = projectile.velocity * 0.95f;
+			Projectile.velocity = Projectile.velocity * 0.95f;
 
-			projectile.alpha += 2;
+			Projectile.alpha += 2;
 
 			for (int i = 0; i < 1; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172);
 				Main.dust[dust].velocity /= 10f;
 				Main.dust[dust].scale = 1f;
 				Main.dust[dust].noGravity = true;
@@ -48,7 +48,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 3f;
 			}

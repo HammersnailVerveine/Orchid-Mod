@@ -8,11 +8,11 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 28;
-			item.height = 28;
-			item.value = Item.sellPrice(0, 7, 50, 0);
-			item.rare = 8;
-			item.accessory = true;
+			Item.width = 28;
+			Item.height = 28;
+			Item.value = Item.sellPrice(0, 7, 50, 0);
+			Item.rare = 8;
+			Item.accessory = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (!(Main.LocalPlayer.FindBuffIndex(mod.BuffType("BrokenPower")) > -1))
+			if (!(Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("BrokenPower").Type) > -1))
 			{
 				modPlayer.shamanDamage += 0.30f;
 			}
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "MourningTorch", 1);
 			recipe.AddIngredient(null, "FragilePresent", 1);
 			recipe.AddTile(114);

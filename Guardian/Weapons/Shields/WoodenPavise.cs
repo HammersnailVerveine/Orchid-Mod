@@ -8,17 +8,16 @@ namespace OrchidMod.Guardian.Weapons.Shields
 
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 0, 50);
-			item.width = 28;
-			item.height = 32;
-			item.noUseGraphic = true;
-			item.UseSound = SoundID.Item1;
-			item.knockBack = 3f;
-			item.damage = 10;
-			item.rare = 0;
-			item.useAnimation = 30;
-			item.useTime = 30;
-			this.distance = 7.5f;
+			Item.width = 28;
+			Item.height = 32;
+			Item.rare = 0;
+			Item.value = Item.sellPrice(0, 0, 0, 50);
+			Item.knockBack = 5f;
+			Item.damage = 10;
+			Item.useTime = 35;
+			this.distance = 35f;
+			this.bashDistance = 70f;
+			this.blockDuration = 60;
 		}
 
 		public override void SetStaticDefaults()
@@ -27,10 +26,8 @@ namespace OrchidMod.Guardian.Weapons.Shields
 			Tooltip.SetDefault("owo");
 		}
 		
-		public override void Block(Player player, Projectile shield, Projectile projectile) {
-			player.HealEffect(10, true);
-			player.statLife += 10;
-			projectile.Kill();
+		public override void SlamHitFirst(Player player, Projectile shield, NPC npc) { 
+			//player.HealEffect(1, true);
 		}
 
 		// public override void AddRecipes()

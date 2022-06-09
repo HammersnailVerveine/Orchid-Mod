@@ -14,13 +14,13 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 2;
-			projectile.height = 2;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 180;
-			projectile.scale = 1f;
-			projectile.penetrate = -1;
-			projectile.friendly = false;
+			Projectile.width = 2;
+			Projectile.height = 2;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 180;
+			Projectile.scale = 1f;
+			Projectile.penetrate = -1;
+			Projectile.friendly = false;
 		}
 
 		public override void SetStaticDefaults()
@@ -45,8 +45,8 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				Projectile proj = Main.projectile[l];
 				if (proj.active)
 				{
-					float offsetXProj = proj.Center.X - projectile.Center.X;
-					float offsetYProj = proj.Center.Y - projectile.Center.Y;
+					float offsetXProj = proj.Center.X - Projectile.Center.X;
+					float offsetYProj = proj.Center.Y - Projectile.Center.Y;
 					float distanceProj = (float)Math.Sqrt(offsetXProj * offsetXProj + offsetYProj * offsetYProj);
 					if (distanceProj < (float)range)
 					{
@@ -97,7 +97,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 					}
 				}
 			}
-			if (!found) projectile.Kill();
+			if (!found) Projectile.Kill();
 		}
 
 		public void spawnDust(int dustType, int distToCenter)
@@ -107,16 +107,16 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				double deg = (4 * (42 + this.dustVal) + i * 120);
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) + projectile.velocity.X - 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) + projectile.velocity.Y - 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) + Projectile.velocity.X - 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) + Projectile.velocity.Y - 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
 				int index2 = Dust.NewDust(dustPosition, 1, 1, dustType, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 
-				Main.dust[index2].velocity = projectile.velocity / 2;
+				Main.dust[index2].velocity = Projectile.velocity / 2;
 				Main.dust[index2].fadeIn = 1f;
-				Main.dust[index2].scale = projectile.velocity.X == 0 ? 1.5f : (float)Main.rand.Next(70, 110) * 0.013f;
+				Main.dust[index2].scale = Projectile.velocity.X == 0 ? 1.5f : (float)Main.rand.Next(70, 110) * 0.013f;
 				Main.dust[index2].noGravity = true;
 			}
 		}

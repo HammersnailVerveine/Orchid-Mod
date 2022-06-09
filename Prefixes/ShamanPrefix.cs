@@ -40,41 +40,41 @@ namespace OrchidMod.Prefixes
 				return false;
 			}
 
-			mod.AddPrefix("Voodoo", new ShamanPrefix(1.00f, 1.00f, 1.00f, 1.00f, 1.05f));
-			mod.AddPrefix("Superior", new ShamanPrefix(1.10f, 1.10f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Forceful", new ShamanPrefix(1.00f, 1.15f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Broken", new ShamanPrefix(0.70f, 0.80f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Damaged", new ShamanPrefix(0.85f, 1.00f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Shoddy", new ShamanPrefix(0.90f, 0.85f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Hurtful", new ShamanPrefix(1.10f, 1.00f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Strong", new ShamanPrefix(1.00f, 1.15f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Unpleasant", new ShamanPrefix(1.05f, 1.15f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Weak", new ShamanPrefix(1.00f, 0.80f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Ruthless", new ShamanPrefix(1.18f, 0.90f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Occult", new ShamanPrefix(1.15f, 1.15f, 1.00f, 1.00f, 1.10f));
-			mod.AddPrefix("Diabolic", new ShamanPrefix(1.15f, 1.00f, 1.00f, 1.00f, 1.10f));
-			mod.AddPrefix("Spirited", new ShamanPrefix(1.00f, 1.00f, 1.00f, 1.00f, 1.10f));
+			Mod.AddPrefix("Voodoo", new ShamanPrefix(1.00f, 1.00f, 1.00f, 1.00f, 1.05f));
+			Mod.AddPrefix("Superior", new ShamanPrefix(1.10f, 1.10f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Forceful", new ShamanPrefix(1.00f, 1.15f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Broken", new ShamanPrefix(0.70f, 0.80f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Damaged", new ShamanPrefix(0.85f, 1.00f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Shoddy", new ShamanPrefix(0.90f, 0.85f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Hurtful", new ShamanPrefix(1.10f, 1.00f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Strong", new ShamanPrefix(1.00f, 1.15f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Unpleasant", new ShamanPrefix(1.05f, 1.15f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Weak", new ShamanPrefix(1.00f, 0.80f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Ruthless", new ShamanPrefix(1.18f, 0.90f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Occult", new ShamanPrefix(1.15f, 1.15f, 1.00f, 1.00f, 1.10f));
+			Mod.AddPrefix("Diabolic", new ShamanPrefix(1.15f, 1.00f, 1.00f, 1.00f, 1.10f));
+			Mod.AddPrefix("Spirited", new ShamanPrefix(1.00f, 1.00f, 1.00f, 1.00f, 1.10f));
 
-			mod.AddPrefix("Quick", new ShamanPrefix(1.00f, 1.00f, 0.90f, 1.00f, 1.00f));
-			mod.AddPrefix("Deadly", new ShamanPrefix(1.10f, 1.00f, 0.90f, 1.00f, 1.00f));
-			mod.AddPrefix("Magnetic", new ShamanPrefix(1.00f, 1.00f, 0.90f, 1.00f, 1.05f));
-			mod.AddPrefix("Nimble", new ShamanPrefix(1.00f, 1.00f, 0.95f, 1.00f, 1.00f));
-			mod.AddPrefix("Runic", new ShamanPrefix(1.07f, 1.00f, 0.94f, 1.00f, 1.05f));
-			mod.AddPrefix("Slow", new ShamanPrefix(1.00f, 1.00f, 1.15f, 1.00f, 1.00f));
-			mod.AddPrefix("Sluggish", new ShamanPrefix(1.00f, 1.00f, 1.20f, 1.00f, 1.00f));
-			mod.AddPrefix("Lazy", new ShamanPrefix(1.00f, 1.00f, 1.18f, 1.00f, 1.00f));
-			mod.AddPrefix("Annoying", new ShamanPrefix(0.80f, 1.00f, 1.15f, 1.00f, 1.00f));
-			mod.AddPrefix("Conjuring", new ShamanPrefix(1.05f, 0.90f, 0.90f, 1.00f, 1.05f));
+			Mod.AddPrefix("Quick", new ShamanPrefix(1.00f, 1.00f, 0.90f, 1.00f, 1.00f));
+			Mod.AddPrefix("Deadly", new ShamanPrefix(1.10f, 1.00f, 0.90f, 1.00f, 1.00f));
+			Mod.AddPrefix("Magnetic", new ShamanPrefix(1.00f, 1.00f, 0.90f, 1.00f, 1.05f));
+			Mod.AddPrefix("Nimble", new ShamanPrefix(1.00f, 1.00f, 0.95f, 1.00f, 1.00f));
+			Mod.AddPrefix("Runic", new ShamanPrefix(1.07f, 1.00f, 0.94f, 1.00f, 1.05f));
+			Mod.AddPrefix("Slow", new ShamanPrefix(1.00f, 1.00f, 1.15f, 1.00f, 1.00f));
+			Mod.AddPrefix("Sluggish", new ShamanPrefix(1.00f, 1.00f, 1.20f, 1.00f, 1.00f));
+			Mod.AddPrefix("Lazy", new ShamanPrefix(1.00f, 1.00f, 1.18f, 1.00f, 1.00f));
+			Mod.AddPrefix("Annoying", new ShamanPrefix(0.80f, 1.00f, 1.15f, 1.00f, 1.00f));
+			Mod.AddPrefix("Conjuring", new ShamanPrefix(1.05f, 0.90f, 0.90f, 1.00f, 1.05f));
 
-			mod.AddPrefix("Studious", new ShamanPrefix(1.10f, 1.00f, 1.00f, 1.15f, 1.00f));
-			mod.AddPrefix("Unique", new ShamanPrefix(1.15f, 1.05f, 1.00f, 1.20f, 1.00f));
-			mod.AddPrefix("Balanced", new ShamanPrefix(1.00f, 1.10f, 0.90f, 1.00f, 1.00f));
-			mod.AddPrefix("Hopeful", new ShamanPrefix(1.00f, 1.00f, 1.00f, 1.15f, 1.00f));
-			mod.AddPrefix("Enraged", new ShamanPrefix(1.15f, 1.15f, 1.00f, 1.00f, 1.00f));
-			mod.AddPrefix("Effervescent", new ShamanPrefix(1.10f, 1.10f, 1.10f, 1.10f, 1.00f)); // :(
-			mod.AddPrefix("Ethereal", new ShamanPrefix(1.15f, 1.15f, 0.90f, 1.10f, 1.10f));
-			mod.AddPrefix("Focused", new ShamanPrefix(1.10f, 1.00f, 1.00f, 1.15f, 1.00f));
-			mod.AddPrefix("Complex", new ShamanPrefix(0.90f, 1.00f, 0.90f, 1.10f, 1.00f));
+			Mod.AddPrefix("Studious", new ShamanPrefix(1.10f, 1.00f, 1.00f, 1.15f, 1.00f));
+			Mod.AddPrefix("Unique", new ShamanPrefix(1.15f, 1.05f, 1.00f, 1.20f, 1.00f));
+			Mod.AddPrefix("Balanced", new ShamanPrefix(1.00f, 1.10f, 0.90f, 1.00f, 1.00f));
+			Mod.AddPrefix("Hopeful", new ShamanPrefix(1.00f, 1.00f, 1.00f, 1.15f, 1.00f));
+			Mod.AddPrefix("Enraged", new ShamanPrefix(1.15f, 1.15f, 1.00f, 1.00f, 1.00f));
+			Mod.AddPrefix("Effervescent", new ShamanPrefix(1.10f, 1.10f, 1.10f, 1.10f, 1.00f)); // :(
+			Mod.AddPrefix("Ethereal", new ShamanPrefix(1.15f, 1.15f, 0.90f, 1.10f, 1.10f));
+			Mod.AddPrefix("Focused", new ShamanPrefix(1.10f, 1.00f, 1.00f, 1.15f, 1.00f));
+			Mod.AddPrefix("Complex", new ShamanPrefix(0.90f, 1.00f, 0.90f, 1.10f, 1.00f));
 
 			return false;
 		}

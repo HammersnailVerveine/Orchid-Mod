@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -10,13 +11,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 12;
-			projectile.height = 16;
-			projectile.friendly = true;
-			projectile.aiStyle = 2;
-			projectile.timeLeft = 90;
-			projectile.scale = 1f;
-			Main.projFrames[projectile.type] = 3;
+			Projectile.width = 12;
+			Projectile.height = 16;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 2;
+			Projectile.timeLeft = 90;
+			Projectile.scale = 1f;
+			Main.projFrames[Projectile.type] = 3;
 			this.crystalType = 0;
 		}
 
@@ -32,12 +33,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			projectile.friendly = projectile.velocity.Y > 0;
+			Projectile.friendly = Projectile.velocity.Y > 0;
 
 			if (this.crystalType == 0)
 			{
 				this.crystalType = Main.rand.Next(3) + 1;
-				projectile.frame = this.crystalType - 1;
+				Projectile.frame = this.crystalType - 1;
 			}
 
 			int dustType = 60;
@@ -45,15 +46,15 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			{
 				case 1:
 					dustType = 60;
-					Lighting.AddLight(projectile.position, 0.5f, 0f, 0f);
+					Lighting.AddLight(Projectile.position, 0.5f, 0f, 0f);
 					break;
 				case 2:
 					dustType = 59;
-					Lighting.AddLight(projectile.position, 0f, 0f, 0.5f);
+					Lighting.AddLight(Projectile.position, 0f, 0f, 0.5f);
 					break;
 				case 3:
 					dustType = 62;
-					Lighting.AddLight(projectile.position, 0.25f, 0f, 0.25f);
+					Lighting.AddLight(Projectile.position, 0.25f, 0f, 0.25f);
 					break;
 				default:
 					break;
@@ -61,7 +62,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 			if (Main.rand.Next(5) == 0)
 			{
-				int DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, dustType, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
+				int DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, dustType, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
 				Main.dust[DustID].noGravity = true;
 				Main.dust[DustID].scale *= 1.5f;
 			}
@@ -69,7 +70,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			int dustType = 60;
 			switch (this.crystalType)
@@ -89,7 +90,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 			spawnDustCircle(dustType, 10);
 
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
 			// Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, mod.ProjectileType("StarScouterScepterProjAltExplosion"), projectile.damage, 0.0f, player.whoAmI, 0.0f, 0.0f);
 		}
 
@@ -100,8 +101,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				double dustDeg = (double)(i * (36));
 				double dustRad = dustDeg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - projectile.width / 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - projectile.height / 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter) - Projectile.width / 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter) - Projectile.height / 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 

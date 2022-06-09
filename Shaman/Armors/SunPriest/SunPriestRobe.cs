@@ -10,11 +10,11 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 18;
-			item.value = Item.sellPrice(0, 6, 0, 0);
-			item.rare = 8;
-			item.defense = 18;
+			Item.width = 30;
+			Item.height = 18;
+			Item.value = Item.sellPrice(0, 6, 0, 0);
+			Item.rare = 8;
+			Item.defense = 18;
 		}
 
 		public override void SetStaticDefaults()
@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "LihzahrdSilk", 5);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 24);
 			recipe.AddTile(TileID.MythrilAnvil);

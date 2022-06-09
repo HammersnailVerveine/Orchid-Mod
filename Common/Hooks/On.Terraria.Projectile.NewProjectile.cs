@@ -16,7 +16,7 @@ namespace OrchidMod.Common.Hooks
 			int index = orig(x, y, speedX, speedY, type, damage, knockBack, owner, ai0, ai1);
 
 			var proj = Main.projectile[index];
-			if (proj?.modProjectile is Content.OrchidProjectile orchidProj) orchidProj.OnSpawn();
+			if (proj?.ModProjectile is Content.OrchidProjectile orchidProj) orchidProj.OnSpawn();
 
 			return index;
 		}

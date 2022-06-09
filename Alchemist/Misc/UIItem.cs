@@ -11,17 +11,17 @@ namespace OrchidMod.Alchemist.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.width = 32;
-			item.height = 34;
-			item.maxStack = 1;
-			item.value = Item.sellPrice(0, 0, 2, 0);
-			item.useAnimation = 30;
-			item.useTime = 30;
-			item.useStyle = 1;
-			item.noUseGraphic = true;
-			item.rare = 1;
-			item.UseSound = SoundID.Item7;
-			item.shoot = ProjectileType<Alchemist.Projectiles.AlchemistRightClick>();
+			Item.width = 32;
+			Item.height = 34;
+			Item.maxStack = 1;
+			Item.value = Item.sellPrice(0, 0, 2, 0);
+			Item.useAnimation = 30;
+			Item.useTime = 30;
+			Item.useStyle = 1;
+			Item.noUseGraphic = true;
+			Item.rare = 1;
+			Item.UseSound = SoundID.Item7;
+			Item.shoot = ProjectileType<Alchemist.Projectiles.AlchemistRightClick>();
 		}
 
 		public override bool AltFunctionUse(Player player)
@@ -68,9 +68,9 @@ namespace OrchidMod.Alchemist.Misc
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Alchemist Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Alchemist Class-")
 				{
-					overrideColor = new Color(155, 255, 55)
+					OverrideColor = new Color(155, 255, 55)
 				});
 			}
 		}

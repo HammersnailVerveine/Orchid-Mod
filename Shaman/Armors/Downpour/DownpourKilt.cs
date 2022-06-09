@@ -9,11 +9,11 @@ namespace OrchidMod.Shaman.Armors.Downpour
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 22;
-			item.height = 14;
-			item.value = Item.sellPrice(0, 3, 0, 0);
-			item.rare = 5;
-			item.defense = 11;
+			Item.width = 22;
+			Item.height = 14;
+			Item.value = Item.sellPrice(0, 3, 0, 0);
+			Item.rare = 5;
+			Item.defense = 11;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,14 +30,14 @@ namespace OrchidMod.Shaman.Armors.Downpour
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.AdamantiteBar, 16);
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(mod);
+			recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.TitaniumBar, 16);
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);

@@ -11,21 +11,21 @@ namespace OrchidMod.Gambler.Weapons.Chips
 
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 40, 0);
-			item.width = 26;
-			item.height = 26;
-			item.useStyle = 1;
-			item.noUseGraphic = true;
-			item.UseSound = SoundID.Item1;
-			item.useAnimation = 50;
-			item.useTime = 25;
-			item.knockBack = 6f;
-			item.damage = 30;
-			item.crit = 4;
-			item.rare = 1;
-			item.shootSpeed = 10f;
-			item.shoot = ProjectileType<Gambler.Projectiles.Chips.GoldChipProj>();
-			item.autoReuse = true;
+			Item.value = Item.sellPrice(0, 0, 40, 0);
+			Item.width = 26;
+			Item.height = 26;
+			Item.useStyle = 1;
+			Item.noUseGraphic = true;
+			Item.UseSound = SoundID.Item1;
+			Item.useAnimation = 50;
+			Item.useTime = 25;
+			Item.knockBack = 6f;
+			Item.damage = 30;
+			Item.crit = 4;
+			Item.rare = 1;
+			Item.shootSpeed = 10f;
+			Item.shoot = ProjectileType<Gambler.Projectiles.Chips.GoldChipProj>();
+			Item.autoReuse = true;
 			this.chipCost = 1;
 			this.consumeChance = 100;
 		}
@@ -38,7 +38,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Ruby, 8);
 			recipe.AddIngredient(ItemID.GoldBar, 10);

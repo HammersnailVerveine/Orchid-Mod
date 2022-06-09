@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 {
@@ -9,15 +10,15 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 300;
-			projectile.scale = 1f;
-			projectile.extraUpdates = 2;
-			projectile.tileCollide = false;
-			projectile.alpha = 255;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 300;
+			Projectile.scale = 1f;
+			Projectile.extraUpdates = 2;
+			Projectile.tileCollide = false;
+			Projectile.alpha = 255;
 		}
 
 		public override void SetStaticDefaults()
@@ -31,31 +32,31 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 			{
 				if (index1 % 3 == 0)
 				{
-					float x = projectile.position.X - projectile.velocity.X / 10f * (float)index1;
-					float y = projectile.position.Y - projectile.velocity.Y / 10f * (float)index1;
+					float x = Projectile.position.X - Projectile.velocity.X / 10f * (float)index1;
+					float y = Projectile.position.Y - Projectile.velocity.Y / 10f * (float)index1;
 					int index2 = Dust.NewDust(new Vector2(x, y), 1, 1, 6, 0.0f, 0.0f, 0, new Color(), 1f);
-					Main.dust[index2].alpha = projectile.alpha;
+					Main.dust[index2].alpha = Projectile.alpha;
 					Main.dust[index2].position.X = x;
 					Main.dust[index2].position.Y = y;
 					Main.dust[index2].scale = (float)Main.rand.Next(10, 110) * 0.013f;
-					Main.dust[index2].velocity = projectile.velocity / 2;
+					Main.dust[index2].velocity = Projectile.velocity / 2;
 					Main.dust[index2].noGravity = true;
 				}
 			}
 
-			if (projectile.localAI[0] == 0f)
+			if (Projectile.localAI[0] == 0f)
 			{
-				AdjustMagnitude(ref projectile.velocity);
-				projectile.localAI[0] = 1f;
+				AdjustMagnitude(ref Projectile.velocity);
+				Projectile.localAI[0] = 1f;
 			}
 			Vector2 move = Vector2.Zero;
 			float distance = 500f;
 			bool target = false;
 			for (int k = 0; k < 200; k++)
 			{
-				if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && !Main.npc[k].HasBuff(mod.BuffType("HellHit")))
+				if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy && !Main.npc[k].HasBuff(Mod.Find<ModBuff>("HellHit").Type))
 				{
-					Vector2 newMove = Main.npc[k].Center - projectile.Center;
+					Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo < distance)
 					{
@@ -68,12 +69,12 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 			if (target)
 			{
 				AdjustMagnitude(ref move);
-				projectile.velocity = (20 * projectile.velocity + move) / 10f;
-				AdjustMagnitude(ref projectile.velocity);
+				Projectile.velocity = (20 * Projectile.velocity + move) / 10f;
+				AdjustMagnitude(ref Projectile.velocity);
 			}
 			else
 			{
-				projectile.timeLeft -= 50;
+				Projectile.timeLeft -= 50;
 			}
 		}
 
@@ -84,14 +85,14 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 				double dustDeg = (i * (27));//    + 5 - Main.rand.Next(10)));
 				double dustRad = dustDeg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter);
-				float posY = projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter);
+				float posX = Projectile.Center.X - (int)(Math.Cos(dustRad) * distToCenter);
+				float posY = Projectile.Center.Y - (int)(Math.Sin(dustRad) * distToCenter);
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
 				int index1 = Dust.NewDust(dustPosition, 1, 1, dustType, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 
-				Main.dust[index1].velocity = projectile.velocity / 2;
+				Main.dust[index1].velocity = Projectile.velocity / 2;
 				Main.dust[index1].fadeIn = 1f;
 				Main.dust[index1].scale = 1.2f;
 				Main.dust[index1].noGravity = true;
@@ -100,7 +101,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 
 		public override bool? CanHitNPC(NPC target)
 		{
-			return !(target.HasBuff(mod.BuffType("HellHit")) || target.friendly);
+			return !(target.HasBuff(Mod.Find<ModBuff>("HellHit").Type) || target.friendly);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
@@ -108,7 +109,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 			spawnDustCircle(6, 12);
 			spawnDustCircle(6, 8);
 			spawnDustCircle(6, 4);
-			target.AddBuff((mod.BuffType("HellHit")), 60 * 3);
+			target.AddBuff((Mod.Find<ModBuff>("HellHit").Type), 60 * 3);
 			target.AddBuff(24, 60 * 5); // On fire
 		}
 

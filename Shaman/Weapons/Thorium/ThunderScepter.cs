@@ -1,6 +1,7 @@
 using OrchidMod.Common.Interfaces;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
@@ -10,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 12;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 14;
-			item.useAnimation = 14;
-			item.knockBack = 3.15f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 20, 0);
-			item.UseSound = SoundID.Item93;
-			item.autoReuse = true;
-			item.shootSpeed = 12f;
-			item.shoot = mod.ProjectileType("ThunderScepterProj");
+			Item.damage = 12;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 14;
+			Item.useAnimation = 14;
+			Item.knockBack = 3.15f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 20, 0);
+			Item.UseSound = SoundID.Item93;
+			Item.autoReuse = true;
+			Item.shootSpeed = 12f;
+			Item.shoot = Mod.Find<ModProjectile>("ThunderScepterProj").Type;
 			this.empowermentType = 3;
 			this.energy = 3;
 		}

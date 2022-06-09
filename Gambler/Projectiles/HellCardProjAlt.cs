@@ -15,13 +15,13 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 24;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.tileCollide = false;
-			projectile.timeLeft = 600;
-			Main.projFrames[projectile.type] = 5;
+			Projectile.width = 20;
+			Projectile.height = 24;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.tileCollide = false;
+			Projectile.timeLeft = 600;
+			Main.projFrames[Projectile.type] = 5;
 			this.bonusTrigger = true;
 		}
 
@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}
@@ -37,13 +37,13 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeAI()
 		{
-			projectile.velocity *= 0.95f;
-			Player player = Main.player[projectile.owner];
+			Projectile.velocity *= 0.95f;
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			if (modPlayer.timer120 % 10 == 0)
 			{
-				projectile.frame += animDirection ? -1 : 1;
-				animDirection = projectile.frame == 4 ? true : projectile.frame == 0 ? false : animDirection;
+				Projectile.frame += animDirection ? -1 : 1;
+				animDirection = Projectile.frame == 4 ? true : Projectile.frame == 0 ? false : animDirection;
 			}
 		}
 

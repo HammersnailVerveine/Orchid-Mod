@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Projectiles.Misc
@@ -13,19 +14,19 @@ namespace OrchidMod.Alchemist.Projectiles.Misc
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 22;
-			projectile.height = 22;
-			projectile.aiStyle = 2;
-			projectile.timeLeft = 600;
-			projectile.friendly = true;
-			projectile.penetrate = 3;
+			Projectile.width = 22;
+			Projectile.height = 22;
+			Projectile.aiStyle = 2;
+			Projectile.timeLeft = 600;
+			Projectile.friendly = true;
+			Projectile.penetrate = 3;
 		}
 
 		public override void AI()
 		{
 			if (Main.rand.Next(4) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 60);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 60);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale *= 1.5f;
 			}
@@ -33,7 +34,7 @@ namespace OrchidMod.Alchemist.Projectiles.Misc
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
 			return true;
 		}
 

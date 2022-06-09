@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 103;
-			item.width = 44;
-			item.height = 44;
-			item.useTime = 40;
-			item.useAnimation = 40;
-			item.knockBack = 1.15f;
-			item.rare = ItemRarityID.Yellow;
-			item.value = Item.sellPrice(0, 20, 0, 0);
-			item.UseSound = SoundID.Item45;
-			item.autoReuse = false;
-			item.shootSpeed = 15f;
-			item.shoot = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
+			Item.damage = 103;
+			Item.width = 44;
+			Item.height = 44;
+			Item.useTime = 40;
+			Item.useAnimation = 40;
+			Item.knockBack = 1.15f;
+			Item.rare = ItemRarityID.Yellow;
+			Item.value = Item.sellPrice(0, 20, 0, 0);
+			Item.UseSound = SoundID.Item45;
+			Item.autoReuse = false;
+			Item.shootSpeed = 15f;
+			Item.shoot = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 35;
 		}
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			int projectileType = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), Mod);
 
 			if (player.ownedProjectileCounts[projectileType] > 0)
 			{
@@ -47,7 +47,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				foreach (var elem in oldProjs) elem?.Kill();
 			}
 
-			var projectile = CreateNewProjectile(item, player, projectileType);
+			var projectile = CreateNewProjectile(Item, player, projectileType);
 			projectile.ai[1] = nbBonds;
 			projectile.netUpdate = true;
 
@@ -57,12 +57,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void Update(ref float gravity, ref float maxFallSpeed)
 		{
 			Color color = new Color(0.3f, 0.35f, 0.9f) * 0.25f;
-			Lighting.AddLight(item.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			Lighting.AddLight(Item.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/ShroomiteScepter_Glowmask"), Color.White, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/ShroomiteScepter_Glowmask"), Color.White, rotation, scale);
 		}
 
 		public void DrawItemGlowmask(PlayerDrawInfo drawInfo)

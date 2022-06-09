@@ -11,15 +11,15 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.penetrate = 3;
-			projectile.CloneDefaults(123);
-			aiType = 123;
-			projectile.timeLeft = 23;
+			Projectile.penetrate = 3;
+			Projectile.CloneDefaults(123);
+			AIType = 123;
+			Projectile.timeLeft = 23;
 		}
 
 		public override bool PreKill(int timeLeft)
 		{
-			projectile.type = 123;
+			Projectile.type = 123;
 			return true;
 		}
 

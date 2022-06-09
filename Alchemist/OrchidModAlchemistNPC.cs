@@ -59,7 +59,7 @@ namespace OrchidMod.Alchemist
 			offSetY -= 20;
 		}
 
-		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
+		public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			int nbCoatings = -1;
 			nbCoatings += this.alchemistFire > 0 ? 1 : 0;

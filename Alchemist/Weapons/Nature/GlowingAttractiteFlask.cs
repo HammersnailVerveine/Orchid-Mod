@@ -12,11 +12,11 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 15;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 3;
-			item.value = Item.sellPrice(0, 0, 35, 0);
+			Item.damage = 15;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 3;
+			Item.value = Item.sellPrice(0, 0, 35, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.NATURE;
 			this.rightClickDust = 15;
@@ -37,7 +37,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "MoonglowFlask", 1);
 			recipe.AddIngredient(null, "AttractiteFlask", 1);
@@ -93,7 +93,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, mod.ProjectileType("NatureSporeProj"), dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, Mod.Find<ModProjectile>("NatureSporeProj").Type, dmg, 0f, projectile.owner);
 			}
 			if (alchProj.nbElements == 1)
 			{

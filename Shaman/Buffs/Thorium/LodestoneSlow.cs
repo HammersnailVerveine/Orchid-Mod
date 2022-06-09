@@ -5,7 +5,7 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 {
 	public class LodestoneSlow : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lodestone Slow");
 			Description.SetDefault("You feel Heavier");

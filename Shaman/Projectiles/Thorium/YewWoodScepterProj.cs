@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -8,14 +9,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 55;
-			projectile.scale = 1f;
-			projectile.alpha = 128;
-			aiType = ProjectileID.Bullet;
+			Projectile.width = 8;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 55;
+			Projectile.scale = 1f;
+			Projectile.alpha = 128;
+			AIType = ProjectileID.Bullet;
 		}
 
 		public override void SetStaticDefaults()
@@ -25,18 +26,18 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			if (projectile.timeLeft == 55)
+			if (Projectile.timeLeft == 55)
 			{
-				projectile.ai[0] = (((float)Main.rand.Next(10) / 10f) - 0.5f);
+				Projectile.ai[0] = (((float)Main.rand.Next(10) / 10f) - 0.5f);
 			}
 
-			projectile.velocity *= 1.03f;
+			Projectile.velocity *= 1.03f;
 
-			Vector2 projectileVelocity = (new Vector2(projectile.velocity.X, projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(projectile.ai[0])));
-			projectile.velocity = projectileVelocity;
-			projectile.netUpdate = true;
+			Vector2 projectileVelocity = (new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(Projectile.ai[0])));
+			Projectile.velocity = projectileVelocity;
+			Projectile.netUpdate = true;
 
-			int DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 27, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
+			int DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 27, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
 			Main.dust[DustID].noGravity = true;
 		}
 
@@ -44,9 +45,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 27);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27);
 				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity = projectile.velocity / 2;
+				Main.dust[dust].velocity = Projectile.velocity / 2;
 			}
 		}
 
@@ -55,9 +56,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			float randX = target.position.X + (target.width / 2) + Main.rand.Next(700) - 350;
 			float randY = target.position.Y + (target.height / 2) - Main.rand.Next(300) - 100;
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2 && Main.rand.Next(7) == 0)
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2 && Main.rand.Next(7) == 0)
 			{
-				Projectile.NewProjectile(randX, randY, 0f, 0f, mod.ProjectileType("YewWoodScepterPortal"), 0, 0.0f, projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(randX, randY, 0f, 0f, Mod.Find<ModProjectile>("YewWoodScepterPortal").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
 			}
 		}
 	}

@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 120;
-			item.width = 38;
-			item.height = 38;
-			item.useTime = 60;
-			item.useAnimation = 60;
-			item.knockBack = 6.15f;
-			item.rare = ItemRarityID.Red;
-			item.value = Item.sellPrice(0, 10, 0, 0);
-			item.UseSound = SoundID.Item122;
-			item.autoReuse = true;
-			item.shoot = ModContent.ProjectileType<Projectiles.OreOrbs.Big.AbyssPrecinctProj>();
-			item.shootSpeed = 10f;
+			Item.damage = 120;
+			Item.width = 38;
+			Item.height = 38;
+			Item.useTime = 60;
+			Item.useAnimation = 60;
+			Item.knockBack = 6.15f;
+			Item.rare = ItemRarityID.Red;
+			Item.value = Item.sellPrice(0, 10, 0, 0);
+			Item.UseSound = SoundID.Item122;
+			Item.autoReuse = true;
+			Item.shoot = ModContent.ProjectileType<Projectiles.OreOrbs.Big.AbyssPrecinctProj>();
+			Item.shootSpeed = 10f;
 			this.empowermentType = 2;
 			this.energy = 10;
 		}
@@ -47,7 +47,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.SetResult(this);
@@ -56,7 +56,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssPrecinct_Glowmask"), Color.White, rotation, scale);
+			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssPrecinct_Glowmask"), Color.White, rotation, scale);
 		}
 
 		public void DrawItemGlowmask(PlayerDrawInfo drawInfo)

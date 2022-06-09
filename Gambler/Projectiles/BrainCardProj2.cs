@@ -7,15 +7,15 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 75;
-			projectile.height = 75;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.tileCollide = false;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
+			Projectile.width = 75;
+			Projectile.height = 75;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.tileCollide = false;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
@@ -27,7 +27,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 5);
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 5);
 				Main.dust[dust2].scale = 1.2f;
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust2].velocity.X /= 3;

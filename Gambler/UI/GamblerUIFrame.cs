@@ -2,9 +2,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
+using OrchidMod.Gambler.Weapons.Chips;
 
 namespace OrchidMod.Gambler.UI
 {
@@ -41,7 +43,15 @@ namespace OrchidMod.Gambler.UI
 		public static Texture2D UIDeckbuilding;
 		public static Texture2D UIDeckbuildingBlock;
 		
+		// Chip Weapons
+		
 		public static Texture2D chipDirection;
+		
+		public static Texture2D chipDetonatorMain;
+		public static Texture2D chipDetonatorBar;
+		public static Texture2D chipDetonatorBarEnd;
+		
+		// Chip Weapons end
 
 		public int cardID = -1;
 		public int cardIDNext1 = -1;
@@ -71,13 +81,32 @@ namespace OrchidMod.Gambler.UI
 			{
 				if (modPlayer.gamblerUIChipSpinDisplay)
 				{
-					int widthArrow = chipDirection.Width;
-					int heightArrow = chipDirection.Height;
 					Vector2 position = new Vector2(point.X - 30, point.Y + 150);
 					float angle = MathHelper.ToRadians(modPlayer.gamblerChipSpin);
-					//	new Rectangle(point.X - 30, point.Y + 50, widthArrow, heightArrow);
 					spriteBatch.Draw(chipDirection, position, null, backgroundColor, angle, chipDirection.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
-					//spriteBatch.Draw(texture, position, null, color, projectile.rotation, texture.Size() * 0.5f, projectile.scale, effect, 0f);
+				}
+				
+				if (player.HeldItem.ModItem is MeteorDetonator) {
+					Rectangle rect = new Rectangle(point.X - 75, point.Y + 50, chipDetonatorMain.Width, chipDetonatorMain.Height);
+					spriteBatch.Draw(chipDetonatorMain, rect, backgroundColor);
+					
+					float index = 720f / 8;
+					
+					if (modPlayer.gamblerChipSpin > index) {
+						spriteBatch.Draw(chipDetonatorBar, new Rectangle(point.X - 61, point.Y + 72, 14, 6), backgroundColor);
+					}
+					
+					if (modPlayer.gamblerChipSpin > index * 2 && modPlayer.gamblerChipSpin < index * 7) {
+						spriteBatch.Draw(chipDetonatorBar, new Rectangle(point.X - 45, point.Y + 72, 14, 6), backgroundColor);
+					}
+					
+					if (modPlayer.gamblerChipSpin > index * 3 && modPlayer.gamblerChipSpin < index * 6) {
+						spriteBatch.Draw(chipDetonatorBar, new Rectangle(point.X - 29, point.Y + 72, 14, 6), backgroundColor);
+					}
+					
+					if (modPlayer.gamblerChipSpin > index * 4 && modPlayer.gamblerChipSpin < index * 5) {
+						spriteBatch.Draw(chipDetonatorBarEnd, new Rectangle(point.X - 13, point.Y + 64, 10, 22), backgroundColor);
+					}
 				}
 				
 				if (modPlayer.gamblerUIDeckDisplay)
@@ -100,7 +129,7 @@ namespace OrchidMod.Gambler.UI
 						for (int i = 0; i < playerNbCards; i++)
 						{
 							Item currentItem = modPlayer.gamblerCardsItem[i];
-							Texture2D currentTexture = Main.itemTexture[currentItem.type];
+							Texture2D currentTexture = TextureAssets.Item[currentItem.type].Value;
 							Rectangle currentRectangle = new Rectangle(point.X - 92 + offSetX, point.Y - 52 + offSetY, 20, 26);
 							spriteBatch.Draw(currentTexture, currentRectangle, backgroundColor);
 							offSetX += 26;
@@ -168,15 +197,15 @@ namespace OrchidMod.Gambler.UI
 						}
 						if (msg != "")
 						{
-							ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg, Main.MouseScreen + new Vector2(15f, 15f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+							ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, Main.MouseScreen + new Vector2(15f, 15f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 						}
 						if (msg2 != "")
 						{
-							ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg2, Main.MouseScreen + new Vector2(15f, 40f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+							ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg2, Main.MouseScreen + new Vector2(15f, 40f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 						}
 						if (msg3 != "")
 						{
-							ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, Main.fontMouseText, msg2, Main.MouseScreen + new Vector2(15f, 40f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+							ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg2, Main.MouseScreen + new Vector2(15f, 40f), new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 						}
 					}
 					else
@@ -350,7 +379,7 @@ namespace OrchidMod.Gambler.UI
 						cardTexture = UIRedraw;
 						return cardTexture;
 				}
-				cardTexture = Main.itemTexture[card.type];
+				cardTexture = TextureAssets.Item[card.type].Value;
 			}
 			else
 			{
@@ -391,6 +420,9 @@ namespace OrchidMod.Gambler.UI
 			if (UIDeckbuildingBlock == null) UIDeckbuildingBlock = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/DeckUIBlock");
 			
 			if (chipDirection == null) chipDirection = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/ChipDirectionArrow");
+			if (chipDetonatorMain == null) chipDetonatorMain = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/ChipDetonatorMain");
+			if (chipDetonatorBar == null) chipDetonatorBar = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/ChipDetonatorBar");
+			if (chipDetonatorBarEnd == null) chipDetonatorBarEnd = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/ChipDetonatorBarEnd");
 		}
 	}
 }

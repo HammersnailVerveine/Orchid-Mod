@@ -16,14 +16,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.aiStyle = 0;
-			projectile.friendly = true;
-			projectile.timeLeft = 12960000;
-			projectile.scale = 1f;
-			projectile.tileCollide = false;
-			Main.projFrames[projectile.type] = 8;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.aiStyle = 0;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 12960000;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = false;
+			Main.projFrames[Projectile.type] = 8;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -38,35 +38,35 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			if (player != Main.player[Main.myPlayer])
 			{
-				projectile.active = false;
+				Projectile.active = false;
 			}
 
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 65)
-				projectile.frame = 1;
+				Projectile.frame = 1;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 70)
-				projectile.frame = 2;
+				Projectile.frame = 2;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 75)
-				projectile.frame = 3;
+				Projectile.frame = 3;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 80)
-				projectile.frame = 4;
+				Projectile.frame = 4;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 85)
-				projectile.frame = 5;
+				Projectile.frame = 5;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 90)
-				projectile.frame = 6;
+				Projectile.frame = 6;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 95)
-				projectile.frame = 7;
+				Projectile.frame = 7;
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 100)
-				projectile.frame = 0;
+				Projectile.frame = 0;
 
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountLarge < 5 || player.GetModPlayer<OrchidModPlayer>().orbCountLarge > 35 || player.GetModPlayer<OrchidModPlayer>().shamanOrbLarge != ShamanOrbLarge.SANCTIFY)
-				projectile.Kill();
+				Projectile.Kill();
 			else orbsNumber = player.GetModPlayer<OrchidModPlayer>().orbCountLarge;
 
-			if (projectile.timeLeft == 12960000)
+			if (Projectile.timeLeft == 12960000)
 			{
 				int nbOrb = player.GetModPlayer<OrchidModPlayer>().orbCountLarge;
 				int offsetX = 7;
@@ -113,21 +113,21 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 					startY = -38 - offsetX;
 				}
 
-				if (projectile.damage != 0)
+				if (Projectile.damage != 0)
 				{
-					projectile.damage = 0;
+					Projectile.damage = 0;
 					startX = -43 - offsetX;
 					startY = -38 - offsetX;
 				}
 			}
 
-			projectile.velocity.X = player.velocity.X;
-			projectile.position.X = player.position.X + player.width / 2 + startX;
-			projectile.position.Y = player.position.Y + startY;
+			Projectile.velocity.X = player.velocity.X;
+			Projectile.position.X = player.position.X + player.width / 2 + startX;
+			Projectile.position.Y = player.position.Y + startY;
 
 			if (Main.rand.Next(30) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 169);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 169);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 			}
@@ -139,7 +139,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 169);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 169);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 10f;
 			}

@@ -8,18 +8,18 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 65;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 3.15f;
-			item.rare = 3;
-			item.value = Item.sellPrice(0, 0, 47, 0);
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("PerishingSoulProj");
+			Item.damage = 65;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 3.15f;
+			Item.rare = 3;
+			Item.value = Item.sellPrice(0, 0, 47, 0);
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("PerishingSoulProj").Type;
 			this.empowermentType = 1;
 			this.energy = 6;
 		}
@@ -33,7 +33,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.HellstoneBar, 18);
 			recipe.SetResult(this);

@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 31;
-			item.width = 50;
-			item.height = 50;
-			item.useTime = 42;
-			item.useAnimation = 42;
-			item.knockBack = 8f;
-			item.rare = ItemRarityID.LightRed;
-			item.value = Item.sellPrice(0, 2, 0, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 8f;
-			item.shoot = mod.ProjectileType("GeodeScepterProj");
+			Item.damage = 31;
+			Item.width = 50;
+			Item.height = 50;
+			Item.useTime = 42;
+			Item.useAnimation = 42;
+			Item.knockBack = 8f;
+			Item.rare = ItemRarityID.LightRed;
+			Item.value = Item.sellPrice(0, 2, 0, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 8f;
+			Item.shoot = Mod.Find<ModProjectile>("GeodeScepterProj").Type;
 			this.empowermentType = 4;
 			this.energy = 13;
 		}
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "Geode", 8);
 				recipe.SetResult(this);

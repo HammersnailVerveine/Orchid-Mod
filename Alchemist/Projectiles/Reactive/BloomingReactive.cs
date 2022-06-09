@@ -15,15 +15,15 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 		}
 		public override void SetDefaults()
 		{
-			projectile.width = 32;
-			projectile.height = 32;
-			projectile.aiStyle = 0;
-			projectile.friendly = true;
-			projectile.timeLeft = 12960000;
-			projectile.scale = 1f;
-			projectile.tileCollide = false;
+			Projectile.width = 32;
+			Projectile.height = 32;
+			Projectile.aiStyle = 0;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 12960000;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = false;
 			// projectile.alpha = 64;
-			Main.projFrames[projectile.type] = 9;
+			Main.projFrames[Projectile.type] = 9;
 		}
 
 		// public override Color? GetAlpha(Color lightColor)
@@ -38,37 +38,37 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			projectile.rotation += 0.02f;
+			Projectile.rotation += 0.02f;
 
 			if (player != Main.player[Main.myPlayer])
 			{
-				projectile.active = false;
+				Projectile.active = false;
 			}
-			if (modPlayer.alchemistFlower != projectile.ai[1])
+			if (modPlayer.alchemistFlower != Projectile.ai[1])
 			{
-				projectile.ai[1] = modPlayer.alchemistFlower;
-				projectile.netUpdate = true;
+				Projectile.ai[1] = modPlayer.alchemistFlower;
+				Projectile.netUpdate = true;
 			}
-			projectile.frame = (int)projectile.ai[1];
+			Projectile.frame = (int)Projectile.ai[1];
 
-			if (projectile.ai[1] == 0)
-				projectile.active = false;
+			if (Projectile.ai[1] == 0)
+				Projectile.active = false;
 
-			if (projectile.timeLeft == 12960000)
+			if (Projectile.timeLeft == 12960000)
 			{
-				startX = projectile.position.X - player.position.X;
-				startY = projectile.position.Y - player.position.Y;
+				startX = Projectile.position.X - player.position.X;
+				startY = Projectile.position.Y - player.position.Y;
 			}
-			projectile.velocity.X = player.velocity.X;
-			projectile.position.X = player.position.X + startX;
-			projectile.position.Y = player.position.Y + startY;
+			Projectile.velocity.X = player.velocity.X;
+			Projectile.position.X = player.position.X + startX;
+			Projectile.position.Y = player.position.Y + startY;
 
 			if (Main.rand.Next(80) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<Content.Dusts.BloomingDust>());
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<Content.Dusts.BloomingDust>());
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 0.1f;
 			}
@@ -78,7 +78,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, DustType<Content.Dusts.BloomingDust>());
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<Content.Dusts.BloomingDust>());
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 5f;
 			}

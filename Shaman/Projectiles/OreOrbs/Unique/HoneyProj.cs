@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 {
@@ -7,13 +8,13 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 18;
-			projectile.height = 18;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 600;
-			projectile.scale = 1f;
-			projectile.extraUpdates = 1;
+			Projectile.width = 18;
+			Projectile.height = 18;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 600;
+			Projectile.scale = 1f;
+			Projectile.extraUpdates = 1;
 		}
 
 		public override void SetStaticDefaults()
@@ -23,10 +24,10 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void AI()
 		{
-			if ((projectile.velocity.X > 0.001f || projectile.velocity.X < -0.001f) || (projectile.velocity.Y > 0.001f || projectile.velocity.Y < -0.001f))
+			if ((Projectile.velocity.X > 0.001f || Projectile.velocity.X < -0.001f) || (Projectile.velocity.Y > 0.001f || Projectile.velocity.Y < -0.001f))
 			{
-				projectile.rotation += 0.23f;
-				projectile.velocity.Y += 0.1f;
+				Projectile.rotation += 0.23f;
+				Projectile.velocity.Y += 0.1f;
 			}
 
 			// if (Main.rand.Next(20) < projectile.timeLeft) {
@@ -39,8 +40,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 			if (Main.rand.Next(6) == 0)
 			{
-				Vector2 Position = projectile.position;
-				int index2 = Dust.NewDust(Position, projectile.width, projectile.height, 152);
+				Vector2 Position = Projectile.position;
+				int index2 = Dust.NewDust(Position, Projectile.width, Projectile.height, 152);
 				Main.dust[index2].scale = 1f;
 				Main.dust[index2].velocity *= 1f;
 				Main.dust[index2].noGravity = true;
@@ -49,36 +50,36 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if ((projectile.velocity.X > 0.001f || projectile.velocity.X < -0.001f) || (projectile.velocity.Y > 0.001f || projectile.velocity.Y < -0.001f))
+			if ((Projectile.velocity.X > 0.001f || Projectile.velocity.X < -0.001f) || (Projectile.velocity.Y > 0.001f || Projectile.velocity.Y < -0.001f))
 			{
-				projectile.position += projectile.velocity * 3;
+				Projectile.position += Projectile.velocity * 3;
 			}
 
-			projectile.velocity *= 0f;
+			Projectile.velocity *= 0f;
 			return false;
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int dmg = (int)(10 * modPlayer.shamanDamage);
 
 			for (int i = 0; i < 13; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 153);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 153);
 				Main.dust[dust].noGravity = true;
 			}
 
-			for (int i = 0; i < OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod); i++)
+			for (int i = 0; i < OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod); i++)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
 					if (player.strongBees && Main.rand.Next(2) == 0)
-						Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 566, (int)(dmg * 1.15f), 0f, projectile.owner, 0f, 0f);
+						Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 566, (int)(dmg * 1.15f), 0f, Projectile.owner, 0f, 0f);
 					else
 					{
-						Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 181, dmg, 0f, projectile.owner, 0f, 0f);
+						Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 181, dmg, 0f, Projectile.owner, 0f, 0f);
 					}
 				}
 			}
@@ -94,20 +95,20 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			modPlayer.orbCountUnique++;
 			//modPlayer.sendOrbCountPackets();
 
-			if (player.FindBuffIndex(mod.BuffType("ShamanicBaubles")) > -1 && modPlayer.orbCountUnique < 5)
+			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountUnique < 5)
 			{
 				modPlayer.orbCountUnique += 5;
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("HoneyOrb1"), 0, 0, projectile.owner, 0f, 0f);
-				player.ClearBuff(mod.BuffType("ShamanicBaubles"));
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
+				player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				//modPlayer.sendOrbCountPackets();
 			}
 
 			if (modPlayer.orbCountUnique == 5)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("HoneyOrb1"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 10)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("HoneyOrb2"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb2").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 15)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("HoneyOrb3"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb3").Type, 0, 0, Projectile.owner, 0f, 0f);
 		}
 	}
 }

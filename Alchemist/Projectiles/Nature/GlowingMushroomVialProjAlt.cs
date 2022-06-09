@@ -16,12 +16,12 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 18;
-			projectile.height = 16;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 120;
-			projectile.scale = 1f;
-			projectile.penetrate = -1;
+			Projectile.width = 18;
+			Projectile.height = 16;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 120;
+			Projectile.scale = 1f;
+			Projectile.penetrate = -1;
 		}
 
 		public override void SetStaticDefaults()
@@ -29,17 +29,17 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			DisplayName.SetDefault("Mushroom");
 		}
 
-		public override void PostDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override void PostDraw(Color lightColor)
 		{
 			Texture2D texture = ModContent.GetTexture("OrchidMod/Alchemist/Projectiles/Nature/GlowingMushroomVialProjAlt_Glow");
-			OrchidModProjectile.DrawProjectileGlowmask(projectile, spriteBatch, texture, this.glowColor);
+			OrchidModProjectile.DrawProjectileGlowmask(Projectile, spriteBatch, texture, this.glowColor);
 		}
 
 		public override void AI()
 		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			projectile.velocity.Y += 0.01f;
+			Projectile.velocity.Y += 0.01f;
 
 			int range = 100;
 			if (modPlayer.timer120 % 2 == 0)
@@ -48,23 +48,23 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			}
 			this.dustVal--;
 
-			if (projectile.damage > 0)
+			if (Projectile.damage > 0)
 			{
-				projectile.timeLeft = 60 * projectile.damage * 3;
-				projectile.damage = 0;
-				projectile.netUpdate = true;
+				Projectile.timeLeft = 60 * Projectile.damage * 3;
+				Projectile.damage = 0;
+				Projectile.netUpdate = true;
 			}
 
 			if (Main.rand.Next(30) == 0)
 			{
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 172);
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172);
 				Main.dust[dust2].scale = 1.2f;
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust2].velocity.X *= 2;
 				Main.dust[dust2].velocity.Y *= 2;
 			}
 
-			Vector2 center = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
+			Vector2 center = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
 			float offsetX = player.Center.X - center.X;
 			float offsetY = player.Center.Y - center.Y;
 			float distance = (float)Math.Sqrt(offsetX * offsetX + offsetY * offsetY);
@@ -120,7 +120,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 					}
 				}
 			}
-			else if (projectile.timeLeft % 60 == 0)
+			else if (Projectile.timeLeft % 60 == 0)
 			{
 				int projType = 0;
 				if (sporeType == 6)
@@ -147,7 +147,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 				for (int i = 0; i < rand; i++)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-					int spawnProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, projType, this.sporeDamage, 0f, projectile.owner);
+					int spawnProj = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, this.sporeDamage, 0f, Projectile.owner);
 					Main.projectile[spawnProj].localAI[1] = 1f;
 				}
 			}
@@ -155,7 +155,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.velocity *= 0f;
+			Projectile.velocity *= 0f;
 			return false;
 		}
 
@@ -166,16 +166,16 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 				double deg = (4 * (42 + this.dustVal) + i * 120);
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) + projectile.velocity.X - 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) + projectile.velocity.Y - 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) + Projectile.velocity.X - 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) + Projectile.velocity.Y - 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
 				int index2 = Dust.NewDust(dustPosition, 1, 1, dustType, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 
-				Main.dust[index2].velocity = projectile.velocity / 2;
+				Main.dust[index2].velocity = Projectile.velocity / 2;
 				Main.dust[index2].fadeIn = 1f;
-				Main.dust[index2].scale = projectile.velocity.X == 0 ? 1.5f : (float)Main.rand.Next(70, 110) * 0.013f;
+				Main.dust[index2].scale = Projectile.velocity.X == 0 ? 1.5f : (float)Main.rand.Next(70, 110) * 0.013f;
 				Main.dust[index2].noGravity = true;
 			}
 		}

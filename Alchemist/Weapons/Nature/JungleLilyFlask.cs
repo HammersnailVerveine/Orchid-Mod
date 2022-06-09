@@ -10,11 +10,11 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 8;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 2;
-			item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.damage = 8;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 2;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 3;
 			this.element = AlchemistElement.NATURE;
 			this.rightClickDust = DustType<Content.Dusts.BloomingDust>();
@@ -36,7 +36,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ModContent.ItemType<Alchemist.Misc.EmptyFlask>(), 1);
 			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLily>(), 2);
@@ -44,7 +44,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(mod);
+			recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ModContent.ItemType<Alchemist.Misc.EmptyFlask>(), 1);
 			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>(), 1);

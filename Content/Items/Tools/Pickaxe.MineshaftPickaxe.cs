@@ -15,27 +15,27 @@ namespace OrchidMod.Content.Items.Tools
 
 		public override void SetDefaults()
 		{
-			item.CloneDefaults(ItemID.SilverPickaxe);
+			Item.CloneDefaults(ItemID.SilverPickaxe);
 
-			item.damage = 6;
-			item.melee = true;
-			item.width = 34;
-			item.height = 34;
-			item.useTime = 19;
-			item.useAnimation = 19;
-			item.pick = 50;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.knockBack = 2;
-			item.value = Item.sellPrice(0, 0, 20, 0);
-			item.rare = ItemRarityID.Blue;
-			item.UseSound = SoundID.Item1;
-			item.autoReuse = true;
+			Item.damage = 6;
+			Item.melee = true;
+			Item.width = 34;
+			Item.height = 34;
+			Item.useTime = 19;
+			Item.useAnimation = 19;
+			Item.pick = 50;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.knockBack = 2;
+			Item.value = Item.sellPrice(0, 0, 20, 0);
+			Item.rare = ItemRarityID.Blue;
+			Item.UseSound = SoundID.Item1;
+			Item.autoReuse = true;
 		}
 	}
 
 	public class MineshaftPickaxeTile : OrchidTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSpelunker[Type] = true;
@@ -45,7 +45,7 @@ namespace OrchidMod.Content.Items.Tools
 
 			this.CreateMapEntry("Mineshaft Pickaxe", new Color(100, 75, 50));
 
-			dustType = 7;
+			DustType = 7;
 			disableSmartCursor = true;
 		}
 

@@ -6,13 +6,13 @@ namespace OrchidMod.Alchemist.Projectiles
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 1;
-			projectile.height = 1;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.scale = 1f;
-			projectile.extraUpdates = 1;
-			projectile.alpha = 255;
+			Projectile.width = 1;
+			Projectile.height = 1;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.scale = 1f;
+			Projectile.extraUpdates = 1;
+			Projectile.alpha = 255;
 		}
 	}
 }

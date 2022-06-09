@@ -13,42 +13,42 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 		public override void SetDefaults()
 		{
-			projectile.width = 50;
-			projectile.height = 50;
-			projectile.aiStyle = 19;
-			projectile.penetrate = -1;
-			projectile.scale = 1.2f;
-			projectile.alpha = 0;
-			projectile.hide = true;
-			projectile.ownerHitCheck = true;
-			projectile.melee = true;
-			projectile.tileCollide = false;
-			projectile.friendly = true;
+			Projectile.width = 50;
+			Projectile.height = 50;
+			Projectile.aiStyle = 19;
+			Projectile.penetrate = -1;
+			Projectile.scale = 1.2f;
+			Projectile.alpha = 0;
+			Projectile.hide = true;
+			Projectile.ownerHitCheck = true;
+			Projectile.melee = true;
+			Projectile.tileCollide = false;
+			Projectile.friendly = true;
 		}
 
 
 		public float movementFactor
 		{
-			get => projectile.ai[0];
-			set => projectile.ai[0] = value;
+			get => Projectile.ai[0];
+			set => Projectile.ai[0] = value;
 		}
 
 		public override void AI()
 		{
-			Player projOwner = Main.player[projectile.owner];
+			Player projOwner = Main.player[Projectile.owner];
 			Vector2 ownerMountedCenter = projOwner.RotatedRelativePoint(projOwner.MountedCenter, true);
-			projectile.direction = projOwner.direction;
-			projOwner.heldProj = projectile.whoAmI;
+			Projectile.direction = projOwner.direction;
+			projOwner.heldProj = Projectile.whoAmI;
 			projOwner.itemTime = projOwner.itemAnimation;
-			projectile.position.X = ownerMountedCenter.X - (float)(projectile.width / 2);
-			projectile.position.Y = ownerMountedCenter.Y - (float)(projectile.height / 2);
+			Projectile.position.X = ownerMountedCenter.X - (float)(Projectile.width / 2);
+			Projectile.position.Y = ownerMountedCenter.Y - (float)(Projectile.height / 2);
 
 			if (!projOwner.frozen)
 			{
 				if (movementFactor == 0f)
 				{
 					movementFactor = 3f;
-					projectile.netUpdate = true;
+					Projectile.netUpdate = true;
 				}
 				if (projOwner.itemAnimation < projOwner.itemAnimationMax / 3)
 				{
@@ -59,16 +59,16 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 					movementFactor += 0.9f;
 				}
 			}
-			projectile.position += projectile.velocity * movementFactor;
+			Projectile.position += Projectile.velocity * movementFactor;
 			if (projOwner.itemAnimation == 0)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
-			projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
 
-			if (projectile.spriteDirection == -1)
+			if (Projectile.spriteDirection == -1)
 			{
-				projectile.rotation -= MathHelper.ToRadians(90f);
+				Projectile.rotation -= MathHelper.ToRadians(90f);
 			}
 		}
 	}

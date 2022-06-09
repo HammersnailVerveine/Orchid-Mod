@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -9,14 +11,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 90;
-			projectile.scale = 1f;
-			aiType = ProjectileID.Bullet;
-			projectile.alpha = 128;
+			Projectile.width = 8;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 90;
+			Projectile.scale = 1f;
+			AIType = ProjectileID.Bullet;
+			Projectile.alpha = 128;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,18 +28,18 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			projectile.velocity *= 1.031f;
-			int index1 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
+			Projectile.velocity *= 1.031f;
+			int index1 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 			Main.dust[index1].velocity *= 0.2f;
 			Main.dust[index1].fadeIn = 1f;
 			Main.dust[index1].scale = 1.5f;
 			Main.dust[index1].noGravity = true;
 
-			if (projectile.timeLeft % 10 == 0 || projectile.timeLeft % 10 == 8)
+			if (Projectile.timeLeft % 10 == 0 || Projectile.timeLeft % 10 == 8)
 			{
 				spawnDustCircle(6, 12);
 			}
-			else if (projectile.timeLeft % 10 == 3)
+			else if (Projectile.timeLeft % 10 == 3)
 			{
 				spawnDustCircle(6, 16);
 			}
@@ -50,52 +52,52 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				double deg = (i * (36 + 5 - Main.rand.Next(10)));
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) + projectile.velocity.X - 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) + projectile.velocity.Y - 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) + Projectile.velocity.X - 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) + Projectile.velocity.Y - 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
 				int index2 = Dust.NewDust(dustPosition, 1, 1, dustType, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);
 
-				Main.dust[index2].velocity = projectile.velocity / 2;
+				Main.dust[index2].velocity = Projectile.velocity / 2;
 				Main.dust[index2].fadeIn = 1f;
-				Main.dust[index2].scale = projectile.velocity.X == 0 ? 1.5f : (float)Main.rand.Next(70, 110) * 0.013f;
+				Main.dust[index2].scale = Projectile.velocity.X == 0 ? 1.5f : (float)Main.rand.Next(70, 110) * 0.013f;
 				Main.dust[index2].noGravity = true;
 			}
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
-			Projectile.NewProjectile(projectile.position.X, projectile.position.Y, 0f, 0f, mod.ProjectileType("MoltenResidueScepterProjExplosion"), projectile.damage + (5 * nbBonds), 0.0f, projectile.owner, 0.0f, 0.0f);
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 14);
+			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("MoltenResidueScepterProjExplosion").Type, Projectile.damage + (5 * nbBonds), 0.0f, Projectile.owner, 0.0f, 0.0f);
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
 
-			float oldVelocityX = 0 + projectile.velocity.X / 2;
-			float oldVelocityY = 0 + projectile.velocity.Y / 2;
-			projectile.velocity.X *= 0;
-			projectile.velocity.Y *= 0;
+			float oldVelocityX = 0 + Projectile.velocity.X / 2;
+			float oldVelocityY = 0 + Projectile.velocity.Y / 2;
+			Projectile.velocity.X *= 0;
+			Projectile.velocity.Y *= 0;
 
 			for (int i = 1; i < nbBonds + 1; i++)
 			{
 				spawnDustCircle(6, 15 * i);
 			}
 
-			projectile.velocity.X = oldVelocityX;
-			projectile.velocity.Y = oldVelocityY;
+			Projectile.velocity.X = oldVelocityX;
+			Projectile.velocity.Y = oldVelocityY;
 
-			projectile.position.X += projectile.velocity.X;
-			projectile.position.Y += projectile.velocity.Y;
+			Projectile.position.X += Projectile.velocity.X;
+			Projectile.position.Y += Projectile.velocity.Y;
 			spawnDustCircle(6, nbBonds * 15 + 15);
-			projectile.position.X += projectile.velocity.X * 3;
-			projectile.position.Y += projectile.velocity.Y * 3;
+			Projectile.position.X += Projectile.velocity.X * 3;
+			Projectile.position.Y += Projectile.velocity.Y * 3;
 			spawnDustCircle(6, nbBonds * 10 + 10);
-			projectile.position.X += projectile.velocity.X * 3;
-			projectile.position.Y += projectile.velocity.Y * 3;
+			Projectile.position.X += Projectile.velocity.X * 3;
+			Projectile.position.Y += Projectile.velocity.Y * 3;
 			spawnDustCircle(6, nbBonds * 5 + 5);
-			projectile.velocity *= 0;
+			Projectile.velocity *= 0;
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }

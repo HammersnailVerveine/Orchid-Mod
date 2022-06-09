@@ -11,14 +11,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1200;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = 10;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1200;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 
 		public override void AI()
 		{
-			projectile.rotation += 0.1f;
+			Projectile.rotation += 0.1f;
 
 			this.timer = this.timer < 1 ? 90 : this.timer - 1;
 			if (this.timer % 30 == 0)
@@ -36,20 +36,20 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 				spawnDustCircle(182, (int)(3 * (this.timer / 30)));
 			}
 
-			if (projectile.damage != 0)
+			if (Projectile.damage != 0)
 			{
-				this.heal += projectile.damage;
-				projectile.damage = 0;
+				this.heal += Projectile.damage;
+				Projectile.damage = 0;
 			}
 
-			Player player = Main.player[projectile.owner];
-			Vector2 center = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
+			Player player = Main.player[Projectile.owner];
+			Vector2 center = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
 			float offsetX = player.Center.X - center.X;
 			float offsetY = player.Center.Y - center.Y;
 			float distance = (float)Math.Sqrt(offsetX * offsetX + offsetY * offsetY);
-			if (distance < 50f && projectile.position.X < player.position.X + player.width && projectile.position.X + projectile.width > player.position.X && projectile.position.Y < player.position.Y + player.height && projectile.position.Y + projectile.height > player.position.Y)
+			if (distance < 50f && Projectile.position.X < player.position.X + player.width && Projectile.position.X + Projectile.width > player.position.X && Projectile.position.Y < player.position.Y + player.height && Projectile.position.Y + Projectile.height > player.position.Y)
 			{
-				if (projectile.owner == Main.myPlayer && !Main.LocalPlayer.moonLeech)
+				if (Projectile.owner == Main.myPlayer && !Main.LocalPlayer.moonLeech)
 				{
 					// int damage = player.statLifeMax2 - player.statLife;
 					// if (heal > damage) {
@@ -59,7 +59,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 					{
 						player.HealEffect(this.heal, true);
 						player.statLife += this.heal;
-						projectile.Kill();
+						Projectile.Kill();
 					}
 				}
 			}
@@ -72,8 +72,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 				double deg = (i * (54 + 5 - Main.rand.Next(10)));
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - 4;
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - 4;
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter) - 4;
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter) - 4;
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
@@ -90,7 +90,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 182);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 182);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 				Main.dust[dust].noGravity = true;

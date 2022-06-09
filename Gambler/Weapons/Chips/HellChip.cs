@@ -11,21 +11,21 @@ namespace OrchidMod.Gambler.Weapons.Chips
 
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 20, 0);
-			item.width = 26;
-			item.height = 26;
-			item.useStyle = 1;
-			item.noUseGraphic = true;
-			item.UseSound = SoundID.Item1;
-			item.useAnimation = 80;
-			item.useTime = 40;
-			item.knockBack = 8f;
-			item.damage = 48;
-			item.crit = 4;
-			item.rare = 3;
-			item.shootSpeed = 15f;
-			item.shoot = ProjectileType<Gambler.Projectiles.Chips.HellChipProj>();
-			item.autoReuse = true;
+			Item.value = Item.sellPrice(0, 0, 20, 0);
+			Item.width = 26;
+			Item.height = 26;
+			Item.useStyle = 1;
+			Item.noUseGraphic = true;
+			Item.UseSound = SoundID.Item1;
+			Item.useAnimation = 80;
+			Item.useTime = 40;
+			Item.knockBack = 8f;
+			Item.damage = 48;
+			Item.crit = 4;
+			Item.rare = 3;
+			Item.shootSpeed = 15f;
+			Item.shoot = ProjectileType<Gambler.Projectiles.Chips.HellChipProj>();
+			Item.autoReuse = true;
 			this.chipCost = 1;
 			this.consumeChance = 100;
 		}
@@ -38,13 +38,13 @@ namespace OrchidMod.Gambler.Weapons.Chips
 		
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed) {
 			Vector2 velocity = new Vector2(0f, speed).RotatedBy(MathHelper.ToRadians(modPlayer.gamblerChipSpin));
-			Projectile.NewProjectile(position.X, position.Y, velocity.X, velocity.Y, item.shoot, damage, knockBack, player.whoAmI);
+			Projectile.NewProjectile(position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockBack, player.whoAmI);
 			return false;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.HellstoneBar, 15);
 			recipe.SetResult(this);

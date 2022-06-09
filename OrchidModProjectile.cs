@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace OrchidMod
@@ -42,7 +44,7 @@ namespace OrchidMod
 			AltSetDefaults();
 		}
 
-		public sealed override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public sealed override bool PreDraw(ref Color lightColor)
 		{
 			if (projectileTrail)
 			{
@@ -66,11 +68,11 @@ namespace OrchidMod
 		{
 			if (reducePenetrate)
 			{
-				projectile.penetrate--;
-				if (projectile.penetrate < 0) projectile.Kill();
+				Projectile.penetrate--;
+				if (Projectile.penetrate < 0) Projectile.Kill();
 			}
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X * speedMult;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y * speedMult;
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X * speedMult;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y * speedMult;
 		}
 
 		public static void DrawProjectileGlowmask(Projectile projectile, SpriteBatch spriteBatch, Texture2D texture, Color color, float offsetX = 0, float offsetY = 0)
@@ -81,22 +83,22 @@ namespace OrchidMod
 		public void PreDrawTrail(SpriteBatch spriteBatch, Color lightColor)
 		{
 			float offSet = this.projectileTrailOffset + 0.5f;
-			Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * offSet, projectile.height * offSet);
-			for (int k = 0; k < projectile.oldPos.Length; k++)
+			Vector2 drawOrigin = new Vector2(TextureAssets.Projectile[Projectile.type].Value.Width * offSet, Projectile.height * offSet);
+			for (int k = 0; k < Projectile.oldPos.Length; k++)
 			{
-				Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
-				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0.3f);
+				Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+				Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+				spriteBatch.Draw(TextureAssets.Projectile[Projectile.type].Value, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0.3f);
 			}
 		}
 
 		public void PostAITrail()
 		{
-			for (int num46 = projectile.oldPos.Length - 1; num46 > 0; num46--)
+			for (int num46 = Projectile.oldPos.Length - 1; num46 > 0; num46--)
 			{
-				projectile.oldPos[num46] = projectile.oldPos[num46 - 1];
+				Projectile.oldPos[num46] = Projectile.oldPos[num46 - 1];
 			}
-			projectile.oldPos[0] = projectile.position;
+			Projectile.oldPos[0] = Projectile.position;
 		}
 
 		public static void SetSpriteBatch(SpriteBatch spriteBatch, SpriteSortMode spriteSortMode = SpriteSortMode.Deferred, BlendState blendState = null, SamplerState samplerState = null, Effect effect = null, bool end = true)
@@ -144,7 +146,7 @@ namespace OrchidMod
 
 		public static int spawnGenericExplosion(Projectile projectile, int damage, float kb, int dimensions = 250, int damageType = 0, bool explosionGore = false, int soundType = 14)
 		{
-			if (soundType != 0) Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, soundType);
+			if (soundType != 0) SoundEngine.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, soundType);
 			if (explosionGore) OrchidModProjectile.spawnExplosionGore(projectile);
 			int projType = ModContent.ProjectileType<General.Projectiles.GenericExplosion>();
 			int newProjectileInt = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, kb, projectile.owner);

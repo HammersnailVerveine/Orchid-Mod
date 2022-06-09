@@ -17,14 +17,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 40;
-			projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.timeLeft = 12960000;
-			projectile.scale = 1f;
-			projectile.tileCollide = false;
-			Main.projFrames[projectile.type] = 9;
+			Projectile.width = 14;
+			Projectile.height = 40;
+			Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 12960000;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = false;
+			Main.projFrames[Projectile.type] = 9;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -39,11 +39,11 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			if (player != Main.player[Main.myPlayer])
 			{
-				projectile.active = false;
+				Projectile.active = false;
 			}
 
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 20 == 0)
@@ -52,30 +52,30 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 5)
 				{
-					if (!done && projectile.frame == 0)
+					if (!done && Projectile.frame == 0)
 					{
-						projectile.frame = 1;
+						Projectile.frame = 1;
 						reverseAnim = false;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 2)
+					if (!done && Projectile.frame == 2)
 					{
-						projectile.frame = 1;
+						Projectile.frame = 1;
 						reverseAnim = true;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 1)
+					if (!done && Projectile.frame == 1)
 					{
 						if (reverseAnim)
 						{
-							projectile.frame = 0;
+							Projectile.frame = 0;
 							done = true;
 						}
 						else
 						{
-							projectile.frame = 2;
+							Projectile.frame = 2;
 							done = true;
 						}
 					}
@@ -83,30 +83,30 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 5 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 7)
 				{
-					if (!done && projectile.frame == 3 || projectile.frame < 3)
+					if (!done && Projectile.frame == 3 || Projectile.frame < 3)
 					{
-						projectile.frame = 4;
+						Projectile.frame = 4;
 						reverseAnim = false;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 5)
+					if (!done && Projectile.frame == 5)
 					{
-						projectile.frame = 4;
+						Projectile.frame = 4;
 						reverseAnim = true;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 4)
+					if (!done && Projectile.frame == 4)
 					{
 						if (reverseAnim)
 						{
-							projectile.frame = 3;
+							Projectile.frame = 3;
 							done = true;
 						}
 						else
 						{
-							projectile.frame = 5;
+							Projectile.frame = 5;
 							done = true;
 						}
 					}
@@ -114,30 +114,30 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 7)
 				{
-					if (!done && projectile.frame == 6 || projectile.frame < 6)
+					if (!done && Projectile.frame == 6 || Projectile.frame < 6)
 					{
-						projectile.frame = 7;
+						Projectile.frame = 7;
 						reverseAnim = false;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 8)
+					if (!done && Projectile.frame == 8)
 					{
-						projectile.frame = 7;
+						Projectile.frame = 7;
 						reverseAnim = true;
 						done = true;
 					}
 
-					if (!done && projectile.frame == 7)
+					if (!done && Projectile.frame == 7)
 					{
 						if (reverseAnim)
 						{
-							projectile.frame = 6;
+							Projectile.frame = 6;
 							done = true;
 						}
 						else
 						{
-							projectile.frame = 8;
+							Projectile.frame = 8;
 							done = true;
 						}
 					}
@@ -146,33 +146,33 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique == 0 || player.GetModPlayer<OrchidModPlayer>().orbCountUnique > 10 || player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique != ShamanOrbUnique.ICE)
-				projectile.Kill();
+				Projectile.Kill();
 
 			else orbsNumber = player.GetModPlayer<OrchidModPlayer>().orbCountUnique;
 
-			if (projectile.timeLeft == 12960000)
+			if (Projectile.timeLeft == 12960000)
 			{
-				startX = projectile.position.X - player.position.X;
-				startY = projectile.position.Y - player.position.Y;
+				startX = Projectile.position.X - player.position.X;
+				startY = Projectile.position.Y - player.position.Y;
 			}
 
-			projectile.position.X = player.position.X + startX;
-			projectile.position.Y = player.position.Y + startY;
+			Projectile.position.X = player.position.X + startX;
+			Projectile.position.Y = player.position.Y + startY;
 
 			if (Main.rand.Next(15) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 67);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity /= 2f;
 				Main.dust[dust].scale *= 1f;
 			}
 
 			if ((Main.mouseX + Main.screenPosition.X) < player.Center.X)
-				projectile.velocity.X = -15f;
+				Projectile.velocity.X = -15f;
 			else
-				projectile.velocity.X = 15f;
+				Projectile.velocity.X = 15f;
 
-			projectile.velocity.Y = 6f;
+			Projectile.velocity.Y = 6f;
 		}
 
 		private void AdjustMagnitude(ref Vector2 vector)
@@ -186,12 +186,12 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void Kill(int timeLeft)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			for (int i = 0; i < 10; i++)
 			{
 				int dust;
-				dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 67);
+				dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67);
 				Main.dust[dust].velocity *= 2f;
 				Main.dust[dust].scale = 1.75f;
 				Main.dust[dust].noGravity = true;

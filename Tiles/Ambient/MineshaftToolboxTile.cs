@@ -8,7 +8,7 @@ namespace OrchidMod.Tiles.Ambient
 {
 	public class MineshaftToolboxTile : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileSpelunker[Type] = true;
 			Main.tileFrameImportant[Type] = true;
@@ -19,7 +19,7 @@ namespace OrchidMod.Tiles.Ambient
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Salvaged Toolbox");
 			AddMapEntry(new Color(100, 75, 50), name);
-			dustType = 7;
+			DustType = 7;
 			disableSmartCursor = true;
 		}
 

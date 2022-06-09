@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -112,7 +113,7 @@ namespace OrchidMod.Shaman
 						Main.dust[dust].noGravity = true;
 					}
 
-					Projectile.NewProjectile((int)(player.Center.X + 25 - randX), (int)(player.Center.Y + 15 - randY), 0f, 0f, mod.ProjectileType("Smite"), dmg, 0f, player.whoAmI);
+					Projectile.NewProjectile((int)(player.Center.X + 25 - randX), (int)(player.Center.Y + 15 - randY), 0f, 0f, mod.Find<ModProjectile>("Smite").Type, dmg, 0f, player.whoAmI);
 				}
 
 			}
@@ -142,7 +143,7 @@ namespace OrchidMod.Shaman
 					if (modPlayer.timer120 % 10 == 0)
 					{
 						int dmg = (int)(30 * modPlayer.shamanDamage + 5E-06f);
-						Projectile.NewProjectile(player.Center.X - 10 + (Main.rand.Next(20)), player.Center.Y + 16, 0f, -0.001f, mod.ProjectileType("LavaDroplet"), dmg, 0f, player.whoAmI);
+						Projectile.NewProjectile(player.Center.X - 10 + (Main.rand.Next(20)), player.Center.Y + 16, 0f, -0.001f, mod.Find<ModProjectile>("LavaDroplet").Type, dmg, 0f, player.whoAmI);
 					}
 				}
 
@@ -193,7 +194,7 @@ namespace OrchidMod.Shaman
 
 				if (modPlayer.shamanForest)
 				{
-					player.AddBuff(mod.BuffType("DeepForestAura"), 2);
+					player.AddBuff(mod.Find<ModBuff>("DeepForestAura").Type, 2);
 				}
 
 				if (modPlayer.shamanAmber)
@@ -214,9 +215,9 @@ namespace OrchidMod.Shaman
 			{
 				if (!player.controlJump) modPlayer.harpySpaceKeyReleased = true;
 
-				if (!(player.doubleJumpCloud || player.doubleJumpSail || player.doubleJumpSandstorm
-				|| player.doubleJumpBlizzard || player.doubleJumpFart || player.doubleJumpUnicorn))
-					player.doubleJumpCloud = true;
+				if (!(player.hasJumpOption_Cloud || player.hasJumpOption_Sail || player.hasJumpOption_Sandstorm
+				|| player.hasJumpOption_Blizzard || player.hasJumpOption_Fart || player.hasJumpOption_Unicorn))
+					player.hasJumpOption_Cloud = true;
 
 				if (player.velocity.Y == 0 || player.grappling[0] >= 0 || (modPlayer.shamanHarpyAnklet && modPlayer.shamanSpiritTimer > 0 && !player.controlJump))
 				{
@@ -256,7 +257,7 @@ namespace OrchidMod.Shaman
 					if (modPlayer.shamanHarpyAnklet && modPlayer.shamanSpiritTimer > 0)
 					{
 						dmg = (int)(12 * modPlayer.shamanDamage);
-						if (player.FindBuffIndex(mod.BuffType("HarpyAgility")) > -1)
+						if (player.FindBuffIndex(mod.Find<ModBuff>("HarpyAgility").Type) > -1)
 							dmg += (int)(12 * modPlayer.shamanDamage);
 					}
 
@@ -269,7 +270,7 @@ namespace OrchidMod.Shaman
 							if (dirX != 0 && dirY != 0) ankletSpeed = 7.5f;
 							if (ankletCanShoot)
 							{
-								Projectile.NewProjectile(player.Center.X, player.Center.Y, (dirX * ankletSpeed), (dirY * ankletSpeed), mod.ProjectileType("HarpyAnkletProj"), dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
+								Projectile.NewProjectile(player.Center.X, player.Center.Y, (dirX * ankletSpeed), (dirY * ankletSpeed), mod.Find<ModProjectile>("HarpyAnkletProj").Type, dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
 							}
 						}
 					}
@@ -316,8 +317,8 @@ namespace OrchidMod.Shaman
 				{
 					if (modPlayer.abyssSet)
 					{
-						Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.ProjectileType("AbyssPortal"), 0, 5, player.whoAmI);
-						Main.PlaySound(SoundID.Item122, player.Center);
+						Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.Find<ModProjectile>("AbyssPortal").Type, 0, 5, player.whoAmI);
+						SoundEngine.PlaySound(SoundID.Item122, player.Center);
 					}
 					modPlayer.doubleTap = 0;
 					modPlayer.doubleTapCooldown += 1000;
@@ -340,8 +341,8 @@ namespace OrchidMod.Shaman
 				{
 					if (modPlayer.abyssSet)
 					{
-						Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.ProjectileType("AbyssPortal"), 0, 5, player.whoAmI);
-						Main.PlaySound(SoundID.Item122, player.Center);
+						Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.Find<ModProjectile>("AbyssPortal").Type, 0, 5, player.whoAmI);
+						SoundEngine.PlaySound(SoundID.Item122, player.Center);
 					}
 					modPlayer.doubleTap = 0;
 					modPlayer.doubleTapCooldown += 1000;
@@ -376,7 +377,7 @@ namespace OrchidMod.Shaman
 				modPlayer.orbCountCircle = 0;
 			}
 
-			if (!(player.FindBuffIndex(mod.BuffType("SpiritualBurst")) > -1) && modPlayer.orbCountCircle > 39 && modPlayer.shamanOrbCircle == ShamanOrbCircle.REVIVER)
+			if (!(player.FindBuffIndex(mod.Find<ModBuff>("SpiritualBurst").Type) > -1) && modPlayer.orbCountCircle > 39 && modPlayer.shamanOrbCircle == ShamanOrbCircle.REVIVER)
 				modPlayer.orbCountCircle = 0;
 
 			if (modPlayer.orbCountBig < 0)
@@ -451,22 +452,22 @@ namespace OrchidMod.Shaman
 		{
 			if (crit)
 			{
-				if (player.FindBuffIndex(mod.BuffType("OpalEmpowerment")) > -1)
+				if (player.FindBuffIndex(mod.Find<ModBuff>("OpalEmpowerment").Type) > -1)
 				{
 					damage += 5;
 				}
 
-				if (player.FindBuffIndex(mod.BuffType("DestroyerFrenzy")) > -1)
+				if (player.FindBuffIndex(mod.Find<ModBuff>("DestroyerFrenzy").Type) > -1)
 				{
 					damage = (int)(damage * 1.15f);
 				}
 
-				if (projectile.type == mod.ProjectileType("TitanicScepterProj"))
+				if (projectile.type == mod.Find<ModProjectile>("TitanicScepterProj").Type)
 				{
 					damage = (int)(damage * 1.5f);
 				}
 
-				if (player.FindBuffIndex(mod.BuffType("TitanicBuff")) > -1)
+				if (player.FindBuffIndex(mod.Find<ModBuff>("TitanicBuff").Type) > -1)
 				{
 					damage = (int)(damage * 1.2f);
 				}
@@ -480,11 +481,11 @@ namespace OrchidMod.Shaman
 
 			if (target.type != NPCID.TargetDummy)
 			{
-				if (projectile.type != mod.ProjectileType("LavaDroplet")
-					&& projectile.type != mod.ProjectileType("LostSoul")
-					&& projectile.type != mod.ProjectileType("HarpyAnkletProj")
-					&& projectile.type != mod.ProjectileType("DeepForestCharmProj")
-					&& projectile.type != mod.ProjectileType("Smite")
+				if (projectile.type != mod.Find<ModProjectile>("LavaDroplet").Type
+					&& projectile.type != mod.Find<ModProjectile>("LostSoul").Type
+					&& projectile.type != mod.Find<ModProjectile>("HarpyAnkletProj").Type
+					&& projectile.type != mod.Find<ModProjectile>("DeepForestCharmProj").Type
+					&& projectile.type != mod.Find<ModProjectile>("Smite").Type
 					)
 				{
 
@@ -505,7 +506,7 @@ namespace OrchidMod.Shaman
 						heading.Normalize();
 						heading *= new Vector2(5f, 5f).Length();
 						Vector2 projectileVelocity = (new Vector2(heading.X, heading.Y).RotatedByRandom(MathHelper.ToRadians(10)));
-						Projectile.NewProjectile(Main.player[projectile.owner].Center.X, Main.player[projectile.owner].Center.Y, projectileVelocity.X, projectileVelocity.Y, mod.ProjectileType("LostSoul"), dmg, 0f, projectile.owner, 0f, 0f);
+						Projectile.NewProjectile(Main.player[projectile.owner].Center.X, Main.player[projectile.owner].Center.Y, projectileVelocity.X, projectileVelocity.Y, mod.Find<ModProjectile>("LostSoul").Type, dmg, 0f, projectile.owner, 0f, 0f);
 					}
 
 					if (crit == true && modPlayer.shamanWaterHoney && modPlayer.shamanWaterTimer > 0 && modPlayer.timerVial == 30)
@@ -519,7 +520,7 @@ namespace OrchidMod.Shaman
 					{
 						int dmg = (int)(50 * modPlayer.shamanDamage + 5E-06f);
 						target.StrikeNPCNoInteraction(dmg, 0f, 0);
-						Main.PlaySound(2, (int)target.Center.X, (int)target.Center.Y - 200, 93);
+						SoundEngine.PlaySound(2, (int)target.Center.X, (int)target.Center.Y - 200, 93);
 
 						for (int i = 0; i < 15; i++)
 						{
@@ -586,7 +587,7 @@ namespace OrchidMod.Shaman
 
 			if (modPlayer.shamanSunBelt)
 			{
-				player.AddBuff((mod.BuffType("BrokenPower")), 60 * 15);
+				player.AddBuff((mod.Find<ModBuff>("BrokenPower").Type), 60 * 15);
 			}
 
 			if (modPlayer.shamanHell && modPlayer.shamanTimerHellDefense == 300 && modPlayer.shamanEarthTimer > 0)
@@ -594,7 +595,7 @@ namespace OrchidMod.Shaman
 				modPlayer.shamanTimerHellDefense = 0;
 				int dmg = (int)(50 * modPlayer.shamanDamage);
 				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ProjectileType<Shaman.Projectiles.Equipment.Hell.ShamanHellExplosion>(), dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
-				Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 14);
+				SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 14);
 				OrchidModProjectile.spawnDustCircle(player.Center, 6, 10, 15, true, 1f, 1f, 8f, true, true, false, 0, 0, true);
 				OrchidModProjectile.spawnDustCircle(player.Center, 6, 10, 15, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
 				OrchidModProjectile.spawnDustCircle(player.Center, 6, 10, 15, true, 2f, 1f, 3f, true, true, false, 0, 0, true);

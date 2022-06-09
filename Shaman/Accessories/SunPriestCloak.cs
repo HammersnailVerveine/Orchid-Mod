@@ -9,12 +9,12 @@ namespace OrchidMod.Shaman.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 22;
-			item.height = 20;
-			item.value = Item.sellPrice(0, 4, 75, 0);
-			item.rare = 8;
-			item.defense = 2;
-			item.accessory = true;
+			Item.width = 22;
+			Item.height = 20;
+			Item.value = Item.sellPrice(0, 4, 75, 0);
+			Item.rare = 8;
+			Item.defense = 2;
+			Item.accessory = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) == 5 && modPlayer.timer120 % 2 == 0)
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) == 5 && modPlayer.timer120 % 2 == 0)
 			{
 				modPlayer.shamanFireTimer++;
 				modPlayer.shamanWaterTimer++;
@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "LihzahrdSilk", 2);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 8);
 			recipe.AddTile(TileID.MythrilAnvil);

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
@@ -16,36 +17,36 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 120;
-			projectile.penetrate = 3;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 120;
+			Projectile.penetrate = 3;
 		}
 
 		public override void OnSpawn()
 		{
-			var trail = new Content.Trails.TriangularTrail(target: projectile, length: 16 * 5, width: (p) => 5 * (1 - p), color: (p) => BoreanStriderScepterProj.EffectColor * (1 - p) * 0.25f);
+			var trail = new Content.Trails.TriangularTrail(target: Projectile, length: 16 * 5, width: (p) => 5 * (1 - p), color: (p) => BoreanStriderScepterProj.EffectColor * (1 - p) * 0.25f);
 			trail.SetDissolveSpeed(0.35f);
 			PrimitiveTrailSystem.NewTrail(trail);
 
-			projectile.frame = Main.rand.Next(3);
+			Projectile.frame = Main.rand.Next(3);
 		}
 
 		public override void AI()
 		{
-			projectile.friendly = projectile.timeLeft < 170; // ???
+			Projectile.friendly = Projectile.timeLeft < 170; // ???
 
-			Lighting.AddLight(projectile.Center, BoreanStriderScepterProj.EffectColor.ToVector3() * 0.35f);
+			Lighting.AddLight(Projectile.Center, BoreanStriderScepterProj.EffectColor.ToVector3() * 0.35f);
 
 			if (Main.rand.Next(7) == 0)
 			{
-				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, 67)];
+				var dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67)];
 				dust.noGravity = true;
 				dust.scale = 1.1f;
 				dust.noLight = true;
-				dust.velocity = projectile.velocity;
+				dust.velocity = Projectile.velocity;
 			}
 		}
 
@@ -53,7 +54,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				var dust = Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, 67)];
+				var dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67)];
 				dust.noGravity = true;
 				dust.scale = 1.2f;
 				dust.noLight = true;
@@ -66,16 +67,16 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				target.AddBuff((thoriumMod.BuffType("Freezing")), 2 * 60);
+				target.AddBuff((thoriumMod.Find<ModBuff>("Freezing").Type), 2 * 60);
 			}
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			var texture = Main.projectileTexture[projectile.type];
-			var drawPos = projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
+			var texture = TextureAssets.Projectile[Projectile.type].Value;
+			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 
-			spriteBatch.Draw(texture, drawPos, new Rectangle(projectile.frame * 10, 0, 10, 18), projectile.GetAlpha(lightColor), projectile.rotation, new Vector2(5, 9), projectile.scale, SpriteEffects.None, 0);
+			spriteBatch.Draw(texture, drawPos, new Rectangle(Projectile.frame * 10, 0, 10, 18), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(5, 9), Projectile.scale, SpriteEffects.None, 0);
 
 			return false;
 		}

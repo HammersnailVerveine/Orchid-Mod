@@ -4,7 +4,7 @@ namespace OrchidMod.Alchemist.Misc.Scrolls
 	{
 		public override void SafeSetDefaults()
 		{
-			item.rare = 1;
+			Item.rare = 1;
 			this.hintLevel = 1;
 		}
 

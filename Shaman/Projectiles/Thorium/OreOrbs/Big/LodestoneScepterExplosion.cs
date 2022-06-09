@@ -8,14 +8,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 160;
-			projectile.height = 160;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = 200;
+			Projectile.width = 160;
+			Projectile.height = 160;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = 200;
 		}
 
 		public override void SetStaticDefaults()
@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 		{
 			for (int i = 0; i < 15; i++)
 			{
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 38);
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 38);
 				Main.dust[dust2].scale = 1.2f;
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust2].velocity.X /= 3;
@@ -35,7 +35,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			}
 			for (int i = 0; i < 15; i++)
 			{
-				int dust2 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 182);
+				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 182);
 				Main.dust[dust2].scale = 1.2f;
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust2].velocity.X /= 3;
@@ -48,12 +48,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				target.AddBuff((thoriumMod.BuffType("Sunder")), 10 * 60);
+				target.AddBuff((thoriumMod.Find<ModBuff>("Sunder").Type), 10 * 60);
 			}
 
 			if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
 			{
-				target.AddBuff((mod.BuffType("LodestoneSlow")), 10 * 60);
+				target.AddBuff((Mod.Find<ModBuff>("LodestoneSlow").Type), 10 * 60);
 			}
 		}
 	}

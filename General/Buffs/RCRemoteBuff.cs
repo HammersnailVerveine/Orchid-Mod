@@ -5,7 +5,7 @@ namespace OrchidMod.General.Buffs
 {
 	public class RCRemoteBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Conspicuous Helicopter");
 			Description.SetDefault("'That whirring is getting repetitive...'");

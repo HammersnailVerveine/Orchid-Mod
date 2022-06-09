@@ -11,15 +11,15 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 10;
-			projectile.height = 16;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 500;
-			projectile.scale = 1f;
-			projectile.tileCollide = false;
-			aiType = ProjectileID.Bullet;
-			Main.projFrames[projectile.type] = 2;
+			Projectile.width = 10;
+			Projectile.height = 16;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 500;
+			Projectile.scale = 1f;
+			Projectile.tileCollide = false;
+			AIType = ProjectileID.Bullet;
+			Main.projFrames[Projectile.type] = 2;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -34,33 +34,33 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
 			if (this.projType == 0)
 			{
 				this.projType = Main.rand.Next(2) + 1;
-				projectile.frame = this.projType - 1;
+				Projectile.frame = this.projType - 1;
 			}
 
-			if (projectile.timeLeft > 480)
+			if (Projectile.timeLeft > 480)
 			{
-				projectile.friendly = false;
+				Projectile.friendly = false;
 			}
 			else
 			{
-				projectile.friendly = true;
+				Projectile.friendly = true;
 
 				if (nbBonds > 3)
 				{
-					projectile.extraUpdates = 1;
-					ProjectileID.Sets.Homing[projectile.type] = true;
+					Projectile.extraUpdates = 1;
+					ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 
-					if (projectile.localAI[0] == 0f)
+					if (Projectile.localAI[0] == 0f)
 					{
-						AdjustMagnitude(ref projectile.velocity);
-						projectile.localAI[0] = 1f;
+						AdjustMagnitude(ref Projectile.velocity);
+						Projectile.localAI[0] = 1f;
 					}
 
 					Vector2 move = Vector2.Zero;
@@ -70,7 +70,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 					{
 						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)
 						{
-							Vector2 newMove = Main.npc[k].Center - projectile.Center;
+							Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 							float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 							if (distanceTo < distance)
 							{
@@ -83,23 +83,23 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 					if (target)
 					{
 						AdjustMagnitude(ref move);
-						projectile.velocity = (20 * projectile.velocity + move);
-						AdjustMagnitude(ref projectile.velocity);
+						Projectile.velocity = (20 * Projectile.velocity + move);
+						AdjustMagnitude(ref Projectile.velocity);
 					}
 					else
 					{
-						projectile.timeLeft -= 5;
+						Projectile.timeLeft -= 5;
 					}
 				}
 				else
 				{
-					projectile.timeLeft -= 15;
+					Projectile.timeLeft -= 15;
 				}
 			}
 
 			if (Main.rand.Next(2) == 0)
 			{
-				int DustID = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, this.projType == 1 ? 15 : 127, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
+				int DustID = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, this.projType == 1 ? 15 : 127, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
 				Main.dust[DustID].noGravity = true;
 			}
 		}
@@ -117,9 +117,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, this.projType == 1 ? 15 : 127);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, this.projType == 1 ? 15 : 127);
 				Main.dust[dust].noGravity = true;
-				Main.dust[dust].velocity = projectile.velocity / 2;
+				Main.dust[dust].velocity = Projectile.velocity / 2;
 			}
 		}
 

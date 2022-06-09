@@ -5,7 +5,7 @@ namespace OrchidMod.Gambler.Buffs
 {
 	public class VulturePotionBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Scavenger");

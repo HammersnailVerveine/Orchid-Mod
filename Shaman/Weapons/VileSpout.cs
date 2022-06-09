@@ -8,20 +8,20 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 20;
-			item.width = 42;
-			item.height = 42;
-			item.useTime = 25;
-			item.useAnimation = 25;
-			item.knockBack = 3.15f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 27, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 7f;
-			item.shoot = mod.ProjectileType("VileSpoutProj");
+			Item.damage = 20;
+			Item.width = 42;
+			Item.height = 42;
+			Item.useTime = 25;
+			Item.useAnimation = 25;
+			Item.knockBack = 3.15f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 27, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 7f;
+			Item.shoot = Mod.Find<ModProjectile>("VileSpoutProj").Type;
 			this.empowermentType = 1;
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
 			this.energy = 6;
 		}
@@ -36,13 +36,13 @@ namespace OrchidMod.Shaman.Weapons
 		public override void UpdateInventory(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
-			item.shootSpeed = 7f + 2f * nbBonds;
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+			Item.shootSpeed = 7f + 2f * nbBonds;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.DemoniteBar, 10);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);

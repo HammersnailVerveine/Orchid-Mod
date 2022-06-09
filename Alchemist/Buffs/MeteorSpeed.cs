@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class MeteorSpeed : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Meteor Agility");
 			Description.SetDefault("Immune to knockback, 20% increased movement speed");

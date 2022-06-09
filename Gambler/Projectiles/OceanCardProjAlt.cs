@@ -13,13 +13,13 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 20;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.tileCollide = false;
-			projectile.timeLeft = 600;
-			Main.projFrames[projectile.type] = 5;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.tileCollide = false;
+			Projectile.timeLeft = 600;
+			Main.projFrames[Projectile.type] = 5;
 			this.bonusTrigger = true;
 		}
 
@@ -27,7 +27,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 31);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}
@@ -35,14 +35,14 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeAI()
 		{
-			projectile.velocity *= 0.95f;
-			Player player = Main.player[projectile.owner];
+			Projectile.velocity *= 0.95f;
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (modPlayer.timer120 == 0 || modPlayer.timer120 > 49) projectile.frame = 0;
-			if (modPlayer.timer120 == 10) projectile.frame = 1;
-			if (modPlayer.timer120 == 20) projectile.frame = 2;
-			if (modPlayer.timer120 == 30) projectile.frame = 3;
-			if (modPlayer.timer120 == 40) projectile.frame = 4;
+			if (modPlayer.timer120 == 0 || modPlayer.timer120 > 49) Projectile.frame = 0;
+			if (modPlayer.timer120 == 10) Projectile.frame = 1;
+			if (modPlayer.timer120 == 20) Projectile.frame = 2;
+			if (modPlayer.timer120 == 30) Projectile.frame = 3;
+			if (modPlayer.timer120 == 40) Projectile.frame = 4;
 		}
 
 		public override void BonusProjectiles(Player player, OrchidModPlayer modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy)

@@ -12,18 +12,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 30;
-			item.width = 44;
-			item.height = 44;
-			item.useTime = 38;
-			item.useAnimation = 38;
-			item.knockBack = 4.75f;
-			item.rare = 3;
-			item.value = Item.sellPrice(0, 0, 50, 0);
-			item.UseSound = SoundID.Item21;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("MonowaiProj");
+			Item.damage = 30;
+			Item.width = 44;
+			Item.height = 44;
+			Item.useTime = 38;
+			Item.useAnimation = 38;
+			Item.knockBack = 4.75f;
+			Item.rare = 3;
+			Item.value = Item.sellPrice(0, 0, 50, 0);
+			Item.UseSound = SoundID.Item21;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("MonowaiProj").Type;
 			this.empowermentType = 4;
 			this.energy = 8;
 		}
@@ -52,10 +52,10 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.Anvils);
-				recipe.AddIngredient(mod.ItemType("MagmaScepter"), 1);
-				recipe.AddIngredient(mod.ItemType("AquaiteScepter"), 1);
+				recipe.AddIngredient(Mod.Find<ModItem>("MagmaScepter").Type, 1);
+				recipe.AddIngredient(Mod.Find<ModItem>("AquaiteScepter").Type, 1);
 				recipe.AddIngredient(thoriumMod, "aDarksteelAlloy", 10);
 				recipe.SetResult(this);
 				recipe.AddRecipe();

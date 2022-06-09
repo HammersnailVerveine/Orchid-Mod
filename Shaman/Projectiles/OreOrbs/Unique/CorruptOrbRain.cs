@@ -11,14 +11,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 18;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 300;
-			projectile.scale = 0.5f;
-			projectile.extraUpdates = 1;
-			projectile.penetrate = 15;
+			Projectile.width = 14;
+			Projectile.height = 18;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 300;
+			Projectile.scale = 0.5f;
+			Projectile.extraUpdates = 1;
+			Projectile.penetrate = 15;
 		}
 		public override Color? GetAlpha(Color lightColor)
 		{
@@ -32,23 +32,23 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				switch (Main.rand.Next(3))
 				{
 					case 0:
-						dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 75);
-						Main.dust[dust].velocity.X = projectile.velocity.X;
-						Main.dust[dust].velocity.Y = projectile.velocity.Y;
+						dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 75);
+						Main.dust[dust].velocity.X = Projectile.velocity.X;
+						Main.dust[dust].velocity.Y = Projectile.velocity.Y;
 						Main.dust[dust].scale = 1f;
 						Main.dust[dust].noGravity = true;
 						break;
 					case 1:
-						dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 74);
-						Main.dust[dust].velocity.X = projectile.velocity.X;
-						Main.dust[dust].velocity.Y = projectile.velocity.Y;
+						dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 74);
+						Main.dust[dust].velocity.X = Projectile.velocity.X;
+						Main.dust[dust].velocity.Y = Projectile.velocity.Y;
 						Main.dust[dust].scale = 1f;
 						Main.dust[dust].noGravity = true;
 						break;
 					case 2:
-						dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 61);
-						Main.dust[dust].velocity.X = projectile.velocity.X;
-						Main.dust[dust].velocity.Y = projectile.velocity.Y;
+						dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 61);
+						Main.dust[dust].velocity.X = Projectile.velocity.X;
+						Main.dust[dust].velocity.Y = Projectile.velocity.Y;
 						Main.dust[dust].scale = 1f;
 						Main.dust[dust].noGravity = true;
 						break;

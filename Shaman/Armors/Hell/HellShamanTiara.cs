@@ -9,11 +9,11 @@ namespace OrchidMod.Shaman.Armors.Hell
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 28;
-			item.height = 18;
-			item.value = Item.sellPrice(0, 0, 90, 0);
-			item.rare = 3;
-			item.defense = 7;
+			Item.width = 28;
+			Item.height = 18;
+			Item.value = Item.sellPrice(0, 0, 90, 0);
+			Item.rare = 3;
+			Item.defense = 7;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == mod.ItemType("HellShamanTunic") && legs.type == mod.ItemType("HellShamanKilt");
+			return body.type == Mod.Find<ModItem>("HellShamanTunic").Type && legs.type == Mod.Find<ModItem>("HellShamanKilt").Type;
 		}
 
 		public override void UpdateArmorSet(Player player)
@@ -56,7 +56,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.HellstoneBar, 5);
 			recipe.AddIngredient(ItemID.Silk, 10);
 			recipe.AddIngredient(ItemID.Bone, 5);

@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -22,38 +24,38 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 28;
-			projectile.height = 30;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.penetrate = -1;
-			ProjectileID.Sets.Homing[projectile.type] = true;
+			Projectile.width = 28;
+			Projectile.height = 30;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 			this.gamblingChipChance = 5;
-			Main.projFrames[projectile.type] = 2;
+			Main.projFrames[Projectile.type] = 2;
 		}
 
 		public override void SafeAI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int cardType = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			this.bounceDelay -= this.bounceDelay > 0 ? 1 : 0;
 
-			if (projectile.ai[1] == 0f)
+			if (Projectile.ai[1] == 0f)
 			{
-				projectile.friendly = true;
-				projectile.rotation += 0.25f;
-				projectile.frame = 1;
+				Projectile.friendly = true;
+				Projectile.rotation += 0.25f;
+				Projectile.frame = 1;
 			}
 			else
 			{
-				projectile.friendly = false;
-				projectile.rotation = 0f;
-				projectile.frame = 0;
+				Projectile.friendly = false;
+				Projectile.rotation = 0f;
+				Projectile.frame = 0;
 			}
-			projectile.frame = (int)projectile.ai[1];
+			Projectile.frame = (int)Projectile.ai[1];
 
-			if (Main.myPlayer == projectile.owner)
+			if (Main.myPlayer == Projectile.owner)
 			{
 				if (modPlayer.timer120 % 2 == 0)
 				{
@@ -64,27 +66,27 @@ namespace OrchidMod.Gambler.Projectiles
 				{
 					if (this.bounceDelay <= 0)
 					{
-						Vector2 newMove = Main.MouseWorld - projectile.Center;
+						Vector2 newMove = Main.MouseWorld - Projectile.Center;
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 						if (distanceTo > 5f)
 						{
 							newMove *= 2f / distanceTo;
-							projectile.velocity = newMove;
+							Projectile.velocity = newMove;
 						}
 						else
 						{
-							if (projectile.velocity.Length() > 0f)
+							if (Projectile.velocity.Length() > 0f)
 							{
-								projectile.velocity *= 0f;
+								Projectile.velocity *= 0f;
 							}
 						}
 
 						if (distanceTo > 250f)
 						{
-							if (projectile.ai[1] == 0f)
+							if (Projectile.ai[1] == 0f)
 							{
-								projectile.ai[1] = 1f;
-								projectile.netUpdate = true;
+								Projectile.ai[1] = 1f;
+								Projectile.netUpdate = true;
 							}
 							if (modPlayer.timer120 % (int)(60 / this.projectilePoll) == 0)
 							{
@@ -93,22 +95,22 @@ namespace OrchidMod.Gambler.Projectiles
 
 							if (this.fireProj == 5)
 							{
-								Vector2 projMove = newMove = Main.MouseWorld - projectile.Center;
+								Vector2 projMove = newMove = Main.MouseWorld - Projectile.Center;
 								projMove *= 10f / distanceTo;
 								int projType = ProjectileType<Gambler.Projectiles.SkeletronCardProjAlt>();
-								bool dummy = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-								OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, projMove.X, projMove.Y, projType, (int)(projectile.damage * 3), projectile.knockBack, projectile.owner), dummy);
-								Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 8);
+								bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+								OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, projMove.X, projMove.Y, projType, (int)(Projectile.damage * 3), Projectile.knockBack, Projectile.owner), dummy);
+								SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 8);
 								this.projectilePoll -= this.projectilePoll - 1 <= 0 ? 0 : 1;
 								this.fireProj = 0;
 							}
 						}
 						else
 						{
-							if (projectile.ai[1] == 1f)
+							if (Projectile.ai[1] == 1f)
 							{
-								projectile.ai[1] = 0f;
-								projectile.netUpdate = true;
+								Projectile.ai[1] = 0f;
+								Projectile.netUpdate = true;
 								this.fireProj = 0;
 							}
 							if (modPlayer.timer120 % 30 == 0)
@@ -118,45 +120,45 @@ namespace OrchidMod.Gambler.Projectiles
 						}
 
 						int velocityXBy1000 = (int)(newMove.X * 1000f);
-						int oldVelocityXBy1000 = (int)(projectile.velocity.X * 1000f);
+						int oldVelocityXBy1000 = (int)(Projectile.velocity.X * 1000f);
 						int velocityYBy1000 = (int)(newMove.Y * 1000f);
-						int oldVelocityYBy1000 = (int)(projectile.velocity.Y * 1000f);
+						int oldVelocityYBy1000 = (int)(Projectile.velocity.Y * 1000f);
 
 						if (velocityXBy1000 != oldVelocityXBy1000 || velocityYBy1000 != oldVelocityYBy1000)
 						{
-							projectile.netUpdate = true;
+							Projectile.netUpdate = true;
 						}
 					}
 				}
 				else
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 			}
 		}
 
 		public override void SafePostAI()
 		{
-			for (int num46 = projectile.oldPos.Length - 5; num46 > 0; num46--)
+			for (int num46 = Projectile.oldPos.Length - 5; num46 > 0; num46--)
 			{
-				projectile.oldPos[num46] = projectile.oldPos[num46 - 1];
+				Projectile.oldPos[num46] = Projectile.oldPos[num46 - 1];
 			}
-			projectile.oldPos[0] = projectile.position;
+			Projectile.oldPos[0] = Projectile.position;
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			if (projectile.ai[1] == 1f && projectile.rotation == 0f)
+			if (Projectile.ai[1] == 1f && Projectile.rotation == 0f)
 			{
 				Texture2D flameTexture = ModContent.GetTexture("OrchidMod/Gambler/Projectiles/SkeletronCardProj_Glow");
-				Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 1f, projectile.height * 1f);
-				for (int k = 0; k < projectile.oldPos.Length; k++)
+				Vector2 drawOrigin = new Vector2(TextureAssets.Projectile[Projectile.type].Value.Width * 1f, Projectile.height * 1f);
+				for (int k = 0; k < Projectile.oldPos.Length; k++)
 				{
-					Vector2 drawPos = projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY);
-					drawPos.X += Main.rand.Next(6) - 3 - Main.player[projectile.owner].velocity.X;
-					drawPos.Y += Main.rand.Next(6) - 3 - Main.player[projectile.owner].velocity.Y;
-					Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k * 5) / (float)projectile.oldPos.Length);
-					spriteBatch.Draw(flameTexture, drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0.3f);
+					Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
+					drawPos.X += Main.rand.Next(6) - 3 - Main.player[Projectile.owner].velocity.X;
+					drawPos.Y += Main.rand.Next(6) - 3 - Main.player[Projectile.owner].velocity.Y;
+					Color color = Projectile.GetAlpha(lightColor) * ((float)(Projectile.oldPos.Length - k * 5) / (float)Projectile.oldPos.Length);
+					spriteBatch.Draw(flameTexture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0.3f);
 				}
 			}
 			return true;
@@ -164,14 +166,14 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public void spawnDust(int dustType, int distToCenter)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			for (int i = 0; i < 3; i++)
 			{
 				double deg = (4 * (42 + this.dustVal) + i * 120);
 				double rad = deg * (Math.PI / 180);
 
-				float posX = projectile.Center.X - (int)(Math.Cos(rad) * distToCenter);
-				float posY = projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter);
+				float posX = Projectile.Center.X - (int)(Math.Cos(rad) * distToCenter);
+				float posY = Projectile.Center.Y - (int)(Math.Sin(rad) * distToCenter);
 
 				Vector2 dustPosition = new Vector2(posX, posY);
 
@@ -186,9 +188,9 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y;
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
 			this.bounceDelay = 15;
 			return false;
 		}

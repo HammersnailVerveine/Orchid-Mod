@@ -14,19 +14,19 @@ namespace OrchidMod.Content.Items.Materials
 
 		public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 24;
-			item.maxStack = 99;
-			item.rare = ItemRarityID.Green;
-			item.value = Item.sellPrice(0, 0, 5, 0);
+			Item.width = 24;
+			Item.height = 24;
+			Item.maxStack = 99;
+			Item.rare = ItemRarityID.Green;
+			Item.value = Item.sellPrice(0, 0, 5, 0);
 
-			item.useTurn = true;
-			item.autoReuse = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.consumable = true;
-			item.createTile = ModContent.TileType<JungleLilyTile>();
+			Item.useTurn = true;
+			Item.autoReuse = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.consumable = true;
+			Item.createTile = ModContent.TileType<JungleLilyTile>();
 		}
 	}
 }

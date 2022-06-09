@@ -10,11 +10,11 @@ namespace OrchidMod.Shaman.Armors.Harpy
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 18;
-			item.value = Item.sellPrice(0, 0, 25, 50);
-			item.rare = 2;
-			item.defense = 5;
+			Item.width = 30;
+			Item.height = 18;
+			Item.value = Item.sellPrice(0, 0, 25, 50);
+			Item.rare = 2;
+			Item.defense = 5;
 		}
 
 		public override void SetStaticDefaults()
@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Armors.Harpy
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "HarpyTalon", 3);
 			recipe.AddIngredient(ItemID.Feather, 5);
 			recipe.AddTile(TileID.Anvils);

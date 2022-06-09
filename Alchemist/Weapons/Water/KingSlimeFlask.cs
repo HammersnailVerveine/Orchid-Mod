@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Water
@@ -10,11 +11,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 16;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.damage = 16;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.WATER;
 			this.rightClickDust = 56;
@@ -38,7 +39,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		{
 			if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
 			{
-				target.AddBuff(mod.BuffType("SlimeSlow"), 90 * (alchProj.nbElements * 2));
+				target.AddBuff(Mod.Find<ModBuff>("SlimeSlow").Type, 90 * (alchProj.nbElements * 2));
 			}
 
 			int rand = alchProj.nbElements;

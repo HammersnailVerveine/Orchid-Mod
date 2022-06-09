@@ -6,14 +6,14 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 20;
-			projectile.height = 20;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 300;
-			projectile.scale = 1f;
-			projectile.alpha = 128;
-			projectile.penetrate = 5;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 300;
+			Projectile.scale = 1f;
+			Projectile.alpha = 128;
+			Projectile.penetrate = 5;
 		}
 
 		public override void SetStaticDefaults()
@@ -23,15 +23,15 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 
 		public override void AI()
 		{
-			projectile.velocity *= 0.9f;
-			projectile.rotation += 0.02f;
+			Projectile.velocity *= 0.9f;
+			Projectile.rotation += 0.02f;
 		}
 
 		public override void Kill(int timeLeft)
 		{
 			for (int i = 0; i < 4; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 217);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 217);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}

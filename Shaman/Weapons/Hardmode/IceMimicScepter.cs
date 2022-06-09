@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
@@ -9,20 +10,20 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 63;
-			item.width = 48;
-			item.height = 48;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.knockBack = 0f;
-			item.rare = 5;
-			item.value = Item.sellPrice(0, 5, 0, 0);
-			item.UseSound = SoundID.Item28;
-			item.autoReuse = false;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("IceMimicScepterProj");
+			Item.damage = 63;
+			Item.width = 48;
+			Item.height = 48;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.knockBack = 0f;
+			Item.rare = 5;
+			Item.value = Item.sellPrice(0, 5, 0, 0);
+			Item.UseSound = SoundID.Item28;
+			Item.autoReuse = false;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("IceMimicScepterProj").Type;
 			this.empowermentType = 2;
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 			this.energy = 35;
 		}
@@ -41,7 +42,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == item.shoot && proj.owner == player.whoAmI)
+				if (proj.active && proj.type == Item.shoot && proj.owner == player.whoAmI)
 				{
 					proj.active = false;
 				}
@@ -49,7 +50,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 			float speedYalt = new Vector2(speedX, speedY).Length();
 			int newProj = this.NewShamanProjectile(position.X, position.Y, 0f, -1f * speedYalt, type, damage, knockBack, player.whoAmI);
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 2)
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
 			{
 				Main.projectile[newProj].ai[1] = 3;
 			}

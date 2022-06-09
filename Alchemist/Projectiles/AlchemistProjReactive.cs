@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Projectiles
 
 		public sealed override void AltSetDefaults()
 		{
-			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
 			modProjectile.alchemistReactiveProjectile = true;
@@ -30,12 +30,12 @@ namespace OrchidMod.Alchemist.Projectiles
 
 		public override void AI()
 		{
-			if (projectile.timeLeft == 1)
+			if (Projectile.timeLeft == 1)
 			{
 				Despawn();
-				projectile.active = false;
+				Projectile.active = false;
 			}
-			this.killTimeLeft = projectile.timeLeft;
+			this.killTimeLeft = Projectile.timeLeft;
 			SafeAI();
 		}
 
@@ -43,7 +43,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		{
 			if (this.killTimeLeft < this.spawnTimeLeft)
 			{
-				Player player = Main.player[projectile.owner];
+				Player player = Main.player[Projectile.owner];
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 				SafeKill(timeLeft, player, modPlayer);
 				Despawn();

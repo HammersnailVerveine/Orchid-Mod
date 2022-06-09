@@ -10,18 +10,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 25;
-			item.width = 48;
-			item.height = 48;
-			item.useTime = 4;
-			item.useAnimation = 32;
-			item.knockBack = 0f;
-			item.rare = ItemRarityID.Pink;
-			item.value = Item.sellPrice(0, 2, 0, 0);
-			item.autoReuse = true;
-			item.shootSpeed = 5.25f;
-			item.shoot = ModContent.ProjectileType<Projectiles.SightScepterProj>();
-			item.UseSound = SoundID.Item15;
+			Item.damage = 25;
+			Item.width = 48;
+			Item.height = 48;
+			Item.useTime = 4;
+			Item.useAnimation = 32;
+			Item.knockBack = 0f;
+			Item.rare = ItemRarityID.Pink;
+			Item.value = Item.sellPrice(0, 2, 0, 0);
+			Item.autoReuse = true;
+			Item.shootSpeed = 5.25f;
+			Item.shoot = ModContent.ProjectileType<Projectiles.SightScepterProj>();
+			Item.UseSound = SoundID.Item15;
 
 			this.empowermentType = 3;
 			this.energy = 3;
@@ -48,7 +48,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 			mult *= modPlayer.shamanDamage;
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) > 3)
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 3)
 			{
 				mult *= 1.5f;
 			}
@@ -56,7 +56,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.HallowedBar, 12);
 			recipe.AddIngredient(ItemID.SoulofSight, 20);
 			recipe.AddTile(TileID.MythrilAnvil);

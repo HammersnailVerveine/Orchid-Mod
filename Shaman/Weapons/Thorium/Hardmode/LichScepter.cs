@@ -1,6 +1,7 @@
 using OrchidMod.Common.Interfaces;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
@@ -10,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 75;
-			item.width = 50;
-			item.height = 50;
-			item.useTime = 42;
-			item.useAnimation = 42;
-			item.knockBack = 2.75f;
-			item.rare = ItemRarityID.LightPurple;
-			item.value = Item.sellPrice(0, 5, 0, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 1f;
-			item.shoot = mod.ProjectileType("LichScepterProj");
+			Item.damage = 75;
+			Item.width = 50;
+			Item.height = 50;
+			Item.useTime = 42;
+			Item.useAnimation = 42;
+			Item.knockBack = 2.75f;
+			Item.rare = ItemRarityID.LightPurple;
+			Item.value = Item.sellPrice(0, 5, 0, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 1f;
+			Item.shoot = Mod.Find<ModProjectile>("LichScepterProj").Type;
 			this.empowermentType = 3;
 			this.energy = 12;
 		}

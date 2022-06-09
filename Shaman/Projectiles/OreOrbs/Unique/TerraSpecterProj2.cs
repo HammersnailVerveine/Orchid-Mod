@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 {
@@ -7,12 +9,12 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 40;
-			projectile.scale = 1f;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 40;
+			Projectile.scale = 1f;
 		}
 
 		public override void SetStaticDefaults()
@@ -27,23 +29,23 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void AI()
 		{
-			Lighting.AddLight(projectile.Center, 0.010f, 0.010f, 0f);
+			Lighting.AddLight(Projectile.Center, 0.010f, 0.010f, 0f);
 			for (int i = 0; i < 2; i++)
 			{
-				Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
-				int dust = Dust.NewDust(pos, projectile.width, projectile.height / 2, 169, projectile.velocity.X * 0f, projectile.velocity.Y * 0f);
+				Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+				int dust = Dust.NewDust(pos, Projectile.width, Projectile.height / 2, 169, Projectile.velocity.X * 0f, Projectile.velocity.Y * 0f);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale = 1f;
 				Main.dust[dust].velocity /= 10f;
 				Main.dust[dust].noLight = true;
 
-				int dust2 = Dust.NewDust(pos, projectile.width, projectile.height / 2, 259, projectile.velocity.X * 1f, projectile.velocity.Y * 1f);
+				int dust2 = Dust.NewDust(pos, Projectile.width, Projectile.height / 2, 259, Projectile.velocity.X * 1f, Projectile.velocity.Y * 1f);
 				Main.dust[dust2].noGravity = true;
 				Main.dust[dust2].scale = 1f;
 				Main.dust[dust2].velocity /= 10f;
 				Main.dust[dust2].noLight = true;
 
-				int dust3 = Dust.NewDust(pos, projectile.width, projectile.height / 2, 246, projectile.velocity.X * 2f, projectile.velocity.Y * 2f);
+				int dust3 = Dust.NewDust(pos, Projectile.width, Projectile.height / 2, 246, Projectile.velocity.X * 2f, Projectile.velocity.Y * 2f);
 				Main.dust[dust3].noGravity = true;
 				Main.dust[dust3].scale = 1f;
 				Main.dust[dust3].velocity /= 10f;
@@ -53,7 +55,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Main.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, 10);
+			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
 			return true;
 		}
 
@@ -61,7 +63,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		{
 			for (int i = 0; i < 13; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 269);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 269);
 			}
 		}
 
@@ -75,22 +77,22 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			modPlayer.orbCountUnique++;
 			//modPlayer.sendOrbCountPackets();
 
-			if (player.FindBuffIndex(mod.BuffType("ShamanicBaubles")) > -1 && modPlayer.orbCountUnique < 5)
+			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountUnique < 5)
 			{
 				modPlayer.orbCountUnique += 5;
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("TerraScepterOrb1"), 0, 0, projectile.owner, 0f, 0f);
-				player.ClearBuff(mod.BuffType("ShamanicBaubles"));
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
+				player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				//modPlayer.sendOrbCountPackets();
 			}
 
 			if (modPlayer.orbCountUnique == 5)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("TerraScepterOrb1"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 10)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("TerraScepterOrb2"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb2").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 15)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("TerraScepterOrb3"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb3").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 20)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, mod.ProjectileType("TerraScepterOrb4"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb4").Type, 0, 0, Projectile.owner, 0f, 0f);
 		}
 	}
 }

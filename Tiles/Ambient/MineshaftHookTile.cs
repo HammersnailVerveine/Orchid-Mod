@@ -8,7 +8,7 @@ namespace OrchidMod.Tiles.Ambient
 {
 	public class MineshaftHookTile : ModTile
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSpelunker[Type] = true;
@@ -18,7 +18,7 @@ namespace OrchidMod.Tiles.Ambient
 			ModTranslation name = CreateMapEntryName();
 			name.SetDefault("Escape Rope");
 			AddMapEntry(new Color(100, 75, 50), name);
-			dustType = 7;
+			DustType = 7;
 			disableSmartCursor = true;
 		}
 

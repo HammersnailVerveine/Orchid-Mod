@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class KingSlimeFlaskBuff : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Poisonous Slime");
 			Description.SetDefault("Increases the likelyhood of spawning slime bubbles, creating spiked jungle slimes");

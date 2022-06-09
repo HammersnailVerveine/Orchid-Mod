@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -8,50 +9,41 @@ namespace OrchidMod.Gambler.Weapons.Cards
 	{
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 1;
-			item.damage = 8;
-			item.crit = 4;
-			item.knockBack = 0.5f;
-			item.useAnimation = 30;
-			item.useTime = 30;
-			item.shootSpeed = 10f;
-			this.cardRequirement = 3;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = 1;
+			Item.damage = 11;
+			Item.crit = 4;
+			Item.knockBack = 0.5f;
+			Item.useAnimation = 30;
+			Item.useTime = 30;
+			Item.shootSpeed = 10f;
+			this.cardRequirement = 1;
 			this.gamblerCardSets.Add("Biome");
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Desert");
-			Tooltip.SetDefault("Rapidly fires thorns"
-							+ "\nPeriodically summons a cactus, replicating the attack");
+			Tooltip.SetDefault("Summons a desert bush above your head"
+							+ "\nDrag and release a fruit to launch it");
 		}
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
 		{
-			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
-			int projType = ProjectileType<Gambler.Projectiles.DesertCardProjAlt>();
-			
+			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
+			int projType = ProjectileType<Gambler.Projectiles.DesertCardBase>();
+			bool found = false;
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == projType && proj.owner == player.whoAmI && proj.ai[1] == 0f)
+				if (proj.active && proj.type == projType && proj.owner == player.whoAmI && proj.ai[1] != 1f)
 				{
-					float distance = (position - proj.Center).Length();
-					if (distance < 500f) {
-						return;
-					}
+					found = true;
+					break;
 				}
 			}
-			
-			Vector2 vel = (new Vector2(0f, -1f).RotatedBy(MathHelper.ToRadians(10)));
-			int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy); 
-			Main.projectile[newProjectile].ai[1] = 0f;
-			Main.projectile[newProjectile].netUpdate = true;
-			for (int i = 0; i < 5; i++)
-			{
-				int dustType = 31;
-				Main.dust[Dust.NewDust(player.Center, 10, 10, dustType)].velocity *= 0.25f;
+			if (!found) {
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, 0f, 0f, projType, damage, knockBack, player.whoAmI), dummy);
 			}
 		}
 	}

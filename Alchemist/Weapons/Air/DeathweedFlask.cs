@@ -11,11 +11,11 @@ namespace OrchidMod.Alchemist.Weapons.Air
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 13;
-			item.width = 30;
-			item.height = 30;
-			item.rare = 2;
-			item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.damage = 13;
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 2;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.AIR;
 			this.rightClickDust = 27;
@@ -35,7 +35,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.Deathweed, 3);
@@ -43,7 +43,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(mod);
+			recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.Deathweed, 3);
@@ -52,7 +52,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			recipe.AddRecipe();
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
 			if (player.ZoneCrimson || player.ZoneCorrupt) mult *= 1.2f;

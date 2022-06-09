@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 18;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 25;
-			item.useAnimation = 25;
-			item.knockBack = 3f;
-			item.rare = 2;
-			item.value = Item.sellPrice(0, 0, 30, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 3f;
-			item.shoot = mod.ProjectileType("YewWoodScepterProj");
+			Item.damage = 18;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 25;
+			Item.useAnimation = 25;
+			Item.knockBack = 3f;
+			Item.rare = 2;
+			Item.value = Item.sellPrice(0, 0, 30, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 3f;
+			Item.shoot = Mod.Find<ModProjectile>("YewWoodScepterProj").Type;
 			this.empowermentType = 5;
 			this.energy = 6;
 		}
@@ -39,8 +39,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
-				recipe.AddTile(thoriumMod.TileType("ArcaneArmorFabricator"));
+				ModRecipe recipe = new ModRecipe(Mod);
+				recipe.AddTile(thoriumMod.Find<ModTile>("ArcaneArmorFabricator").Type);
 				recipe.AddIngredient(thoriumMod, "YewWood", 20);
 				recipe.AddIngredient(ItemID.Amethyst, 2);
 				recipe.SetResult(this);

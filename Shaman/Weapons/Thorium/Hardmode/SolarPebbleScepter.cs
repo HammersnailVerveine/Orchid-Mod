@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 60;
-			item.width = 48;
-			item.height = 48;
-			item.useTime = 12;
-			item.useAnimation = 12;
-			item.knockBack = 4.25f;
-			item.rare = ItemRarityID.Lime;
-			item.value = Item.sellPrice(0, 5, 0, 0);
-			item.UseSound = SoundID.Item20;
-			item.autoReuse = true;
-			item.shootSpeed = 8f;
-			item.shoot = mod.ProjectileType("SolarPebbleScepterProj");
+			Item.damage = 60;
+			Item.width = 48;
+			Item.height = 48;
+			Item.useTime = 12;
+			Item.useAnimation = 12;
+			Item.knockBack = 4.25f;
+			Item.rare = ItemRarityID.Lime;
+			Item.value = Item.sellPrice(0, 5, 0, 0);
+			Item.UseSound = SoundID.Item20;
+			Item.autoReuse = true;
+			Item.shootSpeed = 8f;
+			Item.shoot = Mod.Find<ModProjectile>("SolarPebbleScepterProj").Type;
 			this.empowermentType = 1;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 4;
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "SolarPebble", 8);
 				recipe.AddIngredient(ItemID.LunarTabletFragment, 10);

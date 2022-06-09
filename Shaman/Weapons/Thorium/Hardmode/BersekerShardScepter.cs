@@ -11,18 +11,18 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override void SafeSetDefaults()
 		{
-			item.damage = 93;
-			item.width = 62;
-			item.height = 62;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.knockBack = 4.25f;
-			item.rare = ItemRarityID.Lime;
-			item.value = Item.sellPrice(0, 7, 20, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 8f;
-			item.shoot = mod.ProjectileType("BersekerShardScepterProj");
+			Item.damage = 93;
+			Item.width = 62;
+			Item.height = 62;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.knockBack = 4.25f;
+			Item.rare = ItemRarityID.Lime;
+			Item.value = Item.sellPrice(0, 7, 20, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 8f;
+			Item.shoot = Mod.Find<ModProjectile>("BersekerShardScepterProj").Type;
 			this.empowermentType = 1;
 			this.energy = 8;
 		}
@@ -49,7 +49,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "BersekerShard", 9);
 				recipe.SetResult(this);

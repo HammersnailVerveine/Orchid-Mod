@@ -5,7 +5,7 @@ namespace OrchidMod.Alchemist.Buffs.Debuffs
 {
 	public class ReactionCooldown : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Experimental drawback");
 			Description.SetDefault("You cannot use alchemist hidden reactions");

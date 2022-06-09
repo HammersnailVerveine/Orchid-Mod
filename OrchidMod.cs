@@ -8,6 +8,8 @@ using OrchidMod.Effects;
 using OrchidMod.Gambler.UI;
 using OrchidMod.Shaman;
 using OrchidMod.Shaman.UI;
+using OrchidMod.Guardian;
+using OrchidMod.Guardian.UI;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -26,8 +28,8 @@ namespace OrchidMod
 
 		public static Texture2D[] coatingTextures;
 		public static List<AlchemistHiddenReactionRecipe> alchemistReactionRecipes;
-		public static ModHotKey AlchemistReactionHotKey;
-		public static ModHotKey AlchemistCatalystHotKey;
+		public static ModKeybind AlchemistReactionHotKey;
+		public static ModKeybind AlchemistCatalystHotKey;
 
 		internal UserInterface orchidModShamanInterface;
 		internal UserInterface orchidModShamanCharacterInterface;
@@ -36,6 +38,7 @@ namespace OrchidMod
 		internal UserInterface orchidModAlchemistSelectKeysInterface;
 		internal UserInterface orchidModAlchemistBookInterface;
 		internal UserInterface orchidModGamblerInterface;
+		internal UserInterface orchidModGuardianInterface;
 		internal ShamanUIState shamanUIState;
 		internal ShamanCharacterUIState shamanCharacterUIState;
 		internal AlchemistUIState alchemistUIState;
@@ -43,6 +46,7 @@ namespace OrchidMod
 		internal AlchemistSelectKeysUIState alchemistSelectKeysUIState;
 		internal AlchemistBookUIState alchemistBookUIState;
 		internal GamblerUIState gamblerUIState;
+		internal GuardianUIState guardianUIState;
 
 		public static bool reloadShamanUI;
 
@@ -72,6 +76,7 @@ namespace OrchidMod
 				alchemistSelectKeysUIState = new AlchemistSelectKeysUIState();
 				alchemistBookUIState = new AlchemistBookUIState();
 				gamblerUIState = new GamblerUIState();
+				guardianUIState = new GuardianUIState();
 
 				orchidModShamanInterface = new UserInterface();
 				orchidModShamanCharacterInterface = new UserInterface();
@@ -80,6 +85,7 @@ namespace OrchidMod
 				orchidModAlchemistSelectKeysInterface = new UserInterface();
 				orchidModAlchemistBookInterface = new UserInterface();
 				orchidModGamblerInterface = new UserInterface();
+				orchidModGuardianInterface = new UserInterface();
 
 				shamanUIState.Activate();
 				orchidModShamanInterface.SetState(shamanUIState);
@@ -101,6 +107,9 @@ namespace OrchidMod
 
 				gamblerUIState.Activate();
 				orchidModGamblerInterface.SetState(gamblerUIState);
+
+				guardianUIState.Activate();
+				orchidModGuardianInterface.SetState(guardianUIState);
 
 				coatingTextures = new Texture2D[6];
 				coatingTextures[0] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingFire");
@@ -231,6 +240,14 @@ namespace OrchidMod
 				GamblerUIFrame.UIDeckbuilding = null;
 				GamblerUIFrame.UIDeckbuildingBlock = null;
 				GamblerUIFrame.chipDirection = null;
+				GamblerUIFrame.chipDetonatorMain = null;
+				GamblerUIFrame.chipDetonatorBar = null;
+				GamblerUIFrame.chipDetonatorBarEnd = null;
+				
+				GuardianUIFrame.textureBlockOn = null;
+				GuardianUIFrame.textureBlockOff = null;
+				GuardianUIFrame.textureSlamOn = null;
+				GuardianUIFrame.textureSlamOff = null;
 
 				coatingTextures = null;
 			}
@@ -249,6 +266,7 @@ namespace OrchidMod
 			alchemistSelectKeysUIState = null;
 			alchemistBookUIState = null;
 			gamblerUIState = null;
+			guardianUIState = null;
 			AlchemistReactionHotKey = null;
 			AlchemistCatalystHotKey = null;
 			alchemistReactionRecipes = null;
@@ -495,6 +513,7 @@ namespace OrchidMod
 						orchidModAlchemistSelectKeysInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModAlchemistBookInterface.Draw(Main.spriteBatch, new GameTime());
 						orchidModGamblerInterface.Draw(Main.spriteBatch, new GameTime());
+						orchidModGuardianInterface.Draw(Main.spriteBatch, new GameTime());
 						return true;
 					},
 					InterfaceScaleType.UI)
@@ -529,6 +548,10 @@ namespace OrchidMod
 				gamblerUIState = new GamblerUIState();
 				gamblerUIState.Activate();
 				orchidModGamblerInterface.SetState(gamblerUIState);
+
+				guardianUIState = new GuardianUIState();
+				guardianUIState.Activate();
+				orchidModGuardianInterface.SetState(guardianUIState);
 
 				reloadShamanUI = false;
 			}

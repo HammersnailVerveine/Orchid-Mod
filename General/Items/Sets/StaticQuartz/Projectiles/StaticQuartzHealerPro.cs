@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Reflection;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,8 +19,8 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 		public bool CanGiveScytheCharge
 		{
 			//Clientside only, hence localAI
-			get => projectile.localAI[0] == 0f;
-			set => projectile.localAI[0] = value ? 0f : 1f;
+			get => Projectile.localAI[0] == 0f;
+			set => Projectile.localAI[0] = value ? 0f : 1f;
 		}
 
 		/// <summary>
@@ -29,8 +30,8 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 		public bool FirstHit
 		{
 			//Clientside only, hence localAI
-			get => projectile.localAI[1] == 0f;
-			set => projectile.localAI[1] = value ? 0f : 1f;
+			get => Projectile.localAI[1] == 0f;
+			set => Projectile.localAI[1] = value ? 0f : 1f;
 		}
 
 		public override void SetStaticDefaults()
@@ -40,24 +41,24 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 		public override void SetDefaults()
 		{
-			projectile.width = 100;
-			projectile.height = 100;
-			projectile.aiStyle = 0;
-			projectile.penetrate = -1;
-			projectile.light = 0.2f;
-			projectile.friendly = true;
-			projectile.tileCollide = false;
-			projectile.ownerHitCheck = true;
-			projectile.ignoreWater = true;
-			projectile.timeLeft = 26;
+			Projectile.width = 100;
+			Projectile.height = 100;
+			Projectile.aiStyle = 0;
+			Projectile.penetrate = -1;
+			Projectile.light = 0.2f;
+			Projectile.friendly = true;
+			Projectile.tileCollide = false;
+			Projectile.ownerHitCheck = true;
+			Projectile.ignoreWater = true;
+			Projectile.timeLeft = 26;
 
-			projectile.usesIDStaticNPCImmunity = true;
-			projectile.idStaticNPCHitCooldown = 10;
+			Projectile.usesIDStaticNPCImmunity = true;
+			Projectile.idStaticNPCHitCooldown = 10;
 		}
 
 		public override void OnHitNPC(NPC npc, int damage, float knockback, bool crit)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			//TODO thorium
 			if (thoriumMod != null)
@@ -67,7 +68,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 				{
 					CanGiveScytheCharge = false;
 
-					player.AddBuff(thoriumMod.BuffType("SoulEssence"), 30 * 60, true);
+					player.AddBuff(thoriumMod.Find<ModBuff>("SoulEssence").Type, 30 * 60, true);
 					CombatText.NewText(npc.Hitbox, new Color(100, 255, 200), 1, false, true);
 
 					FieldInfo fieldSoul = thoriumPlayer.GetType().GetField("soulEssence", BindingFlags.Public | BindingFlags.Instance);
@@ -89,7 +90,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 			hitDirection = target.Center.X < player.Center.X ? -1 : 1;
 
 			//TODO thorium
@@ -115,10 +116,10 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 					if (healWarlock && Main.rand.NextFloat() < 0.5f)
 					{
-						int shadowWispType = thoriumMod.ProjectileType("ShadowWisp");
+						int shadowWispType = thoriumMod.Find<ModProjectile>("ShadowWisp").Type;
 						if (player.ownedProjectileCounts[shadowWispType] < 15)
 						{
-							Projectile.NewProjectile((int)target.Center.X, (int)target.Center.Y, 0f, -2f, shadowWispType, (int)(projectile.damage * 0.5f), 0, Main.myPlayer);
+							Projectile.NewProjectile((int)target.Center.X, (int)target.Center.Y, 0f, -2f, shadowWispType, (int)(Projectile.damage * 0.5f), 0, Main.myPlayer);
 						}
 					}
 				}
@@ -130,7 +131,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 					if (healIridescent && Main.rand.NextFloat() < 0.15f)
 					{
-						Main.PlaySound(SoundID.Item, (int)projectile.Center.X, (int)projectile.Center.Y, 100, 1f, 0f);
+						SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 100, 1f, 0f);
 						for (int k = 0; k < 20; k++)
 						{
 							int dust = Dust.NewDust(target.position, target.width, target.height, 87, Main.rand.Next((int)-6f, (int)6f), Main.rand.Next((int)-6f, (int)6f), 0, default(Color), 1.25f);
@@ -142,16 +143,16 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 							Main.dust[dust].noGravity = true;
 						}
 
-						int healNoEffects = thoriumMod.ProjectileType("HealNoEffects");
+						int healNoEffects = thoriumMod.Find<ModProjectile>("HealNoEffects").Type;
 						int heal = 0;
 						if (target.type != NPCID.TargetDummy)
 						{
 							for (int k = 0; k < Main.maxPlayers; k++)
 							{
 								Player ally = Main.player[k];
-								if (ally.active && ally != player && ally.statLife < ally.statLifeMax2 && ally.DistanceSQ(projectile.Center) < 500 * 500)
+								if (ally.active && ally != player && ally.statLife < ally.statLifeMax2 && ally.DistanceSQ(Projectile.Center) < 500 * 500)
 								{
-									Projectile.NewProjectile(ally.Center, Vector2.Zero, healNoEffects, 0, 0, projectile.owner, heal, ally.whoAmI);
+									Projectile.NewProjectile(ally.Center, Vector2.Zero, healNoEffects, 0, 0, Projectile.owner, heal, ally.whoAmI);
 								}
 							}
 						}
@@ -171,25 +172,25 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
-			if (projectile.timeLeft < 10)
+			if (Projectile.timeLeft < 10)
 			{
-				projectile.alpha += 30;
+				Projectile.alpha += 30;
 			}
 
 			if (player.dead)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 
 			int dir = (player.direction > 0).ToDirectionInt();
-			projectile.rotation += dir * 0.25f;
-			projectile.spriteDirection = dir;
+			Projectile.rotation += dir * 0.25f;
+			Projectile.spriteDirection = dir;
 
-			player.heldProj = projectile.whoAmI;
-			projectile.Center = player.Center;
-			projectile.gfxOffY = player.gfxOffY;
+			player.heldProj = Projectile.whoAmI;
+			Projectile.Center = player.Center;
+			Projectile.gfxOffY = player.gfxOffY;
 		}
 	}
 }

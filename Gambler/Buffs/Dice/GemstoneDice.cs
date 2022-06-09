@@ -5,7 +5,7 @@ namespace OrchidMod.Gambler.Buffs.Dice
 {
 	public class GemstoneDice : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Gemstone Die");

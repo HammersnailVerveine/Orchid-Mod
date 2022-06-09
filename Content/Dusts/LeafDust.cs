@@ -34,7 +34,7 @@ namespace OrchidMod.Content.Dusts
 			dust.position += dust.velocity;
 			dust.color *= dust.scale;
 
-			if (!Main.gamePaused) dust.rotation += (float)Math.Sin(Main.GlobalTime) * 0.1f;
+			if (!Main.gamePaused) dust.rotation += (float)Math.Sin(Main.GlobalTimeWrappedHourly) * 0.1f;
 
 			if (style == 1) Lighting.AddLight(dust.position, new Vector3(255 / 255f, 180 / 255f, 0 / 255f) * dust.scale * 0.25f);
 

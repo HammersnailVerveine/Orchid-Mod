@@ -19,24 +19,24 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 
 		public override void SetDefaults()
 		{
-			item.damage = 7;
-			item.magic = true;
-			item.width = 44;
-			item.height = 36;
-			item.useTime = 22;
-			item.useAnimation = 22;
-			item.maxStack = 1;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.noMelee = true;
-			item.noUseGraphic = true;
-			item.autoReuse = true;
-			item.knockBack = 6.5f;
-			item.value = Item.sellPrice(0, 0, 5, 0);
-			item.rare = ItemRarityID.Blue;
-			item.UseSound = SoundID.Item1;
-			item.shoot = ProjectileType<StaticQuartzHealerPro>();
-			item.shootSpeed = 0.1f;
-			item.crit = 0;
+			Item.damage = 7;
+			Item.magic = true;
+			Item.width = 44;
+			Item.height = 36;
+			Item.useTime = 22;
+			Item.useAnimation = 22;
+			Item.maxStack = 1;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.noMelee = true;
+			Item.noUseGraphic = true;
+			Item.autoReuse = true;
+			Item.knockBack = 6.5f;
+			Item.value = Item.sellPrice(0, 0, 5, 0);
+			Item.rare = ItemRarityID.Blue;
+			Item.UseSound = SoundID.Item1;
+			Item.shoot = ProjectileType<StaticQuartzHealerPro>();
+			Item.shootSpeed = 0.1f;
+			Item.crit = 0;
 		}
 
 		public override void SetStaticDefaults()
@@ -50,7 +50,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 		{
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(mod);
+				ModRecipe recipe = new ModRecipe(Mod);
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(ItemType<StaticQuartz>(), 12);
 				recipe.SetResult(this);
@@ -58,7 +58,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			}
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			if (thoriumMod != null)
 			{
@@ -77,14 +77,14 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			}
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			if (thoriumMod != null)
 			{
 				object result = thoriumMod.Call("GetHealerCrit", player);
 				if (result is int healerCrit)
 				{
-					crit = item.crit + healerCrit;
+					crit = Item.crit + healerCrit;
 				}
 			}
 		}
@@ -93,7 +93,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 		{
 			for (int k = 0; k < 2; k++)
 			{
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, mod.ProjectileType("StaticQuartzHealerEffect"), damage, knockBack, player.whoAmI, k, 0f);
+				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("StaticQuartzHealerEffect").Type, damage, knockBack, player.whoAmI, k, 0f);
 			}
 			return true;
 		}
@@ -111,35 +111,35 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 
 				if (field != null)
 				{
-					TooltipLine tooltip = tooltips.Find(tt => tt.mod.Equals("Terraria") && tt.Name.Equals("Damage"));
+					TooltipLine tooltip = tooltips.Find(tt => tt.Mod.Equals("Terraria") && tt.Name.Equals("Damage"));
 					if (tooltip != null)
 					{
-						tooltip.text = tooltip.text.Split(' ')[0] + " radiant damage";
+						tooltip.Text = tooltip.Text.Split(' ')[0] + " radiant damage";
 					}
 
-					int index = tooltips.FindIndex(tt => tt.mod.Equals("Terraria") && tt.Name.Equals("ItemName"));
+					int index = tooltips.FindIndex(tt => tt.Mod.Equals("Terraria") && tt.Name.Equals("ItemName"));
 					if (index != -1)
 					{
-						tooltips.Insert(index + 1, new TooltipLine(mod, "HealerTag", "-Healer Class-")
+						tooltips.Insert(index + 1, new TooltipLine(Mod, "HealerTag", "-Healer Class-")
 						{
-							overrideColor = !dark ? new Color(255, 255, 91) : new Color(178, 102, 255)
+							OverrideColor = !dark ? new Color(255, 255, 91) : new Color(178, 102, 255)
 						});
 					}
 
-					index = tooltips.FindIndex(tt => tt.mod.Equals("Terraria") && tt.Name.Equals("Knockback"));
+					index = tooltips.FindIndex(tt => tt.Mod.Equals("Terraria") && tt.Name.Equals("Knockback"));
 					if (index != -1)
 					{
-						tooltips.Insert(index + 1, new TooltipLine(mod, "ScytheSoulCharge", "Grants 1 soul essence on direct hit"));
+						tooltips.Insert(index + 1, new TooltipLine(Mod, "ScytheSoulCharge", "Grants 1 soul essence on direct hit"));
 					}
 				}
 				else
 				{
-					TooltipLine tooltip = tooltips.Find(tt => tt.mod.Equals("Terraria") && tt.Name.Equals("Damage"));
+					TooltipLine tooltip = tooltips.Find(tt => tt.Mod.Equals("Terraria") && tt.Name.Equals("Damage"));
 					if (tooltip != null)
 					{
-						tooltips.Insert(1, new TooltipLine(mod, "ReflectionFail", "Reflection Borked")
+						tooltips.Insert(1, new TooltipLine(Mod, "ReflectionFail", "Reflection Borked")
 						{
-							overrideColor = new Color(255, 0, 0)
+							OverrideColor = new Color(255, 0, 0)
 						});
 					}
 				}

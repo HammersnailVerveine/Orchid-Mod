@@ -4,10 +4,12 @@ using OrchidMod.Alchemist;
 using OrchidMod.Dancer;
 using OrchidMod.Gambler;
 using OrchidMod.Shaman;
+using OrchidMod.Guardian;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
@@ -56,9 +58,15 @@ namespace OrchidMod
 		
 		public float guardianDamage = 1.0f;
 		public int guardianCrit = 0;
-		public float guardianShieldPosition = 0f;
-		public float guardianShieldDistance = 0f;
-		public int guardianShieldIndex = 0;
+		public float guardianRecharge = 1f;
+		public int guardianBlock = 0;
+		public int guardianSlam = 0;
+		public int guardianBlockMax = 3;
+		public int guardianSlamMax = 3;
+		public int guardianBlockRecharge = 0;
+		public int guardianSlamRecharge = 0;
+		public int guardianDisplayUI = 0;
+		public List<BlockedEnemy> guardianBlockedEnemies = new List<BlockedEnemy>();
 		
 		/*Dancer*/
 
@@ -271,24 +279,24 @@ namespace OrchidMod
 			}
 		}
 
-		public override void CatchFish(Item fishingRod, Item bait, int power, int liquidType, int poolSize, int worldLayer, int questFish, ref int caughtType, ref bool junk)
+		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
 		{
 			if (junk)
 			{
 				return;
 			}
-			if (player.ZoneSkyHeight && liquidType == 0 && Main.rand.Next(100) == 0 && Main.hardMode)
+			if (Player.ZoneSkyHeight && liquidType == 0 && Main.rand.Next(100) == 0 && Main.hardMode)
 			{
-				caughtType = mod.ItemType("WyvernMoray");
+				caughtType = Mod.Find<ModItem>("WyvernMoray").Type;
 			}
 		}
 
 		public override void Initialize()
 		{
-			OrchidModGamblerHelper.clearGamblerCards(player, this);
-			OrchidModAlchemistHelper.onRespawnAlchemist(player, this, mod);
-			OrchidModShamanHelper.onRespawnShaman(player, this, mod);
-			OrchidModGamblerHelper.onRespawnGambler(player, this);
+			OrchidModGamblerHelper.clearGamblerCards(Player, this);
+			OrchidModAlchemistHelper.onRespawnAlchemist(Player, this, Mod);
+			OrchidModShamanHelper.onRespawnShaman(Player, this, Mod);
+			OrchidModGamblerHelper.onRespawnGambler(Player, this);
 			this.alchemistKnownReactions = new List<string>();
 			this.alchemistKnownHints = new List<string>();
 			
@@ -300,7 +308,7 @@ namespace OrchidMod
 			}
 		}
 
-		public override TagCompound Save()
+		public override void SaveData(TagCompound tag)/* Suggestion: Edit tag parameter rather than returning new TagCompound */
 		{
 			return new TagCompound
 			{
@@ -312,7 +320,7 @@ namespace OrchidMod
 			};
 		}
 
-		public override void Load(TagCompound tag)
+		public override void LoadData(TagCompound tag)
 		{
 			gamblerCardsItem = tag.GetList<TagCompound>("GamblerCardsItem").Select(ItemIO.Load).ToArray();
 			//If no cards were saved (old character, crash, etc), this can return Item[] of length 0
@@ -351,13 +359,13 @@ namespace OrchidMod
 
 		public override void PreUpdate()
 		{
-			if (player.whoAmI == Main.myPlayer)
+			if (Player.whoAmI == Main.myPlayer)
 			{
 				if (autoRevertSelectedItem)
 				{
-					if (player.itemTime == 0 && player.itemAnimation == 0)
+					if (Player.itemTime == 0 && Player.itemAnimation == 0)
 					{
-						player.selectedItem = originalSelectedItem;
+						Player.selectedItem = originalSelectedItem;
 						autoRevertSelectedItem = false;
 					}
 				}
@@ -370,15 +378,15 @@ namespace OrchidMod
 			this.updateItemEffects();
 
 			this.generalPostUpdateEquips();
-			OrchidModShamanHelper.shamanPostUpdateEquips(player, this, mod);
-			OrchidModAlchemistHelper.alchemistPostUpdateEquips(player, this, mod);
-			OrchidModGamblerHelper.gamblerPostUpdateEquips(player, this, mod);
-			OrchidModDancerHelper.dancerPostUpdateEquips(player, this, mod);
+			OrchidModShamanHelper.shamanPostUpdateEquips(Player, this, Mod);
+			OrchidModAlchemistHelper.alchemistPostUpdateEquips(Player, this, Mod);
+			OrchidModGamblerHelper.gamblerPostUpdateEquips(Player, this, Mod);
+			OrchidModDancerHelper.dancerPostUpdateEquips(Player, this, Mod);
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				object result = thoriumMod.Call("GetAllCrit", player);
+				object result = thoriumMod.Call("GetAllCrit", Player);
 				if (result is int thoriumCrit && thoriumCrit > 0)
 				{
 					this.customCrit += thoriumCrit;
@@ -390,16 +398,16 @@ namespace OrchidMod
 			this.gamblerCrit += this.customCrit;
 			this.dancerCrit += this.customCrit;
 
-			this.CheckWoodBreak(player);
+			this.CheckWoodBreak(Player);
 		}
 
 		public override void PostUpdate()
 		{
 			ignoreScrollHotbar = false;
 
-			OrchidModShamanHelper.postUpdateShaman(player, this, mod);
-			OrchidModGamblerHelper.postUpdateGambler(player, this, mod);
-			OrchidModAlchemistHelper.postUpdateAlchemist(player, this, mod);
+			OrchidModShamanHelper.postUpdateShaman(Player, this, Mod);
+			OrchidModGamblerHelper.postUpdateGambler(Player, this, Mod);
+			OrchidModAlchemistHelper.postUpdateAlchemist(Player, this, Mod);
 		}
 
 		public override void OnHitNPCWithProj(Projectile projectile, NPC target, int damage, float knockback, bool crit)
@@ -407,7 +415,7 @@ namespace OrchidMod
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			if (modProjectile.shamanProjectile)
 			{
-				OrchidModShamanHelper.OnHitNPCWithProjShaman(projectile, target, damage, knockback, crit, player, this, mod);
+				OrchidModShamanHelper.OnHitNPCWithProjShaman(projectile, target, damage, knockback, crit, Player, this, Mod);
 			}
 		}
 
@@ -427,7 +435,7 @@ namespace OrchidMod
 					crit = true;
 				else crit = false;
 
-				OrchidModGamblerHelper.ModifyHitNPCWithProjGambler(projectile, target, ref damage, ref knockback, ref crit, ref hitDirection, player, this, mod);
+				OrchidModGamblerHelper.ModifyHitNPCWithProjGambler(projectile, target, ref damage, ref knockback, ref crit, ref hitDirection, Player, this, Mod);
 			}
 
 			if (modProjectile.shamanProjectile)
@@ -436,13 +444,13 @@ namespace OrchidMod
 					crit = true;
 				else crit = false;
 
-				OrchidModShamanHelper.ModifyHitNPCWithProjShaman(projectile, target, ref damage, ref knockback, ref crit, ref hitDirection, player, this, mod);
+				OrchidModShamanHelper.ModifyHitNPCWithProjShaman(projectile, target, ref damage, ref knockback, ref crit, ref hitDirection, Player, this, Mod);
 			}
 		}
 
-		public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
 		{
-			OrchidModShamanHelper.DrawEffectsShaman(drawInfo, ref r, ref g, ref b, ref a, ref fullBright, player, this, mod);
+			OrchidModShamanHelper.DrawEffectsShaman(drawInfo, ref r, ref g, ref b, ref a, ref fullBright, Player, this, Mod);
 		}
 
 		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit,
@@ -450,12 +458,12 @@ namespace OrchidMod
 		{
 			bool toReturn = true;
 
-			if (!OrchidModShamanHelper.PreHurtShaman(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, player, this, mod))
+			if (!OrchidModShamanHelper.PreHurtShaman(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, Player, this, Mod))
 			{
 				toReturn = false;
 			}
 
-			if (!OrchidModDancerHelper.PreHurtDancer(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, player, this, mod))
+			if (!OrchidModDancerHelper.PreHurtDancer(pvp, quiet, ref damage, ref hitDirection, ref crit, ref customDamage, ref playSound, ref genGore, ref damageSource, Player, this, Mod))
 			{
 				toReturn = false;
 			}
@@ -464,9 +472,9 @@ namespace OrchidMod
 
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
-			if (OrchidMod.AlchemistCatalystHotKey.JustPressed && player.itemAnimation == 0)
+			if (OrchidMod.AlchemistCatalystHotKey.JustPressed && Player.itemAnimation == 0)
 			{
-				for (int i = 0; i < Main.maxInventory; i++)
+				for (int i = 0; i < Main.InventorySlotsTotal; i++)
 				{
 					Item item = Main.LocalPlayer.inventory[i];
 					if (item.type != 0)
@@ -474,11 +482,11 @@ namespace OrchidMod
 						OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 						if (orchidItem.alchemistCatalyst)
 						{
-							this.originalSelectedItem = player.selectedItem;
+							this.originalSelectedItem = Player.selectedItem;
 							this.autoRevertSelectedItem = true;
-							player.selectedItem = i;
-							player.controlUseItem = true;
-							player.ItemCheck(player.whoAmI);
+							Player.selectedItem = i;
+							Player.controlUseItem = true;
+							Player.ItemCheck(Player.whoAmI);
 							return;
 						}
 					}
@@ -487,20 +495,20 @@ namespace OrchidMod
 
 			if (OrchidMod.AlchemistReactionHotKey.JustPressed)
 			{
-				if (this.alchemistNbElements < 2 || player.FindBuffIndex(mod.BuffType("ReactionCooldown")) > -1)
+				if (this.alchemistNbElements < 2 || Player.FindBuffIndex(Mod.Find<ModBuff>("ReactionCooldown").Type) > -1)
 				{
 					return;
 				}
 				else
 				{
-					AlchemistHiddenReactionHelper.triggerAlchemistReaction(mod, player, this);
+					AlchemistHiddenReactionHelper.triggerAlchemistReaction(Mod, Player, this);
 				}
 			}
 		}
 
 		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
 		{
-			OrchidModDancerHelper.ModifyHitByNPCDancer(npc, ref damage, ref crit, player, this, mod);
+			OrchidModDancerHelper.ModifyHitByNPCDancer(npc, ref damage, ref crit, Player, this, Mod);
 		}
 
 		public override void ResetEffects()
@@ -511,40 +519,41 @@ namespace OrchidMod
 			generalTools = false;
 			generalStatic = false;
 
-			OrchidModDancerHelper.ResetEffectsDancer(player, this, mod);
-			OrchidModAlchemistHelper.ResetEffectsAlchemist(player, this, mod);
-			OrchidModGamblerHelper.ResetEffectsGambler(player, this, mod);
-			OrchidModShamanHelper.ResetEffectsShaman(player, this, mod);
+			OrchidModDancerHelper.ResetEffectsDancer(Player, this, Mod);
+			OrchidModAlchemistHelper.ResetEffectsAlchemist(Player, this, Mod);
+			OrchidModGamblerHelper.ResetEffectsGambler(Player, this, Mod);
+			OrchidModShamanHelper.ResetEffectsShaman(Player, this, Mod);
+			OrchidModGuardianHelper.ResetEffectsGuardian(Player, this, Mod);
 
 			if (this.keepSelected != -1)
 			{
-				player.selectedItem = keepSelected;
+				Player.selectedItem = keepSelected;
 				this.keepSelected = -1;
 			}
 		}
 
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
 		{
-			OrchidModAlchemistHelper.onRespawnAlchemist(player, this, mod);
-			OrchidModShamanHelper.onRespawnShaman(player, this, mod);
-			OrchidModGamblerHelper.onRespawnGambler(player, this);
+			OrchidModAlchemistHelper.onRespawnAlchemist(Player, this, Mod);
+			OrchidModShamanHelper.onRespawnShaman(Player, this, Mod);
+			OrchidModGamblerHelper.onRespawnGambler(Player, this);
 		}
 
 		public override void OnRespawn(Player player)
 		{
-			OrchidModAlchemistHelper.onRespawnAlchemist(player, this, mod);
-			OrchidModShamanHelper.onRespawnShaman(player, this, mod);
+			OrchidModAlchemistHelper.onRespawnAlchemist(player, this, Mod);
+			OrchidModShamanHelper.onRespawnShaman(player, this, Mod);
 			OrchidModGamblerHelper.onRespawnGambler(player, this);
 		}
 
 		public void updateBuffEffects()
 		{
-			if (player.FindBuffIndex(26) > -1)
+			if (Player.FindBuffIndex(26) > -1)
 			{ // WELL FED
 				this.customCrit += 2;
 			}
 
-			if (player.FindBuffIndex(115) > -1)
+			if (Player.FindBuffIndex(115) > -1)
 			{ // RAGE
 				this.customCrit += 10;
 			}
@@ -552,21 +561,21 @@ namespace OrchidMod
 
 		public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
 		{
-			if (player.HasBuff(mod.BuffType("EarthTotemPlus")) && !(player.HasBuff(mod.BuffType("EarthTotemRevive"))))
+			if (Player.HasBuff(Mod.Find<ModBuff>("EarthTotemPlus").Type) && !(Player.HasBuff(Mod.Find<ModBuff>("EarthTotemRevive").Type)))
 			{
-				Main.PlaySound(SoundID.Item29, player.position);
-				player.AddBuff(mod.BuffType("EarthTotemRevive"), 60 * 60 * 5);
+				SoundEngine.PlaySound(SoundID.Item29, Player.position);
+				Player.AddBuff(Mod.Find<ModBuff>("EarthTotemRevive").Type, 60 * 60 * 5);
 				for (int i = 0; i < 15; i++)
 				{
 					int randX = Main.rand.Next(150);
 					int randY = Main.rand.Next(100);
-					int dust = Dust.NewDust(new Vector2((int)(player.Center.X + 75 - randX), (int)(player.Center.Y + 15 - randY)), 0, 0, 64, 0f, 0f, 0, default(Color), 1.3f);
+					int dust = Dust.NewDust(new Vector2((int)(Player.Center.X + 75 - randX), (int)(Player.Center.Y + 15 - randY)), 0, 0, 64, 0f, 0f, 0, default(Color), 1.3f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity *= 3f;
 				}
-				if (Main.myPlayer == player.whoAmI)
-					player.HealEffect(200, true);
-				player.statLife = 200;
+				if (Main.myPlayer == Player.whoAmI)
+					Player.HealEffect(200, true);
+				Player.statLife = 200;
 				return false;
 			}
 			return true;
@@ -574,31 +583,31 @@ namespace OrchidMod
 
 		public void updateItemEffects()
 		{
-			if (player.armor[1].type == 374) this.customCrit += 3;// COBALT BREASPLATE
-			if (player.armor[1].type == 1208) this.customCrit += 2; // PALLADIUM BREASTPLATE
-			if (player.armor[2].type == 1209) this.customCrit += 1; // PALLADIUM LEGS
-			if (player.armor[2].type == 380) this.customCrit += 3; // MYTHRIL LEGS
-			if (player.armor[1].type == 1213) this.customCrit += 6; // ORICHALCUM BREASPLATE
-			if (player.armor[2].type == 404) this.customCrit += 4; // ADAMANTITE LEGS
-			if (player.armor[1].type == 1218) this.customCrit += 3; // TITANIUM BREASTPLATE
-			if (player.armor[2].type == 1219) this.customCrit += 3; // TITANIUM LEGS
-			if (player.armor[2].type == 2277) this.customCrit += 5; // GI
-			if (player.armor[1].type == 551) this.customCrit += 7; // HALLOWED BREASPLATE
-			if (player.armor[1].type == 1004) this.customCrit += 7; // CHLOROPHITE BREASTPLATE
-			if (player.armor[2].type == 1005) this.customCrit += 8; // CHLOROPHITE LEGS
+			if (Player.armor[1].type == 374) this.customCrit += 3;// COBALT BREASPLATE
+			if (Player.armor[1].type == 1208) this.customCrit += 2; // PALLADIUM BREASTPLATE
+			if (Player.armor[2].type == 1209) this.customCrit += 1; // PALLADIUM LEGS
+			if (Player.armor[2].type == 380) this.customCrit += 3; // MYTHRIL LEGS
+			if (Player.armor[1].type == 1213) this.customCrit += 6; // ORICHALCUM BREASPLATE
+			if (Player.armor[2].type == 404) this.customCrit += 4; // ADAMANTITE LEGS
+			if (Player.armor[1].type == 1218) this.customCrit += 3; // TITANIUM BREASTPLATE
+			if (Player.armor[2].type == 1219) this.customCrit += 3; // TITANIUM LEGS
+			if (Player.armor[2].type == 2277) this.customCrit += 5; // GI
+			if (Player.armor[1].type == 551) this.customCrit += 7; // HALLOWED BREASPLATE
+			if (Player.armor[1].type == 1004) this.customCrit += 7; // CHLOROPHITE BREASTPLATE
+			if (Player.armor[2].type == 1005) this.customCrit += 8; // CHLOROPHITE LEGS
 
-			for (int k = 3; k < 8 + player.extraAccessorySlots; k++)
+			for (int k = 3; k < 8 + Player.extraAccessorySlots; k++)
 			{
-				if (player.armor[k].type == 1301) this.customCrit += 8; // DESTROYER EMBLEM
-				if (player.armor[k].type == 1248) this.customCrit += 10; // EYE OF THE GOLEM
-				if (player.armor[k].type == 3015) this.customCrit += 5; // PUTRID SCENT
-				if (player.armor[k].type == 3110) this.customCrit += 2; // CELESTIAL SHELL
-				if (player.armor[k].type == 1865) this.customCrit += 2; // CELESTIAL STONE
-				if (player.armor[k].type == 899 && Main.dayTime) this.customCrit += 2; // CELESTIAL STONE
-				if (player.armor[k].type == 900 && (!Main.dayTime || Main.eclipse)) this.customCrit += 2; // CELESTIAL STONE
+				if (Player.armor[k].type == 1301) this.customCrit += 8; // DESTROYER EMBLEM
+				if (Player.armor[k].type == 1248) this.customCrit += 10; // EYE OF THE GOLEM
+				if (Player.armor[k].type == 3015) this.customCrit += 5; // PUTRID SCENT
+				if (Player.armor[k].type == 3110) this.customCrit += 2; // CELESTIAL SHELL
+				if (Player.armor[k].type == 1865) this.customCrit += 2; // CELESTIAL STONE
+				if (Player.armor[k].type == 899 && Main.dayTime) this.customCrit += 2; // CELESTIAL STONE
+				if (Player.armor[k].type == 900 && (!Main.dayTime || Main.eclipse)) this.customCrit += 2; // CELESTIAL STONE
 
-				if (player.armor[k].prefix == PrefixID.Lucky) this.customCrit += 4;
-				if (player.armor[k].prefix == PrefixID.Precise) this.customCrit += 2;
+				if (Player.armor[k].prefix == PrefixID.Lucky) this.customCrit += 4;
+				if (Player.armor[k].prefix == PrefixID.Precise) this.customCrit += 2;
 			}
 		}
 
@@ -606,25 +615,29 @@ namespace OrchidMod
 		{
 			if (generalStaticTimer == 299)
 			{
-				Main.PlaySound(SoundID.Item93, player.position);
+				SoundEngine.PlaySound(SoundID.Item93, Player.position);
 				for (int i = 0; i < 10; i++)
 				{
-					int dust = Dust.NewDust(player.position, player.width, player.height, 60);
+					int dust = Dust.NewDust(Player.position, Player.width, Player.height, 60);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].scale *= 1.5f;
 				}
 			}
-			if ((player.velocity.X != 0f || player.velocity.Y != 0f) && generalStaticTimer >= 300)
+			if ((Player.velocity.X != 0f || Player.velocity.Y != 0f) && generalStaticTimer >= 300)
 			{
-				player.AddBuff(BuffType<Buffs.StaticQuartArmorBuff>(), 60 * 10);
+				Player.AddBuff(BuffType<Buffs.StaticQuartArmorBuff>(), 60 * 10);
 				for (int i = 0; i < 10; i++)
 				{
-					int dust = Dust.NewDust(player.position, player.width, player.height, 60);
+					int dust = Dust.NewDust(Player.position, Player.width, Player.height, 60);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].scale *= 1.5f;
 				}
 			}
-			generalStaticTimer = (generalStatic && player.velocity.X == 0f && player.velocity.Y == 0f) ? generalStaticTimer < 300 ? generalStaticTimer + 1 : 300 : 0;
+			generalStaticTimer = (generalStatic && Player.velocity.X == 0f && Player.velocity.Y == 0f) ? generalStaticTimer < 300 ? generalStaticTimer + 1 : 300 : 0;
+		}
+		
+		public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot) {
+			return OrchidModGuardianHelper.CanBeHitByNPCGuardian(npc, ref cooldownSlot, Player, this, Mod);
 		}
 
 		public void CheckWoodBreak(Player player)
@@ -639,7 +652,7 @@ namespace OrchidMod
 			{
 				for (int j = num3; j <= num3 + 1; ++j)
 				{
-					if (Main.tile[i, j].nactive() && (int)Main.tile[i, j].type == TileType<Tiles.Ambient.FragileWood>() && !WorldGen.SolidTile(i, j - 1))
+					if (Main.tile[i, j].HasUnactuatedTile && (int)Main.tile[i, j].TileType == TileType<Tiles.Ambient.FragileWood>() && !WorldGen.SolidTile(i, j - 1))
 					{
 						WorldGen.KillTile(i, j, false, false, false);
 						// if (Main.netMode == 1)
@@ -669,9 +682,9 @@ namespace OrchidMod
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
-			ModPacket packet = mod.GetPacket();
+			ModPacket packet = Mod.GetPacket();
 			packet.Write((byte)OrchidModMessageType.ORCHIDPLAYERSYNCPLAYER);
-			packet.Write((byte)player.whoAmI);
+			packet.Write((byte)Player.whoAmI);
 
 			packet.Write((byte)shamanOrbSmall);
 			packet.Write((byte)shamanOrbBig);
@@ -703,45 +716,45 @@ namespace OrchidMod
 			//Orb Types
 			if (clone.shamanOrbSmall != shamanOrbSmall)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDSMALL);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write((byte)shamanOrbSmall);
 				packet.Send();
 			}
 
 			if (clone.shamanOrbBig != shamanOrbBig)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDBIG);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write((byte)shamanOrbBig);
 				packet.Send();
 			}
 
 			if (clone.shamanOrbLarge != shamanOrbLarge)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDLARGE);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write((byte)shamanOrbLarge);
 				packet.Send();
 			}
 
 			if (clone.shamanOrbUnique != shamanOrbUnique)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDUNIQUE);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write((byte)shamanOrbUnique);
 				packet.Send();
 			}
 
 			if (clone.shamanOrbCircle != shamanOrbCircle)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBTYPECHANGEDCIRCLE);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write((byte)shamanOrbCircle);
 				packet.Send();
 			}
@@ -749,45 +762,45 @@ namespace OrchidMod
 			// Orb Counts
 			if (clone.orbCountSmall != orbCountSmall)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDSMALL);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(orbCountSmall);
 				packet.Send();
 			}
 
 			if (clone.orbCountBig != orbCountBig)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDBIG);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(orbCountBig);
 				packet.Send();
 			}
 
 			if (clone.orbCountLarge != orbCountLarge)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDLARGE);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(orbCountLarge);
 				packet.Send();
 			}
 
 			if (clone.orbCountUnique != orbCountUnique)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDUNIQUE);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(orbCountUnique);
 				packet.Send();
 			}
 
 			if (clone.orbCountCircle != orbCountCircle)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANORBCOUNTCHANGEDCIRCLE);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(orbCountCircle);
 				packet.Send();
 			}
@@ -795,54 +808,54 @@ namespace OrchidMod
 			//Empowerment Timers
 			if (clone.shamanFireTimer != shamanFireTimer)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDATTACK);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(shamanFireTimer);
 				packet.Send();
 			}
 
 			if (clone.shamanWaterTimer != shamanWaterTimer)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDARMOR);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(shamanWaterTimer);
 				packet.Send();
 			}
 
 			if (clone.shamanAirTimer != shamanAirTimer)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDCRITICAL);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(shamanAirTimer);
 				packet.Send();
 			}
 
 			if (clone.shamanEarthTimer != shamanEarthTimer)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDREGENERATION);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(shamanEarthTimer);
 				packet.Send();
 			}
 
 			if (clone.shamanSpiritTimer != shamanSpiritTimer)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.SHAMANBUFFTIMERCHANGEDSPEED);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(shamanSpiritTimer);
 				packet.Send();
 			}
 
 			if (clone.gamblerHasCardInDeck != gamblerHasCardInDeck)
 			{
-				var packet = mod.GetPacket();
+				var packet = Mod.GetPacket();
 				packet.Write((byte)OrchidModMessageType.GAMBLERCARDINDECKCHANGED);
-				packet.Write((byte)player.whoAmI);
+				packet.Write((byte)Player.whoAmI);
 				packet.Write(gamblerHasCardInDeck);
 				packet.Send();
 			}

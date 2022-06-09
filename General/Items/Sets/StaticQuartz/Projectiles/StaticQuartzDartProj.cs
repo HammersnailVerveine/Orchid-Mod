@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,25 +17,25 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 		public override void SetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 8;
-			projectile.aiStyle = 1;
-			projectile.friendly = true;
-			projectile.hostile = false;
-			projectile.ranged = true;
-			projectile.penetrate = 5;
-			projectile.timeLeft = 600;
-			projectile.tileCollide = true;
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.aiStyle = 1;
+			Projectile.friendly = true;
+			Projectile.hostile = false;
+			Projectile.ranged = true;
+			Projectile.penetrate = 5;
+			Projectile.timeLeft = 600;
+			Projectile.tileCollide = true;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Main.PlaySound(SoundID.Item10, projectile.Center);
-			projectile.velocity *= 0f;
-			projectile.aiStyle = 0;
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+			Projectile.velocity *= 0f;
+			Projectile.aiStyle = 0;
 			if (!collided)
 			{
-				projectile.damage = (int)(projectile.damage * 2f);
+				Projectile.damage = (int)(Projectile.damage * 2f);
 				collided = true;
 			}
 			return false;
@@ -42,7 +43,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			Main.PlaySound(SoundID.Item10, projectile.Center);
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 		}
 	}
 }

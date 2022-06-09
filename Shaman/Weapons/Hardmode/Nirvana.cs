@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
@@ -8,19 +9,19 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 130;
-			item.magic = true;
-			item.width = 64;
-			item.height = 64;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 6.15f;
-			item.rare = 10;
-			item.value = Item.sellPrice(0, 20, 0, 0);
-			item.UseSound = SoundID.Item70;
-			item.autoReuse = true;
-			item.shootSpeed = 5f;
-			item.shoot = mod.ProjectileType("NirvanaMain");
+			Item.damage = 130;
+			Item.magic = true;
+			Item.width = 64;
+			Item.height = 64;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 6.15f;
+			Item.rare = 10;
+			Item.value = Item.sellPrice(0, 20, 0, 0);
+			Item.UseSound = SoundID.Item70;
+			Item.autoReuse = true;
+			Item.shootSpeed = 5f;
+			Item.shoot = Mod.Find<ModProjectile>("NirvanaMain").Type;
 			this.empowermentType = 5;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 10;

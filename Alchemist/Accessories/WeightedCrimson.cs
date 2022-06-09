@@ -8,11 +8,11 @@ namespace OrchidMod.Alchemist.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 24;
-			item.height = 26;
-			item.value = Item.sellPrice(0, 0, 40, 0);
-			item.rare = 1;
-			item.accessory = true;
+			Item.width = 24;
+			Item.height = 26;
+			Item.value = Item.sellPrice(0, 0, 40, 0);
+			Item.rare = 1;
+			Item.accessory = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -31,7 +31,7 @@ namespace OrchidMod.Alchemist.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemType<Alchemist.Accessories.WeightedBottles>(), 1);
 			recipe.AddIngredient(ItemType<Alchemist.Accessories.PreservedCrimson>(), 1);
 			recipe.AddTile(114);

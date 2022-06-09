@@ -78,13 +78,13 @@ namespace OrchidMod.Gambler
 			switch (modPlayer.gamblerDiceID)
 			{
 				case 0:
-					player.AddBuff(mod.BuffType("GamblerDice"), 1);
+					player.AddBuff(mod.Find<ModBuff>("GamblerDice").Type, 1);
 					break;
 				case 1:
-					player.AddBuff(mod.BuffType("GemstoneDice"), 1);
+					player.AddBuff(mod.Find<ModBuff>("GemstoneDice").Type, 1);
 					break;
 				case 2:
-					player.AddBuff(mod.BuffType("HoneyDice"), 1);
+					player.AddBuff(mod.Find<ModBuff>("HoneyDice").Type, 1);
 					break;
 				default:
 					break;
@@ -109,7 +109,7 @@ namespace OrchidMod.Gambler
 		public static void ResetEffectsGambler(Player player, OrchidModPlayer modPlayer, Mod mod)
 		{
 			modPlayer.gamblerChipSpin += modPlayer.gamblerPauseChipRotation > 0 ? 0f : 1.5f + (modPlayer.gamblerChipSpinBonus * 1.5f);
-			modPlayer.gamblerChipSpin = modPlayer.gamblerChipSpin > 360f ? modPlayer.gamblerChipSpin - 360f : modPlayer.gamblerChipSpin;
+			modPlayer.gamblerChipSpin = modPlayer.gamblerChipSpin > 720f ? modPlayer.gamblerChipSpin - 720f : modPlayer.gamblerChipSpin;
 			modPlayer.gamblerPauseChipRotation -= modPlayer.gamblerPauseChipRotation > 0 ? 1 : 0;
 			modPlayer.gamblerDamage = 1.0f;
 			modPlayer.gamblerDamageChip = 0f;
@@ -402,7 +402,7 @@ namespace OrchidMod.Gambler
 
 		public static bool hasGamblerDeck(Player player)
 		{
-			for (int i = 0; i < Main.maxInventory; i++)
+			for (int i = 0; i < Main.InventorySlotsTotal; i++)
 			{
 				Item item = player.inventory[i];
 				if (item.type != ItemID.None)

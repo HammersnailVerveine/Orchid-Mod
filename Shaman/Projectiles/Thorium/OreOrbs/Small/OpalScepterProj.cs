@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Small
 {
@@ -12,13 +13,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Small
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 90;
-			projectile.scale = 1f;
-			projectile.penetrate = 2;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 90;
+			Projectile.scale = 1f;
+			Projectile.penetrate = 2;
 			this.projectileTrail = true;
 		}
 
@@ -31,28 +32,28 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Small
 		{
 			if (Main.rand.Next(5) == 0)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 255);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 255);
 				Main.dust[dust].velocity /= 3f;
 				Main.dust[dust].scale = 1.5f;
 				Main.dust[dust].noGravity = true;
 			}
 			
-			if (projectile.timeLeft < 40) {
-				projectile.velocity *= 0.9f;
+			if (Projectile.timeLeft < 40) {
+				Projectile.velocity *= 0.9f;
 			}
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 255, 5, 8, true, 1.5f, 1f, 4f, true, true, false, 0, 0, true);
-			OrchidModProjectile.spawnDustCircle(projectile.Center, 255, 5, 8, true, 1.5f, 1f, 2.5f, true, true, false, 0, 0, true);
-			OrchidModProjectile.spawnGenericExplosion(projectile, projectile.damage, projectile.knockBack, 75, 1, false, 27);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 255, 5, 8, true, 1.5f, 1f, 4f, true, true, false, 0, 0, true);
+			OrchidModProjectile.spawnDustCircle(Projectile.Center, 255, 5, 8, true, 1.5f, 1f, 2.5f, true, true, false, 0, 0, true);
+			OrchidModProjectile.spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 75, 1, false, 27);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			projectile.friendly = false;
-			projectile.timeLeft = projectile.timeLeft > 40 ? 40 : projectile.timeLeft;
+			Projectile.friendly = false;
+			Projectile.timeLeft = Projectile.timeLeft > 40 ? 40 : Projectile.timeLeft;
 			
 			if (modPlayer.shamanOrbSmall != ShamanOrbSmall.OPAL)
 			{
@@ -63,31 +64,31 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Small
 
 			if (modPlayer.orbCountSmall == 1)
 			{
-				Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 20, 0f, 0f, mod.ProjectileType("OpalOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 20, 0f, 0f, Mod.Find<ModProjectile>("OpalOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
-				if (player.FindBuffIndex(mod.BuffType("ShamanicBaubles")) > -1)
+				if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1)
 				{
 					modPlayer.orbCountSmall++;
-					Projectile.NewProjectile(player.Center.X, player.position.Y - 25, 0f, 0f, mod.ProjectileType("OpalOrb"), 1, 0, projectile.owner, 0f, 0f);
-					player.ClearBuff(mod.BuffType("ShamanicBaubles"));
+					Projectile.NewProjectile(player.Center.X, player.position.Y - 25, 0f, 0f, Mod.Find<ModProjectile>("OpalOrb").Type, 1, 0, Projectile.owner, 0f, 0f);
+					player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				}
 			}
 			if (modPlayer.orbCountSmall == 2)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 25, 0f, 0f, mod.ProjectileType("OpalOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X, player.position.Y - 25, 0f, 0f, Mod.Find<ModProjectile>("OpalOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountSmall == 3)
-				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 20, 0f, 0f, mod.ProjectileType("OpalOrb"), 0, 0, projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 20, 0f, 0f, Mod.Find<ModProjectile>("OpalOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountSmall > 3)
 			{
-				player.AddBuff(mod.BuffType("OpalEmpowerment"), 60 * 30);
+				player.AddBuff(Mod.Find<ModBuff>("OpalEmpowerment").Type, 60 * 30);
 				modPlayer.orbCountSmall = 0;
 			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X / 2;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y / 2;
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X / 2;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y / 2;
 			return false;
 		}
 	}

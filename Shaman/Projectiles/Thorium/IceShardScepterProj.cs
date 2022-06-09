@@ -16,14 +16,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 14;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 80;
-			projectile.friendly = true;
-			projectile.tileCollide = true;
-			projectile.scale = 1f;
-			aiType = ProjectileID.Bullet;
+			Projectile.width = 14;
+			Projectile.height = 14;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 80;
+			Projectile.friendly = true;
+			Projectile.tileCollide = true;
+			Projectile.scale = 1f;
+			AIType = ProjectileID.Bullet;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -33,41 +33,41 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			projectile.alpha += 30;
+			Projectile.alpha += 30;
 
-			if (projectile.timeLeft == 80)
+			if (Projectile.timeLeft == 80)
 			{
-				storeVelocity = projectile.velocity;
-				storeDamage = projectile.damage;
+				storeVelocity = Projectile.velocity;
+				storeDamage = Projectile.damage;
 			}
 
-			if (projectile.timeLeft > 35)
+			if (Projectile.timeLeft > 35)
 			{
-				projectile.velocity *= 0f;
-				projectile.damage = 0;
+				Projectile.velocity *= 0f;
+				Projectile.damage = 0;
 				dustScale += 0.0195f;
 			}
 
-			if (projectile.timeLeft == 35)
+			if (Projectile.timeLeft == 35)
 			{
-				projectile.damage = storeDamage;
-				projectile.velocity = storeVelocity;
-				projectile.extraUpdates = 1;
+				Projectile.damage = storeDamage;
+				Projectile.velocity = storeVelocity;
+				Projectile.extraUpdates = 1;
 
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 92, 20, 5, true, 1.5f, 1f, 1f, true, true, false, 0, 0, true);
+				OrchidModProjectile.spawnDustCircle(Projectile.Center, 92, 20, 5, true, 1.5f, 1f, 1f, true, true, false, 0, 0, true);
 				for (int i = 0; i < 5; i++)
 				{
-					int index = Dust.NewDust(projectile.position, projectile.width, projectile.height, 92);
+					int index = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 92);
 					Main.dust[index].scale = 1.5f;
-					Main.dust[index].velocity = projectile.velocity.RotatedByRandom(MathHelper.ToRadians(20));
+					Main.dust[index].velocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(20));
 					Main.dust[index].noGravity = true;
 				}
 			}
 
 			for (int i = 0; i < 3; i++)
 			{
-				Vector2 Position = projectile.position;
-				int index2 = Dust.NewDust(Position, projectile.width, projectile.height, 92);
+				Vector2 Position = Projectile.position;
+				int index2 = Dust.NewDust(Position, Projectile.width, Projectile.height, 92);
 				Main.dust[index2].scale = (float)90 * 0.010f + dustScale / 3;
 				Main.dust[index2].velocity *= 0.2f;
 				Main.dust[index2].noGravity = true;
@@ -76,10 +76,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			if (!this.initialized)
 			{
 				this.initialized = true;
-				Player player = Main.player[projectile.owner];
+				Player player = Main.player[Projectile.owner];
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-				int newCrit = 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod) + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
-				OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+				int newCrit = 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
+				OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 				modProjectile.baseCritChance = newCrit;
 			}
 		}
@@ -88,7 +88,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 92);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 92);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale = 2f;
 				Main.dust[dust].velocity *= 2f;

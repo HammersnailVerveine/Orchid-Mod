@@ -9,19 +9,19 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 61;
-			item.channel = true;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.knockBack = 4.15f;
-			item.rare = 8;
-			item.value = Item.sellPrice(0, 6, 0, 0);
-			item.UseSound = SoundID.Item43;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("ReviverofSoulsProj");
+			Item.damage = 61;
+			Item.channel = true;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.knockBack = 4.15f;
+			Item.rare = 8;
+			Item.value = Item.sellPrice(0, 6, 0, 0);
+			Item.UseSound = SoundID.Item43;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("ReviverofSoulsProj").Type;
 			this.empowermentType = 3;
 			this.energy = 12;
 		}
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-			add += (((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).shamanOrbCircle == ShamanOrbCircle.REVIVER) ? ((OrchidModPlayer)player.GetModPlayer(mod, "OrchidModPlayer")).orbCountCircle * 0.035f : 0;
+			add += (((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).shamanOrbCircle == ShamanOrbCircle.REVIVER) ? ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).orbCountCircle * 0.035f : 0;
 		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -48,7 +48,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			int numberProjectiles = 3;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("ReviverofSoulsProj"), damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("ReviverofSoulsProj").Type, damage, knockBack, player.whoAmI);
 			}
 			return false;
 		}
@@ -60,7 +60,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.AddIngredient(3261, 20);
 			recipe.SetResult(this);

@@ -6,11 +6,11 @@ namespace OrchidMod.Shaman.Misc
 	{
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 26;
-			item.maxStack = 99;
-			item.value = Item.sellPrice(0, 1, 0, 0);
-			item.rare = 5;
+			Item.width = 20;
+			Item.height = 26;
+			Item.maxStack = 99;
+			Item.value = Item.sellPrice(0, 1, 0, 0);
+			Item.rare = 5;
 		}
 
 

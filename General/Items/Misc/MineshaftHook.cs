@@ -17,9 +17,9 @@ namespace OrchidMod.General.Items.Misc
 
 		public override void SetDefaults()
 		{
-			item.CloneDefaults(ItemID.AmethystHook);
-			item.shootSpeed = 12f;
-			item.shoot = ProjectileType<MineshaftHookProjectile>();
+			Item.CloneDefaults(ItemID.AmethystHook);
+			Item.shootSpeed = 12f;
+			Item.shoot = ProjectileType<MineshaftHookProjectile>();
 		}
 	}
 
@@ -35,7 +35,7 @@ namespace OrchidMod.General.Items.Misc
 		public override void SetDefaults()
 		{
 
-			projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
+			Projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
 		}
 
 		public override bool? SingleGrappleHook(Player player)
@@ -47,8 +47,8 @@ namespace OrchidMod.General.Items.Misc
 		{
 			if (!this.initialized)
 			{
-				projectile.velocity.X = 0f;
-				projectile.velocity.Y = -12f;
+				Projectile.velocity.X = 0f;
+				Projectile.velocity.Y = -12f;
 				this.initialized = true;
 			}
 		}
@@ -75,17 +75,17 @@ namespace OrchidMod.General.Items.Misc
 
 		public override void GrappleTargetPoint(Player player, ref float grappleX, ref float grappleY)
 		{
-			Vector2 dirToPlayer = projectile.DirectionTo(player.Center);
+			Vector2 dirToPlayer = Projectile.DirectionTo(player.Center);
 			float hangDist = 1f;
 			grappleX += dirToPlayer.X * hangDist;
 			grappleY += dirToPlayer.Y * hangDist;
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool PreDraw(ref Color lightColor)
 		{
-			Vector2 playerCenter = Main.player[projectile.owner].MountedCenter;
-			Vector2 center = projectile.Center;
-			Vector2 distToProj = playerCenter - projectile.Center;
+			Vector2 playerCenter = Main.player[Projectile.owner].MountedCenter;
+			Vector2 center = Projectile.Center;
+			Vector2 distToProj = playerCenter - Projectile.Center;
 			float projRotation = distToProj.ToRotation() - 1.57f;
 			float distance = distToProj.Length();
 			while (distance > 30f && !float.IsNaN(distance))
@@ -97,7 +97,7 @@ namespace OrchidMod.General.Items.Misc
 				distance = distToProj.Length();
 				Color drawColor = lightColor;
 
-				spriteBatch.Draw(mod.GetTexture("General/Items/Misc/MineshaftHookChain"), new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
+				spriteBatch.Draw(Mod.GetTexture("General/Items/Misc/MineshaftHookChain"), new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
 					new Rectangle(0, 0, 10, 8), drawColor, projRotation,
 					new Vector2(10 * 0.5f, 8 * 0.5f), 1f, SpriteEffects.None, 0f);
 			}

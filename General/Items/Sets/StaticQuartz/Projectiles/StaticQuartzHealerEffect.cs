@@ -14,14 +14,14 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 		public override void SetDefaults()
 		{
-			projectile.width = 8;
-			projectile.height = 8;
-			projectile.aiStyle = -1;
-			projectile.tileCollide = false;
-			projectile.ownerHitCheck = true;
-			projectile.ignoreWater = true;
-			projectile.penetrate = -1;
-			projectile.timeLeft = 24;
+			Projectile.width = 8;
+			Projectile.height = 8;
+			Projectile.aiStyle = -1;
+			Projectile.tileCollide = false;
+			Projectile.ownerHitCheck = true;
+			Projectile.ignoreWater = true;
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 24;
 		}
 
 		public static Vector2 RotateVector(Vector2 origin, Vector2 vecToRot, float rot)
@@ -36,7 +36,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			if (player.direction > 0)
 			{
@@ -47,15 +47,15 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 				rot -= 0.20f;
 			}
 
-			projectile.Center = player.Center + RotateVector(default(Vector2), rotVec, rot + (projectile.ai[0] * (6.28f / 2)));
+			Projectile.Center = player.Center + RotateVector(default(Vector2), rotVec, rot + (Projectile.ai[0] * (6.28f / 2)));
 
 			for (int num363 = 0; num363 < 3; num363++)
 			{
-				float num364 = projectile.velocity.X / 3f * (float)num363;
-				float num365 = projectile.velocity.Y / 3f * (float)num363;
-				int num366 = Dust.NewDust(projectile.position, projectile.width, projectile.height, 60, 0f, 0f, 0, default(Color), 1.2f);
-				Main.dust[num366].position.X = projectile.Center.X - num364;
-				Main.dust[num366].position.Y = projectile.Center.Y - num365;
+				float num364 = Projectile.velocity.X / 3f * (float)num363;
+				float num365 = Projectile.velocity.Y / 3f * (float)num363;
+				int num366 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 60, 0f, 0f, 0, default(Color), 1.2f);
+				Main.dust[num366].position.X = Projectile.Center.X - num364;
+				Main.dust[num366].position.Y = Projectile.Center.Y - num365;
 				Main.dust[num366].velocity *= 0f;
 				Main.dust[num366].noGravity = true;
 				Main.dust[num366].scale = 1.2f;

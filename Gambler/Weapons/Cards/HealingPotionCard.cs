@@ -7,14 +7,14 @@ namespace OrchidMod.Gambler.Weapons.Cards
 	{
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 1;
-			item.damage = 0;
-			item.crit = 0;
-			item.knockBack = 0f;
-			item.useAnimation = 15;
-			item.useTime = 15;
-			item.shootSpeed = 1f;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = 1;
+			Item.damage = 0;
+			Item.crit = 0;
+			Item.knockBack = 0f;
+			Item.useAnimation = 15;
+			Item.useTime = 15;
+			Item.shootSpeed = 1f;
 			this.cardRequirement = 5;
 		}
 

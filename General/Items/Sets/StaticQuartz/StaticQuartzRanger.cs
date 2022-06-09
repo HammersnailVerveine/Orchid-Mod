@@ -15,26 +15,26 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 
 		public override void SetDefaults()
 		{
-			item.damage = 10;
-			item.ranged = true;
-			item.width = 44;
-			item.height = 12;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.useStyle = ItemUseStyleID.HoldingOut;
-			item.noMelee = true;
-			item.knockBack = 1f;
-			item.value = Item.sellPrice(0, 0, 5, 0);
-			item.rare = 1;
-			item.UseSound = SoundID.Item64;
-			item.shoot = 10;
-			item.shootSpeed = 10f;
-			item.useAmmo = AmmoID.Dart;
+			Item.damage = 10;
+			Item.ranged = true;
+			Item.width = 44;
+			Item.height = 12;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.useStyle = ItemUseStyleID.Shoot;
+			Item.noMelee = true;
+			Item.knockBack = 1f;
+			Item.value = Item.sellPrice(0, 0, 5, 0);
+			Item.rare = 1;
+			Item.UseSound = SoundID.Item64;
+			Item.shoot = 10;
+			Item.shootSpeed = 10f;
+			Item.useAmmo = AmmoID.Dart;
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 12);
 			recipe.SetResult(this);

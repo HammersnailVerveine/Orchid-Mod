@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace OrchidMod.Shaman.Weapons
@@ -9,18 +10,18 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 19;
-			item.width = 36;
-			item.height = 36;
-			item.useTime = 30;
-			item.useAnimation = 30;
-			item.knockBack = 3f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 40, 0);
-			item.UseSound = SoundID.Item28;
-			item.autoReuse = true;
-			item.shootSpeed = 10f;
-			item.shoot = mod.ProjectileType("IceSpearScepterProj");
+			Item.damage = 19;
+			Item.width = 36;
+			Item.height = 36;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+			Item.knockBack = 3f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 40, 0);
+			Item.UseSound = SoundID.Item28;
+			Item.autoReuse = true;
+			Item.shootSpeed = 10f;
+			Item.shoot = Mod.Find<ModProjectile>("IceSpearScepterProj").Type;
 			this.empowermentType = 2;
 			this.energy = 7;
 		}

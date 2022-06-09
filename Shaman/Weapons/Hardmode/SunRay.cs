@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
@@ -7,19 +8,19 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 60;
-			item.channel = true;
-			item.width = 30;
-			item.height = 30;
-			item.useTime = 6;
-			item.useAnimation = 30;
-			item.knockBack = 4.15f;
-			item.rare = 8;
-			item.value = Item.sellPrice(0, 10, 0, 0);
-			item.UseSound = SoundID.Item15;
-			item.autoReuse = true;
-			item.shootSpeed = 15f;
-			item.shoot = mod.ProjectileType("SunRayProj");
+			Item.damage = 60;
+			Item.channel = true;
+			Item.width = 30;
+			Item.height = 30;
+			Item.useTime = 6;
+			Item.useAnimation = 30;
+			Item.knockBack = 4.15f;
+			Item.rare = 8;
+			Item.value = Item.sellPrice(0, 10, 0, 0);
+			Item.UseSound = SoundID.Item15;
+			Item.autoReuse = true;
+			Item.shootSpeed = 15f;
+			Item.shoot = Mod.Find<ModProjectile>("SunRayProj").Type;
 			this.empowermentType = 1;
 			this.energy = 2;
 		}
@@ -27,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 			mult *= modPlayer.shamanDamage + (nbBonds * 0.1f);
 			if (!Main.dayTime) add -= 0.1f;
 		}

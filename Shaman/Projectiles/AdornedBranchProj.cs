@@ -11,21 +11,21 @@ namespace OrchidMod.Shaman.Projectiles
 		}
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 5;
-			projectile.height = 8;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 100;
-			projectile.extraUpdates = 1;
+			Projectile.width = 5;
+			Projectile.height = 8;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 100;
+			Projectile.extraUpdates = 1;
 		}
 
 		public override void AI()
 		{
-			if (projectile.timeLeft == 100 || projectile.timeLeft == 1)
+			if (Projectile.timeLeft == 100 || Projectile.timeLeft == 1)
 			{
 				int dustType = 31;
-				Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
-				Main.dust[Dust.NewDust(pos, projectile.width, projectile.height, dustType)].velocity *= 0.25f;
+				Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+				Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
 			}
 		}
 

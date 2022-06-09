@@ -5,7 +5,7 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 {
 	public class AquaBump : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Aqua Bump");
 			Description.SetDefault("Landing will hurt");

@@ -12,28 +12,28 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 14;
-			projectile.height = 10;
-			projectile.aiStyle = 63;
-			projectile.friendly = true;
-			projectile.timeLeft = 600;
-			projectile.penetrate = 10;
-			projectile.scale = 1f;
-			projectile.alpha = 64;
-			Main.projFrames[projectile.type] = 2;
+			Projectile.width = 14;
+			Projectile.height = 10;
+			Projectile.aiStyle = 63;
+			Projectile.friendly = true;
+			Projectile.timeLeft = 600;
+			Projectile.penetrate = 10;
+			Projectile.scale = 1f;
+			Projectile.alpha = 64;
+			Main.projFrames[Projectile.type] = 2;
 		}
 
 		public override void AI()
 		{
-			if (projectile.velocity.Y > 8) projectile.velocity.Y = 8;
-			if (projectile.velocity.X > 5) projectile.velocity.X = 5;
-			if (projectile.velocity.X < -5) projectile.velocity.X = -5;
-			projectile.frame = projectile.velocity.Y < 0f ? 1 : 0;
+			if (Projectile.velocity.Y > 8) Projectile.velocity.Y = 8;
+			if (Projectile.velocity.X > 5) Projectile.velocity.X = 5;
+			if (Projectile.velocity.X < -5) Projectile.velocity.X = -5;
+			Projectile.frame = Projectile.velocity.Y < 0f ? 1 : 0;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			projectile.velocity.Y = -3;
+			Projectile.velocity.Y = -3;
 			return false;
 		}
 
@@ -43,7 +43,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 			{
 				int Alpha = 175;
 				Color newColor = new Color(60, 120, 30, 0);
-				int dust = Dust.NewDust(projectile.position + Vector2.One * 6f, projectile.width, projectile.height, 4, 0.0f, 0.0f, Alpha, newColor, 1.2f);
+				int dust = Dust.NewDust(Projectile.position + Vector2.One * 6f, Projectile.width, Projectile.height, 4, 0.0f, 0.0f, Alpha, newColor, 1.2f);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale = 1.7f;
 				Main.dust[dust].velocity *= 0f;

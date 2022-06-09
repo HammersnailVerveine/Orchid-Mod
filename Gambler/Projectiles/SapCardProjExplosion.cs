@@ -10,15 +10,15 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 150;
-			projectile.height = 150;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
-			projectile.tileCollide = false;
+			Projectile.width = 150;
+			Projectile.height = 150;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
 
 			this.gamblingChipChance = 5;
 		}
@@ -31,7 +31,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void OnSpawn()
 		{
 			OrchidHelper.SpawnDustCircle(
-				center: projectile.Center,
+				center: Projectile.Center,
 				radius: 70,
 				count: 25,
 				type: (index) => 102,
@@ -46,7 +46,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void AI()
 		{
-			OrchidModProjectile.resetIFrames(projectile);
+			OrchidModProjectile.resetIFrames(Projectile);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)

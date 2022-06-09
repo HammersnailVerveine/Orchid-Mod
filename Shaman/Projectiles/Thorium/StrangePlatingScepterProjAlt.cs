@@ -8,13 +8,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 6;
-			projectile.height = 6;
-			projectile.friendly = true;
-			projectile.aiStyle = 1;
-			projectile.timeLeft = 35;
-			projectile.scale = 1f;
-			aiType = ProjectileID.Bullet;
+			Projectile.width = 6;
+			Projectile.height = 6;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 1;
+			Projectile.timeLeft = 35;
+			Projectile.scale = 1f;
+			AIType = ProjectileID.Bullet;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void AI()
 		{
-			Lighting.AddLight(projectile.position, 0.75f, 0f, 0f);
+			Lighting.AddLight(Projectile.position, 0.75f, 0f, 0f);
 		}
 
 		public override void SetStaticDefaults()

@@ -19,18 +19,18 @@ namespace OrchidMod.Gambler
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = true;
-			item.maxStack = 1;
-			item.useStyle = 4;
-			item.UseSound = SoundID.Item35;
-			item.useAnimation = 20;
-			item.useTime = 20;
-			item.autoReuse = false;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = true;
+			Item.maxStack = 1;
+			Item.useStyle = 4;
+			Item.UseSound = SoundID.Item35;
+			Item.useAnimation = 20;
+			Item.useTime = 20;
+			Item.autoReuse = false;
 		}
 
 		public override bool CloneNewInstances
@@ -48,11 +48,11 @@ namespace OrchidMod.Gambler
 			SafeHoldItem();
 		}
 
-		public override bool UseItem(Player player)
+		public override bool? UseItem(Player player)/* Suggestion: Return null instead of false */
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			OrchidModGamblerHelper.removeGamblerChip(100, this.diceCost, player, modPlayer, mod);
-			OrchidModGamblerHelper.rollGamblerDice(this.diceID, this.diceDuration, player, modPlayer, mod);
+			OrchidModGamblerHelper.removeGamblerChip(100, this.diceCost, player, modPlayer, Mod);
+			OrchidModGamblerHelper.rollGamblerDice(this.diceID, this.diceDuration, player, modPlayer, Mod);
 			return true;
 		}
 
@@ -72,36 +72,36 @@ namespace OrchidMod.Gambler
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Gambler Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Gambler Class-")
 				{
-					overrideColor = new Color(255, 200, 0)
+					OverrideColor = new Color(255, 200, 0)
 				});
 			}
 
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 
-			tt = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.mod == "Terraria");
+			tt = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 
-			tt = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.mod == "Terraria");
+			tt = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 
-			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.mod == "Terraria");
+			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 
-			int index = tooltips.FindIndex(ttip => ttip.mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
 			if (index != -1)
 			{
-				tooltips.Insert(index, new TooltipLine(mod, "DiceDuration", "Lasts " + this.diceDuration + " seconds"));
+				tooltips.Insert(index, new TooltipLine(Mod, "DiceDuration", "Lasts " + this.diceDuration + " seconds"));
 
 				if (this.diceCost < 2)
 				{
-					tooltips.Insert(index, new TooltipLine(mod, "DiceCost", "Uses " + this.diceCost + " chip"));
+					tooltips.Insert(index, new TooltipLine(Mod, "DiceCost", "Uses " + this.diceCost + " chip"));
 				}
 				else
 				{
-					tooltips.Insert(index, new TooltipLine(mod, "DiceCost", "Uses " + this.diceCost + " chips"));
+					tooltips.Insert(index, new TooltipLine(Mod, "DiceCost", "Uses " + this.diceCost + " chips"));
 				}
 			}
 		}

@@ -9,15 +9,15 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 40;
-			projectile.height = 38;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 300;
-			projectile.scale = 1f;
-			projectile.alpha = 64;
-			projectile.penetrate = -1;
-			Main.projFrames[projectile.type] = 2;
+			Projectile.width = 40;
+			Projectile.height = 38;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 300;
+			Projectile.scale = 1f;
+			Projectile.alpha = 64;
+			Projectile.penetrate = -1;
+			Main.projFrames[Projectile.type] = 2;
 		}
 
 		public override void SetStaticDefaults()
@@ -29,24 +29,24 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 		{
 			if (!this.initialized)
 			{
-				projectile.frame = Main.rand.Next(2);
+				Projectile.frame = Main.rand.Next(2);
 				this.initialized = true;
-				projectile.rotation += Main.rand.NextFloat();
+				Projectile.rotation += Main.rand.NextFloat();
 				this.rotationSpeed = (0.01f + Main.rand.NextFloat() * 0.03f) * (Main.rand.Next(2) == 0 ? 1f : -1f);
 			}
-			projectile.rotation += this.rotationSpeed;
-			projectile.velocity *= 0.925f;
-			projectile.alpha += Main.rand.Next(3);
-			if (projectile.alpha >= 255)
+			Projectile.rotation += this.rotationSpeed;
+			Projectile.velocity *= 0.925f;
+			Projectile.alpha += Main.rand.Next(3);
+			if (Projectile.alpha >= 255)
 			{
-				projectile.Kill();
+				Projectile.Kill();
 			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (projectile.velocity.X != oldVelocity.X) projectile.velocity.X = -oldVelocity.X;
-			if (projectile.velocity.Y != oldVelocity.Y) projectile.velocity.Y = -oldVelocity.Y;
+			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
+			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
 			return false;
 		}
 

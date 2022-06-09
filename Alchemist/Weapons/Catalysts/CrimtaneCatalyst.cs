@@ -17,10 +17,10 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 
 		public override void SafeSetDefaults()
 		{
-			item.width = 30;
-			item.height = 30;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 75, 0);
+			Item.width = 30;
+			Item.height = 30;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 75, 0);
 			this.catalystType = 1;
 		}
 

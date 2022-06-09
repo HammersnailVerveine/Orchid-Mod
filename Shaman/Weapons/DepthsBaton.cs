@@ -9,18 +9,18 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 57;
-			item.width = 40;
-			item.height = 40;
-			item.useTime = 35;
-			item.useAnimation = 35;
-			item.knockBack = 3.15f;
-			item.rare = 3;
-			item.value = Item.sellPrice(0, 1, 6, 0);
-			item.UseSound = SoundID.Item72;
-			item.autoReuse = true;
-			item.shootSpeed = 12f;
-			item.shoot = mod.ProjectileType("DepthsBatonProj");
+			Item.damage = 57;
+			Item.width = 40;
+			Item.height = 40;
+			Item.useTime = 35;
+			Item.useAnimation = 35;
+			Item.knockBack = 3.15f;
+			Item.rare = 3;
+			Item.value = Item.sellPrice(0, 1, 6, 0);
+			Item.UseSound = SoundID.Item72;
+			Item.autoReuse = true;
+			Item.shootSpeed = 12f;
+			Item.shoot = Mod.Find<ModProjectile>("DepthsBatonProj").Type;
 			this.empowermentType = 5;
 			this.energy = 8;
 		}
@@ -36,10 +36,10 @@ namespace OrchidMod.Shaman.Weapons
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, mod);
+			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 			if (BuffsCount > 2)
 			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("DepthBatonProjAlt"), damage - 10, knockBack, player.whoAmI);
+				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("DepthBatonProjAlt").Type, damage - 10, knockBack, player.whoAmI);
 			}
 			return true;
 		}
@@ -47,7 +47,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "Blum", 1);
 			recipe.AddIngredient(null, "PerishingSoul", 1);
 			recipe.AddIngredient(null, "SporeCaller", 1);
@@ -56,7 +56,7 @@ namespace OrchidMod.Shaman.Weapons
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(mod);
+			recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(null, "Blum", 1);
 			recipe.AddIngredient(null, "PerishingSoul", 1);
 			recipe.AddIngredient(null, "SporeCaller", 1);

@@ -40,40 +40,40 @@ namespace OrchidMod.Alchemist
 
 		public sealed override void SetDefaults()
 		{
-			item.useAnimation = 0;
-			item.useTime = 0;
-			item.shootSpeed = 0f;
-			item.damage = 0;
-			item.crit = 0;
+			Item.useAnimation = 0;
+			Item.useTime = 0;
+			Item.shootSpeed = 0f;
+			Item.damage = 0;
+			Item.crit = 0;
 			SafeSetDefaults();
-			item.melee = false;
-			item.ranged = false;
-			item.magic = false;
-			item.thrown = false;
-			item.summon = false;
-			item.noMelee = this.catalystType != 1;
-			item.useStyle = 1;
-			item.UseSound = SoundID.Item1;
-			item.consumable = false;
-			item.noUseGraphic = this.catalystType == 2;
-			item.useAnimation = item.useAnimation == 0 ? 20 : 0;
-			item.useTime = item.useTime == 0 ? 20 : 0;
-			item.autoReuse = false;
-			item.shootSpeed = item.shootSpeed == 0f ? 10f : item.shootSpeed;
-			item.knockBack = 0f;
-			item.crit = item.crit == 0 ? 0 : item.crit;
-			item.damage = item.damage == 0 ? 0 : item.damage;
+			Item.melee = false;
+			Item.ranged = false;
+			Item.magic = false;
+			Item.thrown = false;
+			Item.summon = false;
+			Item.noMelee = this.catalystType != 1;
+			Item.useStyle = 1;
+			Item.UseSound = SoundID.Item1;
+			Item.consumable = false;
+			Item.noUseGraphic = this.catalystType == 2;
+			Item.useAnimation = Item.useAnimation == 0 ? 20 : 0;
+			Item.useTime = Item.useTime == 0 ? 20 : 0;
+			Item.autoReuse = false;
+			Item.shootSpeed = Item.shootSpeed == 0f ? 10f : Item.shootSpeed;
+			Item.knockBack = 0f;
+			Item.crit = Item.crit == 0 ? 0 : Item.crit;
+			Item.damage = Item.damage == 0 ? 0 : Item.damage;
 
-			OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.alchemistCatalyst = true;
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().alchemistCrit;
 		}
@@ -124,25 +124,25 @@ namespace OrchidMod.Alchemist
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ClassTag", "-Alchemist Class-")
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Alchemist Class-")
 				{
-					overrideColor = new Color(155, 255, 55)
+					OverrideColor = new Color(155, 255, 55)
 				});
 			}
 
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
-				string[] splitText = tt.text.Split(' ');
+				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " chemical " + damageWord;
+				tt.Text = damageValue + " chemical " + damageWord;
 			}
 
-			tt = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.mod == "Terraria");
+			tt = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 
-			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.mod == "Terraria");
+			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 		}
 	}

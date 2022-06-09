@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons
 {
@@ -8,18 +9,18 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 15;
-			item.width = 36;
-			item.height = 36;
-			item.useTime = 20;
-			item.useAnimation = 20;
-			item.knockBack = 2.75f;
-			item.rare = 2;
-			item.value = Item.sellPrice(0, 0, 54, 0);
-			item.UseSound = SoundID.Item21;
-			item.autoReuse = true;
-			item.shootSpeed = 6f;
-			item.shoot = mod.ProjectileType("HoneyProj");
+			Item.damage = 15;
+			Item.width = 36;
+			Item.height = 36;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+			Item.knockBack = 2.75f;
+			Item.rare = 2;
+			Item.value = Item.sellPrice(0, 0, 54, 0);
+			Item.UseSound = SoundID.Item21;
+			Item.autoReuse = true;
+			Item.shootSpeed = 6f;
+			Item.shoot = Mod.Find<ModProjectile>("HoneyProj").Type;
 			this.empowermentType = 2;
 			this.energy = 5;
 		}

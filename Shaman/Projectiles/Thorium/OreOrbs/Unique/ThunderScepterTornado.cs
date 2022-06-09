@@ -7,16 +7,16 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 	{
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 44;
-			projectile.height = 44;
-			projectile.friendly = true;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 100;
-			projectile.scale = 1f;
-			Main.projFrames[projectile.type] = 6;
-			projectile.alpha = 128;
-			projectile.tileCollide = false;
-			projectile.penetrate = 10;
+			Projectile.width = 44;
+			Projectile.height = 44;
+			Projectile.friendly = true;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 100;
+			Projectile.scale = 1f;
+			Main.projFrames[Projectile.type] = 6;
+			Projectile.alpha = 128;
+			Projectile.tileCollide = false;
+			Projectile.penetrate = 10;
 		}
 
 		public override void SetStaticDefaults()
@@ -26,17 +26,17 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 		public override void AI()
 		{
-			Player player = Main.player[projectile.owner];
+			Player player = Main.player[Projectile.owner];
 
 			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 5 == 0)
-				projectile.frame++;
-			if (projectile.frame == 6)
-				projectile.frame = 0;
+				Projectile.frame++;
+			if (Projectile.frame == 6)
+				Projectile.frame = 0;
 
 			if (Main.rand.Next(3) == 0)
 			{
-				Vector2 pos = new Vector2(projectile.position.X, projectile.position.Y);
-				int dust = Dust.NewDust(pos, projectile.width, projectile.height, 16, 0f, 0f);
+				Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+				int dust = Dust.NewDust(pos, Projectile.width, Projectile.height, 16, 0f, 0f);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].scale = 1f;
 			}
@@ -46,8 +46,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 16);
-				Main.dust[dust].velocity = projectile.velocity / 2;
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 16);
+				Main.dust[dust].velocity = Projectile.velocity / 2;
 				Main.dust[dust].noGravity = true;
 			}
 		}

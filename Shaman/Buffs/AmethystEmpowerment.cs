@@ -5,7 +5,7 @@ namespace OrchidMod.Shaman.Buffs
 {
 	public class AmethystEmpowerment : ModBuff
 	{
-		public override void SetDefaults()
+		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
 			DisplayName.SetDefault("Amethyst Empowerment");

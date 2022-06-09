@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons
 {
@@ -7,18 +8,18 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			item.damage = 30;
-			item.width = 36;
-			item.height = 38;
-			item.useTime = 45;
-			item.useAnimation = 45;
-			item.knockBack = 5.5f;
-			item.rare = 1;
-			item.value = Item.sellPrice(0, 0, 60, 0);
-			item.UseSound = SoundID.Item45;
-			item.autoReuse = true;
-			item.shootSpeed = 9.5f;
-			item.shoot = mod.ProjectileType("CrimsonScepterProj");
+			Item.damage = 30;
+			Item.width = 36;
+			Item.height = 38;
+			Item.useTime = 45;
+			Item.useAnimation = 45;
+			Item.knockBack = 5.5f;
+			Item.rare = 1;
+			Item.value = Item.sellPrice(0, 0, 60, 0);
+			Item.UseSound = SoundID.Item45;
+			Item.autoReuse = true;
+			Item.shootSpeed = 9.5f;
+			Item.shoot = Mod.Find<ModProjectile>("CrimsonScepterProj").Type;
 			this.empowermentType = 1;
 			this.energy = 5;
 		}

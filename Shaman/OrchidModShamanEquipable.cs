@@ -15,33 +15,33 @@ namespace OrchidMod.Shaman
 			SafeSetDefaults();
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
 		}
 
-		public override void GetWeaponCrit(Player player, ref int crit)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().shamanCrit;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.mod == "Terraria");
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
-				string[] splitText = tt.text.Split(' ');
+				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.text = damageValue + " shamanic " + damageWord;
+				tt.Text = damageValue + " shamanic " + damageWord;
 			}
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(mod, "ShamanTag", "-Shaman Class-") // 00C0FF
+				tooltips.Insert(1, new TooltipLine(Mod, "ShamanTag", "-Shaman Class-") // 00C0FF
 				{
-					overrideColor = new Color(0, 192, 255)
+					OverrideColor = new Color(0, 192, 255)
 				});
 			}
 		}

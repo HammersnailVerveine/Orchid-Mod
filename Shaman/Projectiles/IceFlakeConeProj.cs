@@ -4,6 +4,8 @@ using OrchidMod.Common;
 using OrchidMod.Common.Interfaces;
 using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles
@@ -19,17 +21,17 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 24;
-			projectile.height = 24;
-			projectile.friendly = true;
-			projectile.penetrate = 20;
-			projectile.timeLeft = 300;
-			projectile.extraUpdates = 1;
+			Projectile.width = 24;
+			Projectile.height = 24;
+			Projectile.friendly = true;
+			Projectile.penetrate = 20;
+			Projectile.timeLeft = 300;
+			Projectile.extraUpdates = 1;
 		}
 
 		public override void OnSpawn()
 		{
-			var trail = new Content.Trails.RoundedTrail(target: projectile, length: 16 * 7, width: (p) => 16 * (1 - p * 0.8f), color: (p) => Color.Lerp(EffectColor, new Color(11, 26, 138), p) * (1 - p) * 0.4f, additive: true, smoothness: 15);
+			var trail = new Content.Trails.RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 16 * (1 - p * 0.8f), color: (p) => Color.Lerp(EffectColor, new Color(11, 26, 138), p) * (1 - p) * 0.4f, additive: true, smoothness: 15);
 			trail.SetDissolveSpeed(0.35f);
 			trail.SetEffectTexture(OrchidHelper.GetExtraTexture(5));
 			PrimitiveTrailSystem.NewTrail(trail);
@@ -39,24 +41,24 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			this.VanillaAI_003(freeFlightTime: 35, turnSpeed: 0.27f);
 
-			projectile.rotation += 0.6f;
+			Projectile.rotation += 0.6f;
 
 			if (Main.rand.NextBool(7))
 			{
-				var dust = Main.dust[Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 67, projectile.velocity.X, projectile.velocity.Y, 100, new Color(), 1f)];
+				var dust = Main.dust[Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 67, Projectile.velocity.X, Projectile.velocity.Y, 100, new Color(), 1f)];
 				dust.noGravity = true;
 				dust.velocity *= 0.5f;
 				dust.noLight = true;
 				dust.scale *= Main.rand.NextFloat(0.6f, 1f);
 			}
 
-			Lighting.AddLight(projectile.Center, EffectColor.ToVector3() * 0.25f);
+			Lighting.AddLight(Projectile.Center, EffectColor.ToVector3() * 0.25f);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			this.VanillaAI_003__Hit();
-			Main.PlaySound(SoundID.Dig, (int)projectile.position.X, (int)projectile.position.Y, 1, 1f, 0f);
+			SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 1f, 0f);
 			return false;
 		}
 
@@ -79,27 +81,27 @@ namespace OrchidMod.Shaman.Projectiles
 
 		private void VanillaAI_003(float freeFlightTime = 30f, float turnSpeed = 0.4f)
 		{
-			if (projectile.ai[0] == 0f)
+			if (Projectile.ai[0] == 0f)
 			{
-				projectile.ai[1] += 1f;
+				Projectile.ai[1] += 1f;
 
-				if (projectile.ai[1] >= freeFlightTime)
+				if (Projectile.ai[1] >= freeFlightTime)
 				{
-					projectile.ai[0] = 1f;
-					projectile.ai[1] = 0f;
-					projectile.netUpdate = true;
+					Projectile.ai[0] = 1f;
+					Projectile.ai[1] = 0f;
+					Projectile.netUpdate = true;
 				}
 			}
 			else
 			{
-				projectile.tileCollide = false;
+				Projectile.tileCollide = false;
 
 				float num42 = 9f;
 				float num43 = turnSpeed;
 
-				Vector2 vector2 = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
-				var shaman = Main.player[projectile.owner].GetOrchidPlayer();
-				var catalystPos = shaman.ShamanCatalystPosition ?? Main.player[projectile.owner].MountedCenter;
+				Vector2 vector2 = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
+				var shaman = Main.player[Projectile.owner].GetOrchidPlayer();
+				var catalystPos = shaman.ShamanCatalystPosition ?? Main.player[Projectile.owner].MountedCenter;
 
 				float num44 = catalystPos.X - vector2.X;
 				float num45 = catalystPos.Y - vector2.Y;
@@ -107,87 +109,87 @@ namespace OrchidMod.Shaman.Projectiles
 
 				if (num46 > 3000f)
 				{
-					projectile.Kill();
+					Projectile.Kill();
 				}
 
 				num46 = num42 / num46;
 				num44 *= num46;
 				num45 *= num46;
 
-				if (projectile.velocity.X < num44)
+				if (Projectile.velocity.X < num44)
 				{
-					projectile.velocity.X = projectile.velocity.X + num43;
+					Projectile.velocity.X = Projectile.velocity.X + num43;
 
-					if (projectile.velocity.X < 0f && num44 > 0f)
+					if (Projectile.velocity.X < 0f && num44 > 0f)
 					{
-						projectile.velocity.X = projectile.velocity.X + num43;
+						Projectile.velocity.X = Projectile.velocity.X + num43;
 					}
 				}
-				else if (projectile.velocity.X > num44)
+				else if (Projectile.velocity.X > num44)
 				{
-					projectile.velocity.X = projectile.velocity.X - num43;
+					Projectile.velocity.X = Projectile.velocity.X - num43;
 
-					if (projectile.velocity.X > 0f && num44 < 0f)
+					if (Projectile.velocity.X > 0f && num44 < 0f)
 					{
-						projectile.velocity.X = projectile.velocity.X - num43;
-					}
-				}
-
-				if (projectile.velocity.Y < num45)
-				{
-					projectile.velocity.Y = projectile.velocity.Y + num43;
-
-					if (projectile.velocity.Y < 0f && num45 > 0f)
-					{
-						projectile.velocity.Y = projectile.velocity.Y + num43;
-					}
-				}
-				else if (projectile.velocity.Y > num45)
-				{
-					projectile.velocity.Y = projectile.velocity.Y - num43;
-
-					if (projectile.velocity.Y > 0f && num45 < 0f)
-					{
-						projectile.velocity.Y = projectile.velocity.Y - num43;
+						Projectile.velocity.X = Projectile.velocity.X - num43;
 					}
 				}
 
-				if (Main.myPlayer == projectile.owner)
+				if (Projectile.velocity.Y < num45)
 				{
-					Rectangle rectangle = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
+					Projectile.velocity.Y = Projectile.velocity.Y + num43;
+
+					if (Projectile.velocity.Y < 0f && num45 > 0f)
+					{
+						Projectile.velocity.Y = Projectile.velocity.Y + num43;
+					}
+				}
+				else if (Projectile.velocity.Y > num45)
+				{
+					Projectile.velocity.Y = Projectile.velocity.Y - num43;
+
+					if (Projectile.velocity.Y > 0f && num45 < 0f)
+					{
+						Projectile.velocity.Y = Projectile.velocity.Y - num43;
+					}
+				}
+
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Rectangle rectangle = new Rectangle((int)Projectile.position.X, (int)Projectile.position.Y, Projectile.width, Projectile.height);
 					Rectangle value2 = new Rectangle((int)catalystPos.X - 9, (int)catalystPos.Y - 9, 18, 18);
 
 					if (rectangle.Intersects(value2))
 					{
-						projectile.Kill();
+						Projectile.Kill();
 					}
 				}
 
-				projectile.rotation += 0.4f * projectile.direction;
+				Projectile.rotation += 0.4f * Projectile.direction;
 			}
 		}
 
 		private void VanillaAI_003__Hit()
 		{
-			if (projectile.ai[0] == 0f)
+			if (Projectile.ai[0] == 0f)
 			{
-				projectile.velocity.X = -projectile.velocity.X;
-				projectile.velocity.Y = -projectile.velocity.Y;
-				projectile.netUpdate = true;
+				Projectile.velocity.X = -Projectile.velocity.X;
+				Projectile.velocity.Y = -Projectile.velocity.Y;
+				Projectile.netUpdate = true;
 			}
-			projectile.ai[0] = 1f;
+			Projectile.ai[0] = 1f;
 		}
 
 		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
-			var drawPos = projectile.Center - Main.screenPosition + new Vector2(0f, projectile.gfxOffY);
+			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 			var texture = OrchidHelper.GetExtraTexture(14);
 
-			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.2f, projectile.timeLeft * 0.1f, texture.Size() * 0.5f, projectile.scale * 0.65f, SpriteEffects.None, 0);
-			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.4f, projectile.timeLeft * 0.2f, texture.Size() * 0.5f, projectile.scale * 0.5f, SpriteEffects.None, 0);
+			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.2f, Projectile.timeLeft * 0.1f, texture.Size() * 0.5f, Projectile.scale * 0.65f, SpriteEffects.None, 0);
+			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.4f, Projectile.timeLeft * 0.2f, texture.Size() * 0.5f, Projectile.scale * 0.5f, SpriteEffects.None, 0);
 
-			texture = Main.projectileTexture[projectile.type];
-			spriteBatch.Draw(texture, drawPos, null, new Color(220, 220, 220, 230), projectile.rotation, texture.Size() * 0.5f, projectile.scale, SpriteEffects.None, 0);
+			texture = TextureAssets.Projectile[Projectile.type].Value;
+			spriteBatch.Draw(texture, drawPos, null, new Color(220, 220, 220, 230), Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
 		}
 	}
 }

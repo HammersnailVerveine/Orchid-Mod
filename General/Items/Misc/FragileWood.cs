@@ -14,21 +14,21 @@ namespace OrchidMod.General.Items.Misc
 
 		public override void SetDefaults()
 		{
-			item.width = 24;
-			item.height = 22;
-			item.maxStack = 999;
-			item.useTurn = true;
-			item.autoReuse = true;
-			item.useAnimation = 15;
-			item.useTime = 10;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.consumable = true;
-			item.createTile = TileType<Tiles.Ambient.FragileWood>();
+			Item.width = 24;
+			Item.height = 22;
+			Item.maxStack = 999;
+			Item.useTurn = true;
+			Item.autoReuse = true;
+			Item.useAnimation = 15;
+			Item.useTime = 10;
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.consumable = true;
+			Item.createTile = TileType<Tiles.Ambient.FragileWood>();
 		}
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddTile(283);
 			recipe.AddIngredient(ItemID.Wood, 1);
 			recipe.SetResult(this);

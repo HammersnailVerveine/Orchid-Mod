@@ -24,15 +24,15 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SafeSetDefaults()
 		{
-			projectile.width = 100;
-			projectile.height = 100;
-			projectile.friendly = false;
-			projectile.aiStyle = 0;
-			projectile.timeLeft = 1;
-			projectile.tileCollide = false;
-			projectile.scale = 1f;
-			projectile.alpha = 255;
-			projectile.penetrate = -1;
+			Projectile.width = 100;
+			Projectile.height = 100;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 1;
+			Projectile.tileCollide = false;
+			Projectile.scale = 1f;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
 		}
 
 		public override void SetStaticDefaults()
@@ -45,24 +45,24 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			for (int l = 0; l < Main.npc.Length; l++)
 			{
 				NPC target = Main.npc[l];
-				if (projectile.Hitbox.Intersects(target.Hitbox))
+				if (Projectile.Hitbox.Intersects(target.Hitbox))
 				{
 					OrchidModAlchemistNPC modTarget = target.GetGlobalNPC<OrchidModAlchemistNPC>();
 					if (modTarget.alchemistWater > 0)
 					{
-						spawnSpores(ProjectileType<WaterSporeProj>(), target, projectile);
+						spawnSpores(ProjectileType<WaterSporeProj>(), target, Projectile);
 					}
 					if (modTarget.alchemistAir > 0)
 					{
-						spawnSpores(ProjectileType<AirSporeProj>(), target, projectile);
+						spawnSpores(ProjectileType<AirSporeProj>(), target, Projectile);
 					}
 					if (modTarget.alchemistFire > 0)
 					{
-						spawnSpores(ProjectileType<FireSporeProj>(), target, projectile);
+						spawnSpores(ProjectileType<FireSporeProj>(), target, Projectile);
 					}
 					if (modTarget.alchemistNature > 0)
 					{
-						spawnSpores(ProjectileType<NatureSporeProj>(), target, projectile);
+						spawnSpores(ProjectileType<NatureSporeProj>(), target, Projectile);
 					}
 				}
 			}
@@ -70,7 +70,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (projectile.owner == proj.owner && proj.active && projectile.Hitbox.Intersects(proj.Hitbox) && sporeProjectiles.Contains(proj.type) && proj.localAI[0] != 1f && proj.timeLeft < 590)
+				if (Projectile.owner == proj.owner && proj.active && Projectile.Hitbox.Intersects(proj.Hitbox) && sporeProjectiles.Contains(proj.type) && proj.localAI[0] != 1f && proj.timeLeft < 590)
 				{
 					for (int i = 0; i < 2; i++)
 					{

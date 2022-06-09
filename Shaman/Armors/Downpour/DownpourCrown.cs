@@ -9,11 +9,11 @@ namespace OrchidMod.Shaman.Armors.Downpour
 	{
 		public override void SafeSetDefaults()
 		{
-			item.width = 22;
-			item.height = 20;
-			item.value = Item.sellPrice(0, 5, 0, 0);
-			item.rare = 5;
-			item.defense = 8;
+			Item.width = 22;
+			Item.height = 20;
+			Item.value = Item.sellPrice(0, 5, 0, 0);
+			Item.rare = 5;
+			Item.defense = 8;
 		}
 
 		public override void SetStaticDefaults()
@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Armors.Downpour
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == mod.ItemType("DownpourTunic") && legs.type == mod.ItemType("DownpourKilt");
+			return body.type == Mod.Find<ModItem>("DownpourTunic").Type && legs.type == Mod.Find<ModItem>("DownpourKilt").Type;
 		}
 
 		public override void UpdateArmorSet(Player player)
@@ -53,14 +53,14 @@ namespace OrchidMod.Shaman.Armors.Downpour
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(mod);
+			ModRecipe recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.AdamantiteBar, 10);
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(mod);
+			recipe = new ModRecipe(Mod);
 			recipe.AddIngredient(ItemID.TitaniumBar, 10);
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);

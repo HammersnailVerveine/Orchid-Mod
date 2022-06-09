@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -8,14 +9,14 @@ namespace OrchidMod.Gambler.Weapons.Cards
 	{
 		public override void SafeSetDefaults()
 		{
-			item.value = Item.sellPrice(0, 0, 10, 0);
-			item.rare = 1;
-			item.damage = 25;
-			item.crit = 4;
-			item.knockBack = 5f;
-			item.useAnimation = 50;
-			item.useTime = 50;
-			item.shootSpeed = 5f;
+			Item.value = Item.sellPrice(0, 0, 10, 0);
+			Item.rare = 1;
+			Item.damage = 25;
+			Item.crit = 4;
+			Item.knockBack = 5f;
+			Item.useAnimation = 50;
+			Item.useTime = 50;
+			Item.shootSpeed = 5f;
 			this.cardRequirement = 1;
 			this.gamblerCardSets.Add("Biome");
 		}
@@ -29,7 +30,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
 		{
-			Main.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
+			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
 			int projType = ProjectileType<Gambler.Projectiles.OceanCardProjAlt>();
 			
 			for (int l = 0; l < Main.projectile.Length; l++)
