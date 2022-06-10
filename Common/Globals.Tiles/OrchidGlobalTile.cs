@@ -27,8 +27,9 @@ namespace OrchidMod.Common.Globals.Tiles
 				case TileID.ShadowOrbs:
 					if (tile.TileFrameY == 0 && tile.TileFrameX % 36 == 0)
 					{
-						DropTileBreakItem(i, j, tile.TileFrameX == 0 ? ModContent.ItemType<ShadowWeaver>() : ModContent.ItemType<BloodCaller>(), 6);
-						DropTileBreakItem(i, j, tile.TileFrameX == 0 ? ModContent.ItemType<DemoniteCatalyst>() : ModContent.ItemType<CrimtaneCatalyst>(), 5);
+						bool isShadowOrb = tile.TileFrameX == 0;
+						DropTileBreakItem(i, j, isShadowOrb ? ModContent.ItemType<ShadowWeaver>() : ModContent.ItemType<BloodCaller>(), 6);
+						DropTileBreakItem(i, j, isShadowOrb ? ModContent.ItemType<DemoniteCatalyst>() : ModContent.ItemType<CrimtaneCatalyst>(), 5);
 					}
 					break;
 			}
@@ -45,7 +46,7 @@ namespace OrchidMod.Common.Globals.Tiles
 		{
 			if (!Main.rand.NextBool(chanceDenominator)) return;
 
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, type);
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, type, stack);
 		}
 	}
 }
