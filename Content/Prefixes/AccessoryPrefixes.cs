@@ -12,12 +12,18 @@ namespace OrchidMod.Content.Prefixes
 {
 	public class AccessoryPrefix : ModPrefix
 	{
+		private static readonly Dictionary<string, AccessoryPrefix> prefixesByName = new();
+		public static IReadOnlyDictionary<string, AccessoryPrefix> AllPrefixesByName => prefixesByName;
+
+		// ...
+
 		private readonly string name;
 		private readonly byte shamanTimer;
 		private readonly byte alchemistPotency;
 		private readonly byte gamblerChip;
 
-		// ...
+		public override void Unload()
+			=> prefixesByName.Clear();
 
 		public override float RollChance(Item item)
 			=> 1f;
@@ -47,7 +53,9 @@ namespace OrchidMod.Content.Prefixes
 		{
 			void AddPrefix(string name, byte shamanTimer, byte alchemistPotency, byte gamblerChip)
 			{
-				Mod.AddContent(new AccessoryPrefix(name, shamanTimer, alchemistPotency, gamblerChip));
+				var prefix = new AccessoryPrefix(name, shamanTimer, alchemistPotency, gamblerChip);
+				Mod.AddContent(prefix);
+				prefixesByName.Add(name, prefix);
 			}
 
 			AddPrefix("Natural", 1, 0, 0);
@@ -108,21 +116,8 @@ namespace OrchidMod.Content.Prefixes
 		{
 			if (item.accessory && rand.NextBool(15))
 			{
-				switch (rand.Next(5))
-				{
-					case 0:
-						return Mod.Find<ModPrefix>("Natural").Type;
-					case 1:
-						return Mod.Find<ModPrefix>("Spiritual").Type;
-					case 2:
-						return Mod.Find<ModPrefix>("Brewing").Type;
-					case 3:
-						return Mod.Find<ModPrefix>("Loaded").Type;
-					case 4:
-						return Mod.Find<ModPrefix>("Crooked").Type;
-					default:
-						break;
-				}
+				var prefixes = ShamanPrefix.AllPrefixesByName;
+				return prefixes.ElementAt(Main.rand.Next(0, prefixes.Count)).Value.Type;
 			}
 			return -1;
 		}
