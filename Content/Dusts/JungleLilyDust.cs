@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,6 @@ namespace OrchidMod.Content.Dusts
 			return false;
 		}
 
-		public override Color? GetAlpha(Dust dust, Color lightColor) => new Color(255, 192, 0) * OrchidHelper.GradientValue<float>(MathHelper.Lerp, 1 - dust.scale, .0f, .7f, .9f, .7f, .3f, .1f, .0f);
+		public override Color? GetAlpha(Dust dust, Color lightColor) => new Color(255, 192, 0) * MathUtils.MultiLerp<float>(MathHelper.Lerp, 1 - dust.scale, .0f, .7f, .9f, .7f, .3f, .1f, .0f);
 	}
 }

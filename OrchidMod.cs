@@ -58,7 +58,6 @@ namespace OrchidMod
 		{
 			ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
-			EffectsManager.Load(mod: this);
 			PrimitiveTrailSystem.Trail.Load();
 
 			// ...
@@ -274,8 +273,6 @@ namespace OrchidMod
 			alchemistReactionRecipes = null;
 
 			// ...
-
-			EffectsManager.Unload();
 
 			croupierUI = null;
 

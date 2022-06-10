@@ -73,14 +73,14 @@ namespace OrchidMod.Shaman.Projectiles
 			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
 				// Light Effect
-				Texture2D lightTexture = OrchidHelper.GetExtraTexture(11);
+				Texture2D lightTexture = OrchidAssets.GetExtraTexture(11).Value;
 				Vector2 drawPosition = Projectile.Center + new Vector2(0, Projectile.gfxOffY) - Main.screenPosition;
 				spriteBatch.Draw(lightTexture, drawPosition, null, mainColor, Projectile.rotation, lightTexture.Size() * 0.5f, Projectile.scale * 0.5f, SpriteEffects.None, 0);
 
 				// Lens Flare
 				if (Projectile.timeLeft < 15 && Projectile.ai[1] == 2)
 				{
-					Texture2D texture = OrchidHelper.GetExtraTexture(6);
+					Texture2D texture = OrchidAssets.GetExtraTexture(6).Value;
 					float size = MathHelper.SmoothStep(1, 0, Math.Abs(1f - Projectile.timeLeft * 2 / 15)) * 0.9f;
 					Color color = mainColor;
 					color.A = 200;
@@ -93,7 +93,7 @@ namespace OrchidMod.Shaman.Projectiles
 					drawPosition = Projectile.oldPos[k] + Projectile.Size * 0.5f - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 					float num = ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
 					Color color = mainColor * num * 0.8f;
-					spriteBatch.Draw(OrchidHelper.GetExtraTexture(0), drawPosition, null, color, Projectile.oldRot[k], OrchidHelper.GetExtraTexture(0).Size() * .5f, Projectile.scale * num, SpriteEffects.None, 0f);
+					spriteBatch.Draw(OrchidAssets.GetExtraTexture(0).Value, drawPosition, null, color, Projectile.oldRot[k], OrchidAssets.GetExtraTexture(0).Size() * .5f, Projectile.scale * num, SpriteEffects.None, 0f);
 				}
 			}
 			SetSpriteBatch(spriteBatch: spriteBatch);

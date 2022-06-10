@@ -12,55 +12,6 @@ namespace OrchidMod
 {
 	public static class OrchidHelper
 	{
-		public static Texture2D GetExtraTexture(int index) => ModContent.GetTexture("OrchidMod/Assets/Textures/Misc/Extra_" + index);
-		public static OrchidModPlayer GetOrchidPlayer(this Player player) => player.GetModPlayer<OrchidModPlayer>(); 
-
-		// ...
-
-		public static void SpawnDustCircle(Vector2 center, float radius, int count, int type, Action<Dust> onSpawn = null)
-		{
-			for (int i = 0; i < count; i++)
-			{
-				Vector2 position = center + new Vector2(radius, 0).RotatedBy(i / (float)count * MathHelper.TwoPi);
-				var dust = Dust.NewDustPerfect(position, type);
-				onSpawn?.Invoke(dust);
-			}
-		}
-
-		public static void SpawnDustCircle(Vector2 center, float radius, int count, Func<int, int> type, Action<Dust, int, float> onSpawn = null)
-		{
-			for (int i = 0; i < count; i++)
-			{
-				float angle = i / (float)count * MathHelper.TwoPi;
-				Vector2 position = center + new Vector2(radius, 0).RotatedBy(angle);
-				int dustType = type?.Invoke(i) ?? -1;
-
-				if (dustType != -1)
-				{
-					var dust = Dust.NewDustPerfect(position, dustType);
-					onSpawn?.Invoke(dust, i, angle);
-				}
-			}
-		}
-
-		public static T GradientValue<T>(Func<T, T, float, T> method, float percent, params T[] values)
-		{
-			if (method == null) throw new ArgumentNullException(nameof(method));
-			if (percent >= 1) return values.Last();
-
-			percent = Math.Max(percent, 0);
-			float num = 1f / (values.Length - 1);
-			int index = Math.Max(0, (int)(percent / num));
-
-			return method.Invoke(values[index], values[index + 1], (percent - num * index) / num);
-		}
-
-		public static void DrawSimpleItemGlowmaskInWorld(Item item, SpriteBatch spriteBatch, Texture2D texture, Color color, float rotation, float scale)
-		{
-			Vector2 offset = new Vector2(0, 2); // Unnecessary in 1.4
-			spriteBatch.Draw(texture, item.position - Main.screenPosition + item.Size * 0.5f + offset, null, color, rotation, item.Size * 0.5f, scale, SpriteEffects.None, 0f);
-		}
-
 		public static void DrawSimpleItemGlowmaskOnPlayer(PlayerDrawInfo drawInfo, Texture2D texture, Color? drawColor = null)
 		{
 			Player drawPlayer = drawInfo.drawPlayer;

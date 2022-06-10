@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -13,7 +14,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 {
 	public class BoreanStriderScepterProj : OrchidModShamanProjectile, IDrawAdditive
 	{
-		public static readonly Color EffectColor = new Color(69, 144, 225);
+		public static readonly SoundStyle PoofSound = new(OrchidAssets.SoundsPath + "Poof") { PitchRange = (0.9f, 1f) };
+		public static readonly Color EffectColor = new(69, 144, 225);
+
+		// ...
 
 		public override void SetStaticDefaults()
 		{
@@ -63,7 +67,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 			if (Projectile.soundDelay == 0)
 			{
-				SoundEngine.PlaySound(Mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Poof").WithPitchVariance(Main.rand.NextFloat(0.9f, 1f)), Projectile.Center);
+				SoundEngine.PlaySound(PoofSound, Projectile.Center);
 			}
 			Projectile.soundDelay = 10;
 
@@ -126,7 +130,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
-			var texture = OrchidHelper.GetExtraTexture(14);
+			var texture = OrchidAssets.GetExtraTexture(14).Value;
 			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 
 			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.5f, Projectile.timeLeft * 0.05f, texture.Size() * 0.5f, Projectile.scale * 0.8f, SpriteEffects.None, 0);
@@ -163,7 +167,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			float progress = 1 - Projectile.timeLeft / (float)_timeLeft;
 
-			Projectile.scale = OrchidHelper.GradientValue<float>(MathHelper.Lerp, progress, 1, 1.3f, 1.1f, 0.5f, 0.2f, 0f);
+			Projectile.scale = MathUtils.MultiLerp<float>(MathHelper.Lerp, progress, 1, 1.3f, 1.1f, 0.5f, 0.2f, 0f);
 			Projectile.rotation += Projectile.ai[0];
 
 			Lighting.AddLight(Projectile.Center, BoreanStriderScepterProj.EffectColor.ToVector3() * 0.35f * (1 - progress));
@@ -188,7 +192,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
-			var texture = OrchidHelper.GetExtraTexture(14);
+			var texture = OrchidAssets.GetExtraTexture(14).Value;
 			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 
 			spriteBatch.Draw(texture, drawPos, null, BoreanStriderScepterProj.EffectColor * 0.5f, Projectile.timeLeft * 0.05f, texture.Size() * 0.5f, Projectile.scale * 0.8f, SpriteEffects.None, 0);

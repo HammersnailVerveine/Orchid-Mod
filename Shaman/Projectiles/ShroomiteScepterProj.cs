@@ -95,12 +95,12 @@ namespace OrchidMod.Shaman.Projectiles
 			// Light Effect
 			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
 			{
-				Texture2D radialGradient = OrchidHelper.GetExtraTexture(11);
+				Texture2D radialGradient = OrchidAssets.GetExtraTexture(11).Value;
 				spriteBatch.Draw(radialGradient, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY) + new Vector2(0, -11), null, new Color(36, 129, 234) * 0.35f, 0f, radialGradient.Size() * 0.5f, 0.75f * Projectile.scale, SpriteEffects.None, 0f);
 			}
 
 			// Aura
-			var effect = EffectsManager.ShroomiteZoneEffect;
+			var effect = OrchidAssets.GetEffect("ShroomiteScepter");
 			SetSpriteBatch(spriteBatch: spriteBatch, spriteSortMode: SpriteSortMode.Immediate, blendState: BlendState.Additive, samplerState: SamplerState.PointClamp, effect: effect);
 			{
 				this.SetEffectParameters(ref effect);

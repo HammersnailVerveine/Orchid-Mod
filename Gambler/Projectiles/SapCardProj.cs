@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -102,7 +103,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 85);
 
-			OrchidHelper.SpawnDustCircle(
+			DustUtils.SpawnDustCircle(
 				center: Projectile.Center,
 				radius: 20,
 				count: 10,

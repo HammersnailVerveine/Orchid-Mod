@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Common.Hooks
@@ -11,6 +7,8 @@ namespace OrchidMod.Common.Hooks
 	{
 		void ILoadable.Load(Mod mod)
 		{
+			if (Main.dedServ) return;
+
 			On.Terraria.Main.DrawDust += On_Terraria_Main_DrawDust;
 			On.Terraria.Main.DrawProjectiles += On_Terraria_Main_DrawProjectiles;
 			On.Terraria.Main.GUIChatDrawInner += On_Terraria_Main_GUIChatDrawInner;
@@ -19,6 +17,8 @@ namespace OrchidMod.Common.Hooks
 
 		void ILoadable.Unload()
 		{
+			if (Main.dedServ) return;
+
 			On.Terraria.Main.DrawDust -= On_Terraria_Main_DrawDust;
 			On.Terraria.Main.DrawProjectiles -= On_Terraria_Main_DrawProjectiles;
 			On.Terraria.Main.GUIChatDrawInner -= On_Terraria_Main_GUIChatDrawInner;

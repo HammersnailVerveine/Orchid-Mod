@@ -44,11 +44,11 @@ namespace OrchidMod.Common
 
 			public static void Load()
 			{
-				_simpleTexture = OrchidHelper.GetExtraTexture(7);
+				_simpleTexture = OrchidAssets.GetExtraTexture(7, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 
 				if (Main.dedServ) return;
 
-				_simpleEffect = OrchidMod.Instance.GetEffect("Effects/Primitive");
+				_simpleEffect = OrchidAssets.GetEffect("Primitive", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			}
 
 			public static void Unload()

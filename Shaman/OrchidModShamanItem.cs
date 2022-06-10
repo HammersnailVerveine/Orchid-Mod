@@ -120,7 +120,7 @@ namespace OrchidMod.Shaman
 
 		public sealed override void HoldItem(Player player)
 		{
-			var shaman = player.GetOrchidPlayer();
+			var shaman = player.GetModPlayer<OrchidModPlayer>();
 			var catalystType = ModContent.ProjectileType<CatalystAnchor>();
 
 			if (player.ownedProjectileCounts[catalystType] == 0)
@@ -188,7 +188,7 @@ namespace OrchidMod.Shaman
 
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= player.GetOrchidPlayer().shamanCrit) crit = true;
+			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayer>().shamanCrit) crit = true;
 			else crit = false;
 		}
 

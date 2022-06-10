@@ -33,7 +33,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			var trail = new Content.Trails.RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 16 * (1 - p * 0.8f), color: (p) => Color.Lerp(EffectColor, new Color(11, 26, 138), p) * (1 - p) * 0.4f, additive: true, smoothness: 15);
 			trail.SetDissolveSpeed(0.35f);
-			trail.SetEffectTexture(OrchidHelper.GetExtraTexture(5));
+			trail.SetEffectTexture(OrchidAssets.GetExtraTexture(5).Value);
 			PrimitiveTrailSystem.NewTrail(trail);
 		}
 
@@ -100,7 +100,7 @@ namespace OrchidMod.Shaman.Projectiles
 				float num43 = turnSpeed;
 
 				Vector2 vector2 = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
-				var shaman = Main.player[Projectile.owner].GetOrchidPlayer();
+				var shaman = Main.player[Projectile.owner].GetModPlayer<OrchidModPlayer>();
 				var catalystPos = shaman.ShamanCatalystPosition ?? Main.player[Projectile.owner].MountedCenter;
 
 				float num44 = catalystPos.X - vector2.X;
@@ -183,7 +183,7 @@ namespace OrchidMod.Shaman.Projectiles
 		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
 			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
-			var texture = OrchidHelper.GetExtraTexture(14);
+			var texture = OrchidAssets.GetExtraTexture(14).Value;
 
 			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.2f, Projectile.timeLeft * 0.1f, texture.Size() * 0.5f, Projectile.scale * 0.65f, SpriteEffects.None, 0);
 			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.4f, Projectile.timeLeft * 0.2f, texture.Size() * 0.5f, Projectile.scale * 0.5f, SpriteEffects.None, 0);

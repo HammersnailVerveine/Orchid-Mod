@@ -69,7 +69,7 @@ namespace OrchidMod.Guardian
 			{
 				var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
 				if (player.ownedProjectileCounts[projectileType] > 0) {
-					var guardian = player.GetOrchidPlayer();
+					var guardian = player.GetModPlayer<OrchidModPlayer>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
 					if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
 					{
@@ -121,7 +121,7 @@ namespace OrchidMod.Guardian
 		public sealed override void HoldItem(Player player)
 		{
 			var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
-			var guardian = player.GetOrchidPlayer();
+			var guardian = player.GetModPlayer<OrchidModPlayer>();
 			guardian.guardianDisplayUI = 300;
 
 			if (player.ownedProjectileCounts[projectileType] == 0)

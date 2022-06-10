@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Common.Interfaces;
 using OrchidMod.Content.Trails;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,12 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Melee
 {
-	public class PrototypeSecrecy : OrchidItem
+	public class PrototypeSecrecy : ModItem
 	{
+		public static readonly SoundStyle Magic1Sound = new(OrchidAssets.SoundsPath + "Magic_1");
+
+		// ...
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Prototype Secrecy");
@@ -34,7 +39,7 @@ namespace OrchidMod.Content.Items.Melee
 			Item.knockBack = 9f;
 			Item.width = 20;
 			Item.height = 40;
-			Item.UseSound = Mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Magic_1");
+			Item.UseSound = Magic1Sound;
 			Item.useAnimation = 15;
 			Item.useTime = 15;
 			Item.noUseGraphic = true;
@@ -50,7 +55,7 @@ namespace OrchidMod.Content.Items.Melee
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			OrchidHelper.DrawSimpleItemGlowmaskInWorld(Item, spriteBatch, ModContent.GetTexture("OrchidMod/Assets/Textures/Items/PrototypeSecrecy_Glow"), Color.White * 0.7f, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture("OrchidMod/Assets/Textures/Items/PrototypeSecrecy_Glow"), Color.White * 0.7f, rotation, scale);
 		}
 
 		public override bool CanUseItem(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<PrototypeSecrecyProjectile>()] <= 1; // We need exactly 2, not 1
@@ -67,10 +72,14 @@ namespace OrchidMod.Content.Items.Melee
 		}
 	}
 
-	public class PrototypeSecrecyProjectile : OrchidProjectile, IDrawAdditive
+	public class PrototypeSecrecyProjectile : ModProjectile, IDrawAdditive
 	{
-		public static readonly Color EffectColor = new Color(224, 39, 83);
+		public static readonly SoundStyle Magic0Sound = new(OrchidAssets.SoundsPath + "Magic_0");
+		public static readonly Color EffectColor = new(224, 39, 83);
+
 		private PrimitiveTrailSystem.Trail _trail;
+
+		// ...
 
 		public override string Texture => "OrchidMod/Assets/Textures/Items/PrototypeSecrecy";
 
@@ -136,7 +145,7 @@ namespace OrchidMod.Content.Items.Melee
 			if (flag)
 			{
 				crit = true;
-				SoundEngine.PlaySound(Mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/Magic_0"), Projectile.Center);
+				SoundEngine.PlaySound(Magic0Sound, Projectile.Center);
 			}
 
 			Projectile.NewProjectile(Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PrototypeSecrecyHitProjectile>(), 0, 0f, Projectile.owner, flag.ToInt());
@@ -152,14 +161,14 @@ namespace OrchidMod.Content.Items.Melee
 
 		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
-			var texture = OrchidHelper.GetExtraTexture(11);
+			var texture = OrchidAssets.GetExtraTexture(11).Value;
 			var position = Projectile.position + Projectile.Size * 0.5f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
 
 			spriteBatch.Draw(texture, position + new Vector2(-4, 0).RotatedBy(Projectile.rotation), null, EffectColor * 0.6f, 0f, texture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
 		}
 	}
 
-	public class PrototypeSecrecyHitProjectile : OrchidProjectile, IDrawAdditive
+	public class PrototypeSecrecyHitProjectile : ModProjectile, IDrawAdditive
 	{
 		public override string Texture => "OrchidMod/Assets/Textures/Misc/Invisible";
 
@@ -196,7 +205,7 @@ namespace OrchidMod.Content.Items.Melee
 		{
 			Projectile.friendly = Projectile.timeLeft == 10;
 			Projectile.rotation += 0.05f;
-			Projectile.scale = OrchidHelper.GradientValue<float>(MathHelper.Lerp, 1 - Projectile.timeLeft / 20f, new float[] { 1f, 1.2f, 0.6f, 0f }) * (Projectile.ai[0] > 0f ? 2.5f : 1f);
+			Projectile.scale = MathUtils.MultiLerp<float>(MathHelper.Lerp, 1 - Projectile.timeLeft / 20f, new float[] { 1f, 1.2f, 0.6f, 0f }) * (Projectile.ai[0] > 0f ? 2.5f : 1f);
 
 			Lighting.AddLight(Projectile.Center, PrototypeSecrecyProjectile.EffectColor.ToVector3() * 0.25f * Projectile.scale);
 		}
@@ -206,7 +215,7 @@ namespace OrchidMod.Content.Items.Melee
 
 		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
-			var texture = OrchidHelper.GetExtraTexture(17);
+			var texture = OrchidAssets.GetExtraTexture(17).Value;
 			var position = Projectile.position + Projectile.Size * 0.5f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
 
 			spriteBatch.Draw(texture, position, null, PrototypeSecrecyProjectile.EffectColor * Projectile.scale, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);

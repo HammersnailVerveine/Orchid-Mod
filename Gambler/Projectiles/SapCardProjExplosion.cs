@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Utilities;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -30,7 +31,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void OnSpawn()
 		{
-			OrchidHelper.SpawnDustCircle(
+			DustUtils.SpawnDustCircle(
 				center: Projectile.Center,
 				radius: 70,
 				count: 25,

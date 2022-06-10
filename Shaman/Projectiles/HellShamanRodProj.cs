@@ -107,7 +107,7 @@ namespace OrchidMod.Shaman.Projectiles
 			spriteBatch.End();
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 
-			Texture2D radialGradient = OrchidHelper.GetExtraTexture(11);
+			Texture2D radialGradient = OrchidAssets.GetExtraTexture(11).Value;
 			spriteBatch.Draw(radialGradient, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), null, new Color(255, 225, 0) * 0.35f, 0f, radialGradient.Size() * 0.5f, 0.75f * Projectile.scale, SpriteEffects.None, 0f);
 
 			spriteBatch.End();

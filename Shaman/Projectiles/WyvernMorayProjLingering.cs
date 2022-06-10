@@ -48,9 +48,9 @@ namespace OrchidMod.Shaman.Projectiles
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Vector2 drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
-			Texture2D texture = OrchidHelper.GetExtraTexture(11);
+			Texture2D texture = OrchidAssets.GetExtraTexture(11).Value;
 
-			Effect effect = EffectsManager.WyvernMorayLingeringEffect;
+			Effect effect = OrchidAssets.GetEffect("WyvernMorayLingering");
 			effect.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.1f + Projectile.position.X * 2);
 
 			Color color = Lighting.GetColor((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16, effectColor * this.Opacity);

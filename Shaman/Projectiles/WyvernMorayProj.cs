@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void OnSpawn()
 		{
-			_trail = new RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 20 * (1 - p * 0.35f), color: (p) => GetCurrentColor() * (1 - p), effect: EffectsManager.WyvernMorayEffect);
+			_trail = new RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 20 * (1 - p * 0.35f), color: (p) => GetCurrentColor() * (1 - p), effect: OrchidAssets.GetEffect("WyvernMoray"));
 
 			PrimitiveTrailSystem.NewTrail(_trail);
 		}
@@ -72,7 +72,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 				// Trail
 				{
-					texture = OrchidHelper.GetExtraTexture(11);
+					texture = OrchidAssets.GetExtraTexture(11).Value;
 					for (int k = 1; k < Projectile.oldPos.Length; k++)
 					{
 						float progress = ((float)(Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
@@ -82,19 +82,19 @@ namespace OrchidMod.Shaman.Projectiles
 					spriteBatch.Draw(texture, drawPos, null, color, Projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, Projectile.scale * 0.6f, SpriteEffects.None, 0);
 				}
 
-				texture = OrchidHelper.GetExtraTexture(13);
+				texture = OrchidAssets.GetExtraTexture(13).Value;
 				spriteBatch.Draw(texture, drawPos, null, color * 0.4f, Main.GlobalTimeWrappedHourly, texture.Size() * 0.5f, Projectile.scale * 0.75f, SpriteEffects.None, 0);
 				spriteBatch.Draw(texture, drawPos, null, color * 0.8f, Main.GlobalTimeWrappedHourly * 5f, texture.Size() * 0.5f, Projectile.scale * 0.3f, SpriteEffects.None, 0);
 
-				texture = OrchidHelper.GetExtraTexture(8);
+				texture = OrchidAssets.GetExtraTexture(8).Value;
 				spriteBatch.Draw(texture, drawPos, null, color * _deathProgress, Projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
 
-				texture = OrchidHelper.GetExtraTexture(3);
+				texture = OrchidAssets.GetExtraTexture(3).Value;
 				spriteBatch.Draw(texture, drawPos + Vector2.Normalize(Projectile.velocity) * 8f, null, color * MathHelper.SmoothStep(0, 1, Projectile.velocity.Length() * 0.1f), Projectile.velocity.ToRotation() + MathHelper.PiOver2, texture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
 
 				if (_death)
 				{
-					texture = OrchidHelper.GetExtraTexture(9);
+					texture = OrchidAssets.GetExtraTexture(9).Value;
 					float progress = 1 - (float)Math.Pow(MathHelper.Lerp(0, 1, _deathProgress), 3);
 					color *= progress;
 					Vector2 origin = texture.Size() * 0.5f;
