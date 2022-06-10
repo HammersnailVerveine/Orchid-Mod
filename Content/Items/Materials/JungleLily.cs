@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace OrchidMod.Content.Items.Materials
 {
-	public class JungleLily : OrchidItem
+	public class JungleLily : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Items.Materials
 {
-	public class JungleLilyBloomed : OrchidItem
+	public class JungleLilyBloomed : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
