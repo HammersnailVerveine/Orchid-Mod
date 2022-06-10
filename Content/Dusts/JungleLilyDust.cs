@@ -1,16 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Dusts
 {
-	public class JungleLilyDust : OrchidDust
+	public class JungleLilyDust : ModDust
 	{
+		public override string Texture => OrchidAssets.DustsPath + Name;
+
 		public override void OnSpawn(Dust dust)
 		{
 			dust.frame = new Rectangle(0, 0, 6, 6);
@@ -27,6 +26,7 @@ namespace OrchidMod.Content.Dusts
 			return false;
 		}
 
-		public override Color? GetAlpha(Dust dust, Color lightColor) => new Color(255, 192, 0) * MathUtils.MultiLerp<float>(MathHelper.Lerp, 1 - dust.scale, .0f, .7f, .9f, .7f, .3f, .1f, .0f);
+		public override Color? GetAlpha(Dust dust, Color lightColor)
+			=> new Color(255, 192, 0) * MathUtils.MultiLerp<float>(MathHelper.Lerp, 1 - dust.scale, .0f, .7f, .9f, .7f, .3f, .1f, .0f);
 	}
 }

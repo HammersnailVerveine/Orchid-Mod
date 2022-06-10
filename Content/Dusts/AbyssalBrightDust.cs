@@ -1,9 +1,12 @@
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Dusts
 {
-	public class AbyssalBrightDust : OrchidDust
+	public class AbyssalBrightDust : ModDust
 	{
+		public override string Texture => OrchidAssets.DustsPath + Name;
+
 		public override void OnSpawn(Dust dust)
 		{
 			dust.velocity.Y = 0.1f;

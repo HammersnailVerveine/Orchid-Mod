@@ -1,9 +1,12 @@
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Dusts
 {
-	public class BloomingAltDust : OrchidDust
+	public class BloomingAltDust : ModDust
 	{
+		public override string Texture => OrchidAssets.DustsPath + Name;
+
 		public override void OnSpawn(Dust dust)
 		{
 			dust.scale *= 1.25f;

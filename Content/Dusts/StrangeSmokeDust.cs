@@ -5,8 +5,10 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Dusts
 {
-	public class StrangeSmokeDust : OrchidDust
+	public class StrangeSmokeDust : ModDust
 	{
+		public override string Texture => OrchidAssets.DustsPath + Name;
+
 		public override void OnSpawn(Dust dust)
 		{
 			dust.frame = new Rectangle(0, Main.rand.Next(0, 5) * 10, 10, 10);
