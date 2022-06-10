@@ -1,0 +1,51 @@
+﻿using OrchidMod.Alchemist.Weapons.Catalysts;
+using OrchidMod.Gambler.Weapons.Cards;
+using OrchidMod.Shaman.Weapons;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace OrchidMod.Common.Globals.Tiles
+{
+	public class OrchidGlobalTile : GlobalTile
+	{
+		public override bool Drop(int i, int j, int type)
+		{
+			var tile = Main.tile[i, j];
+
+			switch (type)
+			{
+				case TileID.Pots:
+					DropTileBreakItem<HealingPotionCard>(i, j, 1500);
+					break;
+				case TileID.ShadowOrbs:
+					if (tile.TileFrameY == 0 && tile.TileFrameX % 36 == 0)
+					{
+						DropTileBreakItem(i, j, tile.TileFrameX == 0 ? ModContent.ItemType<ShadowWeaver>() : ModContent.ItemType<BloodCaller>(), 6);
+						DropTileBreakItem(i, j, tile.TileFrameX == 0 ? ModContent.ItemType<DemoniteCatalyst>() : ModContent.ItemType<CrimtaneCatalyst>(), 5);
+					}
+					break;
+			}
+
+			return base.Drop(i, j, type);
+		}
+
+		// ...
+
+		private static void DropTileBreakItem<T>(int i, int j, int stack = 1, int chanceDenominator = 1) where T : ModItem
+			=> DropTileBreakItem(ModContent.ItemType<T>(), i, j, stack, chanceDenominator);
+
+		private static void DropTileBreakItem(int type, int i, int j, int stack = 1, int chanceDenominator = 1)
+		{
+			if (!Main.rand.NextBool(chanceDenominator)) return;
+
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, type);
+		}
+	}
+}

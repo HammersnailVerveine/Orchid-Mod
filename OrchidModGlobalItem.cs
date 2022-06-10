@@ -49,12 +49,11 @@ namespace OrchidMod
 
 		public override bool InstancePerEntity => true;
 
-		public override bool CloneNewInstances
+		protected override bool CloneNewInstances => true;
+
+		public override GlobalItem NewInstance(Item target)
 		{
-			get
-			{
-				return true;
-			}
+			return base.NewInstance(target);
 		}
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

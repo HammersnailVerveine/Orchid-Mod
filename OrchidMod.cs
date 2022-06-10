@@ -16,6 +16,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Microsoft.Xna.Framework.Input;
+using ReLogic.Content;
 
 namespace OrchidMod
 {
@@ -57,13 +59,13 @@ namespace OrchidMod
 			ThoriumMod = ModLoader.GetMod("ThoriumMod");
 
 			EffectsManager.Load(mod: this);
-			HookLoader.Load(mod: this);
 			PrimitiveTrailSystem.Trail.Load();
 
 			// ...
 
-			AlchemistReactionHotKey = RegisterHotKey("Alchemist Hidden Reaction", "Mouse3");
-			AlchemistCatalystHotKey = RegisterHotKey("Alchemist Catalyst Tool Shortcut", "Z");
+			AlchemistReactionHotKey = KeybindLoader.RegisterKeybind(this, "Alchemist Hidden Reaction", "Mouse3");
+			AlchemistCatalystHotKey = KeybindLoader.RegisterKeybind(this, "Alchemist Catalyst Tool Shortcut", Keys.Z);
+
 			alchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
 
 			if (!Main.dedServ)
@@ -112,12 +114,12 @@ namespace OrchidMod
 				orchidModGuardianInterface.SetState(guardianUIState);
 
 				coatingTextures = new Texture2D[6];
-				coatingTextures[0] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingFire");
-				coatingTextures[1] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingWater");
-				coatingTextures[2] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingNature");
-				coatingTextures[3] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingAir");
-				coatingTextures[4] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingLight");
-				coatingTextures[5] = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingDark");
+				coatingTextures[0] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingFire", AssetRequestMode.ImmediateLoad).Value;
+				coatingTextures[1] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingWater", AssetRequestMode.ImmediateLoad).Value;
+				coatingTextures[2] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingNature", AssetRequestMode.ImmediateLoad).Value;
+				coatingTextures[3] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingAir", AssetRequestMode.ImmediateLoad).Value;
+				coatingTextures[4] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingLight", AssetRequestMode.ImmediateLoad).Value;
+				coatingTextures[5] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingDark", AssetRequestMode.ImmediateLoad).Value;
 			}
 		}
 
@@ -274,7 +276,6 @@ namespace OrchidMod
 			// ...
 
 			EffectsManager.Unload();
-			HookLoader.Unload();
 
 			croupierUI = null;
 

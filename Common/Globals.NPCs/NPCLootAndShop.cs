@@ -1,51 +1,74 @@
-using Microsoft.Xna.Framework;
-using OrchidMod.WorldgenArrays;
+﻿using OrchidMod.Alchemist.Weapons.Fire;
+using OrchidMod.Gambler.Accessories;
+using OrchidMod.Shaman.Accessories;
+using OrchidMod.Shaman.Misc;
+using OrchidMod.Shaman.Weapons;
+using OrchidMod.Shaman.Weapons.Thorium;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
-namespace OrchidMod
+namespace OrchidMod.Common.Globals.NPCs
 {
-	public class OrchidModGlobalNPC : GlobalNPC
+	public class NPCLootAndShop : GlobalNPC
 	{
-		public int shamanBomb = 0;
-		public int shamanShroom = 0;
-		public int shamanSpearDamage = 0;
-		public int gamblerDungeonCardCount = 0;
-		public bool shamanWater = false;
-		public bool shamanWind = false;
-		public bool alchemistHit = false;
-		public bool gamblerHit = false;
-
-		public override bool InstancePerEntity => true;
-
-		public override void GetChat(NPC npc, ref string chat)
+		public override void SetupShop(int type, Chest shop, ref int nextSlot)
 		{
-			OrchidMod.Instance.croupierUI.Visible = false;
-		}
-
-		public override void OnKill(NPC npc)
-		{
-			if (npc.lifeMax > 5 && npc.value > 0f)
+			switch (type)
 			{
-				if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].ZoneGlowshroom && Main.hardMode && Main.rand.Next(100) == 0)
-				{
-					Item.NewItem(npc.getRect(), ItemType<Content.Items.Placeables.ShroomKey>());
-				}
-				if (this.alchemistHit && Main.rand.Next(4) == 0)
-				{
-					Item.NewItem(npc.getRect(), ItemType<Alchemist.Misc.Potency>());
-				}
-				if (this.gamblerHit && Main.rand.Next(4) == 0)
-				{
-					Item.NewItem(npc.getRect(), ItemType<Gambler.Misc.Chip>());
-				}
+				case NPCID.WitchDoctor:
+					{
+						AddItemToShop<ShamanRod>(shop, ref nextSlot);
+
+						if (Main.hardMode) AddItemToShop<RitualScepter>(shop, ref nextSlot);
+					}
+					break;
+				case NPCID.Demolitionist:
+					AddItemToShop<GunpowderFlask>(shop, ref nextSlot);
+					break;
+				case NPCID.Dryad:
+					AddItemToShop<DryadsGift>(shop, ref nextSlot);
+					break;
 			}
 
-			if (npc.type == 21 || npc.type == -46 || npc.type == -47 || npc.type == 201 || npc.type == -48 || npc.type == -49 || npc.type == 202 || npc.type == -50 || npc.type == -51 || npc.type == 203 || npc.type == -52 || npc.type == -53 || npc.type == 167)
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod == null) return;
+
+			if (thoriumMod.TryFind("ConfusedZombie", out ModNPC modNPC) && type == modNPC.Type)
+			{
+				AddItemToShop<PatchWerkScepter>(shop, ref nextSlot);
+			}
+		}
+
+		public override void SetupTravelShop(int[] shop, ref int nextSlot)
+		{
+			AddItemToShop<PileOfChips>(shop, ref nextSlot, 3);
+		}
+
+		public override void ModifyGlobalLoot(GlobalLoot globalLoot)
+		{
+			/*if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].ZoneGlowshroom && Main.hardMode && Main.rand.Next(100) == 0)
+			{
+				Item.NewItem(npc.GetSource_DropAsItem() npc.getRect(), ModContent.ItemType<ShroomKey>());
+			}
+			if (this.alchemistHit && Main.rand.Next(4) == 0)
+			{
+				Item.NewItem(npc.getRect(), ModContent.ItemType<Potency>());
+			}
+			if (this.gamblerHit && Main.rand.Next(4) == 0)
+			{
+				Item.NewItem(npc.getRect(), ModContent.ItemType<Chip>());
+			}*/
+		}
+
+		public override void ModifyNPCLoot(NPC npc, Terraria.ModLoader.NPCLoot npcLoot)
+		{
+			/*if (npc.type == 21 || npc.type == -46 || npc.type == -47 || npc.type == 201 || npc.type == -48 || npc.type == -49 || npc.type == 202 || npc.type == -50 || npc.type == -51 || npc.type == 203 || npc.type == -52 || npc.type == -53 || npc.type == 167)
 			{ // Skeletons & vikings in mineshaft
 				Player player = Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)];
 				int MSMinPosX = (Main.maxTilesX / 2) - ((OrchidMSarrays.MSLenght * 15) / 2);
@@ -145,7 +168,7 @@ namespace OrchidMod
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.FurnaceSigil>());
 				}
-				
+
 				if (Main.rand.Next(20) == 0)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Accessories.DemonicPocketMirror>());
@@ -268,18 +291,20 @@ namespace OrchidMod
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.TreasuredBaubles>());
 				}
 			}
-			
+
 			if ((npc.type == NPCID.BlackRecluse || npc.type == NPCID.BlackRecluseWall)) // Black Recluse (ground/wall)
-      {
-        if (Main.rand.Next(40) == 0) {
+			{
+				if (Main.rand.Next(40) == 0)
+				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.VenomSigil>());
 				}
 			}
-			
+
 			if (npc.type == NPCID.Mimic && npc.frame.Y >= 828 && npc.frame.Y <= 1104) //Ice Mimic
 			{
-        if (Main.rand.Next(3) == 0) {
-				  	Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.IceMimicScepter>());
+				if (Main.rand.Next(3) == 0)
+				{
+					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.IceMimicScepter>());
 				}
 			}
 
@@ -321,7 +346,7 @@ namespace OrchidMod
 				{
 					Item.NewItem((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ModContent.ItemType<Shaman.Misc.AbyssFragment>(), Main.rand.Next(1, 4), false, 0, false, false);
 				}
-			}*/
+			}*//*
 
 			// BOSSES
 			if ((npc.type == NPCID.QueenBee))
@@ -650,133 +675,31 @@ namespace OrchidMod
 					int rand = Main.rand.Next(2) + 1;
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Misc.VultureTalon>(), rand);
 				}
-			}
+			}*/
 		}
 
-		public override void SetupShop(int type, Chest shop, ref int nextSlot)
+		// ...
+
+		private static void AddItemToShop<T>(Chest shop, ref int nextSlot, int chanceDenominator = 1) where T : ModItem
+			=> AddItemToShop(shop, ref nextSlot, ModContent.ItemType<T>(), chanceDenominator);
+
+		private static void AddItemToShop(Chest shop, ref int nextSlot, int type, int chanceDenominator = 1)
 		{
-			if (type == NPCID.WitchDoctor)
-			{
-				shop.item[nextSlot].SetDefaults(ItemType<Shaman.Weapons.ShamanRod>());
-				nextSlot++;
-				if (Main.hardMode)
-				{
-					shop.item[nextSlot].SetDefaults(ItemType<Shaman.Misc.RitualScepter>());
-					nextSlot++;
-				}
-			}
+			if (!Main.rand.NextBool(chanceDenominator)) return;
 
-			if (type == NPCID.Demolitionist)
-			{
-				shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Weapons.Fire.GunpowderFlask>());
-				nextSlot++;
-			}
-
-			if (type == NPCID.Dryad)
-			{
-				shop.item[nextSlot].SetDefaults(ItemType<Shaman.Accessories.DryadsGift>());
-				nextSlot++;
-			}
-
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				if (type == thoriumMod.Find<ModNPC>("ConfusedZombie").Type)
-				{
-					shop.item[nextSlot].SetDefaults(ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>());
-					nextSlot++;
-				}
-			}
-		}
-		
-		public override void SetupTravelShop(int[] shop, ref int nextSlot) {
-			if (Main.rand.Next(3) == 0) {
-				shop[nextSlot] = ItemType<Gambler.Accessories.PileOfChips>();
-				nextSlot++;
-			}
+			shop.item[nextSlot].SetDefaults(type);
+			nextSlot++;
 		}
 
-		public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+		private static void AddItemToShop<T>(int[] shop, ref int nextSlot, int chanceDenominator = 1) where T : ModItem
+			=> AddItemToShop(shop, ref nextSlot, ModContent.ItemType<T>(), chanceDenominator);
+
+		private static void AddItemToShop(int[] shop, ref int nextSlot, int type, int chanceDenominator = 1)
 		{
-			if (this.shamanWater)
-			{
-				damage = (double)(damage * 1.05f);
-			}
+			if (!Main.rand.NextBool(chanceDenominator)) return;
 
-			if (this.shamanShroom > 0)
-			{
-				damage = (double)(damage * 1.1f);
-			}
-
-			return true;
-		}
-
-		public override void DrawEffects(NPC npc, ref Color drawColor)
-		{
-			if (this.shamanBomb > 0)
-			{
-				if (Main.rand.Next(15) == 0)
-				{
-					int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 6, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].velocity *= 1.8f;
-					Main.dust[dust].velocity.Y -= 0.5f;
-					if (Main.rand.NextBool(4))
-					{
-						Main.dust[dust].noGravity = false;
-						Main.dust[dust].scale *= 0.5f;
-					}
-				}
-				Lighting.AddLight(npc.position, 0.5f, 0.2f, 0f);
-
-				if (this.shamanBomb == 1)
-				{
-					SoundEngine.PlaySound(2, (int)npc.position.X, (int)npc.position.Y, 45);
-					npc.StrikeNPCNoInteraction(500, 0f, 0);
-					for (int i = 0; i < 15; i++)
-					{
-						int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 6, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
-						Main.dust[dust].noGravity = true;
-						Main.dust[dust].velocity *= 5f;
-						Main.dust[dust].scale *= 1.5f;
-					}
-				}
-			}
-
-			if (this.shamanShroom > 0)
-			{
-				if (Main.rand.Next(15) == 0)
-				{
-					int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 176, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3.5f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].velocity *= 1f;
-					Main.dust[dust].scale *= 0.5f;
-				}
-			}
-		}
-
-		public override void UpdateLifeRegen(NPC npc, ref int damage)
-		{
-			if (this.shamanWind)
-			{
-				if (npc.lifeRegen > 0)
-				{
-					npc.lifeRegen = 0;
-				}
-				npc.lifeRegen -= 16;
-				if (damage < 20)
-				{
-					damage = 20;
-				}
-			}
-		}
-
-		public override void ResetEffects(NPC npc)
-		{
-			this.shamanBomb -= this.shamanBomb > 0 ? 1 : 0;
-			this.shamanShroom -= this.shamanShroom > 0 ? 1 : 0;
-			this.shamanWind = false;
-			this.shamanSpearDamage -= this.shamanSpearDamage > 0 ? 1 : 0;
+			shop[nextSlot] = type;
+			nextSlot++;
 		}
 	}
 }

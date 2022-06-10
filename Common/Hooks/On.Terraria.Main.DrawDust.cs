@@ -9,7 +9,7 @@ using Terraria;
 
 namespace OrchidMod.Common.Hooks
 {
-	public static partial class HookLoader
+	public partial class HookLoader
 	{
 		private static void On_Terraria_Main_DrawDust(On.Terraria.Main.orig_DrawDust orig, Main self)
 		{
