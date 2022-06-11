@@ -7,6 +7,7 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.DataStructures;
 
 namespace OrchidMod.Shaman
 {
@@ -26,7 +27,7 @@ namespace OrchidMod.Shaman
 
 		// ...
 
-		public override bool CloneNewInstances => true;
+		protected override bool CloneNewInstances => true;
 
 		public sealed override void SetStaticDefaults()
 		{
@@ -37,11 +38,8 @@ namespace OrchidMod.Shaman
 
 		public sealed override void SetDefaults()
 		{
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
+			Item.DamageType = DamageClass.Default;
+
 			Item.noMelee = true;
 			Item.crit = 4;
 			Item.useStyle = ItemUseStyleID.Thrust;
@@ -54,7 +52,7 @@ namespace OrchidMod.Shaman
 			orchidItem.shamanWeaponElement = this.empowermentType;
 		}
 
-		public sealed override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public sealed override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer shaman = player.GetModPlayer<OrchidModPlayer>();
 			Vector2 mousePosition = Main.MouseWorld;
@@ -67,9 +65,9 @@ namespace OrchidMod.Shaman
 
 			Vector2 newMove = mousePosition - position;
 			newMove.Normalize();
-			newMove *= new Vector2(speedX, speedY).Length();
-			speedX = newMove.X;
-			speedY = newMove.Y;
+			newMove *= new Vector2(velocity.X, velocity.Y).Length();
+			velocity.X = newMove.X;
+			velocity.Y = newMove.Y;
 			int exhaustion = (int)(energy * shaman.shamanExhaustionRate);
 			exhaustion = exhaustion < 0 ? 0 : exhaustion;
 
@@ -104,9 +102,9 @@ namespace OrchidMod.Shaman
 					break;
 			}
 
-			if (this.SafeShoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack))
+			if (this.SafeShoot(player, source, position, velocity, type, damage, knockback))
 			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
+				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			}
 
 			return false;
@@ -125,7 +123,7 @@ namespace OrchidMod.Shaman
 
 			if (player.ownedProjectileCounts[catalystType] == 0)
 			{
-				var index = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, catalystType, 0, 0f, player.whoAmI);
+				var index = Projectile.NewProjectile(null, player.Center, Vector2.Zero, catalystType, 0, 0f, player.whoAmI); // change source ?
 				shaman.shamanCatalystIndex = index;
 
 				var proj = Main.projectile[index];
@@ -155,30 +153,30 @@ namespace OrchidMod.Shaman
 		public sealed override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
 
 			switch (empowermentType)
 			{
 				case 1:
-					mult *= modPlayer.shamanFireBondLoading < 100 ? 1f : 0.5f;
+					damage *= modPlayer.shamanFireBondLoading < 100 ? 1f : 0.5f;
 					break;
 				case 2:
-					mult *= modPlayer.shamanWaterBondLoading < 100 ? 1f : 0.5f;
+					damage *= modPlayer.shamanWaterBondLoading < 100 ? 1f : 0.5f;
 					break;
 				case 3:
-					mult *= modPlayer.shamanAirBondLoading < 100 ? 1f : 0.5f;
+					damage *= modPlayer.shamanAirBondLoading < 100 ? 1f : 0.5f;
 					break;
 				case 4:
-					mult *= modPlayer.shamanEarthBondLoading < 100 ? 1f : 0.5f;
+					damage *= modPlayer.shamanEarthBondLoading < 100 ? 1f : 0.5f;
 					break;
 				case 5:
-					mult *= modPlayer.shamanSpiritBondLoading < 100 ? 1f : 0.5f;
+					damage *= modPlayer.shamanSpiritBondLoading < 100 ? 1f : 0.5f;
 					break;
 				default:
 					break;
 			}
 
-			this.SafeModifyWeaponDamage(player, ref add, ref mult, ref flat);
+			this.SafeModifyWeaponDamage(player, ref damage);
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)
@@ -239,8 +237,8 @@ namespace OrchidMod.Shaman
 		public virtual void SafeSetStaticDefaults() { }
 		public virtual void SafeSetDefaults() { }
 		public virtual void SafeHoldItem() { }
-		public virtual void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat) { }
-		public virtual bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) => true;
+		public virtual void SafeModifyWeaponDamage(Player player, ref StatModifier damage) { }
+		public virtual bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) => true;
 
 		public virtual void ExtraAICatalyst(Projectile projectile, bool after) { }
 		public virtual void PostAICatalyst(Projectile projectile) { }
@@ -252,11 +250,10 @@ namespace OrchidMod.Shaman
 
 		// ...
 
-		public int NewShamanProjectile(float posX, float posY, float speedX, float speedY, int type, int damage, float knockBack, int playerID, float ai0 = 0.0f, float ai1 = 0.0f)
+		public int NewShamanProjectile(Player player, EntitySource_ItemUse source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, float ai0 = 0.0f, float ai1 = 0.0f)
 		{
-			int newProjectileIndex = Projectile.NewProjectile(posX, posY, speedX, speedY, type, damage, knockBack, playerID, ai0, ai1);
+			int newProjectileIndex = Projectile.NewProjectile(source, position, velocity, Type, damage, knockback, player.whoAmI, ai0, ai1);
 			Projectile newProjectile = Main.projectile[newProjectileIndex];
-
 			OrchidModProjectile.setShamanBond(newProjectile, this.empowermentType);
 			return newProjectileIndex;
 		}
