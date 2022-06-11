@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles.OreOrbs.Small;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,12 +15,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 46;
 			Item.useAnimation = 46;
 			Item.knockBack = 5.5f;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.sellPrice(0, 0, 60, 0);
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 9.5f;
-			Item.shoot = Mod.Find<ModProjectile>("PlatinumScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<PlatinumScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 6;
 		}
@@ -31,14 +32,10 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nIf you have 3 diamond orbs, your next hit will increase the duration of upcoming shamanic bonds for 30 seconds");
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.Diamond, 8);
-			recipe.AddIngredient(ItemID.PlatinumBar, 10);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.Diamond, 8)
+			.AddIngredient(ItemID.PlatinumBar, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

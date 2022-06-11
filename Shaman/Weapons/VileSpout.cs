@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,11 +20,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
-			Item.shoot = Mod.Find<ModProjectile>("VileSpoutProj").Type;
+			Item.shoot = ModContent.ProjectileType<VileSpoutProj>();
 			this.empowermentType = 1;
+			this.energy = 6;
+
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
-			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()
@@ -40,13 +42,9 @@ namespace OrchidMod.Shaman.Weapons
 			Item.shootSpeed = 7f + 2f * nbBonds;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.DemoniteBar, 10);
-			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.DemoniteBar, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

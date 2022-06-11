@@ -1,4 +1,6 @@
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,12 +17,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 35;
 			Item.useAnimation = 35;
 			Item.knockBack = 3.15f;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.value = Item.sellPrice(0, 1, 6, 0);
 			Item.UseSound = SoundID.Item72;
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
-			Item.shoot = Mod.Find<ModProjectile>("DepthsBatonProj").Type;
+			Item.shoot = ModContent.ProjectileType<DepthsBatonProj>();
 			this.empowermentType = 5;
 			this.energy = 8;
 		}
@@ -33,13 +35,14 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nHaving 3 or more active shamanic bonds will allow the weapon to shoot a straight beam");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int BuffsCount = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 			if (BuffsCount > 2)
 			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("DepthBatonProjAlt").Type, damage - 10, knockBack, player.whoAmI);
+				int typeAlt = ModContent.ProjectileType<DepthBatonProjAlt>();
+				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			}
 			return true;
 		}
@@ -48,22 +51,20 @@ namespace OrchidMod.Shaman.Weapons
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "Blum", 1);
-			recipe.AddIngredient(null, "PerishingSoul", 1);
-			recipe.AddIngredient(null, "SporeCaller", 1);
-			recipe.AddIngredient(null, "VileSpout", 1);
+			recipe.AddIngredient(ModContent.ItemType<Blum>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<PerishingSoul>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<SporeCaller>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<VileSpout>(), 1);
 			recipe.AddTile(TileID.DemonAltar);
 			recipe.Register();
-			recipe.AddRecipe();
 
 			recipe = CreateRecipe();
-			recipe.AddIngredient(null, "Blum", 1);
-			recipe.AddIngredient(null, "PerishingSoul", 1);
-			recipe.AddIngredient(null, "SporeCaller", 1);
-			recipe.AddIngredient(null, "SpineScepter", 1);
+			recipe.AddIngredient(ModContent.ItemType<Blum>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<PerishingSoul>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<SporeCaller>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<SpineScepter>(), 1);
 			recipe.AddTile(TileID.DemonAltar);
 			recipe.Register();
-			recipe.AddRecipe();
 		}
 	}
 }

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
+using OrchidMod.Shaman.Projectiles;
 
 namespace OrchidMod.Shaman.Weapons
 {
@@ -16,11 +17,11 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 35;
 			Item.useAnimation = 35;
 			Item.knockBack = 1.25f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			Item.UseSound = SoundID.Item8;
 			Item.shootSpeed = 3f;
-			Item.shoot = Mod.Find<ModProjectile>("AdornedBranchProj").Type;
+			Item.shoot = ModContent.ProjectileType<AdornedBranchProj>();
 			this.empowermentType = 1;
 			this.energy = 5;
 		}
@@ -35,24 +36,14 @@ namespace OrchidMod.Shaman.Weapons
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-
-			for (int i = 0; i < Main.rand.Next(3) + 3; i++)
+			int randRef = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 1 ? 6 : 3;
+			int rand = Main.rand.Next(randRef) + 3;
+			for (int i = 0; i < rand; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(30));
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(30));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
-				perturbedSpeed = perturbedSpeed * scale;
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
-			}
-
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 1)
-			{
-				for (int i = 0; i < Main.rand.Next(3); i++)
-				{
-					Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
-					float scale = 1f - (Main.rand.NextFloat() * .3f);
-					perturbedSpeed = perturbedSpeed * scale;
-					this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
-				}
+				newVelocity *= scale;
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			}
 			return false;
 		}

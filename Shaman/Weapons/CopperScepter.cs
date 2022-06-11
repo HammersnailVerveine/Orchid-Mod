@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles.OreOrbs.Small;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,11 +15,11 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 74;
 			Item.useAnimation = 74;
 			Item.knockBack = 3.25f;
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 			Item.value = Item.sellPrice(0, 0, 4, 0);
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 6f;
-			Item.shoot = Mod.Find<ModProjectile>("CopperScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<CopperScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 8;
 		}
@@ -30,14 +31,10 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nIf you have 3 amethyst orbs, your next hit will empower your shamanic spirit bonds for 15 seconds");
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.Amethyst, 8);
-			recipe.AddIngredient(ItemID.CopperBar, 10);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.Amethyst, 8)
+			.AddIngredient(ItemID.CopperBar, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

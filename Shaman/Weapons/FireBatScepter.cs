@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,12 +17,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 35;
 			Item.useAnimation = 35;
 			Item.knockBack = 3.25f;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.value = Item.sellPrice(0, 0, 54, 0);
 			Item.UseSound = SoundID.Item8;
 			Item.autoReuse = true;
 			Item.shootSpeed = 16f;
-			Item.shoot = Mod.Find<ModProjectile>("FireBatScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<FireBatScepterProj>();
 			this.empowermentType = 3;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
@@ -43,7 +45,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useAnimation = 35 - 3 * nbBonds;
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
@@ -51,8 +53,9 @@ namespace OrchidMod.Shaman.Weapons
 
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(25));
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, nbBonds < 3 ? type : Mod.Find<ModProjectile>("FireBatScepterProjHoming").Type, damage, knockBack, player.whoAmI);
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(25));
+				int newType = nbBonds < 3 ? type : ModContent.ProjectileType<FireBatScepterProjHoming>();
+				this.NewShamanProjectile(player, source, position, newVelocity, newType, damage, knockback);
 			}
 
 			return false;

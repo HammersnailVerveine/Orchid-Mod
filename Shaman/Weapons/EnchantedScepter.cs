@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,12 +15,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 28;
 			Item.useAnimation = 28;
 			Item.knockBack = 3.15f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 1, 0, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 9f;
-			Item.shoot = Mod.Find<ModProjectile>("EnchantedScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<EnchantedScepterProj>();
 			this.empowermentType = 1;
 			this.energy = 7;
 		}
@@ -30,10 +31,10 @@ namespace OrchidMod.Shaman.Weapons
 			Tooltip.SetDefault("Weapon damage increases with the number of active shamanic bonds");
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 3f);
+			damage += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 3f);
 		}
 	}
 }

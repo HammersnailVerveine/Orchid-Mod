@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles.OreOrbs.Small;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,12 +15,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 50;
 			Item.useAnimation = 50;
 			Item.knockBack = 4.75f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 40, 0);
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 9f;
-			Item.shoot = Mod.Find<ModProjectile>("GoldScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<GoldScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 8;
 		}
@@ -30,15 +31,10 @@ namespace OrchidMod.Shaman.Weapons
 			Tooltip.SetDefault("\nHitting an enemy will grant you a ruby orb"
 							  + "\nIf you have 3 ruby orbs, your next hit will increase your life regeneration for 30 seconds");
 		}
-
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.Ruby, 8);
-			recipe.AddIngredient(ItemID.GoldBar, 10);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.Ruby, 8)
+			.AddIngredient(ItemID.GoldBar, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles.OreOrbs.Small;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,12 +15,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 45;
 			Item.useAnimation = 45;
 			Item.knockBack = 5.5f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 60, 0);
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 9.5f;
-			Item.shoot = Mod.Find<ModProjectile>("CrimsonScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<CrimsonScepterProj>();
 			this.empowermentType = 1;
 			this.energy = 5;
 		}

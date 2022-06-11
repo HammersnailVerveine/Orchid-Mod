@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,12 +15,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 35;
 			Item.useAnimation = 35;
 			Item.knockBack = 3.15f;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.value = Item.sellPrice(0, 0, 47, 0);
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("PerishingSoulProj").Type;
+			Item.shoot = ModContent.ProjectileType<PerishingSoulProj>();
 			this.empowermentType = 1;
 			this.energy = 6;
 		}
@@ -31,13 +32,9 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nProjectile will grow faster the more active shamanic bonds you have");
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.HellstoneBar, 18);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.HellstoneBar, 18)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,11 +15,11 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 4;
 			Item.useAnimation = 32;
 			Item.knockBack = 0f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 48, 0);
 			Item.autoReuse = true;
 			Item.shootSpeed = 5.25f;
-			Item.shoot = Mod.Find<ModProjectile>("MeteorPhasestaffProj").Type;
+			Item.shoot = ModContent.ProjectileType<MeteorPhasestaffProj>();
 			Item.UseSound = SoundID.Item15;
 			this.empowermentType = 1;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
@@ -33,22 +34,16 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nWeapon damage doubles if you have 3 or more active shamanic bonds");
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 3)
-			{
-				flat += 7f;
-			}
+				damage *= 2f;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.MeteoriteBar, 20);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.MeteoriteBar, 20)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

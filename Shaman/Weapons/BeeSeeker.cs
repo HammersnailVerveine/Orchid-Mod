@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OrchidMod.Shaman.Projectiles.OreOrbs.Unique;
 
 namespace OrchidMod.Shaman.Weapons
 {
@@ -20,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item21;
 			Item.autoReuse = true;
 			Item.shootSpeed = 6f;
-			Item.shoot = Mod.Find<ModProjectile>("HoneyProj").Type;
+			Item.shoot = ModContent.ProjectileType<HoneyProj>();
 			this.empowermentType = 2;
 			this.energy = 5;
 		}
@@ -35,16 +37,15 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nFilling the orb will make it explode into a swarm of bees");
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-			if (Main.LocalPlayer.FindBuffIndex(48) > -1) add += 0.25f;
+			if (Main.LocalPlayer.FindBuffIndex(48) > -1) damage += 0.25f;
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-			this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+			Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+			this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			return false;
 		}
 	}

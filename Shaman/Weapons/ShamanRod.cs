@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,17 +34,19 @@ namespace OrchidMod.Shaman.Weapons
 							   "\nHaving 2 or more active shamanic bonds increases damage and slows on hit");
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), Mod) > 1) mult *= modPlayer.shamanDamage * 2f;
+			if (OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), Mod) > 1) 
+				damage *= modPlayer.shamanDamage * 2f;
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			RemoveAllShamanRodProjs(player);
-			for (int i = 0; i < 3; i++) this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, ai1: i + 1);
+			for (int i = 0; i < 3; i++)
+				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback, ai1: i + 1);
 
 			return false;
 		}

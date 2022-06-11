@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,12 +15,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 18;
 			Item.useAnimation = 18;
 			Item.knockBack = 3.25f;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.sellPrice(0, 0, 47, 0);
 			Item.UseSound = SoundID.Item21;
 			Item.autoReuse = true;
 			Item.shootSpeed = 16f;
-			Item.shoot = Mod.Find<ModProjectile>("BlumProj").Type;
+			Item.shoot = ModContent.ProjectileType<BlumProj>();
 			this.empowermentType = 2;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;

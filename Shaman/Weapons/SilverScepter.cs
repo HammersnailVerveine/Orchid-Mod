@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles.OreOrbs.Small;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,11 +15,11 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 62;
 			Item.useAnimation = 62;
 			Item.knockBack = 4f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 20, 0);
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 7.5f;
-			Item.shoot = Mod.Find<ModProjectile>("SilverScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<SilverScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 7;
 		}
@@ -30,14 +31,10 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nIf you have 3 sapphire orbs, your next hit will increase your shamanic critical strike chance for 30 seconds");
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.Sapphire, 8);
-			recipe.AddIngredient(ItemID.SilverBar, 10);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.Sapphire, 8)
+			.AddIngredient(ItemID.SilverBar, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

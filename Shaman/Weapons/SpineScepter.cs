@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,12 +15,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 25;
 			Item.useAnimation = 25;
 			Item.knockBack = 3.15f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 27, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
-			Item.shoot = Mod.Find<ModProjectile>("SpineScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<SpineScepterProj>();
 			this.empowermentType = 2;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
@@ -40,13 +41,9 @@ namespace OrchidMod.Shaman.Weapons
 			Item.shootSpeed = 7f + 2f * nbBonds;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.CrimtaneBar, 10);
-			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.CrimtaneBar, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

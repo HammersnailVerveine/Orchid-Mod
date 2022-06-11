@@ -66,8 +66,9 @@ namespace OrchidMod.Shaman
 			Vector2 newMove = mousePosition - position;
 			newMove.Normalize();
 			newMove *= velocity.Length();
-			velocity.X = newMove.X;
-			velocity.Y = newMove.Y;
+			velocity = newMove;
+			//velocity.X = newMove.X;
+			//velocity.Y = newMove.Y;
 			int exhaustion = (int)(energy * shaman.shamanExhaustionRate);
 			exhaustion = exhaustion < 0 ? 0 : exhaustion;
 

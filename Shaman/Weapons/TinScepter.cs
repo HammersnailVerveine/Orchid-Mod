@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles.OreOrbs.Small;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,11 +15,11 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 70;
 			Item.useAnimation = 70;
 			Item.knockBack = 3f;
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 			Item.value = Item.sellPrice(0, 0, 6, 0);
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 6.5f;
-			Item.shoot = Mod.Find<ModProjectile>("TinScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<TinScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 8;
 		}
@@ -30,14 +31,10 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nIf you have 3 topaz orbs, your next hit will increase your armor for 30 seconds");
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.Topaz, 8);
-			recipe.AddIngredient(ItemID.TinBar, 10);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.Topaz, 8)
+			.AddIngredient(ItemID.TinBar, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

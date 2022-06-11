@@ -34,18 +34,15 @@ namespace OrchidMod.Shaman.Weapons
 		public override void UpdateInventory(Player player)
 		{
 			// I hate it
+			// I'm sorry :(
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			Item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + modPlayer.shamanCrit;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddIngredient(ItemID.FallenStar, 5);
-			recipe.AddIngredient(ItemID.Wood, 10);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.FallenStar, 5)
+			.AddIngredient(ItemID.Wood, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

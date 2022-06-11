@@ -1,4 +1,6 @@
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles.OreOrbs.Unique;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,12 +18,12 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 30;
 			Item.useAnimation = 30;
 			Item.knockBack = 3f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 40, 0);
 			Item.UseSound = SoundID.Item28;
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
-			Item.shoot = Mod.Find<ModProjectile>("IceSpearScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<IceSpearScepterProj>();
 			this.empowermentType = 2;
 			this.energy = 7;
 		}
@@ -33,9 +35,10 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nAfter enough hits, the icicle will be launched, dealing massive damage");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			this.NewShamanProjectile(position.X + Main.rand.Next(50) - 35, position.Y - Main.rand.Next(14) + 7, speedX, speedY, type, damage, knockBack, player.whoAmI);
+			Vector2 newPosition = new Vector2(position.X + Main.rand.Next(50) - 35, position.Y - Main.rand.Next(14) + 7);
+			this.NewShamanProjectile(player, source, newPosition, velocity, type, damage, knockback);
 			return false;
 		}
 	}

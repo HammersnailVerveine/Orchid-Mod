@@ -175,7 +175,7 @@ namespace OrchidMod.Shaman
 
 			if (shamanItem.PreDrawCatalyst(spriteBatch, Projectile, player, ref color))
 			{
-				var texture = ModContent.GetTexture(shamanItem.CatalystTexture);
+				var texture = ModContent.Request<Texture2D>(shamanItem.CatalystTexture).Value;
 				var position = Projectile.Center - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 

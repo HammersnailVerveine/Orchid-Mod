@@ -1,7 +1,10 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Buffs;
+using OrchidMod.Shaman.Projectiles;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,21 +20,20 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 20;
 			Item.useAnimation = 20;
 			Item.knockBack = 3.15f;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.value = Item.sellPrice(0, 0, 54, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.shootSpeed = 5f;
-			Item.shoot = Mod.Find<ModProjectile>("SporeCallerProj").Type;
+			Item.shoot = ModContent.ProjectileType<SporeCallerProj>();
 			this.empowermentType = 3;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 25;
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-			if (Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("SporeEmpowerment").Type) > -1)
-				add += 2f;
+			if (Main.LocalPlayer.FindBuffIndex(ModContent.BuffType<SporeEmpowerment>()) > -1)
+				damage += 2f;
 		}
 
 		public override void SafeSetStaticDefaults()
@@ -40,10 +42,10 @@ namespace OrchidMod.Shaman.Weapons
 			Tooltip.SetDefault("Spits out a stack of life-seeking spores, growing stronger with time"
 							  + "\nOnly one stack of spores can be active at once"
 							  + "\nThe number of spores depends on your number of active shamanic bonds"
-							  + "\nIf the projectiles last for long enough before hitting an opponent, your next attack with this weapon will deal increased damage");
+							  + "\nIf the projectiles last for long enough before hitting an opponent, your next attack with this weapon will deal triple damage");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
@@ -61,10 +63,10 @@ namespace OrchidMod.Shaman.Weapons
 
 			for (int i = 0; i < nbBonds + 2; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(30));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
-				perturbedSpeed = perturbedSpeed * scale;
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				newVelocity *=  scale;
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			}
 			return false;
 		}
@@ -85,15 +87,10 @@ namespace OrchidMod.Shaman.Weapons
 				}
 			}
 		}
-
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.JungleSpores, 8);
-			recipe.AddIngredient(ItemID.Stinger, 5);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.JungleSpores, 8)
+			.AddIngredient(ItemID.Stinger, 5)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

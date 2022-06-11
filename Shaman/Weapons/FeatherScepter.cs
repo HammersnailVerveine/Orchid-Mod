@@ -1,5 +1,8 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Misc;
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,22 +13,17 @@ namespace OrchidMod.Shaman.Weapons
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 13;
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
 			Item.width = 40;
 			Item.height = 40;
 			Item.useTime = 33;
 			Item.useAnimation = 33;
 			Item.knockBack = 0f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 20, 0);
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("FeatherScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<FeatherScepterProj>();
 			this.empowermentType = 3;
 			this.energy = 6;
 		}
@@ -38,27 +36,23 @@ namespace OrchidMod.Shaman.Weapons
 							  + "\nHaving 3 or more active shamanic bonds will result in more projectiles shot");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
 			if (nbBonds > 2)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX / 2, speedY / 2).RotatedByRandom(MathHelper.ToRadians(15));
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15)) / 2f;
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			}
 			return true;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(null, "HarpyTalon", 2);
-			recipe.AddIngredient(ItemID.Feather, 5);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ModContent.ItemType<HarpyTalon>(), 2)
+			.AddIngredient(ItemID.Feather, 5)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }
