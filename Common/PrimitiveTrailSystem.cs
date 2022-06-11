@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Common
 {
-	public class PrimitiveTrailSystem : ModSystem
+	/*public class PrimitiveTrailSystem : ModSystem
 	{
 		public static readonly List<Trail> AdditiveBlendTrails = new List<Trail>();
 		public static readonly List<Trail> AlphaBlendTrails = new List<Trail>();
@@ -196,5 +196,5 @@ namespace OrchidMod.Common
 			public delegate float WidthDelegate(float progress);
 			public delegate Color ColorDelegate(float progress);
 		}
-	}
+	}*/
 }

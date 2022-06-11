@@ -4,8 +4,6 @@ namespace OrchidMod.Alchemist.Accessories
 {
 	public class WeightedBottles : OrchidModAlchemistEquipable
 	{
-		public override string Texture => OrchidAssets.AlchemistItemsPath + Name;
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 26;

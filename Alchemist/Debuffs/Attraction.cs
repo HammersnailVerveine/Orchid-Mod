@@ -5,8 +5,6 @@ namespace OrchidMod.Alchemist.Debuffs
 {
 	public class Attraction : ModBuff
 	{
-		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Attraction");

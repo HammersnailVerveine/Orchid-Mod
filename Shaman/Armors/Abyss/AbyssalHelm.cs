@@ -11,8 +11,6 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Head)]
 	public class AbyssalHelm : OrchidModShamanEquipable
 	{
-		public override string Texture => OrchidAssets.AbyssSetPath + Name;
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 24;

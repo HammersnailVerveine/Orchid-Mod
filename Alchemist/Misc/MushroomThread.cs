@@ -9,8 +9,6 @@ namespace OrchidMod.Alchemist.Misc
 {
 	public class MushroomThread : OrchidModItem
 	{
-		public override string Texture => OrchidAssets.MushroomSetPath + Name;
-
 		public override void SetDefaults()
 		{
 			Item.width = 28;

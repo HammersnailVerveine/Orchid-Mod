@@ -10,8 +10,6 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Body)]
 	public class AbyssalChestplate : OrchidModShamanEquipable
 	{
-		public override string Texture => OrchidAssets.AbyssSetPath + Name;
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 34;

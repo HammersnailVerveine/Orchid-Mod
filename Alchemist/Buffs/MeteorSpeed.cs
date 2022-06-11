@@ -5,8 +5,6 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class MeteorSpeed : ModBuff
 	{
-		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Meteor Agility");

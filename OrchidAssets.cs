@@ -30,16 +30,6 @@ namespace OrchidMod
 		public const string NPCsPath = TexturesPath + "NPCs/";
 		public const string TilesPath = TexturesPath + "Tiles/";
 
-		// Alchemist
-		public const string AlchemistItemsPath = ItemsPath + "Alchemist/";
-		public const string AlchemistBuffsPath = BuffsPath + "Alchemist/";
-		public const string MushroomSetPath = AlchemistItemsPath + "MushroomSet/";
-		public const string AlchemistJungleSetPath = AlchemistItemsPath + "JungleSet/";
-
-		// Shaman
-		public const string ShamanItemsPath = ItemsPath + "Shaman/";
-		public const string AbyssSetPath = ShamanItemsPath + "AbyssSet/";
-
 		// ...
 
 		public static Asset<Texture2D> GetExtraTexture(int type, AssetRequestMode mode = AssetRequestMode.AsyncLoad) => ModContent.Request<Texture2D>(MiscPath + "Extra_" + type, mode);

@@ -6,8 +6,6 @@ namespace OrchidMod.Alchemist.Accessories
 {
 	public class BloomingBud : OrchidModAlchemistEquipable
 	{
-		public override string Texture => OrchidAssets.AlchemistItemsPath + Name;
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 26;

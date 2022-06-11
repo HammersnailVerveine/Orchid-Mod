@@ -100,7 +100,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			fallThrough = false; //so it sticks to platforms
-			return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -172,13 +172,13 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				for (int i = 0; i < 5; i++)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
-					int newSpore = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj, this.sporeDamage, 0f, Projectile.owner);
+					int newSpore = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj, this.sporeDamage, 0f, Projectile.owner);
 					Main.projectile[newSpore].localAI[1] = 1f;
 				}
 				for (int i = 0; i < 5; i++)
 				{
 					Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-					Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj2, 0, 0f, Projectile.owner);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj2, 0, 0f, Projectile.owner);
 				}
 			}
 		}

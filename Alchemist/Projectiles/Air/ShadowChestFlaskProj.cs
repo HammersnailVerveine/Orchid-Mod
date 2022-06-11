@@ -71,7 +71,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			if (Main.player[Projectile.owner].HasBuff(BuffType<Alchemist.Buffs.DemonBreathFlaskBuff>()) && Projectile.ai[1] != 2f)
 			{
 				Vector2 vel = Projectile.velocity.RotatedBy(MathHelper.ToRadians(45));
-				int newProjInt = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
+				int newProjInt = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner);
 				Projectile newProj = Main.projectile[newProjInt];
 				newProj.ai[1] = 2f;
 				newProj.netUpdate = true;

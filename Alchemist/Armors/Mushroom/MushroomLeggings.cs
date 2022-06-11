@@ -5,13 +5,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Alchemist.Armors
+namespace OrchidMod.Alchemist.Armors.Mushroom
 {
 	[AutoloadEquip(EquipType.Legs)]
 	public class MushroomLeggings : OrchidModAlchemistEquipable
 	{
-		public override string Texture => OrchidAssets.MushroomSetPath + Name;
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 22;

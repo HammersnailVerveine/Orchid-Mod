@@ -10,8 +10,6 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Wings)]
 	public class AbyssalWings : OrchidModShamanEquipable
 	{
-		public override string Texture => OrchidAssets.AbyssSetPath + Name;
-
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Allows flight and slow fall");

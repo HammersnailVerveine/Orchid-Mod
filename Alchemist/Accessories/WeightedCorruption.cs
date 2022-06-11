@@ -7,8 +7,6 @@ namespace OrchidMod.Alchemist.Accessories
 {
 	public class WeightedCorruption : OrchidModAlchemistEquipable
 	{
-		public override string Texture => OrchidAssets.AlchemistItemsPath + Name;
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 24;

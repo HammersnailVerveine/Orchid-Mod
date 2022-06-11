@@ -5,45 +5,51 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Alchemist.Armors
+namespace OrchidMod.Alchemist.Armors.Mushroom
 {
-	[AutoloadEquip(EquipType.Body)]
-	public class MushroomTunic : OrchidModAlchemistEquipable
+	[AutoloadEquip(EquipType.Head)]
+	public class MushroomBandana : OrchidModAlchemistEquipable
 	{
-		public override string Texture => OrchidAssets.MushroomSetPath + Name;
-
 		public override void SafeSetDefaults()
 		{
-			Item.width = 30;
-			Item.height = 22;
-			Item.value = Item.sellPrice(0, 0, 5, 0);
+			Item.width = 24;
+			Item.height = 12;
+			Item.value = Item.sellPrice(0, 0, 3, 0);
 			Item.rare = ItemRarityID.Blue;
-			Item.defense = 3;
+			Item.defense = 2;
 		}
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phosphorescent Tunic");
-			Tooltip.SetDefault("5% increased potency regeneration"
-							+ "\nMaximum potency increased by 2");
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
+
+			DisplayName.SetDefault("Phosphorescent Bandana");
+			Tooltip.SetDefault("5% increased potency regeneration");
 		}
 
 		public override void UpdateEquip(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.alchemistRegenPotency -= 3;
-			modPlayer.alchemistPotencyMax += 2;
 		}
 
-		public override Vector2? HoldoutOffset()
+		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return new Vector2(-2, 0);
+			return body.type == Mod.Find<ModItem>("MushroomTunic").Type && legs.type == Mod.Find<ModItem>("MushroomLeggings").Type;
+		}
+
+		public override void UpdateArmorSet(Player player)
+		{
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			player.setBonus = "Maximum number of simultaneous alchemical elements increased by 1";
+			modPlayer.alchemistNbElementsMax += 1;
 		}
 
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.Silk, 8);
+			recipe.AddIngredient(ItemID.Silk, 4);
 			recipe.AddIngredient(ItemID.GlowingMushroom, 5);
 			recipe.AddIngredient(null, "MushroomThread", 1);
 			recipe.AddTile(TileID.WorkBenches);

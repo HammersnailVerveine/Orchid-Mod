@@ -6,8 +6,6 @@ namespace OrchidMod.Alchemist.Debuffs
 {
 	public class SlimeSlow : ModBuff
 	{
-		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Slime Slow");

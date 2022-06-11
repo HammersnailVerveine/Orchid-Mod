@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Projectiles.Misc
@@ -34,13 +35,14 @@ namespace OrchidMod.Alchemist.Projectiles.Misc
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			// SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 			return true;
 		}
 
 		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60 * 5);
+			target.AddBuff(BuffType<Alchemist.Debuffs.Attraction>(), 60 * 5);
 		}
 	}
 }

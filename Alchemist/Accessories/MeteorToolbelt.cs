@@ -7,8 +7,6 @@ namespace OrchidMod.Alchemist.Accessories
 	[AutoloadEquip(EquipType.Waist)]
 	public class MeteorToolbelt : OrchidModAlchemistEquipable
 	{
-		public override string Texture => OrchidAssets.AlchemistItemsPath + Name;
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 22;

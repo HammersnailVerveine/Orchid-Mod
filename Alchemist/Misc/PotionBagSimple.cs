@@ -83,7 +83,7 @@ namespace OrchidMod.Alchemist.Misc
 				foreach (Item item in potionBag) {
 					if (item.type != 0)
 					{
-						player.QuickSpawnItem(item.type, 1);
+						player.QuickSpawnItem(player.GetSource_OpenItem(item.type), item.type, 1);
 						item.TurnToAir();
 					}
 				}

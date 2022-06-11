@@ -2,13 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Alchemist.Armors
+namespace OrchidMod.Alchemist.Armors.Jungle
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class AlchemistJungleChest : OrchidModAlchemistEquipable
 	{
-		public override string Texture => OrchidAssets.AlchemistJungleSetPath + Name;
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 30;

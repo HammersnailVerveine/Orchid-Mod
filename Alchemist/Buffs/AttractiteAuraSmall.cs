@@ -8,8 +8,6 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class AttractiteAuraSmall : ModBuff
 	{
-		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lesser Attractite Aura");

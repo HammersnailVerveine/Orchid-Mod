@@ -95,10 +95,10 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 				if (spawnProj != 0)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
-					int newSpore = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj, this.sporeDamage, 0f, Projectile.owner);
+					int newSpore = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj, this.sporeDamage, 0f, Projectile.owner);
 					Main.projectile[newSpore].localAI[1] = 1f;
 					vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
-					Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj2, 0, 0f, Projectile.owner);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj2, 0, 0f, Projectile.owner);
 				}
 			}
 		}

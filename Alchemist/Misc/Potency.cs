@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Misc
 {
@@ -36,7 +37,7 @@ namespace OrchidMod.Alchemist.Misc
 			int val = 6;
 			CombatText.NewText(player.Hitbox, floatingTextColor, val);
 			modPlayer.alchemistPotency += modPlayer.alchemistPotency + val > modPlayer.alchemistPotencyMax ? modPlayer.alchemistPotencyMax : modPlayer.alchemistPotency;
-			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 85);
+			SoundEngine.PlaySound(SoundID.Item85, player.Center); // (2, position, 85)
 			return false;
 		}
 	}

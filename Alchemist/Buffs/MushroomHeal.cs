@@ -5,8 +5,6 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class MushroomHeal : ModBuff
 	{
-		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Mushroom Spores");

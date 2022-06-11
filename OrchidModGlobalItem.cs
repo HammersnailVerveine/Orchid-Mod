@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using OrchidMod.Common.Interfaces;
 using System.Collections.Generic;
 using Terraria;
@@ -32,9 +33,9 @@ namespace OrchidMod
 		public delegate void KillFirstDelegate(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void KillSecondDelegate(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void KillThirdDelegate(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
-		public delegate void OnHitNPCFirstDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
-		public delegate void OnHitNPCSecondDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
-		public delegate void OnHitNPCThirdDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void OnHitNPCFirstDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void OnHitNPCSecondDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
+		public delegate void OnHitNPCThirdDelegate(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void AddVariousEffectsDelegate(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);
 		public delegate void GamblerShootDelegate(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false);
 
