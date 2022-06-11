@@ -8,6 +8,8 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class AttractiteAuraSmall : ModBuff
 	{
+		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lesser Attractite Aura");
@@ -29,7 +31,7 @@ namespace OrchidMod.Alchemist.Buffs
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 					if (distanceTo < distance)
 					{
-						target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60);
+						target.AddBuff(BuffType<Alchemist.Debuffs.Attraction>(), 60);
 					}
 				}
 			}

@@ -6,6 +6,8 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class IceChestFlaskBuff : ModBuff
 	{
+		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Permanent Freeze");
@@ -24,7 +26,7 @@ namespace OrchidMod.Alchemist.Buffs
 				int projType = ProjectileType<Alchemist.Projectiles.Water.IceChestFlaskProj>();
 				int itemType = ItemType<Alchemist.Weapons.Water.IceChestFlask>();
 				int damage = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 2, true);
-				int newProjectileInt = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projType, damage, 0f, player.whoAmI);
+				int newProjectileInt = Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center.X, player.Center.Y, 0f, 0f, projType, damage, 0f, player.whoAmI);
 				Projectile newProjectile = Main.projectile[newProjectileInt];
 				newProjectile.width = range * 2;
 				newProjectile.height = range * 2;

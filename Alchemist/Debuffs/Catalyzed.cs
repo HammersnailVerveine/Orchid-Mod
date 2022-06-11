@@ -1,10 +1,12 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Alchemist.Buffs.Debuffs
+namespace OrchidMod.Alchemist.Debuffs
 {
 	public class Catalyzed : ModBuff
 	{
+		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Catalyzed");

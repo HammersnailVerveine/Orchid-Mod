@@ -32,6 +32,7 @@ namespace OrchidMod
 
 		// Alchemist
 		public const string AlchemistItemsPath = ItemsPath + "Alchemist/";
+		public const string AlchemistBuffsPath = BuffsPath + "Alchemist/";
 		public const string MushroomSetPath = AlchemistItemsPath + "MushroomSet/";
 		public const string AlchemistJungleSetPath = AlchemistItemsPath + "JungleSet/";
 

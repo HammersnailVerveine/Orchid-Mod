@@ -5,6 +5,8 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class DemonBreathFlaskBuff : ModBuff
 	{
+		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Demon Reek");

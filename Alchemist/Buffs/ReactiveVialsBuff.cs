@@ -5,6 +5,8 @@ namespace OrchidMod.Alchemist.Buffs
 {
 	public class ReactiveVialsBuff : ModBuff
 	{
+		public override string Texture => OrchidAssets.AlchemistBuffsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reactive Elements");
