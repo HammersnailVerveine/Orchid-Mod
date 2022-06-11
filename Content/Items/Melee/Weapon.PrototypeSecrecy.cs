@@ -58,7 +58,7 @@ namespace OrchidMod.Content.Items.Melee
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.Request<Texture2D>(Texture + "_Glow").Value, Color.White * 0.7f, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White * 0.7f, rotation, scale);
 		}
 
 		public override bool CanUseItem(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<PrototypeSecrecyProjectile>()] <= 1; // We need exactly 2, not 1

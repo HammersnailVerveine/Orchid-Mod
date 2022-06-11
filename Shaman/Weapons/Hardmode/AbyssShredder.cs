@@ -8,8 +8,10 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-	public class AbyssShredder : OrchidModShamanItem, IGlowingItem
+	public class AbyssShredder : OrchidModShamanItem
 	{
+		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 110;
@@ -34,6 +36,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetStaticDefaults()
 		{
+			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
+
 			DisplayName.SetDefault("Abyss Stormcaller");
 			Tooltip.SetDefault("Shoots abyss energy thunderbolts"
 								+ "\nIncreases weapon speed for each active shamanic bond");
@@ -76,12 +80,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssShredder_Glowmask"), Color.White, rotation, scale);
-		}
-
-		public void DrawItemGlowmask(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimpleItemGlowmaskOnPlayer(drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssShredder_Glowmask"));
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White, rotation, scale);
 		}
 	}
 }

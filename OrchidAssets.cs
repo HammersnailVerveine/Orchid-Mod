@@ -18,6 +18,10 @@ namespace OrchidMod
 		public const string SoundsPath = Path + "Sounds/";
 		public const string TexturesPath = Path + "Textures/";
 
+		public const string MiscPath = TexturesPath + "Misc/";
+		public const string InvisiblePath = TexturesPath + "Misc/Invisible";
+
+		// Content
 		public const string BuffsPath = TexturesPath + "Buffs/";
 		public const string DustsPath = TexturesPath + "Dusts/";
 		public const string ProjectilesPath = TexturesPath + "Projectiles/";
@@ -26,8 +30,9 @@ namespace OrchidMod
 		public const string NPCsPath = TexturesPath + "NPCs/";
 		public const string TilesPath = TexturesPath + "Tiles/";
 
-		public const string MiscPath = TexturesPath + "Misc/";
-		public const string InvisiblePath = TexturesPath + "Misc/Invisible";
+		// Sets
+		public const string AbyssSetItemsPath = ItemsPath + "AbyssSet/";
+		public const string MushroomSetItemsPath = ItemsPath + "MushroomSet/";
 
 		// ...
 

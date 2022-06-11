@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.PlayerDrawLayers;
+using OrchidMod.Shaman.Misc;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -15,13 +17,15 @@ namespace OrchidMod.Content.Items.Tools
 {
 	public class AbyssHamaxe : LuminiteTool
 	{
+		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+
 		public AbyssHamaxe() : base(name: "Abyss Hamaxe", lightColor: new Color(69, 66, 237), itemCloneType: ItemID.LunarHamaxeSolar) { }
 
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 12);
-			recipe.AddIngredient(ModContent.ItemType<Shaman.Misc.AbyssFragment>(), 14);
+			recipe.AddIngredient(ModContent.ItemType<AbyssFragment>(), 14);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}
@@ -29,13 +33,15 @@ namespace OrchidMod.Content.Items.Tools
 
 	public class AbyssPickaxe : LuminiteTool
 	{
+		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+
 		public AbyssPickaxe() : base(name: "Abyss Pickaxe", lightColor: new Color(69, 66, 237), itemCloneType: ItemID.SolarFlarePickaxe) { }
 
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 10);
-			recipe.AddIngredient(ModContent.ItemType<Shaman.Misc.AbyssFragment>(), 12);
+			recipe.AddIngredient(ModContent.ItemType<AbyssFragment>(), 12);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}
@@ -43,7 +49,7 @@ namespace OrchidMod.Content.Items.Tools
 
 	// ...
 
-	public abstract class LuminiteTool : ModItem, IGlowingItem
+	public abstract class LuminiteTool : ModItem
 	{
 		private readonly Color lightColor;
 		private readonly int itemCloneType;
@@ -64,6 +70,8 @@ namespace OrchidMod.Content.Items.Tools
 
 		public sealed override void SetStaticDefaults()
 		{
+			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
+
 			DisplayName.SetDefault(name);
 		}
 
@@ -84,14 +92,7 @@ namespace OrchidMod.Content.Items.Tools
 
 		public sealed override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.Request<Texture2D>(Texture + "_Glow").Value, Color.White, rotation, scale);
-		}
-
-		// ...
-
-		void IGlowingItem.DrawItemGlowmask(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimpleItemGlowmaskOnPlayer(drawInfo, ModContent.GetTexture(this.Texture + "_Glow"));
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White, rotation, scale);
 		}
 	}
 }

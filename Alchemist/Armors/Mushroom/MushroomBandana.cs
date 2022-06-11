@@ -10,6 +10,8 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 	[AutoloadEquip(EquipType.Head)]
 	public class MushroomBandana : OrchidModAlchemistEquipable
 	{
+		public override string Texture => OrchidAssets.MushroomSetItemsPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 24;
@@ -70,7 +72,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomBandana_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
 		}
 
 		public override void EquipFrameEffects(Player player, EquipType type)

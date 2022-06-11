@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.PlayerDrawLayers;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Ranged
 {
-	public class SearingOnslaught : ModItem, IGlowingItem
+	public class SearingOnslaught : ModItem
 	{
 		private static readonly Color lightColor = new(255, 150, 0);
 
@@ -23,6 +24,8 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void SetStaticDefaults()
 		{
+			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
+
 			DisplayName.SetDefault("Searing Onslaught");
 			Tooltip.SetDefault("...");
 		}
@@ -62,7 +65,7 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.Request<Texture2D>(Texture + "_Glow").Value, Color.White, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White, rotation, scale);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -72,13 +75,6 @@ namespace OrchidMod.Content.Items.Ranged
 		}
 
 		public override Vector2? HoldoutOffset() => new Vector2(2, 0);
-
-		// ...
-
-		void IGlowingItem.DrawItemGlowmask(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimpleItemGlowmaskOnPlayer(drawInfo, ModContent.GetTexture(this.Texture + "_Glow"));
-		}
 	}
 
 	public class SearingOnslaughtProjectile : ModProjectile

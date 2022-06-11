@@ -11,6 +11,8 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Head)]
 	public class AbyssalHelm : OrchidModShamanEquipable
 	{
+		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 24;
@@ -83,7 +85,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssalHelm_Glowmask"), Color.White, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White, rotation, scale);
 		}
 	}
 }

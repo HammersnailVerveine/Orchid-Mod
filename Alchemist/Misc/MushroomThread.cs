@@ -9,6 +9,8 @@ namespace OrchidMod.Alchemist.Misc
 {
 	public class MushroomThread : OrchidModItem
 	{
+		public override string Texture => OrchidAssets.MushroomSetItemsPath + Name;
+
 		public override void SetDefaults()
 		{
 			Item.width = 28;
@@ -34,7 +36,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture("OrchidMod/Glowmasks/MushroomThread_Glowmask"), new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, new Color(250, 250, 250, 200) * OrchidWorld.alchemistMushroomArmorProgress, rotation, scale);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.PlayerDrawLayers;
 using OrchidMod.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -8,8 +9,20 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-	public class AbyssPrecinct : OrchidModShamanItem, IGlowingItem
+	public class AbyssPrecinct : OrchidModShamanItem
 	{
+		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+
+		public override void SafeSetStaticDefaults()
+		{
+			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
+
+			DisplayName.SetDefault("Abyss Precinct");
+			Tooltip.SetDefault("Shoots an abyssal vortex, pulsating with energy"
+								+ "\nHitting an enemy grants you an abyss fragment"
+								+ "\nIf you have 5 abyss fragments, your next hit will increase shamanic damage by 20% for 30 seconds");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 120;
@@ -24,16 +37,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shoot = ModContent.ProjectileType<Projectiles.OreOrbs.Big.AbyssPrecinctProj>();
 			Item.shootSpeed = 10f;
+
 			this.empowermentType = 2;
 			this.energy = 10;
-		}
-
-		public override void SafeSetStaticDefaults()
-		{
-			DisplayName.SetDefault("Abyss Precinct");
-			Tooltip.SetDefault("Shoots an abyssal vortex, pulsating with energy"
-								+ "\nHitting an enemy grants you an abyss fragment"
-								+ "\nIf you have 5 abyss fragments, your next hit will increase shamanic damage by 20% for 30 seconds");
 		}
 
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -57,12 +63,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssPrecinct_Glowmask"), Color.White, rotation, scale);
-		}
-
-		public void DrawItemGlowmask(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimpleItemGlowmaskOnPlayer(drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssPrecinct_Glowmask"));
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White, rotation, scale);
 		}
 	}
 }

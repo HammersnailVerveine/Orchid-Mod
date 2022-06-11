@@ -10,6 +10,8 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Wings)]
 	public class AbyssalWings : OrchidModShamanEquipable
 	{
+		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Allows flight and slow fall");
@@ -58,7 +60,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture("OrchidMod/Glowmasks/AbyssalWings_Glowmask"), Color.White, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White, rotation, scale);
 		}
 	}
 }

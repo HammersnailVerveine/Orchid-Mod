@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.PlayerDrawLayers;
 using OrchidMod.Utilities;
 using System;
 using Terraria;
@@ -9,8 +10,10 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
-	public class ShroomiteScepter : OrchidModShamanItem, IGlowingItem
+	public class ShroomiteScepter : OrchidModShamanItem
 	{
+		public override string Texture => OrchidAssets.ItemsPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 103;
@@ -31,6 +34,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetStaticDefaults()
 		{
+			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
+
 			DisplayName.SetDefault("Bloom Shroom");
 			Tooltip.SetDefault("Summons a protective shroom, harming nearby enemies"
 				+ "\nHaving 3 or more active shamanic bonds weakens hit targets"
@@ -63,12 +68,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture("OrchidMod/Glowmasks/ShroomiteScepter_Glowmask"), Color.White, rotation, scale);
-		}
-
-		public void DrawItemGlowmask(PlayerDrawInfo drawInfo)
-		{
-			OrchidHelper.DrawSimpleItemGlowmaskOnPlayer(drawInfo, ModContent.GetTexture("OrchidMod/Glowmasks/ShroomiteScepter_Glowmask"));
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White, rotation, scale);
 		}
 
 		private Projectile CreateNewProjectile(Item item, Player player, int projectileType)
