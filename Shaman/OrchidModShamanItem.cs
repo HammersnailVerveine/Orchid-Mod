@@ -123,7 +123,7 @@ namespace OrchidMod.Shaman
 
 			if (player.ownedProjectileCounts[catalystType] == 0)
 			{
-				var index = Projectile.NewProjectile(null, player.Center, Vector2.Zero, catalystType, 0, 0f, player.whoAmI); // change source ?
+				var index = Projectile.NewProjectile(null, player.Center, Vector2.Zero, catalystType, 0, 0f, player.whoAmI); // change source to something that's not null ?
 				shaman.shamanCatalystIndex = index;
 
 				var proj = Main.projectile[index];
