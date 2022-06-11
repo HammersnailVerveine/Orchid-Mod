@@ -56,11 +56,11 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemType<Sanctify>(), 1);
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BrokenHeroFragment").Type : ItemType<BrokenHeroScepter>(), (thoriumMod != null) ? 2 : 1);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

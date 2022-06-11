@@ -46,11 +46,11 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Diamond, 1);
 			recipe.AddIngredient(null, "EmptyTiara", 1);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

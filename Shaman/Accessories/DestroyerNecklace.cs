@@ -55,11 +55,11 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(1225, 5); // Hallowed Bar
 			recipe.AddIngredient(548, 20); // Sould of Might
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

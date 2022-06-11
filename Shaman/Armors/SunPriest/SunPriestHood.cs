@@ -55,11 +55,11 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "LihzahrdSilk", 3);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 12);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

@@ -7,6 +7,8 @@ namespace OrchidMod.Alchemist.Accessories
 	[AutoloadEquip(EquipType.Waist)]
 	public class MeteorToolbelt : OrchidModAlchemistEquipable
 	{
+		public override string Texture => OrchidAssets.AlchemistItemsPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 22;
@@ -30,11 +32,10 @@ namespace OrchidMod.Alchemist.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.MeteoriteBar, 15);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

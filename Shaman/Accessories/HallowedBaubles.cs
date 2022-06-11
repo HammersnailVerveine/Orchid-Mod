@@ -72,13 +72,13 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "TreasuredBaubles", 1);
 			recipe.AddIngredient(ItemID.PixieDust, 10);
 			recipe.AddIngredient(ItemID.UnicornHorn, 2);
 			recipe.AddIngredient(ItemID.CrystalShard, 5);
 			recipe.AddTile(114);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

@@ -31,13 +31,13 @@ namespace OrchidMod.General.Items.Consumables
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Bottles);
 			recipe.AddIngredient(ItemID.BottledWater, 1);
 			recipe.AddIngredient(ItemID.Deathweed, 1);
 			recipe.AddIngredient(null, "HarpyTalon", 1);
 			recipe.AddIngredient(ItemID.Feather, 1);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

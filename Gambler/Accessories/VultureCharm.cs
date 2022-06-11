@@ -33,11 +33,11 @@ namespace OrchidMod.Gambler.Accessories
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddRecipeGroup("IronBar", 5);
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : Mod.Find<ModItem>("VultureTalon").Type, 3);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

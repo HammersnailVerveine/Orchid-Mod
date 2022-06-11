@@ -28,11 +28,11 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "VenomSigil", 1);
 			recipe.AddIngredient(null, "PoisonSigil", 1);
 			recipe.AddTile(114);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(this, 1);
 			recipe.AddIngredient(548, 5);
 			recipe.AddIngredient(549, 5);

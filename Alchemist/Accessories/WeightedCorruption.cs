@@ -1,11 +1,14 @@
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Accessories
 {
 	public class WeightedCorruption : OrchidModAlchemistEquipable
 	{
+		public override string Texture => OrchidAssets.AlchemistItemsPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 24;
@@ -31,12 +34,11 @@ namespace OrchidMod.Alchemist.Accessories
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemType<Alchemist.Accessories.WeightedBottles>(), 1);
 			recipe.AddIngredient(ItemType<Alchemist.Accessories.PreservedCorruption>(), 1);
-			recipe.AddTile(114);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.Register();
 		}
 	}
 }

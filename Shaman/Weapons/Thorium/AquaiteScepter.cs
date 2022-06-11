@@ -51,11 +51,11 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(Mod);
+				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "AquaiteBar", 14);
 				recipe.AddIngredient(thoriumMod, "DepthScale", 6);
-				recipe.SetResult(this);
+				recipe.Register();
 				recipe.AddRecipe();
 			}
 		}

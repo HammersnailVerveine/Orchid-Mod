@@ -11,7 +11,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Head)]
 	public class AbyssalHelm : OrchidModShamanEquipable
 	{
-		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+		public override string Texture => OrchidAssets.AbyssSetPath + Name;
 
 		public override void SafeSetDefaults()
 		{
@@ -75,11 +75,11 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 8);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 10);
 			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

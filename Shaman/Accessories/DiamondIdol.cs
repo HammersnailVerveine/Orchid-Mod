@@ -27,10 +27,10 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Diamond, 15);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

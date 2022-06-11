@@ -40,11 +40,11 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ItemID.FallenStar, 5);
 			recipe.AddIngredient(ItemID.Wood, 10);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

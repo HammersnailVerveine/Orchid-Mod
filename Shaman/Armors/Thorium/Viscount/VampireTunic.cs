@@ -36,10 +36,10 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "ViscountMaterial", 15);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

@@ -36,12 +36,12 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.Moonglow, 3);
 			recipe.AddIngredient(ItemID.JungleSpores, 10);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

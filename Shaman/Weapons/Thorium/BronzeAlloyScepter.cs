@@ -59,10 +59,10 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(Mod);
+				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "BronzeFragments", 10);
-				recipe.SetResult(this);
+				recipe.Register();
 				recipe.AddRecipe();
 			}
 		}

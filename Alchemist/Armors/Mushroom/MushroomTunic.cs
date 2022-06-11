@@ -10,7 +10,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 	[AutoloadEquip(EquipType.Body)]
 	public class MushroomTunic : OrchidModAlchemistEquipable
 	{
-		public override string Texture => OrchidAssets.MushroomSetItemsPath + Name;
+		public override string Texture => OrchidAssets.MushroomSetPath + Name;
 
 		public override void SafeSetDefaults()
 		{
@@ -42,13 +42,12 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Silk, 8);
 			recipe.AddIngredient(ItemID.GlowingMushroom, 5);
 			recipe.AddIngredient(null, "MushroomThread", 1);
 			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)

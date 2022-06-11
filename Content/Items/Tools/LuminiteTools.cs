@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Items.Tools
 {
 	public class AbyssHamaxe : LuminiteTool
 	{
-		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+		public override string Texture => OrchidAssets.AbyssSetPath + Name;
 
 		public AbyssHamaxe() : base(name: "Abyss Hamaxe", lightColor: new Color(69, 66, 237), itemCloneType: ItemID.LunarHamaxeSolar) { }
 
@@ -33,7 +33,7 @@ namespace OrchidMod.Content.Items.Tools
 
 	public class AbyssPickaxe : LuminiteTool
 	{
-		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+		public override string Texture => OrchidAssets.AbyssSetPath + Name;
 
 		public AbyssPickaxe() : base(name: "Abyss Pickaxe", lightColor: new Color(69, 66, 237), itemCloneType: ItemID.SolarFlarePickaxe) { }
 

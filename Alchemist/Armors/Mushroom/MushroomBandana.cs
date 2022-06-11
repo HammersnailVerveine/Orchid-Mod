@@ -10,7 +10,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 	[AutoloadEquip(EquipType.Head)]
 	public class MushroomBandana : OrchidModAlchemistEquipable
 	{
-		public override string Texture => OrchidAssets.MushroomSetItemsPath + Name;
+		public override string Texture => OrchidAssets.MushroomSetPath + Name;
 
 		public override void SafeSetDefaults()
 		{
@@ -23,6 +23,9 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 
 		public override void SetStaticDefaults()
 		{
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
+
 			DisplayName.SetDefault("Phosphorescent Bandana");
 			Tooltip.SetDefault("5% increased potency regeneration");
 		}
@@ -45,23 +48,14 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 			modPlayer.alchemistNbElementsMax += 1;
 		}
 
-		public override bool DrawHead() => true;
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = true;
-			drawAltHair = false;
-		}
-
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Silk, 4);
 			recipe.AddIngredient(ItemID.GlowingMushroom, 5);
 			recipe.AddIngredient(null, "MushroomThread", 1);
 			recipe.AddTile(TileID.WorkBenches);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)

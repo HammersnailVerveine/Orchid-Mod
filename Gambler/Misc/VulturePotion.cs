@@ -33,13 +33,13 @@ namespace OrchidMod.Gambler.Misc
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Bottles);
 			recipe.AddIngredient(ItemID.BottledWater, 1);
 			recipe.AddIngredient(ItemID.Blinkroot, 1);
 			recipe.AddIngredient(ItemID.Cactus, 1);
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 2);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

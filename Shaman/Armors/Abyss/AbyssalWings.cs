@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Wings)]
 	public class AbyssalWings : OrchidModShamanEquipable
 	{
-		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+		public override string Texture => OrchidAssets.AbyssSetPath + Name;
 
 		public override void SetStaticDefaults()
 		{
@@ -50,11 +50,11 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 10);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 14);
 			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

@@ -44,10 +44,10 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.MeteoriteBar, 20);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

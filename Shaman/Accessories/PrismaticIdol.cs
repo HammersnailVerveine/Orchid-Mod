@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "AmberIdol", 1);
 			recipe.AddIngredient(null, "TopazIdol", 1);
 			recipe.AddIngredient(null, "AmethystIdol", 1);
@@ -52,7 +52,7 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(548, 5);
 			recipe.AddIngredient(549, 5);
 			recipe.AddTile(114);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

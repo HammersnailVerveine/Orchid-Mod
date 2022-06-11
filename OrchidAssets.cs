@@ -30,9 +30,14 @@ namespace OrchidMod
 		public const string NPCsPath = TexturesPath + "NPCs/";
 		public const string TilesPath = TexturesPath + "Tiles/";
 
-		// Sets
-		public const string AbyssSetItemsPath = ItemsPath + "AbyssSet/";
-		public const string MushroomSetItemsPath = ItemsPath + "MushroomSet/";
+		// Alchemist
+		public const string AlchemistItemsPath = ItemsPath + "Alchemist/";
+		public const string MushroomSetPath = AlchemistItemsPath + "MushroomSet/";
+		public const string AlchemistJungleSetPath = AlchemistItemsPath + "JungleSet/";
+
+		// Shaman
+		public const string ShamanItemsPath = ItemsPath + "Shaman/";
+		public const string AbyssSetPath = ShamanItemsPath + "AbyssSet/";
 
 		// ...
 

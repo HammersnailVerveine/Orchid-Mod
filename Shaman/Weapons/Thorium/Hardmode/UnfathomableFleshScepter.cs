@@ -40,11 +40,11 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(Mod);
+				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(Mod.Find<ModItem>("RitualScepter").Type, 1);
 				recipe.AddIngredient(thoriumMod, "UnfathomableFlesh", 9);
-				recipe.SetResult(this);
+				recipe.Register();
 				recipe.AddRecipe();
 			}
 		}

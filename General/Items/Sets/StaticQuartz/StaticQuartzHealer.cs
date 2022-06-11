@@ -50,10 +50,10 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 		{
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(Mod);
+				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(ItemType<StaticQuartz>(), 12);
-				recipe.SetResult(this);
+				recipe.Register();
 				recipe.AddRecipe();
 			}
 		}

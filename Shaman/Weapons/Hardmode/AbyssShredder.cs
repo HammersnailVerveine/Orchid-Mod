@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 {
 	public class AbyssShredder : OrchidModShamanItem
 	{
-		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+		public override string Texture => OrchidAssets.AbyssSetPath + Name;
 
 		public override void SafeSetDefaults()
 		{
@@ -71,10 +71,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18);
 			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

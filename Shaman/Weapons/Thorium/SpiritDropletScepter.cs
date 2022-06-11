@@ -53,11 +53,11 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(Mod);
+				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "SpiritDroplet", 8);
 				recipe.AddIngredient(ItemID.Bone, 20);
-				recipe.SetResult(this);
+				recipe.Register();
 				recipe.AddRecipe();
 			}
 		}

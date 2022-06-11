@@ -14,11 +14,11 @@ namespace OrchidMod.Gambler.Decks
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "GamblerAttack", 1);
 			recipe.AddIngredient(1066, 1); // Rainbow Dye
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

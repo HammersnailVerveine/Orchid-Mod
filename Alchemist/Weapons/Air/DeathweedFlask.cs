@@ -35,20 +35,20 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.Deathweed, 3);
 			recipe.AddIngredient(ItemID.ShadowScale, 5);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(Mod);
+			recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.Deathweed, 3);
 			recipe.AddIngredient(ItemID.TissueSample, 5);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

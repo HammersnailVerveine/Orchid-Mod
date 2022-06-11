@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Legs)]
 	public class AbyssalGreaves : OrchidModShamanEquipable
 	{
-		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+		public override string Texture => OrchidAssets.AbyssSetPath + Name;
 
 		public override void SafeSetDefaults()
 		{
@@ -43,11 +43,11 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 12);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 15);
 			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

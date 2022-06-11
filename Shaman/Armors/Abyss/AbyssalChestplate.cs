@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Body)]
 	public class AbyssalChestplate : OrchidModShamanEquipable
 	{
-		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+		public override string Texture => OrchidAssets.AbyssSetPath + Name;
 
 		public override void SafeSetDefaults()
 		{
@@ -42,11 +42,11 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 16);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 20);
 			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

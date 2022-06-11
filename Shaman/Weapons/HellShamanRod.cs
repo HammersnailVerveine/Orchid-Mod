@@ -51,11 +51,11 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ModContent.ItemType<ShamanRod>(), 1);
 			recipe.AddIngredient(ItemID.HellstoneBar, 12);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

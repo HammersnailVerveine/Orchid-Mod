@@ -8,6 +8,8 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 	[AutoloadEquip(EquipType.Head)]
 	public class AlchemistJungleHead : OrchidModAlchemistEquipable
 	{
+		public override string Texture => OrchidAssets.AlchemistJungleSetPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 26;
@@ -19,6 +21,9 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void SetStaticDefaults()
 		{
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = false;
+
 			DisplayName.SetDefault("Lily Hood");
 			Tooltip.SetDefault("20% increased potency regeneration"
 							  + "\nMaximum number of simultaneous alchemical elements increased by 1");
@@ -43,26 +48,14 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 			modPlayer.alchemistFlowerSet = true;
 		}
 
-		public override bool DrawHead()
-		{
-			return true;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = false;
-			drawAltHair = false;
-		}
-
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>(), 1);
 			recipe.AddIngredient(ItemID.Vine, 1);
 			recipe.AddIngredient(ItemID.JungleSpores, 3);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

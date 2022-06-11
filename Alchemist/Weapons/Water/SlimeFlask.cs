@@ -35,11 +35,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ItemID.Bottle, 1);
 			recipe.AddIngredient(ItemID.Gel, 5);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

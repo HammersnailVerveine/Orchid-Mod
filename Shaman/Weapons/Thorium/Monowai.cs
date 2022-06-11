@@ -52,12 +52,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(Mod);
+				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(Mod.Find<ModItem>("MagmaScepter").Type, 1);
 				recipe.AddIngredient(Mod.Find<ModItem>("AquaiteScepter").Type, 1);
 				recipe.AddIngredient(thoriumMod, "aDarksteelAlloy", 10);
-				recipe.SetResult(this);
+				recipe.Register();
 				recipe.AddRecipe();
 			}
 		}

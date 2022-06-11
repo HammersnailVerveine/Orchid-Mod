@@ -45,10 +45,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.PalladiumBar, 12);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

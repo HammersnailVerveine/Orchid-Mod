@@ -47,12 +47,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "RitualScepter", 1);
 			recipe.AddIngredient(ItemID.CursedFlame, 20);
 			recipe.AddIngredient(ItemID.SoulofNight, 15);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

@@ -28,10 +28,10 @@ namespace OrchidMod.General.Items.Misc
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(283);
 			recipe.AddIngredient(ItemID.Wood, 1);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

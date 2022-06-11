@@ -60,10 +60,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.AddIngredient(3261, 20);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

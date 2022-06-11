@@ -32,10 +32,10 @@ namespace OrchidMod.Guardian.Weapons.Shields
 
 		// public override void AddRecipes()
 		// {
-		// ModRecipe recipe = new ModRecipe(mod);
+		// var recipe = new ModRecipe(mod);
 		// recipe.AddTile(TileID.WorkBenches);		
 		// recipe.AddIngredient(ItemID.Wood, 8);
-		// recipe.SetResult(this);
+		// recipe.Register();
 		// recipe.AddRecipe();
 		// }
 	}

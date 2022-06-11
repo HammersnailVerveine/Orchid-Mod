@@ -47,22 +47,22 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "Blum", 1);
 			recipe.AddIngredient(null, "PerishingSoul", 1);
 			recipe.AddIngredient(null, "SporeCaller", 1);
 			recipe.AddIngredient(null, "VileSpout", 1);
 			recipe.AddTile(TileID.DemonAltar);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(Mod);
+			recipe = CreateRecipe();
 			recipe.AddIngredient(null, "Blum", 1);
 			recipe.AddIngredient(null, "PerishingSoul", 1);
 			recipe.AddIngredient(null, "SporeCaller", 1);
 			recipe.AddIngredient(null, "SpineScepter", 1);
 			recipe.AddTile(TileID.DemonAltar);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

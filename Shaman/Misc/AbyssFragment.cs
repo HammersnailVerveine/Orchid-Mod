@@ -7,7 +7,7 @@ namespace OrchidMod.Shaman.Misc
 	// TODO: At the moment it is considered a scepter ... We need to fix this
 	public class AbyssFragment : OrchidModShamanItem
 	{
-		public override string Texture => OrchidAssets.AbyssSetItemsPath + Name;
+		public override string Texture => OrchidAssets.AbyssSetPath + Name;
 
 		public override void SafeSetDefaults()
 		{

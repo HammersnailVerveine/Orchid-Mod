@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler.Weapons.Dice
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Amethyst, 5);
 			recipe.AddIngredient(ItemID.Topaz, 5);
@@ -33,7 +33,7 @@ namespace OrchidMod.Gambler.Weapons.Dice
 			recipe.AddIngredient(ItemID.Emerald, 5);
 			recipe.AddIngredient(ItemID.Ruby, 5);
 			recipe.AddIngredient(ItemID.Diamond, 5);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

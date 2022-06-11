@@ -35,18 +35,18 @@ namespace OrchidMod.Shaman.Armors.Downpour
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.AdamantiteBar, 20);
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(Mod);
+			recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.TitaniumBar, 20);
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

@@ -4,6 +4,8 @@ namespace OrchidMod.Alchemist.Accessories
 {
 	public class AlchemistTest : OrchidModAlchemistEquipable
 	{
+		public override string Texture => OrchidAssets.AlchemistItemsPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 24;
@@ -12,6 +14,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.rare = -11;
 			Item.accessory = true;
 		}
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Alchemist Test Accessory");
@@ -20,6 +23,7 @@ namespace OrchidMod.Alchemist.Accessories
 							+ "\n50% increased potency regeneration"
 							+ "\n[c/FF0000:Test Item]");
 		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();

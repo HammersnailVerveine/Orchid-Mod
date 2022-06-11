@@ -36,12 +36,12 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(null, "KingSlimeFlask", 1);
 			recipe.AddIngredient(ItemID.HellstoneBar, 10);
 			recipe.AddIngredient(null, "AlchemicStabilizer", 1);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

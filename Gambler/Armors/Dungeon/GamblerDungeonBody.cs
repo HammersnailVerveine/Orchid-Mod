@@ -32,11 +32,11 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "TiamatRelic", 1);
 			recipe.AddIngredient(ItemID.Bone, 20);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

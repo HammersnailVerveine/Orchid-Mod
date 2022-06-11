@@ -43,11 +43,11 @@ namespace OrchidMod.Gambler.Weapons.Chips
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.Diamond, 8);
 			recipe.AddIngredient(ItemID.PlatinumBar, 10);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

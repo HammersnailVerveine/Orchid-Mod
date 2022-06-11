@@ -40,11 +40,11 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				ModRecipe recipe = new ModRecipe(Mod);
+				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "SolarPebble", 8);
 				recipe.AddIngredient(ItemID.LunarTabletFragment, 10);
-				recipe.SetResult(this);
+				recipe.Register();
 				recipe.AddRecipe();
 			}
 		}

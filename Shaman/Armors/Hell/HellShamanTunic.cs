@@ -36,12 +36,12 @@ namespace OrchidMod.Shaman.Armors.Hell
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.HellstoneBar, 15);
 			recipe.AddIngredient(ItemID.Silk, 10);
 			recipe.AddIngredient(ItemID.Bone, 15);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

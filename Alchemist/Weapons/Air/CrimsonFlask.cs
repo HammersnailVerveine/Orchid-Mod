@@ -36,12 +36,12 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.Vertebrae, 5);
 			recipe.AddIngredient(2887, 5); // Viscious mushroom
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 

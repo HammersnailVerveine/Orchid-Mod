@@ -30,13 +30,13 @@ namespace OrchidMod.Shaman.Misc
 		}
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Bottles);
 			recipe.AddIngredient(ItemID.BottledWater, 1);
 			recipe.AddIngredient(ItemID.Fireblossom, 1);
 			recipe.AddIngredient(ItemID.Shiverthorn, 1);
 			recipe.AddIngredient(ItemID.Feather, 1);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

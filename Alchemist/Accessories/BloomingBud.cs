@@ -6,6 +6,8 @@ namespace OrchidMod.Alchemist.Accessories
 {
 	public class BloomingBud : OrchidModAlchemistEquipable
 	{
+		public override string Texture => OrchidAssets.AlchemistItemsPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 26;
@@ -32,7 +34,7 @@ namespace OrchidMod.Alchemist.Accessories
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				perturbedSpeed = perturbedSpeed * scale;
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileType<Alchemist.Projectiles.Reactive.FlowerReactive>(), dmg, 0, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center.X, player.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileType<Alchemist.Projectiles.Reactive.FlowerReactive>(), dmg, 0, player.whoAmI, 0f, 0f);
 			}
 		}
 	}

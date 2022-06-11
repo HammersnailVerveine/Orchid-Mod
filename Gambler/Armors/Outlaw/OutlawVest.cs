@@ -40,20 +40,20 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Silk, 7);
 			recipe.AddIngredient(ItemID.GoldBar, 15);
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 4);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 
-			recipe = new ModRecipe(Mod);
+			recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Silk, 7);
 			recipe.AddIngredient(ItemID.PlatinumBar, 15);
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 4);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}

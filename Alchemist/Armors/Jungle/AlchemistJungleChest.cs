@@ -7,6 +7,8 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 	[AutoloadEquip(EquipType.Body)]
 	public class AlchemistJungleChest : OrchidModAlchemistEquipable
 	{
+		public override string Texture => OrchidAssets.AlchemistJungleSetPath + Name;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 30;
@@ -32,13 +34,12 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>(), 1);
 			recipe.AddIngredient(ItemID.Vine, 1);
 			recipe.AddIngredient(ItemID.JungleSpores, 5);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

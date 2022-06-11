@@ -56,11 +56,11 @@ namespace OrchidMod.Shaman.Armors.Harpy
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "HarpyTalon", 1);
 			recipe.AddIngredient(ItemID.Feather, 3);
 			recipe.AddTile(TileID.Anvils);
-			recipe.SetResult(this);
+			recipe.Register();
 			recipe.AddRecipe();
 		}
 	}
