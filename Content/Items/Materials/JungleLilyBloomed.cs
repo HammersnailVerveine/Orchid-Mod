@@ -6,6 +6,8 @@ namespace OrchidMod.Content.Items.Materials
 {
 	public class JungleLilyBloomed : ModItem
 	{
+		public override string Texture => OrchidAssets.ItemsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bloomed Jungle Lily");

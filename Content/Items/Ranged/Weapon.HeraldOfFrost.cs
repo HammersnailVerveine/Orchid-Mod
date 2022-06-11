@@ -12,8 +12,10 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Ranged
 {
-	public class HeraldOfFrost : OrchidItem
+	public class HeraldOfFrost : ModItem
 	{
+		public override string Texture => OrchidAssets.ItemsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Herald of Frost");
@@ -37,7 +39,7 @@ namespace OrchidMod.Content.Items.Ranged
 			Item.noMelee = true;
 			Item.value = Item.sellPrice(0, 4, 0, 0);
 			Item.rare = ItemRarityID.Pink;
-			Item.ranged = true;
+			Item.DamageType = DamageClass.Ranged;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -46,6 +48,7 @@ namespace OrchidMod.Content.Items.Ranged
 			tooltips.Add(new TooltipLine(Mod, "ExtraInfo", "'This item will be available later'"));
 		}
 
-		public override Vector2? HoldoutOffset() => new Vector2(2, 0);
+		public override Vector2? HoldoutOffset()
+			=> new Vector2(2, 0);
 	}
 }

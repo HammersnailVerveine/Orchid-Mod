@@ -8,25 +8,32 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.NPCs.Town
 {
+	// [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
 	[AutoloadHead]
 	public class Chemist : ModNPC
 	{
-		public override string Texture => OrchidAssets.NPCsPath + Name;
-		public override string[] AltTextures => new[] { OrchidAssets.NPCsPath + Name + "_Alt_1" };
+		public override string Texture => "OrchidMod/NPCs/Town/Chemist";
+
+		public override string[] AltTextures => new[] { "OrchidMod/NPCs/Town/Chemist_Alt_1" };
+
+		public override bool Autoload(ref string name)
+		{
+			name = "Chemist";
+			return Mod.Properties.Autoload;
+		}
 
 		public override void SetStaticDefaults()
 		{
+			// DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
 			DisplayName.SetDefault("Chemist");
-
-			Main.npcFrameCount[Type] = 23;
-
-			NPCID.Sets.ExtraFramesCount[Type] = 9;
-			NPCID.Sets.AttackFrameCount[Type] = 4;
-			NPCID.Sets.DangerDetectRange[Type] = 700;
-			NPCID.Sets.AttackType[Type] = 0;
-			NPCID.Sets.AttackTime[Type] = 90;
-			NPCID.Sets.AttackAverageChance[Type] = 30;
-			NPCID.Sets.HatOffsetY[Type] = 4;
+			Main.npcFrameCount[NPC.type] = 23;
+			NPCID.Sets.ExtraFramesCount[NPC.type] = 9;
+			NPCID.Sets.AttackFrameCount[NPC.type] = 4;
+			NPCID.Sets.DangerDetectRange[NPC.type] = 700;
+			NPCID.Sets.AttackType[NPC.type] = 0;
+			NPCID.Sets.AttackTime[NPC.type] = 90;
+			NPCID.Sets.AttackAverageChance[NPC.type] = 30;
+			NPCID.Sets.HatOffsetY[NPC.type] = 4;
 		}
 
 		public override void SetDefaults()
@@ -42,60 +49,113 @@ namespace OrchidMod.NPCs.Town
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0.5f;
-
 			AnimationType = NPCID.Mechanic;
 		}
+
+		// public override void HitEffect(int hitDirection, double damage) {
+		// int num = npc.life > 0 ? 1 : 5;
+		// for (int k = 0; k < num; k++) {
+		// Dust.NewDust(npc.position, npc.width, npc.height, 6);
+		// }
+		// }
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
 		{
 			return OrchidWorld.foundChemist;
 		}
 
-		public override List<string> SetNPCNameList()
+		// public override void AI() {
+		// if (!OrchidWorld.foundChemist) {
+		// OrchidWorld.foundChemist = true;
+		// }
+		// }
+
+		public override string TownNPCName()
 		{
-			return new()
+			switch (WorldGen.genRand.Next(11))
 			{
-				"Elodie",
-				"Annick",
-				"Samantha",
-				"Ambre",
-				"Maeva",
-				"Sophie",
-				"Florianne",
-				"Juliette",
-				"Chloe",
-				"Amandine",
-				"Alicia"
-			};
+				case 0:
+					return "Elodie";
+				case 1:
+					return "Annick";
+				case 2:
+					return "Samantha";
+				case 3:
+					return "Ambre";
+				case 4:
+					return "Maeva";
+				case 5:
+					return "Sophie";
+				case 6:
+					return "Florianne";
+				case 7:
+					return "Juliette";
+				case 8:
+					return "Chloe";
+				case 9:
+					return "Amandine";
+				default:
+					return "Alicia";
+			}
+		}
+
+		public override void FindFrame(int frameHeight)
+		{
+			/*npc.frame.Width = 40;
+			if (((int)Main.time / 10) % 2 == 0)
+			{
+				npc.frame.X = 40;
+			}
+			else
+			{
+				npc.frame.X = 0;
+			}*/
 		}
 
 		public override string GetChat()
 		{
 			if (Main.bloodMoon)
 			{
-				return Main.rand.Next(4) switch
+				switch (Main.rand.Next(4))
 				{
-					0 => "Want your blood donated to science? No? Then leave.",
-					1 => "Of course you can't use normal bottles for alchemy! Give me money!",
-					2 => "Ugh, what, you want to blow yourself up or something?",
-					_ => "DON'T get stains on anything! I don't care if I already did!",
-				};
+					case 0:
+						return "Want your blood donated to science? No? Then leave.";
+					case 1:
+						return "Of course you can't use normal bottles for alchemy! Give me money!";
+					case 2:
+						return "Ugh, what, you want to blow yourself up or something?";
+					default:
+						return "DON'T get stains on anything! I don't care if I already did!";
+				}
 			}
-
-			return Main.rand.Next(8 + (Main.dayTime ? 1 : 2)) switch
+			else
 			{
-				0 => "So you're interested in alchemy AND haven't exploded yet? Impressive.",
-				1 => "Always wear your gloves! By the way, have you seen my gloves?",
-				2 => "You know, you can use a centrifuge for stain removal! Kind of.",
-				3 => "You can be a catalyst for science! Or a pile of ash. Try to keep priorities.",
-				4 => "Alchemy makes the world go around... current scientific theories purport.",
-				5 => "Safety warning: do not drink alchemical compounds. Unless I can take notes.",
-				6 => "Some people call me a reactionary.",
-				7 => "Alchemy is just sublime!",
-				8 => Main.dayTime ? "Life is just one big reaction!" : "Undeath is just one big reaction! I don't know why the moon does that.",
-				9 => "Do you think the moon... is made of attractite?!",
-				_ => "The scientific method is... try until it doesn't explode!",
-			};
+				switch (Main.rand.Next(8 + (Main.dayTime ? 1 : 2)))
+				{
+					case 0:
+						return "So you're interested in alchemy AND haven't exploded yet? Impressive.";
+					case 1:
+						return "Always wear your gloves! By the way, have you seen my gloves?";
+					case 2:
+						return "You know, you can use a centrifuge for stain removal! Kind of.";
+					case 3:
+						return "You can be a catalyst for science! Or a pile of ash. Try to keep priorities.";
+					case 4:
+						return "Alchemy makes the world go around... current scientific theories purport.";
+					case 5:
+						return "Safety warning: do not drink alchemical compounds. Unless I can take notes.";
+					case 6:
+						return "Some people call me a reactionary.";
+					case 7:
+						return "Alchemy is just sublime!";
+					case 8:
+						return Main.dayTime ? "Life is just one big reaction!" : "Undeath is just one big reaction! I don't know why the moon does that.";
+					case 9:
+						return "Do you think the moon... is made of attractite?!";
+					default:
+						return "The scientific method is... try until it doesn't explode!";
+				}
+			}
 		}
 
 		public override void SetChatButtons(ref string button, ref string button2)

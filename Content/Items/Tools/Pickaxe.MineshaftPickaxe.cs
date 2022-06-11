@@ -1,13 +1,16 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
 namespace OrchidMod.Content.Items.Tools
 {
-	public class MineshaftPickaxe : OrchidItem
+	public class MineshaftPickaxe : ModItem
 	{
+		public override string Texture => OrchidAssets.ItemsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Can mine meteorite");
@@ -18,7 +21,7 @@ namespace OrchidMod.Content.Items.Tools
 			Item.CloneDefaults(ItemID.SilverPickaxe);
 
 			Item.damage = 6;
-			Item.melee = true;
+			Item.DamageType = DamageClass.Melee;
 			Item.width = 34;
 			Item.height = 34;
 			Item.useTime = 19;
@@ -33,25 +36,31 @@ namespace OrchidMod.Content.Items.Tools
 		}
 	}
 
-	public class MineshaftPickaxeTile : OrchidTile
+	public class MineshaftPickaxeTile : ModTile
 	{
+		public override string Texture => OrchidAssets.TilesPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			Main.tileFrameImportant[Type] = true;
 			Main.tileSpelunker[Type] = true;
 			Main.tileLavaDeath[Type] = true;
+
+			TileID.Sets.DisableSmartCursor[Type] = true;
+
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
 			TileObjectData.addTile(Type);
 
-			this.CreateMapEntry("Mineshaft Pickaxe", new Color(100, 75, 50));
+			ModTranslation name = CreateMapEntryName();
+			name.SetDefault("Mineshaft Pickaxe");
+			AddMapEntry(new Color(100, 75, 50), name);
 
 			DustType = 7;
-			disableSmartCursor = true;
 		}
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<MineshaftPickaxe>());
+			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<MineshaftPickaxe>());
 		}
 	}
 }

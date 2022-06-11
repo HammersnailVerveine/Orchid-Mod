@@ -1,14 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Mounts
 {
-	public class SquareMinecart : OrchidItem
+	public class SquareMinecart : ModItem
 	{
+		public override string Texture => OrchidAssets.ItemsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Square Minecart");
@@ -25,8 +26,10 @@ namespace OrchidMod.Content.Items.Mounts
 		}
 	}
 
-	public class SquareMinecartBuff : OrchidBuff
+	public class SquareMinecartBuff : ModBuff
 	{
+		public override string Texture => OrchidAssets.BuffsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Minecart"); // Square Minecart (all vanilla minecarts have this name...)
@@ -45,18 +48,14 @@ namespace OrchidMod.Content.Items.Mounts
 
 	public class SquareMinecartMount : ModMount
 	{
-		public override bool Autoload(ref string name, ref string texture, IDictionary<MountTextureType, string> extraTextures)
-		{
-			texture = "OrchidMod/Assets/Textures/Mounts/SquareMinecartMount_Front";
-			extraTextures[MountTextureType.Front] = "OrchidMod/Assets/Textures/Mounts/SquareMinecartMount_Front";
-			return true;
-		}
+		public override string Texture => OrchidAssets.MountsPath + Name;
 
 		public override void SetStaticDefaults()
 		{
 			MountID.Sets.Cart[Type] = true;
+
 			MountData.Minecart = true;
-			MountData.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
+			MountData.delegations.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
 
 			MountData.spawnDust = 16;
 			MountData.buff = ModContent.BuffType<SquareMinecartBuff>();
@@ -97,8 +96,8 @@ namespace OrchidMod.Content.Items.Mounts
 
 			if (Main.netMode != NetmodeID.Server)
 			{
-				MountData.textureWidth = MountData.frontTexture.Width;
-				MountData.textureHeight = MountData.frontTexture.Height;
+				MountData.textureWidth = MountData.frontTexture.Width();
+				MountData.textureHeight = MountData.frontTexture.Height();
 			}
 		}
 	}

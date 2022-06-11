@@ -13,11 +13,13 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Ranged
 {
-	public class SearingOnslaught : OrchidItem, IGlowingItem
+	public class SearingOnslaught : ModItem, IGlowingItem
 	{
-		private readonly Color _lightColor = new Color(255, 150, 0);
+		private static readonly Color lightColor = new(255, 150, 0);
 
 		// ...
+
+		public override string Texture => OrchidAssets.ItemsPath + Name;
 
 		public override void SetStaticDefaults()
 		{
@@ -41,7 +43,7 @@ namespace OrchidMod.Content.Items.Ranged
 			Item.noMelee = true;
 			Item.value = Item.sellPrice(0, 4, 0, 0);
 			Item.rare = ItemRarityID.LightRed;
-			Item.ranged = true;
+			Item.DamageType = DamageClass.Ranged;
 			Item.channel = true;
 			Item.noUseGraphic = true;
 			Item.useTurn = true;
@@ -50,17 +52,17 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
-			Lighting.AddLight(player.itemLocation, _lightColor.ToVector3() * 0.2f);
+			Lighting.AddLight(player.itemLocation, lightColor.ToVector3() * 0.2f);
 		}
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(Item.Center, _lightColor.ToVector3() * 0.2f);
+			Lighting.AddLight(Item.Center, lightColor.ToVector3() * 0.2f);
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture(this.Texture + "_Glow"), Color.White, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.Request<Texture2D>(Texture + "_Glow").Value, Color.White, rotation, scale);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -79,13 +81,9 @@ namespace OrchidMod.Content.Items.Ranged
 		}
 	}
 
-	public class SearingOnslaughtProjectile : OrchidProjectile
+	public class SearingOnslaughtProjectile : ModProjectile
 	{
-		//private int _charge = 0;
-
-		// ...
-
-		public override string Texture => "OrchidMod/Assets/Textures/Items/AmosBow";
+		public override string Texture => OrchidAssets.InvisiblePath;
 
 		public override void SetDefaults()
 		{
@@ -100,36 +98,33 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void AI()
 		{
-			if (!Owner.active || Owner.dead) Projectile.Kill();
+			var owner = Main.player[Projectile.owner];
 
-			if (Owner.channel)
+			if (!owner.active || owner.dead) Projectile.Kill();
+
+			if (owner.channel)
 			{
-				Owner.heldProj = Projectile.whoAmI;
-				Owner.itemAnimation = 2;
-				Owner.itemTime = 2;
+				owner.heldProj = Projectile.whoAmI;
+				owner.itemAnimation = 2;
+				owner.itemTime = 2;
 				Projectile.timeLeft = 2;
 
-				Projectile.Center = Owner.itemLocation;
+				Projectile.Center = owner.itemLocation;
 
-				if (Projectile.Center.X > Owner.MountedCenter.X)
+				if (Projectile.Center.X > owner.MountedCenter.X)
 				{
-					Owner.ChangeDir(1);
+					owner.ChangeDir(1);
 					Projectile.direction = 1;
 				}
 				else
 				{
-					Owner.ChangeDir(-1);
+					owner.ChangeDir(-1);
 					Projectile.direction = -1;
 				}
 			}
 		}
 
-		public override bool? CanDamage()/* Suggestion: Return null instead of false */ => false;
+		public override bool? CanDamage() => false;
 		public override bool? CanCutTiles() => false;
 	}
-
-	/*public class SearingOnslaughtArrowProjectile : OrchidProjectile
-	{
-
-	}*/
 }

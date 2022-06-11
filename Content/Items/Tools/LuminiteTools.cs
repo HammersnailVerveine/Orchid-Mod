@@ -19,12 +19,11 @@ namespace OrchidMod.Content.Items.Tools
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 12);
 			recipe.AddIngredient(ModContent.ItemType<Shaman.Misc.AbyssFragment>(), 14);
 			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 
@@ -34,57 +33,58 @@ namespace OrchidMod.Content.Items.Tools
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 10);
 			recipe.AddIngredient(ModContent.ItemType<Shaman.Misc.AbyssFragment>(), 12);
 			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 
 	// ...
 
-	public abstract class LuminiteTool : OrchidItem, IGlowingItem
+	public abstract class LuminiteTool : ModItem, IGlowingItem
 	{
-		private readonly Color _lightColor;
-		private readonly int _itemCloneType;
-		private readonly string _name;
+		private readonly Color lightColor;
+		private readonly int itemCloneType;
+		private readonly string name;
 
 		// ...
 
 		public LuminiteTool(string name, Color lightColor, int itemCloneType)
 		{
-			_lightColor = lightColor;
-			_itemCloneType = itemCloneType;
-			_name = name;
+			this.lightColor = lightColor;
+			this.itemCloneType = itemCloneType;
+			this.name = name;
 		}
+
+		public override string Texture => OrchidAssets.ItemsPath + Name;
 
 		// ...
 
 		public sealed override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault(_name);
+			DisplayName.SetDefault(name);
 		}
 
 		public sealed override void SetDefaults()
 		{
-			Item.CloneDefaults(_itemCloneType);
+			Item.CloneDefaults(itemCloneType);
 		}
 
 		public sealed override void UseStyle(Player player, Rectangle heldItemFrame)
 		{
-			Lighting.AddLight(player.itemLocation, _lightColor.ToVector3() * 0.2f);
+			Lighting.AddLight(player.itemLocation, lightColor.ToVector3() * 0.2f);
 		}
 
 		public sealed override void PostUpdate()
 		{
-			Lighting.AddLight(Item.Center, _lightColor.ToVector3() * 0.2f);
+			Lighting.AddLight(Item.Center, lightColor.ToVector3() * 0.2f);
 		}
 
 		public sealed override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture(this.Texture + "_Glow"), Color.White, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.Request<Texture2D>(Texture + "_Glow").Value, Color.White, rotation, scale);
 		}
 
 		// ...

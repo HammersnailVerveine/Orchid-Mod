@@ -138,6 +138,8 @@ namespace OrchidMod.Content.Prefixes
 			var ttNames = new HashSet<string> { "Material", "Defense", "Vanity", "Equipable" };
 			var index = tooltips.FindLastIndex(i => i.Name.Equals("Terraria") && ttNames.Contains(i.Text)) + 1;
 
+			if (index == -1) return;
+
 			if (shamanTimer > 0)
 			{
 				tooltips.Insert(index, new TooltipLine(Mod, "ShamanTimerPrefix", "+" + shamanTimer + "s shamanic bond duration")

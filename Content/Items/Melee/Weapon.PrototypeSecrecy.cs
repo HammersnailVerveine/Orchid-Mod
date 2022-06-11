@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,6 +23,8 @@ namespace OrchidMod.Content.Items.Melee
 		public static readonly SoundStyle Magic1Sound = new(OrchidAssets.SoundsPath + "Magic_1");
 
 		// ...
+
+		public override string Texture => OrchidAssets.ItemsPath + Name;
 
 		public override void SetStaticDefaults()
 		{
@@ -45,7 +48,7 @@ namespace OrchidMod.Content.Items.Melee
 			Item.noUseGraphic = true;
 			Item.rare = ItemRarityID.Green;
 			Item.value = Item.sellPrice(0, 1, 20, 0);
-			Item.melee = true;
+			Item.DamageType = DamageClass.Melee;
 		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)
@@ -55,20 +58,19 @@ namespace OrchidMod.Content.Items.Melee
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.GetTexture("OrchidMod/Assets/Textures/Items/PrototypeSecrecy_Glow"), Color.White * 0.7f, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, ModContent.Request<Texture2D>(Texture + "_Glow").Value, Color.White * 0.7f, rotation, scale);
 		}
 
 		public override bool CanUseItem(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<PrototypeSecrecyProjectile>()] <= 1; // We need exactly 2, not 1
 
 		public override void AddRecipes()
 		{
-			ModRecipe recipe = new ModRecipe(Mod);
+			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.EnchantedBoomerang, 1);
 			recipe.AddIngredient(ModContent.ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 6);
 			recipe.AddIngredient(ItemID.Silk, 2);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 
@@ -81,7 +83,7 @@ namespace OrchidMod.Content.Items.Melee
 
 		// ...
 
-		public override string Texture => "OrchidMod/Assets/Textures/Items/PrototypeSecrecy";
+		public override string Texture => OrchidAssets.ItemsPath + nameof(PrototypeSecrecy);
 
 		public override void SetStaticDefaults()
 		{
@@ -95,10 +97,10 @@ namespace OrchidMod.Content.Items.Melee
 			Projectile.aiStyle = 3;
 			Projectile.friendly = true;
 			Projectile.penetrate = -1;
-			Projectile.melee = true;
+			Projectile.DamageType = DamageClass.Melee;
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			_trail = new RoundedTrail
 			(
@@ -129,10 +131,10 @@ namespace OrchidMod.Content.Items.Melee
 		{
 			var texture = TextureAssets.Projectile[Projectile.type].Value;
 			var position = Projectile.position + Projectile.Size * 0.5f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
-			spriteBatch.Draw(texture, position, null, lightColor, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
+			Main.EntitySpriteDraw(texture, position, null, lightColor, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
 
-			texture = ModContent.GetTexture("OrchidMod/Assets/Textures/Items/PrototypeSecrecy_Glow");
-			spriteBatch.Draw(texture, position, null, Color.White * 0.7f, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
+			texture = ModContent.Request<Texture2D>(Texture + "_Glow").Value;
+			Main.EntitySpriteDraw(texture, position, null, Color.White * 0.7f, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
 			return false;
 		}
 
@@ -148,14 +150,13 @@ namespace OrchidMod.Content.Items.Melee
 				SoundEngine.PlaySound(Magic0Sound, Projectile.Center);
 			}
 
-			Projectile.NewProjectile(Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PrototypeSecrecyHitProjectile>(), 0, 0f, Projectile.owner, flag.ToInt());
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PrototypeSecrecyHitProjectile>(), 0, 0f, Projectile.owner, flag.ToInt());
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			Projectile.velocity = -oldVelocity;
-			Projectile.NewProjectile(Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PrototypeSecrecyHitProjectile>(), 0, 0f, Projectile.owner, 0);
-
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PrototypeSecrecyHitProjectile>(), 0, 0f, Projectile.owner, 0);
 			return base.OnTileCollide(oldVelocity);
 		}
 
@@ -170,7 +171,7 @@ namespace OrchidMod.Content.Items.Melee
 
 	public class PrototypeSecrecyHitProjectile : ModProjectile, IDrawAdditive
 	{
-		public override string Texture => "OrchidMod/Assets/Textures/Misc/Invisible";
+		public override string Texture => OrchidAssets.InvisiblePath;
 
 		public override void SetStaticDefaults()
 		{
@@ -190,7 +191,7 @@ namespace OrchidMod.Content.Items.Melee
 			Projectile.tileCollide = false;
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			Projectile.rotation += Main.rand.NextFloat(MathHelper.TwoPi);
 

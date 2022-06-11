@@ -188,7 +188,7 @@ namespace OrchidMod.Content.Prefixes
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
-			if (item.damage <= 0 || item.accessory || item.type == ItemID.None) return - 1;
+			if (item.damage <= 0 || item.accessory || item.type == ItemID.None) return -1;
 
 			var globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			if (!globalItem.shamanWeapon) return -1;
