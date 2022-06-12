@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -34,35 +35,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							  + "\nHaving 4 or more active shamanic bonds will drastically increase the weapon damage and range");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			/*var dust = Dust.NewDustPerfect(position, DustID.GoldFlame, Vector2.One * 5);
-			dust.noGravity = true;
-			*/
-			return base.SafeShoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
-		}
-
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-
-			mult *= modPlayer.shamanDamage;
-
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 3)
-			{
-				mult *= 1.5f;
-			}
+				damage *= 1.5f;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.HallowedBar, 12);
-			recipe.AddIngredient(ItemID.SoulofSight, 20);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.HallowedBar, 12)
+			.AddIngredient(ItemID.SoulofSight, 20)
+			.AddTile(TileID.MythrilAnvil)
+			.Register();
 
 		public override void ExtraAICatalyst(Projectile projectile, bool after)
 		{

@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,22 +16,22 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 6;
 			Item.useAnimation = 30;
 			Item.knockBack = 4.15f;
-			Item.rare = 8;
+			Item.rare = ItemRarityID.Yellow;
 			Item.value = Item.sellPrice(0, 10, 0, 0);
 			Item.UseSound = SoundID.Item15;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("SunRayProj").Type;
+			Item.shoot = ModContent.ProjectileType<SunRayProj>();
 			this.empowermentType = 1;
 			this.energy = 2;
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
-			mult *= modPlayer.shamanDamage + (nbBonds * 0.1f);
-			if (!Main.dayTime) add -= 0.1f;
+			damage += nbBonds * 0.1f;
+			if (!Main.dayTime) damage.Flat -= 0.1f;
 		}
 
 		public override void SafeSetStaticDefaults()

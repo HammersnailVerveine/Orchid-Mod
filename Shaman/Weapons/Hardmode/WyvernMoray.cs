@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,12 +34,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							  + "\nThe more shamanic bonds you have, the higher the chances of critical strike");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
-			var proj = Main.projectile[this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage * 2, knockBack, player.whoAmI)];
+			var proj = Main.projectile[this.NewShamanProjectile(player, source, position, velocity, type, damage * 2, knockback)];
 			if (proj.ModProjectile is Projectiles.WyvernMorayProj modProj)
 			{
 				modProj.Improved = (Main.rand.Next(101) < 4 + nbBonds * 4);

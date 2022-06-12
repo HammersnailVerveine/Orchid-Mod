@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Shaman.Misc;
+using OrchidMod.Shaman.Projectiles.OreOrbs.Large;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -22,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 9f;
-			Item.shoot = Mod.Find<ModProjectile>("TrueSanctifyProj").Type;
+			Item.shoot = ModContent.ProjectileType<TrueSanctifyProj>();
 			this.empowermentType = 5;
 			this.energy = 6;
 		}
@@ -36,16 +38,17 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							  + "\nHaving 3 or more active shamanic bonds will release homing projectiles");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
 			{
-				for (int i = 0; i < 2; i++)
+				int typeAlt = ModContent.ProjectileType<TrueSanctifyProjAlt>();
+				int newDamage = (int)(Item.damage * 0.75);
+				for (int i = -1; i < 3; i += 2)
 				{
-					Vector2 projectileVelocity = (new Vector2(speedX, speedY).RotatedBy(MathHelper.ToRadians(i == 0 ? -20 : 20)));
-					this.NewShamanProjectile(position.X, position.Y, projectileVelocity.X, projectileVelocity.Y, Mod.Find<ModProjectile>("TrueSanctifyProjAlt").Type, (int)(Item.damage * 0.75), knockBack, Item.playerIndexTheItemIsReservedFor);
+					Vector2 newVelocity = velocity.RotatedBy(MathHelper.ToRadians(20 * i));
+					this.NewShamanProjectile(player, source, position, newVelocity, typeAlt, newDamage, knockback);
 				}
 			}
 
@@ -61,7 +64,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BrokenHeroFragment").Type : ItemType<BrokenHeroScepter>(), (thoriumMod != null) ? 2 : 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
-			recipe.AddRecipe();
 		}
 	}
 }
