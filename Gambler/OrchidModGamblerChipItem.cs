@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler
@@ -14,30 +15,20 @@ namespace OrchidMod.Gambler
 
 		public virtual void SafeSetDefaults() { }
 		public virtual void SafeHoldItem(Player player, OrchidModPlayer modPlayer) { }
-		public virtual void SafeModifyWeaponDamage(Player player, OrchidModPlayer modPlayer, ref float add, ref float mult, ref float flat) { }
-		public virtual bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed) {
+		public virtual void SafeModifyWeaponDamage(Player player, ref StatModifier damage) { }
+		public virtual bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed) {
 			return true;
 		}
 
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
+			Item.DamageType = DamageClass.Generic;
 			Item.noMelee = true;
 			Item.maxStack = 1;
 		}
 
-		public override bool CloneNewInstances
-		{
-			get
-			{
-				return true;
-			}
-		}
+		protected override bool CloneNewInstances => true;
 
 		public sealed override void HoldItem(Player player)
 		{
@@ -50,8 +41,8 @@ namespace OrchidMod.Gambler
 		public sealed override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{	
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			mult *= (modPlayer.gamblerDamage + modPlayer.gamblerDamageChip);
-			SafeModifyWeaponDamage(player, modPlayer, ref add, ref mult, ref flat);
+			damage *= (modPlayer.gamblerDamage + modPlayer.gamblerDamageChip);
+			SafeModifyWeaponDamage(player, ref damage);
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)
@@ -73,12 +64,13 @@ namespace OrchidMod.Gambler
 			}
 			return base.CanUseItem(player);
 		}
-		
-		public sealed override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack) {
+
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.gamblerPauseChipRotation = (pauseRotation ? Item.useAnimation : modPlayer.gamblerPauseChipRotation);
-			float speed = new Vector2(speedX, speedY).Length() * -1f;
-			return this.SafeShoot(player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack, modPlayer, speed);
+			float speed = velocity.Length() * -1f;
+			return this.SafeShoot(player, source, ref position, ref velocity, ref type, ref damage, ref knockback, modPlayer, speed);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -113,7 +113,7 @@ namespace OrchidMod.Shaman
 						Main.dust[dust].noGravity = true;
 					}
 
-					Projectile.NewProjectile((int)(player.Center.X + 25 - randX), (int)(player.Center.Y + 15 - randY), 0f, 0f, mod.Find<ModProjectile>("Smite").Type, dmg, 0f, player.whoAmI);
+					Projectile.NewProjectile(null, (int)(player.Center.X + 25 - randX), (int)(player.Center.Y + 15 - randY), 0f, 0f, mod.Find<ModProjectile>("Smite").Type, dmg, 0f, player.whoAmI);
 				}
 
 			}
@@ -143,7 +143,7 @@ namespace OrchidMod.Shaman
 					if (modPlayer.timer120 % 10 == 0)
 					{
 						int dmg = (int)(30 * modPlayer.shamanDamage + 5E-06f);
-						Projectile.NewProjectile(player.Center.X - 10 + (Main.rand.Next(20)), player.Center.Y + 16, 0f, -0.001f, mod.Find<ModProjectile>("LavaDroplet").Type, dmg, 0f, player.whoAmI);
+						Projectile.NewProjectile(null, player.Center.X - 10 + (Main.rand.Next(20)), player.Center.Y + 16, 0f, -0.001f, mod.Find<ModProjectile>("LavaDroplet").Type, dmg, 0f, player.whoAmI);
 					}
 				}
 
@@ -181,9 +181,9 @@ namespace OrchidMod.Shaman
 						}
 
 						if (Main.player[Main.myPlayer].strongBees && Main.rand.Next(2) == 0)
-							Projectile.NewProjectile((int)(player.Center.X + 75 - randX), (int)(player.Center.Y + 15 - randY), (float)(Main.rand.Next(3) - 1.5), (float)(Main.rand.Next(3) - 1.5), 566, (int)(12), 0f, player.whoAmI, 0f, 0f);
+							Projectile.NewProjectile(null, (int)(player.Center.X + 75 - randX), (int)(player.Center.Y + 15 - randY), (float)(Main.rand.Next(3) - 1.5), (float)(Main.rand.Next(3) - 1.5), 566, (int)(12), 0f, player.whoAmI, 0f, 0f);
 						else
-							Projectile.NewProjectile((int)(player.Center.X + 75 - randX), (int)(player.Center.Y + 15 - randY), (float)(Main.rand.Next(3) - 1.5), (float)(Main.rand.Next(3) - 1.5), 181, (int)(10), 0f, player.whoAmI, 0f, 0f);
+							Projectile.NewProjectile(null, (int)(player.Center.X + 75 - randX), (int)(player.Center.Y + 15 - randY), (float)(Main.rand.Next(3) - 1.5), (float)(Main.rand.Next(3) - 1.5), 181, (int)(10), 0f, player.whoAmI, 0f, 0f);
 					}
 				}
 
@@ -221,33 +221,33 @@ namespace OrchidMod.Shaman
 
 				if (player.velocity.Y == 0 || player.grappling[0] >= 0 || (modPlayer.shamanHarpyAnklet && modPlayer.shamanSpiritTimer > 0 && !player.controlJump))
 				{
-					if (player.jumpAgainCloud)
+					if (player.canJumpAgain_Cloud)
 					{
 						modPlayer.jumpHeightCheck = (int)((double)Player.jumpHeight * 0.75);
 					}
-					if (player.jumpAgainSail)
+					if (player.canJumpAgain_Sail)
 					{
 						modPlayer.jumpHeightCheck = (int)((double)Player.jumpHeight * 1.25);
 					}
-					if (player.jumpAgainFart)
+					if (player.canJumpAgain_Fart)
 					{
 						modPlayer.jumpHeightCheck = Player.jumpHeight * 2;
 					}
-					if (player.jumpAgainBlizzard)
+					if (player.canJumpAgain_Blizzard)
 					{
 						modPlayer.jumpHeightCheck = (int)((double)Player.jumpHeight * 1.5);
 					}
-					if (player.jumpAgainSandstorm)
+					if (player.canJumpAgain_Sandstorm)
 					{
 						modPlayer.jumpHeightCheck = Player.jumpHeight * 3;
 					}
-					if (player.jumpAgainUnicorn)
+					if (player.canJumpAgain_Unicorn)
 					{
 						modPlayer.jumpHeightCheck = Player.jumpHeight * 2;
 					}
 				}
 
-				if (player.jumpAgainCloud && player.jump == (int)((double)Player.jumpHeight * 0.75))
+				if (player.canJumpAgain_Cloud && player.jump == (int)((double)Player.jumpHeight * 0.75))
 					player.jump--;
 
 				if ((player.jump == modPlayer.jumpHeightCheck && modPlayer.harpySpaceKeyReleased == true))
@@ -270,7 +270,7 @@ namespace OrchidMod.Shaman
 							if (dirX != 0 && dirY != 0) ankletSpeed = 7.5f;
 							if (ankletCanShoot)
 							{
-								Projectile.NewProjectile(player.Center.X, player.Center.Y, (dirX * ankletSpeed), (dirY * ankletSpeed), mod.Find<ModProjectile>("HarpyAnkletProj").Type, dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
+								Projectile.NewProjectile(null, player.Center.X, player.Center.Y, (dirX * ankletSpeed), (dirY * ankletSpeed), mod.Find<ModProjectile>("HarpyAnkletProj").Type, dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
 							}
 						}
 					}
@@ -317,7 +317,7 @@ namespace OrchidMod.Shaman
 				{
 					if (modPlayer.abyssSet)
 					{
-						Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.Find<ModProjectile>("AbyssPortal").Type, 0, 5, player.whoAmI);
+						Projectile.NewProjectile(null, Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.Find<ModProjectile>("AbyssPortal").Type, 0, 5, player.whoAmI);
 						SoundEngine.PlaySound(SoundID.Item122, player.Center);
 					}
 					modPlayer.doubleTap = 0;
@@ -341,7 +341,7 @@ namespace OrchidMod.Shaman
 				{
 					if (modPlayer.abyssSet)
 					{
-						Projectile.NewProjectile(Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.Find<ModProjectile>("AbyssPortal").Type, 0, 5, player.whoAmI);
+						Projectile.NewProjectile(null, Main.MouseWorld.X, Main.MouseWorld.Y, 0f, 0f, mod.Find<ModProjectile>("AbyssPortal").Type, 0, 5, player.whoAmI);
 						SoundEngine.PlaySound(SoundID.Item122, player.Center);
 					}
 					modPlayer.doubleTap = 0;
@@ -426,12 +426,12 @@ namespace OrchidMod.Shaman
 				if (Main.rand.Next(2) == 0)
 				{
 					int type = ProjectileType<Shaman.Projectiles.Thorium.Equipment.Viscount.ViscountBlood>();
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 0, 0.0f, projectile.owner, 0.0f, 0.0f);
+					Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 0, 0.0f, projectile.owner, 0.0f, 0.0f);
 				}
 				else
 				{
 					int type = ProjectileType<Shaman.Projectiles.Thorium.Equipment.Viscount.ViscountSound>();
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 0, 0.0f, projectile.owner, 0.0f, 0.0f);
+					Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 0, 0.0f, projectile.owner, 0.0f, 0.0f);
 				}
 			}
 
@@ -443,7 +443,7 @@ namespace OrchidMod.Shaman
 					Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(360));
 					int dmg = (int)(50 * modPlayer.shamanDamage);
 					int type = ProjectileType<Shaman.Projectiles.Equipment.Hell.ShamanHellHoming>();
-					Projectile.NewProjectile(target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, dmg, 0.0f, projectile.owner, 0.0f, 0.0f);
+					Projectile.NewProjectile(player.GetSource_OnHit(target), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, dmg, 0.0f, projectile.owner, 0.0f, 0.0f);
 				}
 			}
 		}
@@ -506,7 +506,7 @@ namespace OrchidMod.Shaman
 						heading.Normalize();
 						heading *= new Vector2(5f, 5f).Length();
 						Vector2 projectileVelocity = (new Vector2(heading.X, heading.Y).RotatedByRandom(MathHelper.ToRadians(10)));
-						Projectile.NewProjectile(Main.player[projectile.owner].Center.X, Main.player[projectile.owner].Center.Y, projectileVelocity.X, projectileVelocity.Y, mod.Find<ModProjectile>("LostSoul").Type, dmg, 0f, projectile.owner, 0f, 0f);
+						Projectile.NewProjectile(null, Main.player[projectile.owner].Center.X, Main.player[projectile.owner].Center.Y, projectileVelocity.X, projectileVelocity.Y, mod.Find<ModProjectile>("LostSoul").Type, dmg, 0f, projectile.owner, 0f, 0f);
 					}
 
 					if (crit == true && modPlayer.shamanWaterHoney && modPlayer.shamanWaterTimer > 0 && modPlayer.timerVial == 30)
@@ -594,8 +594,8 @@ namespace OrchidMod.Shaman
 			{
 				modPlayer.shamanTimerHellDefense = 0;
 				int dmg = (int)(50 * modPlayer.shamanDamage);
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, ProjectileType<Shaman.Projectiles.Equipment.Hell.ShamanHellExplosion>(), dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
-				SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 14);
+				Projectile.NewProjectile(null, player.Center.X, player.Center.Y, 0f, 0f, ProjectileType<Shaman.Projectiles.Equipment.Hell.ShamanHellExplosion>(), dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
+				SoundEngine.PlaySound(SoundID.Item14);
 				OrchidModProjectile.spawnDustCircle(player.Center, 6, 10, 15, true, 1f, 1f, 8f, true, true, false, 0, 0, true);
 				OrchidModProjectile.spawnDustCircle(player.Center, 6, 10, 15, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
 				OrchidModProjectile.spawnDustCircle(player.Center, 6, 10, 15, true, 2f, 1f, 3f, true, true, false, 0, 0, true);
@@ -731,8 +731,8 @@ namespace OrchidMod.Shaman
 			{
 				player.AddBuff(BuffType<Shaman.Buffs.DeepForestAura>(), 1);
 				int projType = ProjectileType<Shaman.Projectiles.Equipment.DeepForestCharmProj>();
-				Projectile.NewProjectile(player.Center.X, player.position.Y, 0f, 0f, projType, 1, 0, player.whoAmI, 0f, 0f);
-				Projectile.NewProjectile(player.Center.X, player.position.Y, 0f, 0f, projType, 2, 0, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(null, player.Center.X, player.position.Y, 0f, 0f, projType, 1, 0, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(null, player.Center.X, player.position.Y, 0f, 0f, projType, 2, 0, player.whoAmI, 0f, 0f);
 			}
 
 			bool newEmpowerment = false;

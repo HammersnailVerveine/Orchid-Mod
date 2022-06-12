@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Guardian
 {
-	public class BlockedEnemy : OrchidModProjectile
+	public class BlockedEnemy
 	{
 		public NPC npc;
 		public int time;

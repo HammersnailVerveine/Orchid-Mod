@@ -13,26 +13,16 @@ namespace OrchidMod.Guardian
 		public override void SetDefaults()
 		{
 			SafeSetDefaults();
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
+			Item.DamageType = DamageClass.Generic;
 			Item.noMelee = true;
 			Item.maxStack = 1;
 		}
 
-		public override bool CloneNewInstances
-		{
-			get
-			{
-				return true;
-			}
-		}
+		protected override bool CloneNewInstances => true;
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().guardianDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().guardianDamage;
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)

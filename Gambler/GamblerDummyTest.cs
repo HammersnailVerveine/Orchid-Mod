@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -11,11 +12,7 @@ namespace OrchidMod.Gambler
 	{
 		public override void SetDefaults()
 		{
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
+			Item.DamageType = DamageClass.Generic;
 			Item.noMelee = true;
 			Item.maxStack = 1;
 			Item.width = 34;
@@ -33,7 +30,7 @@ namespace OrchidMod.Gambler
 			Item.autoReuse = true;
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			Item currentCard = modPlayer.gamblerCardDummy;
@@ -57,7 +54,7 @@ namespace OrchidMod.Gambler
 
 			currentCard = modPlayer.gamblerCardDummy;
 			this.checkStats(currentCard, player, modPlayer);
-			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, position, speedX, speedY, type, Item.damage, Item.knockBack, true);
+			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, type, Item.damage, Item.knockBack, true);
 			return false;
 		}
 
@@ -73,7 +70,7 @@ namespace OrchidMod.Gambler
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)
@@ -146,7 +143,7 @@ namespace OrchidMod.Gambler
 		{
 			if (currentCard.type != ItemID.None)
 			{
-				Item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.allDamage - 1f));
+				Item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.GetDamage(DamageClass.Generic).Multiplicative - 1f));
 				//item.rare = currentCard.rare;
 				Item.crit = currentCard.crit + modPlayer.gamblerCrit;
 				Item.useAnimation = currentCard.useAnimation;

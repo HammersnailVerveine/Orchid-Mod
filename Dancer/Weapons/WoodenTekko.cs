@@ -17,7 +17,7 @@ namespace OrchidMod.Dancer.Weapons
 			Item.knockBack = 3f;
 			Item.damage = 8;
 			Item.crit = 4;
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 			Item.autoReuse = true;
 			Item.useAnimation = 30;
 			Item.useTime = 30;

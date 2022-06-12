@@ -21,11 +21,6 @@ namespace OrchidMod.Guardian
 		public sealed override void SetDefaults()
 		{
 			Item.crit = 4;
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
 			Item.noMelee = true;
 			Item.autoReuse = false;
 			Item.maxStack = 1;
@@ -33,6 +28,7 @@ namespace OrchidMod.Guardian
 			Item.useAnimation = 30;
 			Item.useTime = 30;
 			Item.knockBack = 6f;
+			Item.DamageType = DamageClass.Generic;
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.guardianWeapon = true;

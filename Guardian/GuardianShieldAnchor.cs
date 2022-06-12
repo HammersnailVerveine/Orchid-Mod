@@ -266,7 +266,7 @@ namespace OrchidMod.Guardian
 
 			if (guardianItem.PreDrawShield(spriteBatch, Projectile, player, ref color))
 			{
-				var texture = ModContent.GetTexture(guardianItem.ShieldTexture);
+				var texture = ModContent.Request<Texture2D>(guardianItem.ShieldTexture).Value;
 				var position = Projectile.Center - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 				

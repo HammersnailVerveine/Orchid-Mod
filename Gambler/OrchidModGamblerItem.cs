@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
@@ -14,20 +15,15 @@ namespace OrchidMod.Gambler
 		public int cardRequirement = -1;
 		public List<string> gamblerCardSets = new List<string>();
 
-		public virtual void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false) { }
+		public virtual void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack, bool dummy = false) { }
 
 		public virtual void SafeSetDefaults() { }
 
 		public sealed override void SetDefaults()
 		{
+			Item.DamageType = DamageClass.Generic;
 			Item.width = 20;
 			Item.height = 26;
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
-			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.UseSound = SoundID.Item64;
 			Item.consumable = true;
@@ -43,7 +39,7 @@ namespace OrchidMod.Gambler
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)
@@ -53,12 +49,12 @@ namespace OrchidMod.Gambler
 
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).gamblerCrit)
+			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayer>().gamblerCrit)
 				crit = true;
 			else crit = false;
 		}
 
-		public override bool CloneNewInstances => true;
+		protected override bool CloneNewInstances => true;
 		public override bool AltFunctionUse(Player player) => true;
 
 		public override bool CanUseItem(Player player)
@@ -92,8 +88,8 @@ namespace OrchidMod.Gambler
 						}
 						if (!found)
 						{
-							int gamblerDeck = ItemType<Gambler.Decks.GamblerAttack>();
-							player.QuickSpawnItem(gamblerDeck, 1);
+							int gamblerDeck = ItemType<Decks.GamblerAttack>();
+							player.QuickSpawnItem(player.GetSource_GiftOrReward("Gambler Deck"), gamblerDeck, 1);
 						}
 					}
 					Item.useAnimation = 20;
