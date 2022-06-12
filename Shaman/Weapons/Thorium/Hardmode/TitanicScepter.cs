@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("TitanicScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<TitanicScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -37,13 +39,10 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nCritical strikes will deal additional damage");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			int numberProjectiles = 3;
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
-			}
+			for (int i = 0; i < 3; i++)
+				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			return false;
 		}
 
@@ -56,7 +55,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.AddTile(thoriumMod.Find<ModTile>("SoulForge").Type);
 				recipe.AddIngredient(thoriumMod, "TitanBar", 8);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

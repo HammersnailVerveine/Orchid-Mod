@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 13f;
-			Item.shoot = Mod.Find<ModProjectile>("ValadiumScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<ValadiumScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -37,13 +39,13 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nAttacks will blast enemies with inter-dimensional energy briefly");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			int numberProjectiles = 3;
-			for (int i = 0; i < numberProjectiles; i++)
+			for (int i = 0; i < 3; i++)
 			{
-				int dmg = player.GetModPlayer<OrchidModPlayer>().orbCountBig >= 15 ? damage * 2 : damage;
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, dmg, knockBack, player.whoAmI);
+				int newDamage = player.GetModPlayer<OrchidModPlayer>().orbCountBig >= 15 ? damage * 2 : damage;
+				this.NewShamanProjectile(player, source, position, velocity, type, newDamage, knockback);
+
 			}
 			return false;
 		}
@@ -57,7 +59,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "ValadiumIngot", 8);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

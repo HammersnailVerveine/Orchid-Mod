@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 1f;
-			Item.shoot = Mod.Find<ModProjectile>("MoltenResidueScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<MoltenResidueScepterProj>();
 			this.empowermentType = 1;
 			this.energy = 15;
 		}
@@ -41,11 +42,10 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			{
 				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.MythrilAnvil);
-				recipe.AddIngredient(Mod.Find<ModItem>("RitualScepter").Type, 1);
+				recipe.AddIngredient(ModContent.ItemType<Misc.RitualScepter>(), 1);
 				recipe.AddIngredient(thoriumMod, "MoltenResidue", 8);
 				recipe.AddIngredient(ItemID.SoulofNight, 7);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

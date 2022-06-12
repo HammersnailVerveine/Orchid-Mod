@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = Mod.Find<ModProjectile>("DragonScaleScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<DragonScaleScepterProj>();
 			this.empowermentType = 5;
 			this.energy = 10;
 		}
@@ -41,10 +42,9 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			{
 				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.MythrilAnvil);
-				recipe.AddIngredient(Mod.Find<ModItem>("RitualScepter").Type, 1);
+				recipe.AddIngredient(ModContent.ItemType<Misc.RitualScepter>(), 1);
 				recipe.AddIngredient(thoriumMod, "GreenDragonScale", 9);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -24,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = Mod.Find<ModProjectile>("TerrariumScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<TerrariumScepterProj>();
 			this.empowermentType = 3;
 			this.energy = 4;
 		}
@@ -54,7 +55,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.AddTile(TileID.LunarCraftingStation);
 				recipe.AddIngredient(thoriumMod, "TerrariumCore", 9);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

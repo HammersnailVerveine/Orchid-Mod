@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 1f;
-			Item.shoot = Mod.Find<ModProjectile>("LichScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<LichScepterProj>();
 			this.empowermentType = 3;
 			this.energy = 12;
 		}

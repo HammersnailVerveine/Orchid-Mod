@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = Mod.Find<ModProjectile>("SolarPebbleScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<SolarPebbleScepterProj>();
 			this.empowermentType = 1;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 4;
@@ -45,7 +46,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.AddIngredient(thoriumMod, "SolarPebble", 8);
 				recipe.AddIngredient(ItemID.LunarTabletFragment, 10);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

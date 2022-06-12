@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = false;
 			Item.shootSpeed = 10f;
-			Item.shoot = Mod.Find<ModProjectile>("CoznixScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<CoznixScepterProj>();
 			this.empowermentType = 1;
 			this.energy = 25;
 		}

@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = Mod.Find<ModProjectile>("BersekerShardScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<BersekerShardScepterProj>();
 			this.empowermentType = 1;
 			this.energy = 8;
 		}
@@ -35,12 +36,11 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nIf you have 5 shamanic bonds, enemies hit by the staff return as aggressive spirits for a short time after dying");
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-			if (player.statLifeMax2 - player.statLife > (int)(player.statLifeMax2 * 0.75f)) add += 0.33f;
-			if (player.statLifeMax2 - player.statLife > (int)(player.statLifeMax2 * 0.5f)) add += 0.33f;
-			if (player.statLifeMax2 - player.statLife > (int)(player.statLifeMax2 * 0.25f)) add += 0.33f;
+			if (player.statLifeMax2 - player.statLife > (int)(player.statLifeMax2 * 0.75f)) damage += 0.33f;
+			if (player.statLifeMax2 - player.statLife > (int)(player.statLifeMax2 * 0.5f)) damage += 0.33f;
+			if (player.statLifeMax2 - player.statLife > (int)(player.statLifeMax2 * 0.25f)) damage += 0.33f;
 
 		}
 
@@ -53,7 +53,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "BersekerShard", 9);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

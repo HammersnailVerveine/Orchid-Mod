@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,12 +17,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 10;
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
-			Item.magic = true;
 			Item.width = 42;
 			Item.height = 42;
 			Item.useTime = 60;
@@ -30,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.value = Item.sellPrice(0, 2, 0, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.shootSpeed = 5f;
-			Item.shoot = Mod.Find<ModProjectile>("AbyssalChitinScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<AbyssalChitinScepterProj>();
 			this.empowermentType = 2;
 			this.energy = 20;
 		}
@@ -44,7 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\n'Used to be called the fizzling wand of fizzly fizzies'");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
@@ -57,10 +53,10 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 			for (int i = 0; i < 5; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(30));
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(30));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
-				perturbedSpeed = perturbedSpeed * scale;
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				newVelocity *= scale;
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			}
 			return false;
 		}
@@ -91,7 +87,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "AbyssalChitin", 9);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

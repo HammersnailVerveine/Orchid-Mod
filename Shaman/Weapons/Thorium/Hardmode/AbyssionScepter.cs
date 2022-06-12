@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = Mod.Find<ModProjectile>("AbyssionScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<AbyssionScepterProj>();
 			this.empowermentType = 2;
 			this.energy = 3;
 		}
@@ -35,19 +37,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nCosts 25 health to cast, reduced by 5 for each active shamanic bond");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 			int damageCost = 25 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 5;
 			if (player.statLife - damageCost > 0)
-			{
 				player.statLife -= damageCost;
-			}
 			else
-			{
 				player.statLife = 1;
-			}
 
 			return true;
 		}

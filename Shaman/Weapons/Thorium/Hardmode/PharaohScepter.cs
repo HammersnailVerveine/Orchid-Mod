@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
-			Item.shoot = Mod.Find<ModProjectile>("PharaohScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<PharaohScepterProj>();
 			this.empowermentType = 3;
 			this.energy = 7;
 		}
@@ -36,21 +38,20 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nThe more shamanic bonds you have, the greater the chance to summon a mirror");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == Mod.Find<ModProjectile>("PharaohScepterPortal").Type && proj.owner == player.whoAmI)
+				if (proj.active && proj.type == ModContent.ProjectileType<PharaohScepterPortal>() && proj.owner == player.whoAmI)
 				{
 					Vector2 target = Main.MouseWorld;
-					Vector2 heading = target - proj.position;
-					heading.Normalize();
-					heading *= new Vector2(speedX, speedY).Length();
-					float speedXAlt = heading.X;
-					float speedYAlt = heading.Y + Main.rand.Next(-40, 41) * 0.02f;
-
-					this.NewShamanProjectile(proj.Center.X, proj.Center.Y, speedXAlt, speedYAlt, Mod.Find<ModProjectile>("PharaohScepterProjAlt").Type, damage, knockBack, player.whoAmI);
+					Vector2 newVelocity = target - proj.position;
+					newVelocity.Normalize();
+					newVelocity *= velocity.Length();
+					newVelocity.Y += Main.rand.Next(-40, 41) * 0.02f;
+					int typeAlt = ModContent.ProjectileType<PharaohScepterProjAlt>();
+					this.NewShamanProjectile(player, source, proj.Center, newVelocity, type, damage, knockback);
 				}
 			}
 
@@ -67,7 +68,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 2);
 				recipe.AddIngredient(thoriumMod, "PharaohsBreath", 8);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

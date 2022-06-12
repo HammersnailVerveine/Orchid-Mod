@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = Mod.Find<ModProjectile>("GeodeScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<GeodeScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 13;
 		}
@@ -44,7 +45,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "Geode", 8);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

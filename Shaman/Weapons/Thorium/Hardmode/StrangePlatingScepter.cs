@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item12;
 			Item.autoReuse = true;
 			Item.shootSpeed = 20f;
-			Item.shoot = Mod.Find<ModProjectile>("StrangePlatingScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<StrangePlatingScepterProj>();
 			this.empowermentType = 1;
 			this.energy = 7;
 		}
@@ -35,18 +37,20 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 							+ "\nThe more shamanic bonds you have, the higher the chances of critical strike");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
-			if (Main.rand.Next(101) < 4 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 4)
+			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(3));
+
+			if (Main.rand.Next(101) < 4 + nbBonds * 4)
 			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("StrangePlatingScepterProjAlt").Type, damage * 2, knockBack, player.whoAmI);
+				type = ModContent.ProjectileType<StrangePlatingScepterProjAlt>();
+				damage *= 2;
 			}
-			else
-			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
-			}
+
+			this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			return false;
 		}
 
@@ -59,7 +63,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(thoriumMod, "StrangePlating", 12);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}
