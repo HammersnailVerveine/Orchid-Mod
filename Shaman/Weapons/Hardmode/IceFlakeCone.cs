@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -7,13 +8,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 {
 	public class IceFlakeCone : OrchidModShamanItem
 	{
-		public override void SafeSetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ice Flake");
-			Tooltip.SetDefault("Shoots returning ice blades"
-							  + "\nThe maximum number of projectiles launched depends on the number of active shamanic bonds");
-		}
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 72;
@@ -28,13 +22,19 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
 			Item.shoot = ModContent.ProjectileType<Projectiles.IceFlakeConeProj>();
-
 			this.empowermentType = 2;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 3;
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override void SafeSetStaticDefaults()
+		{
+			DisplayName.SetDefault("Ice Flake");
+			Tooltip.SetDefault("Shoots returning ice blades"
+							  + "\nThe maximum number of projectiles launched depends on the number of active shamanic bonds");
+		}
+
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
@@ -43,8 +43,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(7));
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(7));
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			}
 
 			return false;

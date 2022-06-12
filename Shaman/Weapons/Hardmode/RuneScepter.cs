@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,12 +15,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 18;
 			Item.useAnimation = 18;
 			Item.knockBack = 3f;
-			Item.rare = 5;
+			Item.rare = ItemRarityID.Pink;
 			Item.value = Item.sellPrice(0, 3, 10, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 13f;
-			Item.shoot = Mod.Find<ModProjectile>("RuneScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<RuneScepterProj>();
 			this.empowermentType = 1;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
@@ -33,11 +34,11 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							  + "\nProjectile range and damage scales with the number of active shamanic bonds");
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
-			mult *= modPlayer.shamanDamage + (nbBonds * 0.1f);
+			damage += nbBonds * 0.1f;
 		}
 
 		public override void UpdateInventory(Player player)

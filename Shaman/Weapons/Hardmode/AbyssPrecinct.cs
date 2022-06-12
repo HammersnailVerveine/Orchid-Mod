@@ -1,9 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.Interfaces;
 using OrchidMod.Common.PlayerDrawLayers;
 using OrchidMod.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -42,24 +42,19 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			this.energy = 10;
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			int numberProjectiles = 3;
+			Vector2 newPosition = position - new Vector2(4, 4);
 			for (int i = 0; i < numberProjectiles; i++)
-			{
-				this.NewShamanProjectile(position.X - 4, position.Y - 4, speedX, speedY, type, damage, knockBack, player.whoAmI);
-			}
+				this.NewShamanProjectile(player, source, newPosition, velocity, type, damage, knockback);
 			return false;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18);
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18)
+			.AddTile(TileID.LunarCraftingStation)
+			.Register();
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{

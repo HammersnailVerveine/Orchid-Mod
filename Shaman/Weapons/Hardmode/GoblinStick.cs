@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,12 +17,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 25;
 			Item.useAnimation = 60;
 			Item.knockBack = 3.15f;
-			Item.rare = 5;
+			Item.rare = ItemRarityID.Pink;
 			Item.value = Item.sellPrice(0, 2, 0, 0);
 			Item.UseSound = SoundID.Item103;
 			Item.autoReuse = false;
 			Item.shootSpeed = 3f;
-			Item.shoot = Mod.Find<ModProjectile>("GoblinStickProj").Type;
+			Item.shoot = ModContent.ProjectileType<GoblinStickProj>();
 			this.empowermentType = 3;
 			this.energy = 7;
 		}
@@ -59,13 +61,13 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			}
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			int numberProjectiles = 1 + Main.rand.Next(2);
-			for (int i = 0; i < numberProjectiles; i++)
+			int rand = 1 + Main.rand.Next(2);
+			for (int i = 0; i < rand; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			}
 			return false;
 		}

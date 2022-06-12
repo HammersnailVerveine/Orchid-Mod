@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles.OreOrbs.Circle;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,12 +18,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 45;
 			Item.useAnimation = 45;
 			Item.knockBack = 4.15f;
-			Item.rare = 8;
+			Item.rare = ItemRarityID.Yellow;
 			Item.value = Item.sellPrice(0, 6, 0, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("ReviverofSoulsProj").Type;
+			Item.shoot = ModContent.ProjectileType<ReviverofSoulsProj>();
 			this.empowermentType = 3;
 			this.energy = 12;
 		}
@@ -29,42 +31,32 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reviver of Souls");
-			Tooltip.SetDefault("Summons vengeful souls, damaging your enemies 3 times"
-							  + "\nHitting will grant you and empower floating spirit flames"
-							  + "\nWeapon damage is increased with the number of spirit flames"
-							  + "\nUpon reaching a certain number of flames, they will empower you"
-							  + "\nWhile empowered, all your attacks with this weapon will reset every single active shamanic empowerment,"
-							  + "\n                                                            and the weapon damage will increase more per shot");
+			Tooltip.SetDefault("Successful hits summon spirit flames, increasing weapon damage"
+							  + "\nCompleting the flame circle empowers you, further boosting damage"
+							  + "\nWhile empowered, hits will reset every active empowerment duration");
 		}
-
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
-		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-			add += (((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).shamanOrbCircle == ShamanOrbCircle.REVIVER) ? ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).orbCountCircle * 0.035f : 0;
-		}
-
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			int numberProjectiles = 3;
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("ReviverofSoulsProj").Type, damage, knockBack, player.whoAmI);
-			}
-			return false;
-		}
-
 		public override Color? GetAlpha(Color lightColor)
 		{
 			return Color.White;
 		}
 
-		public override void AddRecipes()
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.AddIngredient(3261, 20);
-			recipe.Register();
-			recipe.AddRecipe();
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			if (modPlayer.shamanOrbCircle == ShamanOrbCircle.REVIVER)
+				damage += modPlayer.orbCountCircle * 0.035f;
 		}
+
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+		{
+			for (int i = 0; i < 3; i++)
+				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
+			return false;
+		}
+
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.SpectreBar, 20)
+			.AddTile(TileID.MythrilAnvil)
+			.Register();
 	}
 }

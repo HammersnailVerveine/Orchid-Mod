@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles.OreOrbs.Big;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,12 +17,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 50;
 			Item.useAnimation = 50;
 			Item.knockBack = 4.15f;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.sellPrice(0, 2, 70, 0);
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("AdamantiteScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<AdamantiteScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -33,35 +35,24 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							  + "\nIf you have 5 adamantite orbs, your attack will be empowered, dealing double damage");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			int numberProjectiles = 3;
+			Vector2 newVelocity = velocity;
 			if (player.GetModPlayer<OrchidModPlayer>().orbCountBig >= 15 && player.GetModPlayer<OrchidModPlayer>().shamanOrbBig == ShamanOrbBig.ADAMANTITE)
 			{
-				for (int i = 0; i < 3; i++)
-				{
-					Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-					this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("AdamantiteScepterProj").Type, damage * 2, knockBack, player.whoAmI);
-				}
+				newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
 				player.GetModPlayer<OrchidModPlayer>().orbCountBig = -3;
+				damage *= 2;
 			}
-			else
-			{
-				for (int i = 0; i < numberProjectiles; i++)
-				{
-					this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("AdamantiteScepterProj").Type, damage, knockBack, player.whoAmI);
-				}
-			}
+
+			for (int i = 0; i < 3; i++)
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			return false;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.AdamantiteBar, 12);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.AdamantiteBar, 12)
+			.AddTile(TileID.MythrilAnvil)
+			.Register();
 	}
 }

@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,12 +17,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 36;
 			Item.useAnimation = 36;
 			Item.knockBack = 3.15f;
-			Item.rare = 7;
+			Item.rare = ItemRarityID.Lime;
 			Item.value = Item.sellPrice(0, 10, 0, 0);
 			Item.UseSound = SoundID.Item42;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = Mod.Find<ModProjectile>("BulbScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<BulbScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 10;
 		}
@@ -32,16 +34,15 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							+ "\nThe number of seeds cast depends on the number of active shamanic bonds");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
-
-			int numberProjectiles = 1 + Main.rand.Next(2) + nbBonds;
-			for (int i = 0; i < numberProjectiles; i++)
+			int rand = 1 + Main.rand.Next(2) + nbBonds;
+			for (int i = 0; i < rand; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(12));
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(12));
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			}
 			return false;
 		}

@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles.OreOrbs.Unique;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,12 +17,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 10;
 			Item.useAnimation = 10;
 			Item.knockBack = 4.15f;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.sellPrice(0, 7, 50, 0);
 			Item.UseSound = SoundID.Item13;
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
-			Item.shoot = Mod.Find<ModProjectile>("CorruptConeProj").Type;
+			Item.shoot = ModContent.ProjectileType<CorruptConeProj>();
 			this.empowermentType = 1;
 			this.energy = 4;
 		}
@@ -38,22 +40,18 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			return Color.White;
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
-			this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+			Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
+			this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			return false;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "RitualScepter", 1);
-			recipe.AddIngredient(ItemID.CursedFlame, 20);
-			recipe.AddIngredient(ItemID.SoulofNight, 15);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ModContent.ItemType<Misc.RitualScepter>(), 1)
+			.AddIngredient(ItemID.CursedFlame, 20)
+			.AddIngredient(ItemID.SoulofNight, 15)
+			.AddTile(TileID.MythrilAnvil)
+			.Register();
 	}
 }

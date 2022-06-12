@@ -5,6 +5,7 @@ using OrchidMod.Common.PlayerDrawLayers;
 using OrchidMod.Utilities;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -42,7 +43,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				+ "\nHaving 5 active shamanic bonds increases nearby players health regeneration");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			int projectileType = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), Mod);
@@ -53,7 +54,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				foreach (var elem in oldProjs) elem?.Kill();
 			}
 
-			var projectile = CreateNewProjectile(Item, player, projectileType);
+			var projectile = CreateNewProjectile(Item, player, source, projectileType, damage, knockback);
 			projectile.ai[1] = nbBonds;
 			projectile.netUpdate = true;
 
@@ -71,7 +72,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White, rotation, scale);
 		}
 
-		private Projectile CreateNewProjectile(Item item, Player player, int projectileType)
+		private Projectile CreateNewProjectile(Item item, Player player, EntitySource_ItemUse_WithAmmo source, int type, int damage, float knockback)
 		{
 			Point point = new Point((int)((float)Main.mouseX + Main.screenPosition.X) / 16, (int)((float)Main.mouseY + Main.screenPosition.Y) / 16);
 			if (player.gravDir == -1f) point.Y = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
@@ -79,7 +80,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			{
 				point.Y++;
 			}
-			var projectile = this.NewShamanProjectile(Main.mouseX + Main.screenPosition.X, point.Y * 16 - 22, 0f, 15f, projectileType, item.damage, item.knockBack, player.whoAmI);
+
+			Vector2 position = new Vector2(Main.mouseX + Main.screenPosition.X, point.Y * 16 - 22);
+			Vector2 velocity = new Vector2(0f, 15f);
+			var projectile = this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			return Main.projectile[projectile];
 		}
 	}

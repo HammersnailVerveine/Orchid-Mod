@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,12 +16,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 35;
 			Item.useAnimation = 35;
 			Item.knockBack = 1.15f;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.sellPrice(0, 7, 50, 0);
 			Item.UseSound = SoundID.Item101;
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
-			Item.shoot = Mod.Find<ModProjectile>("CrystalScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<CrystalScepterProj>();
 			this.empowermentType = 5;
 			this.energy = 10;
 		}
@@ -38,15 +39,11 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Lighting.AddLight(Item.Center, Color.Pink.ToVector3() * 0.55f * Main.essScale);
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "RitualScepter", 1);
-			recipe.AddIngredient(ItemID.CrystalShard, 20);
-			recipe.AddIngredient(ItemID.SoulofLight, 15);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ModContent.ItemType<Misc.RitualScepter>(), 1)
+			.AddIngredient(ItemID.CrystalShard, 20)
+			.AddIngredient(ItemID.SoulofLight, 15)
+			.AddTile(TileID.MythrilAnvil)
+			.Register();
 	}
 }

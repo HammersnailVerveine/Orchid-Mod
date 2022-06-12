@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman
 
 		public sealed override void SetDefaults()
 		{
-			Item.DamageType = DamageClass.Default;
+			Item.DamageType = DamageClass.Default; // TODO: ...
 
 			Item.noMelee = true;
 			Item.crit = 4;

@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles.OreOrbs.Big;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,12 +17,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 50;
 			Item.useAnimation = 50;
 			Item.knockBack = 4.15f;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.sellPrice(0, 1, 35, 0);
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("CobaltScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<CobaltScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -33,23 +35,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							  + "\nIf you have 5 cobalt orbs, your next attack will partially fill all active shamanic bonds");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			int numberProjectiles = 3;
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("CobaltScepterProj").Type, damage, knockBack, player.whoAmI);
-			}
+			for (int i = 0; i < 3; i++)
+				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			return false;
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.CobaltBar, 10);
-			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.CobaltBar, 10)
+			.AddTile(TileID.Anvils)
+			.Register();
 	}
 }

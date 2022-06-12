@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles.OreOrbs.Big;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,12 +17,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 50;
 			Item.useAnimation = 50;
 			Item.knockBack = 4.15f;
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.sellPrice(0, 2, 2, 0);
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("MythrilScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<MythrilScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 12;
 		}
@@ -33,23 +35,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							  + "\nIf you have 5 mythril orbs, your next hit will increase your defense by 8 for 30 seconds");
 		}
 
-		public override void AddRecipes()
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.MythrilBar, 10);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
-
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			int numberProjectiles = 3;
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, Mod.Find<ModProjectile>("MythrilScepterProj").Type, damage, knockBack, player.whoAmI);
-			}
+			for (int i = 0; i < 3; i++)
+				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			return false;
 		}
+
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ItemID.MythrilBar, 10)
+			.AddTile(TileID.MythrilAnvil)
+			.Register();
 	}
 }

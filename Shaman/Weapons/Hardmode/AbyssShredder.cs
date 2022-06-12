@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.PlayerDrawLayers;
 using OrchidMod.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,7 +17,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 110;
-			Item.magic = true;
 			Item.width = 42;
 			Item.height = 42;
 			Item.useTime = 18;
@@ -43,15 +44,13 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 								+ "\nIncreases weapon speed for each active shamanic bond");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			for (int i = 0; i < 1; i++)
-			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5));
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("AbyssShard").Type, damage, knockBack, player.whoAmI);
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("AbyssShardS").Type, damage, knockBack, player.whoAmI);
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("AbyssShardD").Type, damage, knockBack, player.whoAmI);
-			}
+			// What the fuck is this
+			Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
+			this.NewShamanProjectile(player, source, position, newVelocity, ModContent.ProjectileType<Projectiles.AbyssShard>(), damage, knockback);
+			this.NewShamanProjectile(player, source, position, newVelocity, ModContent.ProjectileType<Projectiles.AbyssShardS>(), damage, knockback);
+			this.NewShamanProjectile(player, source, position, velocity, ModContent.ProjectileType<Projectiles.AbyssShardD>(), damage, knockback);
 			return false;
 		}
 
@@ -69,14 +68,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Lighting.AddLight(Item.Center, Color.Blue.ToVector3() * 0.55f * Main.essScale);
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18);
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.Register();
-			recipe.AddRecipe();
-		}
+		public override void AddRecipes() => CreateRecipe()
+			.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18)
+			.AddTile(TileID.LunarCraftingStation)
+			.Register();
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{

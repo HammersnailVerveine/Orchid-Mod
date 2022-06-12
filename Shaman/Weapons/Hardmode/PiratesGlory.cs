@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,24 +16,17 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 6;
 			Item.useAnimation = 30;
 			Item.knockBack = 0.5f;
-			Item.rare = 5;
+			Item.rare = ItemRarityID.Pink;
 			Item.value = Item.sellPrice(0, 3, 50, 0);
 			Item.UseSound = SoundID.Item15;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("PiratesGloryProj").Type;
+			Item.shoot = ModContent.ProjectileType<PiratesGloryProj>();
 			this.empowermentType = 2;
 			this.energy = 3;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}
-
-		public override void SafeModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
-		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 2f);
-		}
-
 
 		public override void SafeSetStaticDefaults()
 		{
@@ -40,6 +34,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Tooltip.SetDefault("Shoots a continuous laser beam"
 							+ "\nWeapon damage increases with the number of active shamanic bonds"
 							+ "\nHaving more than 3 of them active will make your foes drop more gold");
+		}
+
+		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
+		{
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			damage.Flat += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 2);
 		}
 	}
 }

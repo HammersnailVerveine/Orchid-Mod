@@ -1,8 +1,9 @@
+using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
 
 namespace OrchidMod.Shaman.Weapons.Hardmode
 {
@@ -16,12 +17,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.useTime = 45;
 			Item.useAnimation = 45;
 			Item.knockBack = 0f;
-			Item.rare = 5;
+			Item.rare = ItemRarityID.Pink;
 			Item.value = Item.sellPrice(0, 5, 0, 0);
 			Item.UseSound = SoundID.Item28;
 			Item.autoReuse = false;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("IceMimicScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<IceMimicScepterProj>();
 			this.empowermentType = 2;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
@@ -35,7 +36,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 							  + "\nHaving 3 or more active shamanic bonds increases the spike attack rate");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
@@ -43,19 +44,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			{
 				Projectile proj = Main.projectile[l];
 				if (proj.active && proj.type == Item.shoot && proj.owner == player.whoAmI)
-				{
 					proj.active = false;
-				}
 			}
 
-			float speedYalt = new Vector2(speedX, speedY).Length();
-			int newProj = this.NewShamanProjectile(position.X, position.Y, 0f, -1f * speedYalt, type, damage, knockBack, player.whoAmI);
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
-			{
-				Main.projectile[newProj].ai[1] = 3;
-			}
-			Main.projectile[newProj].netUpdate = true;
-
+			Vector2 newVelocity = new Vector2(0f, velocity.Length() * -1f);
+			float projAI = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2 ? 3f : 0f;
+			this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback, ai1: projAI);
 			return false;
 		}
 	}
