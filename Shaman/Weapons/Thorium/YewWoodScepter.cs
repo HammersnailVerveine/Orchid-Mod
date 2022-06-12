@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,12 +18,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.useTime = 25;
 			Item.useAnimation = 25;
 			Item.knockBack = 3f;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.sellPrice(0, 0, 30, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 3f;
-			Item.shoot = Mod.Find<ModProjectile>("YewWoodScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<YewWoodScepterProj>();
 			this.empowermentType = 5;
 			this.energy = 6;
 		}
@@ -44,7 +45,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 				recipe.AddIngredient(thoriumMod, "YewWood", 20);
 				recipe.AddIngredient(ItemID.Amethyst, 2);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

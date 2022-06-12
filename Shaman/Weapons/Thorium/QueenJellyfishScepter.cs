@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 5f;
-			Item.shoot = Mod.Find<ModProjectile>("QueenJellyfishScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<QueenJellyfishScepterProj>();
 			this.empowermentType = 2;
 			this.energy = 7;
 		}

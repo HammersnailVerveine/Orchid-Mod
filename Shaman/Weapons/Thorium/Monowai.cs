@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item21;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = Mod.Find<ModProjectile>("MonowaiProj").Type;
+			Item.shoot = ModContent.ProjectileType<MonowaiProj>();
 			this.empowermentType = 4;
 			this.energy = 8;
 		}
@@ -37,13 +39,10 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nAttacks might singe the target, causing extra damage");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			int numberProjectiles = 2;
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				this.NewShamanProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
-			}
+			for (int i = 0; i < 2; i++)
+				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			return false;
 		}
 
@@ -54,11 +53,10 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			{
 				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.Anvils);
-				recipe.AddIngredient(Mod.Find<ModItem>("MagmaScepter").Type, 1);
-				recipe.AddIngredient(Mod.Find<ModItem>("AquaiteScepter").Type, 1);
+				recipe.AddIngredient(ModContent.ItemType<MagmaScepter>(), 1);
+				recipe.AddIngredient(ModContent.ItemType<AquaiteScepter>(), 1);
 				recipe.AddIngredient(thoriumMod, "aDarksteelAlloy", 10);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

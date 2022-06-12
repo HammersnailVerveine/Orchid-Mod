@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,12 +18,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.useTime = 14;
 			Item.useAnimation = 14;
 			Item.knockBack = 3.15f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 20, 0);
 			Item.UseSound = SoundID.Item93;
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
-			Item.shoot = Mod.Find<ModProjectile>("ThunderScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<ThunderScepterProj>();
 			this.empowermentType = 3;
 			this.energy = 3;
 		}

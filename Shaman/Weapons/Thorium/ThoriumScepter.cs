@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,12 +18,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.useTime = 25;
 			Item.useAnimation = 25;
 			Item.knockBack = 3.25f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 28, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = false;
 			Item.shootSpeed = 10f;
-			Item.shoot = Mod.Find<ModProjectile>("ThoriumScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<ThoriumScepterProj>();
 			this.empowermentType = 1;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 6;
@@ -44,7 +45,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 				recipe.AddTile(thoriumMod.Find<ModTile>("ThoriumAnvil").Type);
 				recipe.AddIngredient(thoriumMod, "ThoriumBar", 8);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

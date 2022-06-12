@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shootSpeed = 14f;
-			Item.shoot = Mod.Find<ModProjectile>("SpiritDropletScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<SpiritDropletScepterProj>();
 			this.empowermentType = 5;
 			this.energy = 6;
 		}
@@ -35,15 +37,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nThe number of bones increase with active shamanic bonds");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
 			for (int i = 0; i < nbBonds + 1; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(nbBonds + 1));
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(nbBonds + 1));
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			}
 			return false;
 		}
@@ -58,7 +60,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 				recipe.AddIngredient(thoriumMod, "SpiritDroplet", 8);
 				recipe.AddIngredient(ItemID.Bone, 20);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -36,17 +37,17 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nHaving 3 or more bonds will allow the petals to pierce more enemies");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			int numberProjectiles = 1 + Main.rand.Next(2);
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+			int numberProjectiles = 1 + Main.rand.Next(2);
 			numberProjectiles += nbBonds > 1 ? nbBonds > 3 ? 2 : 1 : 0;
 
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(4));
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(4));
+				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);
 			}
 			return false;
 		}
@@ -60,7 +61,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 				recipe.AddTile(thoriumMod.Find<ModTile>("ArcaneArmorFabricator").Type);
 				recipe.AddIngredient(thoriumMod, "Petal", 8);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

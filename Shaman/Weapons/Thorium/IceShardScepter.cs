@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = false;
 			Item.shootSpeed = 10f;
-			Item.shoot = Mod.Find<ModProjectile>("IceShardScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<IceShardScepterProj>();
 			this.empowermentType = 2;
 			this.energy = 6;
 		}
@@ -49,7 +50,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 				recipe.AddTile(TileID.WorkBenches);
 				recipe.AddIngredient(thoriumMod, "IcyShard", 7);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}

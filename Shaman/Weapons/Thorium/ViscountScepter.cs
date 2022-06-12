@@ -1,4 +1,5 @@
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,12 +18,12 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.useTime = 25;
 			Item.useAnimation = 25;
 			Item.knockBack = 3.75f;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.sellPrice(0, 0, 40, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = Mod.Find<ModProjectile>("ViscountScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<ViscountScepterProj>();
 			this.empowermentType = 3;
 			this.energy = 7;
 		}

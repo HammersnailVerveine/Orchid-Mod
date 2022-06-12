@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Interfaces;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 14f;
-			Item.shoot = Mod.Find<ModProjectile>("BronzeAlloyScepterProj").Type;
+			Item.shoot = ModContent.ProjectileType<BronzeAlloyScepterProj>();
 			this.empowermentType = 4;
 			this.energy = 5;
 		}
@@ -37,20 +39,21 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nThe more shamanic bonds you have, the higher the chances of critical strike");
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
-			Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(3));
+			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(3));
+
 			if (Main.rand.Next(101) < 5 + nbBonds * 5)
 			{
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X * 1.2f, perturbedSpeed.Y * 1.2f, Mod.Find<ModProjectile>("BronzeAlloyScepterProjAlt").Type, damage * 2, knockBack, player.whoAmI);
+				type = ModContent.ProjectileType<BronzeAlloyScepterProjAlt>();
+				damage *= 2;
+				velocity *= 1.2f;
 			}
-			else
-			{
-				this.NewShamanProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-			}
+
+			this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			return false;
 		}
 
@@ -63,7 +66,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "BronzeFragments", 10);
 				recipe.Register();
-				recipe.AddRecipe();
 			}
 		}
 	}
