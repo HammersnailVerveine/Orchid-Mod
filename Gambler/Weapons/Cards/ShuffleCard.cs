@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -10,7 +12,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SafeSetDefaults()
 		{
 			Item.value = Item.sellPrice(0, 0, 10, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.damage = 8;
 			Item.crit = 4;
 			Item.knockBack = 3f;
@@ -29,7 +31,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nDamage increases with the number of cards in your deck");
 		}
 
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int projType = ProjectileType<Gambler.Projectiles.ShuffleCardProj>();
@@ -50,17 +52,18 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			}
 			if (count < 5)
 			{
-				int newProjInt = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, 0f, 0f, projType, damageCount, knockBack, player.whoAmI), dummy);
+				int newProjInt = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, Vector2.Zero, projType, damageCount, knockback, player.whoAmI), dummy);
 				Projectile newProj = Main.projectile[newProjInt];
 				newProj.ai[1] = (float)(count + 1);
 				newProj.ai[0] = (float)aiType;
 				newProj.netUpdate = true;
-				SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, count == 4 ? 35 : 1);
+				if (count == 4)
+					SoundEngine.PlaySound(SoundID.Item35);
+				else 
+					SoundEngine.PlaySound(SoundID.Item1);
 			}
-			else
-			{
-				SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 7);
-			}
+			else 
+				SoundEngine.PlaySound(SoundID.Item7);
 		}
 	}
 }

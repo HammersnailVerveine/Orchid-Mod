@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -29,14 +31,13 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nBubbles gain in damage over time");
 		}
 
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.BubbleCardProj>();
 			float scale = 1f - (Main.rand.NextFloat() * .3f);
-			Vector2 vel = new Vector2(0f, -3f).RotatedByRandom(MathHelper.ToRadians(30));
-			vel = vel * scale;
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
-			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 86);
+			velocity = new Vector2(0f, -3f).RotatedByRandom(MathHelper.ToRadians(30)) * scale;
+			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockBack, player.whoAmI), dummy);
+			SoundEngine.PlaySound(SoundID.Item86);
 		}
 	}
 }

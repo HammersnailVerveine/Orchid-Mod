@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -10,7 +12,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SafeSetDefaults()
 		{
 			Item.value = Item.sellPrice(0, 0, 10, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.damage = 24;
 			Item.crit = 4;
 			Item.knockBack = 2f;
@@ -29,10 +31,10 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nEmpowers once after bouncing");
 		}
 
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
-			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
-			int projType = ProjectileType<Gambler.Projectiles.MushroomCardBase>();
+			SoundEngine.PlaySound(SoundID.Item1);
+			int projType = ProjectileType<Projectiles.MushroomCardBase>();
 			bool found = false;
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
@@ -44,7 +46,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 				}
 			}
 			if (!found) {
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, 0f, 0f, projType, damage, knockBack, player.whoAmI), dummy);
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, Vector2.Zero, projType, damage, knockback, player.whoAmI), dummy);
 			}
 		}
 	}

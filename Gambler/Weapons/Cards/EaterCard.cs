@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -10,7 +12,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SafeSetDefaults()
 		{
 			Item.value = Item.sellPrice(0, 0, 10, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.damage = 12;
 			Item.crit = 4;
 			Item.knockBack = 1f;
@@ -28,7 +30,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nCollecting them increases the worm damage and length");
 		}
 
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.EaterCardProj1>();
 			bool found = false;
@@ -43,19 +45,19 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			}
 			if (!found)
 			{
-				int newProjectile2 = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X - speedX * 3f, position.Y - speedY * 3f, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy));
+				int newProjectile2 = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, new Vector2(position.X - velocity.X * 3f, position.Y - velocity.Y * 3f), velocity, projType, damage, knockback, player.whoAmI), dummy));
 				Main.projectile[newProjectile2].ai[0] = 1f;
-				int newProjectile = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, projType, damage, knockBack, player.whoAmI), dummy));
+				int newProjectile = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy));
 				Main.projectile[newProjectile].ai[0] = 0f;
 				Main.projectile[newProjectile2].ai[1] = newProjectile;
 				Main.projectile[newProjectile].localAI[0] = newProjectile2;
 				Main.projectile[newProjectile].netUpdate = true;
 				Main.projectile[newProjectile2].netUpdate = true;
-				SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 1);
+				SoundEngine.PlaySound(SoundID.Item1);
 			}
 			else
 			{
-				SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 7);
+				SoundEngine.PlaySound(SoundID.Item7);
 			}
 		}
 	}

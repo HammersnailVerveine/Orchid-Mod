@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -10,7 +12,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SafeSetDefaults()
 		{
 			Item.value = Item.sellPrice(0, 0, 10, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.damage = 11;
 			Item.crit = 4;
 			Item.knockBack = 0.8f;
@@ -29,7 +31,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nOnly 3 sets of leaves can exist at once");
 		}
 
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.IvyChestCardProj>();
 
@@ -50,12 +52,11 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			for (int i = 0; i < 5 + Main.rand.Next(4); i++)
 			{
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
-				Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10));
-				vel = vel * scale;
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
+				velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10)) * scale;
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 			}
 
-			SoundEngine.PlaySound(6, (int)player.Center.X, (int)player.Center.Y, 0);
+			SoundEngine.PlaySound(SoundID.Grass); // (6 : 0) Grass/Web Cut
 		}
 	}
 }

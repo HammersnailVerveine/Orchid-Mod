@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Weapons.Cards
@@ -10,7 +12,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SafeSetDefaults()
 		{
 			Item.value = Item.sellPrice(0, 0, 10, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.damage = 16;
 			Item.crit = 4;
 			Item.knockBack = 1f;
@@ -27,16 +29,15 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Tooltip.SetDefault("Releases damaging sparkles");
 		}
 
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.GoldChestCardProj>();
 			float scale = 1f - (Main.rand.NextFloat() * .3f);
-			Vector2 vel = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(15));
-			vel = vel * scale;
-			int newProj = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
+			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(15)) * scale;
+			int newProj = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 			Main.projectile[newProj].ai[1] = Main.rand.Next(4);
 			Main.projectile[newProj].netUpdate = true;
-			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y - 200, 9);
+			SoundEngine.PlaySound(SoundID.Item1);
 		}
 	}
 }

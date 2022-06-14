@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace OrchidMod.Gambler.Weapons.Cards
 {
@@ -8,7 +10,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SafeSetDefaults()
 		{
 			Item.value = Item.sellPrice(0, 0, 10, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.damage = 0;
 			Item.crit = 0;
 			Item.knockBack = 0f;
@@ -24,7 +26,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Tooltip.SetDefault("Rapidly heals when used");
 		}
 
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
 			if (!dummy)
 			{

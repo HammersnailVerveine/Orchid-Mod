@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,13 +34,17 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.gamblerCardSets.Add("Elemental");
 		}
 
-		public override void GamblerShoot(Player player, Vector2 position, float speedX, float speedY, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
-			type = ModContent.ProjectileType<Gambler.Projectiles.SapCardProj>();
+			int projType = ModContent.ProjectileType<Gambler.Projectiles.SapCardProj>();
 
-			SoundEngine.PlaySound(SoundID.Item, (int)player.Center.X, (int)player.Center.Y, 1);
-
-			if (player.ownedProjectileCounts[type] == 0 && player.channel) OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI), dummy);
+			if (player.ownedProjectileCounts[type] == 0 && player.channel)
+			{
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+				SoundEngine.PlaySound(SoundID.Item1);
+			}
+			else
+				SoundEngine.PlaySound(SoundID.Item7);
 		}
 	}
 }
