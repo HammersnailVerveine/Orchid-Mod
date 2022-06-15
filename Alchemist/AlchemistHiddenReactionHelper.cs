@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist
 {
@@ -86,13 +87,10 @@ namespace OrchidMod.Alchemist
 
 			if (recipe.debuffDuration != 0)
 			{
-				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * recipe.debuffDuration);
+				player.AddBuff((BuffType<Alchemist.Debuffs.ReactionCooldown>()), 60 * recipe.debuffDuration);
 			}
 
-			if (recipe.soundID != 0 && recipe.soundType != 0)
-			{
-				SoundEngine.PlaySound(recipe.soundType, (int)player.position.X, (int)player.position.Y, recipe.soundID);
-			}
+			SoundEngine.PlaySound(recipe.sound);
 		}
 
 		public static bool checkSubstitutes(int ingredientID, Mod mod, Player player, OrchidModPlayer modPlayer)
@@ -184,7 +182,7 @@ namespace OrchidMod.Alchemist
 
 			if (hiddenReaction.typeName == "RecipeBlank")
 			{
-				player.AddBuff((BuffType<Alchemist.Buffs.Debuffs.ReactionCooldown>()), 60 * 5);
+				player.AddBuff((BuffType<Debuffs.ReactionCooldown>()), 60 * 5);
 				for (int i = 0; i < 15; i++)
 				{
 					int dust = Dust.NewDust(player.Center, 10, 10, 37);
@@ -199,7 +197,7 @@ namespace OrchidMod.Alchemist
 					Main.dust[dust].velocity *= 2f;
 					Main.dust[dust].scale *= 1.5f;
 				}
-				SoundEngine.PlaySound(2, (int)player.position.X, (int)player.position.Y, 16);
+				SoundEngine.PlaySound(SoundID.Item16);
 			}
 			else
 			{
@@ -227,9 +225,9 @@ namespace OrchidMod.Alchemist
 			int rand = 2 + Main.rand.Next(3);
 			for (int i = 0; i < rand; i++)
 			{
-				int proj = ProjectileType<Alchemist.Projectiles.AlchemistSmoke1>();
+				int proj = ProjectileType<Projectiles.AlchemistSmoke1>();
 				Vector2 vel = (new Vector2(0f, -((float)(2 + Main.rand.Next(5)))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int smokeProj = Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, proj, 0, 0f, player.whoAmI);
+				int smokeProj = Projectile.NewProjectile(null, player.Center, vel, proj, 0, 0f, player.whoAmI);
 				Main.projectile[smokeProj].localAI[0] = colorRed;
 				Main.projectile[smokeProj].localAI[1] = colorGreen;
 				Main.projectile[smokeProj].ai[1] = colorBlue;
@@ -237,9 +235,9 @@ namespace OrchidMod.Alchemist
 			rand = 1 + Main.rand.Next(3);
 			for (int i = 0; i < rand; i++)
 			{
-				int proj = ProjectileType<Alchemist.Projectiles.AlchemistSmoke2>();
+				int proj = ProjectileType<Projectiles.AlchemistSmoke2>();
 				Vector2 vel = (new Vector2(0f, -((float)(2 + Main.rand.Next(5)))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int smokeProj = Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, proj, 0, 0f, player.whoAmI);
+				int smokeProj = Projectile.NewProjectile(null, player.Center, vel, proj, 0, 0f, player.whoAmI);
 				Main.projectile[smokeProj].localAI[0] = colorRed;
 				Main.projectile[smokeProj].localAI[1] = colorGreen;
 				Main.projectile[smokeProj].ai[1] = colorBlue;
@@ -247,9 +245,9 @@ namespace OrchidMod.Alchemist
 			rand = Main.rand.Next(2);
 			for (int i = 0; i < rand; i++)
 			{
-				int proj = ProjectileType<Alchemist.Projectiles.AlchemistSmoke3>();
+				int proj = ProjectileType<Projectiles.AlchemistSmoke3>();
 				Vector2 vel = (new Vector2(0f, -((float)(2 + Main.rand.Next(5)))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int smokeProj = Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, proj, 0, 0f, player.whoAmI);
+				int smokeProj = Projectile.NewProjectile(null, player.Center, vel, proj, 0, 0f, player.whoAmI);
 				Main.projectile[smokeProj].localAI[0] = colorRed;
 				Main.projectile[smokeProj].localAI[1] = colorGreen;
 				Main.projectile[smokeProj].ai[1] = colorBlue;

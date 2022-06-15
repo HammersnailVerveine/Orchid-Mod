@@ -84,12 +84,12 @@ namespace OrchidMod.Alchemist
 			if (modPlayer.alchemistShootProjectile)
 			{
 				float shootSpeed = 10f * modPlayer.alchemistVelocity;
-				int projType = ProjectileType<Alchemist.Projectiles.AlchemistProj>();
+				int projType = ProjectileType<Projectiles.AlchemistProj>();
 				Vector2 target = Main.MouseWorld;
 				Vector2 heading = target - player.Center;
 				heading.Normalize();
 				heading *= shootSpeed;
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, heading.X, heading.Y, projType, 1, 1f, player.whoAmI);
+				Projectile.NewProjectile(player.GetSource_FromThis("Alchemist Main"), player.Center.X, player.Center.Y, heading.X, heading.Y, projType, 1, 1f, player.whoAmI);
 				modPlayer.alchemistShootProjectile = false;
 			}
 		}
@@ -107,7 +107,7 @@ namespace OrchidMod.Alchemist
 				foreach (Item item in modPlayer.alchemistPotionBag) {
 					if (item.type != 0)
 					{
-						player.QuickSpawnItem(item.type, 1);
+						player.QuickSpawnItem(player.GetSource_Misc("Alchemist Bag"), item.type, 1);
 						item.TurnToAir();
 					}
 				}
@@ -203,7 +203,7 @@ namespace OrchidMod.Alchemist
 			Item item = new Item();
 			item.SetDefaults(itemType);
 			OrchidModGlobalItem globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
-			int dmg = (int)((globalItem.alchemistSecondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? globalItem.alchemistSecondaryScaling : 1f))) * (modPlayer.alchemistDamage + player.allDamage - 1f));
+			int dmg = (int)((globalItem.alchemistSecondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? globalItem.alchemistSecondaryScaling : 1f))) * (modPlayer.alchemistDamage + player.GetDamage(DamageClass.Generic).Multiplicative - 1f));
 			return dmg;
 		}
 

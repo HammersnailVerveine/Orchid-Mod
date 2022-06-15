@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.UIs;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -76,7 +77,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistFire > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(OrchidMod.coatingTextures[0], rect, null, Color.White);
+				spriteBatch.Draw(UISystem.coatingTextures[0], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -84,7 +85,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistWater > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(OrchidMod.coatingTextures[1], rect, null, Color.White);
+				spriteBatch.Draw(UISystem.coatingTextures[1], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -92,7 +93,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistNature > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(OrchidMod.coatingTextures[2], rect, null, Color.White);
+				spriteBatch.Draw(UISystem.coatingTextures[2], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -100,7 +101,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistAir > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(OrchidMod.coatingTextures[3], rect, null, Color.White);
+				spriteBatch.Draw(UISystem.coatingTextures[3], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -108,7 +109,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistLight > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(OrchidMod.coatingTextures[4], rect, null, Color.White);
+				spriteBatch.Draw(UISystem.coatingTextures[4], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -116,13 +117,13 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistDark > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(OrchidMod.coatingTextures[5], rect, null, Color.White);
+				spriteBatch.Draw(UISystem.coatingTextures[5], rect, null, Color.White);
 			}
 		}
 
 		public override void DrawEffects(NPC npc, ref Color drawColor)
 		{
-			if (npc.HasBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>()) && Main.time % 90 == 0)
+			if (npc.HasBuff(BuffType<Debuffs.Attraction>()) && Main.time % 90 == 0)
 			{
 				OrchidModProjectile.spawnDustCircle(npc.Center, 60, 10, 10, true, 1.5f, 1f, 2f);
 				OrchidModProjectile.spawnDustCircle(npc.Center, 60, 10, 12, true, 1.5f, 1f, 4f);
@@ -131,7 +132,7 @@ namespace OrchidMod.Alchemist
 
 		public static bool AttractiteCanHome(NPC npc)
 		{
-			bool canHome = (npc.HasBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>()) || npc.HasBuff(BuffType<Alchemist.Buffs.Debuffs.Catalyzed>()));
+			bool canHome = (npc.HasBuff(BuffType<Debuffs.Attraction>()) || npc.HasBuff(BuffType<Debuffs.Catalyzed>()));
 			return canHome;
 		}
 

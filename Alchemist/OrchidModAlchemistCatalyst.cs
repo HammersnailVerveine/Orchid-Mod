@@ -27,13 +27,13 @@ namespace OrchidMod.Alchemist
 				modPlayer.alchemistFlowerTimer = 600;
 				if (modPlayer.alchemistFlower == 1)
 				{
-					Projectile.NewProjectile(player.Center.X, player.position.Y - 65, 0f, 0f, ProjectileType<Alchemist.Projectiles.Reactive.BloomingReactive>(), 0, 0, player.whoAmI, 0f, 0f);
+					Projectile.NewProjectile(null, player.Center.X, player.position.Y - 65, 0f, 0f, ProjectileType<Alchemist.Projectiles.Reactive.BloomingReactive>(), 0, 0, player.whoAmI, 0f, 0f);
 				}
 				if (modPlayer.alchemistFlower >= 9)
 				{
 					modPlayer.alchemistFlower = 0;
 					int dmg = (int)(25 * modPlayer.alchemistDamage);
-					Projectile.NewProjectile(player.Center.X, player.position.Y - 65, 0f, 0f, ProjectileType<Alchemist.Projectiles.Reactive.BloomingReactiveAlt>(), dmg, 0, player.whoAmI, 0f, 0f);
+					Projectile.NewProjectile(null, player.Center.X, player.position.Y - 65, 0f, 0f, ProjectileType<Alchemist.Projectiles.Reactive.BloomingReactiveAlt>(), dmg, 0, player.whoAmI, 0f, 0f);
 				}
 			}
 		}
@@ -46,11 +46,7 @@ namespace OrchidMod.Alchemist
 			Item.damage = 0;
 			Item.crit = 0;
 			SafeSetDefaults();
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
+			Item.DamageType = DamageClass.Generic;
 			Item.noMelee = this.catalystType != 1;
 			Item.useStyle = 1;
 			Item.UseSound = SoundID.Item1;
@@ -70,7 +66,7 @@ namespace OrchidMod.Alchemist
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)
@@ -105,19 +101,13 @@ namespace OrchidMod.Alchemist
 					NPC target = Main.npc[l];
 					if (hitbox.Intersects(target.Hitbox))
 					{
-						target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Catalyzed>(), 60 * 10);
+						target.AddBuff(BuffType<Alchemist.Debuffs.Catalyzed>(), 60 * 10);
 					}
 				}
 			}
 		}
 
-		public override bool CloneNewInstances
-		{
-			get
-			{
-				return true;
-			}
-		}
+		protected override bool CloneNewInstances => true;
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{

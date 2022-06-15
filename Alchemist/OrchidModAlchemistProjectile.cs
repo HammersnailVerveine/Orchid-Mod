@@ -1,3 +1,4 @@
+using OrchidMod.Common.Globals.NPCs;
 using Terraria;
 
 namespace OrchidMod.Alchemist
@@ -27,7 +28,7 @@ namespace OrchidMod.Alchemist
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
+			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
 			modTarget.alchemistHit = true;
 			OrchidModAlchemistNPC modTargetAlch = target.GetGlobalNPC<OrchidModAlchemistNPC>();
 			SafeOnHitNPC(target, modTargetAlch, damage, knockback, crit, player, modPlayer);

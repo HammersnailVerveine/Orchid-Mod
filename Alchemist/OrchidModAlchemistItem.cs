@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -27,20 +28,16 @@ namespace OrchidMod.Alchemist
 		public virtual void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 		public virtual void KillThird(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 
-		public virtual void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 
 		public virtual void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
+			Item.DamageType = DamageClass.Generic;
 			Item.noMelee = true;
 			Item.crit = 4;
 			Item.useStyle = 1;
@@ -75,7 +72,7 @@ namespace OrchidMod.Alchemist
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)
@@ -85,7 +82,7 @@ namespace OrchidMod.Alchemist
 
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).alchemistCrit)
+			if (Main.rand.Next(101) <= (player.GetModPlayer<OrchidModPlayer>().alchemistCrit))
 				crit = true;
 			else crit = false;
 		}
@@ -121,7 +118,7 @@ namespace OrchidMod.Alchemist
 						if (noPotency && !alreadyContains)
 						{
 							Item.UseSound = SoundID.Item7;
-							SoundEngine.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
+							SoundEngine.PlaySound(SoundID.SplashWeak);
 						}
 						else
 						{
@@ -179,7 +176,7 @@ namespace OrchidMod.Alchemist
 					}
 					else
 					{
-						SoundEngine.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
+						SoundEngine.PlaySound(SoundID.SplashWeak);
 						return false;
 					}
 				}
@@ -191,13 +188,7 @@ namespace OrchidMod.Alchemist
 			return base.CanUseItem(player);
 		}
 
-		public override bool CloneNewInstances
-		{
-			get
-			{
-				return true;
-			}
-		}
+		protected override bool CloneNewInstances => true;
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
@@ -284,7 +275,7 @@ namespace OrchidMod.Alchemist
 			bool[] elements = orchidModPlayer.alchemistElements;
 			Item[] flasks = orchidModPlayer.alchemistFlasks;
 
-			damage = (int)(damage * player.allDamage);
+			//damage = (int)(damage * player.allDamage);
 			
 			int index = (int)element - 1;
 
@@ -309,7 +300,7 @@ namespace OrchidMod.Alchemist
 
 		public int getSecondaryDamage(Player player, OrchidModPlayer modPlayer, int bonusDamage = 0, bool bonusDamageScaling = true)
 		{
-			int dmg = (int)((this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f))) * (modPlayer.alchemistDamage + player.allDamage - 1f));
+			int dmg = (int)((this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f))) * (modPlayer.alchemistDamage - 1f));
 			return dmg;
 		}
 	}

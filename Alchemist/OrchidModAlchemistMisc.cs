@@ -14,16 +14,12 @@ namespace OrchidMod.Alchemist
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
+			Item.DamageType = DamageClass.Generic;
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)
@@ -34,18 +30,12 @@ namespace OrchidMod.Alchemist
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
 			SafeModifyHitNPC(player, target, ref damage, ref knockBack, ref crit);
-			if (Main.rand.Next(101) <= ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).alchemistCrit)
+			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayer>().alchemistCrit)
 				crit = true;
 			else crit = false;
 		}
 
-		public override bool CloneNewInstances
-		{
-			get
-			{
-				return true;
-			}
-		}
+		protected override bool CloneNewInstances => true;
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Terraria.ID;
 using Terraria;
 
 namespace OrchidMod.Alchemist.Recipes
@@ -11,8 +11,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.description = "blank description";
 			this.level = 0;
 			this.debuffDuration = 0;
-			this.soundType = 0;
-			this.soundID = 0;
+			this.sound = SoundID.Item1;
 		}
 		
 		

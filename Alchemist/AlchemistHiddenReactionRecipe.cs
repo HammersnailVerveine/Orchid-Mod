@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist
 {
@@ -11,8 +13,7 @@ namespace OrchidMod.Alchemist
 		public List<int> ingredients = new List<int>();
 		public int level = 0;
 		public int debuffDuration = 0;
-		public int soundType = 0;
-		public int soundID = 0;
+		public SoundStyle sound = SoundID.Item1;
 		public int buff = 0;
 		public int buffDuration = 0;
 		public int dust = 0;
@@ -32,8 +33,7 @@ namespace OrchidMod.Alchemist
 			this.description = "blank description";
 			this.level = 0;
 			this.debuffDuration = 0;
-			this.soundType = 0;
-			this.soundID = 0;
+			this.sound = SoundID.Item1;
 			this.recipeEffect = this.Reaction;
 			this.ingredients = new List<int>();
 			this.buff = 0;

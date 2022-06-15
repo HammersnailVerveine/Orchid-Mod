@@ -13,11 +13,12 @@ namespace OrchidMod.Alchemist
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
+			Item.DamageType = DamageClass.Generic;
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -14,9 +15,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Sap Bubble";
 			this.description = "Creates a catalytic sap bubble";
 			this.debuffDuration = 20;
-			this.soundType = 2;
-			this.soundID = 85;
-			
+			this.sound = SoundID.Item85;
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.CloudInAVial>());
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.LivingSapVial>());
 		}
@@ -36,7 +35,8 @@ namespace OrchidMod.Alchemist.Recipes
 			int itemType = ItemType<Alchemist.Weapons.Nature.LivingSapVial>();
 			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 25, false);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.LivingSapBubble>();
-			Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, -5f, spawnProj, dmg, 0f, player.whoAmI);
+			Vector2 vel = new Vector2(0f, -5f);
+			Projectile.NewProjectile(player.GetSource_Misc("Alchemist Hidden Reaction"), player.Center, vel, spawnProj, dmg, 0f, player.whoAmI);
 		}
 	}
 }

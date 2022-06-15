@@ -16,11 +16,7 @@ namespace OrchidMod.Alchemist
 		{
 			Item.width = 36;
 			Item.height = 32;
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
+			Item.DamageType = DamageClass.Generic;
 			Item.noMelee = true;
 			Item.useStyle = 4;
 			Item.UseSound = SoundID.Item64;
@@ -45,13 +41,7 @@ namespace OrchidMod.Alchemist
 			return true;
 		}
 
-		public override bool CloneNewInstances
-		{
-			get
-			{
-				return true;
-			}
-		}
+		protected override bool CloneNewInstances => true;
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
