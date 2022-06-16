@@ -11,7 +11,7 @@ namespace OrchidMod.Gambler.Misc
 			Item.width = 18;
 			Item.height = 18;
 			Item.maxStack = 99;
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 		}
 
 		public override void PostUpdate()

@@ -23,7 +23,7 @@ namespace OrchidMod.General.Items.Misc
 			Item.UseSound = SoundID.Item2;
 			Item.useAnimation = 20;
 			Item.useTime = 20;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.noMelee = true;
 			Item.value = Item.sellPrice(0, 0, 20, 0);
 			Item.buffType = Mod.Find<ModBuff>("HauntedCandle").Type;

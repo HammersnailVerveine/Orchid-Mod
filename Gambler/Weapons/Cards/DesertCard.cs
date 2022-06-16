@@ -12,7 +12,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SafeSetDefaults()
 		{
 			Item.value = Item.sellPrice(0, 0, 10, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.damage = 11;
 			Item.crit = 4;
 			Item.knockBack = 0.5f;

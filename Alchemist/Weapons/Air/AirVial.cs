@@ -1,6 +1,5 @@
-using OrchidMod.Alchemist.Projectiles;
 using Terraria;
-
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Weapons.Air
 {
@@ -11,7 +10,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			Item.damage = 5;
 			Item.width = 24;
 			Item.height = 24;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			this.potencyCost = 1;
 			this.element = AlchemistElement.AIR;
 			this.rightClickDust = 16;

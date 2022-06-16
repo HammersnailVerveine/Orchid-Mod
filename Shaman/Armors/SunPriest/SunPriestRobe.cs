@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 			Item.width = 30;
 			Item.height = 18;
 			Item.value = Item.sellPrice(0, 6, 0, 0);
-			Item.rare = 8;
+			Item.rare = ItemRarityID.Yellow;
 			Item.defense = 18;
 		}
 

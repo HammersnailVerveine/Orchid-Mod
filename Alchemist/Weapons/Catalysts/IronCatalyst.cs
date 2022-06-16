@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Weapons.Catalysts
 {
@@ -16,7 +17,7 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 		{
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.catalystType = 1;
 		}

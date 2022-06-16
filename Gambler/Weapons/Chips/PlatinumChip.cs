@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			Item.knockBack = 6f;
 			Item.damage = 32;
 			Item.crit = 4;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.shootSpeed = 10f;
 			Item.shoot = Mod.Find<ModProjectile>("PlatinumChipProj").Type;
 			Item.autoReuse = true;

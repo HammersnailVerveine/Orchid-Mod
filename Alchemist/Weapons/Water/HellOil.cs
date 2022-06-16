@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,7 +16,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			Item.damage = 15;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.value = Item.sellPrice(0, 3, 20, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.WATER;
@@ -47,13 +48,13 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (alchProj.fireFlask.type != 0)
 			{
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				modTarget.spreadOilFire(target.Center, dmg, Main.player[projectile.owner]);
-				SoundEngine.PlaySound(2, (int)target.position.X, (int)target.position.Y, 45);
+				SoundEngine.PlaySound(SoundID.Item45, target.Center);
 			}
 
 			int rand = alchProj.nbElements;
@@ -63,7 +64,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 				int dmg = 0;
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.OilBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
 			}
 		}
 

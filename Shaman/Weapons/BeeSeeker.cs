@@ -17,7 +17,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.useTime = 20;
 			Item.useAnimation = 20;
 			Item.knockBack = 2.75f;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.sellPrice(0, 0, 54, 0);
 			Item.UseSound = SoundID.Item21;
 			Item.autoReuse = true;

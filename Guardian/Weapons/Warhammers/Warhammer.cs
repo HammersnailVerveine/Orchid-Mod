@@ -15,7 +15,7 @@ namespace OrchidMod.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 5f;
 			Item.damage = 10;
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 			Item.useAnimation = 35;
 			Item.useTime = 35;
 		}

@@ -9,7 +9,7 @@ namespace OrchidMod.Gambler.Misc
 			Item.width = 26;
 			Item.height = 12;
 			Item.maxStack = 99;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 15, 0);
 		}
 

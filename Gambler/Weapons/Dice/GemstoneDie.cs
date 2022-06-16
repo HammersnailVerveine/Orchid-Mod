@@ -11,7 +11,7 @@ namespace OrchidMod.Gambler.Weapons.Dice
 			Item.width = 24;
 			Item.height = 24;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			this.diceID = 1;
 			this.diceCost = 1;
 			this.diceDuration = 15;

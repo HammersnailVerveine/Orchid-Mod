@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using System;
 using Terraria;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 
@@ -14,7 +16,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			Item.damage = 10;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 20, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.NATURE;
@@ -73,15 +75,15 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 				}
 				if (attractiteTarget != null)
 				{
-					attractiteTarget.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
+					attractiteTarget.AddBuff(BuffType<Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
 				}
 			}
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
-			target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
+			target.AddBuff(BuffType<Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
 		}
 
 		public override void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile proj, OrchidModGlobalItem globalItem)

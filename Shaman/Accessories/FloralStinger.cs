@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.width = 34;
 			Item.height = 40;
 			Item.value = Item.sellPrice(0, 5, 0, 0);
-			Item.rare = 7;
+			Item.rare = ItemRarityID.Lime;
 			Item.accessory = true;
 		}
 

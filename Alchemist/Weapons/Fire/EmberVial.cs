@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using Terraria;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
@@ -13,7 +14,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			Item.damage = 7;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.FIRE;
@@ -39,19 +40,19 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			{
 				Vector2 vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(80)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.EmberVialProjAlt>();
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
 			int dmg = this.getSecondaryDamage(player, modPlayer, 0);
 			int rand = alchProj.nbElements + Main.rand.Next(2);
 			for (int i = 0; i < rand; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -3f).RotatedByRandom(MathHelper.ToRadians(60)));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Fire.EmberVialProj>(), dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Alchemist.Projectiles.Fire.EmberVialProj>(), dmg, 0f, projectile.owner);
 			}
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			target.AddBuff(BuffID.OnFire, (60 * 3) + (60 * (alchProj.nbElements)));
 		}

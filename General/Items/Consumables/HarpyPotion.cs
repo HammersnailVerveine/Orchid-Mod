@@ -18,7 +18,7 @@ namespace OrchidMod.General.Items.Consumables
 			Item.value = Item.sellPrice(0, 0, 2, 0);
 			Item.width = 20;
 			Item.height = 28;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.buffType = Mod.Find<ModBuff>("HarpyAgility").Type;
 			Item.buffTime = 60 * 180;
 		}

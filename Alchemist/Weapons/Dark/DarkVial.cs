@@ -1,6 +1,6 @@
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
-
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Weapons.Dark
 {
@@ -11,7 +11,7 @@ namespace OrchidMod.Alchemist.Weapons.Dark
 			Item.damage = 5;
 			Item.width = 24;
 			Item.height = 24;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			this.potencyCost = 1;
 			this.element = AlchemistElement.DARK;
 			this.rightClickDust = 27;

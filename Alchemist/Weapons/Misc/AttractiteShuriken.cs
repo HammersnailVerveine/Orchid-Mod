@@ -24,7 +24,7 @@ namespace OrchidMod.Alchemist.Weapons.Misc
 			Item.width = 22;
 			Item.height = 22;
 			Item.scale = 1f;
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 			Item.value = Item.sellPrice(0, 0, 0, 0);
 			Item.noMelee = true;
 			Item.noUseGraphic = true;

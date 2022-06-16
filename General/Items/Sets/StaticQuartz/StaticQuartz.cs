@@ -25,7 +25,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			Item.maxStack = 999;
 			Item.consumable = true;
 			Item.createTile = TileType<Tiles.Ores.StaticQuartzGem>();
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 			Item.value = Item.sellPrice(0, 0, 1, 50);
 		}
 	}

@@ -14,7 +14,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			Item.damage = 10;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.WATER;
@@ -51,7 +51,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			{
 				Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Water.WaterSporeProjAlt>();
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
@@ -67,7 +67,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Water.WaterSporeProj>(), dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Projectiles.Water.WaterSporeProj>(), dmg, 0f, projectile.owner);
 			}
 		}
 

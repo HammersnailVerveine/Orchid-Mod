@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 			Item.width = 22;
 			Item.height = 18;
 			Item.value = Item.sellPrice(0, 0, 60, 0);
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.defense = 7;
 		}
 

@@ -11,7 +11,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.width = 20;
 			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 			Item.crit = 4;
 			Item.damage = 12;

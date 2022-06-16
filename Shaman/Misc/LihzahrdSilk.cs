@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.height = 18;
 			Item.maxStack = 99;
 			Item.value = Item.sellPrice(0, 0, 12, 50);
-			Item.rare = 8;
+			Item.rare = ItemRarityID.Yellow;
 		}
 
 		public override void SetStaticDefaults()

@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			Item.damage = 4;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 15, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.NATURE;

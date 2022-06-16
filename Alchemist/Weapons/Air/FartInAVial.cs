@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Air
@@ -12,7 +13,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			Item.damage = 12;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 1, 0, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.AIR;
@@ -35,8 +36,8 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			for (int i = 0; i < nb; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -(float)((3 * alchProj.nbElements) + Main.rand.Next(3))).RotatedByRandom(MathHelper.ToRadians(10)));
-				int spawnProj = Main.rand.Next(3) == 0 ? ProjectileType<Alchemist.Projectiles.AlchemistSmoke3>() : ProjectileType<Alchemist.Projectiles.AlchemistSmoke2>();
-				int smokeProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+				int spawnProj = Main.rand.NextBool(3) ? ProjectileType<AlchemistSmoke3>() : ProjectileType<AlchemistSmoke2>();
+				int smokeProj = Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 				Main.projectile[smokeProj].localAI[0] = alchProj.glowColor.R;
 				Main.projectile[smokeProj].localAI[1] = alchProj.glowColor.G;
 				Main.projectile[smokeProj].ai[1] = alchProj.glowColor.B;
@@ -49,12 +50,12 @@ namespace OrchidMod.Alchemist.Weapons.Air
 					int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 					Vector2 vel = (new Vector2(0f, -(float)((3 * alchProj.nbElements) + Main.rand.Next(3))).RotatedByRandom(MathHelper.ToRadians(10)));
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>();
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
+					Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, dmg, 0f, projectile.owner);
 				}
 			}
 
 			int type = ProjectileType<Alchemist.Projectiles.Air.CloudInAVialProj>();
-			int newProj = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, type, 0, 0.5f, projectile.owner);
+			int newProj = Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, type, 0, 0.5f, projectile.owner);
 			Main.projectile[newProj].ai[1] = alchProj.nbElements;
 			Main.projectile[newProj].netUpdate = true;
 		}

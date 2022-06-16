@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +15,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			Item.damage = 25;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.FIRE;
@@ -42,11 +43,10 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			recipe.AddIngredient(ItemID.HellstoneBar, 10);
 			recipe.AddIngredient(null, "AlchemicStabilizer", 1);
 			recipe.Register();
-			recipe.Register();
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
 			{
@@ -60,7 +60,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubbleLava>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
 			}
 
 			if (modTarget.alchemistFire > 0)
@@ -71,7 +71,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 				for (int i = 0; i < nb; i++)
 				{
 					Vector2 perturbedSpeed = projectile.velocity.RotatedByRandom(MathHelper.ToRadians(15)) * 0.75f;
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 1f, projectile.owner);
+					Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 1f, projectile.owner);
 				}
 			}
 		}

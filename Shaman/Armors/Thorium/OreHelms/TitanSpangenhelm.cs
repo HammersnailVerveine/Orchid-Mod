@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 			Item.width = 26;
 			Item.height = 24;
 			Item.value = Item.sellPrice(0, 2, 28, 0);
-			Item.rare = 6;
+			Item.rare = ItemRarityID.LightPurple;
 			Item.defense = 14;
 		}
 

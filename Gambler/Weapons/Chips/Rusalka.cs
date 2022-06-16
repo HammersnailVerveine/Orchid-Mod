@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			Item.knockBack = 4f;
 			Item.damage = 37;
 			Item.crit = 4;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.shootSpeed = 15f;
 			Item.shoot = ProjectileType<Gambler.Projectiles.Chips.RusalkaProj>();
 			Item.autoReuse = true;

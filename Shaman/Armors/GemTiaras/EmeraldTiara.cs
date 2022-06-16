@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 			Item.width = 24;
 			Item.height = 12;
 			Item.value = Item.sellPrice(0, 0, 20, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.defense = 2;
 		}
 

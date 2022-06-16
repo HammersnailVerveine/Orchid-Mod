@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 			Item.width = 34;
 			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 60, 0);
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.defense = 8;
 		}
 

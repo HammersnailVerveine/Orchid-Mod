@@ -19,7 +19,7 @@ namespace OrchidMod.Gambler.Misc
 			Item.value = Item.sellPrice(0, 0, 2, 0);
 			Item.width = 20;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.buffType = BuffType<Gambler.Buffs.VulturePotionBuff>();
 			Item.buffTime = 60 * 180;
 		}

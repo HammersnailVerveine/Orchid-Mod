@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.width = 28;
 			Item.height = 26;
 			Item.value = Item.sellPrice(0, 2, 50, 0);
-			Item.rare = 6;
+			Item.rare = ItemRarityID.LightPurple;
 			Item.accessory = true;
 		}
 		public override void SetStaticDefaults()

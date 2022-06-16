@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
 using OrchidMod.Alchemist.Projectiles.Air;
 using OrchidMod.Alchemist.Projectiles.Fire;
@@ -5,9 +6,11 @@ using OrchidMod.Alchemist.Projectiles.Nature;
 using OrchidMod.Alchemist.Projectiles.Reactive;
 using OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn;
 using OrchidMod.Alchemist.Projectiles.Water;
+using OrchidMod.Common.Globals.NPCs;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Water
@@ -57,7 +60,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			Item.damage = 12;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 1, 0, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.WATER;
@@ -117,7 +120,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 					if ((range + (target.width / 2)) > distance)
 					{
 						OrchidModAlchemistNPC modTarget = target.GetGlobalNPC<OrchidModAlchemistNPC>();
-						target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.FlashFreeze>(), modTarget.alchemistWater > 0 ? 60 * 30 : 60 * 3);
+						target.AddBuff(BuffType<Debuffs.FlashFreeze>(), modTarget.alchemistWater > 0 ? 60 * 30 : 60 * 3);
 					}
 				}
 
@@ -129,10 +132,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 					float distance = (float)Math.Sqrt(offsetX * offsetX + offsetY * offsetY);
 					if (player.whoAmI == proj.owner && proj.active && (range + (proj.width / 2)) > distance)
 					{
+						Vector2 vel = new Vector2(0, 1f);
 						if (smallProjectiles.Contains(proj.type))
 						{
 							int projType = ProjectileType<IceChestFlaskProjSmall>();
-							Projectile.NewProjectile(proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage, 1f, player.whoAmI);
+							Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), proj.Center, vel, projType, damage, 1f, player.whoAmI);
 							proj.active = false;
 							proj.netUpdate = true;
 						}
@@ -140,7 +144,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 						if (bigProjectiles.Contains(proj.type))
 						{
 							int projType = ProjectileType<IceChestFlaskProjBig>();
-							Projectile.NewProjectile(proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage * 5, 5f, player.whoAmI);
+							Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), proj.Center, vel, projType, damage * 5, 5f, player.whoAmI);
 							proj.active = false;
 							proj.netUpdate = true;
 						}
@@ -150,7 +154,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (alchProj.fireFlask.type != 0)
 			{

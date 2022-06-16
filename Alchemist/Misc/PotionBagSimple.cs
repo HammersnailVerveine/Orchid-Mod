@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Misc
 			Item.height = 28;
 			Item.maxStack = 1;
 			Item.value = Item.sellPrice(0, 0, 40, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 		}
 
 		public override void SetStaticDefaults()

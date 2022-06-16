@@ -15,7 +15,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			Item.damage = 15;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 3;
 			this.element = AlchemistElement.FIRE;
@@ -34,17 +34,6 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 							+ "\nSpores deals 10% increased damage against fire-coated enemies");
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddIngredient(null, "EmptyFlask", 1);
-			recipe.AddIngredient(ItemID.Fireblossom, 3);
-			recipe.AddIngredient(ItemID.Hellstone, 10);
-			recipe.Register();
-			recipe.Register();
-		}
-
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int nb = 2 + Main.rand.Next(2);
@@ -52,7 +41,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			{
 				Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.FireSporeProjAlt>();
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
@@ -69,7 +58,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>(), dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Alchemist.Projectiles.Fire.FireSporeProj>(), dmg, 0f, projectile.owner);
 			}
 		}
 
@@ -78,5 +67,14 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			alchProj.nbElementsNoExtract--;
 		}
 
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(null, "EmptyFlask", 1);
+			recipe.AddIngredient(ItemID.Fireblossom, 3);
+			recipe.AddIngredient(ItemID.Hellstone, 10);
+			recipe.Register();
+		}
 	}
 }

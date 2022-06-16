@@ -25,7 +25,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			Item.width = 40;
 			Item.height = 40;
 			Item.scale = 1f;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 5, 0);
 			Item.melee = true;
 			Item.noMelee = true;

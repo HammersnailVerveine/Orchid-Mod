@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Recipes
@@ -15,9 +13,8 @@ namespace OrchidMod.Alchemist.Recipes
 			this.description = "Heals the player for 25 health";
 			this.sound = SoundID.Item25;
 			this.dust = 56;
-			
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>());
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Water.KingSlimeFlask>());
+			this.ingredients.Add(ItemType<Weapons.Nature.GlowingMushroomVial>());
+			this.ingredients.Add(ItemType<Weapons.Water.KingSlimeFlask>());
 		}
 		
 		

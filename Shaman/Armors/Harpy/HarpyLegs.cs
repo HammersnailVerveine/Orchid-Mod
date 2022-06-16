@@ -12,7 +12,7 @@ namespace OrchidMod.Shaman.Armors.Harpy
 			Item.width = 22;
 			Item.height = 14;
 			Item.value = Item.sellPrice(0, 0, 20, 50);
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.defense = 4;
 		}
 

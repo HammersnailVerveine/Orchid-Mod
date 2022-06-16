@@ -14,7 +14,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			Item.damage = 13;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.AIR;
@@ -33,29 +33,10 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nSpores deals 10% increased damage against fire-coated enemies");
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddIngredient(null, "EmptyFlask", 1);
-			recipe.AddIngredient(ItemID.Deathweed, 3);
-			recipe.AddIngredient(ItemID.ShadowScale, 5);
-			recipe.Register();
-			recipe.Register();
-
-			recipe = CreateRecipe();
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddIngredient(null, "EmptyFlask", 1);
-			recipe.AddIngredient(ItemID.Deathweed, 3);
-			recipe.AddIngredient(ItemID.TissueSample, 5);
-			recipe.Register();
-			recipe.Register();
-		}
-
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
-			if (player.ZoneCrimson || player.ZoneCorrupt) mult *= 1.2f;
+			damage *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
+			if (player.ZoneCrimson || player.ZoneCorrupt) damage *= 1.2f;
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
@@ -65,7 +46,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			{
 				Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProjAlt>();
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
@@ -81,13 +62,30 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>(), dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>(), dmg, 0f, projectile.owner);
 			}
 		}
 
 		public override void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			alchProj.nbElementsNoExtract--;
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(null, "EmptyFlask", 1);
+			recipe.AddIngredient(ItemID.Deathweed, 3);
+			recipe.AddIngredient(ItemID.ShadowScale, 5);
+			recipe.Register();
+
+			recipe = CreateRecipe();
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(null, "EmptyFlask", 1);
+			recipe.AddIngredient(ItemID.Deathweed, 3);
+			recipe.AddIngredient(ItemID.TissueSample, 5);
+			recipe.Register();
 		}
 	}
 }

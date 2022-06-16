@@ -13,7 +13,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 			Item.width = 26;
 			Item.height = 16;
 			Item.value = Item.sellPrice(0, 0, 5, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.defense = 1;
 		}
 

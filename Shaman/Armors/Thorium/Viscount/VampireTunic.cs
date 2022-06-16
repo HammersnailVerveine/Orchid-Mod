@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 			Item.width = 30;
 			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 15, 0);
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.defense = 7;
 		}
 

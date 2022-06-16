@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Armors.Corruption
 			Item.width = 30;
 			Item.height = 16;
 			Item.value = Item.sellPrice(0, 0, 60, 0);
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.defense = 5;
 		}
 

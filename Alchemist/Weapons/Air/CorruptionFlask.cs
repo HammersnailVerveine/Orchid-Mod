@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -13,7 +14,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			Item.damage = 12;
 			Item.width = 28;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 15, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.AIR;
@@ -34,17 +35,6 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nOnly one mushroom can exist at once");
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddIngredient(null, "EmptyFlask", 1);
-			recipe.AddIngredient(ItemID.RottenChunk, 5);
-			recipe.AddIngredient(ItemID.VileMushroom, 5);
-			recipe.Register();
-			recipe.Register();
-		}
-
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int projType = ProjectileType<Alchemist.Projectiles.Air.CorruptionFlaskProj>();
@@ -62,8 +52,19 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			if (!spawnedMushroom)
 			{
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 10, 0f, 0f, projType, dmg, 3f, projectile.owner);
+				Vector2 pos = new Vector2(projectile.Center.X, projectile.Center.Y - 10);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), pos, Vector2.Zero, projType, dmg, 3f, projectile.owner);
 			}
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(null, "EmptyFlask", 1);
+			recipe.AddIngredient(ItemID.RottenChunk, 5);
+			recipe.AddIngredient(ItemID.VileMushroom, 5);
+			recipe.Register();
 		}
 	}
 }

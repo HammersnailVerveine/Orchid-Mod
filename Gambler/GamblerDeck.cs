@@ -27,7 +27,7 @@ namespace OrchidMod.Gambler
 			Item.useTime = 30;
 			Item.knockBack = 1f;
 			Item.damage = 1;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.shootSpeed = 1f;
 			Item.shoot = 1;
 			Item.autoReuse = true;

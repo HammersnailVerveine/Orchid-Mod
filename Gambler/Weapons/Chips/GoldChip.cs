@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			Item.knockBack = 6f;
 			Item.damage = 30;
 			Item.crit = 4;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.shootSpeed = 10f;
 			Item.shoot = ProjectileType<Gambler.Projectiles.Chips.GoldChipProj>();
 			Item.autoReuse = true;

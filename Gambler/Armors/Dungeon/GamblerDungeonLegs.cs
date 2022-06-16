@@ -12,7 +12,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 			Item.width = 22;
 			Item.height = 18;
 			Item.value = Item.sellPrice(0, 0, 35, 0);
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.defense = 6;
 		}
 

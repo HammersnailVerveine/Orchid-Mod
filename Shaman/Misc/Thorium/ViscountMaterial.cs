@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Misc.Thorium
 			Item.height = 24;
 			Item.maxStack = 99;
 			Item.value = Item.sellPrice(0, 0, 3, 50);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 		}
 
 		public override void SetStaticDefaults()

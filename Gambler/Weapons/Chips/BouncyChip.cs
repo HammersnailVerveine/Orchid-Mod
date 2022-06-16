@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			Item.knockBack = 3f;
 			Item.damage = 25;
 			Item.crit = 4;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.shootSpeed = 10f;
 			Item.shoot = ProjectileType<Gambler.Projectiles.Chips.BouncyChipProj>();
 			Item.autoReuse = true;

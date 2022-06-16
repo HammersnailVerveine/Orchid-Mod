@@ -156,7 +156,7 @@ namespace OrchidMod.Gambler
 			else
 			{
 				Item.damage = 0;
-				//item.rare = 0;
+				//Item.rare = ItemRarityID.White;
 				Item.crit = 0;
 				Item.useAnimation = 1;
 				Item.useTime = 1;

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Weapons.Catalysts
 {
@@ -19,7 +20,7 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 		{
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 2;
+			Item.rare = ItemRarityID.Green;
 			Item.damage = 21;
 			Item.crit = 4;
 			Item.value = Item.sellPrice(0, 0, 75, 0);
@@ -34,7 +35,7 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 			for (int i = 0; i < 4 + rand; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Reactive.ReactiveSpawn.DungeonCatalystProj>(), dmg, 0f, player.whoAmI);
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, vel, ProjectileType<Projectiles.Reactive.ReactiveSpawn.DungeonCatalystProj>(), dmg, 0f, player.whoAmI);
 			}
 		}
 	}

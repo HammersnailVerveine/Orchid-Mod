@@ -14,7 +14,7 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 			Item.width = 30;
 			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 4, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.defense = 2;
 		}
 

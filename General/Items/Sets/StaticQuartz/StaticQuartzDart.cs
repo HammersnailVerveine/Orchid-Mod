@@ -22,7 +22,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			Item.consumable = true;
 			Item.knockBack = 1.5f;
 			Item.value = Item.sellPrice(0, 0, 0, 1);
-			Item.rare = 0;
+			Item.rare = ItemRarityID.White;
 			Item.shoot = ProjectileType<General.Items.Sets.StaticQuartz.Projectiles.StaticQuartzDartProj>();
 			Item.shootSpeed = 1f;
 			Item.ammo = AmmoID.Dart;

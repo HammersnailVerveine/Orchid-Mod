@@ -12,7 +12,7 @@ namespace OrchidMod.Shaman.Armors.Downpour
 			Item.width = 22;
 			Item.height = 20;
 			Item.value = Item.sellPrice(0, 5, 0, 0);
-			Item.rare = 5;
+			Item.rare = ItemRarityID.Pink;
 			Item.defense = 8;
 		}
 

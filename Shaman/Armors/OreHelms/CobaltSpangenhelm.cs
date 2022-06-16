@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 			Item.width = 22;
 			Item.height = 20;
 			Item.value = Item.sellPrice(0, 1, 50, 0);
-			Item.rare = 4;
+			Item.rare = ItemRarityID.LightRed;
 			Item.defense = 7;
 		}
 

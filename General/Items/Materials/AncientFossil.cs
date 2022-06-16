@@ -24,7 +24,7 @@ namespace OrchidMod.General.Items.Materials
 			Item.createTile = TileType<Tiles.Ores.AncientFossil>();
 			Item.width = 12;
 			Item.height = 12;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = 3000;
 		}
 	}

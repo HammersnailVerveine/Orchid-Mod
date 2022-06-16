@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Water
@@ -12,7 +13,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			Item.damage = 15;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 50, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.WATER;
@@ -41,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			for (int i = 0; i < rand; i++)
 			{
 				Vector2 vel = (new Vector2(0f, ((alchProj.airFlask.type != 0 && alchProj.fireFlask.type == 0) ? -4f : -2f)).RotatedByRandom(MathHelper.ToRadians(180)));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>(), dmg, kb, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>(), dmg, kb, projectile.owner);
 			}
 		}
 	}

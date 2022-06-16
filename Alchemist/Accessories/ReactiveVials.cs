@@ -9,7 +9,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.width = 26;
 			Item.height = 32;
 			Item.value = Item.sellPrice(0, 0, 20, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
 		public override void SetStaticDefaults()

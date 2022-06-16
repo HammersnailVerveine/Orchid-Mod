@@ -14,7 +14,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			Item.damage = 12;
 			Item.width = 28;
 			Item.height = 30;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 15, 0);
 			this.potencyCost = 1;
 			this.element = AlchemistElement.AIR;
@@ -34,17 +34,6 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nOnly one set of mushrooms can exist at once");
 		}
 
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddIngredient(null, "EmptyFlask", 1);
-			recipe.AddIngredient(ItemID.Vertebrae, 5);
-			recipe.AddIngredient(2887, 5); // Viscious mushroom
-			recipe.Register();
-			recipe.Register();
-		}
-
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int projType = ProjectileType<Alchemist.Projectiles.Air.CrimsonFlaskProj>();
@@ -60,6 +49,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 				}
 			}
 
+			Vector2 pos = new Vector2(projectile.Center.X, projectile.Center.Y - 5);
 			if (!spawnedMushroom)
 			{
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
@@ -68,12 +58,22 @@ namespace OrchidMod.Alchemist.Weapons.Air
 				{
 					float speed = (5f / (nb + 1)) * (i + 1);
 					Vector2 vel = (new Vector2(0f, speed).RotatedByRandom(MathHelper.ToRadians(180)));
-					Projectile newProj = Main.projectile[Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 5, vel.X, vel.Y, projType, dmg, 0.1f, projectile.owner)];
+					Projectile newProj = Main.projectile[Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), pos, vel, projType, dmg, 0.1f, projectile.owner)];
 					newProj.timeLeft = 70 + (((20 - nb) > 10 ? (20 - nb) : 10) * i);
 					newProj.netUpdate = true;
 				}
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y - 5, 0f, 0f, projType2, 0, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), pos, 0f, 0f, projType2, 0, 0f, projectile.owner);
 			}
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(null, "EmptyFlask", 1);
+			recipe.AddIngredient(ItemID.Vertebrae, 5);
+			recipe.AddIngredient(ItemID.ViciousMushroom, 5);
+			recipe.Register();
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace OrchidMod.Alchemist.Misc
 			Item.useTime = 30;
 			Item.useStyle = 1;
 			Item.noUseGraphic = true;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item7;
 		}
 

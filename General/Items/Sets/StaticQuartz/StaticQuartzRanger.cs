@@ -25,7 +25,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			Item.noMelee = true;
 			Item.knockBack = 1f;
 			Item.value = Item.sellPrice(0, 0, 5, 0);
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item64;
 			Item.shoot = 10;
 			Item.shootSpeed = 10f;

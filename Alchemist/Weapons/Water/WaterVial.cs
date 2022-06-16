@@ -11,7 +11,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			Item.damage = 5;
 			Item.width = 24;
 			Item.height = 24;
-			Item.rare = 1;
+			Item.rare = ItemRarityID.Blue;
 			this.potencyCost = 1;
 			this.element = AlchemistElement.WATER;
 			this.rightClickDust = 29;

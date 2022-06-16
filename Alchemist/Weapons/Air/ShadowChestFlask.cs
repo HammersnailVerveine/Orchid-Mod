@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Weapons.Air
 {
@@ -12,7 +13,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			Item.damage = 25;
 			Item.width = 30;
 			Item.height = 30;
-			Item.rare = 3;
+			Item.rare = ItemRarityID.Orange;
 			Item.value = Item.sellPrice(0, 2, 50, 0);
 			this.potencyCost = 2;
 			this.element = AlchemistElement.AIR;
@@ -38,7 +39,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			for (int i = 0; i < 4; i++)
 			{
 				Vector2 vel = (new Vector2(0f, 5f * alchProj.nbElements).RotatedBy(MathHelper.ToRadians(90 * i)));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, dmg, 0f, projectile.owner);
 			}
 		}
 	}
