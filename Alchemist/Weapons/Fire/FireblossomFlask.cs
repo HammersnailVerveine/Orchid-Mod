@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			recipe.AddIngredient(ItemID.Fireblossom, 3);
 			recipe.AddIngredient(ItemID.Hellstone, 10);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

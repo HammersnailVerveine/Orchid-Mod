@@ -41,7 +41,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			recipe.AddIngredient(ItemID.Shiverthorn, 3);
 			recipe.AddIngredient(664, 10); // Ice block
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

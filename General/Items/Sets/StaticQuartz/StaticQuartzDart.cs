@@ -30,10 +30,9 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 
 		public override void AddRecipes()
 		{
-			var recipe = CreateRecipe();
+			var recipe = CreateRecipe(this.Type, 100);
 			recipe.AddIngredient(ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 1);
-			recipe.SetResult(this, 100);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

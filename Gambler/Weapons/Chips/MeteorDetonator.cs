@@ -62,7 +62,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.MeteoriteBar, 15);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

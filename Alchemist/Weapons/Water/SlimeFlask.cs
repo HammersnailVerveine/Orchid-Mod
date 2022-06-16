@@ -40,7 +40,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			recipe.AddIngredient(ItemID.Bottle, 1);
 			recipe.AddIngredient(ItemID.Gel, 5);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

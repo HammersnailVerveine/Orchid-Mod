@@ -48,7 +48,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.HellstoneBar, 15);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

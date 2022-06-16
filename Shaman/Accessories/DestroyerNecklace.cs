@@ -60,7 +60,7 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(548, 20); // Sould of Might
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

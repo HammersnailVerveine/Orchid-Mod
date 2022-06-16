@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 			recipe.AddIngredient(ItemID.Bone, 10);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

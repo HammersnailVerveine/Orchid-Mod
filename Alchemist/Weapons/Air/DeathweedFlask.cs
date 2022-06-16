@@ -41,7 +41,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			recipe.AddIngredient(ItemID.Deathweed, 3);
 			recipe.AddIngredient(ItemID.ShadowScale, 5);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 
 			recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
@@ -49,7 +49,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			recipe.AddIngredient(ItemID.Deathweed, 3);
 			recipe.AddIngredient(ItemID.TissueSample, 5);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)

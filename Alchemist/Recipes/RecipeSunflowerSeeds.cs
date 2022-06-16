@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
 using Terraria;
-using Terraria.ModLoader;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Recipes
@@ -14,11 +13,9 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Sunflower Seeds";
 			this.description = "Releases damaging sunflower seeds around the player";
 			this.debuffDuration = 15;
-			this.soundType = 2;
-			this.soundID = 85;
-			
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.SunflowerFlask>());
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Water.SlimeFlask>());
+			this.sound = SoundID.Item25;
+			this.ingredients.Add(ItemType<Weapons.Nature.SunflowerFlask>());
+			this.ingredients.Add(ItemType<Weapons.Water.SlimeFlask>());
 		}
 		
 		
@@ -31,14 +28,15 @@ namespace OrchidMod.Alchemist.Recipes
 			for (int i = 0; i < 5; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(10)).RotatedBy(MathHelper.ToRadians(-40 + (20 * i))));
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj1>(), dmg, 0f, player.whoAmI);
+				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj1>();
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Hidden Reaction"), player.Center, vel, spawnProj, dmg, 0f, player.whoAmI);
 			}
 
 			for (int i = 0; i < nb; i++)
 			{
 				Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj4>();
-				Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, player.whoAmI);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Hidden Reaction"), player.Center, vel, spawnProj, 0, 0f, player.whoAmI);
 			}
 		}
 	}

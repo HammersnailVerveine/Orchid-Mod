@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -14,14 +15,13 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Flipper Potion";
 			this.description = "Gives 30 seconds of flipper Potion effect";
 			this.debuffDuration = 30;
-			this.soundType = 2;
-			this.soundID = 25;
+			this.sound = SoundID.Item25;
 			this.dust = 15;
 			this.buff = 109;
 			this.buffDuration = 30;
 			
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.ShiverthornFlask>());
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Water.WaterleafFlask>());
+			this.ingredients.Add(ItemType<Weapons.Air.ShiverthornFlask>());
+			this.ingredients.Add(ItemType<Weapons.Water.WaterleafFlask>());
 		}
 		
 		

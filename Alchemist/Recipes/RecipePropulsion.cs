@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -14,8 +15,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Propulsion";
 			this.description = "Vertically propels the player";
 			this.debuffDuration = 10;
-			this.soundType = 2;
-			this.soundID = 14;
+			this.sound = SoundID.Item14;
 			this.dust = 15;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Fire.GunpowderFlask>());
@@ -30,7 +30,7 @@ namespace OrchidMod.Alchemist.Recipes
 
 			for (int i = 0; i < 15; i++)
 			{
-				int dust = Dust.NewDust(player.Center, 10, 10, 37);
+				int dust = Dust.NewDust(player.Center, 10, 10, DustID.Obsidian);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 2f;
 				Main.dust[dust].scale *= 1.2f;

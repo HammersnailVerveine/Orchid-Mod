@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(null, "WaxyVial", 1);
 			recipe.AddTile(114);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

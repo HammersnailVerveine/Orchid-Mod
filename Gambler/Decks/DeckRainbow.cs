@@ -19,7 +19,7 @@ namespace OrchidMod.Gambler.Decks
 			recipe.AddIngredient(null, "GamblerAttack", 1);
 			recipe.AddIngredient(1066, 1); // Rainbow Dye
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

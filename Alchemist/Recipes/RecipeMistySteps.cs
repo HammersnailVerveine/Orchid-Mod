@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -14,8 +15,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Misty Steps";
 			this.description = "Releases harmful mist when moving";
 			this.debuffDuration = 20;
-			this.soundType = 2;
-			this.soundID = 85;
+			this.sound = SoundID.Item85;
 			this.dust = 5;
 			this.buff = BuffType<Alchemist.Buffs.BloodMistFlaskBuff>();
 			this.buffDuration = 60;

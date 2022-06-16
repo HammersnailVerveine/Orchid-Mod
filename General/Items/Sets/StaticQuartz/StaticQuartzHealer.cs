@@ -54,7 +54,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(ItemType<StaticQuartz>(), 12);
 				recipe.Register();
-				recipe.AddRecipe();
+				recipe.Register();
 			}
 		}
 

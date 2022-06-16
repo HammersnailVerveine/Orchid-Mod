@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -14,8 +15,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Burning Samples";
 			this.description = "Using slimy samples with a fire element will release damaging embers";
 			this.debuffDuration = 15;
-			this.soundType = 2;
-			this.soundID = 85;
+			this.sound = SoundID.Item85;
 			this.dust = 29;
 			this.buff = BuffType<Alchemist.Buffs.SlimeFlaskBuff>();
 			this.buffDuration = 60;

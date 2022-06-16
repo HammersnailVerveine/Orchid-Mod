@@ -43,7 +43,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 24);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			recipe.AddIngredient(ItemID.HellstoneBar, 10);
 			recipe.AddIngredient(null, "AlchemicStabilizer", 1);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,

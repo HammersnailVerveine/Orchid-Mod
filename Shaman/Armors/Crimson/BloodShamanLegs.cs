@@ -35,7 +35,7 @@ namespace OrchidMod.Shaman.Armors.Crimson
 			recipe.AddIngredient(ItemID.TissueSample, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

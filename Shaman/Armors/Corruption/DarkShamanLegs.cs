@@ -35,7 +35,7 @@ namespace OrchidMod.Shaman.Armors.Corruption
 			recipe.AddIngredient(ItemID.ShadowScale, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

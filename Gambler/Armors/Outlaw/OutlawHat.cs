@@ -63,7 +63,7 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 2);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 
 			recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Silk, 5);
@@ -71,7 +71,7 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 2);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

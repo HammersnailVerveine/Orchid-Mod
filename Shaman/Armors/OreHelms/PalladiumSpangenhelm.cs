@@ -66,7 +66,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 			recipe.AddIngredient(ItemID.PalladiumBar, 12);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

@@ -58,14 +58,14 @@ namespace OrchidMod.Shaman.Armors.Downpour
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 
 			recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.TitaniumBar, 10);
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

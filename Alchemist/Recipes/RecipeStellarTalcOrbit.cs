@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -14,8 +15,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Stellar Talc Orbit";
 			this.description = "Stellar Talc projectiles will orbit the user";
 			this.debuffDuration = 20;
-			this.soundType = 2;
-			this.soundID = 85;
+			this.sound = SoundID.Item85;
 			this.dust = 16;
 			this.buff = BuffType<Alchemist.Buffs.StellarTalcBuff>();
 			this.buffDuration = 60;

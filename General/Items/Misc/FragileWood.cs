@@ -32,7 +32,7 @@ namespace OrchidMod.General.Items.Misc
 			recipe.AddTile(283);
 			recipe.AddIngredient(ItemID.Wood, 1);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

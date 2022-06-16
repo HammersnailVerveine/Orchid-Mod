@@ -40,7 +40,7 @@ namespace OrchidMod.Gambler.Misc
 			recipe.AddIngredient(ItemID.Cactus, 1);
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 2);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

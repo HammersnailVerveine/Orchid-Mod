@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			recipe.AddIngredient(ItemID.Vertebrae, 5);
 			recipe.AddIngredient(2887, 5); // Viscious mushroom
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

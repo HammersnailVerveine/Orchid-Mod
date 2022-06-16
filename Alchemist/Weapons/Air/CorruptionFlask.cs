@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			recipe.AddIngredient(ItemID.RottenChunk, 5);
 			recipe.AddIngredient(ItemID.VileMushroom, 5);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

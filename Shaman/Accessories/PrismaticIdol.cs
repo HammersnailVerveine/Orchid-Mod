@@ -53,7 +53,7 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(549, 5);
 			recipe.AddTile(114);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

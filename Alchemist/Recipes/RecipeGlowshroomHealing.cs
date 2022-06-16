@@ -13,9 +13,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.level = 1;
 			this.name = "Glowshroom Healing";
 			this.description = "Heals the player for 25 health";
-			this.debuffDuration = 25;
-			this.soundType = 2;
-			this.soundID = 25;
+			this.sound = SoundID.Item25;
 			this.dust = 56;
 			
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.GlowingMushroomVial>());

@@ -43,7 +43,7 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 8);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

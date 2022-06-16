@@ -49,7 +49,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			recipe.AddIngredient(20, 6);
 			recipe.AddIngredient(ItemID.Wood, 10);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

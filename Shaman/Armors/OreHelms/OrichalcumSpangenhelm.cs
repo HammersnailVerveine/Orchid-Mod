@@ -64,7 +64,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 			recipe.AddIngredient(ItemID.OrichalcumBar, 12);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

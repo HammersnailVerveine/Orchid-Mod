@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLily>(), 2);
 			recipe.AddIngredient(ItemID.Stinger, 5);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 
 			recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
@@ -50,7 +50,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>(), 1);
 			recipe.AddIngredient(ItemID.Stinger, 5);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 
 		public override void KillFirst(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

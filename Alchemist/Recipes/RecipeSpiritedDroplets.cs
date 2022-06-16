@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Recipes
@@ -14,15 +12,14 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Spirited Droplets";
 			this.description = "Chemical attacks will release spirited water flames";
 			this.debuffDuration = 20;
-			this.soundType = 2;
-			this.soundID = 85;
+			this.sound = SoundID.Item85;
 			this.dust = 29;
-			this.buff = BuffType<Alchemist.Buffs.SpiritedWaterBuff>();
+			this.buff = BuffType<Buffs.SpiritedWaterBuff>();
 			this.buffDuration = 60;
 			
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Water.DungeonFlask>());
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Fire.GunpowderFlask>());
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.AttractiteFlask>());
+			this.ingredients.Add(ItemType<Weapons.Water.DungeonFlask>());
+			this.ingredients.Add(ItemType<Weapons.Fire.GunpowderFlask>());
+			this.ingredients.Add(ItemType<Weapons.Nature.AttractiteFlask>());
 		}
 		
 		

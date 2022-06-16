@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -14,8 +15,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Invisibility Potion";
 			this.description = "Gives 30 seconds of invisibility Potion effect";
 			this.debuffDuration = 30;
-			this.soundType = 2;
-			this.soundID = 25;
+			this.sound = SoundID.Item25;
 			this.dust = 15;
 			this.buff = 10;
 			this.buffDuration = 30;

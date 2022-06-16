@@ -60,7 +60,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 			recipe.AddIngredient(null, "ViscountMaterial", 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

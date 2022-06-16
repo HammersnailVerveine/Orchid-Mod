@@ -25,14 +25,13 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void AddRecipes()
 		{
-			var recipe = CreateRecipe();
+			var recipe = CreateRecipe(935);
 			recipe.AddIngredient(this, 1);
 			recipe.AddIngredient(548, 5);
 			recipe.AddIngredient(549, 5);
 			recipe.AddIngredient(547, 5);
 			recipe.AddTile(114);
-			recipe.SetResult(935);
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

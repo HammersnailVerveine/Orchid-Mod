@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 			recipe.AddIngredient(null, "EmptyTiara", 1);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

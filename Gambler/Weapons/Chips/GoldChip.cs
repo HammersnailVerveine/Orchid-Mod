@@ -43,7 +43,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			recipe.AddIngredient(ItemID.Ruby, 8);
 			recipe.AddIngredient(ItemID.GoldBar, 10);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

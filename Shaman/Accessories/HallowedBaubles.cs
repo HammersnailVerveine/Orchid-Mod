@@ -79,7 +79,7 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(ItemID.CrystalShard, 5);
 			recipe.AddTile(114);
 			recipe.Register();
-			recipe.AddRecipe();
+			recipe.Register();
 		}
 	}
 }

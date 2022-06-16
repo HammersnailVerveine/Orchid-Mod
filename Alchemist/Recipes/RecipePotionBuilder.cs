@@ -14,15 +14,14 @@ namespace OrchidMod.Alchemist.Recipes
 			this.name = "Builder Potion";
 			this.description = "Gives 30 seconds of builder Potion effect";
 			this.debuffDuration = 30;
-			this.soundType = 2;
-			this.soundID = 25;
+			this.sound = SoundID.Item25;
 			this.dust = 15;
 			this.buff = 107;
 			this.buffDuration = 30;
 			
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Fire.BlinkrootFlask>());
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.ShiverthornFlask>());
-			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.MoonglowFlask>());
+			this.ingredients.Add(ItemType<Weapons.Fire.BlinkrootFlask>());
+			this.ingredients.Add(ItemType<Weapons.Air.ShiverthornFlask>());
+			this.ingredients.Add(ItemType<Weapons.Nature.MoonglowFlask>());
 		}
 		
 		

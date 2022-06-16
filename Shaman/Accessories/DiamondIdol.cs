@@ -31,7 +31,6 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(ItemID.Diamond, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.AddRecipe();
 		}
 	}
 }
