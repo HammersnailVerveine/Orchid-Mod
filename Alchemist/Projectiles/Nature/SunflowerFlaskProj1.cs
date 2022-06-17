@@ -47,8 +47,8 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 				int dmg = Projectile.damage;
 				int projType1 = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj2>();
 				int projType2 = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj3>();
-				Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType1, 0, 0f, Projectile.owner);
-				Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y - 16, 0f, 0f, projType2, dmg, 0f, Projectile.owner);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, projType1, 0, 0f, Projectile.owner);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y - 16, 0f, 0f, projType2, dmg, 0f, Projectile.owner);
 				Projectile.Kill();
 			}
 			return false;

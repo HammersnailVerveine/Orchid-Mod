@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Projectiles.Reactive
@@ -30,7 +31,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			Projectile.velocity.X *= 0.99f;
 			Projectile.rotation += 0.02f;
 
-			if (Main.rand.Next(20) == 0)
+			if (Main.rand.NextBool(20))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 44);
 				Main.dust[dust].velocity *= 0.1f;
@@ -50,19 +51,19 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SafeKill(int timeLeft, Player player, OrchidModPlayer modPlayer)
 		{
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 85);
+			SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 			int proj = ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProj>();
 			int dmg = Projectile.damage;
 			for (int i = 0; i < 8; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(0f, 12.5f).RotatedBy(MathHelper.ToRadians(22.5f + i * 45));
-				Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0.5f, Projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, perturbedSpeed, proj, dmg, 0.5f, Projectile.owner, 0.0f, 0.0f);
 			}
 
 			for (int i = 0; i < 3; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(0f, 12.5f).RotatedByRandom(MathHelper.ToRadians(180));
-				Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0.5f, Projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, perturbedSpeed, proj, dmg, 0.5f, Projectile.owner, 0.0f, 0.0f);
 			}
 		}
 	}

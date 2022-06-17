@@ -44,14 +44,14 @@ namespace OrchidMod.Alchemist.Projectiles
 				this.glowColor.G = (byte)Projectile.localAI[1];
 				this.glowColor.B = (byte)Projectile.ai[1];
 				this.rotationspeed = (float)((1 + Main.rand.Next(3)) / 10f);
-				this.rotationspeed *= Main.rand.Next(2) == 0 ? -1 : 1;
+				this.rotationspeed *= Main.rand.NextBool(2) ? -1 : 1;
 			}
 			this.glowColor.A = (byte)(255 - Projectile.alpha);
 			if (Projectile.alpha >= 196)
 			{
 				Projectile.Kill();
 			}
-			if (Main.rand.Next(30) == 0)
+			if (Main.rand.NextBool(30))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<Content.Dusts.WhiteDust>(), 0.0f, 0.0f, 0, this.glowColor);
 				Main.dust[dust].velocity *= 0.5f; ;

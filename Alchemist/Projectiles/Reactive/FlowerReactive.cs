@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Projectiles.Reactive
@@ -28,7 +29,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			Projectile.rotation += 0.05f;
 			Projectile.velocity *= 0.95f;
 
-			if (Main.rand.Next(60) == 0)
+			if (Main.rand.NextBool(60))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<Content.Dusts.BloomingAltDust>());
 				Main.dust[dust].velocity *= 0.1f;
@@ -50,14 +51,14 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SafeKill(int timeLeft, Player player, OrchidModPlayer modPlayer)
 		{
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 17);
-			int proj = ProjectileType<Alchemist.Projectiles.Reactive.ReactiveSpawn.BloomingPetal>();
+			SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
+			int proj = ProjectileType<ReactiveSpawn.BloomingPetal>();
 			int dmg = Projectile.damage;
 			int rand = Main.rand.Next(45);
 			for (int i = 0; i < 4; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(0f, 0.5f).RotatedBy(MathHelper.ToRadians(rand + i * 90));
-				int newProj = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 1f, Projectile.owner, 0.0f, 0.0f);
+				int newProj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, perturbedSpeed, proj, dmg, 1f, Projectile.owner, 0.0f, 0.0f);
 			}
 		}
 	}

@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 				if (Projectile.Hitbox.Intersects(target.Hitbox))
 				{
 					OrchidModAlchemistNPC modTarget = target.GetGlobalNPC<OrchidModAlchemistNPC>();
-					target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.FlashFreeze>(), modTarget.alchemistWater > 0 ? 60 * 30 : 60 * 3);
+					target.AddBuff(BuffType<Debuffs.FlashFreeze>(), modTarget.alchemistWater > 0 ? 60 * 30 : 60 * 3);
 				}
 			}
 
@@ -40,14 +40,14 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 					{
 						int damage = Projectile.damage;
 						int projType = ProjectileType<IceChestFlaskProjSmall>();
-						Projectile.NewProjectile(proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage, 1f, Projectile.owner);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage, 1f, Projectile.owner);
 						proj.active = false;
 					}
 					if (IceChestFlask.bigProjectiles.Contains(proj.type))
 					{
 						int damage = Projectile.damage * 5;
 						int projType = ProjectileType<IceChestFlaskProjBig>();
-						Projectile.NewProjectile(proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage, 5f, Projectile.owner);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), proj.Center.X, proj.Center.Y, 0f, 1f, projType, damage, 5f, Projectile.owner);
 						proj.active = false;
 					}
 				}

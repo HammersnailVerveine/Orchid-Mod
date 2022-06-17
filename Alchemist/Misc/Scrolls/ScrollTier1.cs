@@ -1,3 +1,5 @@
+using Terraria.ID;
+
 namespace OrchidMod.Alchemist.Misc.Scrolls
 {
 	public class ScrollTier1 : OrchidModAlchemistScroll

@@ -32,7 +32,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 				Projectile.frame = Main.rand.Next(2);
 				this.initialized = true;
 				Projectile.rotation += Main.rand.NextFloat();
-				this.rotationSpeed = (0.01f + Main.rand.NextFloat() * 0.03f) * (Main.rand.Next(2) == 0 ? 1f : -1f);
+				this.rotationSpeed = (0.01f + Main.rand.NextFloat() * 0.03f) * (Main.rand.NextBool(2)? 1f : -1f);
 			}
 			Projectile.rotation += this.rotationSpeed;
 			Projectile.velocity *= 0.925f;

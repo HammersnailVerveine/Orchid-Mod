@@ -17,7 +17,6 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			Projectile.friendly = false;
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 300;
-			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 		}
 
 		public override void Kill(int timeLeft)

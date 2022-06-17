@@ -136,7 +136,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			int projType = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProjBloom>();
-			Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, 3f, Projectile.owner, 0.0f, 0.0f);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, projType, Projectile.damage, 3f, Projectile.owner, 0.0f, 0.0f);
 		}
 	}
 }

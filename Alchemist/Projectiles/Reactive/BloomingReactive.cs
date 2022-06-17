@@ -66,7 +66,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			Projectile.position.X = player.position.X + startX;
 			Projectile.position.Y = player.position.Y + startY;
 
-			if (Main.rand.Next(80) == 0)
+			if (Main.rand.NextBool(80))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<Content.Dusts.BloomingDust>());
 				Main.dust[dust].noGravity = true;

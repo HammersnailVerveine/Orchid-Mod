@@ -75,7 +75,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 					for (int i = 0; i < 2; i++)
 					{
 						Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
-						int spawnProjInt = Projectile.NewProjectile(proj.Center.X, proj.Center.Y, vel.X, vel.Y, proj.type, proj.damage, proj.knockBack, proj.owner);
+						int spawnProjInt = Projectile.NewProjectile(Projectile.GetSource_FromThis(), proj.Center, vel, proj.type, proj.damage, proj.knockBack, proj.owner);
 						Projectile spawnProj = Main.projectile[spawnProjInt];
 						spawnProj.localAI[1] = proj.localAI[1];
 						spawnProj.localAI[0] = 1f;
@@ -94,7 +94,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			for (int i = 0; i < rand; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
-				int spawnProj = Projectile.NewProjectile(target.Center.X, target.Center.Y, vel.X, vel.Y, type, projectile.damage, 0f, projectile.owner);
+				int spawnProj = Projectile.NewProjectile(projectile.GetSource_FromThis(), target.Center, vel, type, projectile.damage, 0f, projectile.owner);
 				Main.projectile[spawnProj].localAI[1] = 1f;
 				Main.projectile[spawnProj].localAI[0] = 1f;
 			}

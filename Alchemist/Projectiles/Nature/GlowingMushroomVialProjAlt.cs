@@ -31,8 +31,8 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void PostDraw(Color lightColor)
 		{
-			Texture2D texture = ModContent.GetTexture("OrchidMod/Alchemist/Projectiles/Nature/GlowingMushroomVialProjAlt_Glow");
-			OrchidModProjectile.DrawProjectileGlowmask(Projectile, spriteBatch, texture, this.glowColor);
+			Texture2D texture = ModContent.Request<Texture2D>("OrchidMod/Alchemist/Projectiles/Nature/GlowingMushroomVialProjAlt_Glow").Value;
+			OrchidModProjectile.DrawProjectileGlowmask(Projectile, Main.spriteBatch, texture, this.glowColor);
 		}
 
 		public override void AI()
@@ -55,7 +55,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 				Projectile.netUpdate = true;
 			}
 
-			if (Main.rand.Next(30) == 0)
+			if (Main.rand.NextBool(30))
 			{
 				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172);
 				Main.dust[dust2].scale = 1.2f;
@@ -147,7 +147,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 				for (int i = 0; i < rand; i++)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-					int spawnProj = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, this.sporeDamage, 0f, Projectile.owner);
+					int spawnProj = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, vel, projType, this.sporeDamage, 0f, Projectile.owner);
 					Main.projectile[spawnProj].localAI[1] = 1f;
 				}
 			}

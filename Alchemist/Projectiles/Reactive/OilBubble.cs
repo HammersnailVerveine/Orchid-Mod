@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Projectiles.Reactive
 {
@@ -30,9 +31,9 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			Projectile.velocity.X *= 0.99f;
 			Projectile.rotation += 0.02f;
 
-			if (Main.rand.Next(20) == 0)
+			if (Main.rand.NextBool(20))
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 184);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.ScourgeOfTheCorruptor);
 				Main.dust[dust].velocity *= 0.1f;
 				Main.dust[dust].scale *= 1f;
 			}
@@ -42,7 +43,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 184);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.ScourgeOfTheCorruptor);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}
@@ -50,7 +51,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SafeKill(int timeLeft, Player player, OrchidModPlayer modPlayer)
 		{
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 85);
+			SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 			int dmg = Projectile.damage;
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 184, 200, 15, false, 1.5f, 1f, 5f);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 184, 175, 30, false, 1.5f, 1f, 5f);

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Accessories
@@ -26,7 +27,7 @@ namespace OrchidMod.Alchemist.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (modPlayer.alchemistPotencyDisplayTimer > 0 && Main.rand.Next(600) == 0)
+			if (modPlayer.alchemistPotencyDisplayTimer > 0 && Main.rand.NextBool(600))
 			{
 				int dmg = (int)(25 * modPlayer.alchemistDamage);
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));

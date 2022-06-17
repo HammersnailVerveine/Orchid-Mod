@@ -4,6 +4,7 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod
@@ -146,10 +147,10 @@ namespace OrchidMod
 
 		public static int spawnGenericExplosion(Projectile projectile, int damage, float kb, int dimensions = 250, int damageType = 0, bool explosionGore = false, int soundType = 14)
 		{
-			if (soundType != 0) SoundEngine.PlaySound(2, (int)projectile.position.X, (int)projectile.position.Y, soundType);
+			if (soundType != 0) SoundEngine.PlaySound(SoundID.Item14, projectile.position);
 			if (explosionGore) OrchidModProjectile.spawnExplosionGore(projectile);
 			int projType = ModContent.ProjectileType<General.Projectiles.GenericExplosion>();
-			int newProjectileInt = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, kb, projectile.owner);
+			int newProjectileInt = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, kb, projectile.owner);
 			Projectile newProjectile = Main.projectile[newProjectileInt];
 			newProjectile.width = dimensions;
 			newProjectile.height = dimensions;

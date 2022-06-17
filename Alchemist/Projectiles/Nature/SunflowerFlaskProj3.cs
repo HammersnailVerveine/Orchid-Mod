@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 		{
 			if (!this.initialized)
 			{
-				this.rotationDirection = Main.rand.Next(2) == 0 ? 1 : -1;
+				this.rotationDirection = Main.rand.NextBool(2)? 1 : -1;
 				this.initialized = true;
 			}
 

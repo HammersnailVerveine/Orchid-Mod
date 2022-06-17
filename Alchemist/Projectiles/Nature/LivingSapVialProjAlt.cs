@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Projectiles.Nature
 {
@@ -30,7 +31,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 				Projectile.Kill();
 			}
 			Projectile.velocity = (Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(5)));
-			if (Main.rand.Next(10) == 0)
+			if (Main.rand.NextBool(10))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
 				Main.dust[dust].noGravity = true;
@@ -49,7 +50,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Water_Desert);
 				Main.dust[dust].noGravity = true;
 			}
 		}

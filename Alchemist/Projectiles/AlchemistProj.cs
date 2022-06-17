@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Alchemist.Weapons.Air;
 using OrchidMod.Alchemist.Weapons.Fire;
 using OrchidMod.Alchemist.Weapons.Water;
+using OrchidMod.Common.Globals.NPCs;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -50,8 +52,8 @@ namespace OrchidMod.Alchemist.Projectiles
 
 		public override void PostDraw(Color lightColor)
 		{
-			Texture2D texture = ModContent.GetTexture("OrchidMod/Alchemist/Projectiles/AlchemistProj_Glow");
-			OrchidModProjectile.DrawProjectileGlowmask(Projectile, spriteBatch, texture, glowColor);
+			Texture2D texture = ModContent.Request<Texture2D>("OrchidMod/Alchemist/Projectiles/AlchemistProj_Glow").Value;
+			OrchidModProjectile.DrawProjectileGlowmask(Projectile, Main.spriteBatch, texture, glowColor);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -230,13 +232,10 @@ namespace OrchidMod.Alchemist.Projectiles
 			switch (soundNb)
 			{
 				case 1:
-					SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 27);
-					break;
-				case 2:
-					SoundEngine.PlaySound(13, (int)Projectile.position.X, (int)Projectile.position.Y, 0);
+					SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
 					break;
 				default:
-					SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 107);
+					SoundEngine.PlaySound(SoundID.Item107, Projectile.Center);
 					break;
 			}
 
@@ -257,7 +256,8 @@ namespace OrchidMod.Alchemist.Projectiles
 				if (modPlayer.alchemistCovent && this.nbElements > 2 && this.airFlaskGlobal == null) { // Keystone of the Convent
 					float distance = 500f;
 					bool keystoneCrit = (Main.rand.Next(101) <= modPlayer.alchemistCrit + 4);
-					int keystoneDamage = (int)(22 * (modPlayer.alchemistDamage + player.allDamage - 1f));
+					int keystoneDamage = (int)(22 * (modPlayer.alchemistDamage - 1f));
+					//int keystoneDamage = (int)(22 * (modPlayer.alchemistDamage + player.allDamage - 1f));
 					int absorbedCount = 0;
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Air.KeystoneOfTheConventProj>();
 					for (int k = 0; k < Main.maxNPCs ; k++)
@@ -274,7 +274,7 @@ namespace OrchidMod.Alchemist.Projectiles
 									modTargetSecondary.alchemistAir = 0;
 									absorbedCount ++;
 									newMove /= -10f;
-									Projectile.NewProjectile(Main.npc[k].Center.X, Main.npc[k].Center.Y, newMove.X, newMove.Y, spawnProj, 0, 0f, Projectile.owner);
+									Projectile.NewProjectile(target.GetSource_OnHit(target), Main.npc[k].Center.X, Main.npc[k].Center.Y, newMove.X, newMove.Y, spawnProj, 0, 0f, Projectile.owner);
 								}
 							}
 						}
@@ -283,7 +283,7 @@ namespace OrchidMod.Alchemist.Projectiles
 				}
 				
 				this.hitNPC = true;
-				OrchidModGlobalNPC modTargetGlobal = target.GetGlobalNPC<OrchidModGlobalNPC>();
+				OrchidGlobalNPC modTargetGlobal = target.GetGlobalNPC<OrchidGlobalNPC>();
 
 				this.OnHitNPCFirst(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal);
 				this.OnHitNPCSecond(target, damage, knockback, crit, player, modPlayer, modTarget, modTargetGlobal);
@@ -325,8 +325,8 @@ namespace OrchidMod.Alchemist.Projectiles
 
 			if (this.nbElements > 1 && player.HasBuff(BuffType<Alchemist.Buffs.JungleLilyExtractBuff>()))
 			{
-				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.JungleLilyFlaskReaction>();
-				Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, spawnProj, 0, 0f, Projectile.owner);
+				int spawnProj = ProjectileType<Nature.JungleLilyFlaskReaction>();
+				Projectile.NewProjectile(null, Projectile.Center.X, Projectile.Center.Y, 0f, 0f, spawnProj, 0, 0f, Projectile.owner);
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 15, 10, 7, true, 1.5f, 1f, 3f);
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 15, 15, 10, true, 1.5f, 1f, 5f);
 			}
@@ -372,11 +372,11 @@ namespace OrchidMod.Alchemist.Projectiles
 				for (int i = 0; i < rand; i++)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(80)));
-					if (player.strongBees && Main.rand.Next(2) == 0)
-						Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, 566, (int)(dmg * 1.15f), 0f, player.whoAmI, 0f, 0f);
+					if (player.strongBees && Main.rand.NextBool(2))
+						Projectile.NewProjectile(null, player.Center.X, player.Center.Y, vel.X, vel.Y, 566, (int)(dmg * 1.15f), 0f, player.whoAmI, 0f, 0f);
 					else
 					{
-						Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, 181, dmg, 0f, player.whoAmI, 0f, 0f);
+						Projectile.NewProjectile(null, player.Center.X, player.Center.Y, vel.X, vel.Y, 181, dmg, 0f, player.whoAmI, 0f, 0f);
 					}
 				}
 			}
@@ -389,7 +389,7 @@ namespace OrchidMod.Alchemist.Projectiles
 				for (int i = 0; i < this.nbElements; i++)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-					Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, Projectile.owner);
+					Projectile.NewProjectile(null, Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, Projectile.owner);
 				}
 			}
 		}
@@ -427,7 +427,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal)
+		public void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -460,7 +460,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal)
+		public void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -493,7 +493,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal)
+		public void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -578,7 +578,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				int proj = ProjectileType<Alchemist.Projectiles.AlchemistSmoke1>();
 				Vector2 vel = (new Vector2(0f, -((float)(2 + Main.rand.Next(5)))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int smokeProj = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, Projectile.owner);
+				int smokeProj = Projectile.NewProjectile(null, Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, Projectile.owner);
 				Main.projectile[smokeProj].localAI[0] = this.glowColor.R;
 				Main.projectile[smokeProj].localAI[1] = this.glowColor.G;
 				Main.projectile[smokeProj].ai[1] = this.glowColor.B;
@@ -588,7 +588,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				int proj = ProjectileType<Alchemist.Projectiles.AlchemistSmoke2>();
 				Vector2 vel = (new Vector2(0f, -((float)(2 + Main.rand.Next(5)))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int smokeProj = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, Projectile.owner);
+				int smokeProj = Projectile.NewProjectile(null, Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, Projectile.owner);
 				Main.projectile[smokeProj].localAI[0] = this.glowColor.R;
 				Main.projectile[smokeProj].localAI[1] = this.glowColor.G;
 				Main.projectile[smokeProj].ai[1] = this.glowColor.B;
@@ -598,7 +598,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				int proj = ProjectileType<Alchemist.Projectiles.AlchemistSmoke3>();
 				Vector2 vel = (new Vector2(0f, -((float)(2 + Main.rand.Next(5)))).RotatedByRandom(MathHelper.ToRadians(180)));
-				int smokeProj = Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, Projectile.owner);
+				int smokeProj = Projectile.NewProjectile(null, Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, proj, 0, 0f, Projectile.owner);
 				Main.projectile[smokeProj].localAI[0] = this.glowColor.R;
 				Main.projectile[smokeProj].localAI[1] = this.glowColor.G;
 				Main.projectile[smokeProj].ai[1] = this.glowColor.B;

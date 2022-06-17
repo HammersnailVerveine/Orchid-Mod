@@ -34,14 +34,14 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void PostDraw(Color lightColor)
 		{
-			Texture2D texture = ModContent.GetTexture("OrchidMod/Alchemist/Projectiles/Nature/GlowingMushroomVialProj_Glow");
-			OrchidModProjectile.DrawProjectileGlowmask(Projectile, spriteBatch, texture, Color.White);
+			Texture2D texture = ModContent.Request<Texture2D>("OrchidMod/Alchemist/Projectiles/Nature/GlowingMushroomVialProj_Glow").Value;
+			OrchidModProjectile.DrawProjectileGlowmask(Projectile, Main.spriteBatch, texture, Color.White);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			int dmg = Projectile.damage;
-			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProjAlt>(), dmg, 0f, Projectile.owner);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProjAlt>(), dmg, 0f, Projectile.owner); ;
 			Projectile.Kill();
 			return false;
 		}
