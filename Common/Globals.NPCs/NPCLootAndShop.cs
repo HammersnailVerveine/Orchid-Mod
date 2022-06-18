@@ -1,15 +1,21 @@
 ﻿using OrchidMod.Alchemist.Weapons.Fire;
+using OrchidMod.Alchemist.Weapons.Nature;
+using OrchidMod.Alchemist.Weapons.Water;
 using OrchidMod.Gambler.Accessories;
+using OrchidMod.Gambler.Weapons.Cards;
 using OrchidMod.Shaman.Accessories;
 using OrchidMod.Shaman.Misc;
 using OrchidMod.Shaman.Weapons;
+using OrchidMod.Shaman.Weapons.Hardmode;
 using OrchidMod.Shaman.Weapons.Thorium;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -29,20 +35,28 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 					break;
 				case NPCID.Demolitionist:
-					AddItemToShop<GunpowderFlask>(shop, ref nextSlot);
+					{
+						AddItemToShop<GunpowderFlask>(shop, ref nextSlot);
+					}
 					break;
 				case NPCID.Dryad:
-					AddItemToShop<DryadsGift>(shop, ref nextSlot);
+					{
+						AddItemToShop<DryadsGift>(shop, ref nextSlot);
+					}
 					break;
 			}
 
 			var thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod == null) return;
+			if (thoriumMod == null) goto SkipThorium;
 
-			if (thoriumMod.TryFind("ConfusedZombie", out ModNPC modNPC) && type == modNPC.Type)
+			if (thoriumMod.IsNPCTypeEquals("ConfusedZombie", type))
 			{
 				AddItemToShop<PatchWerkScepter>(shop, ref nextSlot);
+				return;
 			}
+
+		SkipThorium:
+			return;
 		}
 
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)
@@ -78,154 +92,18 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					Item.NewItem((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), Main.rand.Next(3) + 1, false, 0, false, false);
 				}
-			}
+			}*/
 
-			if ((npc.type == NPCID.Hornet) || (npc.type == NPCID.HornetFatty) || (npc.type == NPCID.HornetHoney) || (npc.type == NPCID.HornetLeafy) || (npc.type == NPCID.HornetSpikey) || (npc.type == NPCID.HornetStingy))
-			{
-				if (Main.rand.Next(30) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.PoisonSigil>());
-				}
-
-				if (Main.rand.Next(20) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Weapons.Nature.PoisonVial>());
-				}
-			}
-
-			if (npc.type == 26 || npc.type == 27 || npc.type == 28 || npc.type == 29 || npc.type == 111) // Goblins
-			{
-				if (Main.rand.Next(50) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Weapons.Water.GoblinArmyFlask>());
-				}
-				if (Main.rand.Next(50) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.GoblinArmyCard>());
-				}
-			}
-
-			if (npc.type == 490 || npc.type == 489) // Drippler / Blood Zombie
-			{
-				if (Main.rand.Next(40) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Weapons.Water.BloodMoonFlask>());
-				}
-			}
-
-			if (npc.type == 285 || npc.type == 286) // Diabolists
-			{
-				if (Main.rand.Next(20) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.DiabolistRune>());
-				}
-			}
-
-			if (npc.type == 204) // Spiked Jungle Slime
-			{
-				if (Main.rand.Next(25) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.JungleSlimeCard>());
-				}
-			}
-
-			if (npc.type == 59) // Lava Slime
-			{
-				if (Main.rand.Next(25) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.LavaSlimeCard>());
-				}
-			}
-
-			if (npc.type == 1 || npc.type == -3 || npc.type == -8 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10) // Most Surface Slimes
+			/*if (npc.type == 1 || npc.type == -3 || npc.type == -8 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10) // Most Surface Slimes
 			{
 				if (Main.rand.Next(!OrchidWorld.foundSlimeCard ? 5 : 1000) == 0)
 				{
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.SlimeCard>());
 					OrchidWorld.foundSlimeCard = true;
 				}
-			}
+			}*/
 
-			if (npc.type == 87) // Wyvern Head
-			{
-				if (Main.rand.Next(15) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.WyvernTailFeather>());
-				}
-			}
-
-			if (npc.type == 167) // Undead Viking
-			{
-				if (Main.rand.Next(30) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.FrostburnSigil>());
-				}
-			}
-
-			if (npc.type == 62) // Demon
-			{
-				if (Main.rand.Next(30) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.FurnaceSigil>());
-				}
-
-				if (Main.rand.Next(20) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Accessories.DemonicPocketMirror>());
-				}
-			}
-
-			if ((npc.type == NPCID.DarkCaster))
-			{
-				if (Main.rand.Next(50) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Blum>());
-				}
-
-				if (Main.rand.Next(33) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.DungeonCard>());
-				}
-			}
-
-			if ((npc.type == NPCID.FireImp))
-			{
-				if (Main.rand.Next(20) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.MeltedRing>());
-				}
-			}
-
-			if ((npc.type == NPCID.Mimic))
-			{
-				if (Main.rand.Next(10) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.HeavyBracer>());
-				}
-			}
-
-			if (npc.type == 395 || npc.type == 392) // MARTIAN SAUCER
-			{
-				if (Main.rand.Next(4) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.MartianBeamer>());
-				}
-			}
-
-			if ((npc.type == NPCID.IceQueen))
-			{
-				if (Main.rand.Next(10) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.IceFlakeCone>());
-				}
-			}
-
-			if ((npc.type == NPCID.RuneWizard))
-			{
-				Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.RuneScepter>());
-			}
-
-			if ((npc.type == NPCID.PirateShip))
+			/*if ((npc.type == NPCID.PirateShip))
 			{
 				if (Main.rand.Next(5) == 0)
 				{
@@ -242,49 +120,112 @@ namespace OrchidMod.Common.Globals.NPCs
 						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Decks.DeckPirate>());
 					}
 				}
-			}
+			}*/
 
-			if ((npc.type == NPCID.GoblinSummoner))
+			bool Is(params int[] types) => types.Contains(npc.type);
+
+			if (Is(NPCID.Hornet, NPCID.HornetFatty, NPCID.HornetHoney, NPCID.HornetLeafy, NPCID.HornetSpikey, NPCID.HornetStingy))
 			{
-				if (Main.rand.Next(3) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.GoblinStick>());
-				}
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonSigil>(), 30));
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonVial>(), 20));
 			}
 
-			if ((npc.type == NPCID.Lihzahrd || npc.type == 199)) // Lihzahrds
+			if (Is(NPCID.GoblinPeon, NPCID.GoblinThief, NPCID.GoblinWarrior, NPCID.GoblinSorcerer, NPCID.GoblinArcher))
 			{
-				if (Main.rand.Next(4) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Misc.LihzahrdSilk>());
-				}
-				if (Main.rand.Next(100) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.SunPriestTorch>());
-				}
-				if (Main.rand.Next(300) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.SunPriestBelt>());
-				}
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinArmyFlask>(), 50));
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinArmyCard>(), 50));
 			}
 
-			if (npc.type == NPCID.MourningWood)
+			if (Is(NPCID.Drippler, NPCID.BloodZombie))
 			{
-				if (Main.rand.Next(10) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.MourningTorch>());
-				}
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BloodMoonFlask>(), 40));
 			}
 
-			if (npc.type == 346) // SANTANK
+			if (Is(NPCID.DiabolistRed, NPCID.DiabolistWhite))
 			{
-				if (Main.rand.Next(10) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.FragilePresent>());
-				}
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DiabolistRune>(), 20));
 			}
 
-			if (npc.type == NPCID.UndeadMiner)
+			if (Is(NPCID.SpikedJungleSlime))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<JungleSlimeCard>(), 25));
+			}
+
+			if (Is(NPCID.LavaSlime))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LavaSlimeCard>(), 25));
+			}
+
+			if (Is(NPCID.WyvernHead))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WyvernTailFeather>(), 15));
+			}
+
+			if (Is(NPCID.UndeadViking))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrostburnSigil>(), 30));
+			}
+
+			if (Is(NPCID.Demon))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FurnaceSigil>(), 30));
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DemonicPocketMirror>(), 20));
+			}
+
+			if (Is(NPCID.DarkCaster))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Blum>(), 50));
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DungeonCard>(), 33));
+			}
+
+			if (Is(NPCID.FireImp))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MeltedRing>(), 20));
+			}
+
+			if (Is(NPCID.Mimic))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HeavyBracer>(), 10));
+			}
+
+			if (Is(NPCID.MartianSaucerCore, NPCID.MartianSaucer))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MartianBeamer>(), 4));
+			}
+
+			if (Is(NPCID.IceQueen))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IceFlakeCone>(), 10));
+			}
+
+			if (Is(NPCID.RuneWizard))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RuneScepter>()));
+			}
+
+			if (Is(NPCID.GoblinSummoner))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinStick>(), 3));
+			}
+
+			if (Is(NPCID.Lihzahrd, NPCID.LihzahrdCrawler))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LihzahrdSilk>(), 4));
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunPriestTorch>(), 100));
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunPriestBelt>(), 300));
+			}
+
+			if (Is(NPCID.MourningWood))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MourningTorch>(), 10));
+			}
+
+			if (Is(NPCID.SantaNK1))
+			{
+				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FragilePresent>(), 10));
+			}
+
+			/*if (npc.type == NPCID.UndeadMiner)
 			{
 				if (Main.rand.Next(5) == 0)
 				{

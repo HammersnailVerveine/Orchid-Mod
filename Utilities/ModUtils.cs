@@ -9,7 +9,10 @@ namespace OrchidMod.Utilities
 {
 	public static class ModUtils
 	{
-		public static bool IsItemTypeEquivalentToNumber(this Mod mod, string itemName, int number)
-			=> mod.TryFind(itemName, out ModItem modItem) && modItem.Type == number;
+		public static bool IsItemTypeEquals(this Mod mod, string itemName, int type)
+			=> mod.TryFind(itemName, out ModItem modItem) && modItem.Type.Equals(type);
+
+		public static bool IsNPCTypeEquals(this Mod mod, string npcName, int type)
+			=> mod.TryFind(npcName, out ModNPC modNPC) && modNPC.Type.Equals(type);
 	}
 }

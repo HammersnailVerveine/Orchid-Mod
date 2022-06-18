@@ -140,62 +140,65 @@ namespace OrchidMod.Common.Globals.Items
 			}
 
 			var thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod == null) return;
+			if (thoriumMod == null) goto SkipThorium;
 
-			if (thoriumMod.IsItemTypeEquivalentToNumber("ThunderBirdBag", arg))
+			if (thoriumMod.IsItemTypeEquals("ThunderBirdBag", arg))
 			{
 				QuickSpawnItem<ThunderScepter>(player, 1, 4);
 				return;
 			}
 
-			if (thoriumMod.IsItemTypeEquivalentToNumber("JellyFishBag", arg))
+			if (thoriumMod.IsItemTypeEquals("JellyFishBag", arg))
 			{
 				QuickSpawnItem<QueenJellyfishScepter>(player, 1, 5);
 				return;
 			}
 
-			if (thoriumMod.IsItemTypeEquivalentToNumber("GraniteBag", arg))
+			if (thoriumMod.IsItemTypeEquals("GraniteBag", arg))
 			{
 				QuickSpawnItem<GraniteEnergyScepter>(player, 1, 5);
 				return;
 			}
 
-			if (thoriumMod.IsItemTypeEquivalentToNumber("CountBag", arg))
+			if (thoriumMod.IsItemTypeEquals("CountBag", arg))
 			{
 				QuickSpawnItem<GraniteEnergyScepter>(player, 1, 7);
 				QuickSpawnItem<ViscountMaterial>(player, 30, 1);
 				return;
 			}
 
-			if (thoriumMod.IsItemTypeEquivalentToNumber("ScouterBag", arg))
+			if (thoriumMod.IsItemTypeEquals("ScouterBag", arg))
 			{
 				QuickSpawnItem<StarScouterScepter>(player, 1, 6);
 				return;
 			}
 
-			if (thoriumMod.IsItemTypeEquivalentToNumber("BeholderBag", arg))
+			if (thoriumMod.IsItemTypeEquals("BeholderBag", arg))
 			{
 				QuickSpawnItem<CoznixScepter>(player, 1, 5);
 				return;
 			}
 
-			if (thoriumMod.IsItemTypeEquivalentToNumber("BoreanBag", arg))
+			if (thoriumMod.IsItemTypeEquals("BoreanBag", arg))
 			{
 				QuickSpawnItem<BoreanStriderScepter>(player, 1, 5);
 				return;
 			}
 
-			if (thoriumMod.IsItemTypeEquivalentToNumber("LichBag", arg))
+			if (thoriumMod.IsItemTypeEquals("LichBag", arg))
 			{
 				QuickSpawnItem<LichScepter>(player, 1, 7);
 				return;
 			}
 
-			if (thoriumMod.IsItemTypeEquivalentToNumber("AbyssionBag", arg))
+			if (thoriumMod.IsItemTypeEquals("AbyssionBag", arg))
 			{
 				QuickSpawnItem<AbyssionScepter>(player, 1, 6);
 				return;
 			}
+
+		SkipThorium:
+			return;
 		}
 
 		private static void OpenCrate(Player player, int arg)
