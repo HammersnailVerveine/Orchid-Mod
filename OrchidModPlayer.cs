@@ -281,13 +281,9 @@ namespace OrchidMod
 
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
 		{
-			if (junk)
+			if (Player.ZoneSkyHeight && !attempt.inLava && !attempt.inHoney && Main.rand.Next(10) == 0 && Main.hardMode && attempt.rare)
 			{
-				return;
-			}
-			if (Player.ZoneSkyHeight && liquidType == 0 && Main.rand.Next(100) == 0 && Main.hardMode)
-			{
-				caughtType = Mod.Find<ModItem>("WyvernMoray").Type;
+				itemDrop = ModContent.ItemType<Shaman.Weapons.Hardmode.WyvernMoray>();
 			}
 		}
 
@@ -310,6 +306,7 @@ namespace OrchidMod
 
 		public override void SaveData(TagCompound tag)/* Suggestion: Edit tag parameter rather than returning new TagCompound */
 		{
+			/*
 			return new TagCompound
 			{
 				["GamblerCardsItem"] = gamblerCardsItem.Select(ItemIO.Save).ToList(),
@@ -318,13 +315,20 @@ namespace OrchidMod
 				["AlchemistKnownReactions"] = alchemistKnownReactions.ToList(),
 				["AlchemistKnownHints"] = alchemistKnownHints.ToList(),
 			};
+			*/
+
+			tag.Add("GamblerCardsItem", gamblerCardsItem.Select(ItemIO.Save).ToList());
+			tag.Add("AlchemistBag", alchemistPotionBag.Select(ItemIO.Save).ToList());
+			tag.Add("ChemistHint", alchemistDailyHint);
+			tag.Add("AlchemistKnownReactions", alchemistKnownReactions.ToList());
+			tag.Add("AlchemistKnownHints", alchemistKnownHints.ToList());
 		}
 
 		public override void LoadData(TagCompound tag)
 		{
 			gamblerCardsItem = tag.GetList<TagCompound>("GamblerCardsItem").Select(ItemIO.Load).ToArray();
 			//If no cards were saved (old character, crash, etc), this can return Item[] of length 0
-			//In case of length not equaling 20, fix the array
+			//In case of length not being equal to 20, fix the array
 			if (gamblerCardsItem.Length != 20)
 			{
 				Array.Resize(ref gamblerCardsItem, 20);
