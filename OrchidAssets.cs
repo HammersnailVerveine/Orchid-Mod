@@ -33,6 +33,6 @@ namespace OrchidMod
 		// ...
 
 		public static Asset<Texture2D> GetExtraTexture(int type, AssetRequestMode mode = AssetRequestMode.AsyncLoad) => ModContent.Request<Texture2D>(MiscPath + "Extra_" + type, mode);
-		public static Effect GetEffect(string name) => EffectLoader.GetEffect(name);
+		public static Asset<Effect> GetEffect(string name) => EffectLoader.GetEffect(name);
 	}
 }

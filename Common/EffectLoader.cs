@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Terraria;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 
@@ -14,7 +14,7 @@ namespace OrchidMod.Common
 	[Autoload(Side = ModSide.Client)]
 	public class EffectLoader : ILoadable
 	{
-		private static readonly Dictionary<string, Effect> effectsByName = new();
+		private static readonly Dictionary<string, Asset<Effect>> effectsByName = new();
 
 		// ...
 
@@ -26,15 +26,16 @@ namespace OrchidMod.Common
 
 			foreach (var entry in entries)
 			{
-				var name = entry.Name.Replace("Assets/Effects/", "").Replace(".xnb", "");
+				var path = entry.Name.Replace(".xnb", "");
+				var name = path.Replace("Assets/Effects/", "");
 
 				if (effectsByName.ContainsKey(name)) continue;
 
-				if (ModContent.RequestIfExists<Effect>(name, out Asset<Effect> asset, AssetRequestMode.ImmediateLoad))
+				if (ModContent.RequestIfExists<Effect>($"{mod.Name}/{path}", out Asset<Effect> asset, AssetRequestMode.ImmediateLoad))
 				{
-					effectsByName.Add(name, asset.Value);
+					effectsByName.Add(name, asset);
 					SetEffectInitParameters(name, asset.Value.Parameters);
-				};
+				}
 			}
 		}
 
@@ -45,8 +46,12 @@ namespace OrchidMod.Common
 
 		// ...
 
-		public static Effect GetEffect(string name)
+		public static Asset<Effect> GetEffect(string name)
 			=> effectsByName[name];
+
+		public static void CreateSceneFilter(string effect, EffectPriority priority)
+			=> Filters.Scene[$"{OrchidMod.Instance.Name}:{effect}"] = new(new ScreenShaderData(new Ref<Effect>(GetEffect(effect).Value), effect), priority);
+
 
 		private static void SetEffectInitParameters(string name, EffectParameterCollection parameters)
 		{
