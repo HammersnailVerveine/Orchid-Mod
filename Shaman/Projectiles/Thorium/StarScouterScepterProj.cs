@@ -81,7 +81,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
 				if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
 
-				SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+				SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 			}
 			return false;
 		}
@@ -102,7 +102,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void Kill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 91);
+			SoundEngine.PlaySound(SoundID.Item91, Projectile.Center);
 
 			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
@@ -137,7 +137,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				for (int i = 0; i < 3; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(30));
-					Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<StarScouterScepterProjAlt>(), (int)(Projectile.damage * 0.70), 0.0f, player.whoAmI, 0.0f, 0.0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<StarScouterScepterProjAlt>(), (int)(Projectile.damage * 0.70), 0.0f, player.whoAmI, 0.0f, 0.0f);
 				}
 			}
 		}

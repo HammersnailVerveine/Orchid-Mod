@@ -55,7 +55,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			if (Projectile.timeLeft % 60 == 0)
 			{
 				int dmg = (int)(18 * player.GetModPlayer<OrchidModPlayer>().shamanDamage);
-				Projectile.NewProjectile(Projectile.position.X + Projectile.width / 2, Projectile.position.Y + Projectile.height / 2, 0f, 0f, Mod.Find<ModProjectile>("YewWoodScepterPortalProj").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + Projectile.width / 2, Projectile.position.Y + Projectile.height / 2, 0f, 0f, Mod.Find<ModProjectile>("YewWoodScepterPortalProj").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
 				Projectile.netUpdate = true;
 			}
 		}

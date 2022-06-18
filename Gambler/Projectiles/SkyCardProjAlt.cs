@@ -58,7 +58,7 @@ namespace OrchidMod.Gambler.Projectiles
 				heading.Normalize();
 				heading *= new Vector2(0f, 15f).Length();
 				Vector2 vel = new Vector2(0f, 8f).RotatedByRandom(MathHelper.ToRadians(20));
-				int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(projectile.Center.X, player.position.Y - Main.screenHeight / 2 - 20, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
+				int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), projectile.Center.X, player.position.Y - Main.screenHeight / 2 - 20, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
 				Main.projectile[newProjectile].ai[1] = projectile.ai[1];
 				Main.projectile[newProjectile].ai[0] = Main.screenPosition.Y + (float)Main.mouseY - 10;
 				Main.projectile[newProjectile].netUpdate = true;

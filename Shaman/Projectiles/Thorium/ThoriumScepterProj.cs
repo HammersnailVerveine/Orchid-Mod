@@ -47,8 +47,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Vector2 projectileVelocity = (new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(20)));
 			Vector2 projectileVelocity2 = (new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-20)));
 
-			Projectile.NewProjectile(Projectile.position.X + projectileVelocity.X, Projectile.position.Y + Projectile.velocity.Y, projectileVelocity.X, projectileVelocity.Y, Mod.Find<ModProjectile>("ThoriumScepterProjSplit").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);
-			Projectile.NewProjectile(Projectile.position.X + projectileVelocity.X, Projectile.position.Y + Projectile.velocity.Y, projectileVelocity2.X, projectileVelocity2.Y, Mod.Find<ModProjectile>("ThoriumScepterProjSplit").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + projectileVelocity.X, Projectile.position.Y + Projectile.velocity.Y, projectileVelocity.X, projectileVelocity.Y, Mod.Find<ModProjectile>("ThoriumScepterProjSplit").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + projectileVelocity.X, Projectile.position.Y + Projectile.velocity.Y, projectileVelocity2.X, projectileVelocity2.Y, Mod.Find<ModProjectile>("ThoriumScepterProjSplit").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);
 		}
 	}
 }

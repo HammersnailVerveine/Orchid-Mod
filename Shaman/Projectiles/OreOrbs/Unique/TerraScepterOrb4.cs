@@ -89,7 +89,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			}
 			Player player = Main.player[Projectile.owner];
 			int dmg = (int)((50 + (20 * (orbsNumber))) * player.GetModPlayer<OrchidModPlayer>().shamanDamage);
-			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, (Main.rand.Next(20) - 10) * 1f, -5f, Mod.Find<ModProjectile>("TerraScepterOrbHoming4").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, (Main.rand.Next(20) - 10) * 1f, -5f, Mod.Find<ModProjectile>("TerraScepterOrbHoming4").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 		}
 	}
 }

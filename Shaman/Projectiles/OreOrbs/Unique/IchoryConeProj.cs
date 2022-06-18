@@ -93,7 +93,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				//modPlayer.sendOrbCountPackets();
 
 				if (modPlayer.orbCountUnique == 1)
-					Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("IchorOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("IchorOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 				if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountUnique < 5)
 				{

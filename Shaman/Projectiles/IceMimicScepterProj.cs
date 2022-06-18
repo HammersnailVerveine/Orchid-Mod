@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Globals.NPCs;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -37,7 +38,7 @@ namespace OrchidMod.Shaman.Projectiles
 			this.slowdelay -= this.slowdelay > 0 ? 1 : 0;
 			this.projectileTrail = Projectile.ai[1] == 0f || Projectile.ai[1] == 2f;
 
-			if (Main.rand.Next(4) == 0)
+			if (Main.rand.NextBool(4))
 			{
 				int index = Dust.NewDust(Projectile.position - Projectile.velocity * 0.25f, Projectile.width, Projectile.height, 59, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(80, 110) * 0.013f);
 				Main.dust[index].velocity *= 0.2f;
@@ -117,15 +118,15 @@ namespace OrchidMod.Shaman.Projectiles
 			{
 				return false;
 			}
-			OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
-			return modTarget.shamanSpearDamage <= 0;
+			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
+			return modTarget.ShamanSpearDamage <= 0;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X / 2;
 			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y / 2;
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 50);
+			SoundEngine.PlaySound(SoundID.Item50);
 			return false;
 		}
 
@@ -139,8 +140,8 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
-			modTarget.shamanSpearDamage = 60;
+			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
+			modTarget.ShamanSpearDamage = 60;
 		}
 	}
 }

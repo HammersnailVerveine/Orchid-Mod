@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace OrchidMod.Gambler.Projectiles
 {
@@ -61,7 +62,7 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}
-			SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y - 200, 54);
+			SoundEngine.PlaySound(SoundID.Item54, Projectile.Center);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)

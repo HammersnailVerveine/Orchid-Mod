@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Accessories
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "LihzahrdSilk", 2);
+			recipe.AddIngredient(ModContent.ItemType<Misc.LihzahrdSilk>(), 2);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 8);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();

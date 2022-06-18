@@ -1,6 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
-
+using Terraria.ID;
 
 namespace OrchidMod.Shaman.Accessories
 {
@@ -40,9 +40,9 @@ namespace OrchidMod.Shaman.Accessories
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "MourningTorch", 1);
-			recipe.AddIngredient(null, "FragilePresent", 1);
-			recipe.AddTile(114);
+			recipe.AddIngredient(ModContent.ItemType<MourningTorch>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<FragilePresent>(), 1);
+			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.Register();
 			recipe.Register();
 		}

@@ -64,19 +64,19 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 
 			if (modPlayer.orbCountSmall == 1)
 			{
-				Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 20, 0f, 0f, Mod.Find<ModProjectile>("AmethystOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 15, player.position.Y - 20, 0f, 0f, Mod.Find<ModProjectile>("AmethystOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 				if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1)
 				{
 					modPlayer.orbCountSmall++;
-					Projectile.NewProjectile(player.Center.X, player.position.Y - 25, 0f, 0f, Mod.Find<ModProjectile>("AmethystOrb").Type, 1, 0, Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 25, 0f, 0f, Mod.Find<ModProjectile>("AmethystOrb").Type, 1, 0, Projectile.owner, 0f, 0f);
 					player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				}
 			}
 			if (modPlayer.orbCountSmall == 2)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 25, 0f, 0f, Mod.Find<ModProjectile>("AmethystOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 25, 0f, 0f, Mod.Find<ModProjectile>("AmethystOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountSmall == 3)
-				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 20, 0f, 0f, Mod.Find<ModProjectile>("AmethystOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 15, player.position.Y - 20, 0f, 0f, Mod.Find<ModProjectile>("AmethystOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountSmall > 3)
 			{

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -113,7 +114,7 @@ namespace OrchidMod.Gambler.Projectiles
 						Projectile.tileCollide = true;
 						Projectile.friendly = true;
 						Projectile.netUpdate = true;
-						SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y, 1);
+						SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
 					}
 				}
 			}
@@ -122,8 +123,10 @@ namespace OrchidMod.Gambler.Projectiles
 		public override bool OnTileCollide(Vector2 oldVelocity) {
 			if (bounced) {
 				this.Explode();
-			} else {
-				SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 56);
+			} 
+			else
+			{
+				SoundEngine.PlaySound(SoundID.Item56, Projectile.Center);
 				bounced = true;
 				Projectile.damage = (int)(Projectile.damage * 2f);
 				Projectile.timeLeft = 180;
@@ -152,7 +155,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public void Explode() {
 			if (!exploded) {
 				exploded = true;
-				SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 				int radius = 150;
 				Projectile.position -= new Vector2((radius - Projectile.width) / 2, (radius - Projectile.height) / 2);
 				Projectile.width = radius;

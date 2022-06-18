@@ -95,34 +95,34 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountLarge < 5)
 			{
 				modPlayer.orbCountLarge += 5;
-				Projectile.NewProjectile(orbX - 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 				player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 			}
 
 			if (modPlayer.orbCountLarge == 5)
-				Projectile.NewProjectile(orbX - 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 10)
-				Projectile.NewProjectile(orbX - 30, orbY - 48, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 30, orbY - 48, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 15)
-				Projectile.NewProjectile(orbX - 15, orbY - 53, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 15, orbY - 53, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 20)
-				Projectile.NewProjectile(orbX, orbY - 55, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX, orbY - 55, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 25)
-				Projectile.NewProjectile(orbX + 15, orbY - 53, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX + 15, orbY - 53, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 30)
-				Projectile.NewProjectile(orbX + 30, orbY - 48, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX + 30, orbY - 48, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge == 35)
-				Projectile.NewProjectile(orbX + 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX + 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge > 35)
 			{
 				int dmg = (int)(45 * player.GetModPlayer<OrchidModPlayer>().shamanDamage);
-				Projectile.NewProjectile(orbX - 43, orbY - 38, -3f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX - 30, orbY - 48, -2f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX - 15, orbY - 53, -1f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX, orbY - 55, 0f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX + 15, orbY - 53, 1f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX + 30, orbY - 48, 2f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(orbX + 43, orbY - 38, 3f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 43, orbY - 38, -3f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 30, orbY - 48, -2f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 15, orbY - 53, -1f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX, orbY - 55, 0f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX + 15, orbY - 53, 1f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX + 30, orbY - 48, 2f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX + 43, orbY - 38, 3f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 				modPlayer.orbCountLarge = 0;
 			}
 		}

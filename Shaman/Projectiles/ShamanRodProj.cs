@@ -52,7 +52,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			if (Projectile.ai[1] == 0)
 			{
-				SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 65);
+				SoundEngine.PlaySound(SoundID.Item65, Projectile.position);
 				Projectile.ai[1] = -1;
 				Projectile.timeLeft = 1800;
 			}
@@ -61,7 +61,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			if (Progress >= 2) Progress = 0;
 
-			if (Projectile.ai[1] == -1 && Main.rand.Next(15) == 0)
+			if (Projectile.ai[1] == -1 && Main.rand.NextBool(15))
 			{
 				var dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Content.Dusts.LeafDust>())];
 				dust.scale *= Main.rand.NextFloat(1.25f, 1.75f);
@@ -86,7 +86,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 65);
+			SoundEngine.PlaySound(SoundID.Item65, Projectile.position);
 
 			for (int i = 0; i < 5; i++)
 			{

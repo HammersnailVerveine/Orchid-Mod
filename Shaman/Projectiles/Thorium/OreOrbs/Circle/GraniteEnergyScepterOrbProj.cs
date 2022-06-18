@@ -20,7 +20,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 			Projectile.height = 18;
 			Projectile.friendly = true;
 			Projectile.aiStyle = 0;
-			Projectile.magic = true;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 12960000;

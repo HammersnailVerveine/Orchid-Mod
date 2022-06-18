@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -100,7 +101,7 @@ namespace OrchidMod.Gambler.Projectiles
 						Projectile.tileCollide = true;
 						Projectile.friendly = true;
 						Projectile.netUpdate = true;
-						SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y - 200, 1);
+						SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
 					}
 				}
 			}
@@ -112,7 +113,7 @@ namespace OrchidMod.Gambler.Projectiles
 			vel.Normalize();
 			vel *= (Projectile.velocity.Length() * 0.75f);
 			Projectile.velocity = vel;
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 50);
+			SoundEngine.PlaySound(SoundID.Item50, Projectile.Center);
 		}
 		
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
@@ -123,7 +124,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override bool OnTileCollide(Vector2 oldVelocity) {
 			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X / 2;
 			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y / 2;
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 50);
+			SoundEngine.PlaySound(SoundID.Item50, Projectile.Center);
 			return false;
 		}
 
@@ -142,9 +143,9 @@ namespace OrchidMod.Gambler.Projectiles
 			for (int i = 0 ; i < rand ; i ++) {
 				Vector2 vel = new Vector2((float)(Main.rand.Next(3) + 4), 0f);
 				vel = vel.RotatedByRandom(MathHelper.ToRadians(180));
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, Projectile.damage, 0f, Projectile.owner), dummy);
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, Projectile.damage, 0f, Projectile.owner), dummy);
 			}
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 17);
+			SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 		}
 	}
 }

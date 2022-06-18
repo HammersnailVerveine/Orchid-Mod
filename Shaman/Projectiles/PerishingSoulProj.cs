@@ -112,7 +112,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			if (Main.rand.Next(4) == 0) target.AddBuff((24), 5 * 60);
+			if (Main.rand.NextBool(4)) target.AddBuff((24), 5 * 60);
 		}
 	}
 }

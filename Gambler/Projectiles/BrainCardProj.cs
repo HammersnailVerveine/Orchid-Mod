@@ -187,9 +187,9 @@ namespace OrchidMod.Gambler.Projectiles
 			this.gamblingChipChance = 50;
 			int projType = ProjectileType<Gambler.Projectiles.BrainCardProj2>();
 			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, 0, Projectile.owner), dummy);
+			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, 0, Projectile.owner), dummy);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 5, 10, 5 + Main.rand.Next(5), false, 1f, 1f, 5f, true, true, false, 0, 0, true);
-			SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y, 83);
+			SoundEngine.PlaySound(SoundID.Item83, Projectile.Center);
 			Projectile.ai[0] = 0f;
 			target.AddBuff(BuffID.Confused, 60 * 3);
 			bool skipped = false;
@@ -203,7 +203,7 @@ namespace OrchidMod.Gambler.Projectiles
 					proj.damage += 30;
 					if (proj.ai[1] != Projectile.ai[1])
 					{
-						if ((Main.rand.Next(2) == 0 || skipped) && !switched)
+						if ((Main.rand.NextBool(2) || skipped) && !switched)
 						{
 							proj.ai[0] = 300f;
 							switched = true;

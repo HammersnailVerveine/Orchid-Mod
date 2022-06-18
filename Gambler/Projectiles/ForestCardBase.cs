@@ -32,7 +32,7 @@ namespace OrchidMod.Gambler.Projectiles
 		
 		public override void OnSpawn() {
 			Projectile.ai[0] = 10;
-			bushTexture = bushTexture ?? ModContent.GetTexture("OrchidMod/Gambler/Projectiles/ForestCardBase");
+			bushTexture = bushTexture ?? ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/ForestCardBase").Value;
 		}
 
 		public override void SafeAI()
@@ -52,7 +52,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (Projectile.ai[0] <= 0) {
 				Projectile.ai[0] = 90f;
 				int projType = ProjectileType<Gambler.Projectiles.ForestCardProj>();
-				int newProjectile = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 10f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy));
+				int newProjectile = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 10f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy));
 				Main.projectile[newProjectile].ai[0] = Projectile.whoAmI;
 				Main.projectile[newProjectile].ai[1] = 0f;
 				Main.projectile[newProjectile].netUpdate = true;
@@ -80,7 +80,7 @@ namespace OrchidMod.Gambler.Projectiles
 		}
 		
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor) {
-			bushTexture = bushTexture ?? ModContent.GetTexture("OrchidMod/Gambler/Projectiles/ForestCardBase");
+			bushTexture = bushTexture ?? ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/ForestCardBase").Value;
 			Vector2 position = bushLeftPos - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
 			spriteBatch.Draw(bushTexture, position, null, lightColor, 0f, bushTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 			position = bushRightPos - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
@@ -92,7 +92,7 @@ namespace OrchidMod.Gambler.Projectiles
 				Projectile proj = Main.projectile[l];
 				if (proj.active && proj.type == projType && proj.ai[1] < 2f && proj.ai[0] == Projectile.whoAmI)
 				{
-					Texture2D texture = ModContent.GetTexture("OrchidMod/Gambler/Projectiles/ForestCardProj");
+					Texture2D texture = ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/ForestCardProj").Value;
 					position = proj.position - Main.screenPosition;
 					Rectangle newBounds = texture.Bounds;
 					newBounds.Height /= 2;
@@ -100,7 +100,7 @@ namespace OrchidMod.Gambler.Projectiles
 					spriteBatch.Draw(texture, position, newBounds, lightColor, proj.rotation, texture.Size() * 0f, proj.scale, SpriteEffects.None, 0f);
 					
 					if (proj.ai[1] == 1f) {
-						Texture2D pixelTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/Trajectory");
+						Texture2D pixelTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/Trajectory").Value;
 						Vector2 newMove = Projectile.Center - proj.Center;
 						if (newMove.Length() > 1f) {
 							newMove.Normalize();

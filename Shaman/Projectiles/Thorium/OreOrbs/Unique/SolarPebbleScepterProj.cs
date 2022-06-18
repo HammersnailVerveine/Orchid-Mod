@@ -90,7 +90,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			modPlayer.orbCountUnique++;
 
 			if (modPlayer.orbCountUnique == 1)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("SolarPebbleScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("SolarPebbleScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountUnique < 5)
 			{
@@ -104,13 +104,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 				for (int i = 0; i < 10; i++)
 				{
 					Vector2 projectileVelocity = (new Vector2(8f, 0f).RotatedByRandom(MathHelper.ToRadians(360)));
-					Projectile.NewProjectile(player.Center.X, player.position.Y - 79, projectileVelocity.X, projectileVelocity.Y, Mod.Find<ModProjectile>("SolarPebbleScepterOrbProj").Type, 0, 0, Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, projectileVelocity.X, projectileVelocity.Y, Mod.Find<ModProjectile>("SolarPebbleScepterOrbProj").Type, 0, 0, Projectile.owner, 0f, 0f);
 				}
 
 				for (int i = 0; i < 3; i++)
 				{
 					Vector2 projectileVelocity = (new Vector2(10f, 0f).RotatedByRandom(MathHelper.ToRadians(360)));
-					Projectile.NewProjectile(player.Center.X, player.position.Y - 79, projectileVelocity.X, projectileVelocity.Y, Mod.Find<ModProjectile>("SolarPebbleScepterOrbProjAlt").Type, Projectile.damage * 5, 0, Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, projectileVelocity.X, projectileVelocity.Y, Mod.Find<ModProjectile>("SolarPebbleScepterOrbProjAlt").Type, Projectile.damage * 5, 0, Projectile.owner, 0f, 0f);
 				}
 
 				modPlayer.orbCountUnique = 0;

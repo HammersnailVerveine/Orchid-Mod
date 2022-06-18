@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
@@ -55,7 +56,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			SoundEngine.PlaySound(SoundID.Item10);
 			return true;
 		}
 
@@ -80,19 +81,19 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountUnique < 5)
 			{
 				modPlayer.orbCountUnique += 5;
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
 				player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				//modPlayer.sendOrbCountPackets();
 			}
 
 			if (modPlayer.orbCountUnique == 5)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 10)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb2").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb2").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 15)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb3").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb3").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 20)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb4").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("TerraScepterOrb4").Type, 0, 0, Projectile.owner, 0f, 0f);
 		}
 	}
 }

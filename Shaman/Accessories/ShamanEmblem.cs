@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace OrchidMod.Shaman.Accessories
 {
@@ -27,10 +28,10 @@ namespace OrchidMod.Shaman.Accessories
 		{
 			var recipe = CreateRecipe(935);
 			recipe.AddIngredient(this, 1);
-			recipe.AddIngredient(548, 5);
-			recipe.AddIngredient(549, 5);
-			recipe.AddIngredient(547, 5);
-			recipe.AddTile(114);
+			recipe.AddIngredient(ItemID.SoulofMight, 5);
+			recipe.AddIngredient(ItemID.SoulofSight, 5);
+			recipe.AddIngredient(ItemID.SoulofFright, 5);
+			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.Register();
 		}
 	}

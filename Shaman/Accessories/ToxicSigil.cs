@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Accessories
@@ -29,10 +30,9 @@ namespace OrchidMod.Shaman.Accessories
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "VenomSigil", 1);
-			recipe.AddIngredient(null, "PoisonSigil", 1);
-			recipe.AddTile(114);
-			recipe.Register();
+			recipe.AddIngredient(ModContent.ItemType<VenomSigil>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<PoisonSigil>(), 1);
+			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.Register();
 		}
 	}

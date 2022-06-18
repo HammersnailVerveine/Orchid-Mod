@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -100,7 +101,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override bool? CanCutTiles()
 		{
 			DelegateMethods.tilecut_0 = Terraria.Enums.TileCuttingContext.AttackProjectile;
-			Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * LaserLength, (float)Projectile.width * Projectile.scale * 2, new Utils.PerLinePoint(CutTilesAndBreakWalls));
+			Utils.PlotTileLine(Projectile.Center, Projectile.Center + Projectile.velocity * LaserLength, (float)Projectile.width * Projectile.scale * 2, new Utils.TileActionAttempt(CutTilesAndBreakWalls));
 			return true;
 		}
 
@@ -116,8 +117,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			if (Projectile.velocity == Vector2.Zero) return true;
 
 			Texture2D texture2D19 = TextureAssets.Projectile[Projectile.type].Value;
-			Texture2D texture2D20 = Mod.GetTexture("Shaman/Projectiles/Thorium/CoznixScepterProjLaser_Beam");
-			Texture2D texture2D21 = Mod.GetTexture("Shaman/Projectiles/Thorium/CoznixScepterProjLaser_End");
+			Texture2D texture2D20 = ModContent.Request<Texture2D>("Shaman/Projectiles/Thorium/CoznixScepterProjLaser_Beam").Value;
+			Texture2D texture2D21 = ModContent.Request<Texture2D>("Shaman/Projectiles/Thorium/CoznixScepterProjLaser_End").Value;
 			float num228 = LaserLength;
 			Color color44 = Color.White * 0.8f;
 			Texture2D arg_AF99_1 = texture2D19;

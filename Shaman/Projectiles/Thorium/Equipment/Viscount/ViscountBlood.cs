@@ -31,7 +31,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 
 		public override void Kill(int timeLeft)
 		{
-			Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("ViscountOrbBlood").Type, 10, 0.0f, Projectile.owner, 0.0f, 0.0f);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("ViscountOrbBlood").Type, 10, 0.0f, Projectile.owner, 0.0f, 0.0f);
 		}
 	}
 }

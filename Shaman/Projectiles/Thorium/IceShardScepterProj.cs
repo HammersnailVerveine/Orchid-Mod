@@ -97,7 +97,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			if (Main.rand.Next(3) == 0) target.AddBuff((44), 3 * 60); // Frostburn
+			if (Main.rand.NextBool(3)) target.AddBuff((44), 3 * 60); // Frostburn
 		}
 	}
 }

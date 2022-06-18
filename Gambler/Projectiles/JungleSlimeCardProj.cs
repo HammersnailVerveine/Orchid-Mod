@@ -115,7 +115,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			fallThrough = Projectile.ai[1] == 1f;
-			return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -125,7 +125,7 @@ namespace OrchidMod.Gambler.Projectiles
 			{
 				int projType = ProjectileType<Gambler.Projectiles.JungleSlimeCardProjAlt>();
 				Vector2 vel = new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(20 * (i - 1)));
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
 			}
 
 			if (Projectile.velocity.Y > 0f)

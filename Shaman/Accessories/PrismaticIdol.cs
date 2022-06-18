@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Accessories
@@ -39,20 +40,19 @@ namespace OrchidMod.Shaman.Accessories
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "AmberIdol", 1);
-			recipe.AddIngredient(null, "TopazIdol", 1);
-			recipe.AddIngredient(null, "AmethystIdol", 1);
-			recipe.AddIngredient(null, "SapphireIdol", 1);
-			recipe.AddIngredient(null, "EmeraldIdol", 1);
-			recipe.AddIngredient(null, "RubyIdol", 1);
-			recipe.AddIngredient(null, "DiamondIdol", 1);
-			recipe.AddIngredient(null, "ShamanEmblem", 1);
-			recipe.AddIngredient(1225, 10);
-			recipe.AddIngredient(547, 5);
-			recipe.AddIngredient(548, 5);
-			recipe.AddIngredient(549, 5);
-			recipe.AddTile(114);
-			recipe.Register();
+			recipe.AddIngredient(ModContent.ItemType<AmberIdol>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<TopazIdol>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<AmethystIdol>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<SapphireIdol>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<EmeraldIdol>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<RubyIdol>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<DiamondIdol>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<ShamanEmblem>(), 1);
+			recipe.AddIngredient(ItemID.HallowedBar, 10);
+			recipe.AddIngredient(ItemID.SoulofFright, 5);
+			recipe.AddIngredient(ItemID.SoulofMight, 5);
+			recipe.AddIngredient(ItemID.SoulofSight, 5);
+			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.Register();
 		}
 	}

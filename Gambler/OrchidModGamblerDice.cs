@@ -19,11 +19,7 @@ namespace OrchidMod.Gambler
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
+			Item.DamageType = DamageClass.Generic;
 			Item.noMelee = true;
 			Item.maxStack = 1;
 			Item.useStyle = 4;
@@ -33,13 +29,7 @@ namespace OrchidMod.Gambler
 			Item.autoReuse = false;
 		}
 
-		public override bool CloneNewInstances
-		{
-			get
-			{
-				return true;
-			}
-		}
+		protected override bool CloneNewInstances => true;
 
 		public sealed override void HoldItem(Player player)
 		{

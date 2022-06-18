@@ -2,6 +2,7 @@
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
@@ -69,7 +70,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			if (Projectile.penetrate < 0) Projectile.Kill();
 			Projectile.velocity.X = (Projectile.velocity.X != oldVelocity.X) ? -oldVelocity.X : Projectile.velocity.X * 0.8f;
 			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y * 1.2f;
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 87);
+			SoundEngine.PlaySound(SoundID.Item87, Projectile.position);
 			Projectile.netUpdate = true;
 			return false;
 		}

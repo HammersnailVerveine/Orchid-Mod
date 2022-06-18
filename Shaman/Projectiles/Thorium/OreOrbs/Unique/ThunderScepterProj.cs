@@ -119,12 +119,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			//modPlayer.sendOrbCountPackets();
 
 			if (modPlayer.orbCountUnique == 5)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("ThunderScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("ThunderScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountUnique < 5)
 			{
 				modPlayer.orbCountUnique += 5;
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("ThunderScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("ThunderScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 				player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				//modPlayer.sendOrbCountPackets();
 			}
@@ -132,7 +132,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			if (modPlayer.orbCountUnique == 20)
 			{
 				modPlayer.orbCountUnique = 0;
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 5f, Mod.Find<ModProjectile>("ThunderScepterOrbProj").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 5f, Mod.Find<ModProjectile>("ThunderScepterOrbProj").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
 			}
 		}
 	}

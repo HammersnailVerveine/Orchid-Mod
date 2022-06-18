@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
@@ -34,8 +35,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 				spawnDustCircle(172, 50);
 				spawnDustCircle(172, 100);
 				spawnDustCircle(29, 75);
-				Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("AbyssPrecinctProjExplosion").Type, Projectile.damage * 2, 0.0f, Projectile.owner, 0.0f, 0.0f);
-				SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("AbyssPrecinctProjExplosion").Type, Projectile.damage * 2, 0.0f, Projectile.owner, 0.0f, 0.0f);
+				SoundEngine.PlaySound(SoundID.Item14);
 				if (Projectile.timeLeft == 30) Projectile.Kill();
 			}
 

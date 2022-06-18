@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -53,7 +54,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			fallThrough = Projectile.timeLeft > 590;
-			return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -67,7 +68,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (Projectile.velocity.X != oldVelocity.X)
 			{
 				Projectile.Kill();
-				SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+				SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 			}
 			return false;
 		}
@@ -82,7 +83,7 @@ namespace OrchidMod.Gambler.Projectiles
 					Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
 					int projType = ProjectileType<Gambler.Projectiles.OceanCardProjAlt>();
 					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+					int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.Center.Y, vel.X, vel.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 					Main.projectile[newProjectile].ai[1] = 1f;
 					Main.projectile[newProjectile].netUpdate = true;
 					for (int i = 0; i < 5; i++)

@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			if (Main.rand.Next(8) < (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + 1))
 			{
-				Projectile.NewProjectile(player.position.X, player.position.Y, Projectile.velocity.X, Projectile.velocity.Y, Mod.Find<ModProjectile>("ViscountScepterBat").Type, Projectile.damage, 0f, 0, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.position.X, player.position.Y, Projectile.velocity.X, Projectile.velocity.Y, Mod.Find<ModProjectile>("ViscountScepterBat").Type, Projectile.damage, 0f, 0, 0f, 0f);
 			}
 		}
 	}

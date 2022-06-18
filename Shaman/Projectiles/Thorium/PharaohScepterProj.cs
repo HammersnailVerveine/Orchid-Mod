@@ -75,7 +75,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 			if (Main.rand.Next(20) < OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod))
 			{
-				Projectile.NewProjectile(randX, randY, 0f, 0f, Mod.Find<ModProjectile>("PharaohScepterPortal").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), randX, randY, 0f, 0f, Mod.Find<ModProjectile>("PharaohScepterPortal").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
@@ -27,12 +28,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+			SoundEngine.PlaySound(SoundID.Item14);
 
 			for (int i = 0; i < 3 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod); i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(40));
-				Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("GeodeScepterProjAlt").Type, (int)(Projectile.damage * 0.70), 0.0f, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("GeodeScepterProjAlt").Type, (int)(Projectile.damage * 0.70), 0.0f, player.whoAmI, 0.0f, 0.0f);
 			}
 
 			for (int i = 0; i < 10; i++)

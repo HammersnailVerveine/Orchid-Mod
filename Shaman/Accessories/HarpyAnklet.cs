@@ -34,9 +34,9 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= ((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).shamanDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
 			if (Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("HarpyAgility").Type) > -1)
-				add += 1.1f;
+				damage += 1.1f;
 		}
 
 		public override void AddRecipes()

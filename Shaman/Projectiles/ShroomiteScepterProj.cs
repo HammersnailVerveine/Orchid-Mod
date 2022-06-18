@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Globals.NPCs;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -63,7 +64,7 @@ namespace OrchidMod.Shaman.Projectiles
 					if (NbBonds >= 3)
 					{
 						OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
-						target.GetGlobalNPC<OrchidModGlobalNPC>().shamanShroom = 300;
+						target.GetGlobalNPC<OrchidGlobalNPC>().ShamanShroom = 300;
 						OrchidModShamanHelper.addShamanicEmpowerment(modProjectile.shamanEmpowermentType, owner, owner.GetModPlayer<OrchidModPlayer>(), Mod);
 					}
 					target.netUpdate = true;

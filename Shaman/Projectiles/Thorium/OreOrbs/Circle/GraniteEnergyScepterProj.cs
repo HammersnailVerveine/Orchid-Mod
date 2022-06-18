@@ -73,19 +73,19 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 
 			if (modPlayer.orbCountCircle == 1)
 			{
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 100, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 100, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			}
 
 			if (modPlayer.orbCountCircle == 2)
-				Projectile.NewProjectile(player.Center.X + 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 
 			if (modPlayer.orbCountCircle == 3)
-				Projectile.NewProjectile(player.Center.X, player.position.Y + 120, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y + 120, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 
 			if (modPlayer.orbCountCircle == 4)
-				Projectile.NewProjectile(player.Center.X - 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 
 			if (modPlayer.orbCountCircle == 5)
@@ -93,10 +93,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 				modPlayer.orbCountCircle = 0;
 
 				player.AddBuff(Mod.Find<ModBuff>("GraniteAura").Type, 60 * 30);
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 100, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 1, 0, Projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(player.Center.X + 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 2, 0, Projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(player.Center.X, player.position.Y + 120, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 3, 0, Projectile.owner, 0f, 0f);
-				Projectile.NewProjectile(player.Center.X - 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 4, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 100, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 1, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 2, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y + 120, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 3, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 110, player.position.Y + 10, 0f, 0f, Mod.Find<ModProjectile>("GraniteEnergyScepterOrbProj").Type, 4, 0, Projectile.owner, 0f, 0f);
 			}
 		}
 	}

@@ -75,7 +75,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			for (int i = 0; i < nbBonds; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X / (Main.rand.Next(3) + 2), -3f).RotatedByRandom(MathHelper.ToRadians(30));
-				Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("BoreanStriderScepterProjAlt").Type, (int)(Projectile.damage * 0.70), 0.0f, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("BoreanStriderScepterProjAlt").Type, (int)(Projectile.damage * 0.70), 0.0f, player.whoAmI, 0.0f, 0.0f);
 			}
 
 			for (int i = 0; i < 10; i++)
@@ -87,7 +87,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				dust.velocity = new Vector2(0, Main.rand.NextFloat(2f, 4f)).RotatedBy(Main.rand.NextFloat(MathHelper.TwoPi));
 			}
 
-			Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<BoreanStriderScepterKillProj>(), 0, 0.0f, player.whoAmI, Math.Sign(Projectile.velocity.X) * 0.1f, Projectile.rotation);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<BoreanStriderScepterKillProj>(), 0, 0.0f, player.whoAmI, Math.Sign(Projectile.velocity.X) * 0.1f, Projectile.rotation);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)

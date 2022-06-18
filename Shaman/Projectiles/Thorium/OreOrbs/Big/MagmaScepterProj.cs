@@ -93,29 +93,29 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 
 			if (modPlayer.orbCountBig == 2)
 			{
-				Projectile.NewProjectile(player.Center.X - 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 				if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1)
 				{
 					modPlayer.orbCountBig += 2;
-					Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 1, 0, Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 1, 0, Projectile.owner, 0f, 0f);
 					player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				}
 			}
 			if (modPlayer.orbCountBig == 4)
-				Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 6)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 40, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 40, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 8)
-				Projectile.NewProjectile(player.Center.X + 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 10)
-				Projectile.NewProjectile(player.Center.X + 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("MagmaOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 10)
 			{
 
 				int dmg = (int)(50 * modPlayer.shamanDamage);
-				Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("MagmaScepterProjExplosion").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
-				SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("MagmaScepterProjExplosion").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
+				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
 				spawnDustCircle(6, 75);
 				spawnDustCircle(6, 50);

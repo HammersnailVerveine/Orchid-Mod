@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
@@ -41,8 +42,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				spawnDustCircle(62, i * 10);
 			}
 
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 91);
-			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("StarScouterScepterProjAltExplosion").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);
+			SoundEngine.PlaySound(SoundID.Item91, Projectile.Center);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("StarScouterScepterProjAltExplosion").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);
 		}
 
 		public void spawnDustCircle(int dustType, int distToCenter)

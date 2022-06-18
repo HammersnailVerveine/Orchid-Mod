@@ -70,7 +70,7 @@ namespace OrchidMod.Gambler.Projectiles
 			{
 				if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X / 3;
 				if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y / 3;
-				SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+				SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 			}
 			return false;
 		}

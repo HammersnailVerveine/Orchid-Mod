@@ -14,7 +14,6 @@ namespace OrchidMod.Shaman.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			Player modPlayer = Main.player[Main.myPlayer];
 			player.statDefense += 8;
 		}
 	}

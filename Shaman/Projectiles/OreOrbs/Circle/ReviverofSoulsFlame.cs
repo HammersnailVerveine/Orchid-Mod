@@ -91,7 +91,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 
 			if (Main.player[Projectile.owner].FindBuffIndex(Mod.Find<ModBuff>("SpiritualBurst").Type) > -1)
 			{
-				if (Main.rand.Next(10) == 0)
+				if (Main.rand.NextBool(10))
 				{
 					int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172);
 					Main.dust[dust2].velocity *= 2f;
@@ -113,7 +113,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Texture2D flameTexture = ModContent.GetTexture("OrchidMod/Shaman/Projectiles/OreOrbs/Circle/ReviverOfSoulsFlameTexture");
+			Texture2D flameTexture = ModContent.Request<Texture2D>("OrchidMod/Shaman/Projectiles/OreOrbs/Circle/ReviverOfSoulsFlameTexture").Value;
 			Vector2 drawOrigin = new Vector2(TextureAssets.Projectile[Projectile.type].Value.Width * 1f, Projectile.height * 1f);
 			for (int k = 0; k < Projectile.oldPos.Length; k++)
 			{

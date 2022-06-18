@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles
 {
@@ -34,7 +35,7 @@ namespace OrchidMod.Shaman.Projectiles
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			Projectile.Kill();
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 			return false;
 		}
 

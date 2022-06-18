@@ -28,7 +28,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 				Projectile.Kill();
 			}
 			Projectile.velocity = (Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(5)));
-			if (Main.rand.Next(15) == 0)
+			if (Main.rand.NextBool(15))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 29);
 				Main.dust[dust].noGravity = true;

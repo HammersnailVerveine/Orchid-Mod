@@ -139,7 +139,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
 		{
 			fallThrough = Projectile.ai[0] == 1f;
-			return base.TileCollideStyle(ref width, ref height, ref fallThrough);
+			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -172,8 +172,8 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void PostDraw(Color lightColor)
 		{
-			Texture2D texture = ModContent.GetTexture("OrchidMod/Gambler/Projectiles/KingSlimeCardProj_Glow");
-			OrchidModProjectile.DrawProjectileGlowmask(Projectile, spriteBatch, texture, Color.White);
+			Texture2D texture = ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/KingSlimeCardProj_Glow").Value;
+			OrchidModProjectile.DrawProjectileGlowmask(Projectile, Main.spriteBatch, texture, Color.White);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
@@ -183,7 +183,7 @@ namespace OrchidMod.Gambler.Projectiles
 				Projectile.damage += 2;
 				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 				int projType = ProjectileType<Gambler.Projectiles.KingSlimeCardProj2>();
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 59, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, false, true);
 			}
 
@@ -216,7 +216,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			float offSet = this.projectileTrailOffset + 0.5f;
 			Vector2 drawOrigin = new Vector2(TextureAssets.Projectile[Projectile.type].Value.Width * offSet, Projectile.height * offSet);
-			Texture2D texture = ModContent.GetTexture("OrchidMod/Gambler/Projectiles/KingSlimeCardProj2");
+			Texture2D texture = ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/KingSlimeCardProj2").Value;
 			for (int k = 0; k < Projectile.oldPos.Length; k++)
 			{
 				Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);

@@ -389,7 +389,7 @@ namespace OrchidMod.Gambler
 					heading *= new Vector2(0f, 10f).Length();
 					Vector2 vel = heading.RotatedByRandom(MathHelper.ToRadians(20));
 					vel = vel * scale;
-					Projectile.NewProjectile(player.Center.X, player.Center.Y, vel.X, vel.Y, projType, 12, 0f, player.whoAmI);
+					Projectile.NewProjectile(null, player.Center.X, player.Center.Y, vel.X, vel.Y, projType, 12, 0f, player.whoAmI);
 					if (i == 0)
 					{
 						OrchidModProjectile.spawnDustCircle(player.Center, 31, 10, 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
@@ -449,7 +449,7 @@ namespace OrchidMod.Gambler
 					int projType = ProjectileType<Gambler.Projectiles.SlimeRainCardProj2>();
 					for (int i = 0; i < rand; i++)
 					{
-						int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 5f, projType, 15, 0f, player.whoAmI), dummy);
+						int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(null, player.Center.X, player.Center.Y, 0f, 5f, projType, 15, 0f, player.whoAmI), dummy);
 						Main.projectile[newProjectile].ai[1] = 1f;
 						Main.projectile[newProjectile].netUpdate = true;
 					}

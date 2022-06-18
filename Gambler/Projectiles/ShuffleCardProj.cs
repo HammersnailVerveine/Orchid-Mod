@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -219,7 +220,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 			else
 			{
-				SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y, 1);
+				SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
 			}
 		}
 	}

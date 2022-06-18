@@ -34,7 +34,6 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(ItemID.Ruby, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

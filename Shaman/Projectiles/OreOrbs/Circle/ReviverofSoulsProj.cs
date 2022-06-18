@@ -106,41 +106,41 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 
 			if (modPlayer.orbCountCircle == 3)
 			{
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 110, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 110, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 			}
 
 			if (modPlayer.orbCountCircle == 6)
-				Projectile.NewProjectile(player.Center.X + 55, player.position.Y - 95, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 55, player.position.Y - 95, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 9)
-				Projectile.NewProjectile(player.Center.X + 95, player.position.Y - 55, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 95, player.position.Y - 55, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 12)
-				Projectile.NewProjectile(player.Center.X + 110, player.position.Y, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 110, player.position.Y, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 15)
-				Projectile.NewProjectile(player.Center.X + 95, player.position.Y + 55, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 95, player.position.Y + 55, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 18)
-				Projectile.NewProjectile(player.Center.X + 55, player.position.Y + 95, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 55, player.position.Y + 95, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 21)
-				Projectile.NewProjectile(player.Center.X, player.position.Y + 110, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y + 110, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 24)
-				Projectile.NewProjectile(player.Center.X - 55, player.position.Y + 95, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 55, player.position.Y + 95, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 27)
-				Projectile.NewProjectile(player.Center.X - 95, player.position.Y + 55, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 95, player.position.Y + 55, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 30)
-				Projectile.NewProjectile(player.Center.X - 110, player.position.Y, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 110, player.position.Y, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 33)
-				Projectile.NewProjectile(player.Center.X - 95, player.position.Y - 55, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 95, player.position.Y - 55, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 36)
-				Projectile.NewProjectile(player.Center.X - 55, player.position.Y - 95, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 55, player.position.Y - 95, 0f, 0f, Mod.Find<ModProjectile>("ReviverofSoulsFlame").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (modPlayer.orbCountCircle == 39)
 				player.AddBuff(Mod.Find<ModBuff>("SpiritualBurst").Type, 60 * 15);

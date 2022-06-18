@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Accessories
@@ -35,10 +36,9 @@ namespace OrchidMod.Shaman.Accessories
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "SpiritedWater", 1);
-			recipe.AddIngredient(null, "WaxyVial", 1);
-			recipe.AddTile(114);
-			recipe.Register();
+			recipe.AddIngredient(ModContent.ItemType<SpiritedWater>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<WaxyVial>(), 1);
+			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.Register();
 		}
 	}

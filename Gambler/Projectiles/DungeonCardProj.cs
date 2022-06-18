@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Globals.NPCs;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -49,22 +51,22 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
-			OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
+			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
 			if (Projectile.owner == Main.myPlayer)
 			{
-				modTarget.gamblerDungeonCardCount++;
-				if (modTarget.gamblerDungeonCardCount >= 3)
+				modTarget.GamblerDungeonCardCount++;
+				if (modTarget.GamblerDungeonCardCount >= 3)
 				{
-					modTarget.gamblerDungeonCardCount = 0;
+					modTarget.GamblerDungeonCardCount = 0;
 					OrchidModProjectile.spawnDustCircle(Projectile.Center, 29, 10, 15, true, 1.3f, 1f, 8f, true, true, false, 0, 0, true);
-					SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y, 45);
+					SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
 					int projType = ProjectileType<Gambler.Projectiles.DungeonCardProjAlt>();
 					float scale = 10f - (Main.rand.NextFloat() * 2.5f);
 					Vector2 vel = (Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(20)));
 					vel.Normalize();
 					vel *= scale;
 					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					int newProjInt = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, (int)(Projectile.damage * 5), 0.1f, Projectile.owner), dummy);
+					int newProjInt = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, (int)(Projectile.damage * 5), 0.1f, Projectile.owner), dummy);
 					Projectile newProj = Main.projectile[newProjInt];
 					newProj.ai[1] = (int)target.whoAmI;
 					newProj.netUpdate = true;

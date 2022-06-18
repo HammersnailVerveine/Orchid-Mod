@@ -29,7 +29,7 @@ namespace OrchidMod.Alchemist
 			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
-			modTarget.alchemistHit = true;
+			modTarget.AlchemistHit = true;
 			OrchidModAlchemistNPC modTargetAlch = target.GetGlobalNPC<OrchidModAlchemistNPC>();
 			SafeOnHitNPC(target, modTargetAlch, damage, knockback, crit, player, modPlayer);
 		}

@@ -76,10 +76,10 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				if (Main.rand.Next(4) == 0)
 				{
 					if (player.strongBees && Main.rand.Next(2) == 0)
-						Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 566, (int)(dmg * 1.15f), 0f, Projectile.owner, 0f, 0f);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 566, (int)(dmg * 1.15f), 0f, Projectile.owner, 0f, 0f);
 					else
 					{
-						Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 181, dmg, 0f, Projectile.owner, 0f, 0f);
+						Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 181, dmg, 0f, Projectile.owner, 0f, 0f);
 					}
 				}
 			}
@@ -98,17 +98,17 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountUnique < 5)
 			{
 				modPlayer.orbCountUnique += 5;
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
 				player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				//modPlayer.sendOrbCountPackets();
 			}
 
 			if (modPlayer.orbCountUnique == 5)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb1").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 10)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb2").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb2").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountUnique == 15)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb3").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("HoneyOrb3").Type, 0, 0, Projectile.owner, 0f, 0f);
 		}
 	}
 }

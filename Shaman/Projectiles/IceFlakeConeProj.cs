@@ -33,6 +33,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			var trail = new Content.Trails.RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 16 * (1 - p * 0.8f), color: (p) => Color.Lerp(EffectColor, new Color(11, 26, 138), p) * (1 - p) * 0.4f, additive: true, smoothness: 15);
 			trail.SetDissolveSpeed(0.35f);
+			trail.SetDissolveSpeed(0.35f);
 			trail.SetEffectTexture(OrchidAssets.GetExtraTexture(5).Value);
 			PrimitiveTrailSystem.NewTrail(trail);
 		}
@@ -58,7 +59,7 @@ namespace OrchidMod.Shaman.Projectiles
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			this.VanillaAI_003__Hit();
-			SoundEngine.PlaySound(SoundID.Dig, (int)Projectile.position.X, (int)Projectile.position.Y, 1, 1f, 0f);
+			SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
 			return false;
 		}
 

@@ -1,3 +1,4 @@
+using OrchidMod.Common.Globals.NPCs;
 using Terraria;
 using Terraria.ID;
 
@@ -36,12 +37,12 @@ namespace OrchidMod.Gambler
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			OrchidModGlobalNPC modTarget = target.GetGlobalNPC<OrchidModGlobalNPC>();
+			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
 			if (target.type != NPCID.TargetDummy && this.gamblingChipChance > 0)
 			{
 				OrchidModGamblerHelper.addGamblerChip(this.gamblingChipChance, player, modPlayer);
 			}
-			modTarget.gamblerHit = true;
+			modTarget.GamblerHit = true;
 			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);
 		}
 

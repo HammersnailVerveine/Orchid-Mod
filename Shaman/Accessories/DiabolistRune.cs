@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Accessories
@@ -38,7 +39,7 @@ namespace OrchidMod.Shaman.Accessories
 				if (modPlayer.shamanDiabolistCount >= player.statLifeMax2 / 2 && !player.HasBuff(Mod.Find<ModBuff>("DiabolistCauterizationCooldown").Type))
 				{
 					modPlayer.shamanDiabolistCount = 0;
-					SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 74);
+					SoundEngine.PlaySound(SoundID.Item74);
 					player.AddBuff((Mod.Find<ModBuff>("DiabolistCauterize").Type), 60 * 10);
 					player.AddBuff((Mod.Find<ModBuff>("DiabolistCauterizeCooldown").Type), 60 * 60);
 

@@ -29,29 +29,31 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			if (Projectile.timeLeft == 40)
 			{
-				spawnDustCircle(Main.rand.Next(2) == 0 ? 185 : 62, 20);
+				spawnDustCircle(Main.rand.NextBool(2) ? 185 : 62, 20);
 			}
 			else if (Projectile.timeLeft == 38)
 			{
-				spawnDustCircle(Main.rand.Next(2) == 0 ? 185 : 62, 15);
+				spawnDustCircle(Main.rand.NextBool(2) ? 185 : 62, 15);
 			}
 
-			if (Main.rand.Next(40) == 0 && Projectile.timeLeft < 30 && Projectile.timeLeft > 10)
+			if (Main.rand.NextBool(40) && Projectile.timeLeft < 30 && Projectile.timeLeft > 10)
 			{
-				spawnDustCircle(Main.rand.Next(2) == 0 ? 185 : 62, 10);
+				spawnDustCircle(Main.rand.NextBool(2) ? 185 : 62, 10);
 				Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X / 3, Projectile.velocity.Y / 3).RotatedByRandom(MathHelper.ToRadians(360));
-				Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("CrystalScepterProj2").Type, (int)(Projectile.damage * 0.6), (float)(Projectile.knockBack * 0.35), Projectile.owner, 0f, 0f);
+				int type = ModContent.ProjectileType<CrystalScepterProj2>();
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, perturbedSpeed, type, (int)(Projectile.damage * 0.6), (float)(Projectile.knockBack * 0.35), Projectile.owner, 0f, 0f);
 			}
 
 			if (Projectile.timeLeft == 0)
 			{
 				Player player = Main.player[Projectile.owner];
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+				int type = ModContent.ProjectileType<CrystalScepterProj2>();
 
 				for (int i = 0; i < 2 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod); i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X / 3, Projectile.velocity.Y / 3).RotatedByRandom(MathHelper.ToRadians(360));
-					Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("CrystalScepterProj2").Type, (int)(Projectile.damage * 0.6), (float)(Projectile.knockBack * 0.35), Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position, perturbedSpeed, type, (int)(Projectile.damage * 0.6), (float)(Projectile.knockBack * 0.35), Projectile.owner, 0f, 0f);
 				}
 
 				spawnDustCircle(185, 20);

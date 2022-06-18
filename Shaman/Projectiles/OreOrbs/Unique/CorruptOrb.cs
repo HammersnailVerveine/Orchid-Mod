@@ -132,7 +132,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			for (int i = 0; i < rainCount; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X - Main.rand.Next(2) + 1, -((float)(Main.rand.Next(3) + 3))).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(player.Center.X + Projectile.velocity.X, player.Center.Y - 125 + Projectile.velocity.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("CorruptOrbRain").Type, dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + Projectile.velocity.X, player.Center.Y - 125 + Projectile.velocity.Y, perturbedSpeed.X, perturbedSpeed.Y, Mod.Find<ModProjectile>("CorruptOrbRain").Type, dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
 			}
 			Main.player[Projectile.owner].GetModPlayer<OrchidModPlayer>().orbCountUnique = 0;
 		}

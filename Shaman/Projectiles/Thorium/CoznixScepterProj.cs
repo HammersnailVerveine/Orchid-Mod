@@ -52,7 +52,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
 			{
-				Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y - 300, 0f, 0f, Mod.Find<ModProjectile>("CoznixScepterProjPortal").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y - 300, 0f, 0f, Mod.Find<ModProjectile>("CoznixScepterProjPortal").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
 			}
 		}
 	}

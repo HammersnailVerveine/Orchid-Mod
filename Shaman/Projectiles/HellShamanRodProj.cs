@@ -54,7 +54,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			if (Projectile.ai[1] == 0)
 			{
-				SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 65);
+				SoundEngine.PlaySound(SoundID.Item65, Projectile.position);
 				Projectile.ai[1] = -1;
 				Projectile.timeLeft = 1800;
 			}
@@ -76,7 +76,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 65);
+				SoundEngine.PlaySound(SoundID.Item65, Projectile.position);
 
 			for (int i = 0; i < 5; i++)
 			{
@@ -105,13 +105,15 @@ namespace OrchidMod.Shaman.Projectiles
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+			//spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix); // 1.3 line above
 
 			Texture2D radialGradient = OrchidAssets.GetExtraTexture(11).Value;
 			spriteBatch.Draw(radialGradient, Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY), null, new Color(255, 225, 0) * 0.35f, 0f, radialGradient.Size() * 0.5f, 0.75f * Projectile.scale, SpriteEffects.None, 0f);
 
 			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+			//spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix); // 1.3 line above
 
 			Vector2 drawOrigin = new Vector2(TextureAssets.Projectile[Projectile.type].Value.Width * 0.5f, Projectile.height * 0.5f);
 

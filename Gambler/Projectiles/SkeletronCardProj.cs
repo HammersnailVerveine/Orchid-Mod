@@ -99,8 +99,8 @@ namespace OrchidMod.Gambler.Projectiles
 								projMove *= 10f / distanceTo;
 								int projType = ProjectileType<Gambler.Projectiles.SkeletronCardProjAlt>();
 								bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-								OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, projMove.X, projMove.Y, projType, (int)(Projectile.damage * 3), Projectile.knockBack, Projectile.owner), dummy);
-								SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 8);
+								OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, projMove.X, projMove.Y, projType, (int)(Projectile.damage * 3), Projectile.knockBack, Projectile.owner), dummy);
+								SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
 								this.projectilePoll -= this.projectilePoll - 1 <= 0 ? 0 : 1;
 								this.fireProj = 0;
 							}
@@ -150,7 +150,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			if (Projectile.ai[1] == 1f && Projectile.rotation == 0f)
 			{
-				Texture2D flameTexture = ModContent.GetTexture("OrchidMod/Gambler/Projectiles/SkeletronCardProj_Glow");
+				Texture2D flameTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkeletronCardProj_Glow").Value;
 				Vector2 drawOrigin = new Vector2(TextureAssets.Projectile[Projectile.type].Value.Width * 1f, Projectile.height * 1f);
 				for (int k = 0; k < Projectile.oldPos.Length; k++)
 				{
@@ -190,7 +190,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
 			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 			this.bounceDelay = 15;
 			return false;
 		}

@@ -125,7 +125,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			Projectile.position.X = player.position.X + player.width / 2 + startX;
 			Projectile.position.Y = player.position.Y + startY;
 
-			if (Main.rand.Next(20) == 0)
+			if (Main.rand.NextBool(20))
 			{
 				int dustType = Main.rand.Next(6) + 59;
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType);

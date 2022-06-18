@@ -33,6 +33,7 @@ namespace OrchidMod.Shaman.Projectiles
 		public override void OnSpawn()
 		{
 			// I hate it
+			// No u
 			Player player = Main.player[Projectile.owner];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int newCrit = 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
@@ -103,7 +104,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			Vector2 drawPosition = Projectile.Center + new Vector2(0, Projectile.gfxOffY) - Main.screenPosition;
 			Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-			spriteBatch.Draw(texture, drawPosition, null, Lighting.GetColor((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16, Color.White), Projectile.rotation, texture.Size() * .5f, Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(texture, drawPosition, null, Lighting.GetColor((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16, Color.White), Projectile.rotation, texture.Size() * .5f, Projectile.scale, SpriteEffects.None, 0f);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

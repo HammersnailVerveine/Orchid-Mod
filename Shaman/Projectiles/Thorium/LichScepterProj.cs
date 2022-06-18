@@ -61,7 +61,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			for (int i = 0; i < 4; i++)
 			{
 				Vector2 projectileVelocity = (new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.ToRadians(-40 + (25 * i))));
-				Projectile.NewProjectile(Projectile.position.X + projectileVelocity.X, Projectile.position.Y + Projectile.velocity.Y, projectileVelocity.X / 2, projectileVelocity.Y / 2, Mod.Find<ModProjectile>("LichScepterProjAlt").Type, (int)(Projectile.damage * 0.75), 0.0f, Projectile.owner, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + projectileVelocity.X, Projectile.position.Y + Projectile.velocity.Y, projectileVelocity.X / 2, projectileVelocity.Y / 2, Mod.Find<ModProjectile>("LichScepterProjAlt").Type, (int)(Projectile.damage * 0.75), 0.0f, Projectile.owner, 0.0f, 0.0f);
 			}
 		}
 	}

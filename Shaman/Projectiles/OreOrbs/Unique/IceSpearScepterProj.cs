@@ -81,12 +81,12 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			//modPlayer.sendOrbCountPackets();
 
 			if (modPlayer.orbCountUnique == 3)
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("IceSpearOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("IceSpearOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 			if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1 && modPlayer.orbCountUnique < 5)
 			{
 				modPlayer.orbCountUnique += 3;
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("IceSpearOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, 0f, 0f, Mod.Find<ModProjectile>("IceSpearOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 				player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				//modPlayer.sendOrbCountPackets();
 			}
@@ -107,7 +107,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				}
 
 				Vector2 spearVelocity = (new Vector2(speedX, 0f).RotatedBy(MathHelper.ToRadians(angle)));
-				Projectile.NewProjectile(player.Center.X, player.position.Y - 79, spearVelocity.X, spearVelocity.Y, Mod.Find<ModProjectile>("IceSpearProj").Type, dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 79, spearVelocity.X, spearVelocity.Y, Mod.Find<ModProjectile>("IceSpearProj").Type, dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
 			}
 		}
 	}

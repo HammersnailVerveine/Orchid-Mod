@@ -72,8 +72,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
 
-			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("MoltenResidueScepterProjExplosion").Type, Projectile.damage + (5 * nbBonds), 0.0f, Projectile.owner, 0.0f, 0.0f);
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("MoltenResidueScepterProjExplosion").Type, Projectile.damage + (5 * nbBonds), 0.0f, Projectile.owner, 0.0f, 0.0f);
+			SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 
 			float oldVelocityX = 0 + Projectile.velocity.X / 2;
 			float oldVelocityY = 0 + Projectile.velocity.Y / 2;

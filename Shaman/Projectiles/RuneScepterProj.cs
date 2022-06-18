@@ -31,7 +31,7 @@ namespace OrchidMod.Shaman.Projectiles
 			{
 				int index2 = Dust.NewDust(new Vector2(Projectile.position.X + Projectile.velocity.X / 3, Projectile.position.Y + Projectile.velocity.Y / 3), Projectile.width, Projectile.height, 106, Projectile.velocity.X, Projectile.velocity.Y, 100, new Color(), 1f);
 				Main.dust[index2].noGravity = true;
-				Main.dust[index2].velocity *= (float)(0.100000001490116 + (double)Main.rand.Next(4) * 0.100000001490116);
+				Main.dust[index2].velocity *= (float)(0.100000001490116 + (double)Main.rand.Next(4) * 0.100000001490116); // wtf
 				Main.dust[index2].scale *= (float)(1.0 + (double)Main.rand.Next(5) * 0.100000001490116);
 			}
 			Projectile.ai[1]++;

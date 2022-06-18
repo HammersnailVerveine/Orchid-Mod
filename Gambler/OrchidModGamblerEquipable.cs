@@ -17,7 +17,7 @@ namespace OrchidMod.Gambler
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			mult *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
+			damage *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)

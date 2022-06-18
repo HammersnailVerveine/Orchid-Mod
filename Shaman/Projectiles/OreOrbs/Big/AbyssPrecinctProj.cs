@@ -34,8 +34,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 				spawnDustCircle(172, 50);
 				spawnDustCircle(172, 100);
 				spawnDustCircle(29, 75);
-				Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("AbyssPrecinctProjExplosion").Type, Projectile.damage * 2, 0.0f, Projectile.owner, 0.0f, 0.0f);
-				SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("AbyssPrecinctProjExplosion").Type, Projectile.damage * 2, 0.0f, Projectile.owner, 0.0f, 0.0f);
+				SoundEngine.PlaySound(SoundID.Item14);
 			}
 
 			int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 172);
@@ -119,7 +119,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
 		{
 			Projectile.velocity *= 0.2f;
-			Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, Mod.Find<ModProjectile>("AbyssPrecinctProjAlt").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, Mod.Find<ModProjectile>("AbyssPrecinctProjAlt").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);
 
 			if (modPlayer.shamanOrbBig != ShamanOrbBig.ABYSS)
 			{
@@ -130,23 +130,23 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 
 			if (modPlayer.orbCountBig == 3)
 			{
-				Projectile.NewProjectile(player.Center.X - 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 
 				if (player.FindBuffIndex(Mod.Find<ModBuff>("ShamanicBaubles").Type) > -1)
 				{
 					modPlayer.orbCountBig += 3;
-					Projectile.NewProjectile(player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 1, 0, Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 1, 0, Projectile.owner, 0f, 0f);
 					player.ClearBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type);
 				}
 			}
 			if (modPlayer.orbCountBig == 6)
-				Projectile.NewProjectile(player.Center.X - 23, player.position.Y - 34, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 23, player.position.Y - 34, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 9)
-				Projectile.NewProjectile(player.Center.X - 2, player.position.Y - 40, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X - 2, player.position.Y - 40, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 12)
-				Projectile.NewProjectile(player.Center.X + 19, player.position.Y - 34, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 19, player.position.Y - 34, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 15)
-				Projectile.NewProjectile(player.Center.X + 38, player.position.Y - 18, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 38, player.position.Y - 18, 0f, 0f, Mod.Find<ModProjectile>("AbyssOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 15)
 			{
 				player.AddBuff(Mod.Find<ModBuff>("AbyssEmpowerment").Type, 60 * 30);

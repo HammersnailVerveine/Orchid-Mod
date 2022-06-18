@@ -82,12 +82,12 @@ namespace OrchidMod.Gambler.Projectiles
 					if (player.strongBees && Main.rand.Next(2) == 0)
 					{
 						bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-						OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, vel.X, vel.Y, 566, (int)(Projectile.damage * 1.15f), 0f, Projectile.owner, 0f, 0f), dummy);
+						OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, vel.X, vel.Y, 566, (int)(Projectile.damage * 1.15f), 0f, Projectile.owner, 0f, 0f), dummy);
 					}
 					else
 					{
 						bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-						int newProj = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, vel.X, vel.Y, 181, Projectile.damage, 0f, Projectile.owner, 0f, 0f), dummy);
+						int newProj = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, vel.X, vel.Y, 181, Projectile.damage, 0f, Projectile.owner, 0f, 0f), dummy);
 						OrchidModGlobalProjectile modProjectile = Main.projectile[newProj].GetGlobalProjectile<OrchidModGlobalProjectile>();
 						modProjectile.gamblerProjectile = true;
 						modProjectile.baseCritChance = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().baseCritChance;
@@ -129,7 +129,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
 			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 			this.bounceDelay = 15;
 			return false;
 		}

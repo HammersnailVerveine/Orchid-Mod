@@ -57,8 +57,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			Player player = Main.player[Projectile.owner];
 			int dmg = (int)(35 * player.GetModPlayer<OrchidModPlayer>().shamanDamage);
 
-			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y + 10, 5f, 0f, Mod.Find<ModProjectile>("ThunderScepterTornado").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
-			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y + 10, -5f, 0f, Mod.Find<ModProjectile>("ThunderScepterTornado").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y + 10, 5f, 0f, Mod.Find<ModProjectile>("ThunderScepterTornado").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y + 10, -5f, 0f, Mod.Find<ModProjectile>("ThunderScepterTornado").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
 		}
 	}
 }

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -74,11 +75,11 @@ namespace OrchidMod.Gambler.Projectiles
 				heading *= 15f;
 				int projType = ProjectileType<Gambler.Projectiles.GoblinArmyCardProjAlt>();
 				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, heading.X, heading.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, heading.X, heading.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
 				fireTimerRef -= fireTimerRef > 15 ? 4 : 0;
 				fireTimer = fireTimerRef;
-				SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y, 8);
+				SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
 			}
 
 			this.spawnDust(27, (int)distance);

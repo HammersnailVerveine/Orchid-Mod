@@ -25,7 +25,6 @@ namespace OrchidMod.Shaman.Misc
 			recipe.AddRecipeGroup("IronBar", 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Accessories
 
 				if (modPlayer.shamanDestroyerCount == 5)
 				{
-					SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 33);
+					SoundEngine.PlaySound(SoundID.Item33);
 					player.AddBuff((Mod.Find<ModBuff>("DestroyerFrenzy").Type), 60 * 10);
 
 					for (int i = 0; i < 15; i++)
@@ -56,10 +56,9 @@ namespace OrchidMod.Shaman.Accessories
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(1225, 5); // Hallowed Bar
-			recipe.AddIngredient(548, 20); // Sould of Might
+			recipe.AddIngredient(ItemID.HallowedBar, 5); // Hallowed Bar
+			recipe.AddIngredient(ItemID.SoulofMight, 20); // Sould of Might
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

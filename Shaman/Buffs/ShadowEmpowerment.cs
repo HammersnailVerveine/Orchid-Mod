@@ -13,9 +13,10 @@ namespace OrchidMod.Shaman.Buffs
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{
-			Main.player[Main.myPlayer].moveSpeed += 0.1f;
-			Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanDamage += 0.1f;
-			Main.player[Main.myPlayer].GetModPlayer<OrchidModPlayer>().shamanShadowEmpowerment = true;
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			player.moveSpeed += 0.1f;
+			modPlayer.shamanDamage += 0.1f;
+			modPlayer.shamanShadowEmpowerment = true;
 		}
 	}
 }

@@ -7,11 +7,6 @@ namespace OrchidMod.Gambler
 	{
 		public override void SetDefaults()
 		{
-			Item.melee = false;
-			Item.ranged = false;
-			Item.magic = false;
-			Item.thrown = false;
-			Item.summon = false;
 			Item.noMelee = true;
 			Item.maxStack = 1;
 			Item.width = 20;

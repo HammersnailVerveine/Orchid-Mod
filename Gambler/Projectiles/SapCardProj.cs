@@ -101,7 +101,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 85);
+			SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 
 			DustUtils.SpawnDustCircle(
 				center: Projectile.Center,
@@ -119,7 +119,7 @@ namespace OrchidMod.Gambler.Projectiles
 			int projType = ProjectileType<Gambler.Projectiles.SapCardProjExplosion>();
 			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, dmg, 3f, Projectile.owner, 0.0f, 0.0f), dummy);
+			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, dmg, 3f, Projectile.owner, 0.0f, 0.0f), dummy);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)

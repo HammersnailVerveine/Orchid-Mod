@@ -33,7 +33,6 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(ItemID.Topaz, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }
