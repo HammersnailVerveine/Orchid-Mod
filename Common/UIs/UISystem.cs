@@ -1,15 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Alchemist.UI;
-using OrchidMod.Gambler.UI;
-using OrchidMod.Guardian.UI;
-using OrchidMod.Shaman.UI;
-using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -20,6 +13,7 @@ namespace OrchidMod.Common.UIs
 	// TODO: Auto-loading pls...
 	public class UISystem : ModSystem
 	{
+		/*
 		public static bool reloadShamanUI;
 		public static Texture2D[] coatingTextures;
 
@@ -38,11 +32,63 @@ namespace OrchidMod.Common.UIs
 		internal AlchemistSelectKeysUIState alchemistSelectKeysUIState;
 		internal AlchemistBookUIState alchemistBookUIState;
 		internal GamblerUIState gamblerUIState;
-		internal GuardianUIState guardianUIState;
+		internal GuardianUIState guardianUIState;*/
+
+		// ...
+
+		private static readonly Dictionary<OrchidUIState, UserInterface> uis = new();
+		private static float uiScale = -1f;
+
+		public static readonly RasterizerState OverflowHiddenRasterizerState = new()
+		{
+			CullMode = CullMode.None,
+			ScissorTestEnable = true
+		};
+
+		public static void AddUIState(OrchidUIState state, UserInterface userInterface)
+		{
+			if (state == null || userInterface == null) return;
+
+			uis.Add(state, userInterface);
+		}
+
+		public static T GetUIState<T>() where T : OrchidUIState
+		{
+			return uis.Keys.FirstOrDefault(i => i is T) as T;
+		}
+
+		private static void OnResolutionChanged(Vector2 screenSize)
+		{
+			foreach (var (uiState, _) in uis)
+			{
+				uiState.OnResolutionChanged((int)screenSize.X, (int)screenSize.Y);
+			}
+		}
+
+		// ...
 
 		public override void Load()
 		{
-			shamanUIState = new ShamanUIState();
+			foreach (Type type in Mod.Code.GetTypes())
+			{
+				if (!type.IsSubclassOf(typeof(OrchidUIState))) continue;
+
+				var uiState = (OrchidUIState)Activator.CreateInstance(type, null);
+				uiState.Mod = Mod;
+				uiState.Load();
+				uiState.Activate();
+
+				var userInterface = new UserInterface();
+				userInterface.SetState(uiState);
+
+				uis.Add(uiState, userInterface);
+			}
+
+			Main.OnResolutionChanged += OnResolutionChanged;
+
+			// ...
+
+			/*shamanUIState = new ShamanUIState();
 			shamanCharacterUIState = new ShamanCharacterUIState();
 			alchemistUIState = new AlchemistUIState();
 			alchemistSelectUIState = new AlchemistSelectUIState();
@@ -90,137 +136,152 @@ namespace OrchidMod.Common.UIs
 			coatingTextures[2] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingNature", AssetRequestMode.ImmediateLoad).Value;
 			coatingTextures[3] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingAir", AssetRequestMode.ImmediateLoad).Value;
 			coatingTextures[4] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingLight", AssetRequestMode.ImmediateLoad).Value;
-			coatingTextures[5] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingDark", AssetRequestMode.ImmediateLoad).Value;
+			coatingTextures[5] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingDark", AssetRequestMode.ImmediateLoad).Value;*/
+		}
+
+		public override void PostSetupContent()
+		{
+			foreach (var (uiState, _) in uis)
+			{
+				uiState.PostSetupContent();
+			}
 		}
 
 		public override void Unload()
 		{
-			if (!Main.dedServ)
+			Main.OnResolutionChanged -= OnResolutionChanged;
+
+			foreach (var (uiState, _) in uis)
 			{
-				AlchemistUIFrame.ressourceBottom = null;
-				AlchemistUIFrame.ressourceTop = null;
-				AlchemistUIFrame.ressourceFull = null;
-				AlchemistUIFrame.ressourceFullTop = null;
-				AlchemistUIFrame.ressourceFullBorder = null;
-				AlchemistUIFrame.ressourceEmpty = null;
-				AlchemistUIFrame.reactionCooldown = null;
-				AlchemistUIFrame.reactionCooldownLiquid = null;
-				AlchemistUIFrame.symbolWater = null;
-				AlchemistUIFrame.symbolFire = null;
-				AlchemistUIFrame.symbolNature = null;
-				AlchemistUIFrame.symbolAir = null;
-				AlchemistUIFrame.symbolLight = null;
-				AlchemistUIFrame.symbolDark = null;
-
-				AlchemistSelectUIFrame.resourceItem = null;
-				AlchemistSelectUIFrame.resourceBack = null;
-				AlchemistSelectUIFrame.resourceCross = null;
-				AlchemistSelectUIFrame.resourceSelected = null;
-				AlchemistSelectUIFrame.resourceBorder = null;
-
-				AlchemistSelectKeysUIFrame.emptyTexture = null;
-
-				AlchemistBookUIFrame.ressourceBookPage = null;
-				AlchemistBookUIFrame.ressourceBookSlot = null;
-				AlchemistBookUIFrame.ressourceBookSlotEmpty = null;
-				AlchemistBookUIFrame.ressourceBookPopup = null;
-
-				ShamanUIFrame.shamanUIMainFrame = null;
-				ShamanUIFrame.resourceDuration = null;
-				ShamanUIFrame.resourceDurationEnd = null;
-				ShamanUIFrame.resourceFire = null;
-				ShamanUIFrame.resourceFireEnd = null;
-				ShamanUIFrame.resourceWater = null;
-				ShamanUIFrame.resourceWaterEnd = null;
-				ShamanUIFrame.resourceAir = null;
-				ShamanUIFrame.resourceAirEnd = null;
-				ShamanUIFrame.resourceEarth = null;
-				ShamanUIFrame.resourceEarthEnd = null;
-				ShamanUIFrame.resourceSpirit = null;
-				ShamanUIFrame.resourceSpiritEnd = null;
-				ShamanUIFrame.FireSymbolBasic = null;
-				ShamanUIFrame.WaterSymbolBasic = null;
-				ShamanUIFrame.AirSymbolBasic = null;
-				ShamanUIFrame.EarthSymbolBasic = null;
-				ShamanUIFrame.SpiritSymbolBasic = null;
-				ShamanUIFrame.SymbolFire = null;
-				ShamanUIFrame.SymbolIce = null;
-				ShamanUIFrame.SymbolPoison = null;
-				ShamanUIFrame.SymbolVenom = null;
-				ShamanUIFrame.SymbolDemonite = null;
-				ShamanUIFrame.SymbolHeavy = null;
-				ShamanUIFrame.SymbolForest = null;
-				ShamanUIFrame.SymbolDiabolist = null;
-				ShamanUIFrame.SymbolSkull = null;
-				ShamanUIFrame.SymbolWaterHoney = null;
-				ShamanUIFrame.SymbolDestroyer = null;
-				ShamanUIFrame.SymbolBee = null;
-				ShamanUIFrame.SymbolAmber = null;
-				ShamanUIFrame.SymbolSmite = null;
-				ShamanUIFrame.SymbolCrimtane = null;
-				ShamanUIFrame.SymbolRage = null;
-				ShamanUIFrame.SymbolLava = null;
-				ShamanUIFrame.SymbolFeather = null;
-				ShamanUIFrame.SymbolAnklet = null;
-				ShamanUIFrame.SymbolWyvern = null;
-
-				ShamanUIFrame.SymbolAmethyst = null;
-				ShamanUIFrame.SymbolTopaz = null;
-				ShamanUIFrame.SymbolSapphire = null;
-				ShamanUIFrame.SymbolEmerald = null;
-				ShamanUIFrame.SymbolRuby = null;
-
-				ShamanCharacterUIFrame.symbolAttack = null;
-				ShamanCharacterUIFrame.symbolDefense = null;
-				ShamanCharacterUIFrame.symbolCritical = null;
-				ShamanCharacterUIFrame.symbolRegeneration = null;
-				ShamanCharacterUIFrame.symbolSpeed = null;
-				ShamanCharacterUIFrame.symbolWeak = null;
-				ShamanCharacterUIFrame.fireLoaded = null;
-				ShamanCharacterUIFrame.waterLoaded = null;
-				ShamanCharacterUIFrame.airLoaded = null;
-				ShamanCharacterUIFrame.earthLoaded = null;
-				ShamanCharacterUIFrame.spiritLoaded = null;
-				ShamanCharacterUIFrame.resource = null;
-				ShamanCharacterUIFrame.resourceEnd = null;
-				ShamanCharacterUIFrame.resourceBar = null;
-
-				GamblerUIFrame.ressourceBar = null;
-				GamblerUIFrame.ressourceBarFull = null;
-				GamblerUIFrame.ressourceBarTop = null;
-				GamblerUIFrame.ressourceBarDiceFull = null;
-				GamblerUIFrame.ressourceBarDiceTop = null;
-				GamblerUIFrame.chip1 = null;
-				GamblerUIFrame.chip2 = null;
-				GamblerUIFrame.chip3 = null;
-				GamblerUIFrame.chip4 = null;
-				GamblerUIFrame.chip5 = null;
-				GamblerUIFrame.dice1 = null;
-				GamblerUIFrame.dice2 = null;
-				GamblerUIFrame.dice3 = null;
-				GamblerUIFrame.dice4 = null;
-				GamblerUIFrame.dice5 = null;
-				GamblerUIFrame.dice6 = null;
-				GamblerUIFrame.UIDeck = null;
-				GamblerUIFrame.UICard = null;
-				GamblerUIFrame.UICardNext1 = null;
-				GamblerUIFrame.UICardNext2 = null;
-				GamblerUIFrame.UICardNext3 = null;
-				GamblerUIFrame.UIRedraw = null;
-				GamblerUIFrame.UIDeckbuilding = null;
-				GamblerUIFrame.UIDeckbuildingBlock = null;
-				GamblerUIFrame.chipDirection = null;
-				GamblerUIFrame.chipDetonatorMain = null;
-				GamblerUIFrame.chipDetonatorBar = null;
-				GamblerUIFrame.chipDetonatorBarEnd = null;
-
-				GuardianUIFrame.textureBlockOn = null;
-				GuardianUIFrame.textureBlockOff = null;
-				GuardianUIFrame.textureSlamOn = null;
-				GuardianUIFrame.textureSlamOff = null;
-
-				coatingTextures = null;
+				uiState.Deactivate();
+				uiState.Unload();
 			}
+
+			uis.Clear();
+
+			/*AlchemistUIFrame.ressourceBottom = null;
+			AlchemistUIFrame.ressourceTop = null;
+			AlchemistUIFrame.ressourceFull = null;
+			AlchemistUIFrame.ressourceFullTop = null;
+			AlchemistUIFrame.ressourceFullBorder = null;
+			AlchemistUIFrame.ressourceEmpty = null;
+			AlchemistUIFrame.reactionCooldown = null;
+			AlchemistUIFrame.reactionCooldownLiquid = null;
+			AlchemistUIFrame.symbolWater = null;
+			AlchemistUIFrame.symbolFire = null;
+			AlchemistUIFrame.symbolNature = null;
+			AlchemistUIFrame.symbolAir = null;
+			AlchemistUIFrame.symbolLight = null;
+			AlchemistUIFrame.symbolDark = null;
+
+			AlchemistSelectUIFrame.resourceItem = null;
+			AlchemistSelectUIFrame.resourceBack = null;
+			AlchemistSelectUIFrame.resourceCross = null;
+			AlchemistSelectUIFrame.resourceSelected = null;
+			AlchemistSelectUIFrame.resourceBorder = null;
+
+			AlchemistSelectKeysUIFrame.emptyTexture = null;
+
+			AlchemistBookUIFrame.ressourceBookPage = null;
+			AlchemistBookUIFrame.ressourceBookSlot = null;
+			AlchemistBookUIFrame.ressourceBookSlotEmpty = null;
+			AlchemistBookUIFrame.ressourceBookPopup = null;
+
+			ShamanUIFrame.shamanUIMainFrame = null;
+			ShamanUIFrame.resourceDuration = null;
+			ShamanUIFrame.resourceDurationEnd = null;
+			ShamanUIFrame.resourceFire = null;
+			ShamanUIFrame.resourceFireEnd = null;
+			ShamanUIFrame.resourceWater = null;
+			ShamanUIFrame.resourceWaterEnd = null;
+			ShamanUIFrame.resourceAir = null;
+			ShamanUIFrame.resourceAirEnd = null;
+			ShamanUIFrame.resourceEarth = null;
+			ShamanUIFrame.resourceEarthEnd = null;
+			ShamanUIFrame.resourceSpirit = null;
+			ShamanUIFrame.resourceSpiritEnd = null;
+			ShamanUIFrame.FireSymbolBasic = null;
+			ShamanUIFrame.WaterSymbolBasic = null;
+			ShamanUIFrame.AirSymbolBasic = null;
+			ShamanUIFrame.EarthSymbolBasic = null;
+			ShamanUIFrame.SpiritSymbolBasic = null;
+			ShamanUIFrame.SymbolFire = null;
+			ShamanUIFrame.SymbolIce = null;
+			ShamanUIFrame.SymbolPoison = null;
+			ShamanUIFrame.SymbolVenom = null;
+			ShamanUIFrame.SymbolDemonite = null;
+			ShamanUIFrame.SymbolHeavy = null;
+			ShamanUIFrame.SymbolForest = null;
+			ShamanUIFrame.SymbolDiabolist = null;
+			ShamanUIFrame.SymbolSkull = null;
+			ShamanUIFrame.SymbolWaterHoney = null;
+			ShamanUIFrame.SymbolDestroyer = null;
+			ShamanUIFrame.SymbolBee = null;
+			ShamanUIFrame.SymbolAmber = null;
+			ShamanUIFrame.SymbolSmite = null;
+			ShamanUIFrame.SymbolCrimtane = null;
+			ShamanUIFrame.SymbolRage = null;
+			ShamanUIFrame.SymbolLava = null;
+			ShamanUIFrame.SymbolFeather = null;
+			ShamanUIFrame.SymbolAnklet = null;
+			ShamanUIFrame.SymbolWyvern = null;
+
+			ShamanUIFrame.SymbolAmethyst = null;
+			ShamanUIFrame.SymbolTopaz = null;
+			ShamanUIFrame.SymbolSapphire = null;
+			ShamanUIFrame.SymbolEmerald = null;
+			ShamanUIFrame.SymbolRuby = null;
+
+			ShamanCharacterUIFrame.symbolAttack = null;
+			ShamanCharacterUIFrame.symbolDefense = null;
+			ShamanCharacterUIFrame.symbolCritical = null;
+			ShamanCharacterUIFrame.symbolRegeneration = null;
+			ShamanCharacterUIFrame.symbolSpeed = null;
+			ShamanCharacterUIFrame.symbolWeak = null;
+			ShamanCharacterUIFrame.fireLoaded = null;
+			ShamanCharacterUIFrame.waterLoaded = null;
+			ShamanCharacterUIFrame.airLoaded = null;
+			ShamanCharacterUIFrame.earthLoaded = null;
+			ShamanCharacterUIFrame.spiritLoaded = null;
+			ShamanCharacterUIFrame.resource = null;
+			ShamanCharacterUIFrame.resourceEnd = null;
+			ShamanCharacterUIFrame.resourceBar = null;
+
+			GamblerUIFrame.ressourceBar = null;
+			GamblerUIFrame.ressourceBarFull = null;
+			GamblerUIFrame.ressourceBarTop = null;
+			GamblerUIFrame.ressourceBarDiceFull = null;
+			GamblerUIFrame.ressourceBarDiceTop = null;
+			GamblerUIFrame.chip1 = null;
+			GamblerUIFrame.chip2 = null;
+			GamblerUIFrame.chip3 = null;
+			GamblerUIFrame.chip4 = null;
+			GamblerUIFrame.chip5 = null;
+			GamblerUIFrame.dice1 = null;
+			GamblerUIFrame.dice2 = null;
+			GamblerUIFrame.dice3 = null;
+			GamblerUIFrame.dice4 = null;
+			GamblerUIFrame.dice5 = null;
+			GamblerUIFrame.dice6 = null;
+			GamblerUIFrame.UIDeck = null;
+			GamblerUIFrame.UICard = null;
+			GamblerUIFrame.UICardNext1 = null;
+			GamblerUIFrame.UICardNext2 = null;
+			GamblerUIFrame.UICardNext3 = null;
+			GamblerUIFrame.UIRedraw = null;
+			GamblerUIFrame.UIDeckbuilding = null;
+			GamblerUIFrame.UIDeckbuildingBlock = null;
+			GamblerUIFrame.chipDirection = null;
+			GamblerUIFrame.chipDetonatorMain = null;
+			GamblerUIFrame.chipDetonatorBar = null;
+			GamblerUIFrame.chipDetonatorBarEnd = null;
+
+			GuardianUIFrame.textureBlockOn = null;
+			GuardianUIFrame.textureBlockOff = null;
+			GuardianUIFrame.textureSlamOn = null;
+			GuardianUIFrame.textureSlamOff = null;
+
+			coatingTextures = null;
 
 			orchidModShamanInterface = null;
 			orchidModShamanCharacterInterface = null;
@@ -236,12 +297,32 @@ namespace OrchidMod.Common.UIs
 			alchemistSelectKeysUIState = null;
 			alchemistBookUIState = null;
 			gamblerUIState = null;
-			guardianUIState = null;
+			guardianUIState = null;*/
 		}
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
-			int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+			foreach (var (uiState, userInterface) in uis)
+			{
+				var index = uiState.InsertionIndex(layers);
+				if (index < 0) continue;
+
+				layers.Insert(index, new LegacyGameInterfaceLayer(
+					name: $"{Mod.Name}: {uiState.GetType().Name}",
+					drawMethod: () =>
+					{
+						if (uiState.Visible)
+						{
+							uiState.Draw(Main.spriteBatch);
+						}
+						return true;
+					},
+					scaleType: uiState.ScaleType)
+				);
+			}
+
+			/*
+			 * int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
 			if (mouseTextIndex != -1)
 			{
 				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
@@ -297,6 +378,28 @@ namespace OrchidMod.Common.UIs
 				orchidModGuardianInterface.SetState(guardianUIState);
 
 				reloadShamanUI = false;
+			}
+			 */
+		}
+
+		public override void UpdateUI(GameTime gameTime)
+		{
+			if (uiScale != Main.UIScale)
+			{
+				uiScale = Main.UIScale;
+
+				foreach (var (uiState, _) in uis)
+				{
+					if (uiState.Visible)
+					{
+						uiState.OnUIScaleChanged();
+					}
+				}
+			}
+
+			foreach (var elem in uis.Values)
+			{
+				elem.Update(gameTime);
 			}
 		}
 	}

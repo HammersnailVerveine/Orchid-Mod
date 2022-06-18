@@ -8,6 +8,7 @@ using OrchidMod.Shaman.Misc;
 using OrchidMod.Shaman.Weapons;
 using OrchidMod.Shaman.Weapons.Hardmode;
 using OrchidMod.Shaman.Weapons.Thorium;
+using OrchidMod.Common.ItemDropRules.Conditions;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -124,143 +125,137 @@ namespace OrchidMod.Common.Globals.NPCs
 
 			bool Is(params int[] types) => types.Contains(npc.type);
 
-			if (Is(NPCID.Hornet, NPCID.HornetFatty, NPCID.HornetHoney, NPCID.HornetLeafy, NPCID.HornetSpikey, NPCID.HornetStingy))
+			// Common drop
+			switch (npc.type)
 			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonSigil>(), 30));
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonVial>(), 20));
-			}
-
-			if (Is(NPCID.GoblinPeon, NPCID.GoblinThief, NPCID.GoblinWarrior, NPCID.GoblinSorcerer, NPCID.GoblinArcher))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinArmyFlask>(), 50));
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinArmyCard>(), 50));
-			}
-
-			if (Is(NPCID.Drippler, NPCID.BloodZombie))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BloodMoonFlask>(), 40));
-			}
-
-			if (Is(NPCID.DiabolistRed, NPCID.DiabolistWhite))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DiabolistRune>(), 20));
-			}
-
-			if (Is(NPCID.SpikedJungleSlime))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<JungleSlimeCard>(), 25));
-			}
-
-			if (Is(NPCID.LavaSlime))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LavaSlimeCard>(), 25));
-			}
-
-			if (Is(NPCID.WyvernHead))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WyvernTailFeather>(), 15));
-			}
-
-			if (Is(NPCID.UndeadViking))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrostburnSigil>(), 30));
-			}
-
-			if (Is(NPCID.Demon))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FurnaceSigil>(), 30));
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DemonicPocketMirror>(), 20));
-			}
-
-			if (Is(NPCID.DarkCaster))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Blum>(), 50));
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DungeonCard>(), 33));
-			}
-
-			if (Is(NPCID.FireImp))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MeltedRing>(), 20));
-			}
-
-			if (Is(NPCID.Mimic))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HeavyBracer>(), 10));
-			}
-
-			if (Is(NPCID.MartianSaucerCore, NPCID.MartianSaucer))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MartianBeamer>(), 4));
-			}
-
-			if (Is(NPCID.IceQueen))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IceFlakeCone>(), 10));
-			}
-
-			if (Is(NPCID.RuneWizard))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RuneScepter>()));
-			}
-
-			if (Is(NPCID.GoblinSummoner))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinStick>(), 3));
-			}
-
-			if (Is(NPCID.Lihzahrd, NPCID.LihzahrdCrawler))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LihzahrdSilk>(), 4));
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunPriestTorch>(), 100));
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunPriestBelt>(), 300));
-			}
-
-			if (Is(NPCID.MourningWood))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MourningTorch>(), 10));
-			}
-
-			if (Is(NPCID.SantaNK1))
-			{
-				npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FragilePresent>(), 10));
-			}
-
-			/*if (npc.type == NPCID.UndeadMiner)
-			{
-				if (Main.rand.Next(5) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.TreasuredBaubles>());
-				}
-			}
-
-			if ((npc.type == NPCID.BlackRecluse || npc.type == NPCID.BlackRecluseWall)) // Black Recluse (ground/wall)
-			{
-				if (Main.rand.Next(40) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.VenomSigil>());
-				}
-			}
-
-			if (npc.type == NPCID.Mimic && npc.frame.Y >= 828 && npc.frame.Y <= 1104) //Ice Mimic
-			{
-				if (Main.rand.Next(3) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.IceMimicScepter>());
-				}
-			}
-
-			if (NPC.downedBoss1 == true)
-			{
-				if ((npc.type == NPCID.Harpy))
-				{
-					if (Main.rand.Next(5) == 0)
+				// Certain NPCs
+				case NPCID.SpikedJungleSlime:
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Misc.HarpyTalon>());
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<JungleSlimeCard>(), 25));
 					}
-				}
+					break;
+				case NPCID.LavaSlime:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LavaSlimeCard>(), 25));
+					}
+					break;
+				case NPCID.WyvernHead:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WyvernTailFeather>(), 15));
+					}
+					break;
+				case NPCID.UndeadViking:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FrostburnSigil>(), 30));
+					}
+					break;
+				case NPCID.Demon:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FurnaceSigil>(), 30));
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DemonicPocketMirror>(), 20));
+					}
+					break;
+				case NPCID.DarkCaster:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Blum>(), 50));
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DungeonCard>(), 33));
+					}
+					break;
+				case NPCID.FireImp:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MeltedRing>(), 20));
+					}
+					break;
+				case NPCID.IceQueen:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IceFlakeCone>(), 10));
+					}
+					break;
+				case NPCID.RuneWizard:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RuneScepter>()));
+					}
+					break;
+				case NPCID.GoblinSummoner:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinStick>(), 3));
+					}
+					break;
+				case NPCID.MourningWood:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MourningTorch>(), 10));
+					}
+					break;
+				case NPCID.SantaNK1:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FragilePresent>(), 10));
+					}
+					break;
+				case NPCID.Mimic:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HeavyBracer>(), 10));
+					}
+					break;
+				case NPCID.IceMimic:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IceMimicScepter>(), 3));
+					}
+					break;
+				case NPCID.UndeadMiner:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<TreasuredBaubles>(), 5));
+					}
+					break;
+				case NPCID.Harpy:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(new OrchidDropConditions.DownedEyeOfCthulhu(), ModContent.ItemType<HarpyTalon>(), 5));
+					}
+					break;
+				// Multiple NPCs
+				case int when Is(NPCID.Hornet, NPCID.HornetFatty, NPCID.HornetHoney, NPCID.HornetLeafy, NPCID.HornetSpikey, NPCID.HornetStingy):
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonSigil>(), 30));
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonVial>(), 20));
+					}
+					break;
+				case int  when Is(NPCID.GoblinPeon, NPCID.GoblinThief, NPCID.GoblinWarrior, NPCID.GoblinSorcerer, NPCID.GoblinArcher):
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinArmyFlask>(), 50));
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinArmyCard>(), 50));
+					}
+					break;
+				case int when Is(NPCID.Drippler, NPCID.BloodZombie):
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BloodMoonFlask>(), 40));
+					}
+					break;
+				case int when Is(NPCID.DiabolistRed, NPCID.DiabolistWhite):
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DiabolistRune>(), 20));
+					}
+					break;
+				case int when Is(NPCID.MartianSaucerCore, NPCID.MartianSaucer):
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MartianBeamer>(), 4));
+					}
+					break;
+				case int when Is(NPCID.Lihzahrd, NPCID.LihzahrdCrawler):
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LihzahrdSilk>(), 4));
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunPriestTorch>(), 100));
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunPriestBelt>(), 300));
+					}
+					break;
+				case int when Is(NPCID.BlackRecluse, NPCID.BlackRecluseWall):
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<VenomSigil>(), 40));
+					}
+					break;
+				default:
+					break;
 			}
 
-			if ((npc.type == 347)) // Elf Copter
+			/*if ((npc.type == 347)) // Elf Copter
 			{
 				if (Main.rand.Next(50) == 0)
 				{
