@@ -47,31 +47,34 @@ namespace OrchidMod
 
 		public override void SaveWorldData(TagCompound tag)/* Suggestion: Edit tag parameter rather than returning new TagCompound */
 		{
-			var downed = new List<string>();
+			var orchidTags = new List<string>();
 
 			if (foundChemist)
 			{
-				downed.Add("chemist");
+				orchidTags.Add("chemist");
 			}
 
 			if (foundSlimeCard)
 			{
-				downed.Add("slimecard");
+				orchidTags.Add("slimecard");
 			}
 
-			return new TagCompound
-			{
-				["downed"] = downed,
-			};
+			//return new TagCompound
+			//{
+			//	["downed"] = downed,
+			//};
+
+			tag.Add("orchidTags", orchidTags);
 		}
 
 		public override void LoadWorldData(TagCompound tag)
 		{
-			var downed = tag.GetList<string>("downed");
-			foundChemist = downed.Contains("chemist");
-			foundSlimeCard = downed.Contains("slimecard");
+			var orchidTags = tag.GetList<string>("orchidTags");
+			foundChemist = orchidTags.Contains("chemist");
+			foundSlimeCard = orchidTags.Contains("slimecard");
 		}
 
+		/*
 		public override void LoadLegacy(BinaryReader reader)
 		{
 			int loadVersion = reader.ReadInt32();
@@ -86,6 +89,7 @@ namespace OrchidMod
 				Mod.Logger.WarnFormat("OrchidMod: Unknown loadVersion: {0}", loadVersion);
 			}
 		}
+		*/
 
 		public override void NetSend(BinaryWriter writer)
 		{

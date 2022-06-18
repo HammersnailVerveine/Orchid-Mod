@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Shaman.Misc;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -32,9 +34,9 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 			NPC.noTileCollide = true;
 		}
 
-		public override void OnKill()
+		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			Item.NewItem(NPC.getRect(), Mod.Find<ModItem>("DownpourCrystal").Type);
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DownpourCrystal>()));
 		}
 
 		public override void HitEffect(int hitDirection, double damage)
@@ -111,7 +113,7 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 
 				if ((int)AI_Count % 12 == 0)
 				{
-					Projectile.NewProjectile(NPC.Center.X, NPC.Center.Y - 200, 0f, 0f, Mod.Find<ModProjectile>("DownpourElementalCloud").Type, 0, 0f, Main.myPlayer);
+					Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 200, 0f, 0f, Mod.Find<ModProjectile>("DownpourElementalCloud").Type, 0, 0f, Main.myPlayer);
 					if ((int)AI_Count != 0 && NPC.target == Main.myPlayer)
 					{
 						Player player = Main.player[NPC.target];
@@ -130,11 +132,15 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 						int damage = 50;
 						if (Main.expertMode)
 						{
-							damage = (int)(damage / Main.expertDamage);
+							damage = 100;
+						}
+						if (Main.masterMode)
+						{
+							damage = 150;
 						}
 						delta *= 2f;
-						Projectile.NewProjectile(NPC.Center.X, NPC.Center.Y - 200, delta.X, delta.Y, Mod.Find<ModProjectile>("DownpourElementalCloudProj").Type, damage, 3f, Main.myPlayer);
-						SoundEngine.PlaySound(2, (int)NPC.Center.X, (int)NPC.Center.Y - 200, 93);
+						Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y - 200, delta.X, delta.Y, Mod.Find<ModProjectile>("DownpourElementalCloudProj").Type, damage, 3f, Main.myPlayer);
+						SoundEngine.PlaySound(SoundID.Item93, NPC.Center);
 					}
 					NPC.netUpdate = true;
 				}

@@ -533,17 +533,17 @@ namespace OrchidMod.Shaman
 			}
 		}
 
-		public static void DrawEffectsShaman(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright, Player player, OrchidModPlayer modPlayer, Mod mod)
+		public static void DrawEffectsShaman(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright, Player player, OrchidModPlayer modPlayer, Mod mod)
 		{
 			if (modPlayer.shamanShadowEmpowerment)
 			{
 				if (Main.rand.Next(4) == 0 && drawInfo.shadow == 0f)
 				{
-					int dust = Dust.NewDust(drawInfo.position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 27, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 1f);
+					int dust = Dust.NewDust(drawInfo.Position - new Vector2(2f, 2f), player.width + 4, player.height + 4, 27, player.velocity.X * 0.4f, player.velocity.Y * 0.4f, 100, default(Color), 1f);
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity *= 1.8f;
 					Main.dust[dust].velocity.Y -= 0.5f;
-					Main.playerDrawDust.Add(dust);
+					drawInfo.DustCache.Add(dust);
 				}
 			}
 
