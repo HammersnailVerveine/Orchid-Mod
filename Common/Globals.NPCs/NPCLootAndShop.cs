@@ -19,6 +19,8 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OrchidMod.General.Items.Misc;
+using OrchidMod.Content.Items.Placeables;
 
 namespace OrchidMod.Common.Globals.NPCs
 {
@@ -67,11 +69,9 @@ namespace OrchidMod.Common.Globals.NPCs
 
 		public override void ModifyGlobalLoot(GlobalLoot globalLoot)
 		{
-			/*if (Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)].ZoneGlowshroom && Main.hardMode && Main.rand.Next(100) == 0)
-			{
-				Item.NewItem(npc.GetSource_DropAsItem() npc.getRect(), ModContent.ItemType<ShroomKey>());
-			}
-			if (this.alchemistHit && Main.rand.Next(4) == 0)
+			globalLoot.Add(new ItemDropWithConditionRule(ModContent.ItemType<ShroomKey>(), 2500, 1, 1, new OrchidDropConditions.ShroomKeyCondition(), 1));
+
+			/*if (this.alchemistHit && Main.rand.Next(4) == 0)
 			{
 				Item.NewItem(npc.getRect(), ModContent.ItemType<Potency>());
 			}
@@ -122,8 +122,6 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 			}*/
-
-			bool Is(params int[] types) => types.Contains(npc.type);
 
 			// Common drop
 			switch (npc.type)
@@ -211,42 +209,62 @@ namespace OrchidMod.Common.Globals.NPCs
 						npcLoot.Add(ItemDropRule.ByCondition(new OrchidDropConditions.DownedEyeOfCthulhu(), ModContent.ItemType<HarpyTalon>(), 5));
 					}
 					break;
+				case NPCID.ElfCopter:
+					{
+						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RCRemote>(), 50));
+					}
+					break;
+
 				// Multiple NPCs
-				case int when Is(NPCID.Hornet, NPCID.HornetFatty, NPCID.HornetHoney, NPCID.HornetLeafy, NPCID.HornetSpikey, NPCID.HornetStingy):
+				case NPCID.Hornet:
+				case NPCID.HornetFatty:
+				case NPCID.HornetHoney:
+				case NPCID.HornetLeafy:
+				case NPCID.HornetSpikey:
+				case NPCID.HornetStingy:
 					{
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonSigil>(), 30));
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonVial>(), 20));
 					}
 					break;
-				case int  when Is(NPCID.GoblinPeon, NPCID.GoblinThief, NPCID.GoblinWarrior, NPCID.GoblinSorcerer, NPCID.GoblinArcher):
+				case NPCID.GoblinPeon:
+				case NPCID.GoblinThief:
+				case NPCID.GoblinWarrior:
+				case NPCID.GoblinSorcerer:
+				case NPCID.GoblinArcher:
 					{
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinArmyFlask>(), 50));
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinArmyCard>(), 50));
 					}
 					break;
-				case int when Is(NPCID.Drippler, NPCID.BloodZombie):
+				case NPCID.Drippler:
+				case NPCID.BloodZombie:
 					{
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BloodMoonFlask>(), 40));
 					}
 					break;
-				case int when Is(NPCID.DiabolistRed, NPCID.DiabolistWhite):
+				case NPCID.DiabolistRed:
+				case NPCID.DiabolistWhite:
 					{
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DiabolistRune>(), 20));
 					}
 					break;
-				case int when Is(NPCID.MartianSaucerCore, NPCID.MartianSaucer):
+				case NPCID.MartianSaucerCore:
+				case NPCID.MartianSaucer:
 					{
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MartianBeamer>(), 4));
 					}
 					break;
-				case int when Is(NPCID.Lihzahrd, NPCID.LihzahrdCrawler):
+				case NPCID.Lihzahrd:
+				case NPCID.LihzahrdCrawler:
 					{
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<LihzahrdSilk>(), 4));
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunPriestTorch>(), 100));
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SunPriestBelt>(), 300));
 					}
 					break;
-				case int when Is(NPCID.BlackRecluse, NPCID.BlackRecluseWall):
+				case NPCID.BlackRecluse:
+				case NPCID.BlackRecluseWall:
 					{
 						npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<VenomSigil>(), 40));
 					}
@@ -255,14 +273,27 @@ namespace OrchidMod.Common.Globals.NPCs
 					break;
 			}
 
-			/*if ((npc.type == 347)) // Elf Copter
+			var notExpertCondition = new Conditions.NotExpert();
+			var isExpertCondition = new Conditions.IsExpert();
+
+			// From bosses
+			switch (npc.type)
 			{
-				if (Main.rand.Next(50) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<General.Items.Misc.RCRemote>());
-				}
+				case NPCID.QueenBee:
+					{
+
+					}
+					break;
+				case NPCID.CultistBoss:
+					{
+
+					}
+					break;
+				default:
+					break;
 			}
 
+			/*
 			if ((npc.type == NPCID.CultistBoss))
 			{
 				int rand;

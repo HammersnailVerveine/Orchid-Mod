@@ -11,67 +11,128 @@ namespace OrchidMod.Shaman.UI
 {
 	public class ShamanUIState : OrchidUIState
 	{
-		public Color backgroundColor = Color.White;
-		public static Texture2D shamanUIMainFrame;
+		private Color backgroundColor = Color.White;
 
-		public static Texture2D resourceDuration;
-		public static Texture2D resourceDurationEnd;
-		public static Texture2D resourceFire;
-		public static Texture2D resourceFireEnd;
-		public static Texture2D resourceWater;
-		public static Texture2D resourceWaterEnd;
-		public static Texture2D resourceAir;
-		public static Texture2D resourceAirEnd;
-		public static Texture2D resourceEarth;
-		public static Texture2D resourceEarthEnd;
-		public static Texture2D resourceSpirit;
-		public static Texture2D resourceSpiritEnd;
+		private Texture2D shamanUIMainFrame;
 
-		public static Texture2D FireSymbolBasic;
-		public static Texture2D WaterSymbolBasic;
-		public static Texture2D AirSymbolBasic;
-		public static Texture2D EarthSymbolBasic;
-		public static Texture2D SpiritSymbolBasic;
+		private Texture2D resourceDuration;
+		private Texture2D resourceDurationEnd;
+		private Texture2D resourceFire;
+		private Texture2D resourceFireEnd;
+		private Texture2D resourceWater;
+		private Texture2D resourceWaterEnd;
+		private Texture2D resourceAir;
+		private Texture2D resourceAirEnd;
+		private Texture2D resourceEarth;
+		private Texture2D resourceEarthEnd;
+		private Texture2D resourceSpirit;
+		private Texture2D resourceSpiritEnd;
 
-		public static Texture2D SymbolIce;
-		public static Texture2D SymbolFire;
-		public static Texture2D SymbolPoison;
-		public static Texture2D SymbolVenom;
-		public static Texture2D SymbolDemonite;
-		public static Texture2D SymbolHeavy;
-		public static Texture2D SymbolForest;
-		public static Texture2D SymbolDiabolist;
-		public static Texture2D SymbolSkull;
-		public static Texture2D SymbolWaterHoney;
-		public static Texture2D SymbolDestroyer;
-		public static Texture2D SymbolBee;
-		public static Texture2D SymbolAmber;
-		public static Texture2D SymbolSmite;
-		public static Texture2D SymbolCrimtane;
-		public static Texture2D SymbolRage;
-		public static Texture2D SymbolLava;
-		public static Texture2D SymbolFeather;
-		public static Texture2D SymbolAnklet;
-		public static Texture2D SymbolWyvern;
-		public static Texture2D SymbolAmethyst;
-		public static Texture2D SymbolTopaz;
-		public static Texture2D SymbolSapphire;
-		public static Texture2D SymbolEmerald;
-		public static Texture2D SymbolRuby;
+		private Texture2D fireSymbolBasic;
+		private Texture2D waterSymbolBasic;
+		private Texture2D airSymbolBasic;
+		private Texture2D earthSymbolBasic;
+		private Texture2D spiritSymbolBasic;
+
+		private Texture2D symbolIce;
+		private Texture2D symbolFire;
+		private Texture2D symbolPoison;
+		private Texture2D symbolVenom;
+		private Texture2D symbolDemonite;
+		private Texture2D symbolHeavy;
+		private Texture2D symbolForest;
+		private Texture2D symbolDiabolist;
+		private Texture2D symbolSkull;
+		private Texture2D symbolWaterHoney;
+		private Texture2D symbolDestroyer;
+		private Texture2D symbolBee;
+		private Texture2D symbolAmber;
+		private Texture2D symbolSmite;
+		private Texture2D symbolCrimtane;
+		private Texture2D symbolRage;
+		private Texture2D symbolLava;
+		private Texture2D symbolFeather;
+		private Texture2D symbolAnklet;
+		private Texture2D symbolWyvern;
+		private Texture2D symbolAmethyst;
+		private Texture2D symbolTopaz;
+		private Texture2D symbolSapphire;
+		private Texture2D symbolEmerald;
+		private Texture2D symbolRuby;
 
 		public enum MouseHoverLocation { NULL, ATTACKLEVEL, ARMORLEVEL, CRITICALLEVEL, REGENERATIONLEVEL, SPEEDLEVEL, EMPOWERMENTDURATION }
 
-		public float usedScale = 0f;
+		public override int InsertionIndex(List<GameInterfaceLayer> layers)
+			=> layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+
+		public override void OnInitialize()
+		{
+			shamanUIMainFrame = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/MainGrey").Value;
+
+			resourceDuration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/DurationBar").Value;
+			resourceDurationEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/DurationBarEnd").Value;
+
+			resourceFire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar").Value;
+			resourceFireEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd").Value;
+			resourceWater = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBar").Value;
+			resourceWaterEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBarEnd").Value;
+			resourceAir = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBar").Value;
+			resourceAirEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBarEnd").Value;
+			resourceEarth = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBar").Value;
+			resourceEarthEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBarEnd").Value;
+			resourceSpirit = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBar").Value;
+			resourceSpiritEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBarEnd").Value;
+
+			fireSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/FireActive").Value;
+			waterSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/WaterActive").Value;
+			airSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/AirActive").Value;
+			earthSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/EarthActive").Value;
+			spiritSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/SpiritActive").Value;
+
+			symbolFire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Fire").Value;
+			symbolIce = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Ice").Value;
+			symbolPoison = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Poison").Value;
+			symbolVenom = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Venom").Value;
+			symbolDemonite = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Demonite").Value;
+			symbolHeavy = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Heavy").Value;
+			symbolForest = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Forest").Value;
+			symbolDiabolist = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Diabolist").Value;
+			symbolWaterHoney = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/WaterHoney").Value;
+			symbolSkull = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Skull").Value;
+			symbolDestroyer = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Destroyer").Value;
+			symbolBee = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Bee").Value;
+			symbolAmber = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Amber").Value;
+			symbolSmite = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Smite").Value;
+			symbolCrimtane = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Crimtane").Value;
+			symbolRage = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Rage").Value;
+			symbolLava = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Lava").Value;
+			symbolFeather = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Feather").Value;
+			symbolAnklet = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Anklet").Value;
+			symbolWyvern = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Wyvern").Value;
+			symbolAmethyst = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Amethyst").Value;
+			symbolTopaz = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Topaz").Value;
+			symbolSapphire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Sapphire").Value;
+			symbolEmerald = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Emerald").Value;
+			symbolRuby = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Ruby").Value;
+
+			backgroundColor = Color.White;
+
+			Width.Set(94f, 0f);
+			Height.Set(180f, 0f);
+			Left.Set(Main.screenWidth - 100f, 0f);
+			Top.Set(Main.screenHeight - 130f, 0f);
+
+			Recalculate();
+		}
+
+		public override void OnUIScaleChanged()
+		{
+			Left.Set(Main.screenWidth - 100f, 0f);
+			Top.Set(Main.screenHeight - 130f, 0f);
+		}
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			if (this.usedScale != Main.UIScale)
-			{
-				this.usedScale = Main.UIScale;
-				this.Left.Set(Main.screenWidth - 100f, 0f);
-				this.Top.Set(Main.screenHeight - 130f, 0f);
-			}
-
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			CalculatedStyle dimensions = GetDimensions();
@@ -98,85 +159,85 @@ namespace OrchidMod.Shaman.UI
 
 					if (modPlayer.shamanFireTimer > 0)
 					{
-						spriteBatch.Draw(FireSymbolBasic, new Rectangle(point.X + 70, point.Y + 8, width / (94 / 18), height / (180 / 18)), backgroundColor);
+						spriteBatch.Draw(fireSymbolBasic, new Rectangle(point.X + 70, point.Y + 8, width / (94 / 18), height / (180 / 18)), backgroundColor);
 						int timerRef = modPlayer.shamanFireTimer - buffTimerVal;
 						timerRef = timerRef > modPlayer.shamanBuffTimer * 60 - buffTimerVal ? buffTimerValRef - buffTimerVal : timerRef;
 						this.drawDuration(timerRef, 24, buffTimerVal, spriteBatch, point);
 
 						List<Texture2D> symbolsList = new List<Texture2D>();
-						if (modPlayer.shamanFire) symbolsList.Add(SymbolFire);
-						if (modPlayer.shamanIce) symbolsList.Add(SymbolIce);
-						if (modPlayer.shamanPoison) symbolsList.Add(SymbolPoison);
-						if (modPlayer.shamanDemonite) symbolsList.Add(SymbolDemonite);
-						if (modPlayer.shamanVenom) symbolsList.Add(SymbolVenom);
-						if (modPlayer.shamanSmite) symbolsList.Add(SymbolSmite);
-						if (modPlayer.shamanRuby) symbolsList.Add(SymbolRuby);
+						if (modPlayer.shamanFire) symbolsList.Add(symbolFire);
+						if (modPlayer.shamanIce) symbolsList.Add(symbolIce);
+						if (modPlayer.shamanPoison) symbolsList.Add(symbolPoison);
+						if (modPlayer.shamanDemonite) symbolsList.Add(symbolDemonite);
+						if (modPlayer.shamanVenom) symbolsList.Add(symbolVenom);
+						if (modPlayer.shamanSmite) symbolsList.Add(symbolSmite);
+						if (modPlayer.shamanRuby) symbolsList.Add(symbolRuby);
 
 						this.drawSymbols(2, symbolsList, spriteBatch, point);
 					}
 
 					if (modPlayer.shamanWaterTimer > 0)
 					{
-						spriteBatch.Draw(WaterSymbolBasic, new Rectangle(point.X + 70, point.Y + 44, width / (94 / 18), height / (180 / 18)), backgroundColor);
+						spriteBatch.Draw(waterSymbolBasic, new Rectangle(point.X + 70, point.Y + 44, width / (94 / 18), height / (180 / 18)), backgroundColor);
 						int timerRef = modPlayer.shamanWaterTimer - buffTimerVal;
 						timerRef = timerRef > modPlayer.shamanBuffTimer * 60 - buffTimerVal ? buffTimerValRef - buffTimerVal : timerRef;
 						this.drawDuration(timerRef, 60, buffTimerVal, spriteBatch, point);
 
 						List<Texture2D> symbolsList = new List<Texture2D>();
-						if (modPlayer.shamanWaterHoney) symbolsList.Add(SymbolWaterHoney);
-						if (modPlayer.shamanSkull) symbolsList.Add(SymbolSkull);
-						if (modPlayer.shamanDestroyer) symbolsList.Add(SymbolDestroyer);
-						if (modPlayer.shamanSapphire) symbolsList.Add(SymbolSapphire);
+						if (modPlayer.shamanWaterHoney) symbolsList.Add(symbolWaterHoney);
+						if (modPlayer.shamanSkull) symbolsList.Add(symbolSkull);
+						if (modPlayer.shamanDestroyer) symbolsList.Add(symbolDestroyer);
+						if (modPlayer.shamanSapphire) symbolsList.Add(symbolSapphire);
 
 						this.drawSymbols(38, symbolsList, spriteBatch, point);
 					}
 
 					if (modPlayer.shamanAirTimer > 0)
 					{
-						spriteBatch.Draw(AirSymbolBasic, new Rectangle(point.X + 70, point.Y + 80, width / (94 / 18), height / (180 / 18)), backgroundColor);
+						spriteBatch.Draw(airSymbolBasic, new Rectangle(point.X + 70, point.Y + 80, width / (94 / 18), height / (180 / 18)), backgroundColor);
 						int timerRef = modPlayer.shamanAirTimer - buffTimerVal;
 						timerRef = timerRef > modPlayer.shamanBuffTimer * 60 - buffTimerVal ? buffTimerValRef - buffTimerVal : timerRef;
 						this.drawDuration(timerRef, 96, buffTimerVal, spriteBatch, point);
 
 						List<Texture2D> symbolsList = new List<Texture2D>();
-						if (modPlayer.shamanFeather) symbolsList.Add(SymbolFeather);
-						if (modPlayer.shamanHarpyAnklet) symbolsList.Add(SymbolAnklet);
-						if (modPlayer.shamanDripping) symbolsList.Add(SymbolLava);
-						if (modPlayer.shamanWyvern) symbolsList.Add(SymbolWyvern);
-						if (modPlayer.shamanEmerald) symbolsList.Add(SymbolEmerald);
+						if (modPlayer.shamanFeather) symbolsList.Add(symbolFeather);
+						if (modPlayer.shamanHarpyAnklet) symbolsList.Add(symbolAnklet);
+						if (modPlayer.shamanDripping) symbolsList.Add(symbolLava);
+						if (modPlayer.shamanWyvern) symbolsList.Add(symbolWyvern);
+						if (modPlayer.shamanEmerald) symbolsList.Add(symbolEmerald);
 
 						this.drawSymbols(74, symbolsList, spriteBatch, point);
 					}
 
 					if (modPlayer.shamanEarthTimer > 0)
 					{
-						spriteBatch.Draw(EarthSymbolBasic, new Rectangle(point.X + 70, point.Y + 116, width / (94 / 18), height / (180 / 18)), backgroundColor);
+						spriteBatch.Draw(earthSymbolBasic, new Rectangle(point.X + 70, point.Y + 116, width / (94 / 18), height / (180 / 18)), backgroundColor);
 						int timerRef = modPlayer.shamanEarthTimer - buffTimerVal;
 						timerRef = timerRef > modPlayer.shamanBuffTimer * 60 - buffTimerVal ? buffTimerValRef - buffTimerVal : timerRef;
 						this.drawDuration(timerRef, 132, buffTimerVal, spriteBatch, point);
 
 						List<Texture2D> symbolsList = new List<Texture2D>();
-						if (modPlayer.shamanHoney) symbolsList.Add(SymbolBee);
-						if (modPlayer.shamanAmber) symbolsList.Add(SymbolAmber);
-						if (modPlayer.shamanCrimtane) symbolsList.Add(SymbolCrimtane);
-						if (modPlayer.shamanRage) symbolsList.Add(SymbolRage);
-						if (modPlayer.shamanHeavy) symbolsList.Add(SymbolHeavy);
-						if (modPlayer.shamanForest) symbolsList.Add(SymbolForest);
-						if (modPlayer.shamanDiabolist) symbolsList.Add(SymbolDiabolist);
-						if (modPlayer.shamanTopaz) symbolsList.Add(SymbolTopaz);
+						if (modPlayer.shamanHoney) symbolsList.Add(symbolBee);
+						if (modPlayer.shamanAmber) symbolsList.Add(symbolAmber);
+						if (modPlayer.shamanCrimtane) symbolsList.Add(symbolCrimtane);
+						if (modPlayer.shamanRage) symbolsList.Add(symbolRage);
+						if (modPlayer.shamanHeavy) symbolsList.Add(symbolHeavy);
+						if (modPlayer.shamanForest) symbolsList.Add(symbolForest);
+						if (modPlayer.shamanDiabolist) symbolsList.Add(symbolDiabolist);
+						if (modPlayer.shamanTopaz) symbolsList.Add(symbolTopaz);
 
 						this.drawSymbols(110, symbolsList, spriteBatch, point);
 					}
 
 					if (modPlayer.shamanSpiritTimer > 0)
 					{
-						spriteBatch.Draw(SpiritSymbolBasic, new Rectangle(point.X + 70, point.Y + 152, width / (94 / 18), height / (180 / 18)), backgroundColor);
+						spriteBatch.Draw(spiritSymbolBasic, new Rectangle(point.X + 70, point.Y + 152, width / (94 / 18), height / (180 / 18)), backgroundColor);
 						int timerRef = modPlayer.shamanSpiritTimer - buffTimerVal;
 						timerRef = timerRef > modPlayer.shamanBuffTimer * 60 - buffTimerVal ? buffTimerValRef - buffTimerVal : timerRef;
 						this.drawDuration(timerRef, 168, buffTimerVal, spriteBatch, point);
 
 						List<Texture2D> symbolsList = new List<Texture2D>();
-						if (modPlayer.shamanAmethyst) symbolsList.Add(SymbolAmethyst);
+						if (modPlayer.shamanAmethyst) symbolsList.Add(symbolAmethyst);
 
 						this.drawSymbols(146, symbolsList, spriteBatch, point);
 					}
@@ -251,114 +312,6 @@ namespace OrchidMod.Shaman.UI
 				val -= 4;
 				resourceOffSet += 2;
 			}
-		}
-
-		public override int InsertionIndex(List<GameInterfaceLayer> layers)
-					=> layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-
-		public override void Load()
-		{
-			if (shamanUIMainFrame == null) shamanUIMainFrame = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/MainGrey").Value;
-
-			if (resourceDuration == null) resourceDuration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/DurationBar").Value;
-			if (resourceDurationEnd == null) resourceDurationEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/DurationBarEnd").Value;
-
-			if (resourceFire == null) resourceFire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar").Value;
-			if (resourceFireEnd == null) resourceFireEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd").Value;
-			if (resourceWater == null) resourceWater = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBar").Value;
-			if (resourceWaterEnd == null) resourceWaterEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBarEnd").Value;
-			if (resourceAir == null) resourceAir = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBar").Value;
-			if (resourceAirEnd == null) resourceAirEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBarEnd").Value;
-			if (resourceEarth == null) resourceEarth = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBar").Value;
-			if (resourceEarthEnd == null) resourceEarthEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBarEnd").Value;
-			if (resourceSpirit == null) resourceSpirit = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBar").Value;
-			if (resourceSpiritEnd == null) resourceSpiritEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBarEnd").Value;
-
-			if (FireSymbolBasic == null) FireSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/FireActive").Value;
-			if (WaterSymbolBasic == null) WaterSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/WaterActive").Value;
-			if (AirSymbolBasic == null) AirSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/AirActive").Value;
-			if (EarthSymbolBasic == null) EarthSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/EarthActive").Value;
-			if (SpiritSymbolBasic == null) SpiritSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/SpiritActive").Value;
-
-			if (SymbolFire == null) SymbolFire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Fire").Value;
-			if (SymbolIce == null) SymbolIce = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Ice").Value;
-			if (SymbolPoison == null) SymbolPoison = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Poison").Value;
-			if (SymbolVenom == null) SymbolVenom = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Venom").Value;
-			if (SymbolDemonite == null) SymbolDemonite = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Demonite").Value;
-			if (SymbolHeavy == null) SymbolHeavy = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Heavy").Value;
-			if (SymbolForest == null) SymbolForest = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Forest").Value;
-			if (SymbolDiabolist == null) SymbolDiabolist = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Diabolist").Value;
-			if (SymbolWaterHoney == null) SymbolWaterHoney = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/WaterHoney").Value;
-			if (SymbolSkull == null) SymbolSkull = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Skull").Value;
-			if (SymbolDestroyer == null) SymbolDestroyer = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Destroyer").Value;
-			if (SymbolBee == null) SymbolBee = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Bee").Value;
-			if (SymbolAmber == null) SymbolAmber = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Amber").Value;
-			if (SymbolSmite == null) SymbolSmite = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Smite").Value;
-			if (SymbolCrimtane == null) SymbolCrimtane = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Crimtane").Value;
-			if (SymbolRage == null) SymbolRage = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Rage").Value;
-			if (SymbolLava == null) SymbolLava = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Lava").Value;
-			if (SymbolFeather == null) SymbolFeather = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Feather").Value;
-			if (SymbolAnklet == null) SymbolAnklet = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Anklet").Value;
-			if (SymbolWyvern == null) SymbolWyvern = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Wyvern").Value;
-			if (SymbolAmethyst == null) SymbolAmethyst = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Amethyst").Value;
-			if (SymbolTopaz == null) SymbolTopaz = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Topaz").Value;
-			if (SymbolSapphire == null) SymbolSapphire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Sapphire").Value;
-			if (SymbolEmerald == null) SymbolEmerald = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Emerald").Value;
-			if (SymbolRuby == null) SymbolRuby = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Ruby").Value;
-
-			Width.Set(94f, 0f);
-			Height.Set(180f, 0f);
-			Left.Set(Main.screenWidth - 100f, 0f);
-			Top.Set(Main.screenHeight - 130f, 0f);
-			backgroundColor = Color.White;
-			Recalculate(); // ?
-		}
-
-		public override void Unload()
-		{
-			shamanUIMainFrame = null;
-			resourceDuration = null;
-			resourceDurationEnd = null;
-			resourceFire = null;
-			resourceFireEnd = null;
-			resourceWater = null;
-			resourceWaterEnd = null;
-			resourceAir = null;
-			resourceAirEnd = null;
-			resourceEarth = null;
-			resourceEarthEnd = null;
-			resourceSpirit = null;
-			resourceSpiritEnd = null;
-			FireSymbolBasic = null;
-			WaterSymbolBasic = null;
-			AirSymbolBasic = null;
-			EarthSymbolBasic = null;
-			SpiritSymbolBasic = null;
-			SymbolFire = null;
-			SymbolIce = null;
-			SymbolPoison = null;
-			SymbolVenom = null;
-			SymbolDemonite = null;
-			SymbolHeavy = null;
-			SymbolForest = null;
-			SymbolDiabolist = null;
-			SymbolWaterHoney = null;
-			SymbolSkull = null;
-			SymbolDestroyer = null;
-			SymbolBee = null;
-			SymbolAmber = null;
-			SymbolSmite = null;
-			SymbolCrimtane = null;
-			SymbolRage = null;
-			SymbolLava = null;
-			SymbolFeather = null;
-			SymbolAnklet = null;
-			SymbolWyvern = null;
-			SymbolAmethyst = null;
-			SymbolTopaz = null;
-			SymbolSapphire = null;
-			SymbolEmerald = null;
-			SymbolRuby = null;
 		}
 	}
 }

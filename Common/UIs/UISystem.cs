@@ -45,13 +45,6 @@ namespace OrchidMod.Common.UIs
 			ScissorTestEnable = true
 		};
 
-		public static void AddUIState(OrchidUIState state, UserInterface userInterface)
-		{
-			if (state == null || userInterface == null) return;
-
-			uis.Add(state, userInterface);
-		}
-
 		public static T GetUIState<T>() where T : OrchidUIState
 		{
 			return uis.Keys.FirstOrDefault(i => i is T) as T;
@@ -75,7 +68,6 @@ namespace OrchidMod.Common.UIs
 
 				var uiState = (OrchidUIState)Activator.CreateInstance(type, null);
 				uiState.Mod = Mod;
-				uiState.Load();
 				uiState.Activate();
 
 				var userInterface = new UserInterface();
@@ -137,14 +129,6 @@ namespace OrchidMod.Common.UIs
 			coatingTextures[3] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingAir", AssetRequestMode.ImmediateLoad).Value;
 			coatingTextures[4] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingLight", AssetRequestMode.ImmediateLoad).Value;
 			coatingTextures[5] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingDark", AssetRequestMode.ImmediateLoad).Value;*/
-		}
-
-		public override void PostSetupContent()
-		{
-			foreach (var (uiState, _) in uis)
-			{
-				uiState.PostSetupContent();
-			}
 		}
 
 		public override void Unload()
@@ -330,16 +314,13 @@ namespace OrchidMod.Common.UIs
 
 				foreach (var (uiState, _) in uis)
 				{
-					if (uiState.Visible)
-					{
-						uiState.OnUIScaleChanged();
-					}
+					uiState.OnUIScaleChanged();
 				}
 			}
 
-			foreach (var elem in uis.Values)
+			foreach (var (uiState, _) in uis)
 			{
-				elem.Update(gameTime);
+				uiState.Update(gameTime);
 			}
 		}
 	}

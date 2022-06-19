@@ -11,22 +11,54 @@ namespace OrchidMod.Shaman.UI
 {
 	public class ShamanCharacterUIState : OrchidUIState
 	{
-		public Color backgroundColor = Color.White;
-		public static Texture2D symbolAttack;
-		public static Texture2D symbolDefense;
-		public static Texture2D symbolCritical;
-		public static Texture2D symbolRegeneration;
-		public static Texture2D symbolSpeed;
-		public static Texture2D symbolWeak;
-		public static Texture2D fireLoaded;
-		public static Texture2D waterLoaded;
-		public static Texture2D airLoaded;
-		public static Texture2D earthLoaded;
-		public static Texture2D spiritLoaded;
-		public static Texture2D resource;
-		public static Texture2D resourceEnd;
-		public static Texture2D resourceBar;
-		public int[] shamanTimers;
+		private Texture2D symbolAttack;
+		private Texture2D symbolDefense;
+		private Texture2D symbolCritical;
+		private Texture2D symbolRegeneration;
+		private Texture2D symbolSpeed;
+		private Texture2D symbolWeak;
+		private Texture2D fireLoaded;
+		private Texture2D waterLoaded;
+		private Texture2D airLoaded;
+		private Texture2D earthLoaded;
+		private Texture2D spiritLoaded;
+		private Texture2D resource;
+		private Texture2D resourceEnd;
+		private Texture2D resourceBar;
+
+		private Color backgroundColor;
+		private int[] shamanTimers;
+
+		public override int InsertionIndex(List<GameInterfaceLayer> layers)
+			=> layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+
+		public override void OnInitialize()
+		{
+			symbolAttack = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
+			symbolDefense = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
+			symbolCritical = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
+			symbolRegeneration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
+			symbolWeak = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SymbolWeak").Value;
+			symbolSpeed = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
+			fireLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/FireLoaded").Value;
+			waterLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WaterLoaded").Value;
+			airLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WindLoaded").Value;
+			earthLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/EarthLoaded").Value;
+			spiritLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SpiritLoaded").Value;
+			resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar").Value;
+			resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd").Value;
+			resourceBar = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/ResourceBar").Value;
+
+			shamanTimers = new int[] { 0, 0, 0, 0, 0 };
+			backgroundColor = Color.White;
+
+			Width.Set(0f, 0f);
+			Height.Set(0f, 0f);
+			Left.Set(Main.screenWidth / 2, 0f);
+			Top.Set(Main.screenHeight / 2, 0f);
+
+			Recalculate();
+		}
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
@@ -267,7 +299,7 @@ namespace OrchidMod.Shaman.UI
 				}
 			}
 
-			//base.Update(gameTime);
+			// base.Update(gameTime);
 		}
 
 		public void drawnBondEffectBar(int val, SpriteBatch spriteBatch, Point point)
@@ -282,63 +314,17 @@ namespace OrchidMod.Shaman.UI
 				resourceOffSet += 2;
 			}
 		}
-		
+
 		public void drawWeakSymbol(int val, SpriteBatch spriteBatch, Point point)
 		{
-			if (val > 0) {
+			if (val > 0)
+			{
 				return;
-			} else {
+			}
+			else
+			{
 				spriteBatch.Draw(symbolWeak, new Rectangle(point.X - 28, point.Y - 10, symbolWeak.Width, symbolWeak.Height), backgroundColor);
 			}
-		}
-
-		public override int InsertionIndex(List<GameInterfaceLayer> layers)
-					=> layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-
-		public override void Load()
-		{
-			if (symbolAttack == null) symbolAttack = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			if (symbolDefense == null) symbolDefense = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			if (symbolCritical == null) symbolCritical = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			if (symbolRegeneration == null) symbolRegeneration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			if (symbolWeak == null) symbolWeak = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SymbolWeak").Value;
-			if (symbolSpeed == null) symbolSpeed = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			if (fireLoaded == null) fireLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/FireLoaded").Value;
-			if (waterLoaded == null) waterLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WaterLoaded").Value;
-			if (airLoaded == null) airLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WindLoaded").Value;
-			if (earthLoaded == null) earthLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/EarthLoaded").Value;
-			if (spiritLoaded == null) spiritLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SpiritLoaded").Value;
-			if (resource == null) resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar").Value;
-			if (resourceEnd == null) resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd").Value;
-			if (resourceBar == null) resourceBar = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/ResourceBar").Value;
-
-			this.shamanTimers = new int[] { 0, 0, 0, 0, 0 };
-
-			Width.Set(0f, 0f);
-			Height.Set(0f, 0f);
-			Left.Set(Main.screenWidth / 2, 0f);
-			Top.Set(Main.screenHeight / 2, 0f);
-			backgroundColor = Color.White;
-			Recalculate(); // ?
-		}
-
-		public override void Unload()
-		{
-			symbolAttack = null;
-			symbolDefense = null;
-			symbolCritical = null;
-			symbolRegeneration = null;
-			symbolWeak = null;
-			symbolSpeed = null;
-			fireLoaded = null;
-			waterLoaded = null;
-			airLoaded = null;
-			earthLoaded = null;
-			spiritLoaded = null;
-			resource = null;
-			resourceEnd = null;
-			resourceBar = null;
-			shamanTimers = null;
 		}
 	}
 }
