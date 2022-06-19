@@ -55,14 +55,19 @@ namespace OrchidMod.Common
 			spriteBatch.Begin(SortMode, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Matrix);
 		}
 
-		public void Begin(SpriteBatch spriteBatch, BlendState blendState, Effect effect)
+		public void Begin(SpriteBatch spriteBatch, SpriteSortMode? sortMode, BlendState blendState)
 		{
-			spriteBatch.Begin(SortMode, blendState ?? BlendState, SamplerState, DepthStencilState, RasterizerState, effect ?? Effect, Matrix);
+			spriteBatch.Begin(sortMode ?? SortMode, blendState ?? BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, Matrix);
 		}
 
-		public void Begin(SpriteBatch spriteBatch, BlendState blendState, Effect effect, Matrix? matrix)
+		public void Begin(SpriteBatch spriteBatch, SpriteSortMode? sortMode, BlendState blendState, Effect effect)
 		{
-			spriteBatch.Begin(SortMode, blendState ?? BlendState, SamplerState, DepthStencilState, RasterizerState, effect ?? Effect, matrix ?? Matrix);
+			spriteBatch.Begin(sortMode ?? SortMode, blendState ?? BlendState, SamplerState, DepthStencilState, RasterizerState, effect ?? Effect, Matrix);
+		}
+
+		public void Begin(SpriteBatch spriteBatch, SpriteSortMode? sortMode, BlendState blendState, Effect effect, Matrix? matrix)
+		{
+			spriteBatch.Begin(sortMode ?? SortMode, blendState ?? BlendState, SamplerState, DepthStencilState, RasterizerState, effect ?? Effect, matrix ?? Matrix);
 		}
 
 		public void Begin(SpriteBatch spriteBatch, SpriteSortMode? sortMode, BlendState blendState, SamplerState samplerState, DepthStencilState depthStencilState, RasterizerState rasterizerState, Effect effect, Matrix? matrix)
