@@ -36,8 +36,10 @@ namespace OrchidMod.Common.UIs
 
 		// ...
 
-		private static readonly Dictionary<OrchidUIState, UserInterface> uis = new();
 		private static float uiScale = -1f;
+
+		private static readonly Dictionary<string, OrchidUIState> uiStates = new();
+		private static readonly Dictionary<string, UserInterface> userInterfaces = new();
 
 		public static readonly RasterizerState OverflowHiddenRasterizerState = new()
 		{
@@ -46,13 +48,14 @@ namespace OrchidMod.Common.UIs
 		};
 
 		public static T GetUIState<T>() where T : OrchidUIState
-		{
-			return uis.Keys.FirstOrDefault(i => i is T) as T;
-		}
+			=> uiStates.FirstOrDefault(i => i.Value is T) as T;
+
+		public static OrchidUIState GetUIState(string name)
+			=> uiStates[name];
 
 		private static void OnResolutionChanged(Vector2 screenSize)
 		{
-			foreach (var (uiState, _) in uis)
+			foreach (var (_, uiState) in uiStates)
 			{
 				uiState.OnResolutionChanged((int)screenSize.X, (int)screenSize.Y);
 			}
@@ -73,7 +76,9 @@ namespace OrchidMod.Common.UIs
 				var userInterface = new UserInterface();
 				userInterface.SetState(uiState);
 
-				uis.Add(uiState, userInterface);
+				var name = type.Name;
+				uiStates.Add(name, uiState);
+				userInterfaces.Add(name, userInterface);
 			}
 
 			Main.OnResolutionChanged += OnResolutionChanged;
@@ -135,13 +140,14 @@ namespace OrchidMod.Common.UIs
 		{
 			Main.OnResolutionChanged -= OnResolutionChanged;
 
-			foreach (var (uiState, _) in uis)
+			foreach (var (_, uiState) in uiStates)
 			{
 				uiState.Deactivate();
 				uiState.Unload();
 			}
 
-			uis.Clear();
+			uiStates.Clear();
+			userInterfaces.Clear();
 
 			/*AlchemistUIFrame.ressourceBottom = null;
 			AlchemistUIFrame.ressourceTop = null;
@@ -226,13 +232,13 @@ namespace OrchidMod.Common.UIs
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
-			foreach (var (uiState, userInterface) in uis)
+			foreach (var (uiName, uiState) in uiStates)
 			{
 				var index = uiState.InsertionIndex(layers);
 				if (index < 0) continue;
 
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					name: $"{Mod.Name}: {uiState.GetType().Name}",
+					name: $"{Mod.Name}: {uiName}",
 					drawMethod: () =>
 					{
 						if (uiState.Visible)
@@ -312,13 +318,13 @@ namespace OrchidMod.Common.UIs
 			{
 				uiScale = Main.UIScale;
 
-				foreach (var (uiState, _) in uis)
+				foreach (var (_, uiState) in uiStates)
 				{
 					uiState.OnUIScaleChanged();
 				}
 			}
 
-			foreach (var (uiState, _) in uis)
+			foreach (var (_, uiState) in uiStates)
 			{
 				uiState.Update(gameTime);
 			}
