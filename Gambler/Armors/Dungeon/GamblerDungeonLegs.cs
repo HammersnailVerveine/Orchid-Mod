@@ -35,7 +35,6 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 			recipe.AddIngredient(ItemID.Bone, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

@@ -15,6 +15,8 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 			Item.value = Item.sellPrice(0, 0, 5, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.defense = 1;
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -36,24 +38,13 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 			modPlayer.generalStatic = true;
 		}
 
-		public override bool DrawHead()/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false if you returned false */
-		{
-			return true;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true if you had drawHair set to true, and ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true if you had drawAltHair set to true */
-		{
-			drawHair = true;
-			drawAltHair = false;
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.Register();
+
 		}
 	}
 }

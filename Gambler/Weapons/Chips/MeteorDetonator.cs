@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -31,9 +32,10 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			this.pauseRotation = false;
 		}
 
-		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed)
+
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed)
 		{
-			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
+			Projectile.NewProjectile(source, position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 			SoundEngine.PlaySound(SoundID.Item14, position);
 			return false;
 		}
@@ -61,7 +63,6 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.MeteoriteBar, 15);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

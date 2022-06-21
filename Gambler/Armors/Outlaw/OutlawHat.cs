@@ -16,6 +16,8 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 			Item.value = Item.sellPrice(0, 0, 4, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.defense = 2;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -42,17 +44,6 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 			modPlayer.gamblerRedrawsMax += 1;
 		}
 
-		public override bool DrawHead()/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false if you returned false */
-		{
-			return true;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true if you had drawHair set to true, and ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true if you had drawAltHair set to true */
-		{
-			drawHair = false;
-			drawAltHair = true;
-		}
-
 		public override void AddRecipes()
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
@@ -63,14 +54,12 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 2);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.Register();
 
 			recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Silk, 5);
 			recipe.AddIngredient(ItemID.PlatinumBar, 5);
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : ItemType<VultureTalon>(), 2);
 			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

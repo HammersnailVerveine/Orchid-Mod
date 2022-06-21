@@ -36,7 +36,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			flat += Math.Abs(player.velocity.X + player.velocity.Y) > 2.5f ? 3 : 0;
+			damage.Flat += Math.Abs(player.velocity.X + player.velocity.Y) > 2.5f ? 3 : 0;
 		}
 
 		public override bool CanUseItem(Player player)
@@ -49,7 +49,6 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 12);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

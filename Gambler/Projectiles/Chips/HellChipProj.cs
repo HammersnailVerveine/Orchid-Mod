@@ -35,7 +35,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 		public override void Kill(int timeLeft)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.Chips.HellChipProjAlt>();
-			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, projType, Projectile.damage, 3f, Projectile.owner);
+			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, projType, Projectile.damage, 3f, Projectile.owner);
 			SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
 		}
 	}

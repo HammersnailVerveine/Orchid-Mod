@@ -30,7 +30,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 		public override void SafeAI()
 		{
 			bool moreDust = Projectile.timeLeft > 300;
-			if (Main.rand.Next(moreDust ? 5 : 10) == 0)
+			if (Main.rand.NextBool(moreDust ? 5 : 10))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, Main.rand.Next(2) == 0 ? 29 : 59);
 				Main.dust[dust].scale = 1.5f;
