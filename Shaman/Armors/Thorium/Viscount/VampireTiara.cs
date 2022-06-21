@@ -14,6 +14,8 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.defense = 6;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -43,23 +45,11 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 			modPlayer.shamanVampire = true;
 		}
 
-		public override bool DrawHead()
-		{
-			return true;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = true;
-			drawAltHair = false;
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "ViscountMaterial", 5);
 			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

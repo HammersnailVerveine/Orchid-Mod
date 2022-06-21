@@ -41,7 +41,6 @@ namespace OrchidMod.Shaman.Armors.Harpy
 			recipe.AddIngredient(ItemID.Feather, 5);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

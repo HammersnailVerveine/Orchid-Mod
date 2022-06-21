@@ -290,7 +290,7 @@ namespace OrchidMod.Shaman
 			modPlayer.OchidScreenW = Main.screenWidth;
 			if (modPlayer.OchidScreenHCompare != modPlayer.OchidScreenH || modPlayer.OchidScreenWCompare != modPlayer.OchidScreenW)
 			{
-				OrchidMod.reloadShamanUI = true;
+				//OrchidMod.reloadShamanUI = true;
 				modPlayer.OchidScreenHCompare = modPlayer.OchidScreenH;
 				modPlayer.OchidScreenWCompare = modPlayer.OchidScreenW;
 			}
@@ -520,7 +520,7 @@ namespace OrchidMod.Shaman
 					{
 						int dmg = (int)(50 * modPlayer.shamanDamage + 5E-06f);
 						target.StrikeNPCNoInteraction(dmg, 0f, 0);
-						SoundEngine.PlaySound(2, (int)target.Center.X, (int)target.Center.Y - 200, 93);
+						SoundEngine.PlaySound(SoundID.Item93, target.Center);
 
 						for (int i = 0; i < 15; i++)
 						{
@@ -551,19 +551,21 @@ namespace OrchidMod.Shaman
 			{
 				if (Main.rand.Next(6) == 0 && drawInfo.shadow == 0f && player.wingTime > 0)
 				{
-					int dust = Dust.NewDust(drawInfo.position - new Vector2(15f, 2f), player.width + 30, player.height + 4, DustType<Content.Dusts.AbyssalDust>());
+					int dust = Dust.NewDust(drawInfo.Position - new Vector2(15f, 2f), player.width + 30, player.height + 4, DustType<Content.Dusts.AbyssalDust>());
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.Y -= 0.5f;
 					Main.dust[dust].scale = 1.75f;
-					Main.playerDrawDust.Add(dust);
+					//Main.playerDrawDust.Add(dust);
+					drawInfo.DustCache.Add(dust);
 				}
 				if (Main.rand.Next(6) == 0 && drawInfo.shadow == 0f && player.wingTime > 0)
 				{
-					int dust = Dust.NewDust(drawInfo.position - new Vector2(15f, 2f), player.width + 30, player.height + 4, DustType<Content.Dusts.AbyssalBrightDust>());
+					int dust = Dust.NewDust(drawInfo.Position - new Vector2(15f, 2f), player.width + 30, player.height + 4, DustType<Content.Dusts.AbyssalBrightDust>());
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.Y -= 0.5f;
 					Main.dust[dust].scale = 1.75f;
-					Main.playerDrawDust.Add(dust);
+					//Main.playerDrawDust.Add(dust);
+					drawInfo.DustCache.Add(dust);
 				}
 			}
 		}

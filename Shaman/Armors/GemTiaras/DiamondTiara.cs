@@ -15,6 +15,8 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 			Item.value = Item.sellPrice(0, 0, 25, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.defense = 2;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -33,24 +35,12 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 			modPlayer.shamanBuffTimer += 3;
 		}
 
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = true;
-			drawAltHair = false;
-		}
-
-		public override bool DrawHead()
-		{
-			return true;
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Diamond, 1);
 			recipe.AddIngredient(null, "EmptyTiara", 1);
 			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

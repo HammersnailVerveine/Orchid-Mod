@@ -14,6 +14,8 @@ namespace OrchidMod.Shaman.Armors.Harpy
 			Item.value = Item.sellPrice(0, 0, 15, 50);
 			Item.rare = ItemRarityID.Green;
 			Item.defense = 4;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -43,24 +45,12 @@ namespace OrchidMod.Shaman.Armors.Harpy
 			modPlayer.shamanFeather = true;
 		}
 
-		public override bool DrawHead()
-		{
-			return true;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = true;
-			drawAltHair = false;
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "HarpyTalon", 1);
 			recipe.AddIngredient(ItemID.Feather, 3);
 			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

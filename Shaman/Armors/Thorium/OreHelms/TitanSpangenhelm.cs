@@ -15,6 +15,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 			Item.value = Item.sellPrice(0, 2, 28, 0);
 			Item.rare = ItemRarityID.LightPurple;
 			Item.defense = 14;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -68,7 +69,6 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 				var recipe = CreateRecipe();
 				recipe.AddTile(thoriumMod.Find<ModTile>("SoulForge").Type);
 				recipe.AddIngredient(thoriumMod, "TitanBar", 12);
-				recipe.Register();
 				recipe.Register();
 			}
 		}

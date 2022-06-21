@@ -14,6 +14,8 @@ namespace OrchidMod.Shaman.Armors.Hell
 			Item.value = Item.sellPrice(0, 0, 90, 0);
 			Item.rare = ItemRarityID.Orange;
 			Item.defense = 7;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -43,17 +45,6 @@ namespace OrchidMod.Shaman.Armors.Hell
 			modPlayer.shamanHell = true;
 		}
 
-		public override bool DrawHead()
-		{
-			return true;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = true;
-			drawAltHair = false;
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -61,7 +52,6 @@ namespace OrchidMod.Shaman.Armors.Hell
 			recipe.AddIngredient(ItemID.Silk, 10);
 			recipe.AddIngredient(ItemID.Bone, 5);
 			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

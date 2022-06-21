@@ -14,6 +14,8 @@ namespace OrchidMod.Shaman.Armors.Downpour
 			Item.value = Item.sellPrice(0, 5, 0, 0);
 			Item.rare = ItemRarityID.Pink;
 			Item.defense = 8;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -40,17 +42,6 @@ namespace OrchidMod.Shaman.Armors.Downpour
 			modPlayer.shamanDownpour = true;
 		}
 
-		public override bool DrawHead()
-		{
-			return true;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = true;
-			drawAltHair = false;
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -58,13 +49,11 @@ namespace OrchidMod.Shaman.Armors.Downpour
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
-			recipe.Register();
 
 			recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.TitaniumBar, 10);
 			recipe.AddIngredient(null, "DownpourCrystal", 1);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

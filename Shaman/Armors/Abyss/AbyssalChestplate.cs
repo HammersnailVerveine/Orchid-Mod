@@ -45,7 +45,6 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 20);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
-			recipe.Register();
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)

@@ -14,6 +14,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 			Item.value = Item.sellPrice(0, 3, 0, 0);
 			Item.rare = ItemRarityID.LightRed;
 			Item.defense = 11;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -43,16 +44,6 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 			player.onHitDodge = true;
 		}
 
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = drawAltHair = false;
-		}
-
-		public override bool DrawHead()
-		{
-			return true;
-		}
-
 		public static void ArmorSetShadows(Player player, ref bool longTrail, ref bool smallPulse, ref bool largePulse, ref bool shortTrail)
 		{
 			shortTrail = true;
@@ -63,7 +54,6 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.TitaniumBar, 13);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

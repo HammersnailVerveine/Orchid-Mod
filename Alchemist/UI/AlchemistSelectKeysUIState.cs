@@ -9,36 +9,13 @@ using Terraria.GameInput;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
+using Terraria.ID;
+using OrchidMod.Common.UIs;
 
 namespace OrchidMod.Alchemist.UI
 {
-	public class AlchemistSelectKeysUIState : UIState
-	{
-		public AlchemistSelectKeysUIFrame alchemistSelectKeysUIFrame = new AlchemistSelectKeysUIFrame();
 
-		public override void OnInitialize()
-		{
-			alchemistSelectKeysUIFrame.Width.Set(0f, 0f);
-			alchemistSelectKeysUIFrame.Height.Set(0f, 0f);
-			alchemistSelectKeysUIFrame.Left.Set(Main.screenWidth / 2, 0f);
-			alchemistSelectKeysUIFrame.Top.Set(Main.screenHeight / 2, 0f);
-
-			base.Append(alchemistSelectKeysUIFrame);
-		}
-
-		public override void Draw(SpriteBatch spriteBatch)
-		{
-			Recalculate();
-			base.Draw(spriteBatch);
-		}
-
-		public override void Update(GameTime gameTime)
-		{
-			base.Update(gameTime);
-		}
-	}
-
-	public class AlchemistSelectKeysUIFrame : UIElement
+	public class AlchemistSelectKeysUIFrame : OrchidUIState
 	{
 		public Color backgroundColor;
 		public List<Item> displayItems;
@@ -49,7 +26,28 @@ namespace OrchidMod.Alchemist.UI
 
 		public static Texture2D emptyTexture;
 
-		protected override void DrawSelf(SpriteBatch spriteBatch)
+		public override int InsertionIndex(List<GameInterfaceLayer> layers)
+			=> layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+
+		public override void OnInitialize()
+		{
+			emptyTexture = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistKeysUIEMpty").Value;
+
+			dimensions = GetDimensions();
+			point = new Point((int)dimensions.X, (int)dimensions.Y);
+			backgroundColor = Color.White;
+			element = AlchemistElement.NULL;
+			displayItems = new List<Item>();
+			releasedKey = true;
+
+			Width.Set(0f, 0f);
+			Height.Set(0f, 0f);
+			Left.Set(Main.screenWidth / 2, 0f);
+			Top.Set(Main.screenHeight / 2, 0f);
+			Recalculate();
+		}
+
+		public override void Draw(SpriteBatch spriteBatch)
 		{
 			Player player = Main.LocalPlayer;
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
@@ -72,7 +70,7 @@ namespace OrchidMod.Alchemist.UI
 						if (modPlayer.alchemistNbElements > 0)
 						{
 							modPlayer.alchemistShootProjectile = true;
-							SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 106);
+							SoundEngine.PlaySound(SoundID.Item106);
 						}
 						return;
 					}
@@ -201,7 +199,7 @@ namespace OrchidMod.Alchemist.UI
 
 		public void brew(Item item, Player player, OrchidModPlayer modPlayer)
 		{
-			if (item.type != 0)
+			if (item.type != ItemID.None)
 			{
 				OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 				AlchemistElement element = orchidItem.alchemistElement;
@@ -225,17 +223,17 @@ namespace OrchidMod.Alchemist.UI
 				{
 					if (noPotency && !alreadyContains)
 					{
-						SoundEngine.PlaySound(19, (int)player.Center.X, (int)player.Center.Y, 1);
+						SoundEngine.PlaySound(SoundID.SplashWeak);
 					}
 					else
 					{
-						if (Main.rand.Next(2) == 0)
+						if (Main.rand.NextBool(2))
 						{
-							SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 112);
+							SoundEngine.PlaySound(SoundID.Item112);
 						}
 						else
 						{
-							SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 111);
+							SoundEngine.PlaySound(SoundID.Item111);
 						}
 					}
 				}
@@ -246,17 +244,16 @@ namespace OrchidMod.Alchemist.UI
 					switch (rand)
 					{
 						case 1:
-							rand = 86;
+							SoundEngine.PlaySound(SoundID.Item86);
 							break;
 						case 2:
-							rand = 87;
+							SoundEngine.PlaySound(SoundID.Item87);
 							break;
 						default:
-							rand = 85;
+							SoundEngine.PlaySound(SoundID.Item85);
 							break;
 					}
 
-					SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, rand);
 					this.scroll(true);
 					this.checkInventory(true, player, modPlayer);
 
@@ -272,7 +269,7 @@ namespace OrchidMod.Alchemist.UI
 
 		public void initUI(Player player, OrchidModPlayer modPlayer)
 		{
-			SoundEngine.PlaySound(2, (int)player.Center.X, (int)player.Center.Y, 7);
+			SoundEngine.PlaySound(SoundID.Item7);
 			modPlayer.alchemistSelectUIKeysInitialize = false;
 			element = AlchemistElement.NULL;
 
@@ -302,7 +299,7 @@ namespace OrchidMod.Alchemist.UI
 				{
 					foreach (Item item in this.ConcatInventories(Main.LocalPlayer, modPlayer))
 					{
-						if (item.type != 0)
+						if (item.type != ItemID.None)
 						{
 							OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
 							if ((int)element > 0 && (int)element < 7)
@@ -400,17 +397,6 @@ namespace OrchidMod.Alchemist.UI
 			}
 		}
 
-		public AlchemistSelectKeysUIFrame()
-		{
-			dimensions = GetDimensions();
-			point = new Point((int)dimensions.X, (int)dimensions.Y);
-			backgroundColor = Color.White;
-			element = AlchemistElement.NULL;
-			displayItems = new List<Item>();
-			releasedKey = true;
-			if (emptyTexture == null) emptyTexture = ModContent.GetTexture("OrchidMod/Alchemist/UI/Textures/AlchemistKeysUIEMpty");
-		}
-		
 		public Item[] ConcatInventories(Player player, OrchidModPlayer modPlayer) {
             return modPlayer.alchemistPotionBag.Concat(player.inventory).ToArray();
 		}

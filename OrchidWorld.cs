@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using Terraria.WorldBuilding;
+using Terraria.IO;
 
 namespace OrchidMod
 {
@@ -1255,7 +1256,7 @@ namespace OrchidMod
 			int LivingTreesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Living Trees"));
 			if (LivingTreesIndex != -1)
 			{
-				tasks.Insert(LivingTreesIndex + 1, new PassLegacy("Post Terrain", delegate (GenerationProgress progress)
+				tasks.Insert(LivingTreesIndex + 1, new PassLegacy("Post Terrain", delegate (GenerationProgress progress, GameConfiguration gameConfiguration)
 				{
 					mineshaft = new int[OrchidMSarrays.MSLenght, OrchidMSarrays.MSHeight];
 					minishaft1 = new int[5, 3];
@@ -1311,7 +1312,7 @@ namespace OrchidMod
 			int ChestsIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Surface Chests"));
 			if (ChestsIndex != -1)
 			{
-				tasks.Insert(ChestsIndex + 1, new PassLegacy("Post Terrain", delegate (GenerationProgress progress)
+				tasks.Insert(ChestsIndex + 1, new PassLegacy("Post Terrain", delegate (GenerationProgress progress, GameConfiguration gameConfiguration)
 				{
 					// Get dungeon size field infos. These fields are private for some reason
 					int MinX = (int)typeof(WorldGen).GetField("dMinX", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null) + 25;

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 
 namespace OrchidMod.Gambler.Accessories
 {

@@ -14,6 +14,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 			Item.value = Item.sellPrice(0, 7, 50, 0);
 			Item.rare = ItemRarityID.Yellow;
 			Item.defense = 20;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()
@@ -42,24 +43,12 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 			modPlayer.shamanSmite = true;
 		}
 
-		public override bool DrawHead()
-		{
-			return false;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = false;
-			drawAltHair = false;
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(null, "LihzahrdSilk", 3);
 			recipe.AddIngredient(ItemID.ChlorophyteBar, 12);
 			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

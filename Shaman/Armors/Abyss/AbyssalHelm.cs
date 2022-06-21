@@ -18,6 +18,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			Item.value = 0;
 			Item.rare = ItemRarityID.Red;
 			Item.defense = 18;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
 		}
 
 		public override void SetStaticDefaults()
@@ -59,16 +60,6 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			//modPlayer.shamanEarthBonus += 1;
 			//modPlayer.shamanSpiritBonus += 1;
 			modPlayer.abyssSet = true;
-		}
-
-		public override bool DrawHead()
-		{
-			return true;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
-		{
-			drawHair = drawAltHair = false;
 		}
 
 		public override void AddRecipes()
