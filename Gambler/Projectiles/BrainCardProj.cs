@@ -224,7 +224,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
 			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 			this.bounceDelay = 15;
 			return false;
 		}

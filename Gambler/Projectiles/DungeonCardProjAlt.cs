@@ -4,6 +4,7 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -80,7 +81,7 @@ namespace OrchidMod.Gambler.Projectiles
 							player.ApplyDamageToNPC(target, Main.DamageVar(Projectile.damage), 0.1f, player.direction, crit);
 							OrchidModProjectile.spawnDustCircle(Projectile.Center, 29, 10, 10, true, 1.3f, 1f, 5f, true, true, false, 0, 0, true);
 							OrchidModProjectile.spawnDustCircle(target.Center, 29, 10, 10, true, 1.3f, 1f, 5f, true, true, false, 0, 0, true);
-							SoundEngine.PlaySound(2, (int)Projectile.Center.X, (int)Projectile.Center.Y, 45);
+							SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
 							Projectile.Kill();
 						}
 					}

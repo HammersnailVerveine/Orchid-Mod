@@ -41,12 +41,12 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 			modPlayer.gamblerDungeon = true;
 		}
 
-		public override bool DrawHead()
+		public override bool DrawHead()/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false if you returned false */
 		{
 			return true;
 		}
 
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
+		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true if you had drawHair set to true, and ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true if you had drawAltHair set to true */
 		{
 			drawHair = false;
 			drawAltHair = false;

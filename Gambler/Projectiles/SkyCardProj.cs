@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -83,7 +84,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 9);
+			SoundEngine.PlaySound(SoundID.Item9, Projectile.position);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 64, 5, 5, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
 		}
 	}

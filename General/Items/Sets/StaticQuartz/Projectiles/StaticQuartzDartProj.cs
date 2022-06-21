@@ -22,7 +22,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 			Projectile.aiStyle = 1;
 			Projectile.friendly = true;
 			Projectile.hostile = false;
-			Projectile.ranged = true;
+			Projectile.DamageType = DamageClass.Ranged;
 			Projectile.penetrate = 5;
 			Projectile.timeLeft = 600;
 			Projectile.tileCollide = true;

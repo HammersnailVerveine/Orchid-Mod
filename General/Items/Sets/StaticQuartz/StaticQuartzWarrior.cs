@@ -27,7 +27,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			Item.scale = 1f;
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 5, 0);
-			Item.melee = true;
+			Item.DamageType = DamageClass.Melee/* tModPorter Suggestion: Consider MeleeNoSpeed for no attack speed scaling */;
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item1;

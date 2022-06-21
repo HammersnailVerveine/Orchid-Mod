@@ -14,7 +14,7 @@ namespace OrchidMod.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.allDamage += 0.1f;
+			modPlayer.GetDamage(DamageClass.Generic) += 0.1f;
 			player.moveSpeed += 0.1f;
 		}
 	}

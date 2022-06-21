@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 		public override void Update(Player player, ref int buffIndex)
 		{
 			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.armorPenetration += 3;
+			modPlayer.GetArmorPenetration(DamageClass.Generic) += 3;
 		}
 	}
 }

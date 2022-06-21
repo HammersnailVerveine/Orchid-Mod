@@ -34,7 +34,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 		public override bool SafeShoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed)
 		{
 			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
-			SoundEngine.PlaySound(2, (int)position.X, (int)position.Y, 14);
+			SoundEngine.PlaySound(SoundID.Item14, position);
 			return false;
 		}
 

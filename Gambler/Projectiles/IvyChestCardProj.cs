@@ -119,7 +119,7 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.dust[dust].noLight = true;
 				Main.dust[dust].velocity *= 3f;
 			}
-			SoundEngine.PlaySound(6, (int)Projectile.Center.X, (int)Projectile.Center.Y, 0);
+			SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)

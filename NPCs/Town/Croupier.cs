@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Gambler;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -14,10 +15,10 @@ namespace OrchidMod.NPCs.Town
 	{
 		public override string Texture => "OrchidMod/NPCs/Town/Croupier";
 
-		public override bool Autoload(ref string name)
+		public override bool IsLoadingEnabled(Mod mod)/* tModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead */
 		{
 			name = "Croupier";
-			return Mod.Properties.Autoload;
+			return Mod.Properties/* tModPorter Note: Removed. Instead, assign the properties directly (ContentAutoloadingEnabled, GoreAutoloadingEnabled, MusicAutoloadingEnabled, and BackgroundAutoloadingEnabled) */.Autoload;
 		}
 
 		public override void SetStaticDefaults()
@@ -83,7 +84,7 @@ namespace OrchidMod.NPCs.Town
 			return false;
 		}
 
-		public override string TownNPCName()
+		public override List<string> SetNPCNameList()/* tModPorter Suggestion: Return a list of names */
 		{
 			switch (WorldGen.genRand.Next(11))
 			{

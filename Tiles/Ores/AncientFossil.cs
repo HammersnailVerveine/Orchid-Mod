@@ -25,8 +25,8 @@ namespace OrchidMod.Tiles.Ores
 
 			DustType = 18;
 			ItemDrop = ItemType<General.Items.Materials.AncientFossil>();
-			soundType = 21;
-			soundStyle = 1;
+			HitSound = 21;
+			soundStyle/* tModPorter Note: Removed. Integrate into HitSound */ = 1;
 			MineResist = 1f;
 			MinPick = 35;
 		}

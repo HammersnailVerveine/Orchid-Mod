@@ -15,7 +15,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 		public override void SetDefaults()
 		{
 			Item.damage = 6;
-			Item.ranged = true;
+			Item.DamageType = DamageClass.Ranged;
 			Item.width = 14;
 			Item.height = 24;
 			Item.maxStack = 999;

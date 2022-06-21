@@ -60,7 +60,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 10);
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 			return true;
 		}
 

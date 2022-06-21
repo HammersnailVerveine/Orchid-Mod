@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -20,7 +21,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 		public override void SetDefaults()
 		{
 			Item.damage = 7;
-			Item.magic = true;
+			Item.DamageType = DamageClass.Magic;
 			Item.width = 44;
 			Item.height = 36;
 			Item.useTime = 22;
@@ -70,8 +71,8 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 					float radiantBoostMult = tuple.Item2;
 					int flatRadiantDamage = tuple.Item3;
 
-					add = player.allDamage + (radiantBoost - 1);
-					mult = player.allDamageMult + (radiantBoostMult - 1);
+					add = player.GetDamage(DamageClass.Generic) + (radiantBoost - 1);
+					mult = player.GetDamage(DamageClass.Generic) + (radiantBoostMult - 1);
 					flat += Math.Abs(player.velocity.X + player.velocity.Y) > 2.5f ? flatRadiantDamage + 3 : flatRadiantDamage;
 				}
 			}
@@ -89,7 +90,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 			}
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			for (int k = 0; k < 2; k++)
 			{

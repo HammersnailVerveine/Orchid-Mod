@@ -113,7 +113,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			if (_deathProgress == 1f)
 			{
-				SoundEngine.PlaySound(SoundID.Item, (int)Projectile.position.X, (int)Projectile.position.Y, 34);
+				SoundEngine.PlaySound(SoundID.Item34, Projectile.position);
 
 				Projectile.friendly = false;
 				Projectile.tileCollide = false;

@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles.Chips
@@ -35,7 +36,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 		{
 			int projType = ProjectileType<Gambler.Projectiles.Chips.HellChipProjAlt>();
 			Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 0f, 0f, projType, Projectile.damage, 3f, Projectile.owner);
-			SoundEngine.PlaySound(2, (int)Projectile.position.X, (int)Projectile.position.Y, 14);
+			SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
 		}
 	}
 }

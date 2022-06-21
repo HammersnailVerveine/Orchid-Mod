@@ -22,12 +22,12 @@ namespace OrchidMod.General.Items.Vanity
 			Tooltip.SetDefault("'Great for impersonating Orchid Devs!'");
 		}
 
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
+		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true if you had drawHair set to true, and ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true if you had drawAltHair set to true */
 		{
 			drawHair = true;
 			drawAltHair = false;
 		}
 
-		public override bool DrawHead() => true;
+		public override bool DrawHead()/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false if you returned false */ => true;
 	}
 }

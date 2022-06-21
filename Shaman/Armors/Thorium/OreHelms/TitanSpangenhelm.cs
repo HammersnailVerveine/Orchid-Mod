@@ -48,15 +48,15 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = "Damage done increased by 18%!";
-			player.allDamage += 0.18f;
+			player.GetDamage(DamageClass.Generic) += 0.18f;
 		}
 
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)
+		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true if you had drawHair set to true, and ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true if you had drawAltHair set to true */
 		{
 			drawHair = drawAltHair = false;
 		}
 
-		public override bool DrawHead()
+		public override bool DrawHead()/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false if you returned false */
 		{
 			return true;
 		}

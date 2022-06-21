@@ -131,7 +131,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 					if (healIridescent && Main.rand.NextFloat() < 0.15f)
 					{
-						SoundEngine.PlaySound(SoundID.Item, (int)Projectile.Center.X, (int)Projectile.Center.Y, 100, 1f, 0f);
+						SoundEngine.PlaySound(SoundID.Item100, Projectile.Center);
 						for (int k = 0; k < 20; k++)
 						{
 							int dust = Dust.NewDust(target.position, target.width, target.height, 87, Main.rand.Next((int)-6f, (int)6f), Main.rand.Next((int)-6f, (int)6f), 0, default(Color), 1.25f);
