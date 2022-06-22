@@ -46,7 +46,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			}
 			if (!found)
 			{
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, Vector2.Zero, projType, damage, knockback, player.whoAmI), dummy);
 			}
 		}
 	}

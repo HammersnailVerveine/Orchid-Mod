@@ -61,8 +61,19 @@ namespace OrchidMod.Shaman.UI
 			Recalculate();
 		}
 
+		public override void OnResolutionChanged(int width, int height)
+		{
+			Width.Set(0f, 0f);
+			Height.Set(0f, 0f);
+			Left.Set(width / 2, 0f);
+			Top.Set(height / 2, 0f);
+
+			Recalculate();
+		}
+
 		public override void Draw(SpriteBatch spriteBatch)
 		{
+			Recalculate();
 			Player player = Main.LocalPlayer;
 
 			Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gfxOffY + player.gravDir > 0 ? player.height - 10 + player.gfxOffY : 10 + player.gfxOffY)).Floor();

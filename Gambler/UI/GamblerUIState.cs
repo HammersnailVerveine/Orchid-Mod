@@ -111,6 +111,7 @@ namespace OrchidMod.Gambler.UI
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
+			Recalculate();
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			

@@ -159,8 +159,9 @@ namespace OrchidMod.Gambler.UI
 			return cardTooltipText;
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		public override void Draw(SpriteBatch spriteBatch)
 		{
+			/* [SP]
 			Vector2 deckPosition = new Vector2(drawZone.X + 12, drawZone.Y + drawZone.Height * 0.5f - deckTexture.Height * 0.5f);
 
 			// Background
@@ -215,6 +216,7 @@ namespace OrchidMod.Gambler.UI
 					}
 				}
 			}
+			*/
 		}
 
 		public void DrawCard(Item item, SpriteBatch spriteBatch, Vector2 position, Player player, OrchidModPlayer orchidPlayer, int maxReq, bool canRemove = true)

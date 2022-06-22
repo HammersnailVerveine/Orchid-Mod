@@ -300,7 +300,7 @@ namespace OrchidMod.Alchemist
 
 		public int getSecondaryDamage(Player player, OrchidModPlayer modPlayer, int bonusDamage = 0, bool bonusDamageScaling = true)
 		{
-			int dmg = (int)((this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f))) * (modPlayer.alchemistDamage - 1f));
+			int dmg = (int)((this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f))) * (modPlayer.alchemistDamage));
 			return dmg;
 		}
 	}

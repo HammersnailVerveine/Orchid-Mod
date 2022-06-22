@@ -11,7 +11,6 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.ID;
 using OrchidMod.Common.UIs;
-using ReLogic.Content;
 
 namespace OrchidMod.Alchemist.UI
 {
@@ -32,7 +31,7 @@ namespace OrchidMod.Alchemist.UI
 
 		public override void OnInitialize()
 		{
-			emptyTexture = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistKeysUIEMpty", AssetRequestMode.ImmediateLoad).Value;
+			emptyTexture = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistKeysUIEMpty").Value;
 
 			dimensions = GetDimensions();
 			point = new Point((int)dimensions.X, (int)dimensions.Y);
@@ -50,6 +49,7 @@ namespace OrchidMod.Alchemist.UI
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
+			Recalculate();
 			Player player = Main.LocalPlayer;
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 

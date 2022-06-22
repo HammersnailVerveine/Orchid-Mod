@@ -48,6 +48,7 @@ namespace OrchidMod.Alchemist.UI
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 
+			Recalculate();
 			CalculatedStyle dimensions = GetDimensions();
 
 			int width = (int)Math.Ceiling(dimensions.Width);

@@ -36,8 +36,9 @@ namespace OrchidMod.Guardian.UI
 			Recalculate();
 		}
 
-		protected override void DrawSelf(SpriteBatch spriteBatch)
+		public override void Draw(SpriteBatch spriteBatch)
 		{
+			Recalculate();
 			Player player = Main.LocalPlayer;
 
 			Vector2 vector = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height - 10 + player.gfxOffY : 10 + player.gfxOffY)).Floor();

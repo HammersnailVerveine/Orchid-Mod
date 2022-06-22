@@ -60,6 +60,7 @@ namespace OrchidMod.Alchemist.UI
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
+			Recalculate();
 			Player player = Main.LocalPlayer;
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
