@@ -55,7 +55,9 @@ namespace OrchidMod.Content.Items.Mounts
 			MountID.Sets.Cart[Type] = true;
 
 			MountData.Minecart = true;
-			MountData.delegations.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
+
+			// [SP) this throws a null reference exception
+			// MountData.delegations.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
 
 			MountData.spawnDust = 16;
 			MountData.buff = ModContent.BuffType<SquareMinecartBuff>();

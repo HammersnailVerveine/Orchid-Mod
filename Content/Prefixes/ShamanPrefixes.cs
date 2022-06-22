@@ -66,6 +66,17 @@ namespace OrchidMod.Content.Prefixes
 
 		public override bool IsLoadingEnabled(Mod mod)
 		{
+			/*
+			 * 
+			 * 
+			 *  [SP]
+			 *  ---> (Inner Exception #1) System.NullReferenceException: Object reference not set to an instance of an object.
+			 *  at OrchidMod.Content.Prefixes.ShamanPrefix.IsLoadingEnabled(Mod mod) in OrchidMod\Content\Prefixes\ShamanPrefixes.cs:line 76
+			 *  at Terraria.ModLoader.Mod.AddContent(ILoadable instance) in tModLoader\Terraria\ModLoader\Mod.cs:line 132
+			 *  at Terraria.ModLoader.Core.LoaderUtils.ForEachAndAggregateExceptions[T](IEnumerable`1 enumerable, Action`1 action) in tModLoader\Terraria\ModLoader\Core\LoaderUtils.cs:line 47<---
+			 * 
+			 * 
+			 * 
 			void AddPrefix(string name, float damage, float knockback, float useTime, float crit, float velocity)
 			{
 				var prefix = new ShamanPrefix(name, damage, knockback, useTime, crit, velocity);
@@ -104,11 +115,13 @@ namespace OrchidMod.Content.Prefixes
 			AddPrefix("Balanced", 1.00f, 1.10f, 0.90f, 1.00f, 1.00f);
 			AddPrefix("Hopeful", 1.00f, 1.00f, 1.00f, 1.15f, 1.00f);
 			AddPrefix("Enraged", 1.15f, 1.15f, 1.00f, 1.00f, 1.00f);
-			AddPrefix("Effervescent", 1.10f, 1.10f, 1.10f, 1.10f, 1.00f); // :(
+			AddPrefix("Effervescent", 1.10f, 1.10f, 1.10f, 1.10f, 1.00f);
 			AddPrefix("Ethereal", 1.15f, 1.15f, 0.90f, 1.10f, 1.10f);
 			AddPrefix("Focused", 1.10f, 1.00f, 1.00f, 1.15f, 1.00f);
 			AddPrefix("Complex", 0.90f, 1.00f, 0.90f, 1.10f, 1.00f);
 
+			
+			*/
 			return false;
 		}
 
@@ -188,6 +201,7 @@ namespace OrchidMod.Content.Prefixes
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
+			/*
 			if (item.damage <= 0 || item.accessory || item.type == ItemID.None) return -1;
 
 			var globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
@@ -203,6 +217,8 @@ namespace OrchidMod.Content.Prefixes
 
 				return prefix.Type;
 			}
+			*/
+			return -1; // remove when fixed
 		}
 
 		public override void NetSend(Item item, BinaryWriter writer)

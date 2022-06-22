@@ -35,7 +35,9 @@ namespace OrchidMod
 
 		public override void Load()
 		{
-			ThoriumMod = ModLoader.GetMod("ThoriumMod");
+			// ThoriumMod = ModLoader.GetMod("ThoriumMod"); [SP] is this correct ?
+			if (ModLoader.TryGetMod("ThoriumMod", out Mod thoriumMod))
+				ThoriumMod = thoriumMod;
 
 			// ...
 

@@ -15,8 +15,6 @@ namespace OrchidMod.Shaman.Armors.Crimson
 			Item.value = Item.sellPrice(0, 0, 60, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.defense = 5;
-			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
-			ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
 		}
 
 		public override void SetStaticDefaults()

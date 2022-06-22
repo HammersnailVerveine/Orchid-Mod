@@ -51,6 +51,16 @@ namespace OrchidMod.Content.Prefixes
 
 		public override bool IsLoadingEnabled(Mod mod)
 		{
+			/*
+			 *  [SP]
+			 *  Terraria.ModLoader.Exceptions.MultipleException: Multiple errors occured.
+			 *  ---> System.NullReferenceException: Object reference not set to an instance of an object.
+			 *  at OrchidMod.Content.Prefixes.AccessoryPrefix.IsLoadingEnabled(Mod mod) in OrchidMod\Content\Prefixes\AccessoryPrefixes.cs:line 61
+			 *  at Terraria.ModLoader.Mod.AddContent(ILoadable instance) in tModLoader\Terraria\ModLoader\Mod.cs:line 132
+			 *  at Terraria.ModLoader.Core.LoaderUtils.ForEachAndAggregateExceptions[T](IEnumerable`1 enumerable, Action`1 action) in tModLoader\Terraria\ModLoader\Core\LoaderUtils.cs:line 47
+			 * 
+			 * 
+			 * 
 			void AddPrefix(string name, byte shamanTimer, byte alchemistPotency, byte gamblerChip)
 			{
 				var prefix = new AccessoryPrefix(name, shamanTimer, alchemistPotency, gamblerChip);
@@ -63,7 +73,7 @@ namespace OrchidMod.Content.Prefixes
 			AddPrefix("Brewing", 0, 1, 0);
 			AddPrefix("Crooked", 0, 0, 1);
 			AddPrefix("Loaded", 0, 0, 2);
-
+			*/
 			return false;
 		}
 
@@ -114,11 +124,13 @@ namespace OrchidMod.Content.Prefixes
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
+			/*
 			if (item.accessory && rand.NextBool(15))
 			{
 				var prefixes = ShamanPrefix.AllPrefixesByName;
 				return prefixes.ElementAt(Main.rand.Next(0, prefixes.Count)).Value.Type;
 			}
+			*/
 			return -1;
 		}
 

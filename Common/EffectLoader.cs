@@ -58,7 +58,8 @@ namespace OrchidMod.Common
 			switch (name)
 			{
 				case "ShroomiteScepter":
-					parameters["PerlinTexture"].SetValue(ModContent.Request<Texture2D>("Terraria/Misc/Perlin").Value);
+					//parameters["PerlinTexture"].SetValue(ModContent.Request<Texture2D>("Terraria/Misc/Perlin").Value); [SP]
+					parameters["PerlinTexture"].SetValue(ModContent.Request<Texture2D>("OrchidMod/Shaman/Weapons/AdornedBranch").Value); // random texture placeholder
 					break;
 				case "WyvernMoray":
 					parameters["Texture0"].SetValue(OrchidAssets.GetExtraTexture(5, AssetRequestMode.ImmediateLoad).Value);
