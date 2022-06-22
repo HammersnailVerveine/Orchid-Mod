@@ -253,7 +253,7 @@ namespace OrchidMod.Shaman
 
 		public int NewShamanProjectile(Player player, EntitySource_ItemUse source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, float ai0 = 0.0f, float ai1 = 0.0f)
 		{
-			int newProjectileIndex = Projectile.NewProjectile(source, position, velocity, Type, damage, knockback, player.whoAmI, ai0, ai1);
+			int newProjectileIndex = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai0, ai1);
 			Projectile newProjectile = Main.projectile[newProjectileIndex];
 			OrchidModProjectile.setShamanBond(newProjectile, this.empowermentType);
 			return newProjectileIndex;
