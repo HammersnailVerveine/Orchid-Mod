@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
 
@@ -42,19 +43,19 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 				}
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.LivingSapVialProj>();
 				Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, dmg, 0f, projectile.owner);
 				int nb = 2 + Main.rand.Next(2);
 				for (int i = 0; i < nb; i++)
 				{
 					vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(90)));
 					spawnProj = ProjectileType<Alchemist.Projectiles.Nature.LivingSapVialProjAlt>();
-					Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+					Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 				}
 			}
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int rand = alchProj.nbElements;
 			rand += alchProj.hasCloud() ? 2 : 0;
@@ -62,8 +63,8 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			{
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements + 5);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.LivingSapBubble>();
-				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
+				Vector2 newVelocity = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, newVelocity, proj, dmg, 0f, projectile.owner);
 			}
 		}
 	}

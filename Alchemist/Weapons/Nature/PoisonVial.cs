@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using Terraria;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
@@ -40,7 +41,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			{
 				Vector2 vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(90)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProjAlt>();
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
 			int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 			nb = alchProj.hasCloud() ? 2 : 1;
@@ -48,12 +49,12 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			{
 				Vector2 vel = (new Vector2(0f, -2.5f).RotatedByRandom(MathHelper.ToRadians(30)));
 				vel *= (float)(1 - (Main.rand.Next(10) / 10));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProj>(), dmg, 0.5f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Projectiles.Nature.PoisonVialProj>(), dmg, 0.5f, projectile.owner);
 			}
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			target.AddBuff(BuffID.Poisoned, 60 * 5);
 			int rand = alchProj.nbElements;
@@ -63,7 +64,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.PoisonBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, proj, dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
 			}
 		}
 	}

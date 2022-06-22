@@ -16,12 +16,12 @@ namespace OrchidMod.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			((OrchidModPlayer)player.GetModPlayer(Mod, "OrchidModPlayer")).hauntedCandle = true;
+			player.GetModPlayer<OrchidModPlayer>().hauntedCandle = true;
 			player.buffTime[buffIndex] = 18000;
 			bool petProjectileNotSpawned = player.ownedProjectileCounts[Mod.Find<ModProjectile>("HauntedCandle").Type] <= 0;
 			if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, Mod.Find<ModProjectile>("HauntedCandle").Type, 0, 0f, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, Mod.Find<ModProjectile>("HauntedCandle").Type, 0, 0f, player.whoAmI, 0f, 0f);
 			}
 			if ((player.controlDown && player.releaseDown))
 			{

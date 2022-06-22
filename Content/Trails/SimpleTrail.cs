@@ -4,7 +4,7 @@ using OrchidMod.Common;
 using Terraria;
 
 namespace OrchidMod.Content.Trails
-{
+{/* [SP]
     public class SimpleTrail : PrimitiveTrailSystem.Trail
     {
         protected readonly WidthDelegate _width;
@@ -51,5 +51,5 @@ namespace OrchidMod.Content.Trails
             Vector2 normal = (_points[index] - _points[index - 1]).SafeNormalize(Vector2.Zero).RotatedBy(MathHelper.PiOver2) * width / 2f;
             return (color, normal);
         }
-    }
+    } */
 }

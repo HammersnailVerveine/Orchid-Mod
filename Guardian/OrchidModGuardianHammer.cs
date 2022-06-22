@@ -54,14 +54,14 @@ namespace OrchidMod.Guardian
 				if (player.altFunctionUse == 2 && Main.mouseRightRelease) { // Right click
 					dir *= 50f;
 					int projType = ProjectileType<Guardian.HammerSlashStrong>();
-					Projectile projectile = Main.projectile[Projectile.NewProjectile(player.Center.X + dir.X, player.Center.Y + dir.Y, dir.X * 0.0001f, dir.Y * 0.0001f, projType, 10, 10f, player.whoAmI)];
+					Projectile projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.Center.X + dir.X, player.Center.Y + dir.Y, dir.X * 0.0001f, dir.Y * 0.0001f, projType, 10, 10f, player.whoAmI)];
 					projectile.rotation = dir.ToRotation();
 					projectile.direction = projectile.spriteDirection;
 					projectile.netUpdate = true;
 				} else if (Main.mouseLeft && Main.mouseLeftRelease) { // Left click
 					dir *= 40f;
 					int projType = ProjectileType<Guardian.HammerSlash>();
-					Projectile projectile = Main.projectile[Projectile.NewProjectile(player.Center.X + dir.X, player.Center.Y + dir.Y, dir.X * 0.0001f, dir.Y * 0.0001f, projType, 10, 5f, player.whoAmI)];
+					Projectile projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.Center.X + dir.X, player.Center.Y + dir.Y, dir.X * 0.0001f, dir.Y * 0.0001f, projType, 10, 5f, player.whoAmI)];
 					projectile.rotation = dir.ToRotation();
 					projectile.direction = projectile.spriteDirection;
 					projectile.netUpdate = true;

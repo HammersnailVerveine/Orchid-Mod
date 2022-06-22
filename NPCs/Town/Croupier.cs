@@ -15,11 +15,12 @@ namespace OrchidMod.NPCs.Town
 	{
 		public override string Texture => "OrchidMod/NPCs/Town/Croupier";
 
-		public override bool IsLoadingEnabled(Mod mod)/* tModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead */
-		{
-			name = "Croupier";
-			return Mod.Properties/* tModPorter Note: Removed. Instead, assign the properties directly (ContentAutoloadingEnabled, GoreAutoloadingEnabled, MusicAutoloadingEnabled, and BackgroundAutoloadingEnabled) */.Autoload;
-		}
+		// public override bool IsLoadingEnabled(Mod mod)/* tModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead */
+		// {
+		// 	name = "Croupier";
+		// 	return Mod.Properties/* tModPorter Note: Removed. Instead, assign the properties directly (ContentAutoloadingEnabled, GoreAutoloadingEnabled, MusicAutoloadingEnabled, and BackgroundAutoloadingEnabled) */.Autoload;
+		// }
+
 
 		public override void SetStaticDefaults()
 		{
@@ -84,33 +85,22 @@ namespace OrchidMod.NPCs.Town
 			return false;
 		}
 
-		public override List<string> SetNPCNameList()/* tModPorter Suggestion: Return a list of names */
+		public override List<string> SetNPCNameList()
 		{
-			switch (WorldGen.genRand.Next(11))
+			return new()
 			{
-				case 0:
-					return "Capone";
-				case 1:
-					return "Cadillac";
-				case 2:
-					return "Tannenbaum";
-				case 3:
-					return "Alderman";
-				case 4:
-					return "Accardo";
-				case 5:
-					return "Angelini";
-				case 6:
-					return "Bonanno";
-				case 7:
-					return "Ambrosino";
-				case 8:
-					return "D'Amico";
-				case 9:
-					return "Attanasio";
-				default:
-					return "Manocchio";
-			}
+				"Capone",
+				"Cadillac",
+				"Tannenbaum",
+				"Alderman",
+				"Accardo",
+				"Angelini",
+				"Bonanno",
+				"Ambrosino",
+				"D'Amico",
+				"Attanasio",
+				"Manocchio"
+			};
 		}
 
 		public override void FindFrame(int frameHeight)
@@ -176,7 +166,7 @@ namespace OrchidMod.NPCs.Town
 				{
 					OrchidMod.Instance.croupierUI.Visible = false;
 
-					Main.npcShop = 0;
+					//Main.npcShop = 0;
 					Main.npcChatCornerItem = 0;
 					Recipe.FindRecipes();
 					Main.npcChatText = Main.npc[player.talkNPC].GetChat();
@@ -213,7 +203,7 @@ namespace OrchidMod.NPCs.Town
 						{
 							Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
 							int gamblerDeck = ItemType<Gambler.Decks.GamblerAttack>();
-							player.QuickSpawnItem(gamblerDeck, 1);
+							player.QuickSpawnItem(NPC.GetSource_FromThis(), gamblerDeck, 1);
 							return;
 						}
 					}

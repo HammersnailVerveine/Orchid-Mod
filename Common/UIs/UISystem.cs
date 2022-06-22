@@ -15,7 +15,6 @@ namespace OrchidMod.Common.UIs
 	{
 		/*
 		public static bool reloadShamanUI;
-		public static Texture2D[] coatingTextures;
 
 		internal UserInterface orchidModShamanInterface;
 		internal UserInterface orchidModShamanCharacterInterface;
@@ -126,14 +125,6 @@ namespace OrchidMod.Common.UIs
 
 			guardianUIState.Activate();
 			orchidModGuardianInterface.SetState(guardianUIState);
-
-			coatingTextures = new Texture2D[6];
-			coatingTextures[0] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingFire", AssetRequestMode.ImmediateLoad).Value;
-			coatingTextures[1] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingWater", AssetRequestMode.ImmediateLoad).Value;
-			coatingTextures[2] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingNature", AssetRequestMode.ImmediateLoad).Value;
-			coatingTextures[3] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingAir", AssetRequestMode.ImmediateLoad).Value;
-			coatingTextures[4] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingLight", AssetRequestMode.ImmediateLoad).Value;
-			coatingTextures[5] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingDark", AssetRequestMode.ImmediateLoad).Value;*/
 		}
 
 		public override void Unload()

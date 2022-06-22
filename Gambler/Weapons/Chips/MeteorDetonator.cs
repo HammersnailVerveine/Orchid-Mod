@@ -35,7 +35,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed)
 		{
-			Projectile.NewProjectile(source, position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
+			Projectile.NewProjectile(source, position, Vector2.Zero, type, damage, knockBack, player.whoAmI);
 			SoundEngine.PlaySound(SoundID.Item14, position);
 			return false;
 		}
@@ -51,11 +51,11 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			modPlayer.gamblerUIChipSpinDisplay = false;
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, OrchidModPlayer modPlayer, ref float add, ref float mult, ref float flat)
+		public override void SafeModifyWeaponDamage(Player player, OrchidModPlayer modPlayer, ref StatModifier damage)
 		{
 			float index = 720f / 8;
 			bool timed = (modPlayer.gamblerChipSpin > index * 4 && modPlayer.gamblerChipSpin < index * 5);
-			mult *= (timed ? 5 : 2.5f);
+			damage *= (timed ? 5 : 2.5f);
 		}
 
 		public override void AddRecipes()

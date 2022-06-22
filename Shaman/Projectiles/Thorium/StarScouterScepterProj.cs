@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public ref float GreenLightProgress => ref Projectile.ai[1];
 
-		private SimpleTrail _trail;
+		//private SimpleTrail _trail; [SP]
 
 		public override void SetStaticDefaults()
 		{
@@ -37,12 +37,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void OnSpawn()
 		{
+			/* [SP]
 			_trail = new SimpleTrail(target: Projectile, length: 16 * 6, width: (progress) => 18, color: (progress) => Color.Lerp(new Color(198, 61, 255), new Color(107, 61, 255), progress) * (1 - progress));
 			_trail.SetMaxPoints(15);
 			_trail.SetEffectTexture(OrchidAssets.GetExtraTexture(4).Value);
 
 			PrimitiveTrailSystem.NewTrail(_trail);
-
+			*/
 			Projectile.friendly = false;
 			this.IsGreen = false;
 		}
@@ -58,7 +59,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				{
 					Projectile.friendly = true;
 					Projectile.velocity = Vector2.Zero;
-					_trail.StartDissolving();
+					//_trail.StartDissolving(); [SP]
 
 					this.IsGreen = true;
 					this.GreenLightProgress = 0.85f;
@@ -174,10 +175,10 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 			float val = (float)Math.Sin(Main.GlobalTimeWrappedHourly);
 			for (int i = 0; i < 4; i++)
-			{
-				spriteBatch.Draw(OrchidAssets.GetExtraTexture(1).Value, drawPos + new Vector2(3.5f, 0).RotatedBy(Main.GlobalTimeWrappedHourly + MathHelper.PiOver2 * i) * val, rect, Color.White * 0.35f, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
+			{ // [SP] spriteBatch.Draw --> Main.spriteBatch.Draw ...
+				Main.spriteBatch.Draw(OrchidAssets.GetExtraTexture(1).Value, drawPos + new Vector2(3.5f, 0).RotatedBy(Main.GlobalTimeWrappedHourly + MathHelper.PiOver2 * i) * val, rect, Color.White * 0.35f, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
 			}
-			spriteBatch.Draw(OrchidAssets.GetExtraTexture(1).Value, drawPos, rect, Color.White, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(OrchidAssets.GetExtraTexture(1).Value, drawPos, rect, Color.White, Projectile.rotation, origin, Projectile.scale, SpriteEffects.None, 0f);
 		}
 	}
 }

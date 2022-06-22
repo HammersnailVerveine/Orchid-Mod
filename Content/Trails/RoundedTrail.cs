@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 
 namespace OrchidMod.Content.Trails
-{
+{ /* SP
     public class RoundedTrail : SimpleTrail
     {
         protected uint _smoothness;
@@ -30,5 +30,5 @@ namespace OrchidMod.Content.Trails
                 AddVertex(_points[0] + normal.RotatedBy(currentAngle), color, new Vector2(0, 1));
             }
         }
-    }
+    }*/
 }

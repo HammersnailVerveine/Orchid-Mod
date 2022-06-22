@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Buffs.Debuffs
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			npc.velocity *= 0.05f;
-			npc.GetGlobalNPC<OrchidGlobalNPC>().shamanWind = true;
+			npc.GetGlobalNPC<OrchidGlobalNPC>().ShamanWind = true;
 		}
 	}
 }

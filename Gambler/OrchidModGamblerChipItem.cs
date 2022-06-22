@@ -15,7 +15,7 @@ namespace OrchidMod.Gambler
 
 		public virtual void SafeSetDefaults() { }
 		public virtual void SafeHoldItem(Player player, OrchidModPlayer modPlayer) { }
-		public virtual void SafeModifyWeaponDamage(Player player, ref StatModifier damage) { }
+		public virtual void SafeModifyWeaponDamage(Player player, OrchidModPlayer modPlayer, ref StatModifier damage) { }
 		public virtual bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed) {
 			return true;
 		}
@@ -42,7 +42,7 @@ namespace OrchidMod.Gambler
 		{	
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			damage *= (modPlayer.gamblerDamage + modPlayer.gamblerDamageChip);
-			SafeModifyWeaponDamage(player, ref damage);
+			SafeModifyWeaponDamage(player, modPlayer, ref damage);
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)

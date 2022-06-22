@@ -122,7 +122,7 @@ namespace OrchidMod.Guardian
 
 			if (player.ownedProjectileCounts[projectileType] == 0)
 			{
-				var index = Projectile.NewProjectile(player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
+				var index = Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
 
 				var proj = Main.projectile[index];
 				if (!(proj.ModProjectile is GuardianShieldAnchor shield))

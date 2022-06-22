@@ -1,4 +1,6 @@
+using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -62,7 +64,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 			int projType = ProjectileType<Alchemist.Projectiles.Nature.JungleLilyFlaskProj>();
 			int damage = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
-			int newProjectileInt = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, 0f, projectile.owner);
+			int newProjectileInt = Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, projType, damage, 0f, projectile.owner);
 			Projectile newProjectile = Main.projectile[newProjectileInt];
 			newProjectile.width = range * 2;
 			newProjectile.height = range * 2;
@@ -72,7 +74,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 		}
 
 		public override void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			modTarget.alchemistNature = 60 * 10;
 		}

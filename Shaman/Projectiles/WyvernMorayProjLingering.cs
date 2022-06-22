@@ -43,7 +43,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 			Lighting.AddLight(Projectile.Center, effectColor.ToVector3() * 0.4f * this.Opacity);
 		}
-
+		/* [SP]
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Vector2 drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
@@ -64,5 +64,6 @@ namespace OrchidMod.Shaman.Projectiles
 
 			return false;
 		}
+		*/
 	}
 }

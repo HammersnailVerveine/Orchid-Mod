@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common.Globals.NPCs;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -69,7 +70,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 				}
 				if (attractiteTarget != null)
 				{
-					attractiteTarget.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
+					attractiteTarget.AddBuff(BuffType<Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
 				}
 			}
 			int nb = 2 + Main.rand.Next(2);
@@ -77,7 +78,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			{
 				Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProjAlt>();
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, spawnProj, 0, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
@@ -93,7 +94,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
 				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
-				Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, vel.X, vel.Y, Mod.Find<ModProjectile>("NatureSporeProj").Type, dmg, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, Mod.Find<ModProjectile>("NatureSporeProj").Type, dmg, 0f, projectile.owner);
 			}
 			if (alchProj.nbElements == 1)
 			{
@@ -116,9 +117,9 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidModGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
-			target.AddBuff(BuffType<Alchemist.Buffs.Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
+			target.AddBuff(BuffType<Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
 		}
 
 		public override void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile proj, OrchidModGlobalItem globalItem)

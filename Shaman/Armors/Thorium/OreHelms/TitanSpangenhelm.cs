@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
@@ -49,16 +50,6 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 		{
 			player.setBonus = "Damage done increased by 18%!";
 			player.GetDamage(DamageClass.Generic) += 0.18f;
-		}
-
-		public override void DrawHair(ref bool drawHair, ref bool drawAltHair)/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true if you had drawHair set to true, and ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true if you had drawAltHair set to true */
-		{
-			drawHair = drawAltHair = false;
-		}
-
-		public override bool DrawHead()/* tModPorter Note: Removed. In SetStaticDefaults, use ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false if you returned false */
-		{
-			return true;
 		}
 
 		public override void AddRecipes()

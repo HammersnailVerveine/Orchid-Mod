@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 
 namespace OrchidMod.Content.Trails
-{
+{ /* SP
     public class TriangularTrail : SimpleTrail
     {
         protected float _tipLength;
@@ -23,5 +23,5 @@ namespace OrchidMod.Content.Trails
             AddVertex(_points[0] - normal, color, new Vector2(0, 0));
             AddVertex(_points[0] + normal, color, new Vector2(0, 1));
         }
-    }
-}
+    }*/
+} 

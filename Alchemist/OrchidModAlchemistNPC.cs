@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.UIs;
+using ReLogic.Content;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -18,6 +19,20 @@ namespace OrchidMod.Alchemist
 		public int alchemistDark = 0;
 
 		public bool airborne = false;
+
+
+		public static Texture2D[] coatingTextures;
+
+		public override void Load()
+		{
+			coatingTextures = new Texture2D[6];
+			coatingTextures[0] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingFire", AssetRequestMode.ImmediateLoad).Value;
+			coatingTextures[1] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingWater", AssetRequestMode.ImmediateLoad).Value;
+			coatingTextures[2] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingNature", AssetRequestMode.ImmediateLoad).Value;
+			coatingTextures[3] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingAir", AssetRequestMode.ImmediateLoad).Value;
+			coatingTextures[4] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingLight", AssetRequestMode.ImmediateLoad).Value;
+			coatingTextures[5] = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistCoatingDark", AssetRequestMode.ImmediateLoad).Value;
+		}
 
 		public override bool InstancePerEntity => true;
 
@@ -77,7 +92,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistFire > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(UISystem.coatingTextures[0], rect, null, Color.White);
+				spriteBatch.Draw(coatingTextures[0], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -85,7 +100,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistWater > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(UISystem.coatingTextures[1], rect, null, Color.White);
+				spriteBatch.Draw(coatingTextures[1], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -93,7 +108,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistNature > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(UISystem.coatingTextures[2], rect, null, Color.White);
+				spriteBatch.Draw(coatingTextures[2], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -101,7 +116,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistAir > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(UISystem.coatingTextures[3], rect, null, Color.White);
+				spriteBatch.Draw(coatingTextures[3], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -109,7 +124,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistLight > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(UISystem.coatingTextures[4], rect, null, Color.White);
+				spriteBatch.Draw(coatingTextures[4], rect, null, Color.White);
 				offSetX += 20;
 				if (offSetX > 30) setOffset(ref offSetX, ref offSetY, ref nbCoatings);
 			}
@@ -117,7 +132,7 @@ namespace OrchidMod.Alchemist
 			if (this.alchemistDark > 0)
 			{
 				Rectangle rect = new Rectangle((int)(npc.Center.X + offSetX - Main.screenPosition.X), (int)(npc.Center.Y + offSetY - Main.screenPosition.Y), 18, 18);
-				spriteBatch.Draw(UISystem.coatingTextures[5], rect, null, Color.White);
+				spriteBatch.Draw(coatingTextures[5], rect, null, Color.White);
 			}
 		}
 

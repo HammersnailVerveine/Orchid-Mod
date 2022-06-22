@@ -12,10 +12,12 @@ namespace OrchidMod.Common.Hooks
 	{
 		private static void On_Terraria_Main_DrawProjectiles(On.Terraria.Main.orig_DrawProjectiles orig, Main self)
 		{
+			/* [SP]
 			var matrix = PrimitiveTrailSystem.GetTransformMatrix();
 
 			if (PrimitiveTrailSystem.AlphaBlendTrails.Count > 0)
 			{
+				Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 				Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.instance.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
 				{
 					foreach (var trail in PrimitiveTrailSystem.AlphaBlendTrails)
@@ -37,7 +39,7 @@ namespace OrchidMod.Common.Hooks
 				}
 				Main.spriteBatch.End();
 			}
-
+			*/
 			orig(self);
 		}
 	}

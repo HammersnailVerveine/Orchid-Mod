@@ -79,7 +79,7 @@ namespace OrchidMod.Content.Items.Melee
 		public static readonly SoundStyle Magic0Sound = new(OrchidAssets.SoundsPath + "Magic_0");
 		public static readonly Color EffectColor = new(224, 39, 83);
 
-		private PrimitiveTrailSystem.Trail _trail;
+		// private PrimitiveTrailSystem.Trail _trail; [SP]
 
 		// ...
 
@@ -102,6 +102,7 @@ namespace OrchidMod.Content.Items.Melee
 
 		public override void OnSpawn(IEntitySource source)
 		{
+			/* [SP]
 			_trail = new RoundedTrail
 			(
 				target: Projectile,
@@ -112,11 +113,12 @@ namespace OrchidMod.Content.Items.Melee
 				smoothness: 20
 			);
 			PrimitiveTrailSystem.NewTrail(_trail);
+			*/
 		}
 
 		public override void AI()
 		{
-			_trail?.SetCustomPositionMethod((proj) => proj.Center + new Vector2(-4, 0).RotatedBy((proj as Projectile).rotation));
+			// _trail?.SetCustomPositionMethod((proj) => proj.Center + new Vector2(-4, 0).RotatedBy((proj as Projectile).rotation)); [SP]
 			Lighting.AddLight(Projectile.Center, EffectColor.ToVector3() * 0.2f);
 
 			if (Main.rand.NextBool(3))

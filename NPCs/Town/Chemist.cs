@@ -12,7 +12,7 @@ namespace OrchidMod.NPCs.Town
 	public class Chemist : ModNPC
 	{
 		public override string Texture => OrchidAssets.NPCsPath + Name;
-		public override string[] AltTextures => new[] { OrchidAssets.NPCsPath + Name + "_Alt_1" };
+		// public override string[] AltTextures => new[] { OrchidAssets.NPCsPath + Name + "_Alt_1" };
 
 		public override void SetStaticDefaults()
 		{
@@ -293,7 +293,7 @@ namespace OrchidMod.NPCs.Town
 							scrollType = ItemType<Alchemist.Misc.Scrolls.ScrollTier1>();
 							break;
 					}
-					player.QuickSpawnItem(scrollType, 1);
+					player.QuickSpawnItem(NPC.GetSource_FromThis(), scrollType, 1);
 					return true;
 				}
 				else

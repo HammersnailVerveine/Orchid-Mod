@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		private bool _death = false;
 		private float _deathProgress = 1f;
-		private PrimitiveTrailSystem.Trail _trail;
+		//private PrimitiveTrailSystem.Trail _trail; [SP]
 
 		public override void SetStaticDefaults()
 		{
@@ -41,12 +41,14 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public Color GetCurrentColor() => _effectColors[Improved.ToInt()] * _deathProgress;
 
+		/* [SP]
 		public override void OnSpawn()
 		{
 			_trail = new RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 20 * (1 - p * 0.35f), color: (p) => GetCurrentColor() * (1 - p), effect: OrchidAssets.GetEffect("WyvernMoray"));
 
 			PrimitiveTrailSystem.NewTrail(_trail);
 		}
+		*/
 
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
 		{
@@ -61,6 +63,7 @@ namespace OrchidMod.Shaman.Projectiles
 			else OrchidModProjectile.resetIFrames(Projectile);
 		}
 
+		/* [SP]
 		public override void PostDraw(Color lightColor)
 		{
 			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive);
@@ -105,6 +108,7 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 			SetSpriteBatch(spriteBatch: spriteBatch);
 		}
+		*/
 
 		public void DeathUpdate()
 		{
@@ -117,9 +121,9 @@ namespace OrchidMod.Shaman.Projectiles
 
 				Projectile.friendly = false;
 				Projectile.tileCollide = false;
-				_trail.StartDissolving();
+				//_trail.StartDissolving(); [SP]
 
-				var proj = Main.projectile[Projectile.NewProjectile(Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<WyvernMorayProjLingering>(), (int)(Projectile.damage * 0.6f), 0.0f, Projectile.owner, 0.0f, 0.0f)];
+				var proj = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ModContent.ProjectileType<WyvernMorayProjLingering>(), (int)(Projectile.damage * 0.6f), 0.0f, Projectile.owner, 0.0f, 0.0f)];
 				if (proj.ModProjectile is WyvernMorayProjLingering hehe)
 				{
 					hehe.effectColor = GetCurrentColor();
