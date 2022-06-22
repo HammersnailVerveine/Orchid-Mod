@@ -70,7 +70,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			if (modPlayer.orbCountBig == 9)
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.position.Y - 40, 0f, 0f, Mod.Find<ModProjectile>("TitanicOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 12)
-				Projectile.NewProjectile(Projectile.GetSource_FromThis(), layer.Center.X + 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("TitanicOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 15, player.position.Y - 38, 0f, 0f, Mod.Find<ModProjectile>("TitanicOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig == 15)
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("TitanicOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 15)

@@ -66,7 +66,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 									}
 								}
 								//WorldGen.SquareTileFrame(k, l, true);
-								Item.NewItem((k + 1) * 16, (l + 1) * 16, 0, 0, ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>());
+								Item.NewItem(Projectile.GetSource_FromThis(), (k + 1) * 16, (l + 1) * 16, 0, 0, ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>());
 								OrchidModProjectile.spawnDustCircle(new Vector2((k + 1) * 16, (l + 1) * 16), ModContent.DustType<Content.Dusts.BloomingDust>(), 5, 8, true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
 							}
 						}

@@ -44,7 +44,6 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(ModContent.ItemType<FragilePresent>(), 1);
 			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

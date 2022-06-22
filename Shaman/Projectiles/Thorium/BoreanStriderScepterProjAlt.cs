@@ -27,9 +27,11 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void OnSpawn()
 		{
+			/* [SP]
 			var trail = new Content.Trails.TriangularTrail(target: Projectile, length: 16 * 5, width: (p) => 5 * (1 - p), color: (p) => BoreanStriderScepterProj.EffectColor * (1 - p) * 0.25f);
 			trail.SetDissolveSpeed(0.35f);
 			PrimitiveTrailSystem.NewTrail(trail);
+			*/
 
 			Projectile.frame = Main.rand.Next(3);
 		}

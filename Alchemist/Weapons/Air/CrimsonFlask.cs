@@ -62,7 +62,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 					newProj.timeLeft = 70 + (((20 - nb) > 10 ? (20 - nb) : 10) * i);
 					newProj.netUpdate = true;
 				}
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), pos, 0f, 0f, projType2, 0, 0f, projectile.owner);
+				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), pos, Vector2.Zero, projType2, 0, 0f, projectile.owner);
 			}
 		}
 

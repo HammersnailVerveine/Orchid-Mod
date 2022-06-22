@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
 using OrchidMod.Common.Globals.NPCs;
 using Terraria;
+using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Weapons.Nature

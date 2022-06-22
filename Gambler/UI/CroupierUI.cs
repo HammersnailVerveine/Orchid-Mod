@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.UIs;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -9,13 +10,14 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.UI;
 using Terraria.UI.Chat;
 
 namespace OrchidMod.Gambler.UI
 {
 	// I'm sure it can be written much better
 
-	public class CroupierUI
+	public class CroupierUI : OrchidUIState
 	{
 		public Texture2D backgroundTexture;
 		public Texture2D borderTexture;
@@ -34,15 +36,18 @@ namespace OrchidMod.Gambler.UI
 		public int scrollMax = 0;
 		public int hoverCardType = -1;
 
-		public bool Visible { get; set; }
+		//public bool Visible { get; set; }
 		public int FontOffsetY => (int)(30 * (fontScale / 10f));
 
-		public CroupierUI()
+		public override int InsertionIndex(List<GameInterfaceLayer> layers)
+			=> layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+
+		public override void OnInitialize()
 		{
-			backgroundTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIBackground");
-			borderTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIBorder");
-			deckTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/CroupierGUIDeck");
-			deckBlockTexture = ModContent.GetTexture("OrchidMod/Gambler/UI/Textures/DeckUIBlock");
+			backgroundTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/CroupierGUIBackground").Value;
+			borderTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/CroupierGUIBorder").Value;
+			deckTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/CroupierGUIDeck").Value;
+			deckBlockTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/DeckUIBlock").Value;
 
 			rasterizerState = new RasterizerState
 			{
@@ -53,7 +58,8 @@ namespace OrchidMod.Gambler.UI
 
 		public void Update()
 		{
-			drawZone = new Rectangle(Main.screenWidth / 2 - Main.chatBackTexture.Width / 2 + 2, 120 + (linesCount - emptyLinesCount) * 30, Main.chatBackTexture.Width - 4, emptyLinesCount * 30);
+			// drawZone = new Rectangle(Main.screenWidth / 2 - Main.chatBackTexture.Width / 2 + 2, 120 + (linesCount - emptyLinesCount) * 30, Main.chatBackTexture.Width - 4, emptyLinesCount * 30); [S¨]
+			drawZone = new Rectangle(Main.screenWidth / 2 - 50 + 2, 120 + (linesCount - emptyLinesCount) * 30, 100 - 4, emptyLinesCount * 30);
 
 			if (drawZone.Contains(Main.MouseScreen.ToPoint())) Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar = true;
 		}
@@ -68,7 +74,7 @@ namespace OrchidMod.Gambler.UI
 
 		public void OnCardClick(Item item, Player player, OrchidModPlayer orchidPlayer)
 		{
-			player.QuickSpawnItem(item.type, 1);
+			player.QuickSpawnItem(null, item.type, 1);
 			OrchidModGamblerHelper.removeGamblerCard(item, player, orchidPlayer);
 
 			if (OrchidModGamblerHelper.getNbGamblerCards(player, orchidPlayer) > 0)

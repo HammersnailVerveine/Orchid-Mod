@@ -162,7 +162,7 @@ namespace OrchidMod.Gambler.Projectiles
 				{
 					int projType = ProjectileType<Gambler.Projectiles.JungleSlimeCardProjAlt>();
 					Vector2 vel = new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(15 * (i - 2)));
-					OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
+					OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
 				}
 			}
 

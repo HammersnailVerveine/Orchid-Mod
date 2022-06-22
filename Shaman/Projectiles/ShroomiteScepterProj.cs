@@ -85,9 +85,11 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
-			drawCacheProjsBehindNPCs.Add(index);
+			// It should be this, can you confirm ? [SP]
+			behindNPCs.Add(index);
 		}
 
+		/* [SP]
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Vector2 drawPosition = Projectile.position - Main.screenPosition + Projectile.Size * 0.5f;
@@ -125,6 +127,7 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 			SetSpriteBatch(spriteBatch: spriteBatch);
 		}
+		*/
 
 		public override bool OnTileCollide(Vector2 oldVelocity) => false;
 

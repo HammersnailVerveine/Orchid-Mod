@@ -65,7 +65,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
 				int dmg = (int)(150 * modPlayer.shamanDamage + 5E-06f);
-				Projectile.NewProjectile(Projectile.position.X, Projectile.Center.Y, 0f, 14f, Mod.Find<ModProjectile>("AbyssPortalLaser").Type, dmg, 0f, Projectile.owner, Projectile.whoAmI, 0f);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.Center.Y, 0f, 14f, Mod.Find<ModProjectile>("AbyssPortalLaser").Type, dmg, 0f, Projectile.owner, Projectile.whoAmI, 0f);
 				Projectile.ai[1] = -360;
 			}
 		}

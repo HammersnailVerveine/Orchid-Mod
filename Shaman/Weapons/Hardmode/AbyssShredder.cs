@@ -12,7 +12,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 {
 	public class AbyssShredder : OrchidModShamanItem
 	{
-		public override string Texture => OrchidAssets.AbyssSetPath + Name;
+		//public override string Texture => OrchidAssets.AbyssSetPath + Name; [SP]
 
 		public override void SafeSetDefaults()
 		{

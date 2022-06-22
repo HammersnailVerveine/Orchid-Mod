@@ -33,8 +33,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			Vector2 vel = velocity.RotatedByRandom(MathHelper.ToRadians(15)) / 5f;
 			int projType = ProjectileType<Projectiles.EmbersCardProj>();
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(position.X, position.Y, vel.X, vel.Y, projType, damage, knockBack, player.whoAmI), dummy);
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, vel, projType, damage, knockback, player.whoAmI), dummy);
 			SoundEngine.PlaySound(SoundID.Item1);
 		}
 	}

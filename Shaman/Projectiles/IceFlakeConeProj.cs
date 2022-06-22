@@ -31,11 +31,13 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void OnSpawn()
 		{
+			/* [SP]
 			var trail = new Content.Trails.RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 16 * (1 - p * 0.8f), color: (p) => Color.Lerp(EffectColor, new Color(11, 26, 138), p) * (1 - p) * 0.4f, additive: true, smoothness: 15);
 			trail.SetDissolveSpeed(0.35f);
 			trail.SetDissolveSpeed(0.35f);
 			trail.SetEffectTexture(OrchidAssets.GetExtraTexture(5).Value);
 			PrimitiveTrailSystem.NewTrail(trail);
+			*/
 		}
 
 		public override void AI()

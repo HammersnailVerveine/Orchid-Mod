@@ -87,79 +87,84 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			while (randA == randF || randA == randW || randA == randE)
 				randA = Main.rand.Next(4);
 
+			int projTypeFire = ModContent.ProjectileType<NirvanaFire>();
+			int projTypeWater = ModContent.ProjectileType<NirvanaWater>();
+			int projTypeEarth = ModContent.ProjectileType<NirvanaEarth>();
+			int projTypeAir = ModContent.ProjectileType<NirvanaWind>();
+
 			if (randF == 0)
-				Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaFire").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeFire, 100, 3, player.whoAmI);
 			if (randF == 1)
-				Projectile.NewProjectile(target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaFire").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeFire, 100, 3, player.whoAmI);
 			if (randF == 2)
-				Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaFire").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeFire, 100, 3, player.whoAmI);
 			if (randF == 3)
-				Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaFire").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeFire, 100, 3, player.whoAmI);
 
 			if (randW == 0)
-				Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWater").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeWater, 100, 3, player.whoAmI);
 			if (randW == 1)
-				Projectile.NewProjectile(target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWater").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeWater, 100, 3, player.whoAmI);
 			if (randW == 2)
-				Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWater").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeWater, 100, 3, player.whoAmI);
 			if (randW == 3)
-				Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWater").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeWater, 100, 3, player.whoAmI);
 
 			if (randE == 0)
-				Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaEarth").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeEarth, 100, 3, player.whoAmI);
 			if (randE == 1)
-				Projectile.NewProjectile(target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaEarth").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeEarth, 100, 3, player.whoAmI);
 			if (randE == 2)
-				Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaEarth").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeEarth, 100, 3, player.whoAmI);
 			if (randE == 3)
-				Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaEarth").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeEarth, 100, 3, player.whoAmI);
 
 			if (randA == 0)
-				Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWind").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeAir, 100, 3, player.whoAmI);
 			if (randA == 1)
-				Projectile.NewProjectile(target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWind").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeAir, 100, 3, player.whoAmI);
 			if (randA == 2)
-				Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWind").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeAir, 100, 3, player.whoAmI);
 			if (randA == 3)
-				Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWind").Type, 100, 3, player.whoAmI);
+				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeAir, 100, 3, player.whoAmI);
 
 			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
 			{
 				if (randF == 3)
-					Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaFire").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeFire, 100, 3, player.whoAmI);
 				if (randF == 2)
-					Projectile.NewProjectile(target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaFire").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeFire, 100, 3, player.whoAmI);
 				if (randF == 1)
-					Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaFire").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeFire, 100, 3, player.whoAmI);
 				if (randF == 0)
-					Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaFire").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeFire, 100, 3, player.whoAmI);
 
 				if (randW == 3)
-					Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWater").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeWater, 100, 3, player.whoAmI);
 				if (randW == 2)
-					Projectile.NewProjectile(target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWater").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeWater, 100, 3, player.whoAmI);
 				if (randW == 1)
-					Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWater").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeWater, 100, 3, player.whoAmI);
 				if (randW == 0)
-					Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWater").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeWater, 100, 3, player.whoAmI);
 
 				if (randE == 3)
-					Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaEarth").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeEarth, 100, 3, player.whoAmI);
 				if (randE == 2)
-					Projectile.NewProjectile(target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaEarth").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeEarth, 100, 3, player.whoAmI);
 				if (randE == 1)
-					Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaEarth").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeEarth, 100, 3, player.whoAmI);
 				if (randE == 0)
-					Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaEarth").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeEarth, 100, 3, player.whoAmI);
 
 				if (randA == 3)
-					Projectile.NewProjectile(target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWind").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeAir, 100, 3, player.whoAmI);
 				if (randA == 2)
-					Projectile.NewProjectile(target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWind").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeAir, 100, 3, player.whoAmI);
 				if (randA == 1)
-					Projectile.NewProjectile(target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWind").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X + Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeAir, 100, 3, player.whoAmI);
 				if (randA == 0)
-					Projectile.NewProjectile(target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, Mod.Find<ModProjectile>("NirvanaWind").Type, 100, 3, player.whoAmI);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeAir, 100, 3, player.whoAmI);
 
 			}
 		}

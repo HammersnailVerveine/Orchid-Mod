@@ -35,11 +35,13 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Projectile.timeLeft = 60;
 		}
 
+		/* [SP]
 		public override void OnSpawn()
 		{
 			var trail = new Content.Trails.RoundedTrail(target: Projectile, length: 16 * 10, width: (p) => 10 * (1 - p), color: (p) => EffectColor * (1 - p) * 0.5f, smoothness: 25);
 			PrimitiveTrailSystem.NewTrail(trail);
 		}
+		*/
 
 		public override void AI()
 		{

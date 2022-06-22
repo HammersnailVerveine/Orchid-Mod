@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 {
@@ -86,9 +87,9 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			for (int i = 0; i < 2 + (int)(modPlayer.orbCountUnique / 2); i++)
 			{
 				if (Main.player[Projectile.owner].strongBees && Main.rand.Next(2) == 0)
-					Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 566, (int)(dmg * 1.15f), 0f, Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), ProjectileID.GiantBee, (int)(dmg * 1.15f), 0f, Projectile.owner, 0f, 0f);
 				else
-					Projectile.NewProjectile(Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), 181, dmg, 0f, Projectile.owner, 0f, 0f);
+					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 3 - Main.rand.Next(6), 3 - Main.rand.Next(6), ProjectileID.Bee, dmg, 0f, Projectile.owner, 0f, 0f);
 			}
 			modPlayer.orbCountUnique = 0;
 		}
