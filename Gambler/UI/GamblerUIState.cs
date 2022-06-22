@@ -9,6 +9,7 @@ using Terraria.UI;
 using OrchidMod.Gambler.Weapons.Chips;
 using OrchidMod.Common.UIs;
 using System.Collections.Generic;
+using ReLogic.Content;
 
 namespace OrchidMod.Gambler.UI
 {
@@ -65,39 +66,39 @@ namespace OrchidMod.Gambler.UI
 
 		public override void OnInitialize()
 		{
-			ressourceBar = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBar").Value;
-			ressourceBarFull = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBarFilled").Value;
-			ressourceBarTop = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBarTop").Value;
-			ressourceBarDiceFull = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBarDiceFilled").Value;
-			ressourceBarDiceTop = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBarDiceTop").Value;
+			ressourceBar = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBar", AssetRequestMode.ImmediateLoad).Value;
+			ressourceBarFull = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBarFilled", AssetRequestMode.ImmediateLoad).Value;
+			ressourceBarTop = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBarTop", AssetRequestMode.ImmediateLoad).Value;
+			ressourceBarDiceFull = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBarDiceFilled", AssetRequestMode.ImmediateLoad).Value;
+			ressourceBarDiceTop = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIBarDiceTop", AssetRequestMode.ImmediateLoad).Value;
 
-			chip1 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip1").Value;
-			chip2 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip2").Value;
-			chip3 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip3").Value;
-			chip4 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip4").Value;
-			chip5 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip5").Value;
+			chip1 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip1", AssetRequestMode.ImmediateLoad).Value;
+			chip2 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip2", AssetRequestMode.ImmediateLoad).Value;
+			chip3 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip3", AssetRequestMode.ImmediateLoad).Value;
+			chip4 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip4", AssetRequestMode.ImmediateLoad).Value;
+			chip5 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip5", AssetRequestMode.ImmediateLoad).Value;
 
-			dice1 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice1").Value;
-			dice2 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice2").Value;
-			dice3 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice3").Value;
-			dice4 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice4").Value;
-			dice5 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice5").Value;
-			dice6 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice6").Value;
+			dice1 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice1", AssetRequestMode.ImmediateLoad).Value;
+			dice2 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice2", AssetRequestMode.ImmediateLoad).Value;
+			dice3 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice3", AssetRequestMode.ImmediateLoad).Value;
+			dice4 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice4", AssetRequestMode.ImmediateLoad).Value;
+			dice5 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice5", AssetRequestMode.ImmediateLoad).Value;
+			dice6 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice6", AssetRequestMode.ImmediateLoad).Value;
 
-			UIDeck = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDeck").Value;
-			UIRedraw = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIRedraw").Value;
-			UICard = ModContent.Request<Texture2D>("OrchidMod/Gambler/GamblerReset").Value;
-			UICardNext1 = ModContent.Request<Texture2D>("OrchidMod/Gambler/GamblerReset").Value;
-			UICardNext2 = ModContent.Request<Texture2D>("OrchidMod/Gambler/GamblerReset").Value;
-			UICardNext3 = ModContent.Request<Texture2D>("OrchidMod/Gambler/GamblerReset").Value;
+			UIDeck = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDeck", AssetRequestMode.ImmediateLoad).Value;
+			UIRedraw = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIRedraw", AssetRequestMode.ImmediateLoad).Value;
+			UICard = ModContent.Request<Texture2D>("OrchidMod/Gambler/GamblerReset", AssetRequestMode.ImmediateLoad).Value;
+			UICardNext1 = ModContent.Request<Texture2D>("OrchidMod/Gambler/GamblerReset", AssetRequestMode.ImmediateLoad).Value;
+			UICardNext2 = ModContent.Request<Texture2D>("OrchidMod/Gambler/GamblerReset", AssetRequestMode.ImmediateLoad).Value;
+			UICardNext3 = ModContent.Request<Texture2D>("OrchidMod/Gambler/GamblerReset", AssetRequestMode.ImmediateLoad).Value;
 
-			UIDeckbuilding = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/DeckUI").Value;
-			UIDeckbuildingBlock = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/DeckUIBlock").Value;
+			UIDeckbuilding = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/DeckUI", AssetRequestMode.ImmediateLoad).Value;
+			UIDeckbuildingBlock = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/DeckUIBlock", AssetRequestMode.ImmediateLoad).Value;
 
-			chipDirection = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/ChipDirectionArrow").Value;
-			chipDetonatorMain = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/ChipDetonatorMain").Value;
-			chipDetonatorBar = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/ChipDetonatorBar").Value;
-			chipDetonatorBarEnd = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/ChipDetonatorBarEnd").Value;
+			chipDirection = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/ChipDirectionArrow", AssetRequestMode.ImmediateLoad).Value;
+			chipDetonatorMain = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/ChipDetonatorMain", AssetRequestMode.ImmediateLoad).Value;
+			chipDetonatorBar = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/ChipDetonatorBar", AssetRequestMode.ImmediateLoad).Value;
+			chipDetonatorBarEnd = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/ChipDetonatorBarEnd", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Set(94f, 0f);
 			Height.Set(180f, 0f);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.UIs;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -44,10 +45,10 @@ namespace OrchidMod.Gambler.UI
 
 		public override void OnInitialize()
 		{
-			backgroundTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/CroupierGUIBackground").Value;
-			borderTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/CroupierGUIBorder").Value;
-			deckTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/CroupierGUIDeck").Value;
-			deckBlockTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/DeckUIBlock").Value;
+			backgroundTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/CroupierGUIBackground", AssetRequestMode.ImmediateLoad).Value;
+			borderTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/CroupierGUIBorder", AssetRequestMode.ImmediateLoad).Value;
+			deckTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/CroupierGUIDeck", AssetRequestMode.ImmediateLoad).Value;
+			deckBlockTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/DeckUIBlock", AssetRequestMode.ImmediateLoad).Value;
 
 			rasterizerState = new RasterizerState
 			{

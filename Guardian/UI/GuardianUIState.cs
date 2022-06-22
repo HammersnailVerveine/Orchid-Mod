@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.UIs;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -21,10 +22,10 @@ namespace OrchidMod.Guardian.UI
 			=> layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
 		public override void OnInitialize()
 		{
-			textureBlockOn = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/BlockBarOn").Value;
-			textureBlockOff = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/BlockBarOff").Value;
-			textureSlamOn = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/SlamBarOn").Value;
-			textureSlamOff = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/SlamBarOff").Value;
+			textureBlockOn = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/BlockBarOn", AssetRequestMode.ImmediateLoad).Value;
+			textureBlockOff = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/BlockBarOff", AssetRequestMode.ImmediateLoad).Value;
+			textureSlamOn = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/SlamBarOn", AssetRequestMode.ImmediateLoad).Value;
+			textureSlamOff = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/SlamBarOff", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Set(10f, 0f);
 			Height.Set(10f, 0f);

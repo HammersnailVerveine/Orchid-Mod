@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.UIs;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -67,53 +68,53 @@ namespace OrchidMod.Shaman.UI
 
 		public override void OnInitialize()
 		{
-			shamanUIMainFrame = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/MainGrey").Value;
+			shamanUIMainFrame = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/MainGrey", AssetRequestMode.ImmediateLoad).Value;
 
-			resourceDuration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/DurationBar").Value;
-			resourceDurationEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/DurationBarEnd").Value;
+			resourceDuration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/DurationBar", AssetRequestMode.ImmediateLoad).Value;
+			resourceDurationEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/DurationBarEnd", AssetRequestMode.ImmediateLoad).Value;
 
-			resourceFire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar").Value;
-			resourceFireEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd").Value;
-			resourceWater = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBar").Value;
-			resourceWaterEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBarEnd").Value;
-			resourceAir = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBar").Value;
-			resourceAirEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBarEnd").Value;
-			resourceEarth = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBar").Value;
-			resourceEarthEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBarEnd").Value;
-			resourceSpirit = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBar").Value;
-			resourceSpiritEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBarEnd").Value;
+			resourceFire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar", AssetRequestMode.ImmediateLoad).Value;
+			resourceFireEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd", AssetRequestMode.ImmediateLoad).Value;
+			resourceWater = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBar", AssetRequestMode.ImmediateLoad).Value;
+			resourceWaterEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBarEnd", AssetRequestMode.ImmediateLoad).Value;
+			resourceAir = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBar", AssetRequestMode.ImmediateLoad).Value;
+			resourceAirEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBarEnd", AssetRequestMode.ImmediateLoad).Value;
+			resourceEarth = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBar", AssetRequestMode.ImmediateLoad).Value;
+			resourceEarthEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBarEnd", AssetRequestMode.ImmediateLoad).Value;
+			resourceSpirit = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBar", AssetRequestMode.ImmediateLoad).Value;
+			resourceSpiritEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBarEnd", AssetRequestMode.ImmediateLoad).Value;
 
-			fireSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/FireActive").Value;
-			waterSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/WaterActive").Value;
-			airSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/AirActive").Value;
-			earthSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/EarthActive").Value;
-			spiritSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/SpiritActive").Value;
+			fireSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/FireActive", AssetRequestMode.ImmediateLoad).Value;
+			waterSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/WaterActive", AssetRequestMode.ImmediateLoad).Value;
+			airSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/AirActive", AssetRequestMode.ImmediateLoad).Value;
+			earthSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/EarthActive", AssetRequestMode.ImmediateLoad).Value;
+			spiritSymbolBasic = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/SpiritActive", AssetRequestMode.ImmediateLoad).Value;
 
-			symbolFire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Fire").Value;
-			symbolIce = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Ice").Value;
-			symbolPoison = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Poison").Value;
-			symbolVenom = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Venom").Value;
-			symbolDemonite = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Demonite").Value;
-			symbolHeavy = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Heavy").Value;
-			symbolForest = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Forest").Value;
-			symbolDiabolist = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Diabolist").Value;
-			symbolWaterHoney = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/WaterHoney").Value;
-			symbolSkull = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Skull").Value;
-			symbolDestroyer = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Destroyer").Value;
-			symbolBee = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Bee").Value;
-			symbolAmber = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Amber").Value;
-			symbolSmite = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Smite").Value;
-			symbolCrimtane = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Crimtane").Value;
-			symbolRage = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Rage").Value;
-			symbolLava = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Lava").Value;
-			symbolFeather = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Feather").Value;
-			symbolAnklet = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Anklet").Value;
-			symbolWyvern = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Wyvern").Value;
-			symbolAmethyst = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Amethyst").Value;
-			symbolTopaz = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Topaz").Value;
-			symbolSapphire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Sapphire").Value;
-			symbolEmerald = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Emerald").Value;
-			symbolRuby = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Ruby").Value;
+			symbolFire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Fire", AssetRequestMode.ImmediateLoad).Value;
+			symbolIce = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Ice", AssetRequestMode.ImmediateLoad).Value;
+			symbolPoison = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Poison", AssetRequestMode.ImmediateLoad).Value;
+			symbolVenom = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Venom", AssetRequestMode.ImmediateLoad).Value;
+			symbolDemonite = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Demonite", AssetRequestMode.ImmediateLoad).Value;
+			symbolHeavy = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Heavy", AssetRequestMode.ImmediateLoad).Value;
+			symbolForest = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Forest", AssetRequestMode.ImmediateLoad).Value;
+			symbolDiabolist = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Diabolist", AssetRequestMode.ImmediateLoad).Value;
+			symbolWaterHoney = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/WaterHoney", AssetRequestMode.ImmediateLoad).Value;
+			symbolSkull = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Skull", AssetRequestMode.ImmediateLoad).Value;
+			symbolDestroyer = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Destroyer", AssetRequestMode.ImmediateLoad).Value;
+			symbolBee = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Bee", AssetRequestMode.ImmediateLoad).Value;
+			symbolAmber = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Amber", AssetRequestMode.ImmediateLoad).Value;
+			symbolSmite = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Smite", AssetRequestMode.ImmediateLoad).Value;
+			symbolCrimtane = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Crimtane", AssetRequestMode.ImmediateLoad).Value;
+			symbolRage = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Rage", AssetRequestMode.ImmediateLoad).Value;
+			symbolLava = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Lava", AssetRequestMode.ImmediateLoad).Value;
+			symbolFeather = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Feather", AssetRequestMode.ImmediateLoad).Value;
+			symbolAnklet = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Anklet", AssetRequestMode.ImmediateLoad).Value;
+			symbolWyvern = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Wyvern", AssetRequestMode.ImmediateLoad).Value;
+			symbolAmethyst = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Amethyst", AssetRequestMode.ImmediateLoad).Value;
+			symbolTopaz = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Topaz", AssetRequestMode.ImmediateLoad).Value;
+			symbolSapphire = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Sapphire", AssetRequestMode.ImmediateLoad).Value;
+			symbolEmerald = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Emerald", AssetRequestMode.ImmediateLoad).Value;
+			symbolRuby = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Symbols/Ruby", AssetRequestMode.ImmediateLoad).Value;
 
 			backgroundColor = Color.White;
 

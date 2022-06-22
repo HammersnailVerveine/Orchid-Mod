@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.UIs;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,11 +42,11 @@ namespace OrchidMod.Alchemist.UI
 
 		public override void OnInitialize()
 		{
-			resourceBack = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackground").Value;
-			resourceItem = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackground").Value;
-			resourceCross = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackgroundCross").Value;
-			resourceSelected = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackgroundSelected").Value;
-			resourceBorder = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackgroundBorder").Value;
+			resourceBack = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackground", AssetRequestMode.ImmediateLoad).Value;
+			resourceItem = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackground", AssetRequestMode.ImmediateLoad).Value;
+			resourceCross = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackgroundCross", AssetRequestMode.ImmediateLoad).Value;
+			resourceSelected = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackgroundSelected", AssetRequestMode.ImmediateLoad).Value;
+			resourceBorder = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectItemBackgroundBorder", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Set(0f, 0f);
 			Height.Set(0f, 0f);

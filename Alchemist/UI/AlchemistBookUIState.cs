@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.UIs;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -29,10 +30,10 @@ namespace OrchidMod.Alchemist.UI
 
 		public override void OnInitialize()
 		{
-			ressourceBookPage = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistBookPage").Value;
-			ressourceBookSlot = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistBookSlot").Value;
-			ressourceBookSlotEmpty = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistBookSlotEmpty").Value;
-			ressourceBookPopup = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistBookPopup").Value;
+			ressourceBookPage = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistBookPage", AssetRequestMode.ImmediateLoad).Value;
+			ressourceBookSlot = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistBookSlot", AssetRequestMode.ImmediateLoad).Value;
+			ressourceBookSlotEmpty = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistBookSlotEmpty", AssetRequestMode.ImmediateLoad).Value;
+			ressourceBookPopup = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistBookPopup", AssetRequestMode.ImmediateLoad).Value;
 			bookPopupRecipe = new Alchemist.Recipes.RecipeBlank();
 
 			Width.Set(94f, 0f);

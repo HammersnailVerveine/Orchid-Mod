@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.UIs;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -34,21 +35,21 @@ namespace OrchidMod.Alchemist.UI
 
 		public override void OnInitialize()
 		{
-			ressourceBottom = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIBottom").Value;
-			ressourceTop = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUITop").Value;
-			ressourceFull = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIFull").Value;
-			ressourceFullTop = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIFullTop").Value;
-			ressourceFullBorder = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIFullBorder").Value;
-			ressourceEmpty = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIEmpty").Value;
-			reactionCooldown = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUICooldown").Value;
-			reactionCooldownLiquid = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUICooldownLiquid").Value;
+			ressourceBottom = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIBottom", AssetRequestMode.ImmediateLoad).Value;
+			ressourceTop = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUITop", AssetRequestMode.ImmediateLoad).Value;
+			ressourceFull = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIFull", AssetRequestMode.ImmediateLoad).Value;
+			ressourceFullTop = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIFullTop", AssetRequestMode.ImmediateLoad).Value;
+			ressourceFullBorder = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIFullBorder", AssetRequestMode.ImmediateLoad).Value;
+			ressourceEmpty = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUIEmpty", AssetRequestMode.ImmediateLoad).Value;
+			reactionCooldown = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUICooldown", AssetRequestMode.ImmediateLoad).Value;
+			reactionCooldownLiquid = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUICooldownLiquid", AssetRequestMode.ImmediateLoad).Value;
 
-			symbolWater = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolWater").Value;
-			symbolFire = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolFire").Value;
-			symbolNature = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolNature").Value;
-			symbolAir = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolAir").Value;
-			symbolLight = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolLight").Value;
-			symbolDark = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolDark").Value;
+			symbolWater = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolWater", AssetRequestMode.ImmediateLoad).Value;
+			symbolFire = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolFire", AssetRequestMode.ImmediateLoad).Value;
+			symbolNature = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolNature", AssetRequestMode.ImmediateLoad).Value;
+			symbolAir = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolAir", AssetRequestMode.ImmediateLoad).Value;
+			symbolLight = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolLight", AssetRequestMode.ImmediateLoad).Value;
+			symbolDark = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistUISymbolDark", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Set(94f, 0f);
 			Height.Set(180f, 0f);

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.UIs;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -34,20 +35,20 @@ namespace OrchidMod.Shaman.UI
 
 		public override void OnInitialize()
 		{
-			symbolAttack = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			symbolDefense = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			symbolCritical = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			symbolRegeneration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			symbolWeak = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SymbolWeak").Value;
-			symbolSpeed = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled").Value;
-			fireLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/FireLoaded").Value;
-			waterLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WaterLoaded").Value;
-			airLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WindLoaded").Value;
-			earthLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/EarthLoaded").Value;
-			spiritLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SpiritLoaded").Value;
-			resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar").Value;
-			resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd").Value;
-			resourceBar = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/ResourceBar").Value;
+			symbolAttack = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			symbolDefense = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			symbolCritical = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			symbolRegeneration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			symbolWeak = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SymbolWeak", AssetRequestMode.ImmediateLoad).Value;
+			symbolSpeed = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			fireLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/FireLoaded", AssetRequestMode.ImmediateLoad).Value;
+			waterLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WaterLoaded", AssetRequestMode.ImmediateLoad).Value;
+			airLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WindLoaded", AssetRequestMode.ImmediateLoad).Value;
+			earthLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/EarthLoaded", AssetRequestMode.ImmediateLoad).Value;
+			spiritLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SpiritLoaded", AssetRequestMode.ImmediateLoad).Value;
+			resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar", AssetRequestMode.ImmediateLoad).Value;
+			resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd", AssetRequestMode.ImmediateLoad).Value;
+			resourceBar = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/ResourceBar", AssetRequestMode.ImmediateLoad).Value;
 
 			shamanTimers = new int[] { 0, 0, 0, 0, 0 };
 			backgroundColor = Color.White;
