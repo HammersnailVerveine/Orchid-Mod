@@ -36,6 +36,7 @@ namespace OrchidMod.Guardian
 
 		public sealed override void SetDefaults()
 		{
+			Item.DamageType = ModContent.GetInstance<GuardianDamageClass>();
 			Item.crit = 4;
 			Item.noMelee = true;
 			Item.autoReuse = true;
@@ -45,7 +46,6 @@ namespace OrchidMod.Guardian
 			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.useTime = 30;
 			Item.knockBack = 6f;
-			Item.DamageType = DamageClass.Generic;
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.guardianWeapon = true;

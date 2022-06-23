@@ -71,11 +71,11 @@ namespace OrchidMod.Guardian
 			if (!death)
 			{
 				float addedDistance = 0f;
-				if (Projectile.ai[1] > 0f) { // Shield bash code
+				if (Projectile.ai[1] > 0f) { // Shield bash
 				
 					if (bashDistanceRef == 0f) {
 						bashDistanceRef = Projectile.ai[1] / 2;
-						Projectile.damage = guardianItem.Item.damage;
+						Projectile.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.friendly = true;
 						guardianItem.Slam(owner, Projectile);

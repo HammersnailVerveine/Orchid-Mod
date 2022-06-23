@@ -12,17 +12,8 @@ namespace OrchidMod.Shaman
 
 		public sealed override void SetDefaults()
 		{
+			Item.DamageType = ModContent.GetInstance<ShamanDamageClass>();
 			SafeSetDefaults();
-		}
-
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-		}
-
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().shamanCrit;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

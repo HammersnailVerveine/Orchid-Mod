@@ -12,10 +12,10 @@ namespace OrchidMod.Guardian
 
 		public override void SetDefaults()
 		{
-			SafeSetDefaults();
-			Item.DamageType = DamageClass.Generic;
+			Item.DamageType = ModContent.GetInstance<GuardianDamageClass>();
 			Item.noMelee = true;
 			Item.maxStack = 1;
+			SafeSetDefaults();
 		}
 
 		protected override bool CloneNewInstances => true;

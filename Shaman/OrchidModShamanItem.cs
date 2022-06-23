@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman
 
 		public sealed override void SetDefaults()
 		{
-			Item.DamageType = DamageClass.Generic; // TODO: ...
+			Item.DamageType = ModContent.GetInstance<ShamanDamageClass>();
 
 			Item.noMelee = true;
 			Item.crit = 4;
@@ -154,8 +154,6 @@ namespace OrchidMod.Shaman
 		public sealed override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			damage *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
-
 			switch (empowermentType)
 			{
 				case 1:

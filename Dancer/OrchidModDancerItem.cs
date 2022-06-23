@@ -21,22 +21,12 @@ namespace OrchidMod.Dancer
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			Item.DamageType = DamageClass.Generic;
+			Item.DamageType = ModContent.GetInstance<DancerDamageClass>();
 			Item.noMelee = true;
 			Item.maxStack = 1;
 		}
 
 		protected override bool CloneNewInstances => true;
-
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().dancerDamage;
-		}
-
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().dancerCrit;
-		}
 
 		public override bool CanUseItem(Player player)
 		{
