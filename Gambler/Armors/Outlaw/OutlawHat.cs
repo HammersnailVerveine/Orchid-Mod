@@ -30,7 +30,6 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			modPlayer.gamblerChipsMax += 3;
-			player.GetDamage<GamblerDamageClass>() += 0.5f;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
