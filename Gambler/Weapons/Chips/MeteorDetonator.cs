@@ -51,8 +51,9 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			modPlayer.gamblerUIChipSpinDisplay = false;
 		}
 
-		public override void SafeModifyWeaponDamage(Player player, OrchidModPlayer modPlayer, ref StatModifier damage)
+		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
+			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 			float index = 720f / 8;
 			bool timed = (modPlayer.gamblerChipSpin > index * 4 && modPlayer.gamblerChipSpin < index * 5);
 			damage *= (timed ? 5 : 2.5f);

@@ -4,6 +4,7 @@ using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace OrchidMod.Gambler
 {
@@ -15,7 +16,6 @@ namespace OrchidMod.Gambler
 
 		public virtual void SafeSetDefaults() { }
 		public virtual void SafeHoldItem(Player player, OrchidModPlayer modPlayer) { }
-		public virtual void SafeModifyWeaponDamage(Player player, OrchidModPlayer modPlayer, ref StatModifier damage) { }
 		public virtual bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed) {
 			return true;
 		}
@@ -23,7 +23,7 @@ namespace OrchidMod.Gambler
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			Item.DamageType = DamageClass.Generic;
+			Item.DamageType = ModContent.GetInstance<GamblerChipDamageClass>();
 			Item.noMelee = true;
 			Item.maxStack = 1;
 		}
@@ -38,23 +38,11 @@ namespace OrchidMod.Gambler
 			SafeHoldItem(player, modPlayer);
 		}
 
-		public sealed override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{	
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			damage *= (modPlayer.gamblerDamage + modPlayer.gamblerDamageChip);
-			SafeModifyWeaponDamage(player, modPlayer, ref damage);
-		}
-
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
-		}
-
 		public override bool CanUseItem(Player player)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (modPlayer.gamblerChips < this.chipCost || modPlayer.gamblerCardCurrent.type == 0)
+			if (modPlayer.gamblerChips < this.chipCost || modPlayer.gamblerCardCurrent.type == ItemID.None)
 			{
 				return false;
 			}

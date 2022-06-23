@@ -12,7 +12,7 @@ namespace OrchidMod.Gambler
 	{
 		public override void SetDefaults()
 		{
-			Item.DamageType = DamageClass.Generic;
+			Item.DamageType = ModContent.GetInstance<GamblerDamageClass>();
 			Item.noMelee = true;
 			Item.maxStack = 1;
 			Item.width = 34;
@@ -54,7 +54,7 @@ namespace OrchidMod.Gambler
 
 			currentCard = modPlayer.gamblerCardDummy;
 			this.checkStats(currentCard, player, modPlayer);
-			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, type, Item.damage, Item.knockBack, true);
+			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, type, damage, knockback, true);
 			return false;
 		}
 
@@ -67,22 +67,6 @@ namespace OrchidMod.Gambler
 				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, true);
 			}
 		}
-
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
-		}
-
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
-		}
-
-		// public override void UpdateInventory(Player player) {
-		// OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-		// Item currentCard = modPlayer.gamblerCardCurrent;
-		// this.checkStats(currentCard);
-		// }
 
 		public override bool AltFunctionUse(Player player)
 		{
@@ -143,7 +127,7 @@ namespace OrchidMod.Gambler
 		{
 			if (currentCard.type != ItemID.None)
 			{
-				Item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.GetDamage(DamageClass.Generic).Multiplicative - 1f));
+				Item.damage = currentCard.damage;
 				//item.rare = currentCard.rare;
 				Item.crit = currentCard.crit + modPlayer.gamblerCrit;
 				Item.useAnimation = currentCard.useAnimation;

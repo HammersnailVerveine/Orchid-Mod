@@ -19,7 +19,7 @@ namespace OrchidMod.Gambler
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			Item.DamageType = DamageClass.Generic;
+			Item.DamageType = ModContent.GetInstance<GamblerChipDamageClass>();
 			Item.noMelee = true;
 			Item.maxStack = 1;
 			Item.useStyle = 4;

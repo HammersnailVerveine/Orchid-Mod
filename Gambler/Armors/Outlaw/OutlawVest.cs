@@ -27,8 +27,7 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.gamblerDamage += 0.04f;
+			player.GetDamage<GamblerDamageClass>() += 0.04f;
 		}
 
 		public override Vector2? HoldoutOffset()

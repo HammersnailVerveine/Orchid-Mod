@@ -10,11 +10,13 @@ namespace OrchidMod.Gambler
 {
 	public abstract class GamblerDeck : OrchidModItem
 	{
+		private bool initialized = false;
+
 		public virtual void SafeSetDefaults() { }
 
 		public sealed override void SetDefaults()
 		{
-			Item.DamageType = DamageClass.Generic;
+			Item.DamageType = ModContent.GetInstance<GamblerDamageClass>();
 			Item.width = 34;
 			Item.height = 34;
 			SafeSetDefaults();
@@ -38,8 +40,17 @@ namespace OrchidMod.Gambler
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			Item currentCard = modPlayer.gamblerCardCurrent;
-			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, type, Item.damage, Item.knockBack);
+
+			if (!initialized)
+			{
+				this.checkStats(modPlayer.gamblerCardCurrent, player, modPlayer);
+				initialized = true;
+			}
+			else
+			{
+				Item currentCard = modPlayer.gamblerCardCurrent;
+				currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, type, damage, knockback);
+			}
 			return false;
 		}
 
@@ -50,19 +61,8 @@ namespace OrchidMod.Gambler
 			modPlayer.gamblerUIFightDisplay = true;
 			if (Main.mouseLeft)
 			{
-				this.checkStats(modPlayer.gamblerCardCurrent, player, modPlayer);
 				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, false);
 			}
-		}
-
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
-		}
-
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
 		}
 
 		// public override void UpdateInventory(Player player) {
@@ -148,7 +148,8 @@ namespace OrchidMod.Gambler
 		{
 			if (currentCard.type != ItemID.None)
 			{
-				Item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.GetDamage(DamageClass.Generic).Multiplicative - 1f));
+				//Item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.GetDamage(DamageClass.Generic).Multiplicative - 1f));
+				Item.damage = currentCard.damage;
 				//item.rare = currentCard.rare; //
 				Item.crit = currentCard.crit + modPlayer.gamblerCrit;
 				Item.useAnimation = currentCard.useAnimation;

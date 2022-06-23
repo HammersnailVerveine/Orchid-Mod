@@ -12,17 +12,8 @@ namespace OrchidMod.Gambler
 
 		public sealed override void SetDefaults()
 		{
+			Item.DamageType = ModContent.GetInstance<GamblerDamageClass>();
 			SafeSetDefaults();
-		}
-
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
-		}
-
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -6,7 +6,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
-using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler
 {
@@ -21,7 +20,7 @@ namespace OrchidMod.Gambler
 
 		public sealed override void SetDefaults()
 		{
-			Item.DamageType = DamageClass.Generic;
+			Item.DamageType = ModContent.GetInstance<GamblerDamageClass>();
 			Item.width = 20;
 			Item.height = 26;
 			Item.useStyle = ItemUseStyleID.HoldUp;
@@ -36,7 +35,7 @@ namespace OrchidMod.Gambler
 			orchidItem.gamblerCardSets = this.gamblerCardSets;
 			orchidItem.gamblerShootDelegate = this.GamblerShoot;
 		}
-
+		/*
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			damage *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
@@ -46,13 +45,16 @@ namespace OrchidMod.Gambler
 		{
 			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
 		}
+		*/
 
+		/*
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
 			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayer>().gamblerCrit)
 				crit = true;
 			else crit = false;
 		}
+		*/
 
 		protected override bool CloneNewInstances => true;
 		public override bool AltFunctionUse(Player player) => true;
@@ -88,7 +90,7 @@ namespace OrchidMod.Gambler
 						}
 						if (!found)
 						{
-							int gamblerDeck = ItemType<Decks.GamblerAttack>();
+							int gamblerDeck = ModContent.ItemType<Decks.GamblerAttack>();
 							player.QuickSpawnItem(player.GetSource_GiftOrReward("Gambler Deck"), gamblerDeck, 1);
 						}
 					}
