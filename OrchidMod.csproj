@@ -10,15 +10,15 @@
   <ItemGroup>
     <Compile Remove="Assets\Textures\Items.Alchemist\**" />
     <Compile Remove="Assets\Textures\Items\Abyss\**" />
+    <Compile Remove="Common\Commands\**" />
     <EmbeddedResource Remove="Assets\Textures\Items.Alchemist\**" />
     <EmbeddedResource Remove="Assets\Textures\Items\Abyss\**" />
+    <EmbeddedResource Remove="Common\Commands\**" />
     <None Remove="Assets\Textures\Items.Alchemist\**" />
     <None Remove="Assets\Textures\Items\Abyss\**" />
+    <None Remove="Common\Commands\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\Commands\" />
   </ItemGroup>
 </Project>

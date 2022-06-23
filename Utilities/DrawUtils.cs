@@ -49,13 +49,6 @@ namespace OrchidMod.Utilities
 
 			switch (useStyle)
 			{
-				case ItemUseStyleID.Swing:
-					{
-						var origin = new Vector2(player.direction == -1 ? glowTexture.Width : 0, player.gravDir == -1 ? 0 : glowTexture.Height);
-						var data = new DrawData(glowTexture, position, sourceRect, color.Value, player.itemRotation, origin, adjustedItemScale, drawInfo.itemEffect, 0);
-						drawInfo.DrawDataCache.Add(data);
-					}
-					break;
 				case ItemUseStyleID.Shoot:
 					{
 						DrawData data;
@@ -113,6 +106,11 @@ namespace OrchidMod.Utilities
 					}
 					break;
 				default:
+					{
+						var origin = new Vector2(player.direction == -1 ? glowTexture.Width : 0, player.gravDir == -1 ? 0 : glowTexture.Height);
+						var data = new DrawData(glowTexture, position, sourceRect, color.Value, player.itemRotation, origin, adjustedItemScale, drawInfo.itemEffect, 0);
+						drawInfo.DrawDataCache.Add(data);
+					}
 					break;
 			}
 		}

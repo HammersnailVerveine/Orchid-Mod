@@ -12,8 +12,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 {
 	public class ShroomiteScepter : OrchidModShamanItem
 	{
-		public override string Texture => OrchidAssets.ItemsPath + Name;
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 103;
