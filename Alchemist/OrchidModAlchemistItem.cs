@@ -37,7 +37,7 @@ namespace OrchidMod.Alchemist
 		public sealed override void SetDefaults()
 		{
 			SafeSetDefaults();
-			Item.DamageType = DamageClass.Generic;
+			Item.DamageType = ModContent.GetInstance<AlchemistDamageClass>();
 			Item.noMelee = true;
 			Item.crit = 4;
 			Item.useStyle = 1;
@@ -70,22 +70,14 @@ namespace OrchidMod.Alchemist
 			orchidItem.addVariousEffectsDelegate = AddVariousEffects;
 		}
 
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
-		}
-
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().alchemistCrit;
-		}
-
+		/*
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
 			if (Main.rand.Next(101) <= (player.GetModPlayer<OrchidModPlayer>().alchemistCrit))
 				crit = true;
 			else crit = false;
 		}
+		*/
 
 		public override bool AltFunctionUse(Player player)
 		{
@@ -276,7 +268,8 @@ namespace OrchidMod.Alchemist
 			Item[] flasks = orchidModPlayer.alchemistFlasks;
 
 			//damage = (int)(damage * player.allDamage);
-			
+			damage = (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(damage);
+
 			int index = (int)element - 1;
 
 			orchidModPlayer.alchemistPotency -= potencyCost;
@@ -300,8 +293,9 @@ namespace OrchidMod.Alchemist
 
 		public int getSecondaryDamage(Player player, OrchidModPlayer modPlayer, int bonusDamage = 0, bool bonusDamageScaling = true)
 		{
-			int dmg = (int)((this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f))) * (modPlayer.alchemistDamage));
-			return dmg;
+			float dmg = (int)(this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f)));
+			dmg = player.GetDamage<AlchemistDamageClass>().ApplyTo(dmg);
+			return (int)dmg;
 		}
 	}
 }

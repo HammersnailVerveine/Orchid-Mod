@@ -46,7 +46,7 @@ namespace OrchidMod.Alchemist
 			Item.damage = 0;
 			Item.crit = 0;
 			SafeSetDefaults();
-			Item.DamageType = DamageClass.Generic;
+			Item.DamageType = ModContent.GetInstance<AlchemistDamageClass>();
 			Item.noMelee = this.catalystType != 1;
 			Item.useStyle = 1;
 			Item.UseSound = SoundID.Item1;
@@ -62,16 +62,6 @@ namespace OrchidMod.Alchemist
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.alchemistCatalyst = true;
-		}
-
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().alchemistDamage;
-		}
-
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().alchemistCrit;
 		}
 
 		public override bool? CanHitNPC(Player player, NPC target)

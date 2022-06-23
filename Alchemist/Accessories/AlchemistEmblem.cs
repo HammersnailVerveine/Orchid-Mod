@@ -24,7 +24,7 @@ namespace OrchidMod.Alchemist.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.alchemistDamage += 0.15f;
+			player.GetDamage<AlchemistDamageClass>() += 0.15f;
 		}
 
 		public override void AddRecipes()

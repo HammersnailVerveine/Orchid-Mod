@@ -16,7 +16,7 @@ namespace OrchidMod.Alchemist
 		{
 			Item.width = 36;
 			Item.height = 32;
-			Item.DamageType = DamageClass.Default;
+			Item.DamageType = ModContent.GetInstance<AlchemistDamageClass>();
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.UseSound = SoundID.Item64;

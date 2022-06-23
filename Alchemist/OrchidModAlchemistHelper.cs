@@ -203,8 +203,9 @@ namespace OrchidMod.Alchemist
 			Item item = new Item();
 			item.SetDefaults(itemType);
 			OrchidModGlobalItem globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
-			int dmg = (int)((globalItem.alchemistSecondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? globalItem.alchemistSecondaryScaling : 1f))) * (modPlayer.alchemistDamage + player.GetDamage(DamageClass.Generic).Multiplicative - 1f));
-			return dmg;
+			float dmg = (int)(globalItem.alchemistSecondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? globalItem.alchemistSecondaryScaling : 1f)));
+			dmg = player.GetDamage<AlchemistDamageClass>().ApplyTo(dmg);
+			return (int)dmg;
 		}
 
 		public static int getProgressLevel()
