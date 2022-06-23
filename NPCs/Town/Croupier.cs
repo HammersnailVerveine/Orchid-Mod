@@ -142,7 +142,9 @@ namespace OrchidMod.NPCs.Town
 			Player player = Main.player[Main.myPlayer];
 			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
 
-			if (!OrchidMod.Instance.croupierUI.Visible)
+			// [SP]
+
+			/*if (!OrchidMod.Instance.croupierUI.Visible)
 			{
 				button = Language.GetTextValue("LegacyInterface.28");
 
@@ -152,7 +154,7 @@ namespace OrchidMod.NPCs.Town
 			else
 			{
 				button = "Return";
-			}
+			}*/
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
@@ -162,7 +164,9 @@ namespace OrchidMod.NPCs.Town
 
 			if (firstButton)
 			{
-				if (OrchidMod.Instance.croupierUI.Visible)
+				// [SP]
+
+				/*if (OrchidMod.Instance.croupierUI.Visible)
 				{
 					OrchidMod.Instance.croupierUI.Visible = false;
 
@@ -171,7 +175,7 @@ namespace OrchidMod.NPCs.Town
 					Recipe.FindRecipes();
 					Main.npcChatText = Main.npc[player.talkNPC].GetChat();
 				}
-				else shop = true;
+				else shop = true;*/
 			}
 			else
 			{
@@ -191,8 +195,10 @@ namespace OrchidMod.NPCs.Town
 					Main.npcChatFocus2 = false;
 					Main.npcChatFocus3 = false;
 
-					OrchidMod.Instance.croupierUI.UpdateOnChatButtonClicked();
-					OrchidMod.Instance.croupierUI.Visible = true;
+					// [SP]
+
+					//OrchidMod.Instance.croupierUI.UpdateOnChatButtonClicked();
+					//OrchidMod.Instance.croupierUI.Visible = true;
 				}
 				else
 				{

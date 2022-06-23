@@ -37,7 +37,7 @@ namespace OrchidMod.Common.Globals.NPCs
 
 		public override void GetChat(NPC npc, ref string chat)
 		{
-			OrchidMod.Instance.croupierUI.Visible = false;
+			// [SP] OrchidMod.Instance.croupierUI.Visible = false;
 		}
 
 		public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)

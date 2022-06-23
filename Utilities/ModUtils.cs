@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace OrchidMod.Utilities
 {
@@ -14,5 +9,8 @@ namespace OrchidMod.Utilities
 
 		public static bool IsNPCTypeEquals(this Mod mod, string npcName, int type)
 			=> mod.TryFind(npcName, out ModNPC modNPC) && modNPC.Type.Equals(type);
+
+		public static Mod GetModWithPossibleNull(string name)
+			=> ModLoader.TryGetMod(name, out Mod mod) ? mod : null;
 	}
 }

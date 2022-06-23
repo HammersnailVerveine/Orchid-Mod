@@ -16,6 +16,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Common;
 
 namespace OrchidMod
 {
@@ -476,7 +477,7 @@ namespace OrchidMod
 
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
-			if (OrchidMod.AlchemistCatalystHotKey.JustPressed && Player.itemAnimation == 0)
+			if (OrchidKeybindLoader.AlchemistCatalyst.JustPressed && Player.itemAnimation == 0)
 			{
 				for (int i = 0; i < Main.InventorySlotsTotal; i++)
 				{
@@ -497,7 +498,7 @@ namespace OrchidMod
 				}
 			}
 
-			if (OrchidMod.AlchemistReactionHotKey.JustPressed)
+			if (OrchidKeybindLoader.AlchemistReaction.JustPressed)
 			{
 				if (this.alchemistNbElements < 2 || Player.FindBuffIndex(Mod.Find<ModBuff>("ReactionCooldown").Type) > -1)
 				{

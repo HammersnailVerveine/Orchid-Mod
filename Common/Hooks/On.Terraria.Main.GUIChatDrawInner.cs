@@ -13,14 +13,16 @@ namespace OrchidMod.Common.Hooks
 		{
 			orig(self);
 
-			var ui = OrchidMod.Instance?.croupierUI;
+			// [SP]
+
+			/*var ui = OrchidMod.Instance?.croupierUI;
 			if (ui == null) return;
 
 			if (ui.Visible)
 			{
 				ui.Update();
 				ui.Draw(Main.spriteBatch);
-			}
+			}*/
 		}
 	}
 }

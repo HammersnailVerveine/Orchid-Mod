@@ -1,22 +1,11 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Alchemist;
-using OrchidMod.Alchemist.UI;
-using OrchidMod.Common;
-using OrchidMod.Common.Hooks;
-using OrchidMod.Gambler.UI;
 using OrchidMod.Shaman;
-using OrchidMod.Shaman.UI;
-using OrchidMod.Guardian;
-using OrchidMod.Guardian.UI;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI;
-using Microsoft.Xna.Framework.Input;
-using ReLogic.Content;
+using OrchidMod.Utilities;
 
 namespace OrchidMod
 {
@@ -25,37 +14,20 @@ namespace OrchidMod
 		public static OrchidMod Instance { get; private set; }
 		public static Mod ThoriumMod { get; private set; }
 
-		internal CroupierUI croupierUI;
-
 		public static List<AlchemistHiddenReactionRecipe> alchemistReactionRecipes;
-		public static ModKeybind AlchemistReactionHotKey;
-		public static ModKeybind AlchemistCatalystHotKey;
 
 		public OrchidMod() => Instance = this;
 
 		public override void Load()
 		{
-			// ThoriumMod = ModLoader.GetMod("ThoriumMod"); [SP] is this correct ?
-			if (ModLoader.TryGetMod("ThoriumMod", out Mod thoriumMod))
-				ThoriumMod = thoriumMod;
-
-			// ...
-
-			AlchemistReactionHotKey = KeybindLoader.RegisterKeybind(this, "Alchemist Hidden Reaction", "Mouse3");
-			AlchemistCatalystHotKey = KeybindLoader.RegisterKeybind(this, "Alchemist Catalyst Tool Shortcut", Keys.Z);
+			ThoriumMod = ModUtils.GetModWithPossibleNull("ThoriumMod");
 
 			alchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
 		}
 
 		public override void Unload()
 		{
-			AlchemistReactionHotKey = null;
-			AlchemistCatalystHotKey = null;
 			alchemistReactionRecipes = null;
-
-			// ...
-
-			croupierUI = null;
 
 			ThoriumMod = null;
 			Instance = null;
