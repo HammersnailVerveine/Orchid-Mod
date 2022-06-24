@@ -21,7 +21,7 @@ namespace OrchidMod.Alchemist
 		{
 			SafeModifyHitNPC(player, target, ref damage, ref knockBack, ref crit);
 			/*  [CRIT]
-			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayerAlchemist>().alchemistCrit)
+			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidAlchemist>().alchemistCrit)
 				crit = true;
 			else crit = false;
 			*/

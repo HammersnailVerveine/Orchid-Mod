@@ -20,9 +20,9 @@ using OrchidMod.Common;
 
 namespace OrchidMod
 {
-	public class OrchidModPlayerAlchemist : ModPlayer
+	public class OrchidAlchemist : ModPlayer
 	{
-		public OrchidModPlayer modPlayer;
+		public OrchidPlayer modPlayer;
 
 		public List<string> alchemistKnownReactions = new List<string>();
 		public List<string> alchemistKnownHints = new List<string>();
@@ -154,7 +154,7 @@ namespace OrchidMod
 
 		public override void Initialize()
 		{
-			modPlayer = Player.GetModPlayer<OrchidModPlayer>();
+			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 
 			Reset();
 

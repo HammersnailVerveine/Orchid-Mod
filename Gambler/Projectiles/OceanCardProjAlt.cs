@@ -37,7 +37,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			Projectile.velocity *= 0.95f;
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 			if (modPlayer.timer120 == 0 || modPlayer.timer120 > 49) Projectile.frame = 0;
 			if (modPlayer.timer120 == 10) Projectile.frame = 1;
 			if (modPlayer.timer120 == 20) Projectile.frame = 2;
@@ -45,7 +45,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (modPlayer.timer120 == 40) Projectile.frame = 4;
 		}
 
-		public override void BonusProjectiles(Player player, OrchidModPlayerGambler modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy)
+		public override void BonusProjectiles(Player player, OrchidGambler modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy)
 		{
 			if (modProjectile.gamblerInternalCooldown == 0)
 			{

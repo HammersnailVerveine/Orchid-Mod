@@ -11,9 +11,9 @@ namespace OrchidMod.Gambler
 
 		public virtual void SafeAI() { }
 
-		public virtual void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer) { }
+		public virtual void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer) { }
 
-		public virtual void BonusProjectiles(Player player, OrchidModPlayerGambler modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy = false) { }
+		public virtual void BonusProjectiles(Player player, OrchidGambler modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy = false) { }
 
 		public sealed override void AltSetDefaults()
 		{
@@ -36,7 +36,7 @@ namespace OrchidMod.Gambler
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
 			if (target.type != NPCID.TargetDummy && this.gamblingChipChance > 0)
 			{
@@ -51,10 +51,10 @@ namespace OrchidMod.Gambler
 			return Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 		}
 		
-		public int getCardType(OrchidModPlayerGambler modPlayer) {
+		public int getCardType(OrchidGambler modPlayer) {
 			return Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 		}
 
-		public int DummyProjectile(int projectile, bool dummy) => OrchidModPlayerGambler.DummyProjectile(projectile, dummy);
+		public int DummyProjectile(int projectile, bool dummy) => OrchidGambler.DummyProjectile(projectile, dummy);
 	}
 }

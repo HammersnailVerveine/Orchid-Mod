@@ -44,14 +44,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				Projectile.active = false;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 5 == 0)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 % 5 == 0)
 				Projectile.frame++;
 			if (Projectile.frame == 10)
 				Projectile.frame = 0;
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique == 0 || player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique > 9 || player.GetModPlayer<OrchidModPlayerShaman>().shamanOrbUnique != ShamanOrbUnique.TERRA)
+			if (player.GetModPlayer<OrchidShaman>().orbCountUnique == 0 || player.GetModPlayer<OrchidShaman>().orbCountUnique > 9 || player.GetModPlayer<OrchidShaman>().shamanOrbUnique != ShamanOrbUnique.TERRA)
 				Projectile.Kill();
-			else orbsNumber = player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique;
+			else orbsNumber = player.GetModPlayer<OrchidShaman>().orbCountUnique;
 
 			if (Projectile.timeLeft == 12960000)
 			{
@@ -90,8 +90,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			}
 
 			Player player = Main.player[Projectile.owner];
-			int dmg = (int)((50 + (20 * (orbsNumber))) * player.GetModPlayer<OrchidModPlayerShaman>().shamanDamage);
-			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 10)
+			int dmg = (int)((50 + (20 * (orbsNumber))) * player.GetModPlayer<OrchidShaman>().shamanDamage);
+			if (player.GetModPlayer<OrchidShaman>().orbCountUnique < 10)
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, (Main.rand.Next(20) - 10) * 1f, -5f, Mod.Find<ModProjectile>("TerraScepterOrbHoming1").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 		}
 	}

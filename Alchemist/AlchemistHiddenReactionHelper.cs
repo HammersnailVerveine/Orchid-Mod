@@ -67,7 +67,7 @@ namespace OrchidMod.Alchemist
 			return recipes;
 		}
 
-		public static void triggerAlchemistReactionEffects(AlchemistHiddenReactionRecipe recipe, Mod mod, Player player, OrchidModPlayerAlchemist modPlayer)
+		public static void triggerAlchemistReactionEffects(AlchemistHiddenReactionRecipe recipe, Mod mod, Player player, OrchidAlchemist modPlayer)
 		{
 			recipe.recipeEffect(player, modPlayer);
 			
@@ -93,7 +93,7 @@ namespace OrchidMod.Alchemist
 			SoundEngine.PlaySound(recipe.sound);
 		}
 
-		public static bool checkSubstitutes(int ingredientID, Mod mod, Player player, OrchidModPlayerAlchemist modPlayer)
+		public static bool checkSubstitutes(int ingredientID, Mod mod, Player player, OrchidAlchemist modPlayer)
 		{
 			List<int> ingredientToCompare = new List<int>();
 			ingredientToCompare.Add(ItemType<CloudInAVial>());
@@ -135,7 +135,7 @@ namespace OrchidMod.Alchemist
 			return false;
 		}
 
-		public static void triggerAlchemistReaction(Mod mod, Player player, OrchidModPlayerAlchemist modPlayer)
+		public static void triggerAlchemistReaction(Mod mod, Player player, OrchidAlchemist modPlayer)
 		{
 			string floatingTextStr = "Failed reaction ...";
 			AlchemistHiddenReactionRecipe hiddenReaction = new RecipeBlank();
@@ -263,7 +263,7 @@ namespace OrchidMod.Alchemist
 			modPlayer.alchemistSelectUIDisplay = false;
 		}
 
-		public static void bonusReactionEffects(Mod mod, Player player, OrchidModPlayerAlchemist modPlayer)
+		public static void bonusReactionEffects(Mod mod, Player player, OrchidAlchemist modPlayer)
 		{
 			if (modPlayer.alchemistReactiveVials)
 			{
@@ -271,7 +271,7 @@ namespace OrchidMod.Alchemist
 			}
 		}
 
-		public static void addAlchemistHint(Player player, OrchidModPlayerAlchemist modPlayer, int hintLevel, bool negativeMessage = true)
+		public static void addAlchemistHint(Player player, OrchidAlchemist modPlayer, int hintLevel, bool negativeMessage = true)
 		{
 			Color floatingTextColor = new Color(0, 0, 0);
 			string floatingTextStr = "";

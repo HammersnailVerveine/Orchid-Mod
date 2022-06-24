@@ -5,7 +5,7 @@ namespace OrchidMod.Shaman
 {
 	public abstract class OrchidModShamanProjectile : OrchidModProjectile
 	{
-		public virtual void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
+		public virtual void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer) { }
 
 		public sealed override void AltSetDefaults()
 		{
@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman
 		public sealed override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			if (target.type != NPCID.TargetDummy)
 			{
 				OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();

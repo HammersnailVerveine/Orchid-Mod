@@ -30,7 +30,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			modPlayer.alchemistRegenPotency -= 3;
 		}
 
@@ -41,7 +41,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			player.setBonus = "Maximum number of simultaneous alchemical elements increased by 1";
 			modPlayer.alchemistNbElementsMax += 1;
 		}

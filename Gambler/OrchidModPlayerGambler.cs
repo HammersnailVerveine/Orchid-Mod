@@ -21,9 +21,9 @@ using OrchidMod.Gambler.Buffs.Dice;
 
 namespace OrchidMod
 {
-	public class OrchidModPlayerGambler : ModPlayer
+	public class OrchidGambler : ModPlayer
 	{
-		public OrchidModPlayer modPlayer;
+		public OrchidPlayer modPlayer;
 
 		public float gamblerDamage = 1.0f;
 		public float gamblerDamageChip = 0f;
@@ -80,7 +80,7 @@ namespace OrchidMod
 
 		public override void Initialize()
 		{
-			modPlayer = Player.GetModPlayer<OrchidModPlayer>();
+			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 
 			ClearGamblerCards();
 			Reset();
@@ -257,7 +257,7 @@ namespace OrchidMod
 
 		public override void clientClone(ModPlayer clientClone)
 		{
-			OrchidModPlayerGambler clone = clientClone as OrchidModPlayerGambler;
+			OrchidGambler clone = clientClone as OrchidGambler;
 			clone.gamblerHasCardInDeck = this.gamblerHasCardInDeck;
 		}
 
@@ -274,7 +274,7 @@ namespace OrchidMod
 
 		public override void SendClientChanges(ModPlayer clientPlayer)
 		{
-			OrchidModPlayerGambler clone = clientPlayer as OrchidModPlayerGambler;
+			OrchidGambler clone = clientPlayer as OrchidGambler;
 			if (clone.gamblerHasCardInDeck != gamblerHasCardInDeck)
 			{
 				var packet = Mod.GetPacket();
@@ -577,7 +577,7 @@ namespace OrchidMod
 					int projType = ProjectileType<Gambler.Projectiles.SlimeRainCardProj2>();
 					for (int i = 0; i < rand; i++)
 					{
-						int newProjectile = OrchidModPlayerGambler.DummyProjectile(Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0f, 5f, projType, 15, 0f, Player.whoAmI), dummy);
+						int newProjectile = OrchidGambler.DummyProjectile(Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0f, 5f, projType, 15, 0f, Player.whoAmI), dummy);
 						Main.projectile[newProjectile].ai[1] = 1f;
 						Main.projectile[newProjectile].netUpdate = true;
 					}

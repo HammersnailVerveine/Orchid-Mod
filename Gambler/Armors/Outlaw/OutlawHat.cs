@@ -28,7 +28,7 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			modPlayer.gamblerChipsMax += 3;
 		}
 
@@ -39,7 +39,7 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			player.setBonus = "Maximum redraws increased by 1";
 			modPlayer.gamblerRedrawsMax += 1;
 		}

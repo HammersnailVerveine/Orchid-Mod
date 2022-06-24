@@ -18,7 +18,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.penetrate = -1;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
 		{
 			target.AddBuff(BuffID.Confused, 60 * 3);
 		}

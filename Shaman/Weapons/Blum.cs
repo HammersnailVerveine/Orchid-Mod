@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void UpdateInventory(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 			Item.useTime = 18 - (nbBonds * 2);
 			Item.useAnimation = 18 - (nbBonds * 2);

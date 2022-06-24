@@ -44,7 +44,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			recipe.Register();
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int nb = 2 + Main.rand.Next(2);
 			for (int i = 0; i < nb; i++)
@@ -71,7 +71,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			}
 		}
 
-		public override void AddVariousEffects(Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void AddVariousEffects(Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			alchProj.nbElementsNoExtract--;
 		}

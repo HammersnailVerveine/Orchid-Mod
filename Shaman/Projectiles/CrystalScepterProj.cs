@@ -47,7 +47,7 @@ namespace OrchidMod.Shaman.Projectiles
 			if (Projectile.timeLeft == 0)
 			{
 				Player player = Main.player[Projectile.owner];
-				OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+				OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 				int type = ModContent.ProjectileType<CrystalScepterProj2>();
 
 				for (int i = 0; i < 2 + modPlayer.GetNbShamanicBonds(); i++)
@@ -93,6 +93,6 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer) { }
 	}
 }

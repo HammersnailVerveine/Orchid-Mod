@@ -40,7 +40,7 @@ namespace OrchidMod.Alchemist
 		{
 			if (Main.myPlayer == player.whoAmI)
 			{
-				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+				OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 				float distance = 1000f;
 				for (int k = 0; k < Main.maxNPCs ; k++)
 				{

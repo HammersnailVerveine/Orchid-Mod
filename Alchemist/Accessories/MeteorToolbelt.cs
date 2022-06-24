@@ -24,7 +24,7 @@ namespace OrchidMod.Alchemist.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			modPlayer.alchemistMeteor = true;
 		}
 

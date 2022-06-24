@@ -71,7 +71,7 @@ namespace OrchidMod.NPCs.Town
 						continue;
 					}
 
-					OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+					OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 					if (modPlayer.gamblerHasCardInDeck)
 					{
 						return true;
@@ -140,7 +140,7 @@ namespace OrchidMod.NPCs.Town
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 
 			// [SP]
 
@@ -160,7 +160,7 @@ namespace OrchidMod.NPCs.Town
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 
 			if (firstButton)
 			{
@@ -221,7 +221,7 @@ namespace OrchidMod.NPCs.Town
 		public override void SetupShop(Chest shop, ref int nextSlot)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.GamblerDummy>());
 			nextSlot++;

@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanBuffTimer += 5;
 			modPlayer.shamanCrit += 7;
 			player.GetDamage<ShamanDamageClass>() += 0.07f;
@@ -49,7 +49,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.armorEffectDrawShadow = true;
 			String dir = Main.ReversedUpDownArmorSetBonuses ? "DOWN" : "UP";
 			player.setBonus = "\n             Double tap " + dir + " to summon an abyss portal"

@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			if (modPlayer.alchemistPotencyDisplayTimer > 0 && Main.rand.NextBool(600))
 			{
 				int dmg = (int)(25 * modPlayer.alchemistDamage);

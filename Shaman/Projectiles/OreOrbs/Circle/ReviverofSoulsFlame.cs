@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
 			if (player != Main.player[Main.myPlayer])
 			{
@@ -70,7 +70,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 			if (Projectile.frame == 7)
 				Projectile.frame = 0;
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 60 == 0)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 % 60 == 0)
 				hoverD = !hoverD;
 
 			if (hoverD == false)

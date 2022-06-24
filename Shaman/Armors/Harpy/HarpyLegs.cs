@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Armors.Harpy
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.moveSpeed += 0.1f;
 			modPlayer.shamanDamage += 0.06f;
 		}

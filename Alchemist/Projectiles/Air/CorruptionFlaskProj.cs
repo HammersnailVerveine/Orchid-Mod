@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 		public override void AI()
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 			this.initialized = true;
 
 			if (Projectile.velocity.Y > 0) Projectile.timeLeft++;

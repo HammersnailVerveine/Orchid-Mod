@@ -24,7 +24,7 @@ namespace OrchidMod.Alchemist.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			modPlayer.alchemistPotencyMax += 20;
 			modPlayer.alchemistNbElementsMax += 4;
 			modPlayer.alchemistRegenPotency -= 30;

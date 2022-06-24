@@ -26,7 +26,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			modPlayer.gamblerChipsMax += 5;
 		}
 
@@ -37,7 +37,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			player.setBonus = "Drawing a card gives between 0 and 2 chips";
 			modPlayer.gamblerDungeon = true;
 		}

@@ -24,15 +24,15 @@ namespace OrchidMod.Alchemist
 
 		public virtual void SafeSetDefaults() { }
 
-		public virtual void KillFirst(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void KillThird(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void KillFirst(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void KillThird(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 
-		public virtual void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 
-		public virtual void AddVariousEffects(Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void AddVariousEffects(Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 
 		public sealed override void SetDefaults()
 		{
@@ -73,7 +73,7 @@ namespace OrchidMod.Alchemist
 		/*
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= (player.GetModPlayer<OrchidModPlayer>().alchemistCrit))
+			if (Main.rand.Next(101) <= (player.GetModPlayer<OrchidPlayer>().alchemistCrit))
 				crit = true;
 			else crit = false;
 		}
@@ -86,12 +86,12 @@ namespace OrchidMod.Alchemist
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayerAlchemist orchidModPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
-			bool[] elements = orchidModPlayer.alchemistElements;
+			OrchidAlchemist OrchidPlayer = player.GetModPlayer<OrchidAlchemist>();
+			bool[] elements = OrchidPlayer.alchemistElements;
 
 			if (player == Main.LocalPlayer)
 			{
-				orchidModPlayer.alchemistPotencyDisplayTimer = 180;
+				OrchidPlayer.alchemistPotencyDisplayTimer = 180;
 
 				bool alreadyContains = false;
 				if ((int)this.element > 0 && (int)this.element < 7)
@@ -103,9 +103,9 @@ namespace OrchidMod.Alchemist
 				{
 					Item.useAnimation = 10;
 					Item.useTime = 10;
-					bool noPotency = orchidModPlayer.alchemistPotency < this.potencyCost + 1;
+					bool noPotency = OrchidPlayer.alchemistPotency < this.potencyCost + 1;
 
-					if (alreadyContains || noPotency || orchidModPlayer.alchemistNbElements >= orchidModPlayer.alchemistNbElementsMax)
+					if (alreadyContains || noPotency || OrchidPlayer.alchemistNbElements >= OrchidPlayer.alchemistNbElementsMax)
 					{
 						if (noPotency && !alreadyContains)
 						{
@@ -153,14 +153,14 @@ namespace OrchidMod.Alchemist
 				}
 				else
 				{
-					if (!alreadyContains && orchidModPlayer.alchemistPotency > this.potencyCost && orchidModPlayer.alchemistNbElements < orchidModPlayer.alchemistNbElementsMax)
+					if (!alreadyContains && OrchidPlayer.alchemistPotency > this.potencyCost && OrchidPlayer.alchemistNbElements < OrchidPlayer.alchemistNbElementsMax)
 					{
 						playerAddFlask(player, element, Item.type, Item.damage, potencyCost, rightClickDust, colorR, colorG, colorB);
 					}
 
-					if (orchidModPlayer.alchemistNbElements > 0)
+					if (OrchidPlayer.alchemistNbElements > 0)
 					{
-						Item.shootSpeed = 10f * orchidModPlayer.alchemistVelocity;
+						Item.shootSpeed = 10f * OrchidPlayer.alchemistVelocity;
 						Item.shoot = ProjectileType<Alchemist.Projectiles.AlchemistProj>();
 						Item.UseSound = SoundID.Item106;
 						Item.useAnimation = 30;
@@ -263,32 +263,32 @@ namespace OrchidMod.Alchemist
 
 		public static void playerAddFlask(Player player, AlchemistElement element, int flaskType, int damage, int potencyCost, int rightClickDust, int colorR, int colorG, int colorB)
 		{
-			OrchidModPlayerAlchemist orchidModPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
-			bool[] elements = orchidModPlayer.alchemistElements;
-			Item[] flasks = orchidModPlayer.alchemistFlasks;
+			OrchidAlchemist OrchidPlayer = player.GetModPlayer<OrchidAlchemist>();
+			bool[] elements = OrchidPlayer.alchemistElements;
+			Item[] flasks = OrchidPlayer.alchemistFlasks;
 
 			//damage = (int)(damage * player.allDamage);
 			damage = (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(damage);
 
 			int index = (int)element - 1;
 
-			orchidModPlayer.alchemistPotency -= potencyCost;
-			orchidModPlayer.alchemistPotencyWait = 300;
+			OrchidPlayer.alchemistPotency -= potencyCost;
+			OrchidPlayer.alchemistPotencyWait = 300;
 
 			elements[index] = true;
 			flasks[index] = new Item();
 			flasks[index].SetDefaults(flaskType);
-			orchidModPlayer.alchemistFlaskDamage += damage;
-			orchidModPlayer.alchemistNbElements++;
+			OrchidPlayer.alchemistFlaskDamage += damage;
+			OrchidPlayer.alchemistNbElements++;
 
-			int divider = orchidModPlayer.alchemistNbElements;
-			orchidModPlayer.alchemistColorR = (int)(((orchidModPlayer.alchemistColorR * (divider - 1)) + colorR) / divider);
-			orchidModPlayer.alchemistColorG = (int)(((orchidModPlayer.alchemistColorG * (divider - 1)) + colorG) / divider);
-			orchidModPlayer.alchemistColorB = (int)(((orchidModPlayer.alchemistColorB * (divider - 1)) + colorB) / divider);
+			int divider = OrchidPlayer.alchemistNbElements;
+			OrchidPlayer.alchemistColorR = (int)(((OrchidPlayer.alchemistColorR * (divider - 1)) + colorR) / divider);
+			OrchidPlayer.alchemistColorG = (int)(((OrchidPlayer.alchemistColorG * (divider - 1)) + colorG) / divider);
+			OrchidPlayer.alchemistColorB = (int)(((OrchidPlayer.alchemistColorB * (divider - 1)) + colorB) / divider);
 
-			orchidModPlayer.alchemistColorR = orchidModPlayer.alchemistColorR > 255 ? 255 : orchidModPlayer.alchemistColorR;
-			orchidModPlayer.alchemistColorG = orchidModPlayer.alchemistColorG > 255 ? 255 : orchidModPlayer.alchemistColorG;
-			orchidModPlayer.alchemistColorB = orchidModPlayer.alchemistColorB > 255 ? 255 : orchidModPlayer.alchemistColorB;
+			OrchidPlayer.alchemistColorR = OrchidPlayer.alchemistColorR > 255 ? 255 : OrchidPlayer.alchemistColorR;
+			OrchidPlayer.alchemistColorG = OrchidPlayer.alchemistColorG > 255 ? 255 : OrchidPlayer.alchemistColorG;
+			OrchidPlayer.alchemistColorB = OrchidPlayer.alchemistColorB > 255 ? 255 : OrchidPlayer.alchemistColorB;
 		}
 
 		public int GetSecondaryDamage(Player player, int bonusDamage = 0, bool bonusDamageScaling = true)

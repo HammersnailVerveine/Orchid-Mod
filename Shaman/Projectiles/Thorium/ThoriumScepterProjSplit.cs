@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 
 			if (Projectile.timeLeft > 480)

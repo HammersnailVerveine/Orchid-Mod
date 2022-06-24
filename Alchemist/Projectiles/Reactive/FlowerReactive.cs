@@ -49,7 +49,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			}
 		}
 
-		public override void SafeKill(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer)
+		public override void SafeKill(int timeLeft, Player player, OrchidAlchemist modPlayer)
 		{
 			SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 			int proj = ProjectileType<ReactiveSpawn.BloomingPetal>();

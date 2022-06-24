@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanDamage += 0.06f;
 		}
 
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.setBonus = "Shamanic fire bonds and causes attacks to release spreading fire"
 							+ "\n             Shamanic earth bonds causes you reflect damage to nearby enemies"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";

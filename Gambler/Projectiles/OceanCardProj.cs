@@ -73,7 +73,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return false;
 		}
 		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
 		{
 			if (Projectile.ai[1] != 1f && Projectile.owner == Main.myPlayer)
 			{

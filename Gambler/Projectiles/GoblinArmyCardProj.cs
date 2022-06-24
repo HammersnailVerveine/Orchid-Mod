@@ -40,7 +40,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			Projectile.rotation += Projectile.ai[1] * 0.05f;
 			this.fireTimer--;

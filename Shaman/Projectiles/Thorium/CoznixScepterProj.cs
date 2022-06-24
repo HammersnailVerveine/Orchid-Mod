@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Main.dust[DustID].noGravity = true;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{

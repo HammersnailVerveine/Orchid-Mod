@@ -31,7 +31,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			if (Main.mouseLeft && Main.mouseLeftRelease || modPlayer.gamblerJustSwitched)
 			{
 				int projType = ProjectileType<Gambler.Projectiles.QueenBeeCardProj>();

@@ -35,7 +35,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
 			Projectile.rotation += 0.1f;
 

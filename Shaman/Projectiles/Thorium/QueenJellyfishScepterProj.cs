@@ -61,7 +61,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			Projectile.damage += (2 + modPlayer.GetNbShamanicBonds());
 
 			Projectile.penetrate--;
@@ -83,7 +83,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			Projectile.Kill();
 			spawnDustCircle(64, 20);

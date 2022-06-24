@@ -39,7 +39,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void AI()
 		{
 			Player player = Main.player[Main.myPlayer]; // < TEST MP
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			NPC target = Main.npc[(int)Projectile.ai[1]];
 			Projectile.velocity *= 0.95f;
 

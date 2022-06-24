@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)

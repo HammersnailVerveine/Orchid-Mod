@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanDamage += 0.1f;
 			modPlayer.shamanMourningTorch = true;
 			modPlayer.shamanBuffTimer += 10;

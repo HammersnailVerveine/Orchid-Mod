@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 
 			if (player.altFunctionUse == 2)
 			{

@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanDamage += 0.1f;
 			modPlayer.shamanBuffTimer += 5;
 		}
@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.setBonus = "Releases homing bursts of light while under the effect of a shamanic fire bond";
 			modPlayer.shamanSmite = true;
 		}

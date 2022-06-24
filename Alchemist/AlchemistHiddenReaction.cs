@@ -11,7 +11,7 @@ namespace OrchidMod.Alchemist
 	public class AlchemistHiddenReaction
 	{
 		
-		public static void PotionBuilder(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer)
+		public static void PotionBuilder(AlchemistHiddenReactionRecipe recipe, Player player, OrchidPlayer modPlayer)
 		{
 		}
 	}

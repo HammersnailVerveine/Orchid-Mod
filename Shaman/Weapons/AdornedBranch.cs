@@ -35,7 +35,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int randRef = modPlayer.GetNbShamanicBonds() > 1 ? 6 : 3;
 			int rand = Main.rand.Next(randRef) + 3;
 			for (int i = 0; i < rand; i++)

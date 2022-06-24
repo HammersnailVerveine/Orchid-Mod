@@ -23,7 +23,7 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
+		public override void Reaction(Player player, OrchidAlchemist modPlayer)
 		{
 			int itemType = ItemType<Alchemist.Weapons.Air.DeathweedFlask>();
 			int itemType2 = ItemType<Alchemist.Weapons.Air.ShiverthornFlask>();

@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Armors.Crimson
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.GetDamage<ShamanDamageClass>() += 0.05f;
 		}
 
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Armors.Crimson
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.setBonus = "Shamanic earth cause attacks to steal life"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
 			modPlayer.shamanBuffTimer += 3;

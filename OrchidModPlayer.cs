@@ -20,13 +20,13 @@ using OrchidMod.Common;
 
 namespace OrchidMod
 {
-	public class OrchidModPlayer : ModPlayer
+	public class OrchidPlayer : ModPlayer
 	{
-		public OrchidModPlayerShaman modPlayerShaman;
-		public OrchidModPlayerAlchemist modPlayerAlchemist;
-		public OrchidModPlayerGambler modPlayerGambler;
-		public OrchidModPlayerDancer modPlayerDancer;
-		public OrchidModPlayerGuardian modPlayerGuardian;
+		public OrchidShaman modPlayerShaman;
+		public OrchidAlchemist modPlayerAlchemist;
+		public OrchidGambler modPlayerGambler;
+		public OrchidDancer modPlayerDancer;
+		public OrchidGuardian modPlayerGuardian;
 
 		public bool hauntedCandle = false;
 		public bool remoteCopterPet = false;
@@ -60,11 +60,11 @@ namespace OrchidMod
 
 		public override void Initialize()
 		{
-			modPlayerShaman = Player.GetModPlayer<OrchidModPlayerShaman>();
-			modPlayerAlchemist = Player.GetModPlayer<OrchidModPlayerAlchemist>();
-			modPlayerGambler = Player.GetModPlayer<OrchidModPlayerGambler>();
-			modPlayerDancer = Player.GetModPlayer<OrchidModPlayerDancer>();
-			modPlayerGuardian = Player.GetModPlayer<OrchidModPlayerGuardian>();
+			modPlayerShaman = Player.GetModPlayer<OrchidShaman>();
+			modPlayerAlchemist = Player.GetModPlayer<OrchidAlchemist>();
+			modPlayerGambler = Player.GetModPlayer<OrchidGambler>();
+			modPlayerDancer = Player.GetModPlayer<OrchidDancer>();
+			modPlayerGuardian = Player.GetModPlayer<OrchidGuardian>();
 		}
 
 		public override void PreUpdate()

@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Armors.Corruption
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.GetDamage<ShamanDamageClass>() += 0.08f;
 		}
 
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Armors.Corruption
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.setBonus = "Shamanic fire bonds cause attacks to shadowburn"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
 			modPlayer.shamanBuffTimer += 3;

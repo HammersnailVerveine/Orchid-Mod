@@ -45,30 +45,30 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 				Projectile.active = false;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 65)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 65)
 				Projectile.frame = 1;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 70)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 70)
 				Projectile.frame = 2;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 75)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 75)
 				Projectile.frame = 3;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 80)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 80)
 				Projectile.frame = 4;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 85)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 85)
 				Projectile.frame = 5;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 90)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 90)
 				Projectile.frame = 6;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 95)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 95)
 				Projectile.frame = 7;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 100)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 100)
 				Projectile.frame = 0;
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountLarge < 5 || player.GetModPlayer<OrchidModPlayerShaman>().orbCountLarge > 35 || player.GetModPlayer<OrchidModPlayerShaman>().shamanOrbLarge != ShamanOrbLarge.SANCTIFY)
+			if (player.GetModPlayer<OrchidShaman>().orbCountLarge < 5 || player.GetModPlayer<OrchidShaman>().orbCountLarge > 35 || player.GetModPlayer<OrchidShaman>().shamanOrbLarge != ShamanOrbLarge.SANCTIFY)
 				Projectile.Kill();
-			else orbsNumber = player.GetModPlayer<OrchidModPlayerShaman>().orbCountLarge;
+			else orbsNumber = player.GetModPlayer<OrchidShaman>().orbCountLarge;
 
 			if (Projectile.timeLeft == 12960000)
 			{
-				int nbOrb = player.GetModPlayer<OrchidModPlayerShaman>().orbCountLarge;
+				int nbOrb = player.GetModPlayer<OrchidShaman>().orbCountLarge;
 				int offsetX = 7;
 
 				if (nbOrb > 4)

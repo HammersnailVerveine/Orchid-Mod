@@ -101,7 +101,7 @@ namespace OrchidMod.NPCs.Town
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			button = Language.GetTextValue("LegacyInterface.28");
 			button2 = checkUniqueHints(player, modPlayer, false) == "" ? "Reaction Hint" : "Special Hint!";
 		}
@@ -109,7 +109,7 @@ namespace OrchidMod.NPCs.Town
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			if (firstButton)
 			{
 				shop = true;
@@ -177,7 +177,7 @@ namespace OrchidMod.NPCs.Town
 		public override void SetupShop(Chest shop, ref int nextSlot)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.UIItem>());
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.UIItemKeys>());
@@ -250,7 +250,7 @@ namespace OrchidMod.NPCs.Town
 			randomOffset = 2f;
 		}
 
-		public bool getDailyHint(Player player, OrchidModPlayerAlchemist modPlayer)
+		public bool getDailyHint(Player player, OrchidAlchemist modPlayer)
 		{
 			int progression = modPlayer.GetProgressLevel();
 
@@ -304,7 +304,7 @@ namespace OrchidMod.NPCs.Town
 			return false;
 		}
 
-		public string checkUniqueHints(Player player, OrchidModPlayerAlchemist modPlayer, bool buttonClicked)
+		public string checkUniqueHints(Player player, OrchidAlchemist modPlayer, bool buttonClicked)
 		{
 			List<string> reactions = new List<string>(modPlayer.alchemistKnownReactions);
 			reactions.AddRange(modPlayer.alchemistKnownHints);

@@ -33,14 +33,14 @@ namespace OrchidMod.Gambler
 
 		public sealed override void HoldItem(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			modPlayer.gamblerUIFightDisplay = true;
 			SafeHoldItem();
 		}
 
 		public override bool? UseItem(Player player)/* Suggestion: Return null instead of false */
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			modPlayer.RemoveGamblerChip(100, this.diceCost);
 			modPlayer.RollGamblerDice(this.diceID, this.diceDuration);
 			return true;
@@ -48,7 +48,7 @@ namespace OrchidMod.Gambler
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 
 			if (modPlayer.gamblerChips < this.diceCost || modPlayer.gamblerCardCurrent.type == 0)
 			{

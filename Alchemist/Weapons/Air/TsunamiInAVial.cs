@@ -30,7 +30,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nIncreases the likelihood of spawning catalytic bubbles");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int nb = 2 + Main.rand.Next(3);
 			for (int i = 0; i < nb; i++)

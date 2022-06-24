@@ -65,7 +65,7 @@ namespace OrchidMod.Shaman.Projectiles
 			return false;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			this.VanillaAI_003__Hit();
 
@@ -103,7 +103,7 @@ namespace OrchidMod.Shaman.Projectiles
 				float num43 = turnSpeed;
 
 				Vector2 vector2 = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
-				var shaman = Main.player[Projectile.owner].GetModPlayer<OrchidModPlayerShaman>();
+				var shaman = Main.player[Projectile.owner].GetModPlayer<OrchidShaman>();
 				var catalystPos = shaman.ShamanCatalystPosition ?? Main.player[Projectile.owner].MountedCenter;
 
 				float num44 = catalystPos.X - vector2.X;

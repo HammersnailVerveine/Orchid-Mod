@@ -62,7 +62,7 @@ namespace OrchidMod.Gambler.UI
 			// drawZone = new Rectangle(Main.screenWidth / 2 - Main.chatBackTexture.Width / 2 + 2, 120 + (linesCount - emptyLinesCount) * 30, Main.chatBackTexture.Width - 4, emptyLinesCount * 30); [S¨]
 			drawZone = new Rectangle(Main.screenWidth / 2 - 50 + 2, 120 + (linesCount - emptyLinesCount) * 30, 100 - 4, emptyLinesCount * 30);
 
-			if (drawZone.Contains(Main.MouseScreen.ToPoint())) Main.LocalPlayer.GetModPlayer<OrchidModPlayer>().ignoreScrollHotbar = true;
+			if (drawZone.Contains(Main.MouseScreen.ToPoint())) Main.LocalPlayer.GetModPlayer<OrchidPlayer>().ignoreScrollHotbar = true;
 		}
 
 		public void UpdateOnChatButtonClicked()
@@ -73,7 +73,7 @@ namespace OrchidMod.Gambler.UI
 			emptyLinesCount = list.FindAll(i => i.Contains(i.Find(j => j.Text == ""))).Count;
 		}
 
-		public void OnCardClick(Item item, Player player, OrchidModPlayerGambler orchidPlayer)
+		public void OnCardClick(Item item, Player player, OrchidGambler orchidPlayer)
 		{
 			player.QuickSpawnItem(null, item.type, 1);
 			orchidPlayer.RemoveGamblerCard(item);
@@ -97,7 +97,7 @@ namespace OrchidMod.Gambler.UI
 			string hmm = $"[c/{Color.Gray.Hex3()}: | ]";
 
 			var player = Main.player[Main.myPlayer];
-			var gamblerPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			var gamblerPlayer = player.GetModPlayer<OrchidGambler>();
 			var gamblerItem = item.ModItem as OrchidModGamblerItem;
 
 			string knockbackText;
@@ -180,7 +180,7 @@ namespace OrchidMod.Gambler.UI
 			// Cards and Info
 			{
 				Player player = Main.player[Main.myPlayer];
-				OrchidModPlayer orchidPlayer = player.GetModPlayer<OrchidModPlayer>();
+				OrchidPlayer orchidPlayer = player.GetModPlayer<OrchidPlayer>();
 
 				if (!player.dead)
 				{
@@ -219,7 +219,7 @@ namespace OrchidMod.Gambler.UI
 			*/
 		}
 
-		public void DrawCard(Item item, SpriteBatch spriteBatch, Vector2 position, Player player, OrchidModPlayerGambler orchidPlayer, int maxReq, bool canRemove = true)
+		public void DrawCard(Item item, SpriteBatch spriteBatch, Vector2 position, Player player, OrchidGambler orchidPlayer, int maxReq, bool canRemove = true)
 		{
 			if (item == null || item.type < ItemID.None) return;
 

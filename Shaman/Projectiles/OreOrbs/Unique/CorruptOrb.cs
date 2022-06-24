@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
 			if (player != Main.player[Main.myPlayer])
 			{
@@ -101,7 +101,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		public override void Kill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
 			for (int i = 0; i < 10; i++)
 			{

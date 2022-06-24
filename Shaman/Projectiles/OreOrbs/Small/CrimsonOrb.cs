@@ -43,30 +43,30 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 				Projectile.active = false;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 65 || player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 0)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 65 || player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 0)
 				Projectile.frame = 1;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 70 || player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 5)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 70 || player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 5)
 				Projectile.frame = 2;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 75 || player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 10)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 75 || player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 10)
 				Projectile.frame = 3;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 80 || player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 15)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 80 || player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 15)
 				Projectile.frame = 4;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 85 || player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 20)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 85 || player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 20)
 				Projectile.frame = 5;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 90 || player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 25)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 90 || player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 25)
 				Projectile.frame = 6;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 95 || player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 30)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 95 || player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 30)
 				Projectile.frame = 7;
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 100 || player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 35)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 100 || player.GetModPlayer<OrchidShaman>().modPlayer.timer120 == 35)
 				Projectile.frame = 0;
 
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().shamanOrbSmall != ShamanOrbSmall.CRIMSON || player.GetModPlayer<OrchidModPlayerShaman>().orbCountSmall == 0)
+			if (player.GetModPlayer<OrchidShaman>().shamanOrbSmall != ShamanOrbSmall.CRIMSON || player.GetModPlayer<OrchidShaman>().orbCountSmall == 0)
 				Projectile.Kill();
 
 			if (Projectile.timeLeft == 12960000)
 			{
-				int nbOrb = player.GetModPlayer<OrchidModPlayerShaman>().orbCountSmall;
+				int nbOrb = player.GetModPlayer<OrchidShaman>().orbCountSmall;
 				int offsetX = 7;
 
 				if (nbOrb == 1)

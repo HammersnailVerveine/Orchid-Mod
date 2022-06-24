@@ -43,7 +43,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				int newDamage = player.GetModPlayer<OrchidModPlayerShaman>().orbCountBig >= 15 ? damage * 2 : damage;
+				int newDamage = player.GetModPlayer<OrchidShaman>().orbCountBig >= 15 ? damage * 2 : damage;
 				this.NewShamanProjectile(player, source, position, velocity, type, newDamage, knockback);
 
 			}

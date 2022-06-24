@@ -107,7 +107,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
 		{
 			Vector2 vel = Projectile.Center - target.Center;
 			vel.Normalize();

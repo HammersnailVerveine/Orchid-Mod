@@ -30,7 +30,7 @@ namespace OrchidMod.Dancer
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayerDancer modPlayer = player.GetModPlayer<OrchidModPlayerDancer>();
+			OrchidDancer modPlayer = player.GetModPlayer<OrchidDancer>();
 
 			if (modPlayer.dancerPoise < this.poiseCost)
 			{

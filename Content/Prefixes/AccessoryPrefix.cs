@@ -184,7 +184,7 @@ namespace OrchidMod.Content.Prefixes
 		{
 			if (item.prefix > 0)
 			{
-				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+				OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 				modPlayer.modPlayerShaman.shamanBuffTimer += shamanTimer;
 				modPlayer.modPlayerAlchemist.alchemistPotencyMax += alchemistPotency;
 				modPlayer.modPlayerGambler.gamblerChipsMax += gamblerChip;

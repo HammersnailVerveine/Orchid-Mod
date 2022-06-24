@@ -18,13 +18,13 @@ namespace OrchidMod.Alchemist
 		public int buffDuration = 0;
 		public int dust = 0;
 
-		public delegate void RecipeEffect(Player player, OrchidModPlayerAlchemist modPlayer);
+		public delegate void RecipeEffect(Player player, OrchidAlchemist modPlayer);
 		public RecipeEffect recipeEffect;
 		
-		public static void BlankEffect(AlchemistHiddenReactionRecipe recipe, Player player, OrchidModPlayer modPlayer) {}
+		public static void BlankEffect(AlchemistHiddenReactionRecipe recipe, Player player, OrchidPlayer modPlayer) {}
 		
 		public virtual void SetDefaults() {}
-		public virtual void Reaction(Player player, OrchidModPlayerAlchemist modPlayer) {}
+		public virtual void Reaction(Player player, OrchidAlchemist modPlayer) {}
 
 		public AlchemistHiddenReactionRecipe()
 		{

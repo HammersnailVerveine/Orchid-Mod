@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanAmethyst = true;
 			modPlayer.shamanBuffTimer += 3;
 		}

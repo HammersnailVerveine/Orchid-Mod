@@ -43,14 +43,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				Projectile.active = false;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 10 == 0)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 % 10 == 0)
 				Projectile.frame++;
 			if (Projectile.frame == 8)
 				Projectile.frame = 0;
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique == 0 || player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique > 9 || player.GetModPlayer<OrchidModPlayerShaman>().shamanOrbUnique != ShamanOrbUnique.HONEY)
+			if (player.GetModPlayer<OrchidShaman>().orbCountUnique == 0 || player.GetModPlayer<OrchidShaman>().orbCountUnique > 9 || player.GetModPlayer<OrchidShaman>().shamanOrbUnique != ShamanOrbUnique.HONEY)
 				Projectile.Kill();
-			else orbsNumber = player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique;
+			else orbsNumber = player.GetModPlayer<OrchidShaman>().orbCountUnique;
 
 			if (Projectile.timeLeft == 12960000)
 			{

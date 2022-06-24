@@ -24,7 +24,7 @@ namespace OrchidMod.Gambler.Accessories
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			modPlayer.gamblerSeeCards += 3;
 			modPlayer.gamblerRedrawsMax += 4;
 			modPlayer.gamblerRedrawCooldownMax -= 30 * 60 - 1;

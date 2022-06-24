@@ -32,7 +32,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			if (player.altFunctionUse == 2)
 			{
 				return Main.mouseRightRelease && base.CanUseItem(player);
@@ -46,7 +46,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			if (!modPlayer.alchemistSelectUIKeysDisplay)
 			{
 				modPlayer.alchemistSelectUIKeysDisplay = true;
@@ -57,7 +57,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		/*
 		public override bool UseItem(Player player) {
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 			if (!modPlayer.alchemistSelectUIKeysDisplay) {
 				modPlayer.alchemistSelectUIKeysDisplay = true;
 				modPlayer.alchemistSelectUIKeysInitialize = true;
@@ -80,7 +80,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void HoldItem(Player player)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			modPlayer.alchemistSelectUIKeysItem = true;
 
 			if (modPlayer.alchemistSelectUIKeysDisplay)

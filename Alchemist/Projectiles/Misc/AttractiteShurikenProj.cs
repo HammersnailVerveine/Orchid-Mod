@@ -40,7 +40,7 @@ namespace OrchidMod.Alchemist.Projectiles.Misc
 			return true;
 		}
 
-		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer)
+		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer)
 		{
 			target.AddBuff(BuffType<Alchemist.Debuffs.Attraction>(), 60 * 5);
 		}

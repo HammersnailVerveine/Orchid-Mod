@@ -33,7 +33,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 			player.setBonus = "Moving after staying immobile for a while charges you up";
 			modPlayer.generalStatic = true;
 		}

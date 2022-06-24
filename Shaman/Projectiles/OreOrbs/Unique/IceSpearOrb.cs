@@ -40,14 +40,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
 			if (player != Main.player[Main.myPlayer])
 			{
 				Projectile.active = false;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 20 == 0)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 % 20 == 0)
 			{
 				bool done = false;
 

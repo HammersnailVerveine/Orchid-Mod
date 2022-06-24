@@ -22,7 +22,7 @@ namespace OrchidMod.Guardian
 
 		public override bool CanUseItem(Player player)
 		{
-			//OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			//OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 			return base.CanUseItem(player);
 		}
 

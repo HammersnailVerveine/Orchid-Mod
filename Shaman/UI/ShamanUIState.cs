@@ -136,7 +136,7 @@ namespace OrchidMod.Shaman.UI
 		{
 			Recalculate();
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			CalculatedStyle dimensions = GetDimensions();
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y - 100);
 			if (Main.invasionType != 0 || Main.pumpkinMoon || Main.snowMoon)

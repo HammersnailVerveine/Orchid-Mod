@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		public int spawnTimeLeft = 0;
 		public int killTimeLeft = 0;
 
-		public virtual void SafeKill(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer) { }
+		public virtual void SafeKill(int timeLeft, Player player, OrchidAlchemist modPlayer) { }
 
 		public virtual void SafeAI() { }
 
@@ -44,7 +44,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			if (this.killTimeLeft < this.spawnTimeLeft)
 			{
 				Player player = Main.player[Projectile.owner];
-				OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+				OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 				SafeKill(timeLeft, player, modPlayer);
 				Despawn();
 			}

@@ -30,7 +30,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			if (!dummy)
 			{
-				OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+				OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 				modPlayer.gamblerShuffleCooldown -= (int)(modPlayer.gamblerShuffleCooldownMax / 5);
 				if (modPlayer.gamblerShuffleCooldown < 0) modPlayer.gamblerShuffleCooldown = 0;
 				if (Main.myPlayer == player.whoAmI)

@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void UpdateInventory(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 			Item.useTime = 35 - 3 * nbBonds;
 			Item.useAnimation = 35 - 3 * nbBonds;
@@ -47,7 +47,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 			int numberProjectiles = 1 + Main.rand.Next(2);
 

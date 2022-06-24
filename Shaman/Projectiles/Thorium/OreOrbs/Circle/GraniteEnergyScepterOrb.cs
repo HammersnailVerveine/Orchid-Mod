@@ -46,7 +46,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 				Main.dust[dust].velocity *= 0.5f;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().shamanOrbCircle != ShamanOrbCircle.GRANITE || player.GetModPlayer<OrchidModPlayerShaman>().orbCountCircle <= 0)
+			if (player.GetModPlayer<OrchidShaman>().shamanOrbCircle != ShamanOrbCircle.GRANITE || player.GetModPlayer<OrchidShaman>().orbCountCircle <= 0)
 				Projectile.Kill();
 
 			if (Projectile.timeLeft == 12960000)

@@ -56,7 +56,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void UpdateInventory(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 
 			Item.useTime = 18 - (2 * nbBonds);

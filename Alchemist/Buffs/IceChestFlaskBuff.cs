@@ -17,7 +17,7 @@ namespace OrchidMod.Alchemist.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			OrchidModProjectile.spawnDustCircle(player.Center, 261, 1, 1, true, 1.5f, 1f, 16f, true, true, false, 0, 0, true);
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			if (modPlayer.alchemistLastAttackDelay > 60)
 			{
 				int range = 100;

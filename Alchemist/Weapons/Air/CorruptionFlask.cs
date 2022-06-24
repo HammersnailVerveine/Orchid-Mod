@@ -35,7 +35,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nOnly one mushroom can exist at once");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int projType = ProjectileType<Alchemist.Projectiles.Air.CorruptionFlaskProj>();
 			bool spawnedMushroom = false;

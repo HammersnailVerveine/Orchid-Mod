@@ -32,7 +32,7 @@ namespace OrchidMod.Gambler.Misc
 
 		public override bool OnPickup(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			Color floatingTextColor = new Color(255, 200, 0);
 			CombatText.NewText(player.Hitbox, floatingTextColor, 1);
 			modPlayer.AddGamblerChip(100);

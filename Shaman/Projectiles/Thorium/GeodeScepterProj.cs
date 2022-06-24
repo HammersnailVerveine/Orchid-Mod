@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void Kill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			SoundEngine.PlaySound(SoundID.Item14);
 
 			for (int i = 0; i < 3 + modPlayer.GetNbShamanicBonds(); i++)
@@ -62,6 +62,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer) { }
 	}
 }

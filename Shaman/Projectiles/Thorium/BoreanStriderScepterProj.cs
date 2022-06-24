@@ -65,7 +65,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void Kill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
 			if (Projectile.soundDelay == 0)
 			{
@@ -92,7 +92,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ModContent.ProjectileType<BoreanStriderScepterKillProj>(), 0, 0.0f, player.whoAmI, Math.Sign(Projectile.velocity.X) * 0.1f, Projectile.rotation);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)

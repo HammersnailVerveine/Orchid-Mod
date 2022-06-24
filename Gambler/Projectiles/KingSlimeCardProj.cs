@@ -45,7 +45,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			if (Projectile.ai[1] == 2f && Projectile.timeLeft % 10 == 0 && Projectile.velocity.Y > 0f)
 			{
@@ -176,7 +176,7 @@ namespace OrchidMod.Gambler.Projectiles
 			OrchidModProjectile.DrawProjectileGlowmask(Projectile, Main.spriteBatch, texture, Color.White);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
 		{
 			if (justHit == 0)
 			{

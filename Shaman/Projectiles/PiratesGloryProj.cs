@@ -45,7 +45,7 @@ namespace OrchidMod.Shaman.Projectiles
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 127, 10, 20, true, 1f);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 127, 20, 20, true, 1f);
 			if (modPlayer.GetNbShamanicBonds() > 2)

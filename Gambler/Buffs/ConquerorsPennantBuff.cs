@@ -14,7 +14,7 @@ namespace OrchidMod.Gambler.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			Player modPlayer = Main.player[Main.myPlayer];
-			modPlayer.GetModPlayer<OrchidModPlayerGambler>().gamblerCrit += 10; // [CRIT]
+			modPlayer.GetModPlayer<OrchidGambler>().gamblerCrit += 10; // [CRIT]
 			player.moveSpeed += 0.1f;
 		}
 	}

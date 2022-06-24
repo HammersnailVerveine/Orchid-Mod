@@ -53,7 +53,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.Register();
 		}
 
-		public override void KillFirst(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillFirst(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int range = 100 * alchProj.nbElements;
 			int nb = 20 * alchProj.nbElements;
@@ -71,7 +71,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			newProjectile.netUpdate = true;
 		}
 
-		public override void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
+		public override void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			modTarget.alchemistNature = 60 * 10;

@@ -30,7 +30,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			if (player.altFunctionUse == 2 && Main.mouseRightRelease)
 			{
 				// SoundEngine.PlaySound(modPlayer.alchemistBookUIDisplay ? 11 : 10, (int)player.Center.X, (int)player.Center.Y, 0);
@@ -47,7 +47,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override bool? UseItem(Player player)/* Suggestion: Return null instead of false */
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			AlchemistHiddenReactionHelper.triggerAlchemistReaction(Mod, player, modPlayer);
 			return true;
 		}
@@ -66,7 +66,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void HoldItem(Player player)
 		{
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			modPlayer.alchemistBookUIItem = true;
 		}
 

@@ -29,7 +29,7 @@ namespace OrchidMod.General.Projectiles.Pets
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 			if (player.dead)
 			{
 				modPlayer.remoteCopterPet = false;

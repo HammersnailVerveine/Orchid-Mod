@@ -42,7 +42,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			if (modPlayer.shamanOrbCircle == ShamanOrbCircle.REVIVER)
 				damage += modPlayer.orbCountCircle * 0.035f;
 		}

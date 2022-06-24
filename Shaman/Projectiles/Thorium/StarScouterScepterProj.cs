@@ -87,7 +87,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			return false;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			Projectile.timeLeft = 1;
 		}
@@ -106,7 +106,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			SoundEngine.PlaySound(SoundID.Item91, Projectile.Center);
 
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 
 			// Spawn Dusts

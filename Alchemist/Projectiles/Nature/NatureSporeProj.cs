@@ -100,7 +100,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer)
+		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer)
 		{
 			if (modTarget.alchemistFire > 0)
 			{

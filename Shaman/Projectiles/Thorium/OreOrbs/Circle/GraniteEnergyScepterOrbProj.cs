@@ -34,7 +34,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
 			switch (Projectile.damage)
 			{

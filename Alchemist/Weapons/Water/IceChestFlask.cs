@@ -81,7 +81,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 							+ "\nUsing a fire ingredient cancels all these effects, and coats hit enemy with alchemical water");
 		}
 
-		public override void KillFirst(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillFirst(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (alchProj.fireFlask.type == 0)
 			{
@@ -153,7 +153,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			}
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (alchProj.fireFlask.type != 0)

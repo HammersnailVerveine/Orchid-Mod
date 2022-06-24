@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanCrit += 9;
 			modPlayer.shamanDamage += 0.09f;
 			Lighting.AddLight(player.position, 0.15f, 0.15f, 0.8f);

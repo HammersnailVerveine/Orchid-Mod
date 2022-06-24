@@ -52,7 +52,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				}
 			}
 		}
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			target.AddBuff(69, 600);
 		}

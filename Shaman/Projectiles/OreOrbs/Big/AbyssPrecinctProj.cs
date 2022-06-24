@@ -116,7 +116,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			Projectile.velocity *= 0.2f;
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, Mod.Find<ModProjectile>("AbyssPrecinctProjAlt").Type, Projectile.damage, 0.0f, Projectile.owner, 0.0f, 0.0f);

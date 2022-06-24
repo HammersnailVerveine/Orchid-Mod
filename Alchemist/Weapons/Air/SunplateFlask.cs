@@ -32,7 +32,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nThe stars are considered as lingering particles");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int rand = Main.rand.Next(180);
 			int rand2 = Main.rand.Next(3);

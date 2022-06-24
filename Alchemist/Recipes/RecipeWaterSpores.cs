@@ -22,7 +22,7 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
+		public override void Reaction(Player player, OrchidAlchemist modPlayer)
 		{
 			int itemType = ItemType<Alchemist.Weapons.Water.WaterleafFlask>();
 			int dmg = modPlayer.GetSecondaryDamage(itemType, 4, true);

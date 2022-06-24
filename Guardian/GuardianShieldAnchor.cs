@@ -114,8 +114,8 @@ namespace OrchidMod.Guardian
 					Point p1 = new Point((int)this.hitboxOrigin.X, (int)this.hitboxOrigin.Y);
 					Point p2 = new Point((int)(this.hitboxOrigin.X + this.hitbox.X), (int)(this.hitboxOrigin.Y + this.hitbox.Y));
 
-					OrchidModPlayerGuardian modPlayer = owner.GetModPlayer<OrchidModPlayerGuardian>();
-					modPlayer.guardianSlamRecharge = (int)(OrchidModPlayerGuardian.guardianRechargeTime * modPlayer.guardianRecharge);
+					OrchidGuardian modPlayer = owner.GetModPlayer<OrchidGuardian>();
+					modPlayer.guardianSlamRecharge = (int)(OrchidGuardian.guardianRechargeTime * modPlayer.guardianRecharge);
 					
 					for (int l = 0; l < Main.projectile.Length; l++)
 					{

@@ -113,7 +113,7 @@ namespace OrchidMod.Gambler.UI
 		{
 			Recalculate();
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			
 			Vector2 vector = new Vector2((float)((int)(Main.LocalPlayer.position.X - Main.screenPosition.X) - Main.GameViewMatrix.Translation.X - (float)(Main.LocalPlayer.bodyFrame.Width / 2) + (float)(Main.LocalPlayer.width / 2)), (float)((int)(Main.LocalPlayer.position.Y - Main.screenPosition.Y) - Main.GameViewMatrix.Translation.Y + (float)Main.LocalPlayer.height - (float)Main.LocalPlayer.bodyFrame.Height + 12f + player.gfxOffY)) + Main.LocalPlayer.bodyPosition + new Vector2((float)(Main.LocalPlayer.bodyFrame.Width / 2));
 			vector *= Main.GameViewMatrix.Zoom;
@@ -407,7 +407,7 @@ namespace OrchidMod.Gambler.UI
 			}
 		}
 
-		public Texture2D getUiCardTexture(OrchidModPlayerGambler modPlayer, int cardNb)
+		public Texture2D getUiCardTexture(OrchidGambler modPlayer, int cardNb)
 		{
 			Texture2D cardTexture;
 			Item card = new Item();

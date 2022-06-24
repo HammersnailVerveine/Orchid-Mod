@@ -16,7 +16,7 @@ namespace OrchidMod.General.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			player.buffTime[buffIndex] = 18000;
-			player.GetModPlayer<OrchidModPlayer>().remoteCopterPet = true;
+			player.GetModPlayer<OrchidPlayer>().remoteCopterPet = true;
 			int projType = ModContent.ProjectileType<General.Projectiles.Pets.RCRemotePet>();
 			bool petProjectileNotSpawned = player.ownedProjectileCounts[projType] <= 0;
 			if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)

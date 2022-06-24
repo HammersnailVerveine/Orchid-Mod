@@ -18,7 +18,7 @@ namespace OrchidMod
 		public bool gamblerDummyProj = false;
 		public bool gamblerBonusTrigger = false;
 
-		public delegate void GamblerBonusProjectilesDelegate(Player player, OrchidModPlayerGambler modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy = false);
+		public delegate void GamblerBonusProjectilesDelegate(Player player, OrchidGambler modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy = false);
 		public GamblerBonusProjectilesDelegate gamblerBonusProjectilesDelegate;
 		public delegate void AlchemistCatalyticTriggerDelegate(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile);
 		public AlchemistCatalyticTriggerDelegate alchemistCatalyticTriggerDelegate;
@@ -27,7 +27,7 @@ namespace OrchidMod
 
 		public override void ModifyHitPlayer(Projectile projectile, Player target, ref int damage, ref bool crit)
 		{
-			OrchidModPlayer modPlayer = target.GetModPlayer<OrchidModPlayer>();
+			OrchidPlayer modPlayer = target.GetModPlayer<OrchidPlayer>();
 			if (modPlayer.generalTools && !target.HasBuff(BuffType<General.Buffs.Debuffs.ToolSetBuff>()))
 			{
 				List<int> trapProjTypes = new List<int>();

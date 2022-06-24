@@ -49,7 +49,7 @@ namespace OrchidMod.Guardian.UI
 
 			CalculatedStyle dimensions = GetDimensions();
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y + 20);
-			OrchidModPlayerGuardian modPlayer = player.GetModPlayer<OrchidModPlayerGuardian>();
+			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 
 			if (!player.dead)
 			{

@@ -38,19 +38,19 @@ namespace OrchidMod.Gambler
 		/*
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().gamblerDamage;
+			damage *= player.GetModPlayer<OrchidPlayer>().gamblerDamage;
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
-			crit += player.GetModPlayer<OrchidModPlayer>().gamblerCrit;
+			crit += player.GetModPlayer<OrchidPlayer>().gamblerCrit;
 		}
 		*/
 
 		/*
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayer>().gamblerCrit)
+			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidPlayer>().gamblerCrit)
 				crit = true;
 			else crit = false;
 		}
@@ -63,7 +63,7 @@ namespace OrchidMod.Gambler
 		{
 			if (player == Main.player[Main.myPlayer])
 			{
-				OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+				OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 				Item[] cards = modPlayer.gamblerCardsItem;
 				int count = modPlayer.GetNbGamblerCards();
 				if (modPlayer.ContainsGamblerCard(Item) || player.altFunctionUse == 2 || count < this.cardRequirement || count >= 20)
@@ -136,7 +136,7 @@ namespace OrchidMod.Gambler
 			}
 
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			Item[] cards = modPlayer.gamblerCardsItem;
 			int count = modPlayer.GetNbGamblerCards();
 			int diff = this.cardRequirement - count;
@@ -218,6 +218,6 @@ namespace OrchidMod.Gambler
 			if (tt != null) tooltips.Remove(tt);
 		}
 
-		public int DummyProjectile(int proj, bool dummy) => OrchidModPlayerGambler.DummyProjectile(proj, dummy);
+		public int DummyProjectile(int proj, bool dummy) => OrchidGambler.DummyProjectile(proj, dummy);
 	}
 }

@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanBuffTimer += 3;
 		}
 	}

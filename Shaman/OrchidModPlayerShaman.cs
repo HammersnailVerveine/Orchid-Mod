@@ -27,9 +27,9 @@ using OrchidMod.Shaman.Buffs.Debuffs;
 
 namespace OrchidMod
 {
-	public class OrchidModPlayerShaman : ModPlayer
+	public class OrchidShaman : ModPlayer
 	{
-		public OrchidModPlayer modPlayer;
+		public OrchidPlayer modPlayer;
 
 		public float shamanDamage = 1.0f;
 		public int shamanCrit = 0;
@@ -196,7 +196,7 @@ namespace OrchidMod
 
 		public override void Initialize()
 		{
-			modPlayer = Player.GetModPlayer<OrchidModPlayer>();
+			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 
 			Reset();
 		}
@@ -842,7 +842,7 @@ namespace OrchidMod
 
 		public override void clientClone(ModPlayer clientClone)
 		{
-			OrchidModPlayerShaman clone = clientClone as OrchidModPlayerShaman;
+			OrchidShaman clone = clientClone as OrchidShaman;
 
 			clone.shamanOrbSmall = this.shamanOrbSmall;
 			clone.shamanOrbBig = this.shamanOrbBig;
@@ -886,7 +886,7 @@ namespace OrchidMod
 
 		public override void SendClientChanges(ModPlayer clientPlayer)
 		{
-			OrchidModPlayerShaman clone = clientPlayer as OrchidModPlayerShaman;
+			OrchidShaman clone = clientPlayer as OrchidShaman;
 
 			//Orb Types
 			if (clone.shamanOrbSmall != shamanOrbSmall)

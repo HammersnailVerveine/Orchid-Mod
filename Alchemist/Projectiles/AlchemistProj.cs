@@ -154,7 +154,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		public void initializeAlchemistProjectile()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			bool[] elements = modPlayer.alchemistElements;
 			Item[] flasks = modPlayer.alchemistFlasks;
 
@@ -225,7 +225,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			modPlayer.alchemistLastAttackDelay = 0;
 
 			int soundNb = this.nbElements == 1 ? 1 : this.nbElements == 2 ? 2 : 3;
@@ -249,7 +249,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer)
+		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer)
 		{
 			if (this.projOwner)
 			{
@@ -291,7 +291,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void KillFirst(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer)
+		public void KillFirst(int timeLeft, Player player, OrchidAlchemist modPlayer)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -332,7 +332,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer)
+		public void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -394,7 +394,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void KillThird(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer)
+		public void KillThird(int timeLeft, Player player, OrchidAlchemist modPlayer)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -427,7 +427,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
+		public void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -460,7 +460,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
+		public void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -493,7 +493,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
+		public void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -529,7 +529,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		public void addVariousEffects()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 
 			this.nbElementsNoExtract += this.nbElements;
 

@@ -104,7 +104,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 			return !(target.HasBuff(Mod.Find<ModBuff>("HellHit").Type) || target.friendly);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			spawnDustCircle(6, 12);
 			spawnDustCircle(6, 8);

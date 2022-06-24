@@ -75,7 +75,7 @@ namespace OrchidMod.Alchemist.UI
 			// point.Y -= 60;
 			int width = (int)Math.Ceiling(dimensions.Width);
 			int height = (int)Math.Ceiling(dimensions.Height);
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			bool[] elements = modPlayer.alchemistElements;
 
 			if (!player.dead)

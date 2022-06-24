@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 		{
 			Player player = Main.player[Projectile.owner];
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 5 == 0)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 % 5 == 0)
 				Projectile.frame++;
 			if (Projectile.frame == 6)
 				Projectile.frame = 0;

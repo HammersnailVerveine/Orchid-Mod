@@ -23,7 +23,7 @@ namespace OrchidMod.General.Items.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 			modPlayer.generalTools = true;
 			Lighting.AddLight((int)(player.Center.X / 16), (int)(player.Center.Y / 16), 0.2f, 0.10f, 0f);
 		}

@@ -77,7 +77,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			{
 				this.initialized = true;
 				Player player = Main.player[Projectile.owner];
-				OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+				OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 				int newCrit = 10 * modPlayer.GetNbShamanicBonds() + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
 				OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 				modProjectile.baseCritChance = newCrit;
@@ -95,7 +95,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			if (Main.rand.NextBool(3)) target.AddBuff((44), 3 * 60); // Frostburn
 		}

@@ -18,7 +18,7 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
+		public override void Reaction(Player player, OrchidAlchemist modPlayer)
 		{
 			if (Main.myPlayer == player.whoAmI)
 				player.HealEffect(25, true);

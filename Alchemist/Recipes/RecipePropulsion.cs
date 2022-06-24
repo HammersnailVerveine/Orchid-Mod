@@ -23,7 +23,7 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
+		public override void Reaction(Player player, OrchidAlchemist modPlayer)
 		{
 			player.jump = 1;
 			player.velocity.Y = -15f;

@@ -20,9 +20,9 @@ using OrchidMod.Common;
 
 namespace OrchidMod
 {
-	public class OrchidModPlayerGuardian : ModPlayer
+	public class OrchidGuardian : ModPlayer
 	{
-		public OrchidModPlayer modPlayer;
+		public OrchidPlayer modPlayer;
 
 		public float guardianDamage = 1.0f;
 		public int guardianCrit = 0;
@@ -40,7 +40,7 @@ namespace OrchidMod
 
 		public override void Initialize()
 		{
-			modPlayer = Player.GetModPlayer<OrchidModPlayer>();
+			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 		}
 
 

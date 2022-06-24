@@ -23,7 +23,7 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
+		public override void Reaction(Player player, OrchidAlchemist modPlayer)
 		{
 			player.QuickSpawnItem(player.GetSource_Misc("Alchemist Hidden Reaction"), ItemType<Misc.MushroomThread>(), 1);
 		}

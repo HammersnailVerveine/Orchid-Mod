@@ -48,7 +48,7 @@ namespace OrchidMod.Shaman.Projectiles
 				dustSpawned = false;
 
 				Player player = Main.player[Projectile.owner];
-				OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+				OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 				if (modPlayer.GetNbShamanicBonds() > 3)
 				{
 					Projectile.timeLeft--;
@@ -110,7 +110,7 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			if (Main.rand.NextBool(4)) target.AddBuff((24), 5 * 60);
 		}

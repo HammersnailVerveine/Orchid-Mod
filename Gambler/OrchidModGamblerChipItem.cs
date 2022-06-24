@@ -15,8 +15,8 @@ namespace OrchidMod.Gambler
 		public bool pauseRotation = true;
 
 		public virtual void SafeSetDefaults() { }
-		public virtual void SafeHoldItem(Player player, OrchidModPlayerGambler modPlayer) { }
-		public virtual bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidModPlayerGambler modPlayer, float speed) {
+		public virtual void SafeHoldItem(Player player, OrchidGambler modPlayer) { }
+		public virtual bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidGambler modPlayer, float speed) {
 			return true;
 		}
 
@@ -32,7 +32,7 @@ namespace OrchidMod.Gambler
 
 		public sealed override void HoldItem(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			modPlayer.gamblerUIFightDisplay = true;
 			modPlayer.gamblerUIChipSpinDisplay = true;
 			SafeHoldItem(player, modPlayer);
@@ -40,7 +40,7 @@ namespace OrchidMod.Gambler
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 
 			if (modPlayer.gamblerChips < this.chipCost || modPlayer.gamblerCardCurrent.type == ItemID.None)
 			{
@@ -55,7 +55,7 @@ namespace OrchidMod.Gambler
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			modPlayer.gamblerPauseChipRotation = (pauseRotation ? Item.useAnimation : modPlayer.gamblerPauseChipRotation);
 			float speed = velocity.Length() * -1f;
 			return this.SafeShoot(player, source, ref position, ref velocity, ref type, ref damage, ref knockback, modPlayer, speed);

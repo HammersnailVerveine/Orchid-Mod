@@ -33,7 +33,7 @@ namespace OrchidMod.Gambler
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			Item currentCard = modPlayer.gamblerCardDummy;
 			if (modPlayer.GetNbGamblerCards() > 0)
 			{
@@ -61,7 +61,7 @@ namespace OrchidMod.Gambler
 
 		public override void HoldItem(Player player)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			modPlayer.GamblerDeckInHand = true;
 			if (Main.mouseLeft)
 			{
@@ -70,7 +70,7 @@ namespace OrchidMod.Gambler
 		}
 
 		// public override void UpdateInventory(Player player) {
-		// OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+		// OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 		// Item currentCard = modPlayer.gamblerCardCurrent;
 		// this.checkStats(currentCard);
 		// }
@@ -106,7 +106,7 @@ namespace OrchidMod.Gambler
 			}
 
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			Item currentCard = modPlayer.gamblerCardCurrent;
 
 			if (currentCard.type != ItemID.None)

@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		{
 			Player player = Main.player[Projectile.owner];
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 3 == 0)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 % 3 == 0)
 				Projectile.frame++;
 			if (Projectile.frame == 4)
 				Projectile.frame = 0;
@@ -70,7 +70,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
 			if (modPlayer.shamanOrbUnique != ShamanOrbUnique.ICE)
 			{

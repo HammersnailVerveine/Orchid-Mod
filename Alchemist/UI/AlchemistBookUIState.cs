@@ -67,7 +67,7 @@ namespace OrchidMod.Alchemist.UI
 			Rectangle rectangleArrowRight = new Rectangle(point.X + 326, point.Y + 478, 36, 34);
 			
 			Player player = Main.LocalPlayer;
-			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 
 			if (!player.dead)
 			{

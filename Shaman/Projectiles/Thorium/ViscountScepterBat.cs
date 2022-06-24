@@ -29,7 +29,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			Player player = Main.player[Projectile.owner];
 
-			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 3 == 0)
+			if (player.GetModPlayer<OrchidShaman>().modPlayer.timer120 % 3 == 0)
 				Projectile.frame++;
 			if (Projectile.frame == 5)
 				Projectile.frame = 0;

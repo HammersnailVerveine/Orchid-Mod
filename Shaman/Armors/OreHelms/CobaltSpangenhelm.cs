@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanCrit += 9;
 		}
 
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = "Your shamanic bonds will last 4 seconds longer";
-			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanBuffTimer += 4;
 			player.armorEffectDrawShadow = true;
 		}

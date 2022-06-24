@@ -27,7 +27,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeAI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			Projectile.rotation += 0.02f;
 			Projectile.velocity.X *= 0.98f;
 			Projectile.damage += (Projectile.timeLeft % 20 == 0 && Projectile.timeLeft > 150) ? 1 : 0;
@@ -65,7 +65,7 @@ namespace OrchidMod.Gambler.Projectiles
 			SoundEngine.PlaySound(SoundID.Item54, Projectile.Center);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
 		{
 			if (modPlayer.gamblerElementalLens)
 			{

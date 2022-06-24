@@ -29,7 +29,7 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 
 		public override void CatalystInteractionEffect(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
 			int dmg = Item.damage;
 			int rand = Main.rand.Next(3);
 			for (int i = 0; i < 4 + rand; i++)

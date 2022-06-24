@@ -33,7 +33,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 		}
 
 
-		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidModPlayerGambler modPlayer, float speed)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidGambler modPlayer, float speed)
 		{
 			Projectile.NewProjectile(source, position, Vector2.Zero, type, damage, knockBack, player.whoAmI);
 			SoundEngine.PlaySound(SoundID.Item14, position);
@@ -46,14 +46,14 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			Tooltip.SetDefault("Timed explosions will deal double damage in a larger radius");
 		}
 		
-		public sealed override void SafeHoldItem(Player player, OrchidModPlayerGambler modPlayer)
+		public sealed override void SafeHoldItem(Player player, OrchidGambler modPlayer)
 		{
 			modPlayer.gamblerUIChipSpinDisplay = false;
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
+			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			float index = 720f / 8;
 			bool timed = (modPlayer.gamblerChipSpin > index * 4 && modPlayer.gamblerChipSpin < index * 5);
 			damage *= (timed ? 5 : 2.5f);

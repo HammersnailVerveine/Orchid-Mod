@@ -20,7 +20,7 @@ using OrchidMod.Common;
 
 namespace OrchidMod
 {
-	public class OrchidModPlayerDancer : ModPlayer
+	public class OrchidDancer : ModPlayer
 	{
 		public float dancerDamage = 1.0f;
 		public int dancerCrit = 0;
