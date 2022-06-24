@@ -13,7 +13,8 @@ namespace OrchidMod.Shaman.Buffs
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<OrchidModPlayer>().shamanDamage += 0.15f;
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			modPlayer.shamanDamage += 0.15f;
 		}
 	}
 }

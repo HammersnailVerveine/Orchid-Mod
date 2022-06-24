@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			modPlayer.shamanBuffTimer += 4;
 			modPlayer.shamanDamage += 0.16f;
 		}

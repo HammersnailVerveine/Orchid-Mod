@@ -44,29 +44,29 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 				Projectile.active = false;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 2)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 2)
 				Projectile.frame = 0;
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 2 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 4)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 2 && player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 4)
 				Projectile.frame = 1;
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 4 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 6)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 4 && player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 6)
 				Projectile.frame = 2;
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 6 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 8)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 6 && player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 8)
 				Projectile.frame = 3;
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 8 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 10)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 8 && player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 10)
 				Projectile.frame = 4;
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 10 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 12)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 10 && player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 12)
 				Projectile.frame = 5;
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 12 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 14)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 12 && player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 14)
 				Projectile.frame = 6;
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 14 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 16)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 14 && player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 16)
 				Projectile.frame = 7;
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 16)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 16)
 				Projectile.frame = 8;
 
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique == 0 || player.GetModPlayer<OrchidModPlayer>().orbCountUnique > 17 || player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique != ShamanOrbUnique.ECLIPSE)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique == 0 || player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique > 17 || player.GetModPlayer<OrchidModPlayerShaman>().shamanOrbUnique != ShamanOrbUnique.ECLIPSE)
 				Projectile.Kill();
 
-			else orbsNumber = player.GetModPlayer<OrchidModPlayer>().orbCountUnique;
+			else orbsNumber = player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique;
 
 			if (Projectile.timeLeft == 12960000)
 			{

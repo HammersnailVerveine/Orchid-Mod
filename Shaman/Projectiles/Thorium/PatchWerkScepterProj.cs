@@ -63,9 +63,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 1)
+			if (modPlayer.GetNbShamanicBonds() > 1)
 			{
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, Mod.Find<ModProjectile>("PatchWerkScepterProjAlt").Type, Projectile.damage, 0f, 0, 0f, 0f);
 			}

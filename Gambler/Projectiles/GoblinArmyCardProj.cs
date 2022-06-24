@@ -40,14 +40,14 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			Projectile.rotation += Projectile.ai[1] * 0.05f;
 			this.fireTimer--;
 			this.dustVal--;
 			Projectile.velocity += this.baseVelocity / 100f;
 
-			if (Main.rand.Next(20) == 0)
+			if (Main.rand.NextBool(20))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27);
 				Main.dust[dust].scale *= 1.5f;
@@ -75,7 +75,7 @@ namespace OrchidMod.Gambler.Projectiles
 				heading *= 15f;
 				int projType = ProjectileType<Gambler.Projectiles.GoblinArmyCardProjAlt>();
 				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, heading.X, heading.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+				DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, heading.X, heading.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
 				fireTimerRef -= fireTimerRef > 15 ? 4 : 0;
 				fireTimer = fireTimerRef;

@@ -65,7 +65,7 @@ namespace OrchidMod.Shaman.Projectiles
 					{
 						OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 						target.GetGlobalNPC<OrchidGlobalNPC>().ShamanShroom = 300;
-						OrchidModShamanHelper.addShamanicEmpowerment(modProjectile.shamanEmpowermentType, owner, owner.GetModPlayer<OrchidModPlayer>(), Mod);
+						owner.GetModPlayer<OrchidModPlayerShaman>().AddShamanicEmpowerment(modProjectile.shamanEmpowermentType);
 					}
 					target.netUpdate = true;
 				}

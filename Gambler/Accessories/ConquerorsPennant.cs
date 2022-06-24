@@ -20,7 +20,7 @@ namespace OrchidMod.Gambler.Accessories
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			modPlayer.gamblerPennant = true;
 		}
 	}

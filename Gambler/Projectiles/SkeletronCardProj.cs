@@ -37,7 +37,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeAI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			this.bounceDelay -= this.bounceDelay > 0 ? 1 : 0;
 
@@ -57,7 +57,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 			if (Main.myPlayer == Projectile.owner)
 			{
-				if (modPlayer.timer120 % 2 == 0)
+				if (modPlayer.modPlayer.timer120 % 2 == 0)
 				{
 					this.spawnDust(59, 250);
 				}
@@ -88,7 +88,7 @@ namespace OrchidMod.Gambler.Projectiles
 								Projectile.ai[1] = 1f;
 								Projectile.netUpdate = true;
 							}
-							if (modPlayer.timer120 % (int)(60 / this.projectilePoll) == 0)
+							if (modPlayer.modPlayer.timer120 % (int)(60 / this.projectilePoll) == 0)
 							{
 								this.fireProj++;
 							}
@@ -99,7 +99,7 @@ namespace OrchidMod.Gambler.Projectiles
 								projMove *= 10f / distanceTo;
 								int projType = ProjectileType<Gambler.Projectiles.SkeletronCardProjAlt>();
 								bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-								OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, projMove.X, projMove.Y, projType, (int)(Projectile.damage * 3), Projectile.knockBack, Projectile.owner), dummy);
+								DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, projMove.X, projMove.Y, projType, (int)(Projectile.damage * 3), Projectile.knockBack, Projectile.owner), dummy);
 								SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
 								this.projectilePoll -= this.projectilePoll - 1 <= 0 ? 0 : 1;
 								this.fireProj = 0;
@@ -113,7 +113,7 @@ namespace OrchidMod.Gambler.Projectiles
 								Projectile.netUpdate = true;
 								this.fireProj = 0;
 							}
-							if (modPlayer.timer120 % 30 == 0)
+							if (modPlayer.modPlayer.timer120 % 30 == 0)
 							{
 								this.projectilePoll += this.projectilePoll + 1 > 10 ? 0 : 1;
 							}

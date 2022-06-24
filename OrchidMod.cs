@@ -46,7 +46,7 @@ namespace OrchidMod
 			{
 				case OrchidModMessageType.ORCHIDPLAYERSYNCPLAYER:
 					byte playernumber = reader.ReadByte();
-					OrchidModPlayer modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					OrchidModPlayerShaman modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 
 					// Orbs
 					byte readSmallOrb = reader.ReadByte();
@@ -96,13 +96,16 @@ namespace OrchidMod
 					int speedTimer = reader.ReadInt32();
 					modPlayer.shamanSpiritTimer = speedTimer;
 
-					//Gambler Card in Deck
+					break;
+				case OrchidModMessageType.ORCHIDPLAYERSYNCPLAYERGAMBLER:
+					playernumber = reader.ReadByte();
+					OrchidModPlayerGambler modPlayerGambler = Main.player[playernumber].GetModPlayer<OrchidModPlayerGambler>();
 					bool cardInDeck = reader.ReadBoolean();
-					modPlayer.gamblerHasCardInDeck = cardInDeck;
+					modPlayerGambler.gamblerHasCardInDeck = cardInDeck;
 					break;
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDSMALL:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					readSmallOrb = reader.ReadByte();
 					modPlayer.shamanOrbSmall = (ShamanOrbSmall)readSmallOrb;
 
@@ -118,7 +121,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDBIG:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					readBigOrb = reader.ReadByte();
 					modPlayer.shamanOrbBig = (ShamanOrbBig)readBigOrb;
 
@@ -134,7 +137,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDLARGE:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					readLargeOrb = reader.ReadByte();
 					modPlayer.shamanOrbLarge = (ShamanOrbLarge)readLargeOrb;
 
@@ -150,7 +153,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDUNIQUE:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					readUniqueOrb = reader.ReadByte();
 					modPlayer.shamanOrbUnique = (ShamanOrbUnique)readUniqueOrb;
 
@@ -166,7 +169,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANORBTYPECHANGEDCIRCLE:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					readCircleOrb = reader.ReadByte();
 					modPlayer.shamanOrbCircle = (ShamanOrbCircle)readCircleOrb;
 
@@ -182,7 +185,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDSMALL:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					countSmall = reader.ReadInt32();
 					modPlayer.orbCountSmall = countSmall;
 					if (Main.netMode == NetmodeID.Server)
@@ -197,7 +200,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDBIG:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					countBig = reader.ReadInt32();
 					modPlayer.orbCountBig = countBig;
 					if (Main.netMode == NetmodeID.Server)
@@ -212,7 +215,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDLARGE:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					countLarge = reader.ReadInt32();
 					modPlayer.orbCountLarge = countLarge;
 					if (Main.netMode == NetmodeID.Server)
@@ -227,7 +230,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDUNIQUE:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					countUnique = reader.ReadInt32();
 					modPlayer.orbCountUnique = countUnique;
 					if (Main.netMode == NetmodeID.Server)
@@ -242,7 +245,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANORBCOUNTCHANGEDCIRCLE:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					countCircle = reader.ReadInt32();
 					modPlayer.orbCountCircle = countCircle;
 					if (Main.netMode == NetmodeID.Server)
@@ -257,7 +260,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDATTACK:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					attackTimer = reader.ReadInt32();
 					modPlayer.shamanFireTimer = attackTimer;
 					if (Main.netMode == NetmodeID.Server)
@@ -272,7 +275,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDARMOR:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					armorTimer = reader.ReadInt32();
 					modPlayer.shamanWaterTimer = armorTimer;
 					if (Main.netMode == NetmodeID.Server)
@@ -287,7 +290,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDCRITICAL:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					criticalTimer = reader.ReadInt32();
 					modPlayer.shamanAirTimer = criticalTimer;
 					if (Main.netMode == NetmodeID.Server)
@@ -302,7 +305,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDREGENERATION:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					regenerationTimer = reader.ReadInt32();
 					modPlayer.shamanEarthTimer = regenerationTimer;
 					if (Main.netMode == NetmodeID.Server)
@@ -317,7 +320,7 @@ namespace OrchidMod
 
 				case OrchidModMessageType.SHAMANBUFFTIMERCHANGEDSPEED:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayerShaman>();
 					speedTimer = reader.ReadInt32();
 					modPlayer.shamanSpiritTimer = speedTimer;
 					if (Main.netMode == NetmodeID.Server)
@@ -332,15 +335,15 @@ namespace OrchidMod
 
 				case OrchidModMessageType.GAMBLERCARDINDECKCHANGED:
 					playernumber = reader.ReadByte();
-					modPlayer = Main.player[playernumber].GetModPlayer<OrchidModPlayer>();
+					modPlayerGambler = Main.player[playernumber].GetModPlayer<OrchidModPlayerGambler>();
 					cardInDeck = reader.ReadBoolean();
-					modPlayer.gamblerHasCardInDeck = cardInDeck;
+					modPlayerGambler.gamblerHasCardInDeck = cardInDeck;
 					if (Main.netMode == NetmodeID.Server)
 					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.GAMBLERCARDINDECKCHANGED);
 						packet.Write(playernumber);
-						packet.Write(modPlayer.gamblerHasCardInDeck);
+						packet.Write(modPlayerGambler.gamblerHasCardInDeck);
 						packet.Send(-1, playernumber);
 					}
 					break;

@@ -34,55 +34,55 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 
-			if (modPlayer.timer120 == 65)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 65)
 				Projectile.frame = 1;
-			if (modPlayer.timer120 == 70)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 70)
 				Projectile.frame = 2;
-			if (modPlayer.timer120 == 75)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 75)
 				Projectile.frame = 3;
-			if (modPlayer.timer120 == 80)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 80)
 				Projectile.frame = 4;
-			if (modPlayer.timer120 == 85)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 85)
 				Projectile.frame = 5;
-			if (modPlayer.timer120 == 90)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 90)
 				Projectile.frame = 6;
-			if (modPlayer.timer120 == 95)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 95)
 				Projectile.frame = 7;
-			if (modPlayer.timer120 == 100)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 100)
 				Projectile.frame = 8;
-			if (modPlayer.timer120 == 105)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 105)
 				Projectile.frame = 9;
-			if (modPlayer.timer120 == 110)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 110)
 				Projectile.frame = 10;
-			if (modPlayer.timer120 == 115)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 115)
 				Projectile.frame = 11;
-			if (modPlayer.timer120 == 0)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 0)
 				Projectile.frame = 12;
-			if (modPlayer.timer120 == 5)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 5)
 				Projectile.frame = 13;
-			if (modPlayer.timer120 == 10)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 10)
 				Projectile.frame = 14;
-			if (modPlayer.timer120 == 15)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 15)
 				Projectile.frame = 15;
-			if (modPlayer.timer120 == 20)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 20)
 				Projectile.frame = 16;
-			if (modPlayer.timer120 == 25)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 25)
 				Projectile.frame = 17;
-			if (modPlayer.timer120 == 30)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 30)
 				Projectile.frame = 18;
-			if (modPlayer.timer120 == 35)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 35)
 				Projectile.frame = 19;
-			if (modPlayer.timer120 == 40)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 40)
 				Projectile.frame = 20;
-			if (modPlayer.timer120 == 45)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 45)
 				Projectile.frame = 21;
-			if (modPlayer.timer120 == 50)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 50)
 				Projectile.frame = 22;
-			if (modPlayer.timer120 == 55)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 55)
 				Projectile.frame = 23;
-			if (modPlayer.timer120 == 60)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 60)
 				Projectile.frame = 0;
 
 			if (Main.rand.Next(5) == 0)
@@ -143,6 +143,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
 	}
 }

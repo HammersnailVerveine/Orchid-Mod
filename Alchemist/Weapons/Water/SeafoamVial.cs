@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 							+ "\nHas a chance to release a catalytic seafoam bubble");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int nb = 2 + Main.rand.Next(2);
 			for (int i = 0; i < nb; i++)
@@ -42,11 +42,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 				int spawnProj = alchProj.natureFlask.type == ItemType<Alchemist.Weapons.Nature.PoisonVial>() ? ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProjAlt>() : ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProjAlt>();
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
-			int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+			int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 			int shoot = ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProj>();
 			if (alchProj.natureFlask.type == ItemType<Alchemist.Weapons.Nature.PoisonVial>())
 			{
-				dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, alchProj.natureFlask.type, alchProj.nbElements);
+				dmg = modPlayer.GetSecondaryDamage(alchProj.natureFlask.type, alchProj.nbElements);
 				shoot = ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProj>();
 			}
 			nb = alchProj.hasCloud() ? 2 : 1;
@@ -58,18 +58,18 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			}
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int rand = alchProj.nbElements;
 			rand += alchProj.hasCloud() ? 2 : 0;
 			if (Main.rand.Next(10) < rand && !alchProj.noCatalyticSpawn)
 			{
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SeafoamBubble>();
 				if (alchProj.natureFlask.type == ItemType<Alchemist.Weapons.Nature.PoisonVial>())
 				{
-					dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, alchProj.natureFlask.type, alchProj.nbElements);
+					dmg = modPlayer.GetSecondaryDamage(alchProj.natureFlask.type, alchProj.nbElements);
 					proj = ProjectileType<Alchemist.Projectiles.Reactive.PoisonBubble>();
 				}
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));

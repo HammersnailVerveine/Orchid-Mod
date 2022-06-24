@@ -67,7 +67,7 @@ namespace OrchidMod.Alchemist.UI
 			Rectangle rectangleArrowRight = new Rectangle(point.X + 326, point.Y + 478, 36, 34);
 			
 			Player player = Main.LocalPlayer;
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 
 			if (!player.dead)
 			{
@@ -83,7 +83,7 @@ namespace OrchidMod.Alchemist.UI
 					Item item = null;
 
 					foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes) {
-						int progression = OrchidModAlchemistHelper.getProgressLevel();
+						int progression = modPlayer.GetProgressLevel();
 						bool knownRecipe = modPlayer.alchemistKnownReactions.Contains(recipe.typeName);
 						bool knownHint = modPlayer.alchemistKnownHints.Contains(recipe.typeName);
 						if (index < ((this.bookPageIndex * recipesPerPage) + recipesPerPage) && index >= (this.bookPageIndex * recipesPerPage)

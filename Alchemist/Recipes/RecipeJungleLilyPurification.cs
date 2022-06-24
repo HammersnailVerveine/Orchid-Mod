@@ -23,7 +23,7 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayer modPlayer)
+		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			int spawnProj = ProjectileType<Projectiles.Nature.JungleLilyFlaskReaction>();
 			Projectile.NewProjectile(player.GetSource_Misc("Alchemist Hidden Reaction"), player.Center, Vector2.Zero, spawnProj, 0, 0f, player.whoAmI);

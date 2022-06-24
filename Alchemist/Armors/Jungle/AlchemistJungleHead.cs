@@ -29,7 +29,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			modPlayer.alchemistRegenPotency -= 12;
 			modPlayer.alchemistNbElementsMax += 1;
 		}
@@ -41,7 +41,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			player.setBonus = "Triggering enough catalytic reactions creates a catalytic flower bud";
 			modPlayer.alchemistFlowerSet = true;
 		}

@@ -101,7 +101,7 @@ namespace OrchidMod.NPCs.Town
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			button = Language.GetTextValue("LegacyInterface.28");
 			button2 = checkUniqueHints(player, modPlayer, false) == "" ? "Reaction Hint" : "Special Hint!";
 		}
@@ -109,7 +109,7 @@ namespace OrchidMod.NPCs.Town
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			if (firstButton)
 			{
 				shop = true;
@@ -177,7 +177,7 @@ namespace OrchidMod.NPCs.Town
 		public override void SetupShop(Chest shop, ref int nextSlot)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.UIItem>());
 			nextSlot++;
 			shop.item[nextSlot].SetDefaults(ItemType<Alchemist.Misc.UIItemKeys>());
@@ -250,9 +250,9 @@ namespace OrchidMod.NPCs.Town
 			randomOffset = 2f;
 		}
 
-		public bool getDailyHint(Player player, OrchidModPlayer modPlayer)
+		public bool getDailyHint(Player player, OrchidModPlayerAlchemist modPlayer)
 		{
-			int progression = OrchidModAlchemistHelper.getProgressLevel();
+			int progression = modPlayer.GetProgressLevel();
 
 			while (progression > 0)
 			{
@@ -304,7 +304,7 @@ namespace OrchidMod.NPCs.Town
 			return false;
 		}
 
-		public string checkUniqueHints(Player player, OrchidModPlayer modPlayer, bool buttonClicked)
+		public string checkUniqueHints(Player player, OrchidModPlayerAlchemist modPlayer, bool buttonClicked)
 		{
 			List<string> reactions = new List<string>(modPlayer.alchemistKnownReactions);
 			reactions.AddRange(modPlayer.alchemistKnownHints);

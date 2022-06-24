@@ -34,7 +34,6 @@ namespace OrchidMod.Gambler.Weapons.Dice
 			recipe.AddIngredient(ItemID.Ruby, 5);
 			recipe.AddIngredient(ItemID.Diamond, 5);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

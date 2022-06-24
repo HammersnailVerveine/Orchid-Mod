@@ -44,15 +44,14 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			recipe.AddIngredient(ItemID.HellstoneBar, 10);
 			recipe.AddIngredient(null, "AlchemicStabilizer", 1);
 			recipe.Register();
-			recipe.Register();
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (alchProj.fireFlask.type != 0)
 			{
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				modTarget.spreadOilFire(target.Center, dmg, Main.player[projectile.owner]);
 				SoundEngine.PlaySound(SoundID.Item45, target.Center);
 			}
@@ -68,7 +67,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			}
 		}
 
-		public override void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void AddVariousEffects(Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (alchProj.fireFlask.type != 0)
 			{

@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist
 	{
 		public bool catalytic = false;
 
-		public virtual void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+		public virtual void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer) { }
 
 		public virtual void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile)
 		{
@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
 			modTarget.AlchemistHit = true;
 			OrchidModAlchemistNPC modTargetAlch = target.GetGlobalNPC<OrchidModAlchemistNPC>();

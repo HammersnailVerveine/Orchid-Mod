@@ -21,10 +21,10 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayer modPlayer)
+		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			int itemType = ItemType<Alchemist.Weapons.Nature.PoisonVial>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
+			int dmg = modPlayer.GetSecondaryDamage(itemType, 4, true);
 
 			for (int i = 0; i < 7; i++)
 			{

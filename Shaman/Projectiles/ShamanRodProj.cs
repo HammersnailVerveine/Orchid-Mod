@@ -96,13 +96,13 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			//if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f && slow)
 
 			var owner = Main.player[Projectile.owner];
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(owner, owner.GetModPlayer<OrchidModPlayer>(), Mod) >= 2 && !target.boss && target.CanBeChasedBy() && target.knockBackResist > 0f)
+			if (modPlayer.GetNbShamanicBonds() >= 2 && !target.boss && target.CanBeChasedBy() && target.knockBackResist > 0f)
 			{
 				target.AddBuff(ModContent.BuffType<Buffs.Debuffs.LeafSlow>(), 60 * 5);
 			}

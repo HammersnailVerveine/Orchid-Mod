@@ -33,8 +33,8 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			damage += (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 3f);
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			damage += (modPlayer.GetNbShamanicBonds() * 3f);
 		}
 	}
 }

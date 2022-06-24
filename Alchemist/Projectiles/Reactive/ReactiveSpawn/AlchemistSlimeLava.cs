@@ -31,7 +31,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 			if (Projectile.velocity.X < -5) Projectile.velocity.X = -5;
 			Projectile.frame = Projectile.velocity.Y < 0f ? 1 : 0;
 
-			if (Main.rand.Next(10) == 0)
+			if (Main.rand.NextBool(10))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 				Main.dust[dust].scale = 1.5f;

@@ -39,7 +39,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 
 			Projectile.rotation += 0.02f;
 

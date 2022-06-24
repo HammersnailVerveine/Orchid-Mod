@@ -34,7 +34,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nOnly one set of mushrooms can exist at once");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int projType = ProjectileType<Alchemist.Projectiles.Air.CrimsonFlaskProj>();
 			int projType2 = ProjectileType<Alchemist.Projectiles.Air.CrimsonFlaskProjAlt>();
@@ -52,7 +52,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			Vector2 pos = new Vector2(projectile.Center.X, projectile.Center.Y - 5);
 			if (!spawnedMushroom)
 			{
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int nb = (alchProj.nbElements * 3) + Main.rand.Next(alchProj.nbElements * 2);
 				for (int i = 0; i < nb; i++)
 				{

@@ -47,7 +47,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 			if (!found)
 			{
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+				DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 				SoundEngine.PlaySound(SoundID.Item1);
 			}
 			else

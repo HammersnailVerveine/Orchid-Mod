@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Projectiles.Misc
 
 		public override void AI()
 		{
-			if (Main.rand.Next(4) == 0)
+			if (Main.rand.NextBool(4))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 60);
 				Main.dust[dust].noGravity = true;
@@ -40,7 +40,7 @@ namespace OrchidMod.Alchemist.Projectiles.Misc
 			return true;
 		}
 
-		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			target.AddBuff(BuffType<Alchemist.Debuffs.Attraction>(), 60 * 5);
 		}

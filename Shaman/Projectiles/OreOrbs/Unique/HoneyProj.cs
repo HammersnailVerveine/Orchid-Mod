@@ -62,8 +62,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		public override void Kill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int dmg = (int)(10 * modPlayer.shamanDamage);
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(10);
 
 			for (int i = 0; i < 13; i++)
 			{
@@ -71,7 +71,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				Main.dust[dust].noGravity = true;
 			}
 
-			for (int i = 0; i < OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod); i++)
+			for (int i = 0; i < modPlayer.GetNbShamanicBonds(); i++)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
@@ -85,7 +85,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			if (modPlayer.shamanOrbUnique != ShamanOrbUnique.HONEY)
 			{

@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			modPlayer.shamanBuffTimer += 4;
 			//modPlayer.shamanFireBonus += 1;
 			//modPlayer.shamanWaterBonus += 1;

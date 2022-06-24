@@ -28,7 +28,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			modPlayer.alchemistRegenPotency -= 3;
 			modPlayer.alchemistPotencyMax += 2;
 		}

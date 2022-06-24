@@ -69,8 +69,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void Kill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			int nbBonds = modPlayer.GetNbShamanicBonds();
 
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("MoltenResidueScepterProjExplosion").Type, Projectile.damage + (5 * nbBonds), 0.0f, Projectile.owner, 0.0f, 0.0f);
 			SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
@@ -100,6 +100,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Projectile.velocity *= 0;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
 	}
 }

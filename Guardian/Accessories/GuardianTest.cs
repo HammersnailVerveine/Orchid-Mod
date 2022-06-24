@@ -20,7 +20,7 @@ namespace OrchidMod.Guardian.Accessories
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGuardian modPlayer = player.GetModPlayer<OrchidModPlayerGuardian>();
 			player.GetDamage<GuardianDamageClass>() += 0.5f;
 		}
 	}

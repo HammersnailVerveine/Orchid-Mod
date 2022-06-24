@@ -34,9 +34,9 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 							+ "\nCan be used to trigger catalytic elements, but prevents them from spawning");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
-			int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+			int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 			Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, ProjectileType<Alchemist.Projectiles.Fire.GunpowderFlaskProj>(), dmg, 3f, projectile.owner, 0.0f, 0.0f);
 			SoundEngine.PlaySound(SoundID.Item14);
 		}

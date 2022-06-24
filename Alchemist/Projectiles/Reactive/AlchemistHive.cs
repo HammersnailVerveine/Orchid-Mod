@@ -57,7 +57,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			}
 		}
 
-		public override void SafeKill(int timeLeft, Player player, OrchidModPlayer modPlayer)
+		public override void SafeKill(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 			int dmg = Projectile.damage;

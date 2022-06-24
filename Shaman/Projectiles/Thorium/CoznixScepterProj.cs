@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Main.dust[DustID].noGravity = true;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
@@ -50,7 +50,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				}
 			}
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
+			if (modPlayer.GetNbShamanicBonds() > 2)
 			{
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y - 300, 0f, 0f, Mod.Find<ModProjectile>("CoznixScepterProjPortal").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
 			}

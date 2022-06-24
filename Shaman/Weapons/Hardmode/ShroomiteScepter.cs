@@ -42,8 +42,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			OrchidModPlayerShaman modPlayer = new OrchidModPlayerShaman();
 			int projectileType = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, player.GetModPlayer<OrchidModPlayer>(), Mod);
+			int nbBonds = modPlayer.GetNbShamanicBonds();
 
 			if (player.ownedProjectileCounts[projectileType] > 0)
 			{

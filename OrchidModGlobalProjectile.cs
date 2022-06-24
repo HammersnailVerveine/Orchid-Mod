@@ -18,7 +18,7 @@ namespace OrchidMod
 		public bool gamblerDummyProj = false;
 		public bool gamblerBonusTrigger = false;
 
-		public delegate void GamblerBonusProjectilesDelegate(Player player, OrchidModPlayer modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy = false);
+		public delegate void GamblerBonusProjectilesDelegate(Player player, OrchidModPlayerGambler modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy = false);
 		public GamblerBonusProjectilesDelegate gamblerBonusProjectilesDelegate;
 		public delegate void AlchemistCatalyticTriggerDelegate(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile);
 		public AlchemistCatalyticTriggerDelegate alchemistCatalyticTriggerDelegate;

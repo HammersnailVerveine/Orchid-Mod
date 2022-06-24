@@ -63,16 +63,16 @@ namespace OrchidMod.Gambler
 		{
 			if (player == Main.player[Main.myPlayer])
 			{
-				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+				OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 				Item[] cards = modPlayer.gamblerCardsItem;
-				int count = OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer);
-				if (OrchidModGamblerHelper.containsGamblerCard(Item, player, modPlayer) || player.altFunctionUse == 2 || count < this.cardRequirement || count >= 20)
+				int count = modPlayer.GetNbGamblerCards();
+				if (modPlayer.ContainsGamblerCard(Item) || player.altFunctionUse == 2 || count < this.cardRequirement || count >= 20)
 				{
 					return false;
 				}
 				else
 				{
-					if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) <= 0)
+					if (modPlayer.GetNbGamblerCards() <= 0)
 					{
 						bool found = false;
 						for (int i = 0; i < Main.InventorySlotsTotal; i++)
@@ -102,11 +102,11 @@ namespace OrchidMod.Gambler
 						{
 							cards[i] = new Item();
 							cards[i].SetDefaults(Item.type, true);
-							OrchidModGamblerHelper.clearGamblerCardCurrent(player, modPlayer);
-							OrchidModGamblerHelper.clearGamblerCardsNext(player, modPlayer);
+							modPlayer.ClearGamblerCardCurrent();
+							modPlayer.ClearGamblerCardsNext();
 							modPlayer.gamblerShuffleCooldown = 0;
 							modPlayer.gamblerRedraws = 0;
-							OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
+							modPlayer.DrawGamblerCard();
 							return true;
 						}
 					}
@@ -136,9 +136,9 @@ namespace OrchidMod.Gambler
 			}
 
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			Item[] cards = modPlayer.gamblerCardsItem;
-			int count = OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer);
+			int count = modPlayer.GetNbGamblerCards();
 			int diff = this.cardRequirement - count;
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
@@ -173,7 +173,7 @@ namespace OrchidMod.Gambler
 				OverrideColor = new Color(255, 200, 100)
 			});
 
-			if (OrchidModGamblerHelper.containsGamblerCard(Item, player, modPlayer))
+			if (modPlayer.ContainsGamblerCard(Item))
 			{
 				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Currently in your deck")
 				{
@@ -217,5 +217,7 @@ namespace OrchidMod.Gambler
 			tt = tooltips.FirstOrDefault(x => x.Name == "Consumable" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 		}
+
+		public int DummyProjectile(int proj, bool dummy) => OrchidModPlayerGambler.DummyProjectile(proj, dummy);
 	}
 }

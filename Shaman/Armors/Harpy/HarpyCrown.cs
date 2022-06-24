@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Armors.Harpy
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			modPlayer.shamanDamage += 0.06f;
 		}
 
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Armors.Harpy
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			player.setBonus = "Shamanic air bonds slow falling speed"
 							+ "\n             press DOWN to fall faster"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";

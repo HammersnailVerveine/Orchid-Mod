@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nHas a chance to release a catalytic beehive");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int nb = 2 + Main.rand.Next(2);
 			if (alchProj.fireFlask.type == ItemID.None)
@@ -44,7 +44,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Air.QueenBeeFlaskProj>();
 					Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 				}
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int rand = alchProj.nbElements + Main.rand.Next(3) + 1;
 				for (int i = 0; i < rand; i++)
 				{
@@ -59,13 +59,13 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			}
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int rand = alchProj.nbElements;
 			if (Main.rand.Next(10) < rand)
 			{
-				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.AlchemistHive>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);

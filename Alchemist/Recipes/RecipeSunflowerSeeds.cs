@@ -19,10 +19,10 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayer modPlayer)
+		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			int itemType = ItemType<Alchemist.Weapons.Nature.SunflowerFlask>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
+			int dmg = modPlayer.GetSecondaryDamage(itemType, 4, true);
 			int nb = 5 + Main.rand.Next(4);
 
 			for (int i = 0; i < 5; i++)

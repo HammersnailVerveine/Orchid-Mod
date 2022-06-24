@@ -29,19 +29,19 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeAI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 
-			if (modPlayer.timer120 % 20 == 0)
+			if (modPlayer.modPlayer.timer120 % 20 == 0)
 			{
 				Projectile.frame += Projectile.frame + 1 == 3 ? -2 : 1;
 			}
 
-			if (modPlayer.timer120 % 30 == 0)
+			if (modPlayer.modPlayer.timer120 % 30 == 0)
 			{
 				int projType = ProjectileType<Gambler.Projectiles.SlimeRainCardProj2>();
 				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + Main.rand.Next(Projectile.width - 10) + 5, Projectile.Center.Y, 0f, 5f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+				DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + Main.rand.Next(Projectile.width - 10) + 5, Projectile.Center.Y, 0f, 5f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 			}
 
 			if (Main.rand.Next(15) == 0)

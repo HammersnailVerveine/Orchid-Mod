@@ -51,7 +51,7 @@ namespace OrchidMod.Alchemist.UI
 		{
 			Recalculate();
 			Player player = Main.LocalPlayer;
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 
 			CalculatedStyle dimensions = GetDimensions();
 
@@ -198,7 +198,7 @@ namespace OrchidMod.Alchemist.UI
 
 		}
 
-		public void brew(Item item, Player player, OrchidModPlayer modPlayer)
+		public void brew(Item item, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			if (item.type != ItemID.None)
 			{
@@ -268,7 +268,7 @@ namespace OrchidMod.Alchemist.UI
 			releasedKey = false;
 		}
 
-		public void initUI(Player player, OrchidModPlayer modPlayer)
+		public void initUI(Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			SoundEngine.PlaySound(SoundID.Item7);
 			modPlayer.alchemistSelectUIKeysInitialize = false;
@@ -290,7 +290,7 @@ namespace OrchidMod.Alchemist.UI
 			this.checkInventory(true, player, modPlayer);
 		}
 
-		public void checkInventory(bool up, Player player, OrchidModPlayer modPlayer)
+		public void checkInventory(bool up, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			if (modPlayer.alchemistNbElements < modPlayer.alchemistNbElementsMax)
 			{
@@ -398,7 +398,7 @@ namespace OrchidMod.Alchemist.UI
 			}
 		}
 
-		public Item[] ConcatInventories(Player player, OrchidModPlayer modPlayer) {
+		public Item[] ConcatInventories(Player player, OrchidModPlayerAlchemist modPlayer) {
             return modPlayer.alchemistPotionBag.Concat(player.inventory).ToArray();
 		}
 	}

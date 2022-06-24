@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 			{
 				if (Projectile.owner == Main.myPlayer && !Main.LocalPlayer.moonLeech)
 				{
-					OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+					OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 					modPlayer.shamanFireTimer += modPlayer.shamanFireTimer == 0 ? 0 : 3 * 60;
 					modPlayer.shamanWaterTimer += modPlayer.shamanWaterTimer == 0 ? 0 : 3 * 60;
 					modPlayer.shamanAirTimer += modPlayer.shamanAirTimer == 0 ? 0 : 3 * 60;

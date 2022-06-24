@@ -65,7 +65,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, sporeType, (int)(range / 3), 5, true, 1.25f, 1f, 4f, true, true, false, 0, 0, true);
 			spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, range * 3, 2, false);
 
-			if (Main.rand.Next(2) == 0)
+			if (Main.rand.NextBool(2))
 			{
 				int spawnProj = 0;
 				int spawnProj2 = 0;

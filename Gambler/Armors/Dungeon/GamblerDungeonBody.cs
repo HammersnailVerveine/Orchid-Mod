@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			player.GetCritChance<GamblerDamageClass>() += 10;
 			modPlayer.gamblerRedrawsMax += 1;
 		}

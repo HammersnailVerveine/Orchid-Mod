@@ -31,10 +31,10 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 		public override void AI()
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 
 			this.dustVal++;
-			if (modPlayer.timer120 % 3 == 0)
+			if (modPlayer.modPlayer.timer120 % 3 == 0)
 			{
 				this.spawnDust(sporeType, range);
 			}

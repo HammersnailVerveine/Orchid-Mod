@@ -107,7 +107,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			spawnDustCircle(this.dustType, 10);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
@@ -148,7 +148,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX + 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TerrariumScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge > 35)
 			{
-				int dmg = (int)(80 * player.GetModPlayer<OrchidModPlayer>().shamanDamage);
+				int dmg = (int)(80 * player.GetModPlayer<OrchidModPlayerShaman>().shamanDamage);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 43, orbY - 38, -3f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 30, orbY - 48, -2f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 15, orbY - 53, -1f, -5f, Mod.Find<ModProjectile>("TerrariumScepterOrbProj").Type, dmg, 0f, Projectile.owner, 0f, 0f);

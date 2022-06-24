@@ -34,9 +34,9 @@ namespace OrchidMod.Alchemist.Weapons.Water
 							+ "\nHas a chance to release a catalytic spirited bubble");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
-			int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+			int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 			int rand = alchProj.nbElements + Main.rand.Next(2);
 			for (int i = 0; i < rand; i++)
 			{
@@ -45,14 +45,14 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			}
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int rand = alchProj.nbElements;
 			rand += alchProj.hasCloud() ? 2 : 0;
 			if (Main.rand.Next(10) < rand && !alchProj.noCatalyticSpawn)
 			{
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SpiritedBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);

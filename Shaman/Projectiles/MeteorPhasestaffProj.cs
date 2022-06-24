@@ -49,7 +49,7 @@ namespace OrchidMod.Shaman.Projectiles
 			Main.dust[dust].scale = 2.5f;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			target.AddBuff((24), 1 * 60);
 		}

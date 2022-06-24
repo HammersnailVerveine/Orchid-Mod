@@ -31,7 +31,7 @@ namespace OrchidMod.Shaman.Projectiles
 		{
 			Player player = Main.player[Projectile.owner];
 
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 3 == 0)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 3 == 0)
 				Projectile.frame++;
 			if (Projectile.frame == 5)
 				Projectile.frame = 0;
@@ -56,6 +56,6 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
 	}
 }

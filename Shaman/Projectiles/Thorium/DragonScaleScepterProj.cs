@@ -31,8 +31,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			if (Projectile.penetrate == 10)
 			{
 				Player player = Main.player[Projectile.owner];
-				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-				Projectile.penetrate = 1 + OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+				OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+				Projectile.penetrate = 1 + modPlayer.GetNbShamanicBonds();
 			}
 
 
@@ -70,7 +70,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			target.AddBuff(39, 60 * 2); // Cursed Inferno
 		}

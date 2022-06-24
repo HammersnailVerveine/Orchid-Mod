@@ -31,11 +31,11 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 
 			Projectile.rotation += 0.1f;
 
-			if (Projectile.timeLeft % (15 - OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) * 2) == 0)
+			if (Projectile.timeLeft % (15 - modPlayer.GetNbShamanicBonds() * 2) == 0)
 			{
 				if (Projectile.damage < (150) * modPlayer.shamanDamage)
 				{
@@ -165,6 +165,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
 	}
 }

@@ -107,7 +107,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
 			int projType = ProjectileType<Gambler.Projectiles.SnowCardProjAlt>();
 			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+			DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 		}
 	}
 }

@@ -40,17 +40,18 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 
 			if (player != Main.player[Main.myPlayer])
 			{
 				Projectile.active = false;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 20 == 0)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 20 == 0)
 			{
 				bool done = false;
 
-				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 5)
+				if (modPlayer.orbCountUnique < 5)
 				{
 					if (!done && Projectile.frame == 0)
 					{
@@ -81,7 +82,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 					}
 				}
 
-				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 5 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 7)
+				if (modPlayer.orbCountUnique >= 5 && modPlayer.orbCountUnique < 7)
 				{
 					if (!done && Projectile.frame == 3 || Projectile.frame < 3)
 					{
@@ -112,7 +113,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 					}
 				}
 
-				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 7)
+				if (modPlayer.orbCountUnique >= 7)
 				{
 					if (!done && Projectile.frame == 6 || Projectile.frame < 6)
 					{
@@ -145,10 +146,10 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			}
 
 
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique == 0 || player.GetModPlayer<OrchidModPlayer>().orbCountUnique > 10 || player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique != ShamanOrbUnique.ICE)
+			if (modPlayer.orbCountUnique == 0 || modPlayer.orbCountUnique > 10 || modPlayer.shamanOrbUnique != ShamanOrbUnique.ICE)
 				Projectile.Kill();
 
-			else orbsNumber = player.GetModPlayer<OrchidModPlayer>().orbCountUnique;
+			else orbsNumber = modPlayer.orbCountUnique;
 
 			if (Projectile.timeLeft == 12960000)
 			{

@@ -13,7 +13,7 @@ namespace OrchidMod.Gambler.Buffs
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			modPlayer.gamblerChipChance += 0.2f;
 		}
 	}

@@ -39,11 +39,11 @@ namespace OrchidMod.Gambler
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 
 			if (!initialized)
 			{
-				this.checkStats(modPlayer.gamblerCardCurrent, player, modPlayer);
+				CheckStats(modPlayer.gamblerCardCurrent);
 				initialized = true;
 			}
 			else
@@ -56,12 +56,12 @@ namespace OrchidMod.Gambler
 
 		public override void HoldItem(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			modPlayer.GamblerDeckInHand = true;
 			modPlayer.gamblerUIFightDisplay = true;
 			if (Main.mouseLeft)
 			{
-				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, false);
+				modPlayer.ShootBonusProjectiles(false);
 			}
 		}
 
@@ -80,9 +80,9 @@ namespace OrchidMod.Gambler
 		{
 			if (player == Main.LocalPlayer)
 			{
-				OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+				OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 				Item currentCard = modPlayer.gamblerCardCurrent;
-				if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) > 0)
+				if (modPlayer.GetNbGamblerCards() > 0)
 				{
 					if (player.altFunctionUse == 2)
 					{
@@ -91,9 +91,9 @@ namespace OrchidMod.Gambler
 							modPlayer.gamblerRedraws--;
 							modPlayer.gamblerRedrawCooldownUse = 30;
 							SoundEngine.PlaySound(SoundID.Item64, player.position);
-							OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
+							modPlayer.DrawGamblerCard();
 							currentCard = modPlayer.gamblerCardCurrent;
-							this.checkStats(currentCard, player, modPlayer);
+							CheckStats(currentCard);
 						}
 						return false;
 					}
@@ -101,10 +101,10 @@ namespace OrchidMod.Gambler
 					{
 						if (modPlayer.gamblerShuffleCooldown <= 0)
 						{
-							OrchidModGamblerHelper.drawGamblerCard(player, modPlayer);
+							modPlayer.DrawGamblerCard();
 							SoundEngine.PlaySound(SoundID.Item64, player.position);
 							currentCard = modPlayer.gamblerCardCurrent;
-							this.checkStats(currentCard, player, modPlayer);
+							CheckStats(currentCard);
 						}
 					}
 				}
@@ -128,7 +128,7 @@ namespace OrchidMod.Gambler
 			}
 
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			Item currentCard = modPlayer.gamblerCardCurrent;
 
 			if (currentCard.type != ItemID.None)
@@ -144,14 +144,14 @@ namespace OrchidMod.Gambler
 			}
 		}
 
-		public void checkStats(Item currentCard, Player player, OrchidModPlayer modPlayer)
+		public void CheckStats(Item currentCard)
 		{
 			if (currentCard.type != ItemID.None)
 			{
 				//Item.damage = (int)(currentCard.damage * (modPlayer.gamblerDamage + player.GetDamage(DamageClass.Generic).Multiplicative - 1f));
 				Item.damage = currentCard.damage;
 				//item.rare = currentCard.rare; //
-				Item.crit = currentCard.crit + modPlayer.gamblerCrit;
+				Item.crit = currentCard.crit;
 				Item.useAnimation = currentCard.useAnimation;
 				Item.useTime = currentCard.useTime;
 				Item.reuseDelay = currentCard.reuseDelay;

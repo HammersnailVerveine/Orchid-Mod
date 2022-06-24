@@ -45,7 +45,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.Register();
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int nb = 2 + Main.rand.Next(2);
 			for (int i = 0; i < nb; i++)
@@ -68,7 +68,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			}
 			if (!spawnedMushroom)
 			{
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Alchemist.Projectiles.Nature.GlowingMushroomVialProj>(), dmg, 0f, projectile.owner);
 			}

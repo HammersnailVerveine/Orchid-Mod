@@ -36,7 +36,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			Tooltip.SetDefault("Throws bouncy gambling chips at your foes");
 		}
 		
-		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidModPlayer modPlayer, float speed)
+		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockBack, OrchidModPlayerGambler modPlayer, float speed)
 		{
 			velocity = new Vector2(0f, speed).RotatedBy(MathHelper.ToRadians(modPlayer.gamblerChipSpin));
 			Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, Item.shoot, damage, knockBack, player.whoAmI);
@@ -48,7 +48,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ModContent.ItemType<Gambler.Weapons.Chips.GamblingChip>(), 1);
-			recipe.AddIngredient(3111, 25); // Pink Gel
+			recipe.AddIngredient(ItemID.PinkGel, 25); // Pink Gel
 			recipe.Register();
 			recipe.Register();
 		}

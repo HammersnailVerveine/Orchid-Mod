@@ -24,8 +24,8 @@ namespace OrchidMod.Shaman.Armors.Corruption
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.shamanDamage += 0.06f;
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			player.GetDamage<ShamanDamageClass>() += 0.06f;
 		}
 
 		public override void AddRecipes()

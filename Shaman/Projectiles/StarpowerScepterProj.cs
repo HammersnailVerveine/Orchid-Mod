@@ -35,8 +35,8 @@ namespace OrchidMod.Shaman.Projectiles
 			// I hate it
 			// No u
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int newCrit = 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			int newCrit = 10 * modPlayer.GetNbShamanicBonds() + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
 			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			modProjectile.baseCritChance = newCrit;
 
@@ -114,7 +114,7 @@ namespace OrchidMod.Shaman.Projectiles
 			return false;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			Projectile.timeLeft = 24;
 			Projectile.ai[1] = 1;

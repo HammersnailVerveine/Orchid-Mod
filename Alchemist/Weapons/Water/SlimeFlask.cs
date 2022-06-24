@@ -40,15 +40,14 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			recipe.AddIngredient(ItemID.Bottle, 1);
 			recipe.AddIngredient(ItemID.Gel, 5);
 			recipe.Register();
-			recipe.Register();
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (alchProj.fireFlask.type != 0)
 			{
 				int type = ProjectileType<Alchemist.Projectiles.Water.SlimeFlaskProj>();
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, type, dmg, 0.5f, projectile.owner);
 				OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1f, 1f, 5f, true, true, false, 0, 0, true);
 				OrchidModProjectile.spawnDustCircle(projectile.Center, 6, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, true);
@@ -64,7 +63,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 						Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 					}
 					int itemType = ItemType<Alchemist.Weapons.Fire.EmberVial>();
-					int dmgAlt = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, alchProj.nbElements, true);
+					int dmgAlt = modPlayer.GetSecondaryDamage(itemType, alchProj.nbElements);
 					int rand = alchProj.nbElements + Main.rand.Next(2);
 					for (int i = 0; i < rand; i++)
 					{

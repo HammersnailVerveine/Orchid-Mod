@@ -40,13 +40,13 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeAI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			Projectile.velocity.Y += (Projectile.wet || Projectile.lavaWet || Projectile.honeyWet) ? Projectile.velocity.Y > -5f ? -0.5f : 0f : Projectile.velocity.Y < 5f ? 0.3f : 0f;
 			Projectile.frame = Projectile.velocity.Y < 0f ? 1 : 0;
 			this.justHit -= this.justHit > 0 ? 1 : 0;
 
-			if (Main.rand.Next(15) == 0)
+			if (Main.rand.NextBool(15))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 6);
 			}
@@ -154,7 +154,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return false;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			if (justHit == 0)
 			{
@@ -165,7 +165,7 @@ namespace OrchidMod.Gambler.Projectiles
 				if (nbBounces > 2)
 				{
 					nbBounces = 0;
-					OrchidModGamblerHelper.DummyProjectile(spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 200, 3, true, 14), this.getDummy());
+					DummyProjectile(spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 200, 3, true, 14), this.getDummy());
 				}
 			}
 

@@ -107,7 +107,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			Vector2 vel = Projectile.Center - target.Center;
 			vel.Normalize();
@@ -143,7 +143,7 @@ namespace OrchidMod.Gambler.Projectiles
 			for (int i = 0 ; i < rand ; i ++) {
 				Vector2 vel = new Vector2((float)(Main.rand.Next(3) + 4), 0f);
 				vel = vel.RotatedByRandom(MathHelper.ToRadians(180));
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, Projectile.damage, 0f, Projectile.owner), dummy);
+				DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, Projectile.damage, 0f, Projectile.owner), dummy);
 			}
 			SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 		}

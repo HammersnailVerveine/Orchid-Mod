@@ -40,7 +40,7 @@ namespace OrchidMod.Gambler.Projectiles
 				}
 			}
 
-			if (Main.rand.Next(6) == 0)
+			if (Main.rand.NextBool(6))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67);
 				Main.dust[dust].velocity /= 10f;
@@ -62,7 +62,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			if (modPlayer.gamblerElementalLens)
 			{

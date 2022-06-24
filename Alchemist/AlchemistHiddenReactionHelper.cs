@@ -67,7 +67,7 @@ namespace OrchidMod.Alchemist
 			return recipes;
 		}
 
-		public static void triggerAlchemistReactionEffects(AlchemistHiddenReactionRecipe recipe, Mod mod, Player player, OrchidModPlayer modPlayer)
+		public static void triggerAlchemistReactionEffects(AlchemistHiddenReactionRecipe recipe, Mod mod, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			recipe.recipeEffect(player, modPlayer);
 			
@@ -93,7 +93,7 @@ namespace OrchidMod.Alchemist
 			SoundEngine.PlaySound(recipe.sound);
 		}
 
-		public static bool checkSubstitutes(int ingredientID, Mod mod, Player player, OrchidModPlayer modPlayer)
+		public static bool checkSubstitutes(int ingredientID, Mod mod, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			List<int> ingredientToCompare = new List<int>();
 			ingredientToCompare.Add(ItemType<CloudInAVial>());
@@ -107,35 +107,35 @@ namespace OrchidMod.Alchemist
 			{
 				if (ingredientID == ItemType<CloudInAVial>())
 				{
-					return (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<FartInAVial>(), player, modPlayer)
-					|| OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<BlizzardInAVial>(), player, modPlayer)
-					|| OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<TsunamiInAVial>(), player, modPlayer));
+					return (modPlayer.ContainsAlchemistFlask(ItemType<FartInAVial>())
+					|| modPlayer.ContainsAlchemistFlask(ItemType<BlizzardInAVial>())
+					|| modPlayer.ContainsAlchemistFlask(ItemType<TsunamiInAVial>()));
 				}
 				if (ingredientID == ItemType<AttractiteFlask>())
 				{
-					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<GlowingAttractiteFlask>(), player, modPlayer);
+					return modPlayer.ContainsAlchemistFlask(ItemType<GlowingAttractiteFlask>());
 				}
 				if (ingredientID == ItemType<GoblinArmyFlask>())
 				{
-					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<HellOil>(), player, modPlayer);
+					return modPlayer.ContainsAlchemistFlask(ItemType<HellOil>());
 				}
 				if (ingredientID == ItemType<BlinkrootFlask>())
 				{
-					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<FireblossomFlask>(), player, modPlayer);
+					return modPlayer.ContainsAlchemistFlask(ItemType<FireblossomFlask>());
 				}
 				if (ingredientID == ItemType<ShiverthornFlask>())
 				{
-					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<DeathweedFlask>(), player, modPlayer);
+					return modPlayer.ContainsAlchemistFlask(ItemType<DeathweedFlask>());
 				}
 				if (ingredientID == ItemType<CorruptionFlask>())
 				{
-					return OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<CrimsonFlask>(), player, modPlayer);
+					return modPlayer.ContainsAlchemistFlask(ItemType<CrimsonFlask>());
 				}
 			}
 			return false;
 		}
 
-		public static void triggerAlchemistReaction(Mod mod, Player player, OrchidModPlayer modPlayer)
+		public static void triggerAlchemistReaction(Mod mod, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			string floatingTextStr = "Failed reaction ...";
 			AlchemistHiddenReactionRecipe hiddenReaction = new RecipeBlank();
@@ -147,7 +147,7 @@ namespace OrchidMod.Alchemist
 				{
 					foreach (int ingredientID in recipe.ingredients)
 					{
-						if (!(OrchidModAlchemistHelper.containsAlchemistFlask(ingredientID, player, modPlayer)))
+						if (!(modPlayer.ContainsAlchemistFlask(ingredientID)))
 						{
 							if (!AlchemistHiddenReactionHelper.checkSubstitutes(ingredientID, mod, player, modPlayer))
 							{
@@ -257,13 +257,13 @@ namespace OrchidMod.Alchemist
 
 			modPlayer.alchemistFlaskDamage = 0;
 			modPlayer.alchemistNbElements = 0;
-			OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, mod);
-			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, mod);
-			OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, mod);
+			modPlayer.ClearAlchemistElements();
+			modPlayer.ClearAlchemistFlasks();
+			modPlayer.ClearAlchemistColors();
 			modPlayer.alchemistSelectUIDisplay = false;
 		}
 
-		public static void bonusReactionEffects(Mod mod, Player player, OrchidModPlayer modPlayer)
+		public static void bonusReactionEffects(Mod mod, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			if (modPlayer.alchemistReactiveVials)
 			{
@@ -271,7 +271,7 @@ namespace OrchidMod.Alchemist
 			}
 		}
 
-		public static void addAlchemistHint(Player player, OrchidModPlayer modPlayer, int hintLevel, bool negativeMessage = true)
+		public static void addAlchemistHint(Player player, OrchidModPlayerAlchemist modPlayer, int hintLevel, bool negativeMessage = true)
 		{
 			Color floatingTextColor = new Color(0, 0, 0);
 			string floatingTextStr = "";

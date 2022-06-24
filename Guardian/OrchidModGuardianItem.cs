@@ -20,16 +20,6 @@ namespace OrchidMod.Guardian
 
 		protected override bool CloneNewInstances => true;
 
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().guardianDamage;
-		}
-
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().guardianCrit;
-		}
-
 		public override bool CanUseItem(Player player)
 		{
 			//OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();

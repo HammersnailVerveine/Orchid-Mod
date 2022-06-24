@@ -43,7 +43,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 				recipe.AddIngredient(thoriumMod, "Opal", 8);
 				recipe.AddIngredient(ItemID.IronBar, 10);
 				recipe.Register();
-				recipe.Register();
 			}
 		}
 	}

@@ -21,7 +21,7 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayer modPlayer)
+		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			for (int i = 0; i < 10; i++)
 			{
@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Recipes
 			}
 
 			int itemType = ItemType<Alchemist.Weapons.Water.SeafoamVial>();
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
+			int dmg = modPlayer.GetSecondaryDamage(itemType, 4, true);
 			int spawnProj = ProjectileType<Alchemist.Projectiles.Reactive.SeafoamBubble>();
 			Vector2 vel = new Vector2(0f, -5f);
 			Projectile.NewProjectile(player.GetSource_Misc("Alchemist Hidden Reaction"), player.Center, vel, spawnProj, dmg, 0f, player.whoAmI);

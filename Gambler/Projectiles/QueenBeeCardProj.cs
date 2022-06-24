@@ -33,7 +33,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeAI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 
 			this.bounceDelay -= this.bounceDelay > 0 ? 1 : 0;
@@ -82,12 +82,12 @@ namespace OrchidMod.Gambler.Projectiles
 					if (player.strongBees && Main.rand.Next(2) == 0)
 					{
 						bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-						OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, vel.X, vel.Y, 566, (int)(Projectile.damage * 1.15f), 0f, Projectile.owner, 0f, 0f), dummy);
+						DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, vel.X, vel.Y, 566, (int)(Projectile.damage * 1.15f), 0f, Projectile.owner, 0f, 0f), dummy);
 					}
 					else
 					{
 						bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-						int newProj = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, vel.X, vel.Y, 181, Projectile.damage, 0f, Projectile.owner, 0f, 0f), dummy);
+						int newProj = DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, vel.X, vel.Y, 181, Projectile.damage, 0f, Projectile.owner, 0f, 0f), dummy);
 						OrchidModGlobalProjectile modProjectile = Main.projectile[newProj].GetGlobalProjectile<OrchidModGlobalProjectile>();
 						modProjectile.gamblerProjectile = true;
 						modProjectile.baseCritChance = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().baseCritChance;

@@ -36,15 +36,15 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			int nbBonds = modPlayer.GetNbShamanicBonds();
 			damage += nbBonds * 0.1f;
 		}
 
 		public override void UpdateInventory(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			int nbBonds = OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			int nbBonds = modPlayer.GetNbShamanicBonds();
 			Item.shootSpeed = 13f + (2f * nbBonds);
 		}
 	}

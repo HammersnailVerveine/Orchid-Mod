@@ -54,7 +54,7 @@ namespace OrchidMod.Shaman
 
 		public sealed override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			OrchidModPlayer shaman = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman shaman = player.GetModPlayer<OrchidModPlayerShaman>();
 			Vector2 mousePosition = Main.MouseWorld;
 			Vector2? catalystCenter = shaman.ShamanCatalystPosition;
 
@@ -119,7 +119,7 @@ namespace OrchidMod.Shaman
 
 		public sealed override void HoldItem(Player player)
 		{
-			var shaman = player.GetModPlayer<OrchidModPlayer>();
+			var shaman = player.GetModPlayer<OrchidModPlayerShaman>();
 			var catalystType = ModContent.ProjectileType<CatalystAnchor>();
 
 			if (player.ownedProjectileCounts[catalystType] == 0)
@@ -153,7 +153,7 @@ namespace OrchidMod.Shaman
 
 		public sealed override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			switch (empowermentType)
 			{
 				case 1:
@@ -178,16 +178,13 @@ namespace OrchidMod.Shaman
 			this.SafeModifyWeaponDamage(player, ref damage);
 		}
 
-		public override void ModifyWeaponCrit(Player player, ref float crit)
-		{
-			crit += player.GetModPlayer<OrchidModPlayer>().shamanCrit;
-		}
-
+		/* [CRIT]
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
-			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayer>().shamanCrit) crit = true;
+			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayerShaman>().shamanCrit) crit = true;
 			else crit = false;
 		}
+		*/
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{

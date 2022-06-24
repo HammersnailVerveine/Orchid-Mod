@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 
 			if (player.altFunctionUse == 2)
 			{
@@ -33,8 +33,8 @@ namespace OrchidMod.Gambler
 			}
 			else
 			{
-				OrchidModGamblerHelper.clearGamblerCards(player, modPlayer);
-				OrchidModGamblerHelper.onRespawnGambler(player, modPlayer);
+				modPlayer.ClearGamblerCards();
+				modPlayer.OnRespawn(player);
 			}
 			return base.CanUseItem(player);
 		}

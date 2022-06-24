@@ -34,7 +34,7 @@ namespace OrchidMod.Gambler.Projectiles
 			int dustType = 31;
 			Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
 			Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
-			if (Main.rand.Next(100) == 0) {
+			if (Main.rand.NextBool(100)) {
 				Projectile.frame = 1;
 			} else {
 				Projectile.frame = 0;

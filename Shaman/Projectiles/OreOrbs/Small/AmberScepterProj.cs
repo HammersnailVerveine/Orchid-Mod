@@ -49,7 +49,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 			OrchidModProjectile.spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 75, 1, false, 27);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			Projectile.friendly = false;
 			Projectile.timeLeft = Projectile.timeLeft > 40 ? 40 : Projectile.timeLeft;

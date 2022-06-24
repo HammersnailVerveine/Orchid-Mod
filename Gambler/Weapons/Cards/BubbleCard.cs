@@ -36,7 +36,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			int projType = ProjectileType<Gambler.Projectiles.BubbleCardProj>();
 			float scale = 1f - (Main.rand.NextFloat() * .3f);
 			velocity = new Vector2(0f, -3f).RotatedByRandom(MathHelper.ToRadians(30)) * scale;
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockBack, player.whoAmI), dummy);
+			DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockBack, player.whoAmI), dummy);
 			SoundEngine.PlaySound(SoundID.Item86);
 		}
 	}

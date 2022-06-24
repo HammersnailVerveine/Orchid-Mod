@@ -73,7 +73,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return false;
 		}
 		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			if (Projectile.ai[1] != 1f && Projectile.owner == Main.myPlayer)
 			{
@@ -83,7 +83,7 @@ namespace OrchidMod.Gambler.Projectiles
 					Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
 					int projType = ProjectileType<Gambler.Projectiles.OceanCardProjAlt>();
 					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.Center.Y, vel.X, vel.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+					int newProjectile = DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.Center.Y, vel.X, vel.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 					Main.projectile[newProjectile].ai[1] = 1f;
 					Main.projectile[newProjectile].netUpdate = true;
 					for (int i = 0; i < 5; i++)

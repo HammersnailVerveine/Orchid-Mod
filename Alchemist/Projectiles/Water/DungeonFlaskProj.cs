@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Alchemist.Debuffs;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -62,7 +63,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 				bool target = false;
 				for (int k = 0; k < 200; k++)
 				{
-					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].HasBuff(Mod.Find<ModBuff>("Attraction").Type))
+					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].HasBuff(ModContent.BuffType<Attraction>()))
 					{
 						Vector2 newMove = Main.npc[k].Center - Projectile.Center;
 						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);

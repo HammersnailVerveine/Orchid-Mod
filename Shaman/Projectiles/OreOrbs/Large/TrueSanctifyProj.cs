@@ -31,7 +31,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 
 			Projectile.rotation += 0.1f;
 
@@ -42,7 +42,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 				spawnDustCircle(255, 10);
 			}
 
-			if (modPlayer.timer120 % 15 == 0)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 15 == 0)
 			{
 				Projectile.frame = (Projectile.frame + 1) > 4 ? 0 : Projectile.frame + 1;
 			}
@@ -80,7 +80,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 			spawnDustCircle(255, 10);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			if (modPlayer.shamanOrbLarge != ShamanOrbLarge.TRUESANCTIFY)
 			{
@@ -115,7 +115,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX + 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge > 35)
 			{
-				int dmg = (int)(45 * player.GetModPlayer<OrchidModPlayer>().shamanDamage);
+				int dmg = (int)(45 * player.GetModPlayer<OrchidModPlayerShaman>().shamanDamage);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 43, orbY - 38, -3f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 30, orbY - 48, -2f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 15, orbY - 53, -1f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);

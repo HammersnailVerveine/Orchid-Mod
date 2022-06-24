@@ -50,7 +50,7 @@ namespace OrchidMod.Gambler.Projectiles
 			OrchidModProjectile.resetIFrames(Projectile);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			if (modPlayer.gamblerElementalLens)
 			{

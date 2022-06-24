@@ -24,15 +24,15 @@ namespace OrchidMod.Alchemist
 
 		public virtual void SafeSetDefaults() { }
 
-		public virtual void KillFirst(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void KillThird(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void KillFirst(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void KillThird(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 
-		public virtual void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 
-		public virtual void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void AddVariousEffects(Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
 
 		public sealed override void SetDefaults()
 		{
@@ -86,7 +86,7 @@ namespace OrchidMod.Alchemist
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayer orchidModPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist orchidModPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			bool[] elements = orchidModPlayer.alchemistElements;
 
 			if (player == Main.LocalPlayer)
@@ -263,7 +263,7 @@ namespace OrchidMod.Alchemist
 
 		public static void playerAddFlask(Player player, AlchemistElement element, int flaskType, int damage, int potencyCost, int rightClickDust, int colorR, int colorG, int colorB)
 		{
-			OrchidModPlayer orchidModPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist orchidModPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			bool[] elements = orchidModPlayer.alchemistElements;
 			Item[] flasks = orchidModPlayer.alchemistFlasks;
 
@@ -291,7 +291,7 @@ namespace OrchidMod.Alchemist
 			orchidModPlayer.alchemistColorB = orchidModPlayer.alchemistColorB > 255 ? 255 : orchidModPlayer.alchemistColorB;
 		}
 
-		public int getSecondaryDamage(Player player, OrchidModPlayer modPlayer, int bonusDamage = 0, bool bonusDamageScaling = true)
+		public int GetSecondaryDamage(Player player, int bonusDamage = 0, bool bonusDamageScaling = true)
 		{
 			float dmg = (int)(this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f)));
 			dmg = player.GetDamage<AlchemistDamageClass>().ApplyTo(dmg);

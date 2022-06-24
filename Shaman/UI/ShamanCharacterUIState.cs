@@ -84,7 +84,7 @@ namespace OrchidMod.Shaman.UI
 
 			CalculatedStyle dimensions = GetDimensions();
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y);
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 
 			if (!player.dead)
 			{
@@ -211,7 +211,7 @@ namespace OrchidMod.Shaman.UI
 					}
 
 					int drawSize = 12;
-					int offSetY = modPlayer.alchemistPotencyDisplayTimer > 0 ? 50 : 20;
+					int offSetY = modPlayer.modPlayer.modPlayerAlchemist.alchemistPotencyDisplayTimer > 0 ? 50 : 20;
 
 					spriteBatch.Draw(symbolAttack, new Rectangle(point.X - 38, point.Y + offSetY, drawSize, drawSize), backgroundColor);
 					spriteBatch.Draw(symbolDefense, new Rectangle(point.X - 24, point.Y + 10 + offSetY, drawSize, drawSize), backgroundColor);

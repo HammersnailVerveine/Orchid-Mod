@@ -36,7 +36,7 @@ namespace OrchidMod.Alchemist
 
 		public override bool? UseItem(Player player)/* Suggestion: Return null instead of false */
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, this.hintLevel);
 			return true;
 		}

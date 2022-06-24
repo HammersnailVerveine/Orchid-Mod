@@ -35,8 +35,8 @@ namespace OrchidMod.Shaman.Weapons
 		{
 			// I hate it
 			// I'm sorry :(
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			Item.crit = 4 + 10 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) + modPlayer.shamanCrit;
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			Item.crit = 4 + 10 * modPlayer.GetNbShamanicBonds() + modPlayer.shamanCrit; // [CRIT]
 		}
 
 		public override void AddRecipes() => CreateRecipe()

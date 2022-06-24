@@ -65,7 +65,7 @@ namespace OrchidMod.Guardian
 			{
 				var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
 				if (player.ownedProjectileCounts[projectileType] > 0) {
-					var guardian = player.GetModPlayer<OrchidModPlayer>();
+					var guardian = player.GetModPlayer<OrchidModPlayerGuardian>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
 					if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
 					{
@@ -106,7 +106,7 @@ namespace OrchidMod.Guardian
 			return false;
 		}
 		
-		public void resetBlockedEnemiesDuration(OrchidModPlayer modPlayer) {
+		public void resetBlockedEnemiesDuration(OrchidModPlayerGuardian modPlayer) {
 			for (int i = modPlayer.guardianBlockedEnemies.Count - 1; i >= 0; i--)
 			{
 				BlockedEnemy blockedEnemy = modPlayer.guardianBlockedEnemies[i];
@@ -117,7 +117,7 @@ namespace OrchidMod.Guardian
 		public sealed override void HoldItem(Player player)
 		{
 			var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
-			var guardian = player.GetModPlayer<OrchidModPlayer>();
+			var guardian = player.GetModPlayer<OrchidModPlayerGuardian>();
 			guardian.guardianDisplayUI = 300;
 
 			if (player.ownedProjectileCounts[projectileType] == 0)

@@ -53,7 +53,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			}
 		}
 
-		public override void SafeKill(int timeLeft, Player player, OrchidModPlayer modPlayer)
+		public override void SafeKill(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 			int proj = player.HasBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>()) ? ProjectileType<Alchemist.Projectiles.Reactive.ReactiveSpawn.AlchemistSlimeJungle>()

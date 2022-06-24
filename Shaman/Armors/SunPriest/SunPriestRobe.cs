@@ -26,8 +26,8 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.shamanCrit += 4;
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			modPlayer.shamanCrit += 4; // [CRIT]
 			modPlayer.shamanDamage += 0.08f;
 		}
 

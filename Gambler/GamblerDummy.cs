@@ -33,16 +33,16 @@ namespace OrchidMod.Gambler
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			Item currentCard = modPlayer.gamblerCardDummy;
-			if (OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) > 0)
+			if (modPlayer.GetNbGamblerCards() > 0)
 			{
 				if (player.altFunctionUse == 2 || modPlayer.gamblerCardDummy.type == 0)
 				{
 					SoundEngine.PlaySound(SoundID.Item64, player.position);
-					OrchidModGamblerHelper.drawDummyCard(player, modPlayer);
+					modPlayer.DrawDummyCard();
 					currentCard = modPlayer.gamblerCardDummy;
-					this.checkStats(currentCard, player, modPlayer);
+					CheckStats(currentCard);
 					Color floatingTextColor = new Color(255, 200, 0);
 					CombatText.NewText(player.Hitbox, floatingTextColor, modPlayer.gamblerCardDummy.Name);
 					return false;
@@ -54,18 +54,18 @@ namespace OrchidMod.Gambler
 			}
 
 			currentCard = modPlayer.gamblerCardDummy;
-			this.checkStats(currentCard, player, modPlayer);
+			CheckStats(currentCard);
 			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, type, damage, knockback, true);
 			return false;
 		}
 
 		public override void HoldItem(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			modPlayer.GamblerDeckInHand = true;
 			if (Main.mouseLeft)
 			{
-				OrchidModGamblerHelper.ShootBonusProjectiles(player, player.Center, true);
+				modPlayer.ShootBonusProjectiles(true);
 			}
 		}
 
@@ -106,7 +106,7 @@ namespace OrchidMod.Gambler
 			}
 
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			Item currentCard = modPlayer.gamblerCardCurrent;
 
 			if (currentCard.type != ItemID.None)
@@ -131,13 +131,13 @@ namespace OrchidMod.Gambler
 							+ "\nUtility cards may have no effect");
 		}
 
-		public void checkStats(Item currentCard, Player player, OrchidModPlayer modPlayer)
+		public void CheckStats(Item currentCard)
 		{
 			if (currentCard.type != ItemID.None)
 			{
 				Item.damage = currentCard.damage;
 				//item.rare = currentCard.rare;
-				Item.crit = currentCard.crit + modPlayer.gamblerCrit;
+				Item.crit = currentCard.crit;
 				Item.useAnimation = currentCard.useAnimation;
 				Item.useTime = currentCard.useTime;
 				Item.reuseDelay = currentCard.reuseDelay;

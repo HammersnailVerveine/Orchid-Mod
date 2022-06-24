@@ -23,9 +23,9 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 0)
+			if (modPlayer.GetNbShamanicBonds() > 0)
 			{
 				if (modPlayer.orbCountSmall == 0 && modPlayer.shamanOrbSmall != ShamanOrbSmall.NULL)
 				{

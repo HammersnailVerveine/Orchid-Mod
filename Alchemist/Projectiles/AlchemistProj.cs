@@ -154,7 +154,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		public void initializeAlchemistProjectile()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			bool[] elements = modPlayer.alchemistElements;
 			Item[] flasks = modPlayer.alchemistFlasks;
 
@@ -204,9 +204,9 @@ namespace OrchidMod.Alchemist.Projectiles
 
 			modPlayer.alchemistFlaskDamage = 0;
 			modPlayer.alchemistNbElements = 0;
-			OrchidModAlchemistHelper.clearAlchemistElements(player, modPlayer, Mod);
-			OrchidModAlchemistHelper.clearAlchemistFlasks(player, modPlayer, Mod);
-			OrchidModAlchemistHelper.clearAlchemistColors(player, modPlayer, Mod);
+			modPlayer.ClearAlchemistElements();
+			modPlayer.ClearAlchemistFlasks();
+			modPlayer.ClearAlchemistColors();
 
 			if (this.fireFlask.type == ItemType<GunpowderFlask>())
 			{
@@ -225,7 +225,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		public override void Kill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			modPlayer.alchemistLastAttackDelay = 0;
 
 			int soundNb = this.nbElements == 1 ? 1 : this.nbElements == 2 ? 2 : 3;
@@ -249,7 +249,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			if (this.projOwner)
 			{
@@ -291,7 +291,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void KillFirst(int timeLeft, Player player, OrchidModPlayer modPlayer)
+		public void KillFirst(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -332,7 +332,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer)
+		public void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -367,7 +367,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			if (this.nbElements > 2 && player.HasBuff(BuffType<Alchemist.Buffs.QueenBeeFlaskBuff>()))
 			{
 				int itemType = ItemType<QueenBeeFlask>();
-				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, this.nbElements, true);
+				int dmg = modPlayer.GetSecondaryDamage(itemType, this.nbElements, true);
 				int rand = this.nbElements + Main.rand.Next(3);
 				for (int i = 0; i < rand; i++)
 				{
@@ -385,7 +385,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Water.DungeonFlaskProj>();
 				int itemType = ItemType<DungeonFlask>();
-				int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, this.nbElements, true);
+				int dmg = modPlayer.GetSecondaryDamage(itemType, this.nbElements, true);
 				for (int i = 0; i < this.nbElements; i++)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
@@ -394,7 +394,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void KillThird(int timeLeft, Player player, OrchidModPlayer modPlayer)
+		public void KillThird(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -427,7 +427,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
+		public void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -460,7 +460,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
+		public void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -493,7 +493,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
+		public void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal)
 		{
 			if (this.fireFlaskGlobal != null)
 			{
@@ -529,7 +529,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		public void addVariousEffects()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 
 			this.nbElementsNoExtract += this.nbElements;
 

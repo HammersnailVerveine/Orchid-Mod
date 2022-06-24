@@ -20,9 +20,11 @@ namespace OrchidMod.Alchemist
 		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
 		{
 			SafeModifyHitNPC(player, target, ref damage, ref knockBack, ref crit);
-			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayer>().alchemistCrit)
+			/*  [CRIT]
+			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidModPlayerAlchemist>().alchemistCrit)
 				crit = true;
 			else crit = false;
+			*/
 		}
 
 		protected override bool CloneNewInstances => true;

@@ -45,7 +45,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			}
 			newPosition.Y = player.position.Y - newPosition.Y > Main.screenHeight / 2 ? player.position.Y - Main.screenHeight / 2 : newPosition.Y;
 			velocity = new Vector2(0f, 12.5f);
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, newPosition, velocity, projType, damage, knockback, player.whoAmI), dummy);
+			DummyProjectile(Projectile.NewProjectile(source, newPosition, velocity, projType, damage, knockback, player.whoAmI), dummy);
 			SoundEngine.PlaySound(SoundID.Item30);
 		}
 	}

@@ -13,7 +13,8 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<OrchidModPlayer>().shamanCrit += 20;
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			modPlayer.shamanCrit += 20; // [CRIT]
 		}
 	}
 }

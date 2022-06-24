@@ -34,11 +34,11 @@ namespace OrchidMod.Gambler.Projectiles
 			if (!this.initialized)
 			{
 				this.initialized = true;
-				this.rotation = 0.03f * (Main.rand.Next(2) == 0 ? -1 : 1);
+				this.rotation = 0.03f * (Main.rand.NextBool(2) ? -1 : 1);
 				Projectile.frame = Main.rand.Next(4);
 			}
 
-			if (Main.rand.Next(15) == 0)
+			if (Main.rand.NextBool(15))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 2);
 				Main.dust[dust].noGravity = true;
@@ -122,7 +122,7 @@ namespace OrchidMod.Gambler.Projectiles
 			SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			if (modPlayer.gamblerElementalLens)
 			{

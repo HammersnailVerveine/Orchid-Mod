@@ -40,7 +40,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			Projectile.ai[1] = Projectile.ai[1] + 1f + Projectile.ai[0] >= 360f ? 0f : Projectile.ai[1] + 1 + Projectile.ai[0];
 			Projectile.rotation += 0.1f + (Projectile.ai[0] / 30f);
 
-			if (Main.rand.Next(30) == 0)
+			if (Main.rand.NextBool(30))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 21);
 				Main.dust[dust].noGravity = true;

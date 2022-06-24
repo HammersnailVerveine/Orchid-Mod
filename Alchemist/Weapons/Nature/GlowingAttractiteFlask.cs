@@ -47,7 +47,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.Register();
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (!alchProj.hitNPC)
 			{
@@ -93,7 +93,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			for (int i = 0; i < nb; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, Mod.Find<ModProjectile>("NatureSporeProj").Type, dmg, 0f, projectile.owner);
 			}
 			if (alchProj.nbElements == 1)
@@ -116,13 +116,13 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			}
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			target.AddBuff(BuffType<Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
 		}
 
-		public override void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile proj, OrchidModGlobalItem globalItem)
+		public override void AddVariousEffects(Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile proj, OrchidModGlobalItem globalItem)
 		{
 			alchProj.nbElementsNoExtract--;
 		}

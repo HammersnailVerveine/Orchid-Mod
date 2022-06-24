@@ -24,7 +24,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			player.GetDamage<AlchemistDamageClass>() += 0.1f;
 		}
 

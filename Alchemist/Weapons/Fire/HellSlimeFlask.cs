@@ -45,7 +45,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			recipe.Register();
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
@@ -57,7 +57,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			rand += alchProj.hasCloud() ? 2 : 0;
 			if (Main.rand.Next(10) < rand && !alchProj.noCatalyticSpawn)
 			{
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubbleLava>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
@@ -66,7 +66,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			if (modTarget.alchemistFire > 0)
 			{
 				int nb = Main.rand.Next(3) + 3;
-				int dmg = (int)(getSecondaryDamage(player, modPlayer, alchProj.nbElements) * 1.5);
+				int dmg = (int)(GetSecondaryDamage(player, alchProj.nbElements) * 1.5);
 				int proj = ProjectileType<Alchemist.Projectiles.Fire.HellSlimeFlaskProj>();
 				for (int i = 0; i < nb; i++)
 				{

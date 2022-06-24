@@ -53,7 +53,8 @@ namespace OrchidMod.Alchemist
 							OrchidModAlchemistNPC modTarget = Main.npc[k].GetGlobalNPC<OrchidModAlchemistNPC>();
 							if (modTarget.alchemistWater > 0)
 							{
-								bool crit = (Main.rand.Next(101) <= modPlayer.alchemistCrit + 4);
+								//bool crit = (Main.rand.Next(101) <= modPlayer.alchemistCrit + 4);
+								bool crit = false; // [CRIT]
 								player.ApplyDamageToNPC(Main.npc[k], Main.DamageVar(damage), 5f, player.direction, crit);
 								modTarget.alchemistWater = 0;
 								modTarget.alchemistFire = 60 * 10;

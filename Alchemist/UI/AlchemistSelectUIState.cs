@@ -62,7 +62,7 @@ namespace OrchidMod.Alchemist.UI
 		{
 			Recalculate();
 			Player player = Main.LocalPlayer;
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 
 			CalculatedStyle dimensions = GetDimensions();
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y);
@@ -260,7 +260,7 @@ namespace OrchidMod.Alchemist.UI
 			}
 		}
 
-		public void initUI(Player player, OrchidModPlayer modPlayer, ref Point mouseDiff, ref Point displayPoint)
+		public void initUI(Player player, OrchidModPlayerAlchemist modPlayer, ref Point mouseDiff, ref Point displayPoint)
 		{
 			CalculatedStyle dimensions = GetDimensions();
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y);
@@ -273,7 +273,7 @@ namespace OrchidMod.Alchemist.UI
 			this.setRectangles();
 		}
 
-		public void checkInventory(OrchidModPlayer modPlayer)
+		public void checkInventory(OrchidModPlayerAlchemist modPlayer)
 		{
 			this.nbAlchemistWeapons = 0;
 			int val = this.displayRectangles.Count() - 1;
@@ -336,7 +336,7 @@ namespace OrchidMod.Alchemist.UI
 			this.displayRectangles.Add(new Rectangle(displayPoint.X - drawOffSet + drawSize * 2, displayPoint.Y - drawOffSet + drawSize + 2, drawSize, drawSize));
 		}
 		
-		public Item[] ConcatInventories(Player player, OrchidModPlayer modPlayer) {
+		public Item[] ConcatInventories(Player player, OrchidModPlayerAlchemist modPlayer) {
             return modPlayer.alchemistPotionBag.Concat(player.inventory).ToArray();
 		}
 	}

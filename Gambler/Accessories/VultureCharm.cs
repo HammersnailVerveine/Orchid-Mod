@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			modPlayer.gamblerVulture = true;
 		}
 
@@ -37,7 +37,6 @@ namespace OrchidMod.Gambler.Accessories
 			recipe.AddRecipeGroup("IronBar", 5);
 			recipe.AddIngredient((thoriumMod != null) ? thoriumMod.Find<ModItem>("BirdTalon").Type : Mod.Find<ModItem>("VultureTalon").Type, 3);
 			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
 			recipe.Register();
 		}
 	}

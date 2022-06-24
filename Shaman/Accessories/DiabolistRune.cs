@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			modPlayer.shamanDiabolist = true;
 
 			if (modPlayer.shamanTimerDiabolist > 0)

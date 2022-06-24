@@ -33,7 +33,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeAI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 
 			Projectile.rotation = Projectile.velocity.ToRotation();
@@ -85,7 +85,7 @@ namespace OrchidMod.Gambler.Projectiles
 				}
 			}
 
-			if (modPlayer.timer120 % 2 == 0 && Projectile.ai[1] == 0)
+			if (modPlayer.modPlayer.timer120 % 2 == 0 && Projectile.ai[1] == 0)
 			{
 				this.spawnDust(35, 300);
 			}

@@ -36,7 +36,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeAI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 
 			Projectile.rotation = (float)Math.Sin(Projectile.timeLeft * 0.045f) * 0.25f;
@@ -48,7 +48,7 @@ namespace OrchidMod.Gambler.Projectiles
 				Projectile.velocity.X *= 0.95f;
 			}
 
-			if (Main.rand.Next(12) == 0)
+			if (Main.rand.NextBool(12))
 			{
 				var dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102)];
 				dust.alpha = 75;
@@ -119,10 +119,10 @@ namespace OrchidMod.Gambler.Projectiles
 			int projType = ProjectileType<Gambler.Projectiles.SapCardProjExplosion>();
 			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 
-			OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, dmg, 3f, Projectile.owner, 0.0f, 0.0f), dummy);
+			DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, dmg, 3f, Projectile.owner, 0.0f, 0.0f), dummy);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			if (modPlayer.gamblerElementalLens)
 			{

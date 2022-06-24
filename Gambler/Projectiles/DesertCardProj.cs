@@ -61,7 +61,7 @@ namespace OrchidMod.Gambler.Projectiles
 					vel.Normalize();
 					vel *= 10f;
 					vel = vel.RotatedByRandom(MathHelper.ToRadians(10));
-					OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+					DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 					SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 				}
 			}

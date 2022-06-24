@@ -49,7 +49,7 @@ namespace OrchidMod.Gambler.Projectiles
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 29, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
 			if (Projectile.owner == Main.myPlayer)
@@ -66,7 +66,7 @@ namespace OrchidMod.Gambler.Projectiles
 					vel.Normalize();
 					vel *= scale;
 					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					int newProjInt = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, (int)(Projectile.damage * 5), 0.1f, Projectile.owner), dummy);
+					int newProjInt = DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, (int)(Projectile.damage * 5), 0.1f, Projectile.owner), dummy);
 					Projectile newProj = Main.projectile[newProjInt];
 					newProj.ai[1] = (int)target.whoAmI;
 					newProj.netUpdate = true;

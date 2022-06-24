@@ -30,7 +30,7 @@ namespace OrchidMod.Dancer
 
 		public override bool CanUseItem(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerDancer modPlayer = player.GetModPlayer<OrchidModPlayerDancer>();
 
 			if (modPlayer.dancerPoise < this.poiseCost)
 			{
@@ -49,7 +49,7 @@ namespace OrchidMod.Dancer
 				modPlayer.dancerWeaponKnockback = Item.knockBack;
 				modPlayer.dancerWeaponType = this.dancerItemType;
 				modPlayer.dancerDashTimer = this.dashTimer;
-				OrchidModDancerHelper.removeDancerPoise(this.poiseChance, this.poiseCost, player, modPlayer, Mod);
+				modPlayer.RemoveDancerPoise(this.poiseChance, this.poiseCost);
 			}
 			return base.CanUseItem(player);
 		}

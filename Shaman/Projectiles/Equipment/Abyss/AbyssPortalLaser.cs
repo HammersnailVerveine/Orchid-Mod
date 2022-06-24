@@ -103,7 +103,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 			return DelegateMethods.CutTiles(x, y);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{

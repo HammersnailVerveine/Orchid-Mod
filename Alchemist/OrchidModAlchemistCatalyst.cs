@@ -18,7 +18,7 @@ namespace OrchidMod.Alchemist
 
 		public virtual void GeneralCatalystInteractionEffect(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			CatalystInteractionEffect(player);
 
 			if (modPlayer.alchemistFlowerSet)

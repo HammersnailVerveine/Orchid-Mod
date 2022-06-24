@@ -74,7 +74,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			int randF = Main.rand.Next(4);
 			int randW = Main.rand.Next(4);
@@ -128,7 +128,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 			if (randA == 3)
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(250, 300), target.Center.Y - Main.rand.Next(250, 300), 0f, 0f, projTypeAir, 100, 3, player.whoAmI);
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
+			if (modPlayer.GetNbShamanicBonds() > 2)
 			{
 				if (randF == 3)
 					Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X - Main.rand.Next(125, 175), target.Center.Y - Main.rand.Next(350, 400), 0f, 0f, projTypeFire, 100, 3, player.whoAmI);

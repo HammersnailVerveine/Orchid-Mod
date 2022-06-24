@@ -28,13 +28,12 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			modPlayer.shamanHarpyAnklet = true;
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			damage *= player.GetModPlayer<OrchidModPlayer>().shamanDamage;
 			if (Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("HarpyAgility").Type) > -1)
 				damage += 1.1f;
 		}

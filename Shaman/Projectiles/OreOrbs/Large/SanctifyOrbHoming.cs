@@ -34,23 +34,23 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 
-			if (modPlayer.timer120 == 65)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 65)
 				Projectile.frame = 1;
-			if (modPlayer.timer120 == 70)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 70)
 				Projectile.frame = 2;
-			if (modPlayer.timer120 == 75)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 75)
 				Projectile.frame = 3;
-			if (modPlayer.timer120 == 80)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 80)
 				Projectile.frame = 4;
-			if (modPlayer.timer120 == 85)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 85)
 				Projectile.frame = 5;
-			if (modPlayer.timer120 == 90)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 90)
 				Projectile.frame = 6;
-			if (modPlayer.timer120 == 95)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 95)
 				Projectile.frame = 7;
-			if (modPlayer.timer120 == 100)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 100)
 				Projectile.frame = 0;
 
 			if (Main.rand.Next(5) == 0)
@@ -111,6 +111,6 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
 	}
 }

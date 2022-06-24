@@ -53,7 +53,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			{
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10)) * scale;
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+				DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 			}
 
 			SoundEngine.PlaySound(SoundID.Grass); // (6 : 0) Grass/Web Cut

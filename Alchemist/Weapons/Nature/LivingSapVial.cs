@@ -35,10 +35,10 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 							+ "\nOn reaction, heals players and coats enemies in alchemical nature");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (alchProj.nbElements > 1) {
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				if (alchProj.airFlask.type != 0) {
 					dmg *= 2;
 				}
@@ -55,14 +55,14 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			}
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int rand = alchProj.nbElements;
 			rand += alchProj.hasCloud() ? 2 : 0;
 			if (Main.rand.Next(10) < rand)
 			{
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements + 5);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements + 5);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.LivingSapBubble>();
 				Vector2 newVelocity = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, newVelocity, proj, dmg, 0f, projectile.owner);

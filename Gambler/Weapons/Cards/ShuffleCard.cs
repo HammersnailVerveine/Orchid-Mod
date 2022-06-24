@@ -33,11 +33,11 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int projType = ProjectileType<Gambler.Projectiles.ShuffleCardProj>();
 			float aiType = Main.rand.Next(4);
 			int count = 0;
-			int damageCount = damage + (int)(OrchidModGamblerHelper.getNbGamblerCards(player, modPlayer) * 1.2f);
+			int damageCount = damage + (int)(modPlayer.GetNbGamblerCards() * 1.2f);
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
@@ -52,7 +52,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			}
 			if (count < 5)
 			{
-				int newProjInt = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, Vector2.Zero, projType, damageCount, knockback, player.whoAmI), dummy);
+				int newProjInt = DummyProjectile(Projectile.NewProjectile(source, position, Vector2.Zero, projType, damageCount, knockback, player.whoAmI), dummy);
 				Projectile newProj = Main.projectile[newProjInt];
 				newProj.ai[1] = (float)(count + 1);
 				newProj.ai[0] = (float)aiType;

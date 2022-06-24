@@ -71,7 +71,7 @@ namespace OrchidMod.NPCs.Town
 						continue;
 					}
 
-					OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+					OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 					if (modPlayer.gamblerHasCardInDeck)
 					{
 						return true;
@@ -140,7 +140,7 @@ namespace OrchidMod.NPCs.Town
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 
 			// [SP]
 
@@ -160,7 +160,7 @@ namespace OrchidMod.NPCs.Town
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 
 			if (firstButton)
 			{
@@ -179,7 +179,7 @@ namespace OrchidMod.NPCs.Town
 			}
 			else
 			{
-				if (OrchidModGamblerHelper.hasGamblerDeck(player))
+				if (modPlayer.HasGamblerDeck())
 				{
 					Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.";
 
@@ -221,7 +221,7 @@ namespace OrchidMod.NPCs.Town
 		public override void SetupShop(Chest shop, ref int nextSlot)
 		{
 			Player player = Main.player[Main.myPlayer];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 
 			shop.item[nextSlot].SetDefaults(ItemType<Gambler.GamblerDummy>());
 			nextSlot++;
@@ -278,22 +278,22 @@ namespace OrchidMod.NPCs.Town
 				nextSlot++;
 			}
 
-			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Slime") > 2)
+			if (modPlayer.CheckSetCardsInDeck("Slime") > 2)
 			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.SlimyLollipop>());
 				nextSlot++;
 			}
-			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Biome") > 2)
+			if (modPlayer.CheckSetCardsInDeck("Biome") > 2)
 			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.LuckySprout>());
 				nextSlot++;
 			}
-			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Boss") > 2)
+			if (modPlayer.CheckSetCardsInDeck("Boss") > 2)
 			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.ConquerorsPennant>());
 				nextSlot++;
 			}
-			if (OrchidModGamblerHelper.checkSetCardsInDeck(modPlayer, "Elemental") > 2)
+			if (modPlayer.CheckSetCardsInDeck("Elemental") > 2)
 			{
 				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.ElementalLens>());
 				nextSlot++;

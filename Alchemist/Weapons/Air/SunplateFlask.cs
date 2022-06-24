@@ -32,14 +32,14 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nThe stars are considered as lingering particles");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int rand = Main.rand.Next(180);
 			int rand2 = Main.rand.Next(3);
 			for (int i = 0; i < 2; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(rand + (180 * i))));
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int spawnProj = Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Alchemist.Projectiles.Air.SunplateFlaskProj>(), dmg, 0.1f, projectile.owner);
 				Main.projectile[spawnProj].ai[1] = 180f * i;
 				Main.projectile[spawnProj].ai[0] = rand2;

@@ -39,7 +39,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void AI()
 		{
 			Player player = Main.player[Main.myPlayer]; // < TEST MP
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			NPC target = Main.npc[(int)Projectile.ai[1]];
 			Projectile.velocity *= 0.95f;
 
@@ -74,7 +74,7 @@ namespace OrchidMod.Gambler.Projectiles
 							bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 							if (!dummy)
 							{
-								OrchidModGamblerHelper.addGamblerChip(this.gamblingChipChance, player, modPlayer);
+								modPlayer.AddGamblerChip(this.gamblingChipChance);
 							}
 
 							bool crit = (Main.rand.Next(101) <= modPlayer.gamblerCrit + this.baseCritChance);

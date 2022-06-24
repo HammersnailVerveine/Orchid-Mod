@@ -23,12 +23,12 @@ namespace OrchidMod.Alchemist.Recipes
 		}
 		
 		
-		public override void Reaction(Player player, OrchidModPlayer modPlayer)
+		public override void Reaction(Player player, OrchidModPlayerAlchemist modPlayer)
 		{
 			int itemType = ItemType<Alchemist.Weapons.Air.DeathweedFlask>();
 			int itemType2 = ItemType<Alchemist.Weapons.Air.ShiverthornFlask>();
-			itemType = OrchidModAlchemistHelper.containsAlchemistFlask(itemType, player, modPlayer) ? itemType : itemType2;
-			int dmg = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 4, true);
+			itemType = modPlayer.ContainsAlchemistFlask(itemType) ? itemType : itemType2;
+			int dmg = modPlayer.GetSecondaryDamage(itemType, 4, true);
 			for (int i = 0; i < 10; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedBy(MathHelper.ToRadians(Main.rand.Next(360))));
@@ -43,7 +43,7 @@ namespace OrchidMod.Alchemist.Recipes
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Air.AirSporeProjAlt>();
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Hidden Reaction"), player.Center, vel, spawnProj, dmg, 0f, player.whoAmI);
 			}
-			if (OrchidModAlchemistHelper.containsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>(), player, modPlayer))
+			if (modPlayer.ContainsAlchemistFlask(ItemType<Alchemist.Weapons.Nature.GlowingAttractiteFlask>()))
 			{
 				for (int i = 0; i < 5; i++)
 				{

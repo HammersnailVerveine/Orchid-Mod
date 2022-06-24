@@ -30,7 +30,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 							+ "\nIncreases the likelihood of spawning catalytic bubbles");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int nb = 2 + Main.rand.Next(3);
 			for (int i = 0; i < nb; i++)
@@ -47,7 +47,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			{
 				for (int i = 0; i < nb; i++)
 				{
-					int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+					int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 					Vector2 vel = (new Vector2(0f, -(float)((3 * alchProj.nbElements) + Main.rand.Next(3))).RotatedByRandom(MathHelper.ToRadians(10)));
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>();
 					Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, dmg, 0f, projectile.owner);

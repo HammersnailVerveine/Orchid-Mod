@@ -45,9 +45,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			}
 			if (!found)
 			{
-				int newProjectile2 = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, new Vector2(position.X - velocity.X * 3f, position.Y - velocity.Y * 3f), velocity, projType, damage, knockback, player.whoAmI), dummy));
+				int newProjectile2 = (DummyProjectile(Projectile.NewProjectile(source, new Vector2(position.X - velocity.X * 3f, position.Y - velocity.Y * 3f), velocity, projType, damage, knockback, player.whoAmI), dummy));
 				Main.projectile[newProjectile2].ai[0] = 1f;
-				int newProjectile = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy));
+				int newProjectile = (DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy));
 				Main.projectile[newProjectile].ai[0] = 0f;
 				Main.projectile[newProjectile2].ai[1] = newProjectile;
 				Main.projectile[newProjectile].localAI[0] = newProjectile2;

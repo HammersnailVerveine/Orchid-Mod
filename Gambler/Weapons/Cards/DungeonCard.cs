@@ -59,7 +59,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 				}
 			}
 
-			int newProj = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+			int newProj = DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 			Main.projectile[newProj].ai[1] = Main.rand.Next(4);
 			Main.projectile[newProj].netUpdate = true;
 			SoundEngine.PlaySound(SoundID.Item8);

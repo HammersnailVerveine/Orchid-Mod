@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			player.wingTimeMax = 180;
 			modPlayer.abyssalWings = true;
 		}

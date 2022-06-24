@@ -37,8 +37,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2)
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			if (modPlayer.GetNbShamanicBonds() > 2)
 			{
 				int typeAlt = ModContent.ProjectileType<SanctifyProjAlt>();
 				int newDamage = (int)(Item.damage * 0.75);

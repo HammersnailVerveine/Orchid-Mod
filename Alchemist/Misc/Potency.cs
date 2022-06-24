@@ -32,7 +32,7 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override bool OnPickup(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			Color floatingTextColor = new Color(128, 255, 0);
 			int val = 6;
 			CombatText.NewText(player.Hitbox, floatingTextColor, val);

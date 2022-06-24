@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			modPlayer.shamanDamage += 0.08f;
 		}
 
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			player.setBonus = "Dealing damage has a chance to spawn catchable orbs"
 							+ "\n             Blood orbs restore health, sound orbs increase shamanic bond duration"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";

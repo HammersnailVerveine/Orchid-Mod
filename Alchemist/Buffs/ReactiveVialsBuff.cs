@@ -15,8 +15,7 @@ namespace OrchidMod.Alchemist.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			modPlayer.alchemistDamage += 2.1f;
+			player.GetDamage<AlchemistDamageClass>() += 0.1f;
 		}
 	}
 }

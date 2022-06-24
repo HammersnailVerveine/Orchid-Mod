@@ -25,8 +25,8 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) == 5 && modPlayer.timer120 % 2 == 0)
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
+			if (modPlayer.GetNbShamanicBonds() == 5 && player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 2 == 0)
 			{
 				modPlayer.shamanFireTimer++;
 				modPlayer.shamanWaterTimer++;

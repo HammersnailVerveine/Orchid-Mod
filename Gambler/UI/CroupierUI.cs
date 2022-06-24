@@ -73,22 +73,22 @@ namespace OrchidMod.Gambler.UI
 			emptyLinesCount = list.FindAll(i => i.Contains(i.Find(j => j.Text == ""))).Count;
 		}
 
-		public void OnCardClick(Item item, Player player, OrchidModPlayer orchidPlayer)
+		public void OnCardClick(Item item, Player player, OrchidModPlayerGambler orchidPlayer)
 		{
 			player.QuickSpawnItem(null, item.type, 1);
-			OrchidModGamblerHelper.removeGamblerCard(item, player, orchidPlayer);
+			orchidPlayer.RemoveGamblerCard(item);
 
-			if (OrchidModGamblerHelper.getNbGamblerCards(player, orchidPlayer) > 0)
+			if (orchidPlayer.GetNbGamblerCards() > 0)
 			{
-				OrchidModGamblerHelper.clearGamblerCardCurrent(player, orchidPlayer);
-				OrchidModGamblerHelper.clearGamblerCardsNext(player, orchidPlayer);
+				orchidPlayer.ClearGamblerCardCurrent();
+				orchidPlayer.ClearGamblerCardsNext();
 				orchidPlayer.gamblerShuffleCooldown = 0;
 				orchidPlayer.gamblerRedraws = 0;
-				OrchidModGamblerHelper.drawGamblerCard(player, orchidPlayer);
+				orchidPlayer.DrawGamblerCard();
 			}
 			else
 			{
-				OrchidModGamblerHelper.onRespawnGambler(player, orchidPlayer);
+				orchidPlayer.OnRespawn(player);
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace OrchidMod.Gambler.UI
 			string hmm = $"[c/{Color.Gray.Hex3()}: | ]";
 
 			var player = Main.player[Main.myPlayer];
-			var gamblerPlayer = player.GetModPlayer<OrchidModPlayer>();
+			var gamblerPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			var gamblerItem = item.ModItem as OrchidModGamblerItem;
 
 			string knockbackText;
@@ -122,7 +122,7 @@ namespace OrchidMod.Gambler.UI
 
 			// Damage + Crit
 			cardTooltipText += $"Damage: {player.GetWeaponDamage(item)}" + hmm +
-				$"Crit: {item.crit + gamblerPlayer.gamblerCrit}%" + "\n";
+				$"Crit: {item.crit + gamblerPlayer.gamblerCrit}%" + "\n"; // TODO ... [CRIT]
 
 			// Knockback
 			cardTooltipText += knockbackText + "\n";
@@ -219,7 +219,7 @@ namespace OrchidMod.Gambler.UI
 			*/
 		}
 
-		public void DrawCard(Item item, SpriteBatch spriteBatch, Vector2 position, Player player, OrchidModPlayer orchidPlayer, int maxReq, bool canRemove = true)
+		public void DrawCard(Item item, SpriteBatch spriteBatch, Vector2 position, Player player, OrchidModPlayerGambler orchidPlayer, int maxReq, bool canRemove = true)
 		{
 			if (item == null || item.type < ItemID.None) return;
 

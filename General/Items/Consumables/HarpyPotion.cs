@@ -38,7 +38,6 @@ namespace OrchidMod.General.Items.Consumables
 			recipe.AddIngredient(null, "HarpyTalon", 1);
 			recipe.AddIngredient(ItemID.Feather, 1);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

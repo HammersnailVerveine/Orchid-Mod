@@ -1,3 +1,4 @@
+using OrchidMod.Shaman.Buffs;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -26,7 +27,7 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			modPlayer.shamanDestroyer = true;
 
 			if (modPlayer.shamanTimerDestroyer > 0)
@@ -40,7 +41,7 @@ namespace OrchidMod.Shaman.Accessories
 				if (modPlayer.shamanDestroyerCount == 5)
 				{
 					SoundEngine.PlaySound(SoundID.Item33);
-					player.AddBuff((Mod.Find<ModBuff>("DestroyerFrenzy").Type), 60 * 10);
+					player.AddBuff((ModContent.BuffType<DestroyerFrenzy>()), 60 * 10);
 
 					for (int i = 0; i < 15; i++)
 					{

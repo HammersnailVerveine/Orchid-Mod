@@ -47,11 +47,11 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 				Projectile.active = false;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 10 == 0)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 10 == 0)
 			{
 				bool done = false;
 
-				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 10)
+				if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 10)
 				{
 					if (!done && Projectile.frame == 0)
 					{
@@ -96,7 +96,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 					}
 				}
 
-				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 10 && player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 15)
+				if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 10 && player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 15)
 				{
 					if (!done && Projectile.frame == 4 || Projectile.frame < 4)
 					{
@@ -141,7 +141,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 					}
 				}
 
-				if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique >= 15)
+				if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique >= 15)
 				{
 					if (!done && Projectile.frame == 8 || Projectile.frame < 8)
 					{
@@ -187,14 +187,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 				}
 			}
 
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountUnique < 5
-			|| player.GetModPlayer<OrchidModPlayer>().orbCountUnique > 20
-			|| player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique != ShamanOrbUnique.GRANDTHUNDERBIRD)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique < 5
+			|| player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique > 20
+			|| player.GetModPlayer<OrchidModPlayerShaman>().shamanOrbUnique != ShamanOrbUnique.GRANDTHUNDERBIRD)
 			{
 				Projectile.Kill();
 			}
 
-			else orbsNumber = player.GetModPlayer<OrchidModPlayer>().orbCountUnique;
+			else orbsNumber = player.GetModPlayer<OrchidModPlayerShaman>().orbCountUnique;
 
 			if (Projectile.timeLeft == 12960000)
 			{

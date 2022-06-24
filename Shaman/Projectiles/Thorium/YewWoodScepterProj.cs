@@ -51,12 +51,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			float randX = target.position.X + (target.width / 2) + Main.rand.Next(700) - 350;
 			float randY = target.position.Y + (target.height / 2) - Main.rand.Next(300) - 100;
 
-			if (OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod) > 2 && Main.rand.Next(7) == 0)
+			if (modPlayer.GetNbShamanicBonds() > 2 && Main.rand.Next(7) == 0)
 			{
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), randX, randY, 0f, 0f, Mod.Find<ModProjectile>("YewWoodScepterPortal").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
 			}

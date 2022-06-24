@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			if (!(Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("BrokenPower").Type) > -1))
 			{
 				modPlayer.shamanDamage += 0.25f;

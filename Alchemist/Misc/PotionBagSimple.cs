@@ -36,18 +36,18 @@ namespace OrchidMod.Alchemist.Misc
 		}
 		
 		public override void UpdateInventory(Player player) {
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			modPlayer.alchemistHasBag = 5;
 		}
 		
 		public override void HoldItem(Player player) {
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			modPlayer.alchemistHasBag = 5;
 		}
 		
 		public override void RightClick(Player player) {
 			//player.QuickSpawnItem(ItemID.LifeCrystal, 1);
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			Item[] potionBag = modPlayer.alchemistPotionBag;
 			bool addedItem = false;
 			int index = 0;

@@ -16,12 +16,12 @@ namespace OrchidMod.Alchemist.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
-			if (modPlayer.timer120 % 60 == 0 && player.velocity.X != 0f)
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
+			if (modPlayer.modPlayer.timer120 % 60 == 0 && player.velocity.X != 0f)
 			{
 				int projType = ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>();
 				int itemType = ItemType<Alchemist.Weapons.Water.BloodMoonFlask>();
-				int damage = OrchidModAlchemistHelper.getSecondaryDamage(player, modPlayer, itemType, 2, true);
+				int damage = modPlayer.GetSecondaryDamage(itemType, 2, true);
 				Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center.X, player.Center.Y, 0f, 0f, projType, damage, 1f, player.whoAmI);
 			}
 		}

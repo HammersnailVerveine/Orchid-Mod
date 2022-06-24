@@ -31,7 +31,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			if (Main.mouseLeft && Main.mouseLeftRelease || modPlayer.gamblerJustSwitched)
 			{
 				int projType = ProjectileType<Gambler.Projectiles.QueenBeeCardProj>();
@@ -45,7 +45,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 					}
 				}
 				modPlayer.gamblerJustSwitched = false;
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+				DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 				SoundEngine.PlaySound(SoundID.Item1);
 			}
 			else

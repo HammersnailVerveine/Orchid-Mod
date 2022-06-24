@@ -38,10 +38,11 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			Vector2 newVelocity = velocity;
-			if (player.GetModPlayer<OrchidModPlayer>().orbCountBig >= 15 && player.GetModPlayer<OrchidModPlayer>().shamanOrbBig == ShamanOrbBig.ADAMANTITE)
+			OrchidModPlayerShaman modPlayer = new OrchidModPlayerShaman();
+			if (modPlayer.orbCountBig >= 15 && modPlayer.shamanOrbBig == ShamanOrbBig.ADAMANTITE)
 			{
 				newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
-				player.GetModPlayer<OrchidModPlayer>().orbCountBig = -3;
+				modPlayer.orbCountBig = -3;
 				damage *= 2;
 			}
 

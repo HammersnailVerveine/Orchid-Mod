@@ -44,12 +44,12 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 
 			Projectile.rotation += 0.1f;
 
-			if (player.GetModPlayer<OrchidModPlayer>().shamanOrbBig != ShamanOrbBig.ABYSS || player.GetModPlayer<OrchidModPlayer>().orbCountBig <= 0)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().shamanOrbBig != ShamanOrbBig.ABYSS || player.GetModPlayer<OrchidModPlayerShaman>().orbCountBig <= 0)
 				Projectile.Kill();
 
 			if (Projectile.timeLeft == 12960000)
 			{
-				int nbOrb = player.GetModPlayer<OrchidModPlayer>().orbCountBig;
+				int nbOrb = player.GetModPlayer<OrchidModPlayerShaman>().orbCountBig;
 				int offsetX = 11;
 
 				if (nbOrb > 2)

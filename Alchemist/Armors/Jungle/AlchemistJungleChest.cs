@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerAlchemist modPlayer = player.GetModPlayer<OrchidModPlayerAlchemist>();
 			modPlayer.alchemistPotencyMax += 3;
 			modPlayer.alchemistVelocity += 0.2f;
 		}

@@ -48,7 +48,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			}
 			
 			velocity = new Vector2(0f, -1f).RotatedBy(MathHelper.ToRadians(10));
-			int newProjectile = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+			int newProjectile = DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 			Main.projectile[newProjectile].ai[1] = 0f;
 			Main.projectile[newProjectile].netUpdate = true;
 			for (int i = 0; i < 5; i++)

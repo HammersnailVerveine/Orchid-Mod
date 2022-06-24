@@ -37,7 +37,6 @@ namespace OrchidMod.Shaman.Misc
 			recipe.AddIngredient(ItemID.Shiverthorn, 1);
 			recipe.AddIngredient(ItemID.Feather, 1);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

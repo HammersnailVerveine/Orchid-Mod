@@ -45,7 +45,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			if (Projectile.ai[1] == 2f && Projectile.timeLeft % 10 == 0 && Projectile.velocity.Y > 0f)
 			{
@@ -176,14 +176,14 @@ namespace OrchidMod.Gambler.Projectiles
 			OrchidModProjectile.DrawProjectileGlowmask(Projectile, Main.spriteBatch, texture, Color.White);
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			if (justHit == 0)
 			{
 				Projectile.damage += 2;
 				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 				int projType = ProjectileType<Gambler.Projectiles.KingSlimeCardProj2>();
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
+				DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 59, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, false, true);
 			}
 

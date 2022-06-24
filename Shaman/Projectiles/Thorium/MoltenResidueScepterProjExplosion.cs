@@ -24,9 +24,9 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 
-			int size = 30 + 30 * OrchidModShamanHelper.getNbShamanicBonds(player, modPlayer, Mod);
+			int size = 30 + 30 * modPlayer.GetNbShamanicBonds();
 			Projectile.width = size;
 			Projectile.height = size;
 
@@ -43,6 +43,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer) { }
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer) { }
 	}
 }

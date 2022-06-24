@@ -34,7 +34,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			int projType = ProjectileType<Gambler.Projectiles.GoldChestCardProj>();
 			float scale = 1f - (Main.rand.NextFloat() * .3f);
 			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(15)) * scale;
-			int newProj = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+			int newProj = DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 			Main.projectile[newProj].ai[1] = Main.rand.Next(4);
 			Main.projectile[newProj].netUpdate = true;
 			SoundEngine.PlaySound(SoundID.Item1);

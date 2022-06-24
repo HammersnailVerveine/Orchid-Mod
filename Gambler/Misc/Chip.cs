@@ -32,10 +32,10 @@ namespace OrchidMod.Gambler.Misc
 
 		public override bool OnPickup(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			Color floatingTextColor = new Color(255, 200, 0);
 			CombatText.NewText(player.Hitbox, floatingTextColor, 1);
-			OrchidModGamblerHelper.addGamblerChip(100, player, modPlayer);
+			modPlayer.AddGamblerChip(100);
 			SoundEngine.PlaySound(SoundID.Item65, player.Center);
 			return false;
 		}

@@ -47,7 +47,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			{
 				for (int i = 0; i < 2; i++)
 				{
-					int newProjInt = OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
+					int newProjInt = DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 					Projectile newProj = Main.projectile[newProjInt];
 					newProj.ai[1] = i + 1;
 					newProj.netUpdate = true;

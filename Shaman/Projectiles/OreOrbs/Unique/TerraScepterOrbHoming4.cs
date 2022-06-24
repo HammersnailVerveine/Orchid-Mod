@@ -35,13 +35,14 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		public override void AI()
 		{
 			Player player = Main.player[Projectile.owner];
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 
-			if (Projectile.timeLeft == 349 && player.GetModPlayer<OrchidModPlayer>().shamanOrbUnique == ShamanOrbUnique.TERRA)
+			if (Projectile.timeLeft == 349 && modPlayer.shamanOrbUnique == ShamanOrbUnique.TERRA)
 			{
-				player.GetModPlayer<OrchidModPlayer>().orbCountUnique = 0;
+				modPlayer.orbCountUnique = 0;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 % 5 == 0)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 % 5 == 0)
 				Projectile.frame++;
 			if (Projectile.frame == 10)
 				Projectile.frame = 0;
@@ -109,7 +110,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			}
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerShaman modPlayer)
 		{
 			player.AddBuff(Mod.Find<ModBuff>("TerraBlast").Type, 60 * 15);
 		}

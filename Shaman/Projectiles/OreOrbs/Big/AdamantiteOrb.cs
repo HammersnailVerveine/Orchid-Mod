@@ -43,29 +43,29 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 				Projectile.active = false;
 			}
 
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 65)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 65)
 				Projectile.frame = 1;
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 70)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 70)
 				Projectile.frame = 2;
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 75)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 75)
 				Projectile.frame = 3;
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 80)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 80)
 				Projectile.frame = 4;
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 85)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 85)
 				Projectile.frame = 5;
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 90)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 90)
 				Projectile.frame = 6;
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 95)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 95)
 				Projectile.frame = 7;
-			if (player.GetModPlayer<OrchidModPlayer>().timer120 == 100)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().modPlayer.timer120 == 100)
 				Projectile.frame = 0;
 
-			if (player.GetModPlayer<OrchidModPlayer>().shamanOrbBig != ShamanOrbBig.ADAMANTITE || player.GetModPlayer<OrchidModPlayer>().orbCountBig <= 0)
+			if (player.GetModPlayer<OrchidModPlayerShaman>().shamanOrbBig != ShamanOrbBig.ADAMANTITE || player.GetModPlayer<OrchidModPlayerShaman>().orbCountBig <= 0)
 				Projectile.Kill();
 
 			if (Projectile.timeLeft == 12960000)
 			{
-				int nbOrb = player.GetModPlayer<OrchidModPlayer>().orbCountBig;
+				int nbOrb = player.GetModPlayer<OrchidModPlayerShaman>().orbCountBig;
 				int offsetX = 7;
 
 				if (nbOrb > 2)

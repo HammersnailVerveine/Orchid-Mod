@@ -44,7 +44,6 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLily>(), 2);
 			recipe.AddIngredient(ItemID.Stinger, 5);
 			recipe.Register();
-			recipe.Register();
 
 			recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
@@ -52,10 +51,9 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>(), 1);
 			recipe.AddIngredient(ItemID.Stinger, 5);
 			recipe.Register();
-			recipe.Register();
 		}
 
-		public override void KillFirst(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillFirst(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int range = 100 * alchProj.nbElements;
 			int nb = 20 * alchProj.nbElements;
@@ -63,7 +61,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			OrchidModProjectile.spawnDustCircle(projectile.Center, this.rightClickDust, (int)(range * 0.5), (int)(nb / 3), true, 1.5f, 1f, 16f, true, true, false, 0, 0, true);
 
 			int projType = ProjectileType<Alchemist.Projectiles.Nature.JungleLilyFlaskProj>();
-			int damage = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+			int damage = GetSecondaryDamage(player, alchProj.nbElements);
 			int newProjectileInt = Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, projType, damage, 0f, projectile.owner);
 			Projectile newProjectile = Main.projectile[newProjectileInt];
 			newProjectile.width = range * 2;
@@ -73,7 +71,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			newProjectile.netUpdate = true;
 		}
 
-		public override void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			modTarget.alchemistNature = 60 * 10;

@@ -35,7 +35,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 							+ "\nHas a chance to release a catalytic slime bubble");
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			if (!(target.boss || target.type == NPCID.TargetDummy) && target.knockBackResist > 0f)
@@ -48,7 +48,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			rand += player.HasBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>()) ? 2 : 0;
 			if (Main.rand.Next(10) < rand && !alchProj.noCatalyticSpawn)
 			{
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				dmg += player.HasBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>()) ? 5 : 0;
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));

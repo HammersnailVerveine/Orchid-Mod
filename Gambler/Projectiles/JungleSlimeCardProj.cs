@@ -34,7 +34,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeAI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			Projectile.velocity.Y += (Projectile.wet || Projectile.lavaWet || Projectile.honeyWet) ? Projectile.velocity.Y > -5f ? -0.5f : 0f : Projectile.velocity.Y < 5f ? 0.3f : 0f;
 			Projectile.frame = Projectile.velocity.Y < 0f ? 1 : 0;
@@ -125,7 +125,7 @@ namespace OrchidMod.Gambler.Projectiles
 			{
 				int projType = ProjectileType<Gambler.Projectiles.JungleSlimeCardProjAlt>();
 				Vector2 vel = new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(20 * (i - 1)));
-				OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
+				DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
 			}
 
 			if (Projectile.velocity.Y > 0f)
@@ -150,7 +150,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return false;
 		}
 
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer)
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerGambler modPlayer)
 		{
 			if (justHit == 0)
 			{
@@ -162,7 +162,7 @@ namespace OrchidMod.Gambler.Projectiles
 				{
 					int projType = ProjectileType<Gambler.Projectiles.JungleSlimeCardProjAlt>();
 					Vector2 vel = new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(15 * (i - 2)));
-					OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
+					DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + (5 * (i - 1)), Projectile.position.Y - 10, vel.X, vel.Y, projType, (int)(Projectile.damage * 0.75f), Projectile.knockBack, Projectile.owner), dummy);
 				}
 			}
 

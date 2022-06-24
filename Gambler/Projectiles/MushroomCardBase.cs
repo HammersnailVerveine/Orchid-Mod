@@ -38,21 +38,21 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeAI()
 		{
 			Player player = Main.player[Projectile.owner];
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerGambler modPlayer = player.GetModPlayer<OrchidModPlayerGambler>();
 			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 			
 			bushLeftPos = Projectile.Center;
 			bushRightPos = Projectile.Center;
 			bushLeftPos.X -= (bushTexture.Width / 4);
 			bushRightPos.X += (bushTexture.Width / 4);
-			bushLeftPos.Y -= ((Math.Abs(modPlayer.timer120 - 60)) / 10) - (bushTexture.Height / 12) - 8;
-			bushRightPos.Y -= ((Math.Abs(modPlayer.timer120 - 60) * -1f) / 10) - (bushTexture.Height / 12 * -1f) - 8;
+			bushLeftPos.Y -= ((Math.Abs(modPlayer.modPlayer.timer120 - 60)) / 10) - (bushTexture.Height / 12) - 8;
+			bushRightPos.Y -= ((Math.Abs(modPlayer.modPlayer.timer120 - 60) * -1f) / 10) - (bushTexture.Height / 12 * -1f) - 8;
 			
 			Projectile.ai[0] --;
 			if (Projectile.ai[0] <= 0) {
 				Projectile.ai[0] = 90f;
 				int projType = ProjectileType<Gambler.Projectiles.MushroomCardProj>();
-				int newProjectile = (OrchidModGamblerHelper.DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 10f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy));
+				int newProjectile = (DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 10f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy));
 				Main.projectile[newProjectile].ai[0] = Projectile.whoAmI;
 				Main.projectile[newProjectile].ai[1] = 0f;
 				Main.projectile[newProjectile].netUpdate = true;

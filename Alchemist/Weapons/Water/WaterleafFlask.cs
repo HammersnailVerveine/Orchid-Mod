@@ -44,7 +44,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			recipe.Register();
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int nb = 2 + Main.rand.Next(2);
 			for (int i = 0; i < nb; i++)
@@ -66,12 +66,12 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			for (int i = 0; i < nb; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-				int dmg = getSecondaryDamage(player, modPlayer, alchProj.nbElements);
+				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Projectiles.Water.WaterSporeProj>(), dmg, 0f, projectile.owner);
 			}
 		}
 
-		public override void AddVariousEffects(Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void AddVariousEffects(Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			alchProj.nbElementsNoExtract--;
 		}

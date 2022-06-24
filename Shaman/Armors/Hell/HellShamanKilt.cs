@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidModPlayer modPlayer = player.GetModPlayer<OrchidModPlayer>();
+			OrchidModPlayerShaman modPlayer = player.GetModPlayer<OrchidModPlayerShaman>();
 			modPlayer.shamanDamage += 0.08f;
 		}
 

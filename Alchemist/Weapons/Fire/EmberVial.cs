@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 							+ "\nReleases lingering embers");
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidModPlayer modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidModPlayerAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int nb = 2 + Main.rand.Next(3);
 			for (int i = 0; i < nb; i++)
@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Fire.EmberVialProjAlt>();
 				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
-			int dmg = this.getSecondaryDamage(player, modPlayer, 0);
+			int dmg = GetSecondaryDamage(player, 0);
 			int rand = alchProj.nbElements + Main.rand.Next(2);
 			for (int i = 0; i < rand; i++)
 			{
@@ -51,7 +51,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			}
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayer modPlayer,
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidModPlayerAlchemist modPlayer,
 		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			target.AddBuff(BuffID.OnFire, (60 * 3) + (60 * (alchProj.nbElements)));
