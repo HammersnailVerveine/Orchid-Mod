@@ -11,6 +11,7 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.ID;
 using OrchidMod.Common.UIs;
+using OrchidMod.Alchemist.Bag;
 
 namespace OrchidMod.Alchemist.UI
 {
@@ -274,7 +275,7 @@ namespace OrchidMod.Alchemist.UI
 			modPlayer.alchemistSelectUIKeysInitialize = false;
 			element = AlchemistElement.NULL;
 
-			foreach (Item item in this.ConcatInventories(Main.LocalPlayer, modPlayer))
+			foreach (Item item in Main.LocalPlayer.GetModPlayer<PotionBagPlayer>().GetPotionsFromInventoryAndBags())
 			{
 				if (item.type != 0)
 				{
@@ -298,7 +299,7 @@ namespace OrchidMod.Alchemist.UI
 				this.displayItems = new List<Item>();
 				while (displayItems.Count() == 0)
 				{
-					foreach (Item item in this.ConcatInventories(Main.LocalPlayer, modPlayer))
+					foreach (Item item in Main.LocalPlayer.GetModPlayer<PotionBagPlayer>().GetPotionsFromInventoryAndBags())
 					{
 						if (item.type != ItemID.None)
 						{
@@ -396,10 +397,6 @@ namespace OrchidMod.Alchemist.UI
 						break;
 				}
 			}
-		}
-
-		public Item[] ConcatInventories(Player player, OrchidAlchemist modPlayer) {
-            return modPlayer.alchemistPotionBag.Concat(player.inventory).ToArray();
 		}
 	}
 }

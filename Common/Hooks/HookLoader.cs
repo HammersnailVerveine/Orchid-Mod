@@ -9,20 +9,20 @@ namespace OrchidMod.Common.Hooks
 		{
 			if (Main.dedServ) return;
 
+			On.Terraria.UI.ItemSlot.OverrideHover_ItemArray_int_int += On_Terraria_ItemSlot_OverrideHover;
 			On.Terraria.Main.DrawDust += On_Terraria_Main_DrawDust;
 			On.Terraria.Main.DrawProjectiles += On_Terraria_Main_DrawProjectiles;
 			On.Terraria.Main.GUIChatDrawInner += On_Terraria_Main_GUIChatDrawInner;
-			On.Terraria.Player.ScrollHotbar += On_Terraria_Player_ScrollHotbar;
 		}
 
 		void ILoadable.Unload()
 		{
 			if (Main.dedServ) return;
 
+			On.Terraria.UI.ItemSlot.OverrideHover_ItemArray_int_int -= On_Terraria_ItemSlot_OverrideHover;
 			On.Terraria.Main.DrawDust -= On_Terraria_Main_DrawDust;
 			On.Terraria.Main.DrawProjectiles -= On_Terraria_Main_DrawProjectiles;
 			On.Terraria.Main.GUIChatDrawInner -= On_Terraria_Main_GUIChatDrawInner;
-			On.Terraria.Player.ScrollHotbar -= On_Terraria_Player_ScrollHotbar;
 		}
 	}
 }

@@ -62,7 +62,10 @@ namespace OrchidMod.Gambler.UI
 			// drawZone = new Rectangle(Main.screenWidth / 2 - Main.chatBackTexture.Width / 2 + 2, 120 + (linesCount - emptyLinesCount) * 30, Main.chatBackTexture.Width - 4, emptyLinesCount * 30); [S¨]
 			drawZone = new Rectangle(Main.screenWidth / 2 - 50 + 2, 120 + (linesCount - emptyLinesCount) * 30, 100 - 4, emptyLinesCount * 30);
 
-			if (drawZone.Contains(Main.MouseScreen.ToPoint())) Main.LocalPlayer.GetModPlayer<OrchidPlayer>().ignoreScrollHotbar = true;
+			if (drawZone.Contains(Main.MouseScreen.ToPoint()))
+			{
+				UISystem.RequestIgnoreHotbarScroll()
+;			}
 		}
 
 		public void UpdateOnChatButtonClicked()

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Alchemist.Bag;
 using OrchidMod.Common.UIs;
 using ReLogic.Content;
 using System;
@@ -279,7 +280,7 @@ namespace OrchidMod.Alchemist.UI
 			int val = this.displayRectangles.Count() - 1;
 			this.displayItems = new List<Item>();
 
-			foreach (Item item in this.ConcatInventories(Main.LocalPlayer, modPlayer))
+			foreach (Item item in Main.LocalPlayer.GetModPlayer<PotionBagPlayer>().GetPotionsFromInventoryAndBags())
 			{
 				if (item.type != 0)
 				{
@@ -334,10 +335,6 @@ namespace OrchidMod.Alchemist.UI
 			this.displayRectangles.Add(new Rectangle(displayPoint.X - drawOffSet + drawSize * 2, displayPoint.Y - drawOffSet - drawSize - 2, drawSize, drawSize));
 			this.displayRectangles.Add(new Rectangle(displayPoint.X - drawOffSet + drawSize * 2, displayPoint.Y - drawOffSet + 0, drawSize, drawSize));
 			this.displayRectangles.Add(new Rectangle(displayPoint.X - drawOffSet + drawSize * 2, displayPoint.Y - drawOffSet + drawSize + 2, drawSize, drawSize));
-		}
-		
-		public Item[] ConcatInventories(Player player, OrchidAlchemist modPlayer) {
-            return modPlayer.alchemistPotionBag.Concat(player.inventory).ToArray();
 		}
 	}
 }

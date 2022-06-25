@@ -13,6 +13,7 @@ namespace OrchidMod.Common.UIs
 	public class UISystem : ModSystem
 	{
 		private static float uiScale = -1f;
+		private static bool ignoreHotbarScroll = false;
 
 		private static readonly Dictionary<string, OrchidUIState> uiStates = new();
 		private static readonly Dictionary<string, UserInterface> userInterfaces = new();
@@ -23,8 +24,11 @@ namespace OrchidMod.Common.UIs
 			ScissorTestEnable = true
 		};
 
+		public static void RequestIgnoreHotbarScroll()
+			=> ignoreHotbarScroll = true;
+
 		public static T GetUIState<T>() where T : OrchidUIState
-			=> uiStates.FirstOrDefault(i => i.Value is T) as T;
+			=> uiStates.FirstOrDefault(i => i.Value is T).Value as T;
 
 		public static OrchidUIState GetUIState(string name)
 			=> uiStates[name];
@@ -35,6 +39,18 @@ namespace OrchidMod.Common.UIs
 			{
 				uiState.OnResolutionChanged((int)screenSize.X, (int)screenSize.Y);
 			}
+		}
+
+		private static void ModifyScrollHotbar(On.Terraria.Player.orig_ScrollHotbar orig, Player player, int offset)
+		{
+			if (ignoreHotbarScroll) return;
+
+			orig(player, offset);
+		}
+
+		private static void ResetVariables(GameTime _)
+		{
+			ignoreHotbarScroll = false;
 		}
 
 		// ...
@@ -57,12 +73,16 @@ namespace OrchidMod.Common.UIs
 				userInterfaces.Add(name, userInterface);
 			}
 
+			On.Terraria.Player.ScrollHotbar += ModifyScrollHotbar;
 			Main.OnResolutionChanged += OnResolutionChanged;
+			Main.OnPostDraw += ResetVariables;
 		}
 
 		public override void Unload()
 		{
+			Main.OnPostDraw -= ResetVariables;
 			Main.OnResolutionChanged -= OnResolutionChanged;
+			On.Terraria.Player.ScrollHotbar -= ModifyScrollHotbar;
 
 			foreach (var (_, uiState) in uiStates)
 			{

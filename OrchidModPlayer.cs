@@ -42,8 +42,6 @@ namespace OrchidMod
 
 		public int customCrit = 0;
 
-		public bool ignoreScrollHotbar = false;
-
 		/*General*/
 
 		public bool generalTools = false;
@@ -126,11 +124,6 @@ namespace OrchidMod
 				}
 			}
 			generalStaticTimer = (generalStatic && Player.velocity.X == 0f && Player.velocity.Y == 0f) ? generalStaticTimer < 300 ? generalStaticTimer + 1 : 300 : 0;
-		}
-
-		public override void PostUpdate()
-		{
-			ignoreScrollHotbar = false;
 		}
 
 		public override void ResetEffects()
