@@ -27,7 +27,6 @@ namespace OrchidMod.Gambler.Accessories
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			player.GetDamage<GamblerChipDamageClass>() += 0.15f;
 			modPlayer.gamblerChipSpinBonus += 0.5f;
-			player.GetCritChance<GamblerDamageClass>() += 100f;
 		}
 	}
 }
