@@ -1,11 +1,10 @@
-﻿using OrchidMod.Alchemist.UI;
-using OrchidMod.Common.UIs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Bag
 {
@@ -38,9 +37,9 @@ namespace OrchidMod.Alchemist.Bag
 			dye = new Item();
 			dye.TurnToAir();
 
-			inventory = new Item[SLOTS_X * SLOTS_Y];
+			inventory = new Item[SLOTS_XY];
 
-			for (int i = 0; i < SLOTS_X * SLOTS_Y; i++)
+			for (int i = 0; i < SLOTS_XY; i++)
 			{
 				var newItem = new Item();
 				newItem.TurnToAir();
@@ -52,7 +51,7 @@ namespace OrchidMod.Alchemist.Bag
 
 		public override ModItem Clone(Item item)
 		{
-			var newBag = (PotionBag)MemberwiseClone();
+			var newBag = (PotionBag)base.Clone(item);
 			newBag.IsActive = IsActive;
 
 			// Dye
@@ -74,16 +73,16 @@ namespace OrchidMod.Alchemist.Bag
 
 				for (int i = 0; i < SLOTS_XY; i++)
 				{
-					newBag.inventory[i] = inventory[i]?.Clone();
-				}
-
-				for (int i = 0; i < SLOTS_XY; i++)
-				{
-					if (newBag.inventory[i] is not null) continue;
-
-					var newItem = new Item();
-					newItem.TurnToAir();
-					newBag.inventory[i] = newItem;
+					if (inventory[i].type > ItemID.None)
+					{
+						newBag.inventory[i] = inventory[i]?.Clone();
+					}
+					else
+					{
+						var newItem = new Item();
+						newItem.TurnToAir();
+						newBag.inventory[i] = newItem;
+					}
 				}
 			}
 

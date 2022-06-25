@@ -47,6 +47,9 @@ namespace OrchidMod.Alchemist.Bag
 		public override void UpdateInventory(Player player)
 			=> player.GetModPlayer<PotionBagPlayer>().AddBagToList(Item.ModItem as PotionBag);
 
+		public override bool IsCloneable
+			=> true;
+
 		public override bool CanStack(Item item2)
 			=> false;
 
