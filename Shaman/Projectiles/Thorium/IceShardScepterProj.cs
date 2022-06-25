@@ -72,16 +72,6 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 				Main.dust[index2].velocity *= 0.2f;
 				Main.dust[index2].noGravity = true;
 			}
-
-			if (!this.initialized)
-			{
-				this.initialized = true;
-				Player player = Main.player[Projectile.owner];
-				OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-				int newCrit = 10 * modPlayer.GetNbShamanicBonds() + (int)player.GetCritChance<ShamanDamageClass>() + player.inventory[player.selectedItem].crit;
-				OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
-				modProjectile.baseCritChance = newCrit;
-			}
 		}
 
 		public override void Kill(int timeLeft)

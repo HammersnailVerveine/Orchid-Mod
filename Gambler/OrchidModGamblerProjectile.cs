@@ -21,7 +21,6 @@ namespace OrchidMod.Gambler
 			Projectile.timeLeft = 1500;
 			SafeSetDefaults();
 			modProjectile.gamblerProjectile = true;
-			modProjectile.baseCritChance = this.baseCritChance;
 			modProjectile.gamblerBonusTrigger = this.bonusTrigger;
 			modProjectile.gamblerBonusProjectilesDelegate = BonusProjectiles;
 		}

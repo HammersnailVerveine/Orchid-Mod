@@ -28,7 +28,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.penetrate = 1;
 			Projectile.alpha = 128;
 			this.gamblingChipChance = 5;
-			this.baseCritChance = 10;
 		}
 
 		public override void SafeAI()

@@ -19,7 +19,6 @@ namespace OrchidMod.Alchemist
 			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
-			modProjectile.baseCritChance = this.baseCritChance;
 			modProjectile.alchemistReactiveProjectile = this.catalytic;
 			modProjectile.alchemistCatalyticTriggerDelegate = Catalyze;
 		}

@@ -28,7 +28,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.tileCollide = true;
 			Main.projFrames[Projectile.type] = 7;
 			this.gamblingChipChance = 100;
-			this.baseCritChance = 10;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -77,7 +76,7 @@ namespace OrchidMod.Gambler.Projectiles
 								modPlayer.AddGamblerChip(this.gamblingChipChance);
 							}
 
-							bool crit = (Main.rand.Next(101) <= modPlayer.gamblerCrit + this.baseCritChance);
+							bool crit = (Main.rand.Next(101) <= Projectile.CritChance);
 							player.ApplyDamageToNPC(target, Main.DamageVar(Projectile.damage), 0.1f, player.direction, crit);
 							OrchidModProjectile.spawnDustCircle(Projectile.Center, 29, 10, 10, true, 1.3f, 1f, 5f, true, true, false, 0, 0, true);
 							OrchidModProjectile.spawnDustCircle(target.Center, 29, 10, 10, true, 1.3f, 1f, 5f, true, true, false, 0, 0, true);

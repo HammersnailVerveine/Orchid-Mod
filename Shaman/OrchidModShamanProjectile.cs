@@ -13,7 +13,6 @@ namespace OrchidMod.Shaman
 			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.shamanProjectile = true;
-			modProjectile.baseCritChance = player.inventory[player.selectedItem].crit;
 		}
 
 		public sealed override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

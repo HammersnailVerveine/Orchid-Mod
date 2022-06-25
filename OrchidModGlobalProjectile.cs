@@ -7,7 +7,6 @@ namespace OrchidMod
 {
 	public class OrchidModGlobalProjectile : GlobalProjectile
 	{
-		public int baseCritChance = 0;
 		public bool shamanProjectile = false;
 		public bool gamblerProjectile = false;
 		public bool dancerProjectile = false;

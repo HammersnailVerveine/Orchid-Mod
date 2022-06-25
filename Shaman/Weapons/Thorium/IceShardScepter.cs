@@ -35,10 +35,10 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nCritical strike chance increases with the number of active shamanic bonds");
 		}
 
-		public override void UpdateInventory(Player player)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			Item.crit = 4 + 10 * modPlayer.GetNbShamanicBonds() + (int)player.GetCritChance<ShamanDamageClass>();
+			crit += 10 * modPlayer.GetNbShamanicBonds();
 		}
 
 		public override void AddRecipes()

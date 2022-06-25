@@ -24,7 +24,6 @@ namespace OrchidMod.Alchemist.Projectiles
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
 			modProjectile.alchemistReactiveProjectile = true;
-			modProjectile.baseCritChance = this.baseCritChance;
 			modProjectile.alchemistCatalyticTriggerDelegate = Catalyze;
 		}
 

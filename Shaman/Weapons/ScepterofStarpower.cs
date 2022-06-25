@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 9.5f;
 			Item.shoot = ModContent.ProjectileType<Projectiles.StarpowerScepterProj>();
-			Item.crit = 4;
+			Item.crit = 10;
 			empowermentType = 3;
 			this.energy = 5;
 		}
@@ -31,12 +31,10 @@ namespace OrchidMod.Shaman.Weapons
 			Tooltip.SetDefault("Critical strike chance increases with the number of active shamanic bonds");
 		}
 
-		public override void UpdateInventory(Player player)
+		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
-			// I hate it
-			// I'm sorry :(
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			Item.crit = 4 + 10 * modPlayer.GetNbShamanicBonds() + (int)player.GetCritChance<ShamanDamageClass>(); // [CRIT]
+			crit += 10 * modPlayer.GetNbShamanicBonds();
 		}
 
 		public override void AddRecipes() => CreateRecipe()

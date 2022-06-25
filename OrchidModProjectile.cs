@@ -11,7 +11,6 @@ namespace OrchidMod
 {
 	public abstract class OrchidModProjectile : ModProjectile
 	{
-		public int baseCritChance = 4; // Projectile Crit chance without player modifiers. Must equal weapon crit for coherence
 		public bool projectileTrail = false; // Will the projectile leave a trail of afterimages ?
 		public float projectileTrailOffset = 0f; // Offcenters the afterimages a bit. useless without projectileTrail activated. Looks terrible on most projectiles.
 		public bool initialized; // Used in various AI.
@@ -161,9 +160,7 @@ namespace OrchidMod
 
 			if (damageType != 0)
 			{
-				OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 				OrchidModGlobalProjectile modProjectileNew = newProjectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
-				modProjectileNew.baseCritChance = modProjectile.baseCritChance;
 
 				if (damageType == 1) modProjectileNew.shamanProjectile = true;
 				if (damageType == 2) modProjectileNew.alchemistProjectile = true;

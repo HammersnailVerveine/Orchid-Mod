@@ -88,9 +88,9 @@ namespace OrchidMod.Gambler.Projectiles
 					{
 						bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 						int newProj = DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, vel.X, vel.Y, 181, Projectile.damage, 0f, Projectile.owner, 0f, 0f), dummy);
+						Main.projectile[newProj].CritChance = Projectile.CritChance;
 						OrchidModGlobalProjectile modProjectile = Main.projectile[newProj].GetGlobalProjectile<OrchidModGlobalProjectile>();
 						modProjectile.gamblerProjectile = true;
-						modProjectile.baseCritChance = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().baseCritChance;
 					}
 				}
 			}

@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Projectiles
 			Projectile.friendly = true;
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 120;
-			Projectile.penetrate = -1; // Don't delete it, pls
+			Projectile.penetrate = -1;
 		}
 
 		public override void OnSpawn()
@@ -36,9 +36,6 @@ namespace OrchidMod.Shaman.Projectiles
 			// No u
 			Player player = Main.player[Projectile.owner];
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int newCrit = 10 * modPlayer.GetNbShamanicBonds() + (int)player.GetCritChance<ShamanDamageClass>() + player.inventory[player.selectedItem].crit;
-			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
-			modProjectile.baseCritChance = newCrit;
 
 			switch (Main.rand.Next(3))
 			{
