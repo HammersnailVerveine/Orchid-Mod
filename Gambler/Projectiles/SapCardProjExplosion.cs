@@ -35,7 +35,7 @@ namespace OrchidMod.Gambler.Projectiles
 				center: Projectile.Center,
 				radius: 70,
 				count: 25,
-				type: (index) => 102,
+				type: (index) => DustID.DesertWater2,
 				onSpawn: (dust, index, angleFromCenter) =>
 				{
 					dust.alpha = 50;
