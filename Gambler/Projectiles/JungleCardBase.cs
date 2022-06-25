@@ -63,7 +63,7 @@ namespace OrchidMod.Gambler.Projectiles
 				if (Main.myPlayer == Projectile.owner)
 				{
 					int cardType = this.getCardType(modPlayer);
-					if (cardType != ItemType<Gambler.Weapons.Cards.ForestCard>() || modPlayer.gamblerShuffleCooldown <= 0 && !dummy || dummy && !modPlayer.GamblerDummyInHand)
+					if (cardType != ItemType<Gambler.Weapons.Cards.JungleCard>() || modPlayer.gamblerShuffleCooldown <= 0 && !dummy || dummy && !modPlayer.GamblerDummyInHand)
 					{
 						if (!modPlayer.gamblerLuckySprout)
 						{
