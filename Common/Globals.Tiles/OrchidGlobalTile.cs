@@ -22,7 +22,7 @@ namespace OrchidMod.Common.Globals.Tiles
 			switch (type)
 			{
 				case TileID.Pots:
-					DropTileBreakItem<HealingPotionCard>(i, j, 1500);
+					DropTileBreakItem<HealingPotionCard>(i, j, 1, 1500);
 					break;
 				case TileID.ShadowOrbs:
 					if (tile.TileFrameY == 0 && tile.TileFrameX % 36 == 0)
