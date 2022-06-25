@@ -24,8 +24,6 @@ namespace OrchidMod
 	{
 		public OrchidPlayer modPlayer;
 
-		public float guardianDamage = 1.0f;
-		public int guardianCrit = 0;
 		public float guardianRecharge = 1f;
 		public int guardianBlock = 0;
 		public int guardianSlam = 0;
@@ -72,8 +70,6 @@ namespace OrchidMod
 				guardianSlamRecharge = (int)(guardianRechargeTime * guardianRecharge);
 			}
 
-			guardianDamage = 1.0f;
-			guardianCrit = 0;
 			guardianRecharge = 1f;
 
 			guardianBlockRecharge--;

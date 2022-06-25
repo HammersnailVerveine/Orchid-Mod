@@ -22,8 +22,6 @@ namespace OrchidMod
 {
 	public class OrchidDancer : ModPlayer
 	{
-		public float dancerDamage = 1.0f;
-		public int dancerCrit = 0;
 		public int dancerPoise = 0;
 		public int dancerPoiseConsume = 0;
 		public int dancerPoiseMax = 20;
@@ -94,8 +92,6 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
-			dancerDamage = 1.0f;
-			dancerCrit = 0;
 			dancerPoiseMax = 20;
 			dancerPoiseConsume = 0;
 			dancerInvincibility -= dancerInvincibility > 0 ? 1 : 0;

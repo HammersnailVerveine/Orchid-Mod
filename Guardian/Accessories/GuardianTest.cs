@@ -22,6 +22,7 @@ namespace OrchidMod.Guardian.Accessories
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			player.GetDamage<GuardianDamageClass>() += 0.5f;
+			player.GetCritChance<GuardianDamageClass>() += 100;
 		}
 	}
 }

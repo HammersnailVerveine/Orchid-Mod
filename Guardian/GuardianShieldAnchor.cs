@@ -76,6 +76,7 @@ namespace OrchidMod.Guardian
 					if (bashDistanceRef == 0f) {
 						bashDistanceRef = Projectile.ai[1] / 2;
 						Projectile.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
+						Projectile.CritChance = (int)owner.GetCritChance<GuardianDamageClass>() +guardianItem.Item.crit;
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.friendly = true;
 						guardianItem.Slam(owner, Projectile);
