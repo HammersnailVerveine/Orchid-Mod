@@ -144,7 +144,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			if (Projectile.velocity.Y > 0f)
+			if (Projectile.velocity.Y >= 0f)
 			{
 				Projectile.velocity.Y = -10;
 				Projectile.ai[1] = 1f;
