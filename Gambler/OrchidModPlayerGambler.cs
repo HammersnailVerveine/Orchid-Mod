@@ -25,10 +25,7 @@ namespace OrchidMod
 	{
 		public OrchidPlayer modPlayer;
 
-		public float gamblerDamage = 1.0f;
-		public float gamblerDamageChip = 0f;
 		public float gamblerChipChance = 1.0f;
-		public int gamblerCrit = 0;
 		public Item[] gamblerCardsItem = new Item[20];
 		public Item[] gamblerCardNext = new Item[3];
 		public Item gamblerCardCurrent = new Item();
@@ -163,7 +160,7 @@ namespace OrchidMod
 				switch (gamblerDiceID)
 				{
 					case 0:
-						gamblerDamage += (0.03f * gamblerDiceValue);
+						Player.GetDamage<GamblerDamageClass>() += (0.03f * gamblerDiceValue);
 						break;
 					case 1:
 						gamblerChipsConsume += 4 * gamblerDiceValue;
@@ -222,10 +219,7 @@ namespace OrchidMod
 			gamblerChipSpin += gamblerPauseChipRotation > 0 ? 0f : 1.5f + (gamblerChipSpinBonus * 1.5f);
 			gamblerChipSpin = gamblerChipSpin > 720f ? gamblerChipSpin - 720f : gamblerChipSpin;
 			gamblerPauseChipRotation -= gamblerPauseChipRotation > 0 ? 1 : 0;
-			gamblerDamage = 1.0f;
-			gamblerDamageChip = 0f;
 			gamblerChipChance = 1.0f;
-			gamblerCrit = 0;
 			gamblerChipSpinBonus = 0f;
 			gamblerChipsMax = 5;
 			gamblerChipsConsume = 0;

@@ -26,7 +26,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.timeLeft = 600;
 			Projectile.scale = 1f;
 			Projectile.tileCollide = true;
-			Main.projFrames[Projectile.type] = 7;
+			Main.projFrames[Projectile.type] = 8;
 			this.gamblingChipChance = 100;
 		}
 
@@ -44,8 +44,8 @@ namespace OrchidMod.Gambler.Projectiles
 
 			if (Main.time % 5 == 0)
 				Projectile.frame++;
-			if (Projectile.frame == 7)
-				Projectile.frame = 0;
+			if (Projectile.frame == 8)
+				Projectile.frame = 1;
 
 			if (target.active == false)
 			{

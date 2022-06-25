@@ -122,7 +122,7 @@ namespace OrchidMod.Gambler.UI
 
 			// Damage + Crit
 			cardTooltipText += $"Damage: {player.GetWeaponDamage(item)}" + hmm +
-				$"Crit: {item.crit + gamblerPlayer.gamblerCrit}%" + "\n"; // TODO ... [CRIT]
+				$"Crit: {item.crit}%" + "\n"; // $"Crit: {item.crit + (int)player.GetCritChance<GamblerDamageClass>()}%" + "\n"; 
 
 			// Knockback
 			cardTooltipText += knockbackText + "\n";
