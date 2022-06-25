@@ -19,8 +19,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void SetStaticDefaults()
 		{
-			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
-			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = false;
+			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 
 			DisplayName.SetDefault("Lily Hood");
 			Tooltip.SetDefault("20% increased potency regeneration"
