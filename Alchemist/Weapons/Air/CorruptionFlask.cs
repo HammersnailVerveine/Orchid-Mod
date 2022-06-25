@@ -53,7 +53,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			{
 				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				Vector2 pos = new Vector2(projectile.Center.X, projectile.Center.Y - 10);
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), pos, Vector2.Zero, projType, dmg, 3f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), pos, Vector2.Zero, projType, dmg, 3f, projectile.owner);
 			}
 		}
 

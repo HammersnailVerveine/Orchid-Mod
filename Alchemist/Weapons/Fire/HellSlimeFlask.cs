@@ -60,7 +60,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubbleLava>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
 			}
 
 			if (modTarget.alchemistFire > 0)
@@ -71,7 +71,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 				for (int i = 0; i < nb; i++)
 				{
 					Vector2 perturbedSpeed = projectile.velocity.RotatedByRandom(MathHelper.ToRadians(15)) * 0.75f;
-					Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 1f, projectile.owner);
+					SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 1f, projectile.owner);
 				}
 			}
 		}

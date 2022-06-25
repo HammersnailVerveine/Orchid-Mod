@@ -62,7 +62,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 			int projType = ProjectileType<Alchemist.Projectiles.Nature.JungleLilyFlaskProj>();
 			int damage = GetSecondaryDamage(player, alchProj.nbElements);
-			int newProjectileInt = Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, projType, damage, 0f, projectile.owner);
+			int newProjectileInt = SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, projType, damage, 0f, projectile.owner);
 			Projectile newProjectile = Main.projectile[newProjectileInt];
 			newProjectile.width = range * 2;
 			newProjectile.height = range * 2;

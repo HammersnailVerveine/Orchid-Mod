@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -32,7 +33,7 @@ namespace OrchidMod.Alchemist
 				if (modPlayer.alchemistFlower >= 9)
 				{
 					modPlayer.alchemistFlower = 0;
-					int dmg = (int)(25 * modPlayer.alchemistDamage);
+					int dmg = (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(25);
 					Projectile.NewProjectile(null, player.Center.X, player.position.Y - 65, 0f, 0f, ProjectileType<Alchemist.Projectiles.Reactive.BloomingReactiveAlt>(), dmg, 0, player.whoAmI, 0f, 0f);
 				}
 			}
@@ -124,6 +125,13 @@ namespace OrchidMod.Alchemist
 
 			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
+		}
+		public int SpawnProjectile(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, int owner, float ai0 = 0, float ai1 = 0)
+		{
+			int proj = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, owner, ai0, ai1);
+			Main.projectile[proj].CritChance = Item.crit;
+			// netupdate ?
+			return proj;
 		}
 	}
 }

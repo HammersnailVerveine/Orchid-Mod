@@ -40,7 +40,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			{
 				Vector2 vel = (new Vector2(0f, -(float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(90)));
 				int spawnProj = alchProj.natureFlask.type == ItemType<Alchemist.Weapons.Nature.PoisonVial>() ? ProjectileType<Alchemist.Projectiles.Nature.PoisonVialProjAlt>() : ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProjAlt>();
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
 			int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 			int shoot = ProjectileType<Alchemist.Projectiles.Water.SeafoamVialProj>();
@@ -54,7 +54,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			{
 				Vector2 vel = (new Vector2(0f, -2.5f).RotatedByRandom(MathHelper.ToRadians(30)));
 				vel *= (float)(1 - (Main.rand.Next(10) / 10));
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, shoot, dmg, 0.5f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, shoot, dmg, 0.5f, projectile.owner);
 			}
 		}
 
@@ -73,7 +73,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 					proj = ProjectileType<Alchemist.Projectiles.Reactive.PoisonBubble>();
 				}
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
 			}
 		}
 	}

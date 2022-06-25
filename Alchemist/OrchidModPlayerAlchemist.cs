@@ -27,9 +27,7 @@ namespace OrchidMod
 		public List<string> alchemistKnownReactions = new List<string>();
 		public List<string> alchemistKnownHints = new List<string>();
 		public Item[] alchemistPotionBag = new Item[16];
-		public float alchemistDamage = 1.0f;
 		public float alchemistVelocity = 1.0f;
-		public int alchemistCrit = 0;
 		public bool[] alchemistElements = new bool[6];
 		public Item[] alchemistFlasks = new Item[6];
 		public int alchemistFlaskDamage = 0;
@@ -360,8 +358,6 @@ namespace OrchidMod
 			alchemistPotencyMax = 8;
 			alchemistRegenPotency = 60;
 			alchemistNbElementsMax = 2;
-			alchemistCrit = 0;
-			alchemistDamage = 1.0f;
 			alchemistVelocity = 1.0f;
 			alchemistSelectUIDisplay = alchemistSelectUIItem ? alchemistSelectUIDisplay : false;
 			alchemistSelectUIKeysDisplay = alchemistSelectUIKeysItem ? alchemistSelectUIKeysDisplay : false;

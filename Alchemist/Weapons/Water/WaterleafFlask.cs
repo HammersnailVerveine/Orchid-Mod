@@ -51,7 +51,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			{
 				Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Water.WaterSporeProjAlt>();
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
@@ -67,7 +67,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
 				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Projectiles.Water.WaterSporeProj>(), dmg, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Projectiles.Water.WaterSporeProj>(), dmg, 0f, projectile.owner);
 			}
 		}
 

@@ -161,7 +161,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			this.projOwner = (Projectile.owner == Main.myPlayer);
 
 			this.nbElements = modPlayer.alchemistNbElements;
-			Projectile.damage = (int)(modPlayer.alchemistFlaskDamage * modPlayer.alchemistDamage + 5E-06f);
+			//Projectile.damage = (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(modPlayer.alchemistFlaskDamage);
 
 			if (elements[0])
 			{
@@ -255,8 +255,8 @@ namespace OrchidMod.Alchemist.Projectiles
 			{
 				if (modPlayer.alchemistCovent && this.nbElements > 2 && this.airFlaskGlobal == null) { // Keystone of the Convent
 					float distance = 500f;
-					bool keystoneCrit = (Main.rand.Next(101) <= modPlayer.alchemistCrit + 4);
-					int keystoneDamage = (int)(22 * (modPlayer.alchemistDamage - 1f));
+					bool keystoneCrit = (Main.rand.Next(101) <= player.GetCritChance<AlchemistDamageClass>() + 4);
+					int keystoneDamage = (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(22);
 					//int keystoneDamage = (int)(22 * (modPlayer.alchemistDamage + player.allDamage - 1f));
 					int absorbedCount = 0;
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Air.KeystoneOfTheConventProj>();

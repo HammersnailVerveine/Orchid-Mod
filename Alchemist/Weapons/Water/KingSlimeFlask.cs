@@ -52,7 +52,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 				dmg += player.HasBuff(BuffType<Alchemist.Buffs.KingSlimeFlaskBuff>()) ? 5 : 0;
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.SlimeBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
 			}
 		}
 	}

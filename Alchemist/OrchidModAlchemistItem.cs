@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -296,6 +297,14 @@ namespace OrchidMod.Alchemist
 			float dmg = (int)(this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f)));
 			dmg = player.GetDamage<AlchemistDamageClass>().ApplyTo(dmg);
 			return (int)dmg;
+		}
+
+		public int SpawnProjectile(IEntitySource source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, int owner, float ai0 = 0, float ai1 = 0)
+		{
+			int proj = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, owner, ai0, ai1);
+			Main.projectile[proj].CritChance = Item.crit + (int)Main.player[owner].GetCritChance<AlchemistDamageClass>();
+			// netupdate ?
+			return proj;
 		}
 	}
 }

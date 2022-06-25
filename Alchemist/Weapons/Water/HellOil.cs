@@ -63,7 +63,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 				int dmg = 0;
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.OilBubble>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
 			}
 		}
 
@@ -71,7 +71,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		{
 			if (alchProj.fireFlask.type != 0)
 			{
-				projectile.damage += (int)(50 * modPlayer.alchemistDamage);
+				projectile.damage += (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(50);
 			}
 		}
 	}

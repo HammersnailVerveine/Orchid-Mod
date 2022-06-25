@@ -39,7 +39,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			for (int i = 0; i < 4; i++)
 			{
 				Vector2 vel = (new Vector2(0f, 5f * alchProj.nbElements).RotatedBy(MathHelper.ToRadians(90 * i)));
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, dmg, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, dmg, 0f, projectile.owner);
 			}
 		}
 	}

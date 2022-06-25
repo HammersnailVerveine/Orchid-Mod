@@ -37,7 +37,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			{
 				Vector2 vel = (new Vector2(0f, -(float)((3 * alchProj.nbElements) + Main.rand.Next(3))).RotatedByRandom(MathHelper.ToRadians(10)));
 				int spawnProj = Main.rand.NextBool(3) ? ProjectileType<Alchemist.Projectiles.AlchemistSmoke3>() : ProjectileType<Alchemist.Projectiles.AlchemistSmoke2>();
-				int smokeProj = Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
+				int smokeProj = SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 				Main.projectile[smokeProj].localAI[0] = alchProj.glowColor.R;
 				Main.projectile[smokeProj].localAI[1] = alchProj.glowColor.G;
 				Main.projectile[smokeProj].ai[1] = alchProj.glowColor.B;
@@ -50,12 +50,12 @@ namespace OrchidMod.Alchemist.Weapons.Air
 					int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 					Vector2 vel = (new Vector2(0f, -(float)((3 * alchProj.nbElements) + Main.rand.Next(3))).RotatedByRandom(MathHelper.ToRadians(10)));
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>();
-					Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, dmg, 0f, projectile.owner);
+					SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, dmg, 0f, projectile.owner);
 				}
 			}
 
 			int type = ProjectileType<Alchemist.Projectiles.Air.CloudInAVialProj>();
-			int newProj = Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, type, 0, 0.5f, projectile.owner);
+			int newProj = SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, type, 0, 0.5f, projectile.owner);
 			Main.projectile[newProj].ai[1] = alchProj.nbElements;
 			Main.projectile[newProj].netUpdate = true;
 		}

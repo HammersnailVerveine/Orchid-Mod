@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 				{
 					Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
 					int spawnProj = ProjectileType<Alchemist.Projectiles.Air.QueenBeeFlaskProj>();
-					Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
+					SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 				}
 				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int rand = alchProj.nbElements + Main.rand.Next(3) + 1;
@@ -50,10 +50,10 @@ namespace OrchidMod.Alchemist.Weapons.Air
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(80)));
 					if (player.strongBees && Main.rand.NextBool(2))
-						Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileID.GiantBee, (int)(dmg * 1.15f), 0f, projectile.owner, 0f, 0f);
+						SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileID.GiantBee, (int)(dmg * 1.15f), 0f, projectile.owner, 0f, 0f);
 					else
 					{
-						Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileID.Bee, dmg, 0f, projectile.owner, 0f, 0f);
+						SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileID.Bee, dmg, 0f, projectile.owner, 0f, 0f);
 					}
 				}
 			}
@@ -68,7 +68,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				int proj = ProjectileType<Alchemist.Projectiles.Reactive.AlchemistHive>();
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, perturbedSpeed, proj, dmg, 0f, projectile.owner);
 			}
 		}
 	}

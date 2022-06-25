@@ -35,7 +35,7 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 			for (int i = 0; i < 4 + rand; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-				Projectile.NewProjectile(player.GetSource_ItemUse(Item), player.Center, vel, ProjectileType<Projectiles.Reactive.ReactiveSpawn.DungeonCatalystProj>(), dmg, 0f, player.whoAmI);
+				SpawnProjectile(player.GetSource_ItemUse(Item), player.Center, vel, ProjectileType<Projectiles.Reactive.ReactiveSpawn.DungeonCatalystProj>(), dmg, 0f, player.whoAmI);
 			}
 		}
 	}

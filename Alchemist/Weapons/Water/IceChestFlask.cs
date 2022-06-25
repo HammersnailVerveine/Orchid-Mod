@@ -93,7 +93,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 				int damage = GetSecondaryDamage(player, alchProj.nbElements);
 				/*
 				int projType = ProjectileType<Alchemist.Projectiles.Water.IceChestFlaskProj>();
-				int newProjectileInt = Projectile.NewProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, 0f, projectile.owner);
+				int newProjectileInt = SpawnProjectile(projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, 0f, projectile.owner);
 				Projectile newProjectile = Main.projectile[newProjectileInt];
 				newProjectile.width = range * 2;
 				newProjectile.height = range * 2;
@@ -136,7 +136,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 						if (smallProjectiles.Contains(proj.type))
 						{
 							int projType = ProjectileType<IceChestFlaskProjSmall>();
-							Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), proj.Center, vel, projType, damage, 1f, player.whoAmI);
+							SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), proj.Center, vel, projType, damage, 1f, player.whoAmI);
 							proj.active = false;
 							proj.netUpdate = true;
 						}
@@ -144,7 +144,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 						if (bigProjectiles.Contains(proj.type))
 						{
 							int projType = ProjectileType<IceChestFlaskProjBig>();
-							Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), proj.Center, vel, projType, damage * 5, 5f, player.whoAmI);
+							SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), proj.Center, vel, projType, damage * 5, 5f, player.whoAmI);
 							proj.active = false;
 							proj.netUpdate = true;
 						}

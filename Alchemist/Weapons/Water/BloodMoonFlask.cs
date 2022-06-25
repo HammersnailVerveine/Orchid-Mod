@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			for (int i = 0; i < rand; i++)
 			{
 				Vector2 vel = (new Vector2(0f, ((alchProj.airFlask.type != 0 && alchProj.fireFlask.type == 0) ? -4f : -2f)).RotatedByRandom(MathHelper.ToRadians(180)));
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>(), dmg, kb, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Alchemist.Projectiles.Water.BloodMoonFlaskProj>(), dmg, kb, projectile.owner);
 			}
 		}
 	}

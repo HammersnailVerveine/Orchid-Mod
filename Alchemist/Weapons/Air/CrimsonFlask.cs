@@ -58,11 +58,11 @@ namespace OrchidMod.Alchemist.Weapons.Air
 				{
 					float speed = (5f / (nb + 1)) * (i + 1);
 					Vector2 vel = (new Vector2(0f, speed).RotatedByRandom(MathHelper.ToRadians(180)));
-					Projectile newProj = Main.projectile[Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), pos, vel, projType, dmg, 0.1f, projectile.owner)];
+					Projectile newProj = Main.projectile[SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), pos, vel, projType, dmg, 0.1f, projectile.owner)];
 					newProj.timeLeft = 70 + (((20 - nb) > 10 ? (20 - nb) : 10) * i);
 					newProj.netUpdate = true;
 				}
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), pos, Vector2.Zero, projType2, 0, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), pos, Vector2.Zero, projType2, 0, 0f, projectile.owner);
 			}
 		}
 

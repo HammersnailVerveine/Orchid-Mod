@@ -51,20 +51,20 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			{
 				Vector2 vel = (new Vector2(0f, (float)(3 + Main.rand.Next(4))).RotatedByRandom(MathHelper.ToRadians(180)));
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj4>();
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, spawnProj, 0, 0f, projectile.owner);
 			}
 			if (alchProj.waterFlask.type != 0)
 			{
 				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 				Vector2 vel = (new Vector2(0f, -2f).RotatedByRandom(MathHelper.ToRadians(20)));
 				int newType = ProjectileType<Alchemist.Projectiles.Nature.SunflowerFlaskProj1>();
-				Projectile.NewProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, newType, dmg, 0f, projectile.owner);
+				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, newType, dmg, 0f, projectile.owner);
 			}
 		}
 
 		public override void AddVariousEffects(Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
-			if (alchProj.waterFlask.type != 0) projectile.damage += (int)(3 * modPlayer.alchemistDamage);
+			if (alchProj.waterFlask.type != 0) projectile.damage += (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(3);
 		}
 	}
 }

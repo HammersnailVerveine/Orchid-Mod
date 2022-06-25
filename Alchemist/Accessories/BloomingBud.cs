@@ -29,7 +29,7 @@ namespace OrchidMod.Alchemist.Accessories
 			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			if (modPlayer.alchemistPotencyDisplayTimer > 0 && Main.rand.NextBool(600))
 			{
-				int dmg = (int)(25 * modPlayer.alchemistDamage);
+				int dmg = (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(25);
 				Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(20));
 				float scale = 1f - (Main.rand.NextFloat() * .3f);
 				perturbedSpeed = perturbedSpeed * scale;
