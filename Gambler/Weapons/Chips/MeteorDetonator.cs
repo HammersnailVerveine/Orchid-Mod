@@ -22,7 +22,6 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			Item.useTime = 90;
 			Item.knockBack = 1f;
 			Item.damage = 30;
-			Item.crit = 4;
 			Item.rare = ItemRarityID.Blue;
 			Item.shootSpeed = 0f;
 			Item.shoot = ProjectileType<Gambler.Projectiles.Chips.MeteorDetonatorProj>();

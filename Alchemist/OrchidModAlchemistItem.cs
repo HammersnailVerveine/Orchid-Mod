@@ -40,7 +40,6 @@ namespace OrchidMod.Alchemist
 			SafeSetDefaults();
 			Item.DamageType = ModContent.GetInstance<AlchemistDamageClass>();
 			Item.noMelee = true;
-			Item.crit = 4;
 			Item.useStyle = 1;
 			Item.UseSound = SoundID.Item106;
 			Item.consumable = false;

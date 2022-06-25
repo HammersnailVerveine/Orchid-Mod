@@ -27,7 +27,6 @@ namespace OrchidMod.Gambler
 
 		public override void SetDefaultStats(Player player)
 		{
-			player.GetCritChance<GamblerDamageClass>() += 4;
 		}
 	}
 }

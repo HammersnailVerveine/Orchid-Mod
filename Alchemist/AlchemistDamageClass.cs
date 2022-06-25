@@ -27,7 +27,6 @@ namespace OrchidMod.Alchemist
 
 		public override void SetDefaultStats(Player player)
 		{
-			player.GetCritChance<AlchemistDamageClass>() += 4;
 		}
 	}
 }

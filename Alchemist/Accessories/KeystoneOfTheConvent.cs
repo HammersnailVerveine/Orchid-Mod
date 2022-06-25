@@ -14,7 +14,6 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.value = Item.sellPrice(0, 2, 50, 0);
 			Item.rare = ItemRarityID.Orange;
 			Item.accessory = true;
-			Item.crit = 4;
 			Item.damage = 37;
 		}
 

@@ -22,7 +22,6 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 			Item.height = 30;
 			Item.rare = ItemRarityID.Green;
 			Item.damage = 21;
-			Item.crit = 4;
 			Item.value = Item.sellPrice(0, 0, 75, 0);
 			this.catalystType = 1;
 		}

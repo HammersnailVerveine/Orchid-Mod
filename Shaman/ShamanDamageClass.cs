@@ -27,7 +27,6 @@ namespace OrchidMod.Shaman
 
 		public override void SetDefaultStats(Player player)
 		{
-			player.GetCritChance<ShamanDamageClass>() += 4;
 		}
 	}
 }

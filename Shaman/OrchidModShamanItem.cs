@@ -41,7 +41,6 @@ namespace OrchidMod.Shaman
 			Item.DamageType = ModContent.GetInstance<ShamanDamageClass>();
 
 			Item.noMelee = true;
-			Item.crit = 4;
 			Item.useStyle = ItemUseStyleID.Thrust;
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();

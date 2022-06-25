@@ -21,7 +21,6 @@ namespace OrchidMod.Guardian
 		public sealed override void SetDefaults()
 		{
 			Item.DamageType = ModContent.GetInstance<GuardianDamageClass>();
-			Item.crit = 4;
 			Item.noMelee = true;
 			Item.autoReuse = false;
 			Item.maxStack = 1;

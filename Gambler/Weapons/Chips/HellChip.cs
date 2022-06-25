@@ -22,7 +22,6 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			Item.useTime = 40;
 			Item.knockBack = 8f;
 			Item.damage = 48;
-			Item.crit = 4;
 			Item.rare = ItemRarityID.Orange;
 			Item.shootSpeed = 15f;
 			Item.shoot = ProjectileType<Gambler.Projectiles.Chips.HellChipProj>();

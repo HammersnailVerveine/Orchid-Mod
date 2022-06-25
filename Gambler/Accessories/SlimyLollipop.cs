@@ -12,7 +12,6 @@ namespace OrchidMod.Gambler.Accessories
 			Item.value = Item.sellPrice(0, 0, 40, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
-			Item.crit = 4;
 			Item.damage = 15;
 		}
 		public override void SetStaticDefaults()

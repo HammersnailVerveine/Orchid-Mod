@@ -14,7 +14,6 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.damage = 85;
-			Item.crit = 4;
 			Item.knockBack = 3f;
 			Item.useAnimation = 30;
 			Item.useTime = 30;

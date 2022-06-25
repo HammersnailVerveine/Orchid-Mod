@@ -27,7 +27,6 @@ namespace OrchidMod.Guardian
 
 		public override void SetDefaultStats(Player player)
 		{
-			player.GetCritChance<GuardianDamageClass>() += 4;
 		}
 	}
 }

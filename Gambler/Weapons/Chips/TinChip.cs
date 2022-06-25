@@ -22,7 +22,6 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			Item.useTime = 34;
 			Item.knockBack = 5f;
 			Item.damage = 23;
-			Item.crit = 4;
 			Item.rare = ItemRarityID.White;
 			Item.shootSpeed = 8f;
 			Item.shoot = ProjectileType<Gambler.Projectiles.Chips.TinChipProj>();

@@ -15,7 +15,6 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.Yellow;
 			Item.accessory = true;
 			Item.damage = 80;
-			Item.crit = 4;
 		}
 
 		public override void SetStaticDefaults()

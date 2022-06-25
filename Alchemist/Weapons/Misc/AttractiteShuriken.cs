@@ -15,7 +15,6 @@ namespace OrchidMod.Alchemist.Weapons.Misc
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 5;
-			Item.crit = 4;
 			Item.useStyle = 1;
 			Item.useAnimation = 15;
 			Item.useTime = 15;

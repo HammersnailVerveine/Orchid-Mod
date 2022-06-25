@@ -27,7 +27,6 @@ namespace OrchidMod.Dancer
 
 		public override void SetDefaultStats(Player player)
 		{
-			player.GetCritChance<DancerDamageClass>() += 4;
 		}
 	}
 }
