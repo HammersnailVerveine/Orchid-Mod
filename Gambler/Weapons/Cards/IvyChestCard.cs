@@ -30,7 +30,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nOnly 3 sets of leaves can exist at once");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.IvyChestCardProj>();
 

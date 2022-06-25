@@ -33,11 +33,11 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.gamblerCardSets.Add("Elemental");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			int projType = ModContent.ProjectileType<Gambler.Projectiles.SapCardProj>();
 
-			if (player.ownedProjectileCounts[type] == 0 && player.channel)
+			if (player.ownedProjectileCounts[projType] == 0 && player.channel)
 			{
 				DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
 				SoundEngine.PlaySound(SoundID.Item1);

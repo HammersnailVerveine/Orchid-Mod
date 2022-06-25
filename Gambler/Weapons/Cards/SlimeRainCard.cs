@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nThe longer the slimes falls, the more damage they do");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			if (Main.mouseLeft && Main.mouseLeftRelease || modPlayer.gamblerJustSwitched)

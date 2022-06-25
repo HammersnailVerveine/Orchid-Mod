@@ -51,6 +51,7 @@ namespace OrchidMod
 		public bool gamblerUIChipSpinDisplay = false;
 		public bool gamblerJustSwitched = false;
 		public bool GamblerDeckInHand = false;
+		public bool GamblerDummyInHand = false;
 		public bool gamblerHasCardInDeck = false;
 
 		public float gamblerChipSpin = 0;
@@ -228,6 +229,7 @@ namespace OrchidMod
 			gamblerRedrawCooldownMax = 1800;
 			gamblerShuffleCooldownMax = 900;
 			GamblerDeckInHand = false;
+			GamblerDummyInHand = false;
 			gamblerUIFightDisplay = false;
 			gamblerUIChipSpinDisplay = false;
 

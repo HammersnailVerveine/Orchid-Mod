@@ -49,7 +49,7 @@ namespace OrchidMod.Gambler
 			else
 			{
 				Item currentCard = modPlayer.gamblerCardCurrent;
-				currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, type, damage, knockback);
+				currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, damage, knockback);
 			}
 			return false;
 		}

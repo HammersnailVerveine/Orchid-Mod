@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nCollecting them increases the worm damage and length");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.EaterCardProj1>();
 			bool found = false;

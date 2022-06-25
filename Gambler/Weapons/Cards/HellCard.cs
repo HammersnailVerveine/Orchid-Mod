@@ -14,7 +14,6 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.damage = 48;
-			Item.crit = 4;
 			Item.knockBack = 3f;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
@@ -30,7 +29,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nPeriodically summons a pepper, replicating the attack");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			SoundEngine.PlaySound(SoundID.Item1);
 			int projType = ProjectileType<Projectiles.HellCardProjAlt>();

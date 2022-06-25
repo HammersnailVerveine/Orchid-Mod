@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nThe portal will disappear upon releasing left click or getting too far from it");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.GoblinArmyCardProj>();
 			bool found = false;

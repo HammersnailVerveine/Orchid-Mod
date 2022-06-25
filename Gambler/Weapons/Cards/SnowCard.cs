@@ -30,7 +30,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nDrag and release a fruit to launch it");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			SoundEngine.PlaySound(SoundID.Item1);
 			int projType = ProjectileType<Projectiles.SnowCardBase>();

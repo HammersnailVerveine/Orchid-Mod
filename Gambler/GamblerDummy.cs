@@ -55,7 +55,7 @@ namespace OrchidMod.Gambler
 
 			currentCard = modPlayer.gamblerCardDummy;
 			CheckStats(currentCard);
-			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, type, damage, knockback, true);
+			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, damage, knockback, true);
 			return false;
 		}
 
@@ -63,6 +63,7 @@ namespace OrchidMod.Gambler
 		{
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			modPlayer.GamblerDeckInHand = true;
+			modPlayer.GamblerDummyInHand = true;
 			if (Main.mouseLeft)
 			{
 				modPlayer.ShootBonusProjectiles(true);

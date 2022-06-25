@@ -30,7 +30,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nBubbles gain in damage over time");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockBack, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.BubbleCardProj>();
 			float scale = 1f - (Main.rand.NextFloat() * .3f);

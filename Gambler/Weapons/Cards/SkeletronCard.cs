@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nBased on the distance between your cursor and it, the projectile will behave differently");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.SkeletronCardProj>();
 			bool found = false;

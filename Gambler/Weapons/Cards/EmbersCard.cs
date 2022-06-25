@@ -28,7 +28,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Tooltip.SetDefault("Releases homing embers");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			Vector2 vel = velocity.RotatedByRandom(MathHelper.ToRadians(15)) / 5f;
 			int projType = ProjectileType<Projectiles.EmbersCardProj>();

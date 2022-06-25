@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nPeriodically summons a seed, replicating the attack");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			SoundEngine.PlaySound(SoundID.Item1);
 			int projType = ProjectileType<Projectiles.OceanCardProjAlt>();

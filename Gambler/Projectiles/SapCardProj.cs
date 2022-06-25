@@ -12,6 +12,8 @@ namespace OrchidMod.Gambler.Projectiles
 {
 	public class SapCardProj : OrchidModGamblerProjectile
 	{
+		public float speed;
+
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
@@ -31,6 +33,8 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.penetrate = -1;
 
 			this.gamblingChipChance = 5;
+
+			speed = 1f;
 		}
 
 		public override void SafeAI()
@@ -41,6 +45,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 			Projectile.rotation = (float)Math.Sin(Projectile.timeLeft * 0.045f) * 0.25f;
 			Projectile.scale = 1 + (float)Math.Cos(Projectile.timeLeft * 0.05f) * 0.1f;
+			speed *= 0.995f;
 
 			if (Projectile.timeLeft > 120) // ???
 			{
@@ -50,7 +55,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 			if (Main.rand.NextBool(12))
 			{
-				var dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102)];
+				var dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DesertWater2)];
 				dust.alpha = 75;
 			}
 
@@ -73,6 +78,7 @@ namespace OrchidMod.Gambler.Projectiles
 						AdjustMagnitude(ref newMove);
 						Projectile.velocity = (5 * Projectile.velocity + newMove);
 						AdjustMagnitude(ref Projectile.velocity);
+						Projectile.velocity *= speed;
 					}
 
 					int velocityXBy1000 = (int)(newMove.X * 1000f);
@@ -107,7 +113,7 @@ namespace OrchidMod.Gambler.Projectiles
 				center: Projectile.Center,
 				radius: 20,
 				count: 10,
-				type: (index) => 102,
+				type: (index) => DustID.DesertWater2,
 				onSpawn: (dust, index, angleFromCenter) =>
 				{
 					dust.alpha = 100;

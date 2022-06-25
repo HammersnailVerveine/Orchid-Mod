@@ -30,7 +30,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nBrains cannot deal damage if they are too close to you");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockBack, bool dummy = false)
 		{
 			int projType = ProjectileType<Projectiles.BrainCardProj>();
 			bool found = false;

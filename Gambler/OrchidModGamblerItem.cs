@@ -14,7 +14,7 @@ namespace OrchidMod.Gambler
 		public int cardRequirement = -1;
 		public List<string> gamblerCardSets = new List<string>();
 
-		public virtual void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockBack, bool dummy = false) { }
+		public virtual void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockBack, bool dummy = false) { }
 
 		public virtual void SafeSetDefaults() { }
 

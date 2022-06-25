@@ -26,7 +26,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Tooltip.SetDefault("Rapidly heals when used");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			if (!dummy)
 			{

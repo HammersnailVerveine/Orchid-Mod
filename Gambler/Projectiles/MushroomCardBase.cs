@@ -57,22 +57,26 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.projectile[newProjectile].ai[1] = 0f;
 				Main.projectile[newProjectile].netUpdate = true;
 			}
-			
-			if (Main.myPlayer == Projectile.owner)
+
+			if (Projectile.ai[1] == 0f)
 			{
-				int cardType = this.getCardType(modPlayer);
-				if (cardType != ItemType<Gambler.Weapons.Cards.MushroomCard>() || modPlayer.gamblerShuffleCooldown <= 0)
+				if (Main.myPlayer == Projectile.owner)
 				{
-					if (!dummy && !modPlayer.gamblerLuckySprout) {
-						Projectile.Kill();
-					} else {
-						Projectile.ai[1] = 1f;
-						Projectile.netUpdate = true;
+					int cardType = this.getCardType(modPlayer);
+					if (cardType != ItemType<Gambler.Weapons.Cards.ForestCard>() || modPlayer.gamblerShuffleCooldown <= 0 && !dummy || dummy && !modPlayer.GamblerDummyInHand)
+					{
+						if (!modPlayer.gamblerLuckySprout)
+						{
+							Projectile.Kill();
+						}
+						else
+						{
+							Projectile.ai[1] = 1f;
+							Projectile.netUpdate = true;
+						}
 					}
 				}
-			}
-			
-			if (Projectile.ai[1] == 0f) {
+
 				Projectile.position = player.Center;
 				Projectile.position.Y -= 60;
 				Projectile.position.X -= (int)(Projectile.width / 2);

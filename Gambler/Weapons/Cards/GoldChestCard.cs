@@ -28,7 +28,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Tooltip.SetDefault("Releases damaging sparkles");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.GoldChestCardProj>();
 			float scale = 1f - (Main.rand.NextFloat() * .3f);

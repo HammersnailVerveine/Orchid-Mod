@@ -30,7 +30,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 							+ "\nDamage increases with the number of cards in your deck");
 		}
 
-		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, bool dummy = false)
+		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			int projType = ProjectileType<Gambler.Projectiles.ShuffleCardProj>();
