@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanDamage += 0.15f;
+			player.GetDamage<ShamanDamageClass>() += 0.15f;
 		}
 		public override void AddRecipes()
 		{

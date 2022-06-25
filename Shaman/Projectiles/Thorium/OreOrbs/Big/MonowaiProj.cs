@@ -109,7 +109,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("MonowaiOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 10)
 			{
-				int dmg = (int)(50 * modPlayer.shamanDamage);
+				int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(50);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("MonowaiExplosion").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
 				spawnDustCircle(6, 80);
 				spawnDustCircle(59, 60);

@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Weapons
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
 			if (modPlayer.GetNbShamanicBonds() > 1) 
-				damage *= modPlayer.shamanDamage * 2f;
+				damage *= 1.2f;
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

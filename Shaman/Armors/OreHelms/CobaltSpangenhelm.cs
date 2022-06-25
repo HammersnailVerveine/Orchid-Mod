@@ -27,8 +27,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanCrit += 9;
+			player.GetCritChance<ShamanDamageClass>() += 9;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

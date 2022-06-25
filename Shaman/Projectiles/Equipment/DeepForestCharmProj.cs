@@ -43,12 +43,12 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 			{
 				case 1:
 					this.pos = 1;
-					Projectile.damage = (int)(15 * modPlayer.shamanDamage);
+					Projectile.damage = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(15);
 					Projectile.rotation += 0.7f;
 					break;
 				case 2:
 					this.pos = 2;
-					Projectile.damage = (int)(15 * modPlayer.shamanDamage);
+					Projectile.damage = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(15);
 					Projectile.rotation += 0.2f;
 					break;
 				default:

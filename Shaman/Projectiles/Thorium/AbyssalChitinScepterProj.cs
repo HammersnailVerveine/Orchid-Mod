@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 			if (Projectile.timeLeft % (15 - modPlayer.GetNbShamanicBonds() * 2) == 0)
 			{
-				if (Projectile.damage < (150) * modPlayer.shamanDamage)
+				if (Projectile.damage < (int)player.GetDamage<ShamanDamageClass>().ApplyTo(150))
 				{
 					spawnDustCircle(111, 10);
 					Projectile.damage++;

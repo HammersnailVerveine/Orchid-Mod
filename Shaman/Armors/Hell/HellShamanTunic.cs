@@ -25,8 +25,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanCrit += 9;
+			player.GetCritChance<ShamanDamageClass>() += 9;
 		}
 
 		public override Vector2? HoldoutOffset()

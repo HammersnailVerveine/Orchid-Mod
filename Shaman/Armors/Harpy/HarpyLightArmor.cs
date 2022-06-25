@@ -25,8 +25,7 @@ namespace OrchidMod.Shaman.Armors.Harpy
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanCrit += 8; // [CRIT]
+			player.GetCritChance<ShamanDamageClass>() += 8;
 		}
 
 		public override Vector2? HoldoutOffset()

@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Buffs
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.moveSpeed += 0.1f;
-			modPlayer.shamanDamage += 0.1f;
+			player.GetDamage<ShamanDamageClass>() += 0.1f;
 			modPlayer.shamanShadowEmpowerment = true;
 		}
 	}

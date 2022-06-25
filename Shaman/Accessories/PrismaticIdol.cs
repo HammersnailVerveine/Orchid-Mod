@@ -35,7 +35,7 @@ namespace OrchidMod.Shaman.Accessories
 			modPlayer.shamanSapphire = true;
 			modPlayer.shamanEmerald = true;
 			modPlayer.shamanRuby = true;
-			modPlayer.shamanDamage += 0.10f;
+			player.GetDamage<ShamanDamageClass>() += 0.10f;
 		}
 		public override void AddRecipes()
 		{

@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 		public override void UpdateEquip(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanDamage += 0.08f;
+			player.GetDamage<ShamanDamageClass>() += 0.08f;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

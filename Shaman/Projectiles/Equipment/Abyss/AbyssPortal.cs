@@ -62,9 +62,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 			if (Projectile.ai[1] >= 0)
 			{
 				Player player = Main.player[Projectile.owner];
-				OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-
-				int dmg = (int)(150 * modPlayer.shamanDamage + 5E-06f);
+				int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(150);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.Center.Y, 0f, 14f, Mod.Find<ModProjectile>("AbyssPortalLaser").Type, dmg, 0f, Projectile.owner, Projectile.whoAmI, 0f);
 				Projectile.ai[1] = -360;
 			}

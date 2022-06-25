@@ -31,8 +31,6 @@ namespace OrchidMod
 	{
 		public OrchidPlayer modPlayer;
 
-		public float shamanDamage = 1.0f;
-		public int shamanCrit = 0;
 		public int shamanBuffTimer = 6;
 		public float shamanExhaustionRate = 1.0f;
 		public int UIDisplayTimer = 0;
@@ -203,6 +201,7 @@ namespace OrchidMod
 
 		public override void PostUpdateEquips()
 		{
+			/*
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
@@ -212,6 +211,7 @@ namespace OrchidMod
 					this.shamanCrit += thoriumCrit;
 				}
 			}
+			*/
 
 			if (UIDisplayTimer == 0)
 			{
@@ -302,7 +302,7 @@ namespace OrchidMod
 
 				if (shamanSmite && modPlayer.timer120 % 60 == 0)
 				{
-					int dmg = (int)(100 * shamanDamage);
+					int dmg = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(100);
 
 					int randX = Main.rand.Next(50);
 					int randY = Main.rand.Next(50);
@@ -342,7 +342,7 @@ namespace OrchidMod
 				{
 					if (modPlayer.timer120 % 10 == 0)
 					{
-						int dmg = (int)(30 * shamanDamage + 5E-06f);
+						int dmg = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(30);
 						Projectile.NewProjectile(null, Player.Center.X - 10 + (Main.rand.Next(20)), Player.Center.Y + 16, 0f, -0.001f, ModContent.ProjectileType<Shaman.Projectiles.Equipment.LavaDroplet>(), dmg, 0f, Player.whoAmI);
 					}
 				}
@@ -407,7 +407,7 @@ namespace OrchidMod
 
 				if (shamanAmethyst)
 				{
-					shamanDamage += 0.1f;
+					Player.GetDamage<ShamanDamageClass>() += 0.1f;
 				}
 			}
 
@@ -456,9 +456,9 @@ namespace OrchidMod
 					int dmg = 10;
 					if (shamanHarpyAnklet && shamanSpiritTimer > 0)
 					{
-						dmg = (int)(12 * shamanDamage);
+						dmg += (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(12);
 						if (Player.FindBuffIndex(ModContent.BuffType<HarpyAgility>()) > -1)
-							dmg += (int)(12 * shamanDamage);
+							dmg += (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(12);
 					}
 
 					for (float dirX = -1; dirX < 2; dirX++)
@@ -682,7 +682,7 @@ namespace OrchidMod
 
 						if (Main.rand.NextBool(15) && shamanDownpour && GetNbShamanicBonds() > 2)
 						{
-							int dmg = (int)(50 * shamanDamage + 5E-06f);
+							int dmg = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(50);
 							target.StrikeNPCNoInteraction(dmg, 0f, 0);
 							SoundEngine.PlaySound(SoundID.Item93, target.Center);
 
@@ -760,7 +760,7 @@ namespace OrchidMod
 			if (shamanHell && shamanTimerHellDefense == 300 && shamanEarthTimer > 0)
 			{
 				shamanTimerHellDefense = 0;
-				int dmg = (int)(50 * shamanDamage);
+				int dmg = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(50);
 				Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0f, 0f, ProjectileType<Shaman.Projectiles.Equipment.Hell.ShamanHellExplosion>(), dmg, 0.0f, Player.whoAmI, 0.0f, 0.0f);
 				SoundEngine.PlaySound(SoundID.Item14);
 				OrchidModProjectile.spawnDustCircle(Player.Center, 6, 10, 15, true, 1f, 1f, 8f, true, true, false, 0, 0, true);
@@ -779,8 +779,6 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
-			shamanCrit = 0;
-			shamanDamage = 1.0f;
 			shamanExhaustionRate = 1.0f;
 			shamanBuffTimer = 6;
 			doubleJumpHarpy = false;

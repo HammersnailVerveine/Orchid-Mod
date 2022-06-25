@@ -38,7 +38,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 		public override void UpdateInventory(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			Item.crit = 4 + 10 * modPlayer.GetNbShamanicBonds() + modPlayer.shamanCrit;
+			Item.crit = 4 + 10 * modPlayer.GetNbShamanicBonds() + (int)player.GetCritChance<ShamanDamageClass>();
 		}
 
 		public override void AddRecipes()

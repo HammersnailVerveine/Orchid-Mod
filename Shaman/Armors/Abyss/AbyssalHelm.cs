@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanBuffTimer += 5;
-			modPlayer.shamanCrit += 7;
+			player.GetCritChance<ShamanDamageClass>() += 7;
 			player.GetDamage<ShamanDamageClass>() += 0.07f;
 			Lighting.AddLight(player.position, 0.15f, 0.15f, 0.8f);
 		}

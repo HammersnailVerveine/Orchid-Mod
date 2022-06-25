@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman.Accessories
 				player.wingTimeMax += 60;
 			}
 
-			modPlayer.shamanDamage += player.wingTime < player.wingTimeMax || player.velocity.Y != 0 ? 0.1f : -0.05f;
+			player.GetDamage<ShamanDamageClass>() += player.wingTime < player.wingTimeMax || player.velocity.Y != 0 ? 0.1f : -0.05f;
 		}
 	}
 }

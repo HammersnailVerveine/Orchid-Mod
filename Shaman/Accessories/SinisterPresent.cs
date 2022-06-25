@@ -29,7 +29,7 @@ namespace OrchidMod.Shaman.Accessories
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			if (!(Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("BrokenPower").Type) > -1))
 			{
-				modPlayer.shamanDamage += 0.30f;
+				player.GetDamage<ShamanDamageClass>() += 0.30f;
 			}
 
 			modPlayer.shamanBuffTimer += 10;

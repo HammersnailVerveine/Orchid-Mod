@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Projectiles
 			// No u
 			Player player = Main.player[Projectile.owner];
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int newCrit = 10 * modPlayer.GetNbShamanicBonds() + modPlayer.shamanCrit + player.inventory[player.selectedItem].crit;
+			int newCrit = 10 * modPlayer.GetNbShamanicBonds() + (int)player.GetCritChance<ShamanDamageClass>() + player.inventory[player.selectedItem].crit;
 			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			modProjectile.baseCritChance = newCrit;
 

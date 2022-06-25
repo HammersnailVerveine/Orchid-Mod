@@ -113,7 +113,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			if (modPlayer.orbCountBig > 10)
 			{
 
-				int dmg = (int)(50 * modPlayer.shamanDamage);
+				int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(50);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, Mod.Find<ModProjectile>("MagmaScepterProjExplosion").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
 				SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
 

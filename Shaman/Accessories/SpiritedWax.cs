@@ -30,7 +30,7 @@ namespace OrchidMod.Shaman.Accessories
 			modPlayer.shamanWaterHoney = true;
 			if (modPlayer.shamanWaterTimer > 0)
 			{
-				modPlayer.shamanCrit += 10;
+				player.GetCritChance<ShamanDamageClass>() += 10;
 			}
 		}
 		public override void AddRecipes()

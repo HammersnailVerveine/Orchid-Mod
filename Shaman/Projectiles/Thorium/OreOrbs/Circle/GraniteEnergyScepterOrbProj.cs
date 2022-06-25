@@ -40,19 +40,19 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 			{
 				case 1:
 					this.pos = 1;
-					Projectile.damage = (int)(30 * modPlayer.shamanDamage);
+					Projectile.damage = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(30);
 					break;
 				case 2:
 					this.pos = 2;
-					Projectile.damage = (int)(30 * modPlayer.shamanDamage);
+					Projectile.damage = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(30);
 					break;
 				case 3:
 					this.pos = 3;
-					Projectile.damage = (int)(30 * modPlayer.shamanDamage);
+					Projectile.damage = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(30);
 					break;
 				case 4:
 					this.pos = 4;
-					Projectile.damage = (int)(30 * modPlayer.shamanDamage);
+					Projectile.damage = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(30);
 					break;
 				default:
 					if (Projectile.damage < 5)

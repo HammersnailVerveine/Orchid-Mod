@@ -129,7 +129,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 				}
 			}
 
-			int dmg = (int)((30 + (5 * (orbsNumber))) * modPlayer.shamanDamage);
+			int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(30 + (5 * orbsNumber));
 			int rainCount = (int)(orbsNumber / 2);
 			for (int i = 0; i < rainCount; i++)
 			{

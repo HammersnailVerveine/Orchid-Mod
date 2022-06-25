@@ -82,7 +82,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X + 30, player.position.Y - 30, 0f, 0f, Mod.Find<ModProjectile>("AquaiteScepterOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountBig > 10)
 			{
-				int dmg = (int)(50 * modPlayer.shamanDamage);
+				int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(50);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.position.X + (target.width / 2), target.position.Y + target.height + 4, 0f, -7.5f, Mod.Find<ModProjectile>("AquaiteScepterOrbProj").Type, dmg, 0.0f, Projectile.owner, 0.0f, 0.0f);
 				modPlayer.orbCountBig = -3;
 			}

@@ -83,7 +83,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 			Player player = Main.player[Projectile.owner];
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int dmg = (int)(10 * modPlayer.shamanDamage);
+			int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(10);
 			for (int i = 0; i < 2 + (int)(modPlayer.orbCountUnique / 2); i++)
 			{
 				if (Main.player[Projectile.owner].strongBees && Main.rand.Next(2) == 0)

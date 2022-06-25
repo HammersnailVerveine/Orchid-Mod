@@ -25,8 +25,7 @@ namespace OrchidMod.Shaman.Armors.Corruption
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanCrit += 10; // [CRIT]
+			player.GetCritChance<ShamanDamageClass>() += 10;
 		}
 
 		public override Vector2? HoldoutOffset()

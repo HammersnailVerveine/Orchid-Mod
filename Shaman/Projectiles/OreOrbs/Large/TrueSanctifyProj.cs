@@ -115,7 +115,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX + 43, orbY - 38, 0f, 0f, Mod.Find<ModProjectile>("TrueSanctifyOrb").Type, 0, 0, Projectile.owner, 0f, 0f);
 			if (modPlayer.orbCountLarge > 35)
 			{
-				int dmg = (int)(45 * player.GetModPlayer<OrchidShaman>().shamanDamage);
+				int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(45);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 43, orbY - 38, -3f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 30, orbY - 48, -2f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), orbX - 15, orbY - 53, -1f, -5f, Mod.Find<ModProjectile>("TrueSanctifyOrbHoming").Type, dmg, 0f, Projectile.owner, 0f, 0f);

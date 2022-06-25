@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Accessories
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			if (modPlayer.shamanWaterTimer > 0)
 			{
-				modPlayer.shamanCrit += 10;
+				player.GetCritChance<ShamanDamageClass>() += 10;
 			}
 		}
 	}

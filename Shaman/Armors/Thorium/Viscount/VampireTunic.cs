@@ -25,8 +25,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanCrit += 8;
+			player.GetCritChance<ShamanDamageClass>() += 8;
 		}
 
 		public override Vector2? HoldoutOffset()

@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Armors.Harpy
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.moveSpeed += 0.1f;
-			modPlayer.shamanDamage += 0.06f;
+			player.GetDamage<ShamanDamageClass>() += 0.06f;
 		}
 
 		public override void AddRecipes()

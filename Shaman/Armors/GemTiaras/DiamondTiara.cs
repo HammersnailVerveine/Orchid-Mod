@@ -30,8 +30,8 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 		public override void UpdateEquip(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanDamage += 0.1f;
-			modPlayer.shamanCrit += 5;
+			player.GetDamage<ShamanDamageClass>() += 0.1f;
+			player.GetCritChance<ShamanDamageClass>() += 5;
 			modPlayer.shamanBuffTimer += 3;
 		}
 

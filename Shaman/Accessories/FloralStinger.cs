@@ -29,7 +29,7 @@ namespace OrchidMod.Shaman.Accessories
 
 			if (modPlayer.shamanPollEarthMax) {
 				player.AddBuff((Mod.Find<ModBuff>("JungleRage").Type), 1);
-				modPlayer.shamanDamage += 0.2f;
+				player.GetDamage<ShamanDamageClass>() += 0.2f;
 			}
 		}
 	}

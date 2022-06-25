@@ -28,8 +28,8 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanBuffTimer += 4;
-			modPlayer.shamanCrit += 7;
-			modPlayer.shamanDamage += 0.16f;
+			player.GetCritChance<ShamanDamageClass>() += 7;
+			player.GetDamage<ShamanDamageClass>() += 0.16f;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

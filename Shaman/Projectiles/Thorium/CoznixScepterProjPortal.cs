@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Projectile.ai[1]++;
 			if (Projectile.ai[1] >= 0)
 			{
-				int dmg = (int)(35 * modPlayer.shamanDamage + 5E-06f);
+				int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(35);
 				Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y + 4, 0f, 14f, Mod.Find<ModProjectile>("CoznixScepterProjLaser").Type, dmg, 0f, Projectile.owner, Projectile.whoAmI, 0f);
 				Projectile.ai[1] = -360;
 			}

@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.moveSpeed += 0.05f;
-			modPlayer.shamanDamage += 0.06f;
+			player.GetDamage<ShamanDamageClass>() += 0.06f;
 		}
 
 		public override void AddRecipes()
