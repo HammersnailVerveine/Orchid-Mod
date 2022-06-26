@@ -13,6 +13,8 @@ namespace OrchidMod.Shaman
 		public int SelectedItem { get; set; } = -1;
 		public Item CatalystItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
 
+		private Vector2 networkedPosition;
+
 		// ...
 
 		public override void AltSetDefaults()
@@ -26,6 +28,7 @@ namespace OrchidMod.Shaman
 			Projectile.penetrate = -1;
 			Projectile.netImportant = true;
 			Projectile.alpha = 255;
+			networkedPosition = Vector2.Zero;
 		}
 
 		public void OnChangeSelectedItem(Player owner)
@@ -88,44 +91,40 @@ namespace OrchidMod.Shaman
 				if (Main.myPlayer == Projectile.owner)
 				{
 					Vector2 mousePosition = Main.MouseWorld;
-					Vector2 playerCenter = owner.Center; // mountedCenter
-
-					if (owner.itemAnimation <= 1) // Not 0
+					Vector2 direction = mousePosition - owner.Center;
+					if (direction.Length() > 80f)
 					{
-						Projectile.ai[0] = (mousePosition - Projectile.Center).ToRotation();
-					}
-
-					int mouseDir = mousePosition.X < playerCenter.X ? -1 : 1;
-					int mouseUnderValid = mousePosition.Y > playerCenter.Y + 30 && Collision.CanHit(playerCenter, 0, 0, playerCenter + (mousePosition - playerCenter), 0, 0) ? 2 : 0;
-					bool tooFar = mousePosition.X < playerCenter.X - 500 || mousePosition.X > playerCenter.X + 500;
-
-					if (mousePosition.X < playerCenter.X + 50 && mousePosition.X > playerCenter.X - 50)
-					{
-						Projectile.netUpdate = Projectile.ai[1] != (0f + mouseUnderValid * 2); ;
-						Projectile.ai[1] = (0f + mouseUnderValid * 2);
-					}
-					else if ((mousePosition.Y < playerCenter.Y - 50 || mouseUnderValid != 0) && !tooFar)
-					{
-						Projectile.netUpdate = Projectile.ai[1] != (1f + mouseUnderValid) * mouseDir;
-						Projectile.ai[1] = (1f + mouseUnderValid) * mouseDir;
+						direction.Normalize();
+						direction *= 80f;
 					}
 					else
 					{
-						Projectile.netUpdate = Projectile.ai[1] != 2f * mouseDir;
-						Projectile.ai[1] = 2f * mouseDir;
+						direction -= direction * 0.2f;
+					}
+
+					Projectile.ai[0] = direction.X;
+					Projectile.ai[1] = direction.Y;
+
+					if (networkedPosition.Distance(direction) > 10f)
+					{
+						networkedPosition = direction;
+						Projectile.netUpdate = true;
 					}
 				}
 
-				Vector2 angleVector = new Vector2(0f, -60f).RotatedBy(MathHelper.ToRadians(45 * Projectile.ai[1]));
-				angleVector.X *= 0.8f;
-				angleVector.Y += 10;
-				Vector2 aimedLocation = owner.position + angleVector;
-
-				Vector2 newMove = aimedLocation - Projectile.position;
+				Vector2 aiVector = new Vector2(Projectile.ai[0], Projectile.ai[1]);
+				Vector2 offSet = aiVector / 10f;
+				Vector2 target = owner.Center;
+				for (int i = 0; i < 10; i++)
+				{
+					offSet = Collision.TileCollision(target, offSet, 5, 5, true, false, (int)owner.gravDir);
+					target += offSet;
+				}
+				Vector2 newMove = target - Projectile.Center - aiVector * 0.15f;
 				float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 				if (distanceTo > 1000f)
 				{
-					Projectile.position = aimedLocation;
+					Projectile.position = target + new Vector2(Projectile.width / 2, Projectile.height / 2);
 					Projectile.netUpdate = true;
 				}
 				else if (distanceTo > 0.01f)
