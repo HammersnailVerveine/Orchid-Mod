@@ -83,7 +83,7 @@ namespace OrchidMod.Guardian.UI
 								val --;
 							}
 							val = val > 10 ? 10 : val;
-							Texture2D texture = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/BlockDuration" + val).Value;
+							Texture2D texture = ModContent.Request<Texture2D>("OrchidMod/Guardian/UI/Textures/BlockDuration" + val, AssetRequestMode.ImmediateLoad).Value;
 							spriteBatch.Draw(texture, new Rectangle(point.X - 10, point.Y - 90, 20, 22), backgroundColor);
 							return;
 						}
