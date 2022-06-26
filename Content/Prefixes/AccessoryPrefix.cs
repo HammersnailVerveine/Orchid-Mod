@@ -1,29 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
 namespace OrchidMod.Content.Prefixes
 {
-	public class AccessoryPrefix : ModPrefix
+	public abstract class AccessoryPrefix : ModPrefix
 	{
-		private static readonly Dictionary<string, AccessoryPrefix> prefixesByName = new();
-		public static IReadOnlyDictionary<string, AccessoryPrefix> AllPrefixesByName => prefixesByName;
+		private static readonly List<AccessoryPrefix> prefixes = new();
+		public static IReadOnlyList<AccessoryPrefix> GetPrefixes => prefixes;
 
 		// ...
 
-		private readonly string name;
+		private readonly string displayName;
 		private readonly byte shamanTimer;
 		private readonly byte alchemistPotency;
 		private readonly byte gamblerChip;
 
 		public override void Unload()
-			=> prefixesByName.Clear();
+			=> prefixes.Clear();
 
 		public override float RollChance(Item item)
 			=> 1f;
@@ -34,48 +30,19 @@ namespace OrchidMod.Content.Prefixes
 		public override PrefixCategory Category
 			=> PrefixCategory.Accessory;
 
-		public AccessoryPrefix() { }
-
-		public AccessoryPrefix(string name, byte shamanTimer, byte alchemistPotency, byte gamblerChip)
+		public AccessoryPrefix(string displayName, byte shamanTimer, byte alchemistPotency, byte gamblerChip)
 		{
-			this.name = name;
+			this.displayName = displayName;
 			this.shamanTimer = shamanTimer;
 			this.alchemistPotency = alchemistPotency;
 			this.gamblerChip = gamblerChip;
 		}
 
+		public override void Load()
+			=> prefixes.Add(this);
+
 		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault(name);
-		}
-
-		public override bool IsLoadingEnabled(Mod mod)
-		{
-			/*
-			 *  [SP]
-			 *  Terraria.ModLoader.Exceptions.MultipleException: Multiple errors occured.
-			 *  ---> System.NullReferenceException: Object reference not set to an instance of an object.
-			 *  at OrchidMod.Content.Prefixes.AccessoryPrefix.IsLoadingEnabled(Mod mod) in OrchidMod\Content\Prefixes\AccessoryPrefixes.cs:line 61
-			 *  at Terraria.ModLoader.Mod.AddContent(ILoadable instance) in tModLoader\Terraria\ModLoader\Mod.cs:line 132
-			 *  at Terraria.ModLoader.Core.LoaderUtils.ForEachAndAggregateExceptions[T](IEnumerable`1 enumerable, Action`1 action) in tModLoader\Terraria\ModLoader\Core\LoaderUtils.cs:line 47
-			 * 
-			 * 
-			 * 
-			void AddPrefix(string name, byte shamanTimer, byte alchemistPotency, byte gamblerChip)
-			{
-				var prefix = new AccessoryPrefix(name, shamanTimer, alchemistPotency, gamblerChip);
-				Mod.AddContent(prefix);
-				prefixesByName.Add(name, prefix);
-			}
-
-			AddPrefix("Natural", 1, 0, 0);
-			AddPrefix("Spiritual", 2, 0, 0);
-			AddPrefix("Brewing", 0, 1, 0);
-			AddPrefix("Crooked", 0, 0, 1);
-			AddPrefix("Loaded", 0, 0, 2);
-			*/
-			return false;
-		}
+			=> DisplayName.SetDefault(displayName);
 
 		public override void Apply(Item item)
 			=> item.GetGlobalItem<AccessoryPrefixItem>().SetPrefixVariables(shamanTimer, alchemistPotency, gamblerChip);
@@ -124,13 +91,12 @@ namespace OrchidMod.Content.Prefixes
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
-			/*
 			if (item.accessory && rand.NextBool(15))
 			{
-				var prefixes = ShamanPrefix.AllPrefixesByName;
-				return prefixes.ElementAt(Main.rand.Next(0, prefixes.Count)).Value.Type;
+				var prefixes = ShamanPrefix.GetPrefixes;
+				return prefixes[Main.rand.Next(prefixes.Count)].Type;
 			}
-			*/
+
 			return -1;
 		}
 
@@ -148,7 +114,7 @@ namespace OrchidMod.Content.Prefixes
 			if (item.social) return;
 
 			var ttNames = new HashSet<string> { "Material", "Defense", "Vanity", "Equipable" };
-			var index = tooltips.FindLastIndex(i => i.Name.Equals("Terraria") && ttNames.Contains(i.Text)) + 1;
+			var index = tooltips.FindLastIndex(i => i.Mod.Equals("Terraria") && (ttNames.Contains(i.Name) || i.Name.StartsWith("Tooltip"))) + 1;
 
 			if (index == -1) return;
 

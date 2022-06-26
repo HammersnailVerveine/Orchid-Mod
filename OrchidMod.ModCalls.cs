@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OrchidMod.Content.NPCs.Town;
+using System.Collections.Generic;
 using Terraria.ModLoader;
 
 namespace OrchidMod
@@ -394,7 +395,7 @@ namespace OrchidMod
 			censusMod.Call
 			(
 				"TownNPCCondition",
-				ModContent.NPCType<NPCs.Town.Chemist>(),
+				ModContent.NPCType<Chemist>(),
 				"Find in the main mineshaft, in the center of your world"
 			);
 		}

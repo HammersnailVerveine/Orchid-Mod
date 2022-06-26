@@ -13,7 +13,7 @@ namespace OrchidMod.NPCs.Town
 	[AutoloadHead]
 	public class Croupier : ModNPC
 	{
-		public override string Texture => "OrchidMod/NPCs/Town/Croupier";
+		public override string Texture => "OrchidMod/Content/NPCs/Town/Croupier";
 
 		// public override bool IsLoadingEnabled(Mod mod)/* tModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead */
 		// {
