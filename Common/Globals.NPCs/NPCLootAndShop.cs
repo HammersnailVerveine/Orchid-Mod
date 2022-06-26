@@ -32,19 +32,22 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				case NPCID.WitchDoctor:
 					{
-						AddItemToShop<ShamanRod>(shop, ref nextSlot);
+						NPCUtils.AddItemToShop<ShamanRod>(shop, ref nextSlot);
 
-						if (Main.hardMode) AddItemToShop<RitualScepter>(shop, ref nextSlot);
+						if (Main.hardMode)
+						{
+							NPCUtils.AddItemToShop<RitualScepter>(shop, ref nextSlot);
+						}
 					}
 					break;
 				case NPCID.Demolitionist:
 					{
-						AddItemToShop<GunpowderFlask>(shop, ref nextSlot);
+						NPCUtils.AddItemToShop<GunpowderFlask>(shop, ref nextSlot);
 					}
 					break;
 				case NPCID.Dryad:
 					{
-						AddItemToShop<DryadsGift>(shop, ref nextSlot);
+						NPCUtils.AddItemToShop<DryadsGift>(shop, ref nextSlot);
 					}
 					break;
 			}
@@ -54,7 +57,7 @@ namespace OrchidMod.Common.Globals.NPCs
 
 			if (thoriumMod.IsNPCTypeEquals("ConfusedZombie", type))
 			{
-				AddItemToShop<PatchWerkScepter>(shop, ref nextSlot);
+				NPCUtils.AddItemToShop<PatchWerkScepter>(shop, ref nextSlot);
 				return;
 			}
 
@@ -64,7 +67,7 @@ namespace OrchidMod.Common.Globals.NPCs
 
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)
 		{
-			AddItemToShop<PileOfChips>(shop, ref nextSlot, 3);
+			NPCUtils.AddItemToShop<PileOfChips>(shop, ref nextSlot, 3);
 		}
 
 		public override void ModifyGlobalLoot(GlobalLoot globalLoot)
@@ -643,30 +646,6 @@ namespace OrchidMod.Common.Globals.NPCs
 					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Misc.VultureTalon>(), rand);
 				}
 			}*/
-		}
-
-		// ...
-
-		private static void AddItemToShop<T>(Chest shop, ref int nextSlot, int chanceDenominator = 1) where T : ModItem
-			=> AddItemToShop(shop, ref nextSlot, ModContent.ItemType<T>(), chanceDenominator);
-
-		private static void AddItemToShop(Chest shop, ref int nextSlot, int type, int chanceDenominator = 1)
-		{
-			if (!Main.rand.NextBool(chanceDenominator)) return;
-
-			shop.item[nextSlot].SetDefaults(type);
-			nextSlot++;
-		}
-
-		private static void AddItemToShop<T>(int[] shop, ref int nextSlot, int chanceDenominator = 1) where T : ModItem
-			=> AddItemToShop(shop, ref nextSlot, ModContent.ItemType<T>(), chanceDenominator);
-
-		private static void AddItemToShop(int[] shop, ref int nextSlot, int type, int chanceDenominator = 1)
-		{
-			if (!Main.rand.NextBool(chanceDenominator)) return;
-
-			shop[nextSlot] = type;
-			nextSlot++;
 		}
 	}
 }

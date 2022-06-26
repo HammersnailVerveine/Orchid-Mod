@@ -3,15 +3,19 @@ using OrchidMod.WorldgenArrays;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
-namespace OrchidMod.NPCs.Town
+namespace OrchidMod.Content.NPCs.Town
 {
 	public class BoundChemist : ModNPC
 	{
+		public override string Texture => OrchidAssets.NPCsPath + Name;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bound Chemist");
+
+			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Hide = true };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 		}
 
 		public override void SetDefaults()
@@ -38,17 +42,16 @@ namespace OrchidMod.NPCs.Town
 		}
 
 		public override bool CanChat()
-		{
-			return true;
-		}
+			=> true;
 
 		public override string GetChat()
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
-				NPC.Transform(NPCType<NPCs.Town.Chemist>());
+				NPC.Transform(ModContent.NPCType<Chemist>());
 				OrchidWorld.foundChemist = true;
 			}
+
 			return "Thanks, you spared me a lot of troubles right there, or... Let's not talk about it.";
 		}
 
@@ -62,7 +65,7 @@ namespace OrchidMod.NPCs.Town
 					{
 						if (Main.player[index].active && Main.npc[Main.player[index].talkNPC].type == NPC.type)
 						{
-							NPC.Transform(NPCType<NPCs.Town.Chemist>());
+							NPC.Transform(ModContent.NPCType<Chemist>());
 							OrchidWorld.foundChemist = true;
 						}
 					}
@@ -72,19 +75,22 @@ namespace OrchidMod.NPCs.Town
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			bool foundNPC = (NPC.FindFirstNPC(NPCType<NPCs.Town.Chemist>()) + NPC.FindFirstNPC(NPCType<NPCs.Town.BoundChemist>())) > 0;
+			bool foundNPC = (NPC.FindFirstNPC(ModContent.NPCType<Chemist>()) + NPC.FindFirstNPC(ModContent.NPCType<BoundChemist>())) > 0;
 			bool inMineshaft = false;
+
 			if (!foundNPC && !OrchidWorld.foundChemist)
 			{
 				Player player = Main.player[(int)Player.FindClosest(new Vector2(Main.maxTilesX / 2 * 16f, (Main.maxTilesY / 3 + 100) * 16f), 1, 1)];
 				int MSMinPosX = (Main.maxTilesX / 2) - ((OrchidMSarrays.MSLenght * 15) / 2) + 10;
 				int MSMinPosY = (Main.maxTilesY / 3 + 100) + 10;
 				Rectangle rect = new Rectangle(MSMinPosX, MSMinPosY, (OrchidMSarrays.MSLenght * 15) - 20, (OrchidMSarrays.MSHeight * 14) - 20);
+
 				if (rect.Contains(new Point((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f))))
 				{
 					inMineshaft = true;
 				}
 			}
+
 			return !OrchidWorld.foundChemist && !foundNPC && inMineshaft ? 5f : 0f;
 		}
 	}
