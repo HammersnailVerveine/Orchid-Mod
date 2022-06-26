@@ -1,10 +1,10 @@
 using Terraria.ModLoader;
 
-namespace OrchidMod.NPCs.Town.Projectiles
+namespace OrchidMod.Content.NPCs.Town
 {
 	public class CroupierProjectile : ModProjectile
 	{
-		public override string Texture => "OrchidMod/Content/NPCs/Town/Projectiles/CroupierProjectile";
+		public override string Texture => OrchidAssets.ProjectilesPath + Name;
 
 		public override void SetDefaults()
 		{

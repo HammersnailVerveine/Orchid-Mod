@@ -388,7 +388,7 @@ namespace OrchidMod
 			censusMod.Call
 				(
 					"TownNPCCondition",
-					ModContent.NPCType<NPCs.Town.Croupier>(),
+					ModContent.NPCType<Croupier>(),
 					$"Have a gamber card ([i:{ModContent.ItemType<Gambler.Weapons.Cards.SlimeCard>()}][i:{ModContent.ItemType<Gambler.Weapons.Cards.EmbersCard>()}] etc.) in your deck"
 				);
 

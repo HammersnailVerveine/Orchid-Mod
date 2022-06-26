@@ -1,32 +1,31 @@
-using Microsoft.Xna.Framework;
 using OrchidMod.Gambler;
+using OrchidMod.Gambler.Accessories;
+using OrchidMod.Gambler.Decks;
+using OrchidMod.Gambler.Weapons.Cards;
+using OrchidMod.Gambler.Weapons.Chips;
+using OrchidMod.Gambler.Weapons.Dice;
+using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
-namespace OrchidMod.NPCs.Town
+namespace OrchidMod.Content.NPCs.Town
 {
-	// [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
 	[AutoloadHead]
 	public class Croupier : ModNPC
 	{
-		public override string Texture => "OrchidMod/Content/NPCs/Town/Croupier";
-
-		// public override bool IsLoadingEnabled(Mod mod)/* tModPorter Suggestion: If you return false for the purposes of manual loading, use the [Autoload(false)] attribute on your class instead */
-		// {
-		// 	name = "Croupier";
-		// 	return Mod.Properties/* tModPorter Note: Removed. Instead, assign the properties directly (ContentAutoloadingEnabled, GoreAutoloadingEnabled, MusicAutoloadingEnabled, and BackgroundAutoloadingEnabled) */.Autoload;
-		// }
-
+		public override string Texture => OrchidAssets.NPCsPath + Name;
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName automatically assigned from .lang files, but the commented line below is the normal approach.
 			DisplayName.SetDefault("Croupier");
+
 			Main.npcFrameCount[NPC.type] = 26;
+
 			NPCID.Sets.ExtraFramesCount[NPC.type] = 9;
 			NPCID.Sets.AttackFrameCount[NPC.type] = 4;
 			NPCID.Sets.DangerDetectRange[NPC.type] = 700;
@@ -34,14 +33,53 @@ namespace OrchidMod.NPCs.Town
 			NPCID.Sets.AttackTime[NPC.type] = 90;
 			NPCID.Sets.AttackAverageChance[NPC.type] = 30;
 			NPCID.Sets.HatOffsetY[NPC.type] = 4;
+
+			// They were chosen randomly, so it's better to choose them yourself
+			var happiness = NPC.Happiness;
+			happiness.SetBiomeAffection<SnowBiome>(AffectionLevel.Like);
+			happiness.SetBiomeAffection<OceanBiome>(AffectionLevel.Love);
+			happiness.SetBiomeAffection<DesertBiome>(AffectionLevel.Dislike);
+			happiness.SetBiomeAffection<UndergroundBiome>(AffectionLevel.Hate);
+			happiness.SetNPCAffection(NPCID.Nurse, AffectionLevel.Love);
+			happiness.SetNPCAffection<Chemist>(AffectionLevel.Like);
+			happiness.SetNPCAffection(NPCID.Dryad, AffectionLevel.Dislike);
+			happiness.SetNPCAffection(NPCID.Clothier, AffectionLevel.Hate);
+
+			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Velocity = 1f };
+			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+			void CreateMoodTranslation(string key, string text)
+			{
+				var tr = LocalizationLoader.CreateTranslation(Mod, "TownNPCMood.Croupier." + key);
+				tr.SetDefault(text);
+				LocalizationLoader.AddTranslation(tr);
+			}
+
+			// Text is taken from Example Mod
+			CreateMoodTranslation("Content", "I feel pretty fine right now.");
+			CreateMoodTranslation("NoHome", "I would very much like a house, all the colorful monsters scare me.");
+			CreateMoodTranslation("LoveSpace", "I love how there is so much space here to code tModLoader mods!");
+			CreateMoodTranslation("FarFromHome", "Could you please get me back to my house?");
+			CreateMoodTranslation("DislikeCrowded", "There are too many people around, it makes it hard for me to focus on mod making.");
+			CreateMoodTranslation("HateCrowded", "I can't test my mod with so many people around!");
+			CreateMoodTranslation("LikeBiome", "{BiomeName} is a very nice place to test mods in.");
+			CreateMoodTranslation("LoveBiome", "I love {BiomeName}.");
+			CreateMoodTranslation("DislikeBiome", "It's way too cold in {BiomeName}, I'm freezing!");
+			CreateMoodTranslation("HateBiome", "Its kind of hard to mod while being attacked by monsters in {BiomeName}.");
+			CreateMoodTranslation("LikeNPC", "I can respect {NPCName} as a fellow guide and educator!");
+			CreateMoodTranslation("LoveNPC", "Do you think {NPCName} notices me?");
+			CreateMoodTranslation("DislikeNPC", "{NPCName} keeps rambling on about ...");
+			CreateMoodTranslation("HateNPC", "I hate all the loud noises caused by {NPCName} and his explosives! I just want peace and quiet.");
 		}
 
 		public override void SetDefaults()
 		{
 			NPC.townNPC = true;
 			NPC.friendly = true;
+
 			NPC.width = 28;
 			NPC.height = 44;
+
 			NPC.aiStyle = 7;
 			NPC.damage = 10;
 			NPC.defense = 15;
@@ -49,15 +87,23 @@ namespace OrchidMod.NPCs.Town
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0.5f;
+
 			AnimationType = NPCID.Guide;
 		}
 
-		// public override void HitEffect(int hitDirection, double damage) {
-		// int num = npc.life > 0 ? 1 : 5;
-		// for (int k = 0; k < num; k++) {
-		// Dust.NewDust(npc.position, npc.width, npc.height, 6);
-		// }
-		// }
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				// Sets the preferred biomes of this town NPC listed in the bestiary
+				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
+				// Sets your NPC's flavor text in the bestiary
+				new FlavorTextBestiaryInfoElement("Kokomi C6 WHEN???")
+			});
+		}
+
+		public override ITownNPCProfile TownNPCProfile()
+			=> new CroupierProfile();
 
 		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
 		{
@@ -103,38 +149,18 @@ namespace OrchidMod.NPCs.Town
 			};
 		}
 
-		public override void FindFrame(int frameHeight)
-		{
-			/*npc.frame.Width = 40;
-			if (((int)Main.time / 10) % 2 == 0)
-			{
-				npc.frame.X = 40;
-			}
-			else
-			{
-				npc.frame.X = 0;
-			}*/
-		}
-
 		public override string GetChat()
 		{
-			switch (Main.rand.Next(7))
+			return Main.rand.Next(7) switch
 			{
-				case 0:
-					return "Cards turnin' your way?";
-				case 1:
-					return "I like them odds, chief. Always like them odds.";
-				case 2:
-					return "Got you covered on cards, chief. We got poker, solitaire... more poker...";
-				case 3:
-					return "Ey, chief, best bud! Since we're such great pals, could ya help with a little debt?";
-				case 4:
-					return "I'm your rear hand man.";
-				case 5:
-					return "Fate's face down. How do you wanna be dealt?";
-				default:
-					return "Pick a number between 1 and 86!";
-			}
+				0 => "Cards turnin' your way?",
+				1 => "I like them odds, chief. Always like them odds.",
+				2 => "Got you covered on cards, chief. We got poker, solitaire... more poker...",
+				3 => "Ey, chief, best bud! Since we're such great pals, could ya help with a little debt?",
+				4 => "I'm your rear hand man.",
+				5 => "Fate's face down. How do you wanna be dealt?",
+				_ => "Pick a number between 1 and 86!",
+			};
 		}
 
 		public override void SetChatButtons(ref string button, ref string button2)
@@ -208,7 +234,7 @@ namespace OrchidMod.NPCs.Town
 						if (item.type == 0)
 						{
 							Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
-							int gamblerDeck = ItemType<Gambler.Decks.GamblerAttack>();
+							int gamblerDeck = ModContent.ItemType<GamblerAttack>();
 							player.QuickSpawnItem(NPC.GetSource_FromThis(), gamblerDeck, 1);
 							return;
 						}
@@ -220,105 +246,82 @@ namespace OrchidMod.NPCs.Town
 
 		public override void SetupShop(Chest shop, ref int nextSlot)
 		{
-			Player player = Main.player[Main.myPlayer];
-			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
+			var player = Main.player[Main.myPlayer];
+			var modPlayer = player.GetModPlayer<OrchidGambler>();
 
-			shop.item[nextSlot].SetDefaults(ItemType<Gambler.GamblerDummy>());
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Chips.GamblingChip>());
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Dice.GamblingDie>());
-			nextSlot++;
-			shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.ShuffleCard>());
-			nextSlot++;
+			NPCUtils.AddItemToShop<GamblerDummy>(shop, ref nextSlot);
+			NPCUtils.AddItemToShop<GamblingChip>(shop, ref nextSlot);
+			NPCUtils.AddItemToShop<GamblingDie>(shop, ref nextSlot);
+			NPCUtils.AddItemToShop<ShuffleCard>(shop, ref nextSlot);
 
-			if (!player.ZoneBeach && !player.ZoneCorrupt && !player.ZoneSkyHeight && !player.ZoneCrimson && !player.ZoneHallow && !player.ZoneJungle && !player.ZoneSnow && !player.ZoneDesert && !player.ZoneGlowshroom && player.ZoneOverworldHeight)
+			if (player.ZoneForest)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.ForestCard>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<ForestCard>(shop, ref nextSlot);
 			}
+
 			if (player.ZoneSnow)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.SnowCard>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<SnowCard>(shop, ref nextSlot);
 			}
+
 			if (player.ZoneDesert)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.DesertCard>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<DesertCard>(shop, ref nextSlot);
 			}
+
 			if (player.ZoneBeach)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.OceanCard>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<OceanCard>(shop, ref nextSlot);
 			}
+
 			if (player.ZoneJungle)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.JungleCard>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<JungleCard>(shop, ref nextSlot);
 			}
+
 			if (player.ZoneGlowshroom)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.MushroomCard>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<MushroomCard>(shop, ref nextSlot);
 			}
+
 			if (player.ZoneUnderworldHeight)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.HellCard>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<HellCard>(shop, ref nextSlot);
 			}
+
 			if (player.ZoneSkyHeight)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.SkyCard>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<SkyCard>(shop, ref nextSlot);
 			}
+
 			if (Main.slimeRain)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Weapons.Cards.SlimeRainCard>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<SlimeRainCard>(shop, ref nextSlot);
 			}
 
 			if (modPlayer.CheckSetCardsInDeck("Slime") > 2)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.SlimyLollipop>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<SlimyLollipop>(shop, ref nextSlot);
 			}
+
 			if (modPlayer.CheckSetCardsInDeck("Biome") > 2)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.LuckySprout>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<LuckySprout>(shop, ref nextSlot);
 			}
+
 			if (modPlayer.CheckSetCardsInDeck("Boss") > 2)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.ConquerorsPennant>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<ConquerorsPennant>(shop, ref nextSlot);
 			}
+
 			if (modPlayer.CheckSetCardsInDeck("Elemental") > 2)
 			{
-				shop.item[nextSlot].SetDefaults(ItemType<Gambler.Accessories.ElementalLens>());
-				nextSlot++;
+				NPCUtils.AddItemToShop<ElementalLens>(shop, ref nextSlot);
 			}
 		}
 
-		// public override void NPCLoot() {
-		// Item.NewItem(npc.getRect(), ItemType<Items.Armor.ExampleCostume>());
-		// }
-
-		// Make this Town NPC teleport to the King and/or Queen statue when triggered.
 		public override bool CanGoToStatue(bool toKingStatue)
-		{
-			return true;
-		}
-
-		// Make something happen when the npc teleports to a statue. Since this method only runs server side, any visual effects like dusts or gores have to be synced across all clients manually.
-		// public override void OnGoToStatue(bool toQueenStatue) {
-		// if (Main.netMode == NetmodeID.Server) {
-		// ModPacket packet = mod.GetPacket();
-		// packet.Write((byte)ExampleModMessageType.ExampleTeleportToStatue);
-		// packet.Write((byte)npc.whoAmI);
-		// packet.Send();
-		// }
-		// }
+			=> true;
 
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback)
 		{
@@ -334,7 +337,7 @@ namespace OrchidMod.NPCs.Town
 
 		public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
 		{
-			projType = ProjectileType<NPCs.Town.Projectiles.CroupierProjectile>();
+			projType = ModContent.ProjectileType<CroupierProjectile>();
 			attackDelay = 1;
 		}
 
