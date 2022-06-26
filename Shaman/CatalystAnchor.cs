@@ -92,10 +92,12 @@ namespace OrchidMod.Shaman
 				{
 					Vector2 mousePosition = Main.MouseWorld;
 					Vector2 direction = mousePosition - owner.Center;
-					if (direction.Length() > 80f)
+					OrchidShaman shaman = owner.GetModPlayer<OrchidShaman>();
+					float maxDist = shaman.shamanHorus ? 200f : 80f;
+					if (direction.Length() > maxDist)
 					{
 						direction.Normalize();
-						direction *= 80f;
+						direction *= maxDist;
 					}
 					else
 					{
@@ -117,7 +119,7 @@ namespace OrchidMod.Shaman
 				Vector2 target = owner.Center;
 				for (int i = 0; i < 10; i++)
 				{
-					offSet = Collision.TileCollision(target, offSet, 5, 5, true, false, (int)owner.gravDir);
+					offSet = Collision.TileCollision(target, offSet, 5, 5, true, true, (int)owner.gravDir);
 					target += offSet;
 				}
 				Vector2 newMove = target - Projectile.Center - aiVector * 0.15f;
