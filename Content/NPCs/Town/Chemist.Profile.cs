@@ -10,6 +10,7 @@ namespace OrchidMod.Content.NPCs.Town
 	{
 		public int RollVariation()
 			=> 0;
+
 		public string GetNameForVariant(NPC npc)
 			=> npc.getNewNPCName();
 
