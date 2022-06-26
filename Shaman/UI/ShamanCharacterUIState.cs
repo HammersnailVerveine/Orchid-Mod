@@ -76,11 +76,11 @@ namespace OrchidMod.Shaman.UI
 			Recalculate();
 			Player player = Main.LocalPlayer;
 
-			Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gfxOffY + player.gravDir > 0 ? player.height - 10 + player.gfxOffY : 10 + player.gfxOffY)).Floor();
-			position = Vector2.Transform(position - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix) / Main.UIScale;
+			Vector2 vector = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height - 10 + player.gfxOffY : 10 + player.gfxOffY)).Floor();
+			vector = Vector2.Transform(vector - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix) / Main.UIScale;
 
-			this.Left.Set(position.X, 0f);
-			this.Top.Set(position.Y, 0f);
+			this.Left.Set(vector.X, 0f);
+			this.Top.Set(vector.Y, 0f);
 
 			CalculatedStyle dimensions = GetDimensions();
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y);
@@ -211,8 +211,8 @@ namespace OrchidMod.Shaman.UI
 					}
 
 					int drawSize = 12;
-					int offSetY = modPlayer.modPlayer.modPlayerAlchemist.alchemistPotencyDisplayTimer > 0 ? 50 : 20;
-
+					int offSetY = (modPlayer.modPlayer.modPlayerAlchemist.alchemistPotencyDisplayTimer > 0 || modPlayer.modPlayer.modPlayerGuardian.guardianDisplayUI > 0) ? 60 : 20;
+						
 					spriteBatch.Draw(symbolAttack, new Rectangle(point.X - 38, point.Y + offSetY, drawSize, drawSize), backgroundColor);
 					spriteBatch.Draw(symbolDefense, new Rectangle(point.X - 24, point.Y + 10 + offSetY, drawSize, drawSize), backgroundColor);
 					spriteBatch.Draw(symbolCritical, new Rectangle(point.X - 6, point.Y + 14 + offSetY, drawSize, drawSize), backgroundColor);
