@@ -26,7 +26,6 @@ namespace OrchidMod
 
 		public List<string> alchemistKnownReactions = new List<string>();
 		public List<string> alchemistKnownHints = new List<string>();
-		public Item[] alchemistPotionBag = new Item[16];
 		public float alchemistVelocity = 1.0f;
 		public bool[] alchemistElements = new bool[6];
 		public Item[] alchemistFlasks = new Item[6];
@@ -58,7 +57,6 @@ namespace OrchidMod
 		public bool alchemistDailyHint = false;
 		public bool alchemistEntryTextCooldown = false;
 		public int alchemistLastAttackDelay = 0;
-		public int alchemistHasBag = 5;
 
 		public int alchemistFlower = 0;
 		public int alchemistFlowerTimer = 0;
@@ -158,18 +156,10 @@ namespace OrchidMod
 
 			this.alchemistKnownReactions = new List<string>();
 			this.alchemistKnownHints = new List<string>();
-			
-			this.alchemistPotionBag = new Item[16];
-			for (int i = 0; i < 16; i++)
-			{
-				this.alchemistPotionBag[i] = new Item();
-				this.alchemistPotionBag[i].SetDefaults(0, true);
-			}
 		}
 
 		public override void SaveData(TagCompound tag)
 		{
-			tag.Add("AlchemistBag", alchemistPotionBag.Select(ItemIO.Save).ToList());
 			tag.Add("ChemistHint", alchemistDailyHint);
 			tag.Add("AlchemistKnownReactions", alchemistKnownReactions.ToList());
 			tag.Add("AlchemistKnownHints", alchemistKnownHints.ToList());
@@ -177,20 +167,6 @@ namespace OrchidMod
 
 		public override void LoadData(TagCompound tag)
 		{
-			alchemistPotionBag = tag.GetList<TagCompound>("AlchemistBag").Select(ItemIO.Load).ToArray();
-			if (alchemistPotionBag.Length != 16)
-			{
-				Array.Resize(ref alchemistPotionBag, 16);
-				for (int i = 0; i < alchemistPotionBag.Length; i++)
-				{
-					if (alchemistPotionBag[i] == null)
-					{
-						alchemistPotionBag[i] = new Item();
-						alchemistPotionBag[i].SetDefaults(0, true);
-					}
-				}
-			}
-
 			alchemistDailyHint = tag.GetBool("ChemistHint");
 			alchemistKnownReactions = tag.Get<List<string>>("AlchemistKnownReactions");
 			alchemistKnownHints = tag.Get<List<string>>("AlchemistKnownHints");
@@ -339,21 +315,8 @@ namespace OrchidMod
 				ClearAlchemistColors();
 			}
 
-			if (alchemistHasBag < 1 && alchemistPotionBag[0].type != 0)
-			{
-				foreach (Item item in alchemistPotionBag)
-				{
-					if (item.type != 0)
-					{
-						Player.QuickSpawnItem(Player.GetSource_Misc("Alchemist Bag"), item.type, 1);
-						item.TurnToAir();
-					}
-				}
-			}
-
 			alchemistDailyHint = (Main.dayTime && Main.time == 0) ? false : alchemistDailyHint;
 			alchemistLastAttackDelay += alchemistLastAttackDelay < 3600 ? 1 : 0;
-			alchemistHasBag -= alchemistHasBag > 0 ? 1 : 0;
 
 			alchemistPotencyMax = 8;
 			alchemistRegenPotency = 60;
