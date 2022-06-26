@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.WorldgenArrays;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,6 +17,8 @@ namespace OrchidMod.Content.NPCs.Town
 
 			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+
+			CreateMoodTranslationBasedOnChemist();
 		}
 
 		public override void SetDefaults()
@@ -92,6 +95,20 @@ namespace OrchidMod.Content.NPCs.Town
 			}
 
 			return !OrchidWorld.foundChemist && !foundNPC && inMineshaft ? 5f : 0f;
+		}
+
+		private void CreateMoodTranslationBasedOnChemist()
+		{
+			var list = new List<string>() { "Content", "NoHome", "LoveSpace", "FarFromHome", "DislikeCrowded",
+											"HateCrowded", "LikeBiome", "DislikeBiome", "HateBiome", "LikeNPC",
+											"LoveNPC", "DislikeNPC", "HateNPC" };
+
+			foreach (var str in list)
+			{
+				var tr = LocalizationLoader.CreateTranslation(Mod, "TownNPCMood.BoundChemist." + str);
+				tr.SetDefault("{$Mods.OrchidMod.TownNPCMood.Chemist." + str + "}");
+				LocalizationLoader.AddTranslation(tr);
+			}
 		}
 	}
 }
