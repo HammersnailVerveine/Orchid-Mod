@@ -97,7 +97,7 @@ namespace OrchidMod.General.Items.Misc
 				distance = distToProj.Length();
 				Color drawColor = lightColor;
 
-				Main.spriteBatch.Draw(ModContent.Request<Texture2D>("General/Items/Misc/MineshaftHookChain").Value, new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
+				Main.spriteBatch.Draw(ModContent.Request<Texture2D>("OrchidMod/General/Items/Misc/MineshaftHookChain", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value, new Vector2(center.X - Main.screenPosition.X, center.Y - Main.screenPosition.Y),
 					new Rectangle(0, 0, 10, 8), drawColor, projRotation,
 					new Vector2(10 * 0.5f, 8 * 0.5f), 1f, SpriteEffects.None, 0f);
 			}

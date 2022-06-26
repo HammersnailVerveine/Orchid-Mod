@@ -1423,6 +1423,7 @@ namespace OrchidMod
 			bool spawnedBloomingBud = false;
 			bool spawnedStellarTalc = false;
 			bool spawnedKeystoneOfTheConvent = false;
+			bool spawnedRuneOfHorus = false;
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
@@ -1641,6 +1642,14 @@ namespace OrchidMod
 						spawnedIvyChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.IvyChestCard>(), 1);
 					}
 				}
+
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
+				{
+					if (Main.rand.NextBool(7))
+					{
+						spawnedRuneOfHorus = placeInChest(chest, ItemType<Shaman.Accessories.RuneOfHorus>(), 1);
+					}
+				}
 			}
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
@@ -1787,6 +1796,14 @@ namespace OrchidMod
 					if (!spawnedIvyChestCard)
 					{
 						spawnedIvyChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.IvyChestCard>(), 1);
+					}
+				}
+
+				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
+				{
+					if (!spawnedRuneOfHorus)
+					{
+						spawnedRuneOfHorus = placeInChest(chest, ItemType<Shaman.Accessories.RuneOfHorus>(), 1);
 					}
 				}
 			}

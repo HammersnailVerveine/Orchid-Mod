@@ -109,6 +109,7 @@ namespace OrchidMod
 		public bool shamanSapphire = false;
 		public bool shamanEmerald = false;
 		public bool shamanRuby = false;
+		public bool shamanHorus = false;
 
 		public bool harpyAnkletLock = true;
 		public int shamanTimerCrimson = 0;
@@ -814,6 +815,7 @@ namespace OrchidMod
 			shamanSapphire = false;
 			shamanEmerald = false;
 			shamanRuby = false;
+			shamanHorus = false;
 
 			shamanShadowEmpowerment = false;
 			shamanMourningTorch = false;

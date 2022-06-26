@@ -129,7 +129,7 @@ namespace OrchidMod.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolAttack = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str).Value;
+								symbolAttack = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 							else if (i == 1)
 							{
@@ -148,7 +148,7 @@ namespace OrchidMod.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolDefense = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str).Value;
+								symbolDefense = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 							else if (i == 2)
 							{
@@ -167,7 +167,7 @@ namespace OrchidMod.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolCritical = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str).Value;
+								symbolCritical = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 							else if (i == 3)
 							{
@@ -186,7 +186,7 @@ namespace OrchidMod.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolRegeneration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str).Value;
+								symbolRegeneration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 							else if (i == 4)
 							{
@@ -205,7 +205,7 @@ namespace OrchidMod.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolSpeed = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str).Value;
+								symbolSpeed = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 						}
 					}

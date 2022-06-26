@@ -58,6 +58,7 @@ namespace OrchidMod.Shaman
 			Vector2? catalystCenter = shaman.ShamanCatalystPosition;
 
 			//if (catalystCenter != null && Collision.CanHit(position, 0, 0, position + (catalystCenter.Value - position), 0, 0))
+			if (catalystCenter != null)
 				position = catalystCenter.Value;
 
 			Vector2 newMove = mousePosition - position;
