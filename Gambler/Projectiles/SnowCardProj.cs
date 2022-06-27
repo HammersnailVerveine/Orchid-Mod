@@ -26,6 +26,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.tileCollide = false;
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 10;
+			Projectile.alpha = 255;
 			this.gamblingChipChance = 10;
 		}
 		
@@ -47,7 +48,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public void checkMouseDrag() {
 			Projectile proj = Main.projectile[(int)Projectile.ai[0]];
 			
-			if (proj.type != ProjectileType<Gambler.Projectiles.SnowCardBase>() || proj.active == false) {
+			if (proj.type != ProjectileType<Gambler.Projectiles.SnowCardBase>() || proj.active == false && Projectile.ai[1] != 2f) {
 				Projectile.Kill();
 			}
 			
@@ -95,6 +96,7 @@ namespace OrchidMod.Gambler.Projectiles
 						Projectile.tileCollide = true;
 						Projectile.friendly = true;
 						Projectile.netUpdate = true;
+						Projectile.alpha = 0;
 						SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
 					}
 				}
