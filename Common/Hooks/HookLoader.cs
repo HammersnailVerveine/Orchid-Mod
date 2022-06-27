@@ -12,7 +12,6 @@ namespace OrchidMod.Common.Hooks
 			On.Terraria.UI.ItemSlot.OverrideHover_ItemArray_int_int += On_Terraria_ItemSlot_OverrideHover;
 			On.Terraria.Main.DrawDust += On_Terraria_Main_DrawDust;
 			On.Terraria.Main.DrawProjectiles += On_Terraria_Main_DrawProjectiles;
-			On.Terraria.Main.GUIChatDrawInner += On_Terraria_Main_GUIChatDrawInner;
 		}
 
 		void ILoadable.Unload()
@@ -22,7 +21,6 @@ namespace OrchidMod.Common.Hooks
 			On.Terraria.UI.ItemSlot.OverrideHover_ItemArray_int_int -= On_Terraria_ItemSlot_OverrideHover;
 			On.Terraria.Main.DrawDust -= On_Terraria_Main_DrawDust;
 			On.Terraria.Main.DrawProjectiles -= On_Terraria_Main_DrawProjectiles;
-			On.Terraria.Main.GUIChatDrawInner -= On_Terraria_Main_GUIChatDrawInner;
 		}
 	}
 }

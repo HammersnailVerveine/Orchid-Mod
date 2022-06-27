@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using OrchidMod.Gambler;
 using OrchidMod.Gambler.Accessories;
 using OrchidMod.Gambler.Decks;
@@ -11,6 +12,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.NPCs.Town
@@ -165,83 +167,72 @@ namespace OrchidMod.Content.NPCs.Town
 
 		public override void SetChatButtons(ref string button, ref string button2)
 		{
-			Player player = Main.player[Main.myPlayer];
-			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
+			var player = Main.player[Main.myPlayer];
+			var modPlayer = player.GetModPlayer<OrchidGambler>();
+			var ui = CroupierUI.Instance;
 
-			// [SP]
-
-			/*if (!OrchidMod.Instance.croupierUI.Visible)
+			if (!ui.Visible)
 			{
-				button = Language.GetTextValue("LegacyInterface.28");
-
 				string deckBuilding = $"[c/{Colors.AlphaDarken(new Color(255, 200, 0)).Hex3()}:Deck Building]";
-				button2 = OrchidModGamblerHelper.hasGamblerDeck(player) ? deckBuilding : "Get a New Deck";
+
+				button2 = modPlayer.HasGamblerDeck() ? deckBuilding : "Get a New Deck";
+				button = Language.GetTextValue("LegacyInterface.28");
 			}
 			else
 			{
 				button = "Return";
-			}*/
+			}
+		}
+
+		public void ClickFirstButton(ref bool shop)
+		{
+			var ui = CroupierUI.Instance;
+
+			if (ui.Visible) ui.Deactivate(NPC.whoAmI);
+			else shop = true;
+		}
+
+		public void ClickSecondButton()
+		{
+			var player = Main.player[Main.myPlayer];
+			var modPlayer = player.GetModPlayer<OrchidGambler>();
+			var ui = CroupierUI.Instance;
+
+			if (modPlayer.HasGamblerDeck())
+			{
+				Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.";
+				Main.npcChatText += "\n\n\n\n\n\n\n";
+
+				ui.Activate();
+				return;
+			}
+
+			for (int i = 0; i < 50; i++)
+			{
+				var item = Main.LocalPlayer.inventory[i];
+
+				if (item.type.Equals(ItemID.None))
+				{
+					Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
+					int gamblerDeck = ModContent.ItemType<GamblerAttack>();
+
+					player.QuickSpawnItem(NPC.GetSource_FromThis(), gamblerDeck, 1);
+					return;
+				}
+			}
+
+			Main.npcChatText = $"My man, your pockets are full. You wouldn't let a brand new deck sitting on the ground, would ya?";
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
 		{
-			Player player = Main.player[Main.myPlayer];
-			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-
 			if (firstButton)
 			{
-				// [SP]
-
-				/*if (OrchidMod.Instance.croupierUI.Visible)
-				{
-					OrchidMod.Instance.croupierUI.Visible = false;
-
-					//Main.npcShop = 0;
-					Main.npcChatCornerItem = 0;
-					Recipe.FindRecipes();
-					Main.npcChatText = Main.npc[player.talkNPC].GetChat();
-				}
-				else shop = true;*/
+				ClickFirstButton(ref shop);
+				return;
 			}
-			else
-			{
-				if (modPlayer.HasGamblerDeck())
-				{
-					Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.";
 
-					/*switch (Main.rand.Next(0, 1))
-					{
-						case 0:
-							Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.\n" +
-								$"Calamity - best mod...";
-							break;
-					}*/
-
-					Main.npcChatText += "\n\n\n\n\n";
-					Main.npcChatFocus2 = false;
-					Main.npcChatFocus3 = false;
-
-					// [SP]
-
-					//OrchidMod.Instance.croupierUI.UpdateOnChatButtonClicked();
-					//OrchidMod.Instance.croupierUI.Visible = true;
-				}
-				else
-				{
-					for (int i = 0; i < 50; i++)
-					{
-						Item item = Main.LocalPlayer.inventory[i];
-						if (item.type == 0)
-						{
-							Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
-							int gamblerDeck = ModContent.ItemType<GamblerAttack>();
-							player.QuickSpawnItem(NPC.GetSource_FromThis(), gamblerDeck, 1);
-							return;
-						}
-					}
-					Main.npcChatText = $"My man, your pockets are full. You wouldn't let a brand new deck sitting on the ground, would ya?";
-				}
-			}
+			ClickSecondButton();
 		}
 
 		public override void SetupShop(Chest shop, ref int nextSlot)

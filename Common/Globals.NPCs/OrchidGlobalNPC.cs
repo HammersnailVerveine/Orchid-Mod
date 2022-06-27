@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ID;
+using OrchidMod.Gambler.UI;
 
 namespace OrchidMod.Common.Globals.NPCs
 {
@@ -33,11 +34,6 @@ namespace OrchidMod.Common.Globals.NPCs
 			ShamanShroom -= ShamanShroom > 0 ? 1 : 0;
 			ShamanSpearDamage -= ShamanSpearDamage > 0 ? 1 : 0;
 			ShamanWind = false;
-		}
-
-		public override void GetChat(NPC npc, ref string chat)
-		{
-			// [SP] OrchidMod.Instance.croupierUI.Visible = false;
 		}
 
 		public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
