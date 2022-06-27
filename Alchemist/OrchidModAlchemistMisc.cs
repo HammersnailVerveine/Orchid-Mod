@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -6,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist
 {
+	[ClassTag(ClassTags.Alchemist)]
 	public abstract class OrchidModAlchemistMisc : OrchidModItem
 	{
 		public virtual void SafeSetDefaults() { }
@@ -38,15 +41,6 @@ namespace OrchidMod.Alchemist
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
 				tt.Text = damageValue + " chemical " + damageWord;
-			}
-
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Alchemist Class-")
-				{
-					OverrideColor = new Color(155, 255, 55)
-				});
 			}
 		}
 	}

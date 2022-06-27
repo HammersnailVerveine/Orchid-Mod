@@ -1,5 +1,6 @@
 ﻿using MonoMod.Cil;
 using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System;
 using Terraria;
 using Terraria.GameInput;
@@ -8,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Bag
 {
+	[ClassTag(ClassTags.Alchemist)]
 	public partial class PotionBag : ModItem, IOnMouseHover
 	{
 		public override void Load()

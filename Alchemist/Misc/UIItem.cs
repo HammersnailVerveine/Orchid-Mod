@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,6 +10,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.Misc
 {
+	[ClassTag(ClassTags.Alchemist)]
 	public class UIItem : OrchidModItem
 	{
 		public override void SetDefaults()

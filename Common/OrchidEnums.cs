@@ -6,4 +6,9 @@
 		Tiles,
 		Dusts
 	}
+
+	public enum ClassTags
+	{
+		Alchemist
+	}
 }

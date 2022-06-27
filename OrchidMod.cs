@@ -2,10 +2,13 @@ using OrchidMod.Alchemist;
 using OrchidMod.Shaman;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OrchidMod.Utilities;
+using OrchidMod.Common;
+using System;
 
 namespace OrchidMod
 {
@@ -35,6 +38,14 @@ namespace OrchidMod
 
 		public override void PostSetupContent()
 		{
+			foreach (var type in Code.GetTypes())
+			{
+				if (!type.GetInterfaces().Contains(typeof(IPostSetupContent))) continue;
+
+				var instance = (IPostSetupContent)Activator.CreateInstance(type, null);
+				instance.PostSetupContent(this);
+			}
+
 			BossChecklistCalls();
 			CensusModCalls();
 		}

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -9,6 +11,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist
 {
+	[ClassTag(ClassTags.Alchemist)]
 	public abstract class OrchidModAlchemistCatalyst : OrchidModItem
 	{
 		public int catalystType = 0; // 1 = melee swing, 2 = throw, 3 = gun
@@ -102,15 +105,6 @@ namespace OrchidMod.Alchemist
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Alchemist Class-")
-				{
-					OverrideColor = new Color(155, 255, 55)
-				});
-			}
-
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{

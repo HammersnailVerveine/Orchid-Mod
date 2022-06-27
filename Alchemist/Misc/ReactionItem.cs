@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -7,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
+	[ClassTag(ClassTags.Alchemist)]
 	public class ReactionItem : OrchidModItem
 	{
 		public override void SetDefaults()

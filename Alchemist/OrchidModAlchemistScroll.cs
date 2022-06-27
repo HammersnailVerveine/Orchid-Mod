@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -6,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist
 {
+	[ClassTag(ClassTags.Alchemist)]
 	public abstract class OrchidModAlchemistScroll : OrchidModItem
 	{
 		public int hintLevel = 0;
@@ -42,17 +45,5 @@ namespace OrchidMod.Alchemist
 		}
 
 		protected override bool CloneNewInstances => true;
-
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
-		{
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Alchemist Class-")
-				{
-					OverrideColor = new Color(155, 255, 55)
-				});
-			}
-		}
 	}
 }

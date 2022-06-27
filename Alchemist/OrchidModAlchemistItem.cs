@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Common.Globals.NPCs;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist
 {
+	[ClassTag(ClassTags.Alchemist)]
 	public abstract class OrchidModAlchemistItem : OrchidModItem
 	{
 		public int potencyCost = 0;
@@ -239,15 +242,6 @@ namespace OrchidMod.Alchemist
 			{
 				OverrideColor = new Color(155, 255, 155)
 			});
-
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Alchemist Class-")
-				{
-					OverrideColor = new Color(155, 255, 55)
-				});
-			}
 
 			// tt = tooltips.FirstOrDefault(x => x.Name == "CritChance" && x.mod == "Terraria");
 			// if (tt != null) tooltips.Remove(tt);
