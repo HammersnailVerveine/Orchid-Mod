@@ -15,7 +15,7 @@ namespace OrchidMod.Common.Globals.Items
 
 		void IPostSetupContent.PostSetupContent(Mod mod)
 		{
-			foreach (var modItem in OrchidMod.Instance.GetContent<ModItem>())
+			foreach (var modItem in mod.GetContent<ModItem>())
 			{
 				if (tagsByItemType.ContainsKey(modItem.Type)) continue;
 
