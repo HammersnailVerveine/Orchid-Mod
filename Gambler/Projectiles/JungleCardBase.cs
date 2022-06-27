@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -13,7 +14,10 @@ namespace OrchidMod.Gambler.Projectiles
 		public Vector2 bushLeftPos;
 		public Vector2 bushRightPos;
 		public Texture2D bushTexture;
-		
+		public Texture2D fruitTexture;
+		public Texture2D fruitTextureOutline;
+		public Texture2D trajectoryTexture;
+
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Jungle Card Base");
@@ -32,7 +36,10 @@ namespace OrchidMod.Gambler.Projectiles
 		
 		public override void OnSpawn() {
 			Projectile.ai[0] = 10;
-			bushTexture = bushTexture ?? ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/JungleCardBase").Value;
+			bushTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/JungleCardBase", AssetRequestMode.ImmediateLoad).Value;
+			fruitTextureOutline ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/JungleCardProj_Outline", AssetRequestMode.ImmediateLoad).Value;
+			fruitTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/JungleCardProj", AssetRequestMode.ImmediateLoad).Value;
+			trajectoryTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/Trajectory", AssetRequestMode.ImmediateLoad).Value;
 		}
 
 		public override void SafeAI()
@@ -84,7 +91,6 @@ namespace OrchidMod.Gambler.Projectiles
 		}
 		
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor) {
-			bushTexture = bushTexture ?? ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/JungleCardBase").Value;
 			Vector2 position = bushLeftPos - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
 			spriteBatch.Draw(bushTexture, position, null, lightColor, 0f, bushTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 			position = bushRightPos - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
@@ -96,15 +102,17 @@ namespace OrchidMod.Gambler.Projectiles
 				Projectile proj = Main.projectile[l];
 				if (proj.active && proj.type == projType && proj.ai[1] < 2f && proj.ai[0] == Projectile.whoAmI)
 				{
-					Texture2D texture = ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/JungleCardProj").Value;
 					position = proj.position - Main.screenPosition;
-					Rectangle newBounds = texture.Bounds;
+					Rectangle newBounds = fruitTexture.Bounds;
 					newBounds.Height /= 2;
 					newBounds.Y += proj.frame * newBounds.Height;
-					spriteBatch.Draw(texture, position, newBounds, lightColor, proj.rotation, texture.Size() * 0f, proj.scale, SpriteEffects.None, 0f);
-					
+					position.X -= (newBounds.Width - proj.width) / 2f;
+					position.Y -= (newBounds.Height - proj.height) / 2f;
+					float lightMult = 0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 90f);
+					spriteBatch.Draw(fruitTextureOutline, position, newBounds, lightColor * lightMult, proj.rotation, Vector2.Zero, proj.scale, SpriteEffects.None, 0f);
+					spriteBatch.Draw(fruitTexture, position, newBounds, lightColor, proj.rotation, Vector2.Zero, proj.scale, SpriteEffects.None, 0f);
+
 					if (proj.ai[1] == 1f) {
-						Texture2D pixelTexture = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/Trajectory").Value;
 						Vector2 newMove = Projectile.Center - proj.Center;
 						if (newMove.Length() > 1f) {
 							newMove.Normalize();
@@ -114,8 +122,8 @@ namespace OrchidMod.Gambler.Projectiles
 							for (int i = 0 ; i < 61; i ++) {
 								if (i % 10 == 0) {
 									drawColor *= 0.8f;
-									Vector2 drawpos = pos - new Vector2(pixelTexture.Width / 2, pixelTexture.Height / 2);
-									spriteBatch.Draw(pixelTexture, drawpos, drawColor);
+									Vector2 drawpos = pos - new Vector2(trajectoryTexture.Width / 2, trajectoryTexture.Height / 2);
+									spriteBatch.Draw(trajectoryTexture, drawpos, drawColor);
 								}
 								pos += newMove;
 								newMove *= 0.98f;

@@ -27,6 +27,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 120;
 			Projectile.penetrate = -1;
+			Projectile.alpha = 255;
 			this.gamblingChipChance = 10;
 			Main.projFrames[Projectile.type] = 2;
 		}
@@ -53,7 +54,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public void checkMouseDrag() {
 			Projectile proj = Main.projectile[(int)Projectile.ai[0]];
 			
-			if (proj.type != ProjectileType<Gambler.Projectiles.JungleCardBase>() || proj.active == false) {
+			if (proj.type != ProjectileType<Gambler.Projectiles.JungleCardBase>() || proj.active == false && Projectile.ai[1] != 2f) {
 				Projectile.Kill();
 			}
 			
@@ -101,6 +102,7 @@ namespace OrchidMod.Gambler.Projectiles
 						Projectile.tileCollide = true;
 						Projectile.friendly = true;
 						Projectile.netUpdate = true;
+						Projectile.alpha = 0;
 						SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
 					}
 				}

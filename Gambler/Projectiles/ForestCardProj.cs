@@ -26,6 +26,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.tileCollide = false;
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 200;
+			Projectile.alpha = 255;
 			this.gamblingChipChance = 10;
 			Main.projFrames[Projectile.type] = 2;
 		}
@@ -54,7 +55,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public void checkMouseDrag() {
 			Projectile proj = Main.projectile[(int)Projectile.ai[0]];
 			
-			if (proj.type != ProjectileType<Gambler.Projectiles.ForestCardBase>() || proj.active == false) {
+			if (proj.type != ProjectileType<Gambler.Projectiles.ForestCardBase>() || proj.active == false && Projectile.ai[1] != 2f) {
 				Projectile.Kill();
 			}
 			
@@ -65,13 +66,15 @@ namespace OrchidMod.Gambler.Projectiles
 					Projectile.localAI[1] = Projectile.velocity.X;
 					Projectile.velocity.X = 0f;
 				}
-				
+
 				Projectile.position = proj.Center - new Vector2(Projectile.width, Projectile.height - 20) * 0.5f;
-				
-				if (Main.mouseLeft && Main.mouseLeftRelease) {
+
+				if (Main.mouseLeft && Main.mouseLeftRelease)
+				{
 					Vector2 newMove = Main.MouseWorld - Projectile.Center;
 					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-					if (distanceTo < 25f) {
+					if (distanceTo < 25f)
+					{
 						Projectile.ai[1] = 1f;
 						Projectile.netUpdate = true;
 						Projectile.localAI[0] = Main.myPlayer;
@@ -102,6 +105,7 @@ namespace OrchidMod.Gambler.Projectiles
 						Projectile.tileCollide = true;
 						Projectile.friendly = true;
 						Projectile.netUpdate = true;
+						Projectile.alpha = 0;
 						SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
 					}
 				}
