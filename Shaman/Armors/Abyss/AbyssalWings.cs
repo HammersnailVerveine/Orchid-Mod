@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Utilities;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,8 +28,8 @@ namespace OrchidMod.Shaman.Armors.Abyss
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			player.wingTimeMax = 180;
-			modPlayer.abyssalWings = true;
+			if (!hideVisual) modPlayer.abyssalWings = true;
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(180, 9f, 2.5f);
 		}
 
 		public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
@@ -39,12 +40,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			maxAscentMultiplier = 3f;
 			constantAscend = 0.135f;
 		}
-
-		public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
-		{
-			speed = 9f;
-			acceleration *= 2.5f;
-		}
+		
 
 		public override void AddRecipes()
 		{
@@ -52,7 +48,6 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			recipe.AddIngredient(ItemID.LunarBar, 10);
 			recipe.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 14);
 			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.Register();
 			recipe.Register();
 		}
 

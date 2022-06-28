@@ -1,12 +1,22 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using System;
+using Terraria.Audio;
 
 namespace OrchidMod.Gambler.Projectiles
 {
 	public class SkyCardProjAlt : OrchidModGamblerProjectile
 	{
-		private bool animDirection = false;
+		private int animDirection;
+		private int shootProj = -1;
+		NPC target = null;
+		private Texture2D arrowTexture;
+		private Texture2D glowTexture;
 
 		public override void SetStaticDefaults()
 		{
@@ -15,13 +25,12 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			Projectile.width = 18;
-			Projectile.height = 22;
+			Projectile.width = 28;
+			Projectile.height = 26;
 			Projectile.friendly = false;
 			Projectile.aiStyle = 0;
 			Projectile.tileCollide = false;
-			Projectile.timeLeft = 600;
-			Main.projFrames[Projectile.type] = 5;
+			Projectile.timeLeft = 720;
 			this.bonusTrigger = true;
 		}
 
@@ -29,41 +38,88 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 64);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Cloud);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1.5f;
 			}
 		}
 
+		public override void OnSpawn()
+		{
+			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
+			arrowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkyCardProjAlt_Arrow", AssetRequestMode.ImmediateLoad).Value;
+			glowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkyCardProjAlt_Glow", AssetRequestMode.ImmediateLoad).Value;
+		}
+
 		public override void SafeAI()
 		{
 			Projectile.velocity *= 0.95f;
-			Player player = Main.player[Projectile.owner];
-			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
-			if (modPlayer.timer120 % 10 == 0)
+			Projectile.rotation += 0.01f * animDirection;
+			shootProj--;
+
+			if (Main.rand.NextBool(10))
 			{
-				Projectile.frame += animDirection ? -1 : 1;
-				animDirection = Projectile.frame == 4 ? true : Projectile.frame == 0 ? false : animDirection;
+				int dustType = DustID.YellowStarDust;
+				Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+				Dust dust = Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)];
+			}
+
+			foreach (Projectile proj in Main.projectile)
+			{
+				if (proj.active && proj.type == ModContent.ProjectileType<SkyCardProj>() && proj.frame == 0 && proj.ai[1] == 2f && proj.Center.Distance(Projectile.Center) < 25f) 
+				{
+					float distance = 500f;
+					foreach (NPC npc in Main.npc)
+					{
+						if (homingCheckGambler(npc))
+						{
+							float newDistance = Vector2.Distance(npc.Center, proj.Center);
+							if (newDistance < distance)
+							{
+								target = npc;
+								distance = newDistance;
+							}
+						}
+					}
+
+					if (target != null)
+					{
+						proj.Kill();
+						shootProj = 75;
+					}
+				}
+			}
+
+			if (shootProj > 0 && shootProj % 15 == 0 && target != null)
+			{
+				SoundEngine.PlaySound(SoundID.Item9, Projectile.position);
+				Vector2 velocity = target.Center - Projectile.Center;
+				velocity.Normalize();
+				velocity *= 10f;
+
+				int projType = ProjectileType<Gambler.Projectiles.SkyCardProj>();
+				int newProjectile = (DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), getDummy()));
+				Main.projectile[newProjectile].ai[1] = 3f; 
+				Main.projectile[newProjectile].ai[0] = Projectile.ai[0];
+				Main.projectile[newProjectile].alpha = 0;
+				Main.projectile[newProjectile].tileCollide = true;
+				Main.projectile[newProjectile].friendly = true;
+				Main.projectile[newProjectile].netUpdate = true;
 			}
 		}
 
-		public override void BonusProjectiles(Player player, OrchidGambler modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			if (modProjectile.gamblerInternalCooldown == 0)
-			{
-				modProjectile.gamblerInternalCooldown = 30;
-				int projType = ProjectileType<Gambler.Projectiles.SkyCardProj>();
-				Vector2 target = Main.MouseWorld;
-				Vector2 heading = target - projectile.position;
-				heading.Normalize();
-				heading *= new Vector2(0f, 15f).Length();
-				Vector2 vel = new Vector2(0f, 8f).RotatedByRandom(MathHelper.ToRadians(20));
-				int newProjectile = DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), projectile.Center.X, player.position.Y - Main.screenHeight / 2 - 20, vel.X, vel.Y, projType, projectile.damage, projectile.knockBack, projectile.owner), dummy);
-				Main.projectile[newProjectile].ai[1] = projectile.ai[1];
-				Main.projectile[newProjectile].ai[0] = Main.screenPosition.Y + (float)Main.mouseY - 10;
-				Main.projectile[newProjectile].netUpdate = true;
-				OrchidModProjectile.spawnDustCircle(projectile.Center, 64, 10, 10, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
-			}
+			arrowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkyCardProjAlt_Arrow", AssetRequestMode.ImmediateLoad).Value;
+			glowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkyCardProjAlt_Glow", AssetRequestMode.ImmediateLoad).Value;
+			Color yellow = Color.Yellow * 0.5f;
+			Color newLightColor = new Color(yellow.R + lightColor.R, yellow.G + lightColor.G, yellow.B + lightColor.B);
+			Vector2 position = Projectile.Center - Main.screenPosition;
+			position.X -= arrowTexture.Width / 2f;
+			position.Y -= 40 + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 5f);
+			spriteBatch.Draw(arrowTexture, position, null, newLightColor);
+			spriteBatch.Draw(glowTexture, Projectile.position, null, newLightColor, Projectile.rotation, Vector2.Zero, Projectile.scale, SpriteEffects.None, 0f);
+			return true;
 		}
 	}
 }

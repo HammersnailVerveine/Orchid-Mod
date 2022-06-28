@@ -25,35 +25,27 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Ocean");
-			Tooltip.SetDefault("Throws rolling coconuts"
-							+ "\nPeriodically summons a seed, replicating the attack");
+			Tooltip.SetDefault("Summons a palm bush above your head"
+							+ "\nDrag and release a coconut to launch it");
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			SoundEngine.PlaySound(SoundID.Item1);
-			int projType = ProjectileType<Projectiles.OceanCardProjAlt>();
-			
+			int projType = ProjectileType<Gambler.Projectiles.OceanCardBase>();
+			bool found = false;
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
-				if (proj.active && proj.type == projType && proj.owner == player.whoAmI && proj.ai[1] == 0f)
+				if (proj.active && proj.type == projType && proj.owner == player.whoAmI && proj.ai[1] != 1f)
 				{
-					float distance = (position - proj.Center).Length();
-					if (distance < 500f) {
-						return;
-					}
+					found = true;
+					break;
 				}
 			}
-			
-			velocity = new Vector2(0f, -1f).RotatedBy(MathHelper.ToRadians(10));
-			int newProjectile = DummyProjectile(Projectile.NewProjectile(source, position, velocity, projType, damage, knockback, player.whoAmI), dummy);
-			Main.projectile[newProjectile].ai[1] = 0f;
-			Main.projectile[newProjectile].netUpdate = true;
-			for (int i = 0; i < 5; i++)
+			if (!found)
 			{
-				int dustType = 31;
-				Main.dust[Dust.NewDust(player.Center, 10, 10, dustType)].velocity *= 0.25f;
+				DummyProjectile(Projectile.NewProjectile(source, position, Vector2.Zero, projType, damage, knockback, player.whoAmI), dummy);
 			}
 		}
 	}

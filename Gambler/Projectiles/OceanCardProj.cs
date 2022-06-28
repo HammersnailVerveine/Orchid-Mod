@@ -1,105 +1,129 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
 {
 	public class OceanCardProj : OrchidModGamblerProjectile
 	{
-		private bool firstCollide = false;
+		public float rolling = 0;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Coconut");
+			DisplayName.SetDefault("Mushroom");
 		}
 
 		public override void SafeSetDefaults()
 		{
-			Projectile.width = 26;
-			Projectile.height = 26;
-			Projectile.friendly = true;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
 			Projectile.aiStyle = 0;
-			Projectile.timeLeft = 600;
-			Projectile.penetrate = 10;
-			this.gamblingChipChance = 5;
+			Projectile.timeLeft = 180;
+			Projectile.alpha = 255;
+			Projectile.penetrate = -1;
+			this.gamblingChipChance = 10;
+		}
+		
+		public override void OnSpawn() {
+			Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke)].velocity *= 0.25f;
 		}
 
 		public override void SafeAI()
 		{
-			Projectile.velocity.Y += 0.1f;
-			if (Projectile.velocity.Y > 0.5f)
+			this.checkMouseDrag();
+			
+			if (Projectile.ai[1] == 2f)
 			{
-				this.firstCollide = false;
+				Projectile.velocity.Y += 0.3f;
+				if (Projectile.timeLeft % 5 == 0) {
+					Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+					Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, DustID.Smoke)].velocity *= 0.25f;
+				}
+				Projectile.rotation += Projectile.velocity.Length() / 30f * (Projectile.velocity.X > 0 ? 1f : -1f);
 			}
-			if (Projectile.velocity.X > 0f && Projectile.velocity.X < 3f)
-			{
-				Projectile.velocity.X = 3f;
-			}
-			if (Projectile.velocity.X <= 0f && Projectile.velocity.X > -3f)
-			{
-				Projectile.velocity.X = -3f;
-			}
-
-			Projectile.rotation += Projectile.velocity.X > 0 ? 0.15f : -0.15f;
-			if (Projectile.timeLeft % 600 == 0)
-			{
-				int dustType = 31;
-				Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
-				Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
-			}
-		}
-
-		public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-		{
-			fallThrough = Projectile.timeLeft > 590;
-			return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
-		}
-
-		public override bool OnTileCollide(Vector2 oldVelocity)
-		{
-			if (Projectile.penetrate < 0) Projectile.Kill();
-			Projectile.velocity.Y = oldVelocity.Y < 0f ? -oldVelocity.Y : 0f;
-			if (!firstCollide)
-			{
-				firstCollide = true;
-			}
-			if (Projectile.velocity.X != oldVelocity.X)
-			{
-				Projectile.Kill();
-				SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
-			}
-			return false;
 		}
 		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
-		{
-			if (Projectile.ai[1] != 1f && Projectile.owner == Main.myPlayer)
-			{
-				modPlayer.gamblerSeedCount += 10 + (modPlayer.gamblerLuckySprout ? 3 : 0);
-				if (modPlayer.gamblerSeedCount > 99) {
-					modPlayer.gamblerSeedCount = 0;
-					Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
-					int projType = ProjectileType<Gambler.Projectiles.OceanCardProjAlt>();
-					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					int newProjectile = DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.Center.Y, vel.X, vel.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
-					Main.projectile[newProjectile].ai[1] = 1f;
-					Main.projectile[newProjectile].netUpdate = true;
-					for (int i = 0; i < 5; i++)
-					{
-						int dustType = 31;
-						Main.dust[Dust.NewDust(player.Center, 10, 10, dustType)].velocity *= 0.25f;
+		public void checkMouseDrag() {
+			Projectile proj = Main.projectile[(int)Projectile.ai[0]];
+			
+			if (proj.type != ProjectileType<Gambler.Projectiles.OceanCardBase>() || proj.active == false && Projectile.ai[1] != 2f) {
+				Projectile.Kill();
+			}
+			
+			if (Projectile.ai[1] == 0f) {
+				proj.ai[0] ++;
+				Projectile.timeLeft ++;
+				if (Projectile.velocity.X > 0f) {
+					Projectile.localAI[1] = Projectile.velocity.X;
+					Projectile.velocity.X = 0f;
+				}
+				
+				Projectile.position = proj.Center - new Vector2(Projectile.width, Projectile.height - 20) * 0.5f;
+				
+				if (Main.mouseLeft && Main.mouseLeftRelease) {
+					Vector2 newMove = Main.MouseWorld - Projectile.Center;
+					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+					if (distanceTo < 25f) {
+						Projectile.ai[1] = 1f;
+						Projectile.netUpdate = true;
+						Projectile.localAI[0] = Main.myPlayer;
+					}
+				}
+			}
+			
+			if (Projectile.ai[1] == 1f) {
+				proj.ai[0] ++;
+				Projectile.timeLeft ++;
+				if ((int)Projectile.localAI[0] == Main.myPlayer) {
+					if (Main.mouseLeft) {
+						Vector2 newMove = Main.MouseWorld - proj.Center;
+						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+						float range = 40f;
+						if (distanceTo > range) {
+							newMove.Normalize();
+							Projectile.position = proj.Center + newMove * range - new Vector2(Projectile.width, Projectile.height) * 0.5f;
+						} else {
+							Projectile.position = Main.MouseWorld - new Vector2(Projectile.width, Projectile.height) * 0.5f;
+						}
+					} else {
+						Vector2 newMove = proj.Center - Projectile.Center;
+						newMove.Normalize();
+						newMove *= Projectile.localAI[1];
+						Projectile.velocity = newMove;
+						Projectile.ai[1] = 2f;
+						Projectile.tileCollide = true;
+						Projectile.friendly = true;
+						Projectile.netUpdate = true;
+						Projectile.alpha = 0;
+						SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
 					}
 				}
 			}
 		}
+		
+		public override bool OnTileCollide(Vector2 oldVelocity) {
+			if (Projectile.velocity.Y > 0.5f)
+				SoundEngine.PlaySound(SoundID.Item50, Projectile.Center);
+			rolling+= Math.Abs(Projectile.velocity.X);
+			if (rolling > 30f)
+			{
+				Projectile.damage++;
+				rolling = 0f;
+			}
+			return false;
+		}
 
 		public override void Kill(int timeLeft)
 		{
-			int dustType = 31;
 			for (int i = 0 ; i < 5 ; i ++) {
-				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
+				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke)].velocity *= 0.25f;
 			}
 		}
 	}

@@ -55,5 +55,11 @@ namespace OrchidMod.Gambler
 		}
 
 		public int DummyProjectile(int projectile, bool dummy) => OrchidGambler.DummyProjectile(projectile, dummy);
+
+		public bool homingCheckGambler(NPC target)
+		{
+			bool dummy = getDummy();
+			return target.active && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && ((!dummy && target.type != NPCID.TargetDummy) || (dummy && target.type == NPCID.TargetDummy));
+		}
 	}
 }

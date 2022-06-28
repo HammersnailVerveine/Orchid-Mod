@@ -1,82 +1,140 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
 {
 	public class SkyCardProj : OrchidModGamblerProjectile
 	{
-		private float rotation = 0f;
+		//private Texture2D texture;
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Banana Star");
+			DisplayName.SetDefault("Star");
 		}
 
 		public override void SafeSetDefaults()
 		{
-			Projectile.width = 14;
-			Projectile.height = 14;
-			Projectile.friendly = true;
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
 			Projectile.aiStyle = 0;
-			Projectile.timeLeft = 300;
-			this.gamblingChipChance = 15;
+			Projectile.timeLeft = 57;
+			Projectile.penetrate = 1;
+			Projectile.alpha = 255;
+			this.gamblingChipChance = 10;
+			Main.projFrames[Projectile.type] = 2;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			return Color.White;
+			if (Projectile.ai[1] < 2f) return base.GetAlpha(lightColor);
+			Color yellow = Color.Yellow * 0.5f;
+			return new Color(yellow.R + lightColor.R, yellow.G + lightColor.G, yellow.B + lightColor.B);
+		}
+
+		public override void OnSpawn()
+		{
+			for (int i = 0; i < 5; i++) {
+				int dustType = DustID.YellowStarDust;
+				Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+				Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
+			}
 		}
 
 		public override void SafeAI()
 		{
-			if (!this.initialized)
+			Lighting.AddLight(Projectile.Center, Color.Yellow.ToVector3() * 0.25f);
+			this.checkMouseDrag();
+
+			if (Projectile.ai[1] >= 2f)
 			{
-				this.rotation = 0.3f * (Main.rand.Next(2) == 0 ? -1 : 1);
-				OrchidModProjectile.spawnDustCircle(Projectile.Center, 64, 5, 5, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
-				this.initialized = true;
-			}
-
-			Projectile.rotation += this.rotation;
-
-			int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 64);
-			Main.dust[dust].scale *= 1.5f;
-			Main.dust[dust].noGravity = true;
-			Main.dust[dust].noLight = true;
-
-			if (Projectile.ai[0] != -1f && Main.myPlayer == Projectile.owner)
-			{
-				if (Projectile.position.Y >= Projectile.ai[0])
+				if (Main.rand.NextBool(10))
 				{
-					OrchidModProjectile.spawnDustCircle(Projectile.Center, 64, 5, 5, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
-					Vector2 mousePos = Main.MouseWorld;
-					Projectile.velocity.X = (mousePos.X > Projectile.Center.X ? Projectile.velocity.Y : -Projectile.velocity.Y);
-					Projectile.velocity.Y = 0f;
-					Projectile.ai[0] = -1f;
-					Projectile.netUpdate = true;
+					int dustType = DustID.YellowStarDust;
+					Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+					Dust dust = Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)];
+					dust.velocity = Projectile.velocity / 5f;
 				}
+
+				Projectile.rotation += Projectile.velocity.Length() / 30.5f * (Projectile.velocity.X > 0 ? 1f : -1f);
+				if (Projectile.frame == 1) Projectile.timeLeft--;
 			}
 		}
-		
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
+
+		public void checkMouseDrag()
 		{
-			if (Projectile.ai[1] != 1f && Projectile.owner == Main.myPlayer)
+			Projectile proj = Main.projectile[(int)Projectile.ai[0]];
+
+			if (proj.type != ProjectileType<Gambler.Projectiles.SkyCardBase>() || proj.active == false && Projectile.ai[1] < 2f)
 			{
-				modPlayer.gamblerSeedCount += 6 + (modPlayer.gamblerLuckySprout ? 2 : 0);
-				if (modPlayer.gamblerSeedCount > 99) {
-					modPlayer.gamblerSeedCount = 0;
-					Vector2 vel = (new Vector2(0f, -3f).RotatedBy(MathHelper.ToRadians(10)));
-					int projType = ProjectileType<Gambler.Projectiles.SkyCardProjAlt>();
-					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-					int newProjectile = DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), player.Center.X, player.Center.Y, vel.X, vel.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
-					Main.projectile[newProjectile].ai[1] = 1f;
-					Main.projectile[newProjectile].netUpdate = true;
-					for (int i = 0; i < 5; i++)
+				Projectile.Kill();
+			}
+
+			if (Projectile.ai[1] == 0f)
+			{
+				proj.ai[0]++;
+				Projectile.timeLeft++;
+				if (Projectile.velocity.X > 0f)
+				{
+					Projectile.localAI[1] = Projectile.velocity.X;
+					Projectile.velocity.X = 0f;
+				}
+
+				Projectile.position = proj.Center - new Vector2(Projectile.width, Projectile.height - 20) * 0.5f;
+
+				if (Main.mouseLeft && Main.mouseLeftRelease)
+				{
+					Vector2 newMove = Main.MouseWorld - Projectile.Center;
+					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+					if (distanceTo < 25f)
 					{
-						int dustType = 31;
-						Main.dust[Dust.NewDust(player.Center, 10, 10, dustType)].velocity *= 0.25f;
+						Projectile.ai[1] = 1f;
+						Projectile.netUpdate = true;
+						Projectile.localAI[0] = Main.myPlayer;
+					}
+				}
+			}
+
+			if (Projectile.ai[1] == 1f)
+			{
+				proj.ai[0]++;
+				Projectile.timeLeft++;
+				if ((int)Projectile.localAI[0] == Main.myPlayer)
+				{
+					if (Main.mouseLeft)
+					{
+						Vector2 newMove = Main.MouseWorld - proj.Center;
+						float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+						float range = 40f;
+						if (distanceTo > range)
+						{
+							newMove.Normalize();
+							Projectile.position = proj.Center + newMove * range - new Vector2(Projectile.width, Projectile.height) * 0.5f;
+						}
+						else
+						{
+							Projectile.position = Main.MouseWorld - new Vector2(Projectile.width, Projectile.height) * 0.5f;
+						}
+					}
+					else
+					{
+						Vector2 newMove = proj.Center - Projectile.Center;
+						newMove.Normalize();
+						newMove *= Projectile.localAI[1];
+						Projectile.velocity = newMove;
+						Projectile.ai[1] = 2f;
+						Projectile.tileCollide = true;
+						Projectile.friendly = true;
+						Projectile.netUpdate = true;
+						Projectile.alpha = 0;
+						SoundEngine.PlaySound(SoundID.Item9, Projectile.Center);
 					}
 				}
 			}
@@ -84,8 +142,27 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Item9, Projectile.position);
-			OrchidModProjectile.spawnDustCircle(Projectile.Center, 64, 5, 5, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
+			int dustid = DustID.YellowStarDust;
+
+			if (Projectile.frame == 1 && Projectile.penetrate == 1 && Projectile.ai[1] == 2f)
+			{
+				dustid = DustID.Cloud;
+				int projType = ProjectileType<Gambler.Projectiles.SkyCardProjAlt>();
+				int newProjectile = (DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), getDummy()));
+				Main.projectile[newProjectile].ai[0] = Projectile.ai[0];
+				Main.projectile[newProjectile].netUpdate = true;
+			}
+
+
+			OrchidModProjectile.spawnDustCircle(Projectile.position, DustID.YellowStarDust, 5, 4 + Main.rand.Next(3), true, 1f, 4f, 2f);
+			for (int i = 0; i < 3; i++)
+			{
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustid);
+				Main.dust[dust].noGravity = true;
+				Main.dust[dust].noLight = true;
+			}
+
+			//SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 		}
 	}
 }
