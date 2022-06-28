@@ -57,31 +57,5 @@ namespace OrchidMod
 		{
 			return base.NewInstance(target);
 		}
-
-		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-		{
-			CrossmodTooltips(item, tooltips);
-		}
-
-		private void CrossmodTooltips(Item item, List<TooltipLine> tooltips)
-		{
-			if (item.ModItem is ICrossmodItem crossmod)
-			{
-				string text = "This is a cross-content item: ";
-
-				if (crossmod.CrossmodName == "Thorium Mod")
-				{
-					if (OrchidMod.ThoriumMod == null) text += crossmod.CrossmodName;
-					else return;
-				}
-				else text += "Unknown Mod";
-
-				var tooltip = new TooltipLine(Mod, "Crossmod", text)
-				{
-					OverrideColor = new Color(255, 85, 60)
-				};
-				tooltips.Add(tooltip);
-			}
-		}
 	}
 }

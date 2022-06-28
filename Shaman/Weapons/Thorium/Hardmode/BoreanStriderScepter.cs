@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.Attributes;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -7,10 +7,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-	public class BoreanStriderScepter : OrchidModShamanItem, ICrossmodItem
+	[CrossmodContent("ThoriumMod")]
+	public class BoreanStriderScepter : OrchidModShamanItem
 	{
-		public string CrossmodName => "Thorium Mod";
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 35;

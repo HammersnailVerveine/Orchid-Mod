@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,10 +8,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-	public class SpiritDropletScepter : OrchidModShamanItem, ICrossmodItem
+	[CrossmodContent("ThoriumMod")]
+	public class SpiritDropletScepter : OrchidModShamanItem
 	{
-		public string CrossmodName => "Thorium Mod";
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 14;

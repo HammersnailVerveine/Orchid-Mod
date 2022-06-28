@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big;
 using Terraria;
 using Terraria.DataStructures;
@@ -8,10 +8,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-	public class MagmaScepter : OrchidModShamanItem, ICrossmodItem
+	[CrossmodContent("ThoriumMod")]
+	public class MagmaScepter : OrchidModShamanItem
 	{
-		public string CrossmodName => "Thorium Mod";
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 15;

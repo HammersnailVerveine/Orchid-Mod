@@ -1,4 +1,4 @@
-using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.ID;
@@ -6,10 +6,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-	public class QueenJellyfishScepter : OrchidModShamanItem, ICrossmodItem
+	[CrossmodContent("ThoriumMod")]
+	public class QueenJellyfishScepter : OrchidModShamanItem
 	{
-		public string CrossmodName => "Thorium Mod";
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 20;

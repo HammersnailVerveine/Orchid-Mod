@@ -1,4 +1,4 @@
-using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-	public class TerrariumScepter : OrchidModShamanItem, ICrossmodItem
+	[CrossmodContent("ThoriumMod")]
+	public class TerrariumScepter : OrchidModShamanItem
 	{
-		public string CrossmodName => "Thorium Mod";
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 94;

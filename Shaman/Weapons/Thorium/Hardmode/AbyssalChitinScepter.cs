@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Shaman.Projectiles.Thorium;
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 {
-	public class AbyssalChitinScepter : OrchidModShamanItem, ICrossmodItem
+	[CrossmodContent("ThoriumMod")]
+	public class AbyssalChitinScepter : OrchidModShamanItem
 	{
-		public string CrossmodName => "Thorium Mod";
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 10;

@@ -1,14 +1,13 @@
-using OrchidMod.Common.Interfaces;
+using OrchidMod.Common.Attributes;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Weapons.Thorium
 {
-	public class IronScepter : OrchidModShamanItem, ICrossmodItem
+	[CrossmodContent("ThoriumMod")]
+	public class IronScepter : OrchidModShamanItem
 	{
-		public string CrossmodName => "Thorium Mod";
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 19;
