@@ -11,6 +11,8 @@ namespace OrchidMod.Common
 	{
 		public static readonly Color AlchemistTag = new(155, 255, 55);
 
+		public static readonly Color CrossmodContentWarning = new(255, 130, 110);
+
 		public static Color GetClassTagColor(ClassTags tag)
 		{
 			return tag switch

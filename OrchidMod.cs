@@ -9,6 +9,9 @@ using Terraria.ModLoader;
 using OrchidMod.Utilities;
 using OrchidMod.Common;
 using System;
+using Terraria.ModLoader.Core;
+using System.Reflection;
+using OrchidMod.Common.Attributes;
 
 namespace OrchidMod
 {
@@ -19,10 +22,58 @@ namespace OrchidMod
 
 		public static List<AlchemistHiddenReactionRecipe> alchemistReactionRecipes;
 
-		public OrchidMod() => Instance = this;
+		public OrchidMod()
+		{
+			Instance = this;
+			ContentAutoloadingEnabled = false;
+		}
+
+		public void LoadContent()
+		{
+			LoaderUtils.ForEachAndAggregateExceptions((
+				from t in AssemblyManager.GetLoadableTypes(Code)
+				where !t.IsAbstract && !t.ContainsGenericParameters
+				where t.IsAssignableTo(typeof(ILoadable))
+				where t.GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, Type.EmptyTypes, null) != null
+				where AutoloadAttribute.GetValue(t).NeedsAutoloading
+				select t).OrderBy((Type type) => type.FullName, StringComparer.InvariantCulture), delegate (Type t)
+				{
+					var instance = (ILoadable)Activator.CreateInstance(t, true);
+
+					if (ModContent.GetInstance<OrchidConfig>().LoadCrossmodContentWithoutRequiredMods)
+					{
+						AddContent(instance);
+						return;
+					}
+
+					var atr = t.GetCustomAttribute<CrossmodContentAttribute>();
+
+					if (atr is null)
+					{
+						AddContent(instance);
+						return;
+					}
+
+					var hasAllMods = true;
+
+					foreach (var mod in atr.Mods)
+					{
+						hasAllMods &= ModLoader.HasMod(mod);
+					}
+
+					if (hasAllMods)
+					{
+						AddContent(instance);
+						return;
+					}
+				}
+			);
+		}
 
 		public override void Load()
 		{
+			LoadContent();
+
 			ThoriumMod = ModUtils.GetModWithPossibleNull("ThoriumMod");
 
 			alchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();

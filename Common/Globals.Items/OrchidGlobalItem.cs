@@ -1,8 +1,12 @@
-﻿using OrchidMod.Common.Attributes;
+﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria;
+using Terraria.GameInput;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Common.Globals.Items
@@ -19,9 +23,9 @@ namespace OrchidMod.Common.Globals.Items
 			{
 				if (tagsByItemType.ContainsKey(modItem.Type)) continue;
 
-				var atr = modItem.GetType().GetCustomAttributes(typeof(ClassTagAttribute), true).FirstOrDefault() as ClassTagAttribute;
+				var atr = modItem.GetType().GetCustomAttribute<ClassTagAttribute>();
 
-				if (atr is null) continue;
+				if (atr is null) continue; 
 
 				tagsByItemType.Add(modItem.Type, atr.Tag);
 			}
@@ -36,15 +40,27 @@ namespace OrchidMod.Common.Globals.Items
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			if (ModContent.GetInstance<OrchidConfig>().ShowClassTags && tagsByItemType.ContainsKey(item.type))
+			var config = ModContent.GetInstance<OrchidConfig>();
+
+			if (config.ShowClassTags && tagsByItemType.ContainsKey(item.type))
 			{
-				AddClassTagInTooltips(item, tooltips);
+				AddClassTagToTooltips(item, tooltips);
+			}
+
+			if (config.LoadCrossmodContentWithoutRequiredMods)
+			{
+				var atr = item.ModItem?.GetType().GetCustomAttribute<CrossmodContentAttribute>();
+
+				if (atr is not null)
+				{
+					AddCrossmodInfoToTooltips(item, tooltips, atr.Mods);
+				}
 			}
 		}
 
 		// ...
 
-		private void AddClassTagInTooltips(Item item, List<TooltipLine> tooltips)
+		private void AddClassTagToTooltips(Item item, List<TooltipLine> tooltips)
 		{
 			var index = tooltips.FindIndex(i => i.Mod.Equals("Terraria") && i.Name.Equals("ItemName"));
 
@@ -55,6 +71,16 @@ namespace OrchidMod.Common.Globals.Items
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "ClassTag", GetClassTagText(tagType))
 			{
 				OverrideColor = OrchidColors.GetClassTagColor(tagType)
+			});
+		}
+
+		private void AddCrossmodInfoToTooltips(Item item, List<TooltipLine> tooltips, string[] mods)
+		{
+			var text = "This is a crossmod item: " + String.Join(", ", mods);
+
+			tooltips.Add(new TooltipLine(Mod, "CrossmodInfo", text)
+			{
+				OverrideColor = OrchidColors.CrossmodContentWarning
 			});
 		}
 
