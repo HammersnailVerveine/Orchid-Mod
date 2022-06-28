@@ -29,6 +29,7 @@ namespace OrchidMod.Alchemist.Accessories
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
+			recipe.ReplaceResult(935);
 			recipe.AddIngredient(this, 1);
 			recipe.AddIngredient(ItemID.SoulofMight, 5);
 			recipe.AddIngredient(ItemID.SoulofSight, 5);
