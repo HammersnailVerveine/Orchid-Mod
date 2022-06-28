@@ -9,6 +9,10 @@
 
 	public enum ClassTags
 	{
-		Alchemist
+		Alchemist,
+		Dancer,
+		Gambler,
+		Guardian,
+		Shaman
 	}
 }

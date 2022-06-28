@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -9,6 +11,7 @@ using Terraria.Utilities;
 
 namespace OrchidMod.Gambler
 {
+	[ClassTag(ClassTags.Gambler)]
 	public abstract class OrchidModGamblerItem : OrchidModItem
 	{
 		public int cardRequirement = -1;
@@ -199,15 +202,6 @@ namespace OrchidMod.Gambler
 				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Use to add to your deck")
 				{
 					OverrideColor = new Color(255, 200, 100)
-				});
-			}
-
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Gambler Class-")
-				{
-					OverrideColor = new Color(255, 200, 0)
 				});
 			}
 

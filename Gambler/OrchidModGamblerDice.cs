@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -7,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler
 {
+	[ClassTag(ClassTags.Gambler)]
 	public abstract class OrchidModGamblerDie : OrchidModItem
 	{
 		public int diceID = -1;
@@ -59,15 +62,6 @@ namespace OrchidMod.Gambler
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Gambler Class-")
-				{
-					OverrideColor = new Color(255, 200, 0)
-				});
-			}
-
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
 

@@ -8,6 +8,8 @@ using Terraria.ID;
 using System;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 
 namespace OrchidMod.Shaman
 {
@@ -18,6 +20,7 @@ namespace OrchidMod.Shaman
 		ROTATE = 2
 	}
 
+	[ClassTag(ClassTags.Shaman)]
 	public abstract class OrchidModShamanItem : OrchidModItem
 	{
 		public int empowermentType = 0;
@@ -193,19 +196,6 @@ namespace OrchidMod.Shaman
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
 				tt.Text = damageValue + " shamanic damage";
-			}
-
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
-				if (index != -1)
-				{
-					tooltips.Insert(index + 1, new TooltipLine(Mod, "ShamanTag", "-Shaman Class-") // 00C0FF
-					{
-						OverrideColor = new Color(0, 192, 255)
-					});
-				}
 			}
 
 			if (empowermentType > 0)

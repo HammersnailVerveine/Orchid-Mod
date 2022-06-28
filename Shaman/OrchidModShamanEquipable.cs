@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -6,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman
 {
+	[ClassTag(ClassTags.Shaman)]
 	public abstract class OrchidModShamanEquipable : OrchidModItem
 	{
 		public virtual void SafeSetDefaults() { }

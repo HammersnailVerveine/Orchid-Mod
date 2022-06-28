@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -6,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Dancer
 {
+	[ClassTag(ClassTags.Dancer)]
 	public abstract class OrchidModDancerItem : OrchidModItem
 	{
 		public int poiseCost = 0;
@@ -86,15 +89,6 @@ namespace OrchidMod.Dancer
 				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", str)
 				{
 					OverrideColor = new Color(220, 200, 255)
-				});
-			}
-
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Dancer Class-")
-				{
-					OverrideColor = new Color(255, 185, 255)
 				});
 			}
 

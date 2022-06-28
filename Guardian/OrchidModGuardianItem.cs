@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -6,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Guardian
 {
+	[ClassTag(ClassTags.Guardian)]
 	public abstract class OrchidModGuardianItem : OrchidModItem
 	{
 		public virtual void SafeSetDefaults() { }
@@ -35,15 +38,6 @@ namespace OrchidMod.Guardian
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
 				tt.Text = damageValue + " opposing " + damageWord;
-			}
-
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Guardian Class-")
-				{
-					OverrideColor = new Color(165, 130, 100)
-				});
 			}
 		}
 	}

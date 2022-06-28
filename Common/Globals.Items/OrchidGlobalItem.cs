@@ -87,12 +87,6 @@ namespace OrchidMod.Common.Globals.Items
 		// ...
 
 		private static string GetClassTagText(ClassTags tag)
-		{
-			return tag switch
-			{
-				ClassTags.Alchemist => "-Alchemist Class-",
-				_ => throw new NotImplementedException(),
-			};
-		}
+			=> $"-{tag} Class-";
 	}
 }

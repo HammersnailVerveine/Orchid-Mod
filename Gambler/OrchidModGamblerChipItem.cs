@@ -5,9 +5,12 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ID;
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 
 namespace OrchidMod.Gambler
 {
+	[ClassTag(ClassTags.Gambler)]
 	public abstract class OrchidModGamblerChipItem : OrchidModItem
 	{
 		public int chipCost = 0;
@@ -70,15 +73,6 @@ namespace OrchidMod.Gambler
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
 				tt.Text = damageValue + " gambling " + damageWord;
-			}
-
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Gambler Class-")
-				{
-					OverrideColor = new Color(255, 200, 0)
-				});
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));

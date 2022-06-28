@@ -5,9 +5,12 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 
 namespace OrchidMod.Gambler
 {
+	[ClassTag(ClassTags.Gambler)]
 	public abstract class GamblerDeck : OrchidModItem
 	{
 		private bool initialized = false;
@@ -118,15 +121,6 @@ namespace OrchidMod.Gambler
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", "-Gambler Class-")
-				{
-					OverrideColor = new Color(255, 200, 0)
-				});
-			}
-
 			Player player = Main.player[Main.myPlayer];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			Item currentCard = modPlayer.gamblerCardCurrent;
