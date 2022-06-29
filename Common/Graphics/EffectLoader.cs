@@ -53,13 +53,15 @@ namespace OrchidMod.Common.Graphics
 		public static void CreateSceneFilter(string effect, EffectPriority priority)
 			=> Filters.Scene[$"{OrchidMod.Instance.Name}:{effect}"] = new(new ScreenShaderData(new Ref<Effect>(GetEffect(effect).Value), effect), priority);
 
-		public static Effect CreateDefaultEffect(Texture2D texture = null)
+		public static Effect CreateDefaultTrailEffect(Texture2D texture, bool multiplyColorByAlpha)
 		{
-			var effect = effectsByName["Primitive"].Value.Clone();
+			if (Main.dedServ) return null;
+
+			var effect = effectsByName["DefaultTrail"].Value.Clone();
 			effect.Parameters["Texture0"].SetValue(texture ?? TextureAssets.MagicPixel.Value);
+			effect.Parameters["MultiplyColorByAlpha"].SetValue(multiplyColorByAlpha);
 			return effect;
 		}
-
 
 		private static void SetEffectInitParameters(string name, EffectParameterCollection parameters)
 		{

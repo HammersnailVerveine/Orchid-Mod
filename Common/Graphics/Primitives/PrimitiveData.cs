@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using Terraria;
 
 namespace OrchidMod.Common.Graphics.Primitives
 {
@@ -17,7 +15,7 @@ namespace OrchidMod.Common.Graphics.Primitives
 
         // ...
 
-        public delegate void OnUpdateEffectParametersDelegate(Effect effect);
+        public delegate void OnUpdateEffectParametersDelegate(EffectParameterCollection parameters);
         public OnUpdateEffectParametersDelegate OnUpdateEffectParameters;
 
         // ...
@@ -29,29 +27,19 @@ namespace OrchidMod.Common.Graphics.Primitives
             PrimitivesCount = primitivesCount;
             Vertices = vertices ?? new List<VertexPositionColorTexture>();
             Effect = effect;
-			OnUpdateEffectParameters = (_) => { };
+			OnUpdateEffectParameters += SetWorldViewProjMatrix;
         }
 
-        public void UpdateEffectParameters(Matrix matrix)
-        {
-            Effect.Parameters["WorldViewProj"].SetValue(matrix);
-            OnUpdateEffectParameters.Invoke(Effect);
-        }
+        public void UpdateEffectParameters()
+			=> OnUpdateEffectParameters.Invoke(Effect.Parameters);
 
-        public void Draw(SpriteBatch spriteBatch)
+		public void Draw(SpriteBatch spriteBatch)
         {
             RecreateVertices();
 
             if (PrimitivesCount <= 0) return;
 
-			var matrix = Matrix.CreateLookAt(Vector3.Zero, Vector3.UnitZ, Vector3.Up);
-			matrix *= Main.GameViewMatrix.EffectMatrix;
-			matrix *= Matrix.CreateTranslation(Main.screenWidth / 2, Main.screenHeight / -2, 0);
-			matrix *= Matrix.CreateRotationZ(MathHelper.Pi);
-			matrix *= Matrix.CreateScale(Main.GameViewMatrix.Zoom.X, Main.GameViewMatrix.Zoom.Y, 1);
-			matrix *= Matrix.CreateOrthographic(Main.screenWidth, Main.screenHeight, 0, 1000);
-
-			UpdateEffectParameters(matrix);
+			UpdateEffectParameters();
             DrawPrimitives(spriteBatch.GraphicsDevice);
         }
 
@@ -65,7 +53,10 @@ namespace OrchidMod.Common.Graphics.Primitives
                 graphics.DrawUserPrimitives(PrimitiveType, Vertices.ToArray(), 0, PrimitivesCount);
             }
         }
-    }
+
+		private void SetWorldViewProjMatrix(EffectParameterCollection parameters)
+			=> parameters["WorldViewProj"].SetValue(DrawSystem.TransformMatrix);
+	}
 
     public class IndexedPrimitiveData : PrimitiveData
     {

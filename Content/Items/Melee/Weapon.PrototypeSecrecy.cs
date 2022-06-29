@@ -6,6 +6,7 @@ using OrchidMod.Common.Graphics.Primitives;
 using OrchidMod.Common.Interfaces;
 using OrchidMod.Content.Trails;
 using OrchidMod.Utilities;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,6 +82,7 @@ namespace OrchidMod.Content.Items.Melee
 		public static readonly SoundStyle Magic0Sound = new(OrchidAssets.SoundsPath + "Magic_0");
 		public static readonly Color EffectColor = new(224, 39, 83);
 
+		private static Effect trailEffect;
 		private PrimitiveStrip trail;
 
 		// ...
@@ -90,6 +92,17 @@ namespace OrchidMod.Content.Items.Melee
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Prototype Secrecy");
+
+			Main.QueueMainThreadAction(() => trailEffect = EffectLoader.CreateDefaultTrailEffect
+			(
+				texture: OrchidAssets.GetExtraTexture(type: 5, mode: AssetRequestMode.ImmediateLoad).Value,
+				multiplyColorByAlpha: true
+			));
+		}
+
+		public override void Unload()
+		{
+			trailEffect = null;
 		}
 
 		public override void SetDefaults()
@@ -104,10 +117,14 @@ namespace OrchidMod.Content.Items.Melee
 
 		public override void OnSpawn(IEntitySource source)
 		{
-			var effect = EffectLoader.CreateDefaultEffect(OrchidAssets.GetExtraTexture(4).Value);
-			var effect2 = EffectLoader.CreateDefaultEffect();
-
-			trail = new PrimitiveStrip(p => 16 * (1 - p), p => EffectColor * (1 - p), effect);
+			trail = new PrimitiveStrip
+			(
+				width: progress => 4 * (1 - progress),
+				color: progress => EffectColor * (1 - progress),
+				effect: trailEffect,
+				headTip: new IPrimitiveStripTip.Rounded(smoothness: 20),
+				tailTip: null
+			);
 
 			/* [SP]
 			_trail = new RoundedTrail
@@ -177,10 +194,10 @@ namespace OrchidMod.Content.Items.Melee
 			spriteBatch.Draw(texture, position + new Vector2(-4, 0).RotatedBy(Projectile.rotation), null, EffectColor * 0.6f, 0f, texture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
 		}
 
-		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem ads)
+		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
 		{
-			trail.UpdatePointsAsSimpleTrail(Projectile.Center, maxPoints: 50, maxLength: 16 * 12);
-			ads.AddToAlphaBlend(DrawLayers.Walls, trail);
+			trail.UpdatePointsAsSimpleTrail(currentPosition: Projectile.Center + new Vector2(-4, 0).RotatedBy(Projectile.rotation), maxPoints: 25, maxLength: 16 * 10);
+			system.AddToAlphaBlend(DrawLayers.Dusts, trail);
 		}
 	}
 

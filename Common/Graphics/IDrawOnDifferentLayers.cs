@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Terraria.ModLoader;
 
 namespace OrchidMod.Common.Graphics
 {
 	public interface IDrawOnDifferentLayers
 	{
-		void DrawOnDifferentLayers(DrawSystem ads);
+		void DrawOnDifferentLayers(DrawSystem system);
 	}
 }

@@ -1,20 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.Graphics;
-using OrchidMod.Common.Graphics.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Common.Graphics
 {
+	[Autoload(Side = ModSide.Client)]
 	public class DrawSystem : ILoadable
 	{
+		public static Matrix TransformMatrix { get; private set; }
+
 		private Dictionary<DrawLayers, List<IDrawData>> alphaBlendDataDict;
 		private Dictionary<DrawLayers, List<IDrawData>> additiveDataDict;
 
@@ -69,6 +67,12 @@ namespace OrchidMod.Common.Graphics
 				orig(main);
 				DrawLayer(DrawLayers.Dusts, Main.spriteBatch);
 			};
+
+			On.Terraria.Main.DrawBackgroundBlackFill += (orig, main) =>
+			{
+				orig(main);
+				UpdateTransformMatrix();
+			};
 		}
 
 		void ILoadable.Unload()
@@ -117,6 +121,16 @@ namespace OrchidMod.Common.Graphics
 
 			ClearListsInDictionary(ref alphaBlendDataDict);
 			ClearListsInDictionary(ref additiveDataDict);
+		}
+
+		private void UpdateTransformMatrix()
+		{
+			TransformMatrix = Matrix.CreateLookAt(Vector3.Zero, Vector3.UnitZ, Vector3.Up);
+			TransformMatrix *= Main.GameViewMatrix.EffectMatrix;
+			TransformMatrix *= Matrix.CreateTranslation(Main.screenWidth / 2, Main.screenHeight / -2, 0);
+			TransformMatrix *= Matrix.CreateRotationZ(MathHelper.Pi);
+			TransformMatrix *= Matrix.CreateScale(Main.GameViewMatrix.Zoom.X, Main.GameViewMatrix.Zoom.Y, 1);
+			TransformMatrix *= Matrix.CreateOrthographic(Main.screenWidth, Main.screenHeight, 0, 1000);
 		}
 
 		public void AddToAlphaBlend(DrawLayers layer, IDrawData data)

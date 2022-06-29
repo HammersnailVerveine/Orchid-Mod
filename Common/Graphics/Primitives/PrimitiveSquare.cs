@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Utilities;
 using System;
 using Terraria;
 
@@ -32,7 +33,7 @@ namespace OrchidMod.Common.Graphics.Primitives
             void AddVertex(Vector2 offset)
             {
                 var texCoord = new Vector2((Convert.ToBoolean(offset.X) ^ SpriteEffect.HasFlag(SpriteEffects.FlipHorizontally)).ToInt(), (Convert.ToBoolean(offset.Y) ^ SpriteEffect.HasFlag(SpriteEffects.FlipVertically)).ToInt());
-                Vertices.Add(new(new Vector3(Position - Main.screenPosition + (Vector2.Subtract(offset, new Vector2(0.5f)) * Size).RotatedBy(Rotation), 0), Color, texCoord));
+				Vertices.AddVertex(Position - Main.screenPosition + (Vector2.Subtract(offset, new Vector2(0.5f)) * Size).RotatedBy(Rotation), Color, texCoord);
             }
 
             AddVertex(new(0, 1));

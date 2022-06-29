@@ -1,89 +1,102 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
 
 namespace OrchidMod.Common.Graphics.Primitives
 {
-    public class PrimitiveStrip : IndexedPrimitiveData
-    {
-        public List<Vector2> Points;
+	public class PrimitiveStrip : IndexedPrimitiveData
+	{
+		private static readonly IPrimitiveStripTip.Without NullTip = new();
 
-        // ...
+		// ...
 
-        public delegate float WidthFunctionDelegate(float progress);
-        public WidthFunctionDelegate WidthFunction;
+		public IPrimitiveStripTip HeadTip { get; private set; }
+		public IPrimitiveStripTip TailTip { get; private set; }
 
-        public delegate Color ColorFunctionDelegate(float progress);
-        public ColorFunctionDelegate ColorFunction;
+		public List<Vector2> Points;
 
-        // ...
+		// ...
 
-        public PrimitiveStrip(WidthFunctionDelegate width, ColorFunctionDelegate color, Effect effect) : base(PrimitiveType.TriangleStrip, 0, null, null, effect)
-        {
-            WidthFunction += width;
-            ColorFunction += color;
-            Points = new List<Vector2>();
-        }
+		public delegate float WidthFunctionDelegate(float progress);
+		public WidthFunctionDelegate WidthFunction;
 
-        public override void RecreateVertices()
-        {
-            Vertices.Clear();
-            Indeces.Clear();
+		public delegate Color ColorFunctionDelegate(float progress);
+		public ColorFunctionDelegate ColorFunction;
 
-            if (Points.Count < 2) return;
+		// ...
 
-            var length = 0f;
-            var distances = new float[Points.Count - 1];
+		public PrimitiveStrip(WidthFunctionDelegate width, ColorFunctionDelegate color, Effect effect, IPrimitiveStripTip headTip = null, IPrimitiveStripTip tailTip = null) : base(PrimitiveType.TriangleList, 0, null, null, effect)
+		{
+			WidthFunction += width;
+			ColorFunction += color;
+			Points = new List<Vector2>();
 
-            for (int i = 1; i < Points.Count; i++)
-            {
-                var j = i - 1;
-                distances[j] = Vector2.DistanceSquared(Points[j], Points[i]);
-                length += distances[j];
-            }
+			HeadTip = headTip ?? NullTip;
+			TailTip = tailTip ?? NullTip;
+		}
 
-            var progress = 0f;
-            (Color color, Vector2 normal) = GetProgressVariables(0);
+		public override void RecreateVertices()
+		{
+			Vertices.Clear();
+			Indeces.Clear();
 
-            AddVertex(Points[0] + normal, color, new Vector2(0, 0));
-            AddVertex(Points[0] - normal, color, new Vector2(0, 1));
+			if (Points.Count < 2) return;
 
-            for (int i = 1; i < Points.Count; i++)
-            {
-                progress += distances[i - 1] / length;
-                (color, normal) = GetProgressVariables(progress, i);
+			var length = 0f;
+			var distances = new float[Points.Count - 1];
 
-                AddVertex(Points[i] + normal, color, new Vector2(progress, 0));
-                AddVertex(Points[i] - normal, color, new Vector2(progress, 1));
+			for (int i = 1; i < Points.Count; i++)
+			{
+				var j = i - 1;
+				distances[j] = Vector2.DistanceSquared(Points[j], Points[i]);
+				length += distances[j];
+			}
 
-                var i2 = i * 2 - 2;
-                Indeces.AddRange(new short[]
-                {
-                    (short)i2,
-                    (short)(i2 + 1),
-                    (short)(i2 + 2),
-                    (short)(i2 + 1),
-                    (short)(i2 + 2),
-                    (short)(i2 + 3)
-                });
-            }
+			var progress = 0f;
+			(Color color, Vector2 normal) = GetProgressVariables(0);
 
-            PrimitivesCount = Indeces.Count - 2;
-        }
+			HeadTip.CreateTipMesh(ref Vertices, ref Indeces, Points[0], normal, color, 0);
 
-        private void AddVertex(Vector2 position, Color color, Vector2 texCoords)
-        {
-            Vertices.Add(new VertexPositionColorTexture(new Vector3(position - Main.screenPosition, 0), color, texCoords));
-        }
+			Vertices.AddVertex(Points[0] - normal, color, new Vector2(progress, 0));
+			Vertices.AddVertex(Points[0] + normal, color, new Vector2(progress, 1));
 
-        private (Color, Vector2) GetProgressVariables(float progress, int index = 1)
-        {
-            var width = WidthFunction?.Invoke(progress) ?? 0f;
-            var color = ColorFunction?.Invoke(progress) ?? Color.Transparent;
-            var normal = (Points[index] - Points[index - 1]).SafeNormalize(Vector2.Zero).RotatedBy(MathHelper.PiOver2) * width / 2f;
+			var nextIndex = Indeces.Count;
 
-            return (color, normal);
-        }
-    }
+			for (int i = 1; i < Points.Count; i++)
+			{
+				progress += distances[i - 1] / length;
+				(color, normal) = GetProgressVariables(progress, i);
+
+				Vertices.AddVertex(Points[i] - normal, color, new Vector2(progress, 0));
+				Vertices.AddVertex(Points[i] + normal, color, new Vector2(progress, 1));
+
+				var i2 = nextIndex + i * 2 - 2;
+
+				Indeces.AddRange(new short[]
+				{
+					(short)i2,
+					(short)(i2 + 2),
+					(short)(i2 + 1),
+					(short)(i2 + 2),
+					(short)(i2 + 3),
+					(short)(i2 + 1)
+				});
+			}
+
+			TailTip.CreateTipMesh(ref Vertices, ref Indeces, Points[^1], -normal, color, 1);
+
+			PrimitivesCount = Points.Count * 2 - 2 + (int)HeadTip.ExtraTriangles + (int)TailTip.ExtraTriangles;
+		}
+
+		private (Color, Vector2) GetProgressVariables(float progress, int index = 1)
+		{
+			var width = WidthFunction?.Invoke(progress) ?? 0f;
+			var color = ColorFunction?.Invoke(progress) ?? Color.Transparent;
+			var normal = (Points[index] - Points[index - 1]).SafeNormalize(Vector2.Zero).RotatedBy(MathHelper.PiOver2) * width / 2f;
+
+			return (color, normal);
+		}
+	}
 }
