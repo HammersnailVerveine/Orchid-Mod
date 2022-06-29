@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common;
+using OrchidMod.Common.Graphics;
 using ReLogic.Content;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 
 namespace OrchidMod
@@ -21,7 +16,6 @@ namespace OrchidMod
 		public const string MiscPath = TexturesPath + "Misc/";
 		public const string InvisiblePath = TexturesPath + "Misc/Invisible";
 
-		// Content
 		public const string BuffsPath = TexturesPath + "Buffs/";
 		public const string DustsPath = TexturesPath + "Dusts/";
 		public const string ProjectilesPath = TexturesPath + "Projectiles/";

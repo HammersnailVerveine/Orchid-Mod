@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common;
+using OrchidMod.Common.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;

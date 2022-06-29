@@ -9,7 +9,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 
-namespace OrchidMod.Common
+namespace OrchidMod.Common.Graphics
 {
 	[Autoload(Side = ModSide.Client)]
 	public class EffectLoader : ILoadable

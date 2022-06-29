@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Reflection;
 
-namespace OrchidMod.Common
+namespace OrchidMod.Common.Graphics
 {
 	public struct SpriteBatchInfo
 	{

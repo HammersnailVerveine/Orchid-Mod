@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Common.Graphics;
+using OrchidMod.Common.Graphics.Primitives;
 using OrchidMod.Common.Interfaces;
 using OrchidMod.Content.Trails;
 using OrchidMod.Utilities;
@@ -74,12 +76,12 @@ namespace OrchidMod.Content.Items.Melee
 		}
 	}
 
-	public class PrototypeSecrecyProjectile : ModProjectile, IDrawAdditive
+	public class PrototypeSecrecyProjectile : ModProjectile, IDrawAdditive, IDrawOnDifferentLayers
 	{
 		public static readonly SoundStyle Magic0Sound = new(OrchidAssets.SoundsPath + "Magic_0");
 		public static readonly Color EffectColor = new(224, 39, 83);
 
-		// private PrimitiveTrailSystem.Trail _trail; [SP]
+		private PrimitiveStrip trail;
 
 		// ...
 
@@ -102,6 +104,8 @@ namespace OrchidMod.Content.Items.Melee
 
 		public override void OnSpawn(IEntitySource source)
 		{
+			trail = new PrimitiveStrip(p => 16 * (1 - p), p => EffectColor * (1 - p), OrchidAssets.GetEffect("WyvernMoray").Value);
+
 			/* [SP]
 			_trail = new RoundedTrail
 			(
@@ -168,6 +172,12 @@ namespace OrchidMod.Content.Items.Melee
 			var position = Projectile.position + Projectile.Size * 0.5f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
 
 			spriteBatch.Draw(texture, position + new Vector2(-4, 0).RotatedBy(Projectile.rotation), null, EffectColor * 0.6f, 0f, texture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
+		}
+
+		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem ads)
+		{
+			trail.UpdatePointsAsSimpleTrail(Projectile.Center, maxPoints: 50, maxLength: 16 * 12);
+			ads.AddToAlphaBlend(DrawLayers.Walls, trail);
 		}
 	}
 
