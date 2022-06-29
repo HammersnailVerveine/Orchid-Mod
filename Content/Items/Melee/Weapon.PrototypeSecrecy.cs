@@ -104,7 +104,10 @@ namespace OrchidMod.Content.Items.Melee
 
 		public override void OnSpawn(IEntitySource source)
 		{
-			trail = new PrimitiveStrip(p => 16 * (1 - p), p => EffectColor * (1 - p), OrchidAssets.GetEffect("WyvernMoray").Value);
+			var effect = EffectLoader.CreateDefaultEffect(OrchidAssets.GetExtraTexture(4).Value);
+			var effect2 = EffectLoader.CreateDefaultEffect();
+
+			trail = new PrimitiveStrip(p => 16 * (1 - p), p => EffectColor * (1 - p), effect);
 
 			/* [SP]
 			_trail = new RoundedTrail
