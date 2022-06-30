@@ -125,15 +125,6 @@ namespace OrchidMod.Content.Items.Melee
 				tailTip: null
 			);
 
-			trail = new PrimitiveStrip
-			(
-				width: progress => 26 * (1 - progress),
-				color: progress => Color.Lerp(Color.White, Color.Red, progress),
-				effect: new IPrimitiveEffect.Default(texture: OrchidAssets.GetExtraTexture(19), multiplyColorByAlpha: true),
-				headTip: new IPrimitiveTip.Rounded(smoothness: 15),
-				tailTip: null
-			);
-
 			/* [SP]
 			_trail = new RoundedTrail
 			(
