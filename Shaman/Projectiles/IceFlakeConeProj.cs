@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
-using OrchidMod.Common.Interfaces;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -10,7 +9,7 @@ using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles
 {
-	public class IceFlakeConeProj : OrchidModShamanProjectile, IDrawAdditive
+	public class IceFlakeConeProj : OrchidModShamanProjectile
 	{
 		public static readonly Color EffectColor = new Color(106, 210, 255);
 
@@ -183,7 +182,7 @@ namespace OrchidMod.Shaman.Projectiles
 			Projectile.ai[0] = 1f;
 		}
 
-		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
+		/*void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
 			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 			var texture = OrchidAssets.GetExtraTexture(14).Value;
@@ -193,6 +192,6 @@ namespace OrchidMod.Shaman.Projectiles
 
 			texture = TextureAssets.Projectile[Projectile.type].Value;
 			spriteBatch.Draw(texture, drawPos, null, new Color(220, 220, 220, 230), Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
-		}
+		}*/
 	}
 }

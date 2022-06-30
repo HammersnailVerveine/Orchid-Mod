@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
-using OrchidMod.Common.Interfaces;
 using OrchidMod.Utilities;
 using System;
 using Terraria;
@@ -12,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
-	public class BoreanStriderScepterProj : OrchidModShamanProjectile, IDrawAdditive
+	public class BoreanStriderScepterProj : OrchidModShamanProjectile
 	{
 		public static readonly SoundStyle PoofSound = new(OrchidAssets.SoundsPath + "Poof") { PitchRange = (0.9f, 1f) };
 		public static readonly Color EffectColor = new(69, 144, 225);
@@ -130,16 +129,16 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			return false;
 		}
 
-		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
+		/*void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
 			var texture = OrchidAssets.GetExtraTexture(14).Value;
 			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 
 			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.5f, Projectile.timeLeft * 0.05f, texture.Size() * 0.5f, Projectile.scale * 0.8f, SpriteEffects.None, 0);
-		}
+		}*/
 	}
 
-	public class BoreanStriderScepterKillProj : OrchidModShamanProjectile, IDrawAdditive
+	public class BoreanStriderScepterKillProj : OrchidModShamanProjectile
 	{
 		private static readonly int _timeLeft = 20;
 
@@ -192,12 +191,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		public override bool? CanCutTiles() => false;
 		public override bool? CanDamage()/* Suggestion: Return null instead of false */ => false;
 
-		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
+		/*void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
 			var texture = OrchidAssets.GetExtraTexture(14).Value;
 			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 
 			spriteBatch.Draw(texture, drawPos, null, BoreanStriderScepterProj.EffectColor * 0.5f, Projectile.timeLeft * 0.05f, texture.Size() * 0.5f, Projectile.scale * 0.8f, SpriteEffects.None, 0);
-		}
+		}*/
 	}
 }

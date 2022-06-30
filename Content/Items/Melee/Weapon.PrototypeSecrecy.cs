@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Common.Graphics;
 using OrchidMod.Common.Graphics.Primitives;
-using OrchidMod.Common.Interfaces;
 using OrchidMod.Utilities;
 using ReLogic.Content;
 using System;
@@ -76,7 +75,7 @@ namespace OrchidMod.Content.Items.Melee
 		}
 	}
 
-	public class PrototypeSecrecyProjectile : ModProjectile, IDrawAdditive, IDrawOnDifferentLayers
+	public class PrototypeSecrecyProjectile : ModProjectile, IDrawOnDifferentLayers
 	{
 		public static readonly SoundStyle Magic0Sound = new(OrchidAssets.SoundsPath + "Magic_0");
 		public static readonly Color EffectColor = new(224, 39, 83);
@@ -120,7 +119,7 @@ namespace OrchidMod.Content.Items.Melee
 			(
 				width: progress => 4 * (1 - progress),
 				color: progress => EffectColor * (1 - progress),
-				effect: new IPrimitiveEffect.Default(OrchidAssets.GetExtraTexture(5)),
+				effect: new IPrimitiveEffect.Default(OrchidAssets.GetExtraTexture(5), true),
 				headTip: new IPrimitiveTip.Rounded(smoothness: 7),
 				tailTip: null
 			);
@@ -185,13 +184,13 @@ namespace OrchidMod.Content.Items.Melee
 			return base.OnTileCollide(oldVelocity);
 		}
 
-		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
+		/*void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
 			var texture = OrchidAssets.GetExtraTexture(11).Value;
 			var position = Projectile.position + Projectile.Size * 0.5f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
 
 			spriteBatch.Draw(texture, position + new Vector2(-4, 0).RotatedBy(Projectile.rotation), null, EffectColor * 0.6f, 0f, texture.Size() * 0.5f, Projectile.scale * 0.4f, SpriteEffects.None, 0);
-		}
+		}*/
 
 		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
 		{
@@ -200,7 +199,7 @@ namespace OrchidMod.Content.Items.Melee
 		}
 	}
 
-	public class PrototypeSecrecyHitProjectile : ModProjectile, IDrawAdditive
+	public class PrototypeSecrecyHitProjectile : ModProjectile
 	{
 		public override string Texture => OrchidAssets.InvisiblePath;
 
@@ -245,12 +244,12 @@ namespace OrchidMod.Content.Items.Melee
 		public override bool? CanCutTiles() => false;
 		public override bool? CanDamage()/* Suggestion: Return null instead of false */ => false;
 
-		void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
+		/*void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
 		{
 			var texture = OrchidAssets.GetExtraTexture(17).Value;
 			var position = Projectile.position + Projectile.Size * 0.5f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
 
 			spriteBatch.Draw(texture, position, null, PrototypeSecrecyProjectile.EffectColor * Projectile.scale, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
-		}
+		}*/
 	}
 }

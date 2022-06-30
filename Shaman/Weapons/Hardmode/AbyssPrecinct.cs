@@ -11,8 +11,6 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 {
 	public class AbyssPrecinct : OrchidModShamanItem
 	{
-		//public override string Texture => OrchidAssets.AbyssSetPath + Name; [SP]
-
 		public override void SafeSetStaticDefaults()
 		{
 			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);

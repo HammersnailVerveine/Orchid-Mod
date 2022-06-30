@@ -27,7 +27,7 @@ namespace OrchidMod.Common.Graphics.Primitives
 				MultiplyColorByAlpha = true;
 			}
 
-			public Default(Asset<Texture2D> texture, bool multiplyColorByAlpha = true)
+			public Default(Asset<Texture2D> texture, bool multiplyColorByAlpha)
 			{
 				Texture = texture ?? TextureAssets.MagicPixel;
 				MultiplyColorByAlpha = multiplyColorByAlpha;
