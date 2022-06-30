@@ -30,7 +30,7 @@ VertexShaderOutput MainVertexShader(in VertexShaderInput input)
     return output;
 }
 
-float4 DefaultTrail(VertexShaderOutput input) : COLOR
+float4 DefaultPrimitive(VertexShaderOutput input) : COLOR
 {
     float4 color = tex2D(textureSampler0, input.coord);
     if (MultiplyColorByAlpha) color.a = color.rgb / 3.0;
@@ -39,9 +39,9 @@ float4 DefaultTrail(VertexShaderOutput input) : COLOR
 
 technique Technique1
 {
-    pass DefaultTrail
+    pass DefaultPrimitive
     {
         VertexShader = compile vs_2_0 MainVertexShader();
-        PixelShader = compile ps_2_0 DefaultTrail();
+        PixelShader = compile ps_2_0 DefaultPrimitive();
     }
 }

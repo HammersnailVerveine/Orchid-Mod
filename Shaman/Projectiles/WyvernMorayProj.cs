@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
-using OrchidMod.Content.Trails;
 using System;
 using Terraria;
 using Terraria.Audio;

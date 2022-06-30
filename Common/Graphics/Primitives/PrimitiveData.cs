@@ -5,7 +5,12 @@ namespace OrchidMod.Common.Graphics.Primitives
 {
     public class PrimitiveData : IDrawData
     {
-        public Effect Effect { get; private set; }
+		public static readonly IPrimitiveEffect.Default NullEffect = new();
+		public static readonly IPrimitiveTip.Without NullTip = new();
+
+		// ...
+
+		public IPrimitiveEffect PrimitiveEffect { get; private set; }
         public PrimitiveType PrimitiveType { get; private set; }
 
         // ...
@@ -15,23 +20,20 @@ namespace OrchidMod.Common.Graphics.Primitives
 
         // ...
 
-        public delegate void OnUpdateEffectParametersDelegate(EffectParameterCollection parameters);
-        public OnUpdateEffectParametersDelegate OnUpdateEffectParameters;
-
-        // ...
-
-        public PrimitiveData(PrimitiveType type, int primitivesCount, List<VertexPositionColorTexture> vertices, Effect effect)
+        public PrimitiveData(PrimitiveType type, int primitivesCount, List<VertexPositionColorTexture> vertices, IPrimitiveEffect effect)
         {
-            Effect = effect;
+			PrimitiveEffect = effect;
             PrimitiveType = type;
             PrimitivesCount = primitivesCount;
             Vertices = vertices ?? new List<VertexPositionColorTexture>();
-            Effect = effect;
-			OnUpdateEffectParameters += SetWorldViewProjMatrix;
+			PrimitiveEffect = effect ?? NullEffect;
         }
 
         public void UpdateEffectParameters()
-			=> OnUpdateEffectParameters.Invoke(Effect.Parameters);
+		{
+			PrimitiveEffect.Effect.Value.Parameters["WorldViewProj"].SetValue(PrimitiveEffect.Matrix);
+			PrimitiveEffect.SetParameters(PrimitiveEffect.Effect.Value.Parameters);
+		}
 
 		public void Draw(SpriteBatch spriteBatch)
         {
@@ -47,15 +49,12 @@ namespace OrchidMod.Common.Graphics.Primitives
 
         public virtual void DrawPrimitives(GraphicsDevice graphics)
         {
-            foreach (var pass in Effect.CurrentTechnique.Passes)
+            foreach (var pass in PrimitiveEffect.Effect.Value.CurrentTechnique.Passes)
             {
                 pass.Apply();
                 graphics.DrawUserPrimitives(PrimitiveType, Vertices.ToArray(), 0, PrimitivesCount);
             }
         }
-
-		private void SetWorldViewProjMatrix(EffectParameterCollection parameters)
-			=> parameters["WorldViewProj"].SetValue(DrawSystem.TransformMatrix);
 	}
 
     public class IndexedPrimitiveData : PrimitiveData
@@ -65,14 +64,14 @@ namespace OrchidMod.Common.Graphics.Primitives
 
         // ...
 
-        public IndexedPrimitiveData(PrimitiveType type, int primitivesCount, List<VertexPositionColorTexture> vertices, List<short> indeces, Effect effect) : base(type, primitivesCount, vertices, effect)
+        public IndexedPrimitiveData(PrimitiveType type, int primitivesCount, List<VertexPositionColorTexture> vertices, List<short> indeces, IPrimitiveEffect effect) : base(type, primitivesCount, vertices, effect)
         {
             Indeces = indeces ?? new List<short>();
         }
 
         public override void DrawPrimitives(GraphicsDevice graphics)
         {
-            foreach (var pass in Effect.CurrentTechnique.Passes)
+            foreach (var pass in PrimitiveEffect.Effect.Value.CurrentTechnique.Passes)
             {
                 pass.Apply();
                 graphics.DrawUserIndexedPrimitives(PrimitiveType, Vertices.ToArray(), 0, Vertices.Count, Indeces.ToArray(), 0, PrimitivesCount);

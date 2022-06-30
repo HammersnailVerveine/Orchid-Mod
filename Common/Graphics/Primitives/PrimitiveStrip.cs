@@ -8,12 +8,8 @@ namespace OrchidMod.Common.Graphics.Primitives
 {
 	public class PrimitiveStrip : IndexedPrimitiveData
 	{
-		private static readonly IPrimitiveStripTip.Without NullTip = new();
-
-		// ...
-
-		public IPrimitiveStripTip HeadTip { get; private set; }
-		public IPrimitiveStripTip TailTip { get; private set; }
+		public IPrimitiveTip HeadTip { get; private set; }
+		public IPrimitiveTip TailTip { get; private set; }
 
 		public List<Vector2> Points;
 
@@ -27,7 +23,7 @@ namespace OrchidMod.Common.Graphics.Primitives
 
 		// ...
 
-		public PrimitiveStrip(WidthFunctionDelegate width, ColorFunctionDelegate color, Effect effect, IPrimitiveStripTip headTip = null, IPrimitiveStripTip tailTip = null) : base(PrimitiveType.TriangleList, 0, null, null, effect)
+		public PrimitiveStrip(WidthFunctionDelegate width, ColorFunctionDelegate color, IPrimitiveEffect effect, IPrimitiveTip headTip = null, IPrimitiveTip tailTip = null) : base(PrimitiveType.TriangleList, 0, null, null, effect)
 		{
 			WidthFunction += width;
 			ColorFunction += color;

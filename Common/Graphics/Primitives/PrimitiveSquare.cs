@@ -14,7 +14,7 @@ namespace OrchidMod.Common.Graphics.Primitives
         public Color Color;
         public SpriteEffects SpriteEffect;
 
-        public PrimitiveSquare(Vector2 position, Vector2 size, float rotation, Color color, SpriteEffects spriteEffect, Effect effect) : base(PrimitiveType.TriangleStrip, 0, null, null, effect)
+        public PrimitiveSquare(Vector2 position, Vector2 size, float rotation, Color color, SpriteEffects spriteEffect, IPrimitiveEffect effect) : base(PrimitiveType.TriangleStrip, 0, null, null, effect)
         {
             Position = position;
             Size = size;

@@ -19,31 +19,16 @@ namespace OrchidMod
 	[Autoload(false)]
 	public class ExampleProjectile : ModProjectile, IDrawOnDifferentLayers
 	{
-		private static Effect trailEffect;
 		private PrimitiveStrip trail;
-
-		public override void SetStaticDefaults()
-		{
-			Main.QueueMainThreadAction(() => trailEffect = EffectLoader.CreateDefaultTrailEffect
-			(
-				texture: OrchidAssets.GetExtraTexture(type: 19, mode: AssetRequestMode.ImmediateLoad).Value,
-				multiplyColorByAlpha: true
-			));
-		}
-
-		public override void Unload()
-		{
-			trailEffect = null;
-		}
 
 		public override void OnSpawn(IEntitySource source)
 		{
 			trail = new PrimitiveStrip
 			(
 				width: progress => 26 * (1 - progress),
-				color: progress => MathUtils.MultiLerp(Color.Lerp, progress, Color.White, Color.Blue, Color.Red) * (1 - progress),
-				effect: trailEffect,
-				headTip: new IPrimitiveStripTip.Rounded(smoothness: 15),
+				color: progress => Color.Lerp(Color.White, Color.Red, progress),
+				effect: new IPrimitiveEffect.Default(texture: OrchidAssets.GetExtraTexture(19), multiplyColorByAlpha: true),
+				headTip: new IPrimitiveTip.Rounded(smoothness: 15),
 				tailTip: null
 			);
 		}

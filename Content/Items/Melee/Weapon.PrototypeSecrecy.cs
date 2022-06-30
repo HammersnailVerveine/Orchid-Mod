@@ -4,7 +4,6 @@ using OrchidMod.Common;
 using OrchidMod.Common.Graphics;
 using OrchidMod.Common.Graphics.Primitives;
 using OrchidMod.Common.Interfaces;
-using OrchidMod.Content.Trails;
 using OrchidMod.Utilities;
 using ReLogic.Content;
 using System;
@@ -93,11 +92,11 @@ namespace OrchidMod.Content.Items.Melee
 		{
 			DisplayName.SetDefault("Prototype Secrecy");
 
-			Main.QueueMainThreadAction(() => trailEffect = EffectLoader.CreateDefaultTrailEffect
+			/*Main.QueueMainThreadAction(() => trailEffect = EffectLoader.CreateDefaultTrailEffect
 			(
 				texture: OrchidAssets.GetExtraTexture(type: 5, mode: AssetRequestMode.ImmediateLoad).Value,
 				multiplyColorByAlpha: true
-			));
+			));*/
 		}
 
 		public override void Unload()
@@ -121,8 +120,17 @@ namespace OrchidMod.Content.Items.Melee
 			(
 				width: progress => 4 * (1 - progress),
 				color: progress => EffectColor * (1 - progress),
-				effect: trailEffect,
-				headTip: new IPrimitiveStripTip.Rounded(smoothness: 20),
+				effect: new IPrimitiveEffect.Default(OrchidAssets.GetExtraTexture(5)),
+				headTip: new IPrimitiveTip.Rounded(smoothness: 7),
+				tailTip: null
+			);
+
+			trail = new PrimitiveStrip
+			(
+				width: progress => 26 * (1 - progress),
+				color: progress => Color.Lerp(Color.White, Color.Red, progress),
+				effect: new IPrimitiveEffect.Default(texture: OrchidAssets.GetExtraTexture(19), multiplyColorByAlpha: true),
+				headTip: new IPrimitiveTip.Rounded(smoothness: 15),
 				tailTip: null
 			);
 

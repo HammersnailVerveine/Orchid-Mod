@@ -7,7 +7,7 @@ using Terraria;
 
 namespace OrchidMod.Common.Graphics.Primitives
 {
-	public interface IPrimitiveStripTip
+	public interface IPrimitiveTip
 	{
 		abstract uint ExtraTriangles { get; }
 
@@ -15,14 +15,14 @@ namespace OrchidMod.Common.Graphics.Primitives
 
 		// ...
 
-		public struct Without : IPrimitiveStripTip
+		public struct Without : IPrimitiveTip
 		{
-			uint IPrimitiveStripTip.ExtraTriangles => 0;
+			uint IPrimitiveTip.ExtraTriangles => 0;
 
-			void IPrimitiveStripTip.CreateTipMesh(ref List<VertexPositionColorTexture> vertices, ref List<short> indeces, Vector2 position, Vector2 normal, Color color, int texCoordY) { }
+			void IPrimitiveTip.CreateTipMesh(ref List<VertexPositionColorTexture> vertices, ref List<short> indeces, Vector2 position, Vector2 normal, Color color, int texCoordY) { }
 		}
 
-		public struct Triangular : IPrimitiveStripTip
+		public struct Triangular : IPrimitiveTip
 		{
 			public readonly float? TipLength;
 
@@ -36,9 +36,9 @@ namespace OrchidMod.Common.Graphics.Primitives
 				TipLength = tipLength;
 			}
 
-			uint IPrimitiveStripTip.ExtraTriangles => 1;
+			uint IPrimitiveTip.ExtraTriangles => 1;
 
-			void IPrimitiveStripTip.CreateTipMesh(ref List<VertexPositionColorTexture> vertices, ref List<short> indeces, Vector2 position, Vector2 normal, Color color, int texCoordY)
+			void IPrimitiveTip.CreateTipMesh(ref List<VertexPositionColorTexture> vertices, ref List<short> indeces, Vector2 position, Vector2 normal, Color color, int texCoordY)
 			{
 				var length = TipLength ?? normal.Length();
 				var nextIndex = vertices.Count;
@@ -53,7 +53,7 @@ namespace OrchidMod.Common.Graphics.Primitives
 			}
 		}
 
-		public struct Rounded : IPrimitiveStripTip
+		public struct Rounded : IPrimitiveTip
 		{
 			public readonly uint Smoothness;
 
@@ -67,9 +67,9 @@ namespace OrchidMod.Common.Graphics.Primitives
 				Smoothness = Math.Max(smoothness, 2);
 			}
 
-			uint IPrimitiveStripTip.ExtraTriangles => Smoothness;
+			uint IPrimitiveTip.ExtraTriangles => Smoothness;
 
-			void IPrimitiveStripTip.CreateTipMesh(ref List<VertexPositionColorTexture> vertices, ref List<short> indeces, Vector2 position, Vector2 normal, Color color, int texCoordY)
+			void IPrimitiveTip.CreateTipMesh(ref List<VertexPositionColorTexture> vertices, ref List<short> indeces, Vector2 position, Vector2 normal, Color color, int texCoordY)
 			{
 				var angle = MathHelper.Pi / Smoothness;
 				var currentAngle = 0f;
