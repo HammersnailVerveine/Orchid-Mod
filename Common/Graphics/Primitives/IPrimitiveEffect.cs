@@ -46,7 +46,7 @@ namespace OrchidMod.Common.Graphics.Primitives
 			public readonly string EffectName;
 			private readonly Action<EffectParameterCollection> OnSetParameters;
 
-			Asset<Effect> IPrimitiveEffect.Effect => EffectLoader.GetEffect("DefaultPrimitive");
+			Asset<Effect> IPrimitiveEffect.Effect => EffectLoader.GetEffect(EffectName);
 
 			private Custom()
 			{
