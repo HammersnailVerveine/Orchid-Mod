@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
 using Terraria.GameContent;
 
 namespace OrchidMod.Common.Graphics.Primitives
@@ -14,7 +15,7 @@ namespace OrchidMod.Common.Graphics.Primitives
 
 		// ...
 
-		public struct Default : IPrimitiveEffect
+		public class Default : IPrimitiveEffect
 		{
 			public readonly Asset<Texture2D> Texture;
 			public readonly bool MultiplyColorByAlpha;
@@ -37,6 +38,30 @@ namespace OrchidMod.Common.Graphics.Primitives
 			{
 				parameters["Texture0"].SetValue(Texture.Value);
 				parameters["MultiplyColorByAlpha"].SetValue(MultiplyColorByAlpha);
+			}
+		}
+
+		public class Custom : IPrimitiveEffect
+		{
+			public readonly string EffectName;
+			private readonly Action<EffectParameterCollection> OnSetParameters;
+
+			Asset<Effect> IPrimitiveEffect.Effect => EffectLoader.GetEffect("DefaultPrimitive");
+
+			private Custom()
+			{
+
+			}
+
+			public Custom(string effectName, Action<EffectParameterCollection> onSetParameters)
+			{
+				EffectName = effectName;
+				OnSetParameters = onSetParameters ?? new Action<EffectParameterCollection>((_) => { });
+			}
+
+			void IPrimitiveEffect.SetParameters(EffectParameterCollection parameters)
+			{
+				OnSetParameters.Invoke(parameters);
 			}
 		}
 	}
