@@ -42,7 +42,6 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.AddIngredient(ItemID.GlowingMushroom, 5);
 			recipe.AddIngredient(ItemID.MudBlock, 15);
 			recipe.Register();
-			recipe.Register();
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

@@ -16,7 +16,6 @@ namespace OrchidMod.Gambler.Projectiles
 		private int shootProj = -1;
 		NPC target = null;
 		private Texture2D arrowTexture;
-		private Texture2D glowTexture;
 
 		public override void SetStaticDefaults()
 		{
@@ -25,13 +24,19 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SafeSetDefaults()
 		{
-			Projectile.width = 28;
-			Projectile.height = 26;
+			Projectile.width = 30;
+			Projectile.height = 30;
 			Projectile.friendly = false;
 			Projectile.aiStyle = 0;
 			Projectile.tileCollide = false;
 			Projectile.timeLeft = 720;
 			this.bonusTrigger = true;
+		}
+
+		public override Color? GetAlpha(Color lightColor)
+		{
+			float lightMult = 0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 30f);
+			return lightColor * lightMult;
 		}
 
 		public override void Kill(int timeLeft)
@@ -48,14 +53,19 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
 			arrowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkyCardProjAlt_Arrow", AssetRequestMode.ImmediateLoad).Value;
-			glowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkyCardProjAlt_Glow", AssetRequestMode.ImmediateLoad).Value;
 		}
 
 		public override void SafeAI()
 		{
 			Projectile.velocity *= 0.95f;
-			Projectile.rotation += 0.01f * animDirection;
 			shootProj--;
+
+			Projectile.rotation +=  (0.05f * (0.2f - Math.Abs(Projectile.rotation)) + 0.001f) * animDirection;
+			if (Math.Abs(Projectile.rotation) >= 0.2f)
+			{
+				Projectile.rotation = 0.2f * animDirection;
+				animDirection *= -1;
+			}
 
 			if (Main.rand.NextBool(10))
 			{
@@ -64,61 +74,72 @@ namespace OrchidMod.Gambler.Projectiles
 				Dust dust = Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)];
 			}
 
-			foreach (Projectile proj in Main.projectile)
-			{
-				if (proj.active && proj.type == ModContent.ProjectileType<SkyCardProj>() && proj.frame == 0 && proj.ai[1] == 2f && proj.Center.Distance(Projectile.Center) < 25f) 
-				{
-					float distance = 500f;
-					foreach (NPC npc in Main.npc)
-					{
-						if (homingCheckGambler(npc))
-						{
-							float newDistance = Vector2.Distance(npc.Center, proj.Center);
-							if (newDistance < distance)
-							{
-								target = npc;
-								distance = newDistance;
-							}
-						}
-					}
+			if (shootProj < 0)
+				target = null;
 
-					if (target != null)
+			float distance = 500f;
+			foreach (NPC npc in Main.npc)
+			{
+				if (homingCheckGambler(npc))
+				{
+					float newDistance = Vector2.Distance(npc.Center, Projectile.Center);
+					if (newDistance < distance)
 					{
-						proj.Kill();
-						shootProj = 75;
+						target = npc;
+						distance = newDistance;
 					}
 				}
 			}
 
-			if (shootProj > 0 && shootProj % 15 == 0 && target != null)
+			if (target != null)
 			{
-				SoundEngine.PlaySound(SoundID.Item9, Projectile.position);
-				Vector2 velocity = target.Center - Projectile.Center;
-				velocity.Normalize();
-				velocity *= 10f;
+				foreach (Projectile proj in Main.projectile)
+				{
+					if (proj.active && proj.type == ModContent.ProjectileType<SkyCardProj>() && proj.frame == 0 && proj.ai[1] == 2f)
+					{
+						float distToCenter = proj.Center.Distance(Projectile.Center);
+						if (distToCenter < 10f)
+						{
+							proj.Kill();
+							shootProj = 75;
+						}
+						else if (distToCenter < 100f)
+						{
+							proj.velocity *= 0.9f;
+							Vector2 newVelocity = Projectile.Center - proj.Center;
+							newVelocity *= 0.025f;
+							proj.velocity += newVelocity;
+							proj.timeLeft ++;
+						}
+					}
+				}
 
-				int projType = ProjectileType<Gambler.Projectiles.SkyCardProj>();
-				int newProjectile = (DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), getDummy()));
-				Main.projectile[newProjectile].ai[1] = 3f; 
-				Main.projectile[newProjectile].ai[0] = Projectile.ai[0];
-				Main.projectile[newProjectile].alpha = 0;
-				Main.projectile[newProjectile].tileCollide = true;
-				Main.projectile[newProjectile].friendly = true;
-				Main.projectile[newProjectile].netUpdate = true;
+				if (shootProj > 0 && shootProj % 15 == 0)
+				{
+					SoundEngine.PlaySound(SoundID.Item9, Projectile.position);
+					Vector2 velocity = target.Center - Projectile.Center;
+					velocity.Normalize();
+					velocity *= 10f;
+
+					int projType = ProjectileType<Gambler.Projectiles.SkyCardProj>();
+					int newProjectile = (DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), getDummy()));
+					Main.projectile[newProjectile].ai[1] = 3f;
+					Main.projectile[newProjectile].ai[0] = Projectile.ai[0];
+					Main.projectile[newProjectile].alpha = 0;
+					Main.projectile[newProjectile].tileCollide = true;
+					Main.projectile[newProjectile].friendly = true;
+					Main.projectile[newProjectile].netUpdate = true;
+				}
 			}
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			arrowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkyCardProjAlt_Arrow", AssetRequestMode.ImmediateLoad).Value;
-			glowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkyCardProjAlt_Glow", AssetRequestMode.ImmediateLoad).Value;
-			Color yellow = Color.Yellow * 0.5f;
-			Color newLightColor = new Color(yellow.R + lightColor.R, yellow.G + lightColor.G, yellow.B + lightColor.B);
 			Vector2 position = Projectile.Center - Main.screenPosition;
 			position.X -= arrowTexture.Width / 2f;
 			position.Y -= 40 + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 5f);
-			spriteBatch.Draw(arrowTexture, position, null, newLightColor);
-			spriteBatch.Draw(glowTexture, Projectile.position, null, newLightColor, Projectile.rotation, Vector2.Zero, Projectile.scale, SpriteEffects.None, 0f);
+			if (target != null) spriteBatch.Draw(arrowTexture, position, null, Color.White);
 			return true;
 		}
 	}

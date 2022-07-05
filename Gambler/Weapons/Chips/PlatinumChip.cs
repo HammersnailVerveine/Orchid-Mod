@@ -49,7 +49,6 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			recipe.AddIngredient(ItemID.Diamond, 8);
 			recipe.AddIngredient(ItemID.PlatinumBar, 10);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

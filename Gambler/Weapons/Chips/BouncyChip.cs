@@ -49,7 +49,6 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			recipe.AddIngredient(ModContent.ItemType<Gambler.Weapons.Chips.GamblingChip>(), 1);
 			recipe.AddIngredient(ItemID.PinkGel, 25); // Pink Gel
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

@@ -41,7 +41,6 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			recipe.AddIngredient(ItemID.Waterleaf, 3);
 			recipe.AddIngredient(ItemID.Cactus, 10);
 			recipe.Register();
-			recipe.Register();
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

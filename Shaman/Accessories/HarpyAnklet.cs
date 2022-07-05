@@ -44,7 +44,6 @@ namespace OrchidMod.Shaman.Accessories
 			recipe.AddIngredient(null, "HarpyTalon", 1);
 			recipe.AddIngredient(ItemID.Feather, 4);
 			recipe.Register();
-			recipe.Register();
 		}
 	}
 }

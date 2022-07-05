@@ -44,7 +44,6 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			recipe.AddIngredient(null, "AttractiteFlask", 1);
 			recipe.AddIngredient(null, "AlchemicStabilizer", 1);
 			recipe.Register();
-			recipe.Register();
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
