@@ -23,7 +23,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.timeLeft = 900;
 			Projectile.friendly = false;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-			this.gamblingChipChance = 5;
 			Main.projFrames[Projectile.type] = 3;
 		}
 

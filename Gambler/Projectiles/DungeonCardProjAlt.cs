@@ -27,7 +27,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.scale = 1f;
 			Projectile.tileCollide = true;
 			Main.projFrames[Projectile.type] = 8;
-			this.gamblingChipChance = 100;
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -73,7 +72,7 @@ namespace OrchidMod.Gambler.Projectiles
 							bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 							if (!dummy)
 							{
-								modPlayer.AddGamblerChip(this.gamblingChipChance);
+								modPlayer.TryAddGamblerChip(50);
 							}
 
 							bool crit = (Main.rand.Next(101) <= Projectile.CritChance);

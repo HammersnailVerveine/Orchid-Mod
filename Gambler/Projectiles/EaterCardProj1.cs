@@ -26,7 +26,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.penetrate = -1;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 			Main.projFrames[Projectile.type] = 3;
-			this.gamblingChipChance = 5;
 		}
 		
 		public override void OnSpawn() {

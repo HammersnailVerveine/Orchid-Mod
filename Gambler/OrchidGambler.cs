@@ -25,7 +25,9 @@ namespace OrchidMod
 	{
 		public OrchidPlayer modPlayer;
 
-		public float gamblerChipChance = 1.0f;
+		public int gamblerChipCooldownCurrent = 0;
+		public float gamblerChipCooldown = 1f;
+		public float gamblerChipSpin = 0;
 		public Item[] gamblerCardsItem = new Item[20];
 		public Item[] gamblerCardNext = new Item[3];
 		public Item gamblerCardCurrent = new Item();
@@ -54,7 +56,6 @@ namespace OrchidMod
 		public bool GamblerDummyInHand = false;
 		public bool gamblerHasCardInDeck = false;
 
-		public float gamblerChipSpin = 0;
 		public int gamblerPauseChipRotation = 0;
 		public int gamblerTimerHoney = 0;
 		public int gamblerSeedCount = 0;
@@ -72,6 +73,7 @@ namespace OrchidMod
 			gamblerChips = 0;
 			gamblerRedraws = 0;
 			gamblerUIDisplayTimer = 0;
+			gamblerChipCooldownCurrent = 0;
 			ClearGamblerCardCurrent();
 			ClearGamblerCardsNext();
 		}
@@ -217,10 +219,7 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
-			gamblerChipSpin += gamblerPauseChipRotation > 0 ? 0f : 1.5f + (gamblerChipSpinBonus * 1.5f);
-			gamblerChipSpin = gamblerChipSpin > 720f ? gamblerChipSpin - 720f : gamblerChipSpin;
-			gamblerPauseChipRotation -= gamblerPauseChipRotation > 0 ? 1 : 0;
-			gamblerChipChance = 1.0f;
+			gamblerChipCooldown = 1.0f;
 			gamblerChipSpinBonus = 0f;
 			gamblerChipsMax = 5;
 			gamblerChipsConsume = 0;
@@ -228,6 +227,10 @@ namespace OrchidMod
 			gamblerRedrawsMax = 0;
 			gamblerRedrawCooldownMax = 1800;
 			gamblerShuffleCooldownMax = 900;
+			gamblerChipSpin += gamblerPauseChipRotation > 0 ? 0f : 1.5f + (gamblerChipSpinBonus * 1.5f);
+			gamblerChipSpin = gamblerChipSpin > 720f ? gamblerChipSpin - 720f : gamblerChipSpin;
+			gamblerPauseChipRotation -= gamblerPauseChipRotation > 0 ? 1 : 0;
+			gamblerChipCooldownCurrent += gamblerChipCooldownCurrent < (int)(300 * gamblerChipCooldown) ? 1 : 0;
 			GamblerDeckInHand = false;
 			GamblerDummyInHand = false;
 			gamblerUIFightDisplay = false;
@@ -369,12 +372,23 @@ namespace OrchidMod
 			gamblerDiceDuration = 60 * diceDuration;
 		}
 
-		public void AddGamblerChip(int chance)
+		public void AddGamblerChip(bool resetCooldown = false)
 		{
-			chance = (int)(chance * gamblerChipChance);
-			if (Main.rand.Next(100) < chance)
+			gamblerChips += gamblerChips < gamblerChipsMax ? 1 : 0;
+			if (resetCooldown) gamblerChipCooldownCurrent = 0;
+		}
+
+		public void TryAddGamblerChip(int bonusLuck = 0)
+		{
+			int luck = gamblerChipCooldownCurrent;
+			int cap = (int)(600 * gamblerChipCooldown); // 600 = 1 chip guaranteed per 10 sec
+			luck += (int)(cap * (bonusLuck / 100));
+			luck = luck > cap ? cap : luck;
+
+			if (Main.rand.NextBool(cap / luck))
 			{
-				gamblerChips += gamblerChips < gamblerChipsMax ? 1 : 0;
+				AddGamblerChip(true);
+				gamblerChipCooldownCurrent = 0;
 			}
 			gamblerUIDisplayTimer = 300;
 		}
@@ -496,10 +510,10 @@ namespace OrchidMod
 
 			if (gamblerDungeon)
 			{
-				int rand = Main.rand.Next(3);
+				int rand = Main.rand.Next(2) + 1;
 				for (int i = 0; i < rand; i++)
 				{
-					AddGamblerChip(100);
+					AddGamblerChip();
 				}
 			}
 

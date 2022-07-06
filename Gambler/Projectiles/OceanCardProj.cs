@@ -1,10 +1,8 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -28,7 +26,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.timeLeft = 180;
 			Projectile.alpha = 255;
 			Projectile.penetrate = -1;
-			this.gamblingChipChance = 10;
 		}
 		
 		public override void OnSpawn() {
@@ -42,7 +39,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (Projectile.ai[1] == 2f)
 			{
 				Projectile.velocity.Y += 0.3f;
-				if (Projectile.timeLeft % 5 == 0) {
+				if (Projectile.timeLeft % 15 == 0) {
 					Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
 					Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, DustID.Smoke)].velocity *= 0.25f;
 				}
@@ -109,15 +106,34 @@ namespace OrchidMod.Gambler.Projectiles
 		}
 		
 		public override bool OnTileCollide(Vector2 oldVelocity) {
-			if (Projectile.velocity.Y > 0.5f)
-				SoundEngine.PlaySound(SoundID.Item50, Projectile.Center);
-			rolling+= Math.Abs(Projectile.velocity.X);
-			if (rolling > 30f)
+			if (Math.Abs(oldVelocity.Y) > 9f)
 			{
-				Projectile.damage++;
-				rolling = 0f;
+				OrchidModProjectile.spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 150, 3, true);
+				Projectile.Kill();
 			}
+			else if (Math.Abs(oldVelocity.Y) > 0.5f)
+			{
+				SoundEngine.PlaySound(SoundID.Item50, Projectile.Center);
+			}
+			else
+			{
+				Projectile.velocity.X *= 0.98f;
+				if (Math.Abs(Projectile.velocity.X) < 0.1f)
+				{
+					Projectile.Kill();
+				}
+			}
+
 			return false;
+		}
+
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
+		{
+			if (Math.Abs(Projectile.velocity.Y) > 9f)
+			{
+				OrchidModProjectile.spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 150, 3, true);
+				Projectile.Kill();
+			}
 		}
 
 		public override void Kill(int timeLeft)

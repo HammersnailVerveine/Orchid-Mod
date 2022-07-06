@@ -100,5 +100,17 @@ namespace OrchidMod.Common.Globals.NPCs
 				if (damage < 20) damage = 20;
 			}
 		}
+
+		public override void OnKill(NPC npc)
+		{
+			if (this.AlchemistHit && Main.rand.NextBool(4))
+			{
+				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Alchemist.Misc.Potency>());
+			}
+			if (this.GamblerHit && Main.rand.NextBool(4))
+			{
+				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Gambler.Misc.Chip>());
+			}
+		}
 	}
 }

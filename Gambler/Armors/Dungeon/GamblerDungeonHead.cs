@@ -38,7 +38,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			player.setBonus = "Drawing a card gives between 0 and 2 chips";
+			player.setBonus = "Drawing a card gives 1 to 2 chips";
 			modPlayer.gamblerDungeon = true;
 		}
 

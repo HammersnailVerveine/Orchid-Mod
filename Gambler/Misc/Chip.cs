@@ -11,7 +11,7 @@ namespace OrchidMod.Gambler.Misc
 		{
 			Item.width = 18;
 			Item.height = 18;
-			Item.maxStack = 99;
+			Item.maxStack = 1;
 			Item.rare = ItemRarityID.White;
 		}
 
@@ -35,7 +35,7 @@ namespace OrchidMod.Gambler.Misc
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			Color floatingTextColor = new Color(255, 200, 0);
 			CombatText.NewText(player.Hitbox, floatingTextColor, 1);
-			modPlayer.AddGamblerChip(100);
+			modPlayer.AddGamblerChip();
 			SoundEngine.PlaySound(SoundID.Item65, player.Center);
 			return false;
 		}

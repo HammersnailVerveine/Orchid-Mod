@@ -18,7 +18,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.CloneDefaults(123);
 			AIType = 123;
 			Projectile.timeLeft = 180;
-			this.gamblingChipChance = 20;
 		}
 
 		public override void SafeAI()

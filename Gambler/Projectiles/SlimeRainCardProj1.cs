@@ -22,7 +22,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.alpha = 126;
 			Projectile.penetrate = -1;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-			this.gamblingChipChance = 5;
 			Main.projFrames[Projectile.type] = 3;
 		}
 

@@ -13,7 +13,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Blue;
-			Item.damage = 25;
+			Item.damage = 20;
 			Item.knockBack = 5f;
 			Item.useAnimation = 50;
 			Item.useTime = 50;
@@ -26,7 +26,8 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			DisplayName.SetDefault("Playing Card : Ocean");
 			Tooltip.SetDefault("Summons a palm bush above your head"
-							+ "\nDrag and release a coconut to launch it");
+							+ "\nDrag and release a coconut to launch it"
+							+ "\nA harsh landing will make the coconut explode");
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

@@ -26,7 +26,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.timeLeft = 30;
 			Projectile.penetrate = 2;
 			Projectile.alpha = 255;
-			this.gamblingChipChance = 10;
 		}
 		
 		public override void OnSpawn() {

@@ -20,8 +20,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.alpha = 255;
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
-
-			this.gamblingChipChance = 5;
 		}
 
 		public override void SetStaticDefaults()

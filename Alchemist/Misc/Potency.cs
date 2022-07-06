@@ -11,7 +11,7 @@ namespace OrchidMod.Alchemist.Misc
 		{
 			Item.width = 18;
 			Item.height = 18;
-			Item.maxStack = 99;
+			Item.maxStack = 1;
 			Item.rare = ItemRarityID.White;
 		}
 

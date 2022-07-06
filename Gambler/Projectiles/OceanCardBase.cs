@@ -59,7 +59,7 @@ namespace OrchidMod.Gambler.Projectiles
 			if (Projectile.ai[0] <= 0) {
 				Projectile.ai[0] = 90f;
 				int projType = ProjectileType<Gambler.Projectiles.OceanCardProj>();
-				int newProjectile = (DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 7f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy));
+				int newProjectile = (DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 10f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy));
 				Main.projectile[newProjectile].ai[0] = Projectile.whoAmI;
 				Main.projectile[newProjectile].ai[1] = 0f;
 				Main.projectile[newProjectile].netUpdate = true;

@@ -27,7 +27,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.timeLeft = 90;
 			Projectile.penetrate = 1;
 			Projectile.alpha = 128;
-			this.gamblingChipChance = 5;
 		}
 
 		public override void SafeAI()

@@ -275,11 +275,6 @@ namespace OrchidMod.Content.NPCs.Town
 				NPCUtils.AddItemToShop<MushroomCard>(shop, ref nextSlot);
 			}
 
-			if (player.ZoneUnderworldHeight)
-			{
-				NPCUtils.AddItemToShop<HellCard>(shop, ref nextSlot);
-			}
-
 			if (player.ZoneSkyHeight)
 			{
 				NPCUtils.AddItemToShop<SkyCard>(shop, ref nextSlot);

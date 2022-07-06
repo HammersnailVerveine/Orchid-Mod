@@ -16,7 +16,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.timeLeft = 300;
 			Projectile.scale = 1f;
 			Projectile.alpha = 128;
-			this.gamblingChipChance = 10;
 		}
 
 		public override void SetStaticDefaults()

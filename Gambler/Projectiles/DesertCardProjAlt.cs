@@ -22,7 +22,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.tileCollide = true;
 			Projectile.aiStyle = 1;
 			Projectile.timeLeft = 60;
-			this.gamblingChipChance = 3;
 			Main.projFrames[Projectile.type] = 2;
 		}
 		

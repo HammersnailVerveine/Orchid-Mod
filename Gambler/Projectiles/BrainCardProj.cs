@@ -26,7 +26,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = false;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-			this.gamblingChipChance = 50;
 		}
 
 		public override void SafeAI()
@@ -35,11 +34,6 @@ namespace OrchidMod.Gambler.Projectiles
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			this.bounceDelay -= this.bounceDelay > 0 ? 1 : 0;
-
-			if (Projectile.ai[1] == 0 && Projectile.timeLeft == 750)
-			{
-				this.gamblingChipChance = 0;
-			}
 
 			if (Main.rand.NextBool(60 - (Projectile.ai[0] > 0f ? 50 : 0)))
 			{
@@ -184,7 +178,6 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
 		{
 			Projectile.friendly = false;
-			this.gamblingChipChance = 50;
 			int projType = ProjectileType<Gambler.Projectiles.BrainCardProj2>();
 			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 			DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, 0, Projectile.owner), dummy);

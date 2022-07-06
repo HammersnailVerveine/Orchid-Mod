@@ -127,21 +127,25 @@ namespace OrchidMod
 			for (int g = 0; g < 2; g++)
 			{
 				int goreIndex = Gore.NewGore(projectile.GetSource_FromThis(), new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 1.5f;
+				Main.gore[goreIndex].scale = 1f + Main.rand.NextFloat();
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+				Main.gore[goreIndex].rotation = Main.rand.NextFloat();
 				goreIndex = Gore.NewGore(projectile.GetSource_FromThis(), new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 1.5f;
+				Main.gore[goreIndex].scale = 1f + Main.rand.NextFloat();
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y + 1.5f;
+				Main.gore[goreIndex].rotation = Main.rand.NextFloat();
 				goreIndex = Gore.NewGore(projectile.GetSource_FromThis(), new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 1.5f;
+				Main.gore[goreIndex].scale = 1f + Main.rand.NextFloat();
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X + 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+				Main.gore[goreIndex].rotation = Main.rand.NextFloat();
 				goreIndex = Gore.NewGore(projectile.GetSource_FromThis(), new Vector2(projectile.position.X + (float)(projectile.width / 2) - 24f, projectile.position.Y + (float)(projectile.height / 2) - 24f), default(Vector2), Main.rand.Next(61, 64), 1f);
-				Main.gore[goreIndex].scale = 1.5f;
+				Main.gore[goreIndex].scale = 1f + Main.rand.NextFloat();
 				Main.gore[goreIndex].velocity.X = Main.gore[goreIndex].velocity.X - 1.5f;
 				Main.gore[goreIndex].velocity.Y = Main.gore[goreIndex].velocity.Y - 1.5f;
+				Main.gore[goreIndex].rotation = Main.rand.NextFloat();
 			}
 		}
 

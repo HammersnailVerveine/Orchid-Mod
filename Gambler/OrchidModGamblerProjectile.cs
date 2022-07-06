@@ -6,7 +6,6 @@ namespace OrchidMod.Gambler
 {
 	public abstract class OrchidModGamblerProjectile : OrchidModProjectile
 	{
-		public int gamblingChipChance = 0;
 		public bool bonusTrigger = false;
 
 		public virtual void SafeAI() { }
@@ -32,14 +31,14 @@ namespace OrchidMod.Gambler
 			modProjectile.gamblerInternalCooldown -= modProjectile.gamblerInternalCooldown > 0 ? 1 : 0;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public sealed override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
-			if (target.type != NPCID.TargetDummy && this.gamblingChipChance > 0)
+			if (target.type != NPCID.TargetDummy)
 			{
-				modPlayer.AddGamblerChip(this.gamblingChipChance);
+				modPlayer.TryAddGamblerChip();
 			}
 			modTarget.GamblerHit = true;
 			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);

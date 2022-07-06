@@ -11,8 +11,6 @@ namespace OrchidMod.Gambler.Projectiles
 {
 	public class ForestCardProj : OrchidModGamblerProjectile
 	{
-		//private Texture2D texture;
-		
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Acorn");
@@ -27,7 +25,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 200;
 			Projectile.alpha = 255;
-			this.gamblingChipChance = 10;
 			Main.projFrames[Projectile.type] = 2;
 		}
 		

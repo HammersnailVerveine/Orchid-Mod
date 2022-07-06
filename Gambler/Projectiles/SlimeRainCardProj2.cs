@@ -23,7 +23,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.scale = 1f;
 			Projectile.alpha = 64;
 			Main.projFrames[Projectile.type] = 4;
-			this.gamblingChipChance = 10;
 		}
 
 		public override void AI()
@@ -53,12 +52,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.velocity.Y = -3;
 			return false;
 		}
-
-		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)
-		{
-			this.gamblingChipChance = 3;
-		}
-
+		
 		public override void Kill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)

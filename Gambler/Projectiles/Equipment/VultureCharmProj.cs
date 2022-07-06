@@ -20,7 +20,6 @@ namespace OrchidMod.Gambler.Projectiles.Equipment
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 180;
 			Projectile.penetrate = -1;
-			this.gamblingChipChance = 5;
 			this.projectileTrail = true;
 		}
 

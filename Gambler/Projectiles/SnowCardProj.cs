@@ -27,7 +27,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 10;
 			Projectile.alpha = 255;
-			this.gamblingChipChance = 10;
 		}
 		
 		public override void OnSpawn() {

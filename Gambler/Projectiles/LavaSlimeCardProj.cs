@@ -29,7 +29,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.alpha = 16;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 			Main.projFrames[Projectile.type] = 2;
-			this.gamblingChipChance = 10;
 		}
 
 		public override Color? GetAlpha(Color lightColor)

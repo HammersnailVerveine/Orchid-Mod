@@ -24,7 +24,6 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.alpha = 126;
 			Projectile.timeLeft = 180;
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
-			this.gamblingChipChance = 5;
 		}
 
 		public override void SafeAI()
