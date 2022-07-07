@@ -23,6 +23,7 @@ namespace OrchidMod
 		public const string MountsPath = TexturesPath + "Mounts/";
 		public const string NPCsPath = TexturesPath + "NPCs/";
 		public const string TilesPath = TexturesPath + "Tiles/";
+		public const string UIsPath = TexturesPath + "UIs/";
 
 		// ...
 
