@@ -12,6 +12,18 @@ using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using Terraria.WorldBuilding;
 using Terraria.IO;
+using OrchidMod.Shaman.Weapons;
+using OrchidMod.Gambler.Weapons.Cards;
+using OrchidMod.Alchemist.Weapons.Fire;
+using OrchidMod.Alchemist.Weapons.Water;
+using OrchidMod.Alchemist.Weapons.Nature;
+using OrchidMod.Alchemist.Weapons.Air;
+using OrchidMod.Gambler.Misc;
+using OrchidMod.Shaman.Accessories;
+using OrchidMod.Alchemist.Weapons.Catalysts;
+using OrchidMod.Gambler.Weapons.Chips;
+using OrchidMod.Alchemist.Accessories;
+using OrchidMod.Gambler.Decks;
 
 namespace OrchidMod
 {
@@ -1397,416 +1409,233 @@ namespace OrchidMod
 			EndMineshaft(minishaft1, 5, 3, minishaft1X, minishaft1Y);
 			EndMineshaft(minishaft2, 5, 3, minishaft2X, minishaft2Y);
 
-			bool spawnedEmbersCard = false;
-			bool spawnedAdornedBranch = false;
-			bool spawnedEmberVial = false;
-			bool spawnedBubbleCard = false;
-			bool spawnedSeafoamVial = false;
-			bool spawnedSapCard = false;
-			bool spawnedLivingSapVial = false;
-			bool spawnedGoldChestCard = false;
-			bool spawnedEnchantedScepter = false;
-			bool spawnedCloudInAVial = false;
-			bool spawnedBlizzardInAVial = false;
-			bool spawnedFlashFreeze = false;
-			int spawnedTiamatRelic = 0;
-			bool spawnedSpiritedWater = false;
-			bool spawnedDungeonFlask = false;
-			bool spawnedDungeonCatalyst = false;
-			bool spawnedRusalka = false;
-			bool spawnedFireBatScepter = false;
-			bool spawnedShadowChestFlask = false;
-			bool spawnedIceChestCard = false;
-			bool spawnedAvalancheScepter = false;
-			bool spawnedDeepForestCharm = false;
-			bool spawnedIvyChestCard = false;
-			bool spawnedBloomingBud = false;
-			bool spawnedStellarTalc = false;
-			bool spawnedKeystoneOfTheConvent = false;
-			bool spawnedRuneOfHorus = false;
+			List<ChestLoot> chestLoots = new List<ChestLoot>();
+			List<Chest> usedChests = new List<Chest>();
+
+			chestLoots.Add(new ChestLoot(ItemType<EmbersCard>(), ChestType.SurfaceWooden, 20));
+			chestLoots.Add(new ChestLoot(ItemType<AdornedBranch>(), ChestType.SurfaceWooden, 20));
+			chestLoots.Add(new ChestLoot(ItemType<EmberVial>(), ChestType.SurfaceWooden, 20));
+			chestLoots.Add(new ChestLoot(ItemType<BubbleCard>(), ChestType.Water, 20));
+			chestLoots.Add(new ChestLoot(ItemType<SeafoamVial>(), ChestType.Water, 20));
+			chestLoots.Add(new ChestLoot(ItemType<SapCard>(), ChestType.LivingTree, 50));
+			chestLoots.Add(new ChestLoot(ItemType<LivingSapVial>(), ChestType.LivingTree, 50));
+			chestLoots.Add(new ChestLoot(ItemType<GoldChestCard>(), ChestType.Gold, 20));
+			chestLoots.Add(new ChestLoot(ItemType<EnchantedScepter>(), ChestType.Gold, 20));
+			chestLoots.Add(new ChestLoot(ItemType<CloudInAVial>(), ChestType.Gold, 20));
+			chestLoots.Add(new ChestLoot(ItemType<FartInAVial>(), ChestType.Gold, 1, needToPlace: 0, ignoreChestLimit: true));
+			chestLoots.Add(new ChestLoot(ItemType<DeckEnchanted>(), ChestType.Gold, 5, needToPlace: 0, ignoreChestLimit: true));
+			chestLoots.Add(new ChestLoot(ItemType<BlizzardInAVial>(), ChestType.Ice, 20));
+			chestLoots.Add(new ChestLoot(ItemType<IceChestFlask>(), ChestType.Ice, 20));
+			chestLoots.Add(new ChestLoot(ItemType<IceChestCard>(), ChestType.Ice, 20));
+			chestLoots.Add(new ChestLoot(ItemType<AvalancheScepter>(), ChestType.Ice, 20));
+			chestLoots.Add(new ChestLoot(ItemType<TiamatRelic>(), ChestType.DungeonLocked, 50, 1, 3, true));
+			chestLoots.Add(new ChestLoot(ItemType<SpiritedWater>(), ChestType.DungeonLocked, 20));
+			chestLoots.Add(new ChestLoot(ItemType<DungeonFlask>(), ChestType.DungeonLocked, 20));
+			chestLoots.Add(new ChestLoot(ItemType<DungeonCatalyst>(), ChestType.DungeonLocked, 20));
+			chestLoots.Add(new ChestLoot(ItemType<Rusalka>(), ChestType.DungeonLocked, 20));
+			chestLoots.Add(new ChestLoot(ItemType<DeckBone>(), ChestType.DungeonLocked, 5, needToPlace: 0, ignoreChestLimit: true));
+			chestLoots.Add(new ChestLoot(ItemType<FireBatScepter>(), ChestType.Shadow, 30));
+			chestLoots.Add(new ChestLoot(ItemType<ShadowChestFlask>(), ChestType.Shadow, 30));
+			chestLoots.Add(new ChestLoot(ItemType<KeystoneOfTheConvent>(), ChestType.Shadow, 30));
+			chestLoots.Add(new ChestLoot(ItemType<DeepForestCharm>(), ChestType.Ivy, 20));
+			chestLoots.Add(new ChestLoot(ItemType<IvyChestCard>(), ChestType.Ivy, 20));
+			chestLoots.Add(new ChestLoot(ItemType<BloomingBud>(), ChestType.Ivy, 20));
+			chestLoots.Add(new ChestLoot(ItemType<DeckJungle>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit:true));
+			chestLoots.Add(new ChestLoot(ItemType<SunplateFlask>(), ChestType.SkyIsland, 30));
+			chestLoots.Add(new ChestLoot(ItemType<RuneOfHorus>(), ChestType.Sandstone, 20));
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
 				Chest chest = Main.chest[chestIndex];
+				HandleSpecialChests(chest);
 
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.MinersLockboxTile>())
+				List<ChestLoot> possibleLoot = new List<ChestLoot>();
+				foreach (ChestLoot loot in chestLoots)
 				{
-					int[] specialItemPoll = {49, 50, 53, 54, 55, 975, 997, 930, ItemType<Shaman.Weapons.EnchantedScepter>()
-					, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), ItemType<Gambler.Weapons.Cards.GoldChestCard>()};
-					int rand = Main.rand.Next(specialItemPoll);
-
-					chest.item[0].SetDefaults(Mod.Find<ModItem>("HauntedCandle").Type);
-					placeInChest(chest, 71, Main.rand.Next(80, 99)); // Copper Coins
-					placeInChest(chest, 72, Main.rand.Next(80, 99)); // Silver Coins
-					placeInChest(chest, 28, Main.rand.Next(3, 8)); // Healing Pots
-					placeInChest(chest, 2, Main.rand.Next(5, 15)); // Iron Bars
-					placeInChest(chest, 166, Main.rand.Next(10, 20)); // Bombs
-					placeInChest(chest, 965, Main.rand.Next(50, 100)); // Ropes
-					placeInChest(chest, ItemType<Gambler.Weapons.Cards.DetonatorCard>(), 1); // Ropes
-
-					if (rand == 930) placeInChest(chest, 931, Main.rand.Next(21) + 30); // Flares
-					placeInChest(chest, rand, 1);
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>())
-				{
-					chest.item[0].SetDefaults(Mod.Find<ModItem>("ShroomiteScepter").Type);
-					chest.item[1].SetDefaults(183); // Glowing Mushroom
-					chest.item[1].stack = Main.rand.Next(10) + 20;
-					chest.item[2].SetDefaults(188); // Healing Potion
-					chest.item[2].stack = Main.rand.Next(5) + 3;
-					chest.item[3].SetDefaults(298); // Shine Potion
-					chest.item[3].stack = Main.rand.Next(3) + 1;
-					chest.item[4].SetDefaults(289); // Regeneration Potion
-					chest.item[4].stack = Main.rand.Next(3) + 1;
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 0 * 36
-				&& !((Main.tile[chest.x, chest.y].WallType >= 94 && Main.tile[chest.x, chest.y].WallType <= 99) || (Main.tile[chest.x, chest.y].WallType >= 7 && Main.tile[chest.x, chest.y].WallType <= 9)))
-				{
-					if (Main.rand.Next(5) == 0)
+					if (loot.ValidChest(chest) && loot.RollPlace())
 					{
-						spawnedEmbersCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.EmbersCard>(), 1);
-					}
-					if (Main.rand.Next(5) == 0)
-					{
-						if (Main.rand.Next(2) == 0)
+						if (!usedChests.Contains(chest) && !loot.ignoreChestLimit)
+							possibleLoot.Add(loot);
+
+						if (loot.ignoreChestLimit)
 						{
-							spawnedAdornedBranch = placeInChest(chest, ItemType<Shaman.Weapons.AdornedBranch>(), 1);
-						}
-						else
-						{
-							spawnedEmberVial = placeInChest(chest, ItemType<Alchemist.Weapons.Fire.EmberVial>(), 1);
+							placeInChest(chest, loot.itemType, loot.quantity);
+							loot.placed++;
 						}
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 17 * 36)
+				ChestLoot chosenLoot = null;
+				int lowestPriority = int.MaxValue;
+				foreach (ChestLoot loot in possibleLoot)
 				{
-					if (Main.rand.Next(5) == 0)
+					if (loot.placed < lowestPriority)
 					{
-						spawnedBubbleCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.BubbleCard>(), 1);
-					}
-					if (Main.rand.Next(5) == 0)
-					{
-						spawnedSeafoamVial = placeInChest(chest, ItemType<Alchemist.Weapons.Water.SeafoamVial>(), 1);
+						chosenLoot = loot;
+						lowestPriority = loot.placed;
 					}
 				}
 
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 12 * 36)
+				if (chosenLoot != null)
 				{
-					if (Main.rand.Next(2) == 0)
-					{
-						spawnedSapCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.SapCard>(), 1);
-					}
-					if (Main.rand.Next(2) == 0)
-					{
-						spawnedLivingSapVial = placeInChest(chest, ItemType<Alchemist.Weapons.Nature.LivingSapVial>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36
-					&& !(Main.tile[chest.x, chest.y].WallType == 34))
-				{
-					if (Main.rand.Next(5) == 0)
-					{
-						spawnedGoldChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.GoldChestCard>(), 1);
-					}
-					if (Main.rand.Next(4) == 0)
-					{
-						if (Main.rand.Next(2) == 0)
-						{
-							spawnedEnchantedScepter = placeInChest(chest, ItemType<Shaman.Weapons.EnchantedScepter>(), 1);
-						}
-						else
-						{
-							if (Main.rand.Next(100) > 0)
-							{
-								spawnedCloudInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), 1);
-							}
-							else
-							{
-								spawnedCloudInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.FartInAVial>(), 1);
-							}
-						}
-					}
-
-					if (Main.rand.Next(20) == 0)
-					{
-						placeInChest(chest, ItemType<Gambler.Decks.DeckEnchanted>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 2 * 36)
-				{
-					if (Main.rand.Next(2) == 0)
-					{
-						spawnedTiamatRelic += placeInChest(chest, ItemType<Gambler.Misc.TiamatRelic>(), 1) ? 1 : 0;
-					}
-
-					if (Main.rand.Next(2) == 0)
-					{
-						int rand = Main.rand.Next(4);
-						if (rand == 0)
-						{
-							spawnedSpiritedWater = placeInChest(chest, ItemType<Shaman.Accessories.SpiritedWater>(), 1);
-						}
-						else if (rand == 1)
-						{
-							spawnedDungeonFlask = placeInChest(chest, ItemType<Alchemist.Weapons.Water.DungeonFlask>(), 1);
-						}
-						else if (rand == 2)
-						{
-							spawnedDungeonCatalyst = placeInChest(chest, ItemType<Alchemist.Weapons.Catalysts.DungeonCatalyst>(), 1);
-						}
-						else
-						{
-							spawnedRusalka = placeInChest(chest, ItemType<Gambler.Weapons.Chips.Rusalka>(), 1);
-						}
-
-						if (Main.rand.Next(20) == 0)
-						{
-							placeInChest(chest, ItemType<Gambler.Decks.DeckBone>(), 1);
-						}
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 4 * 36)
-				{
-					if (Main.rand.Next(5) < 3)
-					{
-						int rand = Main.rand.Next(3);
-						if (rand == 0)
-						{
-							spawnedFireBatScepter = placeInChest(chest, ItemType<Shaman.Weapons.FireBatScepter>(), 1);
-						}
-						else if (rand == 1)
-						{
-							spawnedShadowChestFlask = placeInChest(chest, ItemType<Alchemist.Weapons.Air.ShadowChestFlask>(), 1);
-						}
-						else {
-							spawnedKeystoneOfTheConvent = placeInChest(chest, ItemType<Alchemist.Accessories.KeystoneOfTheConvent>(), 1);
-						}
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 13 * 36)
-				{
-					if (Main.rand.Next(4) == 0)
-					{
-						spawnedStellarTalc = placeInChest(chest, ItemType<Alchemist.Weapons.Air.SunplateFlask>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 11 * 36)
-				{
-					if (Main.rand.Next(5) == 0)
-					{
-						spawnedIceChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.IceChestCard>(), 1);
-					}
-					if (Main.rand.Next(7) == 0)
-					{
-						spawnedAvalancheScepter = placeInChest(chest, ItemType<Shaman.Weapons.AvalancheScepter>(), 1);
-					}
-					if (Main.rand.Next(4) == 0)
-					{
-						spawnedBlizzardInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.BlizzardInAVial>(), 1);
-					}
-					else if (Main.rand.Next(3) == 0)
-					{
-						spawnedFlashFreeze = placeInChest(chest, ItemType<Alchemist.Weapons.Water.IceChestFlask>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
-				{
-					if (Main.rand.Next(5) < 2)
-					{
-						if (Main.rand.Next(2) == 0)
-						{
-							spawnedDeepForestCharm = placeInChest(chest, ItemType<Shaman.Accessories.DeepForestCharm>(), 1);
-						}
-						else
-						{
-							spawnedBloomingBud = placeInChest(chest, ItemType<Alchemist.Accessories.BloomingBud>(), 1);
-						}
-					}
-
-					if (Main.rand.Next(20) == 0)
-					{
-						placeInChest(chest, ItemType<Gambler.Decks.DeckJungle>(), 1);
-					}
-
-					if (Main.rand.Next(5) == 0)
-					{
-						spawnedIvyChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.IvyChestCard>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
-				{
-					if (Main.rand.NextBool(7))
-					{
-						spawnedRuneOfHorus = placeInChest(chest, ItemType<Shaman.Accessories.RuneOfHorus>(), 1);
-					}
+					placeInChest(chest, chosenLoot.itemType, chosenLoot.quantity);
+					chosenLoot.placed++;
+					usedChests.Add(chest);
 				}
 			}
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
 				Chest chest = Main.chest[chestIndex];
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 0 * 36
-				&& !((Main.tile[chest.x, chest.y].WallType >= 94 && Main.tile[chest.x, chest.y].WallType <= 99) || (Main.tile[chest.x, chest.y].WallType >= 7 && Main.tile[chest.x, chest.y].WallType <= 9)))
+				foreach (ChestLoot loot in chestLoots)
 				{
-					if (!spawnedEmbersCard)
+					if (loot.ValidChest(chest) && loot.placed < loot.needToPlace)
 					{
-						spawnedEmbersCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.EmbersCard>(), 1);
-					}
-					if (!spawnedAdornedBranch)
-					{
-						spawnedAdornedBranch = placeInChest(chest, ItemType<Shaman.Weapons.AdornedBranch>(), 1);
-					}
-					if (!spawnedEmberVial)
-					{
-						spawnedEmberVial = placeInChest(chest, ItemType<Alchemist.Weapons.Fire.EmberVial>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 17 * 36)
-				{
-					if (!spawnedBubbleCard)
-					{
-						spawnedBubbleCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.BubbleCard>(), 1);
-					}
-					if (!spawnedSeafoamVial)
-					{
-						spawnedSeafoamVial = placeInChest(chest, ItemType<Alchemist.Weapons.Water.SeafoamVial>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 12 * 36)
-				{
-					if (!spawnedSapCard)
-					{
-						spawnedSapCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.SapCard>(), 1);
-					}
-					if (!spawnedLivingSapVial)
-					{
-						spawnedLivingSapVial = placeInChest(chest, ItemType<Alchemist.Weapons.Nature.LivingSapVial>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 13 * 36)
-				{
-					if (!spawnedStellarTalc)
-					{
-						spawnedStellarTalc = placeInChest(chest, ItemType<Alchemist.Weapons.Air.SunplateFlask>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36
-					&& !(Main.tile[chest.x, chest.y].WallType == 34))
-				{
-					if (!spawnedGoldChestCard)
-					{
-						spawnedGoldChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.GoldChestCard>(), 1);
-					}
-					if (!spawnedEnchantedScepter)
-					{
-						spawnedEnchantedScepter = placeInChest(chest, ItemType<Shaman.Weapons.EnchantedScepter>(), 1);
-					}
-					if (!spawnedCloudInAVial)
-					{
-						spawnedCloudInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 2 * 36)
-				{
-					if (spawnedTiamatRelic < 3)
-					{
-						spawnedTiamatRelic += placeInChest(chest, ItemType<Gambler.Misc.TiamatRelic>(), 1) ? 0 : 1;
-					}
-					if (!spawnedSpiritedWater)
-					{
-						spawnedSpiritedWater = placeInChest(chest, ItemType<Shaman.Accessories.SpiritedWater>(), 1);
-					}
-					if (!spawnedDungeonFlask)
-					{
-						spawnedDungeonFlask = placeInChest(chest, ItemType<Alchemist.Weapons.Water.DungeonFlask>(), 1);
-					}
-					if (!spawnedDungeonCatalyst)
-					{
-						spawnedDungeonCatalyst = placeInChest(chest, ItemType<Alchemist.Weapons.Catalysts.DungeonCatalyst>(), 1);
-					}
-					if (!spawnedRusalka)
-					{
-						spawnedRusalka = placeInChest(chest, ItemType<Gambler.Weapons.Chips.Rusalka>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 4 * 36)
-				{
-					if (!spawnedFireBatScepter)
-					{
-						spawnedFireBatScepter = placeInChest(chest, ItemType<Shaman.Weapons.FireBatScepter>(), 1);
-					}
-					if (!spawnedShadowChestFlask)
-					{
-						spawnedShadowChestFlask = placeInChest(chest, ItemType<Alchemist.Weapons.Air.ShadowChestFlask>(), 1);
-					}
-					if (!spawnedKeystoneOfTheConvent)
-					{
-						spawnedKeystoneOfTheConvent = placeInChest(chest, ItemType<Alchemist.Accessories.KeystoneOfTheConvent>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 11 * 36)
-				{
-					if (!spawnedIceChestCard)
-					{
-						spawnedIceChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.IceChestCard>(), 1);
-					}
-					if (!spawnedAvalancheScepter)
-					{
-						spawnedAvalancheScepter = placeInChest(chest, ItemType<Shaman.Weapons.AvalancheScepter>(), 1);
-					}
-					if (!spawnedBlizzardInAVial)
-					{
-						spawnedBlizzardInAVial = placeInChest(chest, ItemType<Alchemist.Weapons.Air.BlizzardInAVial>(), 1);
-					}
-					if (!spawnedFlashFreeze)
-					{
-						spawnedFlashFreeze = placeInChest(chest, ItemType<Alchemist.Weapons.Water.IceChestFlask>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
-				{
-					if (!spawnedDeepForestCharm)
-					{
-						spawnedDeepForestCharm = placeInChest(chest, ItemType<Shaman.Accessories.DeepForestCharm>(), 1);
-					}
-
-					if (!spawnedBloomingBud)
-					{
-						spawnedBloomingBud = placeInChest(chest, ItemType<Alchemist.Accessories.BloomingBud>(), 1);
-					}
-
-					if (!spawnedIvyChestCard)
-					{
-						spawnedIvyChestCard = placeInChest(chest, ItemType<Gambler.Weapons.Cards.IvyChestCard>(), 1);
-					}
-				}
-
-				if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 && Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
-				{
-					if (!spawnedRuneOfHorus)
-					{
-						spawnedRuneOfHorus = placeInChest(chest, ItemType<Shaman.Accessories.RuneOfHorus>(), 1);
+						placeInChest(chest, loot.itemType, loot.quantity);
+						loot.placed++;
 					}
 				}
 			}
 		}
+
+		public void HandleSpecialChests(Chest chest)
+		{
+
+			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.MinersLockboxTile>())
+			{
+				int[] specialItemPoll = {49, 50, 53, 54, 55, 975, 997, 930, ItemType<Shaman.Weapons.EnchantedScepter>()
+					, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), ItemType<Gambler.Weapons.Cards.GoldChestCard>()};
+				int rand = Main.rand.Next(specialItemPoll);
+
+				chest.item[0].SetDefaults(Mod.Find<ModItem>("HauntedCandle").Type);
+				placeInChest(chest, 71, Main.rand.Next(80, 99)); // Copper Coins
+				placeInChest(chest, 72, Main.rand.Next(80, 99)); // Silver Coins
+				placeInChest(chest, 28, Main.rand.Next(3, 8)); // Healing Pots
+				placeInChest(chest, 2, Main.rand.Next(5, 15)); // Iron Bars
+				placeInChest(chest, 166, Main.rand.Next(10, 20)); // Bombs
+				placeInChest(chest, 965, Main.rand.Next(50, 100)); // Ropes
+				placeInChest(chest, ItemType<Gambler.Weapons.Cards.DetonatorCard>(), 1); // Ropes
+
+				if (rand == 930) placeInChest(chest, 931, Main.rand.Next(21) + 30); // Flares
+				placeInChest(chest, rand, 1);
+			}
+
+			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>())
+			{
+				chest.item[0].SetDefaults(Mod.Find<ModItem>("ShroomiteScepter").Type);
+				chest.item[1].SetDefaults(183); // Glowing Mushroom
+				chest.item[1].stack = Main.rand.Next(10) + 20;
+				chest.item[2].SetDefaults(188); // Healing Potion
+				chest.item[2].stack = Main.rand.Next(5) + 3;
+				chest.item[3].SetDefaults(298); // Shine Potion
+				chest.item[3].stack = Main.rand.Next(3) + 1;
+				chest.item[4].SetDefaults(289); // Regeneration Potion
+				chest.item[4].stack = Main.rand.Next(3) + 1;
+			}
+
+		}
+	}
+
+	public class ChestLoot {
+		public int itemType;
+		public ChestType chestType;
+		public int quantity;
+		public int needToPlace;
+		public int chance;
+		public int placed;
+		public bool ignoreChestLimit;
+		public bool RollPlace() => Main.rand.Next(100) < chance;
+
+		public ChestLoot(int itemType, ChestType chestType, int chance, int quantity = 1, int needToPlace = 1, bool ignoreChestLimit = false)
+		{
+			this.itemType = itemType;
+			this.quantity = quantity;
+			this.chestType = chestType;
+			this.needToPlace = needToPlace;
+			this.ignoreChestLimit = ignoreChestLimit;
+			this.chance = chance;
+			this.placed = 0;
+		}
+
+		public bool ValidChest(Chest chest)
+		{
+			switch(chestType)
+			{
+				case ChestType.SurfaceWooden:
+					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers
+						&& Main.tile[chest.x, chest.y].TileFrameX == 0 * 36
+						&& !((Main.tile[chest.x, chest.y].WallType >= 94
+						&& Main.tile[chest.x, chest.y].WallType <= 99)
+						|| (Main.tile[chest.x, chest.y].WallType >= 7
+						&& Main.tile[chest.x, chest.y].WallType <= 9)))
+						return true;
+					return false;
+				case ChestType.Water:
+					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
+						&& Main.tile[chest.x, chest.y].TileFrameX == 17 * 36)
+						return true;
+					return false;
+				case ChestType.LivingTree:
+					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
+						&& Main.tile[chest.x, chest.y].TileFrameX == 12 * 36)
+						return true;
+					return false;
+				case ChestType.SkyIsland:
+					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
+						&& Main.tile[chest.x, chest.y].TileFrameX == 13 * 36)
+						return true;
+					return false;
+				case ChestType.Gold:
+					if(chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
+					&& Main.tile[chest.x, chest.y].TileFrameX == 1 * 36
+					&& !(Main.tile[chest.x, chest.y].WallType == 34))
+						return true;
+					return false;
+				case ChestType.DungeonLocked:
+					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
+					&& Main.tile[chest.x, chest.y].TileFrameX == 2 * 36)
+						return true;
+					return false;
+				case ChestType.Shadow:
+					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
+						&& Main.tile[chest.x, chest.y].TileFrameX == 4 * 36)
+						return true;
+					return false;
+				case ChestType.Ice:
+					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
+						&& Main.tile[chest.x, chest.y].TileFrameX == 11 * 36)
+						return true;
+					return false;
+				case ChestType.Ivy:
+					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
+						&& Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
+						return true;
+					return false;
+				case ChestType.Sandstone:
+					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 
+						&& Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
+						return true;
+					return false;
+				default:
+					return false;
+			}
+		}
+	}
+
+	public enum ChestType
+	{
+		SurfaceWooden,
+		Gold,
+		DungeonLocked,
+		DungeonWooden, // NOT IMPL
+		Shadow,
+		Ivy,
+		Temple, // NOT IMPL
+		Sandstone,
+		Water,
+		LivingTree,
+		SkyIsland,
+		Ice,
+		Webbed // NOT IMPL
 	}
 }
