@@ -8,8 +8,8 @@ namespace OrchidMod.Gambler.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 20;
-			Item.height = 20;
+			Item.width = 30;
+			Item.height = 28;
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;

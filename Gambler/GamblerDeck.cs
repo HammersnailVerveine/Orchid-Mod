@@ -97,6 +97,10 @@ namespace OrchidMod.Gambler
 							modPlayer.DrawGamblerCard();
 							currentCard = modPlayer.gamblerCardCurrent;
 							CheckStats(currentCard);
+							Item.useAnimation = 1;
+							Item.useTime = 1;
+							Item.reuseDelay = 1;
+							initialized = false;
 						}
 						return false;
 					}
@@ -108,6 +112,10 @@ namespace OrchidMod.Gambler
 							SoundEngine.PlaySound(SoundID.Item64, player.position);
 							currentCard = modPlayer.gamblerCardCurrent;
 							CheckStats(currentCard);
+							Item.useAnimation = 1;
+							Item.useTime = 1;
+							Item.reuseDelay = 1;
+							initialized = false;
 						}
 					}
 				}

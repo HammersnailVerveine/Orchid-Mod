@@ -1,23 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Alchemist;
-using OrchidMod.Dancer;
 using OrchidMod.Gambler;
-using OrchidMod.Shaman;
-using OrchidMod.Guardian;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
-using OrchidMod.Common;
-using OrchidMod.Gambler.Buffs.Dice;
 
 namespace OrchidMod
 {
@@ -25,9 +15,15 @@ namespace OrchidMod
 	{
 		public OrchidPlayer modPlayer;
 
-		public int gamblerChipCooldownCurrent = 0;
-		public float gamblerChipCooldown = 1f;
-		public float gamblerChipSpin = 0;
+		public int gamblerDieAnimation = 0;
+		public int gamblerDieAnimationPause = 10;
+		public int gamblerDieValueCurrent = 1;
+		public int gamblerDieValuePrevious = 1;
+		public bool gamblerDieDisplay = false;
+		public int gamblerDieDuration = 0;
+		public OrchidModGamblerDie gamblerDie = null;
+		public int gamblerDieValue = 0;
+
 		public Item[] gamblerCardsItem = new Item[20];
 		public Item[] gamblerCardNext = new Item[3];
 		public Item gamblerCardCurrent = new Item();
@@ -44,9 +40,9 @@ namespace OrchidMod
 		public int gamblerRedrawCooldown = 0;
 		public int gamblerRedrawCooldownMax = 1800;
 		public int gamblerRedrawCooldownUse = 0;
-		public int gamblerDiceID = -1;
-		public int gamblerDiceValue = 0;
-		public int gamblerDiceDuration = 0;
+		public int gamblerChipCooldownCurrent = 0;
+		public float gamblerChipCooldown = 1f;
+		public float gamblerChipSpin = 0;
 		public int gamblerUIDisplayTimer = 0;
 		public bool gamblerUIFightDisplay = false;
 		public bool gamblerUIDeckDisplay = true;
@@ -118,6 +114,23 @@ namespace OrchidMod
 				gamblerHasCardInDeck = gamblerCardsItem[0].type != 0;
 			}
 
+			if (gamblerDieAnimation >= OrchidModGamblerDie.AnimationDuration + gamblerDieAnimationPause)
+			{
+				gamblerDieAnimation = 0;
+				gamblerDieValuePrevious = gamblerDieValueCurrent;
+				for (int i = 0; i < 100; i++)
+				{
+					gamblerDieValueCurrent = Main.rand.Next(6) + 1;
+					if (gamblerDieValueCurrent != gamblerDieValuePrevious) break;
+				}
+			}
+			else gamblerDieAnimation++;
+
+			if (gamblerDie != null)
+			{
+				gamblerDie.UpdateDie(Player, this);
+			}
+
 			if (gamblerRedrawsMax > 0)
 			{
 				gamblerRedrawCooldown = gamblerRedraws >= gamblerRedrawsMax ? gamblerRedrawCooldownMax : gamblerRedrawCooldown;
@@ -135,7 +148,7 @@ namespace OrchidMod
 
 			gamblerRedrawCooldownUse -= gamblerRedrawCooldownUse > 0 ? 1 : 0;
 			gamblerShuffleCooldown -= gamblerShuffleCooldown > 0 ? 1 : 0;
-			gamblerUIDisplayTimer = gamblerShuffleCooldown <= 0 && gamblerDiceDuration <= 0 ? gamblerUIDisplayTimer > 0 ? gamblerUIDisplayTimer - 1 : gamblerUIDisplayTimer : 300;
+			gamblerUIDisplayTimer = gamblerShuffleCooldown <= 0 && gamblerDieDuration <= 0 ? gamblerUIDisplayTimer > 0 ? gamblerUIDisplayTimer - 1 : gamblerUIDisplayTimer : 300;
 			if (gamblerChips > 0 && gamblerUIDisplayTimer <= 0 && modPlayer.timer120 % 60 == 0)
 			{
 				gamblerChips--;
@@ -152,49 +165,17 @@ namespace OrchidMod
 			if (gamblerRedraws > gamblerRedrawsMax) gamblerRedraws = gamblerRedrawsMax;
 			if (gamblerChips > gamblerChipsMax) gamblerChips = gamblerChipsMax;
 
-			if (gamblerDiceDuration <= 0)
+			if (gamblerDieDuration <= 0)
 			{
-				gamblerDiceID = -1;
-				gamblerDiceValue = 0;
+				gamblerDie = null;
+				gamblerDieValue = 0;
 			}
 			else
-			{
-				gamblerDiceDuration--;
-				switch (gamblerDiceID)
-				{
-					case 0:
-						Player.GetDamage<GamblerDamageClass>() += (0.03f * gamblerDiceValue);
-						break;
-					case 1:
-						gamblerChipsConsume += 4 * gamblerDiceValue;
-						break;
-					default:
-						break;
-				}
-			}
+				gamblerDieDuration--;
 		}
 
 		public override void PostUpdate()
 		{
-			switch (gamblerDiceID)
-			{
-				case 0:
-					Player.AddBuff(ModContent.BuffType<GamblerDice>(), 1);
-					break;
-				case 1:
-					Player.AddBuff(ModContent.BuffType<GemstoneDice>(), 1);
-					break;
-				case 2:
-					Player.AddBuff(ModContent.BuffType<HoneyDice>(), 1);
-					break;
-				default:
-					break;
-			}
-
-			if (gamblerTimerHoney < 30)
-			{
-				gamblerTimerHoney++;
-			}
 		}
 
 		public override void ModifyHitNPCWithProj(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
@@ -202,17 +183,9 @@ namespace OrchidMod
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			if (modProjectile.gamblerProjectile)
 			{
-				/*
-				if (Main.rand.Next(101) <= this.gamblerCrit + modProjectile.baseCritChance)
-					crit = true;
-				else crit = false;
-				*/
-
-				if (gamblerDiceID == 2 && gamblerTimerHoney == 30)
+				if (gamblerDie != null)
 				{
-					Player.HealEffect(gamblerDiceValue, true);
-					Player.statLife += gamblerDiceValue;
-					gamblerTimerHoney = 0;
+					gamblerDie.ModifyHitNPCWithProjDie(Player, this, target, ref damage, ref knockback, ref crit, ref hitDirection);
 				}
 			}
 		}
@@ -230,7 +203,11 @@ namespace OrchidMod
 			gamblerChipSpin += gamblerPauseChipRotation > 0 ? 0f : 1.5f + (gamblerChipSpinBonus * 1.5f);
 			gamblerChipSpin = gamblerChipSpin > 720f ? gamblerChipSpin - 720f : gamblerChipSpin;
 			gamblerPauseChipRotation -= gamblerPauseChipRotation > 0 ? 1 : 0;
-			gamblerChipCooldownCurrent += gamblerChipCooldownCurrent < (int)(300 * gamblerChipCooldown) ? 1 : 0;
+			gamblerChipCooldownCurrent += gamblerChipCooldownCurrent < (int)(300 * gamblerChipCooldown) ? 1 : 0; 
+			gamblerTimerHoney++;
+			gamblerDieAnimationPause = 10;
+			gamblerDieDisplay = false;
+
 			GamblerDeckInHand = false;
 			GamblerDummyInHand = false;
 			gamblerUIFightDisplay = false;
@@ -365,11 +342,11 @@ namespace OrchidMod
 			return false;
 		}
 
-		public void RollGamblerDice(int diceID, int diceDuration)
+		public void RollGamblerDice(OrchidModGamblerDie die, int duration)
 		{
-			gamblerDiceID = diceID;
-			gamblerDiceValue = Main.rand.Next(6) + 1;
-			gamblerDiceDuration = 60 * diceDuration;
+			this.gamblerDie = die;
+			gamblerDieDuration = 60 * duration;
+			gamblerDieValue = (gamblerDieAnimation > OrchidModGamblerDie.AnimationDuration / 3) ? 0 + gamblerDieValueCurrent : 0 + gamblerDieValuePrevious;
 		}
 
 		public void AddGamblerChip(bool resetCooldown = false)
@@ -380,7 +357,7 @@ namespace OrchidMod
 
 		public void TryAddGamblerChip(int bonusLuck = 0)
 		{
-			int luck = gamblerChipCooldownCurrent;
+			int luck = gamblerChipCooldownCurrent + 1;
 			int cap = (int)(600 * gamblerChipCooldown); // 600 = 1 chip guaranteed per 10 sec
 			luck += (int)(cap * (bonusLuck / 100));
 			luck = luck > cap ? cap : luck;

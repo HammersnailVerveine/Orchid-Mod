@@ -28,13 +28,6 @@ namespace OrchidMod.Gambler.UI
 		public static Texture2D chip4;
 		public static Texture2D chip5;
 
-		public static Texture2D dice1;
-		public static Texture2D dice2;
-		public static Texture2D dice3;
-		public static Texture2D dice4;
-		public static Texture2D dice5;
-		public static Texture2D dice6;
-
 		public static Texture2D UIDeck;
 		public static Texture2D UICard;
 		public static Texture2D UIRedraw;
@@ -77,13 +70,6 @@ namespace OrchidMod.Gambler.UI
 			chip3 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip3", AssetRequestMode.ImmediateLoad).Value;
 			chip4 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip4", AssetRequestMode.ImmediateLoad).Value;
 			chip5 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIChip5", AssetRequestMode.ImmediateLoad).Value;
-
-			dice1 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice1", AssetRequestMode.ImmediateLoad).Value;
-			dice2 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice2", AssetRequestMode.ImmediateLoad).Value;
-			dice3 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice3", AssetRequestMode.ImmediateLoad).Value;
-			dice4 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice4", AssetRequestMode.ImmediateLoad).Value;
-			dice5 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice5", AssetRequestMode.ImmediateLoad).Value;
-			dice6 = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDice6", AssetRequestMode.ImmediateLoad).Value;
 
 			UIDeck = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/UIDeck", AssetRequestMode.ImmediateLoad).Value;
 			UIRedraw = ModContent.Request<Texture2D>("OrchidMod/Gambler/UI/Textures/GamblerUIRedraw", AssetRequestMode.ImmediateLoad).Value;
@@ -328,43 +314,34 @@ namespace OrchidMod.Gambler.UI
 						spriteBatch.Draw(ressourceBarTop, new Rectangle(point.X + 40, point.Y + 116 + drawHeight, 4, 2), backgroundColor);
 					}
 
-					if (modPlayer.gamblerDiceValue > 0)
+					if (modPlayer.gamblerDie != null)
 					{
-						Texture2D dice = dice1;
-						switch (modPlayer.gamblerDiceValue)
-						{
-							case 1:
-								dice = dice1;
-								break;
-							case 2:
-								dice = dice2;
-								break;
-							case 3:
-								dice = dice3;
-								break;
-							case 4:
-								dice = dice4;
-								break;
-							case 5:
-								dice = dice5;
-								break;
-							case 6:
-								dice = dice6;
-								break;
-							default:
-								break;
-						}
-						spriteBatch.Draw(dice, new Rectangle(point.X + 36, point.Y + 90, 24, 24), backgroundColor);
+						Texture2D dice = modPlayer.gamblerDie.UITexture;
+
+						Rectangle newBounds = dice.Bounds;
+						newBounds.Height /= 13;
+						newBounds.Width /= 7;
+						Rectangle newBoundsNumber = dice.Bounds;
+						newBoundsNumber.Height /= 13;
+						newBoundsNumber.Width /= 7;
+						newBounds.Y += newBounds.Height * 6;
+						newBoundsNumber.Y += newBounds.Height * 6;
+						newBoundsNumber.X += newBoundsNumber.Width * modPlayer.gamblerDieValue;
+
+						Vector2 diePosition = new Vector2(point.X + 36, point.Y + 90);
+
+						spriteBatch.Draw(dice, diePosition, newBounds, Color.White);
+						spriteBatch.Draw(dice, diePosition, newBoundsNumber, Color.White);
 
 						drawHeight = 70;
 						val = 0;
 
 						spriteBatch.Draw(ressourceBar, new Rectangle(point.X + 50, point.Y + 116, 12, 76), backgroundColor);
-						while (val < modPlayer.gamblerDiceDuration)
+						while (val < modPlayer.gamblerDieDuration - ((modPlayer.gamblerDie.diceDuration * 60) / 33))
 						{
 							spriteBatch.Draw(ressourceBarDiceFull, new Rectangle(point.X + 54, point.Y + 116 + drawHeight, 4, 2), backgroundColor);
 							drawHeight -= 2;
-							val += 60;
+							val += (int)((modPlayer.gamblerDie.diceDuration * 60) / 33);
 						}
 
 						if (val > 0)
