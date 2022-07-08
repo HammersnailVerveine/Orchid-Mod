@@ -13,11 +13,11 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		{
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			Item.rare = ItemRarityID.Blue;
-			Item.damage = 12;
+			Item.damage = 8;
 			Item.knockBack = 1f;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
-			this.cardRequirement = 4;
+			this.cardRequirement = 5;
 			this.gamblerCardSets.Add("Boss");
 		}
 

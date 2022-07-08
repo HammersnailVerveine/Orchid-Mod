@@ -17,7 +17,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Item.knockBack = 1f;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
-			this.cardRequirement = 4;
+			this.cardRequirement = 5;
 			this.gamblerCardSets.Add("Boss");
 		}
 
