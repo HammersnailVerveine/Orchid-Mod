@@ -37,7 +37,7 @@ namespace OrchidMod.Alchemist.Misc
 			if (player.altFunctionUse == 2 && Main.mouseRightRelease)
 			{
 				// SoundEngine.PlaySound(modPlayer.alchemistBookUIDisplay ? 11 : 10, (int)player.Center.X, (int)player.Center.Y, 0);
-				SoundEngine.PlaySound(modPlayer.alchemistBookUIDisplay ? SoundID.Item11 : SoundID.Item10, player.Center);
+				SoundEngine.PlaySound(modPlayer.alchemistBookUIDisplay ? SoundID.MenuOpen : SoundID.MenuClose, player.Center);
 				modPlayer.alchemistBookUIDisplay = !modPlayer.alchemistBookUIDisplay;
 				return false;
 			}
