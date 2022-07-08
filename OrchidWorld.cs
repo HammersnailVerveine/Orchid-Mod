@@ -24,11 +24,8 @@ using OrchidMod.Alchemist.Weapons.Catalysts;
 using OrchidMod.Gambler.Weapons.Chips;
 using OrchidMod.Alchemist.Accessories;
 using OrchidMod.Gambler.Decks;
-<<<<<<< HEAD
 using OrchidMod.Gambler.Accessories;
-=======
 using OrchidMod.Utilities;
->>>>>>> 01a9da02ac29501344a26a09074820922185f32d
 
 namespace OrchidMod
 {
