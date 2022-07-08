@@ -24,6 +24,7 @@ using OrchidMod.Alchemist.Weapons.Catalysts;
 using OrchidMod.Gambler.Weapons.Chips;
 using OrchidMod.Alchemist.Accessories;
 using OrchidMod.Gambler.Decks;
+using OrchidMod.Gambler.Accessories;
 
 namespace OrchidMod
 {
@@ -1437,9 +1438,11 @@ namespace OrchidMod
 			chestLoots.Add(new ChestLoot(ItemType<FireBatScepter>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<ShadowChestFlask>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<KeystoneOfTheConvent>(), ChestType.Shadow, 30));
+			chestLoots.Add(new ChestLoot(ItemType<ImpDiceCup>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<DeepForestCharm>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<IvyChestCard>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<BloomingBud>(), ChestType.Ivy, 20));
+			chestLoots.Add(new ChestLoot(ItemType<BundleOfClovers>(), ChestType.Ivy, 20)); 
 			chestLoots.Add(new ChestLoot(ItemType<DeckJungle>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit:true));
 			chestLoots.Add(new ChestLoot(ItemType<SunplateFlask>(), ChestType.SkyIsland, 30));
 			chestLoots.Add(new ChestLoot(ItemType<RuneOfHorus>(), ChestType.Sandstone, 20));
@@ -1627,15 +1630,12 @@ namespace OrchidMod
 		SurfaceWooden,
 		Gold,
 		DungeonLocked,
-		DungeonWooden, // NOT IMPL
 		Shadow,
 		Ivy,
-		Temple, // NOT IMPL
 		Sandstone,
 		Water,
 		LivingTree,
 		SkyIsland,
-		Ice,
-		Webbed // NOT IMPL
+		Ice
 	}
 }

@@ -4,6 +4,7 @@ using OrchidMod.Alchemist.Weapons.Catalysts;
 using OrchidMod.Alchemist.Weapons.Fire;
 using OrchidMod.Alchemist.Weapons.Water;
 using OrchidMod.Content.Items.Materials;
+using OrchidMod.Gambler.Accessories;
 using OrchidMod.Gambler.Decks;
 using OrchidMod.Gambler.Misc;
 using OrchidMod.Gambler.Weapons.Cards;
@@ -265,7 +266,7 @@ namespace OrchidMod.Common.Globals.Items
 					break;
 				case ItemID.JungleFishingCrate:
 					{
-						if (Main.rand.Next(5) < 2) // 0.4
+						if (Main.rand.Next(5) < 3) // 0.6
 						{
 							QuickSpawnRandomItemFromList(
 								player: player,
@@ -273,6 +274,7 @@ namespace OrchidMod.Common.Globals.Items
 								{
 									(ModContent.ItemType<DeepForestCharm>(), 1),
 									(ModContent.ItemType<BloomingBud>(), 1),
+									(ModContent.ItemType<BundleOfClovers>(), 1),
 								},
 								chanceDenominator: 1
 							);
