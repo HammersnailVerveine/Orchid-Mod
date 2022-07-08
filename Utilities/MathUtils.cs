@@ -8,6 +8,11 @@ namespace OrchidMod.Utilities
 {
 	public static class MathUtils
 	{
+		public static bool Between<T>(this T item, T start, T end)
+		{
+			return Comparer<T>.Default.Compare(item, start) >= 0 && Comparer<T>.Default.Compare(item, end) <= 0;
+		}
+
 		public static T MultiLerp<T>(Func<T, T, float, T> method, float percent, params T[] values)
 		{
 			if (method == null) throw new ArgumentNullException(nameof(method));
