@@ -38,7 +38,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.direction = Projectile.spriteDirection;
 
 			this.cooldown -= this.cooldown > 0 ? 1 : 0;
-			Projectile.friendly = this.cooldown <= 0 && this.initialized;
+			Projectile.friendly = this.cooldown <= 0 && this.initialized && Projectile.velocity.Length() > 1f;
 
 			if (Projectile.ai[1] == 1)
 			{
