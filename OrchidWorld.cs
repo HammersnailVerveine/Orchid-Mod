@@ -24,6 +24,7 @@ using OrchidMod.Alchemist.Weapons.Catalysts;
 using OrchidMod.Gambler.Weapons.Chips;
 using OrchidMod.Alchemist.Accessories;
 using OrchidMod.Gambler.Decks;
+using OrchidMod.Utilities;
 
 namespace OrchidMod
 {
@@ -1559,63 +1560,36 @@ namespace OrchidMod
 
 		public bool ValidChest(Chest chest)
 		{
-			switch(chestType)
+			if (chest == null || !(Framing.GetTileSafely(chest.x, chest.y) is Tile tile)) return false;
+			if (!tile.HasTile || !TileID.Sets.IsAContainer[tile.TileType]) return false;
+
+			switch (chestType)
 			{
 				case ChestType.SurfaceWooden:
-					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers
-						&& Main.tile[chest.x, chest.y].TileFrameX == 0 * 36
-						&& !((Main.tile[chest.x, chest.y].WallType >= 94
-						&& Main.tile[chest.x, chest.y].WallType <= 99)
-						|| (Main.tile[chest.x, chest.y].WallType >= 7
-						&& Main.tile[chest.x, chest.y].WallType <= 9)))
-						return true;
-					return false;
+					bool flag = true;
+					flag &= tile.TileType == TileID.Containers;
+					flag &= tile.TileFrameX == 0 * 36;
+					flag &= !tile.WallType.Between(WallID.BlueDungeonSlabUnsafe, WallID.GreenDungeonTileUnsafe);
+					flag &= !tile.WallType.Between(WallID.BlueDungeonUnsafe, WallID.PinkDungeonUnsafe);
+					return flag;
 				case ChestType.Water:
-					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
-						&& Main.tile[chest.x, chest.y].TileFrameX == 17 * 36)
-						return true;
-					return false;
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 17 * 36;
 				case ChestType.LivingTree:
-					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
-						&& Main.tile[chest.x, chest.y].TileFrameX == 12 * 36)
-						return true;
-					return false;
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 12 * 36;
 				case ChestType.SkyIsland:
-					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
-						&& Main.tile[chest.x, chest.y].TileFrameX == 13 * 36)
-						return true;
-					return false;
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 13 * 36;
 				case ChestType.Gold:
-					if(chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
-					&& Main.tile[chest.x, chest.y].TileFrameX == 1 * 36
-					&& !(Main.tile[chest.x, chest.y].WallType == 34))
-						return true;
-					return false;
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 1 * 36 && tile.WallType != WallID.SandstoneBrick;
 				case ChestType.DungeonLocked:
-					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
-					&& Main.tile[chest.x, chest.y].TileFrameX == 2 * 36)
-						return true;
-					return false;
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 2 * 36;
 				case ChestType.Shadow:
-					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
-						&& Main.tile[chest.x, chest.y].TileFrameX == 4 * 36)
-						return true;
-					return false;
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 4 * 36;
 				case ChestType.Ice:
-					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
-						&& Main.tile[chest.x, chest.y].TileFrameX == 11 * 36)
-						return true;
-					return false;
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 11 * 36;
 				case ChestType.Ivy:
-					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers 
-						&& Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
-						return true;
-					return false;
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 10 * 36;
 				case ChestType.Sandstone:
-					if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers2 
-						&& Main.tile[chest.x, chest.y].TileFrameX == 10 * 36)
-						return true;
-					return false;
+					return tile.TileType == TileID.Containers2 && tile.TileFrameX == 10 * 36;
 				default:
 					return false;
 			}
