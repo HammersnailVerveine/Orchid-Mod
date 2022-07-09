@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -8,6 +9,8 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 {
 	public class SlimeBubble : AlchemistProjReactive
 	{
+		private int animDirection;
+
 		public override void SafeSetDefaults()
 		{
 			Projectile.width = 26;
@@ -25,11 +28,21 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			DisplayName.SetDefault("Slime Bubble");
 		}
 
+		public override void OnSpawn()
+		{
+			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
+		}
+
 		public override void SafeAI()
 		{
 			Projectile.velocity.Y *= 0.95f;
 			Projectile.velocity.X *= 0.99f;
-			Projectile.rotation += 0.02f;
+			Projectile.rotation += (0.05f * (0.2f - Math.Abs(Projectile.rotation)) + 0.001f) * animDirection;
+			if (Math.Abs(Projectile.rotation) >= 0.2f)
+			{
+				Projectile.rotation = 0.2f * animDirection;
+				animDirection *= -1;
+			}
 
 			if (Main.rand.NextBool(20))
 			{

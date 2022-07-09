@@ -22,7 +22,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.colorR = 255;
 			this.colorG = 148;
 			this.colorB = 0;
-			this.secondaryDamage = 0;
+			this.secondaryDamage = 3;
 			this.secondaryScaling = 3f;
 		}
 
@@ -39,7 +39,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 		{
 			if (alchProj.nbElements > 1) {
 				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
-				if (alchProj.airFlask.type != 0) {
+				if (alchProj.airFlask.type != ItemID.None) {
 					dmg *= 2;
 				}
 				int spawnProj = ProjectileType<Alchemist.Projectiles.Nature.LivingSapVialProj>();

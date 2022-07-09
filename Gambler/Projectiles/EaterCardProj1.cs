@@ -105,7 +105,7 @@ namespace OrchidMod.Gambler.Projectiles
 					{
 						if (proj.Hitbox.Intersects(Projectile.Hitbox) && proj.damage > 0)
 						{
-							Projectile.damage += 4;
+							Projectile.damage += 6;
 							SoundEngine.PlaySound(SoundID.Item2, Projectile.Center);
 							proj.Kill();
 							
