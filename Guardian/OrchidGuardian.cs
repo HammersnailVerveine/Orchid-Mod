@@ -32,6 +32,9 @@ namespace OrchidMod
 		public int guardianBlockRecharge = 0;
 		public int guardianSlamRecharge = 0;
 		public int guardianDisplayUI = 0;
+		public int guardianThrowCharge = 0;
+		public bool guardianThrowDecreasing;
+		public bool holdingHammer;
 		public List<BlockedEnemy> guardianBlockedEnemies = new List<BlockedEnemy>();
 
 		public static int guardianRechargeTime = 600;
@@ -70,6 +73,20 @@ namespace OrchidMod
 				guardianSlamRecharge = (int)(guardianRechargeTime * guardianRecharge);
 			}
 
+			if (holdingHammer)
+			{
+				guardianThrowCharge += guardianThrowDecreasing ? -4 : 1;
+
+				if (guardianThrowCharge > 210)
+					guardianThrowDecreasing = true;
+
+				if (guardianThrowCharge <= 0)
+				{
+					guardianThrowDecreasing = false;
+					guardianThrowCharge = 0;
+				}
+			} else guardianThrowCharge = 0;
+
 			guardianRecharge = 1f;
 
 			guardianBlockRecharge--;
@@ -85,6 +102,8 @@ namespace OrchidMod
 					guardianBlockedEnemies.Remove(blockedEnemy);
 				}
 			}
+
+			holdingHammer = false;
 		}
 
 		public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
@@ -97,6 +116,27 @@ namespace OrchidMod
 				}
 			}
 			return true;
+		}
+
+		public void AddSlam(int nb)
+		{
+			this.guardianSlam += nb;
+			if (guardianSlam > guardianSlamMax) guardianSlam = guardianSlamMax;
+		}
+
+		public void AddBlock(int nb)
+		{
+			this.guardianBlock += nb;
+			if (guardianBlock > guardianBlockMax) guardianBlock = guardianBlockMax;
+		}
+
+		public int ThrowLevel()
+		{
+			if (guardianThrowCharge < 45) return 0;
+			if (guardianThrowCharge < 90) return 1;
+			if (guardianThrowCharge < 135) return 2;
+			if (guardianThrowCharge < 180) return 3;
+			return 4;
 		}
 	}
 }

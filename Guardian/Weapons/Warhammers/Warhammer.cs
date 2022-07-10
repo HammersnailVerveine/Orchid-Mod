@@ -8,22 +8,37 @@ namespace OrchidMod.Guardian.Weapons.Warhammers
 
 		public override void SafeSetDefaults()
 		{
-			Item.value = Item.sellPrice(0, 0, 0, 50);
 			Item.width = 36;
 			Item.height = 36;
-			Item.noUseGraphic = true;
-			Item.UseSound = SoundID.Item1;
-			Item.knockBack = 5f;
-			Item.damage = 10;
+			Item.value = Item.sellPrice(0, 0, 0, 50);
 			Item.rare = ItemRarityID.White;
-			Item.useAnimation = 35;
-			Item.useTime = 35;
+			Item.UseSound = SoundID.Item1;
+			Item.useAnimation = 45;
+			Item.useTime = 45;
+			Item.knockBack = 5f;
+			Item.shootSpeed = 8f;
+			Item.damage = 27;
+			this.range = 20;
+			this.blockStacks = 1;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Warhammer");
-			Tooltip.SetDefault("uwu");
-		}	
+			Tooltip.SetDefault("Hurls a heavy hammer");
+		}
+
+		public override bool ThrowAI(Player player, OrchidGuardian guardian, bool weak)
+		{
+			return true;
+		}
+
+		public override void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak)
+		{
+		}
+
+		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak)
+		{
+		}
 	}
 }
