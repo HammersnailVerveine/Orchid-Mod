@@ -147,7 +147,7 @@ namespace OrchidMod.Guardian
 								target.velocity = push;
 								guardianItem.Push(owner, Projectile, target);
 								if (this.shieldEffectReady) {
-									modPlayer.guardianSlam ++;
+									modPlayer.AddSlam(1);
 									guardianItem.Protect(owner, Projectile);
 									this.shieldEffectReady = false;
 								}

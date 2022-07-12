@@ -17,11 +17,9 @@ namespace OrchidMod.Guardian
 		public int blockStacks;
 		public bool penetrate;
 		public bool tileCollide;
-		public abstract void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak);
-		public abstract void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak);
-		public abstract bool ThrowAI(Player player, OrchidGuardian guardian, bool Weak);
-
-		public Color attackColor = Color.White; // The displayed hammer slash color
+		public virtual void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak) { }
+		public virtual void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak) { }
+		public virtual bool ThrowAI(Player player, OrchidGuardian guardian, bool Weak) => true;
 
 		public sealed override void SetDefaults()
 		{
@@ -34,7 +32,7 @@ namespace OrchidMod.Guardian
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
-			Item.knockBack = 6f;
+			Item.knockBack = 10f;
 			Item.shootSpeed = 10f;
 			range = 0;
 			penetrate = false;

@@ -35,7 +35,9 @@ namespace OrchidMod
 		public int guardianThrowCharge = 0;
 		public bool guardianThrowDecreasing;
 		public bool holdingHammer;
+		public int slamCostUI = 0;
 		public List<BlockedEnemy> guardianBlockedEnemies = new List<BlockedEnemy>();
+		public List<Projectile> runeProjectiles = new List<Projectile>();
 
 		public static int guardianRechargeTime = 600;
 
@@ -104,6 +106,7 @@ namespace OrchidMod
 			}
 
 			holdingHammer = false;
+			slamCostUI = 0;
 		}
 
 		public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)

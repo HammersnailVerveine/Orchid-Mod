@@ -148,6 +148,22 @@ namespace OrchidMod.Guardian
 			}
 			this.SafeHoldItem(player);
 		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
+			if (tt != null)
+			{
+				string[] splitText = tt.Text.Split(' ');
+				string damageValue = splitText.First();
+				string damageWord = splitText.Last();
+				tt.Text = damageValue + " opposing " + damageWord;
+			}
 
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Right click to slam")
+			{
+				OverrideColor = new Color(175, 255, 175)
+			});
+		}
 	}
 }
