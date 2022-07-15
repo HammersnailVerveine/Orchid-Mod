@@ -28,6 +28,7 @@ using OrchidMod.Gambler.Accessories;
 using OrchidMod.Utilities;
 using OrchidMod.Guardian.Weapons.Warhammers;
 using OrchidMod.Guardian.Weapons.Runes;
+using OrchidMod.Guardian.Weapons.Shields;
 
 namespace OrchidMod
 {
@@ -1428,6 +1429,7 @@ namespace OrchidMod
 			chestLoots.Add(new ChestLoot(ItemType<GoldChestCard>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EnchantedScepter>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EnchantedRune>(), ChestType.Gold, 20));
+			chestLoots.Add(new ChestLoot(ItemType<EnchantedPavise>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<CloudInAVial>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<FartInAVial>(), ChestType.Gold, 1, needToPlace: 0, ignoreChestLimit: true));
 			chestLoots.Add(new ChestLoot(ItemType<DeckEnchanted>(), ChestType.Gold, 5, needToPlace: 0, ignoreChestLimit: true));

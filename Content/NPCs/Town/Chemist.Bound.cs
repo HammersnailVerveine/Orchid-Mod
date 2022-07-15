@@ -49,9 +49,20 @@ namespace OrchidMod.Content.NPCs.Town
 
 		public override string GetChat()
 		{
+			int type = ModContent.NPCType<Chemist>();
+
+			foreach (NPC npc in Main.npc)
+			{
+				if (npc.active && npc.type == type && npc.whoAmI != NPC.whoAmI)
+				{
+					NPC.active = false;
+					return "";
+				}
+			}
+
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
-				NPC.Transform(ModContent.NPCType<Chemist>());
+				NPC.Transform(type);
 				OrchidWorld.foundChemist = true;
 			}
 
