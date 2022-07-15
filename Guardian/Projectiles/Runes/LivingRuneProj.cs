@@ -25,7 +25,7 @@ namespace OrchidMod.Guardian.Projectiles.Runes
 			Projectile.timeLeft = 600;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
-			Projectile.penetrate = 10;
+			Projectile.penetrate = -1;
 		}
 
 		public override void SetStaticDefaults()

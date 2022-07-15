@@ -106,12 +106,12 @@ namespace OrchidMod.Guardian
 			return projectile;
 		}
 
-		public List<Projectile> NewRuneProjectiles(Player player, OrchidGuardian guardian, int duration, int type, int damage, float knockback, int critChance, float distance, int number)
+		public List<Projectile> NewRuneProjectiles(Player player, OrchidGuardian guardian, int duration, int type, int damage, float knockback, int critChance, float distance, int number, float angle = 0f)
 		{
 			List<Projectile> projectiles = new List<Projectile>();
 
 			for (int i = 0; i < number; i++)
-				projectiles.Add(NewRuneProjectile(player, guardian, duration, type, damage, knockback, critChance, distance, (360 / number) * i));
+				projectiles.Add(NewRuneProjectile(player, guardian, duration, type, damage, knockback, critChance, distance, angle + (360 / number) * i));
 			return projectiles;
 		}
 	}

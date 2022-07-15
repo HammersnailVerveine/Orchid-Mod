@@ -60,7 +60,7 @@ namespace OrchidMod.Guardian
 		
 		public override bool CanUseItem(Player player)
 		{			
-			if (player == Main.LocalPlayer)
+			if (player.whoAmI == Main.myPlayer)
 			{
 				var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
 				if (player.ownedProjectileCounts[projectileType] > 0) {
@@ -81,6 +81,7 @@ namespace OrchidMod.Guardian
 									resetBlockedEnemiesDuration(guardian);
 								}
 								proj.netUpdate = true;
+								proj.netUpdate2 = true;
 							}
 						} else { // Left click
 							if (proj.ai[1] + proj.ai[0] == 0f && guardian.guardianBlock > 0) 
@@ -89,6 +90,7 @@ namespace OrchidMod.Guardian
 								guardian.guardianBlock --;
 								proj.ai[0] = this.blockDuration;
 								proj.netUpdate = true;
+								proj.netUpdate2 = true;
 							}
 							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if left click again
 							{
@@ -96,6 +98,7 @@ namespace OrchidMod.Guardian
 								shield.spawnDusts();
 								proj.ai[0] = 0f;
 								proj.netUpdate = true;
+								proj.netUpdate2 = true;
 								resetBlockedEnemiesDuration(guardian);
 							} 
 						}

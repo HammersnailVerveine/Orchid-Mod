@@ -21,6 +21,8 @@ namespace OrchidMod.Guardian
 		public Vector2 hitbox = Vector2.Zero;
 		public Vector2 hitboxOrigin = Vector2.Zero;
 
+		public Vector2 networkedPosition = Vector2.Zero;
+
 		// ...
 
 		public override void AltSetDefaults()
@@ -42,6 +44,11 @@ namespace OrchidMod.Guardian
 			Projectile.ai[0] = 0f;
 			Projectile.ai[1] = 0f;
 			Projectile.netUpdate = true;
+		}
+
+		public override void OnSpawn()
+		{
+			networkedPosition = Main.player[Projectile.owner].Center;
 		}
 
 		public override void AI()
@@ -111,7 +118,7 @@ namespace OrchidMod.Guardian
 				
 			
 				if (Projectile.ai[0] > 0f) {
-					aimedLocation += owner.position - oldOwnerPos;
+					aimedLocation += owner.Center - oldOwnerPos;
 					Point p1 = new Point((int)this.hitboxOrigin.X, (int)this.hitboxOrigin.Y);
 					Point p2 = new Point((int)(this.hitboxOrigin.X + this.hitbox.X), (int)(this.hitboxOrigin.Y + this.hitbox.Y));
 
@@ -143,14 +150,16 @@ namespace OrchidMod.Guardian
 							{								
 								Vector2 push = Projectile.Center - owner.Center;
 								push.Normalize();
-								push += owner.position - oldOwnerPos;
+								push += owner.Center - oldOwnerPos;
 								target.velocity = push;
-								guardianItem.Push(owner, Projectile, target);
-								if (this.shieldEffectReady) {
-									modPlayer.AddSlam(1);
-									guardianItem.Protect(owner, Projectile);
-									this.shieldEffectReady = false;
-								}
+							}
+
+							guardianItem.Push(owner, Projectile, target);
+							if (this.shieldEffectReady)
+							{
+								modPlayer.AddSlam(1);
+								guardianItem.Protect(owner, Projectile);
+								this.shieldEffectReady = false;
 							}
 						}
 					}
@@ -161,27 +170,62 @@ namespace OrchidMod.Guardian
 					if (Projectile.ai[0] == 0f) {
 						this.spawnDusts();
 					}
-				} else {
-					aimedLocation = Main.MouseWorld - owner.Center;
-					aimedLocation.Normalize();
-					Projectile.velocity = aimedLocation;
-					aimedLocation *= (guardianItem.distance + addedDistance) * - 1f;
-					
-					Projectile.rotation = aimedLocation.ToRotation();
-					Projectile.direction = Projectile.spriteDirection;
-					
-					aimedLocation = owner.Center - aimedLocation - new Vector2(Projectile.width / 2f, Projectile.height / 2f); 
-					
+				} 
+				else
+				{
+					if (Main.myPlayer == Projectile.owner)
+					{
+						aimedLocation = Main.MouseWorld - owner.Center;
+						aimedLocation.Normalize();
+						Projectile.velocity = aimedLocation;
+						aimedLocation *= (guardianItem.distance + addedDistance) * -1f;
+
+						Projectile.rotation = aimedLocation.ToRotation();
+						Projectile.direction = Projectile.spriteDirection;
+
+						aimedLocation = owner.Center - aimedLocation - new Vector2(Projectile.width / 2f, Projectile.height / 2f);
+
+						if (networkedPosition.Distance(aimedLocation) > 5f && Projectile.ai[1] <= 0f)
+						{
+							networkedPosition = aimedLocation;
+							Projectile.netUpdate = true;
+						}
+					}
+					else
+					{
+						aimedLocation = Projectile.position;
+					}
 				}
-					
-				Projectile.position = aimedLocation;
+
+				if (Main.myPlayer == Projectile.owner)
+				{
+					Projectile.position = aimedLocation;
+				}
+				else
+				{
+					Vector2 dir = owner.Center - Projectile.Center;
+					Projectile.rotation = dir.ToRotation();
+					Projectile.direction = Projectile.spriteDirection;
+					if (addedDistance > 0f)
+					{
+						dir.Normalize();
+						Projectile.position = networkedPosition + owner.Center - oldOwnerPos + dir * -addedDistance;
+					}
+					else
+					{
+						Projectile.position += owner.Center - oldOwnerPos;
+						networkedPosition = Projectile.position;
+					}
+				}
+
 				Projectile.timeLeft = 5;
-				
+				Projectile.velocity *= float.Epsilon;
+
 				this.UpdateHitbox();
 				//this.SeeHitbox();
 			}
 			
-			this.oldOwnerPos = owner.position;
+			this.oldOwnerPos = owner.Center;
 			guardianItem.ExtraAIShield(Projectile, true);
 		}
 		

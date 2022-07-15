@@ -32,6 +32,8 @@ namespace OrchidMod.Guardian.Projectiles
 		{
 			owner = Main.player[Projectile.owner];
 			guardian = owner.GetModPlayer<OrchidGuardian>();
+			Projectile.netUpdate = true;
+			Projectile.netUpdate2 = true;
 			SafeOnSpawn();
 		}
 

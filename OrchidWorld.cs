@@ -26,6 +26,8 @@ using OrchidMod.Alchemist.Accessories;
 using OrchidMod.Gambler.Decks;
 using OrchidMod.Gambler.Accessories;
 using OrchidMod.Utilities;
+using OrchidMod.Guardian.Weapons.Warhammers;
+using OrchidMod.Guardian.Weapons.Runes;
 
 namespace OrchidMod
 {
@@ -1417,12 +1419,15 @@ namespace OrchidMod
 			chestLoots.Add(new ChestLoot(ItemType<EmbersCard>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<AdornedBranch>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EmberVial>(), ChestType.SurfaceWooden, 20));
+			chestLoots.Add(new ChestLoot(ItemType<Warhammer>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<BubbleCard>(), ChestType.Water, 20));
 			chestLoots.Add(new ChestLoot(ItemType<SeafoamVial>(), ChestType.Water, 20));
 			chestLoots.Add(new ChestLoot(ItemType<SapCard>(), ChestType.LivingTree, 50));
 			chestLoots.Add(new ChestLoot(ItemType<LivingSapVial>(), ChestType.LivingTree, 50));
+			chestLoots.Add(new ChestLoot(ItemType<LivingRune>(), ChestType.LivingTree, 50));
 			chestLoots.Add(new ChestLoot(ItemType<GoldChestCard>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EnchantedScepter>(), ChestType.Gold, 20));
+			chestLoots.Add(new ChestLoot(ItemType<EnchantedRune>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<CloudInAVial>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<FartInAVial>(), ChestType.Gold, 1, needToPlace: 0, ignoreChestLimit: true));
 			chestLoots.Add(new ChestLoot(ItemType<DeckEnchanted>(), ChestType.Gold, 5, needToPlace: 0, ignoreChestLimit: true));
