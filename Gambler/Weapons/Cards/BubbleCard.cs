@@ -18,8 +18,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Item.useAnimation = 20;
 			Item.useTime = 20;
 			Item.shootSpeed = 5f;
+
 			this.cardRequirement = 2;
-			this.gamblerCardSets.Add("Elemental");
+			this.cardSets = GamblerCardSets.Elemental;
 		}
 
 		public override void AltSetStaticDefaults()

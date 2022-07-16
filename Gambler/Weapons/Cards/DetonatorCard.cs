@@ -18,6 +18,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Item.useAnimation = 60;
 			Item.useTime = 60;
 			Item.shootSpeed = 10f;
+
 			this.cardRequirement = 0;
 		}
 

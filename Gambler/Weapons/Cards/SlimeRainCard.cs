@@ -17,8 +17,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Item.knockBack = 1f;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
+
 			this.cardRequirement = 3;
-			this.gamblerCardSets.Add("Slime");
+			this.cardSets = GamblerCardSets.Slime;
 		}
 
 		public override void AltSetStaticDefaults()

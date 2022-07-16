@@ -499,7 +499,7 @@ namespace OrchidMod
 			if (gamblerPennant)
 			{
 				OrchidModGlobalItem orchidItem = gamblerCardCurrent.GetGlobalItem<OrchidModGlobalItem>();
-				if (orchidItem.gamblerCardSets.Contains("Boss"))
+				if (orchidItem.gamblerCardSets.HasFlag(GamblerCardSets.Boss))
 				{
 					Player.AddBuff(BuffType<Gambler.Buffs.ConquerorsPennantBuff>(), 60 * 10);
 				}
@@ -543,13 +543,13 @@ namespace OrchidMod
 			return false;
 		}
 
-		public int CheckSetCardsInDeck(string setName)
+		public int CheckSetCardsInDeck(GamblerCardSets sets)
 		{
 			int nbCards = 0;
 			for (int i = 0; i < 20; i++)
 			{
 				OrchidModGlobalItem orchidItem = gamblerCardsItem[i].GetGlobalItem<OrchidModGlobalItem>();
-				nbCards += orchidItem.gamblerCardSets.Contains(setName) ? 1 : 0;
+				nbCards += orchidItem.gamblerCardSets.HasFlag(sets) ? 1 : 0;
 			}
 			return nbCards;
 		}
@@ -559,7 +559,7 @@ namespace OrchidMod
 			if (gamblerSlimyLollipop)
 			{
 				OrchidModGlobalItem orchidItem = gamblerCardCurrent.GetGlobalItem<OrchidModGlobalItem>();
-				if (orchidItem.gamblerCardSets.Contains("Slime") && Main.rand.Next(180) == 0)
+				if (orchidItem.gamblerCardSets.HasFlag(GamblerCardSets.Slime) && Main.rand.Next(180) == 0)
 				{
 					float scale = 1f - (Main.rand.NextFloat() * .3f);
 					int rand = Main.rand.Next(3) + 1;

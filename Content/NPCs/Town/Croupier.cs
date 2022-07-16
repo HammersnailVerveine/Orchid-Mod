@@ -285,22 +285,22 @@ namespace OrchidMod.Content.NPCs.Town
 				NPCUtils.AddItemToShop<SlimeRainCard>(shop, ref nextSlot);
 			}
 
-			if (modPlayer.CheckSetCardsInDeck("Slime") > 2)
+			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Slime) > 2)
 			{
 				NPCUtils.AddItemToShop<SlimyLollipop>(shop, ref nextSlot);
 			}
 
-			if (modPlayer.CheckSetCardsInDeck("Biome") > 2)
+			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Biome) > 2)
 			{
 				NPCUtils.AddItemToShop<LuckySprout>(shop, ref nextSlot);
 			}
 
-			if (modPlayer.CheckSetCardsInDeck("Boss") > 2)
+			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Boss) > 2)
 			{
 				NPCUtils.AddItemToShop<ConquerorsPennant>(shop, ref nextSlot);
 			}
 
-			if (modPlayer.CheckSetCardsInDeck("Elemental") > 2)
+			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Elemental) > 2)
 			{
 				NPCUtils.AddItemToShop<ElementalLens>(shop, ref nextSlot);
 			}

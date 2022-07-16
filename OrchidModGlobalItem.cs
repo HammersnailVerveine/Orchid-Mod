@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.Alchemist;
 using OrchidMod.Alchemist.Projectiles;
 using OrchidMod.Common.Globals.NPCs;
-using System.Collections.Generic;
+using OrchidMod.Gambler;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -27,7 +27,7 @@ namespace OrchidMod
 		public int gamblerCardRequirement = 0;
 		public bool gamblerDeck = false;
 		public bool guardianWeapon = false;
-		public List<string> gamblerCardSets = new List<string>();
+		public GamblerCardSets gamblerCardSets = GamblerCardSets.Without;
 		public AlchemistElement alchemistElement = AlchemistElement.NULL;
 
 		public delegate void KillFirstDelegate(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem);

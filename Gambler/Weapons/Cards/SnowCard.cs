@@ -19,8 +19,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Item.useAnimation = 40;
 			Item.useTime = 40;
 			Item.shootSpeed = 5f;
+
 			this.cardRequirement = 1;
-			this.gamblerCardSets.Add("Biome");
+			this.cardSets = GamblerCardSets.Biome;
 		}
 
 		public override void AltSetStaticDefaults()

@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Item.channel = true;
 
 			this.cardRequirement = 0;
-			this.gamblerCardSets.Add("Elemental");
+			this.cardSets = GamblerCardSets.Elemental;
 		}
 		public override void AltSetStaticDefaults()
 		{

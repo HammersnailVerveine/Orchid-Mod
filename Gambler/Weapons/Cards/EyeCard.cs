@@ -17,8 +17,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			Item.knockBack = 3f;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
+
 			this.cardRequirement = 4;
-			this.gamblerCardSets.Add("Boss");
+			this.cardSets = GamblerCardSets.Boss;
 		}
 
 		public override void AltSetStaticDefaults()

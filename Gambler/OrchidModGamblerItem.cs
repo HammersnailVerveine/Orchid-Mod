@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -15,7 +16,7 @@ namespace OrchidMod.Gambler
 	public abstract class OrchidModGamblerItem : OrchidModItem
 	{
 		public int cardRequirement = -1;
-		public List<string> gamblerCardSets = new List<string>();
+		public GamblerCardSets cardSets;
 
 		public virtual void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockBack, bool dummy = false) { }
 
@@ -35,7 +36,7 @@ namespace OrchidMod.Gambler
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.gamblerCardRequirement = this.cardRequirement;
-			orchidItem.gamblerCardSets = this.gamblerCardSets;
+			orchidItem.gamblerCardSets = cardSets;
 			orchidItem.gamblerShootDelegate = this.GamblerShoot;
 		}
 		/*
@@ -144,32 +145,7 @@ namespace OrchidMod.Gambler
 			int count = modPlayer.GetNbGamblerCards();
 			int diff = this.cardRequirement - count;
 
-			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
-			if (index != -1)
-			{
-				int tagCount = this.gamblerCardSets.Count - 1;
-				if (tagCount > -1)
-				{
-					List<string> alreadyDone = new List<string>();
-					string tags = "";
-					foreach (string tag in this.gamblerCardSets)
-					{
-						if (!alreadyDone.Contains(tag))
-						{
-							tags += alreadyDone.Count > 0 ? ", " : "";
-							tags += tag;
-							tagCount--;
-							alreadyDone.Add(tag);
-						}
-					}
-					tags += alreadyDone.Count > 1 ? " sets" : " set";
-
-					tooltips.Insert(index, new TooltipLine(Mod, "TagsTag", tags)
-					{
-						OverrideColor = new Color(175, 255, 175)
-					});
-				}
-			}
+			AddCardSetsTooltipLine(tooltips);
 
 			tooltips.Insert(1, new TooltipLine(Mod, "CardsNeeded", "Requires " + this.cardRequirement + " cards (Deck : " + count + ")")
 			{
@@ -210,6 +186,20 @@ namespace OrchidMod.Gambler
 
 			tt = tooltips.FirstOrDefault(x => x.Name == "Consumable" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
+		}
+
+		private void AddCardSetsTooltipLine(List<TooltipLine> tooltips)
+		{
+			if (cardSets.Equals(GamblerCardSets.Without)) return;
+
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0")); // Ok...
+
+			if (index < 0) return;
+
+			var hexColor = Colors.AlphaDarken(new Color(175, 255, 175)).Hex3();
+			var strCardSets = cardSets.ToString();
+
+			tooltips.Insert(index, new TooltipLine(Mod, "TagsTag", $"{(strCardSets.Split(", ").Length > 1 ? "Sets" : "Set")}: [c/{hexColor}:{strCardSets}]"));
 		}
 
 		public int DummyProjectile(int proj, bool dummy) => OrchidGambler.DummyProjectile(proj, dummy);
