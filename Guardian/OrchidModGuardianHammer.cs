@@ -76,11 +76,6 @@ namespace OrchidMod.Guardian
 			guardian.guardianThrowCharge = 0;
 			return true;
 		}
-
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
 		
 		public override bool CanUseItem(Player player)
 		{
@@ -89,6 +84,7 @@ namespace OrchidMod.Guardian
 				return false;
 			return base.CanUseItem(player);
 		}
+
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");

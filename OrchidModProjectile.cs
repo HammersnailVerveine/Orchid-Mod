@@ -149,9 +149,9 @@ namespace OrchidMod
 			}
 		}
 
-		public static int spawnGenericExplosion(Projectile projectile, int damage, float kb, int dimensions = 250, int damageType = 0, bool explosionGore = false, int soundType = 14)
+		public static int spawnGenericExplosion(Projectile projectile, int damage, float kb, int dimensions = 250, int damageType = 0, bool explosionGore = false, bool explosionSound = false)
 		{
-			if (soundType != 0) SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+			if (explosionSound) SoundEngine.PlaySound(SoundID.Item14, projectile.position);
 			if (explosionGore) OrchidModProjectile.spawnExplosionGore(projectile);
 			int projType = ModContent.ProjectileType<General.Projectiles.GenericExplosion>();
 			int newProjectileInt = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, 0f, 0f, projType, damage, kb, projectile.owner);

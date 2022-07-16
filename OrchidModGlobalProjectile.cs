@@ -35,6 +35,7 @@ namespace OrchidMod
 				trapProjTypes.Add(186); // Super Dart
 				trapProjTypes.Add(185); // Spiky Ball
 				trapProjTypes.Add(184); // Spear
+				trapProjTypes.Add(727); // Rolling cactus
 
 				if (trapProjTypes.Contains(projectile.type))
 				{

@@ -21,6 +21,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using OrchidMod.General.Items.Misc;
 using OrchidMod.Content.Items.Placeables;
+using static Terraria.ModLoader.ModContent;
+using Microsoft.Xna.Framework;
+using OrchidMod.WorldgenArrays;
 
 namespace OrchidMod.Common.Globals.NPCs
 {
@@ -73,58 +76,10 @@ namespace OrchidMod.Common.Globals.NPCs
 		public override void ModifyGlobalLoot(GlobalLoot globalLoot)
 		{
 			globalLoot.Add(new ItemDropWithConditionRule(ModContent.ItemType<ShroomKey>(), 2500, 1, 1, new OrchidDropConditions.ShroomKeyCondition(), 1));
-
-			/*if (this.alchemistHit && Main.rand.Next(4) == 0)
-			{
-				Item.NewItem(npc.getRect(), ModContent.ItemType<Potency>());
-			}
-			if (this.gamblerHit && Main.rand.Next(4) == 0)
-			{
-				Item.NewItem(npc.getRect(), ModContent.ItemType<Chip>());
-			}*/
 		}
 
 		public override void ModifyNPCLoot(NPC npc, Terraria.ModLoader.NPCLoot npcLoot)
 		{
-			/*if (npc.type == 21 || npc.type == -46 || npc.type == -47 || npc.type == 201 || npc.type == -48 || npc.type == -49 || npc.type == 202 || npc.type == -50 || npc.type == -51 || npc.type == 203 || npc.type == -52 || npc.type == -53 || npc.type == 167)
-			{ // Skeletons & vikings in mineshaft
-				Player player = Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)];
-				int MSMinPosX = (Main.maxTilesX / 2) - ((OrchidMSarrays.MSLenght * 15) / 2);
-				int MSMinPosY = (Main.maxTilesY / 3 + 100);
-				Rectangle rect = new Rectangle(MSMinPosX, MSMinPosY, (OrchidMSarrays.MSLenght * 15), (OrchidMSarrays.MSHeight * 14));
-				if (rect.Contains(new Point((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f))))
-				{
-					Item.NewItem((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), Main.rand.Next(3) + 1, false, 0, false, false);
-				}
-			}*/
-
-			/*if (npc.type == 1 || npc.type == -3 || npc.type == -8 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10) // Most Surface Slimes
-			{
-				if (Main.rand.Next(!OrchidWorld.foundSlimeCard ? 5 : 1000) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.SlimeCard>());
-					OrchidWorld.foundSlimeCard = true;
-				}
-			}*/
-
-			/*if ((npc.type == NPCID.PirateShip))
-			{
-				if (Main.rand.Next(5) == 0)
-				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.PiratesGlory>());
-				}
-				if (Main.rand.Next(10) == 0)
-				{
-					if (Main.rand.Next(20) == 0)
-					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Decks.DeckDog>());
-					}
-					else
-					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Decks.DeckPirate>());
-					}
-				}
-			}*/
 
 			// Common drop
 			switch (npc.type)
@@ -296,7 +251,11 @@ namespace OrchidMod.Common.Globals.NPCs
 					break;
 			}
 
-			/*
+			// TODO : UDPATE THE UNDER
+
+			OrchidGlobalNPC globalNPC = npc.GetGlobalNPC<OrchidGlobalNPC>();
+
+			
 			if ((npc.type == NPCID.CultistBoss))
 			{
 				int rand;
@@ -304,9 +263,10 @@ namespace OrchidMod.Common.Globals.NPCs
 					rand = Main.rand.Next(73) + 18;
 				else
 					rand = Main.rand.Next(49) + 12;
-				Item.NewItem((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<Shaman.Misc.AbyssFragment>(), rand, false, 0, false, false);
+				Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<Shaman.Misc.AbyssFragment>(), rand, false, 0, false, false);
 			}
-			/*if (npc.aiStyle == 94) // Celestial Pillar AI 
+
+			if (npc.aiStyle == 94) // Celestial Pillar AI 
 			{
 				float numberOfPillars = 4;
 				int quantity = (int)(Main.rand.Next(25, 41) / 2 / numberOfPillars);
@@ -314,9 +274,9 @@ namespace OrchidMod.Common.Globals.NPCs
 
 				for (int i = 0; i < quantity; i++)
 				{
-					Item.NewItem((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ModContent.ItemType<Shaman.Misc.AbyssFragment>(), Main.rand.Next(1, 4), false, 0, false, false);
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ModContent.ItemType<Shaman.Misc.AbyssFragment>(), Main.rand.Next(1, 4), false, 0, false, false);
 				}
-			}*//*
+			}
 
 			// BOSSES
 			if ((npc.type == NPCID.QueenBee))
@@ -327,11 +287,11 @@ namespace OrchidMod.Common.Globals.NPCs
 					{
 						if (Main.rand.Next(2) == 0)
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.QueenBeeCard>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.QueenBeeCard>());
 						}
 						else
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Dice.HoneyDie>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Dice.HoneyDie>());
 						}
 					}
 					if (Main.rand.Next(2) == 0)
@@ -339,21 +299,21 @@ namespace OrchidMod.Common.Globals.NPCs
 						int rand = Main.rand.Next(3);
 						if (rand == 0)
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.BeeSeeker>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.BeeSeeker>());
 						}
 						else if (rand == 1)
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.WaxyVial>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.WaxyVial>());
 						}
 						else
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Weapons.Air.QueenBeeFlask>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Weapons.Air.QueenBeeFlask>());
 						}
 					}
 				}
-				if (alchemistHit)
+				if (globalNPC.AlchemistHit)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 				}
 			}
 
@@ -361,15 +321,15 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.Next(5) == 0)
+					if (Main.rand.NextBool(5))
 					{
-						if (Main.rand.Next(2) == 0)
+						if (Main.rand.NextBool(2))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.Nirvana>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.Nirvana>());
 						}
 						else
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.TheCore>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.TheCore>());
 						}
 					}
 				}
@@ -379,11 +339,11 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.Next(4) == 0)
+					if (Main.rand.NextBool(4))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.ShamanEmblem>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.ShamanEmblem>());
 					}
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<General.Items.Misc.OrchidEmblem>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<General.Items.Misc.OrchidEmblem>());
 				}
 			}
 
@@ -391,18 +351,18 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.NextBool(3))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Weapons.Water.KingSlimeFlask>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Weapons.Water.KingSlimeFlask>());
 					}
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.NextBool(3))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.KingSlimeCard>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.KingSlimeCard>());
 					}
 				}
-				if (alchemistHit)
+				if (globalNPC.AlchemistHit)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier1>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier1>());
 				}
 			}
 
@@ -410,15 +370,15 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.NextBool(3))
 					{
-						if (Main.rand.Next(2) == 0)
+						if (Main.rand.NextBool(2))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.BulbScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.BulbScepter>());
 						}
 						else
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.FloralStinger>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.FloralStinger>());
 						}
 					}
 				}
@@ -428,9 +388,9 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.Next(7) == 0)
+					if (Main.rand.NextBool(7))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.SunRay>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.SunRay>());
 					}
 				}
 			}
@@ -439,14 +399,14 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.NextBool(3))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.EyeCard>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.EyeCard>());
 					}
 				}
-				if (alchemistHit)
+				if (globalNPC.AlchemistHit)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier1>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier1>());
 				}
 			}
 
@@ -454,11 +414,11 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.SkeletronCard>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.SkeletronCard>());
 				}
-				if (alchemistHit)
+				if (globalNPC.AlchemistHit)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier3>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier3>());
 				}
 			}
 
@@ -466,18 +426,18 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.NextBool(3))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Accessories.PreservedCrimson>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Accessories.PreservedCrimson>());
 					}
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.NextBool(3))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.BrainCard>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.BrainCard>());
 					}
 				}
-				if (alchemistHit)
+				if (globalNPC.AlchemistHit)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 				}
 			}
 
@@ -485,18 +445,18 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.NextBool(3))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Accessories.PreservedCorruption>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Accessories.PreservedCorruption>());
 					}
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.NextBool(3))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.EaterCard>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.EaterCard>());
 					}
 				}
-				if (alchemistHit)
+				if (globalNPC.AlchemistHit)
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 				}
 			}
 
@@ -509,14 +469,14 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					if (!Main.expertMode)
 					{
-						if (Main.rand.Next(4) == 0)
+						if (Main.rand.NextBool(4))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.ThunderScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.ThunderScepter>());
 						}
 					}
-					if (alchemistHit)
+					if (globalNPC.AlchemistHit)
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier1>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier1>());
 					}
 				}
 
@@ -524,14 +484,14 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					if (!Main.expertMode)
 					{
-						if (Main.rand.Next(5) == 0)
+						if (Main.rand.NextBool(5))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.QueenJellyfishScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.QueenJellyfishScepter>());
 						}
 					}
-					if (alchemistHit)
+					if (globalNPC.AlchemistHit)
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 					}
 				}
 
@@ -539,14 +499,14 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					if (!Main.expertMode)
 					{
-						if (Main.rand.Next(5) == 0)
+						if (Main.rand.NextBool(5))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.GraniteEnergyScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.GraniteEnergyScepter>());
 						}
 					}
-					if (alchemistHit)
+					if (globalNPC.AlchemistHit)
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 					}
 				}
 
@@ -554,15 +514,15 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					if (!Main.expertMode)
 					{
-						if (Main.rand.Next(7) == 0)
+						if (Main.rand.NextBool(7))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.ViscountScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.ViscountScepter>());
 						}
-						Item.NewItem((int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<Shaman.Misc.Thorium.ViscountMaterial>(), 30, false, 0, false, false);
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<Shaman.Misc.Thorium.ViscountMaterial>(), 30, false, 0, false, false);
 					}
-					if (alchemistHit)
+					if (globalNPC.AlchemistHit)
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 					}
 				}
 
@@ -570,14 +530,14 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					if (!Main.expertMode)
 					{
-						if (Main.rand.Next(6) == 0)
+						if (Main.rand.NextBool(6))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.StarScouterScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.StarScouterScepter>());
 						}
 					}
-					if (alchemistHit)
+					if (globalNPC.AlchemistHit)
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Alchemist.Misc.Scrolls.ScrollTier2>());
 					}
 				}
 
@@ -585,9 +545,9 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					if (!Main.expertMode)
 					{
-						if (Main.rand.Next(5) == 0)
+						if (Main.rand.NextBool(5))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.Hardmode.CoznixScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.Hardmode.CoznixScepter>());
 						}
 					}
 				}
@@ -596,9 +556,9 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					if (!Main.expertMode)
 					{
-						if (Main.rand.Next(5) == 0)
+						if (Main.rand.NextBool(5))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.Hardmode.BoreanStriderScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.Hardmode.BoreanStriderScepter>());
 						}
 					}
 				}
@@ -607,9 +567,9 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					if (!Main.expertMode)
 					{
-						if (Main.rand.Next(7) == 0)
+						if (Main.rand.NextBool(7))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.Hardmode.LichScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.Hardmode.LichScepter>());
 						}
 					}
 				}
@@ -618,34 +578,74 @@ namespace OrchidMod.Common.Globals.NPCs
 				{
 					if (!Main.expertMode)
 					{
-						if (Main.rand.Next(6) == 0)
+						if (Main.rand.NextBool(6))
 						{
-							Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.Hardmode.AbyssionScepter>());
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.Hardmode.AbyssionScepter>());
 						}
 					}
 				}
 
 				if ((npc.type == thoriumMod.Find<ModNPC>("PatchWerk").Type))
 				{
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>());
 				}
 			}
 			else
 			{
 				if ((npc.type == NPCID.Mothron))
 				{
-					if (Main.rand.Next(4) == 0)
+					if (Main.rand.NextBool(4))
 					{
-						Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Misc.BrokenHeroScepter>());
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Misc.BrokenHeroScepter>());
 					}
 				}
 
 				if ((npc.type == NPCID.Vulture))
 				{
 					int rand = Main.rand.Next(2) + 1;
-					Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Misc.VultureTalon>(), rand);
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Misc.VultureTalon>(), rand);
 				}
-			}*/
+			}
+
+			if (npc.type == 21 || npc.type == -46 || npc.type == -47 || npc.type == 201 || npc.type == -48 || npc.type == -49 || npc.type == 202 || npc.type == -50 || npc.type == -51 || npc.type == 203 || npc.type == -52 || npc.type == -53 || npc.type == 167)
+			{ // Skeletons & vikings in mineshaft
+				Player player = Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)];
+				int MSMinPosX = (Main.maxTilesX / 2) - ((OrchidMSarrays.MSLenght * 15) / 2);
+				int MSMinPosY = (Main.maxTilesY / 3 + 100);
+				Rectangle rect = new Rectangle(MSMinPosX, MSMinPosY, (OrchidMSarrays.MSLenght * 15), (OrchidMSarrays.MSHeight * 14));
+				if (rect.Contains(new Point((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f))))
+				{
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), Main.rand.Next(3) + 1, false, 0, false, false);
+				}
+			}
+
+			if (npc.type == 1 || npc.type == -3 || npc.type == -8 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10) // Most Surface Slimes
+			{
+				if (Main.rand.NextBool(!OrchidWorld.foundSlimeCard ? 5 : 1000))
+				{
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Weapons.Cards.SlimeCard>());
+					OrchidWorld.foundSlimeCard = true;
+				}
+			}
+
+			if ((npc.type == NPCID.PirateShip))
+			{
+				if (Main.rand.NextBool(5))
+				{
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Hardmode.PiratesGlory>());
+				}
+				if (Main.rand.NextBool(10))
+				{
+					if (Main.rand.NextBool(20))
+					{
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Decks.DeckDog>());
+					}
+					else
+					{
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Gambler.Decks.DeckPirate>());
+					}
+				}
+			}
 		}
 	}
 }

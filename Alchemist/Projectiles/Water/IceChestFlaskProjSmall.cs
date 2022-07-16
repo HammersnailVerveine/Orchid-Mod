@@ -1,4 +1,6 @@
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Projectiles.Water
 {
@@ -38,7 +40,8 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 			int range = 50;
 			// OrchidModProjectile.spawnDustCircle(projectile.Center, 67, (int)(range / 2), 5, true, 1.5f, 1f, 6f, true, true, false, 0, 0, true);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 67, 5, 6, true, 1f, 1f, 4f);
-			spawnGenericExplosion(Projectile, Projectile.damage, 1f, range * 2, 2, false, 27);
+			spawnGenericExplosion(Projectile, Projectile.damage, 1f, range * 2, 2, false, false);
+			SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
 		}
 	}
 }

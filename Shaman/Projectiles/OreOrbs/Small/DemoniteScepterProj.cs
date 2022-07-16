@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
@@ -47,7 +49,8 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 		{
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 8, true, 1.5f, 1f, 4f, true, true, false, 0, 0, true);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 8, true, 1.5f, 1f, 2.5f, true, true, false, 0, 0, true);
-			OrchidModProjectile.spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 75, 1, false, 27);
+			OrchidModProjectile.spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 75, 1, false, false);
+			SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
