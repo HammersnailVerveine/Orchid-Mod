@@ -107,7 +107,21 @@ namespace OrchidMod.Guardian
 			}
 			return false;
 		}
-		
+
+		public GuardianShieldAnchor GetAnchor(Player player)
+		{
+			var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
+			if (player.ownedProjectileCounts[projectileType] > 0)
+			{
+				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+				if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
+				{
+					return shield;
+				}
+			}
+			return null;
+		}
+
 		public void resetBlockedEnemiesDuration(OrchidGuardian modPlayer) {
 			for (int i = modPlayer.guardianBlockedEnemies.Count - 1; i >= 0; i--)
 			{

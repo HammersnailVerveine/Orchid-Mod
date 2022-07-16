@@ -76,6 +76,7 @@ namespace OrchidMod.Guardian
 			Player player = Main.player[Projectile.owner];
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 
+			if (player.dead) Projectile.Kill();
 			if (HammerItem != null)
 			{
 				if (HammerItem.ThrowAI(player, guardian, WeakThrow()))

@@ -1,5 +1,8 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using OrchidMod.Guardian.Projectiles.Shields;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Guardian.Weapons.Shields
 {
@@ -8,13 +11,13 @@ namespace OrchidMod.Guardian.Weapons.Shields
 
 		public override void SafeSetDefaults()
 		{
-			Item.value = Item.sellPrice(0, 0, 80, 0);
+			Item.value = Item.sellPrice(0, 0, 87, 50);
 			Item.width = 28;
 			Item.height = 38;
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 7f;
-			Item.damage = 33;
+			Item.damage = 25;
 			Item.rare = ItemRarityID.Blue;
 			Item.useAnimation = 25;
 			Item.useTime = 25;
@@ -26,6 +29,16 @@ namespace OrchidMod.Guardian.Weapons.Shields
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Enchanted Pavise");
+		}
+
+		public override void Slam(Player player, Projectile shield)
+		{
+			Projectile anchor = GetAnchor(player).Projectile;
+			int type = ModContent.ProjectileType<EnchantedPaviseProj>();
+			Vector2 dir = anchor.Center - player.Center;
+			dir.Normalize();
+			dir *= 0.1f;
+			Projectile.NewProjectile(Item.GetSource_ItemUse(Item), anchor.Center, dir, type, (int)(Item.damage * 0.75f), Item.knockBack, player.whoAmI);
 		}
 	}
 }

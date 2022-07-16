@@ -39,6 +39,7 @@ namespace OrchidMod.Guardian.Projectiles
 
 		public sealed override void AI()
 		{
+			if (owner.dead) Projectile.Kill();
 			if (SafeAI())
 			{
 				Vector2 position = new Vector2(0f, Projectile.ai[0]);
