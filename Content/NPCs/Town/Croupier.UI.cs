@@ -107,7 +107,7 @@ namespace OrchidMod.Content.NPCs.Town
 			DrawHorizontalLine(spriteBatch, 16 + cardSlotsTexture.Width());
 			DrawHorizontalLine(spriteBatch, drawRect.Width - 8);
 
-			DrawCardsWithSlots(spriteBatch, out Item hoverItem, out int maxReq, out bool canRemoveHoverCard, emptyLinesCount);
+			DrawCardsWithSlots(spriteBatch, out Item hoverItem, out int maxReq, out bool canRemoveHoverCard);
 			DrawCardTooltips(spriteBatch, hoverItem, maxReq, canRemoveHoverCard);
 
 			DrawShadows(spriteBatch);
@@ -122,7 +122,7 @@ namespace OrchidMod.Content.NPCs.Town
 		private void DrawHorizontalLine(SpriteBatch spriteBatch, int offsetX)
 			=> spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(drawRect.X + offsetX, drawRect.Y, 4, drawRect.Height), Color.Black * 0.3f);
 
-		private void DrawCardsWithSlots(SpriteBatch spriteBatch, out Item hoverItem, out int maxReq, out bool canRemoveHoverCard, int emptyLinesCount)
+		private void DrawCardsWithSlots(SpriteBatch spriteBatch, out Item hoverItem, out int maxReq, out bool canRemoveHoverCard)
 		{
 			hoverItem = null;
 			maxReq = 0;
@@ -131,7 +131,7 @@ namespace OrchidMod.Content.NPCs.Town
 			var cardSlotsPosition = new Vector2(drawRect.X, drawRect.Y) + new Vector2(12, drawRect.Height * 0.5f - cardSlotsTexture.Height() * 0.5f);
 			var modPlayer = Main.LocalPlayer.GetModPlayer<OrchidGambler>();
 			var playerNbCards = modPlayer.GetNbGamblerCards();
-			var nbCards = new int[playerNbCards];
+			var nbCards = new int[20];
 
 			spriteBatch.Draw(cardSlotsTexture.Value, cardSlotsPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
@@ -150,7 +150,7 @@ namespace OrchidMod.Content.NPCs.Town
 
 			for (int i = 0; i < playerNbCards; i++)
 			{
-				ref var item = ref modPlayer.gamblerCardsItem[i];
+				var item = modPlayer.gamblerCardsItem[i];
 
 				if (item.type.Equals(ItemID.None)) continue;
 
