@@ -246,12 +246,11 @@ namespace OrchidMod.Content.NPCs.Town
 				int yoyoLogo = 0, researchLine = 0, numLines = 0;
 				string[] toolTipLine = new string[30], tooltipNames = new string[30];
 				bool[] preFixLine = new bool[30], badPreFixLine = new bool[30];
-				Color?[] overrideColor;
 				var triangleHexColor = Colors.AlphaDarken(Color.White).Hex3();
 
 				Main.MouseText_DrawItemTooltip_GetLinesInfo(hoverItem, ref yoyoLogo, ref researchLine, hoverItem.knockBack, ref numLines, toolTipLine, preFixLine, badPreFixLine, tooltipNames);
 
-				tooltips = ItemLoader.ModifyTooltips(hoverItem, ref numLines, tooltipNames, ref toolTipLine, ref preFixLine, ref badPreFixLine, ref yoyoLogo, out overrideColor);
+				tooltips = ItemLoader.ModifyTooltips(hoverItem, ref numLines, tooltipNames, ref toolTipLine, ref preFixLine, ref badPreFixLine, ref yoyoLogo, out _);
 				tooltips = tooltips.Where(i => TooltipsWhitelist.Contains(i.Name) || i.Name.StartsWith("Tooltip") || i.Name.StartsWith("Prefix")).ToList();
 
 				tooltips.Insert(0, new TooltipLine(OrchidMod.Instance, "ItemName", hoverItem.HoverName.Replace("Playing Card : ", "")) { OverrideColor = ItemRarity.GetColor(hoverItem.rare) });
@@ -261,7 +260,7 @@ namespace OrchidMod.Content.NPCs.Town
 					$"[c/{triangleHexColor}:‣] Cannot be removed\n" +
 					$"[c/{triangleHexColor}:‣] Most expensive card in deck: {maxReq}"
 				)
-				{ OverrideColor = Color.OrangeRed });
+				{ OverrideColor = new Color(250, 150, 100) });
 			}
 
 			var counter = -1;

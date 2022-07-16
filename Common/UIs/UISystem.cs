@@ -75,12 +75,12 @@ namespace OrchidMod.Common.UIs
 
 			On.Terraria.Player.ScrollHotbar += ModifyScrollHotbar;
 			Main.OnResolutionChanged += OnResolutionChanged;
-			Main.OnPostDraw += ResetVariables;
+			Main.OnPreDraw += ResetVariables;
 		}
 
 		public override void Unload()
 		{
-			Main.OnPostDraw -= ResetVariables;
+			Main.OnPreDraw -= ResetVariables;
 			Main.OnResolutionChanged -= OnResolutionChanged;
 			On.Terraria.Player.ScrollHotbar -= ModifyScrollHotbar;
 
