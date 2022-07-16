@@ -260,7 +260,7 @@ namespace OrchidMod.Content.NPCs.Town
 					$"[c/{triangleHexColor}:‣] Cannot be removed\n" +
 					$"[c/{triangleHexColor}:‣] Most expensive card in deck: {maxReq}"
 				)
-				{ OverrideColor = Color.OrangeRed });
+				{ OverrideColor = new Color(250, 150, 100) });
 			}
 
 			var counter = -1;
