@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			Projectile.velocity = (Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(5)));
 			if (Main.rand.NextBool(10))
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DesertWater2);
 				Main.dust[dust].noGravity = true;
 			}
 		}
@@ -50,7 +50,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Water_Desert);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DesertWater2);
 				Main.dust[dust].noGravity = true;
 			}
 		}

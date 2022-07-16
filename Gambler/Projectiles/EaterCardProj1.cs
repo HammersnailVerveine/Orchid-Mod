@@ -31,7 +31,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public override void OnSpawn() {
 			Projectile.frame = Projectile.ai[0] == 0f ? 0 : 2;
 			Projectile proj = Main.projectile[(int) Projectile.ai[1]];
-			if (proj.ai[0] != 0) {
+			if (proj.localAI[0] != 0f) {
 				proj.frame = 1;
 				proj.netUpdate = true;
 			}
@@ -86,14 +86,13 @@ namespace OrchidMod.Gambler.Projectiles
 						Projectile.ai[0] = 4f;
 						Projectile.frame = 0;
 						Projectile.penetrate = 1;
-						//projectile.damage *= 3;
 						Projectile.ai[0] = 5f;
 						Projectile.timeLeft = 10;
 						Projectile.netUpdate = true;
 					}
 				}
 			} else {
-				if (Main.rand.NextBool(60))
+				if (modPlayer.modPlayer.timer120 % 120 == 0)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(80)));
 					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, 0, 0, Projectile.owner);
@@ -106,7 +105,7 @@ namespace OrchidMod.Gambler.Projectiles
 					{
 						if (proj.Hitbox.Intersects(Projectile.Hitbox) && proj.damage > 0)
 						{
-							Projectile.damage += 2;
+							Projectile.damage += 6;
 							SoundEngine.PlaySound(SoundID.Item2, Projectile.Center);
 							proj.Kill();
 							
@@ -150,7 +149,6 @@ namespace OrchidMod.Gambler.Projectiles
 						Projectile.ai[0] = 4f;
 						Projectile.frame = 0;
 						Projectile.penetrate = 1;
-						Projectile.damage *= 3;
 						Projectile.ai[0] = 5f;
 						Projectile.timeLeft = 300;
 						Projectile.netUpdate = true;
@@ -217,7 +215,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 			projType = ProjectileType<Gambler.Projectiles.EaterCardProj3>();
 			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
-			DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage * 2, 0, Projectile.owner), dummy);
+			DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, 0, Projectile.owner), dummy);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 18, 5, 3 + Main.rand.Next(5), false, 1.5f, 1f, 7f, true, true, false, 0, 0, true);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 18, 10, 5 + Main.rand.Next(5), false, 1f, 1f, 5f, true, true, false, 0, 0, true);
 			SoundEngine.PlaySound(SoundID.Item83, Projectile.Center);

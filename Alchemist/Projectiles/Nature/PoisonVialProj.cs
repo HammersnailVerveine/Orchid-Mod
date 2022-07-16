@@ -1,9 +1,12 @@
+using System;
 using Terraria;
 
 namespace OrchidMod.Alchemist.Projectiles.Nature
 {
 	public class PoisonVialProj : OrchidModAlchemistProjectile
 	{
+		private int animDirection;
+
 		public override void SafeSetDefaults()
 		{
 			Projectile.width = 20;
@@ -21,10 +24,20 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			DisplayName.SetDefault("Poison Bubble");
 		}
 
+		public override void OnSpawn()
+		{
+			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
+		}
+
 		public override void AI()
 		{
 			Projectile.velocity *= 0.9f;
-			Projectile.rotation += 0.02f;
+			Projectile.rotation += (0.05f * (0.2f - Math.Abs(Projectile.rotation)) + 0.001f) * animDirection;
+			if (Math.Abs(Projectile.rotation) >= 0.2f)
+			{
+				Projectile.rotation = 0.2f * animDirection;
+				animDirection *= -1;
+			}
 		}
 
 		public override void Kill(int timeLeft)

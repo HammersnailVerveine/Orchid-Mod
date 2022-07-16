@@ -57,7 +57,7 @@ namespace OrchidMod.Gambler.Projectiles
 				{
 					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
 					OrchidModProjectile.spawnDustCircle(Projectile.Center, 6, 10, 15, true, 1.3f, 1f, 8f, true, true, false, 0, 0, true);
-					DummyProjectile(spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 150, 3, true, 14), dummy);
+					DummyProjectile(spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 150, 3, true, true), dummy);
 					Projectile.Kill();
 				}
 			}

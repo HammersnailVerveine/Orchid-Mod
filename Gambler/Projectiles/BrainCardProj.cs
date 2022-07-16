@@ -1,14 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Projectiles
 {
 	public class BrainCardProj : OrchidModGamblerProjectile
 	{
+		public static Texture2D outlineTexture;
 		private int bounceDelay = 0;
 		private double dustVal = 0;
 
@@ -87,9 +91,10 @@ namespace OrchidMod.Gambler.Projectiles
 							Vector2 newMove = Main.MouseWorld - Projectile.Center;
 							float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 
-							if (distanceTo > 5f)
+							if (distanceTo > 1f)
 							{
-								newMove *= 10f / distanceTo;
+								newMove.Normalize();
+								newMove *= distanceTo > 10f ? 10f : distanceTo;
 								Projectile.velocity = newMove;
 							}
 							else
@@ -173,6 +178,13 @@ namespace OrchidMod.Gambler.Projectiles
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}
+		}
+
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			outlineTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/BrainCardProj_Outline", AssetRequestMode.ImmediateLoad).Value;
+			if (Projectile.friendly) DrawOutline(outlineTexture, spriteBatch, lightColor);
+			return true;
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)

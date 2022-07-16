@@ -1,10 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler.Projectiles
 {
 	public class EaterCardProj2 : OrchidModGamblerProjectile
 	{
+		public static Texture2D outlineTexture;
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Eater Flesh");
@@ -44,7 +48,7 @@ namespace OrchidMod.Gambler.Projectiles
 				else
 				{
 					Projectile.velocity.Y += 0.1f;
-					if (Main.rand.Next(3) == 0)
+					if (Main.rand.NextBool(3))
 					{
 						int dust = Dust.NewDust(Projectile.Center, 1, 1, 18);
 						Main.dust[dust].velocity *= 0f;
@@ -53,7 +57,7 @@ namespace OrchidMod.Gambler.Projectiles
 				}
 			}
 
-			if (Main.rand.Next(10) == 0)
+			if (Main.rand.NextBool(10))
 			{
 				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 18);
 				Main.dust[dust].velocity *= 0f;
@@ -65,6 +69,13 @@ namespace OrchidMod.Gambler.Projectiles
 			if (Projectile.velocity.X != oldVelocity.X) Projectile.velocity.X = -oldVelocity.X;
 			if (Projectile.velocity.Y != oldVelocity.Y) Projectile.velocity.Y = -oldVelocity.Y;
 			return false;
+		}
+
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			outlineTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/EaterCardProj2_Outline", AssetRequestMode.ImmediateLoad).Value;
+			DrawOutline(outlineTexture, spriteBatch, lightColor);
+			return true;
 		}
 
 		public override void Kill(int timeLeft)

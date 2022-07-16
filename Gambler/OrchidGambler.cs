@@ -61,6 +61,7 @@ namespace OrchidMod
 		public bool gamblerPennant = false;
 		public bool gamblerElementalLens = false;
 		public bool gamblerVulture = false;
+		public bool gamblerImp = false;
 		public bool gamblerSlimyLollipop = false;
 
 		public void Reset()
@@ -120,7 +121,7 @@ namespace OrchidMod
 				gamblerDieValuePrevious = gamblerDieValueCurrent;
 				for (int i = 0; i < 100; i++)
 				{
-					gamblerDieValueCurrent = Main.rand.Next(6) + 1;
+					gamblerDieValueCurrent = gamblerImp ? Main.rand.Next(4) + 3 : Main.rand.Next(6) + 1;
 					if (gamblerDieValueCurrent != gamblerDieValuePrevious) break;
 				}
 			}
@@ -218,6 +219,7 @@ namespace OrchidMod
 			gamblerPennant = false;
 			gamblerElementalLens = false;
 			gamblerVulture = false;
+			gamblerImp = false;
 			gamblerSlimyLollipop = false;
 		}
 

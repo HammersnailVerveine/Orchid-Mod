@@ -141,7 +141,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			int range = (int)(25 * (Projectile.frame + 1));
 			int nb = (int)(10 * (Projectile.frame + 1));
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, sporeType, range, nb, true, 1.5f, 1f, 8f);
-			spawnGenericExplosion(Projectile, damage, Projectile.knockBack, range * 2, 2, true, 14);
+			spawnGenericExplosion(Projectile, damage, Projectile.knockBack, range * 2, 2, true, true);
 			int spawnProj = 0;
 			int spawnProj2 = 0;
 

@@ -164,7 +164,7 @@ namespace OrchidMod.Gambler.Projectiles
 				if (nbBounces > 2)
 				{
 					nbBounces = 0;
-					DummyProjectile(spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 200, 3, true, 14), this.getDummy());
+					DummyProjectile(spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 200, 3, true, true), this.getDummy());
 				}
 			}
 

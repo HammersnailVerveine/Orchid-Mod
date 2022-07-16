@@ -60,7 +60,7 @@ namespace OrchidMod.Guardian
 		
 		public override bool CanUseItem(Player player)
 		{			
-			if (player == Main.LocalPlayer)
+			if (player.whoAmI == Main.myPlayer)
 			{
 				var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
 				if (player.ownedProjectileCounts[projectileType] > 0) {
@@ -81,6 +81,7 @@ namespace OrchidMod.Guardian
 									resetBlockedEnemiesDuration(guardian);
 								}
 								proj.netUpdate = true;
+								proj.netUpdate2 = true;
 							}
 						} else { // Left click
 							if (proj.ai[1] + proj.ai[0] == 0f && guardian.guardianBlock > 0) 
@@ -89,6 +90,7 @@ namespace OrchidMod.Guardian
 								guardian.guardianBlock --;
 								proj.ai[0] = this.blockDuration;
 								proj.netUpdate = true;
+								proj.netUpdate2 = true;
 							}
 							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if left click again
 							{
@@ -96,6 +98,7 @@ namespace OrchidMod.Guardian
 								shield.spawnDusts();
 								proj.ai[0] = 0f;
 								proj.netUpdate = true;
+								proj.netUpdate2 = true;
 								resetBlockedEnemiesDuration(guardian);
 							} 
 						}
@@ -104,7 +107,21 @@ namespace OrchidMod.Guardian
 			}
 			return false;
 		}
-		
+
+		public GuardianShieldAnchor GetAnchor(Player player)
+		{
+			var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
+			if (player.ownedProjectileCounts[projectileType] > 0)
+			{
+				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+				if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
+				{
+					return shield;
+				}
+			}
+			return null;
+		}
+
 		public void resetBlockedEnemiesDuration(OrchidGuardian modPlayer) {
 			for (int i = modPlayer.guardianBlockedEnemies.Count - 1; i >= 0; i--)
 			{
@@ -148,6 +165,22 @@ namespace OrchidMod.Guardian
 			}
 			this.SafeHoldItem(player);
 		}
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
+			if (tt != null)
+			{
+				string[] splitText = tt.Text.Split(' ');
+				string damageValue = splitText.First();
+				string damageWord = splitText.Last();
+				tt.Text = damageValue + " opposing " + damageWord;
+			}
 
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Right click to slam")
+			{
+				OverrideColor = new Color(175, 255, 175)
+			});
+		}
 	}
 }

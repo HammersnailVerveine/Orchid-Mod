@@ -1,12 +1,14 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Projectiles.Nature
 {
 	public class LivingSapVialProj : OrchidModAlchemistProjectile
 	{
 		public int heal = 0;
+		private int animDirection;
 
 		public override void SafeSetDefaults()
 		{
@@ -16,7 +18,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 600;
 			Projectile.scale = 1f;
-			Projectile.alpha = 128;
+			Projectile.alpha = 64;
 			Projectile.penetrate = 10;
 		}
 
@@ -25,10 +27,21 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			DisplayName.SetDefault("Sap Bubble");
 		}
 
+		public override void OnSpawn()
+		{
+			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
+		}
+
 		public override void AI()
 		{
-			Projectile.velocity *= 0.95f; ;
-			Projectile.rotation += 0.02f;
+			if (Projectile.velocity.Y < 0.5f) Projectile.velocity.Y += 0.02f;
+			Projectile.velocity.X *= 0.95f;
+			Projectile.rotation += (0.05f * (0.2f - Math.Abs(Projectile.rotation)) + 0.001f) * animDirection;
+			if (Math.Abs(Projectile.rotation) >= 0.2f)
+			{
+				Projectile.rotation = 0.2f * animDirection;
+				animDirection *= -1;
+			}
 
 			if (Projectile.damage != 0)
 			{
@@ -36,9 +49,9 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 				Projectile.damage = 0;
 			}
 
-			if (Main.rand.Next(20) == 0)
+			if (Main.rand.NextBool(20))
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DesertWater2);
 				Main.dust[dust].velocity *= 0.1f;
 				Main.dust[dust].scale *= 1f;
 			}
@@ -52,7 +65,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			float distance = (float)Math.Sqrt(offsetX * offsetX + offsetY * offsetY);
 			if (distance < 50f && Projectile.position.X < player.position.X + player.width && Projectile.position.X + Projectile.width > player.position.X && Projectile.position.Y < player.position.Y + player.height && Projectile.position.Y + Projectile.height > player.position.Y)
 			{
-				if (!Main.LocalPlayer.moonLeech)
+				if (!Main.LocalPlayer.moonLeech && Projectile.velocity.Y > 0.5f)
 				{
 					int damage = player.statLifeMax2 - player.statLife;
 					if (heal > damage)
@@ -73,7 +86,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 102);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.DesertWater2);
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 			}
