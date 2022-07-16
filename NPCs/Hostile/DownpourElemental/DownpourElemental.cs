@@ -3,6 +3,7 @@ using OrchidMod.Shaman.Misc;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,6 +38,14 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
 			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DownpourCrystal>()));
+		}
+
+		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+		{
+			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+				new FlavorTextBestiaryInfoElement("This ethereal creature is said to be born from thunder itself. Brave shamans of all eras have tried taming one, to no avail.")
+			});
 		}
 
 		public override void HitEffect(int hitDirection, double damage)

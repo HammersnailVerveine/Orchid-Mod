@@ -38,14 +38,14 @@ namespace OrchidMod.Content.NPCs.Town
 
 			// They were chosen randomly, so it's better to choose them yourself
 			var happiness = NPC.Happiness;
-			happiness.SetBiomeAffection<SnowBiome>(AffectionLevel.Like);
-			happiness.SetBiomeAffection<OceanBiome>(AffectionLevel.Love);
-			happiness.SetBiomeAffection<DesertBiome>(AffectionLevel.Dislike);
-			happiness.SetBiomeAffection<UndergroundBiome>(AffectionLevel.Hate);
-			happiness.SetNPCAffection(NPCID.Nurse, AffectionLevel.Love);
+			happiness.SetBiomeAffection<ForestBiome>(AffectionLevel.Like);
+			happiness.SetBiomeAffection<DesertBiome>(AffectionLevel.Love);
+			happiness.SetBiomeAffection<SnowBiome>(AffectionLevel.Dislike);
+			happiness.SetBiomeAffection<OceanBiome>(AffectionLevel.Hate);
+			happiness.SetNPCAffection(NPCID.ArmsDealer, AffectionLevel.Love);
 			happiness.SetNPCAffection<Chemist>(AffectionLevel.Like);
-			happiness.SetNPCAffection(NPCID.Dryad, AffectionLevel.Dislike);
-			happiness.SetNPCAffection(NPCID.Clothier, AffectionLevel.Hate);
+			happiness.SetNPCAffection(NPCID.GoblinTinkerer, AffectionLevel.Dislike);
+			happiness.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Hate);
 
 			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
@@ -57,21 +57,20 @@ namespace OrchidMod.Content.NPCs.Town
 				LocalizationLoader.AddTranslation(tr);
 			}
 
-			// Text is taken from Example Mod
-			CreateMoodTranslation("Content", "I feel pretty fine right now.");
-			CreateMoodTranslation("NoHome", "I would very much like a house, all the colorful monsters scare me.");
-			CreateMoodTranslation("LoveSpace", "I love how there is so much space here to code tModLoader mods!");
-			CreateMoodTranslation("FarFromHome", "Could you please get me back to my house?");
-			CreateMoodTranslation("DislikeCrowded", "There are too many people around, it makes it hard for me to focus on mod making.");
-			CreateMoodTranslation("HateCrowded", "I can't test my mod with so many people around!");
-			CreateMoodTranslation("LikeBiome", "{BiomeName} is a very nice place to test mods in.");
-			CreateMoodTranslation("LoveBiome", "I love {BiomeName}.");
-			CreateMoodTranslation("DislikeBiome", "It's way too cold in {BiomeName}, I'm freezing!");
-			CreateMoodTranslation("HateBiome", "Its kind of hard to mod while being attacked by monsters in {BiomeName}.");
-			CreateMoodTranslation("LikeNPC", "I can respect {NPCName} as a fellow guide and educator!");
-			CreateMoodTranslation("LoveNPC", "Do you think {NPCName} notices me?");
-			CreateMoodTranslation("DislikeNPC", "{NPCName} keeps rambling on about ...");
-			CreateMoodTranslation("HateNPC", "I hate all the loud noises caused by {NPCName} and his explosives! I just want peace and quiet.");
+			CreateMoodTranslation("Content", "Ey, that sure is a fine place to deal with.");
+			CreateMoodTranslation("NoHome", "Being homeless reminds me of darker times...");
+			CreateMoodTranslation("LoveSpace", "If i knew i'd end up is such a cool corner, I'd have arrived earlier!");
+			CreateMoodTranslation("FarFromHome", "Chief, it's not that I don't like this place, but I'd like to go back?");
+			CreateMoodTranslation("DislikeCrowded", "Neighbors are fine and all, but y'know, that's a bit much.");
+			CreateMoodTranslation("HateCrowded", "So many bystanders! Can't even ... play an honest game without being seen!");
+			CreateMoodTranslation("LikeBiome", "{BiomeName} is chill, I'm down to stay.");
+			CreateMoodTranslation("LoveBiome", "{BiomeName} is perfect to keep pristine cards.");
+			CreateMoodTranslation("DislikeBiome", "{BiomeName} is fine with me, but my cards? Not much.");
+			CreateMoodTranslation("HateBiome", "The moisture in {BiomeName} air is ruining my cards!");
+			CreateMoodTranslation("LikeNPC", "{NPCName} is a cool girl. Chemistry reminds me of that one game...");
+			CreateMoodTranslation("LoveNPC", "{NPCName} is an amazing buddy, we play every night around a nice beer!");
+			CreateMoodTranslation("DislikeNPC", "I didn't believe it, but {NPCName} taught me that goblins really CAN'T play cards.");
+			CreateMoodTranslation("HateNPC", "{NPCName} keeps pestering me about gambling, and blah, blah. why is he so nosy?");
 		}
 
 		public override void SetDefaults()
@@ -98,9 +97,9 @@ namespace OrchidMod.Content.NPCs.Town
 			bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
 				// Sets the preferred biomes of this town NPC listed in the bestiary
 				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness
-				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Snow,
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
 				// Sets your NPC's flavor text in the bestiary
-				new FlavorTextBestiaryInfoElement("Kokomi C6 WHEN???")
+				new FlavorTextBestiaryInfoElement("The Croupier helps gamblers sustaining their unique way of life. He is purported so lucky, he once won by rolling a 7 on a six-sided die.")
 			});
 		}
 
