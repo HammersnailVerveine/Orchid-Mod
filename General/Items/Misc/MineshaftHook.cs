@@ -9,7 +9,7 @@ namespace OrchidMod.General.Items.Misc
 {
 	internal class MineshaftHook : OrchidModItem
 	{
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Escape Rope");
 			Tooltip.SetDefault("Can only shoot upwards");

@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.vanity = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sun Priest Torch");
 		}

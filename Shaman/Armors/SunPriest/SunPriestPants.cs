@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 			Item.defense = 15;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sun Priest Pants");
 			Tooltip.SetDefault("6% increased shamanic damage"

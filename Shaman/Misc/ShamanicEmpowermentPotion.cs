@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.buffTime = 60 * 420;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shamanic Accurary Potion");
 			Tooltip.SetDefault("The source of your shamanic attacks will stay in position better");

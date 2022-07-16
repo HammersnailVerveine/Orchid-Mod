@@ -7,15 +7,6 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 {
 	public class CrimtaneCatalyst : OrchidModAlchemistCatalyst
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Crimson Catalyst");
-			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
-							+ "\nUpon successful catalysis, confuses nearby enemies"
-							+ "\nHit an enemy to apply catalyzed"
-							+ "\nCatalyzed replaces most alchemical debuffs");
-		}
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 30;
@@ -23,6 +14,14 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 			Item.rare = ItemRarityID.Blue;
 			Item.value = Item.sellPrice(0, 0, 75, 0);
 			this.catalystType = 1;
+		}
+		public override void AltSetStaticDefaults()
+		{
+			DisplayName.SetDefault("Crimson Catalyst");
+			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
+							+ "\nUpon successful catalysis, confuses nearby enemies"
+							+ "\nHit an enemy to apply catalyzed"
+							+ "\nCatalyzed replaces most alchemical debuffs");
 		}
 
 		public override void CatalystInteractionEffect(Player player)

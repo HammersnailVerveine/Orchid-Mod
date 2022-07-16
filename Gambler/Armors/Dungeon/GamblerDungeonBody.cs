@@ -16,7 +16,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 			Item.defense = 7;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tyche Chestplate");
 			Tooltip.SetDefault("10% increased gambling critical strike chance"

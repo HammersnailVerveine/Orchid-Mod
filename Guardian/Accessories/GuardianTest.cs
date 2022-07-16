@@ -12,7 +12,7 @@ namespace OrchidMod.Guardian.Accessories
 			Item.rare = -11;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Guardian Test Accessory");
 			Tooltip.SetDefault("Does nothing"

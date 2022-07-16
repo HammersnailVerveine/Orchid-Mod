@@ -16,7 +16,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.damage = 12;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vulture Charm");
 			Tooltip.SetDefault("Drawing a card releases a burst of vulture feathers");

@@ -39,7 +39,7 @@ namespace OrchidMod.Gambler
 			return base.CanUseItem(player);
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : RESET");
 			Tooltip.SetDefault("Test item : resets gambling cards"

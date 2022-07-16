@@ -17,7 +17,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 			Item.defense = 6;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 

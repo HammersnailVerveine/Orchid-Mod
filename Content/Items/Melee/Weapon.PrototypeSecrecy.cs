@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Melee
 {
-	public class PrototypeSecrecy : ModItem
+	public class PrototypeSecrecy : OrchidModItem
 	{
 		public static readonly SoundStyle MagicSound = new(OrchidAssets.SoundsPath + "Magic_1");
 
@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Items.Melee
 
 		public override string Texture => OrchidAssets.ItemsPath + Name;
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Prototype Secrecy");
 			Tooltip.SetDefault("Damaging to the back guarantees a critical hit");

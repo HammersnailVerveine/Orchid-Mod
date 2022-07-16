@@ -7,15 +7,6 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 {
 	public class DungeonCatalyst : OrchidModAlchemistCatalyst
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Ripple");
-			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
-							+ "\nUpon successful catalysis, releases a burst of homing water bolts"
-							+ "\nHit an enemy to apply catalyzed"
-							+ "\nCatalyzed replaces most alchemical debuffs");
-		}
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 30;
@@ -24,6 +15,14 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 			Item.damage = 21;
 			Item.value = Item.sellPrice(0, 0, 75, 0);
 			this.catalystType = 1;
+		}
+		public override void AltSetStaticDefaults()
+		{
+			DisplayName.SetDefault("Ripple");
+			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
+							+ "\nUpon successful catalysis, releases a burst of homing water bolts"
+							+ "\nHit an enemy to apply catalyzed"
+							+ "\nCatalyzed replaces most alchemical debuffs");
 		}
 
 		public override void CatalystInteractionEffect(Player player)

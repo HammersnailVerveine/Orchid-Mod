@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Mythril Spangenhelm");
 			Tooltip.SetDefault("15% increased shamanic damage");

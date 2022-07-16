@@ -17,7 +17,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.damage = 37;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Keystone of the Convent");
 			Tooltip.SetDefault("Attacks with at least 3 non-air ingredients will be empowered"

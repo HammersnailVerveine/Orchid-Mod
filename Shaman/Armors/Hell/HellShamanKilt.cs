@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 			Item.defense = 7;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Depths Weaver Robes");
 			Tooltip.SetDefault("8% increased shamanic damage");

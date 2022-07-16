@@ -12,7 +12,7 @@ namespace OrchidMod.Gambler.Misc
 			Item.value = Item.sellPrice(0, 0, 0, 50);
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vulture Talon");
 		}

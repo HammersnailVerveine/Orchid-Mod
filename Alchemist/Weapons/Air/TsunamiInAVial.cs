@@ -23,7 +23,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.colorB = 152;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tsunami in a Flask");
 			Tooltip.SetDefault("Launches hit enemy in the air"

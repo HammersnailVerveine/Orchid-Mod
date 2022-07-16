@@ -13,7 +13,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lucky Sprout");
 			Tooltip.SetDefault("Bushes from the 'biome' set will linger intead of disappearing");

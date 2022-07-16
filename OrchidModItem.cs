@@ -1,11 +1,19 @@
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 
 namespace OrchidMod
 {
 	public abstract class OrchidModItem : ModItem
 	{
-		// Hehe 'Te Nandayo?!
+		public virtual void AltSetStaticDefaults() {}
+
+		public sealed override void SetStaticDefaults()
+		{
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			this.AltSetStaticDefaults();
+		}
+
 		public bool alreadyInInventory(Player player, bool addStack = false)
 		{
 			for (int i = 0; i < Main.InventorySlotsTotal; i++)

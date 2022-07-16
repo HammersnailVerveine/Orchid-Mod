@@ -17,7 +17,7 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sun Priest Hood");
 			Tooltip.SetDefault("10% increased shamanic damage"

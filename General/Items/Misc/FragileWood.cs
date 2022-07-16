@@ -6,7 +6,7 @@ namespace OrchidMod.General.Items.Misc
 {
 	public class FragileWood : OrchidModItem
 	{
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fragile Wood");
 			Tooltip.SetDefault("Breaks when walked on.");

@@ -30,7 +30,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			this.consumeChance = 100;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hellfire Chip");
 			Tooltip.SetDefault("Throws explosive chips at your foes");

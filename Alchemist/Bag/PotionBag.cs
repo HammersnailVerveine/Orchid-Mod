@@ -3,6 +3,7 @@ using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
 using System;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,6 +31,7 @@ namespace OrchidMod.Alchemist.Bag
 
 		public override void SetStaticDefaults()
 		{
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 			DisplayName.SetDefault("Potion Bag");
 			Tooltip.SetDefault("Can carry up to 8 alchemical potions\n" +
 							   "Items in the bag will appear in alchemist mixing interfaces\n" +

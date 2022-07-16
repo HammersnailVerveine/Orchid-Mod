@@ -117,7 +117,7 @@ namespace OrchidMod.Gambler
 			}
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gambler Dummy Card");
 			Tooltip.SetDefault("Allows the use of specific gambler cards"

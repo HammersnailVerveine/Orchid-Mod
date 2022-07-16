@@ -19,7 +19,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 			Item.defense = 2;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;

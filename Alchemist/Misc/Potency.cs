@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Misc
 			return Color.White;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Potency");
 		}

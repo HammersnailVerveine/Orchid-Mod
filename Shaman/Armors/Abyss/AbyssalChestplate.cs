@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			Item.defense = 32;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Abyssal Chestplate");
 			Tooltip.SetDefault("9% increased shamanic damage and critical strike chance");

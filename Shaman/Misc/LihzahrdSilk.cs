@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.rare = ItemRarityID.Yellow;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lihzahrd Silk");
 			Tooltip.SetDefault("It feels warm in your hand");

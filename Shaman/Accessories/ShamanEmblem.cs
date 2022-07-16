@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.LightRed;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shaman Emblem");
 			Tooltip.SetDefault("15% increased shamanic damage");

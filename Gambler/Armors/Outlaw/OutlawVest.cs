@@ -19,7 +19,7 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 			Item.defense = 3;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outlaw Vest");
 			Tooltip.SetDefault("4% increased gambling damage");

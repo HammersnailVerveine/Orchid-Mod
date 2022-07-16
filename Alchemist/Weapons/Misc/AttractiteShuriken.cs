@@ -6,12 +6,6 @@ namespace OrchidMod.Alchemist.Weapons.Misc
 {
 	public class AttractiteShuriken : OrchidModAlchemistMisc
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Attractite Shuriken");
-			Tooltip.SetDefault("Inflicts attractite to hit enemies");
-		}
-
 		public override void SafeSetDefaults()
 		{
 			Item.damage = 5;
@@ -31,6 +25,11 @@ namespace OrchidMod.Alchemist.Weapons.Misc
 			Item.UseSound = SoundID.Item1;
 			Item.consumable = true;
 			Item.shoot = ProjectileType<Alchemist.Projectiles.Misc.AttractiteShurikenProj>();
+		}
+		public override void AltSetStaticDefaults()
+		{
+			DisplayName.SetDefault("Attractite Shuriken");
+			Tooltip.SetDefault("Inflicts attractite to hit enemies");
 		}
 
 		public override bool OnPickup(Player player)

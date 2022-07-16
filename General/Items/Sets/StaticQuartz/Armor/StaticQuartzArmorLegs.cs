@@ -17,7 +17,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 			Item.defense = 2;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Leggings");
 			Tooltip.SetDefault("5% increased movement speed");

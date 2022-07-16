@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Abyssal Helm");
 			Tooltip.SetDefault("Your shamanic bonds will last 5 seconds longer"

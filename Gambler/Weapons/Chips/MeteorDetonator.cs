@@ -39,7 +39,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			return false;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Meteor Detonator");
 			Tooltip.SetDefault("Timed explosions will deal double damage in a larger radius");

@@ -14,7 +14,7 @@ using Terraria.ObjectData;
 
 namespace OrchidMod.Content.Items.Placeables
 {
-	public class ShamanBiomeChest : ModItem
+	public class ShamanBiomeChest : OrchidModItem
 	{
 		public override string Texture => OrchidAssets.ItemsPath + Name;
 
@@ -33,17 +33,17 @@ namespace OrchidMod.Content.Items.Placeables
 			Item.createTile = ModContent.TileType<ShamanBiomeChestTile>();
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shroom Chest");
 		}
 	}
 
-	public class ShroomKey : ModItem
+	public class ShroomKey : OrchidModItem
 	{
 		public override string Texture => OrchidAssets.ItemsPath + Name;
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shroom Key");
 			Tooltip.SetDefault("Unlocks a Shroom Chest in the dungeon");

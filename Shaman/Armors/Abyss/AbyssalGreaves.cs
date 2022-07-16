@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 			Item.defense = 20;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Abyssal Greaves");
 			Tooltip.SetDefault("10% increased shamanic damage"

@@ -92,7 +92,7 @@ namespace OrchidMod.Alchemist.Misc
 			}
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Brewing for Dummies");
 			Tooltip.SetDefault("Allows mixing alchemical weapons with the hotbar keys"

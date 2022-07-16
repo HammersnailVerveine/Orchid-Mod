@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Ranged
 {
-	public class SearingOnslaught : ModItem
+	public class SearingOnslaught : OrchidModItem
 	{
 		private static readonly Color lightColor = new(255, 150, 0);
 
@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override string Texture => OrchidAssets.ItemsPath + Name;
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
 

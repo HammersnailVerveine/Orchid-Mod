@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.rare = ItemRarityID.Blue;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ritual Scepter");
 			Tooltip.SetDefault("Can be upgraded into various shamanic weapons");

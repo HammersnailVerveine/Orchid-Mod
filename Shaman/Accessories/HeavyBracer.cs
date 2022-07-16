@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Heavy Bracelet");
 			Tooltip.SetDefault("An active shamanic earth bond will increase your armor by 20 but reduce your movement speed by 20%");

@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			this.secondaryScaling = 10f;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fiery Slime Flask");
 			Tooltip.SetDefault("Makes hit enemies bouncy and susceptible to fall damage"

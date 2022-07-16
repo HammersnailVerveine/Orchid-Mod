@@ -16,7 +16,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 			Item.defense = 7;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lily Leggings");
 			Tooltip.SetDefault("10% increased chemical damage");

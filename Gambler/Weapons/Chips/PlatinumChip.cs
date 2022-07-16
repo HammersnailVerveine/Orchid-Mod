@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			this.consumeChance = 100;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Platinum Chip");
 			Tooltip.SetDefault("Throws gambling chips at your foes");

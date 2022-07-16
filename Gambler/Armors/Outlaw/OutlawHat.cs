@@ -20,7 +20,7 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 			ArmorIDs.Head.Sets.DrawHatHair[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Outlaw Hat");
 			Tooltip.SetDefault("Maximum chips increased by 3");

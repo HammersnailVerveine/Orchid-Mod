@@ -4,11 +4,11 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Items.Materials
 {
-	public class JungleLilyBloomed : ModItem
+	public class JungleLilyBloomed : OrchidModItem
 	{
 		public override string Texture => OrchidAssets.ItemsPath + Name;
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bloomed Jungle Lily");
 			Tooltip.SetDefault("Gathered from a chemically bloomed jungle lily");

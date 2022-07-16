@@ -13,7 +13,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.rare = ItemRarityID.Green;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bundle of Clovers");
 			Tooltip.SetDefault("Gambler dice will slow down when rolling 4 or more"

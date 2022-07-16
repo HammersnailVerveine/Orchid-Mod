@@ -17,7 +17,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rune of Horus");
 			Tooltip.SetDefault("Increases the shaman catalyst range"

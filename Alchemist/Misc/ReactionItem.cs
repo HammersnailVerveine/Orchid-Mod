@@ -73,7 +73,7 @@ namespace OrchidMod.Alchemist.Misc
 			modPlayer.alchemistBookUIItem = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hidden Reactions Codex");
 			Tooltip.SetDefault("Left click to trigger alchemist hidden reactions"

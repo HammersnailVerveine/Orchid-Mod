@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			this.colorB = 3;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fire Vial");
 			Tooltip.SetDefault("\n[c/FF0000:Test Item]");

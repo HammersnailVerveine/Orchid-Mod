@@ -14,7 +14,7 @@ namespace OrchidMod.Alchemist.Misc
 			Item.rare = ItemRarityID.White;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Alchemical Stabilizer");
 			Tooltip.SetDefault("Used to make various alchemist weapons"

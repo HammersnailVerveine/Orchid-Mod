@@ -24,7 +24,7 @@ namespace OrchidMod.Gambler.Misc
 			Item.buffTime = 60 * 180;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Scavenger Potion");
 			Tooltip.SetDefault("20% increased gambler chip generation");

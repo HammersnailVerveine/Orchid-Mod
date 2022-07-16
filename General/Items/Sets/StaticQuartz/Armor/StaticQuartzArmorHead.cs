@@ -19,7 +19,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Headpiece");
 		}

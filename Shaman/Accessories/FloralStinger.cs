@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Floral Stinger");
 			Tooltip.SetDefault("Exhausting your Earth Bond weapons will make you enrage"

@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.colorB = 0;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Nature Vial");
 			Tooltip.SetDefault("\n[c/FF0000:Test Item]");

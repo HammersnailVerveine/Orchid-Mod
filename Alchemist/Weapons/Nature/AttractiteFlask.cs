@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.colorB = 18;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Attractite Flask");
 			Tooltip.SetDefault("Hit target will attract alchemic spores and lingering particles"

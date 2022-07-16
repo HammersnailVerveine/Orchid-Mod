@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.gamblerCardSets.Add("Elemental");
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Spirit Tear");
 			Tooltip.SetDefault("Fires a burst of spirit bolts"

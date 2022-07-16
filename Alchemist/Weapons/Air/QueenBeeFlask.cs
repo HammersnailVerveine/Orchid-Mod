@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.secondaryScaling = 2f;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Royal Jelly");
 			Tooltip.SetDefault("If no fire element is used, summons bees on impact"

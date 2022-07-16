@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.Yellow;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fragile Present");
 			Tooltip.SetDefault("25% increased shamanic damage"

@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 			Item.defense = 6;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vampire Sarong");
 			Tooltip.SetDefault("8% increased shamanic damage");
