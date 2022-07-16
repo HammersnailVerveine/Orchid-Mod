@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Misc.Thorium
 			Item.rare = ItemRarityID.Blue;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vampiric Membrane");
 		}

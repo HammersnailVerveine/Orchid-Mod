@@ -15,7 +15,7 @@ namespace OrchidMod.Gambler.Weapons.Dice
 			this.diceDuration = 60;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wax Die");
 			Tooltip.SetDefault("Recovers 1 - 6 health on gambling critical strike");

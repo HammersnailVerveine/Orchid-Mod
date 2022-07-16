@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dryad's Gift");
 			Tooltip.SetDefault("Getting a new shamanic bond will increase the duration of your lowest duration one");

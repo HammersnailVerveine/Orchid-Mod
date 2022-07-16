@@ -72,7 +72,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.secondaryScaling = 5f;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Flash Freeze");
 			Tooltip.SetDefault("Freezes all spores, catalytic elements and lingering particles in an area"

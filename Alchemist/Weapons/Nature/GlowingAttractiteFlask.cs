@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.secondaryDamage = 22;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Glowing Attractite Flask");
 			Tooltip.SetDefault("Hit target will attract alchemic spores and lingering particles"

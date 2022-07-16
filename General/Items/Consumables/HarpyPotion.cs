@@ -23,7 +23,7 @@ namespace OrchidMod.General.Items.Consumables
 			Item.buffTime = 60 * 180;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Cloud Burst Potion");
 			Tooltip.SetDefault("Your first bonus jump will release a burst of damaging feathers"

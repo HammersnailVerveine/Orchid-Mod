@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Empty Tiara");
 			Tooltip.SetDefault("Used to make shamanic Tiaras");

@@ -14,7 +14,7 @@ namespace OrchidMod.General.Items.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Salvaged Toolbox");
 			Tooltip.SetDefault("Provides a small amount of light"

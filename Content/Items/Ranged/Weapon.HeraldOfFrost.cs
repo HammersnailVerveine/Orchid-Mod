@@ -11,11 +11,11 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Ranged
 {
-	public class HeraldOfFrost : ModItem
+	public class HeraldOfFrost : OrchidModItem
 	{
 		public override string Texture => OrchidAssets.ItemsPath + Name;
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Herald of Frost");
 			Tooltip.SetDefault("...");

@@ -9,11 +9,11 @@ using Terraria.ObjectData;
 
 namespace OrchidMod.Content.Items.Materials
 {
-	public class JungleLily : ModItem
+	public class JungleLily : OrchidModItem
 	{
 		public override string Texture => OrchidAssets.ItemsPath + Name;
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Jungle Lily Bud");
 			Tooltip.SetDefault("It closed when you picked it up"

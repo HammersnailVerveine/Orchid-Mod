@@ -13,7 +13,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Conqueror's Pennant");
 			Tooltip.SetDefault("You enrage when drawing a gambler 'boss' card");

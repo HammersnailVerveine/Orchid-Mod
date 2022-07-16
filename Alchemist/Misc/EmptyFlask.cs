@@ -15,7 +15,7 @@ namespace OrchidMod.Alchemist.Misc
 		}
 
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Empty Flask");
 			Tooltip.SetDefault("Sold by the mineshaft chemist"

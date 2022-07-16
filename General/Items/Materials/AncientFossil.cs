@@ -5,7 +5,7 @@ namespace OrchidMod.General.Items.Materials
 {
 	public class AncientFossil : OrchidModItem
 	{
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
 			DisplayName.SetDefault("Ancient Fossil");

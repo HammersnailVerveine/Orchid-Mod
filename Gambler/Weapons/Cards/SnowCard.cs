@@ -23,7 +23,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.gamblerCardSets.Add("Biome");
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Snow");
 			Tooltip.SetDefault("Summons a snow bush above your head"

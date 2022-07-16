@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.gamblerCardSets.Add("Boss");
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Poisonous Queen");
 			Tooltip.SetDefault("Summons a bee hive, following your cursor"

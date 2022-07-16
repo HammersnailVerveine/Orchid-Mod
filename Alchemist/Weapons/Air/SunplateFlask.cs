@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.secondaryScaling = 4f;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Stellar Talc");
 			Tooltip.SetDefault("Creates orbiting stars on impact"

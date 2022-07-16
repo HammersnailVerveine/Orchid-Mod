@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Topaz Idol");
 			Tooltip.SetDefault("Having an active earth bond increases defense by 5");

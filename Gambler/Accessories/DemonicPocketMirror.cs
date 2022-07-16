@@ -15,7 +15,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Demonic Pocket Mirror");
 			Tooltip.SetDefault("Allows you to see the next card you will draw");

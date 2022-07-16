@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.gamblerCardSets.Add("Boss");
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Curse of the Dungeon");
 			Tooltip.SetDefault("Summons a skull, slowly following your cursor"

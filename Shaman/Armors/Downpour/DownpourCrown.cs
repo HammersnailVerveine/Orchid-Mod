@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Armors.Downpour
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Downpour Crown");
 			Tooltip.SetDefault("Your shamanic bonds will last 4 seconds longer");

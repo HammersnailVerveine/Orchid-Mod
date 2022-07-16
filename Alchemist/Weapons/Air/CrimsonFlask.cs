@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.secondaryScaling = 5f;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Visceral Mycelium");
 			Tooltip.SetDefault("Releases floating mushrooms, exploding after a while or when being catalyzed"

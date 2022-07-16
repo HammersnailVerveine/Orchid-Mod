@@ -8,7 +8,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
 	public class StaticQuartzWarrior : OrchidModItem
 	{
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Spear");
 			Tooltip.SetDefault("Deals increased damage while moving");

@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler.Misc
 			return Color.White;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chip");
 		}

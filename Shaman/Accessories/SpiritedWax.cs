@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.Orange;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Waxy Tear");
 			Tooltip.SetDefault("Your shamanic water bonds will increase your shamanic critical strike chance by 10%"

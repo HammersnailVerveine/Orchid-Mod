@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.gamblerCardSets.Add("Slime");
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Spiky Gelatin");
 			Tooltip.SetDefault("Summons a bouncy jungle slime, following your cursor"

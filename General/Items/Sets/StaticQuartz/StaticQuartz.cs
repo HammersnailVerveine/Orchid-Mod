@@ -6,7 +6,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
 	public class StaticQuartz : OrchidModItem
 	{
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
 			DisplayName.SetDefault("Static Quartz");

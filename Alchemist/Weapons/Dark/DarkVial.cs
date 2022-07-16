@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Weapons.Dark
 			this.colorB = 248;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dark Vial");
 			Tooltip.SetDefault("\n[c/FF0000:Test Item]");

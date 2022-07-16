@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.gamblerCardSets.Add("Boss");
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Corrupted Nightmare");
 			Tooltip.SetDefault("Summon a corrupted worm, following your cursor"

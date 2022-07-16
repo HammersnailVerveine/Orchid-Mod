@@ -4,7 +4,7 @@ namespace OrchidMod.General.Items.Misc
 {
 	public class CopperKey : OrchidModItem
 	{
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			Tooltip.SetDefault("Opens the Mineshaft Box");
 		}

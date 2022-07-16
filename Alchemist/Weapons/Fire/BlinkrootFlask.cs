@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			this.secondaryDamage = 16;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blinkroot Extract");
 			Tooltip.SetDefault("Releases fire spores, the less other extracts used, the more"

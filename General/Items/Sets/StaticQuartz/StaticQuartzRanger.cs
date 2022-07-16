@@ -9,7 +9,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
 	public class StaticQuartzRanger : OrchidModItem
 	{
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Blowpipe");
 		}

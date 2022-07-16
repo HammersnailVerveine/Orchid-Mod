@@ -15,7 +15,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Alchemist Emblem");
 			Tooltip.SetDefault("15% increased chemical damage");

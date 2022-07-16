@@ -16,7 +16,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Weighted Corruption");
 			Tooltip.SetDefault("Increases alchemic main projectile velocity by 25%"

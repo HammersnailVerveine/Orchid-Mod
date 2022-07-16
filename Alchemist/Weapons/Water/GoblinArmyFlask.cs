@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.secondaryScaling = 15f;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Goblin Oil");
 			Tooltip.SetDefault("Using a fire element in the same attack will drastically increase damage"

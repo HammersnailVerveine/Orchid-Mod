@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.gamblerCardSets.Add("Boss");
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Guardian of the Night");
 			Tooltip.SetDefault("Summons a servant of cthulhu, dashing at your cursor"

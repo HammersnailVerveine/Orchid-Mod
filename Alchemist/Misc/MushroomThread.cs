@@ -18,7 +18,7 @@ namespace OrchidMod.Alchemist.Misc
 			Item.rare = ItemRarityID.White;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Phosphorescent Thread");
 			Tooltip.SetDefault("Result of the hidden reaction between blinkroot and glowing mushroom extracts"

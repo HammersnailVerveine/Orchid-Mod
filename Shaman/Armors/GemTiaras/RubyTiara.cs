@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ruby Circlet");
 			Tooltip.SetDefault("Having an active fire bond increases life regeneration"

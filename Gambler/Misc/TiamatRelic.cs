@@ -14,7 +14,7 @@ namespace OrchidMod.Gambler.Misc
 			Item.value = Item.sellPrice(0, 0, 15, 0);
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tyche Relic");
 		}

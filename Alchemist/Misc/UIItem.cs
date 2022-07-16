@@ -85,7 +85,7 @@ namespace OrchidMod.Alchemist.Misc
 			modPlayer.alchemistSelectUIItem = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("The Alchemist's Cookbook");
 			Tooltip.SetDefault("Allows mixing alchemical weapons by clicking"

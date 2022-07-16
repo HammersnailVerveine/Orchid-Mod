@@ -17,7 +17,7 @@ namespace OrchidMod.Shaman.Armors.Corruption
 			Item.defense = 5;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dark Shaman Tunic");
 			Tooltip.SetDefault("10% increased shamanic critical chance");

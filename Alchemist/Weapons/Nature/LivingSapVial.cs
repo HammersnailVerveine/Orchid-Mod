@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.secondaryScaling = 3f;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Living Sap Flask");
 			Tooltip.SetDefault("Creates a healing living sap bubble if used with other ingredients"

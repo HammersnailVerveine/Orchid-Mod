@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Common;
+using Terraria.GameContent.Creative;
 
 namespace OrchidMod.Shaman
 {
@@ -32,10 +33,9 @@ namespace OrchidMod.Shaman
 
 		protected override bool CloneNewInstances => true;
 
-		public sealed override void SetStaticDefaults()
+		public sealed override void AltSetStaticDefaults()
 		{
 			Item.staff[Item.type] = true;
-
 			this.SafeSetStaticDefaults();
 		}
 

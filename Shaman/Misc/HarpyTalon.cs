@@ -12,7 +12,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.value = Item.sellPrice(0, 0, 3, 50);
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Harpy Talon");
 		}

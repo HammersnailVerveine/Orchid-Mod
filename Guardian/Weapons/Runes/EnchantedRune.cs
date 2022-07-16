@@ -25,7 +25,7 @@ namespace OrchidMod.Guardian.Weapons.Runes
 			this.number = 2;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Enchanted Rune");
 			Tooltip.SetDefault("Surrounds you with enchanted sparkles");

@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.damage = 12;
 		}
 
-		public override void SetStaticDefaults()
+		public override void AltSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Harpy Anklet");
 			Tooltip.SetDefault("Releases a burst of feathers around you when using a double jump"
