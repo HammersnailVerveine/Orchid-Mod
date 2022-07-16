@@ -7,10 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.UI;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,12 +22,18 @@ namespace OrchidMod.Content.NPCs.Town
 	{
 		public static CroupierUI Instance => ModContent.GetInstance<CroupierUI>();
 
+		public static readonly HashSet<string> TooltipsWhitelist = new() { "Damage", "CritChance", "Speed", "Knockback", "TagsTag" };
+		public static readonly float FontScale = 0.8f;
+
 		public bool Visible;
 
 		private Asset<Texture2D> cardBlockTexture;
 		private Asset<Texture2D> cardSlotsTexture;
 		private Asset<Texture2D> shadingTexture;
 
+		private Rectangle drawRect;
+		private int linesCount;
+		private int emptyLinesCount;
 		private int scrollValue;
 		private int scrollMax;
 
@@ -38,7 +43,7 @@ namespace OrchidMod.Content.NPCs.Town
 		{
 			cardBlockTexture = ModContent.Request<Texture2D>(OrchidAssets.UIsPath + "CroupierUICardBlock", AssetRequestMode.ImmediateLoad);
 			cardSlotsTexture = ModContent.Request<Texture2D>(OrchidAssets.UIsPath + "CroupierUICardSlots", AssetRequestMode.ImmediateLoad);
-			shadingTexture = OrchidAssets.GetExtraTexture(18);
+			shadingTexture = OrchidAssets.GetExtraTexture(18, AssetRequestMode.ImmediateLoad);
 
 			On.Terraria.Player.SetTalkNPC += ModifySetTalkNPC;
 			On.Terraria.Main.GUIChatDrawInner += DrawOverVanillaNPCChat;
@@ -56,6 +61,8 @@ namespace OrchidMod.Content.NPCs.Town
 		{
 			Visible = true;
 
+			linesCount = 0;
+			emptyLinesCount = 0;
 			scrollMax = 0;
 			scrollValue = 0;
 
@@ -68,20 +75,23 @@ namespace OrchidMod.Content.NPCs.Town
 			Main.npcChatText = Main.npc[npcIndex].GetChat();
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		private void Draw(SpriteBatch spriteBatch)
 		{
 			if (TextLinesInfo is null) return;
 
 			var textDisplayCache = TextDisplayCacheInfo.GetValue(Main.instance);
 			var lines = TextLinesInfo.GetValue(textDisplayCache) as List<List<TextSnippet>>;
-			var linesCount = lines.Count;
-			var emptyLinesCount = lines.Count(i => i.Any(j => j.Text.Equals(string.Empty)));
+
+			linesCount = lines.Count;
+			emptyLinesCount = lines.Count(i => i.Any(j => j.Text.Equals(string.Empty)));
 
 			var texture = TextureAssets.ChatBack;
 			var distanceFromEdges = 16;
-			var drawRect = new Rectangle(Main.screenWidth / 2 - texture.Width() / 2 + distanceFromEdges, 120 + (linesCount - emptyLinesCount) * 30, texture.Width() - distanceFromEdges * 2, emptyLinesCount * 30);
-			var topLeft = drawRect.TopLeft();
-			var bottomLeft = drawRect.BottomLeft();
+
+			drawRect = new Rectangle(Main.screenWidth / 2 - texture.Width() / 2 + distanceFromEdges, 120 + (linesCount - emptyLinesCount) * 30, texture.Width() - distanceFromEdges * 2, emptyLinesCount * 30);
+
+			var whiteLineOffset = new Vector2(-2f, 0);
+			var whiteLineWidth = drawRect.Width + 4;
 
 			if (drawRect.Contains(Main.MouseScreen.ToPoint()))
 			{
@@ -89,90 +99,41 @@ namespace OrchidMod.Content.NPCs.Town
 				UISystem.RequestIgnoreHotbarScroll();
 			}
 
-			DrawBackground(spriteBatch, drawRect);
-			DrawContent(spriteBatch, drawRect);
+			// ...
 
-			var lineOffset = new Vector2(-2f, 0);
-			var lineWidth = drawRect.Width + 4;
+			DrawBackground(spriteBatch);
 
-			DrawShadows(spriteBatch, drawRect, topLeft, bottomLeft);
-			DrawWhiteLine(spriteBatch, topLeft + lineOffset, lineWidth);
-			DrawWhiteLine(spriteBatch, bottomLeft + lineOffset, lineWidth);
+			DrawHorizontalLine(spriteBatch, 4);
+			DrawHorizontalLine(spriteBatch, 16 + cardSlotsTexture.Width());
+			DrawHorizontalLine(spriteBatch, drawRect.Width - 8);
+
+			DrawCardsWithSlots(spriteBatch, out Item hoverItem, out int maxReq, out bool canRemoveHoverCard, emptyLinesCount);
+			DrawCardTooltips(spriteBatch, hoverItem, maxReq, canRemoveHoverCard);
+
+			DrawShadows(spriteBatch);
+
+			DrawWhiteLine(spriteBatch, drawRect.TopLeft() + whiteLineOffset, whiteLineWidth);
+			DrawWhiteLine(spriteBatch, drawRect.BottomLeft() + whiteLineOffset, whiteLineWidth);
 		}
 
-		// ...
+		private void DrawBackground(SpriteBatch spriteBatch)
+			=> spriteBatch.Draw(TextureAssets.MagicPixel.Value, drawRect, Color.Black * 0.3f);
 
-		private static void ModifySetTalkNPC(On.Terraria.Player.orig_SetTalkNPC orig, Player player, int npcIndex, bool fromNet)
+		private void DrawHorizontalLine(SpriteBatch spriteBatch, int offsetX)
+			=> spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(drawRect.X + offsetX, drawRect.Y, 4, drawRect.Height), Color.Black * 0.3f);
+
+		private void DrawCardsWithSlots(SpriteBatch spriteBatch, out Item hoverItem, out int maxReq, out bool canRemoveHoverCard, int emptyLinesCount)
 		{
-			orig(player, npcIndex, fromNet);
+			hoverItem = null;
+			maxReq = 0;
+			canRemoveHoverCard = true;
 
-			Instance.Visible = false;
-		}
-
-		private static void DrawOverVanillaNPCChat(On.Terraria.Main.orig_GUIChatDrawInner orig, Main main)
-		{
-			var ui = Instance;
-			var isVisible = ui.Visible;
-
-			orig(main); // Visibility check should be done before drawing... Otherwise it will lead to visual bugs
-
-			if (isVisible)
-			{
-				ui.Draw(Main.spriteBatch);
-			}
-		}
-
-		private void DrawContent(SpriteBatch spriteBatch, Rectangle drawRect)
-		{
-			var drawPosition = new Vector2(drawRect.X, drawRect.Y);
-			var cardSlotsCenter = drawPosition + new Vector2(cardSlotsTexture.Width() * 0.5f + 6, drawRect.Height * 0.5f);
-
-			void DrawHorizontalLine(float xPos)
-				=> spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle((int)xPos, (int)drawPosition.Y, 4, drawRect.Height), Color.Black * 0.3f);
-
-			spriteBatch.Draw(cardSlotsTexture.Value, cardSlotsCenter, null, Color.White, 0f, cardSlotsTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
-
-			DrawHorizontalLine(drawRect.X + 4);
-			DrawHorizontalLine(cardSlotsCenter.X + cardSlotsTexture.Width() * 0.5f - 2);
-			DrawHorizontalLine(drawRect.X + drawRect.Width - 8);
-
-			DrawCards(spriteBatch, cardSlotsCenter - cardSlotsTexture.Size() * 0.5f, out (Item, int, bool) hoverItemInfo);
-
-			var sbInfo = new SpriteBatchInfo(spriteBatch);
-			var oldScissorRectangle = spriteBatch.GraphicsDevice.ScissorRectangle;
-
-			spriteBatch.End();
-			spriteBatch.GraphicsDevice.ScissorRectangle = Rectangle.Intersect(GetClippingRectangle(drawRect, spriteBatch), spriteBatch.GraphicsDevice.ScissorRectangle);
-			sbInfo.Begin(spriteBatch, null, null, null, null, UISystem.OverflowHiddenRasterizerState, null, null);
-
-			//DrawCardTooltips(spriteBatch, drawPosition);
-
-			spriteBatch.End();
-			spriteBatch.GraphicsDevice.ScissorRectangle = oldScissorRectangle;
-			sbInfo.Begin(spriteBatch);
-
-			/*var topLeft = drawRect.TopLeft();
-			string str = string.Empty;
-			for (int i = 0; i < 12; i++) str += "Eula C2 WHEN???\n";
-
-			var t = Utils.WordwrapStringSmart(str, Main.DiscoColor, FontAssets.MouseText.Value, 460, 10).ToArray();
-			var offsetY = 0f;
-
-			foreach (var elem in t)
-			{
-				ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, elem.ToArray(), topLeft + new Vector2(4, -4) + Vector2.UnitY * offsetY, 0f, Vector2.Zero, Vector2.One, out _, -1f, 2f);
-				offsetY += 30;
-			}*/
-		}
-
-		private void DrawCards(SpriteBatch spriteBatch, Vector2 cardSlotsPosition, out (Item hoverItem, int maxReq, bool canRemove) hoverItemInfo)
-		{
-			hoverItemInfo = (null, 0, false);
-
+			var cardSlotsPosition = new Vector2(drawRect.X, drawRect.Y) + new Vector2(12, drawRect.Height * 0.5f - cardSlotsTexture.Height() * 0.5f);
 			var modPlayer = Main.LocalPlayer.GetModPlayer<OrchidGambler>();
-			var maxReq = 0;
 			var playerNbCards = modPlayer.GetNbGamblerCards();
 			var nbCards = new int[playerNbCards];
+
+			spriteBatch.Draw(cardSlotsTexture.Value, cardSlotsPosition, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
 			for (int i = 0; i < playerNbCards; i++)
 			{
@@ -207,80 +168,130 @@ namespace OrchidMod.Content.NPCs.Town
 					spriteBatch.Draw(cardBlockTexture.Value, new Rectangle(cardRect.X - 2, cardRect.Y - 2, cardBlockTexture.Width(), cardBlockTexture.Height()), Color.White);
 				}
 
-				if (!cardRect.Contains(Main.MouseScreen.ToPoint())) continue;
-
-				UpdateScrollValues();
-
-				//Rectangle tooltipRectangle = new Rectangle(drawZone.X + deckTexture.Width + 24, drawZone.Y + 14, Math.Abs(drawZone.Width - deckTexture.Width - 42), drawZone.Height - 28);
-				//DrawCardInfo(item, spriteBatch, tooltipRectangle, GetCardInfo(item, maxReq, canRemove));
-
-				if (PlayerInput.Triggers.JustReleased.MouseLeft || PlayerInput.Triggers.JustReleased.MouseRight)
+				if (cardRect.Contains(Main.MouseScreen.ToPoint()))
 				{
-					OnCardClick(item, canRemove);
+					OnHoverCard(item, canRemove);
 
-					hoverItemInfo = (item, maxReq, canRemove);
+					hoverItem = item;
+					canRemoveHoverCard = canRemove;
 				}
 			}
 		}
 
-		private void UpdateScrollValues()
+		private void OnHoverCard(Item item, bool canRemoveHoverCard)
 		{
 			int num = -PlayerInput.ScrollWheelDelta / 120;
 			int sign = Math.Sign(num);
-			int progress = 30;
+			int progress = (int)(30 * FontScale);
 
 			while (num != 0)
 			{
-				if (num < 0)
+				scrollValue += sign * progress;
+				scrollValue = Math.Clamp(scrollValue, 0, scrollMax);
+
+				num -= sign;
+			}
+
+			// ...
+
+			if (canRemoveHoverCard && (PlayerInput.Triggers.JustReleased.MouseLeft || PlayerInput.Triggers.JustReleased.MouseRight))
+			{
+				var player = Main.LocalPlayer;
+				var modPlayer = player.GetModPlayer<OrchidGambler>();
+
+				player.QuickSpawnItem(null, item.type, 1);
+				modPlayer.RemoveGamblerCard(item);
+
+				if (modPlayer.GetNbGamblerCards() > 0)
 				{
-					if (scrollValue >= progress) scrollValue -= progress;
+					modPlayer.ClearGamblerCardCurrent();
+					modPlayer.ClearGamblerCardsNext();
+					modPlayer.gamblerShuffleCooldown = 0;
+					modPlayer.gamblerRedraws = 0;
+					modPlayer.DrawGamblerCard();
 				}
 				else
 				{
-					if (scrollValue < (scrollMax - 5 * progress)) scrollValue += progress;
+					modPlayer.OnRespawn(player);
 				}
-				num -= sign;
 			}
 		}
 
-		private void OnCardClick(Item item, bool canRemove)
+		private void DrawCardTooltips(SpriteBatch spriteBatch, Item hoverItem, int maxReq, bool canRemove)
 		{
-			if (!canRemove) return;
+			scrollMax = 0;
 
-			var player = Main.LocalPlayer;
-			var modPlayer = player.GetModPlayer<OrchidGambler>();
+			var tooltipsPosX = (int)(drawRect.X + 20 + cardSlotsTexture.Width());
+			var tooltipsRect = new Rectangle(tooltipsPosX, drawRect.Y, drawRect.Width - (tooltipsPosX - drawRect.X) - 8, drawRect.Height);
 
-			player.QuickSpawnItem(null, item.type, 1);
-			modPlayer.RemoveGamblerCard(item);
+			var sbInfo = new SpriteBatchInfo(spriteBatch);
+			var oldScissorRectangle = spriteBatch.GraphicsDevice.ScissorRectangle;
 
-			if (modPlayer.GetNbGamblerCards() > 0)
+			spriteBatch.End();
+			spriteBatch.GraphicsDevice.ScissorRectangle = Rectangle.Intersect(GetClippingRectangle(tooltipsRect, spriteBatch), spriteBatch.GraphicsDevice.ScissorRectangle);
+			sbInfo.Begin(spriteBatch, null, null, null, null, UISystem.OverflowHiddenRasterizerState, null, null);
+
+			List<TooltipLine> tooltips;
+
+			if (hoverItem is null)
 			{
-				modPlayer.ClearGamblerCardCurrent();
-				modPlayer.ClearGamblerCardsNext();
-				modPlayer.gamblerShuffleCooldown = 0;
-				modPlayer.gamblerRedraws = 0;
-				modPlayer.DrawGamblerCard();
+				scrollValue = 0;
+				scrollMax = 0;
+
+				tooltips = new();
+				tooltips.Add(new TooltipLine(OrchidMod.Instance, "Eula C6 WHEN???", "..."));
 			}
 			else
 			{
-				modPlayer.OnRespawn(player);
+				int yoyoLogo = 0, researchLine = 0, numLines = 0;
+				string[] toolTipLine = new string[30], tooltipNames = new string[30];
+				bool[] preFixLine = new bool[30], badPreFixLine = new bool[30];
+				Color?[] overrideColor;
+				var triangleHexColor = Colors.AlphaDarken(Color.White).Hex3();
+
+				Main.MouseText_DrawItemTooltip_GetLinesInfo(hoverItem, ref yoyoLogo, ref researchLine, hoverItem.knockBack, ref numLines, toolTipLine, preFixLine, badPreFixLine, tooltipNames);
+
+				tooltips = ItemLoader.ModifyTooltips(hoverItem, ref numLines, tooltipNames, ref toolTipLine, ref preFixLine, ref badPreFixLine, ref yoyoLogo, out overrideColor);
+				tooltips = tooltips.Where(i => TooltipsWhitelist.Contains(i.Name) || i.Name.StartsWith("Tooltip") || i.Name.StartsWith("Prefix")).ToList();
+
+				tooltips.Insert(0, new TooltipLine(OrchidMod.Instance, "ItemName", hoverItem.HoverName.Replace("Playing Card : ", "")) { OverrideColor = ItemRarity.GetColor(hoverItem.rare) });
+				tooltips.Insert(1, new TooltipLine(OrchidMod.Instance, "CanRemove",
+					canRemove ?
+					$"[c/{triangleHexColor}:‣] Can be removed" :
+					$"[c/{triangleHexColor}:‣] Cannot be removed\n" +
+					$"[c/{triangleHexColor}:‣] Most expensive card in deck: {maxReq}"
+				)
+				{ OverrideColor = Color.OrangeRed });
 			}
+
+			var counter = -1;
+
+			for (int i = 0; i < tooltips.Count; i++)
+			{
+				var text = Utils.WordwrapStringSmart(tooltips[i].Text, tooltips[i].OverrideColor ?? Color.White, FontAssets.MouseText.Value, (int)((drawRect.Width - 6) * FontScale), 30);
+
+				foreach (var elem in text)
+				{
+					var drawPosition = new Vector2(tooltipsRect.X + 6, (float)(tooltipsRect.Y + 30 * ++counter * FontScale - scrollValue) + 10);
+
+					ChatManager.DrawColorCodedStringWithShadow(spriteBatch, FontAssets.MouseText.Value, elem.ToArray(), drawPosition, 0f, Vector2.Zero, Vector2.One * FontScale, out _, -1f, 2f);
+				}
+			}
+
+			scrollMax = (int)(Math.Max(counter - emptyLinesCount, 0) * 30 * FontScale);
+
+			spriteBatch.End();
+			spriteBatch.GraphicsDevice.ScissorRectangle = oldScissorRectangle;
+			sbInfo.Begin(spriteBatch);
 		}
 
-		private void DrawCardTooltips(SpriteBatch spriteBatch, Vector2 drawPosition, Item hoverItem)
+		private void DrawShadows(SpriteBatch spriteBatch)
 		{
+			var topLeft = drawRect.TopLeft();
+			var bottomLeft = drawRect.BottomLeft();
 
-		}
-
-		private void DrawBackground(SpriteBatch spriteBatch, Rectangle drawRect)
-		{
-			spriteBatch.Draw(TextureAssets.MagicPixel.Value, drawRect, Color.Black * 0.3f);
-		}
-
-		private void DrawShadows(SpriteBatch spriteBatch, Rectangle drawRect, Vector2 topLeft, Vector2 bottomLeft)
-		{
-			spriteBatch.Draw(shadingTexture.Value, new Rectangle((int)topLeft.X, (int)topLeft.Y, (int)drawRect.Width, shadingTexture.Height()), Color.White);
-			spriteBatch.Draw(shadingTexture.Value, new Rectangle((int)bottomLeft.X, (int)bottomLeft.Y - shadingTexture.Height(), (int)drawRect.Width, shadingTexture.Height()), null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipVertically, 0f);
+			spriteBatch.Draw(shadingTexture.Value, new Rectangle((int)topLeft.X, (int)topLeft.Y, drawRect.Width, shadingTexture.Height()), Color.White);
+			spriteBatch.Draw(shadingTexture.Value, new Rectangle((int)bottomLeft.X, (int)bottomLeft.Y - shadingTexture.Height(), drawRect.Width, shadingTexture.Height()), null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipVertically, 0f);
 		}
 
 		private void DrawWhiteLine(SpriteBatch spriteBatch, Vector2 position, float width)
@@ -299,6 +310,26 @@ namespace OrchidMod.Content.NPCs.Town
 		}
 
 		// ...
+
+		private static void ModifySetTalkNPC(On.Terraria.Player.orig_SetTalkNPC orig, Player player, int npcIndex, bool fromNet)
+		{
+			orig(player, npcIndex, fromNet);
+
+			Instance.Visible = false;
+		}
+
+		private static void DrawOverVanillaNPCChat(On.Terraria.Main.orig_GUIChatDrawInner orig, Main main)
+		{
+			var ui = Instance;
+			var isVisible = ui.Visible;
+
+			orig(main); // Visibility check should be done before drawing... Otherwise it will lead to visual bugs
+
+			if (isVisible)
+			{
+				ui.Draw(Main.spriteBatch);
+			}
+		}
 
 		private static Rectangle GetClippingRectangle(Rectangle rect, SpriteBatch spriteBatch)
 		{
