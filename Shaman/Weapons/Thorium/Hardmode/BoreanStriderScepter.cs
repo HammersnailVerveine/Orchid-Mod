@@ -32,7 +32,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 		{
 			DisplayName.SetDefault("Taiga Truncheon");
 			Tooltip.SetDefault("Fires out a damaging frost ball"
-							+ "\nReleases icicles on impact, based on your number of active shamanic bonds");
+							+ "\nReleases icicles on impact, based on your number of active shamanic bonds"
+						    + "\n[c/FF0000:Currently does not work as intended, and will be fixed soon]");
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

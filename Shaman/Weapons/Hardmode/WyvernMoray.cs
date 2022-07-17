@@ -31,7 +31,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			DisplayName.SetDefault("Wyvern Moray");
 			Tooltip.SetDefault("Spits lingering cloud energy"
 							  + "\nThe weapon itself can critically strike, releasing a more powerful projectile"
-							  + "\nThe more shamanic bonds you have, the higher the chances of critical strike");
+							  + "\nThe more shamanic bonds you have, the higher the chances of critical strike"
+							  + "\n[c/FF0000:Currently does not work as intended, and will be fixed soon]");
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -1,20 +1,23 @@
-v1.3.0.8 : Balance and QoL patch.
-
 The Orchid Mod aims to add content to the game in polished and refreshing ways.
 You will not find the usual vanilla class items load here, most of Orchid content is, and will be based on
-new classes, with unique and complex mechanics, and new interesting biomes/structures to explore.
+new classes, with unique complex mechanics, and new interesting biomes/structures to explore.
 
 Orchid's content is heavily inspired, and tries to respect vanilla guidelines as much as possible.
 Thus, the mod is balanced around the main game, nothing should overpower it, and the classes
 should blend in as much as possible with the main ones.
 
-It adds :
-- 3 new classes : The Gambler, Alchemist and Shaman.
-While Gambler and Alchemist classes only have pre-hardmode content, the shaman class is implemented through the whole game !
+Full changelogs are available either on discord or on the forum page !
+https://forums.terraria.org/index.php?threads/orchid-mod.78865/
+https://discord.gg/zhW9dm2
 
-- A lot of Thorium Mod cross-content (for the shaman class, with more to come for the other two).
+Trailer by GitGudWO :
+https://www.youtube.com/watch?v=7fo33L-p3Is
 
-- A new complex structure : The mineshaft, found roughly in the center of the map, allowing for a smoother start in the game.
+Wiki (in severe need of love) :
+https://terrariamods.fandom.com/wiki/Orchid_Mod
 
-The full changelog for this update is available either on discord or on the forum page !
-Please, take a minute to report the oddities you may encounter :)
+Please, take a minute to report any oddities you may encounter :)
+This is especially important with the 1.4 update, and the changes that followed it.
+
+This page will be edited within the following days, along with the forum page update.
+A balance/bugfix patch is to be expected as well next week ;)

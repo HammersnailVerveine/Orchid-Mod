@@ -31,7 +31,8 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			DisplayName.SetDefault("Ice Flake");
 			Tooltip.SetDefault("Shoots returning ice blades"
-							  + "\nThe maximum number of projectiles launched depends on the number of active shamanic bonds");
+							  + "\nThe maximum number of projectiles launched depends on the number of active shamanic bonds"
+							  + "\n[c/FF0000:Currently does not work as intended, and will be fixed soon]");
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
