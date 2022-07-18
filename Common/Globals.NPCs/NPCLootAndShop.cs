@@ -250,7 +250,10 @@ namespace OrchidMod.Common.Globals.NPCs
 				default:
 					break;
 			}
+		}
 
+		public override void OnKill(NPC npc)
+		{
 			// TODO : UDPATE THE UNDER
 
 			OrchidGlobalNPC globalNPC = npc.GetGlobalNPC<OrchidGlobalNPC>();

@@ -11,14 +11,14 @@ namespace OrchidMod.Common
 		[Header("General")]
 
 		[DefaultValue(true)]
-		[Label("Tags?")]
-		[Tooltip("$Help, my english is bed")]
+		[Label("Class Tags")]
+		[Tooltip("$Enables/Disables the display of Orchid Mod Class tags.")]
 		public bool ShowClassTags { get; set; }
 
 		[DefaultValue(true)]
 		[ReloadRequired]
-		[Label("Crossmod?")]
-		[Tooltip("$Help, my english is bed")]
+		[Label("Cross-Mod Tags?")]
+		[Tooltip("$Enables/Disables the display of Orchid Mod Cross-Content tags.")]
 		public bool LoadCrossmodContentWithoutRequiredMods { get; set; }
 	}
 }
