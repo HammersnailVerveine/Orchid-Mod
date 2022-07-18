@@ -17,7 +17,7 @@ namespace OrchidMod.Common
 
 		[DefaultValue(true)]
 		[ReloadRequired]
-		[Label("Cross-Mod Tags?")]
+		[Label("Cross-Mod Tags")]
 		[Tooltip("$Enables/Disables the display of Orchid Mod Cross-Content tags.")]
 		public bool LoadCrossmodContentWithoutRequiredMods { get; set; }
 	}
