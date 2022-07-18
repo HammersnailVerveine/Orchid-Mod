@@ -71,7 +71,7 @@ namespace OrchidMod.Shaman
 			//velocity.X = newMove.X;
 			//velocity.Y = newMove.Y;
 			int exhaustion = (int)(energy * shaman.shamanExhaustionRate);
-			exhaustion = exhaustion <= 0 ? 1 : exhaustion;
+			exhaustion = exhaustion < 2 ? 2 : exhaustion;
 
 			switch (empowermentType)
 			{
