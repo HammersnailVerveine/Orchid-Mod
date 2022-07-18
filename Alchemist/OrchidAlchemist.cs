@@ -123,6 +123,7 @@ namespace OrchidMod
 			OrchidModGlobalItem globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
 			float dmg = (int)(globalItem.alchemistSecondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? globalItem.alchemistSecondaryScaling : 1f)));
 			dmg = Player.GetDamage<AlchemistDamageClass>().ApplyTo(dmg);
+			dmg = Player.GetDamage<GenericDamageClass>().ApplyTo(dmg);
 			return (int)dmg;
 		}
 

@@ -289,6 +289,7 @@ namespace OrchidMod.Alchemist
 		{
 			float dmg = (int)(this.secondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? this.secondaryScaling : 1f)));
 			dmg = player.GetDamage<AlchemistDamageClass>().ApplyTo(dmg);
+			dmg = player.GetDamage<GenericDamageClass>().ApplyTo(dmg);
 			return (int)dmg;
 		}
 

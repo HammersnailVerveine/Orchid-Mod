@@ -22,7 +22,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.colorG = 42;
 			this.colorB = 156;
 			this.secondaryDamage = 10;
-			this.secondaryScaling = 20f;
+			this.secondaryScaling = 15f;
 		}
 
 		public override void AltSetStaticDefaults()

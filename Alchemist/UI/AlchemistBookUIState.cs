@@ -51,9 +51,6 @@ namespace OrchidMod.Alchemist.UI
 			Recalculate();
 			CalculatedStyle dimensions = GetDimensions();
 
-			int width = (int)Math.Ceiling(dimensions.Width);
-			int height = (int)Math.Ceiling(dimensions.Height);
-
 			int bookWidth = 384;
 			int bookHeight = 544;
 			int baseOffSetX = 25;

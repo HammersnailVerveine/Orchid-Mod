@@ -80,7 +80,7 @@ namespace OrchidMod.Alchemist.UI
 
 			if (!player.dead)
 			{
-				if (modPlayer.alchemistPotencyDisplayTimer > 0)
+				if (modPlayer.alchemistPotencyDisplayTimer > 0 && !modPlayer.alchemistBookUIDisplay)
 				{
 
 					int drawHeight = 176;

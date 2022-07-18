@@ -71,14 +71,14 @@ namespace OrchidMod.Alchemist.UI
 
 			if (!player.dead)
 			{
-				if (modPlayer.alchemistSelectUIDisplay && modPlayer.alchemistSelectUIItem)
+				if (modPlayer.alchemistSelectUIDisplay && !modPlayer.alchemistSelectUIKeysDisplay)
 				{
 					if (Main.mouseLeft && Main.mouseLeftRelease)
 					{
 						if (modPlayer.alchemistNbElements > 0)
 						{
-							float shootSpeed = 10f * modPlayer.alchemistVelocity;
-							int projType = ProjectileType<Alchemist.Projectiles.AlchemistProj>();
+							//float shootSpeed = 10f * modPlayer.alchemistVelocity;
+							//int projType = ProjectileType<Alchemist.Projectiles.AlchemistProj>();
 							SoundEngine.PlaySound(SoundID.Item106);
 							modPlayer.alchemistSelectUIDisplay = false;
 							modPlayer.alchemistShootProjectile = true;

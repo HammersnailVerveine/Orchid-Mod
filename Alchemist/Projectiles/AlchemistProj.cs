@@ -161,7 +161,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			this.projOwner = (Projectile.owner == Main.myPlayer);
 
 			this.nbElements = modPlayer.alchemistNbElements;
-			//Projectile.damage = (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(modPlayer.alchemistFlaskDamage);
+			Projectile.damage = (int)player.GetDamage<AlchemistDamageClass>().ApplyTo(modPlayer.alchemistFlaskDamage);
 
 			if (elements[0])
 			{
