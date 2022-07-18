@@ -37,6 +37,7 @@ namespace OrchidMod.Shaman.Accessories
 			modPlayer.shamanRuby = true;
 			player.GetDamage<ShamanDamageClass>() += 0.10f;
 		}
+		
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
