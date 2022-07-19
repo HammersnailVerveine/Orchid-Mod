@@ -12,6 +12,7 @@ using System;
 using Terraria.ModLoader.Core;
 using System.Reflection;
 using OrchidMod.Common.Attributes;
+using ReLogic.Utilities;
 
 namespace OrchidMod
 {
@@ -46,7 +47,7 @@ namespace OrchidMod
 						return;
 					}
 
-					var atr = t.GetCustomAttribute<CrossmodContentAttribute>();
+					var atr = t.GetAttribute<CrossmodContentAttribute>();
 
 					if (atr is null)
 					{
