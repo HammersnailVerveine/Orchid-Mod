@@ -12,7 +12,7 @@ namespace OrchidMod.Common
 
 		[DefaultValue(true)]
 		[Label("Show tags")]
-		[Tooltip("$Enables/Disables the display сlass tags")]
+		[Tooltip("$Enables/Disables the display class tags")]
 		public bool ShowClassTags { get; set; }
 
 		[DefaultValue(true)]
