@@ -24,6 +24,7 @@ using OrchidMod.Shaman.Buffs.Thorium;
 using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big;
 using OrchidMod.Shaman.Projectiles;
 using OrchidMod.Shaman.Buffs.Debuffs;
+using OrchidMod.Content.Items.Consumables;
 
 namespace OrchidMod
 {
@@ -458,7 +459,7 @@ namespace OrchidMod
 					if (shamanHarpyAnklet && shamanSpiritTimer > 0)
 					{
 						dmg += (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(12);
-						if (Player.FindBuffIndex(ModContent.BuffType<HarpyAgility>()) > -1)
+						if (Player.FindBuffIndex(ModContent.BuffType<HarpyPotionBuff>()) > -1)
 							dmg += (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(12);
 					}
 

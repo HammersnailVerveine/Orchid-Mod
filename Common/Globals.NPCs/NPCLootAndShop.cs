@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.WorldgenArrays;
 using OrchidMod.Content.Items.Pets;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Content.Items;
 
 namespace OrchidMod.Common.Globals.NPCs
 {
@@ -342,7 +343,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					{
 						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Accessories.ShamanEmblem>());
 					}
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<General.Items.Misc.OrchidEmblem>());
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<OrchidEmblem>());
 				}
 			}
 

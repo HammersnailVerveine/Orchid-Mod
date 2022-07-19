@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 
-namespace OrchidMod.General.Items.Misc
+namespace OrchidMod.Content.Items
 {
 	public class OrchidEmblem : ModItem
 	{

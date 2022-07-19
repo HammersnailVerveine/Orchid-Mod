@@ -3,6 +3,7 @@ using OrchidMod.Alchemist.Weapons.Air;
 using OrchidMod.Alchemist.Weapons.Catalysts;
 using OrchidMod.Alchemist.Weapons.Fire;
 using OrchidMod.Alchemist.Weapons.Water;
+using OrchidMod.Content.Items;
 using OrchidMod.Content.Items.Materials;
 using OrchidMod.Gambler.Accessories;
 using OrchidMod.Gambler.Decks;
