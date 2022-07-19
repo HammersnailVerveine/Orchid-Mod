@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
 namespace OrchidMod.Shaman.Accessories
 {
 	[AutoloadEquip(EquipType.Balloon)]

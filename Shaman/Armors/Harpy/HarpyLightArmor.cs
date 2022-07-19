@@ -10,8 +10,8 @@ namespace OrchidMod.Shaman.Armors.Harpy
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 30;
-			Item.height = 18;
+			Item.width = 34;
+			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 25, 50);
 			Item.rare = ItemRarityID.Green;
 			Item.defense = 5;
