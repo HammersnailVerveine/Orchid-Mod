@@ -10,6 +10,7 @@ namespace OrchidMod.Shaman.Projectiles
 		private int storeDamage;
 		private float dustScale = 0;
 		private bool dustSpawned;
+		private bool faster;
 
 		public override void SetStaticDefaults()
 		{
@@ -20,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles
 			Projectile.width = 14;
 			Projectile.height = 14;
 			Projectile.aiStyle = 0;
-			Projectile.timeLeft = 160;
+			Projectile.timeLeft = 140;
 			Projectile.friendly = true;
 			Projectile.tileCollide = true;
 			AIType = ProjectileID.Bullet;
@@ -34,12 +35,16 @@ namespace OrchidMod.Shaman.Projectiles
 		public override void AI()
 		{
 			Projectile.alpha += 30;
+			Player player = Main.player[Projectile.owner];
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
-			if (Projectile.timeLeft == 160)
+			if (Projectile.timeLeft == 140)
 			{
 				storeVelocity = Projectile.velocity;
 				storeDamage = Projectile.damage;
+				faster = modPlayer.GetNbShamanicBonds() > 3;
 			}
+			
 			if (Projectile.timeLeft > 35)
 			{
 				Projectile.velocity *= 0f;
@@ -47,9 +52,7 @@ namespace OrchidMod.Shaman.Projectiles
 				dustScale += 0.0195f;
 				dustSpawned = false;
 
-				Player player = Main.player[Projectile.owner];
-				OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-				if (modPlayer.GetNbShamanicBonds() > 3)
+				if (faster)
 				{
 					Projectile.timeLeft--;
 					dustScale += 0.0195f;
@@ -57,10 +60,10 @@ namespace OrchidMod.Shaman.Projectiles
 				}
 			}
 
-			if (Projectile.timeLeft == 80 || Projectile.timeLeft == 115)
+			if (Projectile.timeLeft == 71 || Projectile.timeLeft == 111)
 			{
 				int dustDist = 20;
-				if (Projectile.timeLeft == 115)
+				if (Projectile.timeLeft == 111)
 					dustDist = 10;
 
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 6, dustDist, 10, true, 1.5f, 1f, 1.5f, true, true, false, 0, 0, true);

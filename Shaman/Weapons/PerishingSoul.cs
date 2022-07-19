@@ -29,7 +29,7 @@ namespace OrchidMod.Shaman.Weapons
 		{
 			DisplayName.SetDefault("Perishing Soul");
 			Tooltip.SetDefault("Shoots fireballs, growing for an instant before being launched"
-							  + "\nProjectile will grow faster the more active shamanic bonds you have");
+							  + "\nProjectile will grow faster if you have 3 or more active shamanic bonds");
 		}
 
 		public override void AddRecipes() => CreateRecipe()
