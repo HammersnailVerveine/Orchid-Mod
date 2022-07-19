@@ -31,7 +31,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Common.Globals.Items
 {
-	public class LootBags : GlobalItem
+	public partial class OrchidGlobalItem
 	{
 		public override void OpenVanillaBag(string context, Player player, int arg)
 		{
@@ -207,13 +207,6 @@ namespace OrchidMod.Common.Globals.Items
 			switch (arg)
 			{
 				case ItemID.WoodenCrate:
-					{
-						QuickSpawnItem<AdornedBranch>(player, 1, 45);
-						QuickSpawnItem<EmberVial>(player, 1, 45);
-						QuickSpawnItem<EmbersCard>(player, 1, 45);
-						QuickSpawnItem<TsunamiInAVial>(player, 1, 45);
-					}
-					break;
 				case ItemID.WoodenCrateHard:
 					{
 						QuickSpawnItem<AdornedBranch>(player, 1, 45);
@@ -223,13 +216,6 @@ namespace OrchidMod.Common.Globals.Items
 					}
 					break;
 				case ItemID.IronCrate:
-					{
-						QuickSpawnItem<BubbleCard>(player, 1, 20);
-						QuickSpawnItem<SeafoamVial>(player, 1, 20);
-						QuickSpawnItem<TsunamiInAVial>(player, 1, 20);
-						QuickSpawnItem<DeckEnchanted>(player, 1, 20);
-					}
-					break;
 				case ItemID.IronCrateHard:
 					{
 						QuickSpawnItem<BubbleCard>(player, 1, 20);
@@ -239,18 +225,6 @@ namespace OrchidMod.Common.Globals.Items
 					}
 					break;
 				case ItemID.CorruptFishingCrate:
-					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								(ModContent.ItemType<ShadowWeaver>(), 1),
-								(ModContent.ItemType<DemoniteCatalyst>(), 1),
-							},
-							chanceDenominator: 2
-						);
-					}
-					break;
 				case ItemID.CorruptFishingCrateHard:
 					{
 						QuickSpawnRandomItemFromList(
@@ -265,6 +239,7 @@ namespace OrchidMod.Common.Globals.Items
 					}
 					break;
 				case ItemID.JungleFishingCrate:
+				case ItemID.JungleFishingCrateHard:
 					{
 						if (Main.rand.Next(5) < 3) // 0.6
 						{
@@ -285,39 +260,7 @@ namespace OrchidMod.Common.Globals.Items
 						QuickSpawnItem<IvyChestCard>(player, 1, 5);
 					}
 					break;
-				case ItemID.JungleFishingCrateHard:
-					{
-						if (Main.rand.Next(5) < 2) // 0.4
-						{
-							QuickSpawnRandomItemFromList(
-								player: player,
-								items: new()
-								{
-									(ModContent.ItemType<DeepForestCharm>(), 1),
-									(ModContent.ItemType<BloomingBud>(), 1),
-								},
-								chanceDenominator: 1
-							);
-						}
-
-						QuickSpawnItem<JungleLily>(player, 1, 2);
-						QuickSpawnItem<DeckJungle>(player, 1, 20);
-						QuickSpawnItem<IvyChestCard>(player, 1, 5);
-					}
-					break;
 				case ItemID.CrimsonFishingCrate:
-					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								(ModContent.ItemType<BloodCaller>(), 1),
-								(ModContent.ItemType<CrimtaneCatalyst>(), 1),
-							},
-							chanceDenominator: 2
-						);
-					}
-					break;
 				case ItemID.CrimsonFishingCrateHard:
 					{
 						QuickSpawnRandomItemFromList(
@@ -332,15 +275,12 @@ namespace OrchidMod.Common.Globals.Items
 					}
 					break;
 				case ItemID.FloatingIslandFishingCrate:
+				case ItemID.FloatingIslandFishingCrateHard:
 					{
 						QuickSpawnItem<SunplateFlask>(player, 1, 4);
 					}
 					break;
 				case ItemID.OasisCrate:
-					{
-						QuickSpawnItem<RuneOfHorus>(player, 1, 8);
-					}
-					break;
 				case ItemID.OasisCrateHard:
 					{
 						QuickSpawnItem<RuneOfHorus>(player, 1, 8);

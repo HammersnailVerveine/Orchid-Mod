@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Common.Globals.Items
 {
-	public class OrchidGlobalItem : GlobalItem, IPostSetupContent
+	public partial class OrchidGlobalItem : GlobalItem, IPostSetupContent
 	{
 		private static readonly Dictionary<int, ClassTags> tagsByItemType = new();
 
