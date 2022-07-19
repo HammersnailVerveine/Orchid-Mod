@@ -1,8 +1,25 @@
-# Balance changes #
+# General Changes #
+- Added Bestiary Icon.
+- Updated research requirements.
+- Removed Sun Priest Satchel "tooltip".
 
+- Sprite Changes : 
+  - Harpy Set.
+  - Sun Priest Set.
+  - Feather Scepter.
+
+# Balance changes #
 < Shaman >
-- Exhaustion cost cannot be reduced to 0 anymore.
+- Buffed Perishing Soul projectile to launch faster, fixed a mistake in the tooltip, the projectile launch time now caps at 3 active bonds.
+
+< Alchemist >
+- Nerfed Demon Breath damage scaling.
 
 # Fixes #
-- Fixed Config Text.
-- Fixed NPC drops.
+- Fixed Alchemist UI displaying in front of the Hidden Reaction codex.
+- Fixed incorrect Alchemist "main projectile" damage values.
+- Fixed Alchemist "secondary projectiles" not scaling off of generic damage mutlipliers.
+- Fixed Bundle of Clovers being unobtainable from crates.
+- Fixed Ice Flake.
+- Fixed Taiga Truncheon.
+- Fixed an issue with all armor chest pieces.
