@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Treasured Baubles");
 			Tooltip.SetDefault("After completing an orb weapon cycle, you will be given a bonus orb on your next hit");

@@ -12,7 +12,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.rare = -11;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gambler Test Accessory");
 			Tooltip.SetDefault("Allows you to see the next 3 cards you will draw"

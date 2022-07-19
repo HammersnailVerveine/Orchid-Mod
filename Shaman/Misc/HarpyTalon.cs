@@ -1,8 +1,9 @@
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class HarpyTalon : OrchidModItem
+	public class HarpyTalon : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -12,7 +13,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.value = Item.sellPrice(0, 0, 3, 50);
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Harpy Talon");
 		}

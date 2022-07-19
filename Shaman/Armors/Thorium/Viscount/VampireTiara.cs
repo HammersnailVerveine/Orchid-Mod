@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vampire Tiara");
 			Tooltip.SetDefault("6% increased shamanic damage");

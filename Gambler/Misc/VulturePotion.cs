@@ -5,7 +5,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Gambler.Misc
 {
-	public class VulturePotion : OrchidModItem
+	public class VulturePotion : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -24,7 +24,7 @@ namespace OrchidMod.Gambler.Misc
 			Item.buffTime = 60 * 180;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Scavenger Potion");
 			Tooltip.SetDefault("20% increased gambler chip generation");

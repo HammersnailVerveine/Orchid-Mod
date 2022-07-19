@@ -12,7 +12,7 @@ using Terraria.ObjectData;
 
 namespace OrchidMod.Content.Items.Placeables
 {
-	public class MinersLockbox : OrchidModItem
+	public class MinersLockbox : ModItem
 	{
 		public override string Texture => OrchidAssets.ItemsPath + Name;
 

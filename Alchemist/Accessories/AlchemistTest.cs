@@ -13,7 +13,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Alchemist Test Accessory");
 			Tooltip.SetDefault("Maximum number of simultaneous alchemical elements increased by 4"

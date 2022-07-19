@@ -11,7 +11,7 @@ using static Terraria.ModLoader.ModContent;
 namespace OrchidMod.Alchemist.Misc
 {
 	[ClassTag(ClassTags.Alchemist)]
-	public class UIItem : OrchidModItem
+	public class UIItem : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -85,7 +85,7 @@ namespace OrchidMod.Alchemist.Misc
 			modPlayer.alchemistSelectUIItem = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("The Alchemist's Cookbook");
 			Tooltip.SetDefault("Allows mixing alchemical weapons by clicking"

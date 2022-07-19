@@ -7,9 +7,9 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.General.Items.Misc
 {
-	internal class MineshaftHook : OrchidModItem
+	internal class MineshaftHook : ModItem
 	{
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Escape Rope");
 			Tooltip.SetDefault("Can only shoot upwards");

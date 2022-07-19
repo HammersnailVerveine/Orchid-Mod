@@ -26,7 +26,7 @@ namespace OrchidMod.Guardian.Weapons.Shields
 			this.blockDuration = 100;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Enchanted Pavise");
 		}

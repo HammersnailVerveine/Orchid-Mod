@@ -24,7 +24,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.cardRequirement = 0;
 			this.cardSets = GamblerCardSets.Elemental;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Unstable Sap");
 			Tooltip.SetDefault("Releases a slow-moving sap bubble, following the cursor"

@@ -23,7 +23,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.cardSets = GamblerCardSets.Biome;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Sky");
 			Tooltip.SetDefault("Summons a cloud bush above your head"

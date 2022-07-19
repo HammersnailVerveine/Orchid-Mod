@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Armors.Harpy
 			Item.defense = 4;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Harpy Legs");
 			Tooltip.SetDefault("6% increased shamanic damage"

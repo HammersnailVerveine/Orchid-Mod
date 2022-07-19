@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hallowed Spangenhelm");
 			Tooltip.SetDefault("12% increased shamanic damage and critical chance");

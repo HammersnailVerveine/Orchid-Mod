@@ -5,9 +5,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class HauntedCandle : OrchidModItem
+	public class HauntedCandle : ModItem
 	{
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Haunted Candle");
 			Tooltip.SetDefault("Summons a strange candle to lighten up your way");

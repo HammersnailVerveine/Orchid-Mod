@@ -15,7 +15,7 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 			Item.value = Item.sellPrice(0, 0, 75, 0);
 			this.catalystType = 1;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Crimson Catalyst");
 			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"

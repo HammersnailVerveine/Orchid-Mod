@@ -23,7 +23,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.cardSets = GamblerCardSets.Elemental;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Embers");
 			Tooltip.SetDefault("Releases homing embers");

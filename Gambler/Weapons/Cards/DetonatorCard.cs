@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.cardRequirement = 0;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Detonator");
 			Tooltip.SetDefault("Throws explosives, detonating upon releasing left click"

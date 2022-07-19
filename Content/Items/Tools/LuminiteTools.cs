@@ -43,7 +43,7 @@ namespace OrchidMod.Content.Items.Tools
 
 	// ...
 
-	public abstract class LuminiteTool : OrchidModItem
+	public abstract class LuminiteTool : ModItem
 	{
 		private readonly Color lightColor;
 		private readonly int itemCloneType;
@@ -62,7 +62,7 @@ namespace OrchidMod.Content.Items.Tools
 
 		// ...
 
-		public sealed override void AltSetStaticDefaults()
+		public sealed override void SetStaticDefaults()
 		{
 			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 

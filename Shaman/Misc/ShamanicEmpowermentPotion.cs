@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class ShamanicEmpowermentPotion : OrchidModItem
+	public class ShamanicEmpowermentPotion : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.buffTime = 60 * 420;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shamanic Accurary Potion");
 			Tooltip.SetDefault("The source of your shamanic attacks will stay in position better");

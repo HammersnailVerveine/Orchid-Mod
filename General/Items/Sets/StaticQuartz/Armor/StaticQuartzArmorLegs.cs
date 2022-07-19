@@ -6,7 +6,7 @@ using static Terraria.ModLoader.ModContent;
 namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 {
 	[AutoloadEquip(EquipType.Legs)]
-	public class StaticQuartzArmorLegs : OrchidModItem
+	public class StaticQuartzArmorLegs : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -17,7 +17,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 			Item.defense = 2;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Leggings");
 			Tooltip.SetDefault("5% increased movement speed");

@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.colorB = 252;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Water Vial");
 			Tooltip.SetDefault("\n[c/FF0000:Test Item]");

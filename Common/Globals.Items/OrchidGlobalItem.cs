@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,9 +23,16 @@ namespace OrchidMod.Common.Globals.Items
 		{
 			foreach (var modItem in mod.GetContent<ModItem>())
 			{
+				var sacrificeCountDict = CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId;
+
+				if (modItem.Mod.Equals(mod) && !sacrificeCountDict.ContainsKey(modItem.Type))
+				{
+					sacrificeCountDict.Add(modItem.Type, 1);
+				}
+
 				if (tagsByItemType.ContainsKey(modItem.Type)) continue;
 
-				var atr = modItem.GetType().GetAttribute<ClassTagAttribute>();
+				var atr = modItem.GetType().GetCustomAttribute<ClassTagAttribute>();
 
 				if (atr is null) continue; 
 
@@ -50,7 +58,7 @@ namespace OrchidMod.Common.Globals.Items
 
 			if (config.LoadCrossmodContentWithoutRequiredMods)
 			{
-				var atr = item.ModItem?.GetType().GetAttribute<CrossmodContentAttribute>();
+				var atr = item.ModItem?.GetType().GetCustomAttribute<CrossmodContentAttribute>();
 
 				if (atr is not null)
 				{

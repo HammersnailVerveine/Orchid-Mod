@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.secondaryScaling = 5f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Seafoam Flask");
 			Tooltip.SetDefault("Creates a lingering, damaging water bubble"

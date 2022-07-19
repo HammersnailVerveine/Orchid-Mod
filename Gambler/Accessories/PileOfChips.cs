@@ -15,7 +15,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Pile of Chips");
 			Tooltip.SetDefault("50% increased gambling chip weapon cycle speed"

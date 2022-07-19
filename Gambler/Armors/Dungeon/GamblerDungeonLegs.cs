@@ -16,7 +16,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 			Item.defense = 6;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tyche Leggings");
 			Tooltip.SetDefault("10% increased gambling damage");

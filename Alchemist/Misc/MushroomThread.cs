@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
-	public class MushroomThread : OrchidModItem
+	public class MushroomThread : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -18,7 +18,7 @@ namespace OrchidMod.Alchemist.Misc
 			Item.rare = ItemRarityID.White;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Phosphorescent Thread");
 			Tooltip.SetDefault("Result of the hidden reaction between blinkroot and glowing mushroom extracts"

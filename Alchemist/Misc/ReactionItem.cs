@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Alchemist.Misc
 {
 	[ClassTag(ClassTags.Alchemist)]
-	public class ReactionItem : OrchidModItem
+	public class ReactionItem : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -73,7 +73,7 @@ namespace OrchidMod.Alchemist.Misc
 			modPlayer.alchemistBookUIItem = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hidden Reactions Codex");
 			Tooltip.SetDefault("Left click to trigger alchemist hidden reactions"

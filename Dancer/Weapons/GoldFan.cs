@@ -28,7 +28,7 @@ namespace OrchidMod.Dancer.Weapons
 			this.dancerItemType = OrchidModDancerItemType.PHASE;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gold Fan");
 			Tooltip.SetDefault("Horizontally dashes at your foes"

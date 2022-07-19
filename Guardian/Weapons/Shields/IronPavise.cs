@@ -23,7 +23,7 @@ namespace OrchidMod.Guardian.Weapons.Shields
 			this.blockDuration = 80;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Iron Pavise");
 		}

@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Guardian
 {
 	[ClassTag(ClassTags.Guardian)]
-	public abstract class OrchidModGuardianItem : OrchidModItem
+	public abstract class OrchidModGuardianItem : ModItem
 	{
 		public virtual void SafeSetDefaults() { }
 

@@ -15,7 +15,7 @@ using static Terraria.ModLoader.ModContent;
 namespace OrchidMod.Alchemist
 {
 	[ClassTag(ClassTags.Alchemist)]
-	public abstract class OrchidModAlchemistItem : OrchidModItem
+	public abstract class OrchidModAlchemistItem : ModItem
 	{
 		public int potencyCost = 0;
 		public int secondaryDamage = 0;

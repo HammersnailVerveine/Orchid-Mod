@@ -17,7 +17,7 @@ namespace OrchidMod.Gambler.Weapons.Dice
 			this.diceDuration = 90;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gambling Die");
 			Tooltip.SetDefault("Every second gambler hit deals 1-6 increased damage");

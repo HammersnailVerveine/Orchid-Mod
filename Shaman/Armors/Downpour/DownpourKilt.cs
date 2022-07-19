@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Armors.Downpour
 			Item.defense = 11;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Downpour Kilt");
 			Tooltip.SetDefault("15% increased shamanic damage");

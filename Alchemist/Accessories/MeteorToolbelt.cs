@@ -16,7 +16,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Meteor Toolbelt");
 			Tooltip.SetDefault("Using 3 or more elements in a single attack gives knockback immunity and movement speed");

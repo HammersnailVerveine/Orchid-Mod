@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			this.consumeChance = 100;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Bouncy Chip");
 			Tooltip.SetDefault("Throws bouncy gambling chips at your foes");

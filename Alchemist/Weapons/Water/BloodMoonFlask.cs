@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.secondaryScaling = 4f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blood Mist Flask");
 			Tooltip.SetDefault("Creates a lingering cloud of damaging mist"

@@ -1,8 +1,9 @@
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler.Misc
 {
-	public class VultureTalon : OrchidModItem
+	public class VultureTalon : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -12,7 +13,7 @@ namespace OrchidMod.Gambler.Misc
 			Item.value = Item.sellPrice(0, 0, 0, 50);
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vulture Talon");
 		}

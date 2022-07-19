@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Amethyst Idol");
 			Tooltip.SetDefault("Having an active spirit bond increases shamanic damage by 10%");

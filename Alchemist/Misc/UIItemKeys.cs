@@ -11,7 +11,7 @@ using static Terraria.ModLoader.ModContent;
 namespace OrchidMod.Alchemist.Misc
 {
 	[ClassTag(ClassTags.Alchemist)]
-	public class UIItemKeys : OrchidModItem
+	public class UIItemKeys : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -92,7 +92,7 @@ namespace OrchidMod.Alchemist.Misc
 			}
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Brewing for Dummies");
 			Tooltip.SetDefault("Allows mixing alchemical weapons with the hotbar keys"

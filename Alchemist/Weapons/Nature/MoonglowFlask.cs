@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.secondaryDamage = 20;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Moonglow Extract");
 			Tooltip.SetDefault("Releases nature spores, the less other extracts used, the more"

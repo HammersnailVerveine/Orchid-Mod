@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sapphire Idol");
 			Tooltip.SetDefault("Having an active water bond reduces bond exhaustion by 10%");

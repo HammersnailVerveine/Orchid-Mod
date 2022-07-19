@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.Green;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ondine Tear");
 			Tooltip.SetDefault("Your shamanic water bonds will increase your shamanic critical strike chance by 10%");

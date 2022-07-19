@@ -17,7 +17,7 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 			Item.defense = 7;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vampire Tunic");
 			Tooltip.SetDefault("8% increased shamanic critical chance");

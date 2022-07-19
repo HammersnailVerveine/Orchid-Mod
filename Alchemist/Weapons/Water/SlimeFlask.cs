@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.secondaryScaling = 5f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gelatinous Samples");
 			Tooltip.SetDefault("Ignites when a fire element is used in the same reaction, causing a deflagration"

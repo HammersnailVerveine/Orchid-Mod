@@ -28,7 +28,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.secondaryScaling = 20f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hellfire Oil");
 			Tooltip.SetDefault("Using a fire element in the same attack will drastically increase damage"

@@ -23,7 +23,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.cardSets = GamblerCardSets.Slime;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Bouncy Beginnings");
 			Tooltip.SetDefault("Summons a bouncy slime, following your cursor"

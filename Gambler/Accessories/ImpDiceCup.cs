@@ -13,7 +13,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.rare = ItemRarityID.Orange;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Imp Dice Cup");
 			Tooltip.SetDefault("Gambler dice cannot roll a 1 or a 2");

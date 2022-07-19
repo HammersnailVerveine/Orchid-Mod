@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.Green;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Diamond Idol");
 			Tooltip.SetDefault("Increases the duration of your shamanic bonds by 3 seconds");

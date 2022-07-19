@@ -14,7 +14,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.rare = ItemRarityID.Orange;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Burning Clovers");
 			Tooltip.SetDefault("Gambler dice will slow down when rolling 5 or more"

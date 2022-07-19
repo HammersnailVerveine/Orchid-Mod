@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Armors.Corruption
 			Item.defense = 4;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dark Shaman Kilt");
 			Tooltip.SetDefault("6% increased shamanic damage");

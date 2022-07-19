@@ -2,10 +2,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
-	public class Potency : OrchidModItem
+	public class Potency : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -25,7 +26,7 @@ namespace OrchidMod.Alchemist.Misc
 			return Color.White;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Potency");
 		}

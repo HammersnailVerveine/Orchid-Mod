@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Alchemist
 {
 	[ClassTag(ClassTags.Alchemist)]
-	public abstract class OrchidModAlchemistEquipable : OrchidModItem
+	public abstract class OrchidModAlchemistEquipable : ModItem
 	{
 		public virtual void SafeSetDefaults() { }
 

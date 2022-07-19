@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.secondaryScaling = 15f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Demon Breath");
 			Tooltip.SetDefault("Releases returning demon flames"

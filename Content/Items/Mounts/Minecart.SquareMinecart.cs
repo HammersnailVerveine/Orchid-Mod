@@ -6,11 +6,11 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Mounts
 {
-	public class SquareMinecart : OrchidModItem
+	public class SquareMinecart : ModItem
 	{
 		public override string Texture => OrchidAssets.ItemsPath + Name;
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Square Minecart");
 			Tooltip.SetDefault("'Great for impersonating Orchid Devs!'"); // S-Pladison

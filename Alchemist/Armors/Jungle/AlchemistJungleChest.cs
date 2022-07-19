@@ -16,7 +16,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 			Item.defense = 7;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lily Tunic");
 			Tooltip.SetDefault("Maximum potency increased by 3"

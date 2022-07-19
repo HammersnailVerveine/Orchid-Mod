@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Topaz Circlet");
 			Tooltip.SetDefault("Having an active earth bond increases defense by 5"

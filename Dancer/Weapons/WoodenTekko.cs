@@ -28,7 +28,7 @@ namespace OrchidMod.Dancer.Weapons
 			this.dancerItemType = OrchidModDancerItemType.IMPACT;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wooden Tekko");
 			Tooltip.SetDefault("Horizontally dashes at your foes"

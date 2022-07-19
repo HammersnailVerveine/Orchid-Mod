@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Gambler
 {
 	[ClassTag(ClassTags.Gambler)]
-	public abstract class OrchidModGamblerEquipable : OrchidModItem
+	public abstract class OrchidModGamblerEquipable : ModItem
 	{
 		public virtual void SafeSetDefaults() { }
 

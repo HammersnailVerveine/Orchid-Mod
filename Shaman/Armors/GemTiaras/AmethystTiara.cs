@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Amethyst Circlet");
 			Tooltip.SetDefault("Having an active spirit bond increases shamanic damage by 10%"

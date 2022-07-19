@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ruby Idol");
 			Tooltip.SetDefault("Having an active fire bond increases life regeneration");

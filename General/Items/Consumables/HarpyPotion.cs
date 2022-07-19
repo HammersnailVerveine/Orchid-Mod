@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Consumables
 {
-	public class HarpyPotion : OrchidModItem
+	public class HarpyPotion : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -23,7 +23,7 @@ namespace OrchidMod.General.Items.Consumables
 			Item.buffTime = 60 * 180;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Cloud Burst Potion");
 			Tooltip.SetDefault("Your first bonus jump will release a burst of damaging feathers"

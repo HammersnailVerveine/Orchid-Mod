@@ -18,7 +18,7 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tyche Headgear");
 			Tooltip.SetDefault("Maximum chips increased by 5");

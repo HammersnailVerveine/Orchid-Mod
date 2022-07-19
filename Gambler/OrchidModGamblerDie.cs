@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Gambler
 {
 	[ClassTag(ClassTags.Gambler)]
-	public abstract class OrchidModGamblerDie : OrchidModItem
+	public abstract class OrchidModGamblerDie : ModItem
 	{
 		public int diceCost = 0;
 		public int diceDuration = 0;

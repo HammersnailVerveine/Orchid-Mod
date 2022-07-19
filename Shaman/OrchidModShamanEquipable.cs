@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Shaman
 {
 	[ClassTag(ClassTags.Shaman)]
-	public abstract class OrchidModShamanEquipable : OrchidModItem
+	public abstract class OrchidModShamanEquipable : ModItem
 	{
 		public virtual void SafeSetDefaults() { }
 

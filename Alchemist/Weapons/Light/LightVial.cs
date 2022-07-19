@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Weapons.Light
 			this.colorB = 18;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Light Vial");
 			Tooltip.SetDefault("[c/FF0000:Test Item]");

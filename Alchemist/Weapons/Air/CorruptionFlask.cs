@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.secondaryScaling = 40f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vitriol Mycelium");
 			Tooltip.SetDefault("Grows a mushroom, exploding after a while or when being catalyzed"

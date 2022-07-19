@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.secondaryScaling = 7f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Poison Flask");
 			Tooltip.SetDefault("Releases lingering poison bubbles"

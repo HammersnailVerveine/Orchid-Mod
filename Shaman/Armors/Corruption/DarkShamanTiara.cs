@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Armors.Corruption
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Dark Shaman Tiara");
 			Tooltip.SetDefault("8% increased shamanic damage");

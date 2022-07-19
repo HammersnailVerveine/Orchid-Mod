@@ -4,7 +4,7 @@ namespace OrchidMod.Gambler.Decks
 {
 	public class DeckPirate : GamblerDeck
 	{
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Pirate Gambler Deck");
 			Tooltip.SetDefault("Allows the use of gambler abilities"

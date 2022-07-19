@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 			Item.vanity = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sun Priest Satchel"
 						   + "\nTestimony of a past mistake");

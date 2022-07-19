@@ -11,7 +11,7 @@ using OrchidMod.Common;
 namespace OrchidMod.Gambler
 {
 	[ClassTag(ClassTags.Gambler)]
-	public abstract class GamblerDeck : OrchidModItem
+	public abstract class GamblerDeck : ModItem
 	{
 		private bool initialized = false;
 

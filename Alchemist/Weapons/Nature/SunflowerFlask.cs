@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.secondaryScaling = 1f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Forest Samples");
 			Tooltip.SetDefault("Using a water element increases damage and spawns a damaging sunflower"

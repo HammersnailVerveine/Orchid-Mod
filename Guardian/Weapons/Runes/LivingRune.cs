@@ -25,7 +25,7 @@ namespace OrchidMod.Guardian.Weapons.Runes
 			this.number = 2;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Living Rune");
 			Tooltip.SetDefault("Summons sap bubbles around you");

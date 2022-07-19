@@ -11,7 +11,7 @@ using OrchidMod.Common;
 namespace OrchidMod.Gambler
 {
 	[ClassTag(ClassTags.Gambler)]
-	public abstract class OrchidModGamblerChipItem : OrchidModItem
+	public abstract class OrchidModGamblerChipItem : ModItem
 	{
 		public int chipCost = 0;
 		public int consumeChance = 100;

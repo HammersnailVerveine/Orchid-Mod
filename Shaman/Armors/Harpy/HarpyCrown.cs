@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Armors.Harpy
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Harpy Crown");
 			Tooltip.SetDefault("6% increased shamanic damage");

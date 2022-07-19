@@ -23,7 +23,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.cardSets = GamblerCardSets.Elemental;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Erratic Magic");
 			Tooltip.SetDefault("Throws a portal, firing shadow bolts at an increasing rate"

@@ -22,7 +22,7 @@ namespace OrchidMod.Guardian.Weapons.Warhammers
 			this.blockStacks = 1;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gold Warhammer");
 			Tooltip.SetDefault("Hurls a heavy hammer");

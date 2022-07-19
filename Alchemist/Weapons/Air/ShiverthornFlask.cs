@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.secondaryDamage = 14;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Shiverthorn Extract");
 			Tooltip.SetDefault("Releases air spores, the less other extracts used, the more"

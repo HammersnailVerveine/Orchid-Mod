@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
-	public class AlchemicStabilizer : OrchidModItem
+	public class AlchemicStabilizer : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -14,7 +15,7 @@ namespace OrchidMod.Alchemist.Misc
 			Item.rare = ItemRarityID.White;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Alchemical Stabilizer");
 			Tooltip.SetDefault("Used to make various alchemist weapons"

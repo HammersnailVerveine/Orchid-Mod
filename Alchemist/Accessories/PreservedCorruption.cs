@@ -13,7 +13,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Preserved Corruption");
 			Tooltip.SetDefault("Maximum potency increased by 2");

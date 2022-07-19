@@ -12,7 +12,7 @@ using static Terraria.ModLoader.ModContent;
 namespace OrchidMod.Alchemist
 {
 	[ClassTag(ClassTags.Alchemist)]
-	public abstract class OrchidModAlchemistCatalyst : OrchidModItem
+	public abstract class OrchidModAlchemistCatalyst : ModItem
 	{
 		public int catalystType = 0; // 1 = melee swing, 2 = throw, 3 = gun
 

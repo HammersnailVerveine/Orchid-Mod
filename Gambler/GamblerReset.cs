@@ -1,9 +1,10 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler
 {
-	public class GamblerReset : OrchidModItem
+	public class GamblerReset : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -39,7 +40,7 @@ namespace OrchidMod.Gambler
 			return base.CanUseItem(player);
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : RESET");
 			Tooltip.SetDefault("Test item : resets gambling cards"

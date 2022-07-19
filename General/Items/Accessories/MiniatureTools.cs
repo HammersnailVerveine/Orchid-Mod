@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Accessories
 {
-	public class MiniatureTools : OrchidModItem
+	public class MiniatureTools : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -14,7 +15,7 @@ namespace OrchidMod.General.Items.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Salvaged Toolbox");
 			Tooltip.SetDefault("Provides a small amount of light"

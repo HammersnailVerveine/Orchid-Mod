@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Gambler
 {
 	[ClassTag(ClassTags.Gambler)]
-	public class GamblerDummy : OrchidModItem
+	public class GamblerDummy : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -117,7 +117,7 @@ namespace OrchidMod.Gambler
 			}
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gambler Dummy Card");
 			Tooltip.SetDefault("Allows the use of specific gambler cards"

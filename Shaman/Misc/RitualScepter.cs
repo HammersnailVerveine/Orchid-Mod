@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class RitualScepter : OrchidModItem
+	public class RitualScepter : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -14,7 +15,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.rare = ItemRarityID.Blue;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ritual Scepter");
 			Tooltip.SetDefault("Can be upgraded into various shamanic weapons");

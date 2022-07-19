@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.secondaryDamage = 12;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Waterleaf Extract");
 			Tooltip.SetDefault("Releases water spores, the less other extracts used, the more"

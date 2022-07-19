@@ -19,7 +19,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.colorB = 239;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Air Vial");
 			Tooltip.SetDefault("\n[c/FF0000:Test Item]");

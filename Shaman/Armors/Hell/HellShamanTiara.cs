@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Depths Weaver Tiara");
 			Tooltip.SetDefault("6% increased shamanic damage");

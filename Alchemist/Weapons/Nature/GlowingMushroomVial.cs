@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.secondaryScaling = 4f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Glowing Mushroom Extract");
 			Tooltip.SetDefault("Grows a mushroom, which aura increases the number of spores released by other alchemic extracts"

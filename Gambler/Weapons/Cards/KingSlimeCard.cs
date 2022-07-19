@@ -23,7 +23,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.cardSets = GamblerCardSets.Boss | GamblerCardSets.Slime;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Blue King");
 			Tooltip.SetDefault("Summons a bouncy slime, following your cursor, and jumping up to it"

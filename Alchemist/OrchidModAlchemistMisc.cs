@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Alchemist
 {
 	[ClassTag(ClassTags.Alchemist)]
-	public abstract class OrchidModAlchemistMisc : OrchidModItem
+	public abstract class OrchidModAlchemistMisc : ModItem
 	{
 		public virtual void SafeSetDefaults() { }
 		public virtual void SafeModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit) { }

@@ -20,7 +20,7 @@ namespace OrchidMod.Guardian.Weapons.Shields
 			this.blockDuration = 60;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wooden Pavise");
 		}

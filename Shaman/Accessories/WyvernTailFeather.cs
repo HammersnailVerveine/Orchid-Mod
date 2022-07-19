@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Wyvern Tail Feather");
 			Tooltip.SetDefault("Increases flight time as long as you have an active shamanic air bond"

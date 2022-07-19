@@ -16,7 +16,7 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 			this.catalystType = 1;
 
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Corrupt Catalyst");
 			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"

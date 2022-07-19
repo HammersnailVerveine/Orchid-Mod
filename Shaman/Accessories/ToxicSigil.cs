@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.LightPurple;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Toxic Sigil");
 			Tooltip.SetDefault("Your shamanic fire bonds allows you to poison and envenom your foes on hit");

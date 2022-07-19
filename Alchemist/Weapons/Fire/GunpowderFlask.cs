@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			this.secondaryScaling = 15f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gunpowder Flask");
 			Tooltip.SetDefault("Creates a small explosion"

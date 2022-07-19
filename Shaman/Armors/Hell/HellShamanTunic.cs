@@ -17,7 +17,7 @@ namespace OrchidMod.Shaman.Armors.Hell
 			Item.defense = 8;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Depths Weaver Tunic");
 			Tooltip.SetDefault("9% increased shamanic critical strike chance");

@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class DownpourCrystal : OrchidModItem
+	public class DownpourCrystal : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -15,7 +16,7 @@ namespace OrchidMod.Shaman.Misc
 		}
 
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Downpour Crystal");
 		}

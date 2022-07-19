@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Palladium Spangenhelm");
 			Tooltip.SetDefault("Your shamanic bonds will last 3 seconds longer"

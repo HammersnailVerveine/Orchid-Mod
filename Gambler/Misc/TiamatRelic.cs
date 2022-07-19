@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler.Misc
 {
-	public class TiamatRelic : OrchidModItem
+	public class TiamatRelic : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -14,7 +15,7 @@ namespace OrchidMod.Gambler.Misc
 			Item.value = Item.sellPrice(0, 0, 15, 0);
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Tyche Relic");
 		}

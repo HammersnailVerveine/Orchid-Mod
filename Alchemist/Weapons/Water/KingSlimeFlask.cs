@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.secondaryScaling = 4f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Slimy Flask");
 

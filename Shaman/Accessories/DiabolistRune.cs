@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Diabolist Rune");
 			Tooltip.SetDefault("Allows you to cauterize your injuries if you take heavy damage while a shamanic earth bond is active"

@@ -17,7 +17,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.damage = 30;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Molten Ring");
 			Tooltip.SetDefault("Allows the wearer to release damaging droplets of lava while under the effect of shamanic air bond");

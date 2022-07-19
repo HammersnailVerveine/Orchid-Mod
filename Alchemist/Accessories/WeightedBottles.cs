@@ -13,7 +13,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Weighted Bottles");
 			Tooltip.SetDefault("Increases alchemic main projectile velocity by 25%");

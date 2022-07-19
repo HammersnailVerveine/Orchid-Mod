@@ -39,7 +39,7 @@ namespace OrchidMod.Gambler.Weapons.Chips
 			return false;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Rusalka");
 			Tooltip.SetDefault("Sends delayed projectiles, dealing 50% more damage"

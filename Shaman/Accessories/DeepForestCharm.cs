@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.damage = 15;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Deep Forest Charm");
 			Tooltip.SetDefault("Your shamanic earth bonds will summon sharp leaves around you");

@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Destroyer Necklace");
 			Tooltip.SetDefault("Enter a frenzied state by dealing 5 critical strikes in a short period of time under the effect of a shamanic water bond"

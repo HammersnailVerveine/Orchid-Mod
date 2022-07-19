@@ -2,10 +2,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Gambler.Misc
 {
-	public class Chip : OrchidModItem
+	public class Chip : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -25,7 +26,7 @@ namespace OrchidMod.Gambler.Misc
 			return Color.White;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Chip");
 		}

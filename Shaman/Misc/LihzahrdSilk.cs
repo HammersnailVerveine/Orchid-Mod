@@ -1,9 +1,10 @@
 using Terraria;
+using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class LihzahrdSilk : OrchidModItem
+	public class LihzahrdSilk : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -14,7 +15,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.rare = ItemRarityID.Yellow;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lihzahrd Silk");
 			Tooltip.SetDefault("It feels warm in your hand");

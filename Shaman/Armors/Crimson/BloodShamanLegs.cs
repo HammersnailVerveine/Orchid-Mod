@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Armors.Crimson
 			Item.defense = 5;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blood Shaman Kilt");
 			Tooltip.SetDefault("5% increased shamanic damage");

@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			this.secondaryDamage = 18;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Deathweed Extract");
 			Tooltip.SetDefault("Releases air spores, the less other extracts used, the more"

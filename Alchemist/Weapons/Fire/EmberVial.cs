@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			this.secondaryScaling = 1f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ember Flask");
 			Tooltip.SetDefault("Burns your target briefly"

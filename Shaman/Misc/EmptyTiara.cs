@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	public class EmptyTiara : OrchidModItem
+	public class EmptyTiara : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Empty Tiara");
 			Tooltip.SetDefault("Used to make shamanic Tiaras");

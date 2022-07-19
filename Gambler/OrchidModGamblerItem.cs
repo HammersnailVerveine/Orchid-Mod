@@ -13,7 +13,7 @@ using Terraria.Utilities;
 namespace OrchidMod.Gambler
 {
 	[ClassTag(ClassTags.Gambler)]
-	public abstract class OrchidModGamblerItem : OrchidModItem
+	public abstract class OrchidModGamblerItem : ModItem
 	{
 		public int cardRequirement = -1;
 		public GamblerCardSets cardSets;

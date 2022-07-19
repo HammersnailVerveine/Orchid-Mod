@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sinister Present");
 			Tooltip.SetDefault("30% increased shamanic damage"

@@ -11,7 +11,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	[AutoloadEquip(EquipType.Wings)]
 	public class AbyssalWings : OrchidModShamanEquipable
 	{
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Allows flight and slow fall");
 		}

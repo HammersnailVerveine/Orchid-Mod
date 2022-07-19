@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 			this.secondaryScaling = 7f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Spirited Water");
 			Tooltip.SetDefault("Releases lingering water flames"

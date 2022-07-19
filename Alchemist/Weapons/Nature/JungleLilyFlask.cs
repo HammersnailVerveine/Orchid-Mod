@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.secondaryScaling = 5f;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Jungle Lily Extract");
 			Tooltip.SetDefault("Enemies and spores within impact radius will bloom"

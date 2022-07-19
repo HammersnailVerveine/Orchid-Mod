@@ -6,9 +6,9 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.General.Items.Sets.StaticQuartz
 {
-	public class StaticQuartzWarrior : OrchidModItem
+	public class StaticQuartzWarrior : ModItem
 	{
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Spear");
 			Tooltip.SetDefault("Deals increased damage while moving");

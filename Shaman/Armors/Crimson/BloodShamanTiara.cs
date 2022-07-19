@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Armors.Crimson
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blood Shaman Tiara");
 			Tooltip.SetDefault("5% increased shamanic damage");

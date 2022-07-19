@@ -14,7 +14,7 @@ namespace OrchidMod.Gambler.Accessories
 			Item.accessory = true;
 			Item.damage = 15;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Slimy Lollipop");
 			Tooltip.SetDefault("Periodically releases friendly slimes when a gambler 'slime' card is active");

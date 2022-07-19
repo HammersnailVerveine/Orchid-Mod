@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 			this.secondaryDamage = 30;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Fireblossom Extract");
 			Tooltip.SetDefault("Releases fire spores, the less other extracts used, the more"

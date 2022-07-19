@@ -1,10 +1,11 @@
+using Terraria.ModLoader;
 using Terraria;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class OrchidEmblem : OrchidModItem
+	public class OrchidEmblem : ModItem
 	{
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Orchid Emblem");
 			Tooltip.SetDefault("While the Shamans can continue their playthrough, the journey for both Alchemists and Gamblers stops here"

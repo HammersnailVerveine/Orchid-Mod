@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Accessories
 			Item.rare = ItemRarityID.Pink;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Prismatic Idol");
 			Tooltip.SetDefault("Your different shamanic bonds increases various stats while active"

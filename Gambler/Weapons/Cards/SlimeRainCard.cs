@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.cardSets = GamblerCardSets.Slime;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : Jelly Clouds");
 			Tooltip.SetDefault("Summons a slime rain cloud, following your cursor"

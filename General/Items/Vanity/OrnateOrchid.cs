@@ -5,7 +5,7 @@ using Terraria.ID;
 namespace OrchidMod.General.Items.Vanity
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class OrnateOrchid : OrchidModItem
+	public class OrnateOrchid : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -18,7 +18,7 @@ namespace OrchidMod.General.Items.Vanity
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Ornate Orchid");
 			Tooltip.SetDefault("'Great for impersonating Orchid Devs!'");

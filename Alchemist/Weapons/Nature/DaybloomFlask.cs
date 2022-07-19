@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.secondaryDamage = 12;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Daybloom Extract");
 			Tooltip.SetDefault("Releases nature spores, the less other extracts used, the more"

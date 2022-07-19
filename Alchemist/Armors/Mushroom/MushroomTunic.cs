@@ -19,7 +19,7 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 			Item.defense = 3;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Phosphorescent Tunic");
 			Tooltip.SetDefault("5% increased potency regeneration"

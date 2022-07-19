@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman
 	}
 
 	[ClassTag(ClassTags.Shaman)]
-	public abstract class OrchidModShamanItem : OrchidModItem
+	public abstract class OrchidModShamanItem : ModItem
 	{
 		public int empowermentType = 0;
 		public int energy = 1;
@@ -33,7 +33,7 @@ namespace OrchidMod.Shaman
 
 		protected override bool CloneNewInstances => true;
 
-		public sealed override void AltSetStaticDefaults()
+		public sealed override void SetStaticDefaults()
 		{
 			Item.staff[Item.type] = true;
 			this.SafeSetStaticDefaults();

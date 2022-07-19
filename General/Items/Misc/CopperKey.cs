@@ -1,10 +1,11 @@
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.General.Items.Misc
 {
-	public class CopperKey : OrchidModItem
+	public class CopperKey : ModItem
 	{
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Opens the Mineshaft Box");
 		}

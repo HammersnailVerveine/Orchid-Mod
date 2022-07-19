@@ -17,7 +17,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.damage = 25;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Blooming Bud");
 			Tooltip.SetDefault("Periodically releases catalytic blooming buds when attacking");

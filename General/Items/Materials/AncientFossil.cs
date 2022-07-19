@@ -1,11 +1,12 @@
 ﻿using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.General.Items.Materials
 {
-	public class AncientFossil : OrchidModItem
+	public class AncientFossil : ModItem
 	{
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
 			DisplayName.SetDefault("Ancient Fossil");

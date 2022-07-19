@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Alchemist.Misc
 {
-	public class EmptyFlask : OrchidModItem
+	public class EmptyFlask : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -15,7 +16,7 @@ namespace OrchidMod.Alchemist.Misc
 		}
 
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Empty Flask");
 			Tooltip.SetDefault("Sold by the mineshaft chemist"

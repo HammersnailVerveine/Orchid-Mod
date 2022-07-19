@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Weapons.Cards
 			this.cardSets = GamblerCardSets.Boss;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Playing Card : The Hivemind");
 			Tooltip.SetDefault("Summons 3 brains around you, one of them following your cursor"

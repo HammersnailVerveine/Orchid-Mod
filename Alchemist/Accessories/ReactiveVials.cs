@@ -13,7 +13,7 @@ namespace OrchidMod.Alchemist.Accessories
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Reactive Vials");
 			Tooltip.SetDefault("Your first chemical mixture after using a hidden reaction deals 10% more damage");

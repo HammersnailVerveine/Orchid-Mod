@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc.Thorium
 {
-	public class ViscountMaterial : OrchidModItem
+	public class ViscountMaterial : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -14,7 +15,7 @@ namespace OrchidMod.Shaman.Misc.Thorium
 			Item.rare = ItemRarityID.Blue;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vampiric Membrane");
 		}

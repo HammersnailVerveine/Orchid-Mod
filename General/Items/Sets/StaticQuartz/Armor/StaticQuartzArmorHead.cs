@@ -6,7 +6,7 @@ using static Terraria.ModLoader.ModContent;
 namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class StaticQuartzArmorHead : OrchidModItem
+	public class StaticQuartzArmorHead : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -19,7 +19,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 		}
 
-		public override void AltSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Static Quartz Headpiece");
 		}
