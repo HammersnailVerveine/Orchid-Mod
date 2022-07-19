@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using Terraria.Audio;
+using Terraria.DataStructures;
 
 namespace OrchidMod.Gambler.Projectiles
 {
@@ -49,7 +50,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
 			arrowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/SkyCardProjAlt_Arrow", AssetRequestMode.ImmediateLoad).Value;

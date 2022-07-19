@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
@@ -28,7 +29,8 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.penetrate = -1;
 		}
 		
-		public override void OnSpawn() {
+		public override void OnSpawn(IEntitySource source)
+		{
 			Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke)].velocity *= 0.25f;
 		}
 

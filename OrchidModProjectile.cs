@@ -16,22 +16,18 @@ namespace OrchidMod
 		public bool initialized; // Used in various AI.
 		public bool projOwner = false;
 
-		protected bool spawned; // Required for OnSpawn()
-
 		public sealed override bool PreAI()
 		{
-			if (!spawned)
+			/*if (!spawned)
 			{
 				spawned = true;
 				OnSpawn();
-			}
+			}*/
 
 			return OrchidPreAI();
 		}
 
 		public virtual bool OrchidPreAI() { return true; }
-
-		public virtual void OnSpawn() { } // Called when projectile is created
 
 		public virtual void AltSetDefaults() { }
 

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Utilities;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace OrchidMod.Gambler.Projectiles
@@ -27,7 +28,7 @@ namespace OrchidMod.Gambler.Projectiles
 			DisplayName.SetDefault("Explosion");
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			OrchidUtils.SpawnDustCircle(
 				center: Projectile.Center,

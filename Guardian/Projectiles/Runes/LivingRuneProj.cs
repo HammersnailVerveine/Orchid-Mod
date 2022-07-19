@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.DataStructures;
 
 namespace OrchidMod.Guardian.Projectiles.Runes
 {
@@ -33,7 +34,7 @@ namespace OrchidMod.Guardian.Projectiles.Runes
 			DisplayName.SetDefault("Sap Bubble");
 		}
 
-		public override void SafeOnSpawn()
+		public override void SafeOnSpawn(IEntitySource source)
 		{
 			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
 			OldPosition = new List<Vector2>();

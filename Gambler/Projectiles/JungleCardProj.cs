@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -31,7 +32,8 @@ namespace OrchidMod.Gambler.Projectiles
 			Main.projFrames[Projectile.type] = 2;
 		}
 		
-		public override void OnSpawn() {
+		public override void OnSpawn(IEntitySource source)
+		{
 			int dustType = 31;
 			Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
 			Main.dust[Dust.NewDust(pos, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;

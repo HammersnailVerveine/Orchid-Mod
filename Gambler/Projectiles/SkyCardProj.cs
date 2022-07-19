@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -38,7 +39,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return new Color(yellow.R + lightColor.R, yellow.G + lightColor.G, yellow.B + lightColor.B);
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			for (int i = 0; i < 5; i++) {
 				int dustType = DustID.YellowStarDust;

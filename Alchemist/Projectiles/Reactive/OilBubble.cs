@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace OrchidMod.Alchemist.Projectiles.Reactive
@@ -27,7 +28,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			DisplayName.SetDefault("Sap Bubble");
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
 		}

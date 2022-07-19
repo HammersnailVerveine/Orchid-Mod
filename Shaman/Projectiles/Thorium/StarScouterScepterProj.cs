@@ -5,6 +5,7 @@ using OrchidMod.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -34,7 +35,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			/* [SP]
 			_trail = new SimpleTrail(target: Projectile, length: 16 * 6, width: (progress) => 18, color: (progress) => Color.Lerp(new Color(198, 61, 255), new Color(107, 61, 255), progress) * (1 - progress));

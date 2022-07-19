@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -36,7 +37,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override Color? GetAlpha(Color lightColor) => new Color(250, 250, 250);
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			Projectile.rotation = (float)Math.PI / 3f * Projectile.ai[1];
 			startPosition = Projectile.position;

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
@@ -25,7 +26,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Projectile.penetrate = 3;
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			/* [SP]
 			var trail = new Content.Trails.TriangularTrail(target: Projectile, length: 16 * 5, width: (p) => 5 * (1 - p), color: (p) => BoreanStriderScepterProj.EffectColor * (1 - p) * 0.25f);

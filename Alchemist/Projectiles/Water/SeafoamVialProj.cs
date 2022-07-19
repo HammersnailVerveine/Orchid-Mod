@@ -1,5 +1,6 @@
 using System;
 using Terraria;
+using Terraria.DataStructures;
 
 namespace OrchidMod.Alchemist.Projectiles.Water
 {
@@ -24,7 +25,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 			DisplayName.SetDefault("Seafoam Bubble");
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
 		}

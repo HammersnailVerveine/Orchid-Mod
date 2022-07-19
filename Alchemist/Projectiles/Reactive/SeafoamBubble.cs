@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 using System;
+using Terraria.DataStructures;
 
 namespace OrchidMod.Alchemist.Projectiles.Reactive
 {
@@ -28,7 +29,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 			DisplayName.SetDefault("Seafoam Bubble");
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
 		}

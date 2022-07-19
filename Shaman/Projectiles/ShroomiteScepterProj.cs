@@ -4,6 +4,7 @@ using OrchidMod.Common.Globals.NPCs;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 
@@ -33,7 +34,7 @@ namespace OrchidMod.Shaman.Projectiles
 			Projectile.hide = true; // DrawBehind()
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			maxRadius = 200 + (int)NbBonds * 50;
 			RadiusProgress = 0;

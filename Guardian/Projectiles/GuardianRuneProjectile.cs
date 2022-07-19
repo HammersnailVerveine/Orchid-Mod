@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 
 namespace OrchidMod.Guardian.Projectiles
 {
@@ -9,7 +10,7 @@ namespace OrchidMod.Guardian.Projectiles
 		public OrchidGuardian guardian;
 
 		public virtual bool SafeAI() => true;
-		public virtual void SafeOnSpawn() {}
+		public virtual void SafeOnSpawn(IEntitySource source) {}
 		public float Distance => Projectile.ai[0];
 		public float Angle => Projectile.ai[1];
 
@@ -28,13 +29,13 @@ namespace OrchidMod.Guardian.Projectiles
 			SafeSetDefaults();
 		}
 
-		public sealed override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			owner = Main.player[Projectile.owner];
 			guardian = owner.GetModPlayer<OrchidGuardian>();
 			Projectile.netUpdate = true;
 			Projectile.netUpdate2 = true;
-			SafeOnSpawn();
+			SafeOnSpawn(source);
 		}
 
 		public sealed override void AI()

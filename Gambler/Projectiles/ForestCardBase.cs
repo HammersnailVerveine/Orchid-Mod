@@ -4,6 +4,7 @@ using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -34,7 +35,8 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.alpha = 255;
 		}
 		
-		public override void OnSpawn() {
+		public override void OnSpawn(IEntitySource source)
+		{
 			Projectile.ai[0] = 10;
 			bushTexture ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/ForestCardBase", AssetRequestMode.ImmediateLoad).Value;
 			fruitTextureOutline ??= ModContent.Request<Texture2D>("OrchidMod/Gambler/Projectiles/ForestCardProj_Outline", AssetRequestMode.ImmediateLoad).Value;

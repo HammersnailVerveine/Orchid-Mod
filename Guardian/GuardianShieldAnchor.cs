@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -46,7 +47,7 @@ namespace OrchidMod.Guardian
 			Projectile.netUpdate = true;
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			networkedPosition = Main.player[Projectile.owner].Center;
 		}

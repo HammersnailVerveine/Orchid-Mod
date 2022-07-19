@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 
 namespace OrchidMod.Guardian
@@ -40,7 +41,7 @@ namespace OrchidMod.Guardian
 			DisplayName.SetDefault("Guardian Hammer");
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
 			Player player = Main.player[Projectile.owner];
 			Item item = player.inventory[player.selectedItem];

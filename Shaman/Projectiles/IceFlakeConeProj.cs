@@ -4,6 +4,7 @@ using OrchidMod.Common;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 
@@ -28,8 +29,10 @@ namespace OrchidMod.Shaman.Projectiles
 			Projectile.extraUpdates = 1;
 		}
 
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
+			
+
 			/* [SP]
 			var trail = new Content.Trails.RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 16 * (1 - p * 0.8f), color: (p) => Color.Lerp(EffectColor, new Color(11, 26, 138), p) * (1 - p) * 0.4f, additive: true, smoothness: 15);
 			trail.SetDissolveSpeed(0.35f);

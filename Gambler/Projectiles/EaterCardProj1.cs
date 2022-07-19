@@ -2,6 +2,7 @@
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
@@ -28,7 +29,8 @@ namespace OrchidMod.Gambler.Projectiles
 			Main.projFrames[Projectile.type] = 3;
 		}
 		
-		public override void OnSpawn() {
+		public override void OnSpawn(IEntitySource source)
+		{
 			Projectile.frame = Projectile.ai[0] == 0f ? 0 : 2;
 			Projectile proj = Main.projectile[(int) Projectile.ai[1]];
 			if (proj.localAI[0] != 0f) {
