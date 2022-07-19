@@ -1,3 +1,4 @@
+using OrchidMod.Content.Items.Consumables;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,7 +34,7 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			if (Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("HarpyAgility").Type) > -1)
+			if (Main.LocalPlayer.FindBuffIndex(ModContent.BuffType<HarpyPotionBuff>()) > -1)
 				damage += 1.1f;
 		}
 
