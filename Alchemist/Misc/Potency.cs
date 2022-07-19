@@ -28,6 +28,8 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void SetStaticDefaults()
 		{
+			ItemID.Sets.IsAPickup[Type] = true;
+
 			DisplayName.SetDefault("Potency");
 		}
 

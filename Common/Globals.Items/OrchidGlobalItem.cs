@@ -1,13 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using OrchidMod.Common.Attributes;
-using ReLogic.Utilities;
+﻿using OrchidMod.Common.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.GameContent.Creative;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,7 +24,12 @@ namespace OrchidMod.Common.Globals.Items
 
 				if (modItem.Mod.Equals(mod) && !sacrificeCountDict.ContainsKey(modItem.Type))
 				{
-					sacrificeCountDict.Add(modItem.Type, 1);
+					int sacrificeCount = GetAutoSacrificeCount(modItem);
+
+					if (sacrificeCount > 0)
+					{
+						sacrificeCountDict.Add(modItem.Type, GetAutoSacrificeCount(modItem));
+					}
 				}
 
 				if (tagsByItemType.ContainsKey(modItem.Type)) continue;
@@ -97,5 +99,66 @@ namespace OrchidMod.Common.Globals.Items
 
 		private static string GetClassTagText(ClassTags tag)
 			=> $"-{tag} Class-";
+
+		private static int GetAutoSacrificeCount(ModItem modItem)
+		{
+			// https://terraria.fandom.com/wiki/Journey_Mode#Research
+
+			var item = modItem.Item;
+			var itemType = item.type;
+
+			// Heart, star, potency, ...
+			if (ItemID.Sets.IsAPickup[itemType]) return 0;
+
+			// How can I put more than 1 item in the slot?
+			if (item.maxStack <= 1) return 1;
+
+			// Consumables
+			if (item.consumable)
+			{
+				// Placeables (Walls)
+				if (item.createWall > WallID.None) return 400;
+
+				// Placeables (Tiles)
+				if (item.createTile > TileID.Dirt)
+				{
+					var tileType = item.createTile;
+
+					// Platforms
+					if (TileID.Sets.Platforms[tileType]) return 200;
+
+					// Furniture
+					if (!Main.tileSolid[tileType]) return 1;
+
+					// Ores, blocks, torches, ropes, empty bullets, coins and other...
+					return 100;
+				}
+
+				// Potions, food, and ...
+				if (item.buffType > 0)
+				{
+					var buffType = item.buffType;
+
+					// Food
+					if (BuffID.Sets.IsWellFed[buffType]) return 10;
+
+					// Potions and other...
+					return 20;
+				}
+			}
+
+			// Baits
+			if (item.bait > 0) return 5;
+
+			// Dyes
+			if (item.dye > 0) return 3;
+
+			// ...
+			if (item.damage > 0 || item.accessory || item.useStyle > ItemUseStyleID.None ||
+				item.defense > 0 || item.vanity || item.mountType > 0) return 1;
+
+			// If nothing fits the condition, crafting materials?
+			return 25;
+		}
 	}
 }

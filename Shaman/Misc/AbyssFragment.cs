@@ -1,14 +1,15 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Attributes;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Misc
 {
-	// TODO: At the moment it is considered a scepter ... We need to fix this
-	public class AbyssFragment : OrchidModShamanItem
+	[ClassTag(Common.ClassTags.Shaman)]
+	public class AbyssFragment : ModItem
 	{
-		public override void SafeSetDefaults()
+		public override void SetDefaults()
 		{
 			Item.width = 24;
 			Item.height = 24;
@@ -17,7 +18,7 @@ namespace OrchidMod.Shaman.Misc
 			Item.rare = ItemRarityID.Cyan;
 		}
 
-		public override void SafeSetStaticDefaults()
+		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 			ItemID.Sets.ItemNoGravity[Item.type] = true;
