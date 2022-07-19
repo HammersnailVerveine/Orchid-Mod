@@ -28,7 +28,7 @@ namespace OrchidMod.Common.Globals.Items
 
 					if (sacrificeCount > 0)
 					{
-						sacrificeCountDict.Add(modItem.Type, GetAutoSacrificeCount(modItem));
+						sacrificeCountDict.Add(modItem.Type, sacrificeCount);
 					}
 				}
 
