@@ -1,6 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Common.Graphics;
+using OrchidMod.Common.Graphics.Primitives;
+using OrchidMod.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -10,9 +13,11 @@ using Terraria.ID;
 
 namespace OrchidMod.Shaman.Projectiles
 {
-	public class IceFlakeConeProj : OrchidModShamanProjectile
+	public class IceFlakeConeProj : OrchidModShamanProjectile, IDrawOnDifferentLayers
 	{
-		public static readonly Color EffectColor = new Color(106, 210, 255);
+		public static readonly Color EffectColor = new(106, 210, 255);
+
+		private PrimitiveStrip trail;
 
 		public override void SetStaticDefaults()
 		{
@@ -31,20 +36,19 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void OnSpawn(IEntitySource source)
 		{
-			
-
-			/* [SP]
-			var trail = new Content.Trails.RoundedTrail(target: Projectile, length: 16 * 7, width: (p) => 16 * (1 - p * 0.8f), color: (p) => Color.Lerp(EffectColor, new Color(11, 26, 138), p) * (1 - p) * 0.4f, additive: true, smoothness: 15);
-			trail.SetDissolveSpeed(0.35f);
-			trail.SetDissolveSpeed(0.35f);
-			trail.SetEffectTexture(OrchidAssets.GetExtraTexture(5).Value);
-			PrimitiveTrailSystem.NewTrail(trail);
-			*/
+			trail = new PrimitiveStrip
+			(
+				width: progress => 16 * (1 - progress * 0.8f),
+				color: progress => Color.Lerp(EffectColor, new Color(11, 26, 138), progress) * (1 - progress) * 0.4f,
+				effect: new IPrimitiveEffect.Default(texture: OrchidAssets.GetExtraTexture(5), multiplyColorByAlpha: true),
+				headTip: new IPrimitiveTip.Rounded(smoothness: 15),
+				tailTip: null
+			);
 		}
 
 		public override void AI()
 		{
-			this.VanillaAI_003(freeFlightTime: 35, turnSpeed: 0.27f);
+			VanillaAI_003(freeFlightTime: 35, turnSpeed: 0.27f);
 
 			Projectile.rotation += 0.6f;
 
@@ -62,16 +66,17 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			this.VanillaAI_003__Hit();
+			VanillaAI_003__Hit();
+
 			SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
 			return false;
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
-			this.VanillaAI_003__Hit();
+			VanillaAI_003__Hit();
 
-			if (Main.rand.Next(5) == 0)
+			if (Main.rand.NextBool(5))
 			{
 				target.AddBuff(44, 360);
 			}
@@ -79,7 +84,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
-			this.VanillaAI_003__Hit();
+			VanillaAI_003__Hit();
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor) => false;
@@ -182,19 +187,26 @@ namespace OrchidMod.Shaman.Projectiles
 				Projectile.velocity.Y = -Projectile.velocity.Y;
 				Projectile.netUpdate = true;
 			}
+
 			Projectile.ai[0] = 1f;
 		}
 
-		/*void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
+		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
 		{
-			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
-			var texture = OrchidAssets.GetExtraTexture(14).Value;
+			var drawPosition = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+			var texture = OrchidAssets.GetExtraTexture(14);
+			var drawData = new DefaultDrawData(texture.Value, drawPosition, null, EffectColor * 0.2f, Projectile.timeLeft * 0.1f, texture.Size() * 0.5f, Projectile.scale * 0.65f, SpriteEffects.None);
+			system.AddToAdditive(DrawLayers.Dusts, drawData);
 
-			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.2f, Projectile.timeLeft * 0.1f, texture.Size() * 0.5f, Projectile.scale * 0.65f, SpriteEffects.None, 0);
-			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.4f, Projectile.timeLeft * 0.2f, texture.Size() * 0.5f, Projectile.scale * 0.5f, SpriteEffects.None, 0);
+			drawData = new DefaultDrawData(texture.Value, drawPosition, null, EffectColor * 0.4f, Projectile.timeLeft * 0.2f, texture.Size() * 0.5f, Projectile.scale * 0.5f, SpriteEffects.None);
+			system.AddToAdditive(DrawLayers.Dusts, drawData);
 
-			texture = TextureAssets.Projectile[Projectile.type].Value;
-			spriteBatch.Draw(texture, drawPos, null, new Color(220, 220, 220, 230), Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0);
-		}*/
+			texture = TextureAssets.Projectile[Projectile.type];
+			drawData = new DefaultDrawData(texture.Value, drawPosition, null, new Color(220, 220, 220, 230), Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
+			system.AddToAdditive(DrawLayers.Dusts, drawData);
+
+			trail.UpdatePointsAsSimpleTrail(currentPosition: Projectile.Center, maxPoints: 25, maxLength: 16 * 7);
+			system.AddToAlphaBlend(layer: DrawLayers.Tiles, data: trail);
+		}
 	}
 }
