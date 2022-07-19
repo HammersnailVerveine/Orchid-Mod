@@ -60,14 +60,6 @@ namespace OrchidMod.Common
 
 		// ...
 
-		public static implicit operator Timer(uint value)
-			=> new() { Value = value };
-
-		public static implicit operator Timer(int value)
-			=> new() { Value = (uint)value };
-
-		// ...
-
 		private static readonly Func<uint> GetGameUpdateCountFunc = () => Main.GameUpdateCount;
 		private static readonly Func<uint> GetInterfaceUpdateCountFunc = () => GameUpdateCountWithoutPause.Value;
 		
