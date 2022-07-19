@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Attributes;
+using OrchidMod.Shaman.Projectiles.Thorium;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -23,25 +24,24 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
-			Item.shoot = ModContent.ProjectileType<Projectiles.Thorium.BoreanStriderScepterProj>();
-			this.empowermentType = 2;
-			this.energy = 8;
+			Item.shoot = ModContent.ProjectileType<BoreanStriderScepterProj>();
+
+			empowermentType = 2;
+			energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Taiga Truncheon");
-			Tooltip.SetDefault("Fires out a damaging frost ball"
-							+ "\nReleases icicles on impact, based on your number of active shamanic bonds"
-						    + "\n[c/FF0000:Currently does not work as intended, and will be fixed soon]");
+			Tooltip.SetDefault("Fires out a damaging frost ball\n" +
+							   "Releases icicles on impact, based on your number of active shamanic bonds");
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(3));
-			this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
+			NewShamanProjectile(player, source, position, velocity.RotatedByRandom(MathHelper.ToRadians(3)), type, damage, knockback);
+
 			return false;
 		}
 	}
 }
-

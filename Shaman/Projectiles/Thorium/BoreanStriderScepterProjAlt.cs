@@ -1,6 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Common.Graphics;
+using OrchidMod.Common.Graphics.Primitives;
+using OrchidMod.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -8,8 +11,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
-	public class BoreanStriderScepterProjAlt : OrchidModShamanProjectile
+	public class BoreanStriderScepterProjAlt : OrchidModShamanProjectile, IDrawOnDifferentLayers
 	{
+		private PrimitiveStrip trail;
 
 		public override void SetStaticDefaults()
 		{
@@ -28,11 +32,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void OnSpawn(IEntitySource source)
 		{
-			/* [SP]
-			var trail = new Content.Trails.TriangularTrail(target: Projectile, length: 16 * 5, width: (p) => 5 * (1 - p), color: (p) => BoreanStriderScepterProj.EffectColor * (1 - p) * 0.25f);
-			trail.SetDissolveSpeed(0.35f);
-			PrimitiveTrailSystem.NewTrail(trail);
-			*/
+			trail = new PrimitiveStrip
+			(
+				width: progress => 5 * (1 - progress),
+				color: progress => BoreanStriderScepterProj.EffectColor * (1 - progress) * 0.25f,
+				effect: new IPrimitiveEffect.Default(texture: OrchidAssets.GetExtraTexture(5), multiplyColorByAlpha: true),
+				headTip: new IPrimitiveTip.Triangular(),
+				tailTip: null
+			);
 
 			Projectile.frame = Main.rand.Next(3);
 		}
@@ -43,7 +50,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 			Lighting.AddLight(Projectile.Center, BoreanStriderScepterProj.EffectColor.ToVector3() * 0.35f);
 
-			if (Main.rand.Next(7) == 0)
+			if (Main.rand.NextBool(7))
 			{
 				var dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67)];
 				dust.noGravity = true;
@@ -82,6 +89,12 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			spriteBatch.Draw(texture, drawPos, new Rectangle(Projectile.frame * 10, 0, 10, 18), Projectile.GetAlpha(lightColor), Projectile.rotation, new Vector2(5, 9), Projectile.scale, SpriteEffects.None, 0);
 
 			return false;
+		}
+
+		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
+		{
+			trail.UpdatePointsAsSimpleTrail(currentPosition: Projectile.Center, maxPoints: 25, maxLength: 16 * 5);
+			system.AddToAlphaBlend(layer: DrawLayers.Tiles, data: trail);
 		}
 	}
 }

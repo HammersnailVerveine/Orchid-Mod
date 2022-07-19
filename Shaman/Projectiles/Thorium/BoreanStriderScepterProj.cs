@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Common.Graphics;
+using OrchidMod.Common.Graphics.Primitives;
 using OrchidMod.Utilities;
 using System;
 using Terraria;
@@ -12,10 +14,13 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Shaman.Projectiles.Thorium
 {
-	public class BoreanStriderScepterProj : OrchidModShamanProjectile
+	public class BoreanStriderScepterProj : OrchidModShamanProjectile, IDrawOnDifferentLayers
 	{
 		public static readonly SoundStyle PoofSound = new(OrchidAssets.SoundsPath + "Poof") { PitchRange = (0.9f, 1f) };
 		public static readonly Color EffectColor = new(69, 144, 225);
+
+		private PrimitiveStrip trail;
+		private int timeLeftInit;
 
 		// ...
 
@@ -35,19 +40,25 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Projectile.timeLeft = 60;
 		}
 
-		/* [SP]
-		public override void OnSpawn()
+		public override void OnSpawn(IEntitySource source)
 		{
-			var trail = new Content.Trails.RoundedTrail(target: Projectile, length: 16 * 10, width: (p) => 10 * (1 - p), color: (p) => EffectColor * (1 - p) * 0.5f, smoothness: 25);
-			PrimitiveTrailSystem.NewTrail(trail);
+			trail = new PrimitiveStrip
+			(
+				width: progress => 10 * (1 - progress),
+				color: progress => EffectColor * (1 - progress) * 0.5f,
+				effect: new IPrimitiveEffect.Default(texture: OrchidAssets.GetExtraTexture(5), multiplyColorByAlpha: true),
+				headTip: new IPrimitiveTip.Rounded(smoothness: 25),
+				tailTip: null
+			);
+
+			timeLeftInit = Projectile.timeLeft;
 		}
-		*/
 
 		public override void AI()
 		{
 			Lighting.AddLight(Projectile.Center, EffectColor.ToVector3() * 0.35f);
 
-			if (Main.rand.Next(7) == 0)
+			if (Main.rand.NextBool(7))
 			{
 				var dust = Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67)];
 				dust.noGravity = true;
@@ -57,6 +68,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 
 			Projectile.velocity.Y = Projectile.velocity.Y + 0.1f;
+
 			if (Projectile.velocity.Y > 16f) Projectile.velocity.Y = 16f;
 
 			Projectile.rotation += Math.Sign(Projectile.velocity.X) * 0.1f;
@@ -105,7 +117,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 			var texture = TextureAssets.Projectile[Projectile.type].Value;
-			Vector2 origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.25f);
+			var origin = new Vector2(texture.Width * 0.5f, texture.Height * 0.25f);
 
 			// Trail
 			for (int k = 1; k < Projectile.oldPos.Length; k++)
@@ -130,16 +142,19 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			return false;
 		}
 
-		/*void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
+		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
 		{
-			var texture = OrchidAssets.GetExtraTexture(14).Value;
-			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+			var drawPosition = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+			var texture = OrchidAssets.GetExtraTexture(14);
+			var drawData = new DefaultDrawData(texture.Value, drawPosition, null, EffectColor * 0.5f, Projectile.timeLeft * 0.05f, texture.Size() * 0.5f, Projectile.scale * 0.8f, SpriteEffects.None);
+			system.AddToAdditive(DrawLayers.Dusts, drawData);
 
-			spriteBatch.Draw(texture, drawPos, null, EffectColor * 0.5f, Projectile.timeLeft * 0.05f, texture.Size() * 0.5f, Projectile.scale * 0.8f, SpriteEffects.None, 0);
-		}*/
+			trail.UpdatePointsAsSimpleTrail(currentPosition: Projectile.Center, maxPoints: 25, maxLength: 16 * 10 * (Projectile.timeLeft / (float)timeLeftInit));
+			system.AddToAlphaBlend(layer: DrawLayers.Tiles, data: trail);
+		}
 	}
 
-	public class BoreanStriderScepterKillProj : OrchidModShamanProjectile
+	public class BoreanStriderScepterKillProj : OrchidModShamanProjectile, IDrawOnDifferentLayers
 	{
 		private static readonly int _timeLeft = 20;
 
@@ -190,14 +205,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		}
 
 		public override bool? CanCutTiles() => false;
-		public override bool? CanDamage()/* Suggestion: Return null instead of false */ => false;
+		public override bool? CanDamage() => false;
 
-		/*void IDrawAdditive.DrawAdditive(SpriteBatch spriteBatch)
+		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
 		{
-			var texture = OrchidAssets.GetExtraTexture(14).Value;
-			var drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
-
-			spriteBatch.Draw(texture, drawPos, null, BoreanStriderScepterProj.EffectColor * 0.5f, Projectile.timeLeft * 0.05f, texture.Size() * 0.5f, Projectile.scale * 0.8f, SpriteEffects.None, 0);
-		}*/
+			var drawPosition = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+			var texture = OrchidAssets.GetExtraTexture(14);
+			var drawData = new DefaultDrawData(texture.Value, drawPosition, null, BoreanStriderScepterProj.EffectColor * 0.5f, Projectile.timeLeft * 0.05f, texture.Size() * 0.5f, Projectile.scale * 0.8f, SpriteEffects.None);
+			system.AddToAdditive(DrawLayers.Dusts, drawData);
+		}
 	}
 }
