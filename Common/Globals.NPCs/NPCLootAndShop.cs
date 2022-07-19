@@ -11,19 +11,15 @@ using OrchidMod.Shaman.Weapons.Thorium;
 using OrchidMod.Common.ItemDropRules.Conditions;
 using OrchidMod.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OrchidMod.General.Items.Misc;
 using OrchidMod.Content.Items.Placeables;
-using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework;
 using OrchidMod.WorldgenArrays;
+using OrchidMod.Content.Items.Pets;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Common.Globals.NPCs
 {
