@@ -15,4 +15,10 @@
 		Guardian,
 		Shaman
 	}
+
+	public enum TimerType
+	{
+		Game,
+		Interface
+	}
 }
