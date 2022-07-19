@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common.Attributes;
+using ReLogic.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace OrchidMod.Common.Globals.Items
 
 			if (config.LoadCrossmodContentWithoutRequiredMods)
 			{
-				var atr = item.ModItem?.GetType().GetCustomAttribute<CrossmodContentAttribute>();
+				var atr = item.ModItem?.GetType().GetAttribute<CrossmodContentAttribute>();
 
 				if (atr is not null)
 				{
