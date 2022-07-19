@@ -18,8 +18,7 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sun Priest Satchel"
-						   + "\nTestimony of a past mistake");
+			DisplayName.SetDefault("Sun Priest Satchel");
 		}
 	}
 }

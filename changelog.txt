@@ -1,8 +1,2 @@
-# Balance changes #
-
-< Shaman >
-- Exhaustion cost cannot be reduced to 0 anymore.
-
 # Fixes #
-- Fixed Config Text.
-- Fixed NPC drops.
+- Fixed an error with the Harpy Anklet.
