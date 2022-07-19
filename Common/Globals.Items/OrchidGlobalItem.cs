@@ -24,7 +24,7 @@ namespace OrchidMod.Common.Globals.Items
 			{
 				if (tagsByItemType.ContainsKey(modItem.Type)) continue;
 
-				var atr = modItem.GetType().GetCustomAttribute<ClassTagAttribute>();
+				var atr = modItem.GetType().GetAttribute<ClassTagAttribute>();
 
 				if (atr is null) continue; 
 
