@@ -64,7 +64,7 @@ namespace OrchidMod.Content.Items.Tools
 
 		public sealed override void AltSetStaticDefaults()
 		{
-			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
+			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 
 			DisplayName.SetDefault(name);
 		}

@@ -74,7 +74,7 @@ namespace OrchidMod
 		{
 			LoadContent();
 
-			ThoriumMod = ModUtils.GetModWithPossibleNull("ThoriumMod");
+			ThoriumMod = OrchidUtils.GetModWithPossibleNull("ThoriumMod");
 
 			alchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
 		}

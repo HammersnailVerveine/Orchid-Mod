@@ -66,7 +66,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				/*if (player.itemAnimation > 0)
 				{
 					var progress = 1 - player.itemAnimation / (float)player.itemAnimationMax;
-					var scale = projectile.scale * 0.5f * MathUtils.MultiLerp<float>(MathHelper.Lerp, progress, 0, .8f, 1, .8f, .4f, 0);
+					var scale = projectile.scale * 0.5f * OrchidUtils.MultiLerp<float>(MathHelper.Lerp, progress, 0, .8f, 1, .8f, .4f, 0);
 
 					texture = OrchidAssets.GetExtraTexture(15).Value;
 					position = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY) + new Vector2(MathHelper.Lerp(20f, -20f, progress), 0).RotatedBy(projectile.ai[0]);
@@ -96,7 +96,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				var progress = 1 - player.itemAnimation / (float)player.itemAnimationMax;
 				var position = projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY) + new Vector2(MathHelper.Lerp(20f, -20f, progress), 0).RotatedBy(projectile.ai[0]);
 				var color = Main.DiscoColor * 0.8f;
-				var scale = projectile.scale * 0.5f * MathUtils.MultiLerp<float>(MathHelper.Lerp, progress, 0, .8f, 1, .8f, .4f, 0);
+				var scale = projectile.scale * 0.5f * OrchidUtils.MultiLerp<float>(MathHelper.Lerp, progress, 0, .8f, 1, .8f, .4f, 0);
 
 				spriteBatch.Draw(texture, position, new Rectangle(0, 30, 180, 30), color, projectile.ai[0] + MathHelper.PiOver2, new Vector2(90, 0), scale, SpriteEffects.None, 0);
 

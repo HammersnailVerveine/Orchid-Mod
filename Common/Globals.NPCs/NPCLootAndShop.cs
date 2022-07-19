@@ -35,22 +35,22 @@ namespace OrchidMod.Common.Globals.NPCs
 			{
 				case NPCID.WitchDoctor:
 					{
-						NPCUtils.AddItemToShop<ShamanRod>(shop, ref nextSlot);
+						OrchidUtils.AddItemToShop<ShamanRod>(shop, ref nextSlot);
 
 						if (Main.hardMode)
 						{
-							NPCUtils.AddItemToShop<RitualScepter>(shop, ref nextSlot);
+							OrchidUtils.AddItemToShop<RitualScepter>(shop, ref nextSlot);
 						}
 					}
 					break;
 				case NPCID.Demolitionist:
 					{
-						NPCUtils.AddItemToShop<GunpowderFlask>(shop, ref nextSlot);
+						OrchidUtils.AddItemToShop<GunpowderFlask>(shop, ref nextSlot);
 					}
 					break;
 				case NPCID.Dryad:
 					{
-						NPCUtils.AddItemToShop<DryadsGift>(shop, ref nextSlot);
+						OrchidUtils.AddItemToShop<DryadsGift>(shop, ref nextSlot);
 					}
 					break;
 			}
@@ -60,7 +60,7 @@ namespace OrchidMod.Common.Globals.NPCs
 
 			if (thoriumMod.IsNPCTypeEquals("ConfusedZombie", type))
 			{
-				NPCUtils.AddItemToShop<PatchWerkScepter>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<PatchWerkScepter>(shop, ref nextSlot);
 				return;
 			}
 
@@ -70,7 +70,7 @@ namespace OrchidMod.Common.Globals.NPCs
 
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)
 		{
-			NPCUtils.AddItemToShop<PileOfChips>(shop, ref nextSlot, 3);
+			OrchidUtils.AddItemToShop<PileOfChips>(shop, ref nextSlot, 3);
 		}
 
 		public override void ModifyGlobalLoot(GlobalLoot globalLoot)

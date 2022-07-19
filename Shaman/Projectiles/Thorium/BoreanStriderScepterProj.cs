@@ -168,7 +168,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			float progress = 1 - Projectile.timeLeft / (float)_timeLeft;
 
-			Projectile.scale = MathUtils.MultiLerp<float>(MathHelper.Lerp, progress, 1, 1.3f, 1.1f, 0.5f, 0.2f, 0f);
+			Projectile.scale = OrchidUtils.MultiLerp<float>(MathHelper.Lerp, progress, 1, 1.3f, 1.1f, 0.5f, 0.2f, 0f);
 			Projectile.rotation += Projectile.ai[0];
 
 			Lighting.AddLight(Projectile.Center, BoreanStriderScepterProj.EffectColor.ToVector3() * 0.35f * (1 - progress));

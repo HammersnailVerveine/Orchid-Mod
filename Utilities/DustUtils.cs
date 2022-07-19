@@ -8,7 +8,7 @@ using Terraria;
 
 namespace OrchidMod.Utilities
 {
-	public static class DustUtils
+	public static partial class OrchidUtils
 	{
 		public static void SpawnDustCircle(Vector2 center, float radius, int count, int type, Action<Dust> onSpawn = null)
 		{

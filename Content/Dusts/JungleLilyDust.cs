@@ -27,6 +27,6 @@ namespace OrchidMod.Content.Dusts
 		}
 
 		public override Color? GetAlpha(Dust dust, Color lightColor)
-			=> new Color(255, 192, 0) * MathUtils.MultiLerp<float>(MathHelper.Lerp, 1 - dust.scale, .0f, .7f, .9f, .7f, .3f, .1f, .0f);
+			=> new Color(255, 192, 0) * OrchidUtils.MultiLerp<float>(MathHelper.Lerp, 1 - dust.scale, .0f, .7f, .9f, .7f, .3f, .1f, .0f);
 	}
 }

@@ -34,7 +34,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetStaticDefaults()
 		{
-			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
+			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 
 			DisplayName.SetDefault("Abyss Stormcaller");
 			Tooltip.SetDefault("Shoots abyss energy thunderbolts"

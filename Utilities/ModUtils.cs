@@ -2,7 +2,7 @@
 
 namespace OrchidMod.Utilities
 {
-	public static class ModUtils
+	public static partial class OrchidUtils
 	{
 		public static bool IsItemTypeEquals(this Mod mod, string itemName, int type)
 			=> mod.TryFind(itemName, out ModItem modItem) && modItem.Type.Equals(type);

@@ -239,69 +239,69 @@ namespace OrchidMod.Content.NPCs.Town
 			var player = Main.player[Main.myPlayer];
 			var modPlayer = player.GetModPlayer<OrchidGambler>();
 
-			NPCUtils.AddItemToShop<GamblerDummy>(shop, ref nextSlot);
-			NPCUtils.AddItemToShop<GamblingChip>(shop, ref nextSlot);
-			NPCUtils.AddItemToShop<GamblingDie>(shop, ref nextSlot);
-			NPCUtils.AddItemToShop<ShuffleCard>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<GamblerDummy>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<GamblingChip>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<GamblingDie>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<ShuffleCard>(shop, ref nextSlot);
 
 			if (player.ZoneForest)
 			{
-				NPCUtils.AddItemToShop<ForestCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<ForestCard>(shop, ref nextSlot);
 			}
 
 			if (player.ZoneSnow)
 			{
-				NPCUtils.AddItemToShop<SnowCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<SnowCard>(shop, ref nextSlot);
 			}
 
 			if (player.ZoneDesert)
 			{
-				NPCUtils.AddItemToShop<DesertCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<DesertCard>(shop, ref nextSlot);
 			}
 
 			if (player.ZoneBeach)
 			{
-				NPCUtils.AddItemToShop<OceanCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<OceanCard>(shop, ref nextSlot);
 			}
 
 			if (player.ZoneJungle)
 			{
-				NPCUtils.AddItemToShop<JungleCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<JungleCard>(shop, ref nextSlot);
 			}
 
 			if (player.ZoneGlowshroom)
 			{
-				NPCUtils.AddItemToShop<MushroomCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<MushroomCard>(shop, ref nextSlot);
 			}
 
 			if (player.ZoneSkyHeight)
 			{
-				NPCUtils.AddItemToShop<SkyCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<SkyCard>(shop, ref nextSlot);
 			}
 
 			if (Main.slimeRain)
 			{
-				NPCUtils.AddItemToShop<SlimeRainCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<SlimeRainCard>(shop, ref nextSlot);
 			}
 
 			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Slime) > 2)
 			{
-				NPCUtils.AddItemToShop<SlimyLollipop>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<SlimyLollipop>(shop, ref nextSlot);
 			}
 
 			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Biome) > 2)
 			{
-				NPCUtils.AddItemToShop<LuckySprout>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<LuckySprout>(shop, ref nextSlot);
 			}
 
 			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Boss) > 2)
 			{
-				NPCUtils.AddItemToShop<ConquerorsPennant>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<ConquerorsPennant>(shop, ref nextSlot);
 			}
 
 			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Elemental) > 2)
 			{
-				NPCUtils.AddItemToShop<ElementalLens>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<ElementalLens>(shop, ref nextSlot);
 			}
 		}
 

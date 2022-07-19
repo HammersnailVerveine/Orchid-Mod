@@ -224,28 +224,28 @@ namespace OrchidMod.Content.NPCs.Town
 			var player = Main.LocalPlayer;
 			var modPlayer = player.GetModPlayer<OrchidAlchemist>();
 
-			NPCUtils.AddItemToShop<UIItem>(shop, ref nextSlot);
-			NPCUtils.AddItemToShop<UIItemKeys>(shop, ref nextSlot);
-			NPCUtils.AddItemToShop<ReactionItem>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<UIItem>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<UIItemKeys>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<ReactionItem>(shop, ref nextSlot);
 
 			shop.item[nextSlot].SetDefaults(ModContent.ItemType<PotionBag>());
 			(shop.item[nextSlot].ModItem as PotionBag).InShop = true;
 			nextSlot++;
 
-			NPCUtils.AddItemToShop<EmptyFlask>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<EmptyFlask>(shop, ref nextSlot);
 
 			if (NPC.downedQueenBee)
 			{
-				NPCUtils.AddItemToShop<AlchemicStabilizer>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<AlchemicStabilizer>(shop, ref nextSlot);
 			}
 
-			NPCUtils.AddItemToShop<WeightedBottles>(shop, ref nextSlot);
-			NPCUtils.AddItemToShop<IronCatalyst>(shop, ref nextSlot);
-			NPCUtils.AddItemToShop<AttractiteFlask>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<WeightedBottles>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<IronCatalyst>(shop, ref nextSlot);
+			OrchidUtils.AddItemToShop<AttractiteFlask>(shop, ref nextSlot);
 
 			if (modPlayer.alchemistKnownReactions.Count > 4)
 			{
-				NPCUtils.AddItemToShop<ReactiveVials>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<ReactiveVials>(shop, ref nextSlot);
 			}
 		}
 

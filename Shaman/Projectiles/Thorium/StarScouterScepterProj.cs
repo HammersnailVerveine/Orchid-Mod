@@ -118,8 +118,8 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 					dust.noGravity = true;
 				});
 
-				DustUtils.SpawnDustCircle(center: Projectile.Center, type: 62, radius: 55, count: 35, onSpawn: spawnDustAction);
-				DustUtils.SpawnDustCircle(center: Projectile.Center, type: 62, radius: 42, count: 27, onSpawn: spawnDustAction);
+				OrchidUtils.SpawnDustCircle(center: Projectile.Center, type: 62, radius: 55, count: 35, onSpawn: spawnDustAction);
+				OrchidUtils.SpawnDustCircle(center: Projectile.Center, type: 62, radius: 42, count: 27, onSpawn: spawnDustAction);
 
 				for (int i = 0; i < 3; i++)
 				{

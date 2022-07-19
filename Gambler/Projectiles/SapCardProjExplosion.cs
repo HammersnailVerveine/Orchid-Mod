@@ -29,7 +29,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void OnSpawn()
 		{
-			DustUtils.SpawnDustCircle(
+			OrchidUtils.SpawnDustCircle(
 				center: Projectile.Center,
 				radius: 70,
 				count: 25,

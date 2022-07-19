@@ -14,7 +14,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Utilities
 {
-	public static class DrawUtils
+	public static partial class OrchidUtils
 	{
 		public static void DrawSimpleItemGlowmaskInWorld(this SpriteBatch spriteBatch, Item item, Color color, float rotation, float scale)
 		{

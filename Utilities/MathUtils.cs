@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OrchidMod.Utilities
 {
-	public static class MathUtils
+	public static partial class OrchidUtils
 	{
 		public static bool Between<T>(this T item, T start, T end)
 		{

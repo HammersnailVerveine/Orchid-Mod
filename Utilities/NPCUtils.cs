@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Utilities
 {
-	public static class NPCUtils
+	public static partial class OrchidUtils
 	{
 		public static void AddItemToShop<T>(Chest shop, ref int nextSlot, int chanceDenominator = 1) where T : ModItem
 			=> AddItemToShop(shop, ref nextSlot, ModContent.ItemType<T>(), chanceDenominator);

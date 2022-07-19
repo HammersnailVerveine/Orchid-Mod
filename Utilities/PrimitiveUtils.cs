@@ -7,8 +7,8 @@ using Terraria;
 
 namespace OrchidMod.Utilities
 {
-    public static class PrimitiveUtils
-    {
+	public static partial class OrchidUtils
+	{
 		public static void AddVertex(this List<VertexPositionColorTexture> vertices, Vector2 position, Color color, Vector2 texCoords)
 			=> vertices.Add(new(new Vector3(position - Main.screenPosition, 0), color, texCoords));
 

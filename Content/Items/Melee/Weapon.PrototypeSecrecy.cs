@@ -217,7 +217,7 @@ namespace OrchidMod.Content.Items.Melee
 		{
 			Projectile.friendly = Projectile.timeLeft == 10;
 			Projectile.rotation += 0.05f;
-			Projectile.scale = MathUtils.MultiLerp<float>(MathHelper.Lerp, 1 - Projectile.timeLeft / 20f, new float[] { 1f, 1.2f, 0.6f, 0f }) * (Projectile.ai[0] > 0f ? 2.5f : 1f);
+			Projectile.scale = OrchidUtils.MultiLerp<float>(MathHelper.Lerp, 1 - Projectile.timeLeft / 20f, new float[] { 1f, 1.2f, 0.6f, 0f }) * (Projectile.ai[0] > 0f ? 2.5f : 1f);
 
 			Lighting.AddLight(Projectile.Center, PrototypeSecrecyProjectile.EffectColor.ToVector3() * 0.25f * Projectile.scale);
 		}

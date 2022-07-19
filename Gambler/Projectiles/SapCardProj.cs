@@ -107,7 +107,7 @@ namespace OrchidMod.Gambler.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 
-			DustUtils.SpawnDustCircle(
+			OrchidUtils.SpawnDustCircle(
 				center: Projectile.Center,
 				radius: 20,
 				count: 10,

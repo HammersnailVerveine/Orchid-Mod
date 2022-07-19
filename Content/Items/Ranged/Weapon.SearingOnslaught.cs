@@ -23,7 +23,7 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void AltSetStaticDefaults()
 		{
-			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
+			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 
 			DisplayName.SetDefault("Searing Onslaught");
 			Tooltip.SetDefault("...");

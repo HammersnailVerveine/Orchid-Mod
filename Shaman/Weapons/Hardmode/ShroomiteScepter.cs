@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetStaticDefaults()
 		{
-			HeldItemLayer.RegisterDrawMethod(Type, DrawUtils.DrawSimpleItemGlowmaskOnPlayer);
+			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 
 			DisplayName.SetDefault("Bloom Shroom");
 			Tooltip.SetDefault("Summons a protective shroom, harming nearby enemies"
