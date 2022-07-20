@@ -19,7 +19,7 @@ namespace OrchidMod.Alchemist.Bag
 
 		// Properties
 
-		public IEnumerable<Item> GetPotions { get => inventory; }
+		public IEnumerable<Item> GetPotions { get => inventory.Where(i => !i.type.Equals(ItemID.None)); }
 		public bool InShop { get; set; }
 		public bool IsActive { get; set; }
 
