@@ -11,6 +11,9 @@ namespace OrchidMod.Common
 		public bool Active
 			=> GlobalCounter < endTime;
 
+		public float Progress
+			=> 1.0f - Value / (float)InitValue;
+
 		public int UnclampedValue
 			=> (int)((long)endTime - GlobalCounter);
 
@@ -20,14 +23,13 @@ namespace OrchidMod.Common
 			set
 			{
 				endTime = GlobalCounter + Math.Max(0, value);
-				time = value;
+				InitValue = value;
 			}
 		}
 
-		// ...
+		public uint InitValue { get; private set; }
 
 		private uint endTime = 0;
-		private uint time = 0;
 
 		// ...
 
@@ -38,7 +40,7 @@ namespace OrchidMod.Common
 			=> Value = Math.Max(value, Value);
 
 		public void Restart()
-			=> Value = time;
+			=> Value = InitValue;
 	}
 
 	public class GameTimer : Timer
