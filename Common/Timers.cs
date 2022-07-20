@@ -11,9 +11,6 @@ namespace OrchidMod.Common
 		public bool Active
 			=> GlobalCounter < endTime;
 
-		public float Progress
-			=> 1.0f - Value / (float)InitValue;
-
 		public int UnclampedValue
 			=> (int)((long)endTime - GlobalCounter);
 
