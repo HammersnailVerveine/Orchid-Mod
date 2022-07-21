@@ -128,9 +128,9 @@ namespace OrchidMod.Common.UIs
 				}
 			}
 
-			foreach (var (_, uiState) in uiStates)
+			foreach (var (_, userInterface) in userInterfaces)
 			{
-				uiState.Update(gameTime);
+				userInterface.Update(gameTime);
 			}
 		}
 	}
