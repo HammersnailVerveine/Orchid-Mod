@@ -136,7 +136,7 @@ namespace OrchidMod.Common
 
 			var instance = ModContent.GetInstance<OrchidMouseText>();
 
-			instance.tooltips = tooltipLines ?? instance.tooltips;
+			instance.tooltips = tooltipLines ?? new List<TooltipLine>();
 			instance.style = style ?? NullStyle;
 
 			Main.instance.MouseText("[OMMT]");
