@@ -184,7 +184,7 @@ namespace OrchidMod.Alchemist.UI
 						text:
 							$"[c/{Colors.AlphaDarken(ItemRarity.GetColor(Item.rare)).Hex3()}:" + Item.HoverName + "]\n" +
 							$"Element: {AlchemistItem.element.ToString().FirstCharToUpper(true)}",
-						background:
+						style:
 							new ITooltipsStyle.Vanilla()
 					);
 				}

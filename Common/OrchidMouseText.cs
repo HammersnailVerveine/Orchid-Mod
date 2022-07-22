@@ -17,12 +17,12 @@ namespace OrchidMod.Common
 {
 	public class OrchidMouseText : ILoadable
 	{
-		private static readonly ITooltipsStyle NullBackground = new ITooltipsStyle.Invisible();
+		private static readonly ITooltipsStyle NullStyle = new ITooltipsStyle.Invisible();
 		private static readonly FieldInfo MouseTextCacheField = typeof(Main).GetField("_mouseTextCache", BindingFlags.NonPublic | BindingFlags.Instance);
 		private static readonly FieldInfo CursorTextField = MouseTextCacheField?.GetValue(Main.instance).GetType().GetField("cursorText", BindingFlags.Public | BindingFlags.Instance);
 
 		private List<TooltipLine> tooltips;
-		private ITooltipsStyle background;
+		private ITooltipsStyle style;
 		private Mod mod;
 
 		public bool Visible
@@ -34,7 +34,7 @@ namespace OrchidMod.Common
 		{
 			this.mod = mod;
 			this.tooltips = new();
-			this.background = NullBackground;
+			this.style = NullStyle;
 
 			if (CursorTextField is null)
 			{
@@ -74,7 +74,7 @@ namespace OrchidMod.Common
 		private void Draw(SpriteBatch spriteBatch)
 		{
 			var drawableLines = tooltips.Select((TooltipLine x, int i) => new DrawableTooltipLine(x, i, 0, 0, Color.White)).ToList<DrawableTooltipLine>();
-			var position = new Vector2(Main.mouseX + 14, Main.mouseY + 14) + background.PositionOffset;
+			var position = new Vector2(Main.mouseX + 14, Main.mouseY + 14) + style.PositionOffset;
 			var zero = Vector2.Zero;
 
 			if (Main.ThickMouse)
@@ -98,7 +98,7 @@ namespace OrchidMod.Common
 			if (zero.X < 20) zero.X = 20;
 			if (zero.Y < 20) zero.Y = 20;
 
-			background.Draw(spriteBatch, new Rectangle((int)position.X, (int)position.Y, (int)zero.X, (int)zero.Y));
+			style.PreDraw(spriteBatch, new Rectangle((int)position.X, (int)position.Y, (int)zero.X, (int)zero.Y));
 
 			var colorPulsing = Main.mouseTextColor / 255f;
 
@@ -120,24 +120,24 @@ namespace OrchidMod.Common
 
 		// ...
 
-		public static void SetTooltipsData(string text, ITooltipsStyle background = null)
+		public static void SetTooltipsData(string text, ITooltipsStyle style = null)
 		{
 			var instance = ModContent.GetInstance<OrchidMouseText>();
 
 			instance.tooltips.Clear();
 			instance.tooltips.Add(new TooltipLine(instance.mod, "Text", text));
 
-			SetTooltipsData(instance.tooltips, background);
+			SetTooltipsData(instance.tooltips, style);
 		}
 
-		public static void SetTooltipsData(List<TooltipLine> tooltipLines, ITooltipsStyle background = null)
+		public static void SetTooltipsData(List<TooltipLine> tooltipLines, ITooltipsStyle style = null)
 		{
 			Main.mouseText = true;
 
 			var instance = ModContent.GetInstance<OrchidMouseText>();
 
 			instance.tooltips = tooltipLines ?? instance.tooltips;
-			instance.background = background ?? NullBackground;
+			instance.style = style ?? NullStyle;
 
 			Main.instance.MouseText("[OMMT]");
 		}
@@ -153,13 +153,13 @@ namespace OrchidMod.Common
 	public interface ITooltipsStyle
 	{
 		virtual Vector2 PositionOffset => Vector2.Zero;
-		void Draw(SpriteBatch sb, Rectangle rectangle);
+		void PreDraw(SpriteBatch sb, Rectangle rectangle);
 
 		// ...
 
 		public struct Invisible : ITooltipsStyle
 		{
-			public void Draw(SpriteBatch sb, Rectangle rectangle) { }
+			public void PreDraw(SpriteBatch sb, Rectangle rectangle) { }
 		}
 
 		public struct Vanilla : ITooltipsStyle
@@ -178,7 +178,7 @@ namespace OrchidMod.Common
 
 			public Vector2 PositionOffset => new(10);
 
-			public void Draw(SpriteBatch sb, Rectangle rectangle)
+			public void PreDraw(SpriteBatch sb, Rectangle rectangle)
 			{
 				var texture = TextureAssets.InventoryBack13.Value;
 
