@@ -77,6 +77,7 @@ namespace OrchidMod.Alchemist.UI
 			if (!Visible) return;
 
 			var player = Main.LocalPlayer;
+			var distanceToCenter = Vector2.Distance(center, Main.MouseScreen);
 
 			if (IsDisappears)
 			{
@@ -86,10 +87,14 @@ namespace OrchidMod.Alchemist.UI
 					return;
 				}
 			}
-			else if (player.HeldItem.ModItem is not UIItemNew || Vector2.Distance(center, Main.MouseScreen) > 170)
+			else if (player.HeldItem.ModItem is not UIItemNew || distanceToCenter > 170)
 			{
 				IsDisappears = true;
 				DisappearsTimer.Restart();
+			}
+			else if (distanceToCenter <= 170)
+			{
+				player.mouseInterface = true;
 			}
 
 			if (InitTimer.Active)
@@ -116,6 +121,17 @@ namespace OrchidMod.Alchemist.UI
 			}
 
 			base.Update(gameTime);
+		}
+
+		public override void Click(UIMouseEvent evt)
+		{
+			if (Vector2.Distance(center, Main.MouseScreen) < 40)
+			{
+				IsDisappears = true;
+				DisappearsTimer.Restart();
+			}
+
+			base.Click(evt);
 		}
 
 		public void OnChangeVisibleToTrue()

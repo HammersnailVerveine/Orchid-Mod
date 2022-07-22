@@ -132,6 +132,8 @@ namespace OrchidMod.Common.UIs
 				}
 			}
 
+			if (Main.mapFullscreen) return;
+
 			foreach (var userInterface in userInterfaces)
 			{
 				userInterface.Update(gameTime);
