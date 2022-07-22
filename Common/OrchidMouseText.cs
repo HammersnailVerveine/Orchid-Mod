@@ -75,7 +75,10 @@ namespace OrchidMod.Common
 
 		private void Draw(SpriteBatch spriteBatch)
 		{
-			var drawableLines = tooltips.Select((TooltipLine x, int i) => new DrawableTooltipLine(x, i, 0, 0, Color.White)).ToList<DrawableTooltipLine>();
+			var drawableLines = tooltips.Select((TooltipLine x, int i) => new DrawableTooltipLine(x, i, 0, 0, Color.White)).ToList();
+
+			style.ModifyDrawableLines(drawableLines);
+
 			var position = new Vector2(Main.mouseX + 14, Main.mouseY + 14) + style.PositionOffset;
 			var zero = Vector2.Zero;
 
@@ -84,9 +87,9 @@ namespace OrchidMod.Common
 				position += new Vector2(6);
 			}
 
-			for (int j = 0; j < drawableLines.Count; j++)
+			foreach (var line in drawableLines)
 			{
-				var stringSize = ChatManager.GetStringSize(drawableLines[j].Font, drawableLines[j].Text, Vector2.One, -1f);
+				var stringSize = ChatManager.GetStringSize(line.Font, line.Text, line.BaseScale, -1f);
 
 				if (stringSize.X > zero.X) zero.X = stringSize.X;
 
@@ -154,14 +157,12 @@ namespace OrchidMod.Common
 	public interface ITooltipsStyle
 	{
 		virtual Vector2 PositionOffset => Vector2.Zero;
-		void PreDraw(SpriteBatch sb, Rectangle rectangle);
+		void ModifyDrawableLines(List<DrawableTooltipLine> lines) { }
+		void PreDraw(SpriteBatch sb, Rectangle rectangle) { }
 
 		// ...
 
-		public struct Invisible : ITooltipsStyle
-		{
-			public void PreDraw(SpriteBatch sb, Rectangle rectangle) { }
-		}
+		public struct Invisible : ITooltipsStyle { }
 
 		public struct Vanilla : ITooltipsStyle
 		{

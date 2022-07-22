@@ -41,23 +41,40 @@ namespace OrchidMod.Alchemist.Bag
 
 		// Returns copies intentionally, because it is not known what will happen in the current interface
 		public IEnumerable<Item> GetPotionsFromInventoryAndBags()
-			=> GetPotionsFromBags().Concat(GetPotionsFromInventory());
-
-		// Private methods
-
-		private IEnumerable<Item> GetPotionsFromBags()
 		{
+			// Remove duplicates, but not with different prefixes
+
 			var potions = new List<Item>();
+			var hashSet = new HashSet<string>();
+
+			foreach (var item in Player.inventory)
+			{
+				var name = item.AffixName();
+
+				if (hashSet.Contains(name)
+				 || !item.TryGetGlobalItem(out OrchidModGlobalItem global)
+				 || global.alchemistElement == AlchemistElement.NULL) continue;
+
+				hashSet.Add(name);
+				potions.Add(item.Clone());
+			}
 
 			foreach (var bag in potionBags)
 			{
-				potions.AddRange(bag.GetPotions.Select(item => item.Clone()));
+				var inventory = bag.GetPotions;
+
+				foreach (var item in inventory)
+				{
+					var name = item.AffixName();
+
+					if (hashSet.Contains(name)) continue;
+
+					hashSet.Add(name);
+					potions.Add(item.Clone());
+				}
 			}
 
 			return potions;
 		}
-
-		private IEnumerable<Item> GetPotionsFromInventory()
-			=> Player.inventory.Where(i => i.TryGetGlobalItem(out OrchidModGlobalItem global) && global.alchemistElement != AlchemistElement.NULL).Select(item => item.Clone());
 	}
 }
