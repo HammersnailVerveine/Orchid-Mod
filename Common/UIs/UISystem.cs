@@ -15,8 +15,8 @@ namespace OrchidMod.Common.UIs
 		private static float uiScale = -1f;
 		private static bool ignoreHotbarScroll = false;
 
-		private static readonly Dictionary<string, OrchidUIState> uiStates = new();
-		private static readonly Dictionary<string, UserInterface> userInterfaces = new();
+		private static readonly List<OrchidUIState> uiStates = new();
+		private static readonly List<UserInterface> userInterfaces = new();
 
 		public static readonly RasterizerState OverflowHiddenRasterizerState = new()
 		{
@@ -28,14 +28,11 @@ namespace OrchidMod.Common.UIs
 			=> ignoreHotbarScroll = true;
 
 		public static T GetUIState<T>() where T : OrchidUIState
-			=> uiStates.FirstOrDefault(i => i.Value is T).Value as T;
-
-		public static OrchidUIState GetUIState(string name)
-			=> uiStates[name];
+			=> uiStates.FirstOrDefault(i => i is T) as T;
 
 		private static void OnResolutionChanged(Vector2 screenSize)
 		{
-			foreach (var (_, uiState) in uiStates)
+			foreach (var uiState in uiStates)
 			{
 				uiState.OnResolutionChanged((int)screenSize.X, (int)screenSize.Y);
 			}
@@ -62,15 +59,19 @@ namespace OrchidMod.Common.UIs
 				if (!type.IsSubclassOf(typeof(OrchidUIState))) continue;
 
 				var uiState = (OrchidUIState)Activator.CreateInstance(type, null);
+				uiStates.Add(uiState);
+			}
+
+			uiStates.Sort((x, y) => x.Priority.CompareTo(y.Priority));
+
+			foreach (var uiState in uiStates)
+			{
 				uiState.Mod = Mod;
 				uiState.Activate();
 
 				var userInterface = new UserInterface();
 				userInterface.SetState(uiState);
-
-				var name = type.Name;
-				uiStates.Add(name, uiState);
-				userInterfaces.Add(name, userInterface);
+				userInterfaces.Add(userInterface);
 			}
 
 			On.Terraria.Player.ScrollHotbar += ModifyScrollHotbar;
@@ -84,7 +85,7 @@ namespace OrchidMod.Common.UIs
 			Main.OnResolutionChanged -= OnResolutionChanged;
 			On.Terraria.Player.ScrollHotbar -= ModifyScrollHotbar;
 
-			foreach (var (_, uiState) in uiStates)
+			foreach (var uiState in uiStates)
 			{
 				uiState.Deactivate();
 				uiState.Unload();
@@ -96,18 +97,21 @@ namespace OrchidMod.Common.UIs
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
-			foreach (var (uiName, uiState) in uiStates)
+			for (int i = 0; i < userInterfaces.Count; i++)
 			{
+				var uiState = uiStates[i];
+				var userInterface = userInterfaces[i];
+
 				var index = uiState.InsertionIndex(layers);
 				if (index < 0) continue;
 
 				layers.Insert(index, new LegacyGameInterfaceLayer(
-					name: $"{Mod.Name}: {uiName}",
+					name: $"{Mod.Name}: {uiState.Name}",
 					drawMethod: () =>
 					{
 						if (uiState.Visible)
 						{
-							uiState.Draw(Main.spriteBatch);
+							userInterface.Draw(Main.spriteBatch, Main._drawInterfaceGameTime);
 						}
 						return true;
 					},
@@ -122,13 +126,13 @@ namespace OrchidMod.Common.UIs
 			{
 				uiScale = Main.UIScale;
 
-				foreach (var (_, uiState) in uiStates)
+				foreach (var uiState in uiStates)
 				{
 					uiState.OnUIScaleChanged();
 				}
 			}
 
-			foreach (var (_, userInterface) in userInterfaces)
+			foreach (var userInterface in userInterfaces)
 			{
 				userInterface.Update(gameTime);
 			}

@@ -4,6 +4,7 @@ using OrchidMod.Alchemist.Bag;
 using OrchidMod.Alchemist.Misc;
 using OrchidMod.Common;
 using OrchidMod.Common.UIs;
+using OrchidMod.Utilities;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.UI;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
 using Terraria.ID;
@@ -174,10 +176,17 @@ namespace OrchidMod.Alchemist.UI
 
 			public override void Update(GameTime gameTime)
 			{
-				if (IsMouseHovering && CanInteract)
+				if (IsMouseHovering && CanInteract && CheckVectorIsInsideCircle(Main.MouseScreen))
 				{
 					Main.LocalPlayer.mouseInterface = true;
-					Main.instance.MouseText("Debug: " + Item.HoverName);
+
+					OrchidMouseText.SetTooltipsData(
+						text:
+							$"[c/{Colors.AlphaDarken(ItemRarity.GetColor(Item.rare)).Hex3()}:" + Item.HoverName + "]\n" +
+							$"Element: {AlchemistItem.element.ToString().FirstCharToUpper(true)}",
+						background:
+							new ITooltipsStyle.Vanilla()
+					);
 				}
 
 				base.Update(gameTime);
@@ -185,7 +194,7 @@ namespace OrchidMod.Alchemist.UI
 
 			public override void Click(UIMouseEvent evt)
 			{
-				if (!CanInteract) return;
+				if (!CanInteract || !CheckVectorIsInsideCircle(Main.MouseScreen)) return;
 
 				Main.NewText("Click: " + Item.HoverName);
 			}
@@ -249,6 +258,15 @@ namespace OrchidMod.Alchemist.UI
 					AlchemistElement.DARK => new Color(138, 43, 226),
 					_ => throw new NotImplementedException()
 				};
+			}
+
+			public bool CheckVectorIsInsideCircle(Vector2 vector)
+			{
+				var style = GetDimensions();
+				var center = style.Center();
+				var halfWidth = style.Width / 2;
+
+				return Vector2.Distance(vector, center) <= halfWidth;
 			}
 		}
 	}
