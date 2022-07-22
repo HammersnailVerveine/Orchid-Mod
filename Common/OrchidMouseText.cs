@@ -62,11 +62,13 @@ namespace OrchidMod.Common
 				c.Emit(Mono.Cecil.Cil.OpCodes.Ret);
 				c.MarkLabel(label);
 			};
+
+			Main.OnPostDraw += ResetTooltipsData;
 		}
 
 		void ILoadable.Unload()
 		{
-
+			Main.OnPostDraw -= ResetTooltipsData;
 		}
 
 		// ...
@@ -114,8 +116,6 @@ namespace OrchidMod.Common
 
 				position.Y += line.Font.MeasureString(line.Text).Y * line.BaseScale.Y;
 			}
-
-			ResetTooltipsData();
 		}
 
 		// ...
@@ -142,11 +142,12 @@ namespace OrchidMod.Common
 			Main.instance.MouseText("[OMMT]");
 		}
 
-		public static void ResetTooltipsData()
+		private static void ResetTooltipsData(GameTime _)
 		{
 			var instance = ModContent.GetInstance<OrchidMouseText>();
 
 			instance.tooltips.Clear();
+			instance.style = NullStyle;
 		}
 	}
 
