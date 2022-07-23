@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Alchemist.Bag;
 using OrchidMod.Alchemist.Misc;
 using OrchidMod.Common;
+using OrchidMod.Common.Graphics;
 using OrchidMod.Common.UIs;
 using OrchidMod.Utilities;
 using ReLogic.Content;
@@ -23,23 +24,22 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Alchemist.UI
 {
-	public class AlchemistSelectUI : OrchidUIState
+	public partial class AlchemistSelectUI : OrchidUIState
 	{
-		private static Asset<Texture2D> PotionBackgroundTexture { get; set; }
-		private static Asset<Texture2D> PotionBorderTexture { get; set; }
-		private static Asset<Texture2D> QuickMixBackgroundTexture { get; set; }
-		private static InterfaceTimer InitTimer { get; set; }
-		private static InterfaceTimer DisappearsTimer { get; set; }
-		private static ITooltipsStyle TooltipsStyle { get; set; }
-		private static bool IsDisappears { get; set; }
+		private static bool CanInteract
+			=> UISystem.GetUIState<AlchemistUIState>().Visible && !Fields.InitTimer.Active;
+		private static OrchidAlchemist Alchemist
+			=> Main.LocalPlayer.GetModPlayer<OrchidAlchemist>();
 
-		private static bool CanInteract => !IsDisappears && !InitTimer.Active;
+		// ...
 
 		private bool visible;
 		private Vector2 center;
 		private List<SelectUIElement> selectUIElements;
 
 		// ...
+		public override float Priority
+			=> 5f;
 
 		public override bool Visible
 		{
@@ -56,27 +56,14 @@ namespace OrchidMod.Alchemist.UI
 
 		public override void OnInitialize()
 		{
-			PotionBackgroundTexture = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectUIPotionBackground");
-			PotionBorderTexture = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectUIPotionBorder");
-			QuickMixBackgroundTexture = ModContent.Request<Texture2D>("OrchidMod/Alchemist/UI/Textures/AlchemistSelectUIQuickMixBackground");
-
-			InitTimer = 6;
-			DisappearsTimer = 6;
-
-			TooltipsStyle = new AlchemistSelectUITooltipsStyle();
+			Fields.Load();
 
 			selectUIElements = new();
 		}
 
 		public override void Unload()
 		{
-			PotionBackgroundTexture = null;
-			PotionBorderTexture = null;
-
-			InitTimer = null;
-			DisappearsTimer = null;
-
-			TooltipsStyle = null;
+			Fields.Unload();
 		}
 
 		public override void Update(GameTime gameTime)
@@ -86,42 +73,53 @@ namespace OrchidMod.Alchemist.UI
 			var player = Main.LocalPlayer;
 			var distanceToCenter = Vector2.Distance(center, Main.MouseScreen);
 
-			if (IsDisappears)
+			if (player.HeldItem.ModItem is not UIItemNew || distanceToCenter > 170)
 			{
-				if (!DisappearsTimer.Active)
-				{
-					Visible = false;
-					return;
-				}
-			}
-			else if (player.HeldItem.ModItem is not UIItemNew || distanceToCenter > 170)
-			{
-				IsDisappears = true;
-				DisappearsTimer.Restart();
-			}
-			else if (distanceToCenter <= 170)
-			{
-				player.mouseInterface = true;
+				Visible = false;
+				return;
 			}
 
-			if (InitTimer.Active)
+			if (Fields.InitTimer.Active)
 			{
 				var elementsCount = selectUIElements.Count;
-				var invertInitProgress = MathHelper.SmoothStep(0, 1, (InitTimer.Value - 1) / (float)InitTimer.InitValue);
+				var invertInitProgress = MathHelper.SmoothStep(0, 1, (Fields.InitTimer.Value - 1) / (float)Fields.InitTimer.InitValue);
 				var initProgress = 1.0f - invertInitProgress;
 				var rotationOffset = invertInitProgress * MathHelper.PiOver2;
-				var positionOffset = PotionBackgroundTexture.Size() * 0.5f;
+				var positionOffset = Fields.PotionBackgroundTexture.Size() * 0.5f;
 
-				for (int i = 0; i < elementsCount; i++)
+				var vectorToFirstCircle = new Vector2(0, -52 * initProgress);
+				var vectorToSecondCircle = new Vector2(0, -103 * initProgress);
+
+				var nbMaxInFirstCircle = 6;
+				var nbInFirstCircle = Math.Min(elementsCount, nbMaxInFirstCircle);
+				var nbInSecondCircle = Math.Max(elementsCount - nbMaxInFirstCircle, 0);
+
+				for (int i = 0; i < nbInFirstCircle; i++)
 				{
 					var uiElement = selectUIElements.ElementAt(i);
-					var rotation = MathHelper.TwoPi / elementsCount * i - rotationOffset;
-					var position = center + new Vector2(0, -70 * initProgress).RotatedBy(rotation) - positionOffset;
+					var rotation = MathHelper.TwoPi / nbInFirstCircle * i - rotationOffset;
+					var position = center + vectorToFirstCircle.RotatedBy(rotation) - positionOffset;
 
 					uiElement.Left.Set(position.X, 0);
 					uiElement.Top.Set(position.Y, 0);
 
 					uiElement.RotationFromCenter = rotation;
+				}
+
+				if (elementsCount > nbMaxInFirstCircle)
+				{
+					for (int i = nbMaxInFirstCircle; i < elementsCount; i++)
+					{
+						var j = i - nbMaxInFirstCircle;
+						var uiElement = selectUIElements.ElementAt(i);
+						var rotation = MathHelper.TwoPi / nbInSecondCircle * j - rotationOffset;
+						var position = center + vectorToSecondCircle.RotatedBy(rotation) - positionOffset;
+
+						uiElement.Left.Set(position.X, 0);
+						uiElement.Top.Set(position.Y, 0);
+
+						uiElement.RotationFromCenter = rotation;
+					}
 				}
 
 				Recalculate();
@@ -132,56 +130,89 @@ namespace OrchidMod.Alchemist.UI
 
 		public override void Click(UIMouseEvent evt)
 		{
-			if (Vector2.Distance(center, Main.MouseScreen) < 40)
-			{
-				IsDisappears = true;
-				DisappearsTimer.Restart();
-			}
-
 			base.Click(evt);
+			Visible = false;
+		}
+
+		public override void RightClick(UIMouseEvent evt)
+		{
+			base.RightClick(evt);
+			Visible = false;
+		}
+
+		protected override void DrawSelf(SpriteBatch spriteBatch)
+		{
+			/*var sbInfo = new SpriteBatchInfo(spriteBatch);
+
+			spriteBatch.End();
+			sbInfo.Begin(spriteBatch, SpriteSortMode.Deferred, BlendState.Additive);
+
+			var texture = OrchidAssets.GetExtraTexture(20);
+			var initProgress = MathHelper.SmoothStep(0, 1, 1.0f - Fields.InitTimer.Value / (float)Fields.InitTimer.InitValue);
+
+			spriteBatch.Draw(texture.Value, center, null, Color.White * initProgress * 0.4f, (float)Main.timeForVisualEffects * 0.025f, texture.Size() * 0.5f, 0.475f * initProgress, SpriteEffects.None, 0f);
+
+			spriteBatch.End();
+			sbInfo.Begin(spriteBatch);*/
 		}
 
 		public void OnChangeVisibleToTrue()
 		{
+			var player = Main.LocalPlayer;
+			var alchemist = Alchemist;
+
+			if (player.HeldItem.ModItem is not UIItemNew uiItem) return;
+
 			PlayerInput.SetZoom_UI();
+			Fields.InitTimer.Restart();
 
 			Elements.RemoveAll(i => i is SelectUIElement);
 
 			selectUIElements.Clear();
 			center = Main.MouseScreen;
 
-			IsDisappears = false;
-			InitTimer.Restart();
+			var maxPotionsInUI = 17;
+			var potions = player.GetModPlayer<PotionBagPlayer>().GetPotionsFromInventoryAndBags().Take(maxPotionsInUI);
+			var initPosition = center - Fields.PotionBackgroundTexture.Size() * 0.5f;
+			//sortedPotions.Sort((x, y) => (x.ModItem as OrchidModAlchemistItem).element.CompareTo((y.ModItem as OrchidModAlchemistItem).element));
 
-			var player = Main.LocalPlayer;
-			var modPlayer = player.GetModPlayer<OrchidAlchemist>();
-			var potions = player.GetModPlayer<PotionBagPlayer>().GetPotionsFromInventoryAndBags();
-			var sortedPotions = potions.ToList();
-			var position = center - PotionBackgroundTexture.Size() * 0.5f;
-			sortedPotions.Sort((x, y) => (x.ModItem as OrchidModAlchemistItem).element.CompareTo((y.ModItem as OrchidModAlchemistItem).element));
+			UpdateMarkedPotions(alchemist, potions);
 
 			SelectUIElement uiElement = new QuickMixUIElement();
-			uiElement.Left.Set(position.X, 0);
-			uiElement.Top.Set(position.Y, 0);
+			uiElement.Left.Set(initPosition.X, 0);
+			uiElement.Top.Set(initPosition.Y, 0);
 
 			Append(uiElement);
 			selectUIElements.Add(uiElement);
 
-			for (int i = 0; i < sortedPotions.Count; i++)
+			for (int i = 0; i < potions.Count(); i++)
 			{
-				var item = sortedPotions.ElementAt(i);
+				var item = potions.ElementAt(i);
 				uiElement = new PotionUIElement(item);
 
-				uiElement.Left.Set(position.X, 0);
-				uiElement.Top.Set(position.Y, 0);
+				uiElement.Left.Set(initPosition.X, 0);
+				uiElement.Top.Set(initPosition.Y, 0);
 
 				Append(uiElement);
 				selectUIElements.Add(uiElement);
 			}
 
 			PlayerInput.SetZoom_World();
+		}
 
-			Recalculate();
+		public void UpdateMarkedPotions(OrchidAlchemist alchemist, IEnumerable<Item> potions)
+		{
+			var counter = 0;
+
+			foreach (var potion in potions)
+			{
+				if (alchemist.PotionIsMarked(potion.ModItem as OrchidModAlchemistItem)) counter++;
+			}
+
+			if (counter != alchemist.GetMarkedPotionsCount())
+			{
+				alchemist.ClearMarkedPotions();
+			}
 		}
 
 		// ...
@@ -203,39 +234,39 @@ namespace OrchidMod.Alchemist.UI
 
 			// ...
 
+			public virtual void Update() { }
 			public virtual void OnHover() { }
-			public virtual void Click() { }
+			public virtual void RightClick() { }
 			public virtual void DrawSelf(SpriteBatch spriteBatch, float progress, Color color) { }
 
 			// ...
 
 			public sealed override void Update(GameTime gameTime)
 			{
+				Update();
+
 				if (IsMouseHovering && CanInteract && CheckVectorIsInsideCircle(Main.MouseScreen))
 				{
-					Main.LocalPlayer.mouseInterface = true;
-
 					OnHover();
 				}
 			}
 
-			public sealed override void Click(UIMouseEvent evt)
+			public sealed override void RightClick(UIMouseEvent evt)
 			{
-				if (!CanInteract || !CheckVectorIsInsideCircle(Main.MouseScreen)) return;
-
-				Click();
+				if (IsMouseHovering && CanInteract && CheckVectorIsInsideCircle(Main.MouseScreen))
+				{
+					RightClick();
+				}
 			}
 
 			protected sealed override void DrawSelf(SpriteBatch spriteBatch)
 			{
-				var initProgress = MathHelper.SmoothStep(0, 1, 1.0f - InitTimer.Value / (float)InitTimer.InitValue);
-				var deathProgress = IsDisappears ? DisappearsTimer.Value / (float)DisappearsTimer.InitValue : 1f;
-				var progress = initProgress * deathProgress;
-				var color = Color.White * progress;
-				
+				var initProgress = MathHelper.SmoothStep(0, 1, 1.0f - Fields.InitTimer.Value / (float)Fields.InitTimer.InitValue);
+				var color = Color.White * initProgress;
+
 				spriteBatch.Draw(BackgroundTexture.Value, new Vector2(Left.Pixels, Top.Pixels), null, color * 0.75f, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0);
 
-				DrawSelf(spriteBatch, progress, color);
+				DrawSelf(spriteBatch, initProgress, color);
 			}
 
 			// ...
@@ -250,29 +281,10 @@ namespace OrchidMod.Alchemist.UI
 			}
 		}
 
-		private struct AlchemistSelectUITooltipsStyle : ITooltipsStyle
-		{
-			void ITooltipsStyle.ModifyDrawableLines(List<DrawableTooltipLine> lines)
-			{
-				var count = lines.Count;
-
-				if (count <= 1) return;
-
-				lines[0].BaseScale = new Vector2(1.1f);
-
-				var scale = new Vector2(0.85f);
-
-				for (int i = 1; i < count; i++)
-				{
-					lines[i].BaseScale = scale;
-				}
-			}
-		}
-
 		private class QuickMixUIElement : SelectUIElement
 		{
 			public override Asset<Texture2D> BackgroundTexture
-				=> QuickMixBackgroundTexture;
+				=> Fields.QuickMixBackgroundTexture;
 
 			public override void OnHover()
 			{
@@ -281,10 +293,13 @@ namespace OrchidMod.Alchemist.UI
 						new List<TooltipLine>()
 						{
 							new TooltipLine(OrchidMod.Instance, "0", "Quick Mixing") { OverrideColor = Color.Gold },
-							new TooltipLine(OrchidMod.Instance, "1", "Activates all potions marked with star")
+							new TooltipLine(OrchidMod.Instance, "1", "Mixes all potions marked with a star"),
+							new TooltipLine(OrchidMod.Instance, "2", "All marks will be erased if at least one marked potion is missing"),
+							new TooltipLine(OrchidMod.Instance, "3", $"Currently marked {Alchemist.GetMarkedPotionsCount()} potions"),
+							new TooltipLine(OrchidMod.Instance, "4", "{Alt+Click on potion to mark}") { OverrideColor = Color.Gray }
 						},
 					style:
-						TooltipsStyle
+						Fields.TooltipsStyle
 				);
 			}
 		}
@@ -293,38 +308,89 @@ namespace OrchidMod.Alchemist.UI
 		{
 			public Item Item { get; init; }
 			public OrchidModAlchemistItem AlchemistItem { get; init; }
+			public OrchidModGlobalItem GlobalItem { get; init; }
+			public bool IsMarked { get; set; }
+			public bool IsBlocked { get; set; }
 
 			public PotionUIElement(Item item)
 			{
 				Item = item;
 				AlchemistItem = Item.ModItem as OrchidModAlchemistItem;
+				GlobalItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			}
 
 			public override Asset<Texture2D> BackgroundTexture
-				=> PotionBackgroundTexture;
+				=> Fields.PotionBackgroundTexture;
+
+			public override void Update()
+			{
+				var alchemist = Alchemist;
+				var potencyCost = GlobalItem.alchemistPotencyCost;
+
+				IsMarked = alchemist.PotionIsMarked(AlchemistItem);
+				IsBlocked =
+					alchemist.ContainsAlchemistElement(AlchemistItem.element)
+					|| alchemist.alchemistPotency < potencyCost + 1
+					|| alchemist.alchemistNbElements >= alchemist.alchemistNbElementsMax;
+			}
 
 			public override void OnHover()
 			{
-				OrchidMouseText.SetTooltipsData(
-					tooltipLines:
-						new List<TooltipLine>()
-						{
-							new TooltipLine(OrchidMod.Instance, "0", Item.HoverName) { OverrideColor = ItemRarity.GetColor(Item.rare) },
-							new TooltipLine(OrchidMod.Instance, "1", $"Element: {AlchemistItem.element.ToString().FirstCharToUpper(true)}")
-						},
-					style:
-						TooltipsStyle
-				);
+				var tooltips = new List<TooltipLine>()
+				{
+					new TooltipLine(OrchidMod.Instance, "0", Item.HoverName) { OverrideColor = ItemRarity.GetColor(Item.rare) },
+					new TooltipLine(OrchidMod.Instance, "1", $"Element: {AlchemistItem.element.ToString().FirstCharToUpper(true)}")
+				};
+
+				if (Main.keyState.IsKeyDown(Main.FavoriteKey))
+				{
+					Main.cursorOverride = 3;
+				}
+
+				if (IsMarked)
+				{
+					tooltips.Add(new TooltipLine(OrchidMod.Instance, "2", "Marked for quick mixing"));
+				}
+
+				OrchidMouseText.SetTooltipsData(tooltipLines: tooltips, style: Fields.TooltipsStyle);
 			}
 
-			public override void Click()
+			public override void RightClick()
 			{
-				Main.NewText("Click: " + Item.HoverName);
+				if (Main.keyState.IsKeyDown(Main.FavoriteKey))
+				{
+					if (IsMarked) Alchemist.RemoveMarkedPotion(AlchemistItem);
+					else Alchemist.AddMarkedPotion(AlchemistItem);
+				}
+				else
+				{
+					if (IsBlocked)
+					{
+						switch (Main.rand.NextBool(2))
+						{
+							case true:
+								SoundEngine.PlaySound(SoundID.Item112);
+								break;
+							case false:
+								SoundEngine.PlaySound(SoundID.Item111);
+								break;
+						}
+					}
+					else
+					{
+						AddFlask();
+					}
+					
+				}
 			}
 
 			public override void DrawSelf(SpriteBatch spriteBatch, float progress, Color color)
 			{
-				var vector = PotionBackgroundTexture.Size() * Scale;
+				var oldColor = color;
+
+				color = IsBlocked ? new(70, 70, 70) : color;
+
+				var vector = Fields.PotionBackgroundTexture.Size() * Scale;
 				var itemType = Item.type;
 				var itemTexture = TextureAssets.Item[itemType].Value;
 				var rectangle = Main.itemAnimations[itemType] is null ? itemTexture.Frame(1, 1, 0, 0, 0, 0) : Main.itemAnimations[itemType].GetFrame(itemTexture, -1);
@@ -346,11 +412,16 @@ namespace OrchidMod.Alchemist.UI
 				Vector2 position = new Vector2(Left.Pixels, Top.Pixels) + vector / 2f - rectangle.Size() * num8 / 2f;
 				Vector2 origin = rectangle.Size() * (scale / 2f - 0.5f);
 
-				spriteBatch.Draw(PotionBackgroundTexture.Value, new Vector2(Left.Pixels, Top.Pixels), null, color * 0.75f, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(Fields.PotionBackgroundTexture.Value, new Vector2(Left.Pixels, Top.Pixels), null, color * 0.75f, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0);
 
-				Vector2 borderOrigin = PotionBorderTexture.Size() * 0.5f * Scale;
+				Vector2 offset = Fields.PotionBorderTexture.Size() * 0.5f * Scale;
+				spriteBatch.Draw(Fields.PotionBorderTexture.Value, new Vector2(Left.Pixels, Top.Pixels) + offset, null, oldColor * 0.75f, RotationFromCenter + MathHelper.PiOver4, Fields.PotionBorderTexture.Size() * 0.5f, Scale, SpriteEffects.None, 0);
+				spriteBatch.Draw(Fields.PotionElementTexture.Value, new Vector2(Left.Pixels, Top.Pixels) + offset, null, borderColor * 0.75f, RotationFromCenter + MathHelper.PiOver4, Fields.PotionElementTexture.Size() * 0.5f, Scale, SpriteEffects.None, 0);
 
-				spriteBatch.Draw(PotionBorderTexture.Value, new Vector2(Left.Pixels, Top.Pixels) + borderOrigin, null, borderColor * 0.75f, RotationFromCenter + MathHelper.PiOver4, PotionBorderTexture.Size() * 0.5f, Scale, SpriteEffects.None, 0);
+				if (IsMarked)
+				{
+					spriteBatch.Draw(Fields.PotionMarkedTexture.Value, new Vector2(Left.Pixels, Top.Pixels), null, oldColor * 0.75f, 0f, Vector2.Zero, Scale, SpriteEffects.None, 0);
+				}
 
 				if (ItemLoader.PreDrawInInventory(Item, spriteBatch, position, rectangle, Item.GetAlpha(currentColor), Item.GetColor(color), origin, num8 * scale))
 				{
@@ -377,6 +448,37 @@ namespace OrchidMod.Alchemist.UI
 					AlchemistElement.DARK => new Color(138, 43, 226),
 					_ => throw new NotImplementedException()
 				};
+			}
+
+			// ...
+
+			private void AddFlask()
+			{
+				var rightClickDust = GlobalItem.alchemistRightClickDust;
+				var potencyCost = GlobalItem.alchemistPotencyCost;
+				var colorR = GlobalItem.alchemistColorR;
+				var colorG = GlobalItem.alchemistColorG;
+				var colorB = GlobalItem.alchemistColorB;
+
+				OrchidModAlchemistItem.playerAddFlask(Main.LocalPlayer, AlchemistItem.element, Item.type, Item.damage, potencyCost, rightClickDust, colorR, colorG, colorB);
+
+				switch (Main.rand.Next(3))
+				{
+					case 1:
+						SoundEngine.PlaySound(SoundID.Item86);
+						break;
+					case 2:
+						SoundEngine.PlaySound(SoundID.Item87);
+						break;
+					default:
+						SoundEngine.PlaySound(SoundID.Item85);
+						break;
+				}
+
+				for (int k = 0; k < 5; k++)
+				{
+					Dust.NewDust(Main.LocalPlayer.Center, 10, 10, rightClickDust);
+				}
 			}
 		}
 	}

@@ -6,6 +6,7 @@ using OrchidMod.Common.UIs;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -37,11 +38,9 @@ namespace OrchidMod.Alchemist.Misc
 			=> Main.DiscoColor;
 
 		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
+			=> true;
 
-		public override bool CanUseItem(Player player)
+		/*public override bool CanUseItem(Player player)
 		{
 			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			if (player.altFunctionUse == 2)
@@ -51,7 +50,7 @@ namespace OrchidMod.Alchemist.Misc
 			  // return !modPlayer.alchemistSelectUIDisplay && Main.mouseLeftRelease;
 			  // }
 			return base.CanUseItem(player);
-		}
+		}*/
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
@@ -59,7 +58,24 @@ namespace OrchidMod.Alchemist.Misc
 			{
 				if (Environment.UserName.Equals("SPladison"))
 				{
-					UISystem.GetUIState<AlchemistSelectUI>().Visible = !UISystem.GetUIState<AlchemistSelectUI>().Visible;
+					if (player.altFunctionUse == 2)
+					{
+						var uiState = UISystem.GetUIState<AlchemistSelectUI>();
+
+						if (!uiState.Visible) uiState.Visible = true;
+
+						player.itemAnimation = 0;
+					}
+					else
+					{
+						var alchemist = player.GetModPlayer<OrchidAlchemist>();
+
+						if (alchemist.alchemistNbElements > 0)
+						{
+							alchemist.alchemistShootProjectile = true;
+							SoundEngine.PlaySound(SoundID.Item106);
+						}
+					}
 				}
 				else
 				{
@@ -101,7 +117,7 @@ namespace OrchidMod.Alchemist.Misc
 			Tooltip.SetDefault("Allows mixing alchemical weapons by clicking"
 							+ "\nRight click on an item icon to mix it"
 							+ "\nLeft click to launch the attack"
-							+ "\nUp to 18 items can be displayed at once");
+							+ "\nUp to 17 items can be displayed at once");
 		}
 
 	}

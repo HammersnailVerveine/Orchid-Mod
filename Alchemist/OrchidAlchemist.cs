@@ -17,6 +17,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using OrchidMod.Common;
+using OrchidMod.Alchemist.Bag;
 
 namespace OrchidMod
 {
@@ -67,6 +68,27 @@ namespace OrchidMod
 		public bool alchemistReactiveVials = false;
 		public bool alchemistCovent = false;
 
+		private HashSet<string> markedPotionNames = new();
+
+		// Marked Potions
+
+		public int GetMarkedPotionsCount()
+			=> markedPotionNames.Count;
+
+		public bool PotionIsMarked(OrchidModAlchemistItem item)
+			=> markedPotionNames.Contains(item.Item.HoverName);
+
+		public void AddMarkedPotion(OrchidModAlchemistItem item)
+			=> markedPotionNames.Add(item.Item.HoverName);
+
+		public void RemoveMarkedPotion(OrchidModAlchemistItem item)
+			=> markedPotionNames.Remove(item.Item.HoverName);
+
+		public void ClearMarkedPotions()
+			=> markedPotionNames.Clear();
+
+		// ...
+
 		public void ClearAlchemistColors()
 		{
 			alchemistColorR = 50;
@@ -93,6 +115,9 @@ namespace OrchidMod
 				alchemistElements[i] = false;
 			}
 		}
+
+		public bool ContainsAlchemistElement(AlchemistElement element)
+			=> alchemistElements[(int)element - 1];
 
 		public int GetNbAlchemistFlasks()
 		{
@@ -164,6 +189,7 @@ namespace OrchidMod
 			tag.Add("ChemistHint", alchemistDailyHint);
 			tag.Add("AlchemistKnownReactions", alchemistKnownReactions.ToList());
 			tag.Add("AlchemistKnownHints", alchemistKnownHints.ToList());
+			tag.Add("MarkedPotionNames", markedPotionNames.ToList());
 		}
 
 		public override void LoadData(TagCompound tag)
@@ -171,6 +197,7 @@ namespace OrchidMod
 			alchemistDailyHint = tag.GetBool("ChemistHint");
 			alchemistKnownReactions = tag.Get<List<string>>("AlchemistKnownReactions");
 			alchemistKnownHints = tag.Get<List<string>>("AlchemistKnownHints");
+			markedPotionNames = tag.Get<List<string>>("MarkedPotionNames").ToHashSet();
 		}
 
 		public override void PostUpdateEquips()
