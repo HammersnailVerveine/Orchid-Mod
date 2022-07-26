@@ -42,7 +42,7 @@ namespace OrchidMod.Shaman.Projectiles
 			{
 				storeVelocity = Projectile.velocity;
 				storeDamage = Projectile.damage;
-				faster = modPlayer.GetNbShamanicBonds() > 3;
+				faster = modPlayer.GetNbShamanicBonds() > 2;
 			}
 			
 			if (Projectile.timeLeft > 35)

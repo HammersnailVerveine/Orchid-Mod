@@ -1,7 +1,7 @@
 author = Verveine, S-Pladison, Multibanana
-version = 1.4.0.3
+version = 1.4.0.5
 displayName = Orchid Mod
 hideCode = true
 hideResources = true
 homepage = https://forums.terraria.org/index.php?threads/orchid-mod.78865/
-loadAfter = ThoriumMod
+sortAfter = ThoriumMod

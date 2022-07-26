@@ -1,2 +1,6 @@
+- Sprite Changes : 
+  - Shaman Emblem.
+
 # Fixes #
-- Fixed an error with the Harpy Anklet.
+- Fixed perishing soul still needing more than 3 active bonds to launch faster.
+- Fixed "Purifying Lilies" reaction behaviour in multiplayer.
