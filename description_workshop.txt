@@ -6,7 +6,11 @@ Orchid's content is heavily inspired, and tries to respect vanilla guidelines as
 Thus, the mod is balanced around the main game, nothing should overpower it, and the classes
 should blend in as much as possible with the main ones.
 
-Join our discord !
+The classes are aimed at experienced players, looking for a refreshing way of playing the game.
+They are considerably harder to play than vanilla classes, and will require some dedication to
+achieve a desirable damage output.
+
+Join our discord!
 https://discord.gg/zhW9dm2
 
 Trailer by GitGudWO :
