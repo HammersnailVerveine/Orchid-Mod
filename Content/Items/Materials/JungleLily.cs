@@ -89,9 +89,16 @@ namespace OrchidMod.Content.Items.Materials
 			}
 		}
 
-		public override void KillMultiTile(int i, int j, int frameX, int frameY)
+		public override bool Drop(int i, int j)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<JungleLily>());
+			var tile = Main.tile[i, j];
+
+			if (tile.TileFrameX % 36 == 0 && tile.TileFrameY == 0)
+			{
+				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<JungleLily>());
+			}
+
+			return true;
 		}
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
