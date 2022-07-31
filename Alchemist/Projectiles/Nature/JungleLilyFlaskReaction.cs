@@ -69,6 +69,11 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 							WorldGen.KillTile(k, l, false, false, true);
 
+							if (Main.netMode == NetmodeID.MultiplayerClient)
+							{
+								NetMessage.SendData(MessageID.TileSquare, -1, -1, null, 0, k, l);
+							}
+
 							Item.NewItem(new EntitySource_TileBreak(k, l), (k + 1) * 16, (l + 1) * 16, 0, 0, ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>());
 						}
 					}

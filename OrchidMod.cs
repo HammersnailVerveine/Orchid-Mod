@@ -40,7 +40,7 @@ namespace OrchidMod
 				{
 					var instance = (ILoadable)Activator.CreateInstance(t, true);
 
-					if (ModContent.GetInstance<OrchidConfig>().LoadCrossmodContentWithoutRequiredMods)
+					if (ModContent.GetInstance<OrchidServerConfig>().LoadCrossmodContentWithoutRequiredMods)
 					{
 						AddContent(instance);
 						return;

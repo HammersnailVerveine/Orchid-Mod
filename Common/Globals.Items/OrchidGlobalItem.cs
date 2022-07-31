@@ -51,14 +51,12 @@ namespace OrchidMod.Common.Globals.Items
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			var config = ModContent.GetInstance<OrchidConfig>();
-
-			if (config.ShowClassTags && tagsByItemType.ContainsKey(item.type))
+			if (ModContent.GetInstance<OrchidClientConfig>().ShowClassTags && tagsByItemType.ContainsKey(item.type))
 			{
 				AddClassTagToTooltips(item, tooltips);
 			}
 
-			if (config.LoadCrossmodContentWithoutRequiredMods)
+			if (ModContent.GetInstance<OrchidServerConfig>().LoadCrossmodContentWithoutRequiredMods)
 			{
 				var atr = item.ModItem?.GetType().GetCustomAttribute<CrossmodContentAttribute>();
 
