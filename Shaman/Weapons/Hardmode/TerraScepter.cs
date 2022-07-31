@@ -31,7 +31,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		public override void SafeSetStaticDefaults()
 		{
 			DisplayName.SetDefault("Terra Scepter");
-			Tooltip.SetDefault("Hits will grow a terra orb, breaking free after reacing a certain power"
+			Tooltip.SetDefault("Hits grow a terra orb, breaking free upon reaching a certain power"
 							  + "\nHitting with the orb increases your shamanic damage"
 							  + "\nShoots more projectiles based on the number of active shamanic bonds");
 		}

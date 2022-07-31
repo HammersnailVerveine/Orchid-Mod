@@ -32,7 +32,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			DisplayName.SetDefault("Palladium Scepter");
 			Tooltip.SetDefault("Shoots a potent palladium bolt, hitting your enemy 3 times"
 							  + "\nHitting the same target with all 3 shots will grant you a palladium orb"
-							  + "\nIf you have 5 palladium orbs, your next attack will resplenish 25 life on hit");
+							  + "\nIf you have 5 palladium orbs, your next attack will replenish 25 life on hit");
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

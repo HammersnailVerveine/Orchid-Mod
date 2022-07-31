@@ -27,6 +27,7 @@ namespace OrchidMod.Shaman
 
 		public override void SetDefaultStats(Player player)
 		{
+			player.GetDamage<ShamanDamageClass>() += 0.3f;
 		}
 	}
 }

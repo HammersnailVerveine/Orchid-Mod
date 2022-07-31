@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Weapons
 		{
 			DisplayName.SetDefault("Amethyst Scepter");
 			Tooltip.SetDefault("\nHitting an enemy will grant you an amethyst orb"
-							  + "\nIf you have 3 amethyst orbs, your next hit will empower your shamanic spirit bonds for 15 seconds");
+							  + "\nIf you have 3 amethyst orbs, your next hit will empower your shamanic spirit bonds for 30 seconds");
 		}
 
 		public override void AddRecipes() => CreateRecipe()

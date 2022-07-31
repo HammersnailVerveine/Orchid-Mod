@@ -13,6 +13,7 @@ namespace OrchidMod.Alchemist.Recipes
 			this.description = "Heals the player for 25 health";
 			this.sound = SoundID.Item25;
 			this.dust = 56;
+			this.debuffDuration = 15;
 			this.ingredients.Add(ItemType<Weapons.Nature.GlowingMushroomVial>());
 			this.ingredients.Add(ItemType<Weapons.Water.KingSlimeFlask>());
 		}
