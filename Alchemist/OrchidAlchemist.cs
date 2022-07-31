@@ -53,7 +53,6 @@ namespace OrchidMod
 		public bool alchemistSelectUIKeysInitialize = false;
 		public bool alchemistShootProjectile = false;
 		public bool alchemistBookUIDisplay = false;
-		public bool alchemistBookUIItem = false;
 		public bool alchemistBookUIInitialize = false;
 		public bool alchemistDailyHint = false;
 		public bool alchemistEntryTextCooldown = false;
@@ -354,8 +353,6 @@ namespace OrchidMod
 			alchemistSelectUIKeysDisplay = alchemistSelectUIKeysItem ? alchemistSelectUIKeysDisplay : false;
 			alchemistSelectUIItem = false;
 			alchemistSelectUIKeysItem = false;
-			alchemistBookUIDisplay = alchemistBookUIItem ? alchemistBookUIDisplay : false;
-			alchemistBookUIItem = false;
 			alchemistEntryTextCooldown = false;
 
 			alchemistMeteor = false;

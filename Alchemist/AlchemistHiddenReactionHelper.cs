@@ -67,6 +67,9 @@ namespace OrchidMod.Alchemist
 			return recipes;
 		}
 
+		public static bool playerKnowsRecipe(AlchemistHiddenReactionRecipe recipe, Player player)
+			=> player.GetModPlayer<OrchidAlchemist>().alchemistKnownReactions.Contains(recipe.typeName);
+
 		public static void triggerAlchemistReactionEffects(AlchemistHiddenReactionRecipe recipe, Mod mod, Player player, OrchidAlchemist modPlayer)
 		{
 			recipe.recipeEffect(player, modPlayer);
@@ -209,12 +212,12 @@ namespace OrchidMod.Alchemist
 					{
 						modPlayer.alchemistKnownHints.Remove(hiddenReaction.typeName);
 					}
+
 					modPlayer.alchemistKnownReactions.Add(hiddenReaction.typeName);
-					floatingTextColor = new Color(255, 187, 0);
-					floatingTextStr = "New Entry";
 					Rectangle rect = player.Hitbox;
 					rect.Y -= 50;
-					CombatText.NewText(rect, floatingTextColor, floatingTextStr);
+
+					Main.NewText($"Entry {HiddenReactionTagHandler.GenerateTag(hiddenReaction)} added to the hidden reaction codex!");
 				}
 			}
 

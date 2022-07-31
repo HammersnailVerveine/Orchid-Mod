@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Alchemist.UI;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
+using OrchidMod.Common.UIs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -36,9 +38,8 @@ namespace OrchidMod.Alchemist.Misc
 			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			if (player.altFunctionUse == 2 && Main.mouseRightRelease)
 			{
-				// SoundEngine.PlaySound(modPlayer.alchemistBookUIDisplay ? 11 : 10, (int)player.Center.X, (int)player.Center.Y, 0);
-				SoundEngine.PlaySound(modPlayer.alchemistBookUIDisplay ? SoundID.MenuOpen : SoundID.MenuClose, player.Center);
-				modPlayer.alchemistBookUIDisplay = !modPlayer.alchemistBookUIDisplay;
+				if (!modPlayer.alchemistBookUIDisplay) UISystem.GetUIState<AlchemistBookUIState>().OpenBook();
+				else modPlayer.alchemistBookUIDisplay = false;
 				return false;
 			}
 			else if (modPlayer.alchemistNbElements < 2 || player.FindBuffIndex(Mod.Find<ModBuff>("ReactionCooldown").Type) > -1 || modPlayer.alchemistBookUIDisplay)
@@ -65,12 +66,6 @@ namespace OrchidMod.Alchemist.Misc
 					OverrideColor = new Color(155, 255, 55)
 				});
 			}
-		}
-
-		public override void HoldItem(Player player)
-		{
-			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
-			modPlayer.alchemistBookUIItem = true;
 		}
 
 		public override void SetStaticDefaults()
