@@ -45,6 +45,8 @@ namespace OrchidMod.Content.NPCs.Town
 			cardSlotsTexture = ModContent.Request<Texture2D>(OrchidAssets.UIsPath + "CroupierUICardSlots", AssetRequestMode.ImmediateLoad);
 			shadingTexture = OrchidAssets.GetExtraTexture(18, AssetRequestMode.ImmediateLoad);
 
+			Visible = false;
+
 			On.Terraria.Player.SetTalkNPC += ModifySetTalkNPC;
 			On.Terraria.Main.GUIChatDrawInner += DrawOverVanillaNPCChat;
 		}
@@ -59,6 +61,8 @@ namespace OrchidMod.Content.NPCs.Town
 
 		public void Activate()
 		{
+			if (TextLinesInfo is null) return;
+
 			Visible = true;
 
 			linesCount = 0;
@@ -313,6 +317,8 @@ namespace OrchidMod.Content.NPCs.Town
 		private static void ModifySetTalkNPC(On.Terraria.Player.orig_SetTalkNPC orig, Player player, int npcIndex, bool fromNet)
 		{
 			orig(player, npcIndex, fromNet);
+
+			if (!player.whoAmI.Equals(Main.LocalPlayer.whoAmI)) return;
 
 			Instance.Visible = false;
 		}
