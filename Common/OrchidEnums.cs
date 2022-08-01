@@ -9,6 +9,7 @@
 
 	public enum ClassTags
 	{
+		Without,
 		Alchemist,
 		Dancer,
 		Gambler,

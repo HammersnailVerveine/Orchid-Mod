@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -9,6 +11,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Shaman.Armors.Abyss
 {
 	[AutoloadEquip(EquipType.Wings)]
+	[ClassTag(ClassTags.Without)]
 	public class AbyssalWings : OrchidModShamanEquipable
 	{
 		public override void SetStaticDefaults()

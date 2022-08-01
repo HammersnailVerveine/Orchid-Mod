@@ -36,7 +36,7 @@ namespace OrchidMod.Common.Globals.Items
 
 				var atr = modItem.GetType().GetCustomAttribute<ClassTagAttribute>();
 
-				if (atr is null) continue; 
+				if (atr is null || atr.Tag.Equals(ClassTags.Without)) continue; 
 
 				tagsByItemType.Add(modItem.Type, atr.Tag);
 			}
