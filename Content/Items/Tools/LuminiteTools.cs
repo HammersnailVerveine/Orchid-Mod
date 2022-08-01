@@ -4,16 +4,17 @@ using OrchidMod.Common.PlayerDrawLayers;
 using OrchidMod.Shaman.Misc;
 using OrchidMod.Utilities;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Items.Tools
 {
+	// Abyss Tools
+
 	public class AbyssHamaxe : LuminiteTool
 	{
-		public override string Texture => OrchidAssets.ItemsPath + Name;
-
-		public AbyssHamaxe() : base(name: "Abyss Hamaxe", lightColor: new Color(69, 66, 237), itemCloneType: ItemID.LunarHamaxeSolar) { }
+		public AbyssHamaxe() : base(name: "Abyss Hamaxe", lightColor: LuminiteTool.AbyssColor, itemCloneType: ItemID.LunarHamaxeSolar) { }
 
 		public override void AddRecipes()
 		{
@@ -27,9 +28,7 @@ namespace OrchidMod.Content.Items.Tools
 
 	public class AbyssPickaxe : LuminiteTool
 	{
-		public override string Texture => OrchidAssets.ItemsPath + Name;
-
-		public AbyssPickaxe() : base(name: "Abyss Pickaxe", lightColor: new Color(69, 66, 237), itemCloneType: ItemID.SolarFlarePickaxe) { }
+		public AbyssPickaxe() : base(name: "Abyss Pickaxe", lightColor: LuminiteTool.AbyssColor, itemCloneType: ItemID.SolarFlarePickaxe) { }
 
 		public override void AddRecipes()
 		{
@@ -41,10 +40,38 @@ namespace OrchidMod.Content.Items.Tools
 		}
 	}
 
-	// ...
+	public class AbyssDrill : LuminiteTool
+	{
+		public AbyssDrill() : base(name: "Abyss Drill", lightColor: LuminiteTool.AbyssColor, itemCloneType: ItemID.SolarFlareDrill) { }
+
+		public override int GetProjectileType()
+			=> ModContent.ProjectileType<AbyssDrillProjectile>();
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient(ItemID.LunarBar, 10);
+			recipe.AddIngredient(ModContent.ItemType<AbyssFragment>(), 12);
+			recipe.AddTile(TileID.LunarCraftingStation);
+			recipe.Register();
+		}
+
+		// ...
+
+		private class AbyssDrillProjectile : LuminiteToolProjectile
+		{
+			public AbyssDrillProjectile() : base(name: "Abyss Drill", projectileCloneType: ProjectileID.SolarFlareDrill) { }
+		}
+	}
+
+	// Abstract Classes
 
 	public abstract class LuminiteTool : ModItem
 	{
+		public static readonly Color AbyssColor = new(69, 66, 237);
+
+		// ...
+
 		private readonly Color lightColor;
 		private readonly int itemCloneType;
 		private readonly string name;
@@ -58,9 +85,13 @@ namespace OrchidMod.Content.Items.Tools
 			this.name = name;
 		}
 
-		public override string Texture => OrchidAssets.ItemsPath + Name;
-
 		// ...
+
+		public virtual void SafeSetDefaults() { }
+		public virtual int GetProjectileType()
+			=> ProjectileID.None;
+
+		public override string Texture => OrchidAssets.ItemsPath + Name;
 
 		public sealed override void SetStaticDefaults()
 		{
@@ -72,6 +103,18 @@ namespace OrchidMod.Content.Items.Tools
 		public sealed override void SetDefaults()
 		{
 			Item.CloneDefaults(itemCloneType);
+			Item.glowMask = -1;
+			Item.shoot = GetProjectileType();
+
+			var texture = TextureAssets.Item[Type];
+
+			if (texture is not null)
+			{
+				Item.width = texture.Width();
+				Item.height = texture.Height();
+			}
+
+			SafeSetDefaults();
 		}
 
 		public sealed override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -87,6 +130,50 @@ namespace OrchidMod.Content.Items.Tools
 		public sealed override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
 			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White, rotation, scale);
+		}
+	}
+
+	public abstract class LuminiteToolProjectile : ModProjectile
+	{
+		private readonly string name;
+		private readonly int projectileCloneType;
+
+		// ...
+
+		public LuminiteToolProjectile(string name, int projectileCloneType)
+		{
+			this.name = name;
+			this.projectileCloneType = projectileCloneType;
+		}
+
+		// ...
+
+		public override string Texture => OrchidAssets.ItemsPath + Name.Replace("Projectile", "");
+		public override string GlowTexture => Texture + "_Glow";
+
+		public sealed override void SetStaticDefaults()
+		{
+			DisplayName.SetDefault(name);
+		}
+
+		public sealed override void SetDefaults()
+		{
+			Projectile.CloneDefaults(projectileCloneType);
+			Projectile.glowMask = -1;
+
+			var texture = TextureAssets.Projectile[Type];
+
+			if (texture is not null)
+			{
+				Projectile.width = texture.Width();
+				Projectile.height = texture.Height();
+			}
+		}
+
+		public sealed override void AI()
+		{
+			var owner = Main.player[Projectile.owner];
+			Projectile.rotation += MathHelper.PiOver2 * (-owner.direction) * (owner.gravDir);
 		}
 	}
 }
