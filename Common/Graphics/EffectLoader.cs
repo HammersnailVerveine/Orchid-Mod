@@ -14,7 +14,8 @@ namespace OrchidMod.Common.Graphics
 	[Autoload(Side = ModSide.Client)]
 	public class EffectLoader : ILoadable
 	{
-		private static readonly Dictionary<string, Asset<Effect>> effectsByName = new();
+		private static Dictionary<string, Asset<Effect>> effectsByName = new();
+		private static ArmorShaderData transparentDustShaderData = null;
 
 		// ...
 
@@ -37,17 +38,24 @@ namespace OrchidMod.Common.Graphics
 					SetEffectInitParameters(name, asset.Value.Parameters);
 				}
 			}
+
+			transparentDustShaderData = new ArmorShaderData(new Ref<Effect>(GetEffect("TransparentDust").Value), "TransparentDust");
 		}
 
 		void ILoadable.Unload()
 		{
 			effectsByName.Clear();
+			effectsByName = null;
+			transparentDustShaderData = null;
 		}
 
 		// ...
 
 		public static Asset<Effect> GetEffect(string name)
 			=> effectsByName[name];
+
+		public static ArmorShaderData GetTransparentDustShaderData()
+			=> transparentDustShaderData;
 
 		public static void CreateSceneFilter(string effect, EffectPriority priority)
 			=> Filters.Scene[$"{OrchidMod.Instance.Name}:{effect}"] = new(new ScreenShaderData(new Ref<Effect>(GetEffect(effect).Value), effect), priority);
