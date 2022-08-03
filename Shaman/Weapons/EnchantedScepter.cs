@@ -9,7 +9,7 @@ namespace OrchidMod.Shaman.Weapons
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.damage = 9;
+			Item.damage = 12;
 			Item.width = 40;
 			Item.height = 40;
 			Item.useTime = 28;
@@ -34,7 +34,7 @@ namespace OrchidMod.Shaman.Weapons
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			damage.Flat += (modPlayer.GetNbShamanicBonds() * 3f);
+			damage.Flat += (modPlayer.GetNbShamanicBonds() * 4f);
 		}
 	}
 }

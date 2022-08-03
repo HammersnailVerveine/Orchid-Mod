@@ -8,7 +8,7 @@ namespace OrchidMod.General.Items.Accessories
 	{
 		public override void SetDefaults()
 		{
-			Item.width = 24;
+			Item.width = 26;
 			Item.height = 28;
 			Item.value = Item.sellPrice(0, 0, 15, 0);
 			Item.rare = ItemRarityID.Blue;
