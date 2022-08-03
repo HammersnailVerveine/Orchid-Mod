@@ -1,23 +1,59 @@
-The Orchid Mod aims to add content to the game in polished and refreshing ways.
-You will not find the usual vanilla class items load here, most of Orchid content is, and will be based on
-new classes, with unique complex mechanics, and new interesting biomes/structures to explore.
+[img]https://i.imgur.com/NwWPsBI.png[/img]
 
-Orchid's content is heavily inspired, and tries to respect vanilla guidelines as much as possible.
-Thus, the mod is balanced around the main game, nothing should overpower it, and the classes
-should blend in as much as possible with the main ones.
+The [b]Orchid Mod[/b] aims to add content to the game in polished and refreshing ways. You will not find the usual vanilla class items here; most of the content Orchid Mod provides is based on new classes with unique and complex mechanics, and new interesting areas to explore.
 
-The classes are aimed at experienced players, looking for a refreshing way of playing the game.
-They are considerably harder to play than vanilla classes, and will require some dedication to
-achieve a desirable damage output.
+[img]https://i.imgur.com/kcLoweG.png[/img]
+The Orchid Mod currently adds four new classes: the [b]Shaman[/b], the [b]Alchemist[/b], the [b]Gambler[/b], and the [b]Guardian[/b].
 
-Join our discord!
-https://discord.gg/zhW9dm2
+These new classes are aimed at experienced players, looking for a refreshing way of playing the game. They are considerably harder to play than vanilla classes, and will require some dedication to achieve a desirable damage output.
 
-Trailer by GitGudWO :
-https://www.youtube.com/watch?v=7fo33L-p3Is
+[h1]Shaman[/h1]
+The [b]Shaman[/b] is a master of the elements, and uses the power of [b]Fire[/b], [b]Water[/b], [b]Air[/b], [b]Earth[/b] and [b]Spirit[/b] to damage their enemies.
 
-Wiki (in severe need of love) :
-https://terrariamods.fandom.com/wiki/Orchid_Mod
+Each weapon is tied to an element, and attacking with it creates a bond to it. The more active [b]Elemental Bonds[/b] a shaman has, the more powerful a shaman becomes.
 
-Please, take a minute to report any oddities you may encounter :)
-This is especially important with the 1.4 update, and the changes that followed it.
+[i]The Shaman class rewards careful weapon swapping, attaining its true potential by maintaining as many active bonds as possible.[/i]
+
+[h1]Alchemist[/h1]
+The [b]Alchemist[/b] is a slow, but powerful fighter, carefully mixing deadly chemicals to create powerful [b]Combos[/b] and [b]Reactions[/b].
+
+Weapons do very little by themselves, and have to be mixed with others in order to be effective. Unique [b]Hidden Reactions[/b] can also be discovered to help one along the way!
+
+[i]Experimentation and patience are the key to mastering the Alchemist class, as its high damage potential is hidden behind various combos for the player to discover.[/i]
+
+[h1]Gambler[/h1]
+The [b]Gambler[/b] uses a [b]Deck[/b] filled with unique [b]Cards[/b] to overcome their opponents.
+
+Each card has a very unique attack pattern that the player must master in order to fight effectively, as they [b]cannot choose which one to draw[/b].
+
+[b]Chips[/b] and [b]Dice[/b] will help with gaps in the player's offensives by providing unique timing-based attack patterns and buffs.
+
+[i]By breaking the conventional way of dealing damage, the Gambler class provides a unique take on fights. Some good advice would be to collect various cards, and always adapt one’s deck to the situations to come.[/i]
+
+[h1]Guardian[/h1]
+The [b]Guardian[/b] is a living wall, using heavy [b]Pavises[/b] and devastating [b]Warhammers[/b] to crush their foes and defend themselves.
+
+Weapons are tied to unique [b]Slam[/b] and [b]Block[/b] resources that should be restored using a good weapon rotation.
+
+Unique [b]Runes[/b] will provide the player with long lasting damage, at the cost of some resource.
+
+[i]Alternating between defensive and offensive stances while staying in the middle of the fight is the key to playing the guardian class effectively.[/i]
+
+[img]https://i.imgur.com/irQECAH.png[/img]
+[b]Mineshafts[/b] are new structures found below the world spawn and scattered about underground. With various goodies from Life Crystals to Gold Chests to even special [b]Static Quartz[/b], exploring the Mineshaft allows for a smoother start to the start of a player's playthrough!
+
+[img]https://i.imgur.com/hbZMoD5.png[/img]
+[list]
+[*] Official [img]https://i.imgur.com/6aABPKy.png[/img] [b][url=https://terrariamods.fandom.com/wiki/Orchid_Mod]Orchid Mod wiki[/url][/b] (needs wiki love!)
+[*] Official [img]https://i.imgur.com/GB1M4Hv.png[/img] [b][url=https://discord.gg/zhW9dm2]Discord channel[/url][/b]
+[/list]
+
+[img]https://i.imgur.com/mLDdw3h.png[/img]
+[list]
+[*] [b]Barometz[/b] for contributing various sprites and item ideas, as well as creating and maintaining the Orchid Mod wiki.
+[*] [b]IceBeam[/b] and [b]Feedza[/b] for maintaining sections of the Orchid Mod wiki.
+[*] [b]direwolf420[/b] for extensive coding help, and cross-mod compatibility.
+[*] [b]Amber[/b], [b]BluNinja[/b], [b]catsounds[/b], and [b]Draka[/b] for contributing sprites, artwork, and ideas.
+[*] [b]A91[/b], [b]Circadian[/b], [b]Kyle[/b], [b]ChozoChorizo[/b], [b]TheLoneGamer[/b], and [b]Xrylene[/b] for considerable balance and design feedback.
+[*] [b]GitGudWO[/b] for the trailers above.
+[/list]

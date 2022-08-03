@@ -1,6 +1,38 @@
+# Additions #
+
+< General >
+- Added Abyss Drill (Tool : Crafted).
+
+# General Changes #
+
+- Tooltips Changes :
+- Terra Scepter (fix).
+- Palladium Scepter (fix).
+- Copper Scepter (fix).
+- Blood Caller, Shadow Weaver (shaman), Crimson and Demonity Catalysts (alchemist) droprates are now 25% from orbs/hearts.
+
 - Sprite Changes : 
-  - Shaman Emblem.
+  - Salvaged Toolbox.
+
+# Balance changes #
+
+< Shaman >
+- Buffed ALL shaman damage by 20% (gave a base 20% damage increase).
+This is a temporary bandaid, waiting for an overhaul of the exhaustion mechanic.
+- Buffed Enchanted Scepter damage to 11 (from 9) and damage scaling.
+- Buffed Adorned Branch damage to 6 (from 5).
+
+< Alchemist >
+- Glowshroom Healing now has a 15 seconds cooldown.
 
 # Fixes #
-- Fixed perishing soul still needing more than 3 active bonds to launch faster.
-- Fixed "Purifying Lilies" reaction behaviour in multiplayer.
+
+- Fixed Blood Caller projectile name.
+- Fixed Meteor Phasestaff requiring 4 bonds instead of 3 to get empowered damage.
+- Fixed Adamantite Scepter not working as intended.
+- Fixed Lilies in multiplayer.
+- Fixed Croupier NPC UI in multiplayer.
+- Fixed a possible ID sync issue with configs.
+- Fixed worldgen crashes.
+- Removed -Shaman Class- tag from Abyss Wings.
+- Fixed Shadow Orb/Hearts item drops.
