@@ -1332,9 +1332,9 @@ namespace OrchidMod
 				tasks.Insert(ChestsIndex + 1, new PassLegacy("Post Terrain", delegate (GenerationProgress progress, GameConfiguration gameConfiguration)
 				{
 					// Get dungeon size field infos. These fields are private for some reason
-					int MinX = (int)typeof(WorldGen).GetField("dMinX", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null) + 25;
-					int MaxX = (int)typeof(WorldGen).GetField("dMaxX", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null) - 25;
-					int MaxY = (int)typeof(WorldGen).GetField("dMaxY", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null) - 25;
+					int MinX = WorldGen.dMinX + 25;
+					int MaxX = WorldGen.dMaxX - 25;
+					int MaxY = WorldGen.dMaxY - 25;
 
 					progress.Message = "Orchid Mod: Biome Chests";
 
