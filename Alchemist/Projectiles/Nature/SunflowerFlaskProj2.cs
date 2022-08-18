@@ -17,6 +17,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			Projectile.friendly = false;
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 300;
+			Projectile.tileCollide = false;
 		}
 
 		public override void Kill(int timeLeft)

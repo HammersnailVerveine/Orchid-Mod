@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 300;
 			Projectile.penetrate = -1;
-			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
+			Projectile.tileCollide = false;
 		}
 
 		public override void AI()

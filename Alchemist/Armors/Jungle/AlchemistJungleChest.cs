@@ -10,7 +10,7 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 		public override void SafeSetDefaults()
 		{
 			Item.width = 30;
-			Item.height = 18;
+			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 90, 0);
 			Item.rare = ItemRarityID.Orange;
 			Item.defense = 7;

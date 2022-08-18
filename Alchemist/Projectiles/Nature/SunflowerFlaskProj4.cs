@@ -17,7 +17,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			Projectile.friendly = false;
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 180;
-			//this.projectileTrail = true;
+			Projectile.tileCollide = false;
 		}
 
 		public override void AI()
