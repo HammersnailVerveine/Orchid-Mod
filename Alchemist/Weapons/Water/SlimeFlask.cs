@@ -29,7 +29,7 @@ namespace OrchidMod.Alchemist.Weapons.Water
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Gelatinous Samples");
-			Tooltip.SetDefault("Ignites when a fire element is used in the same reaction, causing a deflagration"
+			Tooltip.SetDefault("Ignites if mixed with a fire element, causing a deflagration"
 							+ "\n'Handcrafted jars are unfit for precise alchemy'");
 		}
 

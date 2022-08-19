@@ -30,6 +30,7 @@ namespace OrchidMod.Alchemist
 			List<AlchemistHiddenReactionRecipe> recipes = new List<AlchemistHiddenReactionRecipe>();
 			
 			recipes.Add(new RecipeSunflowerSeeds());
+			recipes.Add(new RecipeStardustConfusion());
 			recipes.Add(new RecipeBurningSamples());
 			recipes.Add(new RecipeGlowshroomHealing());
 			recipes.Add(new RecipeMushroomThread());

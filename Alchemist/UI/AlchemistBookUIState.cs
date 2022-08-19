@@ -167,7 +167,7 @@ namespace OrchidMod.Alchemist.UI
 						offSetX += 40;
 					}
 					msg = knownRecipe ? recipe.name : "Unknown Reaction";
-					Color textColor = knownRecipe ? backgroundColor : new Color(175, 175, 175);
+					Color textColor = knownRecipe ? backgroundColor : recipe.level < 1 ? new Color(200, 150, 100)  : new Color(175, 175, 175);
 					ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, new Vector2(point.X + offSetX, point.Y + offSetY + 7), textColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 					offSetX = baseOffSetX;
 					offSetY += 35;

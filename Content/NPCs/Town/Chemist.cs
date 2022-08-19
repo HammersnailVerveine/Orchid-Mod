@@ -336,8 +336,10 @@ namespace OrchidMod.Content.NPCs.Town
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -3, false);
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -3, false);
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -3, false);
+					int flask = ModContent.ItemType<MushroomFlask>();
+					player.QuickSpawnItem(NPC.GetSource_FromThis(), flask, 1);
 				}
-				return "Since this is your first time asking, here are three hints for the price of one! I'd highly advise getting your hands on a hidden reactions codex, now...";
+				return "Since this is your first time asking, here are three hints for the price of one, along with a little gift! I'd highly advise getting your hands on a hidden reactions codex, now...";
 			}
 
 			if (!reactions.Contains("RecipeMushroomThread")

@@ -56,6 +56,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
 				int dmg = GetSecondaryDamage(player, alchProj.nbElements);
+				if (alchProj.natureFlask.type == ItemType<Nature.MushroomFlask>()) dmg += 5;
 				SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, vel, ProjectileType<Alchemist.Projectiles.Air.AirSporeProj>(), dmg, 0f, projectile.owner);
 			}
 		}

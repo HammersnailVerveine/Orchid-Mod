@@ -34,6 +34,14 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			Projectile.rotation += 0.04f * this.rotationDirection;
 		}
 
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			if (Main.player[Projectile.owner].HasBuff<Buffs.StardustSamplesBuff>())
+			{
+				target.AddBuff(BuffID.Confused, 60 * 5);
+			}
+		}
+
 		public override void Kill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)

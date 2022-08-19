@@ -287,6 +287,16 @@ namespace OrchidMod.Common.Globals.Items
 						QuickSpawnItem<RuneOfHorus>(player, 1, 8);
 					}
 					break;
+
+				case ItemID.LavaCrate:
+				case ItemID.LavaCrateHard:
+					{
+						QuickSpawnItem<FireBatScepter>(player, 1, 8);
+						QuickSpawnItem<ShadowChestFlask>(player, 1, 8);
+						QuickSpawnItem<KeystoneOfTheConvent>(player, 1, 8);
+						QuickSpawnItem<ImpDiceCup>(player, 1, 8);
+					}
+					break;
 			}
 		}
 
@@ -306,6 +316,43 @@ namespace OrchidMod.Common.Globals.Items
 			QuickSpawnItem<TiamatRelic>(player, 1, 2);
 			QuickSpawnItem<DeckBone>(player, 1, 40);
 		}
+
+		/* // For some reason, opening an obsidian lockbox doesn't call this method.
+		private static void OpenLockBox(Player player, int arg)
+		{
+			switch (arg)
+			{
+				case ItemID.LockBox:
+					QuickSpawnRandomItemFromList(
+						player: player,
+						items: new()
+						{
+							(ModContent.ItemType<SpiritedWater>(), 1),
+							(ModContent.ItemType<DungeonFlask>(), 1),
+							(ModContent.ItemType<DungeonCatalyst>(), 1),
+							(ModContent.ItemType<Rusalka>(), 1)
+						},
+						chanceDenominator: 2
+					);
+					QuickSpawnItem<TiamatRelic>(player, 1, 2);
+					QuickSpawnItem<DeckBone>(player, 1, 40);
+					break;
+				case ItemID.ObsidianLockbox:
+					QuickSpawnRandomItemFromList(
+						player: player,
+						items: new()
+						{
+							(ModContent.ItemType<ShadowChestFlask>(), 1),
+							(ModContent.ItemType<FireBatScepter>(), 1),
+							(ModContent.ItemType<KeystoneOfTheConvent>(), 1),
+							(ModContent.ItemType<ImpDiceCup>(), 1)
+						},
+						chanceDenominator: 2
+					);
+					break;
+			}
+		}
+		*/
 
 		private static void QuickSpawnRandomItemFromList(Player player, List<(int type, int stack)> items, int chanceDenominator = 1)
 		{
