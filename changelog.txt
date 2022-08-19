@@ -1,38 +1,33 @@
 # Additions #
 
-< General >
-- Added Abyss Drill (Tool : Crafted).
+< Alchemist >
+- Added Stardust Samples (Crafted).
+- Added Mushroom Spores Extract (Given by the Chemist).
+- Added new hidden reactions.
 
 # General Changes #
 
+- Undiscovered special hints are now displayed in orange in the hidden recipe codex.
+- Added orchid shadow chest loot to obsidian crates (12.5%).
+- Updated Hallowed and Titanium Spangenhelms.
+- Visceral Mycelium now requires 5 Crimtane Bars to craft.
+- Vitriol Mycelium now requires 5 Demonite Bars to craft.
+- Added more blinkroot in mineshafts.
+
+- Playing Card : Guardian of the Night:
+  - Hitbox now matches the sprite.
+  - Required distance has been reduced from 300 to 256 (16 blocks).
+  - Cooldown after attack reduced from 30 to 25.
+
 - Tooltips Changes :
-- Terra Scepter (fix).
-- Palladium Scepter (fix).
-- Copper Scepter (fix).
-- Blood Caller, Shadow Weaver (shaman), Crimson and Demonity Catalysts (alchemist) droprates are now 25% from orbs/hearts.
+  - Gelatinous Samples.
 
 - Sprite Changes : 
-  - Salvaged Toolbox.
-
-# Balance changes #
-
-< Shaman >
-- Buffed ALL shaman damage by 20% (gave a base 20% damage increase).
-This is a temporary bandaid, waiting for an overhaul of the exhaustion mechanic.
-- Buffed Enchanted Scepter damage to 11 (from 9) and damage scaling.
-- Buffed Adorned Branch damage to 6 (from 5).
-
-< Alchemist >
-- Glowshroom Healing now has a 15 seconds cooldown.
+  - Forest Samples projectile.
+  - Lily set.
+  - Glowing Mushroom Extract.
+  - Hallowed Spangenhelm.
 
 # Fixes #
-
-- Fixed Blood Caller projectile name.
-- Fixed Meteor Phasestaff requiring 4 bonds instead of 3 to get empowered damage.
-- Fixed Adamantite Scepter not working as intended.
-- Fixed Lilies in multiplayer.
-- Fixed Croupier NPC UI in multiplayer.
-- Fixed a possible ID sync issue with configs.
-- Fixed worldgen crashes.
-- Removed -Shaman Class- tag from Abyss Wings.
-- Fixed Shadow Orb/Hearts item drops.
+- Forest Samples projectile now spawns on slopes.
+- Fixed Visceral Mycelium explosion sound.
