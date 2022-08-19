@@ -12,8 +12,8 @@ namespace OrchidMod.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 2;
-			this.name = "Lily Purification";
-			this.description = "Cleanses most common early-game debuffs and blooms jungle lilies around the user";
+			this.name = "Purifying Lilies";
+			this.description = "Each alchemical attack using two or more elements releases a purifying aura";
 			this.debuffDuration = 15;
 			this.sound = SoundID.Item85;
 			this.dust = 16;
