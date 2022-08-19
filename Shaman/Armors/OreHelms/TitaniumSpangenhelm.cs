@@ -39,9 +39,9 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Briefly become invulnerable after striking an enemy";
+			player.setBonus = "Attacking generates a defensive barrier of titanium shards";
 			player.armorEffectDrawShadow = true;
-			player.onHitDodge = true;
+			player.onHitTitaniumStorm = true;
 		}
 
 		public static void ArmorSetShadows(Player player, ref bool longTrail, ref bool smallPulse, ref bool largePulse, ref bool shortTrail)

@@ -73,6 +73,7 @@ namespace OrchidMod.Alchemist.Weapons.Air
 			recipe.AddIngredient(null, "EmptyFlask", 1);
 			recipe.AddIngredient(ItemID.Vertebrae, 5);
 			recipe.AddIngredient(ItemID.ViciousMushroom, 5);
+			recipe.AddIngredient(ItemID.CrimtaneBar, 5);
 			recipe.Register();
 		}
 	}

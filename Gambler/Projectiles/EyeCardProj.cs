@@ -17,13 +17,13 @@ namespace OrchidMod.Gambler.Projectiles
 		private double dustVal = 0;
 		private int cooldownCounter = 0;
 
-		public override string Texture => OrchidAssets.InvisiblePath;
+		//public override string Texture => OrchidAssets.InvisiblePath;
 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Eye");
 
-			Main.projFrames[Type] = Main.npcFrameCount[NPCID.DemonEye];
+			//Main.projFrames[Type] = Main.npcFrameCount[NPCID.DemonEye];
 
 			ProjectileID.Sets.TrailingMode[Type] = 0;
 			ProjectileID.Sets.TrailCacheLength[Type] = 7;
@@ -159,6 +159,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.ai[1] = dash ? 1f : 0f;
 		}
 
+		/*
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			var texture = TextureAssets.Npc[NPCID.DemonEye];
@@ -178,5 +179,6 @@ namespace OrchidMod.Gambler.Projectiles
 
 			return false;
 		}
+		*/
 	}
 }

@@ -410,7 +410,13 @@ namespace OrchidMod
 								WorldGen.PlaceChest(k, l, (ushort)ModContent.TileType<Content.Items.Placeables.MinersLockboxTile>(), false, 0);
 								break;
 							case 19:
-								WorldGen.PlaceObject(k, l, 82, true, 3);
+								WorldGen.PlaceTile(k, l, 83, true, true, -1, 2);
+								/*
+								tile = Framing.GetTileSafely(k, l);
+								tile.TileType = 84;
+								tile.HasTile = true;
+								tile.
+									*/
 								break;
 							case 20:
 								for (int w = 0; w < 3; w++)

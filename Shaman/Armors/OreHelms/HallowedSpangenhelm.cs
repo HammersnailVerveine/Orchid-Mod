@@ -22,26 +22,29 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hallowed Spangenhelm");
-			Tooltip.SetDefault("12% increased shamanic damage and critical chance");
+			Tooltip.SetDefault("12% increased shamanic damage and critical chance"
+							+  "\nIncreases the duration of your shamanic bonds by 5 seconds");
 		}
 
 		public override void UpdateEquip(Player player)
 		{
+			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.GetCritChance<ShamanDamageClass>() += 12;
 			player.GetDamage<ShamanDamageClass>() += 0.12f;
+			modPlayer.shamanBuffTimer += 5;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == 551 && legs.type == 552;
+			return (body.type == ItemID.HallowedPlateMail || body.type == ItemID.AncientHallowedPlateMail) 
+				&& (legs.type == ItemID.HallowedGreaves || legs.type == ItemID.AncientHallowedGreaves);
 		}
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Your shamanic bonds will last 5 seconds longer";
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanBuffTimer += 5;
+			player.setBonus = "Become immune after striking an enemy";
 			player.armorEffectDrawShadow = true;
+			player.onHitDodge = true;
 		}
 
 		public static void ArmorSetShadows(Player player, ref bool longTrail, ref bool smallPulse, ref bool largePulse, ref bool shortTrail)
