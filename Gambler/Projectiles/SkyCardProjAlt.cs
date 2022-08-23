@@ -20,7 +20,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Banana");
+			DisplayName.SetDefault("Star");
 		}
 
 		public override void SafeSetDefaults()
