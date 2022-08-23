@@ -11,7 +11,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.damage = 6;
+			Item.damage = 7;
 			Item.width = 30;
 			Item.height = 30;
 			Item.rare = ItemRarityID.Blue;
@@ -23,7 +23,7 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 			this.colorG = 197;
 			this.colorB = 1;
 			this.secondaryDamage = 8;
-			this.secondaryScaling = 1f;
+			this.secondaryScaling = 2f;
 		}
 
 		public override void SetStaticDefaults()
