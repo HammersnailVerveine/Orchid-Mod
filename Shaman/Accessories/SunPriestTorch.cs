@@ -1,3 +1,5 @@
+using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -5,6 +7,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Shaman.Accessories
 {
 	[AutoloadEquip(EquipType.Balloon)]
+	[ClassTag(ClassTags.Without)]
 	public class SunPriestTorch : OrchidModShamanEquipable
 	{
 		public override void SafeSetDefaults()
