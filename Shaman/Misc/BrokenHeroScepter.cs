@@ -19,6 +19,8 @@ namespace OrchidMod.Shaman.Misc
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Broken Hero Scepter");
+
+			SacrificeTotal = 1;
 		}
 
 	}
