@@ -53,10 +53,10 @@ namespace OrchidMod.Common.Graphics.Primitives
 
 			}
 
-			public Custom(string effectName, Action<EffectParameterCollection> onSetParameters)
+			public Custom(string effectName, Action<EffectParameterCollection> onSetParameters = null)
 			{
 				EffectName = effectName;
-				OnSetParameters = onSetParameters ?? new Action<EffectParameterCollection>((_) => { });
+				OnSetParameters = onSetParameters ?? NullAction;
 			}
 
 			void IPrimitiveEffect.SetParameters(EffectParameterCollection parameters)
@@ -64,5 +64,9 @@ namespace OrchidMod.Common.Graphics.Primitives
 				OnSetParameters.Invoke(parameters);
 			}
 		}
+
+		// ...
+
+		private static void NullAction(EffectParameterCollection _) { }
 	}
 }

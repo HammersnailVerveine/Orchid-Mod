@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
+using OrchidMod.Common.Graphics;
 using System;
 using Terraria;
 
@@ -43,27 +45,30 @@ namespace OrchidMod.Shaman.Projectiles
 
 			Lighting.AddLight(Projectile.Center, effectColor.ToVector3() * 0.4f * this.Opacity);
 		}
-		/* [SP]
+
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			Vector2 drawPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 			Texture2D texture = OrchidAssets.GetExtraTexture(11).Value;
 
-			Effect effect = OrchidAssets.GetEffect("WyvernMorayLingering");
-			effect.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.1f + Projectile.position.X * 2);
+			Effect effect = OrchidAssets.GetEffect("WyvernMorayLingering").Value;
+			effect.Parameters["Time"].SetValue(Main.GlobalTimeWrappedHourly * 0.1f + Projectile.position.X * 2);
 
 			Color color = Lighting.GetColor((int)Projectile.Center.X / 16, (int)Projectile.Center.Y / 16, effectColor * this.Opacity);
 			Vector2 origin = texture.Size() * 0.5f;
 			float scale = Projectile.scale * 2.25f;
 
-			SetSpriteBatch(spriteBatch: spriteBatch, blendState: BlendState.Additive, effect: effect);
-			{
-				for (int i = 0; i < 2; i++) spriteBatch.Draw(texture, drawPos, null, color, 0f, origin, scale, SpriteEffects.None, 0);
-			}
-			SetSpriteBatch(spriteBatch: spriteBatch);
+			SpriteBatchInfo sbInfo = new(spriteBatch);
+
+			spriteBatch.End();
+			sbInfo.Begin(spriteBatch, SpriteSortMode.Immediate, BlendState.Additive, effect);
+
+			for (int i = 0; i < 2; i++) spriteBatch.Draw(texture, drawPos, null, color, 0f, origin, scale, SpriteEffects.None, 0);
+
+			spriteBatch.End();
+			sbInfo.Begin(spriteBatch);
 
 			return false;
 		}
-		*/
 	}
 }

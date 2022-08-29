@@ -72,7 +72,7 @@ namespace OrchidMod.Common.Graphics
 					parameters["Texture0"].SetValue(OrchidAssets.GetExtraTexture(5, AssetRequestMode.ImmediateLoad).Value);
 					parameters["Texture1"].SetValue(OrchidAssets.GetExtraTexture(2, AssetRequestMode.ImmediateLoad).Value);
 					break;
-				case "WyvernMorayLingeringEffect":
+				case "WyvernMorayLingering":
 					parameters["Texture1"].SetValue(OrchidAssets.GetExtraTexture(10, AssetRequestMode.ImmediateLoad).Value);
 					break;
 			}
