@@ -73,15 +73,6 @@ namespace OrchidMod.Alchemist
 			orchidItem.addVariousEffectsDelegate = AddVariousEffects;
 		}
 
-		/*
-		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
-		{
-			if (Main.rand.Next(101) <= (player.GetModPlayer<OrchidPlayer>().alchemistCrit))
-				crit = true;
-			else crit = false;
-		}
-		*/
-
 		public override bool AltFunctionUse(Player player)
 		{
 			return true;

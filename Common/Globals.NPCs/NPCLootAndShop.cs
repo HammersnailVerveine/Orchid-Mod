@@ -465,7 +465,7 @@ namespace OrchidMod.Common.Globals.NPCs
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				if ((npc.type == thoriumMod.Find<ModNPC>("TheGrandThunderBirdv2").Type))
+				if (thoriumMod.IsNPCTypeEquals("TheGrandThunderBirdv2", npc.type))
 				{
 					if (!Main.expertMode)
 					{
@@ -480,7 +480,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 
-				if ((npc.type == thoriumMod.Find<ModNPC>("QueenJelly").Type))
+				if (thoriumMod.IsNPCTypeEquals("QueenJelly", npc.type))
 				{
 					if (!Main.expertMode)
 					{
@@ -495,7 +495,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 
-				if ((npc.type == thoriumMod.Find<ModNPC>("GranityEnergyStorm").Type))
+				if (thoriumMod.IsNPCTypeEquals("GraniteEnergyStorm", npc.type))
 				{
 					if (!Main.expertMode)
 					{
@@ -510,7 +510,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 
-				if ((npc.type == thoriumMod.Find<ModNPC>("Viscount").Type))
+				if (thoriumMod.IsNPCTypeEquals("Viscount", npc.type))
 				{
 					if (!Main.expertMode)
 					{
@@ -526,7 +526,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 
-				if ((npc.type == thoriumMod.Find<ModNPC>("ThePrimeScouter").Type))
+				if (thoriumMod.IsNPCTypeEquals("ThePrimeScouter", npc.type))
 				{
 					if (!Main.expertMode)
 					{
@@ -541,7 +541,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 
-				if ((npc.type == thoriumMod.Find<ModNPC>("FallenDeathBeholder").Type))
+				if (thoriumMod.IsNPCTypeEquals("FallenDeathBeholder", npc.type))
 				{
 					if (!Main.expertMode)
 					{
@@ -552,7 +552,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 
-				if ((npc.type == thoriumMod.Find<ModNPC>("BoreanStriderPopped").Type))
+				if (thoriumMod.IsNPCTypeEquals("BoreanStriderPopped", npc.type))
 				{
 					if (!Main.expertMode)
 					{
@@ -563,7 +563,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 
-				if ((npc.type == thoriumMod.Find<ModNPC>("Lich").Type))
+				if (thoriumMod.IsNPCTypeEquals("Lich", npc.type))
 				{
 					if (!Main.expertMode)
 					{
@@ -574,7 +574,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 
-				if ((npc.type == thoriumMod.Find<ModNPC>("Abyssion").Type) || (npc.type == thoriumMod.Find<ModNPC>("AbyssionCracked").Type) || (npc.type == thoriumMod.Find<ModNPC>("AbyssionReleased").Type))
+				if (thoriumMod.IsNPCTypeEquals("Abyssion", npc.type) || thoriumMod.IsNPCTypeEquals("AbyssionCracked", npc.type) || thoriumMod.IsNPCTypeEquals("AbyssionReleased", npc.type))
 				{
 					if (!Main.expertMode)
 					{
@@ -585,7 +585,7 @@ namespace OrchidMod.Common.Globals.NPCs
 					}
 				}
 
-				if ((npc.type == thoriumMod.Find<ModNPC>("PatchWerk").Type))
+				if (thoriumMod.IsNPCTypeEquals("PatchWerk", npc.type))
 				{
 					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>());
 				}

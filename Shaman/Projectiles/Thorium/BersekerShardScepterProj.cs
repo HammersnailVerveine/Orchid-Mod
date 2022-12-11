@@ -53,11 +53,14 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 		{
 			if (modPlayer.GetNbShamanicBonds() > 4)
 			{
+				//TODO Thorium: BerserkSoul removed, alongside other berserker content, including associated projectiles and items
+				/*
 				Mod thoriumMod = OrchidMod.ThoriumMod;
 				if (thoriumMod != null)
 				{
 					target.AddBuff((thoriumMod.Find<ModBuff>("BerserkSoul").Type), 5 * 60);
 				}
+				*/
 			}
 		}
 	}

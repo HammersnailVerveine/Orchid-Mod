@@ -10,6 +10,7 @@ namespace OrchidMod
 		{
 			if (!ModLoader.TryGetMod("BossChecklist", out Mod bossChecklist)) return;
 
+			// TODO AddToBossLoot calls use new structure ("Terraria Pumpkin Moon" as a single string) and should be unnecessary once NPCLoot is properly implemented (need to doublecheck events though)
 			// Bosses -- Vanilla
 
 			bossChecklist.Call

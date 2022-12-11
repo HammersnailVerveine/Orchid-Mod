@@ -45,6 +45,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			return false;
 		}
 
+		//TODO Thorium: MagmaCore removed, alongside other magma content, including associated projectiles and buffs
 		/*
 		public override void AddRecipes()
 		{

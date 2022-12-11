@@ -63,7 +63,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				player.AddBuff((thoriumMod.Find<ModBuff>("OverGrowth").Type), 3 * 60);
+				player.AddBuff((thoriumMod.Find<ModBuff>("Overgrowth").Type), 3 * 60);
 			}
 		}
 	}

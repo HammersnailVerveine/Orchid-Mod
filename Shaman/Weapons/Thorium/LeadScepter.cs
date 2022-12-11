@@ -34,6 +34,8 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 							+ "\nIf you have 3 onyx orbs, your next hit will give you 3 armor penetration for 30 seconds");
 		}
 
+		//TODO Thorium: Onyx removed, alongside other onyx content, including associated projectiles and buffs. Aquamarine is its replaacement
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -46,5 +48,6 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }

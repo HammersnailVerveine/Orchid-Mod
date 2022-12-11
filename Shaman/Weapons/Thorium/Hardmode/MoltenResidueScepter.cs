@@ -42,7 +42,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.MythrilAnvil);
 				recipe.AddIngredient(ModContent.ItemType<Misc.RitualScepter>(), 1);
-				recipe.AddIngredient(thoriumMod, "MoltenResidue", 8);
+				recipe.AddIngredient(thoriumMod, "SoulofPlight", 8);
 				recipe.AddIngredient(ItemID.SoulofNight, 7);
 				recipe.Register();
 			}

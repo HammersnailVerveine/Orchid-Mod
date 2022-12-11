@@ -43,6 +43,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		}
 
+		//TODO Thorium: BersekerShard removed, alongside other berserker content, including associated projectiles and buffs
 		/*
 		public override void AddRecipes()
 		{

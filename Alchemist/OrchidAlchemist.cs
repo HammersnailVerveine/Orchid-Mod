@@ -284,18 +284,6 @@ namespace OrchidMod
 				alchemistShootProjectile = false;
 			}
 		}
-		public override void ModifyHitNPCWithProj(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
-			if (modProjectile.alchemistProjectile)
-			{
-				/*
-				if (Main.rand.Next(101) <= this.alchemistCrit + modProjectile.baseCritChance)
-					crit = true;
-				else crit = false;
-				*/
-			}
-		}
 
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
