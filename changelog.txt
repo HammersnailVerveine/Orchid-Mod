@@ -1,33 +1,3 @@
-# Additions #
-
-< Alchemist >
-- Added Stardust Samples (Crafted).
-- Added Mushroom Spores Extract (Given by the Chemist).
-- Added new hidden reactions.
-
-# General Changes #
-
-- Undiscovered special hints are now displayed in orange in the hidden recipe codex.
-- Added orchid shadow chest loot to obsidian crates (12.5%).
-- Updated Hallowed and Titanium Spangenhelms.
-- Visceral Mycelium now requires 5 Crimtane Bars to craft.
-- Vitriol Mycelium now requires 5 Demonite Bars to craft.
-- Added more blinkroot in mineshafts.
-
-- Playing Card : Guardian of the Night:
-  - Hitbox now matches the sprite.
-  - Required distance has been reduced from 300 to 256 (16 blocks).
-  - Cooldown after attack reduced from 30 to 25.
-
-- Tooltips Changes :
-  - Gelatinous Samples.
-
-- Sprite Changes : 
-  - Forest Samples projectile.
-  - Lily set.
-  - Glowing Mushroom Extract.
-  - Hallowed Spangenhelm.
-
 # Fixes #
-- Forest Samples projectile now spawns on slopes.
-- Fixed Visceral Mycelium explosion sound.
+- Thorium 1.4 Compatibility
+- Potentially fixed rare crashes.
