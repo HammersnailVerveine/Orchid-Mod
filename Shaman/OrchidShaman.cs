@@ -203,18 +203,6 @@ namespace OrchidMod
 
 		public override void PostUpdateEquips()
 		{
-			/*
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				object result = thoriumMod.Call("GetAllCrit", Player);
-				if (result is int thoriumCrit && thoriumCrit > 0)
-				{
-					this.shamanCrit += thoriumCrit;
-				}
-			}
-			*/
-
 			if (UIDisplayTimer == 0)
 			{
 				shamanFireBondLoading = 0;
@@ -610,12 +598,6 @@ namespace OrchidMod
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			if (modProjectile.shamanProjectile)
 			{
-				/*
-				if (Main.rand.Next(101) <= this.shamanCrit + modProjectile.baseCritChance)
-					crit = true;
-				else crit = false;
-				*/
-
 				if (crit)
 				{
 					if (Player.FindBuffIndex(ModContent.BuffType<OpalEmpowerment>()) > -1)

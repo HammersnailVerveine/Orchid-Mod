@@ -40,8 +40,6 @@ namespace OrchidMod
 		public bool doubleTapLock = false;
 		public int keepSelected = -1;
 
-		public int customCrit = 0;
-
 		/*General*/
 
 		public bool generalTools = false;
@@ -86,23 +84,6 @@ namespace OrchidMod
 			//this.updateItemEffects();
 			this.CheckWoodBreak(Player);
 
-			/*
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-				object result = thoriumMod.Call("GetAllCrit", Player);
-				if (result is int thoriumCrit && thoriumCrit > 0)
-				{
-					this.customCrit += thoriumCrit;
-				}
-			}
-
-			this.shamanCrit += this.customCrit;
-			this.alchemistCrit += this.customCrit;
-			this.gamblerCrit += this.customCrit;
-			this.dancerCrit += this.customCrit;
-			*/
-
 			if (generalStaticTimer == 299)
 			{
 				SoundEngine.PlaySound(SoundID.Item93, Player.position);
@@ -146,51 +127,6 @@ namespace OrchidMod
 			hauntedCandle = false;
 			spawnedGhost = false;
 		}
-
-		/* outdated ?
-		public void updateBuffEffects()
-		{
-			if (Player.FindBuffIndex(26) > -1)
-			{ // WELL FED
-				this.customCrit += 2;
-			}
-
-			if (Player.FindBuffIndex(115) > -1)
-			{ // RAGE
-				this.customCrit += 10;
-			}
-		}
-
-		public void updateItemEffects()
-		{
-			if (Player.armor[1].type == 374) this.customCrit += 3;// COBALT BREASPLATE
-			if (Player.armor[1].type == 1208) this.customCrit += 2; // PALLADIUM BREASTPLATE
-			if (Player.armor[2].type == 1209) this.customCrit += 1; // PALLADIUM LEGS
-			if (Player.armor[2].type == 380) this.customCrit += 3; // MYTHRIL LEGS
-			if (Player.armor[1].type == 1213) this.customCrit += 6; // ORICHALCUM BREASPLATE
-			if (Player.armor[2].type == 404) this.customCrit += 4; // ADAMANTITE LEGS
-			if (Player.armor[1].type == 1218) this.customCrit += 3; // TITANIUM BREASTPLATE
-			if (Player.armor[2].type == 1219) this.customCrit += 3; // TITANIUM LEGS
-			if (Player.armor[2].type == 2277) this.customCrit += 5; // GI
-			if (Player.armor[1].type == 551) this.customCrit += 7; // HALLOWED BREASPLATE
-			if (Player.armor[1].type == 1004) this.customCrit += 7; // CHLOROPHITE BREASTPLATE
-			if (Player.armor[2].type == 1005) this.customCrit += 8; // CHLOROPHITE LEGS
-
-			for (int k = 3; k < 8 + Player.extraAccessorySlots; k++)
-			{
-				if (Player.armor[k].type == 1301) this.customCrit += 8; // DESTROYER EMBLEM
-				if (Player.armor[k].type == 1248) this.customCrit += 10; // EYE OF THE GOLEM
-				if (Player.armor[k].type == 3015) this.customCrit += 5; // PUTRID SCENT
-				if (Player.armor[k].type == 3110) this.customCrit += 2; // CELESTIAL SHELL
-				if (Player.armor[k].type == 1865) this.customCrit += 2; // CELESTIAL STONE
-				if (Player.armor[k].type == 899 && Main.dayTime) this.customCrit += 2; // CELESTIAL STONE
-				if (Player.armor[k].type == 900 && (!Main.dayTime || Main.eclipse)) this.customCrit += 2; // CELESTIAL STONE
-
-				if (Player.armor[k].prefix == PrefixID.Lucky) this.customCrit += 4;
-				if (Player.armor[k].prefix == PrefixID.Precise) this.customCrit += 2;
-			}
-		}
-		*/
 
 		public void CheckWoodBreak(Player player)
 		{ // From Vanilla Source

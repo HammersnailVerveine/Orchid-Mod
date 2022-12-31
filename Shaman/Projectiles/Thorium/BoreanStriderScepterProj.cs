@@ -109,7 +109,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				target.AddBuff((thoriumMod.Find<ModBuff>("Freezing").Type), 2 * 60);
+				target.AddBuff((thoriumMod.Find<ModBuff>("EnemyFrozen").Type), 2 * 60);
 			}
 		}
 
