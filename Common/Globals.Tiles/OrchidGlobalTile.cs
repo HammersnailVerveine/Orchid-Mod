@@ -1,6 +1,6 @@
-﻿using OrchidMod.Alchemist.Weapons.Catalysts;
-using OrchidMod.Gambler.Weapons.Cards;
-using OrchidMod.Shaman.Weapons;
+﻿using OrchidMod.Content.Alchemist.Weapons.Catalysts;
+using OrchidMod.Content.Gambler.Weapons.Cards;
+using OrchidMod.Content.Shaman.Weapons;
 using System;
 using System.Collections.Generic;
 using System.Linq;

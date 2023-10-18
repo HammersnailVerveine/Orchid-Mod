@@ -20,11 +20,11 @@ namespace OrchidMod
 				"QueenBee",
 				new List<int>
 				{
-						ModContent.ItemType<Gambler.Weapons.Cards.QueenBeeCard>(),
-						ModContent.ItemType<Gambler.Weapons.Dice.HoneyDie>(),
-						ModContent.ItemType<Shaman.Weapons.BeeSeeker>(),
-						ModContent.ItemType<Shaman.Accessories.WaxyVial>(),
-						ModContent.ItemType<Alchemist.Weapons.Air.QueenBeeFlask>()
+						ModContent.ItemType<Content.Gambler.Weapons.Cards.QueenBeeCard>(),
+						ModContent.ItemType<Content.Gambler.Weapons.Dice.HoneyDie>(),
+						ModContent.ItemType<Content.Shaman.Weapons.BeeSeeker>(),
+						ModContent.ItemType<Content.Shaman.Accessories.WaxyVial>(),
+						ModContent.ItemType<Content.Alchemist.Weapons.Air.QueenBeeFlask>()
 				}
 			);
 
@@ -35,8 +35,8 @@ namespace OrchidMod
 				"MoonLord",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Hardmode.Nirvana>(),
-					ModContent.ItemType<Shaman.Weapons.Hardmode.TheCore>()
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.Nirvana>(),
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.TheCore>()
 				}
 			);
 
@@ -47,7 +47,7 @@ namespace OrchidMod
 				"WallofFlesh",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Accessories.ShamanEmblem>()
+					ModContent.ItemType<Content.Shaman.Accessories.ShamanEmblem>()
 				}
 			);
 
@@ -58,8 +58,8 @@ namespace OrchidMod
 				"Plantera",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Hardmode.BulbScepter>(),
-					ModContent.ItemType<Shaman.Accessories.FloralStinger>()
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.BulbScepter>(),
+					ModContent.ItemType<Content.Shaman.Accessories.FloralStinger>()
 				}
 			);
 
@@ -70,7 +70,7 @@ namespace OrchidMod
 				"Golem",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Hardmode.SunRay>()
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.SunRay>()
 				}
 			);
 
@@ -81,8 +81,8 @@ namespace OrchidMod
 				"KingSlime",
 				new List<int>
 				{
-					ModContent.ItemType<Alchemist.Weapons.Water.KingSlimeFlask>(),
-					ModContent.ItemType<Gambler.Weapons.Cards.KingSlimeCard>()
+					ModContent.ItemType<Content.Alchemist.Weapons.Water.KingSlimeFlask>(),
+					ModContent.ItemType<Content.Gambler.Weapons.Cards.KingSlimeCard>()
 				}
 			);
 
@@ -93,8 +93,8 @@ namespace OrchidMod
 				"EaterofWorldsHead",
 				new List<int>
 				{
-					ModContent.ItemType<Alchemist.Accessories.PreservedCorruption>(),
-					ModContent.ItemType<Gambler.Weapons.Cards.EaterCard>()
+					ModContent.ItemType<Content.Alchemist.Accessories.PreservedCorruption>(),
+					ModContent.ItemType<Content.Gambler.Weapons.Cards.EaterCard>()
 				}
 			);
 
@@ -105,8 +105,8 @@ namespace OrchidMod
 				"BrainofCthulhu",
 				new List<int>
 				{
-					ModContent.ItemType<Alchemist.Accessories.PreservedCrimson>(),
-					ModContent.ItemType<Gambler.Weapons.Cards.BrainCard>()
+					ModContent.ItemType<Content.Alchemist.Accessories.PreservedCrimson>(),
+					ModContent.ItemType<Content.Gambler.Weapons.Cards.BrainCard>()
 				}
 			);
 
@@ -117,7 +117,7 @@ namespace OrchidMod
 				"EyeofCthulhu",
 				new List<int>
 				{
-					ModContent.ItemType<Gambler.Weapons.Cards.EyeCard>()
+					ModContent.ItemType<Content.Gambler.Weapons.Cards.EyeCard>()
 				});
 
 			bossChecklist.Call
@@ -127,7 +127,7 @@ namespace OrchidMod
 				"SkeletronHead",
 				new List<int>
 				{
-					ModContent.ItemType<Gambler.Weapons.Cards.SkeletronCard>()
+					ModContent.ItemType<Content.Gambler.Weapons.Cards.SkeletronCard>()
 				}
 			);
 
@@ -140,7 +140,7 @@ namespace OrchidMod
 				"Goblin Army",
 				new List<int>
 				{
-					ModContent.ItemType<Alchemist.Weapons.Water.GoblinArmyFlask>()
+					ModContent.ItemType<Content.Alchemist.Weapons.Water.GoblinArmyFlask>()
 				}
 			);
 
@@ -151,7 +151,7 @@ namespace OrchidMod
 				"Blood Moon",
 				new List<int>
 				{
-					ModContent.ItemType<Alchemist.Weapons.Water.BloodMoonFlask>()
+					ModContent.ItemType<Content.Alchemist.Weapons.Water.BloodMoonFlask>()
 				}
 			);
 
@@ -162,7 +162,7 @@ namespace OrchidMod
 				"Pirate Invasion",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Hardmode.PiratesGlory>()
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.PiratesGlory>()
 				}
 			);
 
@@ -173,7 +173,7 @@ namespace OrchidMod
 				"PirateShip",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Hardmode.PiratesGlory>()
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.PiratesGlory>()
 				}
 			);
 
@@ -184,8 +184,8 @@ namespace OrchidMod
 				"Frost Moon",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Accessories.FragilePresent>(),
-					ModContent.ItemType<Shaman.Weapons.Hardmode.IceFlakeCone>()
+					ModContent.ItemType<Content.Shaman.Accessories.FragilePresent>(),
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.IceFlakeCone>()
 				}
 			);
 
@@ -196,7 +196,7 @@ namespace OrchidMod
 				"SantaNK1",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Accessories.FragilePresent>()
+					ModContent.ItemType<Content.Shaman.Accessories.FragilePresent>()
 				}
 			);
 
@@ -207,7 +207,7 @@ namespace OrchidMod
 				"IceQueen",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Hardmode.IceFlakeCone>()
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.IceFlakeCone>()
 				}
 			);
 
@@ -218,7 +218,7 @@ namespace OrchidMod
 				"Pumpkin Moon",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Accessories.MourningTorch>()
+					ModContent.ItemType<Content.Shaman.Accessories.MourningTorch>()
 				}
 			);
 
@@ -229,7 +229,7 @@ namespace OrchidMod
 				"MourningWood",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Accessories.MourningTorch>()
+					ModContent.ItemType<Content.Shaman.Accessories.MourningTorch>()
 				}
 			);
 
@@ -240,7 +240,7 @@ namespace OrchidMod
 				"Martian Madness",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Hardmode.MartianBeamer>()
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.MartianBeamer>()
 				}
 			);
 
@@ -251,7 +251,7 @@ namespace OrchidMod
 				"MartianSaucer",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Hardmode.MartianBeamer>()
+					ModContent.ItemType<Content.Shaman.Weapons.Hardmode.MartianBeamer>()
 				}
 			);
 
@@ -262,7 +262,7 @@ namespace OrchidMod
 				"CultistBoss",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Misc.AbyssFragment>()
+					ModContent.ItemType<Content.Shaman.Misc.AbyssFragment>()
 				}
 			);
 
@@ -275,7 +275,7 @@ namespace OrchidMod
 				"The Grand Thunder Bird",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.ThunderScepter>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.ThunderScepter>()
 				}
 			);
 
@@ -286,7 +286,7 @@ namespace OrchidMod
 				"The Queen Jellyfish",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.QueenJellyfishScepter>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.QueenJellyfishScepter>()
 				}
 			);
 
@@ -297,7 +297,7 @@ namespace OrchidMod
 				"Granite Energy Storm",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.GraniteEnergyScepter>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.GraniteEnergyScepter>()
 				}
 			);
 
@@ -308,8 +308,8 @@ namespace OrchidMod
 				"Viscount",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.ViscountScepter>(),
-					ModContent.ItemType<Shaman.Misc.Thorium.ViscountMaterial>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.ViscountScepter>(),
+					ModContent.ItemType<Content.Shaman.Misc.Thorium.ViscountMaterial>()
 				}
 			);
 
@@ -320,7 +320,7 @@ namespace OrchidMod
 				"Star Scouter",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.StarScouterScepter>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.StarScouterScepter>()
 				}
 			);
 
@@ -331,7 +331,7 @@ namespace OrchidMod
 				"Coznix, the Fallen Beholder",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.CoznixScepter>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.Hardmode.CoznixScepter>()
 				}
 			);
 
@@ -342,7 +342,7 @@ namespace OrchidMod
 				"Borean Strider",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.BoreanStriderScepter>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.Hardmode.BoreanStriderScepter>()
 				}
 			);
 
@@ -353,7 +353,7 @@ namespace OrchidMod
 				"The Lich",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.LichScepter>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.Hardmode.LichScepter>()
 				}
 			);
 
@@ -364,7 +364,7 @@ namespace OrchidMod
 				"Abyssion, the Forgotten One",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.Hardmode.AbyssionScepter>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.Hardmode.AbyssionScepter>()
 				}
 			);
 
@@ -377,7 +377,7 @@ namespace OrchidMod
 				"Patch Werk",
 				new List<int>
 				{
-					ModContent.ItemType<Shaman.Weapons.Thorium.PatchWerkScepter>()
+					ModContent.ItemType<Content.Shaman.Weapons.Thorium.PatchWerkScepter>()
 				}
 			);
 		}
@@ -390,7 +390,7 @@ namespace OrchidMod
 				(
 					"TownNPCCondition",
 					ModContent.NPCType<Croupier>(),
-					$"Have a gamber card ([i:{ModContent.ItemType<Gambler.Weapons.Cards.SlimeCard>()}][i:{ModContent.ItemType<Gambler.Weapons.Cards.EmbersCard>()}] etc.) in your deck"
+					$"Have a gamber card ([i:{ModContent.ItemType<Content.Gambler.Weapons.Cards.SlimeCard>()}][i:{ModContent.ItemType<Content.Gambler.Weapons.Cards.EmbersCard>()}] etc.) in your deck"
 				);
 
 			censusMod.Call

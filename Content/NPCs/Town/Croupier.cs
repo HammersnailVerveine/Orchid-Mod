@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Gambler;
-using OrchidMod.Gambler.Accessories;
-using OrchidMod.Gambler.Decks;
-using OrchidMod.Gambler.Weapons.Cards;
-using OrchidMod.Gambler.Weapons.Chips;
-using OrchidMod.Gambler.Weapons.Dice;
+using OrchidMod.Content.Gambler;
+using OrchidMod.Content.Gambler.Accessories;
+using OrchidMod.Content.Gambler.Decks;
+using OrchidMod.Content.Gambler.Weapons.Cards;
+using OrchidMod.Content.Gambler.Weapons.Chips;
+using OrchidMod.Content.Gambler.Weapons.Dice;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;

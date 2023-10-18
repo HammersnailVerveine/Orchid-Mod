@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.PlayerDrawLayers;
-using OrchidMod.Shaman.Misc;
+using OrchidMod.Content.Shaman.Misc;
 using OrchidMod.Utilities;
 using Terraria;
 using Terraria.GameContent;

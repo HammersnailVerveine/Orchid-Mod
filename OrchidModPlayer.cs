@@ -1,10 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Alchemist;
-using OrchidMod.Dancer;
-using OrchidMod.Gambler;
-using OrchidMod.Shaman;
-using OrchidMod.Guardian;
+using OrchidMod.Content.Alchemist;
+using OrchidMod.Content.Dancer;
+using OrchidMod.Content.Gambler;
+using OrchidMod.Content.Shaman;
+using OrchidMod.Content.Guardian;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,9 +48,9 @@ namespace OrchidMod
 
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
 		{
-			if (Player.ZoneSkyHeight && !attempt.inLava && !attempt.inHoney && Main.rand.Next(10) == 0 && Main.hardMode && attempt.rare)
+			if (Player.ZoneSkyHeight && !attempt.inLava && !attempt.inHoney && Main.rand.NextBool(10) && Main.hardMode && attempt.rare)
 			{
-				itemDrop = ModContent.ItemType<Shaman.Weapons.Hardmode.WyvernMoray>();
+				itemDrop = ModContent.ItemType<Content.Shaman.Weapons.Hardmode.WyvernMoray>();
 			}
 		}
 

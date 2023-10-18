@@ -51,7 +51,7 @@ namespace OrchidMod
 			Player player = Main.player[projectile.owner];
 			if (modProjectile.gamblerDummyProj)
 			{
-				if (target.type != 488 && player.HeldItem.type != ItemType<Gambler.GamblerDummyTest>())
+				if (target.type != 488 && player.HeldItem.type != ItemType<Content.Gambler.GamblerDummyTest>())
 				{
 					return false;
 				}

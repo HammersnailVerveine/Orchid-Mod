@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Alchemist;
-using OrchidMod.Alchemist.Projectiles;
+using OrchidMod.Content.Alchemist;
+using OrchidMod.Content.Alchemist.Projectiles;
 using OrchidMod.Common.Globals.NPCs;
-using OrchidMod.Gambler;
+using OrchidMod.Content.Gambler;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;

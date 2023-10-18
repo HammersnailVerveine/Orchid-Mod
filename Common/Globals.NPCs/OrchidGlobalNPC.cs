@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ID;
-using OrchidMod.Gambler.UI;
+using OrchidMod.Content.Gambler.UI;
 
 namespace OrchidMod.Common.Globals.NPCs
 {
@@ -103,11 +103,11 @@ namespace OrchidMod.Common.Globals.NPCs
 		{
 			if (this.AlchemistHit && Main.rand.NextBool(4))
 			{
-				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Alchemist.Misc.Potency>());
+				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Content.Alchemist.Misc.Potency>());
 			}
 			if (this.GamblerHit && Main.rand.NextBool(4))
 			{
-				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Gambler.Misc.Chip>());
+				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Content.Gambler.Misc.Chip>());
 			}
 		}
 	}

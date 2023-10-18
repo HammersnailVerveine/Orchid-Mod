@@ -12,23 +12,23 @@ using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using Terraria.WorldBuilding;
 using Terraria.IO;
-using OrchidMod.Shaman.Weapons;
-using OrchidMod.Gambler.Weapons.Cards;
-using OrchidMod.Alchemist.Weapons.Fire;
-using OrchidMod.Alchemist.Weapons.Water;
-using OrchidMod.Alchemist.Weapons.Nature;
-using OrchidMod.Alchemist.Weapons.Air;
-using OrchidMod.Gambler.Misc;
-using OrchidMod.Shaman.Accessories;
-using OrchidMod.Alchemist.Weapons.Catalysts;
-using OrchidMod.Gambler.Weapons.Chips;
-using OrchidMod.Alchemist.Accessories;
-using OrchidMod.Gambler.Decks;
-using OrchidMod.Gambler.Accessories;
+using OrchidMod.Content.Shaman.Weapons;
+using OrchidMod.Content.Gambler.Weapons.Cards;
+using OrchidMod.Content.Alchemist.Weapons.Fire;
+using OrchidMod.Content.Alchemist.Weapons.Water;
+using OrchidMod.Content.Alchemist.Weapons.Nature;
+using OrchidMod.Content.Alchemist.Weapons.Air;
+using OrchidMod.Content.Gambler.Misc;
+using OrchidMod.Content.Shaman.Accessories;
+using OrchidMod.Content.Alchemist.Weapons.Catalysts;
+using OrchidMod.Content.Gambler.Weapons.Chips;
+using OrchidMod.Content.Alchemist.Accessories;
+using OrchidMod.Content.Gambler.Decks;
+using OrchidMod.Content.Gambler.Accessories;
 using OrchidMod.Utilities;
-using OrchidMod.Guardian.Weapons.Warhammers;
-using OrchidMod.Guardian.Weapons.Runes;
-using OrchidMod.Guardian.Weapons.Shields;
+using OrchidMod.Content.Guardian.Weapons.Warhammers;
+using OrchidMod.Content.Guardian.Weapons.Runes;
+using OrchidMod.Content.Guardian.Weapons.Shields;
 
 namespace OrchidMod
 {
@@ -1520,8 +1520,8 @@ namespace OrchidMod
 
 			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.MinersLockboxTile>())
 			{
-				int[] specialItemPoll = {49, 50, 53, 54, 55, 975, 997, 930, ItemType<Shaman.Weapons.EnchantedScepter>()
-					, ItemType<Alchemist.Weapons.Air.CloudInAVial>(), ItemType<Gambler.Weapons.Cards.GoldChestCard>()};
+				int[] specialItemPoll = {49, 50, 53, 54, 55, 975, 997, 930, ItemType<Content.Shaman.Weapons.EnchantedScepter>()
+					, ItemType<Content.Alchemist.Weapons.Air.CloudInAVial>(), ItemType<Content.Gambler.Weapons.Cards.GoldChestCard>()};
 				int rand = Main.rand.Next(specialItemPoll);
 
 				chest.item[0].SetDefaults(Mod.Find<ModItem>("HauntedCandle").Type);
@@ -1531,7 +1531,7 @@ namespace OrchidMod
 				placeInChest(chest, 2, Main.rand.Next(5, 15)); // Iron Bars
 				placeInChest(chest, 166, Main.rand.Next(10, 20)); // Bombs
 				placeInChest(chest, 965, Main.rand.Next(50, 100)); // Ropes
-				placeInChest(chest, ItemType<Gambler.Weapons.Cards.DetonatorCard>(), 1); // Ropes
+				placeInChest(chest, ItemType<Content.Gambler.Weapons.Cards.DetonatorCard>(), 1); // Ropes
 
 				if (rand == 930) placeInChest(chest, 931, Main.rand.Next(21) + 30); // Flares
 				placeInChest(chest, rand, 1);

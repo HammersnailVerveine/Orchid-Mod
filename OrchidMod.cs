@@ -1,5 +1,5 @@
-using OrchidMod.Alchemist;
-using OrchidMod.Shaman;
+using OrchidMod.Content.Alchemist;
+using OrchidMod.Content.Shaman;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace OrchidMod
 		public static OrchidMod Instance { get; private set; }
 		public static Mod ThoriumMod { get; private set; }
 
-		public static List<AlchemistHiddenReactionRecipe> alchemistReactionRecipes;
+		public static List<AlchemistHiddenReactionRecipe> AlchemistReactionRecipes;
 
 		public OrchidMod()
 		{
@@ -76,12 +76,12 @@ namespace OrchidMod
 
 			ThoriumMod = OrchidUtils.GetModWithPossibleNull("ThoriumMod");
 
-			alchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
+			AlchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
 		}
 
 		public override void Unload()
 		{
-			alchemistReactionRecipes = null;
+			AlchemistReactionRecipes = null;
 
 			ThoriumMod = null;
 			Instance = null;

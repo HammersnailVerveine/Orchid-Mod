@@ -1,0 +1,19 @@
+using Terraria.ID;
+
+namespace OrchidMod.Content.Alchemist.Misc.Scrolls
+{
+	public class ScrollTier1 : OrchidModAlchemistScroll
+	{
+		public override void SafeSetDefaults()
+		{
+			Item.rare = ItemRarityID.Blue;
+			this.hintLevel = 1;
+		}
+
+		public override void SetStaticDefaults()
+		{
+			// DisplayName.SetDefault("Alchemist Recipe Scroll");
+			// Tooltip.SetDefault("Contains the recipe for an unknown alchemist hidden reaction");
+		}
+	}
+}

@@ -1,10 +1,10 @@
-using OrchidMod.Alchemist;
-using OrchidMod.Alchemist.Accessories;
-using OrchidMod.Alchemist.Bag;
-using OrchidMod.Alchemist.Misc;
-using OrchidMod.Alchemist.Misc.Scrolls;
-using OrchidMod.Alchemist.Weapons.Catalysts;
-using OrchidMod.Alchemist.Weapons.Nature;
+using OrchidMod.Content.Alchemist;
+using OrchidMod.Content.Alchemist.Accessories;
+using OrchidMod.Content.Alchemist.Bag;
+using OrchidMod.Content.Alchemist.Misc;
+using OrchidMod.Content.Alchemist.Misc.Scrolls;
+using OrchidMod.Content.Alchemist.Weapons.Catalysts;
+using OrchidMod.Content.Alchemist.Weapons.Nature;
 using OrchidMod.Content.Items.Materials;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
@@ -295,7 +295,7 @@ namespace OrchidMod.Content.NPCs.Town
 			{
 				bool validHint = false;
 
-				foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.alchemistReactionRecipes)
+				foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.AlchemistReactionRecipes)
 				{
 					if (recipe.level == progression)
 					{

@@ -1,4 +1,4 @@
-using OrchidMod.Shaman.Misc;
+using OrchidMod.Content.Shaman.Misc;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
