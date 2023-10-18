@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.WorldgenArrays;
+using OrchidMod.Utilities.WorldgenArrays;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

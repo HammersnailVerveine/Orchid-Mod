@@ -1,4 +1,3 @@
-using OrchidMod.WorldgenArrays;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +27,7 @@ using OrchidMod.Utilities;
 using OrchidMod.Content.Guardian.Weapons.Warhammers;
 using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Weapons.Shields;
+using OrchidMod.Utilities.WorldgenArrays;
 
 namespace OrchidMod
 {

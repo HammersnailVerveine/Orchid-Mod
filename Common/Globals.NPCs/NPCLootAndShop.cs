@@ -16,8 +16,6 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OrchidMod.Content.Items.Placeables;
-using Microsoft.Xna.Framework;
-using OrchidMod.WorldgenArrays;
 using OrchidMod.Content.Items.Pets;
 using static Terraria.ModLoader.ModContent;
 using OrchidMod.Content.Items;
