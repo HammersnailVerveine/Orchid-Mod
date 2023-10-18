@@ -47,7 +47,7 @@ namespace OrchidMod.Content.NPCs.Town
 			happiness.SetNPCAffection(NPCID.GoblinTinkerer, AffectionLevel.Dislike);
 			happiness.SetNPCAffection(NPCID.TaxCollector, AffectionLevel.Hate);
 
-			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Velocity = 1f };
+			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
 			/*

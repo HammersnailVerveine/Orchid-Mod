@@ -608,18 +608,6 @@ namespace OrchidMod.Common.Globals.NPCs
 				}
 			}
 
-			if (npc.type == 21 || npc.type == -46 || npc.type == -47 || npc.type == 201 || npc.type == -48 || npc.type == -49 || npc.type == 202 || npc.type == -50 || npc.type == -51 || npc.type == 203 || npc.type == -52 || npc.type == -53 || npc.type == 167)
-			{ // Skeletons & vikings in mineshaft
-				Player player = Main.player[(int)Player.FindClosest(npc.position, npc.width, npc.height)];
-				int MSMinPosX = (Main.maxTilesX / 2) - ((OrchidMSarrays.MSLenght * 15) / 2);
-				int MSMinPosY = (Main.maxTilesY / 3 + 100);
-				Rectangle rect = new Rectangle(MSMinPosX, MSMinPosY, (OrchidMSarrays.MSLenght * 15), (OrchidMSarrays.MSHeight * 14));
-				if (rect.Contains(new Point((int)(player.Center.X / 16f), (int)(player.Center.Y / 16f))))
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), Main.rand.Next(3) + 1, false, 0, false, false);
-				}
-			}
-
 			if (npc.type == 1 || npc.type == -3 || npc.type == -8 || npc.type == -9 || npc.type == -6 || npc.type == 147 || npc.type == -10) // Most Surface Slimes
 			{
 				if (Main.rand.NextBool(!OrchidWorld.foundSlimeCard ? 5 : 1000))

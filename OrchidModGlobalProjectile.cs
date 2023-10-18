@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
 
 namespace OrchidMod
 {
@@ -27,7 +28,7 @@ namespace OrchidMod
 		public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
 		{
 			OrchidPlayer modPlayer = target.GetModPlayer<OrchidPlayer>();
-			if (modPlayer.generalTools && !target.HasBuff(BuffType<General.Buffs.Debuffs.ToolSetBuff>()))
+			if (modPlayer.generalTools && !target.HasBuff(BuffType<Content.Buffs.Debuffs.ToolSetBuff>()))
 			{
 				List<int> trapProjTypes = new List<int>();
 				trapProjTypes.Add(98); // Dart
@@ -39,7 +40,7 @@ namespace OrchidMod
 
 				if (trapProjTypes.Contains(projectile.type))
 				{
-					target.AddBuff(BuffType<General.Buffs.Debuffs.ToolSetBuff>(), 60 * 30);
+					target.AddBuff(BuffType<Content.Buffs.Debuffs.ToolSetBuff>(), 60 * 30);
 					projectile.damage = (int)(projectile.damage * 0.1f);
 				}
 			}
@@ -51,7 +52,7 @@ namespace OrchidMod
 			Player player = Main.player[projectile.owner];
 			if (modProjectile.gamblerDummyProj)
 			{
-				if (target.type != 488 && player.HeldItem.type != ItemType<Content.Gambler.GamblerDummyTest>())
+				if (target.type != NPCID.TargetDummy && player.HeldItem.type != ItemType<Content.Gambler.GamblerDummyTest>())
 				{
 					return false;
 				}

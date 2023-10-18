@@ -11,8 +11,6 @@ namespace OrchidMod.Common
 		[Header("General")]
 
 		[DefaultValue(true)]
-		[Label("Show tags")]
-		[Tooltip("$Enables/Disables the display class tags")]
 		public bool ShowClassTags { get; set; }
 	}
 
@@ -24,8 +22,6 @@ namespace OrchidMod.Common
 		[Header("General")]
 		[DefaultValue(true)]
 		[ReloadRequired]
-		[Label("Load Crossmod-Content without required mods")]
-		[Tooltip("$Enables/Disables loading Crossmod-Content without required mods")]
 		public bool LoadCrossmodContentWithoutRequiredMods { get; set; }
 	}
 }

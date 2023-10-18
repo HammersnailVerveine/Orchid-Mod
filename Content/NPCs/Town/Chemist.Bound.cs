@@ -16,7 +16,7 @@ namespace OrchidMod.Content.NPCs.Town
 		{
 			// DisplayName.SetDefault("Bound Chemist");
 
-			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Hide = true };
+			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
 			//CreateMoodTranslationBasedOnChemist();

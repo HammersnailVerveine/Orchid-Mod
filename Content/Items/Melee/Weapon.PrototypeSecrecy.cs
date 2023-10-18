@@ -61,7 +61,7 @@ namespace OrchidMod.Content.Items.Melee
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.EnchantedBoomerang, 1);
-			recipe.AddIngredient(ModContent.ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>(), 6);
+			recipe.AddIngredient(ItemID.LifeCrystal, 1);
 			recipe.AddIngredient(ItemID.Silk, 2);
 			recipe.Register();
 		}

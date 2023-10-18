@@ -1,4 +1,3 @@
-using OrchidMod.Tiles.Ores;
 using OrchidMod.WorldgenArrays;
 using System;
 using System.Collections.Generic;
@@ -135,8 +134,8 @@ namespace OrchidMod
 		{
 			int barRand = Main.rand.Next(6);
 			int wallrand = Main.rand.Next(5);
-			bool trapRoom = (Main.rand.Next(5) == 0);
-			bool normalRoom = (!trapRoom && (Main.rand.Next(3) == 0));
+			bool trapRoom = (Main.rand.NextBool(5));
+			bool normalRoom = (!trapRoom && (Main.rand.NextBool(3)));
 			for (int y = 0; y < MS.GetLength(0); y++)
 			{
 				for (int x = 0; x < MS.GetLength(1); x++)
@@ -165,7 +164,7 @@ namespace OrchidMod
 									}
 									if (canSpawnTile)
 									{
-										WorldGen.PlaceTile(k, l, TileType<Tiles.Ambient.FragileWood>());
+										WorldGen.PlaceTile(k, l, TileType<Content.Tiles.Ambient.FragileWood>());
 									}
 								}
 								else if (!normalRoom)
@@ -387,7 +386,7 @@ namespace OrchidMod
 										}
 									}
 								}
-								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftCrate>());
+								WorldGen.PlaceObject(k, l, ModContent.TileType<Content.Tiles.Ambient.MineshaftCrate>());
 								break;
 							case 18:
 								for (int w = 0; w < 2; w++)
@@ -428,7 +427,7 @@ namespace OrchidMod
 										tile.WallType = 27;
 									}
 								}
-								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftHookTile>());
+								WorldGen.PlaceObject(k, l, ModContent.TileType<Content.Tiles.Ambient.MineshaftHookTile>());
 								break;
 							case 21:
 								for (int w = 0; w < 3; w++)
@@ -439,18 +438,7 @@ namespace OrchidMod
 										tile.ClearTile();
 									}
 								}
-								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftToolboxTile>());
-								break;
-							case 22:
-								for (int w = 0; w < 2; w++)
-								{
-									for (int q = 0; q < 2; q++)
-									{
-										tile = Framing.GetTileSafely(k - w, l - q);
-										tile.ClearTile();
-									}
-								}
-								WorldGen.PlaceObject(k, l, ModContent.TileType<Tiles.Ambient.MineshaftStaticTile>());
+								WorldGen.PlaceObject(k, l, ModContent.TileType<Content.Tiles.Ambient.MineshaftToolboxTile>());
 								break;
 							default:
 								break;
@@ -757,42 +745,6 @@ namespace OrchidMod
 				}
 			}
 			return mineshaft;
-		}
-
-		// public void PlaceRuins(int[,] ruins, int RLenght, int RHeight, int PosX, int MinPosY) {
-		// int PosY = MinPosY; // same
-		// for (int i = 0; i < RLenght ; i++ ) {
-		// for (int j = 0; j < RHeight ; j++ ) {
-		// if (ruins[i,j] == 1) {
-		// PlaceRRoom(PosX, PosY, OrchidRarrays.Rshape1, OrchidRarrays.RWall1);
-		// }
-		// if (ruins[i,j] == 2) {
-		// PlaceRRoom(PosX, PosY - 16, OrchidRarrays.REntrance, OrchidRarrays.RWall2);
-		// }
-		// PosY += 14;
-		// }
-		// PosY = MinPosY;
-		// PosX += 15;
-		// }
-		// }
-
-		public void PlaceFossil(int i, int j, int[,] fossil)
-		{
-			for (int y = 0; y < fossil.GetLength(0); y++)
-			{
-				for (int x = 0; x < fossil.GetLength(1); x++)
-				{
-					int k = i - 3 + x;
-					int l = j - 6 + y;
-					if (WorldGen.InWorld(k, l, 30) && fossil[y, x] == 1)
-					{
-						Tile tile = Framing.GetTileSafely(k, l);
-						tile.ClearTile();
-						WorldGen.PlaceTile(k, l, (ushort)TileType<AncientFossil>());
-						tile.HasTile = true;
-					}
-				}
-			}
 		}
 
 		public void PlaceMineshaft(int[,] mineshaft, int MSLenght, int MSHeight, int PosX, int MinPosY)
@@ -1170,22 +1122,6 @@ namespace OrchidMod
 			}
 		}
 
-		private void placeQuartz()
-		{
-			for (int k = 0; k < (int)((OrchidMSarrays.MSLenght * 15 * OrchidMSarrays.MSHeight * 8) / 6); k++)
-			{
-				int x = WorldGen.genRand.Next((int)(Main.maxTilesX / 2) - (int)((OrchidMSarrays.MSLenght * 15) / 2) - 50, (int)(Main.maxTilesX / 2) + (int)((OrchidMSarrays.MSLenght * 15) / 2) + 50);
-				int y = WorldGen.genRand.Next((int)(Main.maxTilesY / 3) + 50, (int)(Main.maxTilesY / 3) + (OrchidMSarrays.MSHeight * 8) + 200);
-
-				Tile tile = Framing.GetTileSafely(x, y);
-				if (!tile.HasTile && ((WorldGen.SolidTile(x - 1, y)) || (WorldGen.SolidTile(x, y + 1)) || (WorldGen.SolidTile(x, y - 1)) || (WorldGen.SolidTile(x + 1, y))))
-				{
-					WorldGen.PlaceTile(x, y, TileType<Tiles.Ores.StaticQuartzGem>());
-					tile.HasTile = true;
-				}
-			}
-		}
-
 		private void placeLilies()
 		{
 			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 0.015); k++)
@@ -1209,62 +1145,6 @@ namespace OrchidMod
 						}
 						WorldGen.PlaceTile(x, y, ModContent.TileType<Content.Items.Materials.JungleLilyTile>(), style: WorldGen.genRand.Next(4));
 					}
-				}
-			}
-		}
-
-		public void placeFossils()
-		{
-			int fossilQuantity = WorldGen.genRand.Next(5, 5 + (int)(2f * (Main.maxTilesX / 800f)));
-			for (int i = 0; i < fossilQuantity; i++)
-			{
-
-				int[,] fossilShape;
-				switch (Main.rand.Next(4))
-				{
-					case 0:
-						fossilShape = OrchidFossilsArrays.FossilShape1;
-						break;
-					case 1:
-						fossilShape = OrchidFossilsArrays.FossilShape2;
-						break;
-					case 2:
-						fossilShape = OrchidFossilsArrays.FossilShape3;
-						break;
-					case 3:
-						fossilShape = OrchidFossilsArrays.FossilShape4;
-						break;
-					default:
-						fossilShape = OrchidFossilsArrays.FossilShape1;
-						break;
-				}
-
-				bool fossilPlaced = false;
-				int attempts = 0;
-				while (!fossilPlaced && attempts < 100000)
-				{
-
-					int x = WorldGen.genRand.Next(300, Main.maxTilesX - 300);
-					int y = WorldGen.genRand.Next((int)(Main.worldSurface + 150), Main.maxTilesY - 300);
-					int validCount = 0;
-
-					if (Framing.GetTileSafely(x, y).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
-						validCount++;
-					if (Framing.GetTileSafely(x + 34, y + 27).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
-						validCount++;
-					if (Framing.GetTileSafely(x, y + 27).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
-						validCount++;
-					if (Framing.GetTileSafely(x + 34, y).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
-						validCount++;
-					if (Framing.GetTileSafely(x + 17, y + 13).TileType == TileID.Dirt || Framing.GetTileSafely(x, y).TileType == TileID.Stone)
-						validCount++;
-
-					if (validCount > 2)
-					{
-						fossilPlaced = true;
-						PlaceFossil(x, y, fossilShape);
-					}
-					attempts++;
 				}
 			}
 		}
@@ -1321,9 +1201,6 @@ namespace OrchidMod
 					PlaceMineshaft(minishaft1, 5, 3, minishaft1X, minishaft1Y);
 					minishaft2 = GenerateSmallMSArray(5, 3);
 					PlaceMineshaft(minishaft2, 5, 3, minishaft2X, minishaft2Y);
-
-					progress.Message = "Generating Static Quartz";
-					this.placeQuartz();
 
 					progress.Message = "Generating Jungle Lilies";
 					this.placeLilies();

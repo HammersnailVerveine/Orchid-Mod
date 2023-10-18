@@ -12,7 +12,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 	{
 		private int bounceDelay = 0;
 		private int count = 1;
-		private bool initialized = false;
+		private bool initializedProj = false;
 
 		public override void SetStaticDefaults()
 		{
@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 		
 		public void Initialize()
 		{
-			initialized = true;
+			initializedProj = true;
 			Projectile.frame = Projectile.ai[0] == 0f ? 0 : 2;
 			Projectile proj = Main.projectile[(int) Projectile.ai[1]];
 			if (proj.localAI[0] != 0f) {
@@ -43,7 +43,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 		public override void SafeAI()
 		{
-			if (!initialized) Initialize();
+			if (!initializedProj) Initialize();
 			
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();

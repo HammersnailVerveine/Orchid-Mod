@@ -11,8 +11,6 @@ using OrchidMod.Content.Gambler.Misc;
 using OrchidMod.Content.Gambler.Weapons.Cards;
 using OrchidMod.Content.Gambler.Weapons.Chips;
 using OrchidMod.Content.Gambler.Weapons.Dice;
-using OrchidMod.General.Items.Misc;
-using OrchidMod.General.Items.Vanity;
 using OrchidMod.Content.Shaman.Accessories;
 using OrchidMod.Content.Shaman.Misc.Thorium;
 using OrchidMod.Content.Shaman.Weapons;
@@ -20,15 +18,11 @@ using OrchidMod.Content.Shaman.Weapons.Hardmode;
 using OrchidMod.Content.Shaman.Weapons.Thorium;
 using OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode;
 using OrchidMod.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OrchidMod.Content.Items.Armor.Vanity;
 
 namespace OrchidMod.Common.Globals.Items
 {

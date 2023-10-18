@@ -18,7 +18,6 @@ namespace OrchidMod.Content.Shaman.UI
 		private Texture2D symbolCritical;
 		private Texture2D symbolRegeneration;
 		private Texture2D symbolSpeed;
-		private Texture2D symbolWeak;
 		private Texture2D BondBar;
 
 		private Color backgroundColor;
