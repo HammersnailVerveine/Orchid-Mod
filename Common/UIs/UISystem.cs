@@ -38,7 +38,7 @@ namespace OrchidMod.Common.UIs
 			}
 		}
 
-		private static void ModifyScrollHotbar(On.Terraria.Player.orig_ScrollHotbar orig, Player player, int offset)
+		private static void ModifyScrollHotbar(Terraria.On_Player.orig_ScrollHotbar orig, Player player, int offset)
 		{
 			if (ignoreHotbarScroll) return;
 
@@ -74,7 +74,7 @@ namespace OrchidMod.Common.UIs
 				userInterfaces.Add(userInterface);
 			}
 
-			On.Terraria.Player.ScrollHotbar += ModifyScrollHotbar;
+			Terraria.On_Player.ScrollHotbar += ModifyScrollHotbar;
 			Main.OnResolutionChanged += OnResolutionChanged;
 			Main.OnPreDraw += ResetVariables;
 		}
@@ -83,7 +83,7 @@ namespace OrchidMod.Common.UIs
 		{
 			Main.OnPreDraw -= ResetVariables;
 			Main.OnResolutionChanged -= OnResolutionChanged;
-			On.Terraria.Player.ScrollHotbar -= ModifyScrollHotbar;
+			Terraria.On_Player.ScrollHotbar -= ModifyScrollHotbar;
 
 			foreach (var uiState in uiStates)
 			{

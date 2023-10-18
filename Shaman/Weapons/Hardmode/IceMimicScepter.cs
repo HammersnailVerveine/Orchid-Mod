@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = false;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<IceMimicScepterProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 			this.energy = 35;
@@ -31,9 +31,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Cycle");
-			Tooltip.SetDefault("Releases a glacial spike, repeatedly impaling the closest enemy"
-							  + "\nHaving 3 or more active shamanic bonds increases the spike attack rate");
+			// DisplayName.SetDefault("Ice Cycle");
+			/* Tooltip.SetDefault("Releases a glacial spike, repeatedly impaling the closest enemy"
+							  + "\nHaving 3 or more active shamanic bonds increases the spike attack rate"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman
 	[ClassTag(ClassTags.Shaman)]
 	public abstract class OrchidModShamanItem : ModItem
 	{
-		public int empowermentType = 0;
+		public int Element = 0;
 		public int energy = 1;
 		public Color? catalystEffectColor = null; // TODO: ...
 		public ShamanCatalystType catalystType = ShamanCatalystType.IDLE;
@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman
 
 			this.SafeSetDefaults();
 
-			orchidItem.shamanWeaponElement = this.empowermentType;
+			orchidItem.shamanWeaponElement = this.Element;
 		}
 
 		public sealed override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -59,6 +59,7 @@ namespace OrchidMod.Shaman
 			OrchidShaman shaman = player.GetModPlayer<OrchidShaman>();
 			Vector2 mousePosition = Main.MouseWorld;
 			Vector2? catalystCenter = shaman.ShamanCatalystPosition;
+			shaman.UIDisplayTimer = shaman.UIDisplayDelay;
 
 			//if (catalystCenter != null && Collision.CanHit(position, 0, 0, position + (catalystCenter.Value - position), 0, 0))
 			if (catalystCenter != null)
@@ -68,41 +69,6 @@ namespace OrchidMod.Shaman
 			newMove.Normalize();
 			newMove *= velocity.Length();
 			velocity = newMove;
-			//velocity.X = newMove.X;
-			//velocity.Y = newMove.Y;
-			int exhaustion = (int)(energy * shaman.shamanExhaustionRate);
-			exhaustion = exhaustion < 2 ? 2 : exhaustion;
-
-			switch (empowermentType)
-			{
-				case 1:
-					shaman.shamanPollFire = shaman.shamanPollFire < 0 ? 0 : shaman.shamanPollFire;
-					shaman.shamanPollFire += exhaustion;
-					shaman.shamanPollFireMax = shaman.shamanFireBondLoading == 100 ? shaman.shamanPollFireMax : false;
-					break;
-				case 2:
-					shaman.shamanPollWater = shaman.shamanPollWater < 0 ? 0 : shaman.shamanPollWater;
-					shaman.shamanPollWater += exhaustion;
-					shaman.shamanPollWaterMax = shaman.shamanWaterBondLoading == 100 ? shaman.shamanPollWaterMax : false;
-					break;
-				case 3:
-					shaman.shamanPollAir = shaman.shamanPollAir < 0 ? 0 : shaman.shamanPollAir;
-					shaman.shamanPollAir += exhaustion;
-					shaman.shamanPollAirMax = shaman.shamanAirBondLoading == 100 ? shaman.shamanPollAirMax : false;
-					break;
-				case 4:
-					shaman.shamanPollEarth = shaman.shamanPollEarth < 0 ? 0 : shaman.shamanPollEarth;
-					shaman.shamanPollEarth += exhaustion;
-					shaman.shamanPollEarthMax = shaman.shamanEarthBondLoading == 100 ? shaman.shamanPollEarthMax : false;
-					break;
-				case 5:
-					shaman.shamanPollSpirit = shaman.shamanPollSpirit < 0 ? 0 : shaman.shamanPollSpirit;
-					shaman.shamanPollSpirit += exhaustion;
-					shaman.shamanPollSpiritMax = shaman.shamanSpiritBondLoading == 100 ? shaman.shamanPollSpiritMax : false;
-					break;
-				default:
-					break;
-			}
 
 			if (this.SafeShoot(player, source, position, velocity, type, damage, knockback))
 			{
@@ -110,6 +76,91 @@ namespace OrchidMod.Shaman
 			}
 
 			return false;
+		}
+
+		public override bool AltFunctionUse(Player player)
+		{
+			return true;
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			OrchidShaman shamanPlayer = player.GetModPlayer<OrchidShaman>();
+			if (player.altFunctionUse == 2)
+			{ // Right click
+				if (shamanPlayer.GetShamanicBondValue((ShamanElement)Element) >= 100 && !shamanPlayer.IsShamanicBondReleased((ShamanElement)Element))
+				{
+					shamanPlayer.ReleaseShamanicBond(this);
+				}
+				else
+				{
+					switch (this.Element)
+					{
+						case 1:
+							if (shamanPlayer.ShamanFireBondReleased)
+							{
+								shamanPlayer.ShamanFireBondReleased = false;
+								shamanPlayer.ShamanFireBond = 0;
+							}
+							break;
+						case 2:
+							if (shamanPlayer.ShamanWaterBondReleased)
+							{
+								shamanPlayer.ShamanWaterBondReleased = false;
+								shamanPlayer.ShamanWaterBond = 0;
+							}
+							break;
+						case 3:
+							if (shamanPlayer.ShamanAirBondReleased)
+							{
+								shamanPlayer.ShamanAirBondReleased = false;
+								shamanPlayer.ShamanAirBond = 0;
+							}
+							break;
+						case 4:
+							if (shamanPlayer.ShamanEarthBondReleased)
+							{
+								shamanPlayer.ShamanEarthBondReleased = false;
+								shamanPlayer.ShamanEarthBond = 0;
+							}
+							break;
+						case 5:
+							if (shamanPlayer.ShamanSpiritBondReleased)
+							{
+								shamanPlayer.ShamanSpiritBondReleased = false;
+								shamanPlayer.ShamanSpiritBond = 0;
+							}
+							break;
+						default:
+							break;
+					}
+				}
+				return false;
+			}
+			else
+			{ // Left click
+				switch (this.Element)
+				{
+					case 1:
+						if (shamanPlayer.ShamanFireBondReleased) return false;
+						break;
+					case 2:
+						if (shamanPlayer.ShamanWaterBondReleased) return false;
+						break;
+					case 3:
+						if (shamanPlayer.ShamanAirBondReleased) return false;
+						break;
+					case 4:
+						if (shamanPlayer.ShamanEarthBondReleased) return false;
+						break;
+					case 5:
+						if (shamanPlayer.ShamanSpiritBondReleased) return false;
+						break;
+					default:
+						break;
+				}
+			}
+			return base.CanUseItem(player);
 		}
 
 		public sealed override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -154,38 +205,8 @@ namespace OrchidMod.Shaman
 
 		public sealed override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			switch (empowermentType)
-			{
-				case 1:
-					damage *= modPlayer.shamanFireBondLoading < 100 ? 1f : 0.5f;
-					break;
-				case 2:
-					damage *= modPlayer.shamanWaterBondLoading < 100 ? 1f : 0.5f;
-					break;
-				case 3:
-					damage *= modPlayer.shamanAirBondLoading < 100 ? 1f : 0.5f;
-					break;
-				case 4:
-					damage *= modPlayer.shamanEarthBondLoading < 100 ? 1f : 0.5f;
-					break;
-				case 5:
-					damage *= modPlayer.shamanSpiritBondLoading < 100 ? 1f : 0.5f;
-					break;
-				default:
-					break;
-			}
-
 			this.SafeModifyWeaponDamage(player, ref damage);
 		}
-
-		/* [CRIT]
-		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
-		{
-			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidShaman>().shamanCrit) crit = true;
-			else crit = false;
-		}
-		*/
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
@@ -198,7 +219,7 @@ namespace OrchidMod.Shaman
 				tt.Text = damageValue + " shamanic damage";
 			}
 
-			if (empowermentType > 0)
+			if (Element > 0)
 			{
 				Color[] colors = new Color[5]
 				{
@@ -212,7 +233,7 @@ namespace OrchidMod.Shaman
 				string[] strType = new string[5] { "Fire", "Water", "Air", "Earth", "Spirit" };
 
 				int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(Mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[empowermentType - 1]).Hex3()}:{strType[empowermentType - 1]}]"));
+				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(Mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[Element - 1]).Hex3()}:{strType[Element - 1]}]"));
 			}
 		}
 
@@ -223,12 +244,14 @@ namespace OrchidMod.Shaman
 		public virtual void SafeHoldItem() { }
 		public virtual void SafeModifyWeaponDamage(Player player, ref StatModifier damage) { }
 		public virtual bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) => true;
-
 		public virtual void ExtraAICatalyst(Projectile projectile, bool after) { }
 		public virtual void PostAICatalyst(Projectile projectile) { }
 		public virtual void PostDrawCatalyst(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreAICatalyst(Projectile projectile) { return true; }
 		public virtual bool PreDrawCatalyst(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
+		public virtual void AIReleased(Projectile projectile) { }
+		public virtual void PostAIReleased(Projectile projectile) { }
+		public virtual void OnRelease(Projectile projectile) { }
 
 		public virtual string CatalystTexture => "OrchidMod/Shaman/CatalystTextures/" + this.Name + "_Catalyst";
 
@@ -238,7 +261,7 @@ namespace OrchidMod.Shaman
 		{
 			int newProjectileIndex = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai0, ai1);
 			Projectile newProjectile = Main.projectile[newProjectileIndex];
-			OrchidModProjectile.setShamanBond(newProjectile, this.empowermentType);
+			OrchidModProjectile.setShamanBond(newProjectile, this.Element);
 			return newProjectileIndex;
 		}
 	}

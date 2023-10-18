@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vampire Bolt");
+			// DisplayName.SetDefault("Vampire Bolt");
 		}
 
 		public override void AI()
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 4; i++)
 			{

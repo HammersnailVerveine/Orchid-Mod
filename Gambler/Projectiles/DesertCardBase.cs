@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Desert Card Base");
+			// DisplayName.SetDefault("Desert Card Base");
 		}
 		
 		public override void SafeSetDefaults()

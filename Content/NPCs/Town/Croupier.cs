@@ -24,7 +24,7 @@ namespace OrchidMod.Content.NPCs.Town
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Croupier");
+			// DisplayName.SetDefault("Croupier");
 
 			Main.npcFrameCount[NPC.type] = 26;
 
@@ -50,11 +50,12 @@ namespace OrchidMod.Content.NPCs.Town
 			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
+			/*
 			void CreateMoodTranslation(string key, string text)
 			{
-				var tr = LocalizationLoader.CreateTranslation(Mod, "TownNPCMood.Croupier." + key);
-				tr.SetDefault(text);
-				LocalizationLoader.AddTranslation(tr);
+				//var tr = Language.GetOrRegister(Mod, "TownNPCMood.Croupier." + key);
+				// tr.SetDefault(text);
+				//LocalizationLoader.AddTranslation(tr) // tModPorter Note: Removed. Use Language.GetOrRegister ;
 			}
 
 			CreateMoodTranslation("Content", "Ey, that sure is a fine place to deal with.");
@@ -71,6 +72,7 @@ namespace OrchidMod.Content.NPCs.Town
 			CreateMoodTranslation("LoveNPC", "{NPCName} is an amazing buddy, we play every night around a nice beer!");
 			CreateMoodTranslation("DislikeNPC", "I didn't believe it, but {NPCName} taught me that goblins really CAN'T play cards.");
 			CreateMoodTranslation("HateNPC", "{NPCName} keeps pestering me about gambling, and blah, blah. why is he so nosy?");
+			*/
 		}
 
 		public override void SetDefaults()
@@ -106,7 +108,7 @@ namespace OrchidMod.Content.NPCs.Town
 		public override ITownNPCProfile TownNPCProfile()
 			=> new CroupierProfile();
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+		public override bool CanTownNPCSpawn(int numTownNPCs)/* tModPorter Suggestion: Copy the implementation of NPC.SpawnAllowed_Merchant in vanilla if you to count money, and be sure to set a flag when unlocked, so you don't count every tick. */
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
@@ -183,12 +185,12 @@ namespace OrchidMod.Content.NPCs.Town
 			}
 		}
 
-		public void ClickFirstButton(ref bool shop)
+		public void ClickFirstButton(ref string shop)
 		{
 			var ui = CroupierUI.Instance;
 
 			if (ui.Visible) ui.Deactivate(NPC.whoAmI);
-			else shop = true;
+			else shop = "Shop";
 		}
 
 		public void ClickSecondButton()
@@ -223,85 +225,89 @@ namespace OrchidMod.Content.NPCs.Town
 			Main.npcChatText = $"My man, your pockets are full. You wouldn't let a brand new deck sitting on the ground, would ya?";
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			if (firstButton)
 			{
-				ClickFirstButton(ref shop);
+				ClickFirstButton(ref shopName);
 				return;
 			}
 
 			ClickSecondButton();
 		}
 
-		public override void SetupShop(Chest shop, ref int nextSlot)
+		public override void AddShops()
+		{
+			var npcShop = new NPCShop(Type, "Shop");
+			OrchidUtils.AddItemToShop<GamblerDummy>(npcShop);
+			OrchidUtils.AddItemToShop<GamblingChip>(npcShop);
+			OrchidUtils.AddItemToShop<GamblingDie>(npcShop);
+			OrchidUtils.AddItemToShop<ShuffleCard>(npcShop);
+		}
+
+		public override void ModifyActiveShop(string shopName, Item[] items)
 		{
 			var player = Main.player[Main.myPlayer];
 			var modPlayer = player.GetModPlayer<OrchidGambler>();
 
-			OrchidUtils.AddItemToShop<GamblerDummy>(shop, ref nextSlot);
-			OrchidUtils.AddItemToShop<GamblingChip>(shop, ref nextSlot);
-			OrchidUtils.AddItemToShop<GamblingDie>(shop, ref nextSlot);
-			OrchidUtils.AddItemToShop<ShuffleCard>(shop, ref nextSlot);
-
 			if (player.ZoneForest)
 			{
-				OrchidUtils.AddItemToShop<ForestCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<ForestCard>(items);
 			}
 
 			if (player.ZoneSnow)
 			{
-				OrchidUtils.AddItemToShop<SnowCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<SnowCard>(items);
 			}
 
 			if (player.ZoneDesert)
 			{
-				OrchidUtils.AddItemToShop<DesertCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<DesertCard>(items);
 			}
 
 			if (player.ZoneBeach)
 			{
-				OrchidUtils.AddItemToShop<OceanCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<OceanCard>(items);
 			}
 
 			if (player.ZoneJungle)
 			{
-				OrchidUtils.AddItemToShop<JungleCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<JungleCard>(items);
 			}
 
 			if (player.ZoneGlowshroom)
 			{
-				OrchidUtils.AddItemToShop<MushroomCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<MushroomCard>(items);
 			}
 
 			if (player.ZoneSkyHeight)
 			{
-				OrchidUtils.AddItemToShop<SkyCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<SkyCard>(items);
 			}
 
 			if (Main.slimeRain)
 			{
-				OrchidUtils.AddItemToShop<SlimeRainCard>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<SlimeRainCard>(items);
 			}
 
 			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Slime) > 2)
 			{
-				OrchidUtils.AddItemToShop<SlimyLollipop>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<SlimyLollipop>(items);
 			}
 
 			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Biome) > 2)
 			{
-				OrchidUtils.AddItemToShop<LuckySprout>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<LuckySprout>(items);
 			}
 
 			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Boss) > 2)
 			{
-				OrchidUtils.AddItemToShop<ConquerorsPennant>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<ConquerorsPennant>(items);
 			}
 
 			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Elemental) > 2)
 			{
-				OrchidUtils.AddItemToShop<ElementalLens>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<ElementalLens>(items);
 			}
 		}
 

@@ -15,8 +15,8 @@ namespace OrchidMod.Alchemist.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Preserved Corruption");
-			Tooltip.SetDefault("Maximum potency increased by 2");
+			// DisplayName.SetDefault("Preserved Corruption");
+			// Tooltip.SetDefault("Maximum potency increased by 2");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

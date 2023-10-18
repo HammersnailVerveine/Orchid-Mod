@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 3f;
 			Item.shoot = ModContent.ProjectileType<YewWoodScepterProj>();
-			this.empowermentType = 5;
+			this.Element = 5;
 			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadowflame Scepter");
-			Tooltip.SetDefault("Fires inaccurate bolts of shadowflame magic"
-							+ "\nIf you have 3 or more bonds, hitting has a chance to summon a shadow portal");
+			// DisplayName.SetDefault("Shadowflame Scepter");
+			/* Tooltip.SetDefault("Fires inaccurate bolts of shadowflame magic"
+							+ "\nIf you have 3 or more bonds, hitting has a chance to summon a shadow portal"); */
 		}
 
 		public override void AddRecipes()

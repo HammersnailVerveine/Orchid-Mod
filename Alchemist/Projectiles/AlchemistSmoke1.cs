@@ -11,7 +11,7 @@ namespace OrchidMod.Alchemist.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemical Smoke");
+			// DisplayName.SetDefault("Alchemical Smoke");
 		}
 
 		public override void SafeSetDefaults()
@@ -67,7 +67,7 @@ namespace OrchidMod.Alchemist.Projectiles
 		// return false;
 		// }
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 2; i++)
 			{

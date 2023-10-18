@@ -16,9 +16,9 @@ namespace OrchidMod.Gambler.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Burning Clovers");
-			Tooltip.SetDefault("Gambler dice will slow down when rolling 5 or more"
-							 + "\nGambler dice cannot roll a 1 or a 2");
+			// DisplayName.SetDefault("Burning Clovers");
+			/* Tooltip.SetDefault("Gambler dice will slow down when rolling 5 or more"
+							 + "\nGambler dice cannot roll a 1 or a 2"); */
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

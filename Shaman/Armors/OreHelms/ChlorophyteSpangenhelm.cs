@@ -20,9 +20,9 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chlorophyte Spangenhelm");
-			Tooltip.SetDefault("Your shamanic bonds will last 4 seconds longer"
-							  + "\n16% increased shamanic damage");
+			// DisplayName.SetDefault("Chlorophyte Spangenhelm");
+			/* Tooltip.SetDefault("Your shamanic bonds will last 4 seconds longer"
+							  + "\n16% increased shamanic damage"); */
 		}
 
 		public override void UpdateEquip(Player player)

@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Burst");
+			// DisplayName.SetDefault("Solar Burst");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -64,7 +64,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			return true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 13; i++)
 			{

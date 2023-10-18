@@ -24,9 +24,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Guardian of the Night");
-			Tooltip.SetDefault("Summons a servant of cthulhu, dashing at your cursor"
-							+ "\nThe servant will only attack if your cursor is far enough from its location");
+			// DisplayName.SetDefault("Playing Card : Guardian of the Night");
+			/* Tooltip.SetDefault("Summons a servant of cthulhu, dashing at your cursor"
+							+ "\nThe servant will only attack if your cursor is far enough from its location"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

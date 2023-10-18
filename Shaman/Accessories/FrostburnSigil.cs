@@ -15,8 +15,8 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frostburn Sigil");
-			Tooltip.SetDefault("Your shamanic fire bonds allows you to frostburn your foes on hit");
+			// DisplayName.SetDefault("Frostburn Sigil");
+			// Tooltip.SetDefault("Your shamanic fire bonds allows you to frostburn your foes on hit");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

@@ -1,0 +1,140 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.IO;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace OrchidMod.Shaman
+{
+	public class CatalystSummon : OrchidModProjectile
+	{
+		public int CatalystItemID;
+		public Item CatalystItem;
+
+		// ...
+
+		public override void AltSetDefaults()
+		{
+			Projectile.width = 20;
+			Projectile.height = 20;
+			Projectile.friendly = false;
+			Projectile.tileCollide = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 60;
+			Projectile.penetrate = -1;
+			Projectile.netImportant = true;
+			Projectile.alpha = 255;
+		}
+
+		public override void AI()
+		{
+			var owner = Main.player[Projectile.owner];
+
+			if (!owner.active || owner.dead)
+			{
+				Projectile.Kill();
+				return;
+			}
+
+			if (this.CatalystItem == null)
+			{
+				this.CatalystItem = new Item();
+				this.CatalystItem.SetDefaults(CatalystItemID, true);
+				return;
+			}
+			else
+			{
+				if (CatalystItem.ModItem is OrchidModShamanItem shamanItem)
+				{
+					shamanItem.ExtraAICatalyst(Projectile, false);
+					if (shamanItem.PreAICatalyst(Projectile))
+					{
+						switch (shamanItem.catalystType)
+						{
+							case ShamanCatalystType.IDLE:
+								Projectile.rotation = Projectile.velocity.X * 0.035f;
+								Projectile.rotation = Projectile.rotation > 0.35f ? 0.35f : Projectile.rotation;
+								Projectile.rotation = Projectile.rotation < -0.35f ? -0.35f : Projectile.rotation;
+								break;
+							case ShamanCatalystType.AIM:
+								// Vector2 aimVector = mousePosition - projectile.Center;
+								// projectile.rotation = aimVector.ToRotation();
+								// projectile.direction = projectile.spriteDirection;
+								break;
+							case ShamanCatalystType.ROTATE:
+								Projectile.rotation += 0.05f;
+								break;
+						}
+					}
+
+					Vector2 aiVector = owner.Center - new Vector2(0f, 15f).RotatedBy(- 45f + shamanItem.Element * 15f);
+					Vector2 offSet = aiVector / 10f;
+					Vector2 target = owner.Center;
+					for (int i = 0; i < 10; i++)
+					{
+						offSet = Collision.TileCollision(target, offSet, 5, 5, true, true, (int)owner.gravDir);
+						target += offSet;
+					}
+					Vector2 newMove = target - Projectile.Center - aiVector * 0.15f;
+					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+					if (distanceTo > 1000f)
+					{
+						Projectile.position = target + new Vector2(Projectile.width / 2, Projectile.height / 2);
+						Projectile.netUpdate = true;
+					}
+					else if (distanceTo > 0.01f)
+					{
+						newMove.Normalize();
+						float vel = ((distanceTo * 0.075f) + (owner.velocity.Length() / 2)) * (owner.HasBuff(ModContent.BuffType<Shaman.Buffs.ShamanicEmpowerment>()) ? 1.5f : 1f);
+						vel = vel > 50f ? 50f : vel;
+						newMove *= vel;
+						Projectile.velocity = newMove;
+					}
+					else
+					{
+						if (Projectile.velocity.Length() > 0f)
+						{
+							Projectile.velocity *= 0f;
+						}
+					}
+
+					shamanItem.PostAICatalyst(Projectile);
+				}
+			}
+		}
+
+		public override void OnKill(int timeLeft)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				Main.dust[Dust.NewDust(Projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.25f;
+			}
+		}
+
+		public override bool? CanCutTiles() => false;
+		public override bool? CanDamage() => null;
+
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			if (!(this.CatalystItem.ModItem is OrchidModShamanItem shamanItem)) return false;
+			if (!ModContent.HasAsset(shamanItem.CatalystTexture)) return false;
+
+			var player = Main.player[Projectile.owner];
+			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
+
+			if (shamanItem.PreDrawCatalyst(spriteBatch, Projectile, player, ref color))
+			{
+				var texture = ModContent.Request<Texture2D>(shamanItem.CatalystTexture).Value;
+				var position = Projectile.Center - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+				spriteBatch.Draw(texture, position, null, color, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+			}
+			shamanItem.PostDrawCatalyst(spriteBatch, Projectile, player, color);
+
+			return false;
+		}
+	}
+}

@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Petal");
+			// DisplayName.SetDefault("Petal");
 		}
 
 		public override void AI()
@@ -47,7 +47,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Main.dust[dust].noGravity = true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 2; i++)
 			{

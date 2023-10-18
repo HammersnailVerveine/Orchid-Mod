@@ -22,15 +22,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item8;
 			Item.shootSpeed = 3f;
 			Item.shoot = ModContent.ProjectileType<AdornedBranchProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Adorned Branch");
-			Tooltip.SetDefault("Shoots a burst of splinters"
-							  + "\nShoots more projectiles if you have 2 or more active shamanic bonds");
+			// DisplayName.SetDefault("Adorned Branch");
+			/* Tooltip.SetDefault("Shoots a burst of splinters"
+							  + "\nShoots more projectiles if you have 2 or more active shamanic bonds"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

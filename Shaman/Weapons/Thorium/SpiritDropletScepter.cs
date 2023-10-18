@@ -25,15 +25,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 14f;
 			Item.shoot = ModContent.ProjectileType<SpiritDropletScepterProj>();
-			this.empowermentType = 5;
+			this.Element = 5;
 			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fibula");
-			Tooltip.SetDefault("Conjures a volley of ethereal bones"
-							+ "\nThe number of bones increase with active shamanic bonds");
+			// DisplayName.SetDefault("Fibula");
+			/* Tooltip.SetDefault("Conjures a volley of ethereal bones"
+							+ "\nThe number of bones increase with active shamanic bonds"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

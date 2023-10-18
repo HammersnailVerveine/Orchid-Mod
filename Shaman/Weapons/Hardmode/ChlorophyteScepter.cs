@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<ChlorophyteScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 12;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chlorophyte Scepter");
-			Tooltip.SetDefault("Shoots a potent chlorophyte bolt, hitting your enemy 3 times"
+			// DisplayName.SetDefault("Chlorophyte Scepter");
+			/* Tooltip.SetDefault("Shoots a potent chlorophyte bolt, hitting your enemy 3 times"
 							  + "\nHitting the same target with all 3 shots will grant you a leaf crystal"
-							  + "\nIf you have 5 leaf crystals, your next hit will release harmful clouds of gas at your opponents");
+							  + "\nIf you have 5 leaf crystals, your next hit will release harmful clouds of gas at your opponents"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

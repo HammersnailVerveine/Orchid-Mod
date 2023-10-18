@@ -19,12 +19,13 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sun Priest Cloak");
-			Tooltip.SetDefault("Having all five shamanic bonds active at once will allow them to fade out 50% slower");
+			// DisplayName.SetDefault("Sun Priest Cloak");
+			// Tooltip.SetDefault("Having all five shamanic bonds active at once will allow them to fade out 50% slower");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			/*
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			if (modPlayer.GetNbShamanicBonds() == 5 && player.GetModPlayer<OrchidShaman>().modPlayer.timer120 % 2 == 0)
 			{
@@ -34,6 +35,7 @@ namespace OrchidMod.Shaman.Accessories
 				modPlayer.shamanEarthTimer++;
 				modPlayer.shamanSpiritTimer++;
 			}
+			*/
 		}
 
 		public override void AddRecipes()

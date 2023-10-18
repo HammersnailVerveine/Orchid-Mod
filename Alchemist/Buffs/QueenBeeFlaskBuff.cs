@@ -7,8 +7,8 @@ namespace OrchidMod.Alchemist.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Human Beehive");
-			Description.SetDefault("Attacking with 3 or more element will summon bees");
+			// DisplayName.SetDefault("Human Beehive");
+			// Description.SetDefault("Attacking with 3 or more element will summon bees");
 			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

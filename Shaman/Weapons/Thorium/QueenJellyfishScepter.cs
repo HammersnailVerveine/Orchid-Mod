@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 5f;
 			Item.shoot = ModContent.ProjectileType<QueenJellyfishScepterProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Jellyfish Dynamizer");
-			Tooltip.SetDefault("Launches a bouncy jellyfish, gaining in damage with each rebound"
+			// DisplayName.SetDefault("Jellyfish Dynamizer");
+			/* Tooltip.SetDefault("Launches a bouncy jellyfish, gaining in damage with each rebound"
 							+ "\nDamage increase depends on your number of active shamanic bonds"
-							+ "\n'Apparently waterproof'");
+							+ "\n'Apparently waterproof'"); */
 		}
 	}
 }

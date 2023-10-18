@@ -34,7 +34,7 @@ namespace OrchidMod.Gambler
 			modProjectile.gamblerInternalCooldown -= modProjectile.gamblerInternalCooldown > 0 ? 1 : 0;
 		}
 
-		public sealed override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public sealed override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
@@ -44,7 +44,7 @@ namespace OrchidMod.Gambler
 				modPlayer.TryAddGamblerChip();
 			}
 			modTarget.GamblerHit = true;
-			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);
+			SafeOnHitNPC(target, hit.Damage, hit.Knockback, hit.Crit, player, modPlayer);
 		}
 
 		public void DrawOutline(Texture2D outline, SpriteBatch spriteBatch, Color lightColor)

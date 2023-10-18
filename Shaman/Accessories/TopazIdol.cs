@@ -17,8 +17,8 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Topaz Idol");
-			Tooltip.SetDefault("Having an active earth bond increases defense by 5");
+			// DisplayName.SetDefault("Topaz Idol");
+			// Tooltip.SetDefault("Having an active earth bond increases defense by 5");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

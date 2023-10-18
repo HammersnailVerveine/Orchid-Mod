@@ -9,8 +9,8 @@ namespace OrchidMod.General.Items.Misc
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Haunted Candle");
-			Tooltip.SetDefault("Summons a strange candle to lighten up your way");
+			// DisplayName.SetDefault("Haunted Candle");
+			// Tooltip.SetDefault("Summons a strange candle to lighten up your way");
 		}
 
 		public override void SetDefaults()

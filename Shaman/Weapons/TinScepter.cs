@@ -20,15 +20,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 6.5f;
 			Item.shoot = ModContent.ProjectileType<TinScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Topaz Scepter");
-			Tooltip.SetDefault("\nHitting an enemy will grant you a topaz orb"
-							  + "\nIf you have 3 topaz orbs, your next hit will increase your armor for 30 seconds");
+			// DisplayName.SetDefault("Topaz Scepter");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you a topaz orb"
+							  + "\nIf you have 3 topaz orbs, your next hit will increase your armor for 30 seconds"); */
 		}
 
 		public override void AddRecipes() => CreateRecipe()

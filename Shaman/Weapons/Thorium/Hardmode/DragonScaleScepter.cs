@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<DragonScaleScepterProj>();
-			this.empowermentType = 5;
+			this.Element = 5;
 			this.energy = 10;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Draconic Wrath");
-			Tooltip.SetDefault("Fires out a bolt of piercing dragon fire"
-							+ "\nThe more shamanic bonds you have, the more enemies can be hit");
+			// DisplayName.SetDefault("Draconic Wrath");
+			/* Tooltip.SetDefault("Fires out a bolt of piercing dragon fire"
+							+ "\nThe more shamanic bonds you have, the more enemies can be hit"); */
 		}
 
 		public override void AddRecipes()

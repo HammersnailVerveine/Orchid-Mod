@@ -14,7 +14,7 @@ namespace OrchidMod.Alchemist
 
 		public override void SetStaticDefaults()
 		{
-			ClassName.SetDefault("chemical damage");
+			// DisplayName.SetDefault("chemical damage");
 		}
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)

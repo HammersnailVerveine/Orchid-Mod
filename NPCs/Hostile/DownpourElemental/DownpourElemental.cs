@@ -14,7 +14,7 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Storm Spirit");
+			// DisplayName.SetDefault("Storm Spirit");
 			Main.npcFrameCount[NPC.type] = 12;
 		}
 
@@ -48,11 +48,11 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental
 			});
 		}
 
-		public override void HitEffect(int hitDirection, double damage)
+		public override void HitEffect(NPC.HitInfo hit)
 		{
 			for (int i = 0; i < 15; i++)
 			{
-				Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 16, 2 * hitDirection, -2f, 100);
+				Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, 16, 2 * hit.HitDirection, -2f, 100);
 				dust.noGravity = true;
 			}
 		}

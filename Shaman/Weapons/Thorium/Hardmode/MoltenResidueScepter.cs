@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 1f;
 			Item.shoot = ModContent.ProjectileType<MoltenResidueScepterProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 15;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Molten Bomb");
-			Tooltip.SetDefault("Fires out a magmatic bomb"
-							+ "\nThe explosion size and damage depends on your number of active shamanic bonds");
+			// DisplayName.SetDefault("Molten Bomb");
+			/* Tooltip.SetDefault("Fires out a magmatic bomb"
+							+ "\nThe explosion size and damage depends on your number of active shamanic bonds"); */
 		}
 
 		public override void AddRecipes()

@@ -51,7 +51,7 @@ namespace OrchidMod.Alchemist.Bag
 
 		// ...
 
-		private static void PostDrawItemSlot(On.Terraria.UI.ItemSlot.orig_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color orig,
+		private static void PostDrawItemSlot(Terraria.UI.On_ItemSlot.orig_Draw_SpriteBatch_ItemArray_int_int_Vector2_Color orig,
 		SpriteBatch spriteBatch, Item[] inv, int context, int slot, Vector2 position, Color lightColor)
 		{
 			orig(spriteBatch, inv, context, slot, position, lightColor);

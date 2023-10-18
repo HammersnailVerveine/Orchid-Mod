@@ -25,10 +25,10 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Deep Forest");
-			Tooltip.SetDefault("Releases bursts of leaves, able to be pushed with the cursor"
+			// DisplayName.SetDefault("Playing Card : Deep Forest");
+			/* Tooltip.SetDefault("Releases bursts of leaves, able to be pushed with the cursor"
 							+ "\nThe further they are pushed, the more damage they deal"
-							+ "\nOnly 3 sets of leaves can exist at once");
+							+ "\nOnly 3 sets of leaves can exist at once"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

@@ -1,0 +1,2620 @@
+Items: {
+	IchoryCone: {
+		Tooltip: ""
+		DisplayName: Ichory Cone
+	}
+
+	MartianBeamer: {
+		DisplayName: Martian Beamer
+		Tooltip: ""
+	}
+
+	MythrilScepter: {
+		DisplayName: Mythril Scepter
+		Tooltip: ""
+	}
+
+	Nirvana: {
+		DisplayName: Nirvana
+		Tooltip: ""
+	}
+
+	OrichalcumScepter: {
+		DisplayName: Orichalcum Scepter
+		Tooltip: ""
+	}
+
+	PalladiumScepter: {
+		DisplayName: Palladium Scepter
+		Tooltip: ""
+	}
+
+	PiratesGlory: {
+		DisplayName: Pirates Glory
+		Tooltip: ""
+	}
+
+	ReviverofSouls: {
+		DisplayName: Reviverof Souls
+		Tooltip: ""
+	}
+
+	RuneScepter: {
+		DisplayName: Rune Scepter
+		Tooltip: ""
+	}
+
+	Sanctify: {
+		DisplayName: Sanctify
+		Tooltip: ""
+	}
+
+	ShroomiteScepter: {
+		DisplayName: Shroomite Scepter
+		Tooltip: ""
+	}
+
+	SightScepter: {
+		DisplayName: Sight Scepter
+		Tooltip: ""
+	}
+
+	SunRay: {
+		DisplayName: Sun Ray
+		Tooltip: ""
+	}
+
+	TerraScepter: {
+		DisplayName: Terra Scepter
+		Tooltip: ""
+	}
+
+	TheCore: {
+		DisplayName: The Core
+		Tooltip: ""
+	}
+
+	TitaniumScepter: {
+		DisplayName: Titanium Scepter
+		Tooltip: ""
+	}
+
+	TrueDepthsBaton: {
+		DisplayName: True Depths Baton
+		Tooltip: ""
+	}
+
+	TrueSanctify: {
+		DisplayName: True Sanctify
+		Tooltip: ""
+	}
+
+	WyvernMoray: {
+		DisplayName: Wyvern Moray
+		Tooltip: ""
+	}
+
+	HellShamanRod: {
+		DisplayName: Hell Shaman Rod
+		Tooltip: ""
+	}
+
+	MeteorPhasestaff: {
+		DisplayName: Meteor Phasestaff
+		Tooltip: ""
+	}
+
+	PerishingSoul: {
+		DisplayName: Perishing Soul
+		Tooltip: ""
+	}
+
+	PlatinumScepter: {
+		DisplayName: Platinum Scepter
+		Tooltip: ""
+	}
+
+	ScepterofStarpower: {
+		DisplayName: Scepterof Starpower
+		Tooltip: ""
+	}
+
+	ShadowWeaver: {
+		DisplayName: Shadow Weaver
+		Tooltip: ""
+	}
+
+	ShamanRod: {
+		DisplayName: Shaman Rod
+		Tooltip: ""
+	}
+
+	SilverScepter: {
+		DisplayName: Silver Scepter
+		Tooltip: ""
+	}
+
+	SpineScepter: {
+		DisplayName: Spine Scepter
+		Tooltip: ""
+	}
+
+	SporeCaller: {
+		DisplayName: Spore Caller
+		Tooltip: ""
+	}
+
+	AquaiteScepter: {
+		DisplayName: Aquaite Scepter
+		Tooltip: ""
+	}
+
+	BronzeAlloyScepter: {
+		DisplayName: Bronze Alloy Scepter
+		Tooltip: ""
+	}
+
+	GraniteEnergyScepter: {
+		DisplayName: Granite Energy Scepter
+		Tooltip: ""
+	}
+
+	AbyssalChitinScepter: {
+		DisplayName: Abyssal Chitin Scepter
+		Tooltip: ""
+	}
+
+	AbyssionScepter: {
+		DisplayName: Abyssion Scepter
+		Tooltip: ""
+	}
+
+	BersekerShardScepter: {
+		DisplayName: Berseker Shard Scepter
+		Tooltip: ""
+	}
+
+	BoreanStriderScepter: {
+		DisplayName: Borean Strider Scepter
+		Tooltip: ""
+	}
+
+	CoznixScepter: {
+		DisplayName: Coznix Scepter
+		Tooltip: ""
+	}
+
+	DragonScaleScepter: {
+		DisplayName: Dragon Scale Scepter
+		Tooltip: ""
+	}
+
+	GeodeScepter: {
+		DisplayName: Geode Scepter
+		Tooltip: ""
+	}
+
+	StrangePlatingScepter: {
+		Tooltip: ""
+		DisplayName: Strange Plating Scepter
+	}
+
+	TerrariumScepter: {
+		DisplayName: Terrarium Scepter
+		Tooltip: ""
+	}
+
+	TitanicScepter: {
+		DisplayName: Titanic Scepter
+		Tooltip: ""
+	}
+
+	UnfathomableFleshScepter: {
+		DisplayName: Unfathomable Flesh Scepter
+		Tooltip: ""
+	}
+
+	ValadiumScepter: {
+		DisplayName: Valadium Scepter
+		Tooltip: ""
+	}
+
+	IceShardScepter: {
+		DisplayName: Ice Shard Scepter
+		Tooltip: ""
+	}
+
+	IronScepter: {
+		DisplayName: Iron Scepter
+		Tooltip: ""
+	}
+
+	LeadScepter: {
+		DisplayName: Lead Scepter
+		Tooltip: ""
+	}
+
+	MagmaScepter: {
+		DisplayName: Magma Scepter
+		Tooltip: ""
+	}
+
+	Monowai: {
+		DisplayName: Monowai
+		Tooltip: ""
+	}
+
+	OrchidScepter: {
+		DisplayName: Orchid Scepter
+		Tooltip: ""
+	}
+
+	PatchWerkScepter: {
+		DisplayName: Patch Werk Scepter
+		Tooltip: ""
+	}
+
+	QueenJellyfishScepter: {
+		DisplayName: Queen Jellyfish Scepter
+		Tooltip: ""
+	}
+
+	SpiritDropletScepter: {
+		DisplayName: Spirit Droplet Scepter
+		Tooltip: ""
+	}
+
+	StarScouterScepter: {
+		DisplayName: Star Scouter Scepter
+		Tooltip: ""
+	}
+
+	ThoriumScepter: {
+		DisplayName: Thorium Scepter
+		Tooltip: ""
+	}
+
+	ThunderScepter: {
+		DisplayName: Thunder Scepter
+		Tooltip: ""
+	}
+
+	ViscountScepter: {
+		DisplayName: Viscount Scepter
+		Tooltip: ""
+	}
+
+	YewWoodScepter: {
+		DisplayName: Yew Wood Scepter
+		Tooltip: ""
+	}
+
+	TinScepter: {
+		DisplayName: Tin Scepter
+		Tooltip: ""
+	}
+
+	TungstenScepter: {
+		DisplayName: Tungsten Scepter
+		Tooltip: ""
+	}
+
+	VileSpout: {
+		DisplayName: Vile Spout
+		Tooltip: ""
+	}
+
+	SolarPebbleScepter: {
+		Tooltip: ""
+		DisplayName: Solar Pebble Scepter
+	}
+
+	PharaohScepter: {
+		Tooltip: ""
+		DisplayName: Pharaoh Scepter
+	}
+
+	MoltenResidueScepter: {
+		Tooltip: ""
+		DisplayName: Molten Residue Scepter
+	}
+
+	LodestoneScepter: {
+		Tooltip: ""
+		DisplayName: Lodestone Scepter
+	}
+
+	LichScepter: {
+		Tooltip: ""
+		DisplayName: Lich Scepter
+	}
+
+	IceMimicScepter: {
+		Tooltip: ""
+		DisplayName: Ice Mimic Scepter
+	}
+
+	IceFlakeCone: {
+		Tooltip: ""
+		DisplayName: Ice Flake Cone
+	}
+
+	HallowedCone: {
+		Tooltip: ""
+		DisplayName: Hallowed Cone
+	}
+
+	GoblinStick: {
+		Tooltip: ""
+		DisplayName: Goblin Stick
+	}
+
+	CorruptCone: {
+		Tooltip: ""
+		DisplayName: Corrupt Cone
+	}
+
+	CobaltScepter: {
+		Tooltip: ""
+		DisplayName: Cobalt Scepter
+	}
+
+	ChlorophyteScepter: {
+		Tooltip: ""
+		DisplayName: Chlorophyte Scepter
+	}
+
+	BulbScepter: {
+		Tooltip: ""
+		DisplayName: Bulb Scepter
+	}
+
+	AdamantiteScepter: {
+		Tooltip: ""
+		DisplayName: Adamantite Scepter
+	}
+
+	AbyssShredder: {
+		Tooltip: ""
+		DisplayName: Abyss Shredder
+	}
+
+	AbyssPrecinct: {
+		Tooltip: ""
+		DisplayName: Abyss Precinct
+	}
+
+	GoldScepter: {
+		Tooltip: ""
+		DisplayName: Gold Scepter
+	}
+
+	FireBatScepter: {
+		Tooltip: ""
+		DisplayName: Fire Bat Scepter
+	}
+
+	FeatherScepter: {
+		Tooltip: ""
+		DisplayName: Feather Scepter
+	}
+
+	EnchantedScepter: {
+		Tooltip: ""
+		DisplayName: Enchanted Scepter
+	}
+
+	DepthsBaton: {
+		Tooltip: ""
+		DisplayName: Depths Baton
+	}
+
+	CopperScepter: {
+		Tooltip: ""
+		DisplayName: Copper Scepter
+	}
+
+	Blum: {
+		Tooltip: ""
+		DisplayName: Blum
+	}
+
+	BloodCaller: {
+		Tooltip: ""
+		DisplayName: Blood Caller
+	}
+
+	BeeSeeker: {
+		Tooltip: ""
+		DisplayName: Bee Seeker
+	}
+
+	AvalancheScepter: {
+		Tooltip: ""
+		DisplayName: Avalanche Scepter
+	}
+
+	AmberScepter: {
+		Tooltip: ""
+		DisplayName: Amber Scepter
+	}
+
+	AdornedBranch: {
+		Tooltip: ""
+		DisplayName: Adorned Branch
+	}
+
+	ViscountMaterial: {
+		Tooltip: ""
+		DisplayName: Viscount Material
+	}
+
+	ShamanicEmpowermentPotion: {
+		Tooltip: ""
+		DisplayName: Shamanic Empowerment Potion
+	}
+
+	RitualScepter: {
+		Tooltip: ""
+		DisplayName: Ritual Scepter
+	}
+
+	LihzahrdSilk: {
+		Tooltip: ""
+		DisplayName: Lihzahrd Silk
+	}
+
+	HarpyTalon: {
+		Tooltip: ""
+		DisplayName: Harpy Talon
+	}
+
+	EmptyTiara: {
+		Tooltip: ""
+		DisplayName: Empty Tiara
+	}
+
+	DownpourCrystal: {
+		Tooltip: ""
+		DisplayName: Downpour Crystal
+	}
+
+	BrokenHeroScepter: {
+		Tooltip: ""
+		DisplayName: Broken Hero Scepter
+	}
+
+	AbyssFragment: {
+		Tooltip: ""
+		DisplayName: Abyss Fragment
+	}
+
+	VampireTunic: {
+		Tooltip: ""
+		DisplayName: Vampire Tunic
+	}
+
+	VampireTiara: {
+		Tooltip: ""
+		DisplayName: Vampire Tiara
+	}
+
+	VampireSarong: {
+		Tooltip: ""
+		DisplayName: Vampire Sarong
+	}
+
+	TitanSpangenhelm: {
+		Tooltip: ""
+		DisplayName: Titan Spangenhelm
+	}
+
+	SunPriestRobe: {
+		Tooltip: ""
+		DisplayName: Sun Priest Robe
+	}
+
+	SunPriestPants: {
+		Tooltip: ""
+		DisplayName: Sun Priest Pants
+	}
+
+	SunPriestHood: {
+		Tooltip: ""
+		DisplayName: Sun Priest Hood
+	}
+
+	TitaniumSpangenhelm: {
+		Tooltip: ""
+		DisplayName: Titanium Spangenhelm
+	}
+
+	PalladiumSpangenhelm: {
+		Tooltip: ""
+		DisplayName: Palladium Spangenhelm
+	}
+
+	OrichalcumSpangenhelm: {
+		Tooltip: ""
+		DisplayName: Orichalcum Spangenhelm
+	}
+
+	MythrilSpangenhelm: {
+		Tooltip: ""
+		DisplayName: Mythril Spangenhelm
+	}
+
+	HallowedSpangenhelm: {
+		Tooltip: ""
+		DisplayName: Hallowed Spangenhelm
+	}
+
+	CobaltSpangenhelm: {
+		Tooltip: ""
+		DisplayName: Cobalt Spangenhelm
+	}
+
+	ChlorophyteSpangenhelm: {
+		Tooltip: ""
+		DisplayName: Chlorophyte Spangenhelm
+	}
+
+	AdamantiteSpangenhelm: {
+		Tooltip: ""
+		DisplayName: Adamantite Spangenhelm
+	}
+
+	HellShamanTunic: {
+		Tooltip: ""
+		DisplayName: Hell Shaman Tunic
+	}
+
+	HellShamanTiara: {
+		Tooltip: ""
+		DisplayName: Hell Shaman Tiara
+	}
+
+	HellShamanKilt: {
+		Tooltip: ""
+		DisplayName: Hell Shaman Kilt
+	}
+
+	HarpyLightArmor: {
+		Tooltip: ""
+		DisplayName: Harpy Light Armor
+	}
+
+	HarpyLegs: {
+		Tooltip: ""
+		DisplayName: Harpy Legs
+	}
+
+	HarpyCrown: {
+		Tooltip: ""
+		DisplayName: Harpy Crown
+	}
+
+	TopazTiara: {
+		Tooltip: ""
+		DisplayName: Topaz Tiara
+	}
+
+	SapphireTiara: {
+		Tooltip: ""
+		DisplayName: Sapphire Tiara
+	}
+
+	RubyTiara: {
+		Tooltip: ""
+		DisplayName: Ruby Tiara
+	}
+
+	EmeraldTiara: {
+		Tooltip: ""
+		DisplayName: Emerald Tiara
+	}
+
+	DiamondTiara: {
+		Tooltip: ""
+		DisplayName: Diamond Tiara
+	}
+
+	AmethystTiara: {
+		Tooltip: ""
+		DisplayName: Amethyst Tiara
+	}
+
+	DownpourTunic: {
+		Tooltip: ""
+		DisplayName: Downpour Tunic
+	}
+
+	DownpourKilt: {
+		Tooltip: ""
+		DisplayName: Downpour Kilt
+	}
+
+	DownpourCrown: {
+		Tooltip: ""
+		DisplayName: Downpour Crown
+	}
+
+	BloodShamanTiara: {
+		Tooltip: ""
+		DisplayName: Blood Shaman Tiara
+	}
+
+	BloodShamanLegs: {
+		Tooltip: ""
+		DisplayName: Blood Shaman Legs
+	}
+
+	BloodShamanChest: {
+		Tooltip: ""
+		DisplayName: Blood Shaman Chest
+	}
+
+	DarkShamanTiara: {
+		Tooltip: ""
+		DisplayName: Dark Shaman Tiara
+	}
+
+	DarkShamanLegs: {
+		Tooltip: ""
+		DisplayName: Dark Shaman Legs
+	}
+
+	DarkShamanChest: {
+		Tooltip: ""
+		DisplayName: Dark Shaman Chest
+	}
+
+	AbyssalWings: {
+		Tooltip: ""
+		DisplayName: Abyssal Wings
+	}
+
+	AbyssalHelm: {
+		Tooltip: ""
+		DisplayName: Abyssal Helm
+	}
+
+	AbyssalGreaves: {
+		Tooltip: ""
+		DisplayName: Abyssal Greaves
+	}
+
+	AbyssalChestplate: {
+		Tooltip: ""
+		DisplayName: Abyssal Chestplate
+	}
+
+	WyvernTailFeather: {
+		Tooltip: ""
+		DisplayName: Wyvern Tail Feather
+	}
+
+	WaxyVial: {
+		Tooltip: ""
+		DisplayName: Waxy Vial
+	}
+
+	VenomSigil: {
+		Tooltip: ""
+		DisplayName: Venom Sigil
+	}
+
+	TreasuredBaubles: {
+		Tooltip: ""
+		DisplayName: Treasured Baubles
+	}
+
+	ToxicSigil: {
+		Tooltip: ""
+		DisplayName: Toxic Sigil
+	}
+
+	TopazIdol: {
+		Tooltip: ""
+		DisplayName: Topaz Idol
+	}
+
+	SunPriestTorch: {
+		Tooltip: ""
+		DisplayName: Sun Priest Torch
+	}
+
+	SunPriestCloak: {
+		Tooltip: ""
+		DisplayName: Sun Priest Cloak
+	}
+
+	SunPriestBelt: {
+		Tooltip: ""
+		DisplayName: Sun Priest Belt
+	}
+
+	SpiritedWax: {
+		Tooltip: ""
+		DisplayName: Spirited Wax
+	}
+
+	SpiritedWater: {
+		Tooltip: ""
+		DisplayName: Spirited Water
+	}
+
+	SpectralSkull: {
+		Tooltip: ""
+		DisplayName: Spectral Skull
+	}
+
+	SinisterPresent: {
+		Tooltip: ""
+		DisplayName: Sinister Present
+	}
+
+	ShamanEmblem: {
+		Tooltip: ""
+		DisplayName: Shaman Emblem
+	}
+
+	SapphireIdol: {
+		Tooltip: ""
+		DisplayName: Sapphire Idol
+	}
+
+	RuneOfHorus: {
+		Tooltip: ""
+		DisplayName: Rune Of Horus
+	}
+
+	RubyIdol: {
+		Tooltip: ""
+		DisplayName: Ruby Idol
+	}
+
+	PrismaticIdol: {
+		Tooltip: ""
+		DisplayName: Prismatic Idol
+	}
+
+	PoisonSigil: {
+		Tooltip: ""
+		DisplayName: Poison Sigil
+	}
+
+	MourningTorch: {
+		Tooltip: ""
+		DisplayName: Mourning Torch
+	}
+
+	MeltedRing: {
+		Tooltip: ""
+		DisplayName: Melted Ring
+	}
+
+	HeavyBracer: {
+		Tooltip: ""
+		DisplayName: Heavy Bracer
+	}
+
+	HarpyAnklet: {
+		Tooltip: ""
+		DisplayName: Harpy Anklet
+	}
+
+	HallowedBaubles: {
+		Tooltip: ""
+		DisplayName: Hallowed Baubles
+	}
+
+	FurnaceSigil: {
+		Tooltip: ""
+		DisplayName: Furnace Sigil
+	}
+
+	FrostburnSigil: {
+		Tooltip: ""
+		DisplayName: Frostburn Sigil
+	}
+
+	FragilePresent: {
+		Tooltip: ""
+		DisplayName: Fragile Present
+	}
+
+	FloralStinger: {
+		Tooltip: ""
+		DisplayName: Floral Stinger
+	}
+
+	EmeraldIdol: {
+		Tooltip: ""
+		DisplayName: Emerald Idol
+	}
+
+	DryadsGift: {
+		Tooltip: ""
+		DisplayName: Dryads Gift
+	}
+
+	DiamondIdol: {
+		Tooltip: ""
+		DisplayName: Diamond Idol
+	}
+
+	DiabolistRune: {
+		Tooltip: ""
+		DisplayName: Diabolist Rune
+	}
+
+	DestroyerNecklace: {
+		Tooltip: ""
+		DisplayName: Destroyer Necklace
+	}
+
+	DeepForestCharm: {
+		Tooltip: ""
+		DisplayName: Deep Forest Charm
+	}
+
+	AmethystIdol: {
+		Tooltip: ""
+		DisplayName: Amethyst Idol
+	}
+
+	AmberIdol: {
+		Tooltip: ""
+		DisplayName: Amber Idol
+	}
+
+	Warhammer: {
+		Tooltip: ""
+		DisplayName: Warhammer
+	}
+
+	PlatinumWarhammer: {
+		Tooltip: ""
+		DisplayName: Platinum Warhammer
+	}
+
+	GoldWarhammer: {
+		Tooltip: ""
+		DisplayName: Gold Warhammer
+	}
+
+	WoodenPavise: {
+		Tooltip: ""
+		DisplayName: Wooden Pavise
+	}
+
+	LeadPavise: {
+		Tooltip: ""
+		DisplayName: Lead Pavise
+	}
+
+	IronPavise: {
+		Tooltip: ""
+		DisplayName: Iron Pavise
+	}
+
+	EnchantedPavise: {
+		Tooltip: ""
+		DisplayName: Enchanted Pavise
+	}
+
+	LivingRune: {
+		Tooltip: ""
+		DisplayName: Living Rune
+	}
+
+	EnchantedRune: {
+		Tooltip: ""
+		DisplayName: Enchanted Rune
+	}
+
+	GuardianTest: {
+		Tooltip: ""
+		DisplayName: Guardian Test
+	}
+
+	GoblinSpike: {
+		Tooltip: ""
+		DisplayName: Goblin Spike
+	}
+
+	OrnateOrchid: {
+		Tooltip: ""
+		DisplayName: Ornate Orchid
+	}
+
+	StaticQuartzWarrior: {
+		Tooltip: ""
+		DisplayName: Static Quartz Warrior
+	}
+
+	StaticQuartzRanger: {
+		Tooltip: ""
+		DisplayName: Static Quartz Ranger
+	}
+
+	StaticQuartzDart: {
+		Tooltip: ""
+		DisplayName: Static Quartz Dart
+	}
+
+	StaticQuartz: {
+		Tooltip: ""
+		DisplayName: Static Quartz
+	}
+
+	StaticQuartzArmorLegs: {
+		Tooltip: ""
+		DisplayName: Static Quartz Armor Legs
+	}
+
+	StaticQuartzArmorHead: {
+		Tooltip: ""
+		DisplayName: Static Quartz Armor Head
+	}
+
+	StaticQuartzArmorChest: {
+		Tooltip: ""
+		DisplayName: Static Quartz Armor Chest
+	}
+
+	MineshaftHook: {
+		Tooltip: ""
+		DisplayName: Mineshaft Hook
+	}
+
+	HauntedCandle: {
+		Tooltip: ""
+		DisplayName: Haunted Candle
+	}
+
+	FragileWood: {
+		Tooltip: ""
+		DisplayName: Fragile Wood
+	}
+
+	CopperKey: {
+		Tooltip: ""
+		DisplayName: Copper Key
+	}
+
+	AncientFossil: {
+		Tooltip: ""
+		DisplayName: Ancient Fossil
+	}
+
+	MiniatureTools: {
+		Tooltip: ""
+		DisplayName: Miniature Tools
+	}
+
+	HoneyDie: {
+		Tooltip: ""
+		DisplayName: Honey Die
+	}
+
+	GamblingDie: {
+		Tooltip: ""
+		DisplayName: Gambling Die
+	}
+
+	TinChip: {
+		Tooltip: ""
+		DisplayName: Tin Chip
+	}
+
+	Rusalka: {
+		Tooltip: ""
+		DisplayName: Rusalka
+	}
+
+	PlatinumChip: {
+		Tooltip: ""
+		DisplayName: Platinum Chip
+	}
+
+	MeteorDetonator: {
+		Tooltip: ""
+		DisplayName: Meteor Detonator
+	}
+
+	HellChip: {
+		Tooltip: ""
+		DisplayName: Hell Chip
+	}
+
+	GoldChip: {
+		Tooltip: ""
+		DisplayName: Gold Chip
+	}
+
+	GamblingChip: {
+		Tooltip: ""
+		DisplayName: Gambling Chip
+	}
+
+	FossilChip: {
+		Tooltip: ""
+		DisplayName: Fossil Chip
+	}
+
+	CopperChip: {
+		Tooltip: ""
+		DisplayName: Copper Chip
+	}
+
+	BouncyChip: {
+		Tooltip: ""
+		DisplayName: Bouncy Chip
+	}
+
+	SnowCard: {
+		Tooltip: ""
+		DisplayName: Snow Card
+	}
+
+	SlimeRainCard: {
+		Tooltip: ""
+		DisplayName: Slime Rain Card
+	}
+
+	SlimeCard: {
+		Tooltip: ""
+		DisplayName: Slime Card
+	}
+
+	SkyCard: {
+		Tooltip: ""
+		DisplayName: Sky Card
+	}
+
+	SkeletronCard: {
+		Tooltip: ""
+		DisplayName: Skeletron Card
+	}
+
+	ShuffleCard: {
+		Tooltip: ""
+		DisplayName: Shuffle Card
+	}
+
+	SapCard: {
+		Tooltip: ""
+		DisplayName: Sap Card
+	}
+
+	QueenBeeCard: {
+		Tooltip: ""
+		DisplayName: Queen Bee Card
+	}
+
+	OceanCard: {
+		Tooltip: ""
+		DisplayName: Ocean Card
+	}
+
+	MushroomCard: {
+		Tooltip: ""
+		DisplayName: Mushroom Card
+	}
+
+	LavaSlimeCard: {
+		Tooltip: ""
+		DisplayName: Lava Slime Card
+	}
+
+	KingSlimeCard: {
+		Tooltip: ""
+		DisplayName: King Slime Card
+	}
+
+	JungleSlimeCard: {
+		Tooltip: ""
+		DisplayName: Jungle Slime Card
+	}
+
+	JungleCard: {
+		Tooltip: ""
+		DisplayName: Jungle Card
+	}
+
+	IvyChestCard: {
+		Tooltip: ""
+		DisplayName: Ivy Chest Card
+	}
+
+	IceChestCard: {
+		Tooltip: ""
+		DisplayName: Ice Chest Card
+	}
+
+	GoldChestCard: {
+		Tooltip: ""
+		DisplayName: Gold Chest Card
+	}
+
+	GoblinArmyCard: {
+		Tooltip: ""
+		DisplayName: Goblin Army Card
+	}
+
+	ForestCard: {
+		Tooltip: ""
+		DisplayName: Forest Card
+	}
+
+	EyeCard: {
+		Tooltip: ""
+		DisplayName: Eye Card
+	}
+
+	EmbersCard: {
+		Tooltip: ""
+		DisplayName: Embers Card
+	}
+
+	EaterCard: {
+		Tooltip: ""
+		DisplayName: Eater Card
+	}
+
+	DungeonCard: {
+		Tooltip: ""
+		DisplayName: Dungeon Card
+	}
+
+	DetonatorCard: {
+		Tooltip: ""
+		DisplayName: Detonator Card
+	}
+
+	DesertCard: {
+		Tooltip: ""
+		DisplayName: Desert Card
+	}
+
+	BubbleCard: {
+		Tooltip: ""
+		DisplayName: Bubble Card
+	}
+
+	BrainCard: {
+		Tooltip: ""
+		DisplayName: Brain Card
+	}
+
+	VultureTalon: {
+		Tooltip: ""
+		DisplayName: Vulture Talon
+	}
+
+	VulturePotion: {
+		Tooltip: ""
+		DisplayName: Vulture Potion
+	}
+
+	TiamatRelic: {
+		Tooltip: ""
+		DisplayName: Tiamat Relic
+	}
+
+	Chip: {
+		Tooltip: ""
+		DisplayName: Chip
+	}
+
+	GamblerReset: {
+		Tooltip: ""
+		DisplayName: Gambler Reset
+	}
+
+	GamblerDummyTest: {
+		Tooltip: ""
+		DisplayName: Gambler Dummy Test
+	}
+
+	GamblerDummy: {
+		Tooltip: ""
+		DisplayName: Gambler Dummy
+	}
+
+	GamblerAttack: {
+		Tooltip: ""
+		DisplayName: Gambler Attack
+	}
+
+	DeckRainbow: {
+		Tooltip: ""
+		DisplayName: Deck Rainbow
+	}
+
+	DeckPirate: {
+		Tooltip: ""
+		DisplayName: Deck Pirate
+	}
+
+	DeckJungle: {
+		Tooltip: ""
+		DisplayName: Deck Jungle
+	}
+
+	DeckEnchanted: {
+		Tooltip: ""
+		DisplayName: Deck Enchanted
+	}
+
+	DeckDog: {
+		Tooltip: ""
+		DisplayName: Deck Dog
+	}
+
+	DeckBone: {
+		Tooltip: ""
+		DisplayName: Deck Bone
+	}
+
+	OutlawVest: {
+		Tooltip: ""
+		DisplayName: Outlaw Vest
+	}
+
+	OutlawPants: {
+		Tooltip: ""
+		DisplayName: Outlaw Pants
+	}
+
+	OutlawHat: {
+		Tooltip: ""
+		DisplayName: Outlaw Hat
+	}
+
+	GamblerDungeonLegs: {
+		Tooltip: ""
+		DisplayName: Gambler Dungeon Legs
+	}
+
+	GamblerDungeonHead: {
+		Tooltip: ""
+		DisplayName: Gambler Dungeon Head
+	}
+
+	GamblerDungeonBody: {
+		Tooltip: ""
+		DisplayName: Gambler Dungeon Body
+	}
+
+	VultureCharm: {
+		Tooltip: ""
+		DisplayName: Vulture Charm
+	}
+
+	SlimyLollipop: {
+		Tooltip: ""
+		DisplayName: Slimy Lollipop
+	}
+
+	PileOfChips: {
+		Tooltip: ""
+		DisplayName: Pile Of Chips
+	}
+
+	LuckySprout: {
+		Tooltip: ""
+		DisplayName: Lucky Sprout
+	}
+
+	ImpDiceCup: {
+		Tooltip: ""
+		DisplayName: Imp Dice Cup
+	}
+
+	GamblerTest: {
+		Tooltip: ""
+		DisplayName: Gambler Test
+	}
+
+	ElementalLens: {
+		Tooltip: ""
+		DisplayName: Elemental Lens
+	}
+
+	DemonicPocketMirror: {
+		Tooltip: ""
+		DisplayName: Demonic Pocket Mirror
+	}
+
+	ConquerorsPennant: {
+		Tooltip: ""
+		DisplayName: Conquerors Pennant
+	}
+
+	BurningClovers: {
+		Tooltip: ""
+		DisplayName: Burning Clovers
+	}
+
+	BundleOfClovers: {
+		Tooltip: ""
+		DisplayName: Bundle Of Clovers
+	}
+
+	WoodenTekko: {
+		Tooltip: ""
+		DisplayName: Wooden Tekko
+	}
+
+	GoldFan: {
+		Tooltip: ""
+		DisplayName: Gold Fan
+	}
+
+	MineshaftPickaxe: {
+		Tooltip: ""
+		DisplayName: Mineshaft Pickaxe
+	}
+
+	AbyssPickaxe: {
+		Tooltip: ""
+		DisplayName: Abyss Pickaxe
+	}
+
+	AbyssHamaxe: {
+		Tooltip: ""
+		DisplayName: Abyss Hamaxe
+	}
+
+	AbyssDrill: {
+		Tooltip: ""
+		DisplayName: Abyss Drill
+	}
+
+	SearingOnslaught: {
+		Tooltip: ""
+		DisplayName: Searing Onslaught
+	}
+
+	HeraldOfFrost: {
+		Tooltip: ""
+		DisplayName: Herald Of Frost
+	}
+
+	ShroomKey: {
+		Tooltip: ""
+		DisplayName: Shroom Key
+	}
+
+	ShamanBiomeChest: {
+		Tooltip: ""
+		DisplayName: Shaman Biome Chest
+	}
+
+	MinersLockbox: {
+		Tooltip: ""
+		DisplayName: Miners Lockbox
+	}
+
+	RCRemote: {
+		Tooltip: ""
+		DisplayName: R C Remote
+	}
+
+	OrchidEmblem: {
+		Tooltip: ""
+		DisplayName: Orchid Emblem
+	}
+
+	SquareMinecart: {
+		Tooltip: ""
+		DisplayName: Square Minecart
+	}
+
+	PrototypeSecrecy: {
+		Tooltip: ""
+		DisplayName: Prototype Secrecy
+	}
+
+	JungleLilyBloomed: {
+		Tooltip: ""
+		DisplayName: Jungle Lily Bloomed
+	}
+
+	JungleLily: {
+		Tooltip: ""
+		DisplayName: Jungle Lily
+	}
+
+	HarpyPotion: {
+		Tooltip: ""
+		DisplayName: Harpy Potion
+	}
+
+	WaterVial: {
+		Tooltip: ""
+		DisplayName: Water Vial
+	}
+
+	WaterleafFlask: {
+		Tooltip: ""
+		DisplayName: Waterleaf Flask
+	}
+
+	SlimeFlask: {
+		Tooltip: ""
+		DisplayName: Slime Flask
+	}
+
+	SeafoamVial: {
+		Tooltip: ""
+		DisplayName: Seafoam Vial
+	}
+
+	KingSlimeFlask: {
+		Tooltip: ""
+		DisplayName: King Slime Flask
+	}
+
+	IceChestFlask: {
+		Tooltip: ""
+		DisplayName: Ice Chest Flask
+	}
+
+	HellOil: {
+		Tooltip: ""
+		DisplayName: Hell Oil
+	}
+
+	GoblinArmyFlask: {
+		Tooltip: ""
+		DisplayName: Goblin Army Flask
+	}
+
+	DungeonFlask: {
+		Tooltip: ""
+		DisplayName: Dungeon Flask
+	}
+
+	BloodMoonFlask: {
+		Tooltip: ""
+		DisplayName: Blood Moon Flask
+	}
+
+	SunflowerFlask: {
+		Tooltip: ""
+		DisplayName: Sunflower Flask
+	}
+
+	PoisonVial: {
+		Tooltip: ""
+		DisplayName: Poison Vial
+	}
+
+	NatureVial: {
+		Tooltip: ""
+		DisplayName: Nature Vial
+	}
+
+	MushroomFlask: {
+		Tooltip: ""
+		DisplayName: Mushroom Flask
+	}
+
+	MoonglowFlask: {
+		Tooltip: ""
+		DisplayName: Moonglow Flask
+	}
+
+	LivingSapVial: {
+		Tooltip: ""
+		DisplayName: Living Sap Vial
+	}
+
+	JungleLilyFlask: {
+		Tooltip: ""
+		DisplayName: Jungle Lily Flask
+	}
+
+	GlowingMushroomVial: {
+		Tooltip: ""
+		DisplayName: Glowing Mushroom Vial
+	}
+
+	GlowingAttractiteFlask: {
+		Tooltip: ""
+		DisplayName: Glowing Attractite Flask
+	}
+
+	DaybloomFlask: {
+		Tooltip: ""
+		DisplayName: Daybloom Flask
+	}
+
+	AttractiteFlask: {
+		Tooltip: ""
+		DisplayName: Attractite Flask
+	}
+
+	AttractiteShuriken: {
+		Tooltip: ""
+		DisplayName: Attractite Shuriken
+	}
+
+	LightVial: {
+		Tooltip: ""
+		DisplayName: Light Vial
+	}
+
+	StardustSamples: {
+		Tooltip: ""
+		DisplayName: Stardust Samples
+	}
+
+	HellSlimeFlask: {
+		Tooltip: ""
+		DisplayName: Hell Slime Flask
+	}
+
+	GunpowderFlask: {
+		Tooltip: ""
+		DisplayName: Gunpowder Flask
+	}
+
+	FireVial: {
+		Tooltip: ""
+		DisplayName: Fire Vial
+	}
+
+	FireblossomFlask: {
+		Tooltip: ""
+		DisplayName: Fireblossom Flask
+	}
+
+	EmberVial: {
+		Tooltip: ""
+		DisplayName: Ember Vial
+	}
+
+	BlinkrootFlask: {
+		Tooltip: ""
+		DisplayName: Blinkroot Flask
+	}
+
+	DarkVial: {
+		Tooltip: ""
+		DisplayName: Dark Vial
+	}
+
+	IronCatalyst: {
+		Tooltip: ""
+		DisplayName: Iron Catalyst
+	}
+
+	DungeonCatalyst: {
+		Tooltip: ""
+		DisplayName: Dungeon Catalyst
+	}
+
+	DemoniteCatalyst: {
+		Tooltip: ""
+		DisplayName: Demonite Catalyst
+	}
+
+	CrimtaneCatalyst: {
+		Tooltip: ""
+		DisplayName: Crimtane Catalyst
+	}
+
+	TsunamiInAVial: {
+		Tooltip: ""
+		DisplayName: Tsunami In A Vial
+	}
+
+	SunplateFlask: {
+		Tooltip: ""
+		DisplayName: Sunplate Flask
+	}
+
+	ShiverthornFlask: {
+		Tooltip: ""
+		DisplayName: Shiverthorn Flask
+	}
+
+	ShadowChestFlask: {
+		Tooltip: ""
+		DisplayName: Shadow Chest Flask
+	}
+
+	QueenBeeFlask: {
+		Tooltip: ""
+		DisplayName: Queen Bee Flask
+	}
+
+	FartInAVial: {
+		Tooltip: ""
+		DisplayName: Fart In A Vial
+	}
+
+	DeathweedFlask: {
+		Tooltip: ""
+		DisplayName: Deathweed Flask
+	}
+
+	CrimsonFlask: {
+		Tooltip: ""
+		DisplayName: Crimson Flask
+	}
+
+	CorruptionFlask: {
+		Tooltip: ""
+		DisplayName: Corruption Flask
+	}
+
+	CloudInAVial: {
+		Tooltip: ""
+		DisplayName: Cloud In A Vial
+	}
+
+	BlizzardInAVial: {
+		Tooltip: ""
+		DisplayName: Blizzard In A Vial
+	}
+
+	AirVial: {
+		Tooltip: ""
+		DisplayName: Air Vial
+	}
+
+	UIItemNew: {
+		Tooltip: ""
+		DisplayName: U I Item New
+	}
+
+	UIItemKeys: {
+		Tooltip: ""
+		DisplayName: U I Item Keys
+	}
+
+	UIItem: {
+		Tooltip: ""
+		DisplayName: U I Item
+	}
+
+	ScrollTier6: {
+		Tooltip: ""
+		DisplayName: Scroll Tier6
+	}
+
+	ScrollTier5: {
+		Tooltip: ""
+		DisplayName: Scroll Tier5
+	}
+
+	ScrollTier4: {
+		Tooltip: ""
+		DisplayName: Scroll Tier4
+	}
+
+	ScrollTier3: {
+		Tooltip: ""
+		DisplayName: Scroll Tier3
+	}
+
+	ScrollTier2: {
+		Tooltip: ""
+		DisplayName: Scroll Tier2
+	}
+
+	ScrollTier1: {
+		Tooltip: ""
+		DisplayName: Scroll Tier1
+	}
+
+	ReactionItem: {
+		Tooltip: ""
+		DisplayName: Reaction Item
+	}
+
+	Potency: {
+		Tooltip: ""
+		DisplayName: Potency
+	}
+
+	MushroomThread: {
+		Tooltip: ""
+		DisplayName: Mushroom Thread
+	}
+
+	EmptyFlask: {
+		Tooltip: ""
+		DisplayName: Empty Flask
+	}
+
+	AlchemicStabilizer: {
+		Tooltip: ""
+		DisplayName: Alchemic Stabilizer
+	}
+
+	PotionBag: {
+		Tooltip: ""
+		DisplayName: Potion Bag
+	}
+
+	MushroomTunic: {
+		Tooltip: ""
+		DisplayName: Mushroom Tunic
+	}
+
+	MushroomLeggings: {
+		Tooltip: ""
+		DisplayName: Mushroom Leggings
+	}
+
+	MushroomBandana: {
+		Tooltip: ""
+		DisplayName: Mushroom Bandana
+	}
+
+	AlchemistJungleLegs: {
+		Tooltip: ""
+		DisplayName: Alchemist Jungle Legs
+	}
+
+	AlchemistJungleHead: {
+		Tooltip: ""
+		DisplayName: Alchemist Jungle Head
+	}
+
+	AlchemistJungleChest: {
+		Tooltip: ""
+		DisplayName: Alchemist Jungle Chest
+	}
+
+	WeightedCrimson: {
+		Tooltip: ""
+		DisplayName: Weighted Crimson
+	}
+
+	WeightedCorruption: {
+		Tooltip: ""
+		DisplayName: Weighted Corruption
+	}
+
+	WeightedBottles: {
+		Tooltip: ""
+		DisplayName: Weighted Bottles
+	}
+
+	ReactiveVials: {
+		Tooltip: ""
+		DisplayName: Reactive Vials
+	}
+
+	PreservedCrimson: {
+		Tooltip: ""
+		DisplayName: Preserved Crimson
+	}
+
+	PreservedCorruption: {
+		Tooltip: ""
+		DisplayName: Preserved Corruption
+	}
+
+	MeteorToolbelt: {
+		Tooltip: ""
+		DisplayName: Meteor Toolbelt
+	}
+
+	KeystoneOfTheConvent: {
+		Tooltip: ""
+		DisplayName: Keystone Of The Convent
+	}
+
+	BloomingBud: {
+		Tooltip: ""
+		DisplayName: Blooming Bud
+	}
+
+	AlchemistTest: {
+		Tooltip: ""
+		DisplayName: Alchemist Test
+	}
+
+	AlchemistEmblem: {
+		Tooltip: ""
+		DisplayName: Alchemist Emblem
+	}
+}
+
+NPCs: {
+	BoundChemist.DisplayName: Bound Chemist
+
+	Chemist: {
+		DisplayName: Chemist
+
+		TownNPCMood: {
+			Content: I am content.
+			NoHome: I hate not having a home.
+			FarFromHome: I am too far from home.
+			LoveSpace: I love having so much space.
+			DislikeCrowded: I dislike how crowded I am.
+			HateCrowded: I hate how crowded I am.
+			LoveBiome: I love {BiomeName}.
+			LikeBiome: I like {BiomeName}.
+			DislikeBiome: I dislike {BiomeName}.
+			HateBiome: I hate {BiomeName}.
+			LoveNPC: I love {NPCName}.
+			LikeNPC: I like {NPCName}.
+			DislikeNPC: I dislike {NPCName}.
+			HateNPC: I hate {NPCName}.
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
+		}
+	}
+
+	Croupier: {
+		DisplayName: Croupier
+
+		TownNPCMood: {
+			Content: I am content.
+			NoHome: I hate not having a home.
+			FarFromHome: I am too far from home.
+			LoveSpace: I love having so much space.
+			DislikeCrowded: I dislike how crowded I am.
+			HateCrowded: I hate how crowded I am.
+			LoveBiome: I love {BiomeName}.
+			LikeBiome: I like {BiomeName}.
+			DislikeBiome: I dislike {BiomeName}.
+			HateBiome: I hate {BiomeName}.
+			LoveNPC: I love {NPCName}.
+			LikeNPC: I like {NPCName}.
+			DislikeNPC: I dislike {NPCName}.
+			HateNPC: I hate {NPCName}.
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
+		}
+	}
+
+	DownpourElemental.DisplayName: Downpour Elemental
+}
+
+Prefixes: {
+	AnnoyingPrefix.DisplayName: Annoying Prefix
+	BalancedPrefix.DisplayName: Balanced Prefix
+	BrewingPrefix.DisplayName: Brewing Prefix
+	BrokenPrefix.DisplayName: Broken Prefix
+	ComplexPrefix.DisplayName: Complex Prefix
+	ConjuringPrefix.DisplayName: Conjuring Prefix
+	DamagedPrefix.DisplayName: Damaged Prefix
+	DeadlyPrefix.DisplayName: Deadly Prefix
+	DiabolicPrefix.DisplayName: Diabolic Prefix
+	EffervescentPrefix.DisplayName: Effervescent Prefix
+	EnragedPrefix.DisplayName: Enraged Prefix
+	EtherealPrefix.DisplayName: Ethereal Prefix
+	FocusedPrefix.DisplayName: Focused Prefix
+	ForcefulPrefix.DisplayName: Forceful Prefix
+	HopefulPrefix.DisplayName: Hopeful Prefix
+	HurtfulPrefix.DisplayName: Hurtful Prefix
+	LazyPrefix.DisplayName: Lazy Prefix
+	LoadedPrefix.DisplayName: Loaded Prefix
+	MagneticPrefix.DisplayName: Magnetic Prefix
+	NimblePrefix.DisplayName: Nimble Prefix
+	OccultPrefix.DisplayName: Occult Prefix
+	QuickPrefix.DisplayName: Quick Prefix
+	RunicPrefix.DisplayName: Runic Prefix
+	RuthlessPrefix.DisplayName: Ruthless Prefix
+	ShoddyPrefix.DisplayName: Shoddy Prefix
+	SlowPrefix.DisplayName: Slow Prefix
+	SluggishPrefix.DisplayName: Sluggish Prefix
+	SpiritedPrefix.DisplayName: Spirited Prefix
+	SpiritualPrefix.DisplayName: Spiritual Prefix
+	StrongPrefix.DisplayName: Strong Prefix
+	StudiousPrefix.DisplayName: Studious Prefix
+	SuperiorPrefix.DisplayName: Superior Prefix
+	UniquePrefix.DisplayName: Unique Prefix
+	UnpleasantPrefix.DisplayName: Unpleasant Prefix
+	VoodooPrefix.DisplayName: Voodoo Prefix
+	WeakPrefix.DisplayName: Weak Prefix
+}
+
+Projectiles: {
+	AirSporeProj.DisplayName: Air Spore Proj
+	AirSporeProjAlt.DisplayName: Air Spore Proj Alt
+	CloudInAVialProj.DisplayName: Cloud In A Vial Proj
+	CorruptionFlaskProj.DisplayName: Corruption Flask Proj
+	CrimsonFlaskProj.DisplayName: Crimson Flask Proj
+	CrimsonFlaskProjAlt.DisplayName: Crimson Flask Proj Alt
+	KeystoneOfTheConventProj.DisplayName: Keystone Of The Convent Proj
+	QueenBeeFlaskProj.DisplayName: Queen Bee Flask Proj
+	ShadowChestFlaskProj.DisplayName: Shadow Chest Flask Proj
+	SunplateFlaskProj.DisplayName: Sunplate Flask Proj
+	AlchemistProj.DisplayName: Alchemist Proj
+	AlchemistRightClick.DisplayName: Alchemist Right Click
+	AlchemistSmoke1.DisplayName: Alchemist Smoke1
+	AlchemistSmoke2.DisplayName: Alchemist Smoke2
+	AlchemistSmoke3.DisplayName: Alchemist Smoke3
+	EmberVialProj.DisplayName: Ember Vial Proj
+	EmberVialProjAlt.DisplayName: Ember Vial Proj Alt
+	FireSporeProj.DisplayName: Fire Spore Proj
+	FireSporeProjAlt.DisplayName: Fire Spore Proj Alt
+	GunpowderFlaskProj.DisplayName: Gunpowder Flask Proj
+	HellSlimeFlaskProj.DisplayName: Hell Slime Flask Proj
+	AttractiteShurikenProj.DisplayName: Attractite Shuriken Proj
+	GlowingMushroomVialProj.DisplayName: Glowing Mushroom Vial Proj
+	GlowingMushroomVialProjAlt.DisplayName: Glowing Mushroom Vial Proj Alt
+	GlowingMushroomVialProjAlt2.DisplayName: Glowing Mushroom Vial Proj Alt2
+	JungleLilyFlaskProj.DisplayName: Jungle Lily Flask Proj
+	JungleLilyFlaskReaction.DisplayName: Jungle Lily Flask Reaction
+	LivingSapVialProj.DisplayName: Living Sap Vial Proj
+	LivingSapVialProjAlt.DisplayName: Living Sap Vial Proj Alt
+	NatureSporeProj.DisplayName: Nature Spore Proj
+	NatureSporeProjAlt.DisplayName: Nature Spore Proj Alt
+	NatureSporeProjBloom.DisplayName: Nature Spore Proj Bloom
+	PoisonVialProj.DisplayName: Poison Vial Proj
+	PoisonVialProjAlt.DisplayName: Poison Vial Proj Alt
+	SunflowerFlaskProj1.DisplayName: Sunflower Flask Proj1
+	SunflowerFlaskProj2.DisplayName: Sunflower Flask Proj2
+	SunflowerFlaskProj3.DisplayName: Sunflower Flask Proj3
+	SunflowerFlaskProj4.DisplayName: Sunflower Flask Proj4
+	AlchemistHive.DisplayName: Alchemist Hive
+	BloomingReactive.DisplayName: Blooming Reactive
+	BloomingReactiveAlt.DisplayName: Blooming Reactive Alt
+	FlowerReactive.DisplayName: Flower Reactive
+	LivingSapBubble.DisplayName: Living Sap Bubble
+	OilBubble.DisplayName: Oil Bubble
+	PoisonBubble.DisplayName: Poison Bubble
+	AlchemistSlime.DisplayName: Alchemist Slime
+	AlchemistSlimeJungle.DisplayName: Alchemist Slime Jungle
+	AlchemistSlimeLava.DisplayName: Alchemist Slime Lava
+	BloomingPetal.DisplayName: Blooming Petal
+	DungeonCatalystProj.DisplayName: Dungeon Catalyst Proj
+	SeafoamBubble.DisplayName: Seafoam Bubble
+	SlimeBubble.DisplayName: Slime Bubble
+	SlimeBubbleLava.DisplayName: Slime Bubble Lava
+	SpiritedBubble.DisplayName: Spirited Bubble
+	AirSigil.DisplayName: Air Sigil
+	DarkSigil.DisplayName: Dark Sigil
+	FireSigil.DisplayName: Fire Sigil
+	LightSigil.DisplayName: Light Sigil
+	NatureSigil.DisplayName: Nature Sigil
+	WaterSigil.DisplayName: Water Sigil
+	BloodMoonFlaskProj.DisplayName: Blood Moon Flask Proj
+	DungeonFlaskProj.DisplayName: Dungeon Flask Proj
+	IceChestFlaskProj.DisplayName: Ice Chest Flask Proj
+	IceChestFlaskProjBig.DisplayName: Ice Chest Flask Proj Big
+	IceChestFlaskProjSmall.DisplayName: Ice Chest Flask Proj Small
+	SeafoamVialProj.DisplayName: Seafoam Vial Proj
+	SeafoamVialProjAlt.DisplayName: Seafoam Vial Proj Alt
+	SlimeFlaskProj.DisplayName: Slime Flask Proj
+	WaterSporeProj.DisplayName: Water Spore Proj
+	WaterSporeProjAlt.DisplayName: Water Spore Proj Alt
+	PrototypeSecrecyHitProjectile.DisplayName: Prototype Secrecy Hit Projectile
+	PrototypeSecrecyProjectile.DisplayName: Prototype Secrecy Projectile
+	RCRemoteProjectile.DisplayName: R C Remote Projectile
+	SearingOnslaughtProjectile.DisplayName: Searing Onslaught Projectile
+	AbyssDrillProjectile.DisplayName: Abyss Drill Projectile
+	ChemistProjectile.DisplayName: Chemist Projectile
+	CroupierProjectile.DisplayName: Croupier Projectile
+	BrainCardProj.DisplayName: Brain Card Proj
+	BrainCardProj2.DisplayName: Brain Card Proj2
+	BubbleCardProj.DisplayName: Bubble Card Proj
+	BouncyChipProj.DisplayName: Bouncy Chip Proj
+	CopperChipProj.DisplayName: Copper Chip Proj
+	FossilChipProj.DisplayName: Fossil Chip Proj
+	GamblingChipProj.DisplayName: Gambling Chip Proj
+	GoldChipProj.DisplayName: Gold Chip Proj
+	HellChipProj.DisplayName: Hell Chip Proj
+	HellChipProjAlt.DisplayName: Hell Chip Proj Alt
+	MeteorDetonatorProj.DisplayName: Meteor Detonator Proj
+	PlatinumChipProj.DisplayName: Platinum Chip Proj
+	RusalkaProj.DisplayName: Rusalka Proj
+	RusalkaProjAlt.DisplayName: Rusalka Proj Alt
+	TinChipProj.DisplayName: Tin Chip Proj
+	DesertCardBase.DisplayName: Desert Card Base
+	DesertCardProj.DisplayName: Desert Card Proj
+	DesertCardProjAlt.DisplayName: Desert Card Proj Alt
+	DetonatorCardProj.DisplayName: Detonator Card Proj
+	DungeonCardProj.DisplayName: Dungeon Card Proj
+	DungeonCardProjAlt.DisplayName: Dungeon Card Proj Alt
+	EaterCardProj1.DisplayName: Eater Card Proj1
+	EaterCardProj2.DisplayName: Eater Card Proj2
+	EaterCardProj3.DisplayName: Eater Card Proj3
+	EmbersCardProj.DisplayName: Embers Card Proj
+	VultureCharmProj.DisplayName: Vulture Charm Proj
+	EyeCardProj.DisplayName: Eye Card Proj
+	ForestCardBase.DisplayName: Forest Card Base
+	ForestCardProj.DisplayName: Forest Card Proj
+	GoblinArmyCardProj.DisplayName: Goblin Army Card Proj
+	GoblinArmyCardProjAlt.DisplayName: Goblin Army Card Proj Alt
+	GoldChestCardProj.DisplayName: Gold Chest Card Proj
+	IceChestCardProj.DisplayName: Ice Chest Card Proj
+	IvyChestCardProj.DisplayName: Ivy Chest Card Proj
+	JungleCardBase.DisplayName: Jungle Card Base
+	JungleCardProj.DisplayName: Jungle Card Proj
+	JungleCardProjAlt.DisplayName: Jungle Card Proj Alt
+	JungleSlimeCardProj.DisplayName: Jungle Slime Card Proj
+	JungleSlimeCardProjAlt.DisplayName: Jungle Slime Card Proj Alt
+	KingSlimeCardProj.DisplayName: King Slime Card Proj
+	KingSlimeCardProj2.DisplayName: King Slime Card Proj2
+	LavaSlimeCardProj.DisplayName: Lava Slime Card Proj
+	MushroomCardBase.DisplayName: Mushroom Card Base
+	MushroomCardProj.DisplayName: Mushroom Card Proj
+	OceanCardBase.DisplayName: Ocean Card Base
+	OceanCardProj.DisplayName: Ocean Card Proj
+	QueenBeeCardProj.DisplayName: Queen Bee Card Proj
+	SapCardProj.DisplayName: Sap Card Proj
+	SapCardProjExplosion.DisplayName: Sap Card Proj Explosion
+	ShuffleCardProj.DisplayName: Shuffle Card Proj
+	SkeletronCardProj.DisplayName: Skeletron Card Proj
+	SkeletronCardProjAlt.DisplayName: Skeletron Card Proj Alt
+	SkyCardBase.DisplayName: Sky Card Base
+	SkyCardProj.DisplayName: Sky Card Proj
+	SkyCardProjAlt.DisplayName: Sky Card Proj Alt
+	SlimeCardProj.DisplayName: Slime Card Proj
+	SlimeRainCardProj1.DisplayName: Slime Rain Card Proj1
+	SlimeRainCardProj2.DisplayName: Slime Rain Card Proj2
+	SnowCardBase.DisplayName: Snow Card Base
+	SnowCardProj.DisplayName: Snow Card Proj
+	SnowCardProjAlt.DisplayName: Snow Card Proj Alt
+	MineshaftHookProjectile.DisplayName: Mineshaft Hook Projectile
+	StaticQuartzDartProj.DisplayName: Static Quartz Dart Proj
+	StaticQuartzWarriorProj.DisplayName: Static Quartz Warrior Proj
+	GenericExplosion.DisplayName: Generic Explosion
+	HauntedCandle.DisplayName: Haunted Candle
+	GuardianShieldAnchor.DisplayName: Guardian Shield Anchor
+	HammerThrow.DisplayName: Hammer Throw
+	EnchantedRuneProj.DisplayName: Enchanted Rune Proj
+	LivingRuneProj.DisplayName: Living Rune Proj
+	EnchantedPaviseProj.DisplayName: Enchanted Pavise Proj
+	DownpourElementalCloud.DisplayName: Downpour Elemental Cloud
+	DownpourElementalCloudProj.DisplayName: Downpour Elemental Cloud Proj
+	CatalystAnchor.DisplayName: Catalyst Anchor
+	CatalystSummon.DisplayName: Catalyst Summon
+	AbyssShard.DisplayName: Abyss Shard
+	AbyssShardD.DisplayName: Abyss Shard D
+	AbyssShardS.DisplayName: Abyss Shard S
+	AdornedBranchProj.DisplayName: Adorned Branch Proj
+	BlumProj.DisplayName: Blum Proj
+	BulbScepterProj.DisplayName: Bulb Scepter Proj
+	CrystalScepterProj.DisplayName: Crystal Scepter Proj
+	CrystalScepterProj2.DisplayName: Crystal Scepter Proj2
+	DepthBatonProjAlt.DisplayName: Depth Baton Proj Alt
+	DepthsBatonProj.DisplayName: Depths Baton Proj
+	EnchantedScepterProj.DisplayName: Enchanted Scepter Proj
+	AbyssPortal.DisplayName: Abyss Portal
+	AbyssPortalLaser.DisplayName: Abyss Portal Laser
+	DeepForestCharmProj.DisplayName: Deep Forest Charm Proj
+	HarpyAnkletProj.DisplayName: Harpy Anklet Proj
+	ShamanHellExplosion.DisplayName: Shaman Hell Explosion
+	ShamanHellHoming.DisplayName: Shaman Hell Homing
+	LavaDroplet.DisplayName: Lava Droplet
+	Smite.DisplayName: Smite
+	FeatherScepterProj.DisplayName: Feather Scepter Proj
+	FireBatScepterProj.DisplayName: Fire Bat Scepter Proj
+	FireBatScepterProjHoming.DisplayName: Fire Bat Scepter Proj Homing
+	GoblinStickProj.DisplayName: Goblin Stick Proj
+	HellShamanRodProj.DisplayName: Hell Shaman Rod Proj
+	IceFlakeConeProj.DisplayName: Ice Flake Cone Proj
+	IceMimicScepterProj.DisplayName: Ice Mimic Scepter Proj
+	LostSoul.DisplayName: Lost Soul
+	MartianBeamerProj.DisplayName: Martian Beamer Proj
+	MeteorPhasestaffProj.DisplayName: Meteor Phasestaff Proj
+	NirvanaEarth.DisplayName: Nirvana Earth
+	NirvanaFire.DisplayName: Nirvana Fire
+	NirvanaMain.DisplayName: Nirvana Main
+	NirvanaWater.DisplayName: Nirvana Water
+	NirvanaWind.DisplayName: Nirvana Wind
+	AbyssOrb.DisplayName: Abyss Orb
+	AbyssPrecinctProj.DisplayName: Abyss Precinct Proj
+	AbyssPrecinctProjAlt.DisplayName: Abyss Precinct Proj Alt
+	AbyssPrecinctProjExplosion.DisplayName: Abyss Precinct Proj Explosion
+	AdamantiteOrb.DisplayName: Adamantite Orb
+	AdamantiteScepterProj.DisplayName: Adamantite Scepter Proj
+	ChlorophyteOrb.DisplayName: Chlorophyte Orb
+	ChlorophyteScepterProj.DisplayName: Chlorophyte Scepter Proj
+	CobaltOrb.DisplayName: Cobalt Orb
+	CobaltScepterProj.DisplayName: Cobalt Scepter Proj
+	MythrilOrb.DisplayName: Mythril Orb
+	MythrilScepterProj.DisplayName: Mythril Scepter Proj
+	OrichalcumOrb.DisplayName: Orichalcum Orb
+	OrichalcumScepterProj.DisplayName: Orichalcum Scepter Proj
+	PalladiumOrb.DisplayName: Palladium Orb
+	PalladiumScepterProj.DisplayName: Palladium Scepter Proj
+	TitaniumOrb.DisplayName: Titanium Orb
+	TitaniumScepterProj.DisplayName: Titanium Scepter Proj
+	ReviverofSoulsFlame.DisplayName: Reviverof Souls Flame
+	ReviverofSoulsProj.DisplayName: Reviverof Souls Proj
+	SanctifyOrb.DisplayName: Sanctify Orb
+	SanctifyOrbHoming.DisplayName: Sanctify Orb Homing
+	SanctifyProj.DisplayName: Sanctify Proj
+	SanctifyProjAlt.DisplayName: Sanctify Proj Alt
+	TrueSanctifyOrb.DisplayName: True Sanctify Orb
+	TrueSanctifyOrbHoming.DisplayName: True Sanctify Orb Homing
+	TrueSanctifyProj.DisplayName: True Sanctify Proj
+	TrueSanctifyProjAlt.DisplayName: True Sanctify Proj Alt
+	AmberOrb.DisplayName: Amber Orb
+	AmberScepterProj.DisplayName: Amber Scepter Proj
+	AmethystOrb.DisplayName: Amethyst Orb
+	CopperScepterProj.DisplayName: Copper Scepter Proj
+	CrimsonOrb.DisplayName: Crimson Orb
+	CrimsonScepterProj.DisplayName: Crimson Scepter Proj
+	DemoniteOrb.DisplayName: Demonite Orb
+	DemoniteScepterProj.DisplayName: Demonite Scepter Proj
+	DiamondOrb.DisplayName: Diamond Orb
+	EmeraldOrb.DisplayName: Emerald Orb
+	GoldScepterProj.DisplayName: Gold Scepter Proj
+	PlatinumScepterProj.DisplayName: Platinum Scepter Proj
+	RubyOrb.DisplayName: Ruby Orb
+	SapphireOrb.DisplayName: Sapphire Orb
+	SilverScepterProj.DisplayName: Silver Scepter Proj
+	TinScepterProj.DisplayName: Tin Scepter Proj
+	TopazOrb.DisplayName: Topaz Orb
+	TungstenScepterProj.DisplayName: Tungsten Scepter Proj
+	CorruptConeProj.DisplayName: Corrupt Cone Proj
+	CorruptOrb.DisplayName: Corrupt Orb
+	CorruptOrbRain.DisplayName: Corrupt Orb Rain
+	HoneyOrb1.DisplayName: Honey Orb1
+	HoneyOrb2.DisplayName: Honey Orb2
+	HoneyOrb3.DisplayName: Honey Orb3
+	HoneyProj.DisplayName: Honey Proj
+	IceSpearOrb.DisplayName: Ice Spear Orb
+	IceSpearProj.DisplayName: Ice Spear Proj
+	IceSpearScepterProj.DisplayName: Ice Spear Scepter Proj
+	IchorOrb.DisplayName: Ichor Orb
+	IchorOrbRain.DisplayName: Ichor Orb Rain
+	IchoryConeProj.DisplayName: Ichory Cone Proj
+	TerraScepterOrb1.DisplayName: Terra Scepter Orb1
+	TerraScepterOrb2.DisplayName: Terra Scepter Orb2
+	TerraScepterOrb3.DisplayName: Terra Scepter Orb3
+	TerraScepterOrb4.DisplayName: Terra Scepter Orb4
+	TerraScepterOrbHoming1.DisplayName: Terra Scepter Orb Homing1
+	TerraScepterOrbHoming2.DisplayName: Terra Scepter Orb Homing2
+	TerraScepterOrbHoming3.DisplayName: Terra Scepter Orb Homing3
+	TerraScepterOrbHoming4.DisplayName: Terra Scepter Orb Homing4
+	TerraSpecterProj.DisplayName: Terra Specter Proj
+	TerraSpecterProj2.DisplayName: Terra Specter Proj2
+	PerishingSoulProj.DisplayName: Perishing Soul Proj
+	PiratesGloryProj.DisplayName: Pirates Glory Proj
+	RuneScepterProj.DisplayName: Rune Scepter Proj
+	ShamanRodProj.DisplayName: Shaman Rod Proj
+	ShroomiteScepterProj.DisplayName: Shroomite Scepter Proj
+	SightScepterProj.DisplayName: Sight Scepter Proj
+	SpineScepterProj.DisplayName: Spine Scepter Proj
+	SporeCallerProj.DisplayName: Spore Caller Proj
+	StarpowerScepterProj.DisplayName: Starpower Scepter Proj
+	SunRayProj.DisplayName: Sun Ray Proj
+	TheCoreProj.DisplayName: The Core Proj
+	AbyssalChitinScepterProj.DisplayName: Abyssal Chitin Scepter Proj
+	AbyssionScepterProj.DisplayName: Abyssion Scepter Proj
+	BersekerShardScepterProj.DisplayName: Berseker Shard Scepter Proj
+	BoreanStriderScepterKillProj.DisplayName: Borean Strider Scepter Kill Proj
+	BoreanStriderScepterProj.DisplayName: Borean Strider Scepter Proj
+	BoreanStriderScepterProjAlt.DisplayName: Borean Strider Scepter Proj Alt
+	BronzeAlloyScepterProj.DisplayName: Bronze Alloy Scepter Proj
+	BronzeAlloyScepterProjAlt.DisplayName: Bronze Alloy Scepter Proj Alt
+	CoznixScepterProj.DisplayName: Coznix Scepter Proj
+	CoznixScepterProjLaser.DisplayName: Coznix Scepter Proj Laser
+	CoznixScepterProjPortal.DisplayName: Coznix Scepter Proj Portal
+	DragonScaleScepterProj.DisplayName: Dragon Scale Scepter Proj
+	ViscountBlood.DisplayName: Viscount Blood
+	ViscountOrbBlood.DisplayName: Viscount Orb Blood
+	ViscountOrbSound.DisplayName: Viscount Orb Sound
+	ViscountSound.DisplayName: Viscount Sound
+	GeodeScepterProj.DisplayName: Geode Scepter Proj
+	GeodeScepterProjAlt.DisplayName: Geode Scepter Proj Alt
+	IceShardScepterProj.DisplayName: Ice Shard Scepter Proj
+	LichScepterProj.DisplayName: Lich Scepter Proj
+	LichScepterProjAlt.DisplayName: Lich Scepter Proj Alt
+	MoltenResidueScepterProj.DisplayName: Molten Residue Scepter Proj
+	MoltenResidueScepterProjExplosion.DisplayName: Molten Residue Scepter Proj Explosion
+	OrchidScepterProj.DisplayName: Orchid Scepter Proj
+	AquaiteScepterOrb.DisplayName: Aquaite Scepter Orb
+	AquaiteScepterOrbProj.DisplayName: Aquaite Scepter Orb Proj
+	AquaiteScepterProj.DisplayName: Aquaite Scepter Proj
+	LodestoneOrb.DisplayName: Lodestone Orb
+	LodestoneScepterExplosion.DisplayName: Lodestone Scepter Explosion
+	LodestoneScepterProj.DisplayName: Lodestone Scepter Proj
+	MagmaOrb.DisplayName: Magma Orb
+	MagmaScepterProj.DisplayName: Magma Scepter Proj
+	MagmaScepterProjExplosion.DisplayName: Magma Scepter Proj Explosion
+	MonowaiExplosion.DisplayName: Monowai Explosion
+	MonowaiOrb.DisplayName: Monowai Orb
+	MonowaiProj.DisplayName: Monowai Proj
+	TitanicOrb.DisplayName: Titanic Orb
+	TitanicScepterProj.DisplayName: Titanic Scepter Proj
+	ValadiumOrb.DisplayName: Valadium Orb
+	ValadiumScepterProj.DisplayName: Valadium Scepter Proj
+	GraniteEnergyScepterOrb.DisplayName: Granite Energy Scepter Orb
+	GraniteEnergyScepterOrbProj.DisplayName: Granite Energy Scepter Orb Proj
+	GraniteEnergyScepterProj.DisplayName: Granite Energy Scepter Proj
+	TerrariumScepterOrb.DisplayName: Terrarium Scepter Orb
+	TerrariumScepterOrbProj.DisplayName: Terrarium Scepter Orb Proj
+	TerrariumScepterProj.DisplayName: Terrarium Scepter Proj
+	OnyxOrb.DisplayName: Onyx Orb
+	OnyxScepterProj.DisplayName: Onyx Scepter Proj
+	OpalOrb.DisplayName: Opal Orb
+	OpalScepterProj.DisplayName: Opal Scepter Proj
+	SolarPebbleScepterOrb.DisplayName: Solar Pebble Scepter Orb
+	SolarPebbleScepterOrbProj.DisplayName: Solar Pebble Scepter Orb Proj
+	SolarPebbleScepterOrbProjAlt.DisplayName: Solar Pebble Scepter Orb Proj Alt
+	SolarPebbleScepterProj.DisplayName: Solar Pebble Scepter Proj
+	ThunderScepterOrb.DisplayName: Thunder Scepter Orb
+	ThunderScepterOrbProj.DisplayName: Thunder Scepter Orb Proj
+	ThunderScepterProj.DisplayName: Thunder Scepter Proj
+	ThunderScepterTornado.DisplayName: Thunder Scepter Tornado
+	PatchWerkScepterProj.DisplayName: Patch Werk Scepter Proj
+	PatchWerkScepterProjAlt.DisplayName: Patch Werk Scepter Proj Alt
+	PharaohScepterPortal.DisplayName: Pharaoh Scepter Portal
+	PharaohScepterProj.DisplayName: Pharaoh Scepter Proj
+	PharaohScepterProjAlt.DisplayName: Pharaoh Scepter Proj Alt
+	QueenJellyfishScepterProj.DisplayName: Queen Jellyfish Scepter Proj
+	SpiritDropletScepterProj.DisplayName: Spirit Droplet Scepter Proj
+	StarScouterScepterProj.DisplayName: Star Scouter Scepter Proj
+	StarScouterScepterProjAlt.DisplayName: Star Scouter Scepter Proj Alt
+	StarScouterScepterProjAltExplosion.DisplayName: Star Scouter Scepter Proj Alt Explosion
+	StrangePlatingScepterProj.DisplayName: Strange Plating Scepter Proj
+	StrangePlatingScepterProjAlt.DisplayName: Strange Plating Scepter Proj Alt
+	ThoriumScepterProj.DisplayName: Thorium Scepter Proj
+	ThoriumScepterProjSplit.DisplayName: Thorium Scepter Proj Split
+	UnfathomableFleshScepterProj.DisplayName: Unfathomable Flesh Scepter Proj
+	ViscountScepterBat.DisplayName: Viscount Scepter Bat
+	ViscountScepterProj.DisplayName: Viscount Scepter Proj
+	YewWoodScepterPortal.DisplayName: Yew Wood Scepter Portal
+	YewWoodScepterPortalProj.DisplayName: Yew Wood Scepter Portal Proj
+	YewWoodScepterProj.DisplayName: Yew Wood Scepter Proj
+	TrueDepthProj.DisplayName: True Depth Proj
+	VileSpoutProj.DisplayName: Vile Spout Proj
+	WyvernMorayProj.DisplayName: Wyvern Moray Proj
+	WyvernMorayProjLingering.DisplayName: Wyvern Moray Proj Lingering
+}
+
+Configs: {
+	OrchidClientConfig: {
+		DisplayName: Orchid Client Config
+		Headers.General: General Header
+
+		ShowClassTags: {
+			Label: Show tags
+			Tooltip: "{$Enables/Disables the display class tags}"
+		}
+	}
+
+	OrchidServerConfig: {
+		DisplayName: Orchid Server Config
+		Headers.General: General Header
+
+		LoadCrossmodContentWithoutRequiredMods: {
+			Label: Load Crossmod-Content without required mods
+			Tooltip: "{$Enables/Disables loading Crossmod-Content without required mods}"
+		}
+	}
+}
+
+Buffs: {
+	TopazEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.TopazEmpowerment.Description
+		DisplayName: Topaz Empowerment
+	}
+
+	TitanicBuff: {
+		Description: Mods.OrchidMod.Buffs.TitanicBuff.Description
+		DisplayName: Titanic Buff
+	}
+
+	OpalEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.OpalEmpowerment.Description
+		DisplayName: Opal Empowerment
+	}
+
+	OnyxEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.OnyxEmpowerment.Description
+		DisplayName: Onyx Empowerment
+	}
+
+	LodestoneSlow: {
+		Description: Mods.OrchidMod.Buffs.LodestoneSlow.Description
+		DisplayName: Lodestone Slow
+	}
+
+	GraniteAura: {
+		Description: Mods.OrchidMod.Buffs.GraniteAura.Description
+		DisplayName: Granite Aura
+	}
+
+	AquaBump: {
+		Description: Mods.OrchidMod.Buffs.AquaBump.Description
+		DisplayName: Aqua Bump
+	}
+
+	TerraBlast: {
+		Description: Mods.OrchidMod.Buffs.TerraBlast.Description
+		DisplayName: Terra Blast
+	}
+
+	SporeEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.SporeEmpowerment.Description
+		DisplayName: Spore Empowerment
+	}
+
+	SpiritualBurst: {
+		Description: Mods.OrchidMod.Buffs.SpiritualBurst.Description
+		DisplayName: Spiritual Burst
+	}
+
+	ShroomHeal: {
+		Description: Mods.OrchidMod.Buffs.ShroomHeal.Description
+		DisplayName: Shroom Heal
+	}
+
+	ShamanicEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.ShamanicEmpowerment.Description
+		DisplayName: Shamanic Empowerment
+	}
+
+	ShamanicBaubles: {
+		Description: Mods.OrchidMod.Buffs.ShamanicBaubles.Description
+		DisplayName: Shamanic Baubles
+	}
+
+	ShadowEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.ShadowEmpowerment.Description
+		DisplayName: Shadow Empowerment
+	}
+
+	SapphireEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.SapphireEmpowerment.Description
+		DisplayName: Sapphire Empowerment
+	}
+
+	RubyEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.RubyEmpowerment.Description
+		DisplayName: Ruby Empowerment
+	}
+
+	MythrilDefense: {
+		Description: Mods.OrchidMod.Buffs.MythrilDefense.Description
+		DisplayName: Mythril Defense
+	}
+
+	JungleRage: {
+		Description: Mods.OrchidMod.Buffs.JungleRage.Description
+		DisplayName: Jungle Rage
+	}
+
+	EmeraldEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.EmeraldEmpowerment.Description
+		DisplayName: Emerald Empowerment
+	}
+
+	DiamondEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.DiamondEmpowerment.Description
+		DisplayName: Diamond Empowerment
+	}
+
+	DiabolistCauterize: {
+		Description: Mods.OrchidMod.Buffs.DiabolistCauterize.Description
+		DisplayName: Diabolist Cauterize
+	}
+
+	DestroyerFrenzy: {
+		Description: Mods.OrchidMod.Buffs.DestroyerFrenzy.Description
+		DisplayName: Destroyer Frenzy
+	}
+
+	DeepForestAura: {
+		Description: Mods.OrchidMod.Buffs.DeepForestAura.Description
+		DisplayName: Deep Forest Aura
+	}
+
+	WindStun: {
+		Description: Mods.OrchidMod.Buffs.WindStun.Description
+		DisplayName: Wind Stun
+	}
+
+	WindSlow: {
+		Description: Mods.OrchidMod.Buffs.WindSlow.Description
+		DisplayName: Wind Slow
+	}
+
+	WindDamage: {
+		Description: Mods.OrchidMod.Buffs.WindDamage.Description
+		DisplayName: Wind Damage
+	}
+
+	LeafSlow: {
+		Description: Mods.OrchidMod.Buffs.LeafSlow.Description
+		DisplayName: Leaf Slow
+	}
+
+	HellHit: {
+		Description: Mods.OrchidMod.Buffs.HellHit.Description
+		DisplayName: Hell Hit
+	}
+
+	EarthTotemRevive: {
+		Description: Mods.OrchidMod.Buffs.EarthTotemRevive.Description
+		DisplayName: Earth Totem Revive
+	}
+
+	DiabolistCauterizeCooldown: {
+		Description: Mods.OrchidMod.Buffs.DiabolistCauterizeCooldown.Description
+		DisplayName: Diabolist Cauterize Cooldown
+	}
+
+	BrokenPower: {
+		Description: Mods.OrchidMod.Buffs.BrokenPower.Description
+		DisplayName: Broken Power
+	}
+
+	AmethystEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.AmethystEmpowerment.Description
+		DisplayName: Amethyst Empowerment
+	}
+
+	AmberEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.AmberEmpowerment.Description
+		DisplayName: Amber Empowerment
+	}
+
+	AbyssEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.AbyssEmpowerment.Description
+		DisplayName: Abyss Empowerment
+	}
+
+	ToolSetBuff: {
+		Description: Mods.OrchidMod.Buffs.ToolSetBuff.Description
+		DisplayName: Tool Set Buff
+	}
+
+	VulturePotionBuff: {
+		Description: Mods.OrchidMod.Buffs.VulturePotionBuff.Description
+		DisplayName: Vulture Potion Buff
+	}
+
+	ConquerorsPennantBuff: {
+		Description: Mods.OrchidMod.Buffs.ConquerorsPennantBuff.Description
+		DisplayName: Conquerors Pennant Buff
+	}
+
+	RCRemoteBuff: {
+		Description: Mods.OrchidMod.Buffs.RCRemoteBuff.Description
+		DisplayName: R C Remote Buff
+	}
+
+	SquareMinecartBuff: {
+		Description: Mods.OrchidMod.Buffs.SquareMinecartBuff.Description
+		DisplayName: Square Minecart Buff
+	}
+
+	HarpyPotionBuff: {
+		Description: Mods.OrchidMod.Buffs.HarpyPotionBuff.Description
+		DisplayName: Harpy Potion Buff
+	}
+
+	StaticQuartArmorBuff: {
+		Description: Mods.OrchidMod.Buffs.StaticQuartArmorBuff.Description
+		DisplayName: Static Quart Armor Buff
+	}
+
+	HauntedCandle: {
+		Description: Mods.OrchidMod.Buffs.HauntedCandle.Description
+		DisplayName: Haunted Candle
+	}
+
+	SlimeSlow: {
+		Description: Mods.OrchidMod.Buffs.SlimeSlow.Description
+		DisplayName: Slime Slow
+	}
+
+	ReactionCooldown: {
+		Description: Mods.OrchidMod.Buffs.ReactionCooldown.Description
+		DisplayName: Reaction Cooldown
+	}
+
+	FlashFreeze: {
+		Description: Mods.OrchidMod.Buffs.FlashFreeze.Description
+		DisplayName: Flash Freeze
+	}
+
+	Catalyzed: {
+		Description: Mods.OrchidMod.Buffs.Catalyzed.Description
+		DisplayName: Catalyzed
+	}
+
+	Attraction: {
+		Description: Mods.OrchidMod.Buffs.Attraction.Description
+		DisplayName: Attraction
+	}
+
+	StellarTalcBuff: {
+		Description: Mods.OrchidMod.Buffs.StellarTalcBuff.Description
+		DisplayName: Stellar Talc Buff
+	}
+
+	StardustSamplesBuff: {
+		Description: Mods.OrchidMod.Buffs.StardustSamplesBuff.Description
+		DisplayName: Stardust Samples Buff
+	}
+
+	SpiritedWaterBuff: {
+		Description: Mods.OrchidMod.Buffs.SpiritedWaterBuff.Description
+		DisplayName: Spirited Water Buff
+	}
+
+	SlimeFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.SlimeFlaskBuff.Description
+		DisplayName: Slime Flask Buff
+	}
+
+	ReactiveVialsBuff: {
+		Description: Mods.OrchidMod.Buffs.ReactiveVialsBuff.Description
+		DisplayName: Reactive Vials Buff
+	}
+
+	QueenBeeFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.QueenBeeFlaskBuff.Description
+		DisplayName: Queen Bee Flask Buff
+	}
+
+	MushroomHeal: {
+		Description: Mods.OrchidMod.Buffs.MushroomHeal.Description
+		DisplayName: Mushroom Heal
+	}
+
+	MeteorSpeed: {
+		Description: Mods.OrchidMod.Buffs.MeteorSpeed.Description
+		DisplayName: Meteor Speed
+	}
+
+	KingSlimeFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.KingSlimeFlaskBuff.Description
+		DisplayName: King Slime Flask Buff
+	}
+
+	JungleLilyExtractBuff: {
+		Description: Mods.OrchidMod.Buffs.JungleLilyExtractBuff.Description
+		DisplayName: Jungle Lily Extract Buff
+	}
+
+	IceChestFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.IceChestFlaskBuff.Description
+		DisplayName: Ice Chest Flask Buff
+	}
+
+	DemonBreathFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.DemonBreathFlaskBuff.Description
+		DisplayName: Demon Breath Flask Buff
+	}
+
+	BloodMistFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.BloodMistFlaskBuff.Description
+		DisplayName: Blood Mist Flask Buff
+	}
+
+	AttractiteAuraSmall: {
+		Description: Mods.OrchidMod.Buffs.AttractiteAuraSmall.Description
+		DisplayName: Attractite Aura Small
+	}
+}
+
+Tiles: {
+	StaticQuartzGem.MapEntry: Static Quartz Gem
+	AncientFossil.MapEntry: Ancient Fossil
+	MineshaftToolboxTile.MapEntry: Mineshaft Toolbox Tile
+	MineshaftStaticTile.MapEntry: Mineshaft Static Tile
+	MineshaftHookTile.MapEntry: Mineshaft Hook Tile
+	MineshaftCrate.MapEntry: Mineshaft Crate
+	MineshaftPickaxeTile.MapEntry: Mineshaft Pickaxe Tile
+	ShamanBiomeChestTile.MapEntry: Shaman Biome Chest Tile
+	MinersLockboxTile.MapEntry: Miners Lockbox Tile
+	JungleLilyTile.MapEntry: Jungle Lily Tile
+}
+
+Keybinds: {
+	"Alchemist Catalyst Tool Shortcut.DisplayName": Alchemist  Catalyst  Tool  Shortcut
+	"Alchemist Hidden Reaction.DisplayName": Alchemist  Hidden  Reaction
+}

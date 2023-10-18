@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 		float startY = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Adamantite Orb");
+			// DisplayName.SetDefault("Adamantite Orb");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -111,7 +111,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			Projectile.position.Y = player.position.Y + startY;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

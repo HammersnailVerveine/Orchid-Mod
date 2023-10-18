@@ -18,9 +18,9 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lily Tunic");
-			Tooltip.SetDefault("Maximum potency increased by 3"
-							+ "\nIncreases alchemic main projectile velocity by 20%");
+			// DisplayName.SetDefault("Lily Tunic");
+			/* Tooltip.SetDefault("Maximum potency increased by 3"
+							+ "\nIncreases alchemic main projectile velocity by 20%"); */
 		}
 
 		public override void UpdateEquip(Player player)

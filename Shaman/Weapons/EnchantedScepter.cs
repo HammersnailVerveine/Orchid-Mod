@@ -21,14 +21,14 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 9f;
 			Item.shoot = ModContent.ProjectileType<EnchantedScepterProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Enchanted Scepter");
-			Tooltip.SetDefault("Weapon damage increases with the number of active shamanic bonds");
+			// DisplayName.SetDefault("Enchanted Scepter");
+			// Tooltip.SetDefault("Weapon damage increases with the number of active shamanic bonds");
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shroomy Totem");
+			// DisplayName.SetDefault("Shroomy Totem");
 		}
 
 		public override void SafeSetDefaults()
@@ -61,7 +61,7 @@ namespace OrchidMod.Shaman.Projectiles
 				{
 					if (!target.active || !target.CanBeChasedBy() || Vector2.Distance(Projectile.Center, target.Center) > pr) continue;
 
-					target.StrikeNPCNoInteraction(Projectile.damage, 0f, 0);
+					target.SimpleStrikeNPC(Projectile.damage, target.direction);
 					if (NbBonds >= 3)
 					{
 						OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
@@ -132,7 +132,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity) => false;
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			zoneTexture = null;
 

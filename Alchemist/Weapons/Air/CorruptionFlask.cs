@@ -28,11 +28,11 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vitriol Mycelium");
-			Tooltip.SetDefault("Grows a mushroom, exploding after a while or when being catalyzed"
+			// DisplayName.SetDefault("Vitriol Mycelium");
+			/* Tooltip.SetDefault("Grows a mushroom, exploding after a while or when being catalyzed"
 							+ "\nThe more ingredients used, the more delayed the explosion"
 							+ "\nThe mushroom will absorb the properties of nearby spores, creating more of them"
-							+ "\nOnly one mushroom can exist at once");
+							+ "\nOnly one mushroom can exist at once"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

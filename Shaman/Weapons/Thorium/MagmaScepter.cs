@@ -25,17 +25,17 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<MagmaScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Magma Scepter");
-			Tooltip.SetDefault("Shoots a magma bolt, hitting your enemy 2 times"
+			// DisplayName.SetDefault("Magma Scepter");
+			/* Tooltip.SetDefault("Shoots a magma bolt, hitting your enemy 2 times"
 							+ "\nHitting the same target twice will grant you a magma orb"
 							+ "\nIf you have 5 orbs, your next hit will explode"
-							+ "\nAttacks might singe the target, causing extra damage");
+							+ "\nAttacks might singe the target, causing extra damage"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

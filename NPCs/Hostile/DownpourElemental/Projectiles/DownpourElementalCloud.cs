@@ -19,7 +19,7 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thunder Cloud");
+			// DisplayName.SetDefault("Thunder Cloud");
 		}
 
 		public override void AI()

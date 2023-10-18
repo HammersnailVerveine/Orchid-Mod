@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Spore Empowerment");
-			Description.SetDefault("Empowers the spore caller next use");
+			// DisplayName.SetDefault("Spore Empowerment");
+			// Description.SetDefault("Empowers the spore caller next use");
 			Main.buffNoSave[Type] = true;
 		}
 	}

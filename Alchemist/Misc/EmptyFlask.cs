@@ -18,9 +18,9 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Empty Flask");
-			Tooltip.SetDefault("Sold by the mineshaft chemist"
-							+ "\nUsed to make various alchemist weapons");
+			// DisplayName.SetDefault("Empty Flask");
+			/* Tooltip.SetDefault("Sold by the mineshaft chemist"
+							+ "\nUsed to make various alchemist weapons"); */
 		}
 
 	}

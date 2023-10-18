@@ -21,7 +21,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flower");
+			// DisplayName.SetDefault("Flower");
 		}
 
 		public override void SafeAI()

@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Flake");
+			// DisplayName.SetDefault("Ice Flake");
 		}
 
 		public override void SafeSetDefaults()
@@ -82,7 +82,7 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void OnHitPlayer(Player target, int damage, bool crit)
+		public override void OnHitPlayer(Player target, Player.HurtInfo info)
 		{
 			VanillaAI_003__Hit();
 		}

@@ -8,8 +8,8 @@ namespace OrchidMod.Alchemist.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Permanent Freeze");
-			Description.SetDefault("Constantly freezes various alchemical projectiles and slows enemies around you");
+			// DisplayName.SetDefault("Permanent Freeze");
+			// Description.SetDefault("Constantly freezes various alchemical projectiles and slows enemies around you");
 			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

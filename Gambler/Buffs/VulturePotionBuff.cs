@@ -8,8 +8,8 @@ namespace OrchidMod.Gambler.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Scavenger");
-			Description.SetDefault("20% increased chip generation");
+			// DisplayName.SetDefault("Scavenger");
+			// Description.SetDefault("20% increased chip generation");
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{

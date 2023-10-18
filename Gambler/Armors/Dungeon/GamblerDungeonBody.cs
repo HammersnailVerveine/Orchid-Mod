@@ -18,9 +18,9 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tyche Chestplate");
-			Tooltip.SetDefault("10% increased gambling critical strike chance"
-							+ "\nMaximum redraws increased by 1");
+			// DisplayName.SetDefault("Tyche Chestplate");
+			/* Tooltip.SetDefault("10% increased gambling critical strike chance"
+							+ "\nMaximum redraws increased by 1"); */
 		}
 
 		public override void UpdateEquip(Player player)

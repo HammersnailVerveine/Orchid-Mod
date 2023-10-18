@@ -6,9 +6,9 @@ namespace OrchidMod.Gambler.Decks
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bone Gambler Deck");
-			Tooltip.SetDefault("Allows the use of gambler abilities"
-							+ "\n'+206 bones'");
+			// DisplayName.SetDefault("Bone Gambler Deck");
+			/* Tooltip.SetDefault("Allows the use of gambler abilities"
+							+ "\n'+206 bones'"); */
 		}
 
 		public override void SafeSetDefaults()

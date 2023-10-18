@@ -21,8 +21,8 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mythril Spangenhelm");
-			Tooltip.SetDefault("15% increased shamanic damage");
+			// DisplayName.SetDefault("Mythril Spangenhelm");
+			// Tooltip.SetDefault("15% increased shamanic damage");
 		}
 
 		public override void UpdateEquip(Player player)

@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<CorruptConeProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Corrupt Scepter");
-			Tooltip.SetDefault("Sprays your enemies with piercing corrupt flames"
+			// DisplayName.SetDefault("Corrupt Scepter");
+			/* Tooltip.SetDefault("Sprays your enemies with piercing corrupt flames"
 							  + "\nThe first enemy hit will fill a corrupt tank above you"
-							  + "\nYour next hit after the tank is full will release a shower of corrupt flames in the direction you're moving");
+							  + "\nYour next hit after the tank is full will release a shower of corrupt flames in the direction you're moving"); */
 		}
 
 		public override Color? GetAlpha(Color lightColor)

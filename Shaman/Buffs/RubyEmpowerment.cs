@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Ruby Empowerment");
-			Description.SetDefault("Increases life regeneration");
+			// DisplayName.SetDefault("Ruby Empowerment");
+			// Description.SetDefault("Increases life regeneration");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

@@ -24,16 +24,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<TerraSpecterProj2>();
-			this.empowermentType = 5;
+			this.Element = 5;
 			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terra Scepter");
-			Tooltip.SetDefault("Hits grow a terra orb, breaking free upon reaching a certain power"
+			// DisplayName.SetDefault("Terra Scepter");
+			/* Tooltip.SetDefault("Hits grow a terra orb, breaking free upon reaching a certain power"
 							  + "\nHitting with the orb increases your shamanic damage"
-							  + "\nShoots more projectiles based on the number of active shamanic bonds");
+							  + "\nShoots more projectiles based on the number of active shamanic bonds"); */
 		}
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{

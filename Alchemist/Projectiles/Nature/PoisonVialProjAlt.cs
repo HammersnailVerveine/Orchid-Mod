@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bubble");
+			// DisplayName.SetDefault("Bubble");
 		}
 
 		public override void SafeSetDefaults()
@@ -45,7 +45,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

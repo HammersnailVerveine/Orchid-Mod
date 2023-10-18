@@ -19,11 +19,11 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Harpy Anklet");
-			Tooltip.SetDefault("Releases a burst of feathers around you when using a double jump"
+			// DisplayName.SetDefault("Harpy Anklet");
+			/* Tooltip.SetDefault("Releases a burst of feathers around you when using a double jump"
 							  + "\nAllows you to double jump, if you cannot already"
 							  + "\nDamage increased under the effect of cloud burst potion"
-							 + "\nThese effects will only occur if you have an active shamanic air bond");
+							 + "\nThese effects will only occur if you have an active shamanic air bond"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

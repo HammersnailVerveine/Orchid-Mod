@@ -15,8 +15,8 @@ namespace OrchidMod.Gambler.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Imp Dice Cup");
-			Tooltip.SetDefault("Gambler dice cannot roll a 1 or a 2");
+			// DisplayName.SetDefault("Imp Dice Cup");
+			// Tooltip.SetDefault("Gambler dice cannot roll a 1 or a 2");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

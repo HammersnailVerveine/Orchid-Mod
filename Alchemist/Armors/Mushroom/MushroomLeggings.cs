@@ -21,8 +21,8 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phosphorescent Leggings");
-			Tooltip.SetDefault("5% increased potency regeneration");
+			// DisplayName.SetDefault("Phosphorescent Leggings");
+			// Tooltip.SetDefault("5% increased potency regeneration");
 		}
 
 		public override void UpdateEquip(Player player)

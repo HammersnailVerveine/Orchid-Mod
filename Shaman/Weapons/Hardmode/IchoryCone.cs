@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<IchoryConeProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ichor Scepter");
-			Tooltip.SetDefault("Sprays your enemies with piercing ichor bursts"
+			// DisplayName.SetDefault("Ichor Scepter");
+			/* Tooltip.SetDefault("Sprays your enemies with piercing ichor bursts"
 							  + "\nThe first enemy hit will fill an ichor cyst above you"
-							  + "\nYour next hit after the cyst is full will release a shower of ichor in the direction you're moving");
+							  + "\nYour next hit after the cyst is full will release a shower of ichor in the direction you're moving"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

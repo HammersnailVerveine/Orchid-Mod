@@ -23,9 +23,9 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Abyssal Helm");
-			Tooltip.SetDefault("Your shamanic bonds will last 5 seconds longer"
-								+ "\n7% increased shamanic damage and critical strike chance");
+			// DisplayName.SetDefault("Abyssal Helm");
+			/* Tooltip.SetDefault("Your shamanic bonds will last 5 seconds longer"
+								+ "\n7% increased shamanic damage and critical strike chance"); */
 		}
 
 		public override void UpdateEquip(Player player)
@@ -51,7 +51,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.armorEffectDrawShadow = true;
-			String dir = Main.ReversedUpDownArmorSetBonuses ? "DOWN" : "UP";
+			String dir = Main.ReversedUpDownArmorSetBonuses ? "UP" : "DOWN";
 			player.setBonus = "\n             Double tap " + dir + " to summon an abyss portal"
 							+ "\n             Portal damage grants an air shamanic bond";
 

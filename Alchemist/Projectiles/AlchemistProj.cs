@@ -47,7 +47,7 @@ namespace OrchidMod.Alchemist.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemical Solution");
+			// DisplayName.SetDefault("Alchemical Solution");
 		}
 
 		public override void PostDraw(Color lightColor)
@@ -222,7 +222,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();

@@ -19,9 +19,9 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sun Priest Tunic");
-			Tooltip.SetDefault("8% increased shamanic damage"
-							 + "\n4% increased shamanic critical stike chance");
+			// DisplayName.SetDefault("Sun Priest Tunic");
+			/* Tooltip.SetDefault("8% increased shamanic damage"
+							 + "\n4% increased shamanic critical stike chance"); */
 		}
 
 		public override void UpdateEquip(Player player)

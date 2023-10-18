@@ -9,8 +9,8 @@ namespace OrchidMod.General.Items.Materials
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
-			DisplayName.SetDefault("Ancient Fossil");
-			Tooltip.SetDefault("Seems kinda old");
+			// DisplayName.SetDefault("Ancient Fossil");
+			// Tooltip.SetDefault("Seems kinda old");
 		}
 
 		public override void SetDefaults()

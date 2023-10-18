@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
 			Item.shoot = ModContent.ProjectileType<VileSpoutProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 6;
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
@@ -30,9 +30,9 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vile Spout");
-			Tooltip.SetDefault("Shoots short ranged corruption beams"
-							  + "\nThe weapon range scales with the number of active shamanic bonds");
+			// DisplayName.SetDefault("Vile Spout");
+			/* Tooltip.SetDefault("Shoots short ranged corruption beams"
+							  + "\nThe weapon range scales with the number of active shamanic bonds"); */
 		}
 
 		public override void UpdateInventory(Player player)

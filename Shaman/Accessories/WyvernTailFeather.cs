@@ -16,9 +16,9 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wyvern Tail Feather");
-			Tooltip.SetDefault("Increases flight time as long as you have an active shamanic air bond"
-							+ "\nShamanic damage is increased by 10% during flight, but reduced by 5% on land");
+			// DisplayName.SetDefault("Wyvern Tail Feather");
+			/* Tooltip.SetDefault("Increases flight time as long as you have an active shamanic air bond"
+							+ "\nShamanic damage is increased by 10% during flight, but reduced by 5% on land"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Accessories
 			modPlayer.shamanWyvern = true;
 
 
-			if (player.wingTimeMax > 0 && modPlayer.shamanAirTimer > 0)
+			if (player.wingTimeMax > 0 && modPlayer.ShamanAirBondReleased)
 			{
 				player.wingTimeMax += 60;
 			}

@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wyvern Spit");
+			// DisplayName.SetDefault("Wyvern Spit");
 
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
@@ -56,9 +56,9 @@ namespace OrchidMod.Shaman.Projectiles
 			);
 		}
 
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (Improved) damage += damage;
+			if (Improved) modifiers.FinalDamage *= 2f;
 		}
 
 		public override void AI()

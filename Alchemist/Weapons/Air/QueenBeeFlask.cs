@@ -28,9 +28,9 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Royal Jelly");
-			Tooltip.SetDefault("If no fire element is used, summons bees on impact"
-							+ "\nHas a chance to release a catalytic beehive");
+			// DisplayName.SetDefault("Royal Jelly");
+			/* Tooltip.SetDefault("If no fire element is used, summons bees on impact"
+							+ "\nHas a chance to release a catalytic beehive"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

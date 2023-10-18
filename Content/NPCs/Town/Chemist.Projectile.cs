@@ -21,10 +21,10 @@ namespace OrchidMod.Content.NPCs.Town
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemical Solution");
+			// DisplayName.SetDefault("Alchemical Solution");
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int proj = ModContent.ProjectileType<AlchemistSmoke1>();
 			Vector2 vel;

@@ -28,10 +28,10 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Moonglow Extract");
-			Tooltip.SetDefault("Releases nature spores, the less other extracts used, the more"
+			// DisplayName.SetDefault("Moonglow Extract");
+			/* Tooltip.SetDefault("Releases nature spores, the less other extracts used, the more"
 							+ "\nOnly one set of spores can exist at once"
-							+ "\nSpores deals 10% increased damage against fire-coated enemies");
+							+ "\nSpores deals 10% increased damage against fire-coated enemies"); */
 		}
 
 		public override void AddRecipes()

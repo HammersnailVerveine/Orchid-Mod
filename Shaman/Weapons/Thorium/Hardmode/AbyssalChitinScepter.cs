@@ -26,17 +26,17 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.shootSpeed = 5f;
 			Item.shoot = ModContent.ProjectileType<AbyssalChitinScepterProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			this.energy = 20;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Naga Fizzler");
-			Tooltip.SetDefault("Spits out a burst of bubbles, growing stronger with time"
+			// DisplayName.SetDefault("Naga Fizzler");
+			/* Tooltip.SetDefault("Spits out a burst of bubbles, growing stronger with time"
 							+ "\nOnly one set of bubbles can be active at once"
 							+ "\nYour number of active shamanic bonds increases the damage increase rate"
-							+ "\n'Used to be called the fizzling wand of fizzly fizzies'");
+							+ "\n'Used to be called the fizzling wand of fizzly fizzies'"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

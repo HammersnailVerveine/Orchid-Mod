@@ -29,11 +29,11 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Jungle Lily Extract");
-			Tooltip.SetDefault("Enemies and spores within impact radius will bloom"
+			// DisplayName.SetDefault("Jungle Lily Extract");
+			/* Tooltip.SetDefault("Enemies and spores within impact radius will bloom"
 							+ "\nBloomed spores will duplicate a maximum of once"
 							+ "\nBloomed enemies will spawn spores for each of their coatings"
-							+ "\nDirect hits will apply a nature coating");
+							+ "\nDirect hits will apply a nature coating"); */
 		}
 
 		public override void AddRecipes()

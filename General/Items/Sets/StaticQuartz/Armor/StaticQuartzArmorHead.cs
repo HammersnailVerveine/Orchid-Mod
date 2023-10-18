@@ -21,7 +21,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Static Quartz Headpiece");
+			// DisplayName.SetDefault("Static Quartz Headpiece");
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

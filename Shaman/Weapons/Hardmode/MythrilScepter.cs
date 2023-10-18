@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<MythrilScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 12;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mythril Scepter");
-			Tooltip.SetDefault("Shoots a potent mythril bolt, hitting your enemy 3 times"
+			// DisplayName.SetDefault("Mythril Scepter");
+			/* Tooltip.SetDefault("Shoots a potent mythril bolt, hitting your enemy 3 times"
 							  + "\nHitting the same target with all 3 shots will grant you a mythril orb"
-							  + "\nIf you have 5 mythril orbs, your next hit will increase your defense by 8 for 30 seconds");
+							  + "\nIf you have 5 mythril orbs, your next hit will increase your defense by 8 for 30 seconds"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

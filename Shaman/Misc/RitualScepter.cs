@@ -17,8 +17,8 @@ namespace OrchidMod.Shaman.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ritual Scepter");
-			Tooltip.SetDefault("Can be upgraded into various shamanic weapons");
+			// DisplayName.SetDefault("Ritual Scepter");
+			// Tooltip.SetDefault("Can be upgraded into various shamanic weapons");
 		}
 	}
 }

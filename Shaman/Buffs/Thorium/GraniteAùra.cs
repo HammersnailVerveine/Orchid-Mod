@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Granite Aura");
-			Description.SetDefault("Granite energy orbits around you");
+			// DisplayName.SetDefault("Granite Aura");
+			// Description.SetDefault("Granite energy orbits around you");
 		}
 	}
 }

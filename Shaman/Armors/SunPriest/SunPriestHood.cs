@@ -19,9 +19,9 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sun Priest Hood");
-			Tooltip.SetDefault("10% increased shamanic damage"
-							  + "\nYour shamanic bonds will last 5 seconds longer");
+			// DisplayName.SetDefault("Sun Priest Hood");
+			/* Tooltip.SetDefault("10% increased shamanic damage"
+							  + "\nYour shamanic bonds will last 5 seconds longer"); */
 		}
 
 		public override void UpdateEquip(Player player)

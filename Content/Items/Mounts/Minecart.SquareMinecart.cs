@@ -12,8 +12,8 @@ namespace OrchidMod.Content.Items.Mounts
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Square Minecart");
-			Tooltip.SetDefault("'Great for impersonating Orchid Devs!'"); // S-Pladison
+			// DisplayName.SetDefault("Square Minecart");
+			// Tooltip.SetDefault("'Great for impersonating Orchid Devs!'"); // S-Pladison
 		}
 
 		public override void SetDefaults()
@@ -32,8 +32,8 @@ namespace OrchidMod.Content.Items.Mounts
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Minecart"); // Square Minecart (all vanilla minecarts have this name...)
-			Description.SetDefault("Riding in a minecart");
+			// DisplayName.SetDefault("Minecart"); // Square Minecart (all vanilla minecarts have this name...)
+			// Description.SetDefault("Riding in a minecart");
 
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.buffNoSave[Type] = true;

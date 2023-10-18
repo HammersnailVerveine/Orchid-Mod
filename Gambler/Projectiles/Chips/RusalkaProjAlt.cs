@@ -9,7 +9,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rusalka's Waters");
+			// DisplayName.SetDefault("Rusalka's Waters");
 		}
 
 		public override void SafeSetDefaults()
@@ -55,7 +55,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

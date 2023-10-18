@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Geyser");
+			// DisplayName.SetDefault("Geyser");
 		}
 
 		public override void AI()
@@ -42,7 +42,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

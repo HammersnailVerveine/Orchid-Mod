@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 13f;
 			Item.shoot = ModContent.ProjectileType<RuneScepterProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
 			this.energy = 4;
@@ -29,9 +29,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rune Scepter");
-			Tooltip.SetDefault("Shoots short ranged rune bolts"
-							  + "\nProjectile range and damage scales with the number of active shamanic bonds");
+			// DisplayName.SetDefault("Rune Scepter");
+			/* Tooltip.SetDefault("Shoots short ranged rune bolts"
+							  + "\nProjectile range and damage scales with the number of active shamanic bonds"); */
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

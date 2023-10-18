@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadow Portal");
+			// DisplayName.SetDefault("Shadow Portal");
 		}
 
 		public override void AI()
@@ -79,7 +79,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

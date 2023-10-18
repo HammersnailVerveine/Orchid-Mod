@@ -26,9 +26,9 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Samples");
-			Tooltip.SetDefault("Mixing with a nature element confuses hit enemies"
-							+ "\n'Handcrafted jars are unfit for precise alchemy'");
+			// DisplayName.SetDefault("Stardust Samples");
+			/* Tooltip.SetDefault("Mixing with a nature element confuses hit enemies"
+							+ "\n'Handcrafted jars are unfit for precise alchemy'"); */
 		}
 
 		public override void AddRecipes()

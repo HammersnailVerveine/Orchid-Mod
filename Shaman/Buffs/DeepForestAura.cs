@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = true;
-			DisplayName.SetDefault("Deep Forest Aura");
-			Description.SetDefault("Sharp Leaves orbits around you");
+			// DisplayName.SetDefault("Deep Forest Aura");
+			// Description.SetDefault("Sharp Leaves orbits around you");
 		}
 	}
 }

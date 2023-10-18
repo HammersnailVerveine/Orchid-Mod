@@ -47,14 +47,14 @@ namespace OrchidMod.Content.NPCs.Town
 
 			Visible = false;
 
-			On.Terraria.Player.SetTalkNPC += ModifySetTalkNPC;
-			On.Terraria.Main.GUIChatDrawInner += DrawOverVanillaNPCChat;
+			Terraria.On_Player.SetTalkNPC += ModifySetTalkNPC;
+			Terraria.On_Main.GUIChatDrawInner += DrawOverVanillaNPCChat;
 		}
 
 		void ILoadable.Unload()
 		{
-			On.Terraria.Player.SetTalkNPC -= ModifySetTalkNPC;
-			On.Terraria.Main.GUIChatDrawInner -= DrawOverVanillaNPCChat;
+			Terraria.On_Player.SetTalkNPC -= ModifySetTalkNPC;
+			Terraria.On_Main.GUIChatDrawInner -= DrawOverVanillaNPCChat;
 		}
 
 		// ...
@@ -216,7 +216,7 @@ namespace OrchidMod.Content.NPCs.Town
 				}
 				else
 				{
-					modPlayer.OnRespawn(player);
+					modPlayer.OnRespawn();
 				}
 			}
 		}
@@ -252,9 +252,10 @@ namespace OrchidMod.Content.NPCs.Town
 				bool[] preFixLine = new bool[30], badPreFixLine = new bool[30];
 				var triangleHexColor = Colors.AlphaDarken(Color.White).Hex3();
 
-				Main.MouseText_DrawItemTooltip_GetLinesInfo(hoverItem, ref yoyoLogo, ref researchLine, hoverItem.knockBack, ref numLines, toolTipLine, preFixLine, badPreFixLine, tooltipNames);
+				Main.MouseText_DrawItemTooltip_GetLinesInfo(hoverItem, ref yoyoLogo, ref researchLine, hoverItem.knockBack, ref numLines, toolTipLine, preFixLine, badPreFixLine, tooltipNames, out _);
 
-				tooltips = ItemLoader.ModifyTooltips(hoverItem, ref numLines, tooltipNames, ref toolTipLine, ref preFixLine, ref badPreFixLine, ref yoyoLogo, out _);
+				//tooltips = ItemLoader.ModifyTooltips(hoverItem, ref numLines, tooltipNames, ref toolTipLine, ref preFixLine, ref badPreFixLine, ref yoyoLogo, out _);
+				tooltips = ItemLoader.ModifyTooltips(hoverItem, ref numLines, tooltipNames, ref toolTipLine, ref preFixLine, ref badPreFixLine, ref yoyoLogo, out _, 0);
 				tooltips = tooltips.Where(i => TooltipsWhitelist.Contains(i.Name) || i.Name.StartsWith("Tooltip") || i.Name.StartsWith("Prefix")).ToList();
 
 				tooltips.Insert(0, new TooltipLine(OrchidMod.Instance, "ItemName", hoverItem.HoverName.Replace("Playing Card : ", "")) { OverrideColor = ItemRarity.GetColor(hoverItem.rare) });
@@ -314,7 +315,7 @@ namespace OrchidMod.Content.NPCs.Town
 
 		// ...
 
-		private static void ModifySetTalkNPC(On.Terraria.Player.orig_SetTalkNPC orig, Player player, int npcIndex, bool fromNet)
+		private static void ModifySetTalkNPC(Terraria.On_Player.orig_SetTalkNPC orig, Player player, int npcIndex, bool fromNet)
 		{
 			orig(player, npcIndex, fromNet);
 
@@ -323,7 +324,7 @@ namespace OrchidMod.Content.NPCs.Town
 			Instance.Visible = false;
 		}
 
-		private static void DrawOverVanillaNPCChat(On.Terraria.Main.orig_GUIChatDrawInner orig, Main main)
+		private static void DrawOverVanillaNPCChat(Terraria.On_Main.orig_GUIChatDrawInner orig, Main main)
 		{
 			var ui = Instance;
 			var isVisible = ui.Visible;

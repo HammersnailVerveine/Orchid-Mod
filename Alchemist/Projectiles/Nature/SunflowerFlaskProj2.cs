@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sunflower");
+			// DisplayName.SetDefault("Sunflower");
 		}
 
 		public override void SafeSetDefaults()
@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			Projectile.tileCollide = false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

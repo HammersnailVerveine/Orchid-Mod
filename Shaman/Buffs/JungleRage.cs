@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = true;
-			DisplayName.SetDefault("Jungle Rage");
-			Description.SetDefault("20% increased shamanic damage");
+			// DisplayName.SetDefault("Jungle Rage");
+			// Description.SetDefault("20% increased shamanic damage");
 		}
 	}
 }

@@ -8,10 +8,10 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Spiritual Burst");
-			Description.SetDefault("Empowers the Reviver of Souls weapon"
+			// DisplayName.SetDefault("Spiritual Burst");
+			/* Description.SetDefault("Empowers the Reviver of Souls weapon"
 								+ "\nAll your attacks with it will refresh every single of your active shamanic bonds"
-								+ "\nThey will also increase the weapon damage even more per hit");
+								+ "\nThey will also increase the weapon damage even more per hit"); */
 			Main.buffNoSave[Type] = true;
 		}
 	}

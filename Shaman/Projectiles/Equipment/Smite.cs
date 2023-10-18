@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Smite");
+			// DisplayName.SetDefault("Smite");
 		}
 
 		public override void AI()

@@ -20,9 +20,9 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Destroyer Necklace");
-			Tooltip.SetDefault("Enter a frenzied state by dealing 5 critical strikes in a short period of time under the effect of a shamanic water bond"
-							+ "\nWhile frenzied, shamanic damage and critical strike damage is increased by 15%");
+			// DisplayName.SetDefault("Destroyer Necklace");
+			/* Tooltip.SetDefault("Enter a frenzied state by dealing 5 critical strikes in a short period of time under the effect of a shamanic water bond"
+							+ "\nWhile frenzied, shamanic damage and critical strike damage is increased by 15%"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

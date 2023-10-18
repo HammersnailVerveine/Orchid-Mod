@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<SolarPebbleScepterProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ecliptic Flare");
-			Tooltip.SetDefault("Fires a storm of solar embers"
-							+ "\nHitting will charge an eclipse above you, releasing homing flames when full");
+			// DisplayName.SetDefault("Ecliptic Flare");
+			/* Tooltip.SetDefault("Fires a storm of solar embers"
+							+ "\nHitting will charge an eclipse above you, releasing homing flames when full"); */
 		}
 
 		public override void AddRecipes()

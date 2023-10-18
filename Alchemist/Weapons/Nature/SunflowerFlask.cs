@@ -28,9 +28,9 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Forest Samples");
-			Tooltip.SetDefault("Using a water element increases damage and spawns a damaging sunflower"
-							+ "\n'Handcrafted jars are unfit for precise alchemy'");
+			// DisplayName.SetDefault("Forest Samples");
+			/* Tooltip.SetDefault("Using a water element increases damage and spawns a damaging sunflower"
+							+ "\n'Handcrafted jars are unfit for precise alchemy'"); */
 		}
 
 		public override void AddRecipes()

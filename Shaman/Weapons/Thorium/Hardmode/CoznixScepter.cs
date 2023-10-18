@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = false;
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<CoznixScepterProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 25;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gate to the Fallen");
-			Tooltip.SetDefault("Fires out a void bolt"
-							+ "\nIf you have 3 or more active shamanic bonds, the bolt will summon a void portal");
+			// DisplayName.SetDefault("Gate to the Fallen");
+			/* Tooltip.SetDefault("Fires out a void bolt"
+							+ "\nIf you have 3 or more active shamanic bonds, the bolt will summon a void portal"); */
 		}
 	}
 }

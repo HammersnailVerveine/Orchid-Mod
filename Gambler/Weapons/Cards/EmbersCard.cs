@@ -25,8 +25,8 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Embers");
-			Tooltip.SetDefault("Releases homing embers");
+			// DisplayName.SetDefault("Playing Card : Embers");
+			// Tooltip.SetDefault("Releases homing embers");
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

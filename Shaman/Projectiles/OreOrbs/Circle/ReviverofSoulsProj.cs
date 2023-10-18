@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wisp");
+			// DisplayName.SetDefault("Wisp");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -58,7 +58,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{
@@ -75,6 +75,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
+			/*
 			if (Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("GraniteAura").Type) > -1 || Main.LocalPlayer.FindBuffIndex(Mod.Find<ModBuff>("SpiritualBurst").Type) > -1)
 			{
 				return;
@@ -144,7 +145,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 
 			if (modPlayer.orbCountCircle == 39)
 				player.AddBuff(Mod.Find<ModBuff>("SpiritualBurst").Type, 60 * 15);
-
+			*/
 		}
 	}
 }

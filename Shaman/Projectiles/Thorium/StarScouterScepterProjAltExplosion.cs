@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Orbital Explosion");
+			// DisplayName.SetDefault("Orbital Explosion");
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer) { }

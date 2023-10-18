@@ -15,14 +15,14 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ondine Tear");
-			Tooltip.SetDefault("Your shamanic water bonds will increase your shamanic critical strike chance by 10%");
+			// DisplayName.SetDefault("Ondine Tear");
+			// Tooltip.SetDefault("Your shamanic water bonds will increase your shamanic critical strike chance by 10%");
 
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			if (modPlayer.shamanWaterTimer > 0)
+			if (modPlayer.ShamanWaterBondReleased)
 			{
 				player.GetCritChance<ShamanDamageClass>() += 10;
 			}

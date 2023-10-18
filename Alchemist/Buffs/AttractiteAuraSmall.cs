@@ -10,8 +10,8 @@ namespace OrchidMod.Alchemist.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lesser Attractite Aura");
-			Description.SetDefault("Applies attractite to nearby enemies");
+			// DisplayName.SetDefault("Lesser Attractite Aura");
+			// Description.SetDefault("Applies attractite to nearby enemies");
 			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

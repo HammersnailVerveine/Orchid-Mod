@@ -11,7 +11,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Static Quartz Blowpipe");
+			// DisplayName.SetDefault("Static Quartz Blowpipe");
 		}
 
 		public override void SetDefaults()

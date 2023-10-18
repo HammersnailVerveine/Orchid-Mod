@@ -21,9 +21,9 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Amethyst Circlet");
-			Tooltip.SetDefault("Having an active spirit bond increases shamanic damage by 10%"
-							  + "\nYour shamanic bonds will last 3 seconds longer");
+			// DisplayName.SetDefault("Amethyst Circlet");
+			/* Tooltip.SetDefault("Having an active spirit bond increases shamanic damage by 10%"
+							  + "\nYour shamanic bonds will last 3 seconds longer"); */
 		}
 
 		public override void UpdateEquip(Player player)

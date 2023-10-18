@@ -21,8 +21,8 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cobalt Spangenhelm");
-			Tooltip.SetDefault("9% increased shamanic critical strike chance");
+			// DisplayName.SetDefault("Cobalt Spangenhelm");
+			// Tooltip.SetDefault("9% increased shamanic critical strike chance");
 		}
 
 		public override void UpdateEquip(Player player)

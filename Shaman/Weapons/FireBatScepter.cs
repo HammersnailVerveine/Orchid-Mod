@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 16f;
 			Item.shoot = ModContent.ProjectileType<FireBatScepterProj>();
-			this.empowermentType = 3;
+			this.Element = 3;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 			this.energy = 6;
@@ -31,10 +31,10 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fire Bat Scepter");
-			Tooltip.SetDefault("Shoots fiery bats at your foes"
+			// DisplayName.SetDefault("Fire Bat Scepter");
+			/* Tooltip.SetDefault("Shoots fiery bats at your foes"
 							  + "\nThe weapon speed increases slightly with the number of active shamanic bonds"
-							  + "\nIf you have 3 or more active shamanic bonds, the bats will home towards enemies");
+							  + "\nIf you have 3 or more active shamanic bonds, the bats will home towards enemies"); */
 		}
 
 		public override void UpdateInventory(Player player)

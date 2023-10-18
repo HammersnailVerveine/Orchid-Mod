@@ -7,8 +7,8 @@ namespace OrchidMod.Alchemist.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Demon Reek");
-			Description.SetDefault("Demon breath will create more projectiles");
+			// DisplayName.SetDefault("Demon Reek");
+			// Description.SetDefault("Demon breath will create more projectiles");
 			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

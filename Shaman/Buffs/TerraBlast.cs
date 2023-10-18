@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Terra Blast");
-			Description.SetDefault("Shamanic damage increased by 15%");
+			// DisplayName.SetDefault("Terra Blast");
+			// Description.SetDefault("Shamanic damage increased by 15%");
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{

@@ -20,8 +20,8 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Adamantite Spangenhelm");
-			Tooltip.SetDefault("11% increased shamanic damage and critical chance");
+			// DisplayName.SetDefault("Adamantite Spangenhelm");
+			// Tooltip.SetDefault("11% increased shamanic damage and critical chance");
 		}
 
 		public override void UpdateEquip(Player player)

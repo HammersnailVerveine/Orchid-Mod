@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fire Bat");
+			// DisplayName.SetDefault("Fire Bat");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -46,7 +46,7 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

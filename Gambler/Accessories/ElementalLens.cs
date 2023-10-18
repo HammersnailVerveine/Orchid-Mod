@@ -16,9 +16,9 @@ namespace OrchidMod.Gambler.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Elemental Lens");
-			Tooltip.SetDefault("Gambler 'elemental' cards attacks will affect enemy with related debuffs"
-							+ "\nCards already inflicting debuffs will have them last longer");
+			// DisplayName.SetDefault("Elemental Lens");
+			/* Tooltip.SetDefault("Gambler 'elemental' cards attacks will affect enemy with related debuffs"
+							+ "\nCards already inflicting debuffs will have them last longer"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

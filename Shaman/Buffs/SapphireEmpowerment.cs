@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Sapphire Empowerment");
-			Description.SetDefault("Increases shamanic critical strike chance by 10%");
+			// DisplayName.SetDefault("Sapphire Empowerment");
+			// Description.SetDefault("Increases shamanic critical strike chance by 10%");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

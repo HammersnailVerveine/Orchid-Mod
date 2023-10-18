@@ -24,8 +24,8 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fire Vial");
-			Tooltip.SetDefault("\n[c/FF0000:Test Item]");
+			// DisplayName.SetDefault("Fire Vial");
+			// Tooltip.SetDefault("\n[c/FF0000:Test Item]");
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

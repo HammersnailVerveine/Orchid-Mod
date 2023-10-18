@@ -19,8 +19,8 @@ namespace OrchidMod.Shaman.Armors.Harpy
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Harpy Tunic");
-			Tooltip.SetDefault("8% increased shamanic critical strike chance");
+			// DisplayName.SetDefault("Harpy Tunic");
+			// Tooltip.SetDefault("8% increased shamanic critical strike chance");
 		}
 
 		public override void UpdateEquip(Player player)

@@ -17,7 +17,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Explosion");
+			// DisplayName.SetDefault("Explosion");
 		}
 
 		public override void AI()

@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lava Slime Bubble");
+			// DisplayName.SetDefault("Lava Slime Bubble");
 		}
 
 		public override void OnSpawn(IEntitySource source)

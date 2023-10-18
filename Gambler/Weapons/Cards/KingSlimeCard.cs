@@ -25,9 +25,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Blue King");
-			Tooltip.SetDefault("Summons a bouncy slime, following your cursor, and jumping up to it"
-							+ "\nGains in damage with fall distance and enemy hits, touching on the ground resets it");
+			// DisplayName.SetDefault("Playing Card : Blue King");
+			/* Tooltip.SetDefault("Summons a bouncy slime, following your cursor, and jumping up to it"
+							+ "\nGains in damage with fall distance and enemy hits, touching on the ground resets it"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

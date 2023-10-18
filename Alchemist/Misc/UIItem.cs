@@ -87,11 +87,11 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("The Alchemist's Cookbook");
-			Tooltip.SetDefault("Allows mixing alchemical weapons by clicking"
+			// DisplayName.SetDefault("The Alchemist's Cookbook");
+			/* Tooltip.SetDefault("Allows mixing alchemical weapons by clicking"
 							+ "\nRight click on an item icon to mix it"
 							+ "\nLeft click to launch the attack"
-							+ "\nUp to 18 items can be displayed at once");
+							+ "\nUp to 18 items can be displayed at once"); */
 		}
 
 	}

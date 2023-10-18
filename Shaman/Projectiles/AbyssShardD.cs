@@ -7,7 +7,7 @@ namespace OrchidMod.Shaman.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Abyss Lightning");
+			// DisplayName.SetDefault("Abyss Lightning");
 		}
 		public override void SafeSetDefaults()
 		{

@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Shroom Regeneration");
-			Description.SetDefault("Increased life regeneration");
+			// DisplayName.SetDefault("Shroom Regeneration");
+			// Description.SetDefault("Increased life regeneration");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

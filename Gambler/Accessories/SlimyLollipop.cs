@@ -16,8 +16,8 @@ namespace OrchidMod.Gambler.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slimy Lollipop");
-			Tooltip.SetDefault("Periodically releases friendly slimes when a gambler 'slime' card is active");
+			// DisplayName.SetDefault("Slimy Lollipop");
+			// Tooltip.SetDefault("Periodically releases friendly slimes when a gambler 'slime' card is active");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

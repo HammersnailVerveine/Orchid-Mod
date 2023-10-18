@@ -16,11 +16,11 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Waxy Tear");
-			Tooltip.SetDefault("Your shamanic water bonds will increase your shamanic critical strike chance by 10%"
+			// DisplayName.SetDefault("Waxy Tear");
+			/* Tooltip.SetDefault("Your shamanic water bonds will increase your shamanic critical strike chance by 10%"
 							 + "\nYour shamanic critical strikes will recover you some health"
 							 + "\nYour shamanic earth bonds will cover you in honey"
-							 + "\nYou have a chance to release harmful bees when under the effect of shamanic earth bonds");
+							 + "\nYou have a chance to release harmful bees when under the effect of shamanic earth bonds"); */
 
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -28,7 +28,7 @@ namespace OrchidMod.Shaman.Accessories
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanHoney = true;
 			modPlayer.shamanWaterHoney = true;
-			if (modPlayer.shamanWaterTimer > 0)
+			if (modPlayer.ShamanWaterBondReleased)
 			{
 				player.GetCritChance<ShamanDamageClass>() += 10;
 			}

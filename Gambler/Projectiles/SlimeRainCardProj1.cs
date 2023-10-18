@@ -10,7 +10,7 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slime Cloud");
+			// DisplayName.SetDefault("Slime Cloud");
 		}
 
 		public override void SafeSetDefaults()

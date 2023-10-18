@@ -7,8 +7,8 @@ namespace OrchidMod.Alchemist.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Burning Samples");
-			Description.SetDefault("Using slimy samples with a fire element will release damaging embers");
+			// DisplayName.SetDefault("Burning Samples");
+			// Description.SetDefault("Using slimy samples with a fire element will release damaging embers");
 			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

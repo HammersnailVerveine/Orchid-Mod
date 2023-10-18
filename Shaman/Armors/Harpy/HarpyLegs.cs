@@ -18,9 +18,9 @@ namespace OrchidMod.Shaman.Armors.Harpy
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Harpy Legs");
-			Tooltip.SetDefault("6% increased shamanic damage"
-							 + "\n10% increased movement speed");
+			// DisplayName.SetDefault("Harpy Legs");
+			/* Tooltip.SetDefault("6% increased shamanic damage"
+							 + "\n10% increased movement speed"); */
 		}
 
 		public override void UpdateEquip(Player player)

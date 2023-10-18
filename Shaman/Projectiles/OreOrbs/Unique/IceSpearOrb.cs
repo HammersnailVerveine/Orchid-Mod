@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Spear Orb");
+			// DisplayName.SetDefault("Ice Spear Orb");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -185,7 +185,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 

@@ -21,9 +21,9 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 		{
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 
-			DisplayName.SetDefault("Lily Hood");
-			Tooltip.SetDefault("20% increased potency regeneration"
-							  + "\nMaximum number of simultaneous alchemical elements increased by 1");
+			// DisplayName.SetDefault("Lily Hood");
+			/* Tooltip.SetDefault("20% increased potency regeneration"
+							  + "\nMaximum number of simultaneous alchemical elements increased by 1"); */
 		}
 
 		public override void UpdateEquip(Player player)

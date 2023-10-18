@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
@@ -22,8 +23,8 @@ namespace OrchidMod.Tiles.Ambient
 			Main.tileLavaDeath[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Static Quartz Node");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Static Quartz Node");
 			AddMapEntry(new Color(216, 21, 54), name);
 			DustType = 60;
 		}

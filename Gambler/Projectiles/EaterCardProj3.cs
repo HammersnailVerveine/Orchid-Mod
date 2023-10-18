@@ -32,7 +32,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eyexplosion");
+			// DisplayName.SetDefault("Eyexplosion");
 		}
 	}
 }

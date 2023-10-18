@@ -28,10 +28,10 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Glowing Mushroom Extract");
-			Tooltip.SetDefault("Grows a mushroom, which aura increases the number of spores released by other alchemic extracts"
+			// DisplayName.SetDefault("Glowing Mushroom Extract");
+			/* Tooltip.SetDefault("Grows a mushroom, which aura increases the number of spores released by other alchemic extracts"
 							+ "\nThe mushroom will absorb the properties of nearby spores, creating more of them"
-							+ "\nOnly one mushroom can exist at once");
+							+ "\nOnly one mushroom can exist at once"); */
 		}
 
 		public override void AddRecipes()

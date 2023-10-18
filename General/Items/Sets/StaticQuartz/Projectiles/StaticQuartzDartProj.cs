@@ -12,7 +12,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Static Quartz Dart");
+			// DisplayName.SetDefault("Static Quartz Dart");
 		}
 
 		public override void SetDefaults()
@@ -41,7 +41,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 		}

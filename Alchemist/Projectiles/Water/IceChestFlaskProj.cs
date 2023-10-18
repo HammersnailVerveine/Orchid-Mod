@@ -56,7 +56,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flash Freeze Aura");
+			// DisplayName.SetDefault("Flash Freeze Aura");
 		}
 	}
 }

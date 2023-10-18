@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Phasebeam");
+			// DisplayName.SetDefault("Phasebeam");
 		}
 
 		public override void AI()
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 170, 20, 15, true, 1f, 0f);
 			int dust = Dust.NewDust(Projectile.Center, 0, 0, 270, 0.0f, 0.0f, 0, new Color(), Main.rand.Next(30, 130) * 0.013f);

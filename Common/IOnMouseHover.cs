@@ -10,7 +10,7 @@ namespace OrchidMod.Common
 		{
 			void ILoadable.Load(Mod mod)
 			{
-				On.Terraria.UI.ItemSlot.OverrideHover_ItemArray_int_int += (orig, inv, context, slot) =>
+				Terraria.UI.On_ItemSlot.OverrideHover_ItemArray_int_int += (orig, inv, context, slot) =>
 				{
 					orig(inv, context, slot);
 

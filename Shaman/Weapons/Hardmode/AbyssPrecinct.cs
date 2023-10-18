@@ -15,10 +15,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 
-			DisplayName.SetDefault("Abyss Precinct");
-			Tooltip.SetDefault("Shoots an abyssal vortex, pulsating with energy"
+			// DisplayName.SetDefault("Abyss Precinct");
+			/* Tooltip.SetDefault("Shoots an abyssal vortex, pulsating with energy"
 								+ "\nHitting an enemy grants you an abyss fragment"
-								+ "\nIf you have 5 abyss fragments, your next hit will increase shamanic damage by 20% for 30 seconds");
+								+ "\nIf you have 5 abyss fragments, your next hit will increase shamanic damage by 20% for 30 seconds"); */
 		}
 
 		public override void SafeSetDefaults()
@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.shoot = ModContent.ProjectileType<Projectiles.OreOrbs.Big.AbyssPrecinctProj>();
 			Item.shootSpeed = 10f;
 
-			this.empowermentType = 2;
+			this.Element = 2;
 			this.energy = 10;
 		}
 

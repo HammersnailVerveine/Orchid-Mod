@@ -17,7 +17,7 @@ namespace OrchidMod.Gambler.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tyche Relic");
+			// DisplayName.SetDefault("Tyche Relic");
 		}
 	}
 }

@@ -5,6 +5,7 @@ using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -18,14 +19,7 @@ namespace OrchidMod.Shaman.UI
 		private Texture2D symbolRegeneration;
 		private Texture2D symbolSpeed;
 		private Texture2D symbolWeak;
-		private Texture2D fireLoaded;
-		private Texture2D waterLoaded;
-		private Texture2D airLoaded;
-		private Texture2D earthLoaded;
-		private Texture2D spiritLoaded;
-		private Texture2D resource;
-		private Texture2D resourceEnd;
-		private Texture2D resourceBar;
+		private Texture2D BondBar;
 
 		private Color backgroundColor;
 		private int[] shamanTimers;
@@ -39,16 +33,8 @@ namespace OrchidMod.Shaman.UI
 			symbolDefense = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
 			symbolCritical = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
 			symbolRegeneration = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
-			symbolWeak = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SymbolWeak", AssetRequestMode.ImmediateLoad).Value;
 			symbolSpeed = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
-			fireLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/FireLoaded", AssetRequestMode.ImmediateLoad).Value;
-			waterLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WaterLoaded", AssetRequestMode.ImmediateLoad).Value;
-			airLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/WindLoaded", AssetRequestMode.ImmediateLoad).Value;
-			earthLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/EarthLoaded", AssetRequestMode.ImmediateLoad).Value;
-			spiritLoaded = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/SpiritLoaded", AssetRequestMode.ImmediateLoad).Value;
-			resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar", AssetRequestMode.ImmediateLoad).Value;
-			resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd", AssetRequestMode.ImmediateLoad).Value;
-			resourceBar = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/ResourceBar", AssetRequestMode.ImmediateLoad).Value;
+			BondBar = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/Character/BondBar", AssetRequestMode.ImmediateLoad).Value;
 
 			shamanTimers = new int[] { 0, 0, 0, 0, 0 };
 			backgroundColor = Color.White;
@@ -92,19 +78,18 @@ namespace OrchidMod.Shaman.UI
 				{
 
 					int buffTimer = (60 * modPlayer.shamanBuffTimer) / 3;
-					int attackTimer = modPlayer.shamanFireTimer;
-					int defenseTimer = modPlayer.shamanWaterTimer;
-					int criticalTimer = modPlayer.shamanAirTimer;
-					int regenTimer = modPlayer.shamanEarthTimer;
-					int speedTimer = modPlayer.shamanSpiritTimer;
+					int timerFire = modPlayer.ShamanFireBondReleased ? (int)modPlayer.ShamanFireBond : 0;
+					int timerWater = modPlayer.ShamanWaterBondReleased ? (int)modPlayer.ShamanFireBond : 0;
+					int timerAir = modPlayer.ShamanAirBondReleased ? (int)modPlayer.ShamanFireBond : 0;
+					int timerEarth = modPlayer.ShamanEarthBondReleased ? (int)modPlayer.ShamanFireBond : 0;
+					int timerSpirit = modPlayer.ShamanSpiritBondReleased ? (int)modPlayer.ShamanFireBond : 0;
 					int[] currentTimers = new int[] { 0, 0, 0, 0, 0 };
-					int lastElement = 0;
 
-					currentTimers[0] = attackTimer > buffTimer * 2 ? 3 : attackTimer > buffTimer ? 2 : attackTimer > 0 ? 1 : 0;
-					currentTimers[1] = defenseTimer > buffTimer * 2 ? 3 : defenseTimer > buffTimer ? 2 : defenseTimer > 0 ? 1 : 0;
-					currentTimers[2] = criticalTimer > buffTimer * 2 ? 3 : criticalTimer > buffTimer ? 2 : criticalTimer > 0 ? 1 : 0;
-					currentTimers[3] = regenTimer > buffTimer * 2 ? 3 : regenTimer > buffTimer ? 2 : regenTimer > 0 ? 1 : 0;
-					currentTimers[4] = speedTimer > buffTimer * 2 ? 3 : speedTimer > buffTimer ? 2 : speedTimer > 0 ? 1 : 0;
+					currentTimers[0] = timerFire > buffTimer * 2 ? 3 : timerFire > buffTimer ? 2 : timerFire > 0 ? 1 : 0;
+					currentTimers[1] = timerWater > buffTimer * 2 ? 3 : timerWater > buffTimer ? 2 : timerWater > 0 ? 1 : 0;
+					currentTimers[2] = timerAir > buffTimer * 2 ? 3 : timerAir > buffTimer ? 2 : timerAir > 0 ? 1 : 0;
+					currentTimers[3] = timerEarth > buffTimer * 2 ? 3 : timerEarth > buffTimer ? 2 : timerEarth > 0 ? 1 : 0;
+					currentTimers[4] = timerSpirit > buffTimer * 2 ? 3 : timerSpirit > buffTimer ? 2 : timerSpirit > 0 ? 1 : 0;
 
 					for (int i = 0; i < 5; i++)
 					{
@@ -219,123 +204,34 @@ namespace OrchidMod.Shaman.UI
 					spriteBatch.Draw(symbolRegeneration, new Rectangle(point.X + 12, point.Y + 10 + offSetY, drawSize, drawSize), backgroundColor);
 					spriteBatch.Draw(symbolSpeed, new Rectangle(point.X + 26, point.Y + offSetY, drawSize, drawSize), backgroundColor);
 
-					offSetY += drawSize + 2;
-
-					if (modPlayer.shamanPollFireMax)
-						spriteBatch.Draw(fireLoaded, new Rectangle(point.X - 38, point.Y + offSetY, drawSize, drawSize - 4), backgroundColor);
-
-					if (modPlayer.shamanPollWaterMax)
-						spriteBatch.Draw(waterLoaded, new Rectangle(point.X - 24, point.Y + 10 + offSetY, drawSize, drawSize - 4), backgroundColor);
-
-					if (modPlayer.shamanPollAirMax)
-						spriteBatch.Draw(airLoaded, new Rectangle(point.X - 6, point.Y + 14 + offSetY, drawSize, drawSize - 4), backgroundColor);
-
-					if (modPlayer.shamanPollEarthMax)
-						spriteBatch.Draw(earthLoaded, new Rectangle(point.X + 12, point.Y + 10 + offSetY, drawSize, drawSize - 4), backgroundColor);
-
-					if (modPlayer.shamanPollSpiritMax)
-						spriteBatch.Draw(spiritLoaded, new Rectangle(point.X + 26, point.Y + offSetY, drawSize, drawSize - 4), backgroundColor);
-
 					Item heldItem = player.HeldItem;
-					if (heldItem.type != 0)
+					if (heldItem.type != ItemID.None)
 					{
-						OrchidModGlobalItem orchidItem = heldItem.GetGlobalItem<OrchidModGlobalItem>();
-						if (orchidItem.shamanWeapon)
+						if (heldItem.ModItem is OrchidModShamanItem shamanHeldItem)
 						{
-							spriteBatch.Draw(resourceBar, new Rectangle(point.X - (resourceBar.Width / 2), point.Y + offSetY + 20, resourceBar.Width, resourceBar.Height), backgroundColor);
-							Point newPoint = new Point(point.X - (resourceBar.Width / 2) + 6, point.Y + offSetY + 20 + 6);
-							int val = 0;
+							Color ColorInside = new Color(20, 16, 23);
+							Color ColorBorder = new Color(59, 45, 58);
+							int segments = 50;
+							float scale = 100f / (float)segments;
 
-							switch (orchidItem.shamanWeaponElement)
+							for (int i = 0; i < segments; i++)
 							{
-								case 1:
-									if (lastElement != 1)
-									{
-										resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBar").Value;
-										resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/FireBarEnd").Value;
-										lastElement = 1;
-									}
-									val = 100 - modPlayer.shamanFireBondLoading;
-									this.drawnBondEffectBar(val, spriteBatch, newPoint);
-									this.drawWeakSymbol(val, spriteBatch, newPoint);
-									break;
-								case 2:
-									if (lastElement != 2)
-									{
-										resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBar").Value;
-										resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/WaterBarEnd").Value;
-										lastElement = 2;
-									}
-									val = 100 - modPlayer.shamanWaterBondLoading;
-									this.drawnBondEffectBar(val, spriteBatch, newPoint);
-									this.drawWeakSymbol(val, spriteBatch, newPoint);
-									break;
-								case 3:
-									if (lastElement != 3)
-									{
-										resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBar").Value;
-										resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/AirBarEnd").Value;
-										lastElement = 3;
-									}
-									val = 100 - modPlayer.shamanAirBondLoading;
-									this.drawnBondEffectBar(val, spriteBatch, newPoint);
-									this.drawWeakSymbol(val, spriteBatch, newPoint);
-									break;
-								case 4:
-									if (lastElement != 4)
-									{
-										resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBar").Value;
-										resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/EarthBarEnd").Value;
-										lastElement = 4;
-									}
-									val = 100 - modPlayer.shamanEarthBondLoading;
-									this.drawnBondEffectBar(val, spriteBatch, newPoint);
-									this.drawWeakSymbol(val, spriteBatch, newPoint);
-									break;
-								case 5:
-									if (lastElement != 5)
-									{
-										resource = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBar").Value;
-										resourceEnd = ModContent.Request<Texture2D>("OrchidMod/Shaman/UI/ModUITextures/ModUIMain/SpiritBarEnd").Value;
-										lastElement = 5;
-									}
-									val = 100 - modPlayer.shamanSpiritBondLoading;
-									this.drawnBondEffectBar(val, spriteBatch, newPoint);
-									this.drawWeakSymbol(val, spriteBatch, newPoint);
-									break;
-								default:
-									break;
+								float angle = MathHelper.ToRadians(50 - i * scale);
+								Vector2 position = new Vector2(point.X, point.Y) + new Vector2(0f, 60f).RotatedBy(angle);
+								spriteBatch.Draw(BondBar, position, null, ColorInside, angle, BondBar.Size() * 0.5f, 1.75f, SpriteEffects.None, 0f);
+							}
+
+							for (int i = 0; i < segments; i ++)
+							{
+								float angle = MathHelper.ToRadians(50 - i * scale);
+								Vector2 position = new Vector2(point.X, point.Y) + new Vector2(0f, 60f).RotatedBy(angle);
+								ShamanElement element = (ShamanElement)shamanHeldItem.Element;
+								Color color = modPlayer.GetShamanicBondValue(element) > i * scale ? ShamanElementUtils.GetColor(element) : ColorBorder;
+								spriteBatch.Draw(BondBar, position, null, color, angle, BondBar.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 							}
 						}
 					}
 				}
-			}
-
-			// base.Update(gameTime);
-		}
-
-		public void drawnBondEffectBar(int val, SpriteBatch spriteBatch, Point point)
-		{
-			int resourceOffSet = 0;
-			while (val > 0)
-			{
-				Texture2D usedTexture = val - 4 <= 0 ? resourceEnd : resource;
-				spriteBatch.Draw(usedTexture, new Rectangle(point.X + resourceOffSet, point.Y, 2, 2), backgroundColor);
-				spriteBatch.Draw(usedTexture, new Rectangle(point.X + resourceOffSet, point.Y + 2, 2, 2), backgroundColor);
-				val -= 4;
-				resourceOffSet += 2;
-			}
-		}
-
-		public void drawWeakSymbol(int val, SpriteBatch spriteBatch, Point point)
-		{
-			if (val > 0)
-			{
-				return;
-			}
-			else
-			{
-				spriteBatch.Draw(symbolWeak, new Rectangle(point.X - 28, point.Y - 10, symbolWeak.Width, symbolWeak.Height), backgroundColor);
 			}
 		}
 	}

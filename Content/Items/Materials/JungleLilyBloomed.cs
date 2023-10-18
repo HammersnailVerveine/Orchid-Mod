@@ -10,8 +10,8 @@ namespace OrchidMod.Content.Items.Materials
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bloomed Jungle Lily");
-			Tooltip.SetDefault("Gathered from a chemically bloomed jungle lily");
+			// DisplayName.SetDefault("Bloomed Jungle Lily");
+			// Tooltip.SetDefault("Gathered from a chemically bloomed jungle lily");
 		}
 
 		public override void SetDefaults()

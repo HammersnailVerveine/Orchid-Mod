@@ -12,7 +12,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Light Magic");
+			// DisplayName.SetDefault("Light Magic");
 		}
 
 		public override void SafeSetDefaults()
@@ -101,7 +101,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			spawnDustCircle(this.dustType, 15);
 			spawnDustCircle(this.dustType, 10);

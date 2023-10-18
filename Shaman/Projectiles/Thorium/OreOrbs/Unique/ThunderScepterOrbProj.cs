@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thunder Bolt");
+			// DisplayName.SetDefault("Thunder Bolt");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -45,7 +45,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

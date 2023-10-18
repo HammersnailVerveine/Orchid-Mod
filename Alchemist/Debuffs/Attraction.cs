@@ -7,8 +7,8 @@ namespace OrchidMod.Alchemist.Debuffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Attraction");
-			Description.SetDefault("Attracts nearby alchemist projectiles");
+			// DisplayName.SetDefault("Attraction");
+			// Description.SetDefault("Attracts nearby alchemist projectiles");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;

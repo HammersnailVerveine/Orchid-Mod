@@ -18,8 +18,8 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vampire Sarong");
-			Tooltip.SetDefault("8% increased shamanic damage");
+			// DisplayName.SetDefault("Vampire Sarong");
+			// Tooltip.SetDefault("8% increased shamanic damage");
 		}
 
 		public override void UpdateEquip(Player player)

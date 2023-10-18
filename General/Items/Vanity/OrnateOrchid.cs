@@ -20,8 +20,8 @@ namespace OrchidMod.General.Items.Vanity
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ornate Orchid");
-			Tooltip.SetDefault("'Great for impersonating Orchid Devs!'");
+			// DisplayName.SetDefault("Ornate Orchid");
+			// Tooltip.SetDefault("'Great for impersonating Orchid Devs!'");
 		}
 	}
 }

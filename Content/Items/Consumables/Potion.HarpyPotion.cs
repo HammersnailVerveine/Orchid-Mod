@@ -28,9 +28,9 @@ namespace OrchidMod.Content.Items.Consumables
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cloud Burst Potion");
-			Tooltip.SetDefault("Your first bonus jump will release a burst of damaging feathers"
-						  + "\nAllows you to double jump, if you cannot already");
+			// DisplayName.SetDefault("Cloud Burst Potion");
+			/* Tooltip.SetDefault("Your first bonus jump will release a burst of damaging feathers"
+						  + "\nAllows you to double jump, if you cannot already"); */
 		}
 
 		public override void AddRecipes()
@@ -53,8 +53,8 @@ namespace OrchidMod.Content.Items.Consumables
 		{
 			Main.buffNoTimeDisplay[Type] = false;
 
-			DisplayName.SetDefault("Harpy Agility");
-			Description.SetDefault("Ability to double jump, your fist bonus jump will release damaging feathers around you");
+			// DisplayName.SetDefault("Harpy Agility");
+			// Description.SetDefault("Ability to double jump, your fist bonus jump will release damaging feathers around you");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

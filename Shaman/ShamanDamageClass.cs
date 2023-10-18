@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman
 
 		public override void SetStaticDefaults()
 		{
-			ClassName.SetDefault("shamanic damage");
+			// DisplayName.SetDefault("shamanic damage");
 		}
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)

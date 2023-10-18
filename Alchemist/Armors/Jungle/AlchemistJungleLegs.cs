@@ -18,8 +18,8 @@ namespace OrchidMod.Alchemist.Armors.Jungle
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lily Leggings");
-			Tooltip.SetDefault("10% increased chemical damage");
+			// DisplayName.SetDefault("Lily Leggings");
+			// Tooltip.SetDefault("10% increased chemical damage");
 		}
 
 		public override void UpdateEquip(Player player)

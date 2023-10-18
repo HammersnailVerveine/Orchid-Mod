@@ -12,8 +12,8 @@ namespace OrchidMod.Alchemist.Misc.Scrolls
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemist Recipe Scroll");
-			Tooltip.SetDefault("Contains the recipe for an unknown alchemist hidden reaction");
+			// DisplayName.SetDefault("Alchemist Recipe Scroll");
+			// Tooltip.SetDefault("Contains the recipe for an unknown alchemist hidden reaction");
 		}
 	}
 }

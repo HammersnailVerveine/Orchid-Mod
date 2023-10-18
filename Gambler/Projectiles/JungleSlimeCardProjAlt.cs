@@ -6,7 +6,7 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slime Thorn");
+			// DisplayName.SetDefault("Slime Thorn");
 		}
 
 		public override void SafeSetDefaults()
@@ -24,7 +24,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.velocity.X *= 0.99f;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();

@@ -8,8 +8,8 @@ namespace OrchidMod.Gambler.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Conqueror's Thrill");
-			Description.SetDefault("10% increased gambling critical strike chance and movement speed");
+			// DisplayName.SetDefault("Conqueror's Thrill");
+			// Description.SetDefault("10% increased gambling critical strike chance and movement speed");
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{

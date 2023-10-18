@@ -12,7 +12,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terrarium Orb");
+			// DisplayName.SetDefault("Terrarium Orb");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -135,7 +135,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

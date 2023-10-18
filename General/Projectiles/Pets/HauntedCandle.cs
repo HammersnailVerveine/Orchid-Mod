@@ -9,7 +9,7 @@ namespace OrchidMod.General.Projectiles.Pets
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Haunted Candle");
+			// DisplayName.SetDefault("Haunted Candle");
 			Main.projFrames[Projectile.type] = 1;
 			Main.projPet[Projectile.type] = true;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;

@@ -12,7 +12,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shuffle");
+			// DisplayName.SetDefault("Shuffle");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -197,7 +197,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 3; i++)
 			{

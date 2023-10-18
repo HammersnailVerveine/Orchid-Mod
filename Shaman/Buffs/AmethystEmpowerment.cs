@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Amethyst Empowerment");
-			Description.SetDefault("Increases shamanic damage by 10%");
+			// DisplayName.SetDefault("Amethyst Empowerment");
+			// Description.SetDefault("Increases shamanic damage by 10%");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

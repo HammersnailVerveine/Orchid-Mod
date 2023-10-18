@@ -11,7 +11,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Geode Cluster");
+			// DisplayName.SetDefault("Geode Cluster");
 		}
 
 		public override void SafeSetDefaults()
@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			this.projectileTrail = true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();

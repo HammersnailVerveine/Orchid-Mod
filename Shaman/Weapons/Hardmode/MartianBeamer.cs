@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
 			Item.shoot = ModContent.ProjectileType<MartianBeamerProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 			this.energy = 5;
@@ -31,9 +31,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Martian Beamer");
-			Tooltip.SetDefault("Shoots martian homing lasers"
-							  + "\nWeapon speed increases with the number of active shamanic bonds");
+			// DisplayName.SetDefault("Martian Beamer");
+			/* Tooltip.SetDefault("Shoots martian homing lasers"
+							  + "\nWeapon speed increases with the number of active shamanic bonds"); */
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)

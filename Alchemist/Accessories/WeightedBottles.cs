@@ -15,8 +15,8 @@ namespace OrchidMod.Alchemist.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Weighted Bottles");
-			Tooltip.SetDefault("Increases alchemic main projectile velocity by 25%");
+			// DisplayName.SetDefault("Weighted Bottles");
+			// Tooltip.SetDefault("Increases alchemic main projectile velocity by 25%");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

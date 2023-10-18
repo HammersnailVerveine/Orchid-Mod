@@ -26,28 +26,28 @@ namespace OrchidMod.Common.Globals.NPCs
 {
 	public class NPCLootAndShop : GlobalNPC
 	{
-		public override void SetupShop(int type, Chest shop, ref int nextSlot)
+		public override void ModifyShop(NPCShop shop)
 		{
-			switch (type)
+			switch (shop.NpcType)
 			{
 				case NPCID.WitchDoctor:
 					{
-						OrchidUtils.AddItemToShop<ShamanRod>(shop, ref nextSlot);
+						OrchidUtils.AddItemToShop<ShamanRod>(shop);
 
 						if (Main.hardMode)
 						{
-							OrchidUtils.AddItemToShop<RitualScepter>(shop, ref nextSlot);
+							OrchidUtils.AddItemToShop<RitualScepter>(shop);
 						}
 					}
 					break;
 				case NPCID.Demolitionist:
 					{
-						OrchidUtils.AddItemToShop<GunpowderFlask>(shop, ref nextSlot);
+						OrchidUtils.AddItemToShop<GunpowderFlask>(shop);
 					}
 					break;
 				case NPCID.Dryad:
 					{
-						OrchidUtils.AddItemToShop<DryadsGift>(shop, ref nextSlot);
+						OrchidUtils.AddItemToShop<DryadsGift>(shop);
 					}
 					break;
 			}
@@ -55,15 +55,16 @@ namespace OrchidMod.Common.Globals.NPCs
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod == null) goto SkipThorium;
 
-			if (thoriumMod.IsNPCTypeEquals("ConfusedZombie", type))
+			if (thoriumMod.IsNPCTypeEquals("ConfusedZombie", shop.NpcType))
 			{
-				OrchidUtils.AddItemToShop<PatchWerkScepter>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<PatchWerkScepter>(shop);
 				return;
 			}
 
 		SkipThorium:
 			return;
 		}
+
 
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)
 		{

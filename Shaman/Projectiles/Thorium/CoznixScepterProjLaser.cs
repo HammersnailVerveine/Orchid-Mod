@@ -11,7 +11,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Void Beam");
+			// DisplayName.SetDefault("Void Beam");
 		}
 		public override void SafeSetDefaults()
 		{

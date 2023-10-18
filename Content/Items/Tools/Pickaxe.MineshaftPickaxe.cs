@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -13,7 +14,7 @@ namespace OrchidMod.Content.Items.Tools
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Can mine meteorite");
+			// Tooltip.SetDefault("Can mine meteorite");
 		}
 
 		public override void SetDefaults()
@@ -51,8 +52,8 @@ namespace OrchidMod.Content.Items.Tools
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
 			TileObjectData.addTile(Type);
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Mineshaft Pickaxe");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Mineshaft Pickaxe");
 			AddMapEntry(new Color(100, 75, 50), name);
 
 			DustType = 7;

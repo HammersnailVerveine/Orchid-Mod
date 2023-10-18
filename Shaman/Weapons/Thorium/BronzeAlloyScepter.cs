@@ -25,17 +25,17 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 14f;
 			Item.shoot = ModContent.ProjectileType<BronzeAlloyScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Basilisk's Fang");
-			Tooltip.SetDefault("Fires out a poisonous basilisk fang"
+			// DisplayName.SetDefault("Basilisk's Fang");
+			/* Tooltip.SetDefault("Fires out a poisonous basilisk fang"
 							+ "\nThe number of active shamanic bonds will increase the poison duration"
 							+ "\nThe weapon itself can critically strike, releasing a petrifying projectile"
-							+ "\nThe more shamanic bonds you have, the higher the chances of critical strike");
+							+ "\nThe more shamanic bonds you have, the higher the chances of critical strike"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

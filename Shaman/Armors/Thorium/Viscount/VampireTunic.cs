@@ -19,8 +19,8 @@ namespace OrchidMod.Shaman.Armors.Thorium.Viscount
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vampire Tunic");
-			Tooltip.SetDefault("8% increased shamanic critical chance");
+			// DisplayName.SetDefault("Vampire Tunic");
+			// Tooltip.SetDefault("8% increased shamanic critical chance");
 		}
 
 		public override void UpdateEquip(Player player)

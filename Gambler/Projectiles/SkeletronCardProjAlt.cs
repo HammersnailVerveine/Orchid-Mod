@@ -7,7 +7,7 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Water Bolt");
+			// DisplayName.SetDefault("Water Bolt");
 		}
 
 		public override void SafeSetDefaults()

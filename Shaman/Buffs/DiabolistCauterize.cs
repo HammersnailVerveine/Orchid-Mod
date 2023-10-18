@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Diabolist Cauterization");
-			Description.SetDefault("Quickly gaining health");
+			// DisplayName.SetDefault("Diabolist Cauterization");
+			// Description.SetDefault("Quickly gaining health");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

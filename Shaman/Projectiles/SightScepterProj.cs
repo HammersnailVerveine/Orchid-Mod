@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Prismatic Bream");
+			// DisplayName.SetDefault("Prismatic Bream");
 		}
 
 		public override void AI()

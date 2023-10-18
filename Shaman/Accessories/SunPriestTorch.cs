@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sun Priest Torch");
+			// DisplayName.SetDefault("Sun Priest Torch");
 		}
 	}
 }

@@ -24,11 +24,11 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Shuffle");
-			Tooltip.SetDefault("Randomly shoots a selection of clubs, spades, diamonds and hearts"
+			// DisplayName.SetDefault("Playing Card : Shuffle");
+			/* Tooltip.SetDefault("Randomly shoots a selection of clubs, spades, diamonds and hearts"
 							+ "\nEach projectile has its own properties and behaviour"
 							+ "\nHold the attack button to create more projectiles and enhance their effects"
-							+ "\nDamage increases with the number of cards in your deck");
+							+ "\nDamage increases with the number of cards in your deck"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

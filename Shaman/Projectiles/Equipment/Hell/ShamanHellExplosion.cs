@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Explosion");
+			// DisplayName.SetDefault("Explosion");
 		}
 	}
 }

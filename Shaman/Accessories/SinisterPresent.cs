@@ -17,11 +17,11 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sinister Present");
-			Tooltip.SetDefault("30% increased shamanic damage"
+			// DisplayName.SetDefault("Sinister Present");
+			/* Tooltip.SetDefault("30% increased shamanic damage"
 							 + "\nYour shamanic bonds will last 10 seconds longer"
 							 + "\nTaking direct damage will reduce their current duration by 5 seconds"
-							 + "\nIt will also nullify the damage increase for 15 seconds");
+							 + "\nIt will also nullify the damage increase for 15 seconds"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

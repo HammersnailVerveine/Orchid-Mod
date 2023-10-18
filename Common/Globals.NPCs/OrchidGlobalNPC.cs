@@ -36,12 +36,10 @@ namespace OrchidMod.Common.Globals.NPCs
 			ShamanWind = false;
 		}
 
-		public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
 		{
-			if (ShamanWater) damage *= 1.05f;
-			if (ShamanShroom > 0) damage *= 1.1f;
-
-			return true;
+			if (ShamanWater) modifiers.FinalDamage *= 1.05f;
+			if (ShamanShroom > 0) modifiers.FinalDamage *= 1.1f;
 		}
 
 		public override void DrawEffects(NPC npc, ref Color drawColor)
@@ -66,7 +64,7 @@ namespace OrchidMod.Common.Globals.NPCs
 
 				if (ShamanBomb == 1)
 				{
-					npc.StrikeNPCNoInteraction(500, 0f, 0);
+					npc.SimpleStrikeNPC(500, npc.direction);
 
 					for (int i = 0; i < 15; i++)
 					{

@@ -15,8 +15,8 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dryad's Gift");
-			Tooltip.SetDefault("Getting a new shamanic bond will increase the duration of your lowest duration one");
+			// DisplayName.SetDefault("Dryad's Gift");
+			// Tooltip.SetDefault("Getting a new shamanic bond will increase the duration of your lowest duration one");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

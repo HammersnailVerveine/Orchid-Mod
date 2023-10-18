@@ -25,16 +25,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<LodestoneScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 12;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lodestone Scepter");
-			Tooltip.SetDefault("Shoots a defense sundering bolt, hitting your enemy 3 times"
+			// DisplayName.SetDefault("Lodestone Scepter");
+			/* Tooltip.SetDefault("Shoots a defense sundering bolt, hitting your enemy 3 times"
 							+ "\nHitting the same target with all 3 shots will grant you a lodestone orb"
-							+ "\nIf you have 5 orbs, your next hit will create an explosion, making hit foes significantly heavier");
+							+ "\nIf you have 5 orbs, your next hit will create an explosion, making hit foes significantly heavier"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

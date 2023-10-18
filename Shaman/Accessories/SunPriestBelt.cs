@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sun Priest Satchel");
+			// DisplayName.SetDefault("Sun Priest Satchel");
 		}
 	}
 }

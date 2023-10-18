@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nirvana Fire Element");
+			// DisplayName.SetDefault("Nirvana Fire Element");
 		}
 		public override Color? GetAlpha(Color lightColor)
 		{

@@ -18,8 +18,8 @@ namespace OrchidMod.Content.Items.Pets
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("RC Remote");
-			Tooltip.SetDefault("'Highly advanced elven technology enabling control over new, recently developed non-reindeer aircraft'");
+			// DisplayName.SetDefault("RC Remote");
+			// Tooltip.SetDefault("'Highly advanced elven technology enabling control over new, recently developed non-reindeer aircraft'");
 		}
 
 		public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -37,8 +37,8 @@ namespace OrchidMod.Content.Items.Pets
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Conspicuous Helicopter");
-			Description.SetDefault("'That whirring is getting repetitive...'");
+			// DisplayName.SetDefault("Conspicuous Helicopter");
+			// Description.SetDefault("'That whirring is getting repetitive...'");
 
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.vanityPet[Type] = true;
@@ -65,7 +65,7 @@ namespace OrchidMod.Content.Items.Pets
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("RC Copter");
+			// DisplayName.SetDefault("RC Copter");
 
 			Main.projFrames[Projectile.type] = 4;
 			Main.projPet[Projectile.type] = true;

@@ -7,8 +7,8 @@ namespace OrchidMod.Shaman.Buffs.Debuffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wind Slow");
-			Description.SetDefault("Reduced Movement Speed");
+			// DisplayName.SetDefault("Wind Slow");
+			// Description.SetDefault("Reduced Movement Speed");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;

@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Void Bolt");
+			// DisplayName.SetDefault("Void Bolt");
 		}
 
 		public override void AI()

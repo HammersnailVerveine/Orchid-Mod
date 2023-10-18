@@ -15,16 +15,16 @@ namespace OrchidMod.Shaman
 			modProjectile.shamanProjectile = true;
 		}
 
-		public sealed override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public sealed override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			if (target.type != NPCID.TargetDummy)
-			{
+			//if (target.type != NPCID.TargetDummy)
+			//{
 				OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
 				modPlayer.AddShamanicEmpowerment(modProjectile.shamanEmpowermentType);
-			}
-			SafeOnHitNPC(target, damage, knockback, crit, player, modPlayer);
+			//}
+			SafeOnHitNPC(target, hit.Damage, hit.Knockback, hit.Crit, player, modPlayer);
 		}
 	}
 }

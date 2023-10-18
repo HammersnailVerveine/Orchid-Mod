@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<ViscountScepterProj>();
-			this.empowermentType = 3;
+			this.Element = 3;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chiroptera");
-			Tooltip.SetDefault("Fires out a bolt of blood magic"
+			// DisplayName.SetDefault("Chiroptera");
+			/* Tooltip.SetDefault("Fires out a bolt of blood magic"
 							+ "\nHas a chance to spawn a homing bat on hit"
-							+ "\nThe chance for a bat to spawn increases with the number of active shamanic bonds");
+							+ "\nThe chance for a bat to spawn increases with the number of active shamanic bonds"); */
 		}
 	}
 }

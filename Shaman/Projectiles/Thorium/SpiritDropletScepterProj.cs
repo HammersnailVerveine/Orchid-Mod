@@ -7,7 +7,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spirit Bone");
+			// DisplayName.SetDefault("Spirit Bone");
 		}
 
 		public override void SafeSetDefaults()
@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 3; i++)
 			{

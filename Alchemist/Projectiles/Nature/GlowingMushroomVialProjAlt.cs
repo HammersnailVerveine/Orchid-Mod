@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushroom");
+			// DisplayName.SetDefault("Mushroom");
 		}
 
 		public override void PostDraw(Color lightColor)

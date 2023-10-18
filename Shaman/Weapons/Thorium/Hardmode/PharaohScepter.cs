@@ -25,16 +25,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
 			Item.shoot = ModContent.ProjectileType<PharaohScepterProj>();
-			this.empowermentType = 3;
+			this.Element = 3;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Isis' Command");
-			Tooltip.SetDefault("Fires out an ancient magic spell"
+			// DisplayName.SetDefault("Isis' Command");
+			/* Tooltip.SetDefault("Fires out an ancient magic spell"
 							+ "\nHitting may summon a golden miror, replicating your shots"
-							+ "\nThe more shamanic bonds you have, the greater the chance to summon a mirror");
+							+ "\nThe more shamanic bonds you have, the greater the chance to summon a mirror"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

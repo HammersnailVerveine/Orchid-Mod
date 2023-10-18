@@ -25,7 +25,7 @@ namespace OrchidMod.Content.NPCs.Town
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chemist");
+			// DisplayName.SetDefault("Chemist");
 
 			Main.npcFrameCount[Type] = 23;
 
@@ -51,11 +51,12 @@ namespace OrchidMod.Content.NPCs.Town
 			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
+			/*
 			void CreateMoodTranslation(string key, string text)
 			{
-				var tr = LocalizationLoader.CreateTranslation(Mod, "TownNPCMood.Chemist." + key);
-				tr.SetDefault(text);
-				LocalizationLoader.AddTranslation(tr);
+				var tr = Language.GetOrRegister(Mod, "TownNPCMood.Chemist." + key);
+				// tr.SetDefault(text);
+				LocalizationLoader.AddTranslation(tr)// tModPorter Note: Removed. Use Language.GetOrRegister;
 			}
 
 			CreateMoodTranslation("Content", "This is a neat place to experiment in!");
@@ -72,6 +73,7 @@ namespace OrchidMod.Content.NPCs.Town
 			CreateMoodTranslation("LoveNPC", "{NPCName} knows so much reagents! She's been helping me a ton.");
 			CreateMoodTranslation("DislikeNPC", "I sure hope {NPCName} doesn't blow my lab up again...");
 			CreateMoodTranslation("HateNPC", "{NPCName} keeps pestering me about creating new weapons, can't he leave me alone?");
+			*/
 		}
 
 		public override void SetDefaults()
@@ -104,7 +106,7 @@ namespace OrchidMod.Content.NPCs.Town
 			});
 		}
 
-		public override bool CanTownNPCSpawn(int numTownNPCs, int money)
+		public override bool CanTownNPCSpawn(int numTownNPCs)/* tModPorter Suggestion: Copy the implementation of NPC.SpawnAllowed_Merchant in vanilla if you to count money, and be sure to set a flag when unlocked, so you don't count every tick. */
 			=> OrchidWorld.foundChemist;
 
 		public override ITownNPCProfile TownNPCProfile()
@@ -166,14 +168,14 @@ namespace OrchidMod.Content.NPCs.Town
 			button2 = CheckUniqueHints(player, modPlayer, false) == "" ? "Reaction Hint" : "Special Hint!";
 		}
 
-		public override void OnChatButtonClicked(bool firstButton, ref bool shop)
+		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
 		{
 			var player = Main.player[Main.myPlayer];
 			var modPlayer = player.GetModPlayer<OrchidAlchemist>();
 
 			if (firstButton)
 			{
-				shop = true;
+				shopName = "Shop";
 			}
 			else
 			{
@@ -219,34 +221,43 @@ namespace OrchidMod.Content.NPCs.Town
 			}
 		}
 
-		public override void SetupShop(Chest shop, ref int nextSlot)
+		public override void ModifyActiveShop(string shopName, Item[] items)
 		{
-			var player = Main.LocalPlayer;
-			var modPlayer = player.GetModPlayer<OrchidAlchemist>();
-
-			OrchidUtils.AddItemToShop<UIItem>(shop, ref nextSlot);
-			OrchidUtils.AddItemToShop<UIItemKeys>(shop, ref nextSlot);
-			OrchidUtils.AddItemToShop<ReactionItem>(shop, ref nextSlot);
-
-			shop.item[nextSlot].SetDefaults(ModContent.ItemType<PotionBag>());
-			(shop.item[nextSlot].ModItem as PotionBag).InShop = true;
-			nextSlot++;
-
-			OrchidUtils.AddItemToShop<EmptyFlask>(shop, ref nextSlot);
-
-			if (NPC.downedQueenBee)
+			foreach (Item item in items)
 			{
-				OrchidUtils.AddItemToShop<AlchemicStabilizer>(shop, ref nextSlot);
+				if (item.type == ModContent.ItemType<PotionBag>())
+				{
+					(item.ModItem as PotionBag).InShop = true;
+				}
 			}
 
-			OrchidUtils.AddItemToShop<WeightedBottles>(shop, ref nextSlot);
-			OrchidUtils.AddItemToShop<IronCatalyst>(shop, ref nextSlot);
-			OrchidUtils.AddItemToShop<AttractiteFlask>(shop, ref nextSlot);
+			var player = Main.player[Main.myPlayer];
+			var modPlayer = player.GetModPlayer<OrchidAlchemist>();
 
 			if (modPlayer.alchemistKnownReactions.Count > 4)
 			{
-				OrchidUtils.AddItemToShop<ReactiveVials>(shop, ref nextSlot);
+				OrchidUtils.AddItemToShop<ReactiveVials>(items);
 			}
+		}
+
+		public override void AddShops()
+		{
+
+			var npcShop = new NPCShop(Type, "Shop");
+			OrchidUtils.AddItemToShop<UIItem>(npcShop);
+			OrchidUtils.AddItemToShop<UIItemKeys>(npcShop);
+			OrchidUtils.AddItemToShop<ReactionItem>(npcShop);
+			OrchidUtils.AddItemToShop<PotionBag>(npcShop);
+			OrchidUtils.AddItemToShop<EmptyFlask>(npcShop);
+
+			if (NPC.downedQueenBee)
+			{
+				OrchidUtils.AddItemToShop<AlchemicStabilizer>(npcShop);
+			}
+
+			OrchidUtils.AddItemToShop<WeightedBottles>(npcShop);
+			OrchidUtils.AddItemToShop<IronCatalyst>(npcShop);
+			OrchidUtils.AddItemToShop<AttractiteFlask>(npcShop);
 		}
 
 		public override bool CanGoToStatue(bool toQueenStatue)

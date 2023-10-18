@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemic Spiked Slime");
+			// DisplayName.SetDefault("Alchemic Spiked Slime");
 		}
 
 		public override void SafeSetDefaults()
@@ -37,7 +37,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{
@@ -51,7 +51,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(20, 60 * 5); // Poisoned
 		}

@@ -27,10 +27,10 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shiverthorn Extract");
-			Tooltip.SetDefault("Releases air spores, the less other extracts used, the more"
+			// DisplayName.SetDefault("Shiverthorn Extract");
+			/* Tooltip.SetDefault("Releases air spores, the less other extracts used, the more"
 							+ "\nOnly one set of spores can exist at once"
-							+ "\nSpores deals 10% increased damage against fire-coated enemies");
+							+ "\nSpores deals 10% increased damage against fire-coated enemies"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

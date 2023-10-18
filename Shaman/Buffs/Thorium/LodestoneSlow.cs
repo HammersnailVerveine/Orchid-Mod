@@ -7,8 +7,8 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lodestone Slow");
-			Description.SetDefault("You feel Heavier");
+			// DisplayName.SetDefault("Lodestone Slow");
+			// Description.SetDefault("You feel Heavier");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;

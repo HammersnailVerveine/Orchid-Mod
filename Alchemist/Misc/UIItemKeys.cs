@@ -94,11 +94,11 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Brewing for Dummies");
-			Tooltip.SetDefault("Allows mixing alchemical weapons with the hotbar keys"
+			// DisplayName.SetDefault("Brewing for Dummies");
+			/* Tooltip.SetDefault("Allows mixing alchemical weapons with the hotbar keys"
 							+ "\nPress the corresponding key to mix a specific item"
 							+ "\nUse the mouse wheel to change the displayed element"
-							+ "\nUp to 10 items can be displayed at once");
+							+ "\nUp to 10 items can be displayed at once"); */
 		}
 
 	}

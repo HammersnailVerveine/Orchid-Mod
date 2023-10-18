@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Onyx Empowerment");
-			Description.SetDefault("Increases armor penetration by 3");
+			// DisplayName.SetDefault("Onyx Empowerment");
+			// Description.SetDefault("Increases armor penetration by 3");
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{

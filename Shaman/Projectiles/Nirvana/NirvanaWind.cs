@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nirvana Wind Element");
+			// DisplayName.SetDefault("Nirvana Wind Element");
 		}
 		public override void AI()
 		{

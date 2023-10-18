@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<PiratesGloryProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			this.energy = 3;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
@@ -30,10 +30,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pirates Glory");
-			Tooltip.SetDefault("Shoots a continuous laser beam"
+			// DisplayName.SetDefault("Pirates Glory");
+			/* Tooltip.SetDefault("Shoots a continuous laser beam"
 							+ "\nWeapon damage increases with the number of active shamanic bonds"
-							+ "\nHaving more than 3 of them active will make your foes drop more gold");
+							+ "\nHaving more than 3 of them active will make your foes drop more gold"); */
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

@@ -21,15 +21,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<TungstenScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Emerald Scepter");
-			Tooltip.SetDefault("\nHitting an enemy will grant you an emerald orb"
-							  + "\nIf you have 3 emerald orbs, your next hit will increase your movement speed for 30 seconds");
+			// DisplayName.SetDefault("Emerald Scepter");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you an emerald orb"
+							  + "\nIf you have 3 emerald orbs, your next hit will increase your movement speed for 30 seconds"); */
 		}
 
 		public override void AddRecipes() => CreateRecipe()

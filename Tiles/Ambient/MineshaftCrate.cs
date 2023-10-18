@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -17,8 +18,8 @@ namespace OrchidMod.Tiles.Ambient
 			Main.tileLavaDeath[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Mineshaft Crate");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Mineshaft Crate");
 			AddMapEntry(new Color(100, 75, 50), name);
 			DustType = 7;
 			//TileID.Sets.DisableSmartCursor[Type] = true;

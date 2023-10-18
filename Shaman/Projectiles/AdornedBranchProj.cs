@@ -7,7 +7,7 @@ namespace OrchidMod.Shaman.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Splinter");
+			// DisplayName.SetDefault("Splinter");
 		}
 		public override void SafeSetDefaults()
 		{

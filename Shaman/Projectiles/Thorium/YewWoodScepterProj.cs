@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadowflame Bolt");
+			// DisplayName.SetDefault("Shadowflame Bolt");
 		}
 
 		public override void AI()
@@ -41,7 +41,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Main.dust[DustID].noGravity = true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 4; i++)
 			{

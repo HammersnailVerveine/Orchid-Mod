@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -15,9 +16,9 @@ namespace OrchidMod.Content.Items.Materials
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Jungle Lily Bud");
-			Tooltip.SetDefault("It closed when you picked it up"
-							+ "\nMaybe the chemist could help you?");
+			// DisplayName.SetDefault("Jungle Lily Bud");
+			/* Tooltip.SetDefault("It closed when you picked it up"
+							+ "\nMaybe the chemist could help you?"); */
 		}
 
 		public override void SetDefaults()
@@ -58,8 +59,8 @@ namespace OrchidMod.Content.Items.Materials
 			TileObjectData.newTile.RandomStyleRange = 4;
 			TileObjectData.addTile(Type);
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Jungle Lily");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Jungle Lily");
 			AddMapEntry(new Color(177, 46, 77), name);
 
 			DustType = ModContent.DustType<Content.Dusts.BloomingDust>();
@@ -89,17 +90,7 @@ namespace OrchidMod.Content.Items.Materials
 			}
 		}
 
-		public override bool Drop(int i, int j)
-		{
-			var tile = Main.tile[i, j];
-
-			if (tile.TileFrameX % 36 == 0 && tile.TileFrameY == 0)
-			{
-				Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<JungleLily>());
-			}
-
-			return true;
-		}
+		public override bool CanDrop(int i, int j) => true;
 
 		public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
 		{

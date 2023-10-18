@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sun beam");
+			// DisplayName.SetDefault("Sun beam");
 		}
 
 		public override void AI()

@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seafoam Bubble");
+			// DisplayName.SetDefault("Seafoam Bubble");
 		}
 
 		public override void OnSpawn(IEntitySource source)

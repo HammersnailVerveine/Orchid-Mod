@@ -20,7 +20,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Airxplosion");
+			// DisplayName.SetDefault("Airxplosion");
 		}
 
 		public override void AI()

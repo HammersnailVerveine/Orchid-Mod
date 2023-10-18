@@ -28,10 +28,10 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Poison Flask");
-			Tooltip.SetDefault("Releases lingering poison bubbles"
+			// DisplayName.SetDefault("Poison Flask");
+			/* Tooltip.SetDefault("Releases lingering poison bubbles"
 							+ "\nHas a chance to release a catalytic poison bubble"
-							+ "\nCan contaminate other bubbly weapons effects");
+							+ "\nCan contaminate other bubbly weapons effects"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

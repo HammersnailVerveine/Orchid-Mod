@@ -26,11 +26,6 @@ namespace OrchidMod.Guardian.Weapons.Shields
 			this.blockDuration = 100;
 		}
 
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Enchanted Pavise");
-		}
-
 		public override void Slam(Player player, Projectile shield)
 		{
 			Projectile anchor = GetAnchor(player).Projectile;
@@ -38,7 +33,7 @@ namespace OrchidMod.Guardian.Weapons.Shields
 			Vector2 dir = anchor.Center - player.Center;
 			dir.Normalize();
 			dir *= 0.1f;
-			Projectile.NewProjectile(Item.GetSource_ItemUse(Item), anchor.Center, dir, type, (int)(Item.damage * 0.75f), Item.knockBack, player.whoAmI);
+			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(Item.damage * 0.75f), Item.knockBack, player.whoAmI);
 		}
 	}
 }

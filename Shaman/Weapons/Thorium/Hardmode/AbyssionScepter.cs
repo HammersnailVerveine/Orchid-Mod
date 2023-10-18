@@ -25,15 +25,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<AbyssionScepterProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			this.energy = 3;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Will of the Lurker");
-			Tooltip.SetDefault("Summons bolts of dark energy that lingers for a while before returning to you"
-							+ "\nCosts 25 health to cast, reduced by 5 for each active shamanic bond");
+			// DisplayName.SetDefault("Will of the Lurker");
+			/* Tooltip.SetDefault("Summons bolts of dark energy that lingers for a while before returning to you"
+							+ "\nCosts 25 health to cast, reduced by 5 for each active shamanic bond"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -21,7 +21,7 @@ namespace OrchidMod.NPCs.Hostile.DownpourElemental.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Storm Bolt");
+			// DisplayName.SetDefault("Storm Bolt");
 		}
 
 		public override void AI()

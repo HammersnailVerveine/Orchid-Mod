@@ -29,10 +29,10 @@ namespace OrchidMod.Alchemist.Weapons.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slimy Flask");
+			// DisplayName.SetDefault("Slimy Flask");
 
-			Tooltip.SetDefault("Makes hit enemies bouncy and susceptible to fall damage"
-							+ "\nHas a chance to release a catalytic slime bubble");
+			/* Tooltip.SetDefault("Makes hit enemies bouncy and susceptible to fall damage"
+							+ "\nHas a chance to release a catalytic slime bubble"); */
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer,

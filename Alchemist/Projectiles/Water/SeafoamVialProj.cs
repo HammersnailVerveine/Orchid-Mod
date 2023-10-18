@@ -22,7 +22,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seafoam Bubble");
+			// DisplayName.SetDefault("Seafoam Bubble");
 		}
 
 		public override void OnSpawn(IEntitySource source)
@@ -41,7 +41,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 4; i++)
 			{

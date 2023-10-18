@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sound Bubble");
+			// DisplayName.SetDefault("Sound Bubble");
 		}
 
 		public override void AI()
@@ -42,6 +42,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 			float distance = (float)Math.Sqrt(offsetX * offsetX + offsetY * offsetY);
 			if (distance < 50f && Projectile.position.X < player.position.X + player.width && Projectile.position.X + Projectile.width > player.position.X && Projectile.position.Y < player.position.Y + player.height && Projectile.position.Y + Projectile.height > player.position.Y)
 			{
+				/*
 				if (Projectile.owner == Main.myPlayer && !Main.LocalPlayer.moonLeech)
 				{
 					OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
@@ -52,6 +53,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 					modPlayer.shamanSpiritTimer += modPlayer.shamanSpiritTimer == 0 ? 0 : 3 * 60;
 					Projectile.Kill();
 				}
+				*/
 			}
 		}
 
@@ -76,7 +78,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

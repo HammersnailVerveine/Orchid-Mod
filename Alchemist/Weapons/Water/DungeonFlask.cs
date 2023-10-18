@@ -28,10 +28,10 @@ namespace OrchidMod.Alchemist.Weapons.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spirited Water");
-			Tooltip.SetDefault("Releases lingering water flames"
+			// DisplayName.SetDefault("Spirited Water");
+			/* Tooltip.SetDefault("Releases lingering water flames"
 							+ "\nThe flames are considered as lingering particles"
-							+ "\nHas a chance to release a catalytic spirited bubble");
+							+ "\nHas a chance to release a catalytic spirited bubble"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

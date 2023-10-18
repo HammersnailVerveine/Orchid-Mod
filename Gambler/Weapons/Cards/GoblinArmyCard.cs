@@ -25,9 +25,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Erratic Magic");
-			Tooltip.SetDefault("Throws a portal, firing shadow bolts at an increasing rate"
-							+ "\nThe portal will disappear upon releasing left click or getting too far from it");
+			// DisplayName.SetDefault("Playing Card : Erratic Magic");
+			/* Tooltip.SetDefault("Throws a portal, firing shadow bolts at an increasing rate"
+							+ "\nThe portal will disappear upon releasing left click or getting too far from it"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

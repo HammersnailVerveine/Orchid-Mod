@@ -22,8 +22,8 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushroom Spores Flask");
-			Tooltip.SetDefault("When mixed an extract, increases its spore damage by 5");
+			// DisplayName.SetDefault("Mushroom Spores Flask");
+			// Tooltip.SetDefault("When mixed an extract, increases its spore damage by 5");
 		}
 	}
 }

@@ -10,8 +10,8 @@ namespace OrchidMod.Alchemist.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stardust Confusion");
-			Description.SetDefault("Sunflowers created by Forest Samples apply confusion");
+			// DisplayName.SetDefault("Stardust Confusion");
+			// Description.SetDefault("Sunflowers created by Forest Samples apply confusion");
 			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

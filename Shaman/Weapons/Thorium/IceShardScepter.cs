@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = false;
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<IceShardScepterProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Scepter");
-			Tooltip.SetDefault("Shoots frostburn bolts, growing for an instant before being launched"
-							+ "\nCritical strike chance increases with the number of active shamanic bonds");
+			// DisplayName.SetDefault("Ice Scepter");
+			/* Tooltip.SetDefault("Shoots frostburn bolts, growing for an instant before being launched"
+							+ "\nCritical strike chance increases with the number of active shamanic bonds"); */
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)

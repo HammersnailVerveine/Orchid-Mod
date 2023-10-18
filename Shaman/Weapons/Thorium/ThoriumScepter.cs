@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = false;
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<ThoriumScepterProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thorium Scepter");
-			Tooltip.SetDefault("Fires out a bolt of magic, dividing upon hitting a foe"
-							+ "\nIf you have 3 or more active shamanic bonds, the bonus projectiles will home at nearby enemies");
+			// DisplayName.SetDefault("Thorium Scepter");
+			/* Tooltip.SetDefault("Fires out a bolt of magic, dividing upon hitting a foe"
+							+ "\nIf you have 3 or more active shamanic bonds, the bonus projectiles will home at nearby enemies"); */
 		}
 
 		public override void AddRecipes()

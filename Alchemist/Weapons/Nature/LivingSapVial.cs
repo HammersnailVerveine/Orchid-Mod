@@ -28,11 +28,11 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Living Sap Flask");
-			Tooltip.SetDefault("Creates a healing living sap bubble if used with other ingredients"
+			// DisplayName.SetDefault("Living Sap Flask");
+			/* Tooltip.SetDefault("Creates a healing living sap bubble if used with other ingredients"
 							+ "\nIf an air element is used, healing is doubled"
 							+ "\nHas a chance to release a bigger, catalytic sap bubble"
-							+ "\nOn reaction, heals players and coats enemies in alchemical nature");
+							+ "\nOn reaction, heals players and coats enemies in alchemical nature"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

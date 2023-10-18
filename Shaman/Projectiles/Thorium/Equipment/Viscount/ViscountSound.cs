@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Viscount Sound");
+			// DisplayName.SetDefault("Viscount Sound");
 		}
 
 		public override void AI()
@@ -29,7 +29,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.Equipment.Viscount
 			Main.dust[DustID].velocity = Projectile.velocity / 5;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, Mod.Find<ModProjectile>("ViscountOrbSound").Type, 0, 0.0f, Projectile.owner, 0.0f, 0.0f);
 		}

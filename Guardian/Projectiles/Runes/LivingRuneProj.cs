@@ -31,7 +31,7 @@ namespace OrchidMod.Guardian.Projectiles.Runes
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sap Bubble");
+			// DisplayName.SetDefault("Sap Bubble");
 		}
 
 		public override void SafeOnSpawn(IEntitySource source)
@@ -89,7 +89,7 @@ namespace OrchidMod.Guardian.Projectiles.Runes
 			return true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

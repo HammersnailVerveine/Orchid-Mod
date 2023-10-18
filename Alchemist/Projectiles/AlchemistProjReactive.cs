@@ -38,7 +38,7 @@ namespace OrchidMod.Alchemist.Projectiles
 			SafeAI();
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (this.killTimeLeft < this.spawnTimeLeft)
 			{

@@ -9,7 +9,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hellfire Chip");
+			// DisplayName.SetDefault("Hellfire Chip");
 		}
 
 		public override void SafeSetDefaults()
@@ -32,7 +32,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.Chips.HellChipProjAlt>();
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, projType, Projectile.damage, 3f, Projectile.owner);

@@ -35,16 +35,16 @@ namespace OrchidMod.Gambler
 			else
 			{
 				modPlayer.ClearGamblerCards();
-				modPlayer.OnRespawn(player);
+				modPlayer.OnRespawn();
 			}
 			return base.CanUseItem(player);
 		}
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : RESET");
-			Tooltip.SetDefault("Test item : resets gambling cards"
-							+ "\n[c/FF0000:Test Item]");
+			// DisplayName.SetDefault("Playing Card : RESET");
+			/* Tooltip.SetDefault("Test item : resets gambling cards"
+							+ "\n[c/FF0000:Test Item]"); */
 		}
 	}
 }

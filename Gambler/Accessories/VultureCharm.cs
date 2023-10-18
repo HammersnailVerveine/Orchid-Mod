@@ -18,8 +18,8 @@ namespace OrchidMod.Gambler.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vulture Charm");
-			Tooltip.SetDefault("Drawing a card releases a burst of vulture feathers");
+			// DisplayName.SetDefault("Vulture Charm");
+			// Tooltip.SetDefault("Drawing a card releases a burst of vulture feathers");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

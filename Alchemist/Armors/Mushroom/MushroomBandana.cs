@@ -24,8 +24,8 @@ namespace OrchidMod.Alchemist.Armors.Mushroom
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 
-			DisplayName.SetDefault("Phosphorescent Bandana");
-			Tooltip.SetDefault("5% increased potency regeneration");
+			// DisplayName.SetDefault("Phosphorescent Bandana");
+			// Tooltip.SetDefault("5% increased potency regeneration");
 		}
 
 		public override void UpdateEquip(Player player)

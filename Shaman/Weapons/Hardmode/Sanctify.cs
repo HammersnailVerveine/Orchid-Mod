@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
 			Item.shoot = ModContent.ProjectileType<SanctifyProj>();
-			this.empowermentType = 5;
+			this.Element = 5;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sanctify");
-			Tooltip.SetDefault("Hitting enemies will gradually grant you hallowed orbs"
+			// DisplayName.SetDefault("Sanctify");
+			/* Tooltip.SetDefault("Hitting enemies will gradually grant you hallowed orbs"
 							  + "\nUpon reaching 7 orbs, they will break free and home into your enemies"
-							  + "\nHaving 3 or more active shamanic bonds will release bonus homing projectiles");
+							  + "\nHaving 3 or more active shamanic bonds will release bonus homing projectiles"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

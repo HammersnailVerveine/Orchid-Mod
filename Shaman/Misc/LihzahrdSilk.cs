@@ -17,8 +17,8 @@ namespace OrchidMod.Shaman.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lihzahrd Silk");
-			Tooltip.SetDefault("It feels warm in your hand");
+			// DisplayName.SetDefault("Lihzahrd Silk");
+			// Tooltip.SetDefault("It feels warm in your hand");
 		}
 	}
 }

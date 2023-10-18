@@ -24,16 +24,16 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<FeatherScepterProj>();
-			this.empowermentType = 3;
+			this.Element = 3;
 			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Feather Scepter");
-			Tooltip.SetDefault("Shoots dangerous spinning feathers"
+			// DisplayName.SetDefault("Feather Scepter");
+			/* Tooltip.SetDefault("Shoots dangerous spinning feathers"
 							  + "\nThe projectiles gain in damage after a while"
-							  + "\nHaving 3 or more active shamanic bonds will result in more projectiles shot");
+							  + "\nHaving 3 or more active shamanic bonds will result in more projectiles shot"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

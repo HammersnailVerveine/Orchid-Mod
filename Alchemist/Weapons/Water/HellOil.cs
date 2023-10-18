@@ -30,10 +30,10 @@ namespace OrchidMod.Alchemist.Weapons.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hellfire Oil");
-			Tooltip.SetDefault("Using a fire element in the same attack will drastically increase damage"
+			// DisplayName.SetDefault("Hellfire Oil");
+			/* Tooltip.SetDefault("Using a fire element in the same attack will drastically increase damage"
 							+ "\nThis will also damage and spread alchemical fire to all nearby water coated enemies"
-							+ "\nHas a chance to release a catalytic oil bubble, coating nearby enemies in water on reaction");
+							+ "\nHas a chance to release a catalytic oil bubble, coating nearby enemies in water on reaction"); */
 		}
 
 		public override void AddRecipes()

@@ -22,7 +22,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blood Mist");
+			// DisplayName.SetDefault("Blood Mist");
 		}
 
 		public override void AI()

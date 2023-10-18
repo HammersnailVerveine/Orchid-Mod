@@ -37,7 +37,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Brainxplosion");
+			// DisplayName.SetDefault("Brainxplosion");
 		}
 	}
 }

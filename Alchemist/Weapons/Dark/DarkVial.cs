@@ -24,8 +24,8 @@ namespace OrchidMod.Alchemist.Weapons.Dark
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dark Vial");
-			Tooltip.SetDefault("\n[c/FF0000:Test Item]");
+			// DisplayName.SetDefault("Dark Vial");
+			// Tooltip.SetDefault("\n[c/FF0000:Test Item]");
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

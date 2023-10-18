@@ -9,7 +9,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terra Orb");
+			// DisplayName.SetDefault("Terra Orb");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -101,7 +101,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

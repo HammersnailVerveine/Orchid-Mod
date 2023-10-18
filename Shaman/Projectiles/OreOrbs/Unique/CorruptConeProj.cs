@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cursed Flame");
+			// DisplayName.SetDefault("Cursed Flame");
 		}
 
 		public override void SafeSetDefaults()

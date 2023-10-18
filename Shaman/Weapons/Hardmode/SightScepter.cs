@@ -24,15 +24,15 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.shoot = ModContent.ProjectileType<Projectiles.SightScepterProj>();
 			Item.UseSound = SoundID.Item15;
 
-			this.empowermentType = 3;
+			this.Element = 3;
 			this.energy = 3;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Light Concentrator");
-			Tooltip.SetDefault("Channels a beam of prismatic energy"
-							  + "\nHaving 4 or more active shamanic bonds will drastically increase the weapon damage and range");
+			// DisplayName.SetDefault("Light Concentrator");
+			/* Tooltip.SetDefault("Channels a beam of prismatic energy"
+							  + "\nHaving 4 or more active shamanic bonds will drastically increase the weapon damage and range"); */
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

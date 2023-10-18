@@ -24,16 +24,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<ReviverofSoulsProj>();
-			this.empowermentType = 3;
+			this.Element = 3;
 			this.energy = 12;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Reviver of Souls");
-			Tooltip.SetDefault("Successful hits summon spirit flames, increasing weapon damage"
+			// DisplayName.SetDefault("Reviver of Souls");
+			/* Tooltip.SetDefault("Successful hits summon spirit flames, increasing weapon damage"
 							  + "\nCompleting the flame circle empowers you, further boosting damage"
-							  + "\nWhile empowered, hits will reset every active empowerment duration");
+							  + "\nWhile empowered, hits will reset every active empowerment duration"); */
 		}
 		public override Color? GetAlpha(Color lightColor)
 		{

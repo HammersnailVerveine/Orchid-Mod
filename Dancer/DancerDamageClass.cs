@@ -14,7 +14,7 @@ namespace OrchidMod.Dancer
 
 		public override void SetStaticDefaults()
 		{
-			ClassName.SetDefault("dancing damage");
+			// DisplayName.SetDefault("dancing damage");
 		}
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)

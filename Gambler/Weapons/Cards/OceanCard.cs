@@ -25,10 +25,10 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Ocean");
-			Tooltip.SetDefault("Summons a palm bush above your head"
+			// DisplayName.SetDefault("Playing Card : Ocean");
+			/* Tooltip.SetDefault("Summons a palm bush above your head"
 							+ "\nDrag and release a coconut to launch it"
-							+ "\nA harsh landing will make the coconut explode");
+							+ "\nA harsh landing will make the coconut explode"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

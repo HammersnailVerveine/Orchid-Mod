@@ -13,7 +13,7 @@ namespace OrchidMod.Shaman.Projectiles
 		int basedmg = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Jungle Spore");
+			// DisplayName.SetDefault("Jungle Spore");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -147,7 +147,7 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

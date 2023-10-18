@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
 			Item.shoot = ModContent.ProjectileType<SpineScepterProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
 			this.energy = 6;
@@ -29,9 +29,9 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spine Scepter");
-			Tooltip.SetDefault("Shoots short ranged crimson beams"
-							  + "\nThe weapon range scales with the number of active shamanic bonds");
+			// DisplayName.SetDefault("Spine Scepter");
+			/* Tooltip.SetDefault("Shoots short ranged crimson beams"
+							  + "\nThe weapon range scales with the number of active shamanic bonds"); */
 		}
 
 		public override void UpdateInventory(Player player)

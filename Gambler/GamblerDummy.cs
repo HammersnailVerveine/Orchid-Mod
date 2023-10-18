@@ -119,11 +119,11 @@ namespace OrchidMod.Gambler
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gambler Dummy Card");
-			Tooltip.SetDefault("Allows the use of specific gambler cards"
+			// DisplayName.SetDefault("Gambler Dummy Card");
+			/* Tooltip.SetDefault("Allows the use of specific gambler cards"
 							+ "\nRight click to cycle through your deck"
 							+ "\nCan only deal damage to dummies"
-							+ "\nUtility cards may have no effect");
+							+ "\nUtility cards may have no effect"); */
 		}
 
 		public void CheckStats(Item currentCard)

@@ -175,18 +175,14 @@ namespace OrchidMod
 				gamblerDieDuration--;
 		}
 
-		public override void PostUpdate()
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-		}
-
-		public override void ModifyHitNPCWithProj(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
-		{
-			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			if (modProjectile.gamblerProjectile)
 			{
 				if (gamblerDie != null)
 				{
-					gamblerDie.ModifyHitNPCWithProjDie(Player, this, target, ref damage, ref knockback, ref crit, ref hitDirection);
+					gamblerDie.OnHitNPCWithProj(Player, this, target, hit, damageDone);
 				}
 			}
 		}
@@ -228,12 +224,12 @@ namespace OrchidMod
 			Reset();
 		}
 
-		public override void OnRespawn(Player player)
+		public override void OnRespawn()
 		{
 			Reset();
 		}
 
-		public override void clientClone(ModPlayer clientClone)
+		public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */
 		{
 			OrchidGambler clone = clientClone as OrchidGambler;
 			clone.gamblerHasCardInDeck = this.gamblerHasCardInDeck;

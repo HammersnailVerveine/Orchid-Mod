@@ -4,7 +4,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tin Chip");
+			// DisplayName.SetDefault("Tin Chip");
 		}
 
 		public override void SafeSetDefaults()

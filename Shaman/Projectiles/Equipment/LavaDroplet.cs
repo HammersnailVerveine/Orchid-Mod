@@ -8,7 +8,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lava Droplet");
+			// DisplayName.SetDefault("Lava Droplet");
 		}
 		public override Color? GetAlpha(Color lightColor)
 		{
@@ -37,7 +37,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment
 				Main.dust[dust].noGravity = true;
 			}
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 2; i++)
 			{

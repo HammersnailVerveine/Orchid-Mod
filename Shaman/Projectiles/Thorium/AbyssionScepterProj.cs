@@ -27,7 +27,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Old Gods Energy");
+			// DisplayName.SetDefault("Old Gods Energy");
 		}
 
 		public override void AI()
@@ -133,7 +133,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			return !(target.friendly || this.hitEnemies.Contains(target.whoAmI));
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

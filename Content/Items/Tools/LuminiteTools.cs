@@ -97,7 +97,7 @@ namespace OrchidMod.Content.Items.Tools
 		{
 			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 
-			DisplayName.SetDefault(name);
+			// DisplayName.SetDefault(name);
 		}
 
 		public sealed override void SetDefaults()
@@ -153,7 +153,7 @@ namespace OrchidMod.Content.Items.Tools
 
 		public sealed override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault(name);
+			// DisplayName.SetDefault(name);
 		}
 
 		public sealed override void SetDefaults()

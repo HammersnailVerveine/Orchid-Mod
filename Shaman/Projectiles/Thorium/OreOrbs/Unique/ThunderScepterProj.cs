@@ -8,7 +8,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thunder bolt");
+			// DisplayName.SetDefault("Thunder bolt");
 		}
 
 		public override void SafeSetDefaults()

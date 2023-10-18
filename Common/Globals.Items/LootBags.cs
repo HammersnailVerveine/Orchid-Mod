@@ -34,6 +34,7 @@ namespace OrchidMod.Common.Globals.Items
 {
 	public partial class OrchidGlobalItem
 	{
+		/*
 		public override void OpenVanillaBag(string context, Player player, int arg)
 		{
 			switch (context)
@@ -43,6 +44,7 @@ namespace OrchidMod.Common.Globals.Items
 				case "lockBox": OpenGoldenLockBox(player); break;
 			}
 		}
+		*/
 
 		// ...
 

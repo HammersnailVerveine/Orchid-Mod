@@ -25,8 +25,8 @@ namespace OrchidMod.Content.Items.Ranged
 		{
 			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 
-			DisplayName.SetDefault("Searing Onslaught");
-			Tooltip.SetDefault("...");
+			// DisplayName.SetDefault("Searing Onslaught");
+			// Tooltip.SetDefault("...");
 		}
 
 		public override void SetDefaults()

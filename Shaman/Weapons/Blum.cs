@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 16f;
 			Item.shoot = ModContent.ProjectileType<BlumProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 			this.energy = 4;
@@ -29,9 +29,9 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blum");
-			Tooltip.SetDefault("Rapidly shoots dangerous magical bolts"
-							  + "\nThe weapon speed depends on the number of active shamanic bonds");
+			// DisplayName.SetDefault("Blum");
+			/* Tooltip.SetDefault("Rapidly shoots dangerous magical bolts"
+							  + "\nThe weapon speed depends on the number of active shamanic bonds"); */
 		}
 
 		public override void UpdateInventory(Player player)

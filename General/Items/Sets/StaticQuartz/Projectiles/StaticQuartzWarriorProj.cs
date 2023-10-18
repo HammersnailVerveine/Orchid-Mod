@@ -8,7 +8,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Static Quartz Spear");
+			// DisplayName.SetDefault("Static Quartz Spear");
 		}
 
 		public override void SetDefaults()

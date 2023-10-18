@@ -35,7 +35,7 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Explosion");
+			// DisplayName.SetDefault("Explosion");
 		}
 	}
 }

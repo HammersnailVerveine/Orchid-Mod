@@ -27,9 +27,9 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Stellar Talc");
-			Tooltip.SetDefault("Creates orbiting stars on impact"
-							+ "\nThe stars are considered as lingering particles");
+			// DisplayName.SetDefault("Stellar Talc");
+			/* Tooltip.SetDefault("Creates orbiting stars on impact"
+							+ "\nThe stars are considered as lingering particles"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

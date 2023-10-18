@@ -28,7 +28,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slimexplosion");
+			// DisplayName.SetDefault("Slimexplosion");
 		}
 	}
 }

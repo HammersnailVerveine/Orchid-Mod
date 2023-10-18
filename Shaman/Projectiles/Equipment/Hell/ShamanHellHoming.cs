@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Hell
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hellish Fire");
+			// DisplayName.SetDefault("Hellish Fire");
 		}
 
 		public override void AI()

@@ -9,7 +9,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sparkle");
+			// DisplayName.SetDefault("Sparkle");
 		}
 
 		public override void SafeSetDefaults()
@@ -69,7 +69,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int dustType = this.redDust ? 60 : 59;
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, dustType, 10, 5, true, 1.5f, 1f, 5f);

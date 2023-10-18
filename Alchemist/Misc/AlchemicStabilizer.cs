@@ -17,9 +17,9 @@ namespace OrchidMod.Alchemist.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemical Stabilizer");
-			Tooltip.SetDefault("Used to make various alchemist weapons"
-							+ "\n'Smells like bee wax'");
+			// DisplayName.SetDefault("Alchemical Stabilizer");
+			/* Tooltip.SetDefault("Used to make various alchemist weapons"
+							+ "\n'Smells like bee wax'"); */
 		}
 
 	}

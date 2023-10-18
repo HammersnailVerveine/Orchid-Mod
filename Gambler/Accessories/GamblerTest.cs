@@ -14,13 +14,13 @@ namespace OrchidMod.Gambler.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gambler Test Accessory");
-			Tooltip.SetDefault("Allows you to see the next 3 cards you will draw"
+			// DisplayName.SetDefault("Gambler Test Accessory");
+			/* Tooltip.SetDefault("Allows you to see the next 3 cards you will draw"
 							+ "\n50% chance not to consume chips"
 							+ "\nMaximum chips increased by 45"
 							+ "\nRedraws cooldown reduced by 29 seconds"
 							+ "\nMaximum redraws increased by 4"
-							+ "\n[c/FF0000:Test Item]");
+							+ "\n[c/FF0000:Test Item]"); */
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

@@ -26,10 +26,10 @@ namespace OrchidMod.Gambler.Weapons.Cards
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Unstable Sap");
-			Tooltip.SetDefault("Releases a slow-moving sap bubble, following the cursor"
+			// DisplayName.SetDefault("Playing Card : Unstable Sap");
+			/* Tooltip.SetDefault("Releases a slow-moving sap bubble, following the cursor"
 							+ "\nUpon releasing the mouse click, the bubble will explode"
-							+ "\nThe longer the bubble exists, the more explosion damage");
+							+ "\nThe longer the bubble exists, the more explosion damage"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

@@ -16,7 +16,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eater Eye");
+			// DisplayName.SetDefault("Eater Eye");
 		}
 
 		public override void SafeSetDefaults()
@@ -202,7 +202,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int projType = ProjectileType<Gambler.Projectiles.EaterCardProj2>();
 			for (int l = 0; l < Main.projectile.Length; l++)

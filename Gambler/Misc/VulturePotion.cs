@@ -26,8 +26,8 @@ namespace OrchidMod.Gambler.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scavenger Potion");
-			Tooltip.SetDefault("20% increased gambler chip generation");
+			// DisplayName.SetDefault("Scavenger Potion");
+			// Tooltip.SetDefault("20% increased gambler chip generation");
 		}
 		public override void AddRecipes()
 		{

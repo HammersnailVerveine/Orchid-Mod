@@ -24,16 +24,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 13f;
 			Item.shoot = Mod.Find<ModProjectile>("OrchidScepterProj").Type;
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Orchid Scepter");
-			Tooltip.SetDefault("Shoots a volley of piercing petals"
+			// DisplayName.SetDefault("Orchid Scepter");
+			/* Tooltip.SetDefault("Shoots a volley of piercing petals"
 							+ "\nThe number of petals increase with active shamanic bonds"
-							+ "\nHaving 3 or more bonds will allow the petals to pierce more enemies");
+							+ "\nHaving 3 or more bonds will allow the petals to pierce more enemies"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

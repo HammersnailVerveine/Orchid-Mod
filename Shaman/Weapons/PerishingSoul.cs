@@ -21,15 +21,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<PerishingSoulProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Perishing Soul");
-			Tooltip.SetDefault("Shoots fireballs, growing for an instant before being launched"
-							  + "\nProjectile will grow faster if you have 3 or more active shamanic bonds");
+			// DisplayName.SetDefault("Perishing Soul");
+			/* Tooltip.SetDefault("Shoots fireballs, growing for an instant before being launched"
+							  + "\nProjectile will grow faster if you have 3 or more active shamanic bonds"); */
 		}
 
 		public override void AddRecipes() => CreateRecipe()

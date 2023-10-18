@@ -25,10 +25,10 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Living Lava");
-			Tooltip.SetDefault("Summons a bouncy lava slime, following your cursor"
+			// DisplayName.SetDefault("Playing Card : Living Lava");
+			/* Tooltip.SetDefault("Summons a bouncy lava slime, following your cursor"
 							+ "\nEach successful hit increases damage, touching the ground resets it"
-							+ "\nEvery 3 consecutive hits, the slime will release a damaging explosion");
+							+ "\nEvery 3 consecutive hits, the slime will release a damaging explosion"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

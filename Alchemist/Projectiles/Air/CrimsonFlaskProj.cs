@@ -24,7 +24,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushroom");
+			// DisplayName.SetDefault("Mushroom");
 		}
 
 		public override void AI()
@@ -59,7 +59,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			if (this.initialized) projectile.Kill();
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int range = 50;
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, sporeType, (int)(range / 3), 5, true, 1.25f, 1f, 4f, true, true, false, 0, 0, true);

@@ -22,7 +22,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hive");
+			// DisplayName.SetDefault("Hive");
 		}
 
 		public override void SafeAI()

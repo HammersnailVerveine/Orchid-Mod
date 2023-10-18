@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("True Depths Bolt");
+			// DisplayName.SetDefault("True Depths Bolt");
 		}
 
 		public override Color? GetAlpha(Color lightColor)

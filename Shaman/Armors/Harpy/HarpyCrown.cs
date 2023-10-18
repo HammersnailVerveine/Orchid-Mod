@@ -20,8 +20,8 @@ namespace OrchidMod.Shaman.Armors.Harpy
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Harpy Crown");
-			Tooltip.SetDefault("6% increased shamanic damage");
+			// DisplayName.SetDefault("Harpy Crown");
+			// Tooltip.SetDefault("6% increased shamanic damage");
 		}
 
 		public override void UpdateEquip(Player player)

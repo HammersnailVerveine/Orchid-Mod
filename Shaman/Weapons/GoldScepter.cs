@@ -21,15 +21,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 9f;
 			Item.shoot = ModContent.ProjectileType<GoldScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ruby Scepter");
-			Tooltip.SetDefault("\nHitting an enemy will grant you a ruby orb"
-							  + "\nIf you have 3 ruby orbs, your next hit will increase your life regeneration for 30 seconds");
+			// DisplayName.SetDefault("Ruby Scepter");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you a ruby orb"
+							  + "\nIf you have 3 ruby orbs, your next hit will increase your life regeneration for 30 seconds"); */
 		}
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.Ruby, 8)

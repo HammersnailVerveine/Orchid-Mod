@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tornado");
+			// DisplayName.SetDefault("Tornado");
 		}
 
 		public override void AI()
@@ -42,7 +42,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

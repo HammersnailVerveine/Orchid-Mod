@@ -29,7 +29,7 @@ namespace OrchidMod.Common.Graphics
 
 			Main.OnPostDraw += ClearAllData;
 
-			On.Terraria.Main.DoDraw_UpdateCameraPosition += (orig) =>
+			Terraria.On_Main.DoDraw_UpdateCameraPosition += (orig) =>
 			{
 				orig();
 
@@ -44,7 +44,7 @@ namespace OrchidMod.Common.Graphics
 				}
 			};
 
-			On.Terraria.Main.DoDraw_WallsAndBlacks += (orig, main) =>
+			Terraria.On_Main.DoDraw_WallsAndBlacks += (orig, main) =>
 			{
 				orig(main);
 
@@ -56,19 +56,19 @@ namespace OrchidMod.Common.Graphics
 				spriteBatchInfo.Begin(spriteBatch);
 			};
 
-			On.Terraria.Main.DoDraw_Tiles_Solid += (orig, main) =>
+			Terraria.On_Main.DoDraw_Tiles_Solid += (orig, main) =>
 			{
 				orig(main);
 				DrawLayer(DrawLayers.Tiles, Main.spriteBatch);
 			};
 
-			On.Terraria.Main.DrawDust += (orig, main) =>
+			Terraria.On_Main.DrawDust += (orig, main) =>
 			{
 				orig(main);
 				DrawLayer(DrawLayers.Dusts, Main.spriteBatch);
 			};
 
-			On.Terraria.Main.DrawBackgroundBlackFill += (orig, main) =>
+			Terraria.On_Main.DrawBackgroundBlackFill += (orig, main) =>
 			{
 				orig(main);
 				UpdateTransformMatrix();

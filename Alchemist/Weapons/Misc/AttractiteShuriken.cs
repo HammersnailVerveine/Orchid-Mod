@@ -28,8 +28,8 @@ namespace OrchidMod.Alchemist.Weapons.Misc
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Attractite Shuriken");
-			Tooltip.SetDefault("Inflicts attractite to hit enemies");
+			// DisplayName.SetDefault("Attractite Shuriken");
+			// Tooltip.SetDefault("Inflicts attractite to hit enemies");
 		}
 
 		public override bool OnPickup(Player player)

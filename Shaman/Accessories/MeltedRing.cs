@@ -19,8 +19,8 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Molten Ring");
-			Tooltip.SetDefault("Allows the wearer to release damaging droplets of lava while under the effect of shamanic air bond");
+			// DisplayName.SetDefault("Molten Ring");
+			// Tooltip.SetDefault("Allows the wearer to release damaging droplets of lava while under the effect of shamanic air bond");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

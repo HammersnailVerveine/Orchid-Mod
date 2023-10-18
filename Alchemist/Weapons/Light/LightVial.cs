@@ -24,8 +24,8 @@ namespace OrchidMod.Alchemist.Weapons.Light
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Light Vial");
-			Tooltip.SetDefault("[c/FF0000:Test Item]");
+			// DisplayName.SetDefault("Light Vial");
+			// Tooltip.SetDefault("[c/FF0000:Test Item]");
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

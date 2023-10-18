@@ -15,9 +15,9 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Waxy Incense");
-			Tooltip.SetDefault("Your shamanic earth bonds will cover you in honey"
-							 + "\nYou have a chance to release harmful bees when under the effect of shamanic earth bonds");
+			// DisplayName.SetDefault("Waxy Incense");
+			/* Tooltip.SetDefault("Your shamanic earth bonds will cover you in honey"
+							 + "\nYou have a chance to release harmful bees when under the effect of shamanic earth bonds"); */
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

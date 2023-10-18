@@ -10,7 +10,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nature Spore");
+			// DisplayName.SetDefault("Nature Spore");
 		}
 
 		public override void SafeSetDefaults()
@@ -123,7 +123,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{
@@ -133,7 +133,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			int projType = ProjectileType<Alchemist.Projectiles.Nature.NatureSporeProjBloom>();
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, projType, Projectile.damage, 3f, Projectile.owner, 0.0f, 0.0f);

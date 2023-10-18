@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 		float startY = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Soul Flame");
+			// DisplayName.SetDefault("Soul Flame");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -59,7 +59,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 			Projectile.position.Y = player.position.Y + startY;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

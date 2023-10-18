@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -17,12 +18,11 @@ namespace OrchidMod.Tiles.Ores
 			Main.tileFrameImportant[Type] = true;
 			Main.tileLighted[Type] = true;
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Static Quartz");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Static Quartz");
 			AddMapEntry(new Color(216, 21, 54), name);
 
 			DustType = 60;
-			ItemDrop = ItemType<General.Items.Sets.StaticQuartz.StaticQuartz>();
 		}
 
 		public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

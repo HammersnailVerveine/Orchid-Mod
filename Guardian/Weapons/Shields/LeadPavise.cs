@@ -25,7 +25,7 @@ namespace OrchidMod.Guardian.Weapons.Shields
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lead Pavise");
+			// DisplayName.SetDefault("Lead Pavise");
 		}
 
 		public override void AddRecipes()

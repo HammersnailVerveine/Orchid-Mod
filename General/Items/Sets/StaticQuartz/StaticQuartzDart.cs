@@ -9,7 +9,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Damage doubles after hitting a tile");
+			// Tooltip.SetDefault("Damage doubles after hitting a tile");
 		}
 
 		public override void SetDefaults()

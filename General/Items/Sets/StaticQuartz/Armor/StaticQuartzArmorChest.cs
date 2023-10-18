@@ -19,7 +19,7 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz.Armor
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Static Quartz Chestplate");
+			// DisplayName.SetDefault("Static Quartz Chestplate");
 		}
 
 		public override void AddRecipes()

@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Mythril Defense");
-			Description.SetDefault("Increases defense by 8");
+			// DisplayName.SetDefault("Mythril Defense");
+			// Description.SetDefault("Increases defense by 8");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

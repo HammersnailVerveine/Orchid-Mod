@@ -8,8 +8,8 @@ namespace OrchidMod.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Haunted Candle");
-			Description.SetDefault("Kinda unreliable");
+			// DisplayName.SetDefault("Haunted Candle");
+			// Description.SetDefault("Kinda unreliable");
 			Main.buffNoTimeDisplay[Type] = true;
 			Main.lightPet[Type] = true;
 		}

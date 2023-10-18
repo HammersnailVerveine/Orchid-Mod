@@ -21,9 +21,9 @@ namespace OrchidMod.Shaman.Armors.Abyss
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Abyssal Greaves");
-			Tooltip.SetDefault("10% increased shamanic damage"
-								+ "\n10% increased movement speed");
+			// DisplayName.SetDefault("Abyssal Greaves");
+			/* Tooltip.SetDefault("10% increased shamanic damage"
+								+ "\n10% increased movement speed"); */
 		}
 
 		public override void UpdateEquip(Player player)

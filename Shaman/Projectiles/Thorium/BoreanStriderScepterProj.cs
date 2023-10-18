@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Borean Egg");
+			// DisplayName.SetDefault("Borean Egg");
 
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 0;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 12;
@@ -74,7 +74,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Projectile.rotation += Math.Sign(Projectile.velocity.X) * 0.1f;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
@@ -162,7 +162,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Borean Egg");
+			// DisplayName.SetDefault("Borean Egg");
 		}
 
 		public override void SafeSetDefaults()

@@ -16,7 +16,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Star");
+			// DisplayName.SetDefault("Star");
 		}
 
 		public override void SafeSetDefaults()
@@ -140,7 +140,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int dustid = DustID.YellowStarDust;
 

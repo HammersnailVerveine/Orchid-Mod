@@ -17,8 +17,8 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Deep Forest Charm");
-			Tooltip.SetDefault("Your shamanic earth bonds will summon sharp leaves around you");
+			// DisplayName.SetDefault("Deep Forest Charm");
+			// Tooltip.SetDefault("Your shamanic earth bonds will summon sharp leaves around you");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

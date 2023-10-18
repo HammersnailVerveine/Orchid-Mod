@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 7.5f;
 			Item.shoot = ModContent.ProjectileType<OnyxScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Onyx Scepter");
-			Tooltip.SetDefault("\nHitting an enemy will grant you an Onyx orb"
-							+ "\nIf you have 3 onyx orbs, your next hit will give you 3 armor penetration for 30 seconds");
+			// DisplayName.SetDefault("Onyx Scepter");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you an Onyx orb"
+							+ "\nIf you have 3 onyx orbs, your next hit will give you 3 armor penetration for 30 seconds"); */
 		}
 
 		//TODO Thorium: Onyx removed, alongside other onyx content, including associated projectiles and buffs. Aquamarine is its replaacement

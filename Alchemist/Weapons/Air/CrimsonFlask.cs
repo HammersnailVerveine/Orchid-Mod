@@ -28,10 +28,10 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Visceral Mycelium");
-			Tooltip.SetDefault("Releases floating mushrooms, exploding after a while or when being catalyzed"
+			// DisplayName.SetDefault("Visceral Mycelium");
+			/* Tooltip.SetDefault("Releases floating mushrooms, exploding after a while or when being catalyzed"
 							+ "\nThe mushrooms will absorb the properties of nearby spores, creating more of them"
-							+ "\nOnly one set of mushrooms can exist at once");
+							+ "\nOnly one set of mushrooms can exist at once"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs.Debuffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Cauterized");
-			Description.SetDefault("Cannot trigger a diabolist cauterization again");
+			// DisplayName.SetDefault("Cauterized");
+			// Description.SetDefault("Cannot trigger a diabolist cauterization again");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

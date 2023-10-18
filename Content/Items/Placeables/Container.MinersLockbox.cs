@@ -62,14 +62,14 @@ namespace OrchidMod.Content.Items.Placeables
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Miner's Lockbox");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Miner's Lockbox");
 			AddMapEntry(new Color(200, 200, 200), name, MapChestName);
 
 			AdjTiles = new int[] { TileID.Containers };
-			ChestDrop = ModContent.ItemType<MinersLockbox>();
+			//ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */ = ModContent.ItemType<MinersLockbox>();
 
-			ContainerName.SetDefault("Miner's Lockbox");
+			//ContainerName/* tModPorter Note: Removed. Override DefaultContainerName instead */.SetDefault("Miner's Lockbox");
 		}
 
 		public static string MapChestName(string name, int i, int j)
@@ -102,7 +102,7 @@ namespace OrchidMod.Content.Items.Placeables
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ChestDrop);
+			//Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */);
 			Chest.DestroyChest(i, j);
 		}
 

@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item43;
 			Item.shootSpeed = 5f;
 			Item.shoot = ModContent.ProjectileType<SporeCallerProj>();
-			this.empowermentType = 3;
+			this.Element = 3;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 25;
 		}
@@ -38,11 +38,11 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spore Caller");
-			Tooltip.SetDefault("Spits out a stack of life-seeking spores, growing stronger with time"
+			// DisplayName.SetDefault("Spore Caller");
+			/* Tooltip.SetDefault("Spits out a stack of life-seeking spores, growing stronger with time"
 							  + "\nOnly one stack of spores can be active at once"
 							  + "\nThe number of spores depends on your number of active shamanic bonds"
-							  + "\nIf the projectiles last for long enough before hitting an opponent, your next attack with this weapon will deal triple damage");
+							  + "\nIf the projectiles last for long enough before hitting an opponent, your next attack with this weapon will deal triple damage"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<UnfathomableFleshScepterProj>();
-			this.empowermentType = 5;
+			this.Element = 5;
 			this.energy = 10;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Symbiosis Catalyst");
-			Tooltip.SetDefault("Fires out a bolt of flesh magic"
+			// DisplayName.SetDefault("Symbiosis Catalyst");
+			/* Tooltip.SetDefault("Fires out a bolt of flesh magic"
 							+ "\nIf you have 5 active shamanic bonds, your attack will steal life"
-							+ "\nAfter stealing life, your regeneration will be nullified for a moment");
+							+ "\nAfter stealing life, your regeneration will be nullified for a moment"); */
 		}
 
 		public override void AddRecipes()

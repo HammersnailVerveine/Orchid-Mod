@@ -26,15 +26,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<BoreanStriderScepterProj>();
 
-			empowermentType = 2;
+			Element = 2;
 			energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Taiga Truncheon");
-			Tooltip.SetDefault("Fires out a damaging frost ball\n" +
-							   "Releases icicles on impact, based on your number of active shamanic bonds");
+			// DisplayName.SetDefault("Taiga Truncheon");
+			/* Tooltip.SetDefault("Fires out a damaging frost ball\n" +
+							   "Releases icicles on impact, based on your number of active shamanic bonds"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

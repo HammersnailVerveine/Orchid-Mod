@@ -41,7 +41,7 @@ namespace OrchidMod.Common
 				throw new Exception($"{nameof(OrchidMouseText)}.{nameof(CursorTextField)} is null...");
 			}
 
-			IL.Terraria.Main.MouseTextInner += (il) =>
+			Terraria.IL_Main.MouseTextInner += (il) =>
 			{
 				var c = new ILCursor(il);
 

@@ -4,8 +4,8 @@ namespace OrchidMod.Gambler.Decks
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gambler Deck");
-			Tooltip.SetDefault("Allows the use of gambler abilities");
+			// DisplayName.SetDefault("Gambler Deck");
+			// Tooltip.SetDefault("Allows the use of gambler abilities");
 		}
 	}
 }

@@ -35,7 +35,7 @@ namespace OrchidMod.Content.Items.Placeables
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shroom Chest");
+			// DisplayName.SetDefault("Shroom Chest");
 		}
 	}
 
@@ -45,8 +45,8 @@ namespace OrchidMod.Content.Items.Placeables
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shroom Key");
-			Tooltip.SetDefault("Unlocks a Shroom Chest in the dungeon");
+			// DisplayName.SetDefault("Shroom Key");
+			// Tooltip.SetDefault("Unlocks a Shroom Chest in the dungeon");
 		}
 
 		public override void SetDefaults()
@@ -101,19 +101,12 @@ namespace OrchidMod.Content.Items.Placeables
 			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidWithTop | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
 			TileObjectData.addTile(Type);
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Shroom Chest");
-			AddMapEntry(new Color(174, 129, 92), name, MapChestName);
-
-			name = CreateMapEntryName("_Locked" + Name);
-			name.SetDefault("Locked Shroom Chest");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Shroom Chest");
 			AddMapEntry(new Color(174, 129, 92), name, MapChestName);
 
 			DustType = 239;
 			AdjTiles = new int[] { TileID.Containers };
-			ChestDrop = ModContent.ItemType<ShamanBiomeChest>();
-
-			ContainerName.SetDefault("Shroom Chest");
 		}
 
 		public static string MapChestName(string name, int i, int j)
@@ -157,7 +150,6 @@ namespace OrchidMod.Content.Items.Placeables
 
 		public override void KillMultiTile(int i, int j, int frameX, int frameY)
 		{
-			Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ChestDrop);
 			Chest.DestroyChest(i, j);
 		}
 
@@ -227,7 +219,7 @@ namespace OrchidMod.Content.Items.Placeables
 					{
 						if (Main.netMode == NetmodeID.MultiplayerClient)
 						{
-							NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, (float)left, (float)top);
+							NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, (float)left, (float)top);
 						}
 					}
 				}

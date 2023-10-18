@@ -11,7 +11,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Air Spore");
+			// DisplayName.SetDefault("Air Spore");
 		}
 
 		public override void SafeSetDefaults()
@@ -150,7 +150,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{
@@ -160,7 +160,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (OrchidModAlchemistNPC.AttractiteCanHome(target) || !this.hasTarget)
 			{

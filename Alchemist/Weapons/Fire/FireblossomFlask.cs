@@ -28,10 +28,10 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fireblossom Extract");
-			Tooltip.SetDefault("Releases fire spores, the less other extracts used, the more"
+			// DisplayName.SetDefault("Fireblossom Extract");
+			/* Tooltip.SetDefault("Releases fire spores, the less other extracts used, the more"
 							+ "\nOnly one set of spores can exist at once"
-							+ "\nSpores deals 10% increased damage against fire-coated enemies");
+							+ "\nSpores deals 10% increased damage against fire-coated enemies"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

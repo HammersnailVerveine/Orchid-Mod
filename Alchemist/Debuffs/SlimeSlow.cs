@@ -8,8 +8,8 @@ namespace OrchidMod.Alchemist.Debuffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slime Slow");
-			Description.SetDefault("Reduced Movement Speed");
+			// DisplayName.SetDefault("Slime Slow");
+			// Description.SetDefault("Reduced Movement Speed");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -28,7 +28,7 @@ namespace OrchidMod.Alchemist.Debuffs
 			if (collide && npc.velocity.Y > 3f)
 			{
 				int dmg = (int)(3 * npc.velocity.Y);
-				npc.StrikeNPCNoInteraction(dmg > 50 ? 50 : dmg, 0f, 0);
+				npc.SimpleStrikeNPC(dmg > 50 ? 50 : dmg, -npc.direction);
 				npc.velocity.Y = -npc.velocity.Y * 0.75f;
 			}
 		}

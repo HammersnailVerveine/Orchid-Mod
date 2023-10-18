@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<OrichalcumScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 12;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Orichalcum Scepter");
-			Tooltip.SetDefault("Shoots a potent orichalcum bolt, hitting your enemy 3 times"
+			// DisplayName.SetDefault("Orichalcum Scepter");
+			/* Tooltip.SetDefault("Shoots a potent orichalcum bolt, hitting your enemy 3 times"
 							  + "\nHitting the same target with all 3 shots will grant you an orichalcum orb"
-							  + "\nIf you have 5 orichalcum orbs, your next hit will release a burst of damaging petals");
+							  + "\nIf you have 5 orichalcum orbs, your next hit will release a burst of damaging petals"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

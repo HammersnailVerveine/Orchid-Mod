@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -19,12 +20,11 @@ namespace OrchidMod.Tiles.Ores
 			Main.tileSolid[Type] = true;
 			Main.tileBlockLight[Type] = true;
 
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Ancient Fossil");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Ancient Fossil");
 			AddMapEntry(new Color(178, 178, 138), name);
 
 			DustType = 18;
-			ItemDrop = ItemType<General.Items.Materials.AncientFossil>();
 			HitSound = SoundID.Dig;
 			MineResist = 1f;
 			MinPick = 35;

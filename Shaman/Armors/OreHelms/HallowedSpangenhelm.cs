@@ -21,9 +21,9 @@ namespace OrchidMod.Shaman.Armors.OreHelms
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hallowed Spangenhelm");
-			Tooltip.SetDefault("12% increased shamanic damage and critical chance"
-							+  "\nIncreases the duration of your shamanic bonds by 5 seconds");
+			// DisplayName.SetDefault("Hallowed Spangenhelm");
+			/* Tooltip.SetDefault("12% increased shamanic damage and critical chance"
+							+  "\nIncreases the duration of your shamanic bonds by 5 seconds"); */
 		}
 
 		public override void UpdateEquip(Player player)

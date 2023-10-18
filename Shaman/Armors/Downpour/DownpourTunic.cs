@@ -19,8 +19,8 @@ namespace OrchidMod.Shaman.Armors.Downpour
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Downpour Tunic");
-			Tooltip.SetDefault("15% increased shamanic critical strike chance");
+			// DisplayName.SetDefault("Downpour Tunic");
+			// Tooltip.SetDefault("15% increased shamanic critical strike chance");
 		}
 
 		public override void UpdateEquip(Player player)

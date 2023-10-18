@@ -18,11 +18,11 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ripple");
-			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
+			// DisplayName.SetDefault("Ripple");
+			/* Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
 							+ "\nUpon successful catalysis, releases a burst of homing water bolts"
 							+ "\nHit an enemy to apply catalyzed"
-							+ "\nCatalyzed replaces most alchemical debuffs");
+							+ "\nCatalyzed replaces most alchemical debuffs"); */
 		}
 
 		public override void CatalystInteractionEffect(Player player)
@@ -33,7 +33,7 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 			for (int i = 0; i < 4 + rand; i++)
 			{
 				Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(180)));
-				SpawnProjectile(player.GetSource_ItemUse(Item), player.Center, vel, ProjectileType<Projectiles.Reactive.ReactiveSpawn.DungeonCatalystProj>(), dmg, 0f, player.whoAmI);
+				SpawnProjectile(player.GetSource_FromThis(), player.Center, vel, ProjectileType<Projectiles.Reactive.ReactiveSpawn.DungeonCatalystProj>(), dmg, 0f, player.whoAmI);
 			}
 		}
 	}

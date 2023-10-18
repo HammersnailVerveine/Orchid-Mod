@@ -21,15 +21,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 7f;
 			Item.shoot = Mod.Find<ModProjectile>("OpalScepterProj").Type;
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Opal Scepter");
-			Tooltip.SetDefault("\nHitting an enemy will grant you an Opal orb"
-							+ "\nIf you have 3 opal orbs, your next hit will increase your shamanic critical strike damage for 30 seconds");
+			// DisplayName.SetDefault("Opal Scepter");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you an Opal orb"
+							+ "\nIf you have 3 opal orbs, your next hit will increase your shamanic critical strike damage for 30 seconds"); */
 		}
 
 		public override void AddRecipes()

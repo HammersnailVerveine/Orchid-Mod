@@ -7,7 +7,7 @@ namespace OrchidMod.General.Items.Misc
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Opens the Mineshaft Box");
+			// Tooltip.SetDefault("Opens the Mineshaft Box");
 		}
 
 		public override void SetDefaults()

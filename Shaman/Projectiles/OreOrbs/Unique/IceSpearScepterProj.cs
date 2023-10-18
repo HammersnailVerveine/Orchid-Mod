@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Spear");
+			// DisplayName.SetDefault("Ice Spear");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -59,7 +59,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 4; i++)
 			{

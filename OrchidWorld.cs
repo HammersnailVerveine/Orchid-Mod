@@ -1191,7 +1191,7 @@ namespace OrchidMod
 			for (int k = 0; k < (int)((Main.maxTilesX * Main.maxTilesY) * 0.015); k++)
 			{
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY);
+				int y = WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY);
 
 				if (!Framing.GetTileSafely(x, y).HasTile && !Framing.GetTileSafely(x + 1, y).HasTile &&
 				!Framing.GetTileSafely(x, y - 1).HasTile && !Framing.GetTileSafely(x + 1, y - 1).HasTile)
@@ -1269,7 +1269,7 @@ namespace OrchidMod
 			}
 		}
 
-		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
 			// int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
 			// if (ShiniesIndex != -1) {
@@ -1338,9 +1338,9 @@ namespace OrchidMod
 				tasks.Insert(ChestsIndex + 1, new PassLegacy("Post Terrain", delegate (GenerationProgress progress, GameConfiguration gameConfiguration)
 				{
 					// Get dungeon size field infos. These fields are private for some reason
-					int MinX = WorldGen.dMinX + 25;
-					int MaxX = WorldGen.dMaxX - 25;
-					int MaxY = WorldGen.dMaxY - 25;
+					int MinX = GenVars.dMinX + 25;
+					int MaxX = GenVars.dMaxX - 25;
+					int MaxY = GenVars.dMaxY - 25;
 
 					progress.Message = "Orchid Mod: Biome Chests";
 

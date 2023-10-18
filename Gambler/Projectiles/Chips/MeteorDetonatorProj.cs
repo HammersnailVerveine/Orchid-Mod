@@ -44,7 +44,7 @@ namespace OrchidMod.Gambler.Projectiles.Chips
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushroom Explosion");
+			// DisplayName.SetDefault("Mushroom Explosion");
 		}
 	}
 }

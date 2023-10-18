@@ -28,9 +28,9 @@ namespace OrchidMod.Alchemist.Weapons.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Seafoam Flask");
-			Tooltip.SetDefault("Creates a lingering, damaging water bubble"
-							+ "\nHas a chance to release a catalytic seafoam bubble");
+			// DisplayName.SetDefault("Seafoam Flask");
+			/* Tooltip.SetDefault("Creates a lingering, damaging water bubble"
+							+ "\nHas a chance to release a catalytic seafoam bubble"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

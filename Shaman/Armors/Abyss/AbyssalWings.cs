@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Armors.Abyss
 	{
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Allows flight and slow fall");
+			// Tooltip.SetDefault("Allows flight and slow fall");
 		}
 
 		public override void SafeSetDefaults()

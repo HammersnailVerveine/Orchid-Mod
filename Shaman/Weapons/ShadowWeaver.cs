@@ -21,15 +21,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 9.5f;
 			Item.shoot = ModContent.ProjectileType<DemoniteScepterProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shadow Weaver");
-			Tooltip.SetDefault("\nHitting an enemy will grant you a shadow orb"
-							  + "\nIf you have 3 shadow orbs, your next hit will empower you with dark energy for 30 seconds");
+			// DisplayName.SetDefault("Shadow Weaver");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you a shadow orb"
+							  + "\nIf you have 3 shadow orbs, your next hit will empower you with dark energy for 30 seconds"); */
 		}
 	}
 }

@@ -25,10 +25,10 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Bubbles");
-			Tooltip.SetDefault("Summons bubbles, floating upwards"
+			// DisplayName.SetDefault("Playing Card : Bubbles");
+			/* Tooltip.SetDefault("Summons bubbles, floating upwards"
 							+ "\nReleasing your left click causes existing bubbles to dash"
-							+ "\nBubbles gain in damage over time");
+							+ "\nBubbles gain in damage over time"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockBack, bool dummy = false)

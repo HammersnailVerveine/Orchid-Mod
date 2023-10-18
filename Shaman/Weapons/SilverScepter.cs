@@ -20,15 +20,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 7.5f;
 			Item.shoot = ModContent.ProjectileType<SilverScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sapphire Scepter");
-			Tooltip.SetDefault("\nHitting an enemy will grant you a sapphire orb"
-							  + "\nIf you have 3 sapphire orbs, your next hit will increase your shamanic critical strike chance for 30 seconds");
+			// DisplayName.SetDefault("Sapphire Scepter");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you a sapphire orb"
+							  + "\nIf you have 3 sapphire orbs, your next hit will increase your shamanic critical strike chance for 30 seconds"); */
 		}
 
 		public override void AddRecipes() => CreateRecipe()

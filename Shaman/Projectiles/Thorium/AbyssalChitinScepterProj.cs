@@ -9,7 +9,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Abyssal Bubble");
+			// DisplayName.SetDefault("Abyssal Bubble");
 		}
 
 		public override void SafeSetDefaults()
@@ -155,7 +155,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

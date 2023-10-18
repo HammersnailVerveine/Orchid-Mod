@@ -40,7 +40,7 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ember");
+			// DisplayName.SetDefault("Ember");
 		}
 	}
 }

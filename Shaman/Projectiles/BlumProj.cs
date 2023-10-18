@@ -6,7 +6,7 @@ namespace OrchidMod.Shaman.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blum Bolt");
+			// DisplayName.SetDefault("Blum Bolt");
 		}
 
 		public override void SafeSetDefaults()

@@ -52,8 +52,8 @@ namespace OrchidMod.Content.Prefixes
 		public override void Load()
 			=> prefixes.Add(this);
 
-		public override void SetStaticDefaults()
-			=> DisplayName.SetDefault(displayName);
+		/* public override void SetStaticDefaults()
+			=> DisplayName.SetDefault(displayName); */
 
 		public override void Apply(Item item)
 			=> item.GetGlobalItem<ShamanPrefixItem>().SetPrefixVariables(damage, knockback, useTime, crit, velocity);
@@ -119,15 +119,13 @@ namespace OrchidMod.Content.Prefixes
 			return myClone;
 		}
 
-		public override bool PreReforge(Item item)
+		public override void PreReforge(Item item)
 		{
 			damage = 0;
 			crit = 0;
 			useTime = 0;
 			velocity = 0;
 			knockback = 0;
-
-			return base.PreReforge(item);
 		}
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)

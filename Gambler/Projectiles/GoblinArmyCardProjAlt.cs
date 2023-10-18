@@ -9,7 +9,7 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goblin Bolt");
+			// DisplayName.SetDefault("Goblin Bolt");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -41,7 +41,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);

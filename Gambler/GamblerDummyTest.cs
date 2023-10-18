@@ -112,10 +112,10 @@ namespace OrchidMod.Gambler
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gambler Test Card");
-			Tooltip.SetDefault("Allows the use of specific gambler cards"
+			// DisplayName.SetDefault("Gambler Test Card");
+			/* Tooltip.SetDefault("Allows the use of specific gambler cards"
 							+ "\nRight click to cycle through your deck"
-							+ "\n[c/FF0000:Test Item]");
+							+ "\n[c/FF0000:Test Item]"); */
 		}
 
 		public void CheckStats(Item currentCard)

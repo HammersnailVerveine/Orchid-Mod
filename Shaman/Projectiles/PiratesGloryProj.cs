@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Pirate's Magic");
+			// DisplayName.SetDefault("Pirate's Magic");
 		}
 
 		public override void AI()
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Projectiles
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 127, 10, 20, true, 1f);
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 127, 10, 20, true, 1f);
 		}

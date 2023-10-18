@@ -23,18 +23,18 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 6f;
 			Item.shoot = ModContent.ProjectileType<HoneyProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("The Hive");
-			Tooltip.SetDefault("Shoots sticky honey balls, containing harmful bees"
+			// DisplayName.SetDefault("The Hive");
+			/* Tooltip.SetDefault("Shoots sticky honey balls, containing harmful bees"
 							  + "\nThe more active shamanic bonds, the more bees are released"
 							  + "\nWeapon damage increased by 25% if you are covered in honey"
 							  + "\nHitting will fill an honey orb"
-							  + "\nFilling the orb will make it explode into a swarm of bees");
+							  + "\nFilling the orb will make it explode into a swarm of bees"); */
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

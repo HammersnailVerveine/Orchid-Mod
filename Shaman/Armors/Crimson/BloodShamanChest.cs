@@ -19,8 +19,8 @@ namespace OrchidMod.Shaman.Armors.Crimson
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blood Shaman Tunic");
-			Tooltip.SetDefault("7% increased shamanic critical chance");
+			// DisplayName.SetDefault("Blood Shaman Tunic");
+			// Tooltip.SetDefault("7% increased shamanic critical chance");
 		}
 
 		public override void UpdateEquip(Player player)

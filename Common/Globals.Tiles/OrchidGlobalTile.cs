@@ -15,7 +15,7 @@ namespace OrchidMod.Common.Globals.Tiles
 {
 	public class OrchidGlobalTile : GlobalTile
 	{
-		public override bool Drop(int i, int j, int type)
+		public override void Drop(int i, int j, int type)/* tModPorter Suggestion: Use CanDrop to decide if items can drop, use this method to drop additional items. See documentation. */
 		{
 			var tile = Main.tile[i, j];
 
@@ -37,7 +37,7 @@ namespace OrchidMod.Common.Globals.Tiles
 					break;
 			}
 
-			return base.Drop(i, j, type);
+			//return base.Drop(i, j, type);
 		}
 
 		// ...

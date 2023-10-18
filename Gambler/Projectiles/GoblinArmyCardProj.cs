@@ -17,7 +17,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goblin Portal");
+			// DisplayName.SetDefault("Goblin Portal");
 		}
 
 		public override void SafeSetDefaults()

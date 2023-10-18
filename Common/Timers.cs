@@ -69,7 +69,7 @@ namespace OrchidMod.Common
 			{
 				// This method is private and is called only in DoUpdate
 				// So, in theory, it shouldn't break anything
-				On.Terraria.Main.UpdateWindyDayState += (orig, main) =>
+				Terraria.On_Main.UpdateWindyDayState += (orig, main) =>
 				{
 					orig(main);
 					GameUpdateCountWithoutPause++;

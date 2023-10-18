@@ -18,10 +18,10 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mourning Torch");
-			Tooltip.SetDefault("10% increased shamanic damage"
+			// DisplayName.SetDefault("Mourning Torch");
+			/* Tooltip.SetDefault("10% increased shamanic damage"
 							 + "\nYour shamanic bonds will last 10 seconds longer"
-							 + "\nHowever, taking direct damage will reduce their current duration by 5 seconds");
+							 + "\nHowever, taking direct damage will reduce their current duration by 5 seconds"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

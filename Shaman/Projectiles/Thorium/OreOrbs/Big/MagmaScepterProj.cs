@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Aquaite Bolt");
+			// DisplayName.SetDefault("Aquaite Bolt");
 		}
 
 		public override void AI()
@@ -45,7 +45,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			Main.dust[dust2].noLight = true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

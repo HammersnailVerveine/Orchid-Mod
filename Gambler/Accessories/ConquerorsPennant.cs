@@ -15,8 +15,8 @@ namespace OrchidMod.Gambler.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Conqueror's Pennant");
-			Tooltip.SetDefault("You enrage when drawing a gambler 'boss' card");
+			// DisplayName.SetDefault("Conqueror's Pennant");
+			// Tooltip.SetDefault("You enrage when drawing a gambler 'boss' card");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

@@ -14,7 +14,7 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Flake");
+			// DisplayName.SetDefault("Ice Flake");
 		}
 
 		public override void SafeSetDefaults()
@@ -48,7 +48,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0 ; i < 5 ; i ++) {
 				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 67)].noGravity = true;

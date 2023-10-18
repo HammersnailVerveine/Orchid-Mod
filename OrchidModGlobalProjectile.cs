@@ -24,7 +24,7 @@ namespace OrchidMod
 
 		public override bool InstancePerEntity => true;
 
-		public override void ModifyHitPlayer(Projectile projectile, Player target, ref int damage, ref bool crit)
+		public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
 		{
 			OrchidPlayer modPlayer = target.GetModPlayer<OrchidPlayer>();
 			if (modPlayer.generalTools && !target.HasBuff(BuffType<General.Buffs.Debuffs.ToolSetBuff>()))
@@ -40,7 +40,7 @@ namespace OrchidMod
 				if (trapProjTypes.Contains(projectile.type))
 				{
 					target.AddBuff(BuffType<General.Buffs.Debuffs.ToolSetBuff>(), 60 * 30);
-					damage = (int)(damage * 0.1f);
+					projectile.damage = (int)(projectile.damage * 0.1f);
 				}
 			}
 		}

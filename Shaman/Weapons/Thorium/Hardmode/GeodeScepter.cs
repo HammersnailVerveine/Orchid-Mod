@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<GeodeScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 13;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Geode Scepter");
-			Tooltip.SetDefault("Launches Heavy Geodes, exploding after a while"
+			// DisplayName.SetDefault("Geode Scepter");
+			/* Tooltip.SetDefault("Launches Heavy Geodes, exploding after a while"
 							+ "\nThe explosion will release a burst of crystal shards"
-							+ "\nThe more shamanic bonds you have, the more shards will appear");
+							+ "\nThe more shamanic bonds you have, the more shards will appear"); */
 		}
 
 		public override void AddRecipes()

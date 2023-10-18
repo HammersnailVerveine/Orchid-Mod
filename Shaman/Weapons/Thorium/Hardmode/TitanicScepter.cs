@@ -25,17 +25,17 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<TitanicScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 12;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Titan Scepter");
-			Tooltip.SetDefault("Shoots a potent titanic energy bolt, hitting your enemy 3 times"
+			// DisplayName.SetDefault("Titan Scepter");
+			/* Tooltip.SetDefault("Shoots a potent titanic energy bolt, hitting your enemy 3 times"
 							+ "\nHitting the same target with all 3 shots will grant you an titan orb"
 							+ "\nIf you have 5 orbs, your next hit will boost your critical strikes abilities for a while"
-							+ "\nCritical strikes will deal additional damage");
+							+ "\nCritical strikes will deal additional damage"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

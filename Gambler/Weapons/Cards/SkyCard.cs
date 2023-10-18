@@ -25,11 +25,11 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Sky");
-			Tooltip.SetDefault("Summons a cloud bush above your head"
+			// DisplayName.SetDefault("Playing Card : Sky");
+			/* Tooltip.SetDefault("Summons a cloud bush above your head"
 							+ "\nDrag and release a fruit to launch it"
 							+ "\nEvery third shot will release a star"
-							+ "\nAim at the star to create more projectiles");
+							+ "\nAim at the star to create more projectiles"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

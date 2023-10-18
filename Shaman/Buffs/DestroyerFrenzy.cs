@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Destroyer Frenzy");
-			Description.SetDefault("15% increased shamanic damage and critical strike damage");
+			// DisplayName.SetDefault("Destroyer Frenzy");
+			// Description.SetDefault("15% increased shamanic damage and critical strike damage");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

@@ -20,7 +20,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bubble");
+			// DisplayName.SetDefault("Bubble");
 		}
 
 		public override void SafeAI()
@@ -53,7 +53,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 4; i++)
 			{

@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<SunRayProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 2;
 		}
 
@@ -36,10 +36,10 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sun Ray");
-			Tooltip.SetDefault("Shoots a continuous sun beam"
+			// DisplayName.SetDefault("Sun Ray");
+			/* Tooltip.SetDefault("Shoots a continuous sun beam"
 							 + "\nDamage scales with the number of active shamanic bonds"
-							 + "\n10% increased damage during the day");
+							 + "\n10% increased damage during the day"); */
 		}
 	}
 }

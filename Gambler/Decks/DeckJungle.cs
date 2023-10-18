@@ -6,9 +6,9 @@ namespace OrchidMod.Gambler.Decks
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Jungle Gambler Deck");
-			Tooltip.SetDefault("Allows the use of gambler abilities"
-							+ "\n'+15 leafiness '");
+			// DisplayName.SetDefault("Jungle Gambler Deck");
+			/* Tooltip.SetDefault("Allows the use of gambler abilities"
+							+ "\n'+15 leafiness '"); */
 		}
 
 		public override void SafeSetDefaults()

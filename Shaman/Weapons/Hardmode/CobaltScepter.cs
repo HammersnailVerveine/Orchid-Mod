@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<CobaltScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 12;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cobalt Scepter");
-			Tooltip.SetDefault("Shoots a potent cobalt bolt, hitting your enemy 3 times"
+			// DisplayName.SetDefault("Cobalt Scepter");
+			/* Tooltip.SetDefault("Shoots a potent cobalt bolt, hitting your enemy 3 times"
 							  + "\nHitting the same target with all 3 shots will grant you a cobalt orb"
-							  + "\nIf you have 5 cobalt orbs, your next attack will partially fill all active shamanic bonds");
+							  + "\nIf you have 5 cobalt orbs, your next attack will partially fill all active shamanic bonds"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

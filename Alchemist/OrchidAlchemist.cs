@@ -301,7 +301,7 @@ namespace OrchidMod
 							modPlayer.autoRevertSelectedItem = true;
 							Player.selectedItem = i;
 							Player.controlUseItem = true;
-							Player.ItemCheck(Player.whoAmI);
+							Player.ItemCheck();
 							return;
 						}
 					}
@@ -355,7 +355,7 @@ namespace OrchidMod
 			Reset();
 		}
 
-		public override void OnRespawn(Player player)
+		public override void OnRespawn()
 		{
 			Reset();
 		}

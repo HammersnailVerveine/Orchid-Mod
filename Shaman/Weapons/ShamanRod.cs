@@ -22,16 +22,16 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item65;
 			Item.shootSpeed = 7f;
 			Item.shoot = ModContent.ProjectileType<Projectiles.ShamanRodProj>();
-			empowermentType = 4;
+			Element = 4;
 			this.energy = 35;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shaman Rod");
-			Tooltip.SetDefault("Shoots lingering razor-sharp leaves" +
+			// DisplayName.SetDefault("Shaman Rod");
+			/* Tooltip.SetDefault("Shoots lingering razor-sharp leaves" +
 							   "\nOnly one set can be active at once" +
-							   "\nHaving 2 or more active shamanic bonds increases damage and slows on hit");
+							   "\nHaving 2 or more active shamanic bonds increases damage and slows on hit"); */
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

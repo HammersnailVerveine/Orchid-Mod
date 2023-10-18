@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thunder Scepter Orb");
+			// DisplayName.SetDefault("Thunder Scepter Orb");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -223,7 +223,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 

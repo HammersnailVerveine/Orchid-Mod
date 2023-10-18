@@ -18,7 +18,7 @@ namespace OrchidMod.Guardian
 
 		public int range = 0;
 		public bool penetrate;
-		public bool hit = false;
+		public bool hitTarget = false;
 		public int dir;
 
 		public bool WeakThrow() => Projectile.ai[0] == 1;
@@ -34,11 +34,6 @@ namespace OrchidMod.Guardian
 			Projectile.timeLeft = 300;
 			Projectile.alpha = 256;
 			Projectile.tileCollide = false;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Guardian Hammer");
 		}
 
 		public override void OnSpawn(IEntitySource source)
@@ -154,24 +149,24 @@ namespace OrchidMod.Guardian
 			return false;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 			if (HammerItem != null)
 			{
 				bool weak = WeakThrow();
-				if (!hit)
+				if (!hitTarget)
 				{
 					if (!weak)
 					{
 						guardian.AddSlam(HammerItem.slamStacks);
 						guardian.AddBlock(HammerItem.blockStacks);
 					}
-					hit = true;
-					HammerItem.OnThrowHitFirst(player, guardian, target, knockback, crit, weak);
+					hitTarget = true;
+					HammerItem.OnThrowHitFirst(player, guardian, target, hit.Knockback, hit.Crit, weak);
 				}
-				HammerItem.OnThrowHit(player, guardian, target, knockback, crit, weak);
+				HammerItem.OnThrowHit(player, guardian, target, hit.Knockback, hit.Crit, weak);
 			}
 
 			if (!penetrate)

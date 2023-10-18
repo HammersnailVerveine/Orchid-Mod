@@ -18,8 +18,8 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sapphire Idol");
-			Tooltip.SetDefault("Having an active water bond reduces bond exhaustion by 10%");
+			// DisplayName.SetDefault("Sapphire Idol");
+			// Tooltip.SetDefault("Having an active water bond reduces bond exhaustion by 10%");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

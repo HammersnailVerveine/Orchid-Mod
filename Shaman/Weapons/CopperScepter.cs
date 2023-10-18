@@ -20,15 +20,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 6f;
 			Item.shoot = ModContent.ProjectileType<CopperScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Amethyst Scepter");
-			Tooltip.SetDefault("\nHitting an enemy will grant you an amethyst orb"
-							  + "\nIf you have 3 amethyst orbs, your next hit will empower your shamanic spirit bonds for 30 seconds");
+			// DisplayName.SetDefault("Amethyst Scepter");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you an amethyst orb"
+							  + "\nIf you have 3 amethyst orbs, your next hit will empower your shamanic spirit bonds for 30 seconds"); */
 		}
 
 		public override void AddRecipes() => CreateRecipe()

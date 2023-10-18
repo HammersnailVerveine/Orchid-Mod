@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Spear");
+			// DisplayName.SetDefault("Ice Spear");
 		}
 
 		public override void SafeSetDefaults()
@@ -130,7 +130,7 @@ namespace OrchidMod.Shaman.Projectiles
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 13; i++)
 			{

@@ -74,11 +74,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flash Freeze");
-			Tooltip.SetDefault("Freezes all spores, catalytic elements and lingering particles in an area"
+			// DisplayName.SetDefault("Flash Freeze");
+			/* Tooltip.SetDefault("Freezes all spores, catalytic elements and lingering particles in an area"
 							+ "\nFrozen projectiles will fall to the ground and shatter"
 							+ "\nEnemies hit by the area will be slowed, duration is increased against water-coated ones"
-							+ "\nUsing a fire ingredient cancels all these effects, and coats hit enemy with alchemical water");
+							+ "\nUsing a fire ingredient cancels all these effects, and coats hit enemy with alchemical water"); */
 		}
 
 		public override void KillFirst(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Petal");
+			// DisplayName.SetDefault("Petal");
 		}
 
 		public override void SafeSetDefaults()

@@ -61,12 +61,12 @@ namespace OrchidMod.Guardian
 			Projectile projectile;
 			if (guardian.guardianThrowCharge >= 180) {
 				dir *= Item.shootSpeed;
-				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.Center + dir, dir, projType, Item.damage, Item.knockBack, player.whoAmI)];
+				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center + dir, dir, projType, Item.damage, Item.knockBack, player.whoAmI)];
 			} 
 			else
 			{
 				dir *= Item.shootSpeed * (0.3f * (guardian.ThrowLevel() + 2) / 3);
-				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.Center + dir, dir, projType, (int)Item.damage / 3, Item.knockBack / 3f, player.whoAmI)];
+				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center + dir, dir, projType, (int)Item.damage / 3, Item.knockBack / 3f, player.whoAmI)];
 				projectile.ai[0] = 1f;
 			}
 			projectile.CritChance = Item.crit + (int)player.GetCritChance<GuardianDamageClass>();

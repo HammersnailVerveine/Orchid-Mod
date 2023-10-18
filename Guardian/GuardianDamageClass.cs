@@ -14,7 +14,7 @@ namespace OrchidMod.Guardian
 
 		public override void SetStaticDefaults()
 		{
-			ClassName.SetDefault("opposing damage");
+			// DisplayName.SetDefault("opposing damage");
 		}
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)

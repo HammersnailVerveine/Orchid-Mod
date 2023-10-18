@@ -25,7 +25,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushroom Aura");
+			// DisplayName.SetDefault("Mushroom Aura");
 		}
 
 		public override void AI()

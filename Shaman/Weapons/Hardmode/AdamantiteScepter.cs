@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<AdamantiteScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 12;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Adamantite Scepter");
-			Tooltip.SetDefault("Shoots a potent adamantite bolt, hitting your enemy 3 times"
+			// DisplayName.SetDefault("Adamantite Scepter");
+			/* Tooltip.SetDefault("Shoots a potent adamantite bolt, hitting your enemy 3 times"
 							  + "\nHitting the same target with all 3 shots will grant you an adamantite orb"
-							  + "\nIf you have 5 adamantite orbs, your attack will be empowered, dealing double damage");
+							  + "\nIf you have 5 adamantite orbs, your attack will be empowered, dealing double damage"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

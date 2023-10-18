@@ -4,7 +4,7 @@ namespace OrchidMod.Shaman.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lost Soul");
+			// DisplayName.SetDefault("Lost Soul");
 		}
 
 		public override void SafeSetDefaults()

@@ -96,7 +96,7 @@ namespace OrchidMod.Guardian
 
 		public Projectile NewRuneProjectile(Player player, OrchidGuardian guardian, int duration, int type, int damage, float knockback, int critChance, float distance = 0f, float angle = 0f)
 		{
-			Projectile projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_ItemUse(Item), player.Center, Vector2.Zero, type, damage, knockback, player.whoAmI, distance, angle)];
+			Projectile projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center, Vector2.Zero, type, damage, knockback, player.whoAmI, distance, angle)];
 			projectile.timeLeft = duration;
 			projectile.CritChance = critChance;
 			projectile.netUpdate = true;

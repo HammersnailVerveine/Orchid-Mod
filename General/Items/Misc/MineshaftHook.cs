@@ -9,12 +9,6 @@ namespace OrchidMod.General.Items.Misc
 {
 	internal class MineshaftHook : ModItem
 	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Escape Rope");
-			Tooltip.SetDefault("Can only shoot upwards");
-		}
-
 		public override void SetDefaults()
 		{
 			Item.CloneDefaults(ItemID.AmethystHook);
@@ -29,18 +23,13 @@ namespace OrchidMod.General.Items.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Escape Rope");
+			ProjectileID.Sets.SingleGrappleHook[Type] = true;
 		}
 
 		public override void SetDefaults()
 		{
 
 			Projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
-		}
-
-		public override bool? SingleGrappleHook(Player player)
-		{
-			return true;
 		}
 
 		public override void AI()

@@ -15,7 +15,7 @@ namespace OrchidMod.Gambler.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vulture Talon");
+			// DisplayName.SetDefault("Vulture Talon");
 		}
 	}
 }

@@ -8,7 +8,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Void Gate");
+			// DisplayName.SetDefault("Void Gate");
 			Main.projFrames[Projectile.type] = 4;
 		}
 

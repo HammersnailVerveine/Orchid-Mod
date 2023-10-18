@@ -20,8 +20,8 @@ namespace OrchidMod.Shaman.Armors.Downpour
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Downpour Crown");
-			Tooltip.SetDefault("Your shamanic bonds will last 4 seconds longer");
+			// DisplayName.SetDefault("Downpour Crown");
+			// Tooltip.SetDefault("Your shamanic bonds will last 4 seconds longer");
 		}
 
 		public override void UpdateEquip(Player player)

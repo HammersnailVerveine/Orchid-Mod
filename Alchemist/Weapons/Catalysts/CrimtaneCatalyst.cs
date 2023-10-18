@@ -17,11 +17,11 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crimson Catalyst");
-			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
+			// DisplayName.SetDefault("Crimson Catalyst");
+			/* Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
 							+ "\nUpon successful catalysis, confuses nearby enemies"
 							+ "\nHit an enemy to apply catalyzed"
-							+ "\nCatalyzed replaces most alchemical debuffs");
+							+ "\nCatalyzed replaces most alchemical debuffs"); */
 		}
 
 		public override void CatalystInteractionEffect(Player player)

@@ -9,7 +9,7 @@ namespace OrchidMod.Gambler.Projectiles.Equipment
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vulture Feather");
+			// DisplayName.SetDefault("Vulture Feather");
 		}
 
 		public override void SafeSetDefaults()

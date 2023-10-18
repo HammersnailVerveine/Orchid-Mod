@@ -21,17 +21,17 @@ namespace OrchidMod.Shaman.Weapons
 			Item.shootSpeed = 5.25f;
 			Item.shoot = ModContent.ProjectileType<MeteorPhasestaffProj>();
 			Item.UseSound = SoundID.Item15;
-			this.empowermentType = 1;
+			this.Element = 1;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			this.energy = 2;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Meteor Phasestaff");
-			Tooltip.SetDefault("Channels a disintegrating beam of energy"
+			// DisplayName.SetDefault("Meteor Phasestaff");
+			/* Tooltip.SetDefault("Channels a disintegrating beam of energy"
 							  + "\nThe beam gets weaker the further it goes"
-							  + "\nWeapon damage doubles if you have 3 or more active shamanic bonds");
+							  + "\nWeapon damage doubles if you have 3 or more active shamanic bonds"); */
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

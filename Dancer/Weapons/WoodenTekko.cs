@@ -30,11 +30,11 @@ namespace OrchidMod.Dancer.Weapons
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wooden Tekko");
-			Tooltip.SetDefault("Horizontally dashes at your foes"
+			// DisplayName.SetDefault("Wooden Tekko");
+			/* Tooltip.SetDefault("Horizontally dashes at your foes"
 							+ "\n[c/FF0000:Test Item]"
 							+ "\nThe Dancer class is a proof of concept"
-							+ "\nDo not expect it to be released soon, if at all");
+							+ "\nDo not expect it to be released soon, if at all"); */
 		}
 
 		// public override void AddRecipes()

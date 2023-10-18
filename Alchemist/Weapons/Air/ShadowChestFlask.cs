@@ -27,9 +27,9 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Demon Breath");
-			Tooltip.SetDefault("Releases returning demon flames"
-							+ "\nCoats hit enemies in alchemical air");
+			// DisplayName.SetDefault("Demon Breath");
+			/* Tooltip.SetDefault("Releases returning demon flames"
+							+ "\nCoats hit enemies in alchemical air"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

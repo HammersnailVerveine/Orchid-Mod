@@ -10,7 +10,7 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Skeletron Might");
+			// DisplayName.SetDefault("Skeletron Might");
 		}
 
 		public override void SafeSetDefaults()

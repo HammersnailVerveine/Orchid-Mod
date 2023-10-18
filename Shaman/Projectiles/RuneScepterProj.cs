@@ -16,7 +16,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Rune Bolt");
+			// DisplayName.SetDefault("Rune Bolt");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Projectiles
 			Projectile.velocity.X *= 0.96f;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 3; i++)
 			{

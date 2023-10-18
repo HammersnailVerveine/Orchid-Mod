@@ -20,8 +20,8 @@ namespace OrchidMod.Shaman.Armors.Corruption
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Dark Shaman Tiara");
-			Tooltip.SetDefault("8% increased shamanic damage");
+			// DisplayName.SetDefault("Dark Shaman Tiara");
+			// Tooltip.SetDefault("8% increased shamanic damage");
 		}
 
 		public override void UpdateEquip(Player player)

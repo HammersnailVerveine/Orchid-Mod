@@ -16,7 +16,7 @@ namespace OrchidMod.Gambler.Projectiles
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spore");
+			// DisplayName.SetDefault("Spore");
 		}
 
 		public override void SafeSetDefaults()
@@ -106,7 +106,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0 ; i < 3 ; i ++) {
 				Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 163)].noGravity = true;

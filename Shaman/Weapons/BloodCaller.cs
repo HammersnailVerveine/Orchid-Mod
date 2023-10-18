@@ -21,15 +21,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 9.5f;
 			Item.shoot = ModContent.ProjectileType<CrimsonScepterProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blood Caller");
-			Tooltip.SetDefault("\nHitting an enemy will grant you a crimson heart"
-							  + "\nIf you have 3 crimson hearts, your next hit will recover some life");
+			// DisplayName.SetDefault("Blood Caller");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you a crimson heart"
+							  + "\nIf you have 3 crimson hearts, your next hit will recover some life"); */
 		}
 	}
 }

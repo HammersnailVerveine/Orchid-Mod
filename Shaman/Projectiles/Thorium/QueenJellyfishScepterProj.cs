@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sorta Fish Consisting of Gelatin");
+			// DisplayName.SetDefault("Sorta Fish Consisting of Gelatin");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -75,7 +75,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 13; i++)
 			{

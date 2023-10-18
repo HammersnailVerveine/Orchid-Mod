@@ -25,7 +25,7 @@ namespace OrchidMod.Gambler
 		public virtual void SafeSetDefaults() { }
 		public virtual void SafeHoldItem() { }
 
-		public abstract void ModifyHitNPCWithProjDie(Player player, OrchidGambler gambler, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection);
+		public abstract void OnHitNPCWithProj(Player player, OrchidGambler gambler, NPC target, NPC.HitInfo hit, int damageDone);
 		public abstract void UpdateDie(Player player, OrchidGambler gambler);
 
 		public sealed override void SetDefaults()

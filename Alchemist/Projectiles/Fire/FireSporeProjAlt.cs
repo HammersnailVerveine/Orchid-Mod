@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fire Spore");
+			// DisplayName.SetDefault("Fire Spore");
 		}
 
 		public override void SafeSetDefaults()
@@ -43,7 +43,7 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

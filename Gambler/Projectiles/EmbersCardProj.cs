@@ -12,7 +12,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Embers");
+			// DisplayName.SetDefault("Embers");
 		}
 
 		public override void SafeSetDefaults()
@@ -134,7 +134,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 3; i++)
 			{

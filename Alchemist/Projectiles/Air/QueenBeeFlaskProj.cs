@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bee");
+			// DisplayName.SetDefault("Bee");
 		}
 
 		public override void SafeSetDefaults()

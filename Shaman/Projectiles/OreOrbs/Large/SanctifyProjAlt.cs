@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Holy Magic");
+			// DisplayName.SetDefault("Holy Magic");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -102,7 +102,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Large
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			spawnDustCircle(169, 10);
 		}

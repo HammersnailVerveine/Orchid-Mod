@@ -25,16 +25,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<TerrariumScepterProj>();
-			this.empowermentType = 3;
+			this.Element = 3;
 			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Terrarium Scepter");
-			Tooltip.SetDefault("Fires bolts of chromatic energy"
+			// DisplayName.SetDefault("Terrarium Scepter");
+			/* Tooltip.SetDefault("Fires bolts of chromatic energy"
 							+ "\nHitting enemies will gradually grant you terrarium orbs"
-							+ "\nWhen reaching 7 orbs, they will break free and home into your enemies");
+							+ "\nWhen reaching 7 orbs, they will break free and home into your enemies"); */
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

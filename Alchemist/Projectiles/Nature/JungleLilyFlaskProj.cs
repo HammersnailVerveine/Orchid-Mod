@@ -37,7 +37,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Jungle Lily Aura");
+			// DisplayName.SetDefault("Jungle Lily Aura");
 		}
 
 		public override void AI()

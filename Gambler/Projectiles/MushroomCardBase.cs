@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushroom Card Base");
+			// DisplayName.SetDefault("Mushroom Card Base");
 		}
 		
 		public override void SafeSetDefaults()

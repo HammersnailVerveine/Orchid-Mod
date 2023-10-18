@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Topaz Empowerment");
-			Description.SetDefault("Increases defense by 5");
+			// DisplayName.SetDefault("Topaz Empowerment");
+			// Description.SetDefault("Increases defense by 5");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

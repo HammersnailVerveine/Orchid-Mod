@@ -41,8 +41,8 @@ namespace OrchidMod.Content.Prefixes
 		public override void Load()
 			=> prefixes.Add(this);
 
-		public override void SetStaticDefaults()
-			=> DisplayName.SetDefault(displayName);
+		/* public override void SetStaticDefaults()
+			=> DisplayName.SetDefault(displayName); */
 
 		public override void Apply(Item item)
 			=> item.GetGlobalItem<AccessoryPrefixItem>().SetPrefixVariables(shamanTimer, alchemistPotency, gamblerChip);
@@ -91,7 +91,7 @@ namespace OrchidMod.Content.Prefixes
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
-			if (item.accessory && rand.NextBool(15))
+			if (item.accessory && rand.NextBool(20))
 			{
 				var prefixes = ShamanPrefix.GetPrefixes;
 				return prefixes[Main.rand.Next(prefixes.Count)].Type;
@@ -100,13 +100,11 @@ namespace OrchidMod.Content.Prefixes
 			return -1;
 		}
 
-		public override bool PreReforge(Item item)
+		public override void PreReforge(Item item)/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
 		{
 			shamanTimer = 0;
 			alchemistPotency = 0;
 			gamblerChip = 0;
-
-			return base.PreReforge(item);
 		}
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

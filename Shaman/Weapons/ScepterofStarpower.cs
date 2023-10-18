@@ -21,14 +21,14 @@ namespace OrchidMod.Shaman.Weapons
 			Item.shootSpeed = 9.5f;
 			Item.shoot = ModContent.ProjectileType<Projectiles.StarpowerScepterProj>();
 			Item.crit = 10;
-			empowermentType = 3;
+			Element = 3;
 			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Scepter of Starpower");
-			Tooltip.SetDefault("Critical strike chance increases with the number of active shamanic bonds");
+			// DisplayName.SetDefault("Scepter of Starpower");
+			// Tooltip.SetDefault("Critical strike chance increases with the number of active shamanic bonds");
 		}
 
 		public override void ModifyWeaponCrit(Player player, ref float crit)

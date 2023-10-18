@@ -22,16 +22,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
 			Item.shoot = ModContent.ProjectileType<CrystalScepterProj>();
-			this.empowermentType = 5;
+			this.Element = 5;
 			this.energy = 10;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Prismatic Resonator");
-			Tooltip.SetDefault("Shoots dividing crystalline beams"
+			// DisplayName.SetDefault("Prismatic Resonator");
+			/* Tooltip.SetDefault("Shoots dividing crystalline beams"
 							  + "\nHitting with the rupture point deals increased damage"
-							  + "\nThe number of projectiles caused by the division scales with the number of active shamanic bonds");
+							  + "\nThe number of projectiles caused by the division scales with the number of active shamanic bonds"); */
 		}
 
 		public override void PostUpdate()

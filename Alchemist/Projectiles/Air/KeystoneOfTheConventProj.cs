@@ -9,7 +9,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Convent Bolt");
+			// DisplayName.SetDefault("Convent Bolt");
 		}
 
 		public override void SafeSetDefaults()
@@ -39,7 +39,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 		}
 	}

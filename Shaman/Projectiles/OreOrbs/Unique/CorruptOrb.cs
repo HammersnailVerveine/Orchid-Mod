@@ -12,7 +12,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 		int orbsNumber = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Corrupt Orb");
+			// DisplayName.SetDefault("Corrupt Orb");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -98,7 +98,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();

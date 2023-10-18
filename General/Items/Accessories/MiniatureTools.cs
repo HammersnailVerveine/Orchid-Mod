@@ -17,9 +17,9 @@ namespace OrchidMod.General.Items.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Salvaged Toolbox");
-			Tooltip.SetDefault("Provides a small amount of light"
-							  + "\nAllows you to drastically reduce trap damage, on a cooldown");
+			// DisplayName.SetDefault("Salvaged Toolbox");
+			/* Tooltip.SetDefault("Provides a small amount of light"
+							  + "\nAllows you to drastically reduce trap damage, on a cooldown"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

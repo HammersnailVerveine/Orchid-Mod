@@ -49,8 +49,7 @@ namespace OrchidMod
 			}
 		}
 
-		public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit,
-		ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+		public override bool ImmuneTo(PlayerDeathReason damageSource, int cooldownCounter, bool dodgeable)
 		{
 			if (dancerInvincibility > 0)
 			{
@@ -59,7 +58,7 @@ namespace OrchidMod
 			return true;
 		}
 
-		public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
 		{
 			if (dancerWeaponType != OrchidModDancerItemType.NULL)
 			{
@@ -68,7 +67,7 @@ namespace OrchidMod
 					npc.velocity.X = Player.velocity.X * dancerWeaponKnockback * npc.knockBackResist / 5;
 					npc.velocity.Y = Player.velocity.Y * dancerWeaponKnockback * npc.knockBackResist / 5;
 				}
-				npc.StrikeNPCNoInteraction(dancerWeaponDamage, 0f, 0);
+				Player.ApplyDamageToNPC(npc, dancerWeaponDamage, 0f, Player.direction);
 
 				switch (dancerWeaponType)
 				{
@@ -85,7 +84,7 @@ namespace OrchidMod
 						break;
 				}
 
-				damage = 0;
+				modifiers.FinalDamage *= 0f;
 				dancerInvincibility = 10;
 			}
 		}

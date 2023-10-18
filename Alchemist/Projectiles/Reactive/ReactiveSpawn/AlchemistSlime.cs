@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemic Slime");
+			// DisplayName.SetDefault("Alchemic Slime");
 		}
 
 		public override void SafeSetDefaults()
@@ -37,7 +37,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

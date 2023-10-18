@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 		bool hoverD = false;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Soul Flame");
+			// DisplayName.SetDefault("Soul Flame");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -126,7 +126,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Circle
 			return true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

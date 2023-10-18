@@ -17,7 +17,7 @@ namespace OrchidMod.Shaman.Misc.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vampiric Membrane");
+			// DisplayName.SetDefault("Vampiric Membrane");
 		}
 	}
 }

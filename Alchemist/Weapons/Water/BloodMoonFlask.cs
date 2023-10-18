@@ -27,11 +27,11 @@ namespace OrchidMod.Alchemist.Weapons.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blood Mist Flask");
-			Tooltip.SetDefault("Creates a lingering cloud of damaging mist"
+			// DisplayName.SetDefault("Blood Mist Flask");
+			/* Tooltip.SetDefault("Creates a lingering cloud of damaging mist"
 							+ "\nThe mist knockback heavily scales with the number of elements used"
 							+ "\nUsing a fire element increases damage dealt, air increases spread"
-							+ "\nUsing both negates both effects");
+							+ "\nUsing both negates both effects"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

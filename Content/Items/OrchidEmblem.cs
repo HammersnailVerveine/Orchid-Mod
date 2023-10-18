@@ -10,11 +10,11 @@ namespace OrchidMod.Content.Items
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Orchid Emblem");
-			Tooltip.SetDefault("While the Shamans can continue their playthrough, the journey for both Alchemists and Gamblers stops here"
+			// DisplayName.SetDefault("Orchid Emblem");
+			/* Tooltip.SetDefault("While the Shamans can continue their playthrough, the journey for both Alchemists and Gamblers stops here"
 							+ "\n... For now !"
 							+ "\nContent up to Moon Lord for these classes will be added with the upcoming updates"
-							+ "\nPlease, come and say hi on Discord if you want to support me ;)");
+							+ "\nPlease, come and say hi on Discord if you want to support me ;)"); */
 		}
 
 		public override void SetDefaults()

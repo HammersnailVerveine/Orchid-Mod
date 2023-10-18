@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = false;
 			Item.shootSpeed = 3f;
 			Item.shoot = ModContent.ProjectileType<GoblinStickProj>();
-			this.empowermentType = 3;
+			this.Element = 3;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Goblin Stick");
-			Tooltip.SetDefault("Channels a volley of shadowflame balls"
-							  + "\nThe number of projectiles shot during the channeling depends on the number of active shamanic bonds");
+			// DisplayName.SetDefault("Goblin Stick");
+			/* Tooltip.SetDefault("Channels a volley of shadowflame balls"
+							  + "\nThe number of projectiles shot during the channeling depends on the number of active shamanic bonds"); */
 		}
 
 		public override void UpdateInventory(Player player)

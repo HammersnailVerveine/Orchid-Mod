@@ -11,7 +11,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Monowai Orb");
+			// DisplayName.SetDefault("Monowai Orb");
 		}
 
 		public override void SafeSetDefaults()
@@ -36,7 +36,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			return Color.White;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 2; i++)
 			{

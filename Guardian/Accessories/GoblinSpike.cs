@@ -14,9 +14,9 @@ namespace OrchidMod.Guardian.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Guardian Test Accessory");
-			Tooltip.SetDefault("Does nothing"
-							+ "\n[c/FF0000:Test Item]");
+			// DisplayName.SetDefault("Guardian Test Accessory");
+			/* Tooltip.SetDefault("Does nothing"
+							+ "\n[c/FF0000:Test Item]"); */
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

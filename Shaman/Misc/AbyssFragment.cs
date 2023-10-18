@@ -23,8 +23,8 @@ namespace OrchidMod.Shaman.Misc
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 			ItemID.Sets.ItemNoGravity[Item.type] = true;
 
-			DisplayName.SetDefault("Abyss Fragment");
-			Tooltip.SetDefault("'A feeling of pure immensity emanates from this fragment'");
+			// DisplayName.SetDefault("Abyss Fragment");
+			// Tooltip.SetDefault("'A feeling of pure immensity emanates from this fragment'");
 		}
 
 		public override void PostUpdate()

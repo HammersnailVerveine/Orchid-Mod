@@ -8,7 +8,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Abyssal Gate");
+			// DisplayName.SetDefault("Abyssal Gate");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -68,7 +68,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

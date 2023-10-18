@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ichor");
+			// DisplayName.SetDefault("Ichor");
 		}
 		public override void SafeSetDefaults()
 		{

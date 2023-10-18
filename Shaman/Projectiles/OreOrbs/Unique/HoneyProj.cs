@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Honey Magic");
+			// DisplayName.SetDefault("Honey Magic");
 		}
 
 		public override void AI()
@@ -59,7 +59,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Unique
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();

@@ -28,7 +28,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Flash Freeze Flake");
+			// DisplayName.SetDefault("Flash Freeze Flake");
 		}
 
 		public override void AI()
@@ -37,7 +37,7 @@ namespace OrchidMod.Alchemist.Projectiles.Water
 			Projectile.rotation += (Projectile.velocity.Y * 1.5f) / 20f;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int range = 125;
 			// OrchidModProjectile.spawnDustCircle(projectile.Center, 67, (int)(range / 2), 10, true, 1.5f, 1f, 6f, true, true, false, 0, 0, true);

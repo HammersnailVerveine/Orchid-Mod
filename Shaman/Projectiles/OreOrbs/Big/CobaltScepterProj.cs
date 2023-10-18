@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cobalt Bolt");
+			// DisplayName.SetDefault("Cobalt Bolt");
 		}
 
 		public override void AI()
@@ -35,7 +35,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			Main.dust[dust2].noLight = true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{
@@ -47,6 +47,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
+			/*
 			if (modPlayer.shamanOrbBig != ShamanOrbBig.COBALT)
 			{
 				modPlayer.shamanOrbBig = ShamanOrbBig.COBALT;
@@ -85,6 +86,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 				modPlayer.shamanEarthTimer = modPlayer.shamanEarthTimer == 0 ? 0 : modPlayer.shamanEarthTimer + toAdd > maxBufftimer ? maxBufftimer : modPlayer.shamanEarthTimer + toAdd;
 				modPlayer.orbCountBig = -3;
 			}
+			*/
 		}
 	}
 }

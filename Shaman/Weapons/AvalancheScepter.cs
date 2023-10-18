@@ -24,15 +24,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<IceSpearScepterProj>();
-			this.empowermentType = 2;
+			this.Element = 2;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Avalanche");
-			Tooltip.SetDefault("Hitting will spawn and empower a giant icicle above your head"
-							  + "\nAfter enough hits, the icicle will be launched, dealing massive damage");
+			// DisplayName.SetDefault("Avalanche");
+			/* Tooltip.SetDefault("Hitting will spawn and empower a giant icicle above your head"
+							  + "\nAfter enough hits, the icicle will be launched, dealing massive damage"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

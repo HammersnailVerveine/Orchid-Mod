@@ -16,8 +16,8 @@ namespace OrchidMod.Shaman.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Empty Tiara");
-			Tooltip.SetDefault("Used to make shamanic Tiaras");
+			// DisplayName.SetDefault("Empty Tiara");
+			// Tooltip.SetDefault("Used to make shamanic Tiaras");
 		}
 		public override void AddRecipes()
 		{

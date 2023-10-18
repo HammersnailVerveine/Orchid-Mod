@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Downpour Crystal");
+			// DisplayName.SetDefault("Downpour Crystal");
 		}
 
 	}

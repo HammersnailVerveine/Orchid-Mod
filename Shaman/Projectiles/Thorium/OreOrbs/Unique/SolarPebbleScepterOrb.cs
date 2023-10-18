@@ -11,7 +11,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 		int orbsNumber = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Solar Orb");
+			// DisplayName.SetDefault("Solar Orb");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -86,7 +86,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 

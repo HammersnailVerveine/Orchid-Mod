@@ -22,7 +22,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Poison Bubble");
+			// DisplayName.SetDefault("Poison Bubble");
 		}
 
 		public override void OnSpawn(IEntitySource source)
@@ -41,7 +41,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 4; i++)
 			{

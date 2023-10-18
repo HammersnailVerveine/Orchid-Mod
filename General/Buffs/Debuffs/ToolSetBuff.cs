@@ -8,8 +8,8 @@ namespace OrchidMod.General.Buffs.Debuffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Miner's Demise");
-			Description.SetDefault("Trap damage will not be reduced");
+			// DisplayName.SetDefault("Miner's Demise");
+			// Description.SetDefault("Trap damage will not be reduced");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<Projectiles.AbyssShardS>();
-			this.empowermentType = 1;
+			this.Element = 1;
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
@@ -36,9 +36,9 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 
-			DisplayName.SetDefault("Abyss Stormcaller");
-			Tooltip.SetDefault("Shoots abyss energy thunderbolts"
-								+ "\nIncreases weapon speed for each active shamanic bond");
+			// DisplayName.SetDefault("Abyss Stormcaller");
+			/* Tooltip.SetDefault("Shoots abyss energy thunderbolts"
+								+ "\nIncreases weapon speed for each active shamanic bond"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -25,15 +25,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 20f;
 			Item.shoot = ModContent.ProjectileType<StrangePlatingScepterProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Prime's Laser");
-			Tooltip.SetDefault("The weapon itself can critically strike, releasing a powerful blast"
-							+ "\nThe more shamanic bonds you have, the higher the chances of critical strike");
+			// DisplayName.SetDefault("Prime's Laser");
+			/* Tooltip.SetDefault("The weapon itself can critically strike, releasing a powerful blast"
+							+ "\nThe more shamanic bonds you have, the higher the chances of critical strike"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

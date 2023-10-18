@@ -7,8 +7,8 @@ namespace OrchidMod.Alchemist.Buffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Poisonous Slime");
-			Description.SetDefault("Increases the likelyhood of spawning slime bubbles, creating spiked jungle slimes");
+			// DisplayName.SetDefault("Poisonous Slime");
+			// Description.SetDefault("Increases the likelyhood of spawning slime bubbles, creating spiked jungle slimes");
 			Main.buffNoTimeDisplay[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

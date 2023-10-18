@@ -18,8 +18,8 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Emerald Idol");
-			Tooltip.SetDefault("Having an active air bond increases movement speed by 10%");
+			// DisplayName.SetDefault("Emerald Idol");
+			// Tooltip.SetDefault("Having an active air bond increases movement speed by 10%");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

@@ -29,10 +29,10 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fiery Slime Flask");
-			Tooltip.SetDefault("Makes hit enemies bouncy and susceptible to fall damage"
+			// DisplayName.SetDefault("Fiery Slime Flask");
+			/* Tooltip.SetDefault("Makes hit enemies bouncy and susceptible to fall damage"
 							+ "\nHas a chance to release a catalytic lava slime bubble"
-							+ "\nHitting a fire-coated enemy will spread lava droplets");
+							+ "\nHitting a fire-coated enemy will spread lava droplets"); */
 		}
 
 		public override void AddRecipes()

@@ -30,7 +30,7 @@ namespace OrchidMod.Alchemist.Misc
 		{
 			ItemID.Sets.IsAPickup[Type] = true;
 
-			DisplayName.SetDefault("Potency");
+			// DisplayName.SetDefault("Potency");
 		}
 
 		public override bool OnPickup(Player player)

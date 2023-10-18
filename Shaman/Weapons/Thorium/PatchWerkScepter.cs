@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<PatchWerkScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 7;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Festering Fork");
-			Tooltip.SetDefault("Fires out a bolt of festering magic"
-							+ "\nIf you have 2 or more active shamanic bonds, hitting will summon maggots");
+			// DisplayName.SetDefault("Festering Fork");
+			/* Tooltip.SetDefault("Fires out a bolt of festering magic"
+							+ "\nIf you have 2 or more active shamanic bonds, hitting will summon maggots"); */
 		}
 	}
 }

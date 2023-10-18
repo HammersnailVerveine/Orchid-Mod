@@ -25,8 +25,8 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Air Vial");
-			Tooltip.SetDefault("\n[c/FF0000:Test Item]");
+			// DisplayName.SetDefault("Air Vial");
+			// Tooltip.SetDefault("\n[c/FF0000:Test Item]");
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

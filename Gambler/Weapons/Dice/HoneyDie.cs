@@ -17,17 +17,17 @@ namespace OrchidMod.Gambler.Weapons.Dice
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Wax Die");
-			Tooltip.SetDefault("Recovers 1 - 6 health on gambling critical strike");
+			// DisplayName.SetDefault("Wax Die");
+			// Tooltip.SetDefault("Recovers 1 - 6 health on gambling critical strike");
 		}
 
 		public override void UpdateDie(Player player, OrchidGambler gambler)
 		{
 		}
 
-		public override void ModifyHitNPCWithProjDie(Player player, OrchidGambler gambler, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void OnHitNPCWithProj(Player player, OrchidGambler gambler, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (crit && gambler.gamblerTimerHoney >= 60)
+			if (hit.Crit && gambler.gamblerTimerHoney >= 60)
 			{
 				player.HealEffect(gambler.gamblerDieValue, true);
 				player.statLife += gambler.gamblerDieValue;

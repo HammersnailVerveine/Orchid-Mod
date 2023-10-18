@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs.Debuffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Broken Present");
-			Description.SetDefault("Nullifies the positive effects of the fragile and sinister present accessories");
+			// DisplayName.SetDefault("Broken Present");
+			// Description.SetDefault("Nullifies the positive effects of the fragile and sinister present accessories");
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 		}

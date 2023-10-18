@@ -17,8 +17,8 @@ namespace OrchidMod.Content.Items.Ranged
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Herald of Frost");
-			Tooltip.SetDefault("...");
+			// DisplayName.SetDefault("Herald of Frost");
+			// Tooltip.SetDefault("...");
 		}
 
 		public override void SetDefaults()

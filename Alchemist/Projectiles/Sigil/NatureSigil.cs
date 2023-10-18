@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Projectiles.Sigil
 		
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemical Nature Sigil");
+			// DisplayName.SetDefault("Alchemical Nature Sigil");
 			element = AlchemistElement.NATURE;
 			outlineTexture ??= ModContent.Request<Texture2D>("OrchidMod/Alchemist/Projectiles/Sigil/NatureSigil_Outline", AssetRequestMode.ImmediateLoad).Value;
 		}

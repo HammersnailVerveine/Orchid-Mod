@@ -13,7 +13,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Petal");
+			// DisplayName.SetDefault("Petal");
 		}
 
 		public override void SafeSetDefaults()
@@ -100,7 +100,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{
@@ -110,7 +110,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive.ReactiveSpawn
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 		}
 	}

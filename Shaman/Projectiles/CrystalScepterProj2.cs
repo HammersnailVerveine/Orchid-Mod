@@ -8,7 +8,7 @@ namespace OrchidMod.Shaman.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crystal Beam");
+			// DisplayName.SetDefault("Crystal Beam");
 		}
 
 		public override void SafeSetDefaults()
@@ -40,7 +40,7 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			spawnDustCircle(Main.rand.Next(2) == 0 ? 185 : 62, 10);
 		}

@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Unique
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ecliptic Flame");
+			// DisplayName.SetDefault("Ecliptic Flame");
 		}
 
 		public override void SafeSetDefaults()

@@ -25,17 +25,17 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<MonowaiProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Monowai"); // Named after an undersea volcano
-			Tooltip.SetDefault("Shoots elemental bolts, hitting your enemy 2 times"
+			// DisplayName.SetDefault("Monowai"); // Named after an undersea volcano
+			/* Tooltip.SetDefault("Shoots elemental bolts, hitting your enemy 2 times"
 							+ "\nHitting the same target twice will grant you a volcanic orb"
 							+ "\nIf you have 5 orbs, your next hit will explode, throwing enemies in the air"
-							+ "\nAttacks might singe the target, causing extra damage");
+							+ "\nAttacks might singe the target, causing extra damage"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

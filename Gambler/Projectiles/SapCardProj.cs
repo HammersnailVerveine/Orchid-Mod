@@ -19,7 +19,7 @@ namespace OrchidMod.Gambler.Projectiles
 			ProjectileID.Sets.CultistIsResistantTo[Projectile.type] = true;
 			Main.projFrames[Projectile.type] = 8;
 
-			DisplayName.SetDefault("Sap Bubble");
+			// DisplayName.SetDefault("Sap Bubble");
 		}
 
 		public override void SafeSetDefaults()
@@ -103,7 +103,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item85, Projectile.Center);
 

@@ -22,8 +22,8 @@ namespace OrchidMod.Gambler.Armors.Outlaw
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Outlaw Hat");
-			Tooltip.SetDefault("Maximum chips increased by 3");
+			// DisplayName.SetDefault("Outlaw Hat");
+			// Tooltip.SetDefault("Maximum chips increased by 3");
 		}
 
 		public override void UpdateEquip(Player player)

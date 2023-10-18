@@ -23,14 +23,14 @@ namespace OrchidMod.Alchemist
 			modProjectile.alchemistCatalyticTriggerDelegate = Catalyze;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
 			modTarget.AlchemistHit = true;
 			OrchidModAlchemistNPC modTargetAlch = target.GetGlobalNPC<OrchidModAlchemistNPC>();
-			SafeOnHitNPC(target, modTargetAlch, damage, knockback, crit, player, modPlayer);
+			SafeOnHitNPC(target, modTargetAlch, hit.Damage, hit.Knockback, hit.Crit, player, modPlayer);
 		}
 	}
 }

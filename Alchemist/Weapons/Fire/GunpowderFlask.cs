@@ -29,9 +29,9 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gunpowder Flask");
-			Tooltip.SetDefault("Creates a small explosion"
-							+ "\nCan be used to trigger catalytic elements, but prevents them from spawning");
+			// DisplayName.SetDefault("Gunpowder Flask");
+			/* Tooltip.SetDefault("Creates a small explosion"
+							+ "\nCan be used to trigger catalytic elements, but prevents them from spawning"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

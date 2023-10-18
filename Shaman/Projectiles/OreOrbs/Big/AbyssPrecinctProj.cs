@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Abyss Bolt");
+			// DisplayName.SetDefault("Abyss Bolt");
 		}
 
 		public override void AI()
@@ -96,7 +96,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

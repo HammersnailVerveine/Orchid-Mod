@@ -18,8 +18,8 @@ namespace OrchidMod.Gambler.Armors.Dungeon
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tyche Leggings");
-			Tooltip.SetDefault("10% increased gambling damage");
+			// DisplayName.SetDefault("Tyche Leggings");
+			// Tooltip.SetDefault("10% increased gambling damage");
 		}
 
 		public override void UpdateEquip(Player player)

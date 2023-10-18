@@ -18,7 +18,7 @@ namespace OrchidMod.Content.NPCs.Town
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Chip");
+			// DisplayName.SetDefault("Chip");
 		}
 	}
 }

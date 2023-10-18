@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
 			Item.shoot = ModContent.ProjectileType<TheCoreProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("The Core");
-			Tooltip.SetDefault("Shoots life-seeking essence bolts"
+			// DisplayName.SetDefault("The Core");
+			/* Tooltip.SetDefault("Shoots life-seeking essence bolts"
 							  + "\nThe number of projectiles depends on the number of active shamanic bonds"
-							  + "\n'You can feel heartbeats emanating from the staff'");
+							  + "\n'You can feel heartbeats emanating from the staff'"); */
 		}
 
 		public override Color? GetAlpha(Color lightColor)

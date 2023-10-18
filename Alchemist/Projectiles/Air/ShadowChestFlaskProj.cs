@@ -12,7 +12,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Alchemical Shadow");
+			// DisplayName.SetDefault("Alchemical Shadow");
 		}
 
 		public override void SafeSetDefaults()
@@ -57,7 +57,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			Projectile.velocity -= this.startVelocity * 0.02f;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{
@@ -78,7 +78,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			}
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			OrchidModAlchemistNPC modTarget = target.GetGlobalNPC<OrchidModAlchemistNPC>();
 			modTarget.alchemistAir = 600;

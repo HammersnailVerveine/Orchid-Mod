@@ -10,8 +10,8 @@ namespace OrchidMod.General.Items.Sets.StaticQuartz
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.SortingPriorityMaterials[Item.type] = 59;
-			DisplayName.SetDefault("Static Quartz");
-			Tooltip.SetDefault("Has electromagnetic properties");
+			// DisplayName.SetDefault("Static Quartz");
+			// Tooltip.SetDefault("Has electromagnetic properties");
 		}
 
 		public override void SetDefaults()

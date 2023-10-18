@@ -26,7 +26,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = false;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 35;
 		}
 
@@ -34,11 +34,11 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		{
 			HeldItemLayer.RegisterDrawMethod(Type, OrchidUtils.DrawSimpleItemGlowmaskOnPlayer);
 
-			DisplayName.SetDefault("Bloom Shroom");
-			Tooltip.SetDefault("Summons a protective shroom, harming nearby enemies"
+			// DisplayName.SetDefault("Bloom Shroom");
+			/* Tooltip.SetDefault("Summons a protective shroom, harming nearby enemies"
 				+ "\nHaving 3 or more active shamanic bonds weakens hit targets"
 				+ "\nHaving 5 active shamanic bonds increases nearby players health regeneration"
-				+ "\n[c/FF0000:Currently does not work as intended, and will be fixed soon]");
+				+ "\n[c/FF0000:Currently does not work as intended, and will be fixed soon]"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

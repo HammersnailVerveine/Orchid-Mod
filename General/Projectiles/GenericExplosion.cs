@@ -24,7 +24,7 @@ namespace OrchidMod.General.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Explosion");
+			// DisplayName.SetDefault("Explosion");
 		}
 	}
 }

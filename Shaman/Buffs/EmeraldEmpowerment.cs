@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Emerald Empowerment");
-			Description.SetDefault("Increases movement speed by 10%");
+			// DisplayName.SetDefault("Emerald Empowerment");
+			// Description.SetDefault("Increases movement speed by 10%");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

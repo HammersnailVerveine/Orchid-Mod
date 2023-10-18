@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Abyss Empowerment");
-			Description.SetDefault("Increases shamanic damage by 20%");
+			// DisplayName.SetDefault("Abyss Empowerment");
+			// Description.SetDefault("Increases shamanic damage by 20%");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

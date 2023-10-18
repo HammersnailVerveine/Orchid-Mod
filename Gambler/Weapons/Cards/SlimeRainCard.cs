@@ -24,10 +24,10 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Jelly Clouds");
-			Tooltip.SetDefault("Summons a slime rain cloud, following your cursor"
+			// DisplayName.SetDefault("Playing Card : Jelly Clouds");
+			/* Tooltip.SetDefault("Summons a slime rain cloud, following your cursor"
 							+ "\nSlimes will actively chase enemies after landing"
-							+ "\nThe longer the slimes falls, the more damage they do");
+							+ "\nThe longer the slimes falls, the more damage they do"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

@@ -25,8 +25,8 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Icicle");
-			Tooltip.SetDefault("Summons icicles, falling from the ceiling above your cursor");
+			// DisplayName.SetDefault("Playing Card : Icicle");
+			// Tooltip.SetDefault("Summons icicles, falling from the ceiling above your cursor");
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

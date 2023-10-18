@@ -21,9 +21,9 @@ namespace OrchidMod.Shaman.Armors.GemTiaras
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ruby Circlet");
-			Tooltip.SetDefault("Having an active fire bond increases life regeneration"
-							  + "\nYour shamanic bonds will last 3 seconds longer");
+			// DisplayName.SetDefault("Ruby Circlet");
+			/* Tooltip.SetDefault("Having an active fire bond increases life regeneration"
+							  + "\nYour shamanic bonds will last 3 seconds longer"); */
 		}
 
 		public override void UpdateEquip(Player player)

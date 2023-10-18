@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 		float startY = 0;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crimson Orb");
+			// DisplayName.SetDefault("Crimson Orb");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -108,7 +108,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

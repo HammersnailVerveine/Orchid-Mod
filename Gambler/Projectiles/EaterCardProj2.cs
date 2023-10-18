@@ -11,7 +11,7 @@ namespace OrchidMod.Gambler.Projectiles
 		public static Texture2D outlineTexture;
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eater Flesh");
+			// DisplayName.SetDefault("Eater Flesh");
 		}
 
 		public override void SafeSetDefaults()
@@ -78,7 +78,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			if (timeLeft < 1499)
 			{

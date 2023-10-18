@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Feather");
+			// DisplayName.SetDefault("Feather");
 		}
 
 		public override void SafeSetDefaults()

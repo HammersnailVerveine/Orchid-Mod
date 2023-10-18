@@ -19,9 +19,9 @@ namespace OrchidMod.Alchemist.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Keystone of the Convent");
-			Tooltip.SetDefault("Attacks with at least 3 non-air ingredients will be empowered"
-							+ "\nHit target will be dealt damage for all nearby air coatings, consuming them");
+			// DisplayName.SetDefault("Keystone of the Convent");
+			/* Tooltip.SetDefault("Attacks with at least 3 non-air ingredients will be empowered"
+							+ "\nHit target will be dealt damage for all nearby air coatings, consuming them"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

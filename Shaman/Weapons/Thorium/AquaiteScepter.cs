@@ -25,16 +25,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<AquaiteScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Aquaite Scepter");
-			Tooltip.SetDefault("Shoots a water bolt, hitting your enemy twice"
+			// DisplayName.SetDefault("Aquaite Scepter");
+			/* Tooltip.SetDefault("Shoots a water bolt, hitting your enemy twice"
 							+ "\nHitting the same target twice will grant you a water crystal"
-							+ "\nIf you have 5 crystals, your next hit will summon a powerful geyser");
+							+ "\nIf you have 5 crystals, your next hit will summon a powerful geyser"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

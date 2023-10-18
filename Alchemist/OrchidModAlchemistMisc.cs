@@ -12,22 +12,11 @@ namespace OrchidMod.Alchemist
 	public abstract class OrchidModAlchemistMisc : ModItem
 	{
 		public virtual void SafeSetDefaults() { }
-		public virtual void SafeModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit) { }
 
 		public sealed override void SetDefaults()
 		{
 			Item.DamageType = ModContent.GetInstance<AlchemistDamageClass>();
 			SafeSetDefaults();
-		}
-
-		public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
-		{
-			SafeModifyHitNPC(player, target, ref damage, ref knockBack, ref crit);
-			/*  [CRIT]
-			if (Main.rand.Next(101) <= player.GetModPlayer<OrchidAlchemist>().alchemistCrit)
-				crit = true;
-			else crit = false;
-			*/
 		}
 
 		protected override bool CloneNewInstances => true;

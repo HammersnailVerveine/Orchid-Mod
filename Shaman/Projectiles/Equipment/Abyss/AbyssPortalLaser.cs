@@ -11,11 +11,11 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Abyssal Beam");
+			// DisplayName.SetDefault("Abyssal Beam");
 		}
 		public override void SafeSetDefaults()
 		{
-			Projectile.width = 24;
+			Projectile.width = 36;
 			Projectile.height = 24;
 			Projectile.aiStyle = -1;
 			Projectile.penetrate = -1;
@@ -110,14 +110,14 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 			if (Projectile.velocity == Vector2.Zero) return true;
 
 			Texture2D texture2D19 = TextureAssets.Projectile[Projectile.type].Value;
-			Texture2D texture2D20 = ModContent.Request<Texture2D>("Shaman/Projectiles/Equipment/Abyss/AbyssPortalLaser_Beam").Value;
-			Texture2D texture2D21 = ModContent.Request<Texture2D>("Shaman/Projectiles/Equipment/Abyss/AbyssPortalLaser_End").Value;
+			Texture2D texture2D20 = ModContent.Request<Texture2D>("OrchidMod/Shaman/Projectiles/Equipment/Abyss/AbyssPortalLaser_Beam", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			Texture2D texture2D21 = ModContent.Request<Texture2D>("OrchidMod/Shaman/Projectiles/Equipment/Abyss/AbyssPortalLaser_End", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			float num228 = LaserLength;
 			Color color44 = Color.White * 0.8f;
 			Texture2D arg_AF99_1 = texture2D19;
 			Vector2 arg_AF99_2 = Projectile.Center + new Vector2(0, Projectile.gfxOffY) - Main.screenPosition;
 			Rectangle? sourceRectangle2 = null;
-			spriteBatch.Draw(arg_AF99_1, arg_AF99_2, sourceRectangle2, color44, Projectile.rotation, texture2D19.Size() / 2f, new Vector2(Math.Min(Projectile.ai[1], charge) / charge, 1f), SpriteEffects.None, 0f);
+			spriteBatch.Draw(arg_AF99_1, arg_AF99_2 - new Vector2(2, 0), sourceRectangle2, color44, Projectile.rotation, texture2D19.Size() / 2f, new Vector2(Math.Min(Projectile.ai[1], charge) / charge, 1f), SpriteEffects.None, 0f);
 			num228 -= (float)(texture2D19.Height / 2 + texture2D21.Height) * Projectile.scale;
 			Vector2 value20 = Projectile.Center + new Vector2(0, Projectile.gfxOffY);
 			value20 += Projectile.velocity * Projectile.scale * (float)texture2D19.Height / 2f;
@@ -131,7 +131,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 					{
 						rectangle7.Height = (int)(num228 - num229);
 					}
-					Main.spriteBatch.Draw(texture2D20, value20 - Main.screenPosition, new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, Projectile.rotation, new Vector2((float)(rectangle7.Width / 2), 0f), new Vector2(Math.Min(Projectile.ai[1], charge) / charge, 1f), SpriteEffects.None, 0f);
+					Main.spriteBatch.Draw(texture2D20, value20 - Main.screenPosition - new Vector2(2, 0), new Microsoft.Xna.Framework.Rectangle?(rectangle7), color44, Projectile.rotation, new Vector2((float)(rectangle7.Width / 2), 0f), new Vector2(Math.Min(Projectile.ai[1], charge) / charge, 1f), SpriteEffects.None, 0f);
 					num229 += (float)rectangle7.Height * Projectile.scale;
 					value20 += Projectile.velocity * (float)rectangle7.Height * Projectile.scale;
 					rectangle7.Y += 16;
@@ -145,7 +145,7 @@ namespace OrchidMod.Shaman.Projectiles.Equipment.Abyss
 			Texture2D arg_B1FF_1 = texture2D21;
 			Vector2 arg_B1FF_2 = value20 - Main.screenPosition;
 			sourceRectangle2 = null;
-			arg_B1FF_0.Draw(arg_B1FF_1, arg_B1FF_2, sourceRectangle2, color44, Projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), new Vector2(Math.Min(Projectile.ai[1], charge) / charge, 1f), SpriteEffects.None, 0f);
+			arg_B1FF_0.Draw(arg_B1FF_1, arg_B1FF_2 - new Vector2(2, 0), sourceRectangle2, color44, Projectile.rotation, texture2D21.Frame(1, 1, 0, 0).Top(), new Vector2(Math.Min(Projectile.ai[1], charge) / charge, 1f), SpriteEffects.None, 0f);
 
 			return true;
 		}

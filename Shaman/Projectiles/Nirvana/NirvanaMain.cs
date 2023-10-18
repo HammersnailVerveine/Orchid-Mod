@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Projectiles.Nirvana
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Nirvana Beam");
+			// DisplayName.SetDefault("Nirvana Beam");
 		}
 
 		public override void AI()

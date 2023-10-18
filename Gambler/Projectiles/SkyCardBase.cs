@@ -22,7 +22,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sky Card Base");
+			// DisplayName.SetDefault("Sky Card Base");
 		}
 
 		public override void SafeSetDefaults()

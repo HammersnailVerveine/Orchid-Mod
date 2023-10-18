@@ -18,7 +18,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Big
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Abyssal Explosion");
+			// DisplayName.SetDefault("Abyssal Explosion");
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer) { }

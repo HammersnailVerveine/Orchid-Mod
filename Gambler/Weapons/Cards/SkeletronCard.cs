@@ -25,9 +25,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Curse of the Dungeon");
-			Tooltip.SetDefault("Summons a skull, slowly following your cursor"
-							+ "\nBased on the distance between your cursor and it, the projectile will behave differently");
+			// DisplayName.SetDefault("Playing Card : Curse of the Dungeon");
+			/* Tooltip.SetDefault("Summons a skull, slowly following your cursor"
+							+ "\nBased on the distance between your cursor and it, the projectile will behave differently"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

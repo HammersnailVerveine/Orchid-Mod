@@ -15,8 +15,8 @@ namespace OrchidMod.Gambler.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Lucky Sprout");
-			Tooltip.SetDefault("Bushes from the 'biome' set will linger intead of disappearing");
+			// DisplayName.SetDefault("Lucky Sprout");
+			// Tooltip.SetDefault("Bushes from the 'biome' set will linger intead of disappearing");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

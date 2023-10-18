@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using static Terraria.ModLoader.ModContent;
@@ -16,8 +17,8 @@ namespace OrchidMod.Tiles.Ambient
 			Main.tileLavaDeath[Type] = true;
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
 			TileObjectData.addTile(Type);
-			ModTranslation name = CreateMapEntryName();
-			name.SetDefault("Escape Rope");
+			LocalizedText name = CreateMapEntryName();
+			// name.SetDefault("Escape Rope");
 			AddMapEntry(new Color(100, 75, 50), name);
 			DustType = 7;
 		}

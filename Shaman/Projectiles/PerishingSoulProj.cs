@@ -14,7 +14,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Perishing Slash");
+			// DisplayName.SetDefault("Perishing Slash");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -102,7 +102,7 @@ namespace OrchidMod.Shaman.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

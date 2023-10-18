@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Orbital Mine");
+			// DisplayName.SetDefault("Orbital Mine");
 		}
 
 		public override void SafeSetDefaults()
@@ -101,7 +101,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			Projectile.penetrate = -1;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item91, Projectile.Center);
 

@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Shamanic Accuracy");
-			Description.SetDefault("The source of your shamanic attacks will stay in position better");
+			// DisplayName.SetDefault("Shamanic Accuracy");
+			// Description.SetDefault("The source of your shamanic attacks will stay in position better");
 		}
 	}
 }

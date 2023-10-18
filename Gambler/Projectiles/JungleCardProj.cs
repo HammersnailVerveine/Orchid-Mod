@@ -12,13 +12,6 @@ namespace OrchidMod.Gambler.Projectiles
 {
 	public class JungleCardProj : OrchidModGamblerProjectile
 	{
-		//private Texture2D texture;
-		
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Spore Bud");
-		}
-
 		public override void SafeSetDefaults()
 		{
 			Projectile.width = 18;
@@ -119,9 +112,9 @@ namespace OrchidMod.Gambler.Projectiles
 			SoundEngine.PlaySound(SoundID.Item50, Projectile.Center);
 		}
 		
-		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-			damage *= 2;
-			damage += (int)(Projectile.velocity.Length() * 2);
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
+			modifiers.FinalDamage *= 2;
+			modifiers.FlatBonusDamage += (int)(Projectile.velocity.Length() * 2);
 		}
 		
 		public override bool OnTileCollide(Vector2 oldVelocity) {
@@ -131,7 +124,7 @@ namespace OrchidMod.Gambler.Projectiles
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

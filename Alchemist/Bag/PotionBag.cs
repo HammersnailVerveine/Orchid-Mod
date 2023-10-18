@@ -17,25 +17,25 @@ namespace OrchidMod.Alchemist.Bag
 		{
 			if (Main.dedServ) return;
 
-			IL.Terraria.Player.Update += IgnoreSelectedItemChange;
-			On.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color += PostDrawItemSlot;
+			Terraria.IL_Player.Update += IgnoreSelectedItemChange;
+			Terraria.UI.On_ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color += PostDrawItemSlot;
 		}
 
 		public override void Unload()
 		{
 			if (Main.dedServ) return;
 
-			On.Terraria.UI.ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color -= PostDrawItemSlot;
-			IL.Terraria.Player.Update -= IgnoreSelectedItemChange;
+			Terraria.UI.On_ItemSlot.Draw_SpriteBatch_ItemArray_int_int_Vector2_Color -= PostDrawItemSlot;
+			Terraria.IL_Player.Update -= IgnoreSelectedItemChange;
 		}
 
 		public override void SetStaticDefaults()
 		{
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-			DisplayName.SetDefault("Potion Bag");
-			Tooltip.SetDefault("Can carry up to 8 alchemical potions\n" +
+			// DisplayName.SetDefault("Potion Bag");
+			/* Tooltip.SetDefault("Can carry up to 8 alchemical potions\n" +
 							   "Items in the bag will appear in alchemist mixing interfaces\n" +
-							   "'A prototype by the chemist, meant to be upgraded later'");
+							   "'A prototype by the chemist, meant to be upgraded later'"); */
 		}
 
 		public override void SetDefaults()
@@ -120,7 +120,7 @@ namespace OrchidMod.Alchemist.Bag
 			{
 				if (inventory[index].IsAir) return;
 
-				player.QuickSpawnClonedItem(player.GetSource_ItemUse(Item, "PotionBag"), inventory[index]);
+				player.QuickSpawnItem(player.GetSource_ItemUse(Item, "PotionBag"), inventory[index]);
 				inventory[index].TurnToAir();
 
 				for (int i = 0, j = -1; i < SLOTS_XY; i++)
@@ -187,7 +187,7 @@ namespace OrchidMod.Alchemist.Bag
 				{
 					if (!inventory[k].IsAir)
 					{
-						player.QuickSpawnClonedItem(player.GetSource_ItemUse(Item, "PotionBag"), inventory[k]);
+						player.QuickSpawnItem(player.GetSource_ItemUse(Item, "PotionBag"), inventory[k]);
 						inventory[k].TurnToAir();
 					}
 				}
@@ -196,7 +196,7 @@ namespace OrchidMod.Alchemist.Bag
 
 			if (triggers.JustPressed.Hotbar10)
 			{
-				player.QuickSpawnClonedItem(player.GetSource_ItemUse(Item, "PotionBag"), dye);
+				player.QuickSpawnItem(player.GetSource_ItemUse(Item, "PotionBag"), dye);
 				dye.TurnToAir();
 				return;
 			}

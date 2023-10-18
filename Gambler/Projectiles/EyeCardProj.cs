@@ -21,7 +21,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Eye");
+			// DisplayName.SetDefault("Eye");
 
 			//Main.projFrames[Type] = Main.npcFrameCount[NPCID.DemonEye];
 

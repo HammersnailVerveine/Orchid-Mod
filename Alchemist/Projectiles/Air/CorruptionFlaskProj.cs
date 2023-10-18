@@ -27,7 +27,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Mushroom");
+			// DisplayName.SetDefault("Mushroom");
 		}
 
 		public override void AI()
@@ -135,7 +135,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			if (this.initialized) projectile.Kill();
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			int damage = (int)((Projectile.damage / 8) * (Projectile.frame + 1));
 			int range = (int)(25 * (Projectile.frame + 1));

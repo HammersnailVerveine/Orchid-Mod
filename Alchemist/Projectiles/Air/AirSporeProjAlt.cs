@@ -7,7 +7,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Air Spore");
+			// DisplayName.SetDefault("Air Spore");
 		}
 
 		public override void SafeSetDefaults()
@@ -43,7 +43,7 @@ namespace OrchidMod.Alchemist.Projectiles.Air
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

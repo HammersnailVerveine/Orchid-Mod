@@ -16,8 +16,8 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shaman Emblem");
-			Tooltip.SetDefault("15% increased shamanic damage");
+			// DisplayName.SetDefault("Shaman Emblem");
+			// Tooltip.SetDefault("15% increased shamanic damage");
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

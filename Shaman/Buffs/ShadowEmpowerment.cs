@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Shadow Empowerment");
-			Description.SetDefault("Increases movement speed and shamanic damage by 10%");
+			// DisplayName.SetDefault("Shadow Empowerment");
+			// Description.SetDefault("Increases movement speed and shamanic damage by 10%");
 		}
 		public override void Update(Player player, ref int buffIndex)
 		{

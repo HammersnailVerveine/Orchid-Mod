@@ -15,10 +15,10 @@ namespace OrchidMod.Alchemist.Weapons.Catalysts
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Catalytic Syringe");
-			Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
+			// DisplayName.SetDefault("Catalytic Syringe");
+			/* Tooltip.SetDefault("Used to interact with alchemist catalytic elements"
 							+ "\nHit an enemy to apply catalyzed"
-							+ "\nCatalyzed replaces most alchemical debuffs");
+							+ "\nCatalyzed replaces most alchemical debuffs"); */
 		}
 
 		public override void CatalystInteractionEffect(Player player) { }

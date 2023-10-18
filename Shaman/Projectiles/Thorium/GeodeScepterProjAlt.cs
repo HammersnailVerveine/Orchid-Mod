@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crystal Shard");
+			// DisplayName.SetDefault("Crystal Shard");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -69,7 +69,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Player player = Main.player[Projectile.owner];
 

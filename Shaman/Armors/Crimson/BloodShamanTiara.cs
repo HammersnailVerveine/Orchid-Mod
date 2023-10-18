@@ -20,8 +20,8 @@ namespace OrchidMod.Shaman.Armors.Crimson
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blood Shaman Tiara");
-			Tooltip.SetDefault("5% increased shamanic damage");
+			// DisplayName.SetDefault("Blood Shaman Tiara");
+			// Tooltip.SetDefault("5% increased shamanic damage");
 		}
 
 		public override void UpdateEquip(Player player)

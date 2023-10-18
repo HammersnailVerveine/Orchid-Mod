@@ -26,7 +26,7 @@ namespace OrchidMod.Alchemist.Projectiles.Reactive
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spirited Bubble");
+			// DisplayName.SetDefault("Spirited Bubble");
 		}
 
 		public override void OnSpawn(IEntitySource source)

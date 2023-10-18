@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Shamanic Baubles");
-			Description.SetDefault("Your next hit will give you a shamanic orb for free");
+			// DisplayName.SetDefault("Shamanic Baubles");
+			// Description.SetDefault("Your next hit will give you a shamanic orb for free");
 		}
 	}
 }

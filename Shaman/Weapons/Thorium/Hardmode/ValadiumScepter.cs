@@ -25,17 +25,17 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 13f;
 			Item.shoot = ModContent.ProjectileType<ValadiumScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 12;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Valadium Scepter");
-			Tooltip.SetDefault("Shoots a potent valadium bolt, hitting your enemy 3 times"
+			// DisplayName.SetDefault("Valadium Scepter");
+			/* Tooltip.SetDefault("Shoots a potent valadium bolt, hitting your enemy 3 times"
 							+ "\nHitting the same target with all 3 shots will grant you a valadium orb"
 							+ "\nIf you have 5 orbs, your next hit will deal massive damage and send your target flying"
-							+ "\nAttacks will blast enemies with inter-dimensional energy briefly");
+							+ "\nAttacks will blast enemies with inter-dimensional energy briefly"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

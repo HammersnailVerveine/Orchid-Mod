@@ -25,16 +25,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			Item.shoot = ModContent.ProjectileType<TrueDepthProj>();
-			this.empowermentType = 5;
+			this.Element = 5;
 			this.energy = 14;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("True Depths Baton");
-			Tooltip.SetDefault("Shoots 3 bolts of dark energy"
+			// DisplayName.SetDefault("True Depths Baton");
+			/* Tooltip.SetDefault("Shoots 3 bolts of dark energy"
 							  + "\nThe number of projectiles shot scales with the number of active shamanic bonds"
-							  + "\nHitting at maximum range deals increased damage");
+							  + "\nHitting at maximum range deals increased damage"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

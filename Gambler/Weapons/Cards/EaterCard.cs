@@ -24,10 +24,10 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Corrupted Nightmare");
-			Tooltip.SetDefault("Summon a corrupted worm, following your cursor"
+			// DisplayName.SetDefault("Playing Card : Corrupted Nightmare");
+			/* Tooltip.SetDefault("Summon a corrupted worm, following your cursor"
 							+ "\nRandomly releases rotten meat chunks"
-							+ "\nCollecting them increases the worm damage and length");
+							+ "\nCollecting them increases the worm damage and length"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

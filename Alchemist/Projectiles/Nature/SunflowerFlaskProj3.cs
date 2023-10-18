@@ -9,7 +9,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sunflower");
+			// DisplayName.SetDefault("Sunflower");
 		}
 
 		public override void SafeSetDefaults()
@@ -34,7 +34,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			Projectile.rotation += 0.04f * this.rotationDirection;
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (Main.player[Projectile.owner].HasBuff<Buffs.StardustSamplesBuff>())
 			{
@@ -42,7 +42,7 @@ namespace OrchidMod.Alchemist.Projectiles.Nature
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

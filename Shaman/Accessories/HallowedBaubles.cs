@@ -17,9 +17,9 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hallowed Baubles");
-			Tooltip.SetDefault("After completing an orb weapon cycle, you will be given a bonus orb on your next hit"
-							  + "\nYou will also recover some health based on the number of orbs in the cycle");
+			// DisplayName.SetDefault("Hallowed Baubles");
+			/* Tooltip.SetDefault("After completing an orb weapon cycle, you will be given a bonus orb on your next hit"
+							  + "\nYou will also recover some health based on the number of orbs in the cycle"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

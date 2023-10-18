@@ -23,15 +23,15 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<BulbScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 10;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Bulb Scepter");
-			Tooltip.SetDefault("Shoots spiky seeds, gaining in height on each bounce."
-							+ "\nThe number of seeds cast depends on the number of active shamanic bonds");
+			// DisplayName.SetDefault("Bulb Scepter");
+			/* Tooltip.SetDefault("Shoots spiky seeds, gaining in height on each bounce."
+							+ "\nThe number of seeds cast depends on the number of active shamanic bonds"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

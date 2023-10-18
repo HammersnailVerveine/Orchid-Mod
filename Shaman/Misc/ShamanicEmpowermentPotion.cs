@@ -25,8 +25,8 @@ namespace OrchidMod.Shaman.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Shamanic Accurary Potion");
-			Tooltip.SetDefault("The source of your shamanic attacks will stay in position better");
+			// DisplayName.SetDefault("Shamanic Accurary Potion");
+			// Tooltip.SetDefault("The source of your shamanic attacks will stay in position better");
 		}
 		public override void AddRecipes()
 		{

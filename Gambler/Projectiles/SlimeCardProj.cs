@@ -15,7 +15,7 @@ namespace OrchidMod.Gambler.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slime");
+			// DisplayName.SetDefault("Slime");
 		}
 
 		public override void SafeSetDefaults()
@@ -153,7 +153,7 @@ namespace OrchidMod.Gambler.Projectiles
 			this.justHit = 30;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 7; i++)
 			{

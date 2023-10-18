@@ -14,7 +14,7 @@ namespace OrchidMod.Gambler
 
 		public override void SetStaticDefaults()
 		{
-			ClassName.SetDefault("gambling damage");
+			// DisplayName.SetDefault("gambling damage");
 		}
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)

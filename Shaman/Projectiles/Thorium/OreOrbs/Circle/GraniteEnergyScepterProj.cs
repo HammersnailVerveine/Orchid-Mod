@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Granite Surge");
+			// DisplayName.SetDefault("Granite Surge");
 		}
 
 		public override Color? GetAlpha(Color lightColor)
@@ -41,7 +41,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 10; i++)
 			{

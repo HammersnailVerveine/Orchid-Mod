@@ -9,7 +9,7 @@ namespace OrchidMod.Shaman.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Depth Beam");
+			// DisplayName.SetDefault("Depth Beam");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -39,7 +39,7 @@ namespace OrchidMod.Shaman.Projectiles
 			return false;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 7; i++)
 			{

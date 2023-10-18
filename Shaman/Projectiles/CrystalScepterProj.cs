@@ -9,7 +9,7 @@ namespace OrchidMod.Shaman.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Crystal Beam");
+			// DisplayName.SetDefault("Crystal Beam");
 		}
 
 		public override void SafeSetDefaults()

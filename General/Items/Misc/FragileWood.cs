@@ -8,8 +8,8 @@ namespace OrchidMod.General.Items.Misc
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Fragile Wood");
-			Tooltip.SetDefault("Breaks when walked on.");
+			// DisplayName.SetDefault("Fragile Wood");
+			// Tooltip.SetDefault("Breaks when walked on.");
 		}
 
 		public override void SetDefaults()

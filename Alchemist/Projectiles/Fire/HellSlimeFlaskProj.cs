@@ -40,10 +40,10 @@ namespace OrchidMod.Alchemist.Projectiles.Fire
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slimy Ember");
+			// DisplayName.SetDefault("Slimy Ember");
 		}
 
-		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			target.AddBuff(BuffID.OnFire, 60 * 3);
 		}

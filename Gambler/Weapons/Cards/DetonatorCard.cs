@@ -24,9 +24,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Detonator");
-			Tooltip.SetDefault("Throws explosives, detonating upon releasing left click"
-							+ "\nHas a small delay before being able to detonate");
+			// DisplayName.SetDefault("Playing Card : Detonator");
+			/* Tooltip.SetDefault("Throws explosives, detonating upon releasing left click"
+							+ "\nHas a small delay before being able to detonate"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

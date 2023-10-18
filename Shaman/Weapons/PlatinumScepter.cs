@@ -21,15 +21,15 @@ namespace OrchidMod.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 9.5f;
 			Item.shoot = ModContent.ProjectileType<PlatinumScepterProj>();
-			this.empowermentType = 4;
+			this.Element = 4;
 			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Diamond Scepter");
-			Tooltip.SetDefault("\nHitting an enemy will grant you a diamond orb"
-							  + "\nIf you have 3 diamond orbs, your next hit will increase the duration of upcoming shamanic bonds for 30 seconds");
+			// DisplayName.SetDefault("Diamond Scepter");
+			/* Tooltip.SetDefault("\nHitting an enemy will grant you a diamond orb"
+							  + "\nIf you have 3 diamond orbs, your next hit will increase the duration of upcoming shamanic bonds for 30 seconds"); */
 		}
 
 		public override void AddRecipes() => CreateRecipe()

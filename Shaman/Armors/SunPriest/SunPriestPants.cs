@@ -18,9 +18,9 @@ namespace OrchidMod.Shaman.Armors.SunPriest
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Sun Priest Pants");
-			Tooltip.SetDefault("6% increased shamanic damage"
-							 + "\n5% increased movement speed");
+			// DisplayName.SetDefault("Sun Priest Pants");
+			/* Tooltip.SetDefault("6% increased shamanic damage"
+							 + "\n5% increased movement speed"); */
 		}
 
 		public override void UpdateEquip(Player player)

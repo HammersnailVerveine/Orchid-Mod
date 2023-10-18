@@ -21,8 +21,8 @@ namespace OrchidMod.Shaman.Armors.Thorium.OreHelms
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Titan Spangenhelm");
-			Tooltip.SetDefault("Your shamanic bonds will last 4 seconds longer");
+			// DisplayName.SetDefault("Titan Spangenhelm");
+			// Tooltip.SetDefault("Your shamanic bonds will last 4 seconds longer");
 		}
 
 		public override void UpdateEquip(Player player)

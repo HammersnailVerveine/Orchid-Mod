@@ -29,11 +29,11 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Glowing Attractite Flask");
-			Tooltip.SetDefault("Hit target will attract alchemic spores and lingering particles"
+			// DisplayName.SetDefault("Glowing Attractite Flask");
+			/* Tooltip.SetDefault("Hit target will attract alchemic spores and lingering particles"
 							+ "\nThe attractivity buff will jump to the nearest target on miss"
 							+ "\nReleases nature spores, the less other extracts used, the more"
-							+ "\nSpores deals 10% increased damage against fire-coated enemies");
+							+ "\nSpores deals 10% increased damage against fire-coated enemies"); */
 		}
 
 		public override void AddRecipes()

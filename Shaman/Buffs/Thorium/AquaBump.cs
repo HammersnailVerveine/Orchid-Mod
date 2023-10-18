@@ -7,8 +7,8 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Aqua Bump");
-			Description.SetDefault("Landing will hurt");
+			// DisplayName.SetDefault("Aqua Bump");
+			// Description.SetDefault("Landing will hurt");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Buffs.Thorium
 		{
 			if (npc.velocity.Y == 0)
 			{
-				npc.StrikeNPCNoInteraction(50, 0f, 0);
+				npc.SimpleStrikeNPC(50, npc.direction);
 				npc.buffTime[buffIndex] = 0;
 				buffIndex--;
 			}

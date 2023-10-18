@@ -25,9 +25,9 @@ namespace OrchidMod.Gambler.Weapons.Cards
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Playing Card : Spiky Gelatin");
-			Tooltip.SetDefault("Summons a bouncy jungle slime, following your cursor"
-							+ "\nEach successful hit increases damage, touching the ground resets it");
+			// DisplayName.SetDefault("Playing Card : Spiky Gelatin");
+			/* Tooltip.SetDefault("Summons a bouncy jungle slime, following your cursor"
+							+ "\nEach successful hit increases damage, touching the ground resets it"); */
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)

@@ -7,8 +7,8 @@ namespace OrchidMod.Alchemist.Debuffs
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Frozen");
-			Description.SetDefault("Reduced Movement Speed");
+			// DisplayName.SetDefault("Frozen");
+			// Description.SetDefault("Reduced Movement Speed");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = true;
 			Main.buffNoSave[Type] = true;

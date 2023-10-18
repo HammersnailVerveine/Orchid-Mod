@@ -11,7 +11,7 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Spirit Bolt");
+			// DisplayName.SetDefault("Spirit Bolt");
 		}
 
 		// public override Color? GetAlpha(Color lightColor)  {
@@ -42,7 +42,7 @@ namespace OrchidMod.Gambler.Projectiles
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 29, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
 		}

@@ -18,9 +18,9 @@ namespace OrchidMod.Alchemist.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Weighted Crimson");
-			Tooltip.SetDefault("Increases alchemic main projectile velocity by 25%"
-							+ "\nMaximum potency increased by 2");
+			// DisplayName.SetDefault("Weighted Crimson");
+			/* Tooltip.SetDefault("Increases alchemic main projectile velocity by 25%"
+							+ "\nMaximum potency increased by 2"); */
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

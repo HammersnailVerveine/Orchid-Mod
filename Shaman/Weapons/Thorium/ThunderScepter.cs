@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
 			Item.shoot = ModContent.ProjectileType<ThunderScepterProj>();
-			this.empowermentType = 3;
+			this.Element = 3;
 			this.energy = 3;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Thunder Scepter");
-			Tooltip.SetDefault("Rapidly zaps your foes"
+			// DisplayName.SetDefault("Thunder Scepter");
+			/* Tooltip.SetDefault("Rapidly zaps your foes"
 							+ "\nHitting will charge up energy above you"
-							+ "\nWhen fully loaded, potent wind gusts will be released");
+							+ "\nWhen fully loaded, potent wind gusts will be released"); */
 		}
 	}
 }

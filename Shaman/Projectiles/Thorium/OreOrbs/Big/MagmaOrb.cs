@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Magma Orb");
+			// DisplayName.SetDefault("Magma Orb");
 		}
 
 		public override void SafeSetDefaults()
@@ -112,7 +112,7 @@ namespace OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big
 			Projectile.position.Y = player.position.Y + startY;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			for (int i = 0; i < 5; i++)
 			{

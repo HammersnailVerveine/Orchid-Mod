@@ -28,10 +28,10 @@ namespace OrchidMod.Alchemist.Weapons.Nature
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Attractite Flask");
-			Tooltip.SetDefault("Hit target will attract alchemic spores and lingering particles"
+			// DisplayName.SetDefault("Attractite Flask");
+			/* Tooltip.SetDefault("Hit target will attract alchemic spores and lingering particles"
 							+ "\nThe attractivity buff will jump to the nearest target on miss"
-							+ "\nCounts as an extract when spawning spores");
+							+ "\nCounts as an extract when spawning spores"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

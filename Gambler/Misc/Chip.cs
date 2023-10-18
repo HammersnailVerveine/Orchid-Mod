@@ -30,7 +30,7 @@ namespace OrchidMod.Gambler.Misc
 		{
 			ItemID.Sets.IsAPickup[Type] = true;
 
-			DisplayName.SetDefault("Chip");
+			// DisplayName.SetDefault("Chip");
 		}
 
 		public override bool OnPickup(Player player)

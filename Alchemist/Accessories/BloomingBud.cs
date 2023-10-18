@@ -19,8 +19,8 @@ namespace OrchidMod.Alchemist.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blooming Bud");
-			Tooltip.SetDefault("Periodically releases catalytic blooming buds when attacking");
+			// DisplayName.SetDefault("Blooming Bud");
+			// Tooltip.SetDefault("Periodically releases catalytic blooming buds when attacking");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

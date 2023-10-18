@@ -28,9 +28,9 @@ namespace OrchidMod.Alchemist.Weapons.Fire
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ember Flask");
-			Tooltip.SetDefault("Burns your target briefly"
-							+ "\nReleases lingering embers");
+			// DisplayName.SetDefault("Ember Flask");
+			/* Tooltip.SetDefault("Burns your target briefly"
+							+ "\nReleases lingering embers"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

@@ -10,7 +10,7 @@ namespace OrchidMod.Alchemist.Projectiles.Misc
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Attractite Shuriken");
+			// DisplayName.SetDefault("Attractite Shuriken");
 		}
 
 		public override void SafeSetDefaults()

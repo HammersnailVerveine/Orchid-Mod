@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Projectiles
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Leaf");
+			// DisplayName.SetDefault("Leaf");
 
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 15;
@@ -85,7 +85,7 @@ namespace OrchidMod.Shaman.Projectiles
 			return true;
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Item65, Projectile.position);
 

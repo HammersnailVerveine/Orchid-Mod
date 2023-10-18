@@ -12,7 +12,7 @@ namespace OrchidMod.Gambler.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cactus spike");
+			// DisplayName.SetDefault("Cactus spike");
 		}
 
 		public override void SafeSetDefaults()
@@ -31,7 +31,7 @@ namespace OrchidMod.Gambler.Projectiles
 			Projectile.frame = Main.rand.Next(2);
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 31)].noGravity = true;
 		}

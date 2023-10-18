@@ -10,7 +10,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ruby Bolt");
+			// DisplayName.SetDefault("Ruby Bolt");
 		}
 		public override void SafeSetDefaults()
 		{
@@ -44,7 +44,7 @@ namespace OrchidMod.Shaman.Projectiles.OreOrbs.Small
 			}
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 60, 5, 8, true, 1.5f, 1f, 4f, true, true, false, 0, 0, true);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 60, 5, 8, true, 1.5f, 1f, 2.5f, true, true, false, 0, 0, true);

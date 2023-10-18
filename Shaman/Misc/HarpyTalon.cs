@@ -15,7 +15,7 @@ namespace OrchidMod.Shaman.Misc
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Harpy Talon");
+			// DisplayName.SetDefault("Harpy Talon");
 		}
 	}
 }

@@ -24,8 +24,8 @@ namespace OrchidMod.Guardian.Weapons.Warhammers
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Warhammer");
-			Tooltip.SetDefault("Hurls a heavy hammer");
+			// DisplayName.SetDefault("Warhammer");
+			// Tooltip.SetDefault("Hurls a heavy hammer");
 		}
 
 		public override bool ThrowAI(Player player, OrchidGuardian guardian, bool weak)

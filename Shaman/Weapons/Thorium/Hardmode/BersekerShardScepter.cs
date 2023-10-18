@@ -23,16 +23,16 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<BersekerShardScepterProj>();
-			this.empowermentType = 1;
+			this.Element = 1;
 			this.energy = 8;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Berserker Wrath");
-			Tooltip.SetDefault("Fires out a bolt pure rage"
+			// DisplayName.SetDefault("Berserker Wrath");
+			/* Tooltip.SetDefault("Fires out a bolt pure rage"
 							+ "\nThe less health you have, the more damage dealt"
-							+ "\nIf you have 5 shamanic bonds, enemies hit by the staff return as aggressive spirits for a short time after dying");
+							+ "\nIf you have 5 shamanic bonds, enemies hit by the staff return as aggressive spirits for a short time after dying"); */
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

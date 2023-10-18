@@ -17,11 +17,11 @@ namespace OrchidMod.Shaman.Accessories
 		}
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Prismatic Idol");
-			Tooltip.SetDefault("Your different shamanic bonds increases various stats while active"
+			// DisplayName.SetDefault("Prismatic Idol");
+			/* Tooltip.SetDefault("Your different shamanic bonds increases various stats while active"
 							+ "\nYour shamanic earth bonds will increase your maximum life by 50"
 							+ "\nIncreases the duration of your shamanic bonds by 3 seconds"
-							+ "\n10% increased shamanic damage");
+							+ "\n10% increased shamanic damage"); */
 		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{

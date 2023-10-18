@@ -24,16 +24,16 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.shootSpeed = 12f;
 			Item.shoot = ModContent.ProjectileType<IceFlakeConeProj>();
 
-			empowermentType = 2;
+			Element = 2;
 			catalystType = ShamanCatalystType.ROTATE;
 			energy = 3;
 		}
 
 		public override void SafeSetStaticDefaults()
 		{
-			DisplayName.SetDefault("Ice Flake");
-			Tooltip.SetDefault("Shoots returning ice blades\n" +
-							   "The maximum number of projectiles launched depends on the number of active shamanic bonds");
+			// DisplayName.SetDefault("Ice Flake");
+			/* Tooltip.SetDefault("Shoots returning ice blades\n" +
+							   "The maximum number of projectiles launched depends on the number of active shamanic bonds"); */
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

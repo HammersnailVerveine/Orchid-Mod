@@ -8,8 +8,8 @@ namespace OrchidMod.Shaman.Buffs
 		public override void SetStaticDefaults()
 		{
 			Main.buffNoTimeDisplay[Type] = false;
-			DisplayName.SetDefault("Diamond Empowerment");
-			Description.SetDefault("Increases the duration of your shamanic bonds by 3 seconds");
+			// DisplayName.SetDefault("Diamond Empowerment");
+			// Description.SetDefault("Increases the duration of your shamanic bonds by 3 seconds");
 		}
 
 		public override void Update(Player player, ref int buffIndex)

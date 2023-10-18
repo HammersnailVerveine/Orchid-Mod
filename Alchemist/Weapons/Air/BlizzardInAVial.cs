@@ -25,9 +25,9 @@ namespace OrchidMod.Alchemist.Weapons.Air
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Blizzard in a Flask");
-			Tooltip.SetDefault("Launches hit enemy in the air"
-							+ "\nIncreases the likelihood of spawning catalytic bubbles");
+			// DisplayName.SetDefault("Blizzard in a Flask");
+			/* Tooltip.SetDefault("Launches hit enemy in the air"
+							+ "\nIncreases the likelihood of spawning catalytic bubbles"); */
 		}
 
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)

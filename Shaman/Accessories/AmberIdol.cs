@@ -18,8 +18,8 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Amber Idol");
-			Tooltip.SetDefault("Your shamanic earth bonds will increase your maximum life by 50");
+			// DisplayName.SetDefault("Amber Idol");
+			// Tooltip.SetDefault("Your shamanic earth bonds will increase your maximum life by 50");
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

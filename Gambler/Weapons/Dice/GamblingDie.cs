@@ -19,20 +19,20 @@ namespace OrchidMod.Gambler.Weapons.Dice
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Gambling Die");
-			Tooltip.SetDefault("Every second gambler hit deals 1-6 increased damage");
+			// DisplayName.SetDefault("Gambling Die");
+			// Tooltip.SetDefault("Every second gambler hit deals 1-6 increased damage");
 		}
 
 		public override void UpdateDie(Player player, OrchidGambler gambler)
 		{
 		}
 
-		public override void ModifyHitNPCWithProjDie(Player player, OrchidGambler gambler, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+		public override void OnHitNPCWithProj(Player player, OrchidGambler gambler, NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			if (hitCount > 0)
 			{
 				hitCount = 0;
-				damage += gambler.gamblerDieValue;
+				player.ApplyDamageToNPC(target, gambler.gamblerDieValue, 0f, player.direction);
 			}
 			else hitCount++;
 		}
