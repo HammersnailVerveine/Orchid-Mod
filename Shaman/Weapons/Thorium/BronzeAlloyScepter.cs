@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 14f;
-			Item.shoot = ModContent.ProjectileType<BronzeAlloyScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<BronzeAlloyScepterProj>();
 			this.Element = 4;
 			this.energy = 5;
 		}
@@ -40,6 +40,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			/*
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 
@@ -53,6 +54,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			}
 
 			this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
+			*/
 			return false;
 		}
 

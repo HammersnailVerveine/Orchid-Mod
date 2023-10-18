@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item15;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<SunRayProj>();
+			//Item.shoot = ModContent.ProjectileType<SunRayProj>();
 			this.Element = 1;
 			this.energy = 2;
 		}

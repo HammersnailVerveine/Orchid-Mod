@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item122;
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
-			Item.shoot = ModContent.ProjectileType<Projectiles.AbyssShardS>();
+			//Item.shoot = ModContent.ProjectileType<Projectiles.AbyssShardS>();
 			this.Element = 1;
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
@@ -43,11 +43,12 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
-			// What the fuck is this
+			/*
 			Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(5));
 			this.NewShamanProjectile(player, source, position, newVelocity, ModContent.ProjectileType<Projectiles.AbyssShard>(), damage, knockback);
 			this.NewShamanProjectile(player, source, position, newVelocity, ModContent.ProjectileType<Projectiles.AbyssShardS>(), damage, knockback);
 			this.NewShamanProjectile(player, source, position, velocity, ModContent.ProjectileType<Projectiles.AbyssShardD>(), damage, knockback);
+			*/
 			return false;
 		}
 

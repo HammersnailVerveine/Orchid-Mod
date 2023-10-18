@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item72;
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
-			Item.shoot = ModContent.ProjectileType<DepthsBatonProj>();
+			//Item.shoot = ModContent.ProjectileType<DepthsBatonProj>();
 			this.Element = 5;
 			this.energy = 8;
 		}
@@ -37,6 +37,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			/*
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int BuffsCount = modPlayer.GetNbShamanicBonds();
 			if (BuffsCount > 2)
@@ -44,6 +45,7 @@ namespace OrchidMod.Shaman.Weapons
 				int typeAlt = ModContent.ProjectileType<DepthBatonProjAlt>();
 				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			}
+			*/
 			return true;
 		}
 

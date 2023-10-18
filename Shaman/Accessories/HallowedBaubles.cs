@@ -24,50 +24,6 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-
-			if (modPlayer.GetNbShamanicBonds() > 0)
-			{
-				if (modPlayer.orbCountSmall == 0 && modPlayer.shamanOrbSmall != ShamanOrbSmall.NULL)
-				{
-					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
-					modPlayer.shamanOrbSmall = ShamanOrbSmall.NULL;
-
-					if (Main.myPlayer == player.whoAmI)
-						player.HealEffect(5, true);
-					player.statLife += 5;
-				}
-
-				if (modPlayer.orbCountBig == 0 && modPlayer.shamanOrbBig != ShamanOrbBig.NULL)
-				{
-					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
-					modPlayer.shamanOrbBig = ShamanOrbBig.NULL;
-
-					if (Main.myPlayer == player.whoAmI)
-						player.HealEffect(10, true);
-					player.statLife += 10;
-				}
-
-				if (modPlayer.orbCountLarge == 0 && modPlayer.shamanOrbLarge != ShamanOrbLarge.NULL)
-				{
-					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
-					modPlayer.shamanOrbLarge = ShamanOrbLarge.NULL;
-
-					if (Main.myPlayer == player.whoAmI)
-						player.HealEffect(20, true);
-					player.statLife += 20;
-				}
-
-				if (modPlayer.orbCountUnique == 0 && modPlayer.shamanOrbUnique != ShamanOrbUnique.NULL)
-				{
-					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
-					modPlayer.shamanOrbUnique = ShamanOrbUnique.NULL;
-
-					if (Main.myPlayer == player.whoAmI)
-						player.HealEffect(20, true);
-					player.statLife += 20;
-				}
-			}
 		}
 
 		public override void AddRecipes()

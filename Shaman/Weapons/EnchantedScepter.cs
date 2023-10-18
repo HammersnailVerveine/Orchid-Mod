@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 9f;
-			Item.shoot = ModContent.ProjectileType<EnchantedScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<EnchantedScepterProj>();
 			this.Element = 1;
 			this.energy = 7;
 		}

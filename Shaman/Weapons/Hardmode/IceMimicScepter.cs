@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item28;
 			Item.autoReuse = false;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<IceMimicScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<IceMimicScepterProj>();
 			this.Element = 2;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;

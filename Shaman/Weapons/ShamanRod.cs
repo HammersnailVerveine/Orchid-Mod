@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.value = Item.sellPrice(0, 0, 40, 0);
 			Item.UseSound = SoundID.Item65;
 			Item.shootSpeed = 7f;
-			Item.shoot = ModContent.ProjectileType<Projectiles.ShamanRodProj>();
+			//Item.shoot = ModContent.ProjectileType<Projectiles.ShamanRodProj>();
 			Element = 4;
 			this.energy = 35;
 		}
@@ -53,6 +53,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public static void RemoveAllShamanRodProjs(Player owner)
 		{
+			/*
 			HashSet<int> shamanRods = new HashSet<int>()
 			{
 				ModContent.ProjectileType<Projectiles.ShamanRodProj>(),
@@ -63,6 +64,7 @@ namespace OrchidMod.Shaman.Weapons
 			{
 				if (elem.active && shamanRods.Contains(elem.type) && elem.owner == owner.whoAmI) elem.Kill();
 			}
+			*/
 		}
 	}
 }

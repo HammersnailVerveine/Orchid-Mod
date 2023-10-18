@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 13f;
-			Item.shoot = ModContent.ProjectileType<RuneScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<RuneScepterProj>();
 			this.Element = 1;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;

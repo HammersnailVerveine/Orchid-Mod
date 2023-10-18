@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Shaman.Projectiles.OreOrbs.Unique;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -23,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item72;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<TerraSpecterProj2>();
+			//Item.shoot = ModContent.ProjectileType<TerraSpecterProj2>();
 			this.Element = 5;
 			this.energy = 5;
 		}
@@ -37,6 +36,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 		}
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			/*
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int BuffsCount = modPlayer.GetNbShamanicBonds();
 			BuffsCount -= BuffsCount > 0 ? 1 : 0;
@@ -56,6 +56,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				Vector2 newVelocity = new Vector2(baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle));
 				this.NewShamanProjectile(player, source, position, newVelocity, typeAlt, newDamage, knockback);
 			}
+			*/
 			return true;
 		}
 

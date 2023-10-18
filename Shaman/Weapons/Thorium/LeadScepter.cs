@@ -1,5 +1,4 @@
 using OrchidMod.Common.Attributes;
-using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Small;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.value = Item.sellPrice(0, 0, 25, 0);
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 7.5f;
-			Item.shoot = ModContent.ProjectileType<OnyxScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<OnyxScepterProj>();
 			this.Element = 4;
 			this.energy = 7;
 		}

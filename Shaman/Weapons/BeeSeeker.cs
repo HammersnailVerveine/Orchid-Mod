@@ -3,7 +3,6 @@ using Terraria.DataStructures;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OrchidMod.Shaman.Projectiles.OreOrbs.Unique;
 
 namespace OrchidMod.Shaman.Weapons
 {
@@ -22,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item21;
 			Item.autoReuse = true;
 			Item.shootSpeed = 6f;
-			Item.shoot = ModContent.ProjectileType<HoneyProj>();
+			// //Item.shoot = ModContent.ProjectileType<HoneyProj>();
 			this.Element = 2;
 			this.energy = 5;
 		}

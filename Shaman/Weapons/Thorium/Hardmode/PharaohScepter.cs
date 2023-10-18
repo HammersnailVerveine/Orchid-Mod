@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
-			Item.shoot = ModContent.ProjectileType<PharaohScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<PharaohScepterProj>();
 			this.Element = 3;
 			this.energy = 7;
 		}
@@ -39,6 +39,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			/*
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{
 				Projectile proj = Main.projectile[l];
@@ -53,6 +54,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 					this.NewShamanProjectile(player, source, proj.Center, newVelocity, type, damage, knockback);
 				}
 			}
+			*/
 
 			return true;
 		}

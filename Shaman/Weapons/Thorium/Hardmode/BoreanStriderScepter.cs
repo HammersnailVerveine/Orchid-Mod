@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
-			Item.shoot = ModContent.ProjectileType<BoreanStriderScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<BoreanStriderScepterProj>();
 
 			Element = 2;
 			energy = 8;

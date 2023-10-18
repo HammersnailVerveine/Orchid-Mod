@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Attributes;
-using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -24,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 13f;
-			Item.shoot = ModContent.ProjectileType<ValadiumScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<ValadiumScepterProj>();
 			this.Element = 4;
 			this.energy = 12;
 		}
@@ -40,12 +39,14 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			/*
 			for (int i = 0; i < 3; i++)
 			{
 				int newDamage = player.GetModPlayer<OrchidShaman>().orbCountBig >= 15 ? damage * 2 : damage;
 				this.NewShamanProjectile(player, source, position, velocity, type, newDamage, knockback);
 
 			}
+			*/
 			return false;
 		}
 

@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.value = Item.sellPrice(0, 0, 54, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.shootSpeed = 5f;
-			Item.shoot = ModContent.ProjectileType<SporeCallerProj>();
+			//Item.shoot = ModContent.ProjectileType<SporeCallerProj>();
 			this.Element = 3;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 25;

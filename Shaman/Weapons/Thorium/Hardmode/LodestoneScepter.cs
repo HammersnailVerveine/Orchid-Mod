@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.Attributes;
-using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -24,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<LodestoneScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<LodestoneScepterProj>();
 			this.Element = 4;
 			this.energy = 12;
 		}

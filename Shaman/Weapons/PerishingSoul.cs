@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<PerishingSoulProj>();
+			//Item.shoot = ModContent.ProjectileType<PerishingSoulProj>();
 			this.Element = 1;
 			this.energy = 6;
 		}

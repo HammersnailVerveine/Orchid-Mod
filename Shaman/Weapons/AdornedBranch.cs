@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			Item.UseSound = SoundID.Item8;
 			Item.shootSpeed = 3f;
-			Item.shoot = ModContent.ProjectileType<AdornedBranchProj>();
+			////Item.shoot = ModContent.ProjectileType<AdornedBranchProj>();
 			this.Element = 1;
 			this.energy = 5;
 		}

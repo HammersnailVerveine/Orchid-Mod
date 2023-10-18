@@ -33,7 +33,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.value = Item.sellPrice(0, 10, 0, 0);
 			Item.UseSound = SoundID.Item122;
 			Item.autoReuse = true;
-			Item.shoot = ModContent.ProjectileType<Projectiles.OreOrbs.Big.AbyssPrecinctProj>();
+			//Item.shoot = ModContent.ProjectileType<Projectiles.OreOrbs.Big.AbyssPrecinctProj>();
 			Item.shootSpeed = 10f;
 
 			this.Element = 2;

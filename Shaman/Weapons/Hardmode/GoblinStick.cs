@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item103;
 			Item.autoReuse = false;
 			Item.shootSpeed = 3f;
-			Item.shoot = ModContent.ProjectileType<GoblinStickProj>();
+			//Item.shoot = ModContent.ProjectileType<GoblinStickProj>();
 			this.Element = 3;
 			this.energy = 7;
 		}

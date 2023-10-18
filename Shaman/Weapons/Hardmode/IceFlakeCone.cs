@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
-			Item.shoot = ModContent.ProjectileType<IceFlakeConeProj>();
+			//Item.shoot = ModContent.ProjectileType<IceFlakeConeProj>();
 
 			Element = 2;
 			catalystType = ShamanCatalystType.ROTATE;

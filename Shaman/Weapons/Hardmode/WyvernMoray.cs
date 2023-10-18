@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item21;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<Projectiles.WyvernMorayProj>();
+			//Item.shoot = ModContent.ProjectileType<Projectiles.WyvernMorayProj>();
 			this.Element = 3;
 			this.energy = 13;
 		}
@@ -36,6 +36,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			/*
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 
@@ -45,6 +46,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 				modProj.Improved = (Main.rand.Next(101) < 4 + nbBonds * 4);
 				proj.netUpdate = true;
 			}
+			*/
 
 			return false;
 		}

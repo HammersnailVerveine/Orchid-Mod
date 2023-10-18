@@ -19,7 +19,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.value = Item.sellPrice(0, 0, 48, 0);
 			Item.autoReuse = true;
 			Item.shootSpeed = 5.25f;
-			Item.shoot = ModContent.ProjectileType<MeteorPhasestaffProj>();
+			//Item.shoot = ModContent.ProjectileType<MeteorPhasestaffProj>();
 			Item.UseSound = SoundID.Item15;
 			this.Element = 1;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();

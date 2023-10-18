@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item91;
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
-			Item.shoot = ModContent.ProjectileType<MartianBeamerProj>();
+			//Item.shoot = ModContent.ProjectileType<MartianBeamerProj>();
 			this.Element = 1;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;

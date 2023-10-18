@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Shaman.Projectiles.Nirvana;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item70;
 			Item.autoReuse = true;
 			Item.shootSpeed = 5f;
-			Item.shoot = ModContent.ProjectileType<NirvanaMain>();
+			//Item.shoot = ModContent.ProjectileType<NirvanaMain>();
 			this.Element = 5;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 10;

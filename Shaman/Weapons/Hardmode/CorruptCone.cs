@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Shaman.Projectiles.OreOrbs.Unique;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -22,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item13;
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
-			Item.shoot = ModContent.ProjectileType<CorruptConeProj>();
+			//Item.shoot = ModContent.ProjectileType<CorruptConeProj>();
 			this.Element = 1;
 			this.energy = 4;
 		}

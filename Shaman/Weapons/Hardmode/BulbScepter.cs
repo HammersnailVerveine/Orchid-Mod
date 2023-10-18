@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item42;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = ModContent.ProjectileType<BulbScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<BulbScepterProj>();
 			this.Element = 4;
 			this.energy = 10;
 		}

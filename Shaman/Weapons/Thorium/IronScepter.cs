@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 7f;
-			Item.shoot = Mod.Find<ModProjectile>("OpalScepterProj").Type;
+			//Item.shoot = Mod.Find<ModProjectile>("OpalScepterProj").Type;
 			this.Element = 4;
 			this.energy = 7;
 		}

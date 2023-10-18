@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Shaman.Projectiles.OreOrbs.Circle;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -23,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<ReviverofSoulsProj>();
+			//Item.shoot = ModContent.ProjectileType<ReviverofSoulsProj>();
 			this.Element = 3;
 			this.energy = 12;
 		}
@@ -42,9 +41,11 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
+			/*
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			if (modPlayer.shamanOrbCircle == ShamanOrbCircle.REVIVER)
 				damage += modPlayer.orbCountCircle * 0.035f;
+			*/
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

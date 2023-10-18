@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.value = Item.sellPrice(0, 0, 40, 0);
 			Item.UseSound = SoundID.Item65;
 			Item.shootSpeed = 8f;
-			Item.shoot = ModContent.ProjectileType<Projectiles.HellShamanRodProj>();
+			//Item.shoot = ModContent.ProjectileType<Projectiles.HellShamanRodProj>();
 			Element = 4;
 			this.energy = 35;
 		}
@@ -42,6 +42,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+
 			ShamanRod.RemoveAllShamanRodProjs(player);
 
 			for (int i = 0; i < 3; i++)

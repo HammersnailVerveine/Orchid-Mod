@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = false;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
 			this.Element = 4;
 			this.energy = 35;
 		}
@@ -43,6 +43,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			/*
 			OrchidShaman modPlayer = new OrchidShaman();
 			int projectileType = ModContent.ProjectileType<Projectiles.ShroomiteScepterProj>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
@@ -56,7 +57,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			var projectile = CreateNewProjectile(Item, player, source, projectileType, damage, knockback);
 			projectile.ai[1] = nbBonds;
 			projectile.netUpdate = true;
-
+			*/
 			return false;
 		}
 

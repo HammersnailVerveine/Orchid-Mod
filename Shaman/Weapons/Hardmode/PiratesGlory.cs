@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item15;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<PiratesGloryProj>();
+			//Item.shoot = ModContent.ProjectileType<PiratesGloryProj>();
 			this.Element = 2;
 			this.energy = 3;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();

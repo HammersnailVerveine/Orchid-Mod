@@ -1,30 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Alchemist;
-using OrchidMod.Dancer;
-using OrchidMod.Gambler;
 using OrchidMod.Shaman;
-using OrchidMod.Guardian;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
-using OrchidMod.Common;
-using OrchidMod.Shaman.Buffs;
-using OrchidMod.Buffs;
-using OrchidMod.Shaman.Projectiles.Equipment;
-using OrchidMod.Shaman.Buffs.Thorium;
-using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Big;
-using OrchidMod.Shaman.Projectiles;
-using OrchidMod.Shaman.Buffs.Debuffs;
-using OrchidMod.Content.Items.Consumables;
 
 namespace OrchidMod
 {
@@ -40,18 +19,6 @@ namespace OrchidMod
 		public int shamanHitDelay = 0;
 		public int shamanSelectedItem = 0;
 		public int shamanCatalystIndex = 0;
-
-		public ShamanOrbSmall shamanOrbSmall = ShamanOrbSmall.NULL;
-		public ShamanOrbBig shamanOrbBig = ShamanOrbBig.NULL;
-		public ShamanOrbLarge shamanOrbLarge = ShamanOrbLarge.NULL;
-		public ShamanOrbUnique shamanOrbUnique = ShamanOrbUnique.NULL;
-		public ShamanOrbCircle shamanOrbCircle = ShamanOrbCircle.NULL;
-
-		public int orbCountSmall = 0;
-		public int orbCountBig = 0;
-		public int orbCountLarge = 0;
-		public int orbCountUnique = 0;
-		public int orbCountCircle = 0;
 
 		public float ShamanFireBond = 0;
 		public float ShamanWaterBond = 0;
@@ -159,18 +126,6 @@ namespace OrchidMod
 		{
 			shamanCatalystIndex = -1;
 
-			orbCountSmall = 0;
-			orbCountBig = 0;
-			orbCountLarge = 0;
-			orbCountUnique = 0;
-			orbCountCircle = 0;
-
-			shamanOrbBig = ShamanOrbBig.NULL;
-			shamanOrbSmall = ShamanOrbSmall.NULL;
-			shamanOrbLarge = ShamanOrbLarge.NULL;
-			shamanOrbUnique = ShamanOrbUnique.NULL;
-			shamanOrbCircle = ShamanOrbCircle.NULL;
-
 			ShamanFireBond = 0;
 			ShamanFireBondPoll = 0;
 			ShamanFireBondReleased = false;
@@ -203,131 +158,8 @@ namespace OrchidMod
 
 		public override void PostUpdateEquips()
 		{
-			if (HasAnyBondLoaded())
-			{
-				UIDisplayTimer = UIDisplayDelay;
-			}
-
-			if (ShamanFireBondReleased)
-			{
-
-				if (shamanRuby)
-				{
-					Player.lifeRegen += 2;
-				}
-
-				if (shamanSmite && modPlayer.timer120 % 60 == 0)
-				{
-					int dmg = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(100);
-
-					int randX = Main.rand.Next(50);
-					int randY = Main.rand.Next(50);
-
-					for (int i = 0; i < 3; i++)
-					{
-						int dust = Dust.NewDust(new Vector2((int)(Player.Center.X + 25 - randX), (int)(Player.Center.Y + 15 - randY)), 0, 0, 162, (float)(1 - Main.rand.Next(2)), (float)(1 - Main.rand.Next(2)), 0, default(Color), 2f);
-						Main.dust[dust].noGravity = true;
-					}
-
-					Projectile.NewProjectile(null, (int)(Player.Center.X + 25 - randX), (int)(Player.Center.Y + 15 - randY), 0f, 0f, ModContent.ProjectileType<Smite>(), dmg, 0f, Player.whoAmI);
-				}
-
-			}
-
-			if (ShamanWaterBondReleased)
-			{
-
-				if (shamanSapphire)
-				{
-					shamanExhaustionRate -= 0.1f;
-				}
-
-				if (shamanHeavy)
-				{
-					Player.statDefense += 10;
-					Player.moveSpeed -= 0.2f;
-				}
-
-			}
-
-			if (ShamanAirBondReleased)
-			{
-				float vel = Math.Abs(Player.velocity.X) + Math.Abs(Player.velocity.Y);
-
-				if (shamanDripping)
-				{
-					if (modPlayer.timer120 % 10 == 0)
-					{
-						int dmg = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(30);
-						Projectile.NewProjectile(null, Player.Center.X - 10 + (Main.rand.Next(20)), Player.Center.Y + 16, 0f, -0.001f, ModContent.ProjectileType<Shaman.Projectiles.Equipment.LavaDroplet>(), dmg, 0f, Player.whoAmI);
-					}
-				}
-
-				if (shamanEmerald)
-				{
-					Player.moveSpeed += 0.1f;
-				}
-
-				if (shamanFeather)
-				{
-					if (!Player.controlDown) Player.gravity /= 3;
-				}
-
-				if (shamanHarpyAnklet)
-				{
-					doubleJumpHarpy = true;
-				}
-			}
-
-			if (ShamanEarthBondReleased)
-			{
-				if (shamanHoney)
-				{
-					Player.AddBuff((48), 1); // Honey
-					if (modPlayer.timer120 % 90 == 0) //temp
-					{
-
-						int randX = Main.rand.Next(150);
-						int randY = Main.rand.Next(100);
-
-						for (int i = 0; i < 3; i++)
-						{
-							int dust = Dust.NewDust(new Vector2((int)(Player.Center.X + 75 - randX), (int)(Player.Center.Y + 15 - randY)), 0, 0, 152, 0f, 0f, 0, default(Color), 1.3f);
-							Main.dust[dust].noGravity = true;
-						}
-
-						if (Main.player[Main.myPlayer].strongBees && Main.rand.NextBool(2))
-							Projectile.NewProjectile(null, (int)(Player.Center.X + 75 - randX), (int)(Player.Center.Y + 15 - randY), (float)(Main.rand.Next(3) - 1.5), (float)(Main.rand.Next(3) - 1.5), 566, (int)(12), 0f, Player.whoAmI, 0f, 0f);
-						else
-							Projectile.NewProjectile(null, (int)(Player.Center.X + 75 - randX), (int)(Player.Center.Y + 15 - randY), (float)(Main.rand.Next(3) - 1.5), (float)(Main.rand.Next(3) - 1.5), 181, (int)(10), 0f, Player.whoAmI, 0f, 0f);
-					}
-				}
-
-				if (shamanTopaz)
-				{
-					Player.statDefense += 5;
-				}
-
-				if (shamanForest)
-				{
-					Player.AddBuff(ModContent.BuffType<DeepForestAura>(), 2);
-				}
-
-				if (shamanAmber)
-					Player.statLifeMax2 += 50;
-
-			}
-
-			if (ShamanSpiritBondReleased)
-			{
-
-				if (shamanAmethyst)
-				{
-					Player.GetDamage<ShamanDamageClass>() += 0.1f;
-				}
-			}
-
-			if (doubleJumpHarpy)  // Vanilla double jump code is insanely weird.
+			/*
+			if (doubleJumpHarpy)
 			{
 				if (!Player.controlJump) harpySpaceKeyReleased = true;
 
@@ -421,31 +253,11 @@ namespace OrchidMod
 				modPlayer.doubleTap = 0;
 				modPlayer.doubleTapCooldown += 1000;
 			}
+			*/
 		}
 
 		public override void PostUpdate()
 		{
-			if (GetNbShamanicBonds() == 0)
-			{
-
-				shamanOrbBig = ShamanOrbBig.NULL;
-				shamanOrbSmall = ShamanOrbSmall.NULL;
-				shamanOrbLarge = ShamanOrbLarge.NULL;
-				shamanOrbUnique = ShamanOrbUnique.NULL;
-
-				orbCountSmall = 0;
-				orbCountBig = 0;
-				orbCountLarge = 0;
-				orbCountUnique = 0;
-				orbCountCircle = 0;
-			}
-
-			if (!(Player.FindBuffIndex(ModContent.BuffType<SpiritualBurst>()) > -1) && orbCountCircle > 39 && shamanOrbCircle == ShamanOrbCircle.REVIVER)
-				orbCountCircle = 0;
-
-			if (orbCountBig < 0)
-				orbCountBig = 0;
-
 			if (shamanTimerCrimson < 30)
 				shamanTimerCrimson++;
 
@@ -468,93 +280,6 @@ namespace OrchidMod
 			OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			if (modProjectile.shamanProjectile)
 			{
-				if (shamanCrimtane && ShamanEarthBondReleased && shamanTimerCrimson == 30)
-				{
-					shamanTimerCrimson = 0;
-					if (Main.myPlayer == Player.whoAmI)
-						Player.HealEffect(2, true);
-					Player.statLife += 2;
-				}
-
-				if (shamanVampire && Main.rand.NextBool(5) && shamanTimerViscount == 180)
-				{
-					shamanTimerViscount = 0;
-					Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(40));
-					if (Main.rand.NextBool(2))
-					{
-						int type = ProjectileType<Shaman.Projectiles.Thorium.Equipment.Viscount.ViscountBlood>();
-						Projectile.NewProjectile(Player.GetSource_OnHit(target), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 0, 0.0f, proj.owner, 0.0f, 0.0f);
-					}
-					else
-					{
-						int type = ProjectileType<Shaman.Projectiles.Thorium.Equipment.Viscount.ViscountSound>();
-						Projectile.NewProjectile(Player.GetSource_OnHit(target), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, 0, 0.0f, proj.owner, 0.0f, 0.0f);
-					}
-				}
-
-				if (shamanHell && shamanTimerHellDamage == 600 && ShamanFireBondReleased)
-				{
-					shamanTimerHellDamage = 0;
-					for (int i = 0; i < 10; i++)
-					{
-						Vector2 perturbedSpeed = new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(360));
-						int dmg = GetDamage(50);
-						int type = ProjectileType<Shaman.Projectiles.Equipment.Hell.ShamanHellHoming>();
-						Projectile.NewProjectile(Player.GetSource_OnHit(target), target.Center.X, target.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, type, dmg, 0.0f, proj.owner, 0.0f, 0.0f);
-					}
-				}
-
-				if (target.type != NPCID.TargetDummy)
-				{
-					if (proj.type != ModContent.ProjectileType<LavaDroplet>()
-						&& proj.type != ModContent.ProjectileType<LostSoul>()
-						&& proj.type != ModContent.ProjectileType<HarpyAnkletProj>()
-						&& proj.type != ModContent.ProjectileType<DeepForestCharmProj>()
-						&& proj.type != ModContent.ProjectileType<Smite>()
-						)
-					{
-						if (ShamanFireBondReleased)
-						{
-							if (shamanPoison) target.AddBuff((20), 5 * 60);
-							if (shamanVenom) target.AddBuff((70), 5 * 60);
-							if (shamanFire) target.AddBuff((24), 5 * 60);
-							if (shamanIce) target.AddBuff((44), 5 * 60);
-							if (shamanDemonite) target.AddBuff(153, 20); // Shadowflame
-						}
-
-						if (hit.Crit == true && shamanSkull && ShamanWaterBondReleased)
-						{
-							int dmg = GetDamage(80);
-							Vector2 mouseTarget = Main.MouseWorld;
-							Vector2 heading = mouseTarget - Main.player[proj.owner].position;
-							heading.Normalize();
-							heading *= new Vector2(5f, 5f).Length();
-							Vector2 projectileVelocity = (new Vector2(heading.X, heading.Y).RotatedByRandom(MathHelper.ToRadians(10)));
-							Projectile.NewProjectile(null, Main.player[proj.owner].Center.X, Main.player[proj.owner].Center.Y, projectileVelocity.X, projectileVelocity.Y, ModContent.ProjectileType<LostSoul>(), dmg, 0f, proj.owner, 0f, 0f);
-						}
-
-						if (hit.Crit == true && shamanWaterHoney && ShamanWaterBondReleased && timerVial == 30)
-						{
-							timerVial = 0;
-							Player.HealEffect(3, true);
-							Player.statLife += 3;
-						}
-
-						if (Main.rand.NextBool(15) && shamanDownpour && GetNbShamanicBonds() > 2)
-						{
-							int dmg = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(50);
-							Player.ApplyDamageToNPC(target, dmg, 0f, target.direction);
-							SoundEngine.PlaySound(SoundID.Item93, target.Center);
-
-							for (int i = 0; i < 15; i++)
-							{
-								int dust = Dust.NewDust(target.position, target.width, target.height, 226);
-								Main.dust[dust].noGravity = true;
-								Main.dust[dust].velocity *= 2f;
-							}
-						}
-					}
-				}
 			}
 		}
 
@@ -563,48 +288,11 @@ namespace OrchidMod
 			OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			if (modProjectile.shamanProjectile)
 			{
-				if (Player.FindBuffIndex(ModContent.BuffType<OpalEmpowerment>()) > -1)
-				{
-					modifiers.CritDamage += 1.15f;
-				}
-
-				if (Player.FindBuffIndex(ModContent.BuffType<DestroyerFrenzy>()) > -1)
-				{
-					modifiers.CritDamage += 1.15f;
-				}
-
-				if (proj.type == ModContent.ProjectileType<TitanicScepterProj>())
-				{
-					modifiers.CritDamage += 1.5f;
-				}
-
-				if (Player.FindBuffIndex(ModContent.BuffType<TitanicBuff>()) > -1)
-				{
-					modifiers.CritDamage += 1.2f;
-				}
-
-				if (shamanDestroyer && ShamanWaterBondReleased)
-				{
-					shamanTimerDestroyer = 60;
-					shamanDestroyerCount++;
-				}
 			}
 		}
 
 		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
 		{
-			if (shamanShadowEmpowerment)
-			{
-				if (Main.rand.NextBool(4) && drawInfo.shadow == 0f)
-				{
-					int dust = Dust.NewDust(drawInfo.Position - new Vector2(2f, 2f), Player.width + 4, Player.height + 4, 27, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 100, default(Color), 1f);
-					Main.dust[dust].noGravity = true;
-					Main.dust[dust].velocity *= 1.8f;
-					Main.dust[dust].velocity.Y -= 0.5f;
-					drawInfo.DustCache.Add(dust);
-				}
-			}
-
 			if (abyssalWings && Player.controlJump) // Don't works if it is in the vanity slot
 			{
 				if (Main.rand.NextBool(6) && drawInfo.shadow == 0f && Player.wingTime > 0)
@@ -613,7 +301,6 @@ namespace OrchidMod
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.Y -= 0.5f;
 					Main.dust[dust].scale = 1.75f;
-					//Main.playerDrawDust.Add(dust);
 					drawInfo.DustCache.Add(dust);
 				}
 				if (Main.rand.NextBool(6) && drawInfo.shadow == 0f && Player.wingTime > 0)
@@ -622,62 +309,8 @@ namespace OrchidMod
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.Y -= 0.5f;
 					Main.dust[dust].scale = 1.75f;
-					//Main.playerDrawDust.Add(dust);
 					drawInfo.DustCache.Add(dust);
 				}
-			}
-		}
-
-		public override void ModifyHurt(ref Player.HurtModifiers modifiers)/* tModPorter Override ImmuneTo, FreeDodge or ConsumableDodge instead to prevent taking damage */
-		{
-			/*
-			if (shamanMourningTorch)
-			{
-				shamanFireTimer -= 5 * 60;
-				shamanFireTimer = shamanFireTimer > 0 ? shamanFireTimer : 0;
-				shamanWaterTimer -= 5 * 60;
-				shamanWaterTimer = shamanWaterTimer > 0 ? shamanWaterTimer : 0;
-				shamanAirTimer -= 5 * 60;
-				shamanAirTimer = shamanAirTimer > 0 ? shamanAirTimer : 0;
-				shamanEarthTimer -= 5 * 60;
-				shamanEarthTimer = shamanEarthTimer > 0 ? shamanEarthTimer : 0;
-				shamanSpiritTimer -= 5 * 60;
-				shamanSpiritTimer = shamanSpiritTimer > 0 ? shamanSpiritTimer : 0;
-			}
-			*/
-
-			if (shamanSunBelt)
-			{
-				Player.AddBuff(ModContent.BuffType<BrokenPower>(), 60 * 15);
-			}
-
-			if (shamanHell && shamanTimerHellDefense == 300 && ShamanEarthBondReleased)
-			{
-				shamanTimerHellDefense = 0;
-				int dmg = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(50);
-				Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, 0f, 0f, ProjectileType<Shaman.Projectiles.Equipment.Hell.ShamanHellExplosion>(), dmg, 0.0f, Player.whoAmI, 0.0f, 0.0f);
-				SoundEngine.PlaySound(SoundID.Item14);
-				OrchidModProjectile.spawnDustCircle(Player.Center, 6, 10, 15, true, 1f, 1f, 8f, true, true, false, 0, 0, true);
-				OrchidModProjectile.spawnDustCircle(Player.Center, 6, 10, 15, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
-				OrchidModProjectile.spawnDustCircle(Player.Center, 6, 10, 15, true, 2f, 1f, 3f, true, true, false, 0, 0, true);
-			}
-		}
-
-		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
-		{
-			if (shamanDiabolist && ShamanEarthBondReleased)
-			{
-				shamanTimerDiabolist = 60;
-				shamanDiabolistCount += hurtInfo.Damage;
-			}
-		}
-
-		public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
-		{
-			if (shamanDiabolist && ShamanEarthBondReleased)
-			{
-				shamanTimerDiabolist = 60;
-				shamanDiabolistCount += hurtInfo.Damage;
 			}
 		}
 
@@ -850,6 +483,7 @@ namespace OrchidMod
 				return;
 			}
 
+			/*
 			if (shamanForest && type == 4)
 			{
 				Player.AddBuff(BuffType<DeepForestAura>(), 1);
@@ -857,6 +491,7 @@ namespace OrchidMod
 				Projectile.NewProjectile(null, Player.Center.X, Player.position.Y, 0f, 0f, projType, 1, 0, Player.whoAmI, 0f, 0f);
 				Projectile.NewProjectile(null, Player.Center.X, Player.position.Y, 0f, 0f, projType, 2, 0, Player.whoAmI, 0f, 0f);
 			}
+			*/
 
 			int toAdd = shamanHitDelay > 36 ? (int)(shamanHitDelay / 18f) : 2;
 			switch (type)

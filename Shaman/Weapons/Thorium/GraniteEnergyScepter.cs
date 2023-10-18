@@ -1,5 +1,4 @@
 using OrchidMod.Common.Attributes;
-using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Circle;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
-			Item.shoot = ModContent.ProjectileType<GraniteEnergyScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<GraniteEnergyScepterProj>();
 			this.Element = 4;
 			this.catalystType = ShamanCatalystType.ROTATE;
 			this.energy = 10;

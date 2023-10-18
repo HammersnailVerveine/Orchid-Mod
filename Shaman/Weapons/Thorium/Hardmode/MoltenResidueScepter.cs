@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 1f;
-			Item.shoot = ModContent.ProjectileType<MoltenResidueScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<MoltenResidueScepterProj>();
 			this.Element = 1;
 			this.energy = 15;
 		}

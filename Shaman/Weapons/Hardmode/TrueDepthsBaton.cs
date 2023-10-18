@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<TrueDepthProj>();
+			//Item.shoot = ModContent.ProjectileType<TrueDepthProj>();
 			this.Element = 5;
 			this.energy = 14;
 		}

@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = ModContent.ProjectileType<BersekerShardScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<BersekerShardScepterProj>();
 			this.Element = 1;
 			this.energy = 8;
 		}

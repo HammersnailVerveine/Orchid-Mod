@@ -23,34 +23,6 @@ namespace OrchidMod.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-
-			if (modPlayer.GetNbShamanicBonds() > 0)
-			{
-				if (modPlayer.orbCountSmall == 0 && modPlayer.shamanOrbSmall != ShamanOrbSmall.NULL)
-				{
-					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
-					modPlayer.shamanOrbSmall = ShamanOrbSmall.NULL;
-				}
-
-				if (modPlayer.orbCountBig == 0 && modPlayer.shamanOrbBig != ShamanOrbBig.NULL)
-				{
-					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
-					modPlayer.shamanOrbBig = ShamanOrbBig.NULL;
-				}
-
-				if (modPlayer.orbCountLarge == 0 && modPlayer.shamanOrbLarge != ShamanOrbLarge.NULL)
-				{
-					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
-					modPlayer.shamanOrbLarge = ShamanOrbLarge.NULL;
-				}
-
-				if (modPlayer.orbCountUnique == 0 && modPlayer.shamanOrbUnique != ShamanOrbUnique.NULL)
-				{
-					player.AddBuff(Mod.Find<ModBuff>("ShamanicBaubles").Type, 10 * 60);
-					modPlayer.shamanOrbUnique = ShamanOrbUnique.NULL;
-				}
-			}
 		}
 	}
 }

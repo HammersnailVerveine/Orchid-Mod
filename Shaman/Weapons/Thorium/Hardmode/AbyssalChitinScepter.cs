@@ -25,7 +25,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.value = Item.sellPrice(0, 2, 0, 0);
 			Item.UseSound = SoundID.Item43;
 			Item.shootSpeed = 5f;
-			Item.shoot = ModContent.ProjectileType<AbyssalChitinScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<AbyssalChitinScepterProj>();
 			this.Element = 2;
 			this.energy = 20;
 		}

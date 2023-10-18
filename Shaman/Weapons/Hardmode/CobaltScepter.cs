@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Shaman.Projectiles.OreOrbs.Big;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -22,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<CobaltScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<CobaltScepterProj>();
 			this.Element = 4;
 			this.energy = 12;
 		}

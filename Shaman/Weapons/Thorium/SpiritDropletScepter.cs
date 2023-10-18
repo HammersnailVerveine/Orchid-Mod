@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shootSpeed = 14f;
-			Item.shoot = ModContent.ProjectileType<SpiritDropletScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<SpiritDropletScepterProj>();
 			this.Element = 5;
 			this.energy = 6;
 		}

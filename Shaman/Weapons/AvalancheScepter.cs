@@ -1,6 +1,5 @@
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-using OrchidMod.Shaman.Projectiles.OreOrbs.Unique;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item28;
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
-			Item.shoot = ModContent.ProjectileType<IceSpearScepterProj>();
+			////Item.shoot = ModContent.ProjectileType<IceSpearScepterProj>();
 			this.Element = 2;
 			this.energy = 7;
 		}

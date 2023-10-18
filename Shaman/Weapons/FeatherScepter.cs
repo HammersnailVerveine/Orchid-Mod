@@ -23,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			Item.shoot = ModContent.ProjectileType<FeatherScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<FeatherScepterProj>();
 			this.Element = 3;
 			this.energy = 6;
 		}

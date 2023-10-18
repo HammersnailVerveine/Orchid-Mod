@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
-			Item.shoot = ModContent.ProjectileType<VileSpoutProj>();
+			//Item.shoot = ModContent.ProjectileType<VileSpoutProj>();
 			this.Element = 1;
 			this.energy = 6;
 

@@ -20,7 +20,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item21;
 			Item.autoReuse = true;
 			Item.shootSpeed = 16f;
-			Item.shoot = ModContent.ProjectileType<BlumProj>();
+			//Item.shoot = ModContent.ProjectileType<BlumProj>();
 			this.Element = 2;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;

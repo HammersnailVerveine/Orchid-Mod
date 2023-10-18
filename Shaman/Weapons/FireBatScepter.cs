@@ -22,7 +22,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item8;
 			Item.autoReuse = true;
 			Item.shootSpeed = 16f;
-			Item.shoot = ModContent.ProjectileType<FireBatScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<FireBatScepterProj>();
 			this.Element = 3;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
@@ -47,6 +47,7 @@ namespace OrchidMod.Shaman.Weapons
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
+			/*
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 			int numberProjectiles = 1 + Main.rand.Next(2);
@@ -57,6 +58,7 @@ namespace OrchidMod.Shaman.Weapons
 				int newType = nbBonds < 3 ? type : ModContent.ProjectileType<FireBatScepterProjHoming>();
 				this.NewShamanProjectile(player, source, position, newVelocity, newType, damage, knockback);
 			}
+			*/
 
 			return false;
 		}

@@ -24,7 +24,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = ModContent.ProjectileType<AbyssionScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<AbyssionScepterProj>();
 			this.Element = 2;
 			this.energy = 3;
 		}

@@ -1,4 +1,3 @@
-using OrchidMod.Shaman.Projectiles.OreOrbs.Small;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,7 +19,7 @@ namespace OrchidMod.Shaman.Weapons
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 9f;
-			Item.shoot = ModContent.ProjectileType<AmberScepterProj>();
+			////Item.shoot = ModContent.ProjectileType<AmberScepterProj>();
 			this.Element = 4;
 			this.energy = 6;
 		}

@@ -21,7 +21,7 @@ namespace OrchidMod.Shaman.Weapons.Hardmode
 			Item.value = Item.sellPrice(0, 2, 0, 0);
 			Item.autoReuse = true;
 			Item.shootSpeed = 5.25f;
-			Item.shoot = ModContent.ProjectileType<Projectiles.SightScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<Projectiles.SightScepterProj>();
 			Item.UseSound = SoundID.Item15;
 
 			this.Element = 3;

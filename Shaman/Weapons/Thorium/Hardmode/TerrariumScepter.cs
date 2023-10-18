@@ -1,5 +1,4 @@
 using OrchidMod.Common.Attributes;
-using OrchidMod.Shaman.Projectiles.Thorium.OreOrbs.Large;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -24,7 +23,7 @@ namespace OrchidMod.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item20;
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
-			Item.shoot = ModContent.ProjectileType<TerrariumScepterProj>();
+			//Item.shoot = ModContent.ProjectileType<TerrariumScepterProj>();
 			this.Element = 3;
 			this.energy = 4;
 		}
