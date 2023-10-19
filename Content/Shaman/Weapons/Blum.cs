@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using OrchidMod.Content.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -20,8 +21,10 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.UseSound = SoundID.Item21;
 			Item.autoReuse = true;
 			Item.shootSpeed = 16f;
-			//Item.shoot = ModContent.ProjectileType<BlumProj>();
+			Item.shoot = ModContent.ProjectileType<BlumProj>();
 			this.Element = ShamanElement.WATER;
+			this.catalystMovement = ShamanSummonMovement.FLOATABOVE;
+
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}
@@ -33,12 +36,29 @@ namespace OrchidMod.Content.Shaman.Weapons
 							  + "\nThe weapon speed depends on the number of active shamanic bonds"); */
 		}
 
+		/*
 		public override void UpdateInventory(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int nbBonds = modPlayer.GetNbShamanicBonds();
 			Item.useTime = 18 - (nbBonds * 2);
 			Item.useAnimation = 18 - (nbBonds * 2);
+		}
+		*/
+
+		public override void CatalystSummonAI(Projectile projectile, int timeSpent)
+		{
+			if (timeSpent % (Item.useTime * 3) == 0)
+			{
+				Vector2 target = OrchidModProjectile.GetNearestTargetPosition(projectile);
+				if (target != Vector2.Zero)
+				{
+					Vector2 velocity = target - projectile.Center;
+					velocity.Normalize();
+					velocity *= Item.shootSpeed;
+					NewShamanProjectileFromProjectile(projectile, velocity, Item.shoot, projectile.damage, projectile.knockBack);
+				}
+			}
 		}
 	}
 }

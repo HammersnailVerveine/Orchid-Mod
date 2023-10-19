@@ -12,12 +12,13 @@ namespace OrchidMod.Content.Shaman
 	{
 		public int SelectedItem { get; set; } = -1;
 		public Item CatalystItem;
+		public int TimeSpent = 0;
 
 		public override void AltSetDefaults()
 		{
 			Projectile.width = 20;
 			Projectile.height = 20;
-			Projectile.friendly = false;
+			Projectile.friendly = true;
 			Projectile.tileCollide = false;
 			Projectile.aiStyle = 0;
 			Projectile.timeLeft = 60;
@@ -28,6 +29,7 @@ namespace OrchidMod.Content.Shaman
 
 		public override void AI()
 		{
+			TimeSpent++;
 			var owner = Main.player[Projectile.owner];
 
 			if (!owner.active || owner.dead)
@@ -40,9 +42,9 @@ namespace OrchidMod.Content.Shaman
 			{
 				CatalystItem = new Item();
 				CatalystItem.SetDefaults(SelectedItem, true);
-				return;
 			}
-			else if (CatalystItem.ModItem is OrchidModShamanItem shamanItem)
+			
+			if (CatalystItem.ModItem is OrchidModShamanItem shamanItem)
 			{
 				shamanItem.ExtraAICatalyst(Projectile, false);
 				if (shamanItem.PreAICatalyst(Projectile))
@@ -54,20 +56,29 @@ namespace OrchidMod.Content.Shaman
 							Projectile.rotation = Projectile.rotation > 0.35f ? 0.35f : Projectile.rotation;
 							Projectile.rotation = Projectile.rotation < -0.35f ? -0.35f : Projectile.rotation;
 							break;
-						case ShamanCatalystType.AIM:
-							// Vector2 aimVector = mousePosition - projectile.Center;
-							// projectile.rotation = aimVector.ToRotation();
-							// projectile.direction = projectile.spriteDirection;
-							break;
 						case ShamanCatalystType.ROTATE:
 							Projectile.rotation += 0.05f;
 							break;
 					}
 				}
 
-				Vector2 targetPosition = owner.Center - new Vector2(0f, 15f).RotatedBy(-45f + (int)shamanItem.Element * 15f);
-				Vector2 offSet = targetPosition / 10f;
+				Vector2 targetPosition = owner.Center;
+
+				switch (shamanItem.catalystMovement)
+				{
+					case ShamanSummonMovement.CUSTOM:
+						break;
+					case ShamanSummonMovement.TOWARDSTARGET:
+						break;
+					case ShamanSummonMovement.FLOATABOVE:
+						targetPosition = owner.Center - new Vector2(0f, 100f).RotatedBy(MathHelper.ToRadians(-60f + (int)shamanItem.Element * 20f));
+						break;
+					default:
+						break;
+				}
+
 				Vector2 target = owner.Center;
+				Vector2 offSet = (targetPosition - owner.Center) / 10f;
 
 				for (int i = 0; i < 10; i++)
 				{
@@ -75,7 +86,7 @@ namespace OrchidMod.Content.Shaman
 					target += offSet;
 				}
 
-				Vector2 newMove = target - Projectile.Center - targetPosition * 0.15f;
+				Vector2 newMove = target - Projectile.Center;
 				float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 				if (distanceTo > 1000f)
 				{
@@ -92,13 +103,18 @@ namespace OrchidMod.Content.Shaman
 				}
 				else
 				{
-					if (Projectile.velocity.Length() > 0f)
-					{
-						Projectile.velocity *= 0f;
-					}
+					Projectile.velocity *= 0f;
 				}
 
+				Projectile.timeLeft = 30;
 				shamanItem.PostAICatalyst(Projectile);
+				shamanItem.CatalystSummonAI(Projectile, TimeSpent);
+
+				if (!owner.GetModPlayer<OrchidShaman>().IsShamanicBondReleased(shamanItem.Element))
+				{
+					shamanItem.CatalystSummonKill(Projectile, TimeSpent);
+					Projectile.Kill();
+				}
 			}
 		}
 

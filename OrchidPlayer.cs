@@ -35,6 +35,7 @@ namespace OrchidMod
 		public bool autoRevertSelectedItem = false;
 
 		public int timer120 = 0;
+		public int Timer = 0;
 		public int doubleTap = 0;
 		public int doubleTapCooldown = 0;
 		public bool doubleTapLock = false;
@@ -86,6 +87,7 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
+			Timer++;
 			timer120++;
 			if (timer120 == 120)
 				timer120 = 0;

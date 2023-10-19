@@ -19,7 +19,12 @@ namespace OrchidMod
 		// Gameplay Core (do not tweak with gear)
 
 		public int shamanHitDelay = 0; // Used to calculate how much bond a hit should give the player (more delay = more bond)
-		public int shamanCatalystIndex = 0; // whoamI of the catalyst anchor for this player
+		public int shamanCatalystIndex = -1; // whoamI of the catalyst anchor for this player
+		public int shamanSummonFireIndex = -1; // whoamI of the fire summon anchor for this player
+		public int shamanSummonWaterIndex = -1; // whoamI of the water summon anchor for this player
+		public int shamanSummonAirIndex = -1; // whoamI of the air summon anchor for this player
+		public int shamanSummonEarthIndex = -1; // whoamI of the earth summon anchor for this player
+		public int shamanSummonSpiritIndex = -1; // whoamI of the spirit summon anchor for this player
 		public float ShamanFireBond = 0; // Fire bond progression
 		public float ShamanWaterBond = 0; // Water bond progression
 		public float ShamanAirBond = 0; // Air bond progression
@@ -449,6 +454,12 @@ namespace OrchidMod
 		public void Reset()
 		{
 			shamanCatalystIndex = -1;
+
+			shamanSummonFireIndex = -1;
+			shamanSummonWaterIndex = -1;
+			shamanSummonAirIndex = -1;
+			shamanSummonEarthIndex = -1;
+			shamanSummonSpiritIndex = -1;
 
 			ShamanFireBond = 0;
 			ShamanFireBondPoll = 0;

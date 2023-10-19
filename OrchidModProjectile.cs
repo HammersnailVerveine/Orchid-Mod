@@ -206,6 +206,21 @@ namespace OrchidMod
 			}
 		}
 
+		public static Vector2 GetNearestTargetPosition(Projectile projectile, float maxDistance = 480f)
+		{
+			Vector2 validPosition = Vector2.Zero;
+			foreach (NPC npc in Main.npc)
+			{
+				float distance = npc.Center.Distance(projectile.Center);
+				if (npc.active && !npc.CountsAsACritter && !npc.friendly && !npc.dontTakeDamage && distance < maxDistance)
+				{
+					maxDistance = distance;
+					validPosition = npc.Center;
+				}
+			}
+			return validPosition;
+		}
+
 		public static void setShamanBond(Projectile projectile, int empowermentType)
 		{
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();

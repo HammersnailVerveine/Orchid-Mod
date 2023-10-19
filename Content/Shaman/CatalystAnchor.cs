@@ -74,11 +74,6 @@ namespace OrchidMod.Content.Shaman
 							Projectile.rotation = Projectile.rotation > 0.35f ? 0.35f : Projectile.rotation;
 							Projectile.rotation = Projectile.rotation < -0.35f ? -0.35f : Projectile.rotation;
 							break;
-						case ShamanCatalystType.AIM:
-							// Vector2 aimVector = mousePosition - projectile.Center;
-							// projectile.rotation = aimVector.ToRotation();
-							// projectile.direction = projectile.spriteDirection;
-							break;
 						case ShamanCatalystType.ROTATE:
 							Projectile.rotation += 0.05f;
 							break;
@@ -114,8 +109,8 @@ namespace OrchidMod.Content.Shaman
 					}
 				}
 
-				Vector2 targerPosition = new Vector2(Projectile.ai[0], Projectile.ai[1]);
-				Vector2 offSet = targerPosition / 10f;
+				Vector2 targetPosition = new Vector2(Projectile.ai[0], Projectile.ai[1]);
+				Vector2 offSet = targetPosition / 10f;
 				Vector2 target = owner.Center;
 
 				for (int i = 0; i < 10; i++)
@@ -124,7 +119,7 @@ namespace OrchidMod.Content.Shaman
 					target += offSet;
 				}
 
-				Vector2 newMove = target - Projectile.Center - targerPosition * 0.15f;
+				Vector2 newMove = target - Projectile.Center - targetPosition * 0.15f;
 				float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 				if (distanceTo > 1000f)
 				{
@@ -141,10 +136,7 @@ namespace OrchidMod.Content.Shaman
 				}
 				else
 				{
-					if (Projectile.velocity.Length() > 0f)
-					{
-						Projectile.velocity *= 0f;
-					}
+					Projectile.velocity *= 0f;
 				}
 
 				Projectile.timeLeft = 30;

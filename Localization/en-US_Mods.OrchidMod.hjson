@@ -10,10 +10,7 @@ Tiles: {
 	MineshaftPickaxeTile.MapEntry: Mineshaft Pickaxe Tile
 	MineshaftCrate.MapEntry: Mineshaft Crate
 	MineshaftHookTile.MapEntry: Mineshaft Hook Tile
-	MineshaftStaticTile.MapEntry: Mineshaft Static Tile
 	MineshaftToolboxTile.MapEntry: Mineshaft Toolbox Tile
-	AncientFossil.MapEntry: Ancient Fossil
-	StaticQuartzGem.MapEntry: Static Quartz Gem
 }
 
 Buffs: {
@@ -2354,6 +2351,7 @@ Projectiles: {
 	CloudInAVialProj.DisplayName: Cloud In A Vial Proj
 	AirSporeProjAlt.DisplayName: Air Spore Proj Alt
 	AirSporeProj.DisplayName: Air Spore Proj
+	BlumProj.DisplayName: Blum Proj
 }
 
 Configs: {
