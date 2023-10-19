@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Shaman.Armors.GemTiaras
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.GetDamage<ShamanDamageClass>() += 0.1f;
 			player.GetCritChance<ShamanDamageClass>() += 5;
-			modPlayer.shamanBuffTimer += 3;
+			// buff timer  3;
 		}
 
 		public override void AddRecipes()

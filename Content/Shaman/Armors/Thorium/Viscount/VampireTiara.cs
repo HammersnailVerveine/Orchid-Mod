@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Shaman.Armors.Thorium.Viscount
 			player.setBonus = "Dealing damage has a chance to spawn catchable orbs"
 							+ "\n             Blood orbs restore health, sound orbs increase shamanic bond duration"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
-			modPlayer.shamanBuffTimer += 3;
+			// buff timer  3;
 			modPlayer.shamanVampire = true;
 		}
 

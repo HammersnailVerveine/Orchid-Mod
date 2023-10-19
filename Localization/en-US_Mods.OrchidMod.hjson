@@ -724,81 +724,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	HarpyPotion: {
-		DisplayName: Harpy Potion
-		Tooltip: ""
-	}
-
-	JungleLilyBloomed: {
-		DisplayName: Jungle Lily Bloomed
-		Tooltip: ""
-	}
-
-	PrototypeSecrecy: {
-		DisplayName: Prototype Secrecy
-		Tooltip: ""
-	}
-
-	SquareMinecart: {
-		DisplayName: Square Minecart
-		Tooltip: ""
-	}
-
-	OrchidEmblem: {
-		DisplayName: Orchid Emblem
-		Tooltip: ""
-	}
-
-	RCRemote: {
-		DisplayName: R C Remote
-		Tooltip: ""
-	}
-
-	MinersLockbox: {
-		DisplayName: Miners Lockbox
-		Tooltip: ""
-	}
-
-	ShamanBiomeChest: {
-		DisplayName: Shaman Biome Chest
-		Tooltip: ""
-	}
-
-	ShroomKey: {
-		DisplayName: Shroom Key
-		Tooltip: ""
-	}
-
-	HeraldOfFrost: {
-		DisplayName: Herald Of Frost
-		Tooltip: ""
-	}
-
-	SearingOnslaught: {
-		DisplayName: Searing Onslaught
-		Tooltip: ""
-	}
-
-	AbyssDrill: {
-		DisplayName: Abyss Drill
-		Tooltip: ""
-	}
-
-	AbyssHamaxe: {
-		DisplayName: Abyss Hamaxe
-		Tooltip: ""
-	}
-
-	AbyssPickaxe: {
-		DisplayName: Abyss Pickaxe
-		Tooltip: ""
-	}
-
-	MineshaftPickaxe: {
-		DisplayName: Mineshaft Pickaxe
-		Tooltip: ""
-	}
-
 	GoldFan: {
 		DisplayName: Gold Fan
 		Tooltip: ""
@@ -1159,76 +1084,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	MiniatureTools: {
-		DisplayName: Miniature Tools
-		Tooltip: ""
-	}
-
-	AncientFossil: {
-		DisplayName: Ancient Fossil
-		Tooltip: ""
-	}
-
-	CopperKey: {
-		DisplayName: Copper Key
-		Tooltip: ""
-	}
-
-	FragileWood: {
-		DisplayName: Fragile Wood
-		Tooltip: ""
-	}
-
-	HauntedCandle: {
-		DisplayName: Haunted Candle
-		Tooltip: ""
-	}
-
-	MineshaftHook: {
-		DisplayName: Mineshaft Hook
-		Tooltip: ""
-	}
-
-	StaticQuartzArmorChest: {
-		DisplayName: Static Quartz Armor Chest
-		Tooltip: ""
-	}
-
-	StaticQuartzArmorHead: {
-		DisplayName: Static Quartz Armor Head
-		Tooltip: ""
-	}
-
-	StaticQuartzArmorLegs: {
-		DisplayName: Static Quartz Armor Legs
-		Tooltip: ""
-	}
-
-	StaticQuartz: {
-		DisplayName: Static Quartz
-		Tooltip: ""
-	}
-
-	StaticQuartzDart: {
-		DisplayName: Static Quartz Dart
-		Tooltip: ""
-	}
-
-	StaticQuartzRanger: {
-		DisplayName: Static Quartz Ranger
-		Tooltip: ""
-	}
-
-	StaticQuartzWarrior: {
-		DisplayName: Static Quartz Warrior
-		Tooltip: ""
-	}
-
-	OrnateOrchid: {
-		DisplayName: Ornate Orchid
-		Tooltip: ""
-	}
-
 	GoblinSpike: {
 		DisplayName: Goblin Spike
 		Tooltip: ""
@@ -1281,6 +1136,106 @@ Items: {
 
 	Warhammer: {
 		DisplayName: Warhammer
+		Tooltip: ""
+	}
+
+	MiniatureTools: {
+		DisplayName: Miniature Tools
+		Tooltip: ""
+	}
+
+	OrnateOrchid: {
+		DisplayName: Ornate Orchid
+		Tooltip: ""
+	}
+
+	HarpyPotion: {
+		DisplayName: Harpy Potion
+		Tooltip: ""
+	}
+
+	MineshaftHook: {
+		DisplayName: Mineshaft Hook
+		Tooltip: ""
+	}
+
+	JungleLilyBloomed: {
+		DisplayName: Jungle Lily Bloomed
+		Tooltip: ""
+	}
+
+	PrototypeSecrecy: {
+		DisplayName: Prototype Secrecy
+		Tooltip: ""
+	}
+
+	SquareMinecart: {
+		DisplayName: Square Minecart
+		Tooltip: ""
+	}
+
+	OrchidEmblem: {
+		DisplayName: Orchid Emblem
+		Tooltip: ""
+	}
+
+	HauntedCandle: {
+		DisplayName: Haunted Candle
+		Tooltip: ""
+	}
+
+	RCRemote: {
+		DisplayName: R C Remote
+		Tooltip: ""
+	}
+
+	FragileWood: {
+		DisplayName: Fragile Wood
+		Tooltip: ""
+	}
+
+	MinersLockbox: {
+		DisplayName: Miners Lockbox
+		Tooltip: ""
+	}
+
+	ShamanBiomeChest: {
+		DisplayName: Shaman Biome Chest
+		Tooltip: ""
+	}
+
+	ShroomKey: {
+		DisplayName: Shroom Key
+		Tooltip: ""
+	}
+
+	HeraldOfFrost: {
+		DisplayName: Herald Of Frost
+		Tooltip: ""
+	}
+
+	SearingOnslaught: {
+		DisplayName: Searing Onslaught
+		Tooltip: ""
+	}
+
+	AbyssDrill: {
+		DisplayName: Abyss Drill
+		Tooltip: ""
+	}
+
+	AbyssHamaxe: {
+		DisplayName: Abyss Hamaxe
+		Tooltip: ""
+	}
+
+	AbyssPickaxe: {
+		DisplayName: Abyss Pickaxe
+		Tooltip: ""
+	}
+
+	MineshaftPickaxe: {
+		DisplayName: Mineshaft Pickaxe
 		Tooltip: ""
 	}
 
@@ -1884,274 +1839,274 @@ Items: {
 		Tooltip: ""
 	}
 
-	SunRay: {
-		DisplayName: Sun Ray
+	VileSpout: {
 		Tooltip: ""
-	}
-
-	TerraScepter: {
-		DisplayName: Terra Scepter
-		Tooltip: ""
-	}
-
-	TheCore: {
-		DisplayName: The Core
-		Tooltip: ""
-	}
-
-	TitaniumScepter: {
-		DisplayName: Titanium Scepter
-		Tooltip: ""
-	}
-
-	TrueDepthsBaton: {
-		DisplayName: True Depths Baton
-		Tooltip: ""
-	}
-
-	TrueSanctify: {
-		DisplayName: True Sanctify
-		Tooltip: ""
-	}
-
-	WyvernMoray: {
-		DisplayName: Wyvern Moray
-		Tooltip: ""
-	}
-
-	HellShamanRod: {
-		DisplayName: Hell Shaman Rod
-		Tooltip: ""
-	}
-
-	MeteorPhasestaff: {
-		DisplayName: Meteor Phasestaff
-		Tooltip: ""
-	}
-
-	PerishingSoul: {
-		DisplayName: Perishing Soul
-		Tooltip: ""
-	}
-
-	PlatinumScepter: {
-		DisplayName: Platinum Scepter
-		Tooltip: ""
-	}
-
-	ScepterofStarpower: {
-		DisplayName: Scepterof Starpower
-		Tooltip: ""
-	}
-
-	ShadowWeaver: {
-		DisplayName: Shadow Weaver
-		Tooltip: ""
-	}
-
-	ShamanRod: {
-		DisplayName: Shaman Rod
-		Tooltip: ""
-	}
-
-	SilverScepter: {
-		DisplayName: Silver Scepter
-		Tooltip: ""
-	}
-
-	SpineScepter: {
-		DisplayName: Spine Scepter
-		Tooltip: ""
-	}
-
-	SporeCaller: {
-		DisplayName: Spore Caller
-		Tooltip: ""
-	}
-
-	AquaiteScepter: {
-		DisplayName: Aquaite Scepter
-		Tooltip: ""
-	}
-
-	BronzeAlloyScepter: {
-		DisplayName: Bronze Alloy Scepter
-		Tooltip: ""
-	}
-
-	GraniteEnergyScepter: {
-		DisplayName: Granite Energy Scepter
-		Tooltip: ""
-	}
-
-	AbyssalChitinScepter: {
-		DisplayName: Abyssal Chitin Scepter
-		Tooltip: ""
-	}
-
-	AbyssionScepter: {
-		DisplayName: Abyssion Scepter
-		Tooltip: ""
-	}
-
-	BersekerShardScepter: {
-		DisplayName: Berseker Shard Scepter
-		Tooltip: ""
-	}
-
-	BoreanStriderScepter: {
-		DisplayName: Borean Strider Scepter
-		Tooltip: ""
-	}
-
-	CoznixScepter: {
-		DisplayName: Coznix Scepter
-		Tooltip: ""
-	}
-
-	DragonScaleScepter: {
-		DisplayName: Dragon Scale Scepter
-		Tooltip: ""
-	}
-
-	GeodeScepter: {
-		DisplayName: Geode Scepter
-		Tooltip: ""
-	}
-
-	LichScepter: {
-		DisplayName: Lich Scepter
-		Tooltip: ""
-	}
-
-	LodestoneScepter: {
-		DisplayName: Lodestone Scepter
-		Tooltip: ""
-	}
-
-	MoltenResidueScepter: {
-		DisplayName: Molten Residue Scepter
-		Tooltip: ""
-	}
-
-	PharaohScepter: {
-		DisplayName: Pharaoh Scepter
-		Tooltip: ""
-	}
-
-	SolarPebbleScepter: {
-		DisplayName: Solar Pebble Scepter
-		Tooltip: ""
-	}
-
-	StrangePlatingScepter: {
-		DisplayName: Strange Plating Scepter
-		Tooltip: ""
-	}
-
-	TerrariumScepter: {
-		DisplayName: Terrarium Scepter
-		Tooltip: ""
-	}
-
-	TitanicScepter: {
-		DisplayName: Titanic Scepter
-		Tooltip: ""
-	}
-
-	UnfathomableFleshScepter: {
-		DisplayName: Unfathomable Flesh Scepter
-		Tooltip: ""
-	}
-
-	ValadiumScepter: {
-		DisplayName: Valadium Scepter
-		Tooltip: ""
-	}
-
-	IceShardScepter: {
-		DisplayName: Ice Shard Scepter
-		Tooltip: ""
-	}
-
-	IronScepter: {
-		DisplayName: Iron Scepter
-		Tooltip: ""
-	}
-
-	LeadScepter: {
-		DisplayName: Lead Scepter
-		Tooltip: ""
-	}
-
-	MagmaScepter: {
-		DisplayName: Magma Scepter
-		Tooltip: ""
-	}
-
-	Monowai: {
-		DisplayName: Monowai
-		Tooltip: ""
-	}
-
-	OrchidScepter: {
-		DisplayName: Orchid Scepter
-		Tooltip: ""
-	}
-
-	PatchWerkScepter: {
-		DisplayName: Patch Werk Scepter
-		Tooltip: ""
-	}
-
-	QueenJellyfishScepter: {
-		DisplayName: Queen Jellyfish Scepter
-		Tooltip: ""
-	}
-
-	SpiritDropletScepter: {
-		DisplayName: Spirit Droplet Scepter
-		Tooltip: ""
-	}
-
-	StarScouterScepter: {
-		DisplayName: Star Scouter Scepter
-		Tooltip: ""
-	}
-
-	ThoriumScepter: {
-		DisplayName: Thorium Scepter
-		Tooltip: ""
-	}
-
-	ThunderScepter: {
-		DisplayName: Thunder Scepter
-		Tooltip: ""
-	}
-
-	ViscountScepter: {
-		DisplayName: Viscount Scepter
-		Tooltip: ""
-	}
-
-	YewWoodScepter: {
-		DisplayName: Yew Wood Scepter
-		Tooltip: ""
-	}
-
-	TinScepter: {
-		DisplayName: Tin Scepter
-		Tooltip: ""
+		DisplayName: Vile Spout
 	}
 
 	TungstenScepter: {
-		DisplayName: Tungsten Scepter
 		Tooltip: ""
+		DisplayName: Tungsten Scepter
 	}
 
-	VileSpout: {
-		DisplayName: Vile Spout
+	TinScepter: {
 		Tooltip: ""
+		DisplayName: Tin Scepter
+	}
+
+	YewWoodScepter: {
+		Tooltip: ""
+		DisplayName: Yew Wood Scepter
+	}
+
+	ViscountScepter: {
+		Tooltip: ""
+		DisplayName: Viscount Scepter
+	}
+
+	ThunderScepter: {
+		Tooltip: ""
+		DisplayName: Thunder Scepter
+	}
+
+	ThoriumScepter: {
+		Tooltip: ""
+		DisplayName: Thorium Scepter
+	}
+
+	StarScouterScepter: {
+		Tooltip: ""
+		DisplayName: Star Scouter Scepter
+	}
+
+	SpiritDropletScepter: {
+		Tooltip: ""
+		DisplayName: Spirit Droplet Scepter
+	}
+
+	QueenJellyfishScepter: {
+		Tooltip: ""
+		DisplayName: Queen Jellyfish Scepter
+	}
+
+	PatchWerkScepter: {
+		Tooltip: ""
+		DisplayName: Patch Werk Scepter
+	}
+
+	OrchidScepter: {
+		Tooltip: ""
+		DisplayName: Orchid Scepter
+	}
+
+	Monowai: {
+		Tooltip: ""
+		DisplayName: Monowai
+	}
+
+	MagmaScepter: {
+		Tooltip: ""
+		DisplayName: Magma Scepter
+	}
+
+	LeadScepter: {
+		Tooltip: ""
+		DisplayName: Lead Scepter
+	}
+
+	IronScepter: {
+		Tooltip: ""
+		DisplayName: Iron Scepter
+	}
+
+	IceShardScepter: {
+		Tooltip: ""
+		DisplayName: Ice Shard Scepter
+	}
+
+	ValadiumScepter: {
+		Tooltip: ""
+		DisplayName: Valadium Scepter
+	}
+
+	UnfathomableFleshScepter: {
+		Tooltip: ""
+		DisplayName: Unfathomable Flesh Scepter
+	}
+
+	TitanicScepter: {
+		Tooltip: ""
+		DisplayName: Titanic Scepter
+	}
+
+	TerrariumScepter: {
+		Tooltip: ""
+		DisplayName: Terrarium Scepter
+	}
+
+	StrangePlatingScepter: {
+		Tooltip: ""
+		DisplayName: Strange Plating Scepter
+	}
+
+	SolarPebbleScepter: {
+		Tooltip: ""
+		DisplayName: Solar Pebble Scepter
+	}
+
+	PharaohScepter: {
+		Tooltip: ""
+		DisplayName: Pharaoh Scepter
+	}
+
+	MoltenResidueScepter: {
+		Tooltip: ""
+		DisplayName: Molten Residue Scepter
+	}
+
+	LodestoneScepter: {
+		Tooltip: ""
+		DisplayName: Lodestone Scepter
+	}
+
+	LichScepter: {
+		Tooltip: ""
+		DisplayName: Lich Scepter
+	}
+
+	GeodeScepter: {
+		Tooltip: ""
+		DisplayName: Geode Scepter
+	}
+
+	DragonScaleScepter: {
+		Tooltip: ""
+		DisplayName: Dragon Scale Scepter
+	}
+
+	CoznixScepter: {
+		Tooltip: ""
+		DisplayName: Coznix Scepter
+	}
+
+	BoreanStriderScepter: {
+		Tooltip: ""
+		DisplayName: Borean Strider Scepter
+	}
+
+	BersekerShardScepter: {
+		Tooltip: ""
+		DisplayName: Berseker Shard Scepter
+	}
+
+	AbyssionScepter: {
+		Tooltip: ""
+		DisplayName: Abyssion Scepter
+	}
+
+	AbyssalChitinScepter: {
+		Tooltip: ""
+		DisplayName: Abyssal Chitin Scepter
+	}
+
+	GraniteEnergyScepter: {
+		Tooltip: ""
+		DisplayName: Granite Energy Scepter
+	}
+
+	BronzeAlloyScepter: {
+		Tooltip: ""
+		DisplayName: Bronze Alloy Scepter
+	}
+
+	AquaiteScepter: {
+		Tooltip: ""
+		DisplayName: Aquaite Scepter
+	}
+
+	SporeCaller: {
+		Tooltip: ""
+		DisplayName: Spore Caller
+	}
+
+	SpineScepter: {
+		Tooltip: ""
+		DisplayName: Spine Scepter
+	}
+
+	SilverScepter: {
+		Tooltip: ""
+		DisplayName: Silver Scepter
+	}
+
+	ShamanRod: {
+		Tooltip: ""
+		DisplayName: Shaman Rod
+	}
+
+	ShadowWeaver: {
+		Tooltip: ""
+		DisplayName: Shadow Weaver
+	}
+
+	ScepterofStarpower: {
+		Tooltip: ""
+		DisplayName: Scepterof Starpower
+	}
+
+	PlatinumScepter: {
+		Tooltip: ""
+		DisplayName: Platinum Scepter
+	}
+
+	PerishingSoul: {
+		Tooltip: ""
+		DisplayName: Perishing Soul
+	}
+
+	MeteorPhasestaff: {
+		Tooltip: ""
+		DisplayName: Meteor Phasestaff
+	}
+
+	HellShamanRod: {
+		Tooltip: ""
+		DisplayName: Hell Shaman Rod
+	}
+
+	WyvernMoray: {
+		Tooltip: ""
+		DisplayName: Wyvern Moray
+	}
+
+	TrueSanctify: {
+		Tooltip: ""
+		DisplayName: True Sanctify
+	}
+
+	TrueDepthsBaton: {
+		Tooltip: ""
+		DisplayName: True Depths Baton
+	}
+
+	TitaniumScepter: {
+		Tooltip: ""
+		DisplayName: Titanium Scepter
+	}
+
+	TheCore: {
+		Tooltip: ""
+		DisplayName: The Core
+	}
+
+	TerraScepter: {
+		Tooltip: ""
+		DisplayName: Terra Scepter
+	}
+
+	SunRay: {
+		Tooltip: ""
+		DisplayName: Sun Ray
 	}
 }
 
@@ -2247,354 +2202,158 @@ Prefixes: {
 }
 
 Projectiles: {
-	AirSporeProj.DisplayName: Air Spore Proj
-	AirSporeProjAlt.DisplayName: Air Spore Proj Alt
-	CloudInAVialProj.DisplayName: Cloud In A Vial Proj
-	CorruptionFlaskProj.DisplayName: Corruption Flask Proj
-	CrimsonFlaskProj.DisplayName: Crimson Flask Proj
-	CrimsonFlaskProjAlt.DisplayName: Crimson Flask Proj Alt
-	KeystoneOfTheConventProj.DisplayName: Keystone Of The Convent Proj
-	QueenBeeFlaskProj.DisplayName: Queen Bee Flask Proj
-	ShadowChestFlaskProj.DisplayName: Shadow Chest Flask Proj
-	SunplateFlaskProj.DisplayName: Sunplate Flask Proj
-	AlchemistProj.DisplayName: Alchemist Proj
-	AlchemistRightClick.DisplayName: Alchemist Right Click
-	AlchemistSmoke1.DisplayName: Alchemist Smoke1
-	AlchemistSmoke2.DisplayName: Alchemist Smoke2
-	AlchemistSmoke3.DisplayName: Alchemist Smoke3
-	EmberVialProj.DisplayName: Ember Vial Proj
-	EmberVialProjAlt.DisplayName: Ember Vial Proj Alt
-	FireSporeProj.DisplayName: Fire Spore Proj
-	FireSporeProjAlt.DisplayName: Fire Spore Proj Alt
-	GunpowderFlaskProj.DisplayName: Gunpowder Flask Proj
-	HellSlimeFlaskProj.DisplayName: Hell Slime Flask Proj
-	AttractiteShurikenProj.DisplayName: Attractite Shuriken Proj
-	GlowingMushroomVialProj.DisplayName: Glowing Mushroom Vial Proj
-	GlowingMushroomVialProjAlt.DisplayName: Glowing Mushroom Vial Proj Alt
-	GlowingMushroomVialProjAlt2.DisplayName: Glowing Mushroom Vial Proj Alt2
-	JungleLilyFlaskProj.DisplayName: Jungle Lily Flask Proj
-	JungleLilyFlaskReaction.DisplayName: Jungle Lily Flask Reaction
-	LivingSapVialProj.DisplayName: Living Sap Vial Proj
-	LivingSapVialProjAlt.DisplayName: Living Sap Vial Proj Alt
-	NatureSporeProj.DisplayName: Nature Spore Proj
-	NatureSporeProjAlt.DisplayName: Nature Spore Proj Alt
-	NatureSporeProjBloom.DisplayName: Nature Spore Proj Bloom
-	PoisonVialProj.DisplayName: Poison Vial Proj
-	PoisonVialProjAlt.DisplayName: Poison Vial Proj Alt
-	SunflowerFlaskProj1.DisplayName: Sunflower Flask Proj1
-	SunflowerFlaskProj2.DisplayName: Sunflower Flask Proj2
-	SunflowerFlaskProj3.DisplayName: Sunflower Flask Proj3
-	SunflowerFlaskProj4.DisplayName: Sunflower Flask Proj4
-	AlchemistHive.DisplayName: Alchemist Hive
-	BloomingReactive.DisplayName: Blooming Reactive
-	BloomingReactiveAlt.DisplayName: Blooming Reactive Alt
-	FlowerReactive.DisplayName: Flower Reactive
-	LivingSapBubble.DisplayName: Living Sap Bubble
-	OilBubble.DisplayName: Oil Bubble
-	PoisonBubble.DisplayName: Poison Bubble
-	AlchemistSlime.DisplayName: Alchemist Slime
-	AlchemistSlimeJungle.DisplayName: Alchemist Slime Jungle
-	AlchemistSlimeLava.DisplayName: Alchemist Slime Lava
-	BloomingPetal.DisplayName: Blooming Petal
-	DungeonCatalystProj.DisplayName: Dungeon Catalyst Proj
-	SeafoamBubble.DisplayName: Seafoam Bubble
-	SlimeBubble.DisplayName: Slime Bubble
-	SlimeBubbleLava.DisplayName: Slime Bubble Lava
-	SpiritedBubble.DisplayName: Spirited Bubble
-	AirSigil.DisplayName: Air Sigil
-	DarkSigil.DisplayName: Dark Sigil
-	FireSigil.DisplayName: Fire Sigil
-	LightSigil.DisplayName: Light Sigil
-	NatureSigil.DisplayName: Nature Sigil
-	WaterSigil.DisplayName: Water Sigil
-	BloodMoonFlaskProj.DisplayName: Blood Moon Flask Proj
-	DungeonFlaskProj.DisplayName: Dungeon Flask Proj
-	IceChestFlaskProj.DisplayName: Ice Chest Flask Proj
-	IceChestFlaskProjBig.DisplayName: Ice Chest Flask Proj Big
-	IceChestFlaskProjSmall.DisplayName: Ice Chest Flask Proj Small
-	SeafoamVialProj.DisplayName: Seafoam Vial Proj
-	SeafoamVialProjAlt.DisplayName: Seafoam Vial Proj Alt
-	SlimeFlaskProj.DisplayName: Slime Flask Proj
-	WaterSporeProj.DisplayName: Water Spore Proj
-	WaterSporeProjAlt.DisplayName: Water Spore Proj Alt
-	PrototypeSecrecyHitProjectile.DisplayName: Prototype Secrecy Hit Projectile
-	PrototypeSecrecyProjectile.DisplayName: Prototype Secrecy Projectile
-	RCRemoteProjectile.DisplayName: R C Remote Projectile
-	SearingOnslaughtProjectile.DisplayName: Searing Onslaught Projectile
-	AbyssDrillProjectile.DisplayName: Abyss Drill Projectile
-	ChemistProjectile.DisplayName: Chemist Projectile
-	CroupierProjectile.DisplayName: Croupier Projectile
-	BrainCardProj.DisplayName: Brain Card Proj
-	BrainCardProj2.DisplayName: Brain Card Proj2
-	BubbleCardProj.DisplayName: Bubble Card Proj
-	BouncyChipProj.DisplayName: Bouncy Chip Proj
-	CopperChipProj.DisplayName: Copper Chip Proj
-	FossilChipProj.DisplayName: Fossil Chip Proj
-	GamblingChipProj.DisplayName: Gambling Chip Proj
-	GoldChipProj.DisplayName: Gold Chip Proj
-	HellChipProj.DisplayName: Hell Chip Proj
-	HellChipProjAlt.DisplayName: Hell Chip Proj Alt
-	MeteorDetonatorProj.DisplayName: Meteor Detonator Proj
-	PlatinumChipProj.DisplayName: Platinum Chip Proj
-	RusalkaProj.DisplayName: Rusalka Proj
-	RusalkaProjAlt.DisplayName: Rusalka Proj Alt
-	TinChipProj.DisplayName: Tin Chip Proj
-	DesertCardBase.DisplayName: Desert Card Base
-	DesertCardProj.DisplayName: Desert Card Proj
-	DesertCardProjAlt.DisplayName: Desert Card Proj Alt
-	DetonatorCardProj.DisplayName: Detonator Card Proj
-	DungeonCardProj.DisplayName: Dungeon Card Proj
-	DungeonCardProjAlt.DisplayName: Dungeon Card Proj Alt
-	EaterCardProj1.DisplayName: Eater Card Proj1
-	EaterCardProj2.DisplayName: Eater Card Proj2
-	EaterCardProj3.DisplayName: Eater Card Proj3
-	EmbersCardProj.DisplayName: Embers Card Proj
-	VultureCharmProj.DisplayName: Vulture Charm Proj
-	EyeCardProj.DisplayName: Eye Card Proj
-	ForestCardBase.DisplayName: Forest Card Base
-	ForestCardProj.DisplayName: Forest Card Proj
-	GoblinArmyCardProj.DisplayName: Goblin Army Card Proj
-	GoblinArmyCardProjAlt.DisplayName: Goblin Army Card Proj Alt
-	GoldChestCardProj.DisplayName: Gold Chest Card Proj
-	IceChestCardProj.DisplayName: Ice Chest Card Proj
-	IvyChestCardProj.DisplayName: Ivy Chest Card Proj
-	JungleCardBase.DisplayName: Jungle Card Base
-	JungleCardProj.DisplayName: Jungle Card Proj
-	JungleCardProjAlt.DisplayName: Jungle Card Proj Alt
-	JungleSlimeCardProj.DisplayName: Jungle Slime Card Proj
-	JungleSlimeCardProjAlt.DisplayName: Jungle Slime Card Proj Alt
-	KingSlimeCardProj.DisplayName: King Slime Card Proj
-	KingSlimeCardProj2.DisplayName: King Slime Card Proj2
-	LavaSlimeCardProj.DisplayName: Lava Slime Card Proj
-	MushroomCardBase.DisplayName: Mushroom Card Base
-	MushroomCardProj.DisplayName: Mushroom Card Proj
-	OceanCardBase.DisplayName: Ocean Card Base
-	OceanCardProj.DisplayName: Ocean Card Proj
-	QueenBeeCardProj.DisplayName: Queen Bee Card Proj
-	SapCardProj.DisplayName: Sap Card Proj
-	SapCardProjExplosion.DisplayName: Sap Card Proj Explosion
-	ShuffleCardProj.DisplayName: Shuffle Card Proj
-	SkeletronCardProj.DisplayName: Skeletron Card Proj
-	SkeletronCardProjAlt.DisplayName: Skeletron Card Proj Alt
-	SkyCardBase.DisplayName: Sky Card Base
-	SkyCardProj.DisplayName: Sky Card Proj
-	SkyCardProjAlt.DisplayName: Sky Card Proj Alt
-	SlimeCardProj.DisplayName: Slime Card Proj
-	SlimeRainCardProj1.DisplayName: Slime Rain Card Proj1
-	SlimeRainCardProj2.DisplayName: Slime Rain Card Proj2
-	SnowCardBase.DisplayName: Snow Card Base
-	SnowCardProj.DisplayName: Snow Card Proj
-	SnowCardProjAlt.DisplayName: Snow Card Proj Alt
-	MineshaftHookProjectile.DisplayName: Mineshaft Hook Projectile
-	StaticQuartzDartProj.DisplayName: Static Quartz Dart Proj
-	StaticQuartzWarriorProj.DisplayName: Static Quartz Warrior Proj
-	GenericExplosion.DisplayName: Generic Explosion
-	HauntedCandle.DisplayName: Haunted Candle
-	GuardianShieldAnchor.DisplayName: Guardian Shield Anchor
-	HammerThrow.DisplayName: Hammer Throw
-	EnchantedRuneProj.DisplayName: Enchanted Rune Proj
-	LivingRuneProj.DisplayName: Living Rune Proj
-	EnchantedPaviseProj.DisplayName: Enchanted Pavise Proj
-	DownpourElementalCloud.DisplayName: Downpour Elemental Cloud
-	DownpourElementalCloudProj.DisplayName: Downpour Elemental Cloud Proj
-	CatalystAnchor.DisplayName: Catalyst Anchor
-	CatalystSummon.DisplayName: Catalyst Summon
-	AbyssShard.DisplayName: Abyss Shard
-	AbyssShardD.DisplayName: Abyss Shard D
-	AbyssShardS.DisplayName: Abyss Shard S
-	AdornedBranchProj.DisplayName: Adorned Branch Proj
-	BlumProj.DisplayName: Blum Proj
-	BulbScepterProj.DisplayName: Bulb Scepter Proj
-	CrystalScepterProj.DisplayName: Crystal Scepter Proj
-	CrystalScepterProj2.DisplayName: Crystal Scepter Proj2
-	DepthBatonProjAlt.DisplayName: Depth Baton Proj Alt
-	DepthsBatonProj.DisplayName: Depths Baton Proj
-	EnchantedScepterProj.DisplayName: Enchanted Scepter Proj
-	AbyssPortal.DisplayName: Abyss Portal
-	AbyssPortalLaser.DisplayName: Abyss Portal Laser
-	DeepForestCharmProj.DisplayName: Deep Forest Charm Proj
-	HarpyAnkletProj.DisplayName: Harpy Anklet Proj
-	ShamanHellExplosion.DisplayName: Shaman Hell Explosion
-	ShamanHellHoming.DisplayName: Shaman Hell Homing
-	LavaDroplet.DisplayName: Lava Droplet
-	Smite.DisplayName: Smite
-	FeatherScepterProj.DisplayName: Feather Scepter Proj
-	FireBatScepterProj.DisplayName: Fire Bat Scepter Proj
-	FireBatScepterProjHoming.DisplayName: Fire Bat Scepter Proj Homing
-	GoblinStickProj.DisplayName: Goblin Stick Proj
-	HellShamanRodProj.DisplayName: Hell Shaman Rod Proj
-	IceFlakeConeProj.DisplayName: Ice Flake Cone Proj
-	IceMimicScepterProj.DisplayName: Ice Mimic Scepter Proj
-	LostSoul.DisplayName: Lost Soul
-	MartianBeamerProj.DisplayName: Martian Beamer Proj
-	MeteorPhasestaffProj.DisplayName: Meteor Phasestaff Proj
-	NirvanaEarth.DisplayName: Nirvana Earth
-	NirvanaFire.DisplayName: Nirvana Fire
-	NirvanaMain.DisplayName: Nirvana Main
-	NirvanaWater.DisplayName: Nirvana Water
-	NirvanaWind.DisplayName: Nirvana Wind
-	AbyssOrb.DisplayName: Abyss Orb
-	AbyssPrecinctProj.DisplayName: Abyss Precinct Proj
-	AbyssPrecinctProjAlt.DisplayName: Abyss Precinct Proj Alt
-	AbyssPrecinctProjExplosion.DisplayName: Abyss Precinct Proj Explosion
-	AdamantiteOrb.DisplayName: Adamantite Orb
-	AdamantiteScepterProj.DisplayName: Adamantite Scepter Proj
-	ChlorophyteOrb.DisplayName: Chlorophyte Orb
-	ChlorophyteScepterProj.DisplayName: Chlorophyte Scepter Proj
-	CobaltOrb.DisplayName: Cobalt Orb
-	CobaltScepterProj.DisplayName: Cobalt Scepter Proj
-	MythrilOrb.DisplayName: Mythril Orb
-	MythrilScepterProj.DisplayName: Mythril Scepter Proj
-	OrichalcumOrb.DisplayName: Orichalcum Orb
-	OrichalcumScepterProj.DisplayName: Orichalcum Scepter Proj
-	PalladiumOrb.DisplayName: Palladium Orb
-	PalladiumScepterProj.DisplayName: Palladium Scepter Proj
-	TitaniumOrb.DisplayName: Titanium Orb
-	TitaniumScepterProj.DisplayName: Titanium Scepter Proj
-	ReviverofSoulsFlame.DisplayName: Reviverof Souls Flame
-	ReviverofSoulsProj.DisplayName: Reviverof Souls Proj
-	SanctifyOrb.DisplayName: Sanctify Orb
-	SanctifyOrbHoming.DisplayName: Sanctify Orb Homing
-	SanctifyProj.DisplayName: Sanctify Proj
-	SanctifyProjAlt.DisplayName: Sanctify Proj Alt
-	TrueSanctifyOrb.DisplayName: True Sanctify Orb
-	TrueSanctifyOrbHoming.DisplayName: True Sanctify Orb Homing
-	TrueSanctifyProj.DisplayName: True Sanctify Proj
-	TrueSanctifyProjAlt.DisplayName: True Sanctify Proj Alt
-	AmberOrb.DisplayName: Amber Orb
-	AmberScepterProj.DisplayName: Amber Scepter Proj
-	AmethystOrb.DisplayName: Amethyst Orb
-	CopperScepterProj.DisplayName: Copper Scepter Proj
-	CrimsonOrb.DisplayName: Crimson Orb
-	CrimsonScepterProj.DisplayName: Crimson Scepter Proj
-	DemoniteOrb.DisplayName: Demonite Orb
-	DemoniteScepterProj.DisplayName: Demonite Scepter Proj
-	DiamondOrb.DisplayName: Diamond Orb
-	EmeraldOrb.DisplayName: Emerald Orb
-	GoldScepterProj.DisplayName: Gold Scepter Proj
-	PlatinumScepterProj.DisplayName: Platinum Scepter Proj
-	RubyOrb.DisplayName: Ruby Orb
-	SapphireOrb.DisplayName: Sapphire Orb
-	SilverScepterProj.DisplayName: Silver Scepter Proj
-	TinScepterProj.DisplayName: Tin Scepter Proj
-	TopazOrb.DisplayName: Topaz Orb
-	TungstenScepterProj.DisplayName: Tungsten Scepter Proj
-	CorruptConeProj.DisplayName: Corrupt Cone Proj
-	CorruptOrb.DisplayName: Corrupt Orb
-	CorruptOrbRain.DisplayName: Corrupt Orb Rain
-	HoneyOrb1.DisplayName: Honey Orb1
-	HoneyOrb2.DisplayName: Honey Orb2
-	HoneyOrb3.DisplayName: Honey Orb3
-	HoneyProj.DisplayName: Honey Proj
-	IceSpearOrb.DisplayName: Ice Spear Orb
-	IceSpearProj.DisplayName: Ice Spear Proj
-	IceSpearScepterProj.DisplayName: Ice Spear Scepter Proj
-	IchorOrb.DisplayName: Ichor Orb
-	IchorOrbRain.DisplayName: Ichor Orb Rain
-	IchoryConeProj.DisplayName: Ichory Cone Proj
-	TerraScepterOrb1.DisplayName: Terra Scepter Orb1
-	TerraScepterOrb2.DisplayName: Terra Scepter Orb2
-	TerraScepterOrb3.DisplayName: Terra Scepter Orb3
-	TerraScepterOrb4.DisplayName: Terra Scepter Orb4
-	TerraScepterOrbHoming1.DisplayName: Terra Scepter Orb Homing1
-	TerraScepterOrbHoming2.DisplayName: Terra Scepter Orb Homing2
-	TerraScepterOrbHoming3.DisplayName: Terra Scepter Orb Homing3
-	TerraScepterOrbHoming4.DisplayName: Terra Scepter Orb Homing4
-	TerraSpecterProj.DisplayName: Terra Specter Proj
-	TerraSpecterProj2.DisplayName: Terra Specter Proj2
-	PerishingSoulProj.DisplayName: Perishing Soul Proj
-	PiratesGloryProj.DisplayName: Pirates Glory Proj
-	RuneScepterProj.DisplayName: Rune Scepter Proj
-	ShamanRodProj.DisplayName: Shaman Rod Proj
-	ShroomiteScepterProj.DisplayName: Shroomite Scepter Proj
-	SightScepterProj.DisplayName: Sight Scepter Proj
-	SpineScepterProj.DisplayName: Spine Scepter Proj
-	SporeCallerProj.DisplayName: Spore Caller Proj
-	StarpowerScepterProj.DisplayName: Starpower Scepter Proj
-	SunRayProj.DisplayName: Sun Ray Proj
-	TheCoreProj.DisplayName: The Core Proj
-	AbyssalChitinScepterProj.DisplayName: Abyssal Chitin Scepter Proj
-	AbyssionScepterProj.DisplayName: Abyssion Scepter Proj
-	BersekerShardScepterProj.DisplayName: Berseker Shard Scepter Proj
-	BoreanStriderScepterKillProj.DisplayName: Borean Strider Scepter Kill Proj
-	BoreanStriderScepterProj.DisplayName: Borean Strider Scepter Proj
-	BoreanStriderScepterProjAlt.DisplayName: Borean Strider Scepter Proj Alt
 	BronzeAlloyScepterProj.DisplayName: Bronze Alloy Scepter Proj
-	BronzeAlloyScepterProjAlt.DisplayName: Bronze Alloy Scepter Proj Alt
-	CoznixScepterProj.DisplayName: Coznix Scepter Proj
-	CoznixScepterProjLaser.DisplayName: Coznix Scepter Proj Laser
-	CoznixScepterProjPortal.DisplayName: Coznix Scepter Proj Portal
-	DragonScaleScepterProj.DisplayName: Dragon Scale Scepter Proj
-	ViscountBlood.DisplayName: Viscount Blood
-	ViscountOrbBlood.DisplayName: Viscount Orb Blood
-	ViscountOrbSound.DisplayName: Viscount Orb Sound
-	ViscountSound.DisplayName: Viscount Sound
-	GeodeScepterProj.DisplayName: Geode Scepter Proj
-	GeodeScepterProjAlt.DisplayName: Geode Scepter Proj Alt
-	IceShardScepterProj.DisplayName: Ice Shard Scepter Proj
-	LichScepterProj.DisplayName: Lich Scepter Proj
-	LichScepterProjAlt.DisplayName: Lich Scepter Proj Alt
-	MoltenResidueScepterProj.DisplayName: Molten Residue Scepter Proj
-	MoltenResidueScepterProjExplosion.DisplayName: Molten Residue Scepter Proj Explosion
-	OrchidScepterProj.DisplayName: Orchid Scepter Proj
-	AquaiteScepterOrb.DisplayName: Aquaite Scepter Orb
-	AquaiteScepterOrbProj.DisplayName: Aquaite Scepter Orb Proj
-	AquaiteScepterProj.DisplayName: Aquaite Scepter Proj
-	LodestoneOrb.DisplayName: Lodestone Orb
-	LodestoneScepterExplosion.DisplayName: Lodestone Scepter Explosion
-	LodestoneScepterProj.DisplayName: Lodestone Scepter Proj
-	MagmaOrb.DisplayName: Magma Orb
-	MagmaScepterProj.DisplayName: Magma Scepter Proj
-	MagmaScepterProjExplosion.DisplayName: Magma Scepter Proj Explosion
-	MonowaiExplosion.DisplayName: Monowai Explosion
-	MonowaiOrb.DisplayName: Monowai Orb
-	MonowaiProj.DisplayName: Monowai Proj
-	TitanicOrb.DisplayName: Titanic Orb
-	TitanicScepterProj.DisplayName: Titanic Scepter Proj
-	ValadiumOrb.DisplayName: Valadium Orb
-	ValadiumScepterProj.DisplayName: Valadium Scepter Proj
-	GraniteEnergyScepterOrb.DisplayName: Granite Energy Scepter Orb
-	GraniteEnergyScepterOrbProj.DisplayName: Granite Energy Scepter Orb Proj
-	GraniteEnergyScepterProj.DisplayName: Granite Energy Scepter Proj
-	TerrariumScepterOrb.DisplayName: Terrarium Scepter Orb
-	TerrariumScepterOrbProj.DisplayName: Terrarium Scepter Orb Proj
-	TerrariumScepterProj.DisplayName: Terrarium Scepter Proj
-	OnyxOrb.DisplayName: Onyx Orb
-	OnyxScepterProj.DisplayName: Onyx Scepter Proj
-	OpalOrb.DisplayName: Opal Orb
-	OpalScepterProj.DisplayName: Opal Scepter Proj
-	SolarPebbleScepterOrb.DisplayName: Solar Pebble Scepter Orb
-	SolarPebbleScepterOrbProj.DisplayName: Solar Pebble Scepter Orb Proj
-	SolarPebbleScepterOrbProjAlt.DisplayName: Solar Pebble Scepter Orb Proj Alt
-	SolarPebbleScepterProj.DisplayName: Solar Pebble Scepter Proj
-	ThunderScepterOrb.DisplayName: Thunder Scepter Orb
-	ThunderScepterOrbProj.DisplayName: Thunder Scepter Orb Proj
-	ThunderScepterProj.DisplayName: Thunder Scepter Proj
-	ThunderScepterTornado.DisplayName: Thunder Scepter Tornado
-	PatchWerkScepterProj.DisplayName: Patch Werk Scepter Proj
-	PatchWerkScepterProjAlt.DisplayName: Patch Werk Scepter Proj Alt
-	PharaohScepterPortal.DisplayName: Pharaoh Scepter Portal
-	PharaohScepterProj.DisplayName: Pharaoh Scepter Proj
-	PharaohScepterProjAlt.DisplayName: Pharaoh Scepter Proj Alt
-	QueenJellyfishScepterProj.DisplayName: Queen Jellyfish Scepter Proj
-	SpiritDropletScepterProj.DisplayName: Spirit Droplet Scepter Proj
-	StarScouterScepterProj.DisplayName: Star Scouter Scepter Proj
-	StarScouterScepterProjAlt.DisplayName: Star Scouter Scepter Proj Alt
-	StarScouterScepterProjAltExplosion.DisplayName: Star Scouter Scepter Proj Alt Explosion
-	StrangePlatingScepterProj.DisplayName: Strange Plating Scepter Proj
-	StrangePlatingScepterProjAlt.DisplayName: Strange Plating Scepter Proj Alt
-	ThoriumScepterProj.DisplayName: Thorium Scepter Proj
-	ThoriumScepterProjSplit.DisplayName: Thorium Scepter Proj Split
-	UnfathomableFleshScepterProj.DisplayName: Unfathomable Flesh Scepter Proj
-	ViscountScepterBat.DisplayName: Viscount Scepter Bat
-	ViscountScepterProj.DisplayName: Viscount Scepter Proj
-	YewWoodScepterPortal.DisplayName: Yew Wood Scepter Portal
-	YewWoodScepterPortalProj.DisplayName: Yew Wood Scepter Portal Proj
-	YewWoodScepterProj.DisplayName: Yew Wood Scepter Proj
-	TrueDepthProj.DisplayName: True Depth Proj
-	VileSpoutProj.DisplayName: Vile Spout Proj
-	WyvernMorayProj.DisplayName: Wyvern Moray Proj
-	WyvernMorayProjLingering.DisplayName: Wyvern Moray Proj Lingering
+	AdornedBranchProj.DisplayName: Adorned Branch Proj
+	CatalystSummon.DisplayName: Catalyst Summon
+	CatalystAnchor.DisplayName: Catalyst Anchor
+	HauntedCandle.DisplayName: Haunted Candle
+	GenericExplosion.DisplayName: Generic Explosion
+	CroupierProjectile.DisplayName: Croupier Projectile
+	ChemistProjectile.DisplayName: Chemist Projectile
+	DownpourElementalCloudProj.DisplayName: Downpour Elemental Cloud Proj
+	DownpourElementalCloud.DisplayName: Downpour Elemental Cloud
+	AbyssDrillProjectile.DisplayName: Abyss Drill Projectile
+	SearingOnslaughtProjectile.DisplayName: Searing Onslaught Projectile
+	RCRemoteProjectile.DisplayName: R C Remote Projectile
+	PrototypeSecrecyProjectile.DisplayName: Prototype Secrecy Projectile
+	PrototypeSecrecyHitProjectile.DisplayName: Prototype Secrecy Hit Projectile
+	MineshaftHookProjectile.DisplayName: Mineshaft Hook Projectile
+	EnchantedPaviseProj.DisplayName: Enchanted Pavise Proj
+	LivingRuneProj.DisplayName: Living Rune Proj
+	EnchantedRuneProj.DisplayName: Enchanted Rune Proj
+	HammerThrow.DisplayName: Hammer Throw
+	GuardianShieldAnchor.DisplayName: Guardian Shield Anchor
+	SnowCardProjAlt.DisplayName: Snow Card Proj Alt
+	SnowCardProj.DisplayName: Snow Card Proj
+	SnowCardBase.DisplayName: Snow Card Base
+	SlimeRainCardProj2.DisplayName: Slime Rain Card Proj2
+	SlimeRainCardProj1.DisplayName: Slime Rain Card Proj1
+	SlimeCardProj.DisplayName: Slime Card Proj
+	SkyCardProjAlt.DisplayName: Sky Card Proj Alt
+	SkyCardProj.DisplayName: Sky Card Proj
+	SkyCardBase.DisplayName: Sky Card Base
+	SkeletronCardProjAlt.DisplayName: Skeletron Card Proj Alt
+	SkeletronCardProj.DisplayName: Skeletron Card Proj
+	ShuffleCardProj.DisplayName: Shuffle Card Proj
+	SapCardProjExplosion.DisplayName: Sap Card Proj Explosion
+	SapCardProj.DisplayName: Sap Card Proj
+	QueenBeeCardProj.DisplayName: Queen Bee Card Proj
+	OceanCardProj.DisplayName: Ocean Card Proj
+	OceanCardBase.DisplayName: Ocean Card Base
+	MushroomCardProj.DisplayName: Mushroom Card Proj
+	MushroomCardBase.DisplayName: Mushroom Card Base
+	LavaSlimeCardProj.DisplayName: Lava Slime Card Proj
+	KingSlimeCardProj2.DisplayName: King Slime Card Proj2
+	KingSlimeCardProj.DisplayName: King Slime Card Proj
+	JungleSlimeCardProjAlt.DisplayName: Jungle Slime Card Proj Alt
+	JungleSlimeCardProj.DisplayName: Jungle Slime Card Proj
+	JungleCardProjAlt.DisplayName: Jungle Card Proj Alt
+	JungleCardProj.DisplayName: Jungle Card Proj
+	JungleCardBase.DisplayName: Jungle Card Base
+	IvyChestCardProj.DisplayName: Ivy Chest Card Proj
+	IceChestCardProj.DisplayName: Ice Chest Card Proj
+	GoldChestCardProj.DisplayName: Gold Chest Card Proj
+	GoblinArmyCardProjAlt.DisplayName: Goblin Army Card Proj Alt
+	GoblinArmyCardProj.DisplayName: Goblin Army Card Proj
+	ForestCardProj.DisplayName: Forest Card Proj
+	ForestCardBase.DisplayName: Forest Card Base
+	EyeCardProj.DisplayName: Eye Card Proj
+	VultureCharmProj.DisplayName: Vulture Charm Proj
+	EmbersCardProj.DisplayName: Embers Card Proj
+	EaterCardProj3.DisplayName: Eater Card Proj3
+	EaterCardProj2.DisplayName: Eater Card Proj2
+	EaterCardProj1.DisplayName: Eater Card Proj1
+	DungeonCardProjAlt.DisplayName: Dungeon Card Proj Alt
+	DungeonCardProj.DisplayName: Dungeon Card Proj
+	DetonatorCardProj.DisplayName: Detonator Card Proj
+	DesertCardProjAlt.DisplayName: Desert Card Proj Alt
+	DesertCardProj.DisplayName: Desert Card Proj
+	DesertCardBase.DisplayName: Desert Card Base
+	TinChipProj.DisplayName: Tin Chip Proj
+	RusalkaProjAlt.DisplayName: Rusalka Proj Alt
+	RusalkaProj.DisplayName: Rusalka Proj
+	PlatinumChipProj.DisplayName: Platinum Chip Proj
+	MeteorDetonatorProj.DisplayName: Meteor Detonator Proj
+	HellChipProjAlt.DisplayName: Hell Chip Proj Alt
+	HellChipProj.DisplayName: Hell Chip Proj
+	GoldChipProj.DisplayName: Gold Chip Proj
+	GamblingChipProj.DisplayName: Gambling Chip Proj
+	FossilChipProj.DisplayName: Fossil Chip Proj
+	CopperChipProj.DisplayName: Copper Chip Proj
+	BouncyChipProj.DisplayName: Bouncy Chip Proj
+	BubbleCardProj.DisplayName: Bubble Card Proj
+	BrainCardProj2.DisplayName: Brain Card Proj2
+	BrainCardProj.DisplayName: Brain Card Proj
+	WaterSporeProjAlt.DisplayName: Water Spore Proj Alt
+	WaterSporeProj.DisplayName: Water Spore Proj
+	SlimeFlaskProj.DisplayName: Slime Flask Proj
+	SeafoamVialProjAlt.DisplayName: Seafoam Vial Proj Alt
+	SeafoamVialProj.DisplayName: Seafoam Vial Proj
+	IceChestFlaskProjSmall.DisplayName: Ice Chest Flask Proj Small
+	IceChestFlaskProjBig.DisplayName: Ice Chest Flask Proj Big
+	IceChestFlaskProj.DisplayName: Ice Chest Flask Proj
+	DungeonFlaskProj.DisplayName: Dungeon Flask Proj
+	BloodMoonFlaskProj.DisplayName: Blood Moon Flask Proj
+	WaterSigil.DisplayName: Water Sigil
+	NatureSigil.DisplayName: Nature Sigil
+	LightSigil.DisplayName: Light Sigil
+	FireSigil.DisplayName: Fire Sigil
+	DarkSigil.DisplayName: Dark Sigil
+	AirSigil.DisplayName: Air Sigil
+	SpiritedBubble.DisplayName: Spirited Bubble
+	SlimeBubbleLava.DisplayName: Slime Bubble Lava
+	SlimeBubble.DisplayName: Slime Bubble
+	SeafoamBubble.DisplayName: Seafoam Bubble
+	DungeonCatalystProj.DisplayName: Dungeon Catalyst Proj
+	BloomingPetal.DisplayName: Blooming Petal
+	AlchemistSlimeLava.DisplayName: Alchemist Slime Lava
+	AlchemistSlimeJungle.DisplayName: Alchemist Slime Jungle
+	AlchemistSlime.DisplayName: Alchemist Slime
+	PoisonBubble.DisplayName: Poison Bubble
+	OilBubble.DisplayName: Oil Bubble
+	LivingSapBubble.DisplayName: Living Sap Bubble
+	FlowerReactive.DisplayName: Flower Reactive
+	BloomingReactiveAlt.DisplayName: Blooming Reactive Alt
+	BloomingReactive.DisplayName: Blooming Reactive
+	AlchemistHive.DisplayName: Alchemist Hive
+	SunflowerFlaskProj4.DisplayName: Sunflower Flask Proj4
+	SunflowerFlaskProj3.DisplayName: Sunflower Flask Proj3
+	SunflowerFlaskProj2.DisplayName: Sunflower Flask Proj2
+	SunflowerFlaskProj1.DisplayName: Sunflower Flask Proj1
+	PoisonVialProjAlt.DisplayName: Poison Vial Proj Alt
+	PoisonVialProj.DisplayName: Poison Vial Proj
+	NatureSporeProjBloom.DisplayName: Nature Spore Proj Bloom
+	NatureSporeProjAlt.DisplayName: Nature Spore Proj Alt
+	NatureSporeProj.DisplayName: Nature Spore Proj
+	LivingSapVialProjAlt.DisplayName: Living Sap Vial Proj Alt
+	LivingSapVialProj.DisplayName: Living Sap Vial Proj
+	JungleLilyFlaskReaction.DisplayName: Jungle Lily Flask Reaction
+	JungleLilyFlaskProj.DisplayName: Jungle Lily Flask Proj
+	GlowingMushroomVialProjAlt2.DisplayName: Glowing Mushroom Vial Proj Alt2
+	GlowingMushroomVialProjAlt.DisplayName: Glowing Mushroom Vial Proj Alt
+	GlowingMushroomVialProj.DisplayName: Glowing Mushroom Vial Proj
+	AttractiteShurikenProj.DisplayName: Attractite Shuriken Proj
+	HellSlimeFlaskProj.DisplayName: Hell Slime Flask Proj
+	GunpowderFlaskProj.DisplayName: Gunpowder Flask Proj
+	FireSporeProjAlt.DisplayName: Fire Spore Proj Alt
+	FireSporeProj.DisplayName: Fire Spore Proj
+	EmberVialProjAlt.DisplayName: Ember Vial Proj Alt
+	EmberVialProj.DisplayName: Ember Vial Proj
+	AlchemistSmoke3.DisplayName: Alchemist Smoke3
+	AlchemistSmoke2.DisplayName: Alchemist Smoke2
+	AlchemistSmoke1.DisplayName: Alchemist Smoke1
+	AlchemistRightClick.DisplayName: Alchemist Right Click
+	AlchemistProj.DisplayName: Alchemist Proj
+	SunplateFlaskProj.DisplayName: Sunplate Flask Proj
+	ShadowChestFlaskProj.DisplayName: Shadow Chest Flask Proj
+	QueenBeeFlaskProj.DisplayName: Queen Bee Flask Proj
+	KeystoneOfTheConventProj.DisplayName: Keystone Of The Convent Proj
+	CrimsonFlaskProjAlt.DisplayName: Crimson Flask Proj Alt
+	CrimsonFlaskProj.DisplayName: Crimson Flask Proj
+	CorruptionFlaskProj.DisplayName: Corruption Flask Proj
+	CloudInAVialProj.DisplayName: Cloud In A Vial Proj
+	AirSporeProjAlt.DisplayName: Air Spore Proj Alt
+	AirSporeProj.DisplayName: Air Spore Proj
 }
 
 Configs: {

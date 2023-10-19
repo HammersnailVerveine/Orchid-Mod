@@ -27,7 +27,7 @@ namespace OrchidMod.Content.Shaman.Armors.Downpour
 		public override void UpdateEquip(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanBuffTimer += 4;
+			// buff timer  4;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Shaman.Armors.Hell
 			player.setBonus = "Shamanic fire bonds and causes attacks to release spreading fire"
 							+ "\n             Shamanic earth bonds causes you reflect damage to nearby enemies"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
-			modPlayer.shamanBuffTimer += 3;
+			// buff timer  3;
 			modPlayer.shamanHell = true;
 		}
 

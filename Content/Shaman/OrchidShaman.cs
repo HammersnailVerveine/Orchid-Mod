@@ -11,34 +11,39 @@ namespace OrchidMod
 	{
 		public OrchidPlayer modPlayer;
 
-		public int shamanBuffTimer = 6;
-		public float shamanExhaustionRate = 1.0f;
+		// UI
+
 		public int UIDisplayTimer = 0;
 		public int UIDisplayDelay = 60 * 3; // 3 Seconds
 
-		public int shamanHitDelay = 0;
-		public int shamanSelectedItem = 0;
-		public int shamanCatalystIndex = 0;
+		// Gameplay Core (do not tweak with gear)
 
-		public float ShamanFireBond = 0;
-		public float ShamanWaterBond = 0;
-		public float ShamanAirBond = 0;
-		public float ShamanEarthBond = 0;
-		public float ShamanSpiritBond = 0;
-		public int ShamanFireBondPoll = 0;
-		public int ShamanWaterBondPoll = 0;
-		public int ShamanAirBondPoll = 0;
-		public int ShamanEarthBondPoll = 0;
-		public int ShamanSpiritBondPoll = 0;
-		public bool ShamanFireBondReleased = false;
-		public bool ShamanWaterBondReleased = false;
-		public bool ShamanAirBondReleased = false;
-		public bool ShamanEarthBondReleased = false;
-		public bool ShamanSpiritBondReleased = false;
-
+		public int shamanHitDelay = 0; // Used to calculate how much bond a hit should give the player (more delay = more bond)
+		public int shamanCatalystIndex = 0; // whoamI of the catalyst anchor for this player
+		public float ShamanFireBond = 0; // Fire bond progression
+		public float ShamanWaterBond = 0; // Water bond progression
+		public float ShamanAirBond = 0; // Air bond progression
+		public float ShamanEarthBond = 0; // Earth bond progression
+		public float ShamanSpiritBond = 0; // Spirit bond progression
+		public int ShamanFireBondPoll = 0; // Fire bond progression buffer (for smooth bar loading)
+		public int ShamanWaterBondPoll = 0; // Water bond progression buffer
+		public int ShamanAirBondPoll = 0; // Air bond progression buffer
+		public int ShamanEarthBondPoll = 0; // Earth bond progression buffer
+		public int ShamanSpiritBondPoll = 0; // Spirit bond progression buffer
+		public bool ShamanFireBondReleased = false; // Is the fire bond furrently released? (summons a catalyst aiding the player)
+		public bool ShamanWaterBondReleased = false; // Is the water bond furrently released?
+		public bool ShamanAirBondReleased = false; // Is the air bond furrently released?
+		public bool ShamanEarthBondReleased = false; // Is the earth bond furrently released?
+		public bool ShamanSpiritBondReleased = false; // Is the spirit bond furrently released?
 		public int ShamanBondUnloadDelay = 300; // Non-combat delay after which shaman elements bars start unloading
-		public float ShamanBondUnloadRate = 1f; // Shaman bond deplete speed multiplier (after the above delay ends)
+
+		// Gameplay Stats (can be tweaked with player gear)
+
+		public int ShamanBondDuration = 10; // How long do shamanic bond last when released (How long will shaman catalyst be summoned)? - in seconds
+		public float ShamanBondUnloadRate = 1f; // Shaman bond deplete speed multiplier (after the ShamanBondUnloadDelay delay ends)
 		public float ShamanBondLoadRate = 1f; // Shaman bond loading multiplier when hitting
+
+		// Gear bools (enabled by specific items)
 
 		public bool shamanFire = false;
 		public bool shamanIce = false;
@@ -75,86 +80,34 @@ namespace OrchidMod
 		public bool shamanRuby = false;
 		public bool shamanHorus = false;
 
-		public bool harpyAnkletLock = true;
-		public int shamanTimerCrimson = 0;
-		public int shamanTimerViscount = 0;
-		public int shamanTimerHellDamage = 600;
-		public int shamanTimerHellDefense = 300;
-		public int shamanTimerDestroyer = 0;
-		public int shamanDestroyerCount = 0;
-		public int shamanTimerDiabolist = 0;
-		public int shamanDiabolistCount = 0;
-		public int timerVial = 0;
-
 		public bool doubleJumpHarpy = false;
-		public bool harpySpaceKeyReleased = false;
-		public int jumpHeightCheck = -1;
 		public bool abyssalWings = false;
 
-		public bool HasAnyBondLoaded() =>
-			(ShamanFireBond +
-			ShamanWaterBond +
-			ShamanAirBond +
-			ShamanEarthBond +
-			ShamanSpiritBond) > 0;
+		// Used for shaman gear to work properly (do not tweak)
 
-		public int GetDamage(int damage) => (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(damage);
+		public bool harpySpaceKeyReleased = false;
+		public int jumpHeightCheck = -1;
 
-		public int GetNbShamanicBonds()
+		// Custom Methods that should be edited for content
+
+		public void OnReleaseShamanicBond(OrchidModShamanItem item)
 		{
-			int val = 0;
-			if (ShamanFireBondReleased) val++;
-			if (ShamanWaterBondReleased) val++;
-			if (ShamanAirBondReleased) val++;
-			if (ShamanEarthBondReleased) val++;
-			if (ShamanSpiritBondReleased) val++;
-			return val;
 		}
 
-		public Vector2? ShamanCatalystPosition
+		public void OnAddShamanicEmpowerment(ShamanElement element)
 		{
-			get
+			/*
+			if (shamanForest && element == ShamanElement.EARTH)
 			{
-				var proj = Main.projectile[this.shamanCatalystIndex];
-				if (proj == null || !proj.active) return null;
-
-				return proj.Center;
+				Player.AddBuff(BuffType<DeepForestAura>(), 1);
+				int projType = ProjectileType<DeepForestCharmProj>();
+				Projectile.NewProjectile(null, Player.Center.X, Player.position.Y, 0f, 0f, projType, 1, 0, Player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(null, Player.Center.X, Player.position.Y, 0f, 0f, projType, 2, 0, Player.whoAmI, 0f, 0f);
 			}
+			*/
 		}
 
-		public void Reset()
-		{
-			shamanCatalystIndex = -1;
-
-			ShamanFireBond = 0;
-			ShamanFireBondPoll = 0;
-			ShamanFireBondReleased = false;
-
-			ShamanWaterBond = 0;
-			ShamanWaterBondPoll = 0;
-			ShamanWaterBondReleased = false;
-
-			ShamanAirBond = 0;
-			ShamanAirBondPoll = 0;
-			ShamanAirBondReleased = false;
-
-			ShamanEarthBond = 0;
-			ShamanEarthBondPoll = 0;
-			ShamanEarthBondReleased = false;
-
-			ShamanSpiritBond = 0;
-			ShamanSpiritBondPoll = 0;
-			ShamanSpiritBondReleased = false;
-
-			UIDisplayTimer = 0;
-		}
-
-		public override void Initialize()
-		{
-			modPlayer = Player.GetModPlayer<OrchidPlayer>();
-
-			Reset();
-		}
+		// Vanilla Methods  that should be edited for content
 
 		public override void PostUpdateEquips()
 		{
@@ -256,44 +209,29 @@ namespace OrchidMod
 			*/
 		}
 
-		public override void PostUpdate()
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (shamanTimerCrimson < 30)
-				shamanTimerCrimson++;
-
-			if (shamanTimerViscount < 180)
-				shamanTimerViscount++;
-
-			if (shamanTimerHellDamage < 600)
-				shamanTimerHellDamage++;
-
-			if (shamanTimerHellDefense < 300)
-				shamanTimerHellDefense++;
-
-
-			if (timerVial < 30)
-				timerVial++;
-		}
-
-		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)/* tModPorter If you don't need the Projectile, consider using OnHitNPC instead */
-		{
+			/*
 			OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			if (modProjectile.shamanProjectile)
 			{
 			}
+			*/
 		}
 
-		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)/* tModPorter If you don't need the Projectile, consider using ModifyHitNPC instead */
+		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
 		{
+			/*
 			OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			if (modProjectile.shamanProjectile)
 			{
 			}
+			*/
 		}
 
 		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
 		{
-			if (abyssalWings && Player.controlJump) // Don't works if it is in the vanity slot
+			if (abyssalWings && Player.controlJump) // Doesn't work if it is in the vanity slot
 			{
 				if (Main.rand.NextBool(6) && drawInfo.shadow == 0f && Player.wingTime > 0)
 				{
@@ -335,16 +273,41 @@ namespace OrchidMod
 				ShamanSpiritBond = 0;
 			}
 
-			ShamanFireBond += ShamanFireBondPoll > 0 && ShamanFireBond < 100 ? 1f * ShamanBondLoadRate : ShamanFireBondPoll < -ShamanBondUnloadDelay && ShamanFireBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
-			ShamanWaterBond += ShamanWaterBondPoll > 0 && ShamanWaterBond < 100 ? 1f * ShamanBondLoadRate : ShamanWaterBondPoll < -ShamanBondUnloadDelay && ShamanWaterBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
-			ShamanAirBond += ShamanAirBondPoll > 0 && ShamanAirBond < 100 ? 1f * ShamanBondLoadRate : ShamanAirBondPoll < -ShamanBondUnloadDelay && ShamanAirBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
-			ShamanEarthBond += ShamanEarthBondPoll > 0 && ShamanEarthBond < 100 ? 1f * ShamanBondLoadRate : ShamanEarthBondPoll < -ShamanBondUnloadDelay && ShamanEarthBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
-			ShamanSpiritBond += ShamanSpiritBondPoll > 0 && ShamanSpiritBond < 100 ? 1f * ShamanBondLoadRate : ShamanSpiritBondPoll < -ShamanBondUnloadDelay && ShamanSpiritBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
-			if (ShamanFireBond == 0) ShamanFireBondReleased = false;
-			if (ShamanWaterBond == 0) ShamanWaterBondReleased = false;
-			if (ShamanAirBond == 0) ShamanAirBondReleased = false;
-			if (ShamanEarthBond == 0) ShamanEarthBondReleased = false;
-			if (ShamanSpiritBond == 0) ShamanSpiritBondReleased = false;
+			if (!ShamanFireBondReleased) ShamanFireBond += ShamanFireBondPoll > 0 && ShamanFireBond < 100 ? 1f * ShamanBondLoadRate : ShamanFireBondPoll < -ShamanBondUnloadDelay && ShamanFireBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			else
+			{
+				ShamanFireBond--;
+				if (ShamanFireBond == 0) ShamanFireBondReleased = false;
+			}
+
+			if (!ShamanWaterBondReleased) ShamanWaterBond += ShamanWaterBondPoll > 0 && ShamanWaterBond < 100 ? 1f * ShamanBondLoadRate : ShamanWaterBondPoll < -ShamanBondUnloadDelay && ShamanWaterBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			else
+			{
+				ShamanWaterBond--;
+				if (ShamanWaterBond == 0) ShamanWaterBondReleased = false;
+			}
+
+			if (!ShamanAirBondReleased) ShamanAirBond += ShamanAirBondPoll > 0 && ShamanAirBond < 100 ? 1f * ShamanBondLoadRate : ShamanAirBondPoll < -ShamanBondUnloadDelay && ShamanAirBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			else
+			{
+				ShamanAirBond--;
+				if (ShamanAirBond == 0) ShamanAirBondReleased = false;
+			}
+
+			if (!ShamanEarthBondReleased) ShamanEarthBond += ShamanEarthBondPoll > 0 && ShamanEarthBond < 100 ? 1f * ShamanBondLoadRate : ShamanEarthBondPoll < -ShamanBondUnloadDelay && ShamanEarthBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			else
+			{
+				ShamanEarthBond--;
+				if (ShamanEarthBond == 0) ShamanEarthBondReleased = false;
+			}
+
+			if (!ShamanSpiritBondReleased) ShamanSpiritBond += ShamanSpiritBondPoll > 0 && ShamanSpiritBond < 100 ? 1f * ShamanBondLoadRate : ShamanSpiritBondPoll < -ShamanBondUnloadDelay && ShamanSpiritBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			else
+			{
+				ShamanSpiritBond--;
+				if (ShamanSpiritBond == 0) ShamanSpiritBondReleased = false;
+			}
+
 			ShamanFireBondPoll--;
 			ShamanWaterBondPoll--;
 			ShamanAirBondPoll--;
@@ -354,8 +317,7 @@ namespace OrchidMod
 			ShamanBondUnloadRate = 1f;
 			ShamanBondLoadRate = 1f;
 
-			shamanExhaustionRate = 1.0f;
-			shamanBuffTimer = 6;
+			ShamanBondDuration = 10;
 			doubleJumpHarpy = false;
 			abyssalWings = false;
 			abyssSet = false;
@@ -408,6 +370,13 @@ namespace OrchidMod
 			Reset();
 		}
 
+		public override void OnEnterWorld()
+		{
+			Reset();
+		}
+
+		// Custom utility methods
+
 		public float GetShamanicBondValue(ShamanElement element)
 		{
 			switch (element)
@@ -446,34 +415,68 @@ namespace OrchidMod
 			}
 		}
 
-		public void ReleaseShamanicBond(OrchidModShamanItem item)
+		public bool HasAnyBondLoaded() =>
+			(ShamanFireBond +
+			ShamanWaterBond +
+			ShamanAirBond +
+			ShamanEarthBond +
+			ShamanSpiritBond) > 0;
+
+		public int GetDamage(int damage) => (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(damage);
+
+		public int GetNbShamanicBonds()
 		{
-			ShamanElement element = (ShamanElement)item.Element;
-			switch (element)
+			int val = 0;
+			if (ShamanFireBondReleased) val++;
+			if (ShamanWaterBondReleased) val++;
+			if (ShamanAirBondReleased) val++;
+			if (ShamanEarthBondReleased) val++;
+			if (ShamanSpiritBondReleased) val++;
+			return val;
+		}
+
+		public Vector2? ShamanCatalystPosition
+		{
+			get
 			{
-				case ShamanElement.FIRE:
-					ShamanFireBondReleased = true;
-					ShamanFireBondPoll = 0;
-					break;
-				case ShamanElement.WATER:
-					ShamanWaterBondReleased = true;
-					ShamanWaterBondPoll = 0;
-					break;
-				case ShamanElement.AIR:
-					ShamanAirBondReleased = true;
-					ShamanAirBondPoll = 0;
-					break;
-				case ShamanElement.EARTH:
-					ShamanEarthBondReleased = true;
-					ShamanEarthBondPoll = 0;
-					break;
-				case ShamanElement.SPIRIT:
-					ShamanSpiritBondReleased = true;
-					ShamanSpiritBondPoll = 0;
-					break;
-				default:
-					break;
+				var proj = Main.projectile[this.shamanCatalystIndex];
+				if (proj == null || !proj.active) return null;
+
+				return proj.Center;
 			}
+		}
+
+		public void Reset()
+		{
+			shamanCatalystIndex = -1;
+
+			ShamanFireBond = 0;
+			ShamanFireBondPoll = 0;
+			ShamanFireBondReleased = false;
+
+			ShamanWaterBond = 0;
+			ShamanWaterBondPoll = 0;
+			ShamanWaterBondReleased = false;
+
+			ShamanAirBond = 0;
+			ShamanAirBondPoll = 0;
+			ShamanAirBondReleased = false;
+
+			ShamanEarthBond = 0;
+			ShamanEarthBondPoll = 0;
+			ShamanEarthBondReleased = false;
+
+			ShamanSpiritBond = 0;
+			ShamanSpiritBondPoll = 0;
+			ShamanSpiritBondReleased = false;
+
+			UIDisplayTimer = 0;
+		}
+
+		public override void Initialize()
+		{
+			modPlayer = Player.GetModPlayer<OrchidPlayer>();
+			Reset();
 		}
 
 		public void AddShamanicEmpowerment(int type)
@@ -483,15 +486,7 @@ namespace OrchidMod
 				return;
 			}
 
-			/*
-			if (shamanForest && type == 4)
-			{
-				Player.AddBuff(BuffType<DeepForestAura>(), 1);
-				int projType = ProjectileType<DeepForestCharmProj>();
-				Projectile.NewProjectile(null, Player.Center.X, Player.position.Y, 0f, 0f, projType, 1, 0, Player.whoAmI, 0f, 0f);
-				Projectile.NewProjectile(null, Player.Center.X, Player.position.Y, 0f, 0f, projType, 2, 0, Player.whoAmI, 0f, 0f);
-			}
-			*/
+			OnAddShamanicEmpowerment((ShamanElement)type);
 
 			int toAdd = shamanHitDelay > 36 ? (int)(shamanHitDelay / 18f) : 2;
 			switch (type)

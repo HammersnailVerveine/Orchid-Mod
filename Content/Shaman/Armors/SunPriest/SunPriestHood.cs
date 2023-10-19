@@ -28,7 +28,7 @@ namespace OrchidMod.Content.Shaman.Armors.SunPriest
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.GetDamage<ShamanDamageClass>() += 0.1f;
-			modPlayer.shamanBuffTimer += 5;
+			// buff timer  5;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

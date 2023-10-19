@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 			player.setBonus = "Shamanic air bonds slow falling speed"
 							+ "\n             press DOWN to fall faster"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
-			modPlayer.shamanBuffTimer += 3;
+			// buff timer  3;
 			modPlayer.shamanFeather = true;
 		}
 

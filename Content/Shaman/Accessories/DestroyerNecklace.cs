@@ -27,6 +27,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			/*
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanDestroyer = true;
 
@@ -52,6 +53,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 					}
 				}
 			}
+			*/
 		}
 
 		public override void AddRecipes()

@@ -40,7 +40,7 @@ namespace OrchidMod.Content.Shaman.Armors.Crimson
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.setBonus = "Shamanic earth cause attacks to steal life"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
-			modPlayer.shamanBuffTimer += 3;
+			// buff timer  3;
 			modPlayer.shamanCrimtane = true;
 			//modPlayer.shamanEarthBonus += 1;
 		}

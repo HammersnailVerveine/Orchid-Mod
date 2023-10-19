@@ -39,7 +39,7 @@ namespace OrchidMod.Content.Shaman.Armors.OreHelms
 		{
 			player.setBonus = "Your shamanic bonds will last 4 seconds longer";
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanBuffTimer += 4;
+			// buff timer  4;
 			player.armorEffectDrawShadow = true;
 		}
 

@@ -114,15 +114,17 @@ namespace OrchidMod.Content.Shaman
 					}
 				}
 
-				Vector2 aiVector = new Vector2(Projectile.ai[0], Projectile.ai[1]);
-				Vector2 offSet = aiVector / 10f;
+				Vector2 targerPosition = new Vector2(Projectile.ai[0], Projectile.ai[1]);
+				Vector2 offSet = targerPosition / 10f;
 				Vector2 target = owner.Center;
+
 				for (int i = 0; i < 10; i++)
 				{
 					offSet = Collision.TileCollision(target, offSet, 5, 5, true, true, (int)owner.gravDir);
 					target += offSet;
 				}
-				Vector2 newMove = target - Projectile.Center - aiVector * 0.15f;
+
+				Vector2 newMove = target - Projectile.Center - targerPosition * 0.15f;
 				float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 				if (distanceTo > 1000f)
 				{
@@ -164,7 +166,7 @@ namespace OrchidMod.Content.Shaman
 		}
 
 		public override bool? CanCutTiles() => false;
-		public override bool? CanDamage()/* Suggestion: Return null instead of false */ => false;
+		public override bool? CanDamage() => false;
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{

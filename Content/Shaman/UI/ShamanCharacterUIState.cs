@@ -13,11 +13,11 @@ namespace OrchidMod.Content.Shaman.UI
 {
 	public class ShamanCharacterUIState : OrchidUIState
 	{
-		private Texture2D symbolAttack;
-		private Texture2D symbolDefense;
-		private Texture2D symbolCritical;
-		private Texture2D symbolRegeneration;
-		private Texture2D symbolSpeed;
+		private Texture2D SymbolFire;
+		private Texture2D SymbolWater;
+		private Texture2D SymbolWind;
+		private Texture2D SymbolEarth;
+		private Texture2D SymbolSpirit;
 		private Texture2D BondBar;
 
 		private Color backgroundColor;
@@ -28,11 +28,11 @@ namespace OrchidMod.Content.Shaman.UI
 
 		public override void OnInitialize()
 		{
-			symbolAttack = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
-			symbolDefense = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
-			symbolCritical = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
-			symbolRegeneration = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
-			symbolSpeed = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			SymbolFire = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			SymbolWater = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			SymbolWind = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			SymbolEarth = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
+			SymbolSpirit = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/Disabled", AssetRequestMode.ImmediateLoad).Value;
 			BondBar = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/BondBar", AssetRequestMode.ImmediateLoad).Value;
 
 			shamanTimers = new int[] { 0, 0, 0, 0, 0 };
@@ -76,7 +76,7 @@ namespace OrchidMod.Content.Shaman.UI
 				if (modPlayer.UIDisplayTimer > 0)
 				{
 
-					int buffTimer = (60 * modPlayer.shamanBuffTimer) / 3;
+					int buffTimer = (60 * modPlayer.ShamanBondDuration) / 3;
 					int timerFire = modPlayer.ShamanFireBondReleased ? (int)modPlayer.ShamanFireBond : 0;
 					int timerWater = modPlayer.ShamanWaterBondReleased ? (int)modPlayer.ShamanFireBond : 0;
 					int timerAir = modPlayer.ShamanAirBondReleased ? (int)modPlayer.ShamanFireBond : 0;
@@ -113,7 +113,7 @@ namespace OrchidMod.Content.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolAttack = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
+								SymbolFire = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 							else if (i == 1)
 							{
@@ -132,7 +132,7 @@ namespace OrchidMod.Content.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolDefense = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
+								SymbolWater = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 							else if (i == 2)
 							{
@@ -151,7 +151,7 @@ namespace OrchidMod.Content.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolCritical = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
+								SymbolWind = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 							else if (i == 3)
 							{
@@ -170,7 +170,7 @@ namespace OrchidMod.Content.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolRegeneration = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
+								SymbolEarth = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 							else if (i == 4)
 							{
@@ -189,7 +189,7 @@ namespace OrchidMod.Content.Shaman.UI
 										str = "Disabled";
 										break;
 								}
-								symbolSpeed = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
+								SymbolSpirit = ModContent.Request<Texture2D>("OrchidMod/Content/Shaman/UI/ModUITextures/Character/" + str, AssetRequestMode.ImmediateLoad).Value;
 							}
 						}
 					}
@@ -197,11 +197,11 @@ namespace OrchidMod.Content.Shaman.UI
 					int drawSize = 12;
 					int offSetY = (modPlayer.modPlayer.modPlayerAlchemist.alchemistPotencyDisplayTimer > 0 || modPlayer.modPlayer.modPlayerGuardian.guardianDisplayUI > 0) ? 60 : 20;
 						
-					spriteBatch.Draw(symbolAttack, new Rectangle(point.X - 38, point.Y + offSetY, drawSize, drawSize), backgroundColor);
-					spriteBatch.Draw(symbolDefense, new Rectangle(point.X - 24, point.Y + 10 + offSetY, drawSize, drawSize), backgroundColor);
-					spriteBatch.Draw(symbolCritical, new Rectangle(point.X - 6, point.Y + 14 + offSetY, drawSize, drawSize), backgroundColor);
-					spriteBatch.Draw(symbolRegeneration, new Rectangle(point.X + 12, point.Y + 10 + offSetY, drawSize, drawSize), backgroundColor);
-					spriteBatch.Draw(symbolSpeed, new Rectangle(point.X + 26, point.Y + offSetY, drawSize, drawSize), backgroundColor);
+					spriteBatch.Draw(SymbolFire, new Rectangle(point.X - 38, point.Y + offSetY, drawSize, drawSize), backgroundColor);
+					spriteBatch.Draw(SymbolWater, new Rectangle(point.X - 24, point.Y + 10 + offSetY, drawSize, drawSize), backgroundColor);
+					spriteBatch.Draw(SymbolWind, new Rectangle(point.X - 6, point.Y + 14 + offSetY, drawSize, drawSize), backgroundColor);
+					spriteBatch.Draw(SymbolEarth, new Rectangle(point.X + 12, point.Y + 10 + offSetY, drawSize, drawSize), backgroundColor);
+					spriteBatch.Draw(SymbolSpirit, new Rectangle(point.X + 26, point.Y + offSetY, drawSize, drawSize), backgroundColor);
 
 					Item heldItem = player.HeldItem;
 					if (heldItem.type != ItemID.None)

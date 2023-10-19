@@ -58,7 +58,6 @@ namespace OrchidMod.Content.Shaman
 			Vector2? catalystCenter = shaman.ShamanCatalystPosition;
 			shaman.UIDisplayTimer = shaman.UIDisplayDelay;
 
-			//if (catalystCenter != null && Collision.CanHit(position, 0, 0, position + (catalystCenter.Value - position), 0, 0))
 			if (catalystCenter != null)
 				position = catalystCenter.Value;
 
@@ -67,10 +66,8 @@ namespace OrchidMod.Content.Shaman
 			newMove *= velocity.Length();
 			velocity = newMove;
 
-			if (this.SafeShoot(player, source, position, velocity, type, damage, knockback))
-			{
-				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
-			}
+			if (SafeShoot(player, source, position, velocity, type, damage, knockback))
+				NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 
 			return false;
 		}
@@ -87,11 +84,37 @@ namespace OrchidMod.Content.Shaman
 			{ // Right click
 				if (shamanPlayer.GetShamanicBondValue((ShamanElement)Element) >= 100 && !shamanPlayer.IsShamanicBondReleased((ShamanElement)Element))
 				{
-					shamanPlayer.ReleaseShamanicBond(this);
+					shamanPlayer.OnReleaseShamanicBond(this);
+					ShamanElement element = (ShamanElement)Element;
+					switch (element)
+					{
+						case ShamanElement.FIRE:
+							shamanPlayer.ShamanFireBondReleased = true;
+							shamanPlayer.ShamanFireBondPoll = 0;
+							break;
+						case ShamanElement.WATER:
+							shamanPlayer.ShamanWaterBondReleased = true;
+							shamanPlayer.ShamanWaterBondPoll = 0;
+							break;
+						case ShamanElement.AIR:
+							shamanPlayer.ShamanAirBondReleased = true;
+							shamanPlayer.ShamanAirBondPoll = 0;
+							break;
+						case ShamanElement.EARTH:
+							shamanPlayer.ShamanEarthBondReleased = true;
+							shamanPlayer.ShamanEarthBondPoll = 0;
+							break;
+						case ShamanElement.SPIRIT:
+							shamanPlayer.ShamanSpiritBondReleased = true;
+							shamanPlayer.ShamanSpiritBondPoll = 0;
+							break;
+						default:
+							break;
+					}
 				}
 				else
 				{
-					switch (this.Element)
+					switch (Element)
 					{
 						case 1:
 							if (shamanPlayer.ShamanFireBondReleased)
@@ -134,29 +157,10 @@ namespace OrchidMod.Content.Shaman
 				}
 				return false;
 			}
-			else
-			{ // Left click
-				switch (this.Element)
-				{
-					case 1:
-						if (shamanPlayer.ShamanFireBondReleased) return false;
-						break;
-					case 2:
-						if (shamanPlayer.ShamanWaterBondReleased) return false;
-						break;
-					case 3:
-						if (shamanPlayer.ShamanAirBondReleased) return false;
-						break;
-					case 4:
-						if (shamanPlayer.ShamanEarthBondReleased) return false;
-						break;
-					case 5:
-						if (shamanPlayer.ShamanSpiritBondReleased) return false;
-						break;
-					default:
-						break;
-				}
-			}
+			
+			// Left click
+			
+			if (shamanPlayer.IsShamanicBondReleased((ShamanElement)Element)) return false;
 			return base.CanUseItem(player);
 		}
 
@@ -197,12 +201,12 @@ namespace OrchidMod.Content.Shaman
 				else shaman.shamanCatalystIndex = -1;
 			}
 
-			this.SafeHoldItem();
+			SafeHoldItem();
 		}
 
 		public sealed override void ModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
-			this.SafeModifyWeaponDamage(player, ref damage);
+			SafeModifyWeaponDamage(player, ref damage);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -233,8 +237,6 @@ namespace OrchidMod.Content.Shaman
 				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(Mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[Element - 1]).Hex3()}:{strType[Element - 1]}]"));
 			}
 		}
-
-		// ...
 
 		public virtual void SafeSetStaticDefaults() { }
 		public virtual void SafeSetDefaults() { }

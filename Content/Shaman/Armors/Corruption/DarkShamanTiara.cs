@@ -40,7 +40,7 @@ namespace OrchidMod.Content.Shaman.Armors.Corruption
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			player.setBonus = "Shamanic fire bonds cause attacks to shadowburn"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
-			modPlayer.shamanBuffTimer += 3;
+			// buff timer  3;
 			modPlayer.shamanDemonite = true;
 		}
 

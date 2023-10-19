@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 				player.GetDamage<ShamanDamageClass>() += 0.30f;
 			}
 
-			modPlayer.shamanBuffTimer += 10;
+			// buff timer  10;
 			modPlayer.shamanSunBelt = true;
 			modPlayer.shamanMourningTorch = true;
 		}

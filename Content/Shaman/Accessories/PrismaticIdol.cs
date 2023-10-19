@@ -28,7 +28,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			int BuffsCount = modPlayer.GetNbShamanicBonds();
 
-			modPlayer.shamanBuffTimer += 3;
+			// buff timer  3;
 			modPlayer.shamanAmber = true;
 			modPlayer.shamanAmethyst = true;
 			modPlayer.shamanTopaz = true;

@@ -23,7 +23,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanBuffTimer += 3;
+			// buff timer  3;
 		}
 		public override void AddRecipes()
 		{

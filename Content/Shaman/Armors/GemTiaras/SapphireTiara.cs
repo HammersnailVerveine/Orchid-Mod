@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Shaman.Armors.GemTiaras
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 			modPlayer.shamanSapphire = true;
-			modPlayer.shamanBuffTimer += 3;
+			// buff timer  3;
 		}
 
 		public override void AddRecipes()
