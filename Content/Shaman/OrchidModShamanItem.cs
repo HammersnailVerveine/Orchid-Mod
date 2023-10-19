@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Shaman
 		public sealed override void SetStaticDefaults()
 		{
 			Item.staff[Item.type] = true;
-			this.SafeSetStaticDefaults();
+			SafeSetStaticDefaults();
 		}
 
 		public sealed override void SetDefaults()
@@ -45,7 +45,7 @@ namespace OrchidMod.Content.Shaman
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeapon = true;
 
-			this.SafeSetDefaults();
+			SafeSetDefaults();
 
 			orchidItem.shamanWeaponElement = (int)Element;
 		}
