@@ -21,10 +21,9 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 13f;
 			//Item.shoot = ModContent.ProjectileType<RuneScepterProj>();
-			this.Element = 1;
+			this.Element = ShamanElement.FIRE;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
-			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()

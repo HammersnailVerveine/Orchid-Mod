@@ -39,7 +39,7 @@ namespace OrchidMod
 
 		// Gameplay Stats (can be tweaked with player gear)
 
-		public int ShamanBondDuration = 10; // How long do shamanic bond last when released (How long will shaman catalyst be summoned)? - in seconds
+		public int ShamanBondDuration = 10; // How long do shamanic bond last when released (How long will the shaman helping catalyst be summoned)? - in seconds
 		public float ShamanBondUnloadRate = 1f; // Shaman bond deplete speed multiplier (after the ShamanBondUnloadDelay delay ends)
 		public float ShamanBondLoadRate = 1f; // Shaman bond loading multiplier when hitting
 

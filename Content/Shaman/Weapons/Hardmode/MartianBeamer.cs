@@ -23,10 +23,9 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
 			//Item.shoot = ModContent.ProjectileType<MartianBeamerProj>();
-			this.Element = 1;
+			this.Element = ShamanElement.FIRE;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
-			this.energy = 5;
 		}
 
 		public override void SafeSetStaticDefaults()

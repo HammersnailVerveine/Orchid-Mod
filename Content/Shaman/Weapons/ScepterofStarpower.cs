@@ -21,8 +21,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.shootSpeed = 9.5f;
 			//Item.shoot = ModContent.ProjectileType<Projectiles.StarpowerScepterProj>();
 			Item.crit = 10;
-			Element = 3;
-			this.energy = 5;
+			Element = ShamanElement.AIR;
 		}
 
 		public override void SafeSetStaticDefaults()

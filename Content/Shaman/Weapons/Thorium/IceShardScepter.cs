@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 			Item.autoReuse = false;
 			Item.shootSpeed = 10f;
 			//Item.shoot = ModContent.ProjectileType<IceShardScepterProj>();
-			this.Element = 2;
-			this.energy = 6;
+			this.Element = ShamanElement.WATER;
 		}
 
 		public override void SafeSetStaticDefaults()

@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.autoReuse = false;
 			Item.shootSpeed = 3f;
 			//Item.shoot = ModContent.ProjectileType<GoblinStickProj>();
-			this.Element = 3;
-			this.energy = 7;
+			this.Element = ShamanElement.AIR;
 		}
 
 		public override void SafeSetStaticDefaults()

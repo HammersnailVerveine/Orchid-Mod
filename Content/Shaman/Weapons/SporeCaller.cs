@@ -25,9 +25,8 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.UseSound = SoundID.Item43;
 			Item.shootSpeed = 5f;
 			//Item.shoot = ModContent.ProjectileType<SporeCallerProj>();
-			this.Element = 3;
+			this.Element = ShamanElement.AIR;
 			this.catalystType = ShamanCatalystType.ROTATE;
-			this.energy = 25;
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

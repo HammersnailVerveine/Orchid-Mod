@@ -24,8 +24,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			//Item.shoot = ModContent.ProjectileType<Projectiles.SightScepterProj>();
 			Item.UseSound = SoundID.Item15;
 
-			this.Element = 3;
-			this.energy = 3;
+			this.Element = ShamanElement.AIR;
 		}
 
 		public override void SafeSetStaticDefaults()

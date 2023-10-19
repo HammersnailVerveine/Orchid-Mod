@@ -21,8 +21,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
 			//Item.shoot = ModContent.ProjectileType<VileSpoutProj>();
-			this.Element = 1;
-			this.energy = 6;
+			this.Element = ShamanElement.FIRE;
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;

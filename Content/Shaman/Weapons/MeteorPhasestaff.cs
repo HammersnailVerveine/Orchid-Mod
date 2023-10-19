@@ -21,9 +21,8 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.shootSpeed = 5.25f;
 			//Item.shoot = ModContent.ProjectileType<MeteorPhasestaffProj>();
 			Item.UseSound = SoundID.Item15;
-			this.Element = 1;
+			this.Element = ShamanElement.FIRE;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
-			this.energy = 2;
 		}
 
 		public override void SafeSetStaticDefaults()

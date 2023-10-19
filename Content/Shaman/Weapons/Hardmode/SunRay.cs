@@ -22,8 +22,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			//Item.shoot = ModContent.ProjectileType<SunRayProj>();
-			this.Element = 1;
-			this.energy = 2;
+			this.Element = ShamanElement.FIRE;
 		}
 
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)

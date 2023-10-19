@@ -20,8 +20,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 9.5f;
 			//Item.shoot = ModContent.ProjectileType<DemoniteScepterProj>();
-			this.Element = 2;
-			this.energy = 5;
+			this.Element = ShamanElement.WATER;
 		}
 
 		public override void SafeSetStaticDefaults()

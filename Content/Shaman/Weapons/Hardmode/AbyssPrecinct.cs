@@ -36,8 +36,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			//Item.shoot = ModContent.ProjectileType<Projectiles.OreOrbs.Big.AbyssPrecinctProj>();
 			Item.shootSpeed = 10f;
 
-			this.Element = 2;
-			this.energy = 10;
+			this.Element = ShamanElement.WATER;
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

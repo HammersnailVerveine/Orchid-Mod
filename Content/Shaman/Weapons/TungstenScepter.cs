@@ -20,8 +20,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			//Item.shoot = ModContent.ProjectileType<TungstenScepterProj>();
-			this.Element = 4;
-			this.energy = 7;
+			this.Element = ShamanElement.EARTH;
 		}
 
 		public override void SafeSetStaticDefaults()

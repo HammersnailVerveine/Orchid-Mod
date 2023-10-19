@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			//Item.shoot = ModContent.ProjectileType<ReviverofSoulsProj>();
-			this.Element = 3;
-			this.energy = 12;
+			this.Element = ShamanElement.AIR;
 		}
 
 		public override void SafeSetStaticDefaults()

@@ -21,9 +21,8 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 5f;
 			//Item.shoot = ModContent.ProjectileType<NirvanaMain>();
-			this.Element = 5;
+			this.Element = ShamanElement.SPIRIT;
 			this.catalystType = ShamanCatalystType.ROTATE;
-			this.energy = 10;
 		}
 
 		public override void SafeSetStaticDefaults()

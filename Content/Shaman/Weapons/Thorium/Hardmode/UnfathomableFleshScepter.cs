@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			//Item.shoot = ModContent.ProjectileType<UnfathomableFleshScepterProj>();
-			this.Element = 5;
-			this.energy = 10;
+			this.Element = ShamanElement.SPIRIT;
 		}
 
 		public override void SafeSetStaticDefaults()

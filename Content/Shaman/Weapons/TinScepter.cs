@@ -19,8 +19,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 6.5f;
 			//Item.shoot = ModContent.ProjectileType<TinScepterProj>();
-			this.Element = 4;
-			this.energy = 8;
+			this.Element = ShamanElement.EARTH;
 		}
 
 		public override void SafeSetStaticDefaults()

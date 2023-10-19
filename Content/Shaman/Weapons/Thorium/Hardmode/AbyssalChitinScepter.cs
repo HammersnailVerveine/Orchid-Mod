@@ -26,8 +26,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 			Item.UseSound = SoundID.Item43;
 			Item.shootSpeed = 5f;
 			//Item.shoot = ModContent.ProjectileType<AbyssalChitinScepterProj>();
-			this.Element = 2;
-			this.energy = 20;
+			this.Element = ShamanElement.WATER;
 		}
 
 		public override void SafeSetStaticDefaults()

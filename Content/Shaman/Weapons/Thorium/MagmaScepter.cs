@@ -24,8 +24,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			//Item.shoot = ModContent.ProjectileType<MagmaScepterProj>();
-			this.Element = 4;
-			this.energy = 7;
+			this.Element = ShamanElement.EARTH;
 		}
 
 		public override void SafeSetStaticDefaults()

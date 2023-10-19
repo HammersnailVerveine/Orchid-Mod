@@ -211,7 +211,7 @@ namespace OrchidMod.Content.Shaman.UI
 							Color ColorInside = new Color(20, 16, 23);
 							Color ColorBorder = new Color(59, 45, 58);
 							int segments = 50;
-							float scale = 100f / (float)segments;
+							float scale = 100f / segments;
 
 							for (int i = 0; i < segments; i++)
 							{
@@ -225,7 +225,12 @@ namespace OrchidMod.Content.Shaman.UI
 								float angle = MathHelper.ToRadians(50 - i * scale);
 								Vector2 position = new Vector2(point.X, point.Y) + new Vector2(0f, 60f).RotatedBy(angle);
 								ShamanElement element = (ShamanElement)shamanHeldItem.Element;
-								Color color = modPlayer.GetShamanicBondValue(element) > i * scale ? ShamanElementUtils.GetColor(element) : ColorBorder;
+								float bondValue = modPlayer.GetShamanicBondValue(element);
+								if (modPlayer.IsShamanicBondReleased(element)) {
+									bondValue /= modPlayer.ShamanBondDuration * 6000f;
+									if (bondValue > 100) bondValue = 100;
+								}
+								Color color = bondValue > i * scale ? ShamanElementUtils.GetColor(element) : ColorBorder;
 								spriteBatch.Draw(BondBar, position, null, color, angle, BondBar.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 							}
 						}

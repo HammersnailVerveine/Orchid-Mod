@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 1f;
 			//Item.shoot = ModContent.ProjectileType<MoltenResidueScepterProj>();
-			this.Element = 1;
-			this.energy = 15;
+			this.Element = ShamanElement.FIRE;
 		}
 
 		public override void SafeSetStaticDefaults()

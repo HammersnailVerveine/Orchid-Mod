@@ -21,8 +21,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 			Item.UseSound = SoundID.Item45;
 			Item.shootSpeed = 7f;
 			//Item.shoot = Mod.Find<ModProjectile>("OpalScepterProj").Type;
-			this.Element = 4;
-			this.energy = 7;
+			this.Element = ShamanElement.EARTH;
 		}
 
 		public override void SafeSetStaticDefaults()

@@ -22,8 +22,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 6f;
 			// //Item.shoot = ModContent.ProjectileType<HoneyProj>();
-			this.Element = 2;
-			this.energy = 5;
+			this.Element = ShamanElement.WATER;
 		}
 
 		public override void SafeSetStaticDefaults()

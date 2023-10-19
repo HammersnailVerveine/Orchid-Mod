@@ -65,7 +65,7 @@ namespace OrchidMod.Content.Shaman
 					}
 				}
 
-				Vector2 targetPosition = owner.Center - new Vector2(0f, 15f).RotatedBy(-45f + shamanItem.Element * 15f);
+				Vector2 targetPosition = owner.Center - new Vector2(0f, 15f).RotatedBy(-45f + (int)shamanItem.Element * 15f);
 				Vector2 offSet = targetPosition / 10f;
 				Vector2 target = owner.Center;
 

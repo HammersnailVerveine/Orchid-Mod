@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 1f;
 			//Item.shoot = ModContent.ProjectileType<LichScepterProj>();
-			this.Element = 3;
-			this.energy = 12;
+			this.Element = ShamanElement.AIR;
 		}
 
 		public override void SafeSetStaticDefaults()

@@ -20,8 +20,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 9.5f;
 			//Item.shoot = ModContent.ProjectileType<PlatinumScepterProj>();
-			this.Element = 4;
-			this.energy = 6;
+			this.Element = ShamanElement.EARTH;
 		}
 
 		public override void SafeSetStaticDefaults()

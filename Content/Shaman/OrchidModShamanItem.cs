@@ -21,8 +21,7 @@ namespace OrchidMod.Content.Shaman
 	[ClassTag(ClassTags.Shaman)]
 	public abstract class OrchidModShamanItem : ModItem
 	{
-		public int Element = 0;
-		public int energy = 1;
+		public ShamanElement Element = ShamanElement.NULL;
 		public Color? catalystEffectColor = null; // TODO: ...
 		public ShamanCatalystType catalystType = ShamanCatalystType.IDLE;
 
@@ -48,7 +47,7 @@ namespace OrchidMod.Content.Shaman
 
 			this.SafeSetDefaults();
 
-			orchidItem.shamanWeaponElement = this.Element;
+			orchidItem.shamanWeaponElement = (int)Element;
 		}
 
 		public sealed override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -91,22 +90,27 @@ namespace OrchidMod.Content.Shaman
 						case ShamanElement.FIRE:
 							shamanPlayer.ShamanFireBondReleased = true;
 							shamanPlayer.ShamanFireBondPoll = 0;
+							shamanPlayer.ShamanFireBond = shamanPlayer.ShamanBondDuration * 60;
 							break;
 						case ShamanElement.WATER:
 							shamanPlayer.ShamanWaterBondReleased = true;
 							shamanPlayer.ShamanWaterBondPoll = 0;
+							shamanPlayer.ShamanWaterBond = shamanPlayer.ShamanBondDuration * 60;
 							break;
 						case ShamanElement.AIR:
 							shamanPlayer.ShamanAirBondReleased = true;
 							shamanPlayer.ShamanAirBondPoll = 0;
+							shamanPlayer.ShamanAirBond = shamanPlayer.ShamanBondDuration * 60;
 							break;
 						case ShamanElement.EARTH:
 							shamanPlayer.ShamanEarthBondReleased = true;
 							shamanPlayer.ShamanEarthBondPoll = 0;
+							shamanPlayer.ShamanEarthBond = shamanPlayer.ShamanBondDuration * 60;
 							break;
 						case ShamanElement.SPIRIT:
 							shamanPlayer.ShamanSpiritBondReleased = true;
 							shamanPlayer.ShamanSpiritBondPoll = 0;
+							shamanPlayer.ShamanSpiritBond = shamanPlayer.ShamanBondDuration * 60;
 							break;
 						default:
 							break;
@@ -116,35 +120,35 @@ namespace OrchidMod.Content.Shaman
 				{
 					switch (Element)
 					{
-						case 1:
+						case ShamanElement.FIRE:
 							if (shamanPlayer.ShamanFireBondReleased)
 							{
 								shamanPlayer.ShamanFireBondReleased = false;
 								shamanPlayer.ShamanFireBond = 0;
 							}
 							break;
-						case 2:
+						case ShamanElement.WATER:
 							if (shamanPlayer.ShamanWaterBondReleased)
 							{
 								shamanPlayer.ShamanWaterBondReleased = false;
 								shamanPlayer.ShamanWaterBond = 0;
 							}
 							break;
-						case 3:
+						case ShamanElement.AIR:
 							if (shamanPlayer.ShamanAirBondReleased)
 							{
 								shamanPlayer.ShamanAirBondReleased = false;
 								shamanPlayer.ShamanAirBond = 0;
 							}
 							break;
-						case 4:
+						case ShamanElement.EARTH:
 							if (shamanPlayer.ShamanEarthBondReleased)
 							{
 								shamanPlayer.ShamanEarthBondReleased = false;
 								shamanPlayer.ShamanEarthBond = 0;
 							}
 							break;
-						case 5:
+						case ShamanElement.SPIRIT:
 							if (shamanPlayer.ShamanSpiritBondReleased)
 							{
 								shamanPlayer.ShamanSpiritBondReleased = false;
@@ -234,7 +238,7 @@ namespace OrchidMod.Content.Shaman
 				string[] strType = new string[5] { "Fire", "Water", "Air", "Earth", "Spirit" };
 
 				int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(Mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[Element - 1]).Hex3()}:{strType[Element - 1]}]"));
+				if (index != -1) tooltips.Insert(index + 1, new TooltipLine(Mod, "BondType", $"Bond type: [c/{Terraria.ID.Colors.AlphaDarken(colors[(int)Element - 1]).Hex3()}:{strType[(int)Element - 1]}]"));
 			}
 		}
 
@@ -260,7 +264,7 @@ namespace OrchidMod.Content.Shaman
 		{
 			int newProjectileIndex = Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai0, ai1);
 			Projectile newProjectile = Main.projectile[newProjectileIndex];
-			OrchidModProjectile.setShamanBond(newProjectile, this.Element);
+			OrchidModProjectile.setShamanBond(newProjectile, (int)Element);
 			return newProjectileIndex;
 		}
 	}

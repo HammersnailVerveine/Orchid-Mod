@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 12f;
 			//Item.shoot = ModContent.ProjectileType<DepthsBatonProj>();
-			this.Element = 5;
-			this.energy = 8;
+			this.Element = ShamanElement.SPIRIT;
 		}
 
 		public override void SafeSetStaticDefaults()

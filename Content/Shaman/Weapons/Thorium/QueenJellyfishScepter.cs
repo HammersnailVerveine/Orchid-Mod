@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 5f;
 			//Item.shoot = ModContent.ProjectileType<QueenJellyfishScepterProj>();
-			this.Element = 2;
-			this.energy = 7;
+			this.Element = ShamanElement.WATER;
 		}
 
 		public override void SafeSetStaticDefaults()

@@ -24,8 +24,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 9f;
 			//Item.shoot = ModContent.ProjectileType<TrueSanctifyProj>();
-			this.Element = 5;
-			this.energy = 6;
+			this.Element = ShamanElement.SPIRIT;
 		}
 
 		public override void SafeSetStaticDefaults()

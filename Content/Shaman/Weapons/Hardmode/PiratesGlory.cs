@@ -22,8 +22,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
 			//Item.shoot = ModContent.ProjectileType<PiratesGloryProj>();
-			this.Element = 2;
-			this.energy = 3;
+			this.Element = ShamanElement.WATER;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}

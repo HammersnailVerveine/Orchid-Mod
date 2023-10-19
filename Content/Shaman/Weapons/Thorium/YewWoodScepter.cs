@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 			Item.autoReuse = true;
 			Item.shootSpeed = 3f;
 			//Item.shoot = ModContent.ProjectileType<YewWoodScepterProj>();
-			this.Element = 5;
-			this.energy = 6;
+			this.Element = ShamanElement.SPIRIT;
 		}
 
 		public override void SafeSetStaticDefaults()

@@ -23,10 +23,9 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.autoReuse = false;
 			Item.shootSpeed = 15f;
 			//Item.shoot = ModContent.ProjectileType<IceMimicScepterProj>();
-			this.Element = 2;
+			this.Element = ShamanElement.WATER;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
-			this.energy = 35;
 		}
 
 		public override void SafeSetStaticDefaults()

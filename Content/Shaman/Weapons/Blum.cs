@@ -21,10 +21,9 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 16f;
 			//Item.shoot = ModContent.ProjectileType<BlumProj>();
-			this.Element = 2;
+			this.Element = ShamanElement.WATER;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoUsetimeReforge = true;
-			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()

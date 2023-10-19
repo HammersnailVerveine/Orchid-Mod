@@ -22,9 +22,8 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 			Item.autoReuse = true;
 			Item.shootSpeed = 8f;
 			//Item.shoot = ModContent.ProjectileType<SolarPebbleScepterProj>();
-			this.Element = 1;
+			this.Element = ShamanElement.FIRE;
 			this.catalystType = ShamanCatalystType.ROTATE;
-			this.energy = 4;
 		}
 
 		public override void SafeSetStaticDefaults()

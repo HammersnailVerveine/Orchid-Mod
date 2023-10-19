@@ -23,8 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 10f;
 			////Item.shoot = ModContent.ProjectileType<IceSpearScepterProj>();
-			this.Element = 2;
-			this.energy = 7;
+			this.Element = ShamanElement.WATER;
 		}
 
 		public override void SafeSetStaticDefaults()

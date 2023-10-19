@@ -21,10 +21,9 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
 			//Item.shoot = ModContent.ProjectileType<SpineScepterProj>();
-			this.Element = 2;
+			this.Element = ShamanElement.WATER;
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.shamanWeaponNoVelocityReforge = true;
-			this.energy = 6;
 		}
 
 		public override void SafeSetStaticDefaults()

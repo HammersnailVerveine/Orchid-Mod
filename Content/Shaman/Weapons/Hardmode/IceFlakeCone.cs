@@ -24,9 +24,8 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.shootSpeed = 12f;
 			//Item.shoot = ModContent.ProjectileType<IceFlakeConeProj>();
 
-			Element = 2;
+			Element = ShamanElement.WATER;
 			catalystType = ShamanCatalystType.ROTATE;
-			energy = 3;
 		}
 
 		public override void SafeSetStaticDefaults()
