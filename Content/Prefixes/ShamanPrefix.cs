@@ -16,13 +16,10 @@ namespace OrchidMod.Content.Prefixes
 
 		private readonly string displayName;
 		private readonly float damage;
-		private readonly float crit;
-		private readonly float useTime;
+		private readonly int crit;
 		private readonly float velocity;
-		private readonly float knockback;
-
-		public bool UseTimeHasDefaultValue
-			=> useTime == 1f;
+		private readonly int bondDuration; // usetime
+		private readonly float bondLoading; // kb
 
 		public bool VelocityHasDefaultValue
 			=> velocity == 1f;
@@ -39,12 +36,12 @@ namespace OrchidMod.Content.Prefixes
 		public override PrefixCategory Category
 			=> PrefixCategory.Custom;
 
-		public ShamanPrefix(string displayName, float damage, float knockback, float useTime, float crit, float velocity)
+		public ShamanPrefix(string displayName, float damage, float bondLoading, int bondDuration, int crit, float velocity)
 		{
 			this.displayName = displayName;
 			this.damage = damage;
-			this.knockback = knockback;
-			this.useTime = useTime;
+			this.bondLoading = bondLoading;
+			this.bondDuration = bondDuration;
 			this.crit = crit;
 			this.velocity = velocity;
 		}
@@ -56,11 +53,11 @@ namespace OrchidMod.Content.Prefixes
 			=> DisplayName.SetDefault(displayName); */
 
 		public override void Apply(Item item)
-			=> item.GetGlobalItem<ShamanPrefixItem>().SetPrefixVariables(damage, knockback, useTime, crit, velocity);
+			=> item.GetGlobalItem<ShamanPrefixItem>().SetPrefixVariables(damage, bondLoading, bondDuration, crit, velocity);
 
 		public override void ModifyValue(ref float valueMult)
 		{
-			float multiplier = 1f * (damage * 0.96f) * (knockback * 0.96f) * (crit * 0.96f) * ((2f - useTime) * 0.96f) * (velocity * 0.96f);
+			float multiplier = 1f * (damage * 0.96f) * (bondLoading * 0.96f) * (velocity * 0.96f) + (crit * 0.0096f) + (bondDuration * 0.0072f);
 			valueMult *= multiplier;
 		}
 
@@ -68,9 +65,9 @@ namespace OrchidMod.Content.Prefixes
 		ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)
 		{
 			damageMult = damage;
-			knockbackMult = knockback;
-			useTimeMult = useTime;
-			critBonus = (int)(crit * 100 - 100);
+			//knockbackMult = bondLoading;
+			//useTimeMult = bondDuration;
+			critBonus = crit;
 			shootSpeedMult = velocity;
 		}
 	}
@@ -78,18 +75,18 @@ namespace OrchidMod.Content.Prefixes
 	public class ShamanPrefixItem : GlobalItem
 	{
 		private float damage;
-		private float crit;
-		private float useTime;
+		private int crit;
 		private float velocity;
-		private float knockback;
+		private int bondDuration;
+		private float bondLoading;
 
 		// ...
 
-		public void SetPrefixVariables(float damage, float knockback, float useTime, float crit, float velocity)
+		public void SetPrefixVariables(float damage, float bondLoading, int bondDuration, int crit, float velocity)
 		{
 			this.damage = damage;
-			this.knockback = knockback;
-			this.useTime = useTime;
+			this.bondLoading = bondLoading;
+			this.bondDuration = bondDuration;
 			this.crit = crit;
 			this.velocity = velocity;
 		}
@@ -100,9 +97,9 @@ namespace OrchidMod.Content.Prefixes
 		{
 			damage = 0;
 			crit = 0;
-			useTime = 0;
+			bondDuration = 0;
 			velocity = 0;
-			knockback = 0;
+			bondLoading = 0;
 		}
 
 		public override bool InstancePerEntity
@@ -113,9 +110,9 @@ namespace OrchidMod.Content.Prefixes
 			ShamanPrefixItem myClone = (ShamanPrefixItem)base.Clone(item, itemClone);
 			myClone.damage = damage;
 			myClone.crit = crit;
-			myClone.useTime = useTime;
+			myClone.bondDuration = bondDuration;
+			myClone.bondLoading = bondLoading;
 			myClone.velocity = velocity;
-			myClone.knockback = knockback;
 			return myClone;
 		}
 
@@ -123,9 +120,41 @@ namespace OrchidMod.Content.Prefixes
 		{
 			damage = 0;
 			crit = 0;
-			useTime = 0;
+			bondDuration = 0;
 			velocity = 0;
-			knockback = 0;
+			bondLoading = 0;
+		}
+
+		public override void HoldItem(Item item, Player player)
+		{
+			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
+			modPlayer.modPlayerShaman.ShamanBondDuration += bondDuration;
+			if (bondLoading != 1f && bondLoading != 0f) modPlayer.modPlayerShaman.ShamanBondLoadRate += bondLoading - 1f;
+		}
+
+		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+		{
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Material"));
+			if (index == -1) index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+			if (index == -1) return;
+			index += 2;
+
+			if (bondDuration != 0)
+			{
+				tooltips.Insert(index, new TooltipLine(Mod, "BondDurationPrefix", (bondDuration > 0 ? "+" : "") + bondDuration + "s shamanic bond duration")
+				{
+					IsModifier = true
+				});
+				index++;
+			}
+
+			if (bondLoading != 1f && bondLoading != 0f)
+			{
+				tooltips.Insert(index, new TooltipLine(Mod, "BondLoadingPrefix", (bondLoading > 1 ? "+" : "") + string.Format("{0:0}", ((bondLoading - 1f) * 100f)) + "% shamanic bond generation")
+				{
+					IsModifier = true
+				});
+			}
 		}
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
@@ -140,8 +169,10 @@ namespace OrchidMod.Content.Prefixes
 			{
 				var prefix = prefixes[Main.rand.Next(prefixes.Count)];
 
+				/*
 				if (globalItem.shamanWeaponNoUsetimeReforge && !prefix.UseTimeHasDefaultValue) continue;
 				if (globalItem.shamanWeaponNoVelocityReforge && !prefix.VelocityHasDefaultValue) continue;
+				*/
 
 				return prefix.Type;
 			}
@@ -150,8 +181,8 @@ namespace OrchidMod.Content.Prefixes
 		public override void NetSend(Item item, BinaryWriter writer)
 		{
 			writer.Write(damage);
-			writer.Write(knockback);
-			writer.Write(useTime);
+			writer.Write(bondLoading);
+			writer.Write(bondDuration);
 			writer.Write(crit);
 			writer.Write(velocity);
 		}
@@ -159,9 +190,9 @@ namespace OrchidMod.Content.Prefixes
 		public override void NetReceive(Item item, BinaryReader reader)
 		{
 			damage = reader.ReadSingle();
-			knockback = reader.ReadSingle();
-			useTime = reader.ReadSingle();
-			crit = reader.ReadSingle();
+			bondLoading = reader.ReadSingle();
+			bondDuration = reader.ReadInt32();
+			crit = reader.ReadInt32();
 			velocity = reader.ReadSingle();
 		}
 	}

@@ -14,309 +14,274 @@ Tiles: {
 }
 
 Buffs: {
-	AttractiteAuraSmall: {
-		DisplayName: Attractite Aura Small
-		Description: Mods.OrchidMod.Buffs.AttractiteAuraSmall.Description
-	}
-
-	BloodMistFlaskBuff: {
-		DisplayName: Blood Mist Flask Buff
-		Description: Mods.OrchidMod.Buffs.BloodMistFlaskBuff.Description
-	}
-
-	DemonBreathFlaskBuff: {
-		DisplayName: Demon Breath Flask Buff
-		Description: Mods.OrchidMod.Buffs.DemonBreathFlaskBuff.Description
-	}
-
-	IceChestFlaskBuff: {
-		DisplayName: Ice Chest Flask Buff
-		Description: Mods.OrchidMod.Buffs.IceChestFlaskBuff.Description
-	}
-
-	JungleLilyExtractBuff: {
-		DisplayName: Jungle Lily Extract Buff
-		Description: Mods.OrchidMod.Buffs.JungleLilyExtractBuff.Description
-	}
-
-	KingSlimeFlaskBuff: {
-		DisplayName: King Slime Flask Buff
-		Description: Mods.OrchidMod.Buffs.KingSlimeFlaskBuff.Description
-	}
-
-	MeteorSpeed: {
-		DisplayName: Meteor Speed
-		Description: Mods.OrchidMod.Buffs.MeteorSpeed.Description
-	}
-
-	MushroomHeal: {
-		DisplayName: Mushroom Heal
-		Description: Mods.OrchidMod.Buffs.MushroomHeal.Description
-	}
-
-	QueenBeeFlaskBuff: {
-		DisplayName: Queen Bee Flask Buff
-		Description: Mods.OrchidMod.Buffs.QueenBeeFlaskBuff.Description
-	}
-
-	ReactiveVialsBuff: {
-		DisplayName: Reactive Vials Buff
-		Description: Mods.OrchidMod.Buffs.ReactiveVialsBuff.Description
-	}
-
-	SlimeFlaskBuff: {
-		DisplayName: Slime Flask Buff
-		Description: Mods.OrchidMod.Buffs.SlimeFlaskBuff.Description
-	}
-
-	SpiritedWaterBuff: {
-		DisplayName: Spirited Water Buff
-		Description: Mods.OrchidMod.Buffs.SpiritedWaterBuff.Description
-	}
-
-	StardustSamplesBuff: {
-		DisplayName: Stardust Samples Buff
-		Description: Mods.OrchidMod.Buffs.StardustSamplesBuff.Description
-	}
-
-	StellarTalcBuff: {
-		DisplayName: Stellar Talc Buff
-		Description: Mods.OrchidMod.Buffs.StellarTalcBuff.Description
-	}
-
-	Attraction: {
-		DisplayName: Attraction
-		Description: Mods.OrchidMod.Buffs.Attraction.Description
-	}
-
-	Catalyzed: {
-		DisplayName: Catalyzed
-		Description: Mods.OrchidMod.Buffs.Catalyzed.Description
-	}
-
-	FlashFreeze: {
-		DisplayName: Flash Freeze
-		Description: Mods.OrchidMod.Buffs.FlashFreeze.Description
-	}
-
-	ReactionCooldown: {
-		DisplayName: Reaction Cooldown
-		Description: Mods.OrchidMod.Buffs.ReactionCooldown.Description
-	}
-
-	SlimeSlow: {
-		DisplayName: Slime Slow
-		Description: Mods.OrchidMod.Buffs.SlimeSlow.Description
-	}
-
-	HauntedCandle: {
-		DisplayName: Haunted Candle
-		Description: Mods.OrchidMod.Buffs.HauntedCandle.Description
-	}
-
-	StaticQuartArmorBuff: {
-		DisplayName: Static Quart Armor Buff
-		Description: Mods.OrchidMod.Buffs.StaticQuartArmorBuff.Description
-	}
-
-	HarpyPotionBuff: {
-		DisplayName: Harpy Potion Buff
-		Description: Mods.OrchidMod.Buffs.HarpyPotionBuff.Description
-	}
-
-	SquareMinecartBuff: {
-		DisplayName: Square Minecart Buff
-		Description: Mods.OrchidMod.Buffs.SquareMinecartBuff.Description
-	}
-
-	RCRemoteBuff: {
-		DisplayName: R C Remote Buff
-		Description: Mods.OrchidMod.Buffs.RCRemoteBuff.Description
-	}
-
-	ConquerorsPennantBuff: {
-		DisplayName: Conquerors Pennant Buff
-		Description: Mods.OrchidMod.Buffs.ConquerorsPennantBuff.Description
-	}
-
-	VulturePotionBuff: {
-		DisplayName: Vulture Potion Buff
-		Description: Mods.OrchidMod.Buffs.VulturePotionBuff.Description
-	}
-
-	ToolSetBuff: {
-		DisplayName: Tool Set Buff
-		Description: Mods.OrchidMod.Buffs.ToolSetBuff.Description
-	}
-
-	AbyssEmpowerment: {
-		DisplayName: Abyss Empowerment
-		Description: Mods.OrchidMod.Buffs.AbyssEmpowerment.Description
-	}
-
-	AmberEmpowerment: {
-		DisplayName: Amber Empowerment
-		Description: Mods.OrchidMod.Buffs.AmberEmpowerment.Description
-	}
-
-	AmethystEmpowerment: {
-		DisplayName: Amethyst Empowerment
-		Description: Mods.OrchidMod.Buffs.AmethystEmpowerment.Description
-	}
-
-	BrokenPower: {
-		DisplayName: Broken Power
-		Description: Mods.OrchidMod.Buffs.BrokenPower.Description
-	}
-
-	DiabolistCauterizeCooldown: {
-		DisplayName: Diabolist Cauterize Cooldown
-		Description: Mods.OrchidMod.Buffs.DiabolistCauterizeCooldown.Description
-	}
-
-	DiabolistCauterize: {
-		DisplayName: Diabolist Cauterize
-		Description: Mods.OrchidMod.Buffs.DiabolistCauterize.Description
-	}
-
-	EarthTotemRevive: {
-		DisplayName: Earth Totem Revive
-		Description: Mods.OrchidMod.Buffs.EarthTotemRevive.Description
-	}
-
-	HellHit: {
-		DisplayName: Hell Hit
-		Description: Mods.OrchidMod.Buffs.HellHit.Description
-	}
-
-	LeafSlow: {
-		DisplayName: Leaf Slow
-		Description: Mods.OrchidMod.Buffs.LeafSlow.Description
-	}
-
-	WindDamage: {
-		DisplayName: Wind Damage
-		Description: Mods.OrchidMod.Buffs.WindDamage.Description
-	}
-
-	WindSlow: {
-		DisplayName: Wind Slow
-		Description: Mods.OrchidMod.Buffs.WindSlow.Description
-	}
-
-	WindStun: {
-		DisplayName: Wind Stun
-		Description: Mods.OrchidMod.Buffs.WindStun.Description
-	}
-
-	DeepForestAura: {
-		DisplayName: Deep Forest Aura
-		Description: Mods.OrchidMod.Buffs.DeepForestAura.Description
-	}
-
-	DestroyerFrenzy: {
-		DisplayName: Destroyer Frenzy
-		Description: Mods.OrchidMod.Buffs.DestroyerFrenzy.Description
-	}
-
-	DiamondEmpowerment: {
-		DisplayName: Diamond Empowerment
-		Description: Mods.OrchidMod.Buffs.DiamondEmpowerment.Description
-	}
-
-	EmeraldEmpowerment: {
-		DisplayName: Emerald Empowerment
-		Description: Mods.OrchidMod.Buffs.EmeraldEmpowerment.Description
-	}
-
-	JungleRage: {
-		DisplayName: Jungle Rage
-		Description: Mods.OrchidMod.Buffs.JungleRage.Description
-	}
-
-	MythrilDefense: {
-		DisplayName: Mythril Defense
-		Description: Mods.OrchidMod.Buffs.MythrilDefense.Description
-	}
-
-	RubyEmpowerment: {
-		DisplayName: Ruby Empowerment
-		Description: Mods.OrchidMod.Buffs.RubyEmpowerment.Description
-	}
-
-	SapphireEmpowerment: {
-		DisplayName: Sapphire Empowerment
-		Description: Mods.OrchidMod.Buffs.SapphireEmpowerment.Description
-	}
-
-	ShadowEmpowerment: {
-		DisplayName: Shadow Empowerment
-		Description: Mods.OrchidMod.Buffs.ShadowEmpowerment.Description
-	}
-
-	ShamanicBaubles: {
-		DisplayName: Shamanic Baubles
-		Description: Mods.OrchidMod.Buffs.ShamanicBaubles.Description
-	}
-
-	ShamanicEmpowerment: {
-		DisplayName: Shamanic Empowerment
-		Description: Mods.OrchidMod.Buffs.ShamanicEmpowerment.Description
-	}
-
-	ShroomHeal: {
-		DisplayName: Shroom Heal
-		Description: Mods.OrchidMod.Buffs.ShroomHeal.Description
-	}
-
-	SpiritualBurst: {
-		DisplayName: Spiritual Burst
-		Description: Mods.OrchidMod.Buffs.SpiritualBurst.Description
-	}
-
-	SporeEmpowerment: {
-		DisplayName: Spore Empowerment
-		Description: Mods.OrchidMod.Buffs.SporeEmpowerment.Description
-	}
-
-	TerraBlast: {
-		DisplayName: Terra Blast
-		Description: Mods.OrchidMod.Buffs.TerraBlast.Description
-	}
-
-	AquaBump: {
-		DisplayName: Aqua Bump
-		Description: Mods.OrchidMod.Buffs.AquaBump.Description
-	}
-
-	GraniteAura: {
-		DisplayName: Granite Aura
-		Description: Mods.OrchidMod.Buffs.GraniteAura.Description
-	}
-
-	LodestoneSlow: {
-		DisplayName: Lodestone Slow
-		Description: Mods.OrchidMod.Buffs.LodestoneSlow.Description
-	}
-
-	OnyxEmpowerment: {
-		DisplayName: Onyx Empowerment
-		Description: Mods.OrchidMod.Buffs.OnyxEmpowerment.Description
-	}
-
-	OpalEmpowerment: {
-		DisplayName: Opal Empowerment
-		Description: Mods.OrchidMod.Buffs.OpalEmpowerment.Description
+	TopazEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.TopazEmpowerment.Description
+		DisplayName: Topaz Empowerment
 	}
 
 	TitanicBuff: {
-		DisplayName: Titanic Buff
 		Description: Mods.OrchidMod.Buffs.TitanicBuff.Description
+		DisplayName: Titanic Buff
 	}
 
-	TopazEmpowerment: {
-		DisplayName: Topaz Empowerment
-		Description: Mods.OrchidMod.Buffs.TopazEmpowerment.Description
+	OpalEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.OpalEmpowerment.Description
+		DisplayName: Opal Empowerment
+	}
+
+	OnyxEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.OnyxEmpowerment.Description
+		DisplayName: Onyx Empowerment
+	}
+
+	LodestoneSlow: {
+		Description: Mods.OrchidMod.Buffs.LodestoneSlow.Description
+		DisplayName: Lodestone Slow
+	}
+
+	GraniteAura: {
+		Description: Mods.OrchidMod.Buffs.GraniteAura.Description
+		DisplayName: Granite Aura
+	}
+
+	AquaBump: {
+		Description: Mods.OrchidMod.Buffs.AquaBump.Description
+		DisplayName: Aqua Bump
+	}
+
+	TerraBlast: {
+		Description: Mods.OrchidMod.Buffs.TerraBlast.Description
+		DisplayName: Terra Blast
+	}
+
+	SporeEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.SporeEmpowerment.Description
+		DisplayName: Spore Empowerment
+	}
+
+	ShroomHeal: {
+		Description: Mods.OrchidMod.Buffs.ShroomHeal.Description
+		DisplayName: Shroom Heal
+	}
+
+	ShamanicEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.ShamanicEmpowerment.Description
+		DisplayName: Shamanic Empowerment
+	}
+
+	SapphireEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.SapphireEmpowerment.Description
+		DisplayName: Sapphire Empowerment
+	}
+
+	RubyEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.RubyEmpowerment.Description
+		DisplayName: Ruby Empowerment
+	}
+
+	MythrilDefense: {
+		Description: Mods.OrchidMod.Buffs.MythrilDefense.Description
+		DisplayName: Mythril Defense
+	}
+
+	EmeraldEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.EmeraldEmpowerment.Description
+		DisplayName: Emerald Empowerment
+	}
+
+	DiamondEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.DiamondEmpowerment.Description
+		DisplayName: Diamond Empowerment
+	}
+
+	DeepForestAura: {
+		Description: Mods.OrchidMod.Buffs.DeepForestAura.Description
+		DisplayName: Deep Forest Aura
+	}
+
+	WindStun: {
+		Description: Mods.OrchidMod.Buffs.WindStun.Description
+		DisplayName: Wind Stun
+	}
+
+	WindSlow: {
+		Description: Mods.OrchidMod.Buffs.WindSlow.Description
+		DisplayName: Wind Slow
+	}
+
+	WindDamage: {
+		Description: Mods.OrchidMod.Buffs.WindDamage.Description
+		DisplayName: Wind Damage
+	}
+
+	LeafSlow: {
+		Description: Mods.OrchidMod.Buffs.LeafSlow.Description
+		DisplayName: Leaf Slow
+	}
+
+	HellHit: {
+		Description: Mods.OrchidMod.Buffs.HellHit.Description
+		DisplayName: Hell Hit
+	}
+
+	EarthTotemRevive: {
+		Description: Mods.OrchidMod.Buffs.EarthTotemRevive.Description
+		DisplayName: Earth Totem Revive
+	}
+
+	DiabolistCauterizeCooldown: {
+		Description: Mods.OrchidMod.Buffs.DiabolistCauterizeCooldown.Description
+		DisplayName: Diabolist Cauterize Cooldown
+	}
+
+	BrokenPower: {
+		Description: Mods.OrchidMod.Buffs.BrokenPower.Description
+		DisplayName: Broken Power
+	}
+
+	AmethystEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.AmethystEmpowerment.Description
+		DisplayName: Amethyst Empowerment
+	}
+
+	AmberEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.AmberEmpowerment.Description
+		DisplayName: Amber Empowerment
+	}
+
+	AbyssEmpowerment: {
+		Description: Mods.OrchidMod.Buffs.AbyssEmpowerment.Description
+		DisplayName: Abyss Empowerment
+	}
+
+	RCRemoteBuff: {
+		Description: Mods.OrchidMod.Buffs.RCRemoteBuff.Description
+		DisplayName: R C Remote Buff
+	}
+
+	SquareMinecartBuff: {
+		Description: Mods.OrchidMod.Buffs.SquareMinecartBuff.Description
+		DisplayName: Square Minecart Buff
+	}
+
+	HarpyPotionBuff: {
+		Description: Mods.OrchidMod.Buffs.HarpyPotionBuff.Description
+		DisplayName: Harpy Potion Buff
+	}
+
+	VulturePotionBuff: {
+		Description: Mods.OrchidMod.Buffs.VulturePotionBuff.Description
+		DisplayName: Vulture Potion Buff
+	}
+
+	ConquerorsPennantBuff: {
+		Description: Mods.OrchidMod.Buffs.ConquerorsPennantBuff.Description
+		DisplayName: Conquerors Pennant Buff
+	}
+
+	HauntedCandle: {
+		Description: Mods.OrchidMod.Buffs.HauntedCandle.Description
+		DisplayName: Haunted Candle
+	}
+
+	ToolSetBuff: {
+		Description: Mods.OrchidMod.Buffs.ToolSetBuff.Description
+		DisplayName: Tool Set Buff
+	}
+
+	SlimeSlow: {
+		Description: Mods.OrchidMod.Buffs.SlimeSlow.Description
+		DisplayName: Slime Slow
+	}
+
+	ReactionCooldown: {
+		Description: Mods.OrchidMod.Buffs.ReactionCooldown.Description
+		DisplayName: Reaction Cooldown
+	}
+
+	FlashFreeze: {
+		Description: Mods.OrchidMod.Buffs.FlashFreeze.Description
+		DisplayName: Flash Freeze
+	}
+
+	Catalyzed: {
+		Description: Mods.OrchidMod.Buffs.Catalyzed.Description
+		DisplayName: Catalyzed
+	}
+
+	Attraction: {
+		Description: Mods.OrchidMod.Buffs.Attraction.Description
+		DisplayName: Attraction
+	}
+
+	StellarTalcBuff: {
+		Description: Mods.OrchidMod.Buffs.StellarTalcBuff.Description
+		DisplayName: Stellar Talc Buff
+	}
+
+	StardustSamplesBuff: {
+		Description: Mods.OrchidMod.Buffs.StardustSamplesBuff.Description
+		DisplayName: Stardust Samples Buff
+	}
+
+	SpiritedWaterBuff: {
+		Description: Mods.OrchidMod.Buffs.SpiritedWaterBuff.Description
+		DisplayName: Spirited Water Buff
+	}
+
+	SlimeFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.SlimeFlaskBuff.Description
+		DisplayName: Slime Flask Buff
+	}
+
+	ReactiveVialsBuff: {
+		Description: Mods.OrchidMod.Buffs.ReactiveVialsBuff.Description
+		DisplayName: Reactive Vials Buff
+	}
+
+	QueenBeeFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.QueenBeeFlaskBuff.Description
+		DisplayName: Queen Bee Flask Buff
+	}
+
+	MushroomHeal: {
+		Description: Mods.OrchidMod.Buffs.MushroomHeal.Description
+		DisplayName: Mushroom Heal
+	}
+
+	MeteorSpeed: {
+		Description: Mods.OrchidMod.Buffs.MeteorSpeed.Description
+		DisplayName: Meteor Speed
+	}
+
+	KingSlimeFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.KingSlimeFlaskBuff.Description
+		DisplayName: King Slime Flask Buff
+	}
+
+	JungleLilyExtractBuff: {
+		Description: Mods.OrchidMod.Buffs.JungleLilyExtractBuff.Description
+		DisplayName: Jungle Lily Extract Buff
+	}
+
+	IceChestFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.IceChestFlaskBuff.Description
+		DisplayName: Ice Chest Flask Buff
+	}
+
+	DemonBreathFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.DemonBreathFlaskBuff.Description
+		DisplayName: Demon Breath Flask Buff
+	}
+
+	BloodMistFlaskBuff: {
+		Description: Mods.OrchidMod.Buffs.BloodMistFlaskBuff.Description
+		DisplayName: Blood Mist Flask Buff
+	}
+
+	AttractiteAuraSmall: {
+		Description: Mods.OrchidMod.Buffs.AttractiteAuraSmall.Description
+		DisplayName: Attractite Aura Small
 	}
 }
 
@@ -2160,42 +2125,21 @@ NPCs: {
 }
 
 Prefixes: {
-	AnnoyingPrefix.DisplayName: Annoying Prefix
-	BalancedPrefix.DisplayName: Balanced Prefix
-	BrewingPrefix.DisplayName: Brewing Prefix
-	BrokenPrefix.DisplayName: Broken Prefix
-	ComplexPrefix.DisplayName: Complex Prefix
-	ConjuringPrefix.DisplayName: Conjuring Prefix
-	DamagedPrefix.DisplayName: Damaged Prefix
-	DeadlyPrefix.DisplayName: Deadly Prefix
-	DiabolicPrefix.DisplayName: Diabolic Prefix
-	EffervescentPrefix.DisplayName: Effervescent Prefix
-	EnragedPrefix.DisplayName: Enraged Prefix
-	EtherealPrefix.DisplayName: Ethereal Prefix
-	FocusedPrefix.DisplayName: Focused Prefix
-	ForcefulPrefix.DisplayName: Forceful Prefix
-	HopefulPrefix.DisplayName: Hopeful Prefix
-	HurtfulPrefix.DisplayName: Hurtful Prefix
-	LazyPrefix.DisplayName: Lazy Prefix
-	LoadedPrefix.DisplayName: Loaded Prefix
-	MagneticPrefix.DisplayName: Magnetic Prefix
-	NimblePrefix.DisplayName: Nimble Prefix
-	OccultPrefix.DisplayName: Occult Prefix
-	QuickPrefix.DisplayName: Quick Prefix
-	RunicPrefix.DisplayName: Runic Prefix
-	RuthlessPrefix.DisplayName: Ruthless Prefix
-	ShoddyPrefix.DisplayName: Shoddy Prefix
-	SlowPrefix.DisplayName: Slow Prefix
-	SluggishPrefix.DisplayName: Sluggish Prefix
-	SpiritedPrefix.DisplayName: Spirited Prefix
-	SpiritualPrefix.DisplayName: Spiritual Prefix
-	StrongPrefix.DisplayName: Strong Prefix
-	StudiousPrefix.DisplayName: Studious Prefix
-	SuperiorPrefix.DisplayName: Superior Prefix
-	UniquePrefix.DisplayName: Unique Prefix
-	UnpleasantPrefix.DisplayName: Unpleasant Prefix
-	VoodooPrefix.DisplayName: Voodoo Prefix
-	WeakPrefix.DisplayName: Weak Prefix
+	VoodooedPrefix.DisplayName: Voodooed
+	SpiritualPrefix.DisplayName: Spiritual
+	SpiritedPrefix.DisplayName: Spirited
+	PossessedPrefix.DisplayName: Possessed
+	OccultPrefix.DisplayName: Occult
+	LoadedPrefix.DisplayName: Loaded
+	JinxedPrefix.DisplayName: Jinxed
+	HexxedPrefix.DisplayName: Hexxed
+	FocusedPrefix.DisplayName: Focused
+	FerventPrefix.DisplayName: Fervent
+	EtherealPrefix.DisplayName: Ethereal
+	EffervescentPrefix.DisplayName: Effervescent
+	CursedPrefix.DisplayName: Cursed
+	BrewingPrefix.DisplayName: Brewing
+	BewitchedPrefix.DisplayName: Bewitched
 }
 
 Projectiles: {
