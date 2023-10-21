@@ -11,11 +11,6 @@ namespace OrchidMod
 	{
 		public OrchidPlayer modPlayer;
 
-		// UI
-
-		public int UIDisplayTimer = 0;
-		public int UIDisplayDelay = 60 * 3; // 3 Seconds
-
 		// Gameplay Core (do not tweak with gear)
 
 		public int shamanHitDelay = 0; // Used to calculate how much bond a hit should give the player (more delay = more bond)
@@ -260,24 +255,6 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
-			if (GetNbShamanicBonds() == 0 && ShamanFireBond + ShamanWaterBond + ShamanAirBond + ShamanEarthBond + ShamanSpiritBond == 0)
-			{
-				UIDisplayTimer -= UIDisplayTimer > 0 ? 1 : 0;
-			}
-			else
-			{
-				UIDisplayTimer = UIDisplayDelay;
-			}
-
-			if (UIDisplayTimer == 0)
-			{
-				ShamanFireBond = 0;
-				ShamanWaterBond = 0;
-				ShamanAirBond = 0;
-				ShamanEarthBond = 0;
-				ShamanSpiritBond = 0;
-			}
-
 			if (!ShamanFireBondReleased) ShamanFireBond += ShamanFireBondPoll > 0 && ShamanFireBond < 100 ? 1f * ShamanBondLoadRate : ShamanFireBondPoll < -ShamanBondUnloadDelay && ShamanFireBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
 			else
 			{
@@ -319,10 +296,11 @@ namespace OrchidMod
 			ShamanEarthBondPoll--;
 			ShamanSpiritBondPoll--;
 			ShamanBondUnloadDelay = 300;
+			
 			ShamanBondUnloadRate = 1f;
 			ShamanBondLoadRate = 1f;
-
 			ShamanBondDuration = 10;
+
 			doubleJumpHarpy = false;
 			abyssalWings = false;
 			abyssSet = false;
@@ -480,8 +458,6 @@ namespace OrchidMod
 			ShamanSpiritBond = 0;
 			ShamanSpiritBondPoll = 0;
 			ShamanSpiritBondReleased = false;
-
-			UIDisplayTimer = 0;
 		}
 
 		public override void Initialize()

@@ -79,93 +79,91 @@ namespace OrchidMod.Content.Shaman.UI
 			Point point = new Point((int)dimensions.X, (int)dimensions.Y);
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
-			if (!player.dead)
+			if (!player.dead && (modPlayer.HasAnyBondLoaded() || player.HeldItem.ModItem is OrchidModShamanItem))
 			{
-				if (modPlayer.UIDisplayTimer > 0)
+				spriteBatch.End();
+				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+				int offSetY = (modPlayer.modPlayer.modPlayerAlchemist.alchemistPotencyDisplayTimer > 0 || modPlayer.modPlayer.modPlayerGuardian.guardianDisplayUI > 0) ? 60 : 20;
+
+				spriteBatch.Draw(SymbolWaterEmpty, new Rectangle(point.X - 39, point.Y + offSetY, 14, 16), backgroundColor);
+				spriteBatch.Draw(SymbolFireEmpty, new Rectangle(point.X - 25, point.Y + 10 + offSetY, 14, 16), backgroundColor);
+				spriteBatch.Draw(SymbolSpiritEmpty, new Rectangle(point.X - 6, point.Y + 14 + offSetY, 16, 16), backgroundColor);
+				spriteBatch.Draw(SymbolWindEmpty, new Rectangle(point.X + 13, point.Y + 10 + offSetY, 14, 16), backgroundColor);
+				spriteBatch.Draw(SymbolEarthEmpty, new Rectangle(point.X + 27, point.Y + offSetY, 14, 16), backgroundColor);
+
+				if (modPlayer.ShamanWaterBondReleased)
 				{
-					spriteBatch.End();
-					spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+					float colormult = 1f;
+					if (modPlayer.ShamanWaterBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanWaterBond * 0.0365));
+					spriteBatch.Draw(SymbolWater, new Rectangle(point.X - 39, point.Y + offSetY, 14, 16), backgroundColor * colormult);
+				}
 
-					int offSetY = (modPlayer.modPlayer.modPlayerAlchemist.alchemistPotencyDisplayTimer > 0 || modPlayer.modPlayer.modPlayerGuardian.guardianDisplayUI > 0) ? 60 : 20;
+				if (modPlayer.ShamanFireBondReleased)
+				{
+					float colormult = 1f;
+					if (modPlayer.ShamanFireBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanFireBond * 0.0365));
+					spriteBatch.Draw(SymbolFire, new Rectangle(point.X - 25, point.Y + 10 + offSetY, 14, 16), backgroundColor * colormult);
+				}
 
-					spriteBatch.Draw(SymbolWaterEmpty, new Rectangle(point.X - 39, point.Y + offSetY, 14, 16), backgroundColor);
-					spriteBatch.Draw(SymbolFireEmpty, new Rectangle(point.X - 25, point.Y + 10 + offSetY, 14, 16), backgroundColor);
-					spriteBatch.Draw(SymbolSpiritEmpty, new Rectangle(point.X - 6, point.Y + 14 + offSetY, 16, 16), backgroundColor);
-					spriteBatch.Draw(SymbolWindEmpty, new Rectangle(point.X + 13, point.Y + 10 + offSetY, 14, 16), backgroundColor);
-					spriteBatch.Draw(SymbolEarthEmpty, new Rectangle(point.X + 27, point.Y + offSetY, 14, 16), backgroundColor);
+				if (modPlayer.ShamanSpiritBondReleased)
+				{
+					float colormult = 1f;
+					if (modPlayer.ShamanSpiritBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanSpiritBond * 0.0365));
+					spriteBatch.Draw(SymbolSpirit, new Rectangle(point.X - 6, point.Y + 14 + offSetY, 16, 16), backgroundColor * colormult);
+				}
 
-					if (modPlayer.ShamanWaterBondReleased)
+				if (modPlayer.ShamanAirBondReleased)
+				{
+					float colormult = 1f;
+					if (modPlayer.ShamanAirBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanAirBond * 0.0365));
+					spriteBatch.Draw(SymbolWind, new Rectangle(point.X + 13, point.Y + 10 + offSetY, 14, 16), backgroundColor * colormult);
+				}
+
+				if (modPlayer.ShamanEarthBondReleased)
+				{
+					float colormult = 1f;
+					if (modPlayer.ShamanEarthBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanEarthBond * 0.0365));
+					spriteBatch.Draw(SymbolEarth, new Rectangle(point.X + 27, point.Y + offSetY, 14, 16), backgroundColor * colormult);
+				}
+
+
+				Item heldItem = player.HeldItem;
+				if (heldItem.type != ItemID.None)
+				{
+					if (heldItem.ModItem is OrchidModShamanItem shamanHeldItem)
 					{
-						float colormult = 1f;
-						if (modPlayer.ShamanWaterBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanWaterBond * 0.0365));
-						spriteBatch.Draw(SymbolWater, new Rectangle(point.X - 39, point.Y + offSetY, 14, 16), backgroundColor * colormult);
-					}
+						Color ColorInside = new Color(20, 16, 23);
+						Color ColorBorder = new Color(59, 45, 58);
+						int segments = 50;
+						float scale = 100f / segments;
 
-					if (modPlayer.ShamanFireBondReleased)
-					{
-						float colormult = 1f;
-						if (modPlayer.ShamanFireBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanFireBond * 0.0365));
-						spriteBatch.Draw(SymbolFire, new Rectangle(point.X - 25, point.Y + 10 + offSetY, 14, 16), backgroundColor * colormult);
-					}
-
-					if (modPlayer.ShamanSpiritBondReleased)
-					{
-						float colormult = 1f;
-						if (modPlayer.ShamanSpiritBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanSpiritBond * 0.0365));
-						spriteBatch.Draw(SymbolSpirit, new Rectangle(point.X - 6, point.Y + 14 + offSetY, 16, 16), backgroundColor * colormult);
-					}
-
-					if (modPlayer.ShamanAirBondReleased)
-					{
-						float colormult = 1f;
-						if (modPlayer.ShamanAirBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanAirBond * 0.0365));
-						spriteBatch.Draw(SymbolWind, new Rectangle(point.X + 13, point.Y + 10 + offSetY, 14, 16), backgroundColor * colormult);
-					}
-
-					if (modPlayer.ShamanEarthBondReleased)
-					{
-						float colormult = 1f;
-						if (modPlayer.ShamanEarthBond < 300) colormult = Math.Abs((float)Math.Sin(modPlayer.ShamanEarthBond * 0.0365));
-						spriteBatch.Draw(SymbolEarth, new Rectangle(point.X + 27, point.Y + offSetY, 14, 16), backgroundColor * colormult);
-					}
-
-
-					Item heldItem = player.HeldItem;
-					if (heldItem.type != ItemID.None)
-					{
-						if (heldItem.ModItem is OrchidModShamanItem shamanHeldItem)
+						for (int i = 0; i < segments; i++)
 						{
-							Color ColorInside = new Color(20, 16, 23);
-							Color ColorBorder = new Color(59, 45, 58);
-							int segments = 50;
-							float scale = 100f / segments;
+							float angle = MathHelper.ToRadians(50 - i * scale);
+							Vector2 position = new Vector2(point.X, point.Y) + new Vector2(0f, 60f).RotatedBy(angle);
+							spriteBatch.Draw(BondBar, position, null, ColorInside, angle, BondBar.Size() * 0.5f, 1.5f, SpriteEffects.None, 0f);
+						}
 
-							for (int i = 0; i < segments; i++)
+						for (int i = 0; i < segments; i++)
+						{
+							float angle = MathHelper.ToRadians(50 - i * scale);
+							Vector2 position = new Vector2(point.X, point.Y) + new Vector2(0f, 60f).RotatedBy(angle);
+							ShamanElement element = (ShamanElement)shamanHeldItem.Element;
+							float bondValue = modPlayer.GetShamanicBondValue(element);
+							if (modPlayer.IsShamanicBondReleased(element))
 							{
-								float angle = MathHelper.ToRadians(50 - i * scale);
-								Vector2 position = new Vector2(point.X, point.Y) + new Vector2(0f, 60f).RotatedBy(angle);
-								spriteBatch.Draw(BondBar, position, null, ColorInside, angle, BondBar.Size() * 0.5f, 1.5f, SpriteEffects.None, 0f);
+								bondValue = bondValue / modPlayer.ShamanBondDuration * (5 / 3f);
+								if (bondValue > 100) bondValue = 100;
 							}
-
-							for (int i = 0; i < segments; i ++)
-							{
-								float angle = MathHelper.ToRadians(50 - i * scale);
-								Vector2 position = new Vector2(point.X, point.Y) + new Vector2(0f, 60f).RotatedBy(angle);
-								ShamanElement element = (ShamanElement)shamanHeldItem.Element;
-								float bondValue = modPlayer.GetShamanicBondValue(element);
-								if (modPlayer.IsShamanicBondReleased(element)) {
-									bondValue = bondValue / modPlayer.ShamanBondDuration * (5/3f);
-									if (bondValue > 100) bondValue = 100;
-								}
-								Color color = bondValue > i * scale ? ShamanElementUtils.GetColor(element) : ColorBorder;
-								spriteBatch.Draw(BondBar, position, null, color, angle, BondBar.Size() * 0.5f, 0.8f, SpriteEffects.None, 0f);
-							}
+							Color color = bondValue > i * scale ? ShamanElementUtils.GetColor(element) : ColorBorder;
+							spriteBatch.Draw(BondBar, position, null, color, angle, BondBar.Size() * 0.5f, 0.8f, SpriteEffects.None, 0f);
 						}
 					}
-
-					spriteBatch.End();
-					spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 				}
+
+				spriteBatch.End();
+				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 			}
 		}
 	}

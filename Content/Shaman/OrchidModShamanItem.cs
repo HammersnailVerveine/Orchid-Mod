@@ -61,7 +61,6 @@ namespace OrchidMod.Content.Shaman
 			OrchidShaman shaman = player.GetModPlayer<OrchidShaman>();
 			Vector2 mousePosition = Main.MouseWorld;
 			Vector2? catalystCenter = shaman.ShamanCatalystPosition;
-			shaman.UIDisplayTimer = shaman.UIDisplayDelay;
 
 			if (catalystCenter != null)
 				position = catalystCenter.Value;
@@ -115,40 +114,42 @@ namespace OrchidMod.Content.Shaman
 						return false;
 					}
 
+					int duration = (Item.GetGlobalItem<Prefixes.ShamanPrefixItem>().GetBondDuration() + shamanPlayer.ShamanBondDuration) * 60;
+
 					switch (Element)
 					{
 						case ShamanElement.FIRE:
 							shamanPlayer.ShamanFireBondReleased = true;
 							shamanPlayer.ShamanFireBondPoll = 0;
-							shamanPlayer.ShamanFireBond = shamanPlayer.ShamanBondDuration * 60;
+							shamanPlayer.ShamanFireBond = duration;
 							shamanPlayer.shamanSummonFireIndex = index;
-							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.FIRE), "Fire Bond Released");
+							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.FIRE), "Fire Bond Released " + duration / 60);
 							break;
 						case ShamanElement.WATER:
 							shamanPlayer.ShamanWaterBondReleased = true;
 							shamanPlayer.ShamanWaterBondPoll = 0;
-							shamanPlayer.ShamanWaterBond = shamanPlayer.ShamanBondDuration * 60;
+							shamanPlayer.ShamanWaterBond = duration;
 							shamanPlayer.shamanSummonWaterIndex = index;
 							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.WATER), "Water Bond Released");
 							break;
 						case ShamanElement.AIR:
 							shamanPlayer.ShamanAirBondReleased = true;
 							shamanPlayer.ShamanAirBondPoll = 0;
-							shamanPlayer.ShamanAirBond = shamanPlayer.ShamanBondDuration * 60;
+							shamanPlayer.ShamanAirBond = duration;
 							shamanPlayer.shamanSummonAirIndex = index;
 							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.AIR), "Air Bond Released");
 							break;
 						case ShamanElement.EARTH:
 							shamanPlayer.ShamanEarthBondReleased = true;
 							shamanPlayer.ShamanEarthBondPoll = 0;
-							shamanPlayer.ShamanEarthBond = shamanPlayer.ShamanBondDuration * 60;
+							shamanPlayer.ShamanEarthBond = duration;
 							shamanPlayer.shamanSummonEarthIndex = index;
 							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.EARTH), "Earth Bond Released");
 							break;
 						case ShamanElement.SPIRIT:
 							shamanPlayer.ShamanSpiritBondReleased = true;
 							shamanPlayer.ShamanSpiritBondPoll = 0;
-							shamanPlayer.ShamanSpiritBond = shamanPlayer.ShamanBondDuration * 60;
+							shamanPlayer.ShamanSpiritBond = duration;
 							shamanPlayer.shamanSummonSpiritIndex = index;
 							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.SPIRIT), "Spirit Bond Released");
 							break;

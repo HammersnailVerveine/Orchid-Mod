@@ -14,15 +14,11 @@ namespace OrchidMod.Content.Prefixes
 
 		// ...
 
-		private readonly string displayName;
 		private readonly float damage;
 		private readonly int crit;
 		private readonly float velocity;
-		private readonly int bondDuration; // usetime
-		private readonly float bondLoading; // kb
-
-		public bool VelocityHasDefaultValue
-			=> velocity == 1f;
+		private readonly int bondDuration;
+		private readonly float bondLoading;
 
 		public override void Unload()
 			=> prefixes.Clear();
@@ -36,9 +32,8 @@ namespace OrchidMod.Content.Prefixes
 		public override PrefixCategory Category
 			=> PrefixCategory.Custom;
 
-		public ShamanPrefix(string displayName, float damage, float bondLoading, int bondDuration, int crit, float velocity)
+		public ShamanPrefix(float damage, float bondLoading, int bondDuration, int crit, float velocity)
 		{
-			this.displayName = displayName;
 			this.damage = damage;
 			this.bondLoading = bondLoading;
 			this.bondDuration = bondDuration;
@@ -48,9 +43,6 @@ namespace OrchidMod.Content.Prefixes
 
 		public override void Load()
 			=> prefixes.Add(this);
-
-		/* public override void SetStaticDefaults()
-			=> DisplayName.SetDefault(displayName); */
 
 		public override void Apply(Item item)
 			=> item.GetGlobalItem<ShamanPrefixItem>().SetPrefixVariables(damage, bondLoading, bondDuration, crit, velocity);
@@ -65,8 +57,6 @@ namespace OrchidMod.Content.Prefixes
 		ref float scaleMult, ref float shootSpeedMult, ref float manaMult, ref int critBonus)
 		{
 			damageMult = damage;
-			//knockbackMult = bondLoading;
-			//useTimeMult = bondDuration;
 			critBonus = crit;
 			shootSpeedMult = velocity;
 		}
@@ -92,6 +82,8 @@ namespace OrchidMod.Content.Prefixes
 		}
 
 		// ...
+
+		public int GetBondDuration() => bondDuration;
 
 		public ShamanPrefixItem()
 		{
@@ -143,7 +135,8 @@ namespace OrchidMod.Content.Prefixes
 			{
 				tooltips.Insert(index, new TooltipLine(Mod, "BondDurationPrefix", (bondDuration > 0 ? "+" : "") + bondDuration + "s shamanic bond duration")
 				{
-					IsModifier = true
+					IsModifier = true,
+					IsModifierBad = bondDuration < 0
 				});
 				index++;
 			}
@@ -152,7 +145,8 @@ namespace OrchidMod.Content.Prefixes
 			{
 				tooltips.Insert(index, new TooltipLine(Mod, "BondLoadingPrefix", (bondLoading > 1 ? "+" : "") + string.Format("{0:0}", ((bondLoading - 1f) * 100f)) + "% shamanic bond generation")
 				{
-					IsModifier = true
+					IsModifier = true,
+					IsModifierBad = bondLoading < 1
 				});
 			}
 		}
@@ -168,12 +162,6 @@ namespace OrchidMod.Content.Prefixes
 			while (true)
 			{
 				var prefix = prefixes[Main.rand.Next(prefixes.Count)];
-
-				/*
-				if (globalItem.shamanWeaponNoUsetimeReforge && !prefix.UseTimeHasDefaultValue) continue;
-				if (globalItem.shamanWeaponNoVelocityReforge && !prefix.VelocityHasDefaultValue) continue;
-				*/
-
 				return prefix.Type;
 			}
 		}
