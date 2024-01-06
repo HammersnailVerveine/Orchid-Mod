@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.DataStructures;
+using OrchidMod.Content.Shaman.Projectiles;
 
 namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 {
@@ -21,16 +22,9 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
-			//Item.shoot = ModContent.ProjectileType<SanctifyProj>();
-			this.Element = ShamanElement.SPIRIT;
-		}
-
-		public override void SafeSetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Sanctify");
-			/* Tooltip.SetDefault("Hitting enemies will gradually grant you hallowed orbs"
-							  + "\nUpon reaching 7 orbs, they will break free and home into your enemies"
-							  + "\nHaving 3 or more active shamanic bonds will release bonus homing projectiles"); */
+			Item.shoot = ModContent.ProjectileType<SanctifyProj>();
+			Element = ShamanElement.SPIRIT;
+			catalystMovement = ShamanSummonMovement.FLOATABOVE;
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -48,8 +42,34 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 				}
 			}
 			*/
-
 			return true;
+		}
+
+		public override void CatalystSummonAI(Projectile projectile, int timeSpent)
+		{
+			if (timeSpent % (Item.useTime * 3) == 0)
+			{
+				Vector2 target = OrchidModProjectile.GetNearestTargetPosition(projectile);
+				if (target != Vector2.Zero)
+				{
+					Vector2 velocity = target - projectile.Center;
+					velocity.Normalize();
+					velocity *= Item.shootSpeed;
+					NewShamanProjectileFromProjectile(projectile, velocity, Item.shoot, projectile.damage, projectile.knockBack);
+				}
+			}
+		}
+
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shamanPlayer)
+		{
+			int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(30);
+			int type = ModContent.ProjectileType<SanctifyOrbHoming>();
+			for (int i = 0; i < 7; i++)
+			{
+				Vector2 refVelocity = new Vector2(0, 48f).RotatedBy(MathHelper.ToRadians(-30 + i * 10));
+				Vector2 velocity = Vector2.Normalize(refVelocity) * -3f;
+				Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center - refVelocity, velocity, type, dmg, 0f, player.whoAmI, 0f, 0f);
+			}
 		}
 
 		public override void AddRecipes() => CreateRecipe()

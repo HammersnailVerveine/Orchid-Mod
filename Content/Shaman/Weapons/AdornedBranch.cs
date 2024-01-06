@@ -22,8 +22,8 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.UseSound = SoundID.Item8;
 			Item.shootSpeed = 3f;
 			Item.shoot = ModContent.ProjectileType<AdornedBranchProj>();
-			this.Element = ShamanElement.FIRE;
-			this.catalystMovement = ShamanSummonMovement.FLOATABOVE;
+			Element = ShamanElement.FIRE;
+			catalystMovement = ShamanSummonMovement.FLOATABOVE;
 		}
 
 		public override void SafeSetStaticDefaults()

@@ -120,42 +120,49 @@ namespace OrchidMod.Content.Shaman
 					{
 						case ShamanElement.FIRE:
 							shamanPlayer.ShamanFireBondReleased = true;
-							shamanPlayer.ShamanFireBondPoll = 0;
+							shamanPlayer.ShamanFireBondPoll = 0f;
 							shamanPlayer.ShamanFireBond = duration;
 							shamanPlayer.shamanSummonFireIndex = index;
-							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.FIRE), "Fire Bond Released " + duration / 60);
+							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.FIRE), "Fire Bond Released");
+							SwitchToNextWeapon(player);
 							break;
 						case ShamanElement.WATER:
 							shamanPlayer.ShamanWaterBondReleased = true;
-							shamanPlayer.ShamanWaterBondPoll = 0;
+							shamanPlayer.ShamanWaterBondPoll = 0f;
 							shamanPlayer.ShamanWaterBond = duration;
 							shamanPlayer.shamanSummonWaterIndex = index;
 							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.WATER), "Water Bond Released");
+							SwitchToNextWeapon(player);
 							break;
 						case ShamanElement.AIR:
 							shamanPlayer.ShamanAirBondReleased = true;
-							shamanPlayer.ShamanAirBondPoll = 0;
+							shamanPlayer.ShamanAirBondPoll = 0f;
 							shamanPlayer.ShamanAirBond = duration;
 							shamanPlayer.shamanSummonAirIndex = index;
 							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.AIR), "Air Bond Released");
+							SwitchToNextWeapon(player);
 							break;
 						case ShamanElement.EARTH:
 							shamanPlayer.ShamanEarthBondReleased = true;
-							shamanPlayer.ShamanEarthBondPoll = 0;
+							shamanPlayer.ShamanEarthBondPoll = 0f;
 							shamanPlayer.ShamanEarthBond = duration;
 							shamanPlayer.shamanSummonEarthIndex = index;
 							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.EARTH), "Earth Bond Released");
+							SwitchToNextWeapon(player);
 							break;
 						case ShamanElement.SPIRIT:
 							shamanPlayer.ShamanSpiritBondReleased = true;
-							shamanPlayer.ShamanSpiritBondPoll = 0;
+							shamanPlayer.ShamanSpiritBondPoll = 0f;
 							shamanPlayer.ShamanSpiritBond = duration;
 							shamanPlayer.shamanSummonSpiritIndex = index;
 							CombatText.NewText(player.Hitbox, ShamanElementUtils.GetColor(ShamanElement.SPIRIT), "Spirit Bond Released");
+							SwitchToNextWeapon(player);
 							break;
 						default:
 							break;
 					}
+
+					OnReleaseShamanicBond(player, shamanPlayer);
 				}
 				else
 				{
@@ -202,9 +209,9 @@ namespace OrchidMod.Content.Shaman
 				}
 				return false;
 			}
-			
+
 			// Left click
-			
+
 			if (shamanPlayer.IsShamanicBondReleased((ShamanElement)Element)) return false;
 			return base.CanUseItem(player);
 		}
@@ -300,11 +307,39 @@ namespace OrchidMod.Content.Shaman
 		public virtual Vector2 CustomSummonMovementTarget(Projectile projectile) => Main.player[projectile.owner].Center; // Used to create a custom movement target for the summoned catalyst
 		public virtual void CatalystSummonAI(Projectile projectile, int timeSpent) { } //  Used to create custom (attack) ai for the summoned catalyst
 		public virtual void CatalystSummonRelease(Projectile projectile) { } // Called when the summoned catalyst is released (appears)
+		public virtual void OnReleaseShamanicBond(Player player, OrchidShaman shamanPlayer) { } // Called when a bond is released, after the catlyst is summoned and everything else is handled
 		public virtual void CatalystSummonKill(Projectile projectile, int timeSpent) { } // Called when the summoned catalyst is killed
 
 		public virtual string CatalystTexture => "OrchidMod/Content/Shaman/CatalystTextures/" + this.Name + "_Catalyst";
 
 		// ...
+
+		public void SwitchToNextWeapon(Player player)
+		{
+			int selectedItem = player.selectedItem;
+			int selectedItemType = player.inventory[player.selectedItem].type;
+
+			if (player.selectedItem + 1 < 10)
+			{
+				for (int i = player.selectedItem + 1; i < 10; i++)
+				{
+					if (player.inventory[i].ModItem is OrchidModShamanItem && player.inventory[i].type != selectedItemType)
+					{
+						player.selectedItem = i;
+						return;
+					}
+				}
+			}
+
+			for (int i = 0; i < player.selectedItem; i++)
+			{
+				if (player.inventory[i].ModItem is OrchidModShamanItem && player.inventory[i].type != selectedItemType)
+				{
+					player.selectedItem = i;
+					return;
+				}
+			}
+		}
 
 		public int NewShamanProjectile(Player player, EntitySource_ItemUse source, Vector2 position, Vector2 velocity, int type, int damage, float knockback, float ai0 = 0.0f, float ai1 = 0.0f)
 		{

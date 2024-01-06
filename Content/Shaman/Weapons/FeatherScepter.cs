@@ -23,8 +23,9 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.UseSound = SoundID.Item45;
 			Item.autoReuse = true;
 			Item.shootSpeed = 15f;
-			//Item.shoot = ModContent.ProjectileType<FeatherScepterProj>();
-			this.Element = ShamanElement.AIR;
+			Item.shoot = ModContent.ProjectileType<FeatherScepterProj>();
+			Element = ShamanElement.AIR;
+			catalystMovement = ShamanSummonMovement.FLOATABOVE;
 		}
 
 		public override void SafeSetStaticDefaults()
@@ -35,12 +36,31 @@ namespace OrchidMod.Content.Shaman.Weapons
 							  + "\nHaving 3 or more active shamanic bonds will result in more projectiles shot"); */
 		}
 
+		public override void CatalystSummonAI(Projectile projectile, int timeSpent)
+		{
+			if (timeSpent % (Item.useTime * 3) == 0)
+			{
+				Vector2 target = OrchidModProjectile.GetNearestTargetPosition(projectile);
+				if (target != Vector2.Zero)
+				{
+					Vector2 velocity = target - projectile.Center;
+					velocity.Normalize();
+					velocity *= Item.shootSpeed;
+					NewShamanProjectileFromProjectile(projectile, velocity, Item.shoot, projectile.damage, projectile.knockBack);
+
+					if (Main.player[projectile.owner].GetModPlayer<OrchidShaman>().GetNbShamanicBonds() > 2)
+					{
+						Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15)) / 2f;
+						NewShamanProjectileFromProjectile(projectile, newVelocity, Item.shoot, projectile.damage, projectile.knockBack);
+					}
+				}
+			}
+		}
+
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int nbBonds = modPlayer.GetNbShamanicBonds();
-
-			if (nbBonds > 2)
+			if (modPlayer.GetNbShamanicBonds() > 2)
 			{
 				Vector2 newVelocity = velocity.RotatedByRandom(MathHelper.ToRadians(15)) / 2f;
 				this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback);

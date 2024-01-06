@@ -25,11 +25,11 @@ namespace OrchidMod
 		public float ShamanAirBond = 0; // Air bond progression
 		public float ShamanEarthBond = 0; // Earth bond progression
 		public float ShamanSpiritBond = 0; // Spirit bond progression
-		public int ShamanFireBondPoll = 0; // Fire bond progression buffer (for smooth bar loading)
-		public int ShamanWaterBondPoll = 0; // Water bond progression buffer
-		public int ShamanAirBondPoll = 0; // Air bond progression buffer
-		public int ShamanEarthBondPoll = 0; // Earth bond progression buffer
-		public int ShamanSpiritBondPoll = 0; // Spirit bond progression buffer
+		public float ShamanFireBondPoll = 0; // Fire bond progression buffer (for smooth bar loading)
+		public float ShamanWaterBondPoll = 0; // Water bond progression buffer
+		public float ShamanAirBondPoll = 0; // Air bond progression buffer
+		public float ShamanEarthBondPoll = 0; // Earth bond progression buffer
+		public float ShamanSpiritBondPoll = 0; // Spirit bond progression buffer
 		public bool ShamanFireBondReleased = false; // Is the fire bond furrently released? (summons a catalyst aiding the player)
 		public bool ShamanWaterBondReleased = false; // Is the water bond furrently released?
 		public bool ShamanAirBondReleased = false; // Is the air bond furrently released?
@@ -50,8 +50,6 @@ namespace OrchidMod
 		public bool shamanPoison = false;
 		public bool shamanVenom = false;
 		public bool shamanHoney = false;
-		public bool shamanFeather = false;
-		public bool shamanDripping = false;
 		public bool shamanAmber = false;
 		public bool shamanDryad = false;
 		public bool shamanForest = false;
@@ -310,11 +308,9 @@ namespace OrchidMod
 			shamanPoison = false;
 			shamanVenom = false;
 			shamanHoney = false;
-			shamanFeather = false;
 			shamanVampire = false;
 			shamanDestroyer = false;
 			shamanDiabolist = false;
-			shamanDripping = false;
 			shamanAmber = false;
 			shamanDryad = false;
 			shamanForest = false;
@@ -392,7 +388,7 @@ namespace OrchidMod
 				case ShamanElement.EARTH:
 					return ShamanEarthBondReleased;
 				case ShamanElement.SPIRIT:
-					return ShamanAirBondReleased;
+					return ShamanSpiritBondReleased;
 				default:
 					return false;
 			}
@@ -475,7 +471,7 @@ namespace OrchidMod
 
 			OnAddShamanicEmpowerment((ShamanElement)type);
 
-			int toAdd = shamanHitDelay > 36 ? (int)(shamanHitDelay / 18f) : 2;
+			float toAdd = shamanHitDelay > 10 ? shamanHitDelay / 10f : 1;
 			switch (type)
 			{
 				case 1:

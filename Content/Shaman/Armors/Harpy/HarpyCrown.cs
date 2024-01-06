@@ -18,12 +18,6 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Harpy Crown");
-			// Tooltip.SetDefault("6% increased shamanic damage");
-		}
-
 		public override void UpdateEquip(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
@@ -41,8 +35,9 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 			player.setBonus = "Shamanic air bonds slow falling speed"
 							+ "\n             press DOWN to fall faster"
 							+ "\n             Your shamanic bonds will last 3 seconds longer";
-			// buff timer  3;
-			modPlayer.shamanFeather = true;
+
+			// effect
+			if (!player.controlDown && modPlayer.IsShamanicBondReleased(ShamanElement.AIR)) player.gravity /= 3;
 		}
 
 		public override void AddRecipes()

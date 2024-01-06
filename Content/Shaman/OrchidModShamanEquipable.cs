@@ -27,7 +27,7 @@ namespace OrchidMod.Content.Shaman
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.Text = damageValue + " shamanic " + damageWord;
+				tt.Text = damageValue + " shamanic damage";
 			}
 
 			Mod thoriumMod = OrchidMod.ThoriumMod;

@@ -2,11 +2,9 @@
 {
 	// Accessory
 
-	//public class NaturalPrefix : AccessoryPrefix { public NaturalPrefix() : base("Natural", 1, 0, 0) { } }
-	public class SpiritualPrefix : AccessoryPrefix { public SpiritualPrefix() : base("Spiritual", 2, 0, 0) { } }
-	public class BrewingPrefix : AccessoryPrefix { public BrewingPrefix() : base("Brewing", 0, 1, 0) { } }
-	//public class CrookedPrefix : AccessoryPrefix { public CrookedPrefix() : base("Crooked", 0, 0, 1) { } }
-	public class LoadedPrefix : AccessoryPrefix { public LoadedPrefix() : base("Loaded", 0, 0, 2) { } }
+	public class SpiritualPrefix : AccessoryPrefix { public SpiritualPrefix() : base(2, 0, 0) { } }
+	public class BrewingPrefix : AccessoryPrefix { public BrewingPrefix() : base(0, 1, 0) { } }
+	public class LoadedPrefix : AccessoryPrefix { public LoadedPrefix() : base(0, 0, 2) { } }
 
 	// Shaman
 

@@ -1277,8 +1277,8 @@ Items: {
 	}
 
 	MeltedRing: {
-		DisplayName: Melted Ring
-		Tooltip: ""
+		DisplayName: Molten Ring
+		Tooltip: Releases damaging droplets of lava while an air bond is released
 	}
 
 	MourningTorch: {
@@ -1478,17 +1478,21 @@ Items: {
 
 	HarpyCrown: {
 		DisplayName: Harpy Crown
-		Tooltip: ""
+		Tooltip: 6% increased shamanic damage
 	}
 
 	HarpyLegs: {
 		DisplayName: Harpy Legs
-		Tooltip: ""
+		Tooltip:
+			'''
+			6% increased shamanic damage
+			10% increased movement speed
+			'''
 	}
 
 	HarpyLightArmor: {
 		DisplayName: Harpy Light Armor
-		Tooltip: ""
+		Tooltip: 8% increased shamanic critical strike chance
 	}
 
 	HellShamanKilt: {
@@ -2296,6 +2300,10 @@ Projectiles: {
 	AirSporeProjAlt.DisplayName: Air Spore Proj Alt
 	AirSporeProj.DisplayName: Air Spore Proj
 	BlumProj.DisplayName: Blum Proj
+	SanctifyOrbHoming.DisplayName: Sanctify Orb Homing
+	SanctifyProj.DisplayName: Sanctify Proj
+	LavaDroplet.DisplayName: Lava Droplet
+	FeatherScepterProj.DisplayName: Feather Scepter Proj
 }
 
 Configs: {

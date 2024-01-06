@@ -71,7 +71,7 @@ namespace OrchidMod.Content.Shaman
 					case ShamanSummonMovement.TOWARDSTARGET:
 						break;
 					case ShamanSummonMovement.FLOATABOVE:
-						targetPosition = owner.Center - new Vector2(0f, 100f).RotatedBy(MathHelper.ToRadians(-60f + (int)shamanItem.Element * 20f));
+						targetPosition = owner.Center - new Vector2(0f, 100f).RotatedBy(MathHelper.ToRadians(-60f + ((int)shamanItem.Element * 20f)));
 						break;
 					default:
 						break;

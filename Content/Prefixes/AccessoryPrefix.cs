@@ -13,7 +13,6 @@ namespace OrchidMod.Content.Prefixes
 
 		// ...
 
-		private readonly string displayName;
 		private readonly byte shamanTimer;
 		private readonly byte alchemistPotency;
 		private readonly byte gamblerChip;
@@ -30,9 +29,8 @@ namespace OrchidMod.Content.Prefixes
 		public override PrefixCategory Category
 			=> PrefixCategory.Accessory;
 
-		public AccessoryPrefix(string displayName, byte shamanTimer, byte alchemistPotency, byte gamblerChip)
+		public AccessoryPrefix(byte shamanTimer, byte alchemistPotency, byte gamblerChip)
 		{
-			this.displayName = displayName;
 			this.shamanTimer = shamanTimer;
 			this.alchemistPotency = alchemistPotency;
 			this.gamblerChip = gamblerChip;
@@ -40,9 +38,6 @@ namespace OrchidMod.Content.Prefixes
 
 		public override void Load()
 			=> prefixes.Add(this);
-
-		/* public override void SetStaticDefaults()
-			=> DisplayName.SetDefault(displayName); */
 
 		public override void Apply(Item item)
 			=> item.GetGlobalItem<AccessoryPrefixItem>().SetPrefixVariables(shamanTimer, alchemistPotency, gamblerChip);
@@ -100,7 +95,7 @@ namespace OrchidMod.Content.Prefixes
 			return -1;
 		}
 
-		public override void PreReforge(Item item)/* tModPorter Note: Use CanReforge instead for logic determining if a reforge can happen. */
+		public override void PreReforge(Item item)
 		{
 			shamanTimer = 0;
 			alchemistPotency = 0;
