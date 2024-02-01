@@ -1,4 +1,6 @@
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,25 +16,25 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.rare = ItemRarityID.Orange;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Waxy Tear");
-			/* Tooltip.SetDefault("Your shamanic water bonds will increase your shamanic critical strike chance by 10%"
-							 + "\nYour shamanic critical strikes will recover you some health"
-							 + "\nYour shamanic earth bonds will cover you in honey"
-							 + "\nYou have a chance to release harmful bees when under the effect of shamanic earth bonds"); */
 
-		}
-		public override void UpdateAccessory(Player player, bool hideVisual)
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanHoney = true;
-			modPlayer.shamanWaterHoney = true;
-			if (modPlayer.ShamanWaterBondReleased)
+			if (element == ShamanElement.FIRE || element == ShamanElement.WATER)
 			{
-				player.GetCritChance<ShamanDamageClass>() += 10;
+				shaman.modPlayer.TryHeal(30);
+
+				int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(10);
+				EntitySource_ItemUse source = (EntitySource_ItemUse)player.GetSource_ItemUse(Item);
+				for (int i = 0; i < 15; i++)
+				{
+					if (player.strongBees && Main.rand.NextBool(2))
+						Projectile.NewProjectile(source, catalyst.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * 5f, ProjectileID.GiantBee, (int)(dmg * 1.15f), 0f, player.whoAmI);
+					else
+						Projectile.NewProjectile(source, catalyst.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * 5f, ProjectileID.Bee, dmg, 0f, player.whoAmI);
+				}
 			}
 		}
+
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();

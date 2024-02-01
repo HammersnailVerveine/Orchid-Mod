@@ -26,15 +26,17 @@ namespace OrchidMod.Content.Shaman.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int BuffsCount = modPlayer.GetNbShamanicBonds();
+			int BuffsCount = modPlayer.CountShamanicBonds();
 
 			// buff timer  3;
+			/*
 			modPlayer.shamanAmber = true;
 			modPlayer.shamanAmethyst = true;
 			modPlayer.shamanTopaz = true;
 			modPlayer.shamanSapphire = true;
 			modPlayer.shamanEmerald = true;
 			modPlayer.shamanRuby = true;
+			*/
 			player.GetDamage<ShamanDamageClass>() += 0.10f;
 		}
 		

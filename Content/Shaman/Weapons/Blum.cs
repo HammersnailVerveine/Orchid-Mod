@@ -1,6 +1,10 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shaman.Projectiles;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,44 +25,144 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.UseSound = SoundID.Item21;
 			Item.autoReuse = true;
 			Item.shootSpeed = 16f;
-			Item.shoot = ModContent.ProjectileType<BlumProj>();
+			Item.shoot = ModContent.ProjectileType<BlumProjectile>();
 			this.Element = ShamanElement.WATER;
-			this.catalystMovement = ShamanSummonMovement.FLOATABOVE;
-
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
-			orchidItem.shamanWeaponNoUsetimeReforge = true;
+			this.CatalystMovement = ShamanSummonMovement.FLOATABOVE;
 		}
 
-		public override void SafeSetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Blum");
-			/* Tooltip.SetDefault("Rapidly shoots dangerous magical bolts"
-							  + "\nThe weapon speed depends on the number of active shamanic bonds"); */
-		}
-
-		/*
 		public override void UpdateInventory(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int nbBonds = modPlayer.GetNbShamanicBonds();
-			Item.useTime = 18 - (nbBonds * 2);
-			Item.useAnimation = 18 - (nbBonds * 2);
+			Item.useTime = 18;
+			if (modPlayer.CountShamanicBonds() > 1) Item.useTime = (int)(Item.useTime * 0.51f);
 		}
-		*/
+	}
+}
 
-		public override void CatalystSummonAI(Projectile projectile, int timeSpent)
+
+
+namespace OrchidMod.Content.Shaman.Projectiles
+{
+	public class BlumProjectile : OrchidModShamanProjectile
+	{
+		private static Texture2D TextureMain;
+
+		public List<Vector2> OldPosition;
+		public List<float> OldRotation;
+
+		public override void SafeSetDefaults()
 		{
-			if (timeSpent % (Item.useTime * 3) == 0)
+			Projectile.width = 10;
+			Projectile.height = 10;
+			Projectile.friendly = true;
+			Projectile.aiStyle = -1;
+			Projectile.timeLeft = 30;
+			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			Projectile.alpha = 255;
+			OldPosition = new List<Vector2>();
+			OldRotation = new List<float>();
+		}
+
+		public override void SafeAI()
+		{
+			Projectile.rotation = Projectile.velocity.ToRotation();
+			OldPosition.Add(Projectile.Center);
+			OldRotation.Add(Projectile.rotation);
+
+			if (OldPosition.Count > 10)
 			{
-				Vector2 target = OrchidModProjectile.GetNearestTargetPosition(projectile);
-				if (target != Vector2.Zero)
-				{
-					Vector2 velocity = target - projectile.Center;
-					velocity.Normalize();
-					velocity *= Item.shootSpeed;
-					NewShamanProjectileFromProjectile(projectile, velocity, Item.shoot, projectile.damage, projectile.knockBack);
-				}
+				OldPosition.RemoveAt(0);
+				OldRotation.RemoveAt(0);
 			}
+
+			if (Main.rand.NextBool(2))
+			{
+				Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.WaterCandle, Scale: Main.rand.NextFloat(1.5f, 2f));
+				dust.velocity = dust.velocity * 0.25f + Projectile.velocity * 0.2f;
+				dust.noGravity = true;
+			}
+		}
+
+		public override bool OnTileCollide(Vector2 oldVelocity)
+		{
+			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+			int type = ModContent.ProjectileType<BlumProjectileSplash>();
+			Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, 0, 0f, Projectile.owner);
+			return base.OnTileCollide(oldVelocity);
+		}
+
+		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
+		{
+			int type = ModContent.ProjectileType<BlumProjectileSplash>();
+			Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, 0, 0f, Projectile.owner);
+		}
+
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			spriteBatch.End();
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+			// Draw code here
+
+			float colorMult = 1f;
+			if (Projectile.timeLeft < 5) colorMult *= Projectile.timeLeft / 5f;
+
+			for (int i = 0; i < OldPosition.Count; i++)
+			{
+				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Color color = new Color(0, 50, 255);
+				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.11f * i * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * i * 0.15f, SpriteEffects.None, 0f); ;
+				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.055f * i * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * i * 0.1f, SpriteEffects.None, 0f);
+			}
+
+			// Draw code ends here
+
+			spriteBatch.End();
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			return false;
+		}
+	}
+
+	public class BlumProjectileSplash : OrchidModShamanProjectile
+	{
+		private static Texture2D TextureMain;
+
+		public override void SafeSetDefaults()
+		{
+			Projectile.width = 50;
+			Projectile.height = 50;
+			Projectile.friendly = false;
+			Projectile.aiStyle = 0;
+			Projectile.timeLeft = 10;
+			Projectile.scale = 1f;
+			Projectile.penetrate = -1;
+			Projectile.tileCollide = false;
+			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+		}
+
+		public override void SafeAI()
+		{
+			if (TimeSpent == 0) Projectile.rotation = Main.rand.NextFloat(MathHelper.Pi);
+		}
+
+
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			spriteBatch.End();
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+			// Draw code here
+			float colorMult = 1f;
+			if (Projectile.timeLeft < 5) colorMult *= Projectile.timeLeft / 5f;
+			Color color = new Color(20, 40, 200);
+			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			spriteBatch.Draw(TextureMain, drawPosition, null, color * colorMult * 1.2f, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale * TimeSpent * 0.22f, SpriteEffects.None, 0f);
+
+			// Draw code ends here
+
+			spriteBatch.End();
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			return false;
 		}
 	}
 }

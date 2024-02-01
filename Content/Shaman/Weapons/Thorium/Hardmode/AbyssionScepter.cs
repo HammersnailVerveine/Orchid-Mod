@@ -39,7 +39,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
-			int damageCost = 25 - modPlayer.GetNbShamanicBonds() * 5;
+			int damageCost = 25 - modPlayer.CountShamanicBonds() * 5;
 			if (player.statLife - damageCost > 0)
 				player.statLife -= damageCost;
 			else

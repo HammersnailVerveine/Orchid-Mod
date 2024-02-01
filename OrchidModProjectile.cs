@@ -16,6 +16,9 @@ namespace OrchidMod
 		public bool initialized; // Used in various AI.
 		public bool projOwner = false;
 
+		public bool IsLocalOwner => Projectile.owner == Main.myPlayer;
+		public static bool IsValidTarget(NPC npc, bool includecritter = false) => npc.active && !npc.dontTakeDamage && !npc.friendly && (includecritter || !npc.CountsAsACritter);
+
 		public sealed override bool PreAI()
 		{
 			/*if (!spawned)
@@ -106,7 +109,9 @@ namespace OrchidMod
 			spriteBatch.Begin(spriteSortMode, blendState ?? BlendState.AlphaBlend, samplerState ?? Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, effect, Main.GameViewMatrix.TransformationMatrix);
 		}
 
-		public static void resetIFrames(Projectile projectile)
+		public void ResetIFrames() => ResetIFrames(Projectile);
+
+		public static void ResetIFrames(Projectile projectile)
 		{
 			for (int l = 0; l < Main.npc.Length; l++)
 			{

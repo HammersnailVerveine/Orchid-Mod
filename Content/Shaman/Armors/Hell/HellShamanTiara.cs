@@ -18,31 +18,26 @@ namespace OrchidMod.Content.Shaman.Armors.Hell
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Depths Weaver Tiara");
-			// Tooltip.SetDefault("6% increased shamanic damage");
-		}
-
 		public override void UpdateEquip(Player player)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
+			OrchidShaman shaman = player.GetModPlayer<OrchidShaman>();
 			player.GetDamage<ShamanDamageClass>() += 0.06f;
+			shaman.ShamanBondDuration += 3;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == Mod.Find<ModItem>("HellShamanTunic").Type && legs.type == Mod.Find<ModItem>("HellShamanKilt").Type;
+			return body.type == ModContent.ItemType<HellShamanTunic>() && legs.type == ModContent.ItemType<HellShamanKilt>();
 		}
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			player.setBonus = "Shamanic fire bonds and causes attacks to release spreading fire"
-							+ "\n             Shamanic earth bonds causes you reflect damage to nearby enemies"
-							+ "\n             Your shamanic bonds will last 3 seconds longer";
-			// buff timer  3;
-			modPlayer.shamanHell = true;
+			OrchidShaman shaman = player.GetModPlayer<OrchidShaman>();
+			player.setBonus = "15% increased shamanic damage while a fire bond is active"
+							+ "\nRetaliate upon taking damage while an earth bond is active";
+
+			shaman.shamanHell = true;
+			if (shaman.IsShamanicBondReleased(ShamanElement.FIRE)) player.GetDamage<ShamanDamageClass>() += 0.15f;
 		}
 
 		public override void AddRecipes()

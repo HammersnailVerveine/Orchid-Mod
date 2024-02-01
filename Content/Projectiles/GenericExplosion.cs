@@ -19,7 +19,7 @@ namespace OrchidMod.Content.Projectiles
 
 		public override void AI()
 		{
-			OrchidModProjectile.resetIFrames(Projectile);
+			OrchidModProjectile.ResetIFrames(Projectile);
 		}
 
 		public override void SetStaticDefaults()

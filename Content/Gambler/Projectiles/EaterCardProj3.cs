@@ -19,7 +19,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 		public override void SafeAI()
 		{
-			OrchidModProjectile.resetIFrames(Projectile);
+			OrchidModProjectile.ResetIFrames(Projectile);
 			for (int i = 0; i < 10; i++)
 			{
 				int dust2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 18);

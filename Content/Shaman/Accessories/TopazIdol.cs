@@ -15,16 +15,10 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Topaz Idol");
-			// Tooltip.SetDefault("Having an active earth bond increases defense by 5");
-		}
 
-		public override void UpdateAccessory(Player player, bool hideVisual)
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanTopaz = true;
+			if (element == ShamanElement.EARTH) catalyst.damage = (int)(catalyst.damage * 1.2f);
 		}
 
 		public override void AddRecipes()

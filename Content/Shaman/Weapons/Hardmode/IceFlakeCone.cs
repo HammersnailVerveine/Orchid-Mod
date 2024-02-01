@@ -39,7 +39,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
-			int buffsCount = modPlayer.GetNbShamanicBonds();
+			int buffsCount = modPlayer.CountShamanicBonds();
 			int numberProjectiles = 1 + Main.rand.Next(2 + buffsCount);
 
 			for (int i = 0; i < numberProjectiles; i++)

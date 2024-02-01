@@ -14,25 +14,38 @@ namespace OrchidMod.Content.Shaman.Armors.GemTiaras
 			Item.height = 12;
 			Item.value = Item.sellPrice(0, 0, 25, 0);
 			Item.rare = ItemRarityID.Blue;
-			Item.defense = 2;
+			Item.defense = 1;
 			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = true;
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst)
 		{
-			// DisplayName.SetDefault("Diamond Circlet");
-			/* Tooltip.SetDefault("5% increased shamanic critical stike chance"
-							  + "\nYour shamanic bonds will last 3 seconds longer"
-							  + "\n10% increased shamanic damage"); */
+			catalyst.damage = (int)(catalyst.damage * 1.1f);
 		}
 
 		public override void UpdateEquip(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			player.GetDamage<ShamanDamageClass>() += 0.1f;
-			player.GetCritChance<ShamanDamageClass>() += 5;
-			// buff timer  3;
+			modPlayer.ShamanBondDuration += 3;
+		}
+
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			return (body.type == ItemID.CopperChainmail && legs.type == ItemID.CopperGreaves)
+				|| (body.type == ItemID.TinChainmail && legs.type == ItemID.TinGreaves)
+				|| (body.type == ItemID.IronChainmail && legs.type == ItemID.IronGreaves)
+				|| (body.type == ItemID.LeadChainmail && legs.type == ItemID.LeadGreaves)
+				|| (body.type == ItemID.SilverChainmail && legs.type == ItemID.SilverGreaves)
+				|| (body.type == ItemID.TungstenChainmail && legs.type == ItemID.TungstenGreaves)
+				|| (body.type == ItemID.GoldChainmail && legs.type == ItemID.GoldGreaves)
+				|| (body.type == ItemID.PlatinumChainmail && legs.type == ItemID.PlatinumGreaves);
+		}
+
+		public override void UpdateArmorSet(Player player)
+		{
+			player.setBonus = "2 defense";
+			player.statDefense += 2;
 		}
 
 		public override void AddRecipes()

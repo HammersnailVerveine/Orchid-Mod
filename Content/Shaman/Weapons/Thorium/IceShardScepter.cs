@@ -36,7 +36,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 		public override void ModifyWeaponCrit(Player player, ref float crit)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			crit += 10 * modPlayer.GetNbShamanicBonds();
+			crit += 10 * modPlayer.CountShamanicBonds();
 		}
 
 		public override void AddRecipes()

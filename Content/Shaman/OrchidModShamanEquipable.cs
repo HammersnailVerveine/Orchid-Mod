@@ -12,6 +12,7 @@ namespace OrchidMod.Content.Shaman
 	public abstract class OrchidModShamanEquipable : ModItem
 	{
 		public virtual void SafeSetDefaults() { }
+		public virtual void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst) { }
 
 		public sealed override void SetDefaults()
 		{

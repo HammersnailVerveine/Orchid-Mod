@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Fire
 				Main.dust[dust2].velocity.Y /= 3;
 			}
 			OrchidModProjectile.spawnExplosionGore(Projectile);
-			OrchidModProjectile.resetIFrames(Projectile);
+			OrchidModProjectile.ResetIFrames(Projectile);
 		}
 
 		public override void SetStaticDefaults()

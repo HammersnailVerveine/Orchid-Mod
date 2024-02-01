@@ -64,7 +64,7 @@ namespace OrchidMod.Content.Shaman
 
 				Vector2 targetPosition = owner.Center;
 
-				switch (shamanItem.catalystMovement)
+				switch (shamanItem.CatalystMovement)
 				{
 					case ShamanSummonMovement.CUSTOM:
 						break;

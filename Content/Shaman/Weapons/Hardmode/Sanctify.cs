@@ -22,9 +22,9 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.UseSound = SoundID.Item117;
 			Item.autoReuse = true;
 			Item.shootSpeed = 7f;
-			Item.shoot = ModContent.ProjectileType<SanctifyProj>();
+			//Item.shoot = ModContent.ProjectileType<SanctifyProj>();
 			Element = ShamanElement.SPIRIT;
-			catalystMovement = ShamanSummonMovement.FLOATABOVE;
+			CatalystMovement = ShamanSummonMovement.FLOATABOVE;
 		}
 
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -60,6 +60,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			}
 		}
 
+		/*
 		public override void OnReleaseShamanicBond(Player player, OrchidShaman shamanPlayer)
 		{
 			int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(30);
@@ -71,6 +72,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 				Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center - refVelocity, velocity, type, dmg, 0f, player.whoAmI, 0f, 0f);
 			}
 		}
+		*/
 
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.HallowedBar, 12)

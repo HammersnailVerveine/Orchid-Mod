@@ -26,8 +26,14 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "HarpyTalon", 2);
-			recipe.AddIngredient(ItemID.Feather, 4);
+			recipe.AddIngredient(ItemID.Feather, 6);
+			recipe.AddIngredient(ItemID.ShadowScale, 15);
+			recipe.AddTile(TileID.Anvils);
+			recipe.Register();
+			
+			recipe = CreateRecipe();
+			recipe.AddIngredient(ItemID.Feather, 6);
+			recipe.AddIngredient(ItemID.TissueSample, 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}

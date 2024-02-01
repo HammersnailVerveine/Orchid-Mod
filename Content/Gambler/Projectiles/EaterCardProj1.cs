@@ -66,7 +66,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 					Vector2 move = Vector2.Zero;
 					float distance = 500f;
 					bool target = false;
-					OrchidModProjectile.resetIFrames(Projectile);
+					OrchidModProjectile.ResetIFrames(Projectile);
 					for (int k = 0; k < 200; k++)
 					{
 						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && Main.npc[k].type != NPCID.TargetDummy)

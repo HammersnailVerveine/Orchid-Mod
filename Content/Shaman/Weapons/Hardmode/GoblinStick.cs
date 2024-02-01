@@ -36,7 +36,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 		public override void UpdateInventory(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int nbBonds = modPlayer.GetNbShamanicBonds();
+			int nbBonds = modPlayer.CountShamanicBonds();
 			switch (nbBonds)
 			{
 				case 0:

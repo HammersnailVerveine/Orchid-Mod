@@ -24,8 +24,6 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.shootSpeed = 7f;
 			//Item.shoot = ModContent.ProjectileType<MartianBeamerProj>();
 			this.Element = ShamanElement.FIRE;
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
-			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}
 
 		public override void SafeSetStaticDefaults()
@@ -44,7 +42,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 		public override void UpdateInventory(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int nbBonds = modPlayer.GetNbShamanicBonds();
+			int nbBonds = modPlayer.CountShamanicBonds();
 
 			Item.useTime = 18 - (2 * nbBonds);
 			Item.useAnimation = 18 - (2 * nbBonds);

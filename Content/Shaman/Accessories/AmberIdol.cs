@@ -16,16 +16,10 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Amber Idol");
-			// Tooltip.SetDefault("Your shamanic earth bonds will increase your maximum life by 50");
-		}
-
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanAmber = true;
+			OrchidShaman shaman = player.GetModPlayer<OrchidShaman>();
+			if (shaman.IsShamanicBondReleased(ShamanElement.EARTH)) player.lifeRegen += 5;
 		}
 
 		public override void AddRecipes()

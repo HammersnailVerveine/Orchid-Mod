@@ -59,7 +59,7 @@ namespace OrchidMod.Content.Items.Consumables
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			Main.player[Main.myPlayer].GetModPlayer<OrchidShaman>().doubleJumpHarpy = true;
+			//Main.player[Main.myPlayer].GetModPlayer<OrchidShaman>().doubleJumpHarpy = true;
 		}
 	}
 }

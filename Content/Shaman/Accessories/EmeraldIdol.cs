@@ -16,16 +16,9 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst)
 		{
-			// DisplayName.SetDefault("Emerald Idol");
-			// Tooltip.SetDefault("Having an active air bond increases movement speed by 10%");
-		}
-
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanEmerald = true;
+			if (element == ShamanElement.AIR) catalyst.damage = (int)(catalyst.damage * 1.2f);
 		}
 
 		public override void AddRecipes()

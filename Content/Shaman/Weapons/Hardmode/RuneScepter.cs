@@ -22,8 +22,6 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.shootSpeed = 13f;
 			//Item.shoot = ModContent.ProjectileType<RuneScepterProj>();
 			this.Element = ShamanElement.FIRE;
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
-			orchidItem.shamanWeaponNoVelocityReforge = true;
 		}
 
 		public override void SafeSetStaticDefaults()
@@ -36,14 +34,14 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int nbBonds = modPlayer.GetNbShamanicBonds();
+			int nbBonds = modPlayer.CountShamanicBonds();
 			damage += nbBonds * 0.1f;
 		}
 
 		public override void UpdateInventory(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int nbBonds = modPlayer.GetNbShamanicBonds();
+			int nbBonds = modPlayer.CountShamanicBonds();
 			Item.shootSpeed = 13f + (2f * nbBonds);
 		}
 	}

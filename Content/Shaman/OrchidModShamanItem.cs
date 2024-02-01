@@ -31,7 +31,7 @@ namespace OrchidMod.Content.Shaman
 		public ShamanElement Element = ShamanElement.NULL;
 		public Color? catalystEffectColor = null; // TODO: ...
 		public ShamanCatalystType catalystType = ShamanCatalystType.IDLE;
-		public ShamanSummonMovement catalystMovement = ShamanSummonMovement.CUSTOM;
+		public ShamanSummonMovement CatalystMovement = ShamanSummonMovement.CUSTOM;
 
 		protected override bool CloneNewInstances => true;
 
@@ -102,10 +102,11 @@ namespace OrchidMod.Content.Shaman
 
 					var index = Projectile.NewProjectile(null, summonPosition, Vector2.Zero, ModContent.ProjectileType<CatalystSummon>(), (int)player.GetDamage<ShamanDamageClass>().ApplyTo(Item.damage), Item.knockBack, player.whoAmI);
 
-					if (Main.projectile[index].ModProjectile is CatalystSummon catalystSummon)
+					Projectile catalystProjectile = Main.projectile[index];
+					if (catalystProjectile.ModProjectile is CatalystSummon catalystSummon)
 					{
 						catalystSummon.SelectedItem = Type;
-						CatalystSummonRelease(Main.projectile[index]);
+						CatalystSummonRelease(player, catalystProjectile);
 						//Main.projectile[index].netUpdate = true; // Unnecessary?
 					}
 					else
@@ -163,6 +164,17 @@ namespace OrchidMod.Content.Shaman
 					}
 
 					OnReleaseShamanicBond(player, shamanPlayer);
+
+					if (catalystProjectile.ModProjectile is CatalystSummon) {
+						for (int i = 0; i < 10; i++)
+						{ // TODO : find a way to get this to work with modded accessory slots without moving the accessory code away from their class
+							Item item = player.armor[i];
+							if (item.ModItem is OrchidModShamanEquipable equipable)
+							{
+								equipable.OnReleaseShamanicBond(player, shamanPlayer, Element, catalystProjectile);
+							}
+						}
+					}
 				}
 				else
 				{
@@ -305,10 +317,24 @@ namespace OrchidMod.Content.Shaman
 		public virtual bool PreAICatalyst(Projectile projectile) { return true; }
 		public virtual bool PreDrawCatalyst(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
 		public virtual Vector2 CustomSummonMovementTarget(Projectile projectile) => Main.player[projectile.owner].Center; // Used to create a custom movement target for the summoned catalyst
-		public virtual void CatalystSummonAI(Projectile projectile, int timeSpent) { } //  Used to create custom (attack) ai for the summoned catalyst
-		public virtual void CatalystSummonRelease(Projectile projectile) { } // Called when the summoned catalyst is released (appears)
+		public virtual void CatalystSummonRelease(Player player, Projectile projectile) { } // Called when the summoned catalyst is released (appears)
 		public virtual void OnReleaseShamanicBond(Player player, OrchidShaman shamanPlayer) { } // Called when a bond is released, after the catlyst is summoned and everything else is handled
 		public virtual void CatalystSummonKill(Projectile projectile, int timeSpent) { } // Called when the summoned catalyst is killed
+
+		public virtual void CatalystSummonAI(Projectile projectile, int timeSpent)
+		{ //  Used to create custom (attack) ai for the summoned catalyst as if it were a summoner minion
+			if (timeSpent % (Item.useTime * 3) == 0)
+			{
+				Vector2 target = OrchidModProjectile.GetNearestTargetPosition(projectile);
+				if (target != Vector2.Zero)
+				{
+					Vector2 velocity = target - projectile.Center;
+					velocity.Normalize();
+					velocity *= Item.shootSpeed;
+					NewShamanProjectileFromProjectile(projectile, velocity, Item.shoot, projectile.damage, projectile.knockBack);
+				}
+			}
+		}
 
 		public virtual string CatalystTexture => "OrchidMod/Content/Shaman/CatalystTextures/" + this.Name + "_Catalyst";
 

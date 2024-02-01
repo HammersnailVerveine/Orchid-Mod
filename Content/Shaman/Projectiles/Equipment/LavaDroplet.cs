@@ -23,7 +23,7 @@ namespace OrchidMod.Content.Shaman.Projectiles.Equipment
 			Projectile.scale = 1f;
 			AIType = 1;
 		}
-		public override void AI()
+		public override void SafeAI()
 		{
 			if (Main.rand.NextBool(3))
 			{

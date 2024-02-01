@@ -37,7 +37,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			if (modPlayer.GetNbShamanicBonds() > 3)
+			if (modPlayer.CountShamanicBonds() > 3)
 				damage *= 1.5f;
 		}
 

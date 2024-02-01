@@ -13,18 +13,12 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.rare = ItemRarityID.Green;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Ondine Tear");
-			// Tooltip.SetDefault("Your shamanic water bonds will increase your shamanic critical strike chance by 10%");
 
-		}
-		public override void UpdateAccessory(Player player, bool hideVisual)
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			if (modPlayer.ShamanWaterBondReleased)
+			if (element == ShamanElement.WATER)
 			{
-				player.GetCritChance<ShamanDamageClass>() += 10;
+				shaman.modPlayer.TryHeal(30);
 			}
 		}
 	}

@@ -24,8 +24,6 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.shootSpeed = 15f;
 			//Item.shoot = ModContent.ProjectileType<IceMimicScepterProj>();
 			this.Element = ShamanElement.WATER;
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
-			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}
 
 		public override void SafeSetStaticDefaults()
@@ -47,7 +45,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			}
 
 			Vector2 newVelocity = new Vector2(0f, velocity.Length() * -1f);
-			float projAI = modPlayer.GetNbShamanicBonds() > 2 ? 3f : 0f;
+			float projAI = modPlayer.CountShamanicBonds() > 2 ? 3f : 0f;
 			this.NewShamanProjectile(player, source, position, newVelocity, type, damage, knockback, ai1: projAI);
 			return false;
 		}

@@ -15,14 +15,10 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Treasured Baubles");
-			// Tooltip.SetDefault("After completing an orb weapon cycle, you will be given a bonus orb on your next hit");
-		}
-
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
+			OrchidShaman shaman = player.GetModPlayer<OrchidShaman>();
+			shaman.ShamanBondLoadRate += 0.15f;
 		}
 	}
 }

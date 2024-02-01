@@ -37,7 +37,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
 
-			if (modPlayer.GetNbShamanicBonds() > 1) 
+			if (modPlayer.CountShamanicBonds() > 1) 
 				damage *= 1.2f;
 		}
 

@@ -16,16 +16,9 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst)
 		{
-			// DisplayName.SetDefault("Ruby Idol");
-			// Tooltip.SetDefault("Having an active fire bond increases life regeneration");
-		}
-
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanRuby = true;
+			if (element == ShamanElement.FIRE) catalyst.damage = (int)(catalyst.damage * 1.2f);
 		}
 
 		public override void AddRecipes()

@@ -15,15 +15,11 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.rare = ItemRarityID.Green;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Diamond Idol");
-			// Tooltip.SetDefault("Increases the duration of your shamanic bonds by 3 seconds");
-		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			// buff timer  3;
+			modPlayer.ShamanBondDuration += 3;
 		}
 		public override void AddRecipes()
 		{

@@ -46,7 +46,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 		public override void AI()
 		{
-			OrchidModProjectile.resetIFrames(Projectile);
+			OrchidModProjectile.ResetIFrames(Projectile);
 		}
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer)

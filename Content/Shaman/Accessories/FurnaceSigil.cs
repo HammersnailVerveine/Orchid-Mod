@@ -13,11 +13,6 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.rare = ItemRarityID.Green;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Furnace Sigil");
-			// Tooltip.SetDefault("Your shamanic fire bonds allows you to ignite your foes on hit");
-		}
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();

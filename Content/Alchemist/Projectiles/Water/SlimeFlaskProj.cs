@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Water
 
 		public override void AI()
 		{
-			OrchidModProjectile.resetIFrames(Projectile);
+			OrchidModProjectile.ResetIFrames(Projectile);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using OrchidMod.Content.Items.Consumables;
+using OrchidMod.Content.Shaman.Projectiles.Equipment;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +8,9 @@ namespace OrchidMod.Content.Shaman.Accessories
 {
 	public class HarpyAnklet : OrchidModShamanEquipable
 	{
+		public bool harpySpaceKeyReleased = false;
+		public int jumpHeightCheck = -1;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 28;
@@ -28,8 +32,69 @@ namespace OrchidMod.Content.Shaman.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanHarpyAnklet = true;
+			OrchidShaman shaman = player.GetModPlayer<OrchidShaman>();
+
+			if (shaman.IsShamanicBondReleased(ShamanElement.AIR))
+			{
+				if (!player.controlJump) harpySpaceKeyReleased = true;
+
+				if (!(player.GetJumpState(ExtraJump.CloudInABottle).Enabled || player.GetJumpState(ExtraJump.TsunamiInABottle).Enabled || player.GetJumpState(ExtraJump.SandstormInABottle).Enabled
+				|| player.GetJumpState(ExtraJump.BlizzardInABottle).Enabled || player.GetJumpState(ExtraJump.FartInAJar).Enabled || player.GetJumpState(ExtraJump.UnicornMount).Enabled))
+					player.GetJumpState(ExtraJump.CloudInABottle).Enable();
+
+				if (player.velocity.Y == 0 || player.grappling[0] >= 0 && !player.controlJump)
+				{
+					if (player.GetJumpState(ExtraJump.CloudInABottle).Available)
+					{
+						jumpHeightCheck = (int)(Player.jumpHeight * 0.75);
+					}
+					if (player.GetJumpState(ExtraJump.TsunamiInABottle).Available)
+					{
+						jumpHeightCheck = (int)(Player.jumpHeight * 1.25);
+					}
+					if (player.GetJumpState(ExtraJump.FartInAJar).Available)
+					{
+						jumpHeightCheck = Player.jumpHeight * 2;
+					}
+					if (player.GetJumpState(ExtraJump.BlizzardInABottle).Available)
+					{
+						jumpHeightCheck = (int)(Player.jumpHeight * 1.5);
+					}
+					if (player.GetJumpState(ExtraJump.SandstormInABottle).Available)
+					{
+						jumpHeightCheck = Player.jumpHeight * 3;
+					}
+					if (player.GetJumpState(ExtraJump.UnicornMount).Available)
+					{
+						jumpHeightCheck = Player.jumpHeight * 2;
+					}
+				}
+
+				if (player.GetJumpState(ExtraJump.CloudInABottle).Available && player.jump == (int)(Player.jumpHeight * 0.75))
+					player.jump--;
+
+				if ((player.jump == jumpHeightCheck && harpySpaceKeyReleased == true))
+				{
+					harpySpaceKeyReleased = false;
+					int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(22);
+					if (player.FindBuffIndex(ModContent.BuffType<HarpyPotionBuff>()) > -1)
+						dmg += (int)player.GetDamage<ShamanDamageClass>().ApplyTo(12);
+
+					for (float dirX = -1; dirX < 2; dirX++)
+					{
+						for (float dirY = -1; dirY < 2; dirY++)
+						{
+							bool ankletCanShoot = !(dirX == 0 && dirY == 0 && dirX == dirY);
+							float ankletSpeed = 10f;
+							if (dirX != 0 && dirY != 0) ankletSpeed = 7.5f;
+							if (ankletCanShoot)
+							{
+								Projectile.NewProjectile(null, player.Center.X, player.Center.Y, (dirX * ankletSpeed), (dirY * ankletSpeed), ModContent.ProjectileType<HarpyAnkletProj>(), dmg, 0.0f, player.whoAmI, 0.0f, 0.0f);
+							}
+						}
+					}
+				}
+			}
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)

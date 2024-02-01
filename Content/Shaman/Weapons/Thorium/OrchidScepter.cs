@@ -38,7 +38,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int nbBonds = modPlayer.GetNbShamanicBonds();
+			int nbBonds = modPlayer.CountShamanicBonds();
 			int numberProjectiles = 1 + Main.rand.Next(2);
 			numberProjectiles += nbBonds > 1 ? nbBonds > 3 ? 2 : 1 : 0;
 

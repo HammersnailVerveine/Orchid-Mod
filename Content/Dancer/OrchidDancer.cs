@@ -49,6 +49,7 @@ namespace OrchidMod
 			}
 		}
 
+		/*
 		public override bool ImmuneTo(PlayerDeathReason damageSource, int cooldownCounter, bool dodgeable)
 		{
 			if (dancerInvincibility > 0)
@@ -57,6 +58,7 @@ namespace OrchidMod
 			}
 			return true;
 		}
+		*/
 
 		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
 		{

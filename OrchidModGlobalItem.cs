@@ -13,8 +13,6 @@ namespace OrchidMod
 	{
 		public bool shamanWeapon = false;
 		public int shamanWeaponElement = 0;
-		public bool shamanWeaponNoUsetimeReforge = false;
-		public bool shamanWeaponNoVelocityReforge = false;
 		public bool alchemistWeapon = false;
 		public bool alchemistCatalyst = false;
 		public int alchemistColorR = 0;

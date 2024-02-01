@@ -82,7 +82,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles
 				this.initialized = true;
 			}
 
-			if (!this.hitNPC) OrchidModProjectile.resetIFrames(Projectile);
+			if (!this.hitNPC) OrchidModProjectile.ResetIFrames(Projectile);
 
 			if (this.waterFlaskGlobal != null)
 			{

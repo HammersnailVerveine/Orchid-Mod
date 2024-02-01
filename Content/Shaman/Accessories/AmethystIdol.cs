@@ -16,16 +16,9 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.accessory = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst)
 		{
-			// DisplayName.SetDefault("Amethyst Idol");
-			// Tooltip.SetDefault("Having an active spirit bond increases shamanic damage by 10%");
-		}
-
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanAmethyst = true;
+			if (element == ShamanElement.SPIRIT) catalyst.damage = (int)(catalyst.damage * 1.2f);
 		}
 
 		public override void AddRecipes()

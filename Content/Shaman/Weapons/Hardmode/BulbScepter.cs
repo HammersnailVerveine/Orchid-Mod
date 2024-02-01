@@ -36,7 +36,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int nbBonds = modPlayer.GetNbShamanicBonds();
+			int nbBonds = modPlayer.CountShamanicBonds();
 			int rand = 1 + Main.rand.Next(2) + nbBonds;
 			for (int i = 0; i < rand; i++)
 			{

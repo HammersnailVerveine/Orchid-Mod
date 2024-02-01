@@ -107,6 +107,23 @@ namespace OrchidMod
 			spawnedGhost = false;
 		}
 
+		public void TryHeal(int amount)
+		{
+			if (!Player.moonLeech && Player.whoAmI == Main.myPlayer)
+			{
+				int damage = Player.statLifeMax2 - Player.statLife;
+				if (amount > damage)
+				{
+					amount = damage;
+				}
+				if (amount > 0)
+				{
+					Player.HealEffect(amount, true);
+					Player.statLife += amount;
+				}
+			}
+		}
+
 		public void CheckWoodBreak(Player player)
 		{ // From Vanilla Source
 			if (player.velocity.Y <= 1f || this.generalTools)

@@ -1,4 +1,6 @@
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace OrchidMod.Content.Shaman.Accessories
@@ -13,16 +15,21 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.rare = ItemRarityID.Green;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
+
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst)
 		{
-			// DisplayName.SetDefault("Waxy Incense");
-			/* Tooltip.SetDefault("Your shamanic earth bonds will cover you in honey"
-							 + "\nYou have a chance to release harmful bees when under the effect of shamanic earth bonds"); */
-		}
-		public override void UpdateAccessory(Player player, bool hideVisual)
-		{
-			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanHoney = true;
+			if (element == ShamanElement.FIRE)
+			{
+				int dmg = (int)player.GetDamage<ShamanDamageClass>().ApplyTo(10);
+				EntitySource_ItemUse source = (EntitySource_ItemUse)player.GetSource_ItemUse(Item);
+				for (int i = 0; i < 15; i++)
+				{
+					if (player.strongBees && Main.rand.NextBool(2))
+						Projectile.NewProjectile(source, catalyst.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * 5f, ProjectileID.GiantBee, (int)(dmg * 1.15f), 0f, player.whoAmI);
+					else
+						Projectile.NewProjectile(source, catalyst.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * 5f, ProjectileID.Bee, dmg, 0f, player.whoAmI);
+				}
+			}
 		}
 	}
 }

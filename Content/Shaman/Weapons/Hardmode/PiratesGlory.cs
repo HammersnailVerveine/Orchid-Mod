@@ -23,8 +23,6 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Item.shootSpeed = 15f;
 			//Item.shoot = ModContent.ProjectileType<PiratesGloryProj>();
 			this.Element = ShamanElement.WATER;
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
-			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}
 
 		public override void SafeSetStaticDefaults()
@@ -38,7 +36,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 		public override void SafeModifyWeaponDamage(Player player, ref StatModifier damage)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			damage.Flat += (modPlayer.GetNbShamanicBonds() * 2);
+			damage.Flat += (modPlayer.CountShamanicBonds() * 2);
 		}
 	}
 }

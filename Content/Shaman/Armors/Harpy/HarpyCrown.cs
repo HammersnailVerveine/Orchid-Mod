@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == Mod.Find<ModItem>("HarpyLightArmor").Type && legs.type == Mod.Find<ModItem>("HarpyLegs").Type;
+			return body.type == ModContent.ItemType<HarpyLightArmor>() && legs.type == ModContent.ItemType<HarpyLegs>();
 		}
 
 		public override void UpdateArmorSet(Player player)
@@ -43,8 +43,14 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(null, "HarpyTalon", 1);
-			recipe.AddIngredient(ItemID.Feather, 3);
+			recipe.AddIngredient(ItemID.Feather, 4);
+			recipe.AddIngredient(ItemID.ShadowScale, 10);
+			recipe.AddTile(TileID.Anvils);
+			recipe.Register();
+			
+			recipe = CreateRecipe();
+			recipe.AddIngredient(ItemID.Feather, 4);
+			recipe.AddIngredient(ItemID.TissueSample, 10);
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}

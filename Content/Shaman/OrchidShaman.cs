@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Content.Shaman;
+using OrchidMod.Content.Shaman.Projectiles.Equipment;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -50,7 +53,6 @@ namespace OrchidMod
 		public bool shamanPoison = false;
 		public bool shamanVenom = false;
 		public bool shamanHoney = false;
-		public bool shamanAmber = false;
 		public bool shamanDryad = false;
 		public bool shamanForest = false;
 		public bool shamanHeavy = false;
@@ -61,7 +63,6 @@ namespace OrchidMod
 		public bool shamanDemonite = false;
 		public bool shamanDownpour = false;
 		public bool shamanHell = false;
-		public bool shamanHarpyAnklet = false;
 		public bool abyssSet = false;
 		public bool shamanShadowEmpowerment = false;
 		public bool shamanMourningTorch = false;
@@ -71,20 +72,8 @@ namespace OrchidMod
 		public bool shamanDiabolist = false;
 		public bool shamanWyvern = false;
 		public bool shamanRage = false;
-		public bool shamanAmethyst = false;
-		public bool shamanTopaz = false;
-		public bool shamanSapphire = false;
-		public bool shamanEmerald = false;
-		public bool shamanRuby = false;
 		public bool shamanHorus = false;
-
-		public bool doubleJumpHarpy = false;
 		public bool abyssalWings = false;
-
-		// Used for shaman gear to work properly (do not tweak)
-
-		public bool harpySpaceKeyReleased = false;
-		public int jumpHeightCheck = -1;
 
 		// Custom Methods that should be edited for content
 
@@ -110,72 +99,6 @@ namespace OrchidMod
 		public override void PostUpdateEquips()
 		{
 			/*
-			if (doubleJumpHarpy)
-			{
-				if (!Player.controlJump) harpySpaceKeyReleased = true;
-
-				if (!(Player.GetJumpState(ExtraJump.CloudInABottle).Enabled || Player.GetJumpState(ExtraJump.TsunamiInABottle).Enabled || Player.GetJumpState(ExtraJump.SandstormInABottle).Enabled
-				|| Player.GetJumpState(ExtraJump.BlizzardInABottle).Enabled || Player.GetJumpState(ExtraJump.FartInAJar).Enabled || Player.GetJumpState(ExtraJump.UnicornMount).Enabled))
-					Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
-
-				if (Player.velocity.Y == 0 || Player.grappling[0] >= 0 || (shamanHarpyAnklet && ShamanAirBondReleased && !Player.controlJump))
-				{
-					if (Player.GetJumpState(ExtraJump.CloudInABottle).Available)
-					{
-						jumpHeightCheck = (int)((double)Player.jumpHeight * 0.75);
-					}
-					if (Player.GetJumpState(ExtraJump.TsunamiInABottle).Available)
-					{
-						jumpHeightCheck = (int)((double)Player.jumpHeight * 1.25);
-					}
-					if (Player.GetJumpState(ExtraJump.FartInAJar).Available)
-					{
-						jumpHeightCheck = Player.jumpHeight * 2;
-					}
-					if (Player.GetJumpState(ExtraJump.BlizzardInABottle).Available)
-					{
-						jumpHeightCheck = (int)((double)Player.jumpHeight * 1.5);
-					}
-					if (Player.GetJumpState(ExtraJump.SandstormInABottle).Available)
-					{
-						jumpHeightCheck = Player.jumpHeight * 3;
-					}
-					if (Player.GetJumpState(ExtraJump.UnicornMount).Available)
-					{
-						jumpHeightCheck = Player.jumpHeight * 2;
-					}
-				}
-
-				if (Player.GetJumpState(ExtraJump.CloudInABottle).Available && Player.jump == (int)((double)Player.jumpHeight * 0.75))
-					Player.jump--;
-
-				if ((Player.jump == jumpHeightCheck && harpySpaceKeyReleased == true))
-				{
-					harpySpaceKeyReleased = false;
-					int dmg = 10;
-					if (shamanHarpyAnklet && ShamanAirBondReleased)
-					{
-						dmg += (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(12);
-						if (Player.FindBuffIndex(ModContent.BuffType<HarpyPotionBuff>()) > -1)
-							dmg += (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(12);
-					}
-
-					for (float dirX = -1; dirX < 2; dirX++)
-					{
-						for (float dirY = -1; dirY < 2; dirY++)
-						{
-							bool ankletCanShoot = !(dirX == 0 && dirY == 0 && dirX == dirY);
-							float ankletSpeed = 10f;
-							if (dirX != 0 && dirY != 0) ankletSpeed = 7.5f;
-							if (ankletCanShoot)
-							{
-								Projectile.NewProjectile(null, Player.Center.X, Player.Center.Y, (dirX * ankletSpeed), (dirY * ankletSpeed), ModContent.ProjectileType<HarpyAnkletProj>(), dmg, 0.0f, Player.whoAmI, 0.0f, 0.0f);
-							}
-						}
-					}
-				}
-			}
-
 			if (modPlayer.doubleTap > 0) modPlayer.doubleTap--;
 			else modPlayer.doubleTapLock = false;
 			if (modPlayer.doubleTapCooldown > 0) modPlayer.doubleTapCooldown--;
@@ -207,24 +130,40 @@ namespace OrchidMod
 			*/
 		}
 
-		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
-			/*
-			OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
-			if (modProjectile.shamanProjectile)
-			{
+			if (shamanHell && IsShamanicBondReleased(ShamanElement.EARTH))
+			{ // Depths Weaver armor set
+				SoundEngine.PlaySound(SoundID.Item73, Player.Center);
+				int type = ModContent.ProjectileType<DepthsWeaverBlast>();
+				int damage = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(50);
+				Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, type, damage, 15f, Player.whoAmI);
 			}
-			*/
 		}
 
-		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
+		public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
 		{
-			/*
+			if (shamanHell && IsShamanicBondReleased(ShamanElement.EARTH))
+			{ // Depths Weaver armor set
+				SoundEngine.PlaySound(SoundID.Item73, Player.Center);
+				int type = ModContent.ProjectileType<DepthsWeaverBlast>();
+				int damage = (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(50);
+				Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, type, damage, 15f, Player.whoAmI);
+			}
+		}
+
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+		{
 			OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
 			if (modProjectile.shamanProjectile)
 			{
+				if (IsShamanicBondReleased(ShamanElement.FIRE))
+				{
+					if (shamanFire) target.AddBuff(BuffID.OnFire, 300);
+					if (shamanIce) target.AddBuff(BuffID.Frostburn, 300);
+					if (shamanPoison) target.AddBuff(BuffID.Poisoned, 600);
+				}
 			}
-			*/
 		}
 
 		public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
@@ -299,7 +238,6 @@ namespace OrchidMod
 			ShamanBondLoadRate = 1f;
 			ShamanBondDuration = 10;
 
-			doubleJumpHarpy = false;
 			abyssalWings = false;
 			abyssSet = false;
 
@@ -311,7 +249,6 @@ namespace OrchidMod
 			shamanVampire = false;
 			shamanDestroyer = false;
 			shamanDiabolist = false;
-			shamanAmber = false;
 			shamanDryad = false;
 			shamanForest = false;
 			shamanHeavy = false;
@@ -322,14 +259,8 @@ namespace OrchidMod
 			shamanDemonite = false;
 			shamanDownpour = false;
 			shamanHell = false;
-			shamanHarpyAnklet = false;
 			shamanWyvern = false;
 			shamanRage = false;
-			shamanAmethyst = false;
-			shamanTopaz = false;
-			shamanSapphire = false;
-			shamanEmerald = false;
-			shamanRuby = false;
 			shamanHorus = false;
 
 			shamanShadowEmpowerment = false;
@@ -403,7 +334,7 @@ namespace OrchidMod
 
 		public int GetDamage(int damage) => (int)Player.GetDamage<ShamanDamageClass>().ApplyTo(damage);
 
-		public int GetNbShamanicBonds()
+		public int CountShamanicBonds()
 		{
 			int val = 0;
 			if (ShamanFireBondReleased) val++;

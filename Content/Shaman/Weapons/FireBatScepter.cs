@@ -24,8 +24,6 @@ namespace OrchidMod.Content.Shaman.Weapons
 			Item.shootSpeed = 16f;
 			//Item.shoot = ModContent.ProjectileType<FireBatScepterProj>();
 			this.Element = ShamanElement.AIR;
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
-			orchidItem.shamanWeaponNoUsetimeReforge = true;
 		}
 
 		public override void SafeSetStaticDefaults()
@@ -39,7 +37,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 		public override void UpdateInventory(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			int nbBonds = modPlayer.GetNbShamanicBonds();
+			int nbBonds = modPlayer.CountShamanicBonds();
 			Item.useTime = 35 - 3 * nbBonds;
 			Item.useAnimation = 35 - 3 * nbBonds;
 		}

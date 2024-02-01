@@ -13,11 +13,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Frostburn Sigil");
-			// Tooltip.SetDefault("Your shamanic fire bonds allows you to frostburn your foes on hit");
-		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();

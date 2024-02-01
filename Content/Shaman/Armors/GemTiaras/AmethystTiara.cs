@@ -19,18 +19,32 @@ namespace OrchidMod.Content.Shaman.Armors.GemTiaras
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void OnReleaseShamanicBond(Player player, OrchidShaman shaman, ShamanElement element, Projectile catalyst)
 		{
-			// DisplayName.SetDefault("Amethyst Circlet");
-			/* Tooltip.SetDefault("Having an active spirit bond increases shamanic damage by 10%"
-							  + "\nYour shamanic bonds will last 3 seconds longer"); */
+			if (element == ShamanElement.SPIRIT) catalyst.damage = (int)(catalyst.damage * 1.2f);
 		}
-
+		
 		public override void UpdateEquip(Player player)
 		{
 			OrchidShaman modPlayer = player.GetModPlayer<OrchidShaman>();
-			modPlayer.shamanAmethyst = true;
-			// buff timer  3;
+		}
+
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			return (body.type == ItemID.CopperChainmail && legs.type == ItemID.CopperGreaves)
+				|| (body.type == ItemID.TinChainmail && legs.type == ItemID.TinGreaves)
+				|| (body.type == ItemID.IronChainmail && legs.type == ItemID.IronGreaves)
+				|| (body.type == ItemID.LeadChainmail && legs.type == ItemID.LeadGreaves)
+				|| (body.type == ItemID.SilverChainmail && legs.type == ItemID.SilverGreaves)
+				|| (body.type == ItemID.TungstenChainmail && legs.type == ItemID.TungstenGreaves)
+				|| (body.type == ItemID.GoldChainmail && legs.type == ItemID.GoldGreaves)
+				|| (body.type == ItemID.PlatinumChainmail && legs.type == ItemID.PlatinumGreaves);
+		}
+
+		public override void UpdateArmorSet(Player player)
+		{
+			player.setBonus = "2 defense";
+			player.statDefense += 2;
 		}
 
 		public override void AddRecipes()

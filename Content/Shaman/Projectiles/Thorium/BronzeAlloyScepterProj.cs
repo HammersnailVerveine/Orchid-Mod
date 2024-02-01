@@ -25,9 +25,9 @@ namespace OrchidMod.Content.Shaman.Projectiles.Thorium
 			// DisplayName.SetDefault("Basilisk Tooth");
 		}
 
-		public override void AI()
+		public override void SafeAI()
 		{
-			if (Main.rand.Next(2) == 0)
+			if (Main.rand.NextBool(2))
 			{
 				int DustID = Dust.NewDust(new Vector2(Projectile.position.X + 4, Projectile.position.Y + 4), Projectile.width / 3, Projectile.height / 3, ModContent.DustType<Content.Dusts.ToxicDust>(), Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 125, default(Color), 1.25f);
 				Main.dust[DustID].noGravity = true;
@@ -47,7 +47,7 @@ namespace OrchidMod.Content.Shaman.Projectiles.Thorium
 
 		public override void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidShaman modPlayer)
 		{
-			target.AddBuff(BuffID.Poisoned, 60 * 3 * modPlayer.GetNbShamanicBonds());
+			target.AddBuff(BuffID.Poisoned, 60 * 3 * modPlayer.CountShamanicBonds());
 		}
 	}
 }
