@@ -287,7 +287,7 @@ namespace OrchidMod
 
 		public override void ProcessTriggers(TriggersSet triggersSet)
 		{
-			if (OrchidKeybindLoader.AlchemistCatalyst.JustPressed && Player.itemAnimation == 0)
+			if (OrchidKeybinds.AlchemistCatalyst.JustPressed && Player.itemAnimation == 0)
 			{
 				for (int i = 0; i < Main.InventorySlotsTotal; i++)
 				{
@@ -308,7 +308,7 @@ namespace OrchidMod
 				}
 			}
 
-			if (OrchidKeybindLoader.AlchemistReaction.JustPressed)
+			if (OrchidKeybinds.AlchemistReaction.JustPressed)
 			{
 				if (this.alchemistNbElements < 2 || Player.FindBuffIndex(Mod.Find<ModBuff>("ReactionCooldown").Type) > -1)
 				{

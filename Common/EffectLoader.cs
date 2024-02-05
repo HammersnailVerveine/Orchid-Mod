@@ -9,7 +9,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
 
-namespace OrchidMod.Common.Graphics
+namespace OrchidMod.Common
 {
 	[Autoload(Side = ModSide.Client)]
 	public class EffectLoader : ILoadable
@@ -32,7 +32,7 @@ namespace OrchidMod.Common.Graphics
 
 				if (effectsByName.ContainsKey(name)) continue;
 
-				if (ModContent.RequestIfExists<Effect>($"{mod.Name}/{path}", out Asset<Effect> asset, AssetRequestMode.ImmediateLoad))
+				if (ModContent.RequestIfExists($"{mod.Name}/{path}", out Asset<Effect> asset, AssetRequestMode.ImmediateLoad))
 				{
 					effectsByName.Add(name, asset);
 					SetEffectInitParameters(name, asset.Value.Parameters);

@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Common
 {
-	public class OrchidKeybindLoader : ILoadable
+	public class OrchidKeybinds : ILoadable
 	{
 		public static ModKeybind AlchemistReaction { get; private set; }
 		public static ModKeybind AlchemistCatalyst { get; private set; }

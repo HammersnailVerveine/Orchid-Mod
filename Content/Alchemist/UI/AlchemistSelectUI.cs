@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Alchemist.Bag;
 using OrchidMod.Content.Alchemist.Misc;
 using OrchidMod.Common;
-using OrchidMod.Common.Graphics;
 using OrchidMod.Common.UIs;
 using OrchidMod.Utilities;
 using ReLogic.Content;
