@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shaman.Projectiles;
+using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -109,8 +110,8 @@ namespace OrchidMod.Content.Shaman.Projectiles
 			Vector2 drawPositionMain = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
 			spriteBatch.Draw(TextureMain, drawPositionMain, null, lightColor * 0.8f, Projectile.rotation + TimeSpent * 0.1f, TextureMain.Size() * 0.5f, Projectile.scale * 1.1f, SpriteEffects.None, 0f);
 
-			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			// Draw code here
 
@@ -123,7 +124,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 			// Draw code ends here
 
 			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			spriteBatch.Begin(spriteBatchSnapshot);
 			return false;
 		}
 	}
@@ -166,8 +167,8 @@ namespace OrchidMod.Content.Shaman.Projectiles
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			// Draw code here
 			float colorMult = 1f;
@@ -179,7 +180,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 			// Draw code ends here
 
 			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			spriteBatch.Begin(spriteBatchSnapshot);
 			return false;
 		}
 	}
