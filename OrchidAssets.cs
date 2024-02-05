@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.Graphics;
+using OrchidMod.Common;
 using ReLogic.Content;
 using Terraria.ModLoader;
 

@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common;
-using OrchidMod.Common.Graphics;
-using OrchidMod.Common.Graphics.Primitives;
 using OrchidMod.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -70,13 +67,13 @@ namespace OrchidMod.Content.Items.Melee
 			=> player.ownedProjectileCounts[ModContent.ProjectileType<PrototypeSecrecyProjectile>()] <= 1; // We need exactly 2, not 1
 	}
 
-	public class PrototypeSecrecyProjectile : ModProjectile, IDrawOnDifferentLayers
+	public class PrototypeSecrecyProjectile : ModProjectile
 	{
 		public static readonly SoundStyle MagicSound = new(OrchidAssets.SoundsPath + "Magic_0");
 		public static readonly Color EffectColor = new(224, 39, 83);
 
-		private PrimitiveStrip trail;
-		private PrimitiveStrip trail2;
+		/*private PrimitiveStrip trail;
+		private PrimitiveStrip trail2;*/
 
 		// ...
 
@@ -97,7 +94,7 @@ namespace OrchidMod.Content.Items.Melee
 			Projectile.DamageType = DamageClass.Melee;
 		}
 
-		public override void OnSpawn(IEntitySource source)
+		/*public override void OnSpawn(IEntitySource source)
 		{
 			trail = new PrimitiveStrip
 			(
@@ -116,7 +113,7 @@ namespace OrchidMod.Content.Items.Melee
 				headTip: new IPrimitiveTip.Rounded(15),
 				tailTip: null
 			);
-		}
+		}*/
 
 		public override void AI()
 		{
@@ -181,7 +178,7 @@ namespace OrchidMod.Content.Items.Melee
 			return base.OnTileCollide(oldVelocity);
 		}
 
-		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
+		/*void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
 		{
 			var offset = new Vector2(-4, 0).RotatedBy(Projectile.rotation);
 
@@ -194,10 +191,10 @@ namespace OrchidMod.Content.Items.Melee
 			var texture = OrchidAssets.GetExtraTexture(11);
 			var drawData = new DefaultDrawData(texture.Value, Projectile.Center + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition + offset, null, EffectColor * 0.5f, 0f, texture.Size() * 0.5f, Projectile.scale * 0.55f, SpriteEffects.None);
 			system.AddToAdditive(DrawLayers.Dusts, drawData);
-		}
+		}*/
 	}
 
-	public class PrototypeSecrecyHitProjectile : ModProjectile, IDrawOnDifferentLayers
+	public class PrototypeSecrecyHitProjectile : ModProjectile
 	{
 		public override string Texture => OrchidAssets.InvisiblePath;
 
@@ -244,11 +241,11 @@ namespace OrchidMod.Content.Items.Melee
 		public override bool? CanDamage()
 			=> false;
 
-		void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
+		/*void IDrawOnDifferentLayers.DrawOnDifferentLayers(DrawSystem system)
 		{
 			var texture = OrchidAssets.GetExtraTexture(17);
 			var drawData = new DefaultDrawData(texture.Value, Projectile.Center + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition, null, PrototypeSecrecyProjectile.EffectColor * Projectile.scale, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, SpriteEffects.None);
 			system.AddToAdditive(DrawLayers.Dusts, drawData);
-		}
+		}*/
 	}
 }
