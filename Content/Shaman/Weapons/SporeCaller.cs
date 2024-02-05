@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using OrchidMod.Content.Shaman.Projectiles;
 using Terraria.DataStructures;
 using System;
+using OrchidMod.Utilities;
 
 namespace OrchidMod.Content.Shaman.Weapons
 {
@@ -163,8 +164,8 @@ namespace OrchidMod.Content.Shaman.Projectiles
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 20) colorMult *= Projectile.timeLeft / 20f;
@@ -176,7 +177,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 			}
 
 			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			spriteBatch.Begin(spriteBatchSnapshot);
 
 			Vector2 drawPositionMain = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
 			spriteBatch.Draw(TextureMain, drawPositionMain, null, lightColor * 3f * colorMult, Projectile.rotation + TimeSpent * Projectile.ai[2], TextureMain.Size() * 0.5f, Projectile.scale * 1.1f, SpriteEffects.None, 0f);

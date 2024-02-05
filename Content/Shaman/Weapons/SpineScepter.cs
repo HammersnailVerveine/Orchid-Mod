@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using OrchidMod.Content.Shaman.Projectiles;
+using OrchidMod.Utilities;
 
 namespace OrchidMod.Content.Shaman.Weapons
 {
@@ -163,8 +164,8 @@ namespace OrchidMod.Content.Shaman.Projectiles
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			// Draw code here
 
@@ -182,7 +183,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 			// Draw code ends here
 
 			spriteBatch.End();
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+			spriteBatch.Begin(spriteBatchSnapshot);
 			return false;
 		}
 	}
