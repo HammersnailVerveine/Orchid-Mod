@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,11 +50,11 @@ namespace OrchidMod.Common.Graphics
 				orig(main);
 
 				var spriteBatch = Main.spriteBatch;
-				var spriteBatchInfo = new SpriteBatchInfo(spriteBatch);
+				var spriteBatchSnapshot = new SpriteBatchSnapshot(spriteBatch);
 
 				spriteBatch.End();
 				DrawLayer(DrawLayers.Walls, Main.spriteBatch);
-				spriteBatchInfo.Begin(spriteBatch);
+				spriteBatch.Begin(spriteBatchSnapshot);
 			};
 
 			Terraria.On_Main.DoDraw_Tiles_Solid += (orig, main) =>

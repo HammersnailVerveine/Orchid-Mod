@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Graphics;
 using OrchidMod.Common.UIs;
+using OrchidMod.Utilities;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -228,12 +229,12 @@ namespace OrchidMod.Content.NPCs.Town
 			var tooltipsPosX = (int)(drawRect.X + 20 + cardSlotsTexture.Width());
 			var tooltipsRect = new Rectangle(tooltipsPosX, drawRect.Y, drawRect.Width - (tooltipsPosX - drawRect.X) - 8, drawRect.Height);
 
-			var sbInfo = new SpriteBatchInfo(spriteBatch);
+			var sbSnapshot = new SpriteBatchSnapshot(spriteBatch);
 			var oldScissorRectangle = spriteBatch.GraphicsDevice.ScissorRectangle;
 
 			spriteBatch.End();
 			spriteBatch.GraphicsDevice.ScissorRectangle = Rectangle.Intersect(GetClippingRectangle(tooltipsRect, spriteBatch), spriteBatch.GraphicsDevice.ScissorRectangle);
-			sbInfo.Begin(spriteBatch, null, null, null, null, UISystem.OverflowHiddenRasterizerState, null, null);
+			spriteBatch.Begin(sbSnapshot with { RasterizerState = UISystem.OverflowHiddenRasterizerState });
 
 			List<TooltipLine> tooltips;
 
@@ -286,7 +287,7 @@ namespace OrchidMod.Content.NPCs.Town
 
 			spriteBatch.End();
 			spriteBatch.GraphicsDevice.ScissorRectangle = oldScissorRectangle;
-			sbInfo.Begin(spriteBatch);
+			spriteBatch.Begin(sbSnapshot);
 		}
 
 		private void DrawShadows(SpriteBatch spriteBatch)
