@@ -1327,13 +1327,17 @@ Items: {
 	}
 
 	SpiritedWater: {
-		DisplayName: Spirited Water
-		Tooltip: ""
+		DisplayName: Ondine Tear
+		Tooltip: Restores 30 life when releasing a water bond
 	}
 
 	SpiritedWax: {
-		DisplayName: Spirited Wax
-		Tooltip: ""
+		DisplayName: Waxy Tear
+		Tooltip:
+			'''
+			Restores 30 life when releasing a water or fire bond
+			Summons bees when releasing a water or fire bond
+			'''
 	}
 
 	SunPriestBelt: {
@@ -1373,7 +1377,7 @@ Items: {
 
 	WaxyVial: {
 		DisplayName: Waxy Vial
-		Tooltip: ""
+		Tooltip: Summons bees when releasing a fire bond
 	}
 
 	WyvernTailFeather: {
