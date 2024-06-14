@@ -1,0 +1,53 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace OrchidMod.Content.Guardian.Armors.OreHelms
+{
+	[AutoloadEquip(EquipType.Head)]
+	public class GuardianTitaniumHead : OrchidModGuardianEquipable
+	{
+		public override void SafeSetDefaults()
+		{
+			Item.width = 24;
+			Item.height = 22;
+			Item.value = Item.sellPrice(0, 3, 0, 0);
+			Item.rare = ItemRarityID.LightRed;
+			Item.defense = 25;
+		}
+
+		public override void UpdateEquip(Player player)
+		{
+			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
+			player.GetCritChance<GuardianDamageClass>() += 8;
+			player.GetDamage<GuardianDamageClass>() += 0.15f;
+			modPlayer.GuardianSlamMax += 1;
+			modPlayer.GuardianBlockMax += 1;
+		}
+
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			return body.type == ItemID.TitaniumBreastplate && legs.type == ItemID.TitaniumLeggings;
+		}
+
+		public override void UpdateArmorSet(Player player)
+		{
+			player.setBonus = "Attacking generates a defensive barrier of titanium shards";
+			player.armorEffectDrawShadow = true;
+			player.onHitTitaniumStorm = true;
+		}
+
+		public override void ArmorSetShadows(Player player)
+		{
+			player.armorEffectDrawOutlines = true;
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient(ItemID.TitaniumBar, 13);
+			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.Register();
+		}
+	}
+}

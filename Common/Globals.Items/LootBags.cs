@@ -23,6 +23,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OrchidMod.Content.Items.Armor.Vanity;
+using OrchidMod.Content.Guardian.Weapons.Warhammers;
+using OrchidMod.Content.Guardian.Weapons.Runes;
+using OrchidMod.Content.Guardian.Misc;
+using OrchidMod.Content.Guardian.Accessories;
 
 namespace OrchidMod.Common.Globals.Items
 {
@@ -39,6 +43,15 @@ namespace OrchidMod.Common.Globals.Items
 			}
 		}
 		*/
+
+		// temp ..
+
+		public override void RightClick(Item item, Player player)
+		{
+			OpenBossBag(player, item.type);
+			OpenCrate(player, item.type);
+			if (item.type == ItemID.LockBox) OpenGoldenLockBox(player);
+		}
 
 		// ...
 
@@ -90,6 +103,7 @@ namespace OrchidMod.Common.Globals.Items
 							},
 							chanceDenominator: 2
 						);
+						QuickSpawnItem<BeeRune>(player, 1, 4);
 					}
 					break;
 				case ItemID.SkeletronBossBag:
@@ -99,7 +113,14 @@ namespace OrchidMod.Common.Globals.Items
 					break;
 				case ItemID.WallOfFleshBossBag:
 					{
-						QuickSpawnItem<ShamanEmblem>(player, 1, 4);
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
+								(ModContent.ItemType<ShamanEmblem>(), 1),
+								(ModContent.ItemType<GuardianEmblem>(), 1)
+							}
+						);
 						QuickSpawnItem<OrchidEmblem>(player, 1, 1);
 					}
 					break;
@@ -119,7 +140,20 @@ namespace OrchidMod.Common.Globals.Items
 					break;
 				case ItemID.GolemBossBag:
 					{
-						QuickSpawnItem<SunRay>(player, 1, 6);
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
+								(ModContent.ItemType<SunRay>(), 1),
+								(ModContent.ItemType<TempleWarhammer>(), 1)
+							},
+							chanceDenominator: 3
+						);
+					}
+					break;
+				case ItemID.FairyQueenBossBag:
+					{
+						QuickSpawnItem<GuardianEmpressMaterial>(player, 17 + Main.rand.Next(13), 1);
 					}
 					break;
 				case ItemID.MoonLordBossBag:
@@ -134,6 +168,8 @@ namespace OrchidMod.Common.Globals.Items
 							chanceDenominator: 5
 						);
 					}
+					break;
+				default:
 					break;
 			}
 
@@ -292,6 +328,8 @@ namespace OrchidMod.Common.Globals.Items
 						QuickSpawnItem<KeystoneOfTheConvent>(player, 1, 8);
 						QuickSpawnItem<ImpDiceCup>(player, 1, 8);
 					}
+					break;
+				default:
 					break;
 			}
 		}

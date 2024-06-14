@@ -28,6 +28,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			Projectile.alpha = 96;
 			Projectile.penetrate = -1;
 			Main.projFrames[Projectile.type] = 2;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 60;
 		}
 
 		public override Color? GetAlpha(Color lightColor)

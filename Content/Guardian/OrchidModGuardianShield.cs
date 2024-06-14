@@ -4,6 +4,7 @@ using OrchidMod.Content.Guardian;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,9 +18,8 @@ namespace OrchidMod.Content.Guardian
 		public virtual void PostDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreAIShield(Projectile projectile) { return true; }
 		public virtual bool PreDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
-		
+
 		public virtual void SafeHoldItem(Player player) { }
-		
 		public virtual void SlamHitFirst(Player player, Projectile shield, NPC npc) { } // Called up to once upon hitting an enemy when slamming
 		public virtual void SlamHit(Player player, Projectile shield, NPC npc) { } // Called upon hitting an enemy when slamming
 		public virtual void Slam(Player player, Projectile shield) { } // Called upon slamming
@@ -69,9 +69,10 @@ namespace OrchidMod.Content.Guardian
 					if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
 					{
 						if (player.altFunctionUse == 2) { // Right click
-							if (proj.ai[1] == 0f && guardian.guardianSlam > 0) 
+							if (proj.ai[1] == 0f && guardian.GuardianSlam > 0) 
 							{
-								guardian.guardianSlam --;
+								SoundEngine.PlaySound(Item.UseSound, player.Center);
+								guardian.GuardianSlam --;
 								shield.shieldEffectReady = true;
 								proj.ai[1] = this.bashDistance;
 								if (proj.ai[0] > 0f) 
@@ -84,10 +85,10 @@ namespace OrchidMod.Content.Guardian
 								proj.netUpdate2 = true;
 							}
 						} else { // Left click
-							if (proj.ai[1] + proj.ai[0] == 0f && guardian.guardianBlock > 0) 
+							if (proj.ai[1] + proj.ai[0] == 0f && guardian.GuardianBlock > 0) 
 							{
 								shield.shieldEffectReady = true;
-								guardian.guardianBlock --;
+								guardian.GuardianBlock --;
 								proj.ai[0] = this.blockDuration;
 								proj.netUpdate = true;
 								proj.netUpdate2 = true;
@@ -123,9 +124,9 @@ namespace OrchidMod.Content.Guardian
 		}
 
 		public void resetBlockedEnemiesDuration(OrchidGuardian modPlayer) {
-			for (int i = modPlayer.guardianBlockedEnemies.Count - 1; i >= 0; i--)
+			for (int i = modPlayer.GuardianBlockedEnemies.Count - 1; i >= 0; i--)
 			{
-				BlockedEnemy blockedEnemy = modPlayer.guardianBlockedEnemies[i];
+				BlockedEnemy blockedEnemy = modPlayer.GuardianBlockedEnemies[i];
 				blockedEnemy.time = blockedEnemy.time < 60 ? blockedEnemy.time : 60;
 			}
 		}
@@ -134,7 +135,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
 			var guardian = player.GetModPlayer<OrchidGuardian>();
-			guardian.guardianDisplayUI = 300;
+			guardian.GuardianDisplayUI = 300;
 
 			if (player.ownedProjectileCounts[projectileType] == 0)
 			{
@@ -173,7 +174,7 @@ namespace OrchidMod.Content.Guardian
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.Text = damageValue + " opposing " + damageWord;
+				tt.Text = damageValue + " opposing damage";
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));

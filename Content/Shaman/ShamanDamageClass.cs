@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shaman
@@ -11,11 +6,6 @@ namespace OrchidMod.Content.Shaman
 	public class ShamanDamageClass : DamageClass
 	{
 		public override bool UseStandardCritCalcs => true;
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("shamanic damage");
-		}
 
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
 		{

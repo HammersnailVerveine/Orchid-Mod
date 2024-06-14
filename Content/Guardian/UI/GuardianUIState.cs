@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.UIs;
+using OrchidMod.Utilities;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ namespace OrchidMod.Content.Guardian.UI
 {
 	public class GuardianUIState : OrchidUIState
 	{
-		public Color backgroundColor = Color.White;
 		public static Texture2D textureBlockOn;
 		public static Texture2D textureBlockOff;
 		public static Texture2D textureSlamOn;
@@ -41,108 +41,103 @@ namespace OrchidMod.Content.Guardian.UI
 			blockOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOn", AssetRequestMode.ImmediateLoad).Value;
 			blockOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOff", AssetRequestMode.ImmediateLoad).Value;
 
-
-			Width.Set(10f, 0f);
-			Height.Set(10f, 0f);
+			Width.Set(0f, 0f);
+			Height.Set(0f, 0f);
 			Left.Set(Main.screenWidth / 2, 0f);
 			Top.Set(Main.screenHeight / 2, 0f);
-			backgroundColor = Color.White;
-
-			Recalculate();
 		}
 
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			Recalculate();
 			Player player = Main.LocalPlayer;
-
-			Vector2 vector = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height - 10 + player.gfxOffY : 10 + player.gfxOffY)).Floor();
-			vector = Vector2.Transform(vector - Main.screenPosition, Main.GameViewMatrix.EffectMatrix * Main.GameViewMatrix.ZoomMatrix) / Main.UIScale;
-
-			this.Left.Set(vector.X, 0f);
-			this.Top.Set(vector.Y, 0f);
-
-			CalculatedStyle dimensions = GetDimensions();
-			Point point = new Point((int)dimensions.X, (int)dimensions.Y + 20);
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 
-			if (!player.dead)
+			if (!player.dead && modPlayer.GuardianDisplayUI > 0)
 			{
-				if (modPlayer.guardianDisplayUI > 0)
+				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+
+				Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height + player.gfxOffY + 12 : 10 + player.gfxOffY)).Floor();
+				position = Vector2.Transform(position - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+
+				int offSet = (int)(modPlayer.GuardianBlockMax / 2f * (textureBlockOn.Width + 2));
+				for (int i = 0; i < modPlayer.GuardianBlockMax; i++)
 				{
-					// Texture = 16*16
-					int offSet = (int)(modPlayer.guardianBlockMax / 2 * 18) + 8;
-					for (int i = 0 ; i < modPlayer.guardianBlockMax ; i ++) {
-						Texture2D texture = modPlayer.guardianBlock > i ? textureBlockOn : textureBlockOff;
-						spriteBatch.Draw(texture, new Vector2(point.X - offSet + 18 * i, point.Y), backgroundColor);
-					}
-					
-					for (int i = 0 ; i < modPlayer.guardianSlamMax ; i ++) {
-						bool check = modPlayer.guardianSlam > i;
-						Texture2D texture = check ? textureSlamOn : textureSlamOff;
-						spriteBatch.Draw(texture, new Vector2(point.X - offSet + 18 * i, point.Y + 18), backgroundColor);
-						if (modPlayer.slamCostUI > i)
-							spriteBatch.Draw(textureSlamHighlight, new Vector2(point.X - offSet - 2 + 18 * i, point.Y + 16), check ? backgroundColor : Color.DarkGray);
-					}
+					Texture2D texture = modPlayer.GuardianBlock > i ? textureBlockOn : textureBlockOff;
+					spriteBatch.Draw(texture, new Vector2(position.X - offSet + (textureBlockOn.Width + 2) * i, position.Y), Color.White);
+				}
 
-					if (modPlayer.holdingHammer)
+				offSet = (int)(modPlayer.GuardianSlamMax / 2f * (textureSlamOn.Width + 2));
+				for (int i = 0; i < modPlayer.GuardianSlamMax; i++)
+				{
+					bool check = modPlayer.GuardianSlam > i;
+					Texture2D texture = check ? textureSlamOn : textureSlamOff;
+					spriteBatch.Draw(texture, new Vector2(position.X - offSet + 18 * i, position.Y + 18), Color.White);
+					if (modPlayer.SlamCostUI > i)
+						spriteBatch.Draw(textureSlamHighlight, new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16), check ? Color.White : Color.DarkGray);
+				}
+
+				if (modPlayer.HoldingHammer)
+				{
+					Vector2 hammerPosition = new Vector2(position.X - textureHammerMain.Width / 2, position.Y - 100);
+					spriteBatch.Draw(textureHammerMain, hammerPosition, Color.White);
+
+					int throwCharge = modPlayer.ThrowLevel();
+					if (throwCharge > 0)
 					{
-						Vector2 hammerPosition = new Vector2(point.X - textureHammerMain.Width / 2, point.Y - 100);
-						spriteBatch.Draw(textureHammerMain, hammerPosition, backgroundColor);
-
-						int throwCharge = modPlayer.ThrowLevel();
-						if (throwCharge > 0)
-						{
-							Vector2 iconPosition = hammerPosition + new Vector2(4, 2);
-							Color color = new Color(87, 220, 0);
-							spriteBatch.Draw(textureHammerIcon, iconPosition, color);
-						}
-
-						if (throwCharge > 1)
-						{
-							Vector2 iconPosition = hammerPosition + new Vector2(16, 2);
-							Color color = new Color(255, 223, 0);
-							spriteBatch.Draw(textureHammerIcon, iconPosition, color);
-						}
-
-						if (throwCharge > 2)
-						{
-							Vector2 iconPosition = hammerPosition + new Vector2(28, 2);
-							Color color = new Color(255, 150, 0);
-							spriteBatch.Draw(textureHammerIcon, iconPosition, color);
-						}
-
-						if (throwCharge > 3)
-						{
-							Vector2 iconPosition = hammerPosition + new Vector2(40, 0);
-							Color color = new Color(255, 27, 0);
-							spriteBatch.Draw(textureHammerIconBig, iconPosition, color);
-						}
+						Vector2 iconPosition = hammerPosition + new Vector2(4, 2);
+						Color color = new Color(87, 220, 0);
+						spriteBatch.Draw(textureHammerIcon, iconPosition, color);
 					}
 
-					int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
-					for (int i = 0 ; i < Main.projectile.Length ; i ++)
+					if (throwCharge > 1)
 					{
-						Projectile proj = Main.projectile[i];
-						if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType && proj.ai[0] > 0f && proj.localAI[0] > 0f)
-						{
-							int val = 22; // 11
-							float block = proj.ai[0];
-							while (block < proj.localAI[0]) 
-							{
-								block += proj.localAI[0] / 20f; // 10f
-								val --;
-							}
+						Vector2 iconPosition = hammerPosition + new Vector2(16, 2);
+						Color color = new Color(255, 223, 0);
+						spriteBatch.Draw(textureHammerIcon, iconPosition, color);
+					}
 
-							Rectangle rectangle = blockOn.Bounds;
-							rectangle.Height = val; // *2
-							rectangle.Y = blockOn.Height - val; // *2
-							spriteBatch.Draw(blockOff, new Vector2(point.X - 10, point.Y - 90), backgroundColor);
-							spriteBatch.Draw(blockOn, new Vector2(point.X - 10, point.Y - 90 + blockOn.Height - val), rectangle, backgroundColor); // val *2
-							return;
-						}
+					if (throwCharge > 2)
+					{
+						Vector2 iconPosition = hammerPosition + new Vector2(28, 2);
+						Color color = new Color(255, 150, 0);
+						spriteBatch.Draw(textureHammerIcon, iconPosition, color);
+					}
+
+					if (throwCharge > 3)
+					{
+						Vector2 iconPosition = hammerPosition + new Vector2(40, 0);
+						Color color = new Color(255, 27, 0);
+						spriteBatch.Draw(textureHammerIconBig, iconPosition, color);
 					}
 				}
+
+				int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
+				for (int i = 0; i < Main.projectile.Length; i++)
+				{
+					Projectile proj = Main.projectile[i];
+					if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType && proj.ai[0] > 0f && proj.localAI[0] > 0f)
+					{
+						int val = 22; // 11
+						float block = proj.ai[0];
+						while (block < proj.localAI[0])
+						{
+							block += proj.localAI[0] / 20f; // 10f
+							val--;
+						}
+
+						Rectangle rectangle = blockOn.Bounds;
+						rectangle.Height = val; // *2
+						rectangle.Y = blockOn.Height - val; // *2
+						spriteBatch.Draw(blockOff, new Vector2(position.X - 10, position.Y - 90), Color.White);
+						spriteBatch.Draw(blockOn, new Vector2(position.X - 10, position.Y - 90 + blockOn.Height - val), rectangle, Color.White); // val *2
+						return;
+					}
+				}
+
+				spriteBatch.End();
+				spriteBatch.Begin(spriteBatchSnapshot);
 			}
 		}
 	}

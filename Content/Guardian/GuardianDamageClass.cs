@@ -12,11 +12,6 @@ namespace OrchidMod.Content.Guardian
 	{
 		public override bool UseStandardCritCalcs => true;
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("opposing damage");
-		}
-
 		public override StatInheritanceData GetModifierInheritance(DamageClass damageClass)
 		{
 			if (damageClass == Generic) return StatInheritanceData.Full;

@@ -13,16 +13,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.height = 28;
 			Item.value = Item.sellPrice(0, 0, 0, 15);
 			Item.rare = ItemRarityID.Blue;
-			Item.UseSound = SoundID.Item1;
+			Item.UseSound = SoundID.Item176;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
 			Item.knockBack = 3f;
-			Item.damage = 25;
+			Item.damage = 38;
 			Item.shoot = ModContent.ProjectileType<Projectiles.Runes.EnchantedRuneProj>();
-			this.cost = 2;
-			this.duration = 3600;
-			this.distance = 140f;
-			this.number = 2;
+			RuneCost = 2;
+			RuneDistance = 140f;
+			RuneNumber = 2;
 		}
 
 		public override void SetStaticDefaults()
@@ -33,8 +32,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 
 		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
 		{
-			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance < 101f ? 101f : distance, number);
-			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance * 0.5f > 95f ? 95f : distance * 0.5f, number);
+			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance < 101f ? 101f : distance, GetNumber(guardian));
+			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance * 0.5f > 95f ? 95f : distance * 0.5f, 2);
 		}
 	}
 }

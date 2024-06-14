@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
@@ -6,22 +7,17 @@ namespace OrchidMod.Content.Guardian.Accessories
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 24;
+			Item.width = 32;
 			Item.height = 28;
-			Item.value = Item.sellPrice(0, 0, 30, 0);
-			Item.rare = -11;
+			Item.value = Item.sellPrice(0, 0, 15, 0);
+			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Guardian Test Accessory");
-			/* Tooltip.SetDefault("Does nothing"
-							+ "\n[c/FF0000:Test Item]"); */
-		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.GetDamage<GuardianDamageClass>() += 0.5f;
+			modPlayer.GuardianSpikeGoblin = true;
 		}
 	}
 }

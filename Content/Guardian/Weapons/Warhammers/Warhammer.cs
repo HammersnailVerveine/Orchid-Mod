@@ -21,24 +21,5 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			this.range = 20;
 			this.blockStacks = 1;
 		}
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Warhammer");
-			// Tooltip.SetDefault("Hurls a heavy hammer");
-		}
-
-		public override bool ThrowAI(Player player, OrchidGuardian guardian, bool weak)
-		{
-			return true;
-		}
-
-		public override void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak)
-		{
-		}
-
-		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak)
-		{
-		}
 	}
 }

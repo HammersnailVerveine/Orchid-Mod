@@ -13,7 +13,7 @@ namespace OrchidMod.Content.Shaman.Misc
 		{
 			Item.width = 24;
 			Item.height = 24;
-			Item.maxStack = 999;
+			Item.maxStack = 9999;
 			Item.value = Item.sellPrice(0, 0, 20, 0);
 			Item.rare = ItemRarityID.Cyan;
 		}

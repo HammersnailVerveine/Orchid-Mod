@@ -31,7 +31,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.aiStyle = -1;
 			Projectile.penetrate = -1;
 			Projectile.scale = 1f;
-			Projectile.timeLeft = 300;
+			Projectile.timeLeft = 600;
 			Projectile.alpha = 256;
 			Projectile.tileCollide = false;
 		}
@@ -75,7 +75,7 @@ namespace OrchidMod.Content.Guardian
 			if (player.dead) Projectile.Kill();
 			if (HammerItem != null)
 			{
-				if (HammerItem.ThrowAI(player, guardian, WeakThrow()))
+				if (HammerItem.ThrowAI(player, guardian, Projectile, WeakThrow()))
 				{
 
 					if (WeakThrow())
@@ -97,9 +97,12 @@ namespace OrchidMod.Content.Guardian
 						float dist = Projectile.Center.Distance(player.Center);
 						Vector2 vel = player.Center - Projectile.Center;
 						vel.Normalize();
+
 						if (range < -40)
 						{
-							vel *= 10f;
+							float mult = 10f;
+							if (Projectile.timeLeft < 500) mult += (500 - Projectile.timeLeft) / 40f;
+							vel *= mult;
 							Projectile.velocity = vel;
 							Projectile.tileCollide = false;
 						}
@@ -164,9 +167,9 @@ namespace OrchidMod.Content.Guardian
 						guardian.AddBlock(HammerItem.blockStacks);
 					}
 					hitTarget = true;
-					HammerItem.OnThrowHitFirst(player, guardian, target, hit.Knockback, hit.Crit, weak);
+					HammerItem.OnThrowHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit, weak);
 				}
-				HammerItem.OnThrowHit(player, guardian, target, hit.Knockback, hit.Crit, weak);
+				HammerItem.OnThrowHit(player, guardian, target, Projectile, hit.Knockback, hit.Crit, weak);
 			}
 
 			if (!penetrate)

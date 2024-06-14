@@ -1,22 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Alchemist;
-using OrchidMod.Content.Dancer;
-using OrchidMod.Content.Gambler;
-using OrchidMod.Content.Shaman;
 using OrchidMod.Content.Guardian;
-using System;
+using OrchidMod.Content.Guardian.Buffs;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
-using OrchidMod.Common;
 
 namespace OrchidMod
 {
@@ -24,94 +13,140 @@ namespace OrchidMod
 	{
 		public OrchidPlayer modPlayer;
 
-		public float guardianRecharge = 1f;
-		public int guardianBlock = 0;
-		public int guardianSlam = 0;
-		public int guardianBlockMax = 3;
-		public int guardianSlamMax = 3;
-		public int guardianBlockRecharge = 0;
-		public int guardianSlamRecharge = 0;
-		public int guardianDisplayUI = 0;
-		public int guardianThrowCharge = 0;
-		public bool guardianThrowDecreasing;
-		public bool holdingHammer;
-		public int slamCostUI = 0;
-		public List<BlockedEnemy> guardianBlockedEnemies = new List<BlockedEnemy>();
-		public List<Projectile> runeProjectiles = new List<Projectile>();
+		// Can be edited by gear
 
-		public static int guardianRechargeTime = 600;
+		public float GuardianRecharge = 1f; // Natural guardian slam/block regeneration multiplier
+		public int GuardianBlockMax = 3; // Max block charges
+		public int GuardianSlamMax = 3; // Max slam charges
+		public int GuardianBonusRune = 0; // Bonus projectiles spawned by runes
+		public float GuardianRuneTimer = 1f; // Rune duration multiplier
+
+		// Set effects, accessories, misc
+
+		public bool GuardianMeteorite = false;
+		public bool GuardianSpikeGoblin = false;
+		public bool GuardianSpikeDungeon = false;
+		public bool GuardianSpikeMechanical = false;
+		public bool GuardianSpikeTemple = false;
+
+		// Dynamic gameplay and UI fields
+
+		public int GuardianBlock = 0;
+		public int GuardianSlam = 0;
+		public int GuardianBlockRecharge = 0;
+		public int GuardianSlamRecharge = 0;
+		public int GuardianDisplayUI = 0;
+		public int GuardianThrowCharge = 0;
+		public bool GuardianThrowDecreasing;
+		public bool HoldingHammer;
+		public bool GuardianHammerDing;
+		public int SlamCostUI = 0;
+		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
+		public List<Projectile> RuneProjectiles = new List<Projectile>();
+
+		public static int GuardianRechargeTime = 600;
 
 		public override void Initialize()
 		{
 			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 		}
 
+		public override void PostUpdate()
+		{
+		}
+
+		public override void PostUpdateEquips()
+		{
+			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>())) Player.GetCritChance<GuardianDamageClass>() += 15;
+		}
 
 		public override void ResetEffects()
 		{
-			if (guardianBlock == guardianBlockMax)
+			if (GuardianBlock == GuardianBlockMax)
 			{
-				guardianBlockRecharge = (int)(guardianRechargeTime * guardianRecharge);
+				GuardianBlockRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
 			}
 
-			if (guardianBlockRecharge == 0)
+			if (GuardianBlockRecharge == 0)
 			{
-				guardianBlock++;
-				guardianBlockRecharge = (int)(guardianRechargeTime * guardianRecharge);
+				GuardianBlock++;
+				GuardianBlockRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
 			}
 
-			if (guardianSlam > 0)
+			if (GuardianSlam > 0)
 			{
-				if (guardianDisplayUI < -300 && guardianSlam > 1)
+				if (GuardianDisplayUI < -300 && GuardianSlam > 1)
 				{
-					guardianSlam = 1;
+					GuardianSlam = 1;
 				}
-				guardianSlamRecharge = (int)(guardianRechargeTime * guardianRecharge);
+				GuardianSlamRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
 			}
 
-			if (guardianSlamRecharge == 0)
+			if (GuardianSlamRecharge == 0)
 			{
-				guardianSlam++;
-				guardianSlamRecharge = (int)(guardianRechargeTime * guardianRecharge);
+				GuardianSlam++;
+				GuardianSlamRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
 			}
 
-			if (holdingHammer)
+			if (HoldingHammer)
 			{
-				guardianThrowCharge += guardianThrowDecreasing ? -4 : 1;
+				GuardianThrowCharge += GuardianThrowDecreasing ? -4 : 1;
 
-				if (guardianThrowCharge > 210)
-					guardianThrowDecreasing = true;
+				if (GuardianThrowCharge >= 180 && !GuardianHammerDing) {
+					GuardianHammerDing = true;
+					SoundEngine.PlaySound(SoundID.MaxMana, Player.Center);
+				}
 
-				if (guardianThrowCharge <= 0)
+				if (GuardianThrowCharge > 210)
+					GuardianThrowDecreasing = true;
+
+				if (GuardianThrowCharge <= 0)
 				{
-					guardianThrowDecreasing = false;
-					guardianThrowCharge = 0;
+					GuardianThrowDecreasing = false;
+					GuardianThrowCharge = 0;
 				}
-			} else guardianThrowCharge = 0;
+			} else GuardianThrowCharge = 0;
 
-			guardianRecharge = 1f;
+			if (GuardianThrowCharge < 180) GuardianHammerDing = false;
 
-			guardianBlockRecharge--;
-			guardianSlamRecharge--;
-			guardianDisplayUI--;
+			GuardianBlockRecharge--;
+			GuardianSlamRecharge--;
+			GuardianDisplayUI--;
 
-			for (int i = guardianBlockedEnemies.Count - 1; i >= 0; i--)
+			for (int i = GuardianBlockedEnemies.Count - 1; i >= 0; i--)
 			{
-				BlockedEnemy blockedEnemy = guardianBlockedEnemies[i];
+				BlockedEnemy blockedEnemy = GuardianBlockedEnemies[i];
 				blockedEnemy.time--;
 				if (blockedEnemy.time < 0)
 				{
-					guardianBlockedEnemies.Remove(blockedEnemy);
+					GuardianBlockedEnemies.Remove(blockedEnemy);
 				}
 			}
 
-			holdingHammer = false;
-			slamCostUI = 0;
+			HoldingHammer = false;
+			SlamCostUI = 0;
+
+			if (GuardianBlock > GuardianBlockMax) GuardianBlock = GuardianBlockMax;
+			if (GuardianSlam > GuardianSlamMax) GuardianSlam = GuardianSlamMax;
+
+			// Resetting equipment variables
+
+			GuardianRecharge = 1f;
+			GuardianBlockMax = 3;
+			GuardianSlamMax = 3;
+			GuardianBonusRune = 0;
+			GuardianRuneTimer = 1f;
+
+			GuardianMeteorite = false;
+			GuardianSpikeGoblin = false;
+			GuardianSpikeDungeon = false;
+			GuardianSpikeMechanical = false;
+			GuardianSpikeTemple = false;
 		}
 
 		public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
 		{
-			foreach (BlockedEnemy blockedEnemy in guardianBlockedEnemies)
+			foreach (BlockedEnemy blockedEnemy in GuardianBlockedEnemies)
 			{
 				if (blockedEnemy.npc.whoAmI == npc.whoAmI)
 				{
@@ -123,22 +158,34 @@ namespace OrchidMod
 
 		public void AddSlam(int nb)
 		{
-			this.guardianSlam += nb;
-			if (guardianSlam > guardianSlamMax) guardianSlam = guardianSlamMax;
+			if (GuardianSlam + nb > GuardianSlamMax) nb = GuardianSlamMax - GuardianSlam;
+			if (nb > 0)
+			{
+				Rectangle rect = Player.Hitbox;
+				rect.Y -= 64;
+				CombatText.NewText(rect, Color.LightCyan, "+" + nb + " slam" + (nb > 1 ? "s" : ""), false, true);
+				GuardianSlam += nb;
+			}
 		}
 
 		public void AddBlock(int nb)
 		{
-			this.guardianBlock += nb;
-			if (guardianBlock > guardianBlockMax) guardianBlock = guardianBlockMax;
+			if (GuardianBlock + nb > GuardianBlockMax) nb = GuardianBlockMax - GuardianBlock;
+			if (nb > 0)
+			{
+				Rectangle rect = Player.Hitbox;
+				rect.Y -= 64;
+				CombatText.NewText(rect, Color.LightSkyBlue, "+" + nb + " block" + (nb > 1 ? "s" : ""), false, true);
+				GuardianBlock += nb;
+			}
 		}
 
 		public int ThrowLevel()
 		{
-			if (guardianThrowCharge < 45) return 0;
-			if (guardianThrowCharge < 90) return 1;
-			if (guardianThrowCharge < 135) return 2;
-			if (guardianThrowCharge < 180) return 3;
+			if (GuardianThrowCharge < 45) return 0;
+			if (GuardianThrowCharge < 90) return 1;
+			if (GuardianThrowCharge < 135) return 2;
+			if (GuardianThrowCharge < 180) return 3;
 			return 4;
 		}
 	}

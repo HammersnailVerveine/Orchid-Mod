@@ -25,27 +25,6 @@ namespace OrchidMod
 
 		public override bool InstancePerEntity => true;
 
-		public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
-		{
-			OrchidPlayer modPlayer = target.GetModPlayer<OrchidPlayer>();
-			if (modPlayer.generalTools && !target.HasBuff(BuffType<Content.Buffs.Debuffs.ToolSetBuff>()))
-			{
-				List<int> trapProjTypes = new List<int>();
-				trapProjTypes.Add(98); // Dart
-				trapProjTypes.Add(99); // Boulder
-				trapProjTypes.Add(186); // Super Dart
-				trapProjTypes.Add(185); // Spiky Ball
-				trapProjTypes.Add(184); // Spear
-				trapProjTypes.Add(727); // Rolling cactus
-
-				if (trapProjTypes.Contains(projectile.type))
-				{
-					target.AddBuff(BuffType<Content.Buffs.Debuffs.ToolSetBuff>(), 60 * 30);
-					projectile.damage = (int)(projectile.damage * 0.1f);
-				}
-			}
-		}
-
 		public override bool? CanHitNPC(Projectile projectile, NPC target)
 		{
 			OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();

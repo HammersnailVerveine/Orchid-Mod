@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Utilities.WorldgenArrays;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -87,7 +86,12 @@ namespace OrchidMod.Content.NPCs.Town
 				}
 			}
 		}
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		{
+			return 0f;
+		}
 
+		/*
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			bool foundNPC = (NPC.FindFirstNPC(ModContent.NPCType<Chemist>()) + NPC.FindFirstNPC(ModContent.NPCType<BoundChemist>())) > 0;
@@ -108,6 +112,7 @@ namespace OrchidMod.Content.NPCs.Town
 
 			return !OrchidWorld.foundChemist && !foundNPC && inMineshaft ? 5f : 0f;
 		}
+		*/
 
 		/*
 		private void CreateMoodTranslationBasedOnChemist()

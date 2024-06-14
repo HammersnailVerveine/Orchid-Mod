@@ -17,8 +17,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.useTime = 45;
 			Item.knockBack = 8f;
 			Item.shootSpeed = 9f;
-			Item.damage = 53;
-			this.range = 35;
+			Item.damage = 63;
+			this.range = 25;
 			this.blockStacks = 1;
 		}
 
@@ -26,19 +26,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			// DisplayName.SetDefault("Platinum Warhammer");
 			// Tooltip.SetDefault("Hurls a heavy hammer");
-		}
-
-		public override bool ThrowAI(Player player, OrchidGuardian guardian, bool weak)
-		{
-			return true;
-		}
-
-		public override void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak)
-		{
-		}
-
-		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak)
-		{
 		}
 
 		public override void AddRecipes()

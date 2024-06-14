@@ -13,22 +13,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.height = 28;
 			Item.value = Item.sellPrice(0, 0, 0, 15);
 			Item.rare = ItemRarityID.White;
-			Item.UseSound = SoundID.Item1;
+			Item.UseSound = SoundID.Item176;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
 			Item.knockBack = 5f;
-			Item.damage = 15;
+			Item.damage = 21;
 			Item.shoot = ModContent.ProjectileType<Projectiles.Runes.LivingRuneProj>();
-			this.cost = 2;
-			this.duration = 3600;
-			this.distance = 120f;
-			this.number = 2;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Living Rune");
-			// Tooltip.SetDefault("Summons sap bubbles around you");
+			RuneCost = 1;
+			RuneDistance = 120f;
+			RuneNumber = 2;
 		}
 	}
 }

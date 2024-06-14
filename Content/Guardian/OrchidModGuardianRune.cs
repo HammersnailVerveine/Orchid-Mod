@@ -13,14 +13,17 @@ namespace OrchidMod.Content.Guardian
 {
 	public abstract class OrchidModGuardianRune : OrchidModGuardianItem
 	{
-		public int cost;
-		public int duration;
-		public float distance;
-		public int number;
+		public int RuneCost;
+		public int RuneDuration;
+		public float RuneDistance;
+		public int RuneNumber;
+
+		public int GetNumber(Player player) => RuneNumber + player.GetModPlayer<OrchidGuardian>().GuardianBonusRune;
+		public int GetNumber(OrchidGuardian guardian) => RuneNumber + guardian.GuardianBonusRune;
 
 		public virtual void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
 		{
-			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, number);
+			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, GetNumber(guardian));
 		}
 
 		public sealed override void SetDefaults()
@@ -34,10 +37,10 @@ namespace OrchidMod.Content.Guardian
 			Item.useAnimation = 30;
 			Item.useTime = 30;
 			Item.shootSpeed = 00f;
-			cost = 1;
-			duration = 60;
-			distance = 10f;
-			number = 1;
+			RuneCost = 1;
+			RuneDuration = 3600;
+			RuneDistance = 100f;
+			RuneNumber = 1;
 
 			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
 			orchidItem.guardianWeapon = true;
@@ -48,17 +51,18 @@ namespace OrchidMod.Content.Guardian
 		public sealed override void HoldItem(Player player)
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
-			guardian.guardianDisplayUI = 300;
-			guardian.slamCostUI = cost;
+			guardian.GuardianDisplayUI = 300;
+			guardian.SlamCostUI = RuneCost;
 		}
 
 		public override bool? UseItem(Player player)
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
-			guardian.guardianSlam -= cost;
-			foreach (Projectile projectile in guardian.runeProjectiles)
+			guardian.GuardianSlam -= RuneCost;
+			foreach (Projectile projectile in guardian.RuneProjectiles)
 				projectile.Kill();
-			Activate(player, guardian, Item.shoot, Item.damage, Item.knockBack, Item.crit + (int)player.GetCritChance<GuardianDamageClass>(), duration, distance, number);
+			int crit = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
+			Activate(player, guardian, Item.shoot, (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage), Item.knockBack, crit, (int)(RuneDuration * guardian.GuardianRuneTimer), RuneDistance, RuneNumber);
 			return true;
 		}
 
@@ -69,7 +73,7 @@ namespace OrchidMod.Content.Guardian
 		
 		public override bool CanUseItem(Player player)
 		{
-			if (player.GetModPlayer<OrchidGuardian>().guardianSlam < cost)
+			if (player.GetModPlayer<OrchidGuardian>().GuardianSlam < RuneCost)
 				return false;
 			return base.CanUseItem(player);
 		}
@@ -87,29 +91,29 @@ namespace OrchidMod.Content.Guardian
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.Text = damageValue + " opposing " + damageWord;
+				tt.Text = damageValue + " opposing damage";
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback")); // "UseMana"
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "UseSlams", "Uses " + this.cost + " shield slams"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "UseSlams", "Uses " + this.RuneCost + " shield slams"));
 		}
 
-		public Projectile NewRuneProjectile(Player player, OrchidGuardian guardian, int duration, int type, int damage, float knockback, int critChance, float distance = 0f, float angle = 0f)
+		public Projectile NewRuneProjectile(Player player, OrchidGuardian guardian, int duration, int type, int damage, float knockback, int critChance, float distance = 0f, float angle = 0f, float ai2 = 0f)
 		{
-			Projectile projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center, Vector2.Zero, type, damage, knockback, player.whoAmI, distance, angle)];
+			Projectile projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center, Vector2.Zero, type, damage, knockback, player.whoAmI, distance, angle, ai2)];
 			projectile.timeLeft = duration;
 			projectile.CritChance = critChance;
 			projectile.netUpdate = true;
-			guardian.runeProjectiles.Add(projectile);
+			guardian.RuneProjectiles.Add(projectile);
 			return projectile;
 		}
 
-		public List<Projectile> NewRuneProjectiles(Player player, OrchidGuardian guardian, int duration, int type, int damage, float knockback, int critChance, float distance, int number, float angle = 0f)
+		public List<Projectile> NewRuneProjectiles(Player player, OrchidGuardian guardian, int duration, int type, int damage, float knockback, int critChance, float distance, int number, float angle = 0f, float ai2 = 0f)
 		{
 			List<Projectile> projectiles = new List<Projectile>();
 
 			for (int i = 0; i < number; i++)
-				projectiles.Add(NewRuneProjectile(player, guardian, duration, type, damage, knockback, critChance, distance, angle + (360 / number) * i));
+				projectiles.Add(NewRuneProjectile(player, guardian, duration, type, damage, knockback, critChance, distance, angle + (360 / number) * i, ai2));
 			return projectiles;
 		}
 	}

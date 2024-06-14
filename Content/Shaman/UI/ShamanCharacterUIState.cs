@@ -84,7 +84,7 @@ namespace OrchidMod.Content.Shaman.UI
 				spriteBatch.End();
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
-				int offSetY = (modPlayer.modPlayer.modPlayerAlchemist.alchemistPotencyDisplayTimer > 0 || modPlayer.modPlayer.modPlayerGuardian.guardianDisplayUI > 0) ? 60 : 20;
+				int offSetY = (modPlayer.modPlayer.modPlayerAlchemist.alchemistPotencyDisplayTimer > 0 || modPlayer.modPlayer.modPlayerGuardian.GuardianDisplayUI > 0) ? 60 : 20;
 
 				spriteBatch.Draw(SymbolWaterEmpty, new Rectangle(point.X - 39, point.Y + offSetY, 14, 16), backgroundColor);
 				spriteBatch.Draw(SymbolFireEmpty, new Rectangle(point.X - 25, point.Y + 10 + offSetY, 14, 16), backgroundColor);

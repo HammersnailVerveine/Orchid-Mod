@@ -17,9 +17,9 @@ namespace OrchidMod.Content.Guardian
 		public int blockStacks;
 		public bool penetrate;
 		public bool tileCollide;
-		public virtual void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak) { }
-		public virtual void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, float knockback, bool crit, bool Weak) { }
-		public virtual bool ThrowAI(Player player, OrchidGuardian guardian, bool Weak) => true;
+		public virtual void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { }
+		public virtual void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { }
+		public virtual bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak) => true;
 
 		public sealed override void SetDefaults()
 		{
@@ -48,8 +48,8 @@ namespace OrchidMod.Content.Guardian
 		public sealed override void HoldItem(Player player)
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
-			guardian.guardianDisplayUI = 300;
-			guardian.holdingHammer = true;
+			guardian.GuardianDisplayUI = 300;
+			guardian.HoldingHammer = true;
 		}
 
 		public override bool? UseItem(Player player)
@@ -59,21 +59,23 @@ namespace OrchidMod.Content.Guardian
 			Vector2 dir = Main.MouseWorld - player.Center;
 			dir.Normalize();
 			Projectile projectile;
-			if (guardian.guardianThrowCharge >= 180) {
+			int damage = (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage);
+			if (guardian.GuardianThrowCharge >= 180) {
 				dir *= Item.shootSpeed;
-				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center + dir, dir, projType, Item.damage, Item.knockBack, player.whoAmI)];
+				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center + dir, dir, projType, damage, Item.knockBack, player.whoAmI)];
 			} 
 			else
 			{
 				dir *= Item.shootSpeed * (0.3f * (guardian.ThrowLevel() + 2) / 3);
-				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center + dir, dir, projType, (int)Item.damage / 3, Item.knockBack / 3f, player.whoAmI)];
+				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center + dir, dir, projType, (int)(damage / 3f), Item.knockBack / 3f, player.whoAmI)];
 				projectile.ai[0] = 1f;
 			}
-			projectile.CritChance = Item.crit + (int)player.GetCritChance<GuardianDamageClass>();
+
+			projectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 			projectile.rotation = dir.ToRotation();
 			projectile.direction = projectile.spriteDirection;
 			projectile.netUpdate = true;
-			guardian.guardianThrowCharge = 0;
+			guardian.GuardianThrowCharge = 0;
 			return true;
 		}
 		
@@ -93,12 +95,12 @@ namespace OrchidMod.Content.Guardian
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.Text = damageValue + " opposing " + damageWord;
+				tt.Text = damageValue + " opposing damage";
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			if (blockStacks > 0) {
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.blockStacks + " shield blocks")
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.blockStacks + " shield block" + (this.blockStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
@@ -106,7 +108,7 @@ namespace OrchidMod.Content.Guardian
 
 			if (slamStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.blockStacks + " shield slams")
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.slamStacks + " shield slam" + (this.slamStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});

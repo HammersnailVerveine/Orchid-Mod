@@ -1,8 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Content.Guardian.Buffs;
+using OrchidMod.Content.Guardian.Projectiles.Misc;
 using System;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,12 +16,12 @@ namespace OrchidMod.Content.Guardian
 	{
 		public int SelectedItem { get; set; } = -1;
 		public Item ShieldItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
-		
+
 		public float bashDistanceRef = 0f;
 		public bool shieldEffectReady = true;
 		public Vector2 aimedLocation = Vector2.Zero;
 		public Vector2 oldOwnerPos = Vector2.Zero;
-		
+
 		public Vector2 hitbox = Vector2.Zero;
 		public Vector2 hitboxOrigin = Vector2.Zero;
 
@@ -37,11 +40,13 @@ namespace OrchidMod.Content.Guardian
 			Projectile.penetrate = -1;
 			Projectile.netImportant = true;
 			Projectile.alpha = 255;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 10;
 		}
 
 		public void OnChangeSelectedItem(Player owner)
 		{
-			this.SelectedItem = owner.selectedItem;
+			SelectedItem = owner.selectedItem;
 			Projectile.ai[0] = 0f;
 			Projectile.ai[1] = 0f;
 			Projectile.netUpdate = true;
@@ -63,92 +68,148 @@ namespace OrchidMod.Content.Guardian
 				return;
 			}
 
-			var item = this.ShieldItem;
+			var item = ShieldItem;
 			if (item == null || !(item.ModItem is OrchidModGuardianShield guardianItem))
 			{
 				Projectile.Kill();
 				return;
 			}
 
-			if (this.SelectedItem < 0 || !(owner.HeldItem.ModItem is OrchidModGuardianShield))
+			if (SelectedItem < 0 || !(owner.HeldItem.ModItem is OrchidModGuardianShield))
 			{
 				Projectile.netUpdate = true;
 				death = true;
 			}
-			
+
 			if (!death)
 			{
 				float addedDistance = 0f;
-				if (Projectile.ai[1] > 0f) { // Shield bash
-				
-					if (bashDistanceRef == 0f) {
+				if (Projectile.ai[1] > 0f)
+				{ // Shield bash
+
+					if (bashDistanceRef == 0f)
+					{
 						bashDistanceRef = Projectile.ai[1] / 2;
 						Projectile.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
-						Projectile.CritChance = (int)owner.GetCritChance<GuardianDamageClass>() +guardianItem.Item.crit;
+						Projectile.CritChance = (int)(Main.player[Projectile.owner].GetCritChance<GuardianDamageClass>() + Main.player[Projectile.owner].GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.friendly = true;
 						guardianItem.Slam(owner, Projectile);
 					}
-					
-					for (int k = 0; k < Main.maxNPCs ; k++)
+
+					for (int k = 0; k < Main.maxNPCs; k++)
 					{
 						NPC target = Main.npc[k];
 						if (target.active && !target.dontTakeDamage && !target.friendly && Projectile.Hitbox.Intersects(target.Hitbox))
 						{
 							guardianItem.SlamHit(owner, Projectile, target);
-							if (this.shieldEffectReady) {
+							if (shieldEffectReady)
+							{
 								guardianItem.SlamHitFirst(owner, Projectile, target);
-								this.shieldEffectReady = false;
+								shieldEffectReady = false;
 							}
 						}
 					}
-					
-					if (Projectile.ai[1] > bashDistanceRef) {
+
+					if (Projectile.ai[1] > bashDistanceRef)
+					{
 						addedDistance = bashDistanceRef * 2 - Projectile.ai[1];
-					} else {
+					}
+					else
+					{
 						addedDistance = Projectile.ai[1];
 					}
-					
+
 					Projectile.ai[1] -= (bashDistanceRef * 2) / guardianItem.Item.useTime;
 					Projectile.ai[1] = Projectile.ai[1] > 0f ? Projectile.ai[1] : 0f;
-				} else {
+				}
+				else
+				{
 					bashDistanceRef = 0f;
 					Projectile.friendly = false;
 				}
-				
-				
-			
-				if (Projectile.ai[0] > 0f) {
+
+				if (Projectile.ai[0] > 0f)
+				{
 					aimedLocation += owner.Center - oldOwnerPos;
-					Point p1 = new Point((int)this.hitboxOrigin.X, (int)this.hitboxOrigin.Y);
-					Point p2 = new Point((int)(this.hitboxOrigin.X + this.hitbox.X), (int)(this.hitboxOrigin.Y + this.hitbox.Y));
+					Point p1 = new Point((int)hitboxOrigin.X, (int)hitboxOrigin.Y);
+					Point p2 = new Point((int)(hitboxOrigin.X + hitbox.X), (int)(hitboxOrigin.Y + hitbox.Y));
 
 					OrchidGuardian modPlayer = owner.GetModPlayer<OrchidGuardian>();
-					modPlayer.guardianSlamRecharge = (int)(OrchidGuardian.guardianRechargeTime * modPlayer.guardianRecharge);
-					
+					modPlayer.GuardianSlamRecharge = (int)(OrchidGuardian.GuardianRechargeTime * modPlayer.GuardianRecharge);
+
 					for (int l = 0; l < Main.projectile.Length; l++)
 					{
 						Projectile proj = Main.projectile[l];
-						if (proj.active && proj.hostile && this.LineIntersectsRect(p1, p2, proj.Hitbox))
+						if (proj.active && proj.hostile && proj.damage > 0)
 						{
-							guardianItem.Block(owner, Projectile, proj);
-							if (this.shieldEffectReady) {
-								guardianItem.Protect(owner, Projectile);
-								this.shieldEffectReady = false;
+							if (LineIntersectsRect(p1, p2, proj.Hitbox) || proj.Hitbox.Intersects(Projectile.Hitbox))
+							{
+								guardianItem.Block(owner, Projectile, proj);
+								if (shieldEffectReady)
+								{
+									int toAdd = 1;
+									if (modPlayer.GuardianMeteorite && Main.rand.NextBool(2)) toAdd++;
+									modPlayer.AddSlam(toAdd);
+									guardianItem.Protect(owner, Projectile);
+									shieldEffectReady = false;
+									SoundEngine.PlaySound(SoundID.Item37, owner.Center);
+								}
+								proj.Kill();
+								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
+
+								if (modPlayer.GuardianSpikeDungeon)
+								{
+									int type = ModContent.ProjectileType<WaterSpikeProj>();
+									Vector2 dir = Vector2.Normalize(Projectile.Center - owner.Center) * 10f;
+									int damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(30); // Duplicate changes in the Dungeon Spike item
+									Projectile projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir, type, damage, 1f, owner.whoAmI);
+									projectile.CritChance = (int)(Main.player[Projectile.owner].GetCritChance<GuardianDamageClass>() + Main.player[Projectile.owner].GetCritChance<GenericDamageClass>());
+								}
+
+								if (modPlayer.GuardianSpikeTemple || modPlayer.GuardianSpikeMechanical)
+								{
+									owner.AddBuff(ModContent.BuffType<GuardianSpikeBuff>(), 600);
+								}
 							}
 						}
 					}
-					
-					for (int k = 0; k < Main.maxNPCs ; k++)
+
+					for (int k = 0; k < Main.maxNPCs; k++)
 					{
 						NPC target = Main.npc[k];
 						if (target.active && !target.dontTakeDamage && !target.friendly && this.LineIntersectsRect(p2, p1, target.Hitbox))
 						{
-							//int blockDuration = projectile.ai[0] > 60f ? (int)projectile.ai[0] : 60;
-							modPlayer.guardianBlockedEnemies.Add(new BlockedEnemy(target, (int)Projectile.ai[0] + 60));
-							
-							if (target.knockBackResist > 0f) 
-							{								
+							bool contained = false;
+							foreach(BlockedEnemy blockedEnemy in modPlayer.GuardianBlockedEnemies)
+							{
+								if (blockedEnemy.npc == target)
+								{ // Enemy alrady blocked, reset the timer
+									blockedEnemy.time = (int)Projectile.ai[0] + 60;
+									contained = true;
+									break;
+								}
+							}
+
+							if (!contained)
+							{ // First time blocking an enemy
+								modPlayer.GuardianBlockedEnemies.Add(new BlockedEnemy(target, (int)Projectile.ai[0] + 60));
+								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
+								if (modPlayer.GuardianSpikeGoblin)
+								{
+									float damage = owner.statDefense;
+									if (modPlayer.GuardianSpikeTemple) damage *= 3f;
+									else if (modPlayer.GuardianSpikeMechanical) damage *= 2.5f;
+									else if (modPlayer.GuardianSpikeDungeon) damage *= 1.5f;
+
+									damage = owner.GetDamage<GuardianDamageClass>().ApplyTo(damage);
+									bool crit = Main.rand.NextFloat(100) < Projectile.CritChance;
+									owner.ApplyDamageToNPC(target, (int)damage, 0f, owner.direction, crit, ModContent.GetInstance<GuardianDamageClass>());
+								}
+							}
+
+							if (target.knockBackResist > 0f)
+							{ // Push enemy if possible
 								Vector2 push = Projectile.Center - owner.Center;
 								push.Normalize();
 								push += owner.Center - oldOwnerPos;
@@ -156,22 +217,26 @@ namespace OrchidMod.Content.Guardian
 							}
 
 							guardianItem.Push(owner, Projectile, target);
-							if (this.shieldEffectReady)
-							{
-								modPlayer.AddSlam(1);
+							if (shieldEffectReady)
+							{ // First parry stuff
+								int toAdd = 1;
+								if (modPlayer.GuardianMeteorite && Main.rand.NextBool(2)) toAdd++;
+								modPlayer.AddSlam(toAdd);
 								guardianItem.Protect(owner, Projectile);
-								this.shieldEffectReady = false;
+								shieldEffectReady = false;
+								SoundEngine.PlaySound(SoundID.Item37, owner.Center);
 							}
 						}
 					}
-					
+
 					Projectile.ai[0] -= 1f;
 					Projectile.ai[0] = Projectile.ai[0] > 0f ? Projectile.ai[0] : 0f;
-					
-					if (Projectile.ai[0] == 0f) {
-						this.spawnDusts();
+
+					if (Projectile.ai[0] == 0f)
+					{
+						spawnDusts();
 					}
-				} 
+				}
 				else
 				{
 					if (Main.myPlayer == Projectile.owner)
@@ -225,13 +290,12 @@ namespace OrchidMod.Content.Guardian
 				this.UpdateHitbox();
 				//this.SeeHitbox();
 			}
-			
-			this.oldOwnerPos = owner.Center;
+
+			oldOwnerPos = owner.Center;
 			guardianItem.ExtraAIShield(Projectile, true);
 		}
-		
+
 		// https://stackoverflow.com/questions/5514366/how-to-know-if-a-line-intersects-a-rectangle
-		// Laziness kicking in, might redo with Cohen-Sutherland algorithm
 		public bool LineIntersectsRect(Point p1, Point p2, Rectangle r)
 		{
 			return LineIntersectsLine(p1, p2, new Point(r.X, r.Y), new Point(r.X + r.Width, r.Y)) ||
@@ -246,7 +310,7 @@ namespace OrchidMod.Content.Guardian
 			float q = (l1p1.Y - l2p1.Y) * (l2p2.X - l2p1.X) - (l1p1.X - l2p1.X) * (l2p2.Y - l2p1.Y);
 			float d = (l1p2.X - l1p1.X) * (l2p2.Y - l2p1.Y) - (l1p2.Y - l1p1.Y) * (l2p2.X - l2p1.X);
 
-			if( d == 0 )
+			if (d == 0)
 			{
 				return false;
 			}
@@ -256,38 +320,43 @@ namespace OrchidMod.Content.Guardian
 			q = (l1p1.Y - l2p1.Y) * (l1p2.X - l1p1.X) - (l1p1.X - l2p1.X) * (l1p2.Y - l1p1.Y);
 			float s = q / d;
 
-			if( r < 0 || r > 1 || s < 0 || s > 1 )
+			if (r < 0 || r > 1 || s < 0 || s > 1)
 			{
 				return false;
 			}
 
 			return true;
 		}
-		// end of Stackoverflow code :P
-		
-		public void UpdateHitbox() {
+		// end of Stackoverflow code
+
+		public void UpdateHitbox()
+		{
 			this.hitboxOrigin = Projectile.Center + Vector2.UnitY * Projectile.gfxOffY;
 			this.hitboxOrigin -= new Vector2(0f, Projectile.height / 2f).RotatedBy(Projectile.rotation);
 			hitboxOrigin -= new Vector2(4f, 4f);
-			
+
 			this.hitbox = new Vector2(0f, Projectile.height).RotatedBy(Projectile.rotation);
 		}
-		
-		public void SeeHitbox() {
+
+		public void SeeHitbox()
+		{
 			Vector2 vector = this.hitbox;
 			vector.Normalize();
-			for (int i = 0; i < this.hitbox.Length() ; i ++) {
+			for (int i = 0; i < this.hitbox.Length(); i++)
+			{
 				Vector2 pos = this.hitboxOrigin + vector * i;
 				Dust dust = Main.dust[Dust.NewDust(pos, 0, 0, 6)];
 				dust.velocity *= 0f;
 				dust.noGravity = true;
 			}
 		}
-		
-		public void spawnDusts() {						
+
+		public void spawnDusts()
+		{
 			int dustType = 31;
 			Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
-			for (int i = 0 ; i < 5 ; i ++) {
+			for (int i = 0; i < 5; i++)
+			{
 				Main.dust[Dust.NewDust(pos, 20, 20, dustType)].velocity *= 0.25f;
 			}
 		}
@@ -298,6 +367,10 @@ namespace OrchidMod.Content.Guardian
 			{
 				Main.dust[Dust.NewDust(Projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.25f;
 			}
+		}
+
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
 		}
 
 		public override bool? CanCutTiles() => false;
@@ -315,8 +388,9 @@ namespace OrchidMod.Content.Guardian
 				var texture = ModContent.Request<Texture2D>(guardianItem.ShieldTexture).Value;
 				var position = Projectile.Center - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-				
-				Projectile.width = texture.Width;
+
+				//Projectile.width = texture.Width;
+				Projectile.width = texture.Height;
 				Projectile.height = texture.Height;
 				float colorMult = (Projectile.ai[1] + Projectile.ai[0] > 0 ? 1f : (0.4f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 120f)));
 				spriteBatch.Draw(texture, position, null, color * colorMult, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);

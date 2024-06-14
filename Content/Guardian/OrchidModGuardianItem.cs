@@ -37,7 +37,7 @@ namespace OrchidMod.Content.Guardian
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
 				string damageWord = splitText.Last();
-				tt.Text = damageValue + " opposing " + damageWord;
+				tt.Text = damageValue + " opposing damage";
 			}
 		}
 	}

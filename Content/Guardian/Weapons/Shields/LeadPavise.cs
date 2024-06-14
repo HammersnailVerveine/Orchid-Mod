@@ -14,13 +14,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 7f;
-			Item.damage = 17;
+			Item.damage = 28;
 			Item.rare = ItemRarityID.White;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
-			this.distance = 35f;
-			this.bashDistance = 90f;
-			this.blockDuration = 80;
+			distance = 35f;
+			bashDistance = 90f;
+			blockDuration = 80;
 		}
 
 		public override void SetStaticDefaults()

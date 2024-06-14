@@ -29,7 +29,7 @@ namespace OrchidMod.Content.Guardian.Projectiles
 			SafeSetDefaults();
 		}
 
-		public override void OnSpawn(IEntitySource source)
+		public sealed override void OnSpawn(IEntitySource source)
 		{
 			owner = Main.player[Projectile.owner];
 			guardian = owner.GetModPlayer<OrchidGuardian>();
@@ -45,7 +45,7 @@ namespace OrchidMod.Content.Guardian.Projectiles
 			{
 				Vector2 position = new Vector2(0f, Projectile.ai[0]);
 				position = position.RotatedBy(MathHelper.ToRadians(Projectile.ai[1]));
-				Projectile.position = owner.Center + position;
+				Projectile.position = owner.Center + position - new Vector2(Projectile.width, Projectile.height) * 0.5f;
 			}
 		}
 	}

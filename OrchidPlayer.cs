@@ -1,22 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Alchemist;
-using OrchidMod.Content.Dancer;
-using OrchidMod.Content.Gambler;
-using OrchidMod.Content.Shaman;
-using OrchidMod.Content.Guardian;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameInput;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
-using OrchidMod.Common;
 
 namespace OrchidMod
 {
@@ -28,9 +13,7 @@ namespace OrchidMod
 		public OrchidDancer modPlayerDancer;
 		public OrchidGuardian modPlayerGuardian;
 
-		public bool hauntedCandle = false;
 		public bool remoteCopterPet = false;
-		public bool spawnedGhost = false;
 		public int originalSelectedItem;
 		public bool autoRevertSelectedItem = false;
 
@@ -78,13 +61,6 @@ namespace OrchidMod
 			}
 		}
 
-		public override void PostUpdateEquips()
-		{
-			//this.updateBuffEffects();
-			//this.updateItemEffects();
-			this.CheckWoodBreak(Player);
-		}
-
 		public override void ResetEffects()
 		{
 			Timer++;
@@ -102,9 +78,6 @@ namespace OrchidMod
 				Player.selectedItem = keepSelected;
 				this.keepSelected = -1;
 			}
-
-			hauntedCandle = false;
-			spawnedGhost = false;
 		}
 
 		public void TryHeal(int amount)
@@ -120,28 +93,6 @@ namespace OrchidMod
 				{
 					Player.HealEffect(amount, true);
 					Player.statLife += amount;
-				}
-			}
-		}
-
-		public void CheckWoodBreak(Player player)
-		{ // From Vanilla Source
-			if (player.velocity.Y <= 1f || this.generalTools)
-				return;
-			Vector2 vector2 = player.position + player.velocity;
-			int num1 = (int)(vector2.X / 16.0);
-			int num2 = (int)((vector2.X + (double)player.width) / 16.0);
-			int num3 = (int)((player.position.Y + (double)player.height + 1.0) / 16.0);
-			for (int i = num1; i <= num2; ++i)
-			{
-				for (int j = num3; j <= num3 + 1; ++j)
-				{
-					if (Main.tile[i, j].HasUnactuatedTile && (int)Main.tile[i, j].TileType == TileType<Content.Tiles.Ambient.FragileWood>() && !WorldGen.SolidTile(i, j - 1))
-					{
-						WorldGen.KillTile(i, j, false, false, false);
-						// if (Main.netMode == 1)
-						// NetMessage.SendData(17, -1, -1, (NetworkText) null, 0, (float) i, (float) j, 0.0f, 0, 0, 0);
-					}
 				}
 			}
 		}

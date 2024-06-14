@@ -17,23 +17,21 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 7f;
-			Item.damage = 25;
+			Item.damage = 29;
 			Item.rare = ItemRarityID.Blue;
 			Item.useAnimation = 25;
 			Item.useTime = 25;
-			this.distance = 40f;
-			this.bashDistance = 110f;
-			this.blockDuration = 100;
+			distance = 40f;
+			bashDistance = 110f;
+			blockDuration = 100;
 		}
 
 		public override void Slam(Player player, Projectile shield)
 		{
 			Projectile anchor = GetAnchor(player).Projectile;
 			int type = ModContent.ProjectileType<EnchantedPaviseProj>();
-			Vector2 dir = anchor.Center - player.Center;
-			dir.Normalize();
-			dir *= 0.1f;
-			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(Item.damage * 0.75f), Item.knockBack, player.whoAmI);
+			Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * 0.1f;
+			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.75f), Item.knockBack, player.whoAmI);
 		}
 	}
 }

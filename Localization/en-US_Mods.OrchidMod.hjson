@@ -4,13 +4,13 @@ Keybinds: {
 }
 
 Tiles: {
-	JungleLilyTile.MapEntry: Jungle Lily Tile
-	MinersLockboxTile.MapEntry: Miners Lockbox Tile
-	ShamanBiomeChestTile.MapEntry: Shaman Biome Chest Tile
-	MineshaftPickaxeTile.MapEntry: Mineshaft Pickaxe Tile
+	JungleLilyTile.MapEntry: Jungle Lily
+	MinersLockboxTile.MapEntry: Miners Lockbox
+	ShamanBiomeChestTile.MapEntry: Mushroom Chest
+	MineshaftPickaxeTile.MapEntry: Mineshaft Pickaxe
 	MineshaftCrate.MapEntry: Mineshaft Crate
-	MineshaftHookTile.MapEntry: Mineshaft Hook Tile
-	MineshaftToolboxTile.MapEntry: Mineshaft Toolbox Tile
+	MineshaftHookTile.MapEntry: Mineshaft Hook
+	MineshaftToolboxTile.MapEntry: Mineshaft Toolbox
 }
 
 Buffs: {
@@ -283,6 +283,11 @@ Buffs: {
 		Description: Mods.OrchidMod.Buffs.AttractiteAuraSmall.Description
 		DisplayName: Attractite Aura Small
 	}
+
+	GuardianSpikeBuff: {
+		DisplayName: Guardian Spike Buff
+		Description: Mods.OrchidMod.Buffs.GuardianSpikeBuff.Description
+	}
 }
 
 Items: {
@@ -432,17 +437,17 @@ Items: {
 	}
 
 	UIItem: {
-		DisplayName: U I Item
+		DisplayName: UI Item
 		Tooltip: ""
 	}
 
 	UIItemKeys: {
-		DisplayName: U I Item Keys
+		DisplayName: UI Item Keys
 		Tooltip: ""
 	}
 
 	UIItemNew: {
-		DisplayName: U I Item New
+		DisplayName: UI Item New
 		Tooltip: ""
 	}
 
@@ -1046,11 +1051,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	GoblinSpike: {
-		DisplayName: Goblin Spike
-		Tooltip: ""
-	}
-
 	GuardianTest: {
 		DisplayName: Guardian Test
 		Tooltip: ""
@@ -1058,7 +1058,7 @@ Items: {
 
 	EnchantedRune: {
 		DisplayName: Enchanted Rune
-		Tooltip: ""
+		Tooltip: Summons protective enchanted sparkles
 	}
 
 	LivingRune: {
@@ -1098,7 +1098,7 @@ Items: {
 
 	Warhammer: {
 		DisplayName: Warhammer
-		Tooltip: ""
+		Tooltip: Hurls a heavy hammer
 	}
 
 	MiniatureTools: {
@@ -2122,6 +2122,285 @@ Items: {
 		Tooltip: ""
 		DisplayName: Sun Ray
 	}
+
+	CrimtaneShield: {
+		Tooltip: Restores 10 life on parry
+		DisplayName: Scapula
+	}
+
+	SkywareShield: {
+		Tooltip: Releases a burst of stars
+		DisplayName: Skyward
+	}
+
+	MeteoriteShield: {
+		DisplayName: Meteorite Pavise
+		Tooltip: Burns hit enemies
+	}
+
+	NightShield: {
+		DisplayName: Styx
+		Tooltip: ""
+	}
+
+	BijouShield: {
+		DisplayName: Bijoungwall
+		Tooltip: "'Only exists to please the eye'"
+	}
+
+	AdamantiteShield: {
+		DisplayName: Adamantite Pavise
+		Tooltip: ""
+	}
+
+	HallowedShield: {
+		DisplayName: Pridwen
+		Tooltip: Releases lingering sparks of hallowed light
+	}
+
+	TitaniumShield: {
+		DisplayName: Titanium Pavise
+		Tooltip: ""
+	}
+
+	ChlorophiteShield: {
+		DisplayName: Chlorophite Pavise
+		Tooltip: Shoots spore clouds
+	}
+
+	SpectreShield: {
+		DisplayName: Spectre Pavise
+		Tooltip: Releases homing souls when blocking projectiles
+	}
+
+	BambooWarhammer: {
+		DisplayName: Bamboo Warhammer
+		Tooltip: ""
+	}
+
+	StormWarhammer: {
+		DisplayName: Stormbreaker
+		Tooltip: ""
+	}
+
+	CrimsonWarhammer: {
+		DisplayName: Heartbeat
+		Tooltip: Restores 5 life on hit
+	}
+
+	JungleWarhammer: {
+		DisplayName: Leaf Warhammer
+		Tooltip: Releases sharp leaves on impact
+	}
+
+	HellWarhammer: {
+		DisplayName: Grond
+		Tooltip: Explodes on full charge
+	}
+
+	PirateWarhammer: {
+		Tooltip: ""
+		DisplayName: Pirate Warhammer
+	}
+
+	ChlorophyteWarhammer: {
+		Tooltip: Shoots spore clouds
+		DisplayName: Chlorophyte Gavel
+	}
+
+	TempleWarhammer: {
+		Tooltip: Releases homing sparks
+		DisplayName: Temple Warhammer
+	}
+
+	BeeRune: {
+		Tooltip: Releases bees at nearby foes
+		DisplayName: Queen's Rune
+	}
+
+	HellRune: {
+		DisplayName: Surtr's Sigil
+		Tooltip: Summons horizontally-moving fireballs
+	}
+
+	RuneRune: {
+		DisplayName: Runefire Rune
+		Tooltip: Summons runic fireballs
+	}
+
+	FrostRune: {
+		Tooltip: Summons a circle of ornaments
+		DisplayName: Ornament Rune
+	}
+
+	EmpressRune: {
+		DisplayName: Constellation
+		Tooltip: Summons a constellation of sparkles
+	}
+
+	GuardianBambooHead: {
+		DisplayName: Bamboo Helmet
+		Tooltip: Increases guardian charges generation by 6%
+	}
+
+	GuardianBambooChest: {
+		DisplayName: Bamboo Chestplate
+		Tooltip: Increases guardian charges generation by 8%
+	}
+
+	GuardianBambooLegs: {
+		DisplayName: Bamboo Legguards
+		Tooltip: Increases guardian charges generation by 6%
+	}
+
+	GuardianMeteoriteChest: {
+		DisplayName: Meteor Warden Chestplate
+		Tooltip:
+			'''
+			5% increased opposing damage
+			+1 slam charge
+			'''
+	}
+
+	GuardianMeteoriteHead: {
+		DisplayName: Meteor Warden Helmet
+		Tooltip:
+			'''
+			5% increased opposing damage
+			+1 block charge
+			'''
+	}
+
+	GuardianMeteoriteLegs: {
+		DisplayName: Meteor Warden Boots
+		Tooltip:
+			'''
+			Increases guardian charges generation by 10%
+			10% increased movement speed
+			'''
+	}
+
+	GuardianEmpressChest: {
+		DisplayName: Empress Chestguard
+		Tooltip:
+			'''
+			13% increased opposing damage
+			Increases guardian charges generation by 15%
+			'''
+	}
+
+	GuardianEmpressHead: {
+		DisplayName: Empress Headguard
+		Tooltip:
+			'''
+			12% increased opposing damage
+			+2 block and slam charges
+			'''
+	}
+
+	GuardianEmpressLegs: {
+		DisplayName: Empress Legguards
+		Tooltip:
+			'''
+			10% increased opposing damage
+			15% increased movement speed
+			'''
+	}
+
+	GuardianAdamantiteHead: {
+		DisplayName: Adamantite Greathelm
+		Tooltip:
+			'''
+			12% increased opposing damage and critical strike chance
+			+1 block and slam charges
+			'''
+	}
+
+	GuardianTitaniumHead: {
+		DisplayName: Titanium Greathelm
+		Tooltip:
+			'''
+			15% increased opposing damage and 8% increased opposing critical strike chance
+			+1 block and slam charges
+			'''
+	}
+
+	GuardianHallowedHead: {
+		DisplayName: Hallowed Greathelm
+		Tooltip:
+			'''
+			12% increased opposing damage and critical strike chance
+			+2 block charges and 1 slam charge
+			'''
+	}
+
+	GuardianChlorophyteHead: {
+		DisplayName: Chlorophyte Greathelm
+		Tooltip:
+			'''
+			16% increased opposing damage
+			+1 block charge and 2 slam charges
+			'''
+	}
+
+	GuardianEmpressMaterial: {
+		DisplayName: Prismatic Plating
+		Tooltip: "'Extremely light'"
+	}
+
+	GuardianFragmentMaterial: {
+		DisplayName: Magnetosphere Fragment
+		Tooltip: Invisible forces appear to protect this fragment
+	}
+
+	GoblinSpike: {
+		DisplayName: Goblin Shield Spike
+		Tooltip: Deals 100% of your defense as damage to blocked enemies
+	}
+
+	GuardianEmblem: {
+		DisplayName: Guardian Emblem
+		Tooltip: 15% increased opposing damage
+	}
+
+	DungeonSpike: {
+		DisplayName: Spouting Shield Spike
+		Tooltip:
+			'''
+			Deals 150% of your defense as damage to blocked enemies
+			Releases a water bolt when blocking a projectile
+			'''
+	}
+
+	MechanicalSpike: {
+		DisplayName: Mechanical Shield Spike
+		Tooltip:
+			'''
+			Deals 250% of your defense as damage to blocked enemies
+			Increases opposing damage by 15% after blocking a projectile
+			12% increased opposing damage
+			'''
+	}
+
+	TempleSpike: {
+		DisplayName: Golem Shield Spike
+		Tooltip:
+			'''
+			Deals 300% of your defense as damage to blocked enemies
+			Increases opposing damage and critical strike chance by 15% after blocking a projectile
+			10% increased opposing damage and critical strike chance 
+			'''
+	}
+
+	MagnetosphereWarhammer: {
+		DisplayName: Magnetosheath
+		Tooltip: Kinetic plasma instabilities generate plasma waves
+	}
+
+	MagnetosphereShield: {
+		DisplayName: Bow Shock
+		Tooltip: Bow shocks are created when solar winds blow on a magnetic field
+	}
 }
 
 NPCs: {
@@ -2211,9 +2490,9 @@ Projectiles: {
 	PrototypeSecrecyProjectile.DisplayName: Prototype Secrecy Projectile
 	PrototypeSecrecyHitProjectile.DisplayName: Prototype Secrecy Hit Projectile
 	MineshaftHookProjectile.DisplayName: Mineshaft Hook Projectile
-	EnchantedPaviseProj.DisplayName: Enchanted Pavise Proj
+	EnchantedPaviseProj.DisplayName: Enchanted Pavise
 	LivingRuneProj.DisplayName: Living Rune Proj
-	EnchantedRuneProj.DisplayName: Enchanted Rune Proj
+	EnchantedRuneProj.DisplayName: Enchanted Rune
 	HammerThrow.DisplayName: Hammer Throw
 	GuardianShieldAnchor.DisplayName: Guardian Shield Anchor
 	SnowCardProjAlt.DisplayName: Snow Card Proj Alt
@@ -2374,6 +2653,21 @@ Projectiles: {
 	FeatherScepterProjectile.DisplayName: Feather Scepter Projectile
 	FeatherScepterProjectileSplash.DisplayName: Feather Scepter Projectile Splash
 	DepthsWeaverBlast.DisplayName: Depths Weaver Blast
+	SkywareShieldProj.DisplayName: Skyware Shield Proj
+	NightShieldProj.DisplayName: Night Shield Proj
+	NightShieldProjAlt.DisplayName: Night Shield Proj Alt
+	BijouShieldProj.DisplayName: Bijou Shield Proj
+	HallowedShieldProj.DisplayName: Hallowed Shield Proj
+	SpectreShieldProj.DisplayName: Spectre Shield Proj
+	TempleWarhammerProj.DisplayName: Temple Warhammer Proj
+	BeeRuneProj.DisplayName: Bee Rune Proj
+	HellRuneProj.DisplayName: Hell Rune Proj
+	RuneRuneProj.DisplayName: Rune Rune Proj
+	FrostRuneProj.DisplayName: Frost Rune Proj
+	EmpressRuneProj.DisplayName: Empress Rune Proj
+	WaterSpikeProj.DisplayName: Water Spike Proj
+	MagnetosphereWarhammerProj.DisplayName: Magnetosphere Warhammer Proj
+	MagnetosphereShieldProj.DisplayName: Magnetosphere Shield Proj
 }
 
 Configs: {
@@ -2396,4 +2690,13 @@ Configs: {
 			Tooltip: "{$Enables/Disables loading Crossmod-Content without required mods}"
 		}
 	}
+}
+
+DamageClasses: {
+	AlchemistDamageClass.DisplayName: Alchemist Damage Class
+	DancerDamageClass.DisplayName: Dancer Damage Class
+	GamblerChipDamageClass.DisplayName: Gambler Chip Damage Class
+	GamblerDamageClass.DisplayName: Gambler Damage Class
+	GuardianDamageClass.DisplayName: Guardian Damage Class
+	ShamanDamageClass.DisplayName: Shaman Damage Class
 }

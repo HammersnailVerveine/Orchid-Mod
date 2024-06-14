@@ -27,6 +27,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = -1;
+			Projectile.usesLocalNPCImmunity = true;
+			Projectile.localNPCHitCooldown = 30;
 		}
 
 		public override void SetStaticDefaults()
