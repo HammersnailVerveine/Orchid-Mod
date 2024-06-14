@@ -121,7 +121,6 @@ namespace OrchidMod.Content.NPCs.Town
 				"Samantha",
 				"Ambre",
 				"Maeva",
-				"Sophie",
 				"Florianne",
 				"Juliette",
 				"Chloe",

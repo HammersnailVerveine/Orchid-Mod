@@ -23,12 +23,6 @@ namespace OrchidMod.Content.Alchemist.Weapons.Air
 			this.colorB = 239;
 		}
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Air Vial");
-			// Tooltip.SetDefault("\n[c/FF0000:Test Item]");
-		}
-
 		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
 		{
 			int projType = ProjectileType<Projectiles.Sigil.AirSigil>();

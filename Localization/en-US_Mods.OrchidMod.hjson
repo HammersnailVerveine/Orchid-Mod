@@ -5,33 +5,13 @@ Keybinds: {
 
 Tiles: {
 	JungleLilyTile.MapEntry: Jungle Lily
-	MinersLockboxTile.MapEntry: Miners Lockbox
 	ShamanBiomeChestTile.MapEntry: Mushroom Chest
-	MineshaftPickaxeTile.MapEntry: Mineshaft Pickaxe
-	MineshaftCrate.MapEntry: Mineshaft Crate
-	MineshaftHookTile.MapEntry: Mineshaft Hook
-	MineshaftToolboxTile.MapEntry: Mineshaft Toolbox
 }
 
 Buffs: {
-	TopazEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.TopazEmpowerment.Description
-		DisplayName: Topaz Empowerment
-	}
-
 	TitanicBuff: {
 		Description: Mods.OrchidMod.Buffs.TitanicBuff.Description
 		DisplayName: Titanic Buff
-	}
-
-	OpalEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.OpalEmpowerment.Description
-		DisplayName: Opal Empowerment
-	}
-
-	OnyxEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.OnyxEmpowerment.Description
-		DisplayName: Onyx Empowerment
 	}
 
 	LodestoneSlow: {
@@ -49,16 +29,6 @@ Buffs: {
 		DisplayName: Aqua Bump
 	}
 
-	TerraBlast: {
-		Description: Mods.OrchidMod.Buffs.TerraBlast.Description
-		DisplayName: Terra Blast
-	}
-
-	SporeEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.SporeEmpowerment.Description
-		DisplayName: Spore Empowerment
-	}
-
 	ShroomHeal: {
 		Description: Mods.OrchidMod.Buffs.ShroomHeal.Description
 		DisplayName: Shroom Heal
@@ -69,29 +39,9 @@ Buffs: {
 		DisplayName: Shamanic Empowerment
 	}
 
-	SapphireEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.SapphireEmpowerment.Description
-		DisplayName: Sapphire Empowerment
-	}
-
-	RubyEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.RubyEmpowerment.Description
-		DisplayName: Ruby Empowerment
-	}
-
 	MythrilDefense: {
 		Description: Mods.OrchidMod.Buffs.MythrilDefense.Description
 		DisplayName: Mythril Defense
-	}
-
-	EmeraldEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.EmeraldEmpowerment.Description
-		DisplayName: Emerald Empowerment
-	}
-
-	DiamondEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.DiamondEmpowerment.Description
-		DisplayName: Diamond Empowerment
 	}
 
 	DeepForestAura: {
@@ -139,16 +89,6 @@ Buffs: {
 		DisplayName: Broken Power
 	}
 
-	AmethystEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.AmethystEmpowerment.Description
-		DisplayName: Amethyst Empowerment
-	}
-
-	AmberEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.AmberEmpowerment.Description
-		DisplayName: Amber Empowerment
-	}
-
 	AbyssEmpowerment: {
 		Description: Mods.OrchidMod.Buffs.AbyssEmpowerment.Description
 		DisplayName: Abyss Empowerment
@@ -165,123 +105,113 @@ Buffs: {
 	}
 
 	HarpyPotionBuff: {
-		Description: Mods.OrchidMod.Buffs.HarpyPotionBuff.Description
-		DisplayName: Harpy Potion Buff
+		Description: Ability to double jump, your fist bonus jump will release damaging feathers around you
+		DisplayName: Harpy Agility
 	}
 
 	VulturePotionBuff: {
-		Description: Mods.OrchidMod.Buffs.VulturePotionBuff.Description
-		DisplayName: Vulture Potion Buff
+		Description: 20% increased chip generation
+		DisplayName: Scavenger
 	}
 
 	ConquerorsPennantBuff: {
-		Description: Mods.OrchidMod.Buffs.ConquerorsPennantBuff.Description
-		DisplayName: Conquerors Pennant Buff
-	}
-
-	HauntedCandle: {
-		Description: Mods.OrchidMod.Buffs.HauntedCandle.Description
-		DisplayName: Haunted Candle
-	}
-
-	ToolSetBuff: {
-		Description: Mods.OrchidMod.Buffs.ToolSetBuff.Description
-		DisplayName: Tool Set Buff
+		Description: 10% increased gambling critical strike chance and movement speed
+		DisplayName: Conqueror's Thrill
 	}
 
 	SlimeSlow: {
-		Description: Mods.OrchidMod.Buffs.SlimeSlow.Description
+		Description: Reduced Movement Speed
 		DisplayName: Slime Slow
 	}
 
 	ReactionCooldown: {
-		Description: Mods.OrchidMod.Buffs.ReactionCooldown.Description
-		DisplayName: Reaction Cooldown
+		Description: You cannot use alchemist hidden reactions
+		DisplayName: Experimental Drawback
 	}
 
 	FlashFreeze: {
-		Description: Mods.OrchidMod.Buffs.FlashFreeze.Description
+		Description: Reduced Movement Speed
 		DisplayName: Flash Freeze
 	}
 
 	Catalyzed: {
-		Description: Mods.OrchidMod.Buffs.Catalyzed.Description
+		Description: Triggers various alchemical properties
 		DisplayName: Catalyzed
 	}
 
 	Attraction: {
-		Description: Mods.OrchidMod.Buffs.Attraction.Description
+		Description: Attracts nearby alchemist projectiles
 		DisplayName: Attraction
 	}
 
 	StellarTalcBuff: {
-		Description: Mods.OrchidMod.Buffs.StellarTalcBuff.Description
-		DisplayName: Stellar Talc Buff
+		Description: Stellar Talc projectiles will orbit around you
+		DisplayName: Stellar Orbit
 	}
 
 	StardustSamplesBuff: {
-		Description: Mods.OrchidMod.Buffs.StardustSamplesBuff.Description
-		DisplayName: Stardust Samples Buff
+		Description: Sunflowers created by Forest Samples apply confusion
+		DisplayName: Stardust Confusion
 	}
 
 	SpiritedWaterBuff: {
-		Description: Mods.OrchidMod.Buffs.SpiritedWaterBuff.Description
-		DisplayName: Spirited Water Buff
+		Description: Chemical attacks will release spirited water flames
+		DisplayName: Spirited Droplets
 	}
 
 	SlimeFlaskBuff: {
-		Description: Mods.OrchidMod.Buffs.SlimeFlaskBuff.Description
-		DisplayName: Slime Flask Buff
+		Description: Using slimy samples with a fire element will release damaging embers
+		DisplayName: Burning Samples
 	}
 
 	ReactiveVialsBuff: {
-		Description: Mods.OrchidMod.Buffs.ReactiveVialsBuff.Description
-		DisplayName: Reactive Vials Buff
+		Description: 10% increased chemical damage for your next chemical mixture
+		DisplayName: Reactive Elements
 	}
 
 	QueenBeeFlaskBuff: {
-		Description: Mods.OrchidMod.Buffs.QueenBeeFlaskBuff.Description
-		DisplayName: Queen Bee Flask Buff
+		Description: Attacking with 3 or more element will summon bees
+		DisplayName: Human Beehive
 	}
 
 	MushroomHeal: {
-		Description: Mods.OrchidMod.Buffs.MushroomHeal.Description
-		DisplayName: Mushroom Heal
+		Description: Alchemist attacks will create more spores
+		DisplayName: Mushroom Spores
 	}
 
 	MeteorSpeed: {
-		Description: Mods.OrchidMod.Buffs.MeteorSpeed.Description
-		DisplayName: Meteor Speed
+		Description: Immune to knockback, 20% increased movement speed
+		DisplayName: Meteor Agility
 	}
 
 	KingSlimeFlaskBuff: {
-		Description: Mods.OrchidMod.Buffs.KingSlimeFlaskBuff.Description
-		DisplayName: King Slime Flask Buff
+		Description: Increases the likelyhood of spawning slime bubbles, creating spiked jungle slimes
+		DisplayName: Poisonous Slime
 	}
 
 	JungleLilyExtractBuff: {
-		Description: Mods.OrchidMod.Buffs.JungleLilyExtractBuff.Description
-		DisplayName: Jungle Lily Extract Buff
+		Description: Each alchemical attack using two or more elements releases a purifying aura
+		DisplayName: Purifying Lilies
 	}
 
 	IceChestFlaskBuff: {
-		Description: Mods.OrchidMod.Buffs.IceChestFlaskBuff.Description
-		DisplayName: Ice Chest Flask Buff
+		Description: Constantly freezes various alchemical projectiles and slows enemies around you
+		DisplayName: Permanent Freeze
 	}
 
 	DemonBreathFlaskBuff: {
-		Description: Mods.OrchidMod.Buffs.DemonBreathFlaskBuff.Description
-		DisplayName: Demon Breath Flask Buff
+		Description: Demon breath will create more projectiles
+		DisplayName: Demon Reek
 	}
 
 	BloodMistFlaskBuff: {
-		Description: Mods.OrchidMod.Buffs.BloodMistFlaskBuff.Description
-		DisplayName: Blood Mist Flask Buff
+		Description: Periodically releases blood mist while moving
+		DisplayName: Misty Steps
 	}
 
 	AttractiteAuraSmall: {
-		Description: Mods.OrchidMod.Buffs.AttractiteAuraSmall.Description
-		DisplayName: Attractite Aura Small
+		Description: Applies attractite to nearby enemies
+		DisplayName: Lesser Attractite Aura
 	}
 
 	GuardianSpikeBuff: {
@@ -293,107 +223,168 @@ Buffs: {
 Items: {
 	AlchemistEmblem: {
 		DisplayName: Alchemist Emblem
-		Tooltip: ""
+		Tooltip: 15% increased chemical damage
 	}
 
 	AlchemistTest: {
-		DisplayName: Alchemist Test
-		Tooltip: ""
+		DisplayName: Alchemist Test Accessory
+		Tooltip:
+			'''
+			Maximum number of simultaneous alchemical elements increased by 4
+			Maximum potency increased by 20
+			50% increased potency regeneration
+			[c/FF0000:Test Item]
+			'''
 	}
 
 	BloomingBud: {
 		DisplayName: Blooming Bud
-		Tooltip: ""
+		Tooltip: Periodically releases catalytic blooming buds when attacking
 	}
 
 	KeystoneOfTheConvent: {
 		DisplayName: Keystone Of The Convent
-		Tooltip: ""
+		Tooltip:
+			'''
+			Attacks with at least 3 non-air ingredients will be empowered
+			Hit target will be dealt damage for all nearby air coatings, consuming them
+			'''
 	}
 
 	MeteorToolbelt: {
 		DisplayName: Meteor Toolbelt
-		Tooltip: ""
+		Tooltip: Using 3 or more elements in a single attack gives knockback immunity and movement speed
 	}
 
 	PreservedCorruption: {
 		DisplayName: Preserved Corruption
-		Tooltip: ""
+		Tooltip: Maximum potency increased by 2
 	}
 
 	PreservedCrimson: {
 		DisplayName: Preserved Crimson
-		Tooltip: ""
+		Tooltip: Maximum potency increased by 2
 	}
 
 	ReactiveVials: {
 		DisplayName: Reactive Vials
-		Tooltip: ""
+		Tooltip: Your first chemical mixture after using a hidden reaction deals 10% more damage
 	}
 
 	WeightedBottles: {
 		DisplayName: Weighted Bottles
-		Tooltip: ""
+		Tooltip: Increases alchemic main projectile velocity by 25%
 	}
 
 	WeightedCorruption: {
 		DisplayName: Weighted Corruption
-		Tooltip: ""
+		Tooltip:
+			'''
+			Increases alchemic main projectile velocity by 25%
+			Maximum potency increased by 2
+			'''
 	}
 
 	WeightedCrimson: {
 		DisplayName: Weighted Crimson
-		Tooltip: ""
+		Tooltip:
+			'''
+			Increases alchemic main projectile velocity by 25%
+			Maximum potency increased by 2
+			'''
 	}
 
 	AlchemistJungleChest: {
-		DisplayName: Alchemist Jungle Chest
-		Tooltip: ""
+		DisplayName: Lily Tunic
+		Tooltip:
+			'''
+			Maximum potency increased by 3
+			Increases alchemic main projectile velocity by 20%
+			'''
 	}
 
 	AlchemistJungleHead: {
-		DisplayName: Alchemist Jungle Head
-		Tooltip: ""
+		DisplayName: Lily Hood
+		Tooltip:
+			'''
+			20% increased potency regeneration
+			Maximum number of simultaneous alchemical elements increased by 1
+			'''
 	}
 
 	AlchemistJungleLegs: {
-		DisplayName: Alchemist Jungle Legs
-		Tooltip: ""
+		DisplayName: Lily Leggings
+		Tooltip: 10% increased chemical damage
 	}
 
 	MushroomBandana: {
-		DisplayName: Mushroom Bandana
-		Tooltip: ""
+		DisplayName: Phosphorescent Bandana
+		Tooltip: 5% increased potency regeneration
 	}
 
 	MushroomLeggings: {
-		DisplayName: Mushroom Leggings
-		Tooltip: ""
+		DisplayName: Phosphorescent Leggings
+		Tooltip: 5% increased potency regeneration
 	}
 
 	MushroomTunic: {
-		DisplayName: Mushroom Tunic
-		Tooltip: ""
+		DisplayName: Phosphorescent Tunic
+		Tooltip:
+			'''
+			5% increased potency regeneration
+			Maximum potency increased by 2
+			'''
 	}
 
 	PotionBag: {
 		DisplayName: Potion Bag
-		Tooltip: ""
+		Tooltip:
+			'''
+			Can carry up to 8 alchemical potions
+			Items in the bag will appear in alchemist mixing interfaces
+			'A prototype by the chemist, meant to be upgraded later'
+			'''
 	}
 
 	AlchemicStabilizer: {
-		DisplayName: Alchemic Stabilizer
-		Tooltip: ""
+		DisplayName: Alchemical Stabilizer
+		Tooltip:
+			'''
+			Used to make various alchemist weapons
+			'Smells like bee wax'
+			'''
 	}
 
 	EmptyFlask: {
 		DisplayName: Empty Flask
+		Tooltip:
+			'''
+			Sold by the mineshaft chemist
+			Used to make various alchemist weapons
+			'''
+	}
+
+	JungleLily: {
+		DisplayName: Jungle Lily
+		Tooltip:
+			'''
+			It closed when you picked it up
+			Maybe the chemist could help you?
+			'''
+	}
+
+	JungleLilyBloomed: {
+		DisplayName: Jungle Lily Bloomed
 		Tooltip: ""
 	}
 
 	MushroomThread: {
 		DisplayName: Mushroom Thread
-		Tooltip: ""
+		Tooltip:
+			'''
+			Result of the hidden reaction between blinkroot and glowing mushroom extracts
+			'Quite an unexpected outcome'
+			'''
 	}
 
 	Potency: {
@@ -402,438 +393,725 @@ Items: {
 	}
 
 	ReactionItem: {
-		DisplayName: Reaction Item
-		Tooltip: ""
+		DisplayName: Hidden Reactions Codex
+		Tooltip:
+			'''
+			Left click to trigger alchemist hidden reactions
+			The 'Hidden Reaction' key can be used instead of this item
+			Right click to open the hidden reactions codex
+			'''
 	}
 
 	ScrollTier1: {
-		DisplayName: Scroll Tier1
-		Tooltip: ""
+		DisplayName: Alchemist Recipe Scroll
+		Tooltip: Contains the recipe for an unknown alchemist hidden reaction
 	}
 
 	ScrollTier2: {
-		DisplayName: Scroll Tier2
-		Tooltip: ""
+		DisplayName: Alchemist Recipe Scroll
+		Tooltip: Contains the recipe for an unknown alchemist hidden reaction
 	}
 
 	ScrollTier3: {
-		DisplayName: Scroll Tier3
-		Tooltip: ""
+		DisplayName: Alchemist Recipe Scroll
+		Tooltip: Contains the recipe for an unknown alchemist hidden reaction
 	}
 
 	ScrollTier4: {
-		DisplayName: Scroll Tier4
-		Tooltip: ""
+		DisplayName: Alchemist Recipe Scroll
+		Tooltip: Contains the recipe for an unknown alchemist hidden reaction
 	}
 
 	ScrollTier5: {
-		DisplayName: Scroll Tier5
-		Tooltip: ""
+		DisplayName: Alchemist Recipe Scroll
+		Tooltip: Contains the recipe for an unknown alchemist hidden reaction
 	}
 
 	ScrollTier6: {
-		DisplayName: Scroll Tier6
-		Tooltip: ""
+		DisplayName: Alchemist Recipe Scroll
+		Tooltip: Contains the recipe for an unknown alchemist hidden reaction
 	}
 
 	UIItem: {
-		DisplayName: UI Item
-		Tooltip: ""
+		DisplayName: The Alchemist's Cookbook
+		Tooltip:
+			'''
+			Allows mixing alchemical weapons by clicking
+			Right click on an item icon to mix it
+			Left click to launch the attack
+			Up to 18 items can be displayed at once
+			'''
 	}
 
 	UIItemKeys: {
-		DisplayName: UI Item Keys
-		Tooltip: ""
+		DisplayName: Brewing for Dummies
+		Tooltip:
+			'''
+			Allows mixing alchemical weapons with the hotbar keys
+			Press the corresponding key to mix a specific item
+			Use the mouse wheel to change the displayed element
+			Up to 10 items can be displayed at once
+			'''
 	}
 
 	UIItemNew: {
-		DisplayName: UI Item New
-		Tooltip: ""
+		DisplayName: The Alchemist's Cookbook [S-Pladison's Edition]
+		Tooltip:
+			'''
+			Allows mixing alchemical weapons by clicking
+			Right click on an item icon to mix it
+			Left click to launch the attack
+			Up to 17 items can be displayed at once
+			'''
 	}
 
 	AirVial: {
 		DisplayName: Air Vial
-		Tooltip: ""
+		Tooltip: "[c/FF0000:Test Item]"
 	}
 
 	BlizzardInAVial: {
-		DisplayName: Blizzard In A Vial
-		Tooltip: ""
+		DisplayName: Blizzard In A Flask
+		Tooltip:
+			'''
+			Launches hit enemy in the air
+			Increases the likelihood of spawning catalytic bubbles
+			'''
 	}
 
 	CloudInAVial: {
-		DisplayName: Cloud In A Vial
-		Tooltip: ""
+		DisplayName: Cloud In A Flask
+		Tooltip:
+			'''
+			Launches hit enemy in the air
+			Increases the likelihood of spawning catalytic bubbles
+			'''
 	}
 
 	CorruptionFlask: {
-		DisplayName: Corruption Flask
-		Tooltip: ""
+		DisplayName: Vitriol Mycelium
+		Tooltip:
+			'''
+			Grows a mushroom, exploding after a while or when being catalyzed
+			The more ingredients used, the more delayed the explosion
+			The mushroom will absorb the properties of nearby spores, creating more of them
+			Only one mushroom can exist at once
+			'''
 	}
 
 	CrimsonFlask: {
-		DisplayName: Crimson Flask
-		Tooltip: ""
+		DisplayName: Visceral Mycelium
+		Tooltip:
+			'''
+			Releases floating mushrooms, exploding after a while or when being catalyzed
+			The mushrooms will absorb the properties of nearby spores, creating more of them
+			Only one set of mushrooms can exist at once
+			'''
 	}
 
 	DeathweedFlask: {
-		DisplayName: Deathweed Flask
-		Tooltip: ""
+		DisplayName: Deathweed Extract
+		Tooltip:
+			'''
+			Releases air spores, the less other extracts used, the more
+			Only one set of spores can exist at once
+			Spores deals 10% increased damage against fire-coated enemies
+			'''
 	}
 
 	FartInAVial: {
-		DisplayName: Fart In A Vial
-		Tooltip: ""
+		DisplayName: Fart In A Flask
+		Tooltip:
+			'''
+			Launches hit enemy in the air
+			Increases the likelihood of spawning catalytic bubbles
+			'''
 	}
 
 	QueenBeeFlask: {
-		DisplayName: Queen Bee Flask
-		Tooltip: ""
+		DisplayName: Royal Jelly
+		Tooltip:
+			'''
+			If no fire element is used, summons bees on impact
+			Has a chance to release a catalytic beehive
+			'''
 	}
 
 	ShadowChestFlask: {
-		DisplayName: Shadow Chest Flask
-		Tooltip: ""
+		DisplayName: Demon Breath
+		Tooltip:
+			'''
+			Releases returning demon flames
+			Coats hit enemies in alchemical air
+			'''
 	}
 
 	ShiverthornFlask: {
-		DisplayName: Shiverthorn Flask
-		Tooltip: ""
+		DisplayName: Shiverthorn Extract
+		Tooltip:
+			'''
+			Releases air spores, the less other extracts used, the more
+			Only one set of spores can exist at once
+			Spores deals 10% increased damage against fire-coated enemies
+			'''
 	}
 
 	SunplateFlask: {
-		DisplayName: Sunplate Flask
-		Tooltip: ""
+		DisplayName: Stellar Talc
+		Tooltip:
+			'''
+			Creates orbiting stars on impact
+			The stars are considered as lingering particles
+			'''
 	}
 
 	TsunamiInAVial: {
-		DisplayName: Tsunami In A Vial
-		Tooltip: ""
+		DisplayName: Tsunami In A Flask
+		Tooltip:
+			'''
+			Launches hit enemy in the air
+			Increases the likelihood of spawning catalytic bubbles
+			'''
 	}
 
 	CrimtaneCatalyst: {
-		DisplayName: Crimtane Catalyst
-		Tooltip: ""
+		DisplayName: Crimson Catalyst
+		Tooltip:
+			'''
+			Used to interact with alchemist catalytic elements
+			Upon successful catalysis, confuses nearby enemies
+			Hit an enemy to apply catalyzed
+			Catalyzed replaces most alchemical debuffs
+			'''
 	}
 
 	DemoniteCatalyst: {
-		DisplayName: Demonite Catalyst
-		Tooltip: ""
+		DisplayName: Corrupt Catalyst
+		Tooltip:
+			'''
+			Used to interact with alchemist catalytic elements
+			Upon successful catalysis, burns nearby enemies in shadowflames
+			Hit an enemy to apply catalyzed
+			Catalyzed replaces most alchemical debuffs
+			'''
 	}
 
 	DungeonCatalyst: {
-		DisplayName: Dungeon Catalyst
-		Tooltip: ""
+		DisplayName: Ripple
+		Tooltip:
+			'''
+			Used to interact with alchemist catalytic elements
+			Upon successful catalysis, releases a burst of homing water bolts
+			Hit an enemy to apply catalyzed
+			Catalyzed replaces most alchemical debuffs
+			'''
 	}
 
 	IronCatalyst: {
-		DisplayName: Iron Catalyst
-		Tooltip: ""
+		DisplayName: Catalytic Syringe
+		Tooltip:
+			'''
+			Used to interact with alchemist catalytic elements
+			Hit an enemy to apply catalyzed
+			Catalyzed replaces most alchemical debuffs
+			'''
 	}
 
 	DarkVial: {
 		DisplayName: Dark Vial
-		Tooltip: ""
+		Tooltip: "[c/FF0000:Test Item]"
 	}
 
 	BlinkrootFlask: {
-		DisplayName: Blinkroot Flask
-		Tooltip: ""
+		DisplayName: Blinkroot Extract
+		Tooltip:
+			'''
+			Releases fire spores, the less other extracts used, the more
+			Only one set of spores can exist at once
+			Spores deals 10% increased damage against fire-coated enemies
+			'''
 	}
 
 	EmberVial: {
-		DisplayName: Ember Vial
-		Tooltip: ""
+		DisplayName: Ember Flask
+		Tooltip:
+			'''
+			Burns your target briefly
+			Releases lingering embers
+			'''
 	}
 
 	FireblossomFlask: {
-		DisplayName: Fireblossom Flask
-		Tooltip: ""
+		DisplayName: Fireblossom Extract
+		Tooltip:
+			'''
+			Releases fire spores, the less other extracts used, the more
+			Only one set of spores can exist at once
+			Spores deals 10% increased damage against fire-coated enemies
+			'''
 	}
 
 	FireVial: {
 		DisplayName: Fire Vial
-		Tooltip: ""
+		Tooltip: "[c/FF0000:Test Item]"
 	}
 
 	GunpowderFlask: {
 		DisplayName: Gunpowder Flask
-		Tooltip: ""
+		Tooltip:
+			'''
+			Creates a small explosion
+			Can be used to trigger catalytic elements, but prevents them from spawning
+			'''
 	}
 
 	HellSlimeFlask: {
-		DisplayName: Hell Slime Flask
-		Tooltip: ""
+		DisplayName: Fiery Slime Flask
+		Tooltip:
+			'''
+			Makes hit enemies bouncy and susceptible to fall damage
+			Has a chance to release a catalytic lava slime bubble
+			Hitting a fire-coated enemy will spread lava droplets
+			'''
 	}
 
 	StardustSamples: {
 		DisplayName: Stardust Samples
-		Tooltip: ""
+		Tooltip:
+			'''
+			Mixing with a nature element confuses hit enemies
+			'Handcrafted jars are unfit for precise alchemy'
+			'''
 	}
 
 	LightVial: {
 		DisplayName: Light Vial
-		Tooltip: ""
+		Tooltip: "[c/FF0000:Test Item]"
 	}
 
 	AttractiteShuriken: {
 		DisplayName: Attractite Shuriken
-		Tooltip: ""
+		Tooltip: Inflicts attractite to hit enemies
 	}
 
 	AttractiteFlask: {
 		DisplayName: Attractite Flask
-		Tooltip: ""
+		Tooltip:
+			'''
+			Hit target will attract alchemic spores and lingering particles
+			The attractivity buff will jump to the nearest target on miss
+			Counts as an extract when spawning spores
+			'''
 	}
 
 	DaybloomFlask: {
-		DisplayName: Daybloom Flask
-		Tooltip: ""
+		DisplayName: Daybloom Extract
+		Tooltip:
+			'''
+			Releases nature spores, the less other extracts used, the more
+			Only one set of spores can exist at once
+			Spores deals 10% increased damage against fire-coated enemies
+			'''
 	}
 
 	GlowingAttractiteFlask: {
 		DisplayName: Glowing Attractite Flask
-		Tooltip: ""
+		Tooltip:
+			'''
+			Hit target will attract alchemic spores and lingering particles
+			The attractivity buff will jump to the nearest target on miss
+			Releases nature spores, the less other extracts used, the more
+			Spores deals 10% increased damage against fire-coated enemies
+			'''
 	}
 
 	GlowingMushroomVial: {
-		DisplayName: Glowing Mushroom Vial
-		Tooltip: ""
+		DisplayName: Glowing Mushroom Extract
+		Tooltip:
+			'''
+			Grows a mushroom, which aura increases the number of spores released by other alchemic extracts
+			The mushroom will absorb the properties of nearby spores, creating more of them
+			Only one mushroom can exist at once
+			'''
 	}
 
 	JungleLilyFlask: {
-		DisplayName: Jungle Lily Flask
-		Tooltip: ""
-	}
-
-	JungleLily: {
-		DisplayName: Jungle Lily
-		Tooltip: ""
+		DisplayName: Jungle Lily Extract
+		Tooltip:
+			'''
+			Enemies and spores within impact radius will bloom
+			Bloomed spores will duplicate a maximum of once
+			Bloomed enemies will spawn spores for each of their coatings
+			Direct hits will apply a nature coating
+			'''
 	}
 
 	LivingSapVial: {
-		DisplayName: Living Sap Vial
-		Tooltip: ""
+		DisplayName: Living Sap Flask
+		Tooltip:
+			'''
+			Creates a healing living sap bubble if used with other ingredients
+			If an air element is used, healing is doubled
+			Has a chance to release a bigger, catalytic sap bubble
+			On reaction, heals players and coats enemies in alchemical nature
+			'''
 	}
 
 	MoonglowFlask: {
-		DisplayName: Moonglow Flask
-		Tooltip: ""
+		DisplayName: Moonglow Extract
+		Tooltip:
+			'''
+			Releases nature spores, the less other extracts used, the more
+			Only one set of spores can exist at once
+			Spores deals 10% increased damage against fire-coated enemies
+			'''
 	}
 
 	MushroomFlask: {
-		DisplayName: Mushroom Flask
-		Tooltip: ""
+		DisplayName: Mushroom Spores Flask
+		Tooltip: When mixed with an extract, increases its spore damage by 5
 	}
 
 	NatureVial: {
 		DisplayName: Nature Vial
-		Tooltip: ""
+		Tooltip: "[c/FF0000:Test Item]"
 	}
 
 	PoisonVial: {
-		DisplayName: Poison Vial
-		Tooltip: ""
+		DisplayName: Poison Flask
+		Tooltip:
+			'''
+			Releases lingering poison bubbles
+			Has a chance to release a catalytic poison bubble
+			Can contaminate other bubbly weapons effects
+			'''
 	}
 
 	SunflowerFlask: {
-		DisplayName: Sunflower Flask
-		Tooltip: ""
+		DisplayName: Forest Samples
+		Tooltip:
+			'''
+			Using a water element increases damage and spawns a damaging sunflower
+			'Handcrafted jars are unfit for precise alchemy'
+			'''
 	}
 
 	BloodMoonFlask: {
-		DisplayName: Blood Moon Flask
-		Tooltip: ""
+		DisplayName: Blood Mist Flask
+		Tooltip:
+			'''
+			Creates a lingering cloud of damaging mist
+			The mist knockback heavily scales with the number of elements used
+			Using a fire element increases damage dealt, air increases spread
+			Using both negates both effects
+			'''
 	}
 
 	DungeonFlask: {
-		DisplayName: Dungeon Flask
-		Tooltip: ""
+		DisplayName: Spirited Water
+		Tooltip:
+			'''
+			Releases lingering water flames
+			The flames are considered as lingering particles
+			Has a chance to release a catalytic spirited bubble
+			'''
 	}
 
 	GoblinArmyFlask: {
-		DisplayName: Goblin Army Flask
-		Tooltip: ""
+		DisplayName: Goblin Oil
+		Tooltip:
+			'''
+			Using a fire element in the same attack will drastically increase damage
+			This will also damage and spread alchemical fire to all nearby water coated enemies
+			Has a chance to release a catalytic oil bubble, coating nearby enemies in water on reaction
+			'''
 	}
 
 	HellOil: {
-		DisplayName: Hell Oil
-		Tooltip: ""
+		DisplayName: Hellfire Oil
+		Tooltip:
+			'''
+			Using a fire element in the same attack will drastically increase damage
+			This will also damage and spread alchemical fire to all nearby water coated enemies
+			Has a chance to release a catalytic oil bubble, coating nearby enemies in water on reaction
+			'''
 	}
 
 	IceChestFlask: {
-		DisplayName: Ice Chest Flask
-		Tooltip: ""
+		DisplayName: Flash Freeze
+		Tooltip:
+			'''
+			Freezes all spores, catalytic elements and lingering particles in an area
+			Frozen projectiles will fall to the ground and shatter
+			Enemies hit by the area will be slowed, duration is increased against water-coated ones
+			Using a fire ingredient cancels all these effects, and coats hit enemy with alchemical water
+			'''
 	}
 
 	KingSlimeFlask: {
-		DisplayName: King Slime Flask
-		Tooltip: ""
+		DisplayName: Slimy Flask
+		Tooltip:
+			'''
+			Makes hit enemies bouncy and susceptible to fall damage
+			Has a chance to release a catalytic slime bubble
+			'''
 	}
 
 	SeafoamVial: {
-		DisplayName: Seafoam Vial
-		Tooltip: ""
+		DisplayName: Seafoam Flask
+		Tooltip:
+			'''
+			Creates a lingering, damaging water bubble
+			Has a chance to release a catalytic seafoam bubble
+			'''
 	}
 
 	SlimeFlask: {
-		DisplayName: Slime Flask
-		Tooltip: ""
+		DisplayName: Gelatinous Samples
+		Tooltip:
+			'''
+			Ignites if mixed with a fire element, causing a deflagration
+			'Handcrafted jars are unfit for precise alchemy'
+			'''
 	}
 
 	WaterleafFlask: {
-		DisplayName: Waterleaf Flask
-		Tooltip: ""
+		DisplayName: Waterleaf Extract
+		Tooltip:
+			'''
+			Releases water spores, the less other extracts used, the more
+			Only one set of spores can exist at once
+			Spores deals 10% increased damage against fire-coated enemies
+			'''
 	}
 
 	WaterVial: {
 		DisplayName: Water Vial
-		Tooltip: ""
+		Tooltip: "[c/FF0000:Test Item]"
 	}
 
 	GoldFan: {
 		DisplayName: Gold Fan
-		Tooltip: ""
+		Tooltip:
+			'''
+			Horizontally dashes at your foes
+			[c/FF0000:Test Item]
+			The Dancer class is a proof of concept
+			Do not expect it to be released soon, if at all
+			'''
 	}
 
 	WoodenTekko: {
 		DisplayName: Wooden Tekko
-		Tooltip: ""
+		Tooltip:
+			'''
+			Horizontally dashes at your foes
+			[c/FF0000:Test Item]
+			The Dancer class is a proof of concept
+			Do not expect it to be released soon, if at all
+			'''
 	}
 
 	BundleOfClovers: {
 		DisplayName: Bundle Of Clovers
-		Tooltip: ""
+		Tooltip:
+			'''
+			Gambler dice will slow down when rolling 4 or more
+			'4 leaves, all of them!'
+			'''
 	}
 
 	BurningClovers: {
 		DisplayName: Burning Clovers
-		Tooltip: ""
+		Tooltip:
+			'''
+			Gambler dice will slow down when rolling 5 or more
+			Gambler dice cannot roll a 1 or a 2
+			'''
 	}
 
 	ConquerorsPennant: {
-		DisplayName: Conquerors Pennant
-		Tooltip: ""
+		DisplayName: Conqueror's Pennant
+		Tooltip: You enrage when drawing a gambler 'boss' card
 	}
 
 	DemonicPocketMirror: {
 		DisplayName: Demonic Pocket Mirror
-		Tooltip: ""
+		Tooltip: Allows you to see the next card you will draw
 	}
 
 	ElementalLens: {
 		DisplayName: Elemental Lens
-		Tooltip: ""
+		Tooltip:
+			'''
+			Gambler 'elemental' cards attacks will affect enemy with related debuffs
+			Cards already inflicting debuffs will have them last longer
+			'''
 	}
 
 	GamblerTest: {
-		DisplayName: Gambler Test
-		Tooltip: ""
+		DisplayName: Gambler Test Accessory
+		Tooltip:
+			'''
+			Allows you to see the next 3 cards you will draw
+			50% chance not to consume chips
+			Maximum chips increased by 45
+			Redraws cooldown reduced by 29 seconds
+			Maximum redraws increased by 4
+			[c/FF0000:Test Item]
+			'''
 	}
 
 	ImpDiceCup: {
 		DisplayName: Imp Dice Cup
-		Tooltip: ""
+		Tooltip: Gambler dice cannot roll a 1 or a 2
 	}
 
 	LuckySprout: {
 		DisplayName: Lucky Sprout
-		Tooltip: ""
+		Tooltip: Bushes from the 'biome' set will linger intead of disappearing
 	}
 
 	PileOfChips: {
 		DisplayName: Pile Of Chips
-		Tooltip: ""
+		Tooltip:
+			'''
+			50% increased gambling chip weapon cycle speed
+			15% increased chip weapon damage
+			'''
 	}
 
 	SlimyLollipop: {
 		DisplayName: Slimy Lollipop
-		Tooltip: ""
+		Tooltip: Periodically releases friendly slimes when a gambler 'slime' card is active
 	}
 
 	VultureCharm: {
 		DisplayName: Vulture Charm
-		Tooltip: ""
+		Tooltip: Drawing a card releases a burst of vulture feathers
 	}
 
 	GamblerDungeonBody: {
-		DisplayName: Gambler Dungeon Body
-		Tooltip: ""
+		DisplayName: Tyche Chestplate
+		Tooltip:
+			'''
+			10% increased gambling critical strike chance
+			Maximum redraws increased by 1
+			'''
 	}
 
 	GamblerDungeonHead: {
-		DisplayName: Gambler Dungeon Head
-		Tooltip: ""
+		DisplayName: Tyche Headgear
+		Tooltip: Maximum chips increased by 5
 	}
 
 	GamblerDungeonLegs: {
-		DisplayName: Gambler Dungeon Legs
-		Tooltip: ""
+		DisplayName: Tyche Leggings
+		Tooltip: 10% increased gambling damage
 	}
 
 	OutlawHat: {
 		DisplayName: Outlaw Hat
-		Tooltip: ""
+		Tooltip: Maximum chips increased by 3
 	}
 
 	OutlawPants: {
 		DisplayName: Outlaw Pants
-		Tooltip: ""
+		Tooltip: 4% increased gambling damage
 	}
 
 	OutlawVest: {
 		DisplayName: Outlaw Vest
-		Tooltip: ""
+		Tooltip: 4% increased gambling damage
 	}
 
 	DeckBone: {
-		DisplayName: Deck Bone
-		Tooltip: ""
+		DisplayName: Bone Gambler Deck
+		Tooltip:
+			'''
+			Allows the use of gambler abilities
+			'+206 bones'
+			'''
 	}
 
 	DeckDog: {
-		DisplayName: Deck Dog
-		Tooltip: ""
+		DisplayName: Dog Gambler Deck
+		Tooltip:
+			'''
+			Allows the use of gambler abilities
+			'+1 bork'
+			'''
 	}
 
 	DeckEnchanted: {
-		DisplayName: Deck Enchanted
-		Tooltip: ""
+		DisplayName: Enchanted Gambler Deck
+		Tooltip:
+			'''
+			Allows the use of gambler abilities
+			'+15 enchantment'
+			'''
 	}
 
 	DeckJungle: {
-		DisplayName: Deck Jungle
-		Tooltip: ""
+		DisplayName: Jungle Gambler Deck
+		Tooltip:
+			'''
+			Allows the use of gambler abilities
+			'+15 leafiness '
+			'''
 	}
 
 	DeckPirate: {
-		DisplayName: Deck Pirate
-		Tooltip: ""
+		DisplayName: Pirate Gambler Deck
+		Tooltip:
+			'''
+			Allows the use of gambler abilities
+			'+1 parrot affinity'
+			'''
 	}
 
 	DeckRainbow: {
-		DisplayName: Deck Rainbow
-		Tooltip: ""
+		DisplayName: Rainbow Gambler Deck
+		Tooltip:
+			'''
+			Allows the use of gambler abilities
+			'+7 colorfulness'
+			'''
 	}
 
 	GamblerAttack: {
-		DisplayName: Gambler Attack
-		Tooltip: ""
+		DisplayName: Gambler Deck
+		Tooltip: Allows the use of gambler abilities
 	}
 
 	GamblerDummy: {
-		DisplayName: Gambler Dummy
-		Tooltip: ""
+		DisplayName: Gambler Dummy Card
+		Tooltip:
+			'''
+			Allows the use of specific gambler cards
+			Right click to cycle through your deck
+			Can only deal damage to dummies
+			Utility cards may have no effect
+			'''
 	}
 
 	GamblerDummyTest: {
-		DisplayName: Gambler Dummy Test
-		Tooltip: ""
+		DisplayName: Gambler Test Card
+		Tooltip:
+			'''
+			Allows the use of specific gambler cards
+			Right click to cycle through your deck
+			[c/FF0000:Test Item]
+			'''
 	}
 
 	GamblerReset: {
-		DisplayName: Gambler Reset
-		Tooltip: ""
+		DisplayName: Playing Card : RESET
+		Tooltip:
+			'''
+			Resets gambling cards
+			[c/FF0000:Test Item]
+			'''
 	}
 
 	Chip: {
@@ -842,13 +1120,13 @@ Items: {
 	}
 
 	TiamatRelic: {
-		DisplayName: Tiamat Relic
+		DisplayName: Tyche Relic
 		Tooltip: ""
 	}
 
 	VulturePotion: {
-		DisplayName: Vulture Potion
-		Tooltip: ""
+		DisplayName: Scavenger Potion
+		Tooltip: 20% increased gambler chip generation
 	}
 
 	VultureTalon: {
@@ -857,318 +1135,362 @@ Items: {
 	}
 
 	BrainCard: {
-		DisplayName: Brain Card
-		Tooltip: ""
+		DisplayName: Playing Card : The Hivemind
+		Tooltip:
+			'''
+			Summons 3 brains around you, one of them following your cursor
+			Only one of them is real, and deals contact damage
+			Hitting randomly changes the true brain, and increases damage a lot
+			Brains cannot deal damage if they are too close to you
+			'''
 	}
 
 	BubbleCard: {
-		DisplayName: Bubble Card
-		Tooltip: ""
+		DisplayName: Playing Card : Bubbles
+		Tooltip:
+			'''
+			Summons bubbles, floating upwards
+			Releasing your left click causes existing bubbles to dash
+			Bubbles gain in damage over time
+			'''
 	}
 
 	DesertCard: {
-		DisplayName: Desert Card
-		Tooltip: ""
+		DisplayName: Playing Card : Desert
+		Tooltip:
+			'''
+			Summons a desert bush above your head
+			Drag and release a fruit to launch it
+			'''
 	}
 
 	DetonatorCard: {
-		DisplayName: Detonator Card
-		Tooltip: ""
+		DisplayName: Playing Card : Detonator
+		Tooltip:
+			'''
+			Throws explosives, detonating upon releasing left click
+			Has a small delay before being able to detonate
+			'''
 	}
 
 	DungeonCard: {
-		DisplayName: Dungeon Card
-		Tooltip: ""
+		DisplayName: Playing Card : Spirit Tear
+		Tooltip:
+			'''
+			Fires a burst of spirit bolts
+			Hitting the same target with all projectiles will rip a part of their soul
+			Picking it up will deal a large amount of damage
+			'''
 	}
 
 	EaterCard: {
-		DisplayName: Eater Card
-		Tooltip: ""
+		DisplayName: Playing Card : Corrupted Nightmare
+		Tooltip:
+			'''
+			Summon a corrupted worm, following your cursor
+			Randomly releases rotten meat chunks
+			Collecting them increases the worm damage and length
+			'''
 	}
 
 	EmbersCard: {
-		DisplayName: Embers Card
-		Tooltip: ""
+		DisplayName: Playing Card : Embers
+		Tooltip: Releases homing embers
 	}
 
 	EyeCard: {
-		DisplayName: Eye Card
-		Tooltip: ""
+		DisplayName: Playing Card : Guardian of the Night
+		Tooltip:
+			'''
+			Summons a servant of cthulhu, dashing at your cursor
+			The servant will only attack if your cursor is far enough from its location
+			'''
 	}
 
 	ForestCard: {
-		DisplayName: Forest Card
-		Tooltip: ""
+		DisplayName: Playing Card : Forest
+		Tooltip:
+			'''
+			Summons a forest bush above your head
+			Drag and release a fruit to launch it
+			'''
 	}
 
 	GoblinArmyCard: {
-		DisplayName: Goblin Army Card
-		Tooltip: ""
+		DisplayName: Playing Card : Erratic Magic
+		Tooltip:
+			'''
+			Throws a portal, firing shadow bolts at an increasing rate
+			The portal will disappear upon releasing left click or getting too far from it
+			'''
 	}
 
 	GoldChestCard: {
-		DisplayName: Gold Chest Card
-		Tooltip: ""
+		DisplayName: Playing Card : Enchantment
+		Tooltip: Releases damaging sparkles
 	}
 
 	IceChestCard: {
-		DisplayName: Ice Chest Card
-		Tooltip: ""
+		DisplayName: Playing Card : Icicle
+		Tooltip: Summons icicles, falling from the ceiling above your cursor
 	}
 
 	IvyChestCard: {
-		DisplayName: Ivy Chest Card
-		Tooltip: ""
+		DisplayName: Playing Card : Deep Forest
+		Tooltip:
+			'''
+			Releases bursts of leaves, able to be pushed with the cursor
+			The further they are pushed, the more damage they deal
+			Only 3 sets of leaves can exist at once
+			'''
 	}
 
 	JungleCard: {
-		DisplayName: Jungle Card
-		Tooltip: ""
+		DisplayName: Playing Card : Jungle
+		Tooltip:
+			'''
+			Summons a jungle bush above your head
+			Drag and release a fruit to launch it
+			'''
 	}
 
 	JungleSlimeCard: {
-		DisplayName: Jungle Slime Card
-		Tooltip: ""
+		DisplayName: Playing Card : Spiky Gelatin
+		Tooltip:
+			'''
+			Summons a bouncy jungle slime, following your cursor
+			Each successful hit increases damage, touching the ground resets it
+			'''
 	}
 
 	KingSlimeCard: {
-		DisplayName: King Slime Card
-		Tooltip: ""
+		DisplayName: Playing Card : Blue King
+		Tooltip:
+			'''
+			Summons a bouncy slime, following your cursor, and jumping up to it
+			Gains in damage with fall distance and enemy hits, touching on the ground resets it
+			'''
 	}
 
 	LavaSlimeCard: {
-		DisplayName: Lava Slime Card
-		Tooltip: ""
+		DisplayName: Playing Card : Living Lava
+		Tooltip:
+			'''
+			Summons a bouncy lava slime, following your cursor
+			Each successful hit increases damage, touching the ground resets it
+			Every 3 consecutive hits, the slime will release a damaging explosion
+			'''
 	}
 
 	MushroomCard: {
-		DisplayName: Mushroom Card
-		Tooltip: ""
+		DisplayName: Playing Card : Glowing Mushroom
+		Tooltip:
+			'''
+			Summons a mushroom bush above your head
+			Drag and release a mushroom to launch it
+			Empowers once after bouncing
+			'''
 	}
 
 	OceanCard: {
-		DisplayName: Ocean Card
-		Tooltip: ""
+		DisplayName: Playing Card : Ocean
+		Tooltip:
+			'''
+			Summons a palm bush above your head
+			Drag and release a coconut to launch itA harsh landing will make the coconut explode
+			'''
 	}
 
 	QueenBeeCard: {
-		DisplayName: Queen Bee Card
-		Tooltip: ""
+		DisplayName: Playing Card : Poisonous Queen
+		Tooltip:
+			'''
+			Summons a bee hive, following your cursor
+			Shake it to summon bees
+			'''
 	}
 
 	SapCard: {
-		DisplayName: Sap Card
-		Tooltip: ""
+		DisplayName: Playing Card : Unstable Sap
+		Tooltip:
+			'''
+			Releases a slow-moving sap bubble, following the cursor
+			Upon releasing the mouse click, the bubble will explode
+			The longer the bubble exists, the more explosion damage
+			'''
 	}
 
 	ShuffleCard: {
-		DisplayName: Shuffle Card
-		Tooltip: ""
+		DisplayName: Playing Card : Shuffle
+		Tooltip:
+			'''
+			Randomly shoots a selection of clubs, spades, diamonds and heartz
+			Each projectile has its own properties and behaviour
+			Hold the attack button to create more projectiles and enhance their effects
+			Damage increases with the number of cards in your deck
+			'''
 	}
 
 	SkeletronCard: {
-		DisplayName: Skeletron Card
-		Tooltip: ""
+		DisplayName: Playing Card : Curse of the Dungeon
+		Tooltip:
+			'''
+			Summons a skull, slowly following your cursor
+			Based on the distance between your cursor and it, the projectile will behave differently
+			'''
 	}
 
 	SkyCard: {
-		DisplayName: Sky Card
-		Tooltip: ""
+		DisplayName: Playing Card : Sky
+		Tooltip:
+			'''
+			Summons a cloud bush above your head
+			Drag and release a fruit to launch it
+			Every third shot will release a star
+			Aim at the star to create more projectiles
+			'''
 	}
 
 	SlimeCard: {
-		DisplayName: Slime Card
-		Tooltip: ""
+		DisplayName: Playing Card : Bouncy Beginnings
+		Tooltip:
+			'''
+			Summons a bouncy slime, following your cursor
+			Each successful hit increases damage, touching the ground resets it
+			'''
 	}
 
 	SlimeRainCard: {
-		DisplayName: Slime Rain Card
-		Tooltip: ""
+		DisplayName: Playing Card : Jelly Clouds
+		Tooltip:
+			'''
+			Summons a slime rain cloud, following your cursor
+			Slimes will actively chase enemies after landing
+			The longer the slimes falls, the more damage they do
+			'''
 	}
 
 	SnowCard: {
-		DisplayName: Snow Card
-		Tooltip: ""
+		DisplayName: Playing Card : Snow
+		Tooltip:
+			'''
+			Summons a snow bush above your head
+			Drag and release a fruit to launch it
+			'''
 	}
 
 	BouncyChip: {
 		DisplayName: Bouncy Chip
-		Tooltip: ""
+		Tooltip: Throws bouncy gambling chips at your foes
 	}
 
 	CopperChip: {
 		DisplayName: Copper Chip
-		Tooltip: ""
+		Tooltip: Throws gambling chips at your foes
 	}
 
 	FossilChip: {
 		DisplayName: Fossil Chip
-		Tooltip: ""
+		Tooltip: Throws gambling chips at your foes
 	}
 
 	GamblingChip: {
 		DisplayName: Gambling Chip
-		Tooltip: ""
+		Tooltip: Throws gambling chips at your foes
 	}
 
 	GoldChip: {
 		DisplayName: Gold Chip
-		Tooltip: ""
+		Tooltip: Throws gambling chips at your foes
 	}
 
 	HellChip: {
-		DisplayName: Hell Chip
-		Tooltip: ""
+		DisplayName: Hellfire Chip
+		Tooltip: Throws explosive chips at your foes
 	}
 
 	MeteorDetonator: {
 		DisplayName: Meteor Detonator
-		Tooltip: ""
+		Tooltip: Timed explosions will deal double damage in a larger radius
 	}
 
 	PlatinumChip: {
 		DisplayName: Platinum Chip
-		Tooltip: ""
+		Tooltip: Throws gambling chips at your foes
 	}
 
 	Rusalka: {
 		DisplayName: Rusalka
-		Tooltip: ""
+		Tooltip:
+			'''
+			Sends delayed projectiles, dealing 50% more damage
+			25% chance not to consume chip
+			'''
 	}
 
 	TinChip: {
 		DisplayName: Tin Chip
-		Tooltip: ""
+		Tooltip: Throws explosive chips at your foes
 	}
 
 	GamblingDie: {
 		DisplayName: Gambling Die
-		Tooltip: ""
+		Tooltip: Every second gambler hit deals 1-6 increased damage
 	}
 
 	HoneyDie: {
-		DisplayName: Honey Die
-		Tooltip: ""
-	}
-
-	GuardianTest: {
-		DisplayName: Guardian Test
-		Tooltip: ""
-	}
-
-	EnchantedRune: {
-		DisplayName: Enchanted Rune
-		Tooltip: Summons protective enchanted sparkles
-	}
-
-	LivingRune: {
-		DisplayName: Living Rune
-		Tooltip: ""
-	}
-
-	EnchantedPavise: {
-		DisplayName: Enchanted Pavise
-		Tooltip: ""
-	}
-
-	IronPavise: {
-		DisplayName: Iron Pavise
-		Tooltip: ""
-	}
-
-	LeadPavise: {
-		DisplayName: Lead Pavise
-		Tooltip: ""
-	}
-
-	WoodenPavise: {
-		DisplayName: Wooden Pavise
-		Tooltip: ""
-	}
-
-	GoldWarhammer: {
-		DisplayName: Gold Warhammer
-		Tooltip: ""
-	}
-
-	PlatinumWarhammer: {
-		DisplayName: Platinum Warhammer
-		Tooltip: ""
-	}
-
-	Warhammer: {
-		DisplayName: Warhammer
-		Tooltip: Hurls a heavy hammer
-	}
-
-	MiniatureTools: {
-		DisplayName: Miniature Tools
-		Tooltip: ""
+		DisplayName: Wax Die
+		Tooltip: Recovers 1 - 6 health on gambling critical strike
 	}
 
 	OrnateOrchid: {
 		DisplayName: Ornate Orchid
-		Tooltip: ""
+		Tooltip: "'Great for impersonating Orchid Devs!'"
 	}
 
 	HarpyPotion: {
-		DisplayName: Harpy Potion
-		Tooltip: ""
-	}
-
-	MineshaftHook: {
-		DisplayName: Mineshaft Hook
-		Tooltip: ""
-	}
-
-	JungleLilyBloomed: {
-		DisplayName: Jungle Lily Bloomed
-		Tooltip: ""
+		DisplayName: Cloud Burst Potion
+		Tooltip:
+			'''
+			Your first bonus jump will release a burst of damaging feathers
+			Allows you to double jump, if you cannot already
+			'''
 	}
 
 	PrototypeSecrecy: {
 		DisplayName: Prototype Secrecy
-		Tooltip: ""
+		Tooltip: Damaging to the back guarantees a critical hit
 	}
 
 	SquareMinecart: {
 		DisplayName: Square Minecart
-		Tooltip: ""
+		Tooltip: "'Great for impersonating Orchid Devs!'"
 	}
 
 	OrchidEmblem: {
 		DisplayName: Orchid Emblem
-		Tooltip: ""
-	}
-
-	HauntedCandle: {
-		DisplayName: Haunted Candle
-		Tooltip: ""
+		Tooltip:
+			'''
+			While the Shamans and Guardians can continue their playthrough, the journey for both Alchemists and Gamblers stops here
+			... For now !
+			Content up to Moon Lord for these classes will be added in the future
+			Please, come and say hi on Discord if you want to support me ;)
+			'''
 	}
 
 	RCRemote: {
-		DisplayName: R C Remote
-		Tooltip: ""
-	}
-
-	FragileWood: {
-		DisplayName: Fragile Wood
-		Tooltip: ""
-	}
-
-	MinersLockbox: {
-		DisplayName: Miners Lockbox
-		Tooltip: ""
+		DisplayName: RC Remote
+		Tooltip: "'Highly advanced elven technology enabling control over new, recently developed non-reindeer aircraft'"
 	}
 
 	ShamanBiomeChest: {
-		DisplayName: Shaman Biome Chest
+		DisplayName: Shroom Chest
 		Tooltip: ""
 	}
 
 	ShroomKey: {
 		DisplayName: Shroom Key
-		Tooltip: ""
+		Tooltip: Unlocks a Shroom Chest in the dungeon
 	}
 
 	HeraldOfFrost: {
@@ -1193,11 +1515,6 @@ Items: {
 
 	AbyssPickaxe: {
 		DisplayName: Abyss Pickaxe
-		Tooltip: ""
-	}
-
-	MineshaftPickaxe: {
-		DisplayName: Mineshaft Pickaxe
 		Tooltip: ""
 	}
 
@@ -2123,6 +2440,56 @@ Items: {
 		DisplayName: Sun Ray
 	}
 
+	GuardianTest: {
+		DisplayName: Guardian Test
+		Tooltip: "[c/FF0000:Test Item]"
+	}
+
+	EnchantedRune: {
+		DisplayName: Enchanted Rune
+		Tooltip: Summons protective enchanted sparkles
+	}
+
+	LivingRune: {
+		DisplayName: Living Rune
+		Tooltip: Summons orbiting sap bubbles
+	}
+
+	EnchantedPavise: {
+		DisplayName: Enchanted Pavise
+		Tooltip: ""
+	}
+
+	IronPavise: {
+		DisplayName: Iron Pavise
+		Tooltip: ""
+	}
+
+	LeadPavise: {
+		DisplayName: Lead Pavise
+		Tooltip: ""
+	}
+
+	WoodenPavise: {
+		DisplayName: Wooden Pavise
+		Tooltip: ""
+	}
+
+	GoldWarhammer: {
+		DisplayName: Gold Warhammer
+		Tooltip: ""
+	}
+
+	PlatinumWarhammer: {
+		DisplayName: Platinum Warhammer
+		Tooltip: ""
+	}
+
+	Warhammer: {
+		DisplayName: Warhammer
+		Tooltip: Hurls a heavy hammer
+	}
+
 	CrimtaneShield: {
 		Tooltip: Restores 10 life on parry
 		DisplayName: Scapula
@@ -2410,20 +2777,20 @@ NPCs: {
 		DisplayName: Chemist
 
 		TownNPCMood: {
-			Content: I am content.
-			NoHome: I hate not having a home.
-			FarFromHome: I am too far from home.
-			LoveSpace: I love having so much space.
-			DislikeCrowded: I dislike how crowded I am.
-			HateCrowded: I hate how crowded I am.
-			LoveBiome: I love {BiomeName}.
-			LikeBiome: I like {BiomeName}.
-			DislikeBiome: I dislike {BiomeName}.
-			HateBiome: I hate {BiomeName}.
-			LoveNPC: I love {NPCName}.
-			LikeNPC: I like {NPCName}.
-			DislikeNPC: I dislike {NPCName}.
-			HateNPC: I hate {NPCName}.
+			Content: This is a neat place to experiment in!
+			NoHome: If only I could get a place to setup my lab...
+			FarFromHome: I hope my lab is alright at home..."
+			LoveSpace: Chemistry is amazing with this place! Got it?
+			DislikeCrowded: There are so many people around, it's distracting me.
+			HateCrowded: How am I supposed to experiment in such a crowded place?
+			LoveBiome: "{BiomeName} is a nice place to find ingredients."
+			LikeBiome: "{BiomeName} is amazing! So many cool things to toy, uh, experiment with!"
+			DislikeBiome: "{BiomeName} is hot and dry. I'm glad I piled up on ingredients already."
+			HateBiome: "{BiomeName} reminds me of when you found me. What a dreadful experience..."
+			LoveNPC: "{NPCName} knows so much reagents! She's been helping me a ton."
+			LikeNPC: "{NPCName} is a cool dude, I didn't expect him to like chemistry."
+			DislikeNPC: I sure hope {NPCName} doesn't blow my lab up again..."
+			HateNPC: "{NPCName} keeps pestering me about creating new weapons, can't he leave me alone?"
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
 		}
@@ -2433,20 +2800,20 @@ NPCs: {
 		DisplayName: Croupier
 
 		TownNPCMood: {
-			Content: I am content.
-			NoHome: I hate not having a home.
-			FarFromHome: I am too far from home.
-			LoveSpace: I love having so much space.
-			DislikeCrowded: I dislike how crowded I am.
-			HateCrowded: I hate how crowded I am.
-			LoveBiome: I love {BiomeName}.
-			LikeBiome: I like {BiomeName}.
-			DislikeBiome: I dislike {BiomeName}.
-			HateBiome: I hate {BiomeName}.
-			LoveNPC: I love {NPCName}.
-			LikeNPC: I like {NPCName}.
-			DislikeNPC: I dislike {NPCName}.
-			HateNPC: I hate {NPCName}.
+			Content: Ey, that sure is a fine place to deal with.
+			NoHome: Being homeless reminds me of darker times...
+			FarFromHome: Chief, it's not that I don't like this place, but I'd like to go back?
+			LoveSpace: If i knew i'd end up is such a cool corner, I'd have arrived earlier!
+			DislikeCrowded: Neighbors are fine and all, but y'know, that's a bit much.
+			HateCrowded: So many bystanders! Can't even ... play an honest game without being seen!
+			LoveBiome: "{BiomeName} is perfect to keep pristine cards."
+			LikeBiome: "{BiomeName} is chill, I'm down to stay."
+			DislikeBiome: "{BiomeName} is fine with me, but my cards? Not much."
+			HateBiome: The moisture in {BiomeName} air is ruining my cards!
+			LoveNPC: "{NPCName} is an amazing buddy, we play every night around a nice beer!"
+			LikeNPC: "{NPCName} is a cool girl. Chemistry reminds me of that one game..."
+			DislikeNPC: I didn't believe it, but {NPCName} taught me that goblins really CAN'T play cards.
+			HateNPC: "{NPCName} keeps pestering me about gambling, and blah, blah. why is he so nosy?"
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
 		}
@@ -2693,10 +3060,10 @@ Configs: {
 }
 
 DamageClasses: {
-	AlchemistDamageClass.DisplayName: Alchemist Damage Class
-	DancerDamageClass.DisplayName: Dancer Damage Class
-	GamblerChipDamageClass.DisplayName: Gambler Chip Damage Class
-	GamblerDamageClass.DisplayName: Gambler Damage Class
-	GuardianDamageClass.DisplayName: Guardian Damage Class
-	ShamanDamageClass.DisplayName: Shaman Damage Class
+	AlchemistDamageClass.DisplayName: Chemical Damage
+	DancerDamageClass.DisplayName: Poise Damage
+	GamblerChipDamageClass.DisplayName: Gambling Damage
+	GamblerDamageClass.DisplayName: Gambling Damage
+	GuardianDamageClass.DisplayName: Opposing Damage
+	ShamanDamageClass.DisplayName: Shamanic Damage
 }
