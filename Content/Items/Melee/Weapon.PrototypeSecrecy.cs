@@ -143,22 +143,22 @@ namespace OrchidMod.Content.Items.Melee
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			/*
 			bool flag = false;
 			flag |= target.direction > 0 && Projectile.Center.X < target.Center.X && Projectile.velocity.X > 0;
 			flag |= target.direction < 0 && Projectile.Center.X > target.Center.X && Projectile.velocity.X < 0;
 
 			if (flag)
 			{
-				crit = true;
+				modifiers.SetCrit();
 				SoundEngine.PlaySound(MagicSound, Projectile.Center);
 			}
 
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PrototypeSecrecyHitProjectile>(), 0, 0f, Projectile.owner, flag.ToInt());
-			*/
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		
+		/*
+		 * public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{
 			bool flag = false;
 			flag |= target.direction > 0 && Projectile.Center.X < target.Center.X && Projectile.velocity.X > 0;
@@ -172,6 +172,7 @@ namespace OrchidMod.Content.Items.Melee
 
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PrototypeSecrecyHitProjectile>(), 0, 0f, Projectile.owner, flag.ToInt());
 		}
+		*/
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
