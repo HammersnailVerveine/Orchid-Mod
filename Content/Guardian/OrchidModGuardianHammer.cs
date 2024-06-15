@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -94,8 +95,7 @@ namespace OrchidMod.Content.Guardian
 			{
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
-				string damageWord = splitText.Last();
-				tt.Text = damageValue + " opposing damage";
+				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));

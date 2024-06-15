@@ -7,6 +7,7 @@ using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
@@ -135,8 +136,7 @@ namespace OrchidMod.Content.Gambler
 			{
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
-				string damageWord = splitText.Last();
-				tt.Text = damageValue + " gambling " + damageWord;
+				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GamblerDamageClass.DisplayName"));
 			}
 
 			Player player = Main.player[Main.myPlayer];

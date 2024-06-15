@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Common;
+using Terraria.Localization;
 
 namespace OrchidMod.Content.Gambler
 {
@@ -71,8 +72,7 @@ namespace OrchidMod.Content.Gambler
 			{
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
-				string damageWord = splitText.Last();
-				tt.Text = damageValue + " gambling " + damageWord;
+				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GamblerDamageClass.DisplayName"));
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));

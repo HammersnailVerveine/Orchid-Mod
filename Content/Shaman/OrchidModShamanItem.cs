@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Common;
 using Terraria.Audio;
+using Terraria.Localization;
 
 namespace OrchidMod.Content.Shaman
 {
@@ -284,8 +285,7 @@ namespace OrchidMod.Content.Shaman
 			{
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
-				string damageWord = splitText.Last();
-				tt.Text = damageValue + " shamanic damage";
+				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.ShamanDamageClass.DisplayName"));
 			}
 
 			if (Element > 0)

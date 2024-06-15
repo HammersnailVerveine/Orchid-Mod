@@ -11,6 +11,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using Terraria.Localization;
 
 namespace OrchidMod.Content.Alchemist
 {
@@ -183,8 +184,7 @@ namespace OrchidMod.Content.Alchemist
 			{
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
-				string damageWord = splitText.Last();
-				tt.Text = damageValue + " chemical " + damageWord;
+				tt.Text = damageValue + " " + Language.GetTextValue(GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.AlchemistDamageClass.DisplayName"));
 			}
 
 			switch (this.element)

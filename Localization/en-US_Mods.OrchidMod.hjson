@@ -3060,10 +3060,10 @@ Configs: {
 }
 
 DamageClasses: {
-	AlchemistDamageClass.DisplayName: Chemical Damage
-	DancerDamageClass.DisplayName: Poise Damage
-	GamblerChipDamageClass.DisplayName: Gambling Damage
-	GamblerDamageClass.DisplayName: Gambling Damage
-	GuardianDamageClass.DisplayName: Opposing Damage
-	ShamanDamageClass.DisplayName: Shamanic Damage
+	AlchemistDamageClass.DisplayName: chemical damage
+	DancerDamageClass.DisplayName: poise damage
+	GamblerChipDamageClass.DisplayName: gambling damage
+	GamblerDamageClass.DisplayName: gambling damage
+	GuardianDamageClass.DisplayName: opposing damage
+	ShamanDamageClass.DisplayName: shamanic damage
 }

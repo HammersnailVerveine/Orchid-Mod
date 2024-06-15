@@ -4,6 +4,7 @@ using OrchidMod.Common.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Dancer
@@ -64,8 +65,7 @@ namespace OrchidMod.Content.Dancer
 			{
 				string[] splitText = tt.Text.Split(' ');
 				string damageValue = splitText.First();
-				string damageWord = splitText.Last();
-				tt.Text = damageValue + " dancing " + damageWord;
+				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.DancerDamageClass.DisplayName"));
 			}
 
 			string str = null;
