@@ -1459,7 +1459,7 @@ Items: {
 
 	PrototypeSecrecy: {
 		DisplayName: Prototype Secrecy
-		Tooltip: Damaging to the back guarantees a critical hit
+		Tooltip: Always critically strikes while returning
 	}
 
 	SquareMinecart: {
