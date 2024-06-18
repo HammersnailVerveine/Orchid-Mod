@@ -19,10 +19,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.knockBack = 13f;
 			Item.damage = 62;
 			Item.rare = ItemRarityID.Green;
-			Item.useAnimation = 30;
-			Item.useTime = 30;
+			Item.useTime = 35;
 			distance = 28f;
-			bashDistance = 100f;
+			bashDistance = 50f;
 			blockDuration = 240;
 		}
 

@@ -78,7 +78,7 @@ namespace OrchidMod.Content.Guardian
 								SoundEngine.PlaySound(Item.UseSound, player.Center);
 								guardian.GuardianSlam --;
 								shield.shieldEffectReady = true;
-								proj.ai[1] = this.bashDistance;
+								proj.ai[1] = Item.useTime;
 								if (proj.ai[0] > 0f) 
 								{
 									shield.spawnDusts();

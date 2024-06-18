@@ -17,8 +17,8 @@ namespace OrchidMod.Content.Guardian
 		public int SelectedItem { get; set; } = -1;
 		public Item ShieldItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
 
-		public float bashDistanceRef = 0f;
 		public bool shieldEffectReady = true;
+		public bool isSlamming = false;
 		public Vector2 aimedLocation = Vector2.Zero;
 		public Vector2 oldOwnerPos = Vector2.Zero;
 
@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.netImportant = true;
 			Projectile.alpha = 255;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 10;
+			Projectile.localNPCHitCooldown = 20;
 		}
 
 		public void OnChangeSelectedItem(Player owner)
@@ -104,9 +104,9 @@ namespace OrchidMod.Content.Guardian
 				if (Projectile.ai[1] > 0f)
 				{ // Shield bash
 
-					if (bashDistanceRef == 0f)
+					if (!isSlamming)
 					{
-						bashDistanceRef = Projectile.ai[1] / 2;
+						isSlamming = true;
 						Projectile.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
 						Projectile.CritChance = (int)(Main.player[Projectile.owner].GetCritChance<GuardianDamageClass>() + Main.player[Projectile.owner].GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 						Projectile.knockBack = guardianItem.Item.knockBack;
@@ -114,38 +114,15 @@ namespace OrchidMod.Content.Guardian
 						guardianItem.Slam(owner, Projectile);
 					}
 
-					/*
-					for (int k = 0; k < Main.maxNPCs; k++)
-					{
-						NPC target = Main.npc[k];
-						if (target.active && !target.dontTakeDamage && !target.friendly && Projectile.Hitbox.Intersects(target.Hitbox))
-						{
-							guardianItem.SlamHit(owner, Projectile, target);
-							if (shieldEffectReady)
-							{
-								guardianItem.SlamHitFirst(owner, Projectile, target);
-								shieldEffectReady = false;
-							}
-						}
-					}
-					*/
+					addedDistance = (float)Math.Sin((MathHelper.Pi / guardianItem.Item.useTime) * Projectile.ai[1]) * guardianItem.bashDistance;
+					Projectile.ai[1] -= guardianItem.bashDistance / guardianItem.Item.useTime;
 
-					if (Projectile.ai[1] > bashDistanceRef)
+					if (Projectile.ai[1] <= 0f)
 					{
-						addedDistance = bashDistanceRef * 2 - Projectile.ai[1];
+						Projectile.ai[1] = 0f;
+						isSlamming = false;
+						Projectile.friendly = false;
 					}
-					else
-					{
-						addedDistance = Projectile.ai[1];
-					}
-
-					Projectile.ai[1] -= (bashDistanceRef * 2) / guardianItem.Item.useTime;
-					Projectile.ai[1] = Projectile.ai[1] > 0f ? Projectile.ai[1] : 0f;
-				}
-				else
-				{
-					bashDistanceRef = 0f;
-					Projectile.friendly = false;
 				}
 
 				if (Projectile.ai[0] > 0f)

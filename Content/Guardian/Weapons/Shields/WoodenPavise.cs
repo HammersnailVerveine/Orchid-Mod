@@ -14,15 +14,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.value = Item.sellPrice(0, 0, 0, 30);
 			Item.knockBack = 5f;
 			Item.damage = 12;
-			Item.useTime = 35;
-			this.distance = 30f;
-			this.bashDistance = 70f;
-			this.blockDuration = 60;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Wooden Pavise");
+			Item.useTime = 30;
+			distance = 30f;
+			bashDistance = 30f;
+			blockDuration = 60;
 		}
 
 		public override void AddRecipes()
