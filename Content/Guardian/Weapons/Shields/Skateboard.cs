@@ -40,7 +40,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				{
 					owner.velocity.Y -= 10f;
 					if (owner.velocity.Y > -5) owner.velocity.Y = -5f;
-					if (owner.velocity.Y < -14f && !player.controlJump) SoundEngine.PlaySound(SoundTrick, shield.Center);
+					if (owner.velocity.Y < -14f && !player.controlJump)
+					{
+						SoundEngine.PlaySound(SoundTrick, shield.Center);
+					}
 				}
 			}
 		}
