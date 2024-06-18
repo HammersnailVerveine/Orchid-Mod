@@ -18,7 +18,7 @@ namespace OrchidMod.Content.Guardian
 		public Item ShieldItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
 
 		public bool shieldEffectReady = true;
-		public bool isSlamming = false;
+		public byte isSlamming = 0;
 		public Vector2 aimedLocation = Vector2.Zero;
 		public Vector2 oldOwnerPos = Vector2.Zero;
 
@@ -104,14 +104,13 @@ namespace OrchidMod.Content.Guardian
 				if (Projectile.ai[1] > 0f)
 				{ // Shield bash
 
-					if (!isSlamming)
+					if (isSlamming == 0)
 					{
-						isSlamming = true;
+						isSlamming = 1;
 						Projectile.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
 						Projectile.CritChance = (int)(Main.player[Projectile.owner].GetCritChance<GuardianDamageClass>() + Main.player[Projectile.owner].GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.friendly = true;
-						guardianItem.Slam(owner, Projectile);
 					}
 
 					addedDistance = (float)Math.Sin((MathHelper.Pi / guardianItem.Item.useTime) * Projectile.ai[1]) * guardianItem.bashDistance;
@@ -120,7 +119,7 @@ namespace OrchidMod.Content.Guardian
 					if (Projectile.ai[1] <= 0f)
 					{
 						Projectile.ai[1] = 0f;
-						isSlamming = false;
+						isSlamming = 0;
 						Projectile.friendly = false;
 					}
 				}
@@ -283,7 +282,13 @@ namespace OrchidMod.Content.Guardian
 				Projectile.timeLeft = 5;
 				Projectile.velocity *= float.Epsilon;
 
-				this.UpdateHitbox();
+				if (isSlamming == 1) // Slam() is called here so the projectile has the time to reposition properly before effects such as projectile spawns are called
+				{
+					isSlamming = 2;
+					guardianItem.Slam(owner, Projectile);
+				} 
+
+				UpdateHitbox();
 				//this.SeeHitbox();
 			}
 
