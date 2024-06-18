@@ -71,7 +71,9 @@ namespace OrchidMod.Common.Globals.NPCs
 
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)
 		{
-			OrchidUtils.AddItemToShop<PileOfChips>(shop, ref nextSlot, 3);
+			if (Main.rand.NextBool()) OrchidUtils.AddItemToShop<Skateboard>(shop, ref nextSlot);
+			else OrchidUtils.AddItemToShop<PileOfChips>(shop, ref nextSlot);
+
 			if (Main.hardMode) OrchidUtils.AddItemToShop<BijouShield>(shop, ref nextSlot, 2);
 		}
 

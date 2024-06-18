@@ -26,6 +26,7 @@ using OrchidMod.Utilities;
 using OrchidMod.Content.Guardian.Weapons.Warhammers;
 using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Weapons.Shields;
+using OrchidMod.Content.Shaman.Weapons.Hardmode;
 
 namespace OrchidMod
 {
@@ -381,7 +382,7 @@ namespace OrchidMod
 
 			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>())
 			{
-				chest.item[0].SetDefaults(Mod.Find<ModItem>("ShroomiteScepter").Type);
+				chest.item[0].SetDefaults(ItemType<ShroomiteScepter>());
 				chest.item[1].SetDefaults(183); // Glowing Mushroom
 				chest.item[1].stack = Main.rand.Next(10) + 20;
 				chest.item[2].SetDefaults(188); // Healing Potion

@@ -12,7 +12,13 @@ namespace OrchidMod.Content.Guardian.Accessories
 			Item.rare = -11;
 			Item.accessory = true;
 		}
-		
+
+		public override void UpdateEquip(Player player)
+		{
+			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
+			modPlayer.GuardianBlock = modPlayer.GuardianBlockMax;
+		}
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Guardian Test Accessory");

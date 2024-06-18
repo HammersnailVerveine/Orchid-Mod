@@ -14,7 +14,7 @@ namespace OrchidMod.Content.Guardian
 	public abstract class OrchidModGuardianShield : OrchidModGuardianItem
 	{
 		public virtual string ShieldTexture => "OrchidMod/Content/Guardian/ShieldTextures/" + this.Name + "_Shield";
-		public virtual void ExtraAIShield(Projectile projectile, bool after) { }
+		public virtual void ExtraAIShield(Projectile projectile) { }
 		public virtual void PostAIShield(Projectile projectile) { }
 		public virtual void PostDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreAIShield(Projectile projectile) { return true; }
@@ -30,7 +30,10 @@ namespace OrchidMod.Content.Guardian
 		public virtual void Block(Player player, Projectile shield, Projectile projectile) {  // Called when any projectile is blocked
 			projectile.Kill();
 		}
-		
+		public virtual void BlockStart(Player player, Projectile shield) { }  // Called when the player starts blocking (as they press the left click)
+
+
+
 		public float distance = 100f;
 		public float bashDistance = 100f;
 		public int blockDuration = 60;
@@ -90,9 +93,10 @@ namespace OrchidMod.Content.Guardian
 							{
 								shield.shieldEffectReady = true;
 								guardian.GuardianBlock --;
-								proj.ai[0] = this.blockDuration;
+								proj.ai[0] = blockDuration;
 								proj.netUpdate = true;
 								proj.netUpdate2 = true;
+								BlockStart(player, proj);
 							}
 							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if left click again
 							{
@@ -102,6 +106,7 @@ namespace OrchidMod.Content.Guardian
 								proj.netUpdate = true;
 								proj.netUpdate2 = true;
 								resetBlockedEnemiesDuration(guardian);
+								BlockStart(player, proj);
 							} 
 						}
 					}

@@ -56,6 +56,23 @@ namespace OrchidMod.Content.Guardian
 		{
 			networkedPosition = Main.player[Projectile.owner].Center;
 		}
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			var owner = Main.player[Projectile.owner];
+			var item = ShieldItem;
+			if (item == null || !(item.ModItem is OrchidModGuardianShield guardianItem))
+			{
+				Projectile.Kill();
+				return;
+			}
+
+			guardianItem.SlamHit(owner, Projectile, target);
+			if (shieldEffectReady)
+			{
+				guardianItem.SlamHitFirst(owner, Projectile, target);
+				shieldEffectReady = false;
+			}
+		}
 
 		public override void AI()
 		{
@@ -97,6 +114,7 @@ namespace OrchidMod.Content.Guardian
 						guardianItem.Slam(owner, Projectile);
 					}
 
+					/*
 					for (int k = 0; k < Main.maxNPCs; k++)
 					{
 						NPC target = Main.npc[k];
@@ -110,6 +128,7 @@ namespace OrchidMod.Content.Guardian
 							}
 						}
 					}
+					*/
 
 					if (Projectile.ai[1] > bashDistanceRef)
 					{
@@ -184,7 +203,7 @@ namespace OrchidMod.Content.Guardian
 							foreach(BlockedEnemy blockedEnemy in modPlayer.GuardianBlockedEnemies)
 							{
 								if (blockedEnemy.npc == target)
-								{ // Enemy alrady blocked, reset the timer
+								{ // Enemy already blocked, reset the timer
 									blockedEnemy.time = (int)Projectile.ai[0] + 60;
 									contained = true;
 									break;
@@ -195,17 +214,6 @@ namespace OrchidMod.Content.Guardian
 							{ // First time blocking an enemy
 								modPlayer.GuardianBlockedEnemies.Add(new BlockedEnemy(target, (int)Projectile.ai[0] + 60));
 								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
-								if (modPlayer.GuardianSpikeGoblin)
-								{
-									float damage = owner.statDefense;
-									if (modPlayer.GuardianSpikeTemple) damage *= 3f;
-									else if (modPlayer.GuardianSpikeMechanical) damage *= 2.5f;
-									else if (modPlayer.GuardianSpikeDungeon) damage *= 1.5f;
-
-									damage = owner.GetDamage<GuardianDamageClass>().ApplyTo(damage);
-									bool crit = Main.rand.NextFloat(100) < Projectile.CritChance;
-									owner.ApplyDamageToNPC(target, (int)damage, 0f, owner.direction, crit, ModContent.GetInstance<GuardianDamageClass>());
-								}
 							}
 
 							if (target.knockBackResist > 0f)
@@ -225,16 +233,27 @@ namespace OrchidMod.Content.Guardian
 								guardianItem.Protect(owner, Projectile);
 								shieldEffectReady = false;
 								SoundEngine.PlaySound(SoundID.Item37, owner.Center);
+
+								if (modPlayer.GuardianSpikeGoblin)
+								{
+									float damage = owner.statDefense;
+									if (modPlayer.GuardianSpikeTemple) damage *= 3f;
+									else if (modPlayer.GuardianSpikeMechanical) damage *= 2.5f;
+									else if (modPlayer.GuardianSpikeDungeon) damage *= 1.5f;
+
+									damage = owner.GetDamage<GuardianDamageClass>().ApplyTo(damage);
+									bool crit = Main.rand.NextFloat(100) < Projectile.CritChance;
+									owner.ApplyDamageToNPC(target, (int)damage, 0f, owner.direction, crit, ModContent.GetInstance<GuardianDamageClass>());
+								}
 							}
 						}
 					}
 
-					Projectile.ai[0] -= 1f;
-					Projectile.ai[0] = Projectile.ai[0] > 0f ? Projectile.ai[0] : 0f;
-
-					if (Projectile.ai[0] == 0f)
+					Projectile.ai[0] --;
+					if (Projectile.ai[0] <= 0f)
 					{
 						spawnDusts();
+						Projectile.ai[0] = 0f;
 					}
 				}
 				else
@@ -292,7 +311,7 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			oldOwnerPos = owner.Center;
-			guardianItem.ExtraAIShield(Projectile, true);
+			guardianItem.ExtraAIShield(Projectile);
 		}
 
 		// https://stackoverflow.com/questions/5514366/how-to-know-if-a-line-intersects-a-rectangle

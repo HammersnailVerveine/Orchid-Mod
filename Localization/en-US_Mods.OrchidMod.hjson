@@ -2442,7 +2442,11 @@ Items: {
 
 	GuardianTest: {
 		DisplayName: Guardian Test
-		Tooltip: "[c/FF0000:Test Item]"
+		Tooltip:
+			'''
+			Gives infinite blocks
+			[c/FF0000:Test Item]
+			'''
 	}
 
 	EnchantedRune: {
@@ -2767,6 +2771,15 @@ Items: {
 	MagnetosphereShield: {
 		DisplayName: Bow Shock
 		Tooltip: Bow shocks are created when solar winds blow on a magnetic field
+	}
+
+	Skateboard: {
+		DisplayName: Skateboard
+		Tooltip:
+			'''
+			Block downwards while falling to skate on the ground
+			Slam enemies downwards to launch yourself in the air
+			'''
 	}
 }
 
