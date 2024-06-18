@@ -3,7 +3,7 @@ using OrchidMod.Common.Graphics;
 using ReLogic.Content;
 using Terraria.ModLoader;
 
-namespace OrchidMod
+namespace OrchidMod.Assets
 {
 	public static class OrchidAssets
 	{

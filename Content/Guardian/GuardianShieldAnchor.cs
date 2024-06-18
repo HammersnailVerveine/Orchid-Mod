@@ -114,8 +114,9 @@ namespace OrchidMod.Content.Guardian
 						Projectile.friendly = true;
 					}
 
-					addedDistance = (float)Math.Sin((MathHelper.Pi / guardianItem.Item.useTime) * Projectile.ai[1]) * guardianItem.bashDistance;
-					Projectile.ai[1] -= guardianItem.bashDistance / guardianItem.Item.useTime;
+					float slamDistance = (int)(guardianItem.slamDistance * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance());
+					addedDistance = (float)Math.Sin((MathHelper.Pi / guardianItem.Item.useTime) * Projectile.ai[1]) * slamDistance;
+					Projectile.ai[1] -= slamDistance / guardianItem.Item.useTime;
 
 					if (Projectile.ai[1] <= 0f)
 					{
@@ -127,7 +128,7 @@ namespace OrchidMod.Content.Guardian
 
 				if (Projectile.ai[0] > 0f)
 				{
-					aimedLocation += owner.Center - oldOwnerPos;
+					aimedLocation += owner.Center.Floor() - oldOwnerPos.Floor();
 					Point p1 = new Point((int)hitboxOrigin.X, (int)hitboxOrigin.Y);
 					Point p2 = new Point((int)(hitboxOrigin.X + hitbox.X), (int)(hitboxOrigin.Y + hitbox.Y));
 
@@ -237,7 +238,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (Main.myPlayer == Projectile.owner)
 					{
-						aimedLocation = Main.MouseWorld - owner.Center;
+						aimedLocation = Main.MouseWorld - owner.Center.Floor();
 						aimedLocation.Normalize();
 						Projectile.velocity = aimedLocation;
 						aimedLocation *= (guardianItem.distance + addedDistance) * -1f;
@@ -245,7 +246,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.rotation = aimedLocation.ToRotation();
 						Projectile.direction = Projectile.spriteDirection;
 
-						aimedLocation = owner.Center - aimedLocation - new Vector2(Projectile.width / 2f, Projectile.height / 2f);
+						aimedLocation = owner.Center.Floor() - aimedLocation - new Vector2(Projectile.width / 2f, Projectile.height / 2f);
 
 						if (networkedPosition.Distance(aimedLocation) > 5f && Projectile.ai[1] <= 0f)
 						{
@@ -271,11 +272,11 @@ namespace OrchidMod.Content.Guardian
 					if (addedDistance > 0f)
 					{
 						dir.Normalize();
-						Projectile.position = networkedPosition + owner.Center - oldOwnerPos + dir * -addedDistance;
+						Projectile.position = networkedPosition + owner.Center.Floor() - oldOwnerPos + dir * -addedDistance;
 					}
 					else
 					{
-						Projectile.position += owner.Center - oldOwnerPos;
+						Projectile.position += owner.Center.Floor() - oldOwnerPos;
 						networkedPosition = Projectile.position;
 					}
 				}
@@ -388,14 +389,14 @@ namespace OrchidMod.Content.Guardian
 			if (guardianItem.PreDrawShield(spriteBatch, Projectile, player, ref color))
 			{
 				var texture = ModContent.Request<Texture2D>(guardianItem.ShieldTexture).Value;
-				var position = Projectile.Center - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+				var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 				//Projectile.width = texture.Width;
 				Projectile.width = texture.Height;
 				Projectile.height = texture.Height;
 				float colorMult = (Projectile.ai[1] + Projectile.ai[0] > 0 ? 1f : (0.4f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 120f)));
-				spriteBatch.Draw(texture, position, null, color * colorMult, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(texture, drawPosition, null, color * colorMult, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawShield(spriteBatch, Projectile, player, color);
 

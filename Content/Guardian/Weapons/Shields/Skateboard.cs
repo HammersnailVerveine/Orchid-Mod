@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Assets;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -21,7 +22,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.rare = ItemRarityID.Green;
 			Item.useTime = 35;
 			distance = 28f;
-			bashDistance = 50f;
+			slamDistance = 50f;
 			blockDuration = 240;
 		}
 
@@ -61,7 +62,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				// playing is aiming down has no hook or mount, and is falling. Place the shield down and allow skating
 				if (anchor.aimedLocation.Y > owner.Center.Y && (Math.Abs(anchor.aimedLocation.X - owner.Center.X) < 32f) && owner.grapCount == 0 && owner.mount.Type == MountID.None && (owner.velocity.Y > 1f || projectile.ai[2] != 0f))
 				{
-					anchor.aimedLocation = owner.Center - new Vector2(projectile.width / 2f, projectile.height / 2f) + Vector2.UnitY * distance;
+					anchor.aimedLocation = owner.Center.Floor() - new Vector2(projectile.width / 2f, projectile.height / 2f) + Vector2.UnitY * distance;
 					anchor.networkedPosition = anchor.aimedLocation;
 					projectile.rotation = -MathHelper.PiOver2;
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Assets;
 using OrchidMod.Common.PlayerDrawLayers;
 using OrchidMod.Utilities;
 using System;

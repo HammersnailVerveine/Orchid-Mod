@@ -2444,7 +2444,7 @@ Items: {
 		DisplayName: Guardian Test
 		Tooltip:
 			'''
-			Gives infinite blocks
+			Grants infinite guardian resources
 			[c/FF0000:Test Item]
 			'''
 	}
@@ -2851,6 +2851,19 @@ Prefixes: {
 	CursedPrefix.DisplayName: Cursed
 	BrewingPrefix.DisplayName: Brewing
 	BewitchedPrefix.DisplayName: Bewitched
+	BlockingPrefix.DisplayName: Blocking
+	FeeblePrefix.DisplayName: Feeble
+	FragilePrefix.DisplayName: Fragile
+	HulkingPrefix.DisplayName: Hulking
+	PonderousPrefix.DisplayName: Ponderous
+	SteadfastPrefix.DisplayName: Steadfast
+	StoutPrefix.DisplayName: Stout
+	SturdyPrefix.DisplayName: Sturdy
+	ToughPrefix.DisplayName: Tough
+	UnmovablePrefix.DisplayName: Unmovable
+	UnwieldyPrefix.DisplayName: Unwieldy
+	UnyieldingPrefix.DisplayName: Unyielding
+	WhackingPrefix.DisplayName: Whacking
 }
 
 Projectiles: {

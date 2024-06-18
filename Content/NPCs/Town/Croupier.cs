@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Assets;
 using OrchidMod.Content.Gambler;
 using OrchidMod.Content.Gambler.Accessories;
 using OrchidMod.Content.Gambler.Decks;

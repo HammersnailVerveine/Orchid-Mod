@@ -32,10 +32,8 @@ namespace OrchidMod.Content.Guardian
 		}
 		public virtual void BlockStart(Player player, Projectile shield) { }  // Called when the player starts blocking (as they press the left click)
 
-
-
 		public float distance = 100f;
-		public float bashDistance = 100f;
+		public float slamDistance = 100f;
 		public int blockDuration = 60;
 
 		public sealed override void SetDefaults()
@@ -93,7 +91,7 @@ namespace OrchidMod.Content.Guardian
 							{
 								shield.shieldEffectReady = true;
 								guardian.GuardianBlock --;
-								proj.ai[0] = blockDuration;
+								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
 								proj.netUpdate = true;
 								proj.netUpdate2 = true;
 								BlockStart(player, proj);
@@ -148,13 +146,13 @@ namespace OrchidMod.Content.Guardian
 				var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
 
 				var proj = Main.projectile[index];
-				if (!(proj.ModProjectile is GuardianShieldAnchor shield))
+				if (proj.ModProjectile is not GuardianShieldAnchor shield)
 				{
 					proj.Kill();
 				}
 				else 
 				{
-					proj.localAI[0] = this.blockDuration;
+					proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
 					shield.OnChangeSelectedItem(player);
 				}
 			}
@@ -165,7 +163,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (shield.SelectedItem != player.selectedItem)
 					{
-						proj.localAI[0] = this.blockDuration;
+						proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
 						shield.OnChangeSelectedItem(player);
 					}
 				}

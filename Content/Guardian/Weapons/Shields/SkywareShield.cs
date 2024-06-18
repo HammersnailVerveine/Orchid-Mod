@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.useTime = 40;
 			Item.shootSpeed = 8f;
 			distance = 45f;
-			bashDistance = 65f;
+			slamDistance = 65f;
 			blockDuration = 120;
 		}
 

@@ -21,6 +21,8 @@ namespace OrchidMod
 		public int GuardianSlamMax = 3; // Max slam charges
 		public int GuardianBonusRune = 0; // Bonus projectiles spawned by runes
 		public float GuardianRuneTimer = 1f; // Rune duration multiplier
+		public float GuardianSlamDistance = 1f; // Slam Distance multiplier
+		public float GuardianBlockDuration = 1f; // Block Duration multiplier
 
 		// Set effects, accessories, misc
 
@@ -139,6 +141,8 @@ namespace OrchidMod
 			GuardianSlamMax = 3;
 			GuardianBonusRune = 0;
 			GuardianRuneTimer = 1f;
+			GuardianSlamDistance = 1f;
+			GuardianBlockDuration = 1f;
 
 			GuardianMeteorite = false;
 			GuardianSpikeGoblin = false;

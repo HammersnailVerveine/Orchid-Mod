@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Assets;
 using OrchidMod.Utilities;
 using System;
 using Terraria;

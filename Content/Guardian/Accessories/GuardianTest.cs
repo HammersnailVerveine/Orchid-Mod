@@ -16,7 +16,8 @@ namespace OrchidMod.Content.Guardian.Accessories
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianBlock = modPlayer.GuardianBlockMax;
+			if (modPlayer.GuardianBlock < 1) modPlayer.GuardianBlock = 1;
+			if (modPlayer.GuardianSlam < 1) modPlayer.GuardianSlam = 1;
 		}
 
 		public override void SetStaticDefaults()

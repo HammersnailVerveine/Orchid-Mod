@@ -17,6 +17,7 @@ namespace OrchidMod.Content.Prefixes
 		private readonly byte shamanTimer;
 		private readonly byte alchemistPotency;
 		private readonly byte gamblerChip;
+		private readonly byte guardianBlock;
 
 		public override void Unload()
 			=> prefixes.Clear();
@@ -30,22 +31,23 @@ namespace OrchidMod.Content.Prefixes
 		public override PrefixCategory Category
 			=> PrefixCategory.Accessory;
 
-		public AccessoryPrefix(byte shamanTimer, byte alchemistPotency, byte gamblerChip)
+		public AccessoryPrefix(byte shamanTimer, byte alchemistPotency, byte gamblerChip, byte guardianBlock)
 		{
 			this.shamanTimer = shamanTimer;
 			this.alchemistPotency = alchemistPotency;
 			this.gamblerChip = gamblerChip;
+			this.guardianBlock = guardianBlock;
 		}
 
 		public override void Load()
 			=> prefixes.Add(this);
 
 		public override void Apply(Item item)
-			=> item.GetGlobalItem<AccessoryPrefixItem>().SetPrefixVariables(shamanTimer, alchemistPotency, gamblerChip);
+			=> item.GetGlobalItem<AccessoryPrefixItem>().SetPrefixVariables(shamanTimer, alchemistPotency, gamblerChip, guardianBlock);
 
 		public override void ModifyValue(ref float valueMult)
 		{
-			float multiplier = 1f + (0.05f * 2 * shamanTimer) + (0.1f * 2 * alchemistPotency) + (0.1f * gamblerChip);
+			float multiplier = 1f + (0.1f * shamanTimer) + (0.2f * alchemistPotency) + (0.1f * gamblerChip) + (0.2f * guardianBlock);
 			valueMult *= multiplier;
 		}
 	}
@@ -55,14 +57,16 @@ namespace OrchidMod.Content.Prefixes
 		private byte shamanTimer;
 		private byte alchemistPotency;
 		private byte gamblerChip;
+		private byte guardianBlock;
 
 		// ...
 
-		public void SetPrefixVariables(byte shamanTimer, byte alchemistPotency, byte gamblerChip)
+		public void SetPrefixVariables(byte shamanTimer, byte alchemistPotency, byte gamblerChip, byte guardianBlock)
 		{
 			this.shamanTimer = shamanTimer;
 			this.alchemistPotency = alchemistPotency;
 			this.gamblerChip = gamblerChip;
+			this.guardianBlock = guardianBlock;
 		}
 
 		// ...
@@ -72,6 +76,7 @@ namespace OrchidMod.Content.Prefixes
 			shamanTimer = 0;
 			alchemistPotency = 0;
 			gamblerChip = 0;
+			guardianBlock = 0;
 		}
 
 		public override bool InstancePerEntity => true;
@@ -82,6 +87,7 @@ namespace OrchidMod.Content.Prefixes
 			myClone.shamanTimer = shamanTimer;
 			myClone.alchemistPotency = alchemistPotency;
 			myClone.gamblerChip = gamblerChip;
+			myClone.guardianBlock = guardianBlock;
 			return myClone;
 		}
 
@@ -89,7 +95,7 @@ namespace OrchidMod.Content.Prefixes
 		{
 			if (item.accessory && rand.NextBool(20))
 			{
-				var prefixes = ShamanPrefix.GetPrefixes;
+				var prefixes = AccessoryPrefix.GetPrefixes;
 				return prefixes[Main.rand.Next(prefixes.Count)].Type;
 			}
 
@@ -101,6 +107,7 @@ namespace OrchidMod.Content.Prefixes
 			shamanTimer = 0;
 			alchemistPotency = 0;
 			gamblerChip = 0;
+			guardianBlock = 0;
 		}
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -138,6 +145,15 @@ namespace OrchidMod.Content.Prefixes
 				});
 				return;
 			}
+
+			if (guardianBlock > 0)
+			{
+				tooltips.Insert(index, new TooltipLine(Mod, "GuardianBlockPrefix", "+" + guardianBlock + " block charge")
+				{
+					IsModifier = true
+				});
+				return;
+			}
 		}
 
 		public override void UpdateEquip(Item item, Player player)
@@ -148,6 +164,7 @@ namespace OrchidMod.Content.Prefixes
 				modPlayer.modPlayerShaman.ShamanBondDuration += shamanTimer;
 				modPlayer.modPlayerAlchemist.alchemistPotencyMax += alchemistPotency;
 				modPlayer.modPlayerGambler.gamblerChipsMax += gamblerChip;
+				modPlayer.modPlayerGuardian.GuardianBlockMax += guardianBlock;
 			}
 		}
 
@@ -156,6 +173,7 @@ namespace OrchidMod.Content.Prefixes
 			writer.Write(shamanTimer);
 			writer.Write(alchemistPotency);
 			writer.Write(gamblerChip);
+			writer.Write(guardianBlock);
 		}
 
 		public override void NetReceive(Item item, BinaryReader reader)
@@ -163,6 +181,7 @@ namespace OrchidMod.Content.Prefixes
 			shamanTimer = reader.ReadByte();
 			alchemistPotency = reader.ReadByte();
 			gamblerChip = reader.ReadByte();
+			guardianBlock = reader.ReadByte();
 		}
 	}
 }

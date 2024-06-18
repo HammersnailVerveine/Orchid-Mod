@@ -1,3 +1,4 @@
+using OrchidMod.Assets;
 using OrchidMod.Content.Shaman.Misc;
 using Terraria;
 using Terraria.ID;

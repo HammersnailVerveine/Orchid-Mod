@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Assets;
 using OrchidMod.Content.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ModLoader;

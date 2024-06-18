@@ -1,3 +1,4 @@
+using OrchidMod.Assets;
 using OrchidMod.Common.ModSystems;
 using OrchidMod.Content.Alchemist;
 using OrchidMod.Content.Alchemist.Accessories;

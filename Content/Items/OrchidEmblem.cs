@@ -1,6 +1,7 @@
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
+using OrchidMod.Assets;
 
 namespace OrchidMod.Content.Items
 {

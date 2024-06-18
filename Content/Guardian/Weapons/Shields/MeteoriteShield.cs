@@ -16,7 +16,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.rare = ItemRarityID.Green;
 			Item.useTime = 50;
 			distance = 45f;
-			bashDistance = 100f;
+			slamDistance = 100f;
 			blockDuration = 200;
 		}
 

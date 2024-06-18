@@ -1,3 +1,4 @@
+using OrchidMod.Assets;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.NPCs.Town

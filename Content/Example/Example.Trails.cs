@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Assets;
 using OrchidMod.Common;
 using OrchidMod.Common.Graphics;
 using OrchidMod.Common.Graphics.Primitives;
