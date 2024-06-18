@@ -10,6 +10,8 @@ using OrchidMod.Common.Attributes;
 using OrchidMod.Common;
 using Terraria.Audio;
 using Terraria.Localization;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Shaman
 {
@@ -49,7 +51,7 @@ namespace OrchidMod.Content.Shaman
 			Item.noMelee = true;
 			Item.useStyle = ItemUseStyleID.Thrust;
 
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.shamanWeapon = true;
 
 			SafeSetDefaults();

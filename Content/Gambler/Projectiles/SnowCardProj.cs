@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Global.Projectiles;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -109,7 +110,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			int dustType = 31;
 			Main.dust[Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType)].velocity *= 0.25f;
 			int projType = ProjectileType<Content.Gambler.Projectiles.SnowCardProjAlt>();
-			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 			DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X, Projectile.velocity.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 		}
 	}

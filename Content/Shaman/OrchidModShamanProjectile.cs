@@ -1,3 +1,5 @@
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.ID;
 
@@ -13,7 +15,7 @@ namespace OrchidMod.Content.Shaman
 		public sealed override void AltSetDefaults()
 		{
 			Player player = Main.LocalPlayer;
-			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.shamanProjectile = true;
 		}
@@ -31,7 +33,7 @@ namespace OrchidMod.Content.Shaman
 
 			if (target.type != NPCID.TargetDummy && !target.CountsAsACritter)
 			{
-				OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+				OrchidGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>();
 				modPlayer.AddShamanicEmpowerment(modProjectile.shamanEmpowermentType);
 			}
 

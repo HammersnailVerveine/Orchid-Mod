@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -69,7 +71,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 					{
 						if (playerMove.Hitbox.Intersects(Projectile.Hitbox))
 						{
-							bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+							bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 							if (!dummy)
 							{
 								modPlayer.TryAddGamblerChip(50);

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
+using OrchidMod.Common.Global.Items;
+using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -155,7 +157,7 @@ namespace OrchidMod.Content.Prefixes
 		{
 			if (item.damage <= 0 || item.accessory || item.type == ItemID.None) return -1;
 
-			var globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			var globalItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			if (!globalItem.shamanWeapon) return -1;
 
 			var prefixes = ShamanPrefix.GetPrefixes;

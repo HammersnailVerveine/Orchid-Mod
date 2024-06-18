@@ -2,7 +2,7 @@
 using OrchidMod.Content.Alchemist.Projectiles;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.NPCs;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Localization;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist
 {
@@ -29,15 +30,15 @@ namespace OrchidMod.Content.Alchemist
 
 		public virtual void SafeSetDefaults() { }
 
-		public virtual void KillFirst(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void KillThird(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void KillFirst(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem) { }
+		public virtual void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem) { }
+		public virtual void KillThird(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem) { }
 
-		public virtual void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
-		public virtual void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem) { }
+		public virtual void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem) { }
+		public virtual void OnHitNPCThird(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem) { }
 
-		public virtual void AddVariousEffects(Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem) { }
+		public virtual void AddVariousEffects(Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem) { }
 
 		public sealed override void SetDefaults()
 		{
@@ -54,7 +55,7 @@ namespace OrchidMod.Content.Alchemist
 			Item.shootSpeed = 10f;
 			Item.knockBack = 1f;
 
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.alchemistColorR = this.colorR;
 			orchidItem.alchemistColorG = this.colorG;
 			orchidItem.alchemistColorB = this.colorB;

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -35,7 +36,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Air
 							+ "\nOnly one mushroom can exist at once"); */
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int projType = ProjectileType<Content.Alchemist.Projectiles.Air.CorruptionFlaskProj>();
 			bool spawnedMushroom = false;

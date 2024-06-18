@@ -1,7 +1,8 @@
 using OrchidMod.Content.Alchemist.Projectiles;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.NPCs;
 using Terraria;
 using Terraria.ID;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist.Weapons.Fire
 {
@@ -40,7 +41,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Fire
 			recipe.Register();
 		}
 
-		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer, OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			if (alchProj.natureFlask.type != ItemID.None)
 			{

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
+using OrchidMod.Common.Global.Items;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -57,7 +58,7 @@ namespace OrchidMod.Content.Gambler
 
 			currentCard = modPlayer.gamblerCardDummy;
 			CheckStats(currentCard);
-			currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, damage, knockback, true);
+			currentCard.GetGlobalItem<OrchidGlobalItemPerEntity>().gamblerShootDelegate(player, source, position, velocity, damage, knockback, true);
 			return false;
 		}
 

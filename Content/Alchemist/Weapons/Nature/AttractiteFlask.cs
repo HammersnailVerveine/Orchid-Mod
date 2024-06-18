@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Content.Alchemist.Projectiles;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.NPCs;
 using System;
 using Terraria;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Common.Global.Items;
 
 
 namespace OrchidMod.Content.Alchemist.Weapons.Nature
@@ -34,7 +36,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Nature
 							+ "\nCounts as an extract when spawning spores"); */
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			if (alchProj.nbElements == 1)
 			{
@@ -81,12 +83,12 @@ namespace OrchidMod.Content.Alchemist.Weapons.Nature
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			target.AddBuff(BuffType<Debuffs.Attraction>(), 60 * (alchProj.nbElements * 3));
 		}
 
-		public override void AddVariousEffects(Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile proj, OrchidModGlobalItem globalItem)
+		public override void AddVariousEffects(Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile proj, OrchidGlobalItemPerEntity globalItem)
 		{
 			alchProj.nbElementsNoExtract--;
 		}

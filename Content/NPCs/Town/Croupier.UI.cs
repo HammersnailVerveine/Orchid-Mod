@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Global.Items;
 using OrchidMod.Common.Graphics;
 using OrchidMod.Common.UIs;
 using ReLogic.Content;
@@ -145,7 +146,7 @@ namespace OrchidMod.Content.NPCs.Town
 
 				if (item.type.Equals(ItemID.None)) continue;
 
-				var orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+				var orchidItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 				var cardReq = orchidItem.gamblerCardRequirement;
 
 				nbCards[cardReq]++;
@@ -158,7 +159,7 @@ namespace OrchidMod.Content.NPCs.Town
 
 				if (item.type.Equals(ItemID.None)) continue;
 
-				var orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+				var orchidItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 				var cardReq = orchidItem.gamblerCardRequirement;
 				var canRemove = (playerNbCards > maxReq + 1) || (cardReq == maxReq);
 

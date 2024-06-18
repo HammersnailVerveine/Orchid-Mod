@@ -28,7 +28,7 @@ using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Accessories;
 
-namespace OrchidMod.Common.Globals.Items
+namespace OrchidMod.Common.Global.Items
 {
 	public partial class OrchidGlobalItem
 	{

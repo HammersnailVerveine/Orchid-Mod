@@ -1,4 +1,5 @@
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.Global.NPCs;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -21,7 +22,7 @@ namespace OrchidMod.Content.Alchemist
 				Projectile proj = Main.projectile[l];
 				if (proj.active && Projectile.Hitbox.Intersects(proj.Hitbox))
 				{
-					OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
+					OrchidGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidGlobalProjectile>();
 					if (modProjectile.alchemistReactiveProjectile)
 					{
 						modProjectile.alchemistCatalyticTriggerDelegate(player, proj, modProjectile);

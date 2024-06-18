@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.Global.NPCs;
+using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -63,7 +65,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 					Vector2 vel = (Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(20)));
 					vel.Normalize();
 					vel *= scale;
-					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+					bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 					int newProjInt = DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, (int)(Projectile.damage * 5), 0.1f, Projectile.owner), dummy);
 					Projectile newProj = Main.projectile[newProjInt];
 					newProj.CritChance = Projectile.CritChance;

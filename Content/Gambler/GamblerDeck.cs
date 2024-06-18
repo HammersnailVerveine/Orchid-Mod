@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Common;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Gambler
 {
@@ -36,7 +37,7 @@ namespace OrchidMod.Content.Gambler
 			Item.shootSpeed = 1f;
 			Item.shoot = 1;
 			Item.autoReuse = true;
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.gamblerDeck = true;
 		}
 
@@ -52,7 +53,7 @@ namespace OrchidMod.Content.Gambler
 			else
 			{
 				Item currentCard = modPlayer.gamblerCardCurrent;
-				currentCard.GetGlobalItem<OrchidModGlobalItem>().gamblerShootDelegate(player, source, position, velocity, damage, knockback);
+				currentCard.GetGlobalItem<OrchidGlobalItemPerEntity>().gamblerShootDelegate(player, source, position, velocity, damage, knockback);
 			}
 			return false;
 		}

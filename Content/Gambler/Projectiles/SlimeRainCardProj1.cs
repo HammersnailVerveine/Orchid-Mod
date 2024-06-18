@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Projectiles;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -29,7 +30,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 
 			if (modPlayer.modPlayer.timer120 % 20 == 0)
 			{
@@ -39,7 +40,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			if (modPlayer.modPlayer.timer120 % 30 == 0)
 			{
 				int projType = ProjectileType<Content.Gambler.Projectiles.SlimeRainCardProj2>();
-				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 				DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X + Main.rand.Next(Projectile.width - 10) + 5, Projectile.Center.Y, 0f, 5f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 			}
 

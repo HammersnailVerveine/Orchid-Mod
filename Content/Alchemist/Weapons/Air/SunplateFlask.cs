@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -32,7 +33,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Air
 							+ "\nThe stars are considered as lingering particles"); */
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int rand = Main.rand.Next(180);
 			int rand2 = Main.rand.Next(3);

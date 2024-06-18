@@ -8,7 +8,7 @@ using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Common.Globals.Items
+namespace OrchidMod.Common.Global.Items
 {
 	public partial class OrchidGlobalItem : GlobalItem, IPostSetupContent
 	{

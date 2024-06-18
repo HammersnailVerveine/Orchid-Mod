@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Alchemist.Projectiles.Sigil
 {

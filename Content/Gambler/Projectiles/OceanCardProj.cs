@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.ModObjects;
 using System;
 using Terraria;
 using Terraria.Audio;

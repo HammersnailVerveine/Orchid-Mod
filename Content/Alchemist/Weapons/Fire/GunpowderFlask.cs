@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.Alchemist.Projectiles;
 using Terraria;
 using Terraria.Audio;
@@ -34,7 +35,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Fire
 							+ "\nCan be used to trigger catalytic elements, but prevents them from spawning"); */
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 			SpawnProjectile(player.GetSource_Misc("Alchemist Attack"), projectile.Center, Vector2.Zero, ProjectileType<Content.Alchemist.Projectiles.Fire.GunpowderFlaskProj>(), dmg, 3f, projectile.owner, 0.0f, 0.0f);

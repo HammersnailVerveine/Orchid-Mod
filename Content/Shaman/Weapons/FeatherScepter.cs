@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shaman.Misc;
 using OrchidMod.Content.Shaman.Projectiles;
 using OrchidMod.Utilities;

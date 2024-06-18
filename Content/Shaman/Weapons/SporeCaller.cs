@@ -8,6 +8,7 @@ using OrchidMod.Content.Shaman.Projectiles;
 using Terraria.DataStructures;
 using System;
 using OrchidMod.Utilities;
+using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Shaman.Weapons
 {

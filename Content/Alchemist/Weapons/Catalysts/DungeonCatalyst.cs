@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
+using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Alchemist.Weapons.Catalysts
 {

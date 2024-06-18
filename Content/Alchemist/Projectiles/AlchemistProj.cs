@@ -3,13 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Alchemist.Weapons.Air;
 using OrchidMod.Content.Alchemist.Weapons.Fire;
 using OrchidMod.Content.Alchemist.Weapons.Water;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.NPCs;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist.Projectiles
 {
@@ -22,12 +24,12 @@ namespace OrchidMod.Content.Alchemist.Projectiles
 		public Item airFlask = new Item();
 		public Item lightFlask = new Item();
 		public Item darkFlask = new Item();
-		public OrchidModGlobalItem waterFlaskGlobal = null;
-		public OrchidModGlobalItem fireFlaskGlobal = null;
-		public OrchidModGlobalItem natureFlaskGlobal = null;
-		public OrchidModGlobalItem airFlaskGlobal = null;
-		public OrchidModGlobalItem lightFlaskGlobal = null;
-		public OrchidModGlobalItem darkFlaskGlobal = null;
+		public OrchidGlobalItemPerEntity waterFlaskGlobal = null;
+		public OrchidGlobalItemPerEntity fireFlaskGlobal = null;
+		public OrchidGlobalItemPerEntity natureFlaskGlobal = null;
+		public OrchidGlobalItemPerEntity airFlaskGlobal = null;
+		public OrchidGlobalItemPerEntity lightFlaskGlobal = null;
+		public OrchidGlobalItemPerEntity darkFlaskGlobal = null;
 		public Color glowColor = new Color(0, 0, 0);
 		public bool hitNPC = false;
 
@@ -166,37 +168,37 @@ namespace OrchidMod.Content.Alchemist.Projectiles
 			if (elements[0])
 			{
 				this.waterFlask = flasks[0];
-				this.waterFlaskGlobal = this.waterFlask.GetGlobalItem<OrchidModGlobalItem>();
+				this.waterFlaskGlobal = this.waterFlask.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			}
 
 			if (elements[1])
 			{
 				this.fireFlask = flasks[1];
-				this.fireFlaskGlobal = this.fireFlask.GetGlobalItem<OrchidModGlobalItem>();
+				this.fireFlaskGlobal = this.fireFlask.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			}
 
 			if (elements[2])
 			{
 				this.natureFlask = flasks[2];
-				this.natureFlaskGlobal = this.natureFlask.GetGlobalItem<OrchidModGlobalItem>();
+				this.natureFlaskGlobal = this.natureFlask.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			}
 
 			if (elements[3])
 			{
 				this.airFlask = flasks[3];
-				this.airFlaskGlobal = this.airFlask.GetGlobalItem<OrchidModGlobalItem>();
+				this.airFlaskGlobal = this.airFlask.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			}
 
 			if (elements[4])
 			{
 				this.lightFlask = flasks[4];
-				this.lightFlaskGlobal = this.lightFlask.GetGlobalItem<OrchidModGlobalItem>();
+				this.lightFlaskGlobal = this.lightFlask.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			}
 
 			if (elements[5])
 			{
 				this.darkFlask = flasks[5];
-				this.darkFlaskGlobal = this.darkFlask.GetGlobalItem<OrchidModGlobalItem>();
+				this.darkFlaskGlobal = this.darkFlask.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			}
 
 			this.addVariousEffects();

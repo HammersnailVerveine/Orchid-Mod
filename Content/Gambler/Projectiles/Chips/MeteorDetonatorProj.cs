@@ -1,3 +1,4 @@
+using OrchidMod.Common.ModObjects;
 using Terraria;
 
 namespace OrchidMod.Content.Gambler.Projectiles.Chips

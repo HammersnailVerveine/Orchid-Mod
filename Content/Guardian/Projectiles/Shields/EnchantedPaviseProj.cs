@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Shields
 {

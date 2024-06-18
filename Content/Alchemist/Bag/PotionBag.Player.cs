@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist.Bag
 {
@@ -52,7 +53,7 @@ namespace OrchidMod.Content.Alchemist.Bag
 				var name = item.AffixName();
 
 				if (hashSet.Contains(name)
-				 || !item.TryGetGlobalItem(out OrchidModGlobalItem global)
+				 || !item.TryGetGlobalItem(out OrchidGlobalItemPerEntity global)
 				 || global.alchemistElement == AlchemistElement.NULL) continue;
 
 				hashSet.Add(name);

@@ -1,4 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
+using OrchidMod.Common.Global.Items;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Gambler;
 using System;
 using System.Linq;
@@ -177,7 +181,7 @@ namespace OrchidMod
 
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidGlobalProjectile>();
 			if (modProjectile.gamblerProjectile)
 			{
 				if (gamblerDie != null)
@@ -494,7 +498,7 @@ namespace OrchidMod
 
 			if (gamblerPennant)
 			{
-				OrchidModGlobalItem orchidItem = gamblerCardCurrent.GetGlobalItem<OrchidModGlobalItem>();
+				OrchidGlobalItemPerEntity orchidItem = gamblerCardCurrent.GetGlobalItem<OrchidGlobalItemPerEntity>();
 				if (orchidItem.gamblerCardSets.HasFlag(GamblerCardSets.Boss))
 				{
 					Player.AddBuff(BuffType<Content.Gambler.Buffs.ConquerorsPennantBuff>(), 60 * 10);
@@ -532,7 +536,7 @@ namespace OrchidMod
 				Item item = Player.inventory[i];
 				if (item.type != ItemID.None)
 				{
-					OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+					OrchidGlobalItemPerEntity orchidItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 					if (orchidItem.gamblerDeck) return true;
 				}
 			}
@@ -544,7 +548,7 @@ namespace OrchidMod
 			int nbCards = 0;
 			for (int i = 0; i < 20; i++)
 			{
-				OrchidModGlobalItem orchidItem = gamblerCardsItem[i].GetGlobalItem<OrchidModGlobalItem>();
+				OrchidGlobalItemPerEntity orchidItem = gamblerCardsItem[i].GetGlobalItem<OrchidGlobalItemPerEntity>();
 				nbCards += orchidItem.gamblerCardSets.HasFlag(sets) ? 1 : 0;
 			}
 			return nbCards;
@@ -554,7 +558,7 @@ namespace OrchidMod
 		{
 			if (gamblerSlimyLollipop)
 			{
-				OrchidModGlobalItem orchidItem = gamblerCardCurrent.GetGlobalItem<OrchidModGlobalItem>();
+				OrchidGlobalItemPerEntity orchidItem = gamblerCardCurrent.GetGlobalItem<OrchidGlobalItemPerEntity>();
 				if (orchidItem.gamblerCardSets.HasFlag(GamblerCardSets.Slime) && Main.rand.Next(180) == 0)
 				{
 					float scale = 1f - (Main.rand.NextFloat() * .3f);
@@ -574,7 +578,7 @@ namespace OrchidMod
 				Projectile projectile = Main.projectile[l];
 				if (projectile.active && projectile.owner == Player.whoAmI)
 				{
-					OrchidModGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+					OrchidGlobalProjectile modProjectile = projectile.GetGlobalProjectile<OrchidGlobalProjectile>();
 					if (modProjectile.gamblerDummyProj == dummy && modProjectile.gamblerBonusTrigger)
 					{
 						modProjectile.gamblerBonusProjectilesDelegate(Player, this, projectile, modProjectile, dummy);
@@ -586,7 +590,7 @@ namespace OrchidMod
 		{
 			if (dummy)
 			{
-				OrchidModGlobalProjectile modProjectile = Main.projectile[proj].GetGlobalProjectile<OrchidModGlobalProjectile>();
+				OrchidGlobalProjectile modProjectile = Main.projectile[proj].GetGlobalProjectile<OrchidGlobalProjectile>();
 				modProjectile.gamblerDummyProj = true;
 			}
 			return proj;

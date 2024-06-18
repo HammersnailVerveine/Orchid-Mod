@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.Global.NPCs;
+using OrchidMod.Common.ModObjects;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -15,11 +17,11 @@ namespace OrchidMod.Content.Gambler
 
 		public virtual void SafeOnHitNPC(NPC target, int damage, float knockback, bool crit, Player player, OrchidGambler modPlayer) { }
 
-		public virtual void BonusProjectiles(Player player, OrchidGambler modPlayer, Projectile projectile, OrchidModGlobalProjectile modProjectile, bool dummy = false) { }
+		public virtual void BonusProjectiles(Player player, OrchidGambler modPlayer, Projectile projectile, OrchidGlobalProjectile modProjectile, bool dummy = false) { }
 
 		public sealed override void AltSetDefaults()
 		{
-			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>();
 			Projectile.timeLeft = 1500;
 			SafeSetDefaults();
 			modProjectile.gamblerProjectile = true;
@@ -30,7 +32,7 @@ namespace OrchidMod.Content.Gambler
 		public override void AI()
 		{
 			this.SafeAI();
-			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>();
 			modProjectile.gamblerInternalCooldown -= modProjectile.gamblerInternalCooldown > 0 ? 1 : 0;
 		}
 
@@ -55,11 +57,11 @@ namespace OrchidMod.Content.Gambler
 
 		public bool getDummy()
 		{
-			return Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			return Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 		}
 		
 		public int getCardType(OrchidGambler modPlayer) {
-			return Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			return Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 		}
 
 		public int DummyProjectile(int projectile, bool dummy) => OrchidGambler.DummyProjectile(projectile, dummy);

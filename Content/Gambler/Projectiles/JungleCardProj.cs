@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Global.Projectiles;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -134,7 +135,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			}
 			
 			int projType = ProjectileType<Content.Gambler.Projectiles.JungleCardProjAlt>();
-			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 			int rand = 5 + Main.rand.Next(3);
 			for (int i = 0 ; i < rand ; i ++) {
 				Vector2 vel = new Vector2((float)(Main.rand.Next(3) + 4), 0f);

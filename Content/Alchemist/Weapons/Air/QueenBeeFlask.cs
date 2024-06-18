@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Content.Alchemist.Projectiles;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.NPCs;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist.Weapons.Air
 {
@@ -33,7 +34,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Air
 							+ "\nHas a chance to release a catalytic beehive"); */
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int nb = 2 + Main.rand.Next(2);
 			if (alchProj.fireFlask.type == ItemID.None)
@@ -60,7 +61,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Air
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int rand = alchProj.nbElements;
 			if (Main.rand.Next(10) < rand)

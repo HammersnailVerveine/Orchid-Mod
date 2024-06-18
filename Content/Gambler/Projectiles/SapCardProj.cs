@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Global.Projectiles;
 using OrchidMod.Utilities;
 using System;
 using Terraria;
@@ -39,7 +40,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 
 			Projectile.rotation = (float)Math.Sin(Projectile.timeLeft * 0.045f) * 0.25f;
 			Projectile.scale = 1 + (float)Math.Cos(Projectile.timeLeft * 0.05f) * 0.1f;
@@ -121,7 +122,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 			int dmg = Projectile.damage + (int)((1200 - timeLeft) / 10);
 			int projType = ProjectileType<Content.Gambler.Projectiles.SapCardProjExplosion>();
-			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 
 			DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, dmg, 3f, Projectile.owner, 0.0f, 0.0f), dummy);
 		}

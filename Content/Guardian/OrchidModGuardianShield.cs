@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Guardian;
+using OrchidMod.Common.Global.Items;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -50,7 +50,7 @@ namespace OrchidMod.Content.Guardian
 			Item.useTime = 30;
 			Item.knockBack = 6f;
 
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
 
 			this.SafeSetDefaults();

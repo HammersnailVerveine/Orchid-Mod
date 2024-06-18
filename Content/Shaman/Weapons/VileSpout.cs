@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using OrchidMod.Content.Shaman.Projectiles;
 using OrchidMod.Utilities;
+using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Shaman.Weapons
 {

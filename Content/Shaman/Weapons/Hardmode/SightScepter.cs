@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

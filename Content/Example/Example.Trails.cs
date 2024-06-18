@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace OrchidMod
+namespace OrchidMod.Content.Example
 {
 	[Autoload(false)]
 	public class ExampleProjectile : ModProjectile, IDrawOnDifferentLayers

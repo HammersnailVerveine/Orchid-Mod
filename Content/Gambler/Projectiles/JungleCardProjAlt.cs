@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Global.Projectiles;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -54,7 +55,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				Vector2 move = Vector2.Zero;
 				float distance = 200f;
 				bool target = false;
-				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 				for (int k = 0; k < 200; k++)
 				{		
 					if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && !Main.npc[k].friendly && Main.npc[k].lifeMax > 5 && (dummy ? Main.npc[k].type == NPCID.TargetDummy : Main.npc[k].type != NPCID.TargetDummy))

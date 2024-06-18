@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
 using OrchidMod.Content.Shaman.Projectiles;
+using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Shaman.Weapons
 {

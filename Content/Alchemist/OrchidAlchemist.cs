@@ -18,6 +18,8 @@ using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using OrchidMod.Common;
 using OrchidMod.Content.Alchemist.Bag;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod
 {
@@ -144,7 +146,7 @@ namespace OrchidMod
 		{
 			Item item = new Item();
 			item.SetDefaults(itemType);
-			OrchidModGlobalItem globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidGlobalItemPerEntity globalItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			float dmg = (int)(globalItem.alchemistSecondaryDamage + (int)(bonusDamage * (bonusDamageScaling ? globalItem.alchemistSecondaryScaling : 1f)));
 			dmg = Player.GetDamage<AlchemistDamageClass>().ApplyTo(dmg);
 			dmg = Player.GetDamage<GenericDamageClass>().ApplyTo(dmg);
@@ -294,7 +296,7 @@ namespace OrchidMod
 					Item item = Main.LocalPlayer.inventory[i];
 					if (item.type != 0)
 					{
-						OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+						OrchidGlobalItemPerEntity orchidItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 						if (orchidItem.alchemistCatalyst)
 						{
 							modPlayer.originalSelectedItem = Player.selectedItem;

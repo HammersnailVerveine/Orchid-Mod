@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.NPCs;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

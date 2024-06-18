@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using System;
 using Terraria;
 using Terraria.GameContent;
@@ -45,7 +47,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			if (Projectile.ai[1] == 2f && Projectile.timeLeft % 10 == 0 && Projectile.velocity.Y > 0f)
 			{
 				Projectile.damage++;
@@ -180,7 +182,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			if (justHit == 0)
 			{
 				Projectile.damage += 2;
-				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 				int projType = ProjectileType<Content.Gambler.Projectiles.KingSlimeCardProj2>();
 				DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 59, 10, 10, true, 1.5f, 1f, 2f, true, true, false, 0, 0, false, true);

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -35,7 +37,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			Projectile.velocity.Y += (Projectile.wet || Projectile.lavaWet || Projectile.honeyWet) ? Projectile.velocity.Y > -5f ? -0.5f : 0f : Projectile.velocity.Y < 5f ? 0.3f : 0f;
 			Projectile.frame = Projectile.velocity.Y < 0f ? 1 : 0;
 			this.justHit -= this.justHit > 0 ? 1 : 0;
@@ -121,7 +123,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 			if (spikeCooldown <= 0)
 			{
 				spikeCooldown = 30;
@@ -162,7 +164,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 178, 10, 10, true, 1.5f, 1f, 2f);
 				Projectile.damage += 4;
 
-				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 				for (int i = 0; i < 5; i++)
 				{
 					int projType = ProjectileType<Content.Gambler.Projectiles.JungleSlimeCardProjAlt>();

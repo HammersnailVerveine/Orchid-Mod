@@ -1,4 +1,4 @@
-namespace OrchidMod
+namespace OrchidMod.Common
 {
 	public enum OrchidModMessageType : byte
 	{

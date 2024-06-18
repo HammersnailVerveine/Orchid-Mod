@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -47,7 +49,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			int projType = ProjectileType<Content.Gambler.Projectiles.EaterCardProj2>();
 			this.bounceDelay -= this.bounceDelay > 0 ? 1 : 0;
 			
@@ -115,7 +117,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 							SoundEngine.PlaySound(SoundID.Item2, Projectile.Center);
 							proj.Kill();
 							
-							bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+							bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 							int newProjectile = DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, 0f, 0f, Projectile.type, 0, Projectile.knockBack, Projectile.owner), dummy);
 							Main.projectile[newProjectile].ai[0] = 1f;
 							
@@ -220,7 +222,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				Main.dust[dust].scale *= 1f;
 			}
 			projType = ProjectileType<Content.Gambler.Projectiles.EaterCardProj3>();
-			bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+			bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 			DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, projType, Projectile.damage, 0, Projectile.owner), dummy);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 18, 5, 3 + Main.rand.Next(5), false, 1.5f, 1f, 7f, true, true, false, 0, 0, true);
 			OrchidModProjectile.spawnDustCircle(Projectile.Center, 18, 10, 5 + Main.rand.Next(5), false, 1f, 1f, 5f, true, true, false, 0, 0, true);

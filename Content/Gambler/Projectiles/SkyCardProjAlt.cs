@@ -8,6 +8,7 @@ using ReLogic.Content;
 using System;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Gambler.Projectiles
 {

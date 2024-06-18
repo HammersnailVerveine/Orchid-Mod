@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace OrchidMod
+namespace OrchidMod.Common.ModObjects
 {
 	public class OrchidPlayer : ModPlayer
 	{
@@ -73,10 +73,10 @@ namespace OrchidMod
 			generalTools = false;
 			generalStatic = false;
 
-			if (this.keepSelected != -1)
+			if (keepSelected != -1)
 			{
 				Player.selectedItem = keepSelected;
-				this.keepSelected = -1;
+				keepSelected = -1;
 			}
 		}
 

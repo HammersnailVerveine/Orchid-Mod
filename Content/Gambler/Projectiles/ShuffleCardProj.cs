@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -35,7 +37,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			Projectile.frame = (int)(Projectile.ai[0]);
 
 			if (Projectile.ai[1] != 6f)
@@ -211,7 +213,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 			if (Projectile.frame == 3 || Projectile.frame == 1)
 			{
-				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 				int dustType = Projectile.frame < 2 ? 63 : 60;
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, dustType, 10, 15, true, 1.5f, 1f, 5f, true, true, false, 0, 0, true);
 				DummyProjectile(spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 80, 3, false, true), dummy);

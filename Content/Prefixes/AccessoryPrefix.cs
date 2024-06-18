@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Utilities;

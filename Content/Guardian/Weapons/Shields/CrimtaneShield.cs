@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using OrchidMod.Common.ModObjects;
+using Terraria;
 using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields

@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -40,7 +42,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			Projectile.rotation += Projectile.ai[1] * 0.05f;
 			this.fireTimer--;
 			this.dustVal--;
@@ -59,7 +61,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				float distanceTo = (float)Math.Sqrt(vectorDist.X * vectorDist.X + vectorDist.Y * vectorDist.Y);
 				if ((!(Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.GoblinArmyCard>() && modPlayer.GamblerDeckInHand) && Projectile.timeLeft < 840) || distanceTo > distance)
 				{
-					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+					bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 					OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 5f, true, true, false, 0, 0, true);
 					OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
 					Projectile.Kill();
@@ -73,7 +75,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				heading.Normalize();
 				heading *= 15f;
 				int projType = ProjectileType<Content.Gambler.Projectiles.GoblinArmyCardProjAlt>();
-				bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+				bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 				DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, heading.X, heading.Y, projType, Projectile.damage, Projectile.knockBack, Projectile.owner), dummy);
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, 27, 5, 5, true, 1.3f, 1f, 3f, true, true, false, 0, 0, true);
 				fireTimerRef -= fireTimerRef > 15 ? 4 : 0;

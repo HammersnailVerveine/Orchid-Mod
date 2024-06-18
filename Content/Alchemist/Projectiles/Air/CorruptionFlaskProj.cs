@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using System;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
@@ -130,7 +132,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Air
 			}
 		}
 
-		public override void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile)
+		public override void Catalyze(Player player, Projectile projectile, OrchidGlobalProjectile modProjectile)
 		{
 			if (this.initialized) projectile.Kill();
 		}

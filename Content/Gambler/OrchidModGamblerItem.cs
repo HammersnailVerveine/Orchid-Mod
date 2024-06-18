@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
+using OrchidMod.Common.Global.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace OrchidMod.Content.Gambler
 
 			this.SafeSetDefaults();
 
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.gamblerCardRequirement = this.cardRequirement;
 			orchidItem.gamblerCardSets = cardSets;
 			orchidItem.gamblerShootDelegate = this.GamblerShoot;
@@ -85,7 +86,7 @@ namespace OrchidMod.Content.Gambler
 							Item item = Main.LocalPlayer.inventory[i];
 							if (item.type != 0)
 							{
-								OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+								OrchidGlobalItemPerEntity orchidItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 								if (orchidItem.gamblerDeck)
 								{
 									found = true;

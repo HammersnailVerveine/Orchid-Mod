@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Items;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Alchemist.Projectiles;
 using Terraria;
 using Terraria.Audio;
@@ -42,7 +44,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Water
 			recipe.Register();
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			if (alchProj.fireFlask.type != 0)
 			{

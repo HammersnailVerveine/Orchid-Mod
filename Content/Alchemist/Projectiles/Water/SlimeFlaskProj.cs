@@ -1,3 +1,5 @@
+using OrchidMod.Common.ModObjects;
+
 namespace OrchidMod.Content.Alchemist.Projectiles.Water
 {
 	public class SlimeFlaskProj : OrchidModAlchemistProjectile

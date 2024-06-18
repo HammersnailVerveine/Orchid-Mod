@@ -10,6 +10,7 @@ using Terraria.Audio;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist
 {
@@ -170,7 +171,7 @@ namespace OrchidMod.Content.Alchemist
 						foreach (int ingredientID in recipe.ingredients)
 						{
 							item.SetDefaults(ingredientID);
-							OrchidModGlobalItem globalItem = item.GetGlobalItem<OrchidModGlobalItem>();
+							OrchidGlobalItemPerEntity globalItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 							val += globalItem.alchemistPotencyCost;
 						}
 						val = (int)(val / 2);

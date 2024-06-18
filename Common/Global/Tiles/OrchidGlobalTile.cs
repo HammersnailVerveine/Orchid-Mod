@@ -11,7 +11,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Common.Globals.Tiles
+namespace OrchidMod.Common.Global.Tiles
 {
 	public class OrchidGlobalTile : GlobalTile
 	{

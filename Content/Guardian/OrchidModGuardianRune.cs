@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.Guardian;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace OrchidMod.Content.Guardian
 			RuneDistance = 100f;
 			RuneNumber = 1;
 
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
 
 			this.SafeSetDefaults();

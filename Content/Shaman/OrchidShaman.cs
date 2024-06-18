@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shaman;
 using OrchidMod.Content.Shaman.Projectiles.Equipment;
 using Terraria;
@@ -154,7 +156,7 @@ namespace OrchidMod
 
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidGlobalProjectile>();
 			if (modProjectile.shamanProjectile)
 			{
 				if (IsShamanicBondReleased(ShamanElement.FIRE))

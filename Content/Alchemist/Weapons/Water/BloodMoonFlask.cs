@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -34,7 +35,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Water
 							+ "\nUsing both negates both effects"); */
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int dmg = GetSecondaryDamage(player, alchProj.nbElements) + ((alchProj.airFlask.type == 0 && alchProj.fireFlask.type != 0) ? 6 : 0);
 			int rand = 2 + alchProj.nbElements + Main.rand.Next(2);

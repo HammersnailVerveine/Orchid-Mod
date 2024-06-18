@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -33,7 +34,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Air
 							+ "\nSpores deals 10% increased damage against fire-coated enemies"); */
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int nb = 2 + Main.rand.Next(2);
 			for (int i = 0; i < nb; i++)
@@ -61,7 +62,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Air
 			}
 		}
 
-		public override void AddVariousEffects(Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void AddVariousEffects(Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			alchProj.nbElementsNoExtract--;
 		}

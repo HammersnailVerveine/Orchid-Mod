@@ -1,3 +1,4 @@
+using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.Shaman.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -22,7 +23,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			//Item.shoot = ModContent.ProjectileType<MeteorPhasestaffProj>();
 			Item.UseSound = SoundID.Item15;
 			this.Element = ShamanElement.FIRE;
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 		}
 
 		public override void SafeSetStaticDefaults()

@@ -1,4 +1,4 @@
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.NPCs;
 using Terraria;
 using Terraria.ModLoader;
 

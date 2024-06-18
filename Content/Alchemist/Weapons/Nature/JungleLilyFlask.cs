@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Content.Alchemist.Projectiles;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.NPCs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist.Weapons.Nature
 {
@@ -53,7 +55,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Nature
 			recipe.Register();
 		}
 
-		public override void KillFirst(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillFirst(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int range = 100 * alchProj.nbElements;
 			int nb = 20 * alchProj.nbElements;
@@ -72,7 +74,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Nature
 		}
 
 		public override void OnHitNPCFirst(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			modTarget.alchemistNature = 60 * 10;
 		}

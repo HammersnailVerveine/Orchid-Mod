@@ -1,6 +1,7 @@
 ﻿using MonoMod.Cil;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
+using OrchidMod.Common.Global.Items;
 using System;
 using Terraria;
 using Terraria.GameContent.Creative;
@@ -88,7 +89,7 @@ namespace OrchidMod.Content.Alchemist.Bag
 				return;
 			}
 
-			if (Main.mouseItem.TryGetGlobalItem(out OrchidModGlobalItem orchidItem) && orchidItem.alchemistElement != AlchemistElement.NULL)
+			if (Main.mouseItem.TryGetGlobalItem(out OrchidGlobalItemPerEntity orchidItem) && orchidItem.alchemistElement != AlchemistElement.NULL)
 			{
 				for (int i = 0; i < SLOTS_XY; i++)
 				{

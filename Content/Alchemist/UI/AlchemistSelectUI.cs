@@ -21,6 +21,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist.UI
 {
@@ -308,7 +309,7 @@ namespace OrchidMod.Content.Alchemist.UI
 		{
 			public Item Item { get; init; }
 			public OrchidModAlchemistItem AlchemistItem { get; init; }
-			public OrchidModGlobalItem GlobalItem { get; init; }
+			public OrchidGlobalItemPerEntity GlobalItem { get; init; }
 			public bool IsMarked { get; set; }
 			public bool IsBlocked { get; set; }
 
@@ -316,7 +317,7 @@ namespace OrchidMod.Content.Alchemist.UI
 			{
 				Item = item;
 				AlchemistItem = Item.ModItem as OrchidModAlchemistItem;
-				GlobalItem = Item.GetGlobalItem<OrchidModGlobalItem>();
+				GlobalItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			}
 
 			public override Asset<Texture2D> BackgroundTexture

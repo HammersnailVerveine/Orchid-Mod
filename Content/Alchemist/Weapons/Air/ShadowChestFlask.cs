@@ -3,6 +3,7 @@ using OrchidMod.Content.Alchemist.Projectiles;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist.Weapons.Air
 {
@@ -32,7 +33,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Air
 							+ "\nCoats hit enemies in alchemical air"); */
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int dmg = GetSecondaryDamage(player, alchProj.nbElements);
 			int spawnProj = ProjectileType<Content.Alchemist.Projectiles.Air.ShadowChestFlaskProj>();

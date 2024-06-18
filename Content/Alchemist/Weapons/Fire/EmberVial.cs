@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Content.Alchemist.Projectiles;
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.NPCs;
 using Terraria;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist.Weapons.Fire
 {
@@ -33,7 +34,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Fire
 							+ "\nReleases lingering embers"); */
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int nb = 2 + Main.rand.Next(3);
 			for (int i = 0; i < nb; i++)
@@ -52,7 +53,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Fire
 		}
 
 		public override void OnHitNPCSecond(NPC target, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer,
-		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		OrchidModAlchemistNPC modTarget, OrchidGlobalNPC modTargetGlobal, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			target.AddBuff(BuffID.OnFire, (60 * 3) + (60 * (alchProj.nbElements)));
 		}

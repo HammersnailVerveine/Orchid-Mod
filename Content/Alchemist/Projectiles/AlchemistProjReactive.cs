@@ -1,3 +1,5 @@
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using Terraria;
 
 namespace OrchidMod.Content.Alchemist.Projectiles
@@ -13,14 +15,14 @@ namespace OrchidMod.Content.Alchemist.Projectiles
 
 		public virtual void Despawn() { }
 
-		public virtual void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile)
+		public virtual void Catalyze(Player player, Projectile projectile, OrchidGlobalProjectile modProjectile)
 		{
 			projectile.Kill();
 		}
 
 		public sealed override void AltSetDefaults()
 		{
-			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
 			modProjectile.alchemistReactiveProjectile = true;

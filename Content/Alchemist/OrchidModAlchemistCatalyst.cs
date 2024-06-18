@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
+using OrchidMod.Common.Global.Items;
+using OrchidMod.Common.Global.Projectiles;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -65,7 +67,7 @@ namespace OrchidMod.Content.Alchemist
 			Item.crit = Item.crit == 0 ? 0 : Item.crit;
 			Item.damage = Item.damage == 0 ? 0 : Item.damage;
 
-			OrchidModGlobalItem orchidItem = Item.GetGlobalItem<OrchidModGlobalItem>();
+			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.alchemistCatalyst = true;
 		}
 
@@ -83,7 +85,7 @@ namespace OrchidMod.Content.Alchemist
 					Projectile proj = Main.projectile[l];
 					if (proj.active && hitbox.Intersects(proj.Hitbox))
 					{
-						OrchidModGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidModGlobalProjectile>();
+						OrchidGlobalProjectile modProjectile = proj.GetGlobalProjectile<OrchidGlobalProjectile>();
 						if (modProjectile.alchemistReactiveProjectile)
 						{
 							modProjectile.alchemistCatalyticTriggerDelegate(player, proj, modProjectile);

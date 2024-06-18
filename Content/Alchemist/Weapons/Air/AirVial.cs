@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.Alchemist.Projectiles;
 using Terraria;
 using Terraria.ID;
@@ -23,7 +24,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Air
 			this.colorB = 239;
 		}
 
-		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidModGlobalItem globalItem)
+		public override void KillSecond(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem)
 		{
 			int projType = ProjectileType<Projectiles.Sigil.AirSigil>();
 			Vector2 pos = new Vector2(projectile.Center.X, projectile.Center.Y - 50);

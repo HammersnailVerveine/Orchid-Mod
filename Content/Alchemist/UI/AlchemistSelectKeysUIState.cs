@@ -12,6 +12,7 @@ using Terraria.UI.Chat;
 using Terraria.ID;
 using OrchidMod.Common.UIs;
 using OrchidMod.Content.Alchemist.Bag;
+using OrchidMod.Common.Global.Items;
 
 namespace OrchidMod.Content.Alchemist.UI
 {
@@ -209,7 +210,7 @@ namespace OrchidMod.Content.Alchemist.UI
 		{
 			if (item.type != ItemID.None)
 			{
-				OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+				OrchidGlobalItemPerEntity orchidItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 				AlchemistElement element = orchidItem.alchemistElement;
 				int damage = item.damage;
 				int flaskType = item.type;
@@ -285,7 +286,7 @@ namespace OrchidMod.Content.Alchemist.UI
 			{
 				if (item.type != 0)
 				{
-					OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+					OrchidGlobalItemPerEntity orchidItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 					if (orchidItem.alchemistElement != AlchemistElement.NULL)
 					{
 						element = orchidItem.alchemistElement;
@@ -309,7 +310,7 @@ namespace OrchidMod.Content.Alchemist.UI
 					{
 						if (item.type != ItemID.None)
 						{
-							OrchidModGlobalItem orchidItem = item.GetGlobalItem<OrchidModGlobalItem>();
+							OrchidGlobalItemPerEntity orchidItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 							if ((int)element > 0 && (int)element < 7)
 							{
 								if (orchidItem.alchemistElement == this.element && !modPlayer.alchemistElements[(int)element - 1])

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Global.Projectiles;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -37,7 +38,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			this.bounceDelay -= this.bounceDelay > 0 ? 1 : 0;
 
 			if (Projectile.ai[1] == 0f)
@@ -97,7 +98,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 								Vector2 projMove = newMove = Main.MouseWorld - Projectile.Center;
 								projMove *= 10f / distanceTo;
 								int projType = ProjectileType<Content.Gambler.Projectiles.SkeletronCardProjAlt>();
-								bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+								bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 								DummyProjectile(Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, projMove.X, projMove.Y, projType, (int)(Projectile.damage * 3), Projectile.knockBack, Projectile.owner), dummy);
 								SoundEngine.PlaySound(SoundID.Item8, Projectile.Center);
 								this.projectilePoll -= this.projectilePoll - 1 <= 0 ? 0 : 1;

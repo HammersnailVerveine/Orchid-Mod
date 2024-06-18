@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -30,7 +32,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int cardType = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
+			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 			Projectile.rotation += Projectile.velocity.X != 0f ? (Projectile.velocity.X * 1.5f) / 20f : (Projectile.velocity.Y * 1.5f) / 20f;
 			Projectile.velocity.Y += 0.15f;
 			Projectile.velocity.X *= 0.98f;
@@ -55,7 +57,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			{
 				if (!(Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.DetonatorCard>() && modPlayer.GamblerDeckInHand) && Projectile.timeLeft < 840)
 				{
-					bool dummy = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>().gamblerDummyProj;
+					bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;
 					OrchidModProjectile.spawnDustCircle(Projectile.Center, 6, 10, 15, true, 1.3f, 1f, 8f, true, true, false, 0, 0, true);
 					DummyProjectile(spawnGenericExplosion(Projectile, Projectile.damage, Projectile.knockBack, 150, 3, true, true), dummy);
 					Projectile.Kill();

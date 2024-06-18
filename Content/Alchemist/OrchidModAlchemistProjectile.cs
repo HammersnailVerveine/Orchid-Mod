@@ -1,4 +1,6 @@
-using OrchidMod.Common.Globals.NPCs;
+using OrchidMod.Common.Global.Projectiles;
+using OrchidMod.Common.Global.NPCs;
+using OrchidMod.Common.ModObjects;
 using Terraria;
 
 namespace OrchidMod.Content.Alchemist
@@ -9,14 +11,14 @@ namespace OrchidMod.Content.Alchemist
 
 		public virtual void SafeOnHitNPC(NPC target, OrchidModAlchemistNPC modTarget, int damage, float knockback, bool crit, Player player, OrchidAlchemist modPlayer) { }
 
-		public virtual void Catalyze(Player player, Projectile projectile, OrchidModGlobalProjectile modProjectile)
+		public virtual void Catalyze(Player player, Projectile projectile, OrchidGlobalProjectile modProjectile)
 		{
 			projectile.Kill();
 		}
 
 		public sealed override void AltSetDefaults()
 		{
-			OrchidModGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidModGlobalProjectile>();
+			OrchidGlobalProjectile modProjectile = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>();
 			SafeSetDefaults();
 			modProjectile.alchemistProjectile = true;
 			modProjectile.alchemistReactiveProjectile = this.catalytic;
