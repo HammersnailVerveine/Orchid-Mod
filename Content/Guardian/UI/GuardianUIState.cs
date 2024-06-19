@@ -78,7 +78,7 @@ namespace OrchidMod.Content.Guardian.UI
 						spriteBatch.Draw(textureSlamHighlight, new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16), check ? Color.White : Color.DarkGray);
 				}
 
-				if (modPlayer.HoldingHammer)
+				if (modPlayer.GuardianThrowCharge > 0) // Player is preparing to throw a hammer
 				{
 					Vector2 hammerPosition = new Vector2(position.X - textureHammerMain.Width / 2, position.Y - 100);
 					spriteBatch.Draw(textureHammerMain, hammerPosition, Color.White);

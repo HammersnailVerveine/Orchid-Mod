@@ -2,7 +2,6 @@
 using OrchidMod.Content.Guardian.Projectiles.Warhammers;
 using OrchidMod.Content.Guardian.Misc;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -25,6 +24,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			range = 50;
 			blockStacks = 3;
 			slamStacks = 2;
+			tileCollide = false;
 		}
 
         public override bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak)

@@ -40,9 +40,6 @@ namespace OrchidMod
 		public int GuardianSlamRecharge = 0;
 		public int GuardianDisplayUI = 0;
 		public int GuardianThrowCharge = 0;
-		public bool GuardianThrowDecreasing;
-		public bool HoldingHammer;
-		public bool GuardianHammerDing;
 		public int SlamCostUI = 0;
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
@@ -93,27 +90,6 @@ namespace OrchidMod
 				GuardianSlamRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
 			}
 
-			if (HoldingHammer)
-			{
-				GuardianThrowCharge += GuardianThrowDecreasing ? -4 : 1;
-
-				if (GuardianThrowCharge >= 180 && !GuardianHammerDing) {
-					GuardianHammerDing = true;
-					SoundEngine.PlaySound(SoundID.MaxMana, Player.Center);
-				}
-
-				if (GuardianThrowCharge > 210)
-					GuardianThrowDecreasing = true;
-
-				if (GuardianThrowCharge <= 0)
-				{
-					GuardianThrowDecreasing = false;
-					GuardianThrowCharge = 0;
-				}
-			} else GuardianThrowCharge = 0;
-
-			if (GuardianThrowCharge < 180) GuardianHammerDing = false;
-
 			GuardianBlockRecharge--;
 			GuardianSlamRecharge--;
 			GuardianDisplayUI--;
@@ -128,7 +104,6 @@ namespace OrchidMod
 				}
 			}
 
-			HoldingHammer = false;
 			SlamCostUI = 0;
 
 			if (GuardianBlock > GuardianBlockMax) GuardianBlock = GuardianBlockMax;

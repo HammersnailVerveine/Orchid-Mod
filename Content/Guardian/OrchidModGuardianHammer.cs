@@ -51,32 +51,19 @@ namespace OrchidMod.Content.Guardian
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
 			guardian.GuardianDisplayUI = 300;
-			guardian.HoldingHammer = true;
+			//guardian.HoldingHammer = true;
 		}
 
 		public override bool? UseItem(Player player)
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
-			int projType = ProjectileType<Guardian.HammerThrow>();
-			Vector2 dir = Main.MouseWorld - player.Center;
-			dir.Normalize();
-			Projectile projectile;
-			int damage = (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage);
-			if (guardian.GuardianThrowCharge >= 180) {
-				dir *= Item.shootSpeed;
-				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center + dir, dir, projType, damage, Item.knockBack, player.whoAmI)];
-			} 
-			else
-			{
-				dir *= Item.shootSpeed * (0.3f * (guardian.ThrowLevel() + 2) / 3);
-				projectile = Main.projectile[Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center + dir, dir, projType, (int)(damage / 3f), Item.knockBack / 3f, player.whoAmI)];
-				projectile.ai[0] = 1f;
-			}
+			int projType = ProjectileType<HammerThrow>();
 
+			int damage = (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage);
+			Projectile projectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.Zero, projType, damage, Item.knockBack, player.whoAmI);
 			projectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
-			projectile.rotation = dir.ToRotation();
-			projectile.direction = projectile.spriteDirection;
 			projectile.netUpdate = true;
+
 			guardian.GuardianThrowCharge = 0;
 			return true;
 		}
@@ -84,8 +71,7 @@ namespace OrchidMod.Content.Guardian
 		public override bool CanUseItem(Player player)
 		{
 			int projType = ProjectileType<Guardian.HammerThrow>();
-			if (player.ownedProjectileCounts[projType] > 0 || player.GetModPlayer<OrchidGuardian>().ThrowLevel() == 0)
-				return false;
+			if (player.ownedProjectileCounts[projType] > 0) return false;
 			return base.CanUseItem(player);
 		}
 
