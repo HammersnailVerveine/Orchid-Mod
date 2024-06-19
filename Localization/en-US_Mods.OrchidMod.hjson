@@ -2781,6 +2781,16 @@ Items: {
 			Slam enemies downwards to launch yourself in the air
 			'''
 	}
+
+	DemoniteShield: {
+		DisplayName: Demon Scale
+		Tooltip: ""
+	}
+
+	CorruptionWarhammer: {
+		DisplayName: Famine
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -2852,18 +2862,18 @@ Prefixes: {
 	BrewingPrefix.DisplayName: Brewing
 	BewitchedPrefix.DisplayName: Bewitched
 	BlockingPrefix.DisplayName: Blocking
-	FeeblePrefix.DisplayName: Feeble
-	FragilePrefix.DisplayName: Fragile
-	HulkingPrefix.DisplayName: Hulking
-	PonderousPrefix.DisplayName: Ponderous
-	SteadfastPrefix.DisplayName: Steadfast
-	StoutPrefix.DisplayName: Stout
-	SturdyPrefix.DisplayName: Sturdy
-	ToughPrefix.DisplayName: Tough
-	UnmovablePrefix.DisplayName: Unmovable
-	UnwieldyPrefix.DisplayName: Unwieldy
 	UnyieldingPrefix.DisplayName: Unyielding
-	WhackingPrefix.DisplayName: Whacking
+	ToweringPrefix.DisplayName: Towering
+	SturdyPrefix.DisplayName: Sturdy
+	StoutPrefix.DisplayName: Stout
+	SteadfastPrefix.DisplayName: Steadfast
+	SpartanPrefix.DisplayName: Spartan
+	ResolutePrefix.DisplayName: Resolute
+	HulkingPrefix.DisplayName: Hulking
+	FragilePrefix.DisplayName: Fragile
+	FlimsyPrefix.DisplayName: Flimsy
+	FeeblePrefix.DisplayName: Feeble
+	EmpyreanPrefix.DisplayName: Empyrean
 }
 
 Projectiles: {
