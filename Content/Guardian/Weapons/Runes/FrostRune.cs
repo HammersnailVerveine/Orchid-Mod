@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.useAnimation = 30;
 			Item.useTime = 30;
 			Item.knockBack = 3f;
-			Item.damage = 117;
+			Item.damage = 95;
 			Item.shoot = ModContent.ProjectileType<Projectiles.Runes.FrostRuneProj>();
 			RuneCost = 3;
 			RuneNumber = 4;

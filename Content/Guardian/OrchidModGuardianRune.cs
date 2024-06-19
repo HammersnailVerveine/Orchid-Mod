@@ -50,6 +50,8 @@ namespace OrchidMod.Content.Guardian
 			this.SafeSetDefaults();
 		}
 
+		public override bool WeaponPrefix() => true;
+
 		public sealed override void HoldItem(Player player)
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
