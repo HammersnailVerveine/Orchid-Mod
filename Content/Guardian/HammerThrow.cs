@@ -94,6 +94,9 @@ namespace OrchidMod.Content.Guardian
 					Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianThrowCharge * 0.006f * Projectile.spriteDirection);
 					Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianThrowCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianThrowCharge) * 10f) * player.direction * 0.4f, (Projectile.height - (Projectile.height * 0.007f)  * guardian.GuardianThrowCharge) * 0.4f);
 
+					if (Main.MouseWorld.X > player.Center.X && player.direction != 1) player.ChangeDir(1);
+					else if (Main.MouseWorld.X < player.Center.X && player.direction != -1) player.ChangeDir(-1);
+
 					if (guardian.GuardianThrowCharge < 210) guardian.GuardianThrowCharge++;
 
 					if (guardian.GuardianThrowCharge >= 180 && !Ding)
@@ -102,7 +105,7 @@ namespace OrchidMod.Content.Guardian
 						SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
 					}
 
-					if (!player.controlUseItem)
+					if (!player.controlUseItem && player.whoAmI == Main.myPlayer)
 					{
 						Projectile.ai[1] = 1;
 						Projectile.friendly = true;

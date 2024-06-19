@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.Guardian;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -150,17 +151,22 @@ namespace OrchidMod.Content.Prefixes
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
-			if (item.damage <= 0 || item.accessory || item.type == ItemID.None) return -1;
-
 			var globalItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
-			if (!globalItem.guardianWeapon) return -1;
-
-			var prefixes = GuardianPrefix.GetPrefixes;
-			while (true)
+			if (item.ModItem is OrchidModGuardianShield)
 			{
-				var prefix = prefixes[Main.rand.Next(prefixes.Count)];
-				return prefix.Type;
+				var prefixes = GuardianPrefix.GetPrefixes;
+				return prefixes[Main.rand.Next(prefixes.Count)].Type;
 			}
+
+			/*
+			if (item.ModItem is OrchidModGuardianHammer)
+			{
+				List<int> UniversalPrefixesIDs = [36, 37, 38, 39, 40, 41, 53, 54, 55, 56, 57, 59, 60, 61]; // Has to be hardcoded
+				return Main.rand.Next(UniversalPrefixesIDs);
+			}
+			*/
+
+			return -1;
 		}
 
 		public override void NetSend(Item item, BinaryWriter writer)

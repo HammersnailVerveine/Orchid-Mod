@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
-using OrchidMod.Content.Guardian;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -44,14 +42,15 @@ namespace OrchidMod.Content.Guardian
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
 
-			this.SafeSetDefaults();
+			SafeSetDefaults();
 		}
+
+		public override bool WeaponPrefix() => true;
 
 		public sealed override void HoldItem(Player player)
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
 			guardian.GuardianDisplayUI = 300;
-			//guardian.HoldingHammer = true;
 		}
 
 		public override bool? UseItem(Player player)
@@ -70,7 +69,7 @@ namespace OrchidMod.Content.Guardian
 		
 		public override bool CanUseItem(Player player)
 		{
-			int projType = ProjectileType<Guardian.HammerThrow>();
+			int projType = ProjectileType<HammerThrow>();
 			if (player.ownedProjectileCounts[projType] > 0) return false;
 			return base.CanUseItem(player);
 		}

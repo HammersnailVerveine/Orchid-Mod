@@ -1,4 +1,5 @@
 ﻿using OrchidMod.Common.Attributes;
+using OrchidMod.Content.Guardian;
 using System;
 using System.Collections.Generic;
 using System.Linq;
