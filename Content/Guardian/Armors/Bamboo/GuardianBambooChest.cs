@@ -19,7 +19,7 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianRecharge -= 0.08f;
+			modPlayer.GuardianRecharge -= 0.1f;
 		}
 
 		public override void AddRecipes()

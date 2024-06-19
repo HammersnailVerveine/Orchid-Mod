@@ -67,9 +67,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 					projectile.rotation = -MathHelper.PiOver2;
 
 					// Collision with the ground, do skating stuff
-					Vector2 collision = Collision.TileCollision(owner.position + new Vector2(owner.width / 2f, owner.height), Vector2.UnitY * 8f, Item.width, 14, false, false, (int)owner.gravDir);
+					Vector2 collision = Collision.TileCollision(owner.position + new Vector2((owner.width - Item.width) * 0.5f, owner.height), Vector2.UnitY * 8f, Item.width, 14, false, false, (int)owner.gravDir);
 					if (collision != Vector2.UnitY * 8f)
 					{
+						owner.fallStart = (int)(owner.position.Y / 16f);
+						owner.fallStart2 = (int)(owner.position.Y / 16f);
 						owner.position.Y += (collision.Y - 1.7f);
 						owner.velocity.X = projectile.ai[2];
 						owner.velocity.Y = 0.1f;

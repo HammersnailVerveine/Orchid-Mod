@@ -2,6 +2,7 @@
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Guardian.Buffs;
+using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -31,6 +32,7 @@ namespace OrchidMod
 		public bool GuardianSpikeDungeon = false;
 		public bool GuardianSpikeMechanical = false;
 		public bool GuardianSpikeTemple = false;
+		public bool GuardianBamboo = false;
 
 		// Dynamic gameplay and UI fields
 
@@ -124,6 +126,18 @@ namespace OrchidMod
 			GuardianSpikeDungeon = false;
 			GuardianSpikeMechanical = false;
 			GuardianSpikeTemple = false;
+			GuardianBamboo = false;
+		}
+
+		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+		{
+			if (!Player.HasBuff<BambooCooldown>())
+			{
+				Player.AddBuff(ModContent.BuffType<BambooCooldown>(), 600);
+				SoundEngine.PlaySound(SoundID.Item37, Player.Center);
+				AddBlock(1);
+				if (GuardianDisplayUI < 0) GuardianDisplayUI = 0;
+			}
 		}
 
 		public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)

@@ -20,7 +20,7 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianRecharge -= 0.06f;
+			modPlayer.GuardianBlockMax++;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -31,8 +31,8 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.setBonus = "+1 block charge";
-			modPlayer.GuardianBlockMax++;
+			player.setBonus = "Taking damage grants a block charge";
+			modPlayer.GuardianBamboo = true;
 		}
 
 		public override void AddRecipes()

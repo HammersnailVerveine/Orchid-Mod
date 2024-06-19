@@ -27,6 +27,7 @@ using OrchidMod.Content.Guardian.Weapons.Warhammers;
 using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.Shaman.Weapons.Hardmode;
+using OrchidMod.Content.Guardian.Accessories;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -177,6 +178,7 @@ namespace OrchidMod.Common.ModSystems
 					// rounds = (int)(TerraCustom_Settings.GetProperty("BiomeChestSets", BindingFlags.Instance | BindingFlags.Public).GetValue(terraCustom_setting, null));
 					// }
 
+					/* REIMPLEMENT THIS
 					for (int i = 0; i < rounds; i++)
 					{
 						Chest chest = null;
@@ -208,6 +210,7 @@ namespace OrchidMod.Common.ModSystems
 							}
 						}
 					}
+					*/
 				}));
 			}
 		}
@@ -247,6 +250,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<AdornedBranch>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EmberVial>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<Warhammer>(), ChestType.SurfaceWooden, 20));
+			chestLoots.Add(new ChestLoot(ItemType<GuideShield>(), ChestType.SurfaceWooden, 20));
 
 			// Water Chests
 			chestLoots.Add(new ChestLoot(ItemType<BubbleCard>(), ChestType.Water, 20));

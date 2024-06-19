@@ -216,7 +216,12 @@ Buffs: {
 
 	GuardianSpikeBuff: {
 		DisplayName: Guardian Spike Buff
-		Description: Mods.OrchidMod.Buffs.GuardianSpikeBuff.Description
+		Description: 15% increased opposing damage
+	}
+
+	BambooCooldown: {
+		DisplayName: Bamboo Cooldown
+		Description: Cannot generate block charges by taking damage
 	}
 }
 
@@ -2611,17 +2616,17 @@ Items: {
 
 	GuardianBambooHead: {
 		DisplayName: Bamboo Helmet
-		Tooltip: Increases guardian charges generation by 6%
+		Tooltip: +1 block charge
 	}
 
 	GuardianBambooChest: {
 		DisplayName: Bamboo Chestplate
-		Tooltip: Increases guardian charges generation by 8%
+		Tooltip: Increases guardian charges generation by 10%
 	}
 
 	GuardianBambooLegs: {
 		DisplayName: Bamboo Legguards
-		Tooltip: Increases guardian charges generation by 6%
+		Tooltip: Increases guardian charges generation by 10%
 	}
 
 	GuardianMeteoriteChest: {
@@ -2790,6 +2795,16 @@ Items: {
 	CorruptionWarhammer: {
 		DisplayName: Famine
 		Tooltip: ""
+	}
+
+	GuideShield: {
+		DisplayName: Guide to Shield Surfing
+		Tooltip: Allows cancelling fall damage by blocking the ground
+	}
+
+	GuideShieldBounce: {
+		DisplayName: Guide to Shield Bouncing
+		Tooltip: Allows bouncing by blocking the ground
 	}
 }
 
