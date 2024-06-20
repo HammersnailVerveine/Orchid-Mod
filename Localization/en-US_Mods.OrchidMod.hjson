@@ -2806,6 +2806,42 @@ Items: {
 		DisplayName: Guide to Shield Bouncing
 		Tooltip: Allows bouncing by blocking the ground
 	}
+
+	GuardianCobaltHead: {
+		DisplayName: Cobalt Greathelm
+		Tooltip:
+			'''
+			10% increased opposing damage and movement speed
+			+1 block and slam charges
+			'''
+	}
+
+	GuardianMythrilHead: {
+		DisplayName: Mythril Greathelm
+		Tooltip:
+			'''
+			11% increased opposing damage and 10% increased opposing critical strike chance
+			+1 block and slam charges
+			'''
+	}
+
+	GuardianOrichalcumHead: {
+		DisplayName: Orichalcum Greathelm
+		Tooltip:
+			'''
+			18% increased opposing damage and 7% increased movement speed
+			+1 block and slam charges
+			'''
+	}
+
+	GuardianPalladiumHead: {
+		DisplayName: Palladium Greathelm
+		Tooltip:
+			'''
+			16% increased opposing damage
+			+1 block and slam charges
+			'''
+	}
 }
 
 NPCs: {
