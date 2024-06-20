@@ -133,8 +133,14 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (HammerItem.ThrowAI(player, guardian, Projectile, WeakThrow()))
 					{
-						if (Projectile.timeLeft > 598) Projectile.tileCollide = false; // Helps preventing the hammer from instantly despawning if launched from inside a tile
-						else Projectile.tileCollide = HammerItem.tileCollide;
+						if (Projectile.timeLeft < 598 && HammerItem.tileCollide && range > 0) // Delay helps preventing the hammer from instantly despawning if launched from inside a tile
+						{ // Hammer has a smaller hitbox for tilecollide stuff
+							Vector2 collideVelocity = Collision.TileCollision(Projectile.Center - Vector2.One * 10f, Projectile.velocity, 20, 20, true, true, (int)player.gravDir);
+							if (collideVelocity != Projectile.velocity)
+							{
+								OnTileCollide(Projectile.velocity);
+							}
+						}
 
 						if (WeakThrow())
 							Projectile.rotation += 0.25f * dir;
@@ -162,7 +168,6 @@ namespace OrchidMod.Content.Guardian
 								if (Projectile.timeLeft < 500) mult += (500 - Projectile.timeLeft) / 40f;
 								vel *= mult;
 								Projectile.velocity = vel;
-								Projectile.tileCollide = false;
 							}
 							else
 							{
@@ -187,6 +192,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
+			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 			range = -40;
 			return false;
 		}
