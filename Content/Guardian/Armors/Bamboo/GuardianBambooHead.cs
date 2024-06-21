@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			modPlayer.GuardianBlockMax++;
+			modPlayer.GuardianRecharge -= 0.15f;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

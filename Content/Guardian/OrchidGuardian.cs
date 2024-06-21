@@ -33,6 +33,7 @@ namespace OrchidMod
 		public bool GuardianSpikeMechanical = false;
 		public bool GuardianSpikeTemple = false;
 		public bool GuardianBamboo = false;
+		public bool GuardianGit = false;
 
 		// Dynamic gameplay and UI fields
 
@@ -127,6 +128,22 @@ namespace OrchidMod
 			GuardianSpikeMechanical = false;
 			GuardianSpikeTemple = false;
 			GuardianBamboo = false;
+			GuardianGit = false;
+		}
+
+		public void OnBlock(NPC npc, Projectile projectile, Projectile shieldAnchor, bool firstBlock)
+		{
+			if (npc != null) // a npc has been blocked
+			{
+				// ...
+			}
+
+			if (projectile != null) // a projectile has been blocked
+			{
+				// ...
+			}
+
+			if (GuardianGit) Player.AddBuff(ModContent.BuffType<GuardianGitBuff>(), 600);
 		}
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

@@ -143,6 +143,7 @@ namespace OrchidMod.Content.Guardian
 							if (LineIntersectsRect(p1, p2, proj.Hitbox) || proj.Hitbox.Intersects(Projectile.Hitbox))
 							{
 								guardianItem.Block(owner, Projectile, proj);
+								modPlayer.OnBlock(null, proj, Projectile, shieldEffectReady);
 								if (shieldEffectReady)
 								{
 									int toAdd = 1;
@@ -211,6 +212,8 @@ namespace OrchidMod.Content.Guardian
 								guardianItem.Protect(owner, Projectile);
 								shieldEffectReady = false;
 								SoundEngine.PlaySound(SoundID.Item37, owner.Center);
+
+								modPlayer.OnBlock(target, null, Projectile, true);
 
 								if (modPlayer.GuardianSpikeGoblin)
 								{

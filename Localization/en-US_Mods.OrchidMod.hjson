@@ -223,6 +223,11 @@ Buffs: {
 		DisplayName: Bamboo Cooldown
 		Description: Cannot generate block charges by taking damage
 	}
+
+	GuardianGitBuff: {
+		DisplayName: Got Gud
+		Description: 30% increased movement speed
+	}
 }
 
 Items: {
@@ -2466,7 +2471,7 @@ Items: {
 
 	EnchantedPavise: {
 		DisplayName: Enchanted Pavise
-		Tooltip: "Shoots an enchanted shield blast"
+		Tooltip: Shoots an enchanted shield blast
 	}
 
 	IronPavise: {
@@ -2846,6 +2851,15 @@ Items: {
 	GoblinRune: {
 		DisplayName: Goblin Runebark
 		Tooltip: Summons erratic shadowflames to protect you
+	}
+
+	GuardianGitHelm: {
+		DisplayName: Gud Knight Helmet
+		Tooltip:
+			'''
+			+1 block and slam charges
+			Can be paired with ore armor
+			'''
 	}
 }
 

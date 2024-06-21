@@ -25,6 +25,7 @@ using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Common.ModSystems;
+using OrchidMod.Content.Guardian.Armors.Misc;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -36,22 +37,23 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				case NPCID.WitchDoctor:
 					{
-						OrchidUtils.AddItemToShop<ShamanRod>(shop);
-
-						if (Main.hardMode)
-						{
-							OrchidUtils.AddItemToShop<RitualScepter>(shop);
-						}
+						shop.Add(ItemType<ShamanRod>());
+						shop.Add(ItemType<RitualScepter>(), [Condition.Hardmode]);
 					}
 					break;
 				case NPCID.Demolitionist:
 					{
-						OrchidUtils.AddItemToShop<GunpowderFlask>(shop);
+						shop.Add(ItemType<GunpowderFlask>());
 					}
 					break;
 				case NPCID.Dryad:
 					{
-						OrchidUtils.AddItemToShop<DryadsGift>(shop);
+						shop.Add(ItemType<DryadsGift>());
+					}
+					break;
+				case NPCID.SkeletonMerchant:
+					{
+						shop.Add(ItemType<GuardianGitHelm>(), [Condition.TimeNight]);
 					}
 					break;
 			}
