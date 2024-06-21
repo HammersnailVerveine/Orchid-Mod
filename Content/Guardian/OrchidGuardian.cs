@@ -131,7 +131,7 @@ namespace OrchidMod
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
-			if (!Player.HasBuff<BambooCooldown>())
+			if (!Player.HasBuff<BambooCooldown>() && GuardianBamboo && GuardianBlock < GuardianBlockMax)
 			{
 				Player.AddBuff(ModContent.BuffType<BambooCooldown>(), 600);
 				SoundEngine.PlaySound(SoundID.Item37, Player.Center);

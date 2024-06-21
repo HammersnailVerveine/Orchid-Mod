@@ -51,7 +51,7 @@ namespace OrchidMod.Content.Prefixes
 
 		public override void ModifyValue(ref float valueMult)
 		{
-			float multiplier = 1f * (damage * 0.96f) * (bondLoading * 0.96f) * (velocity * 0.96f) + (crit * 0.0096f) + (bondDuration * 0.0072f);
+			float multiplier = 1f + ((damage - 1f) * 0.05f) + ((bondLoading - 1f) * 0.05f) + (bondDuration * 0.00375f) + (crit * 0.0015f) + ((velocity - 1f) * 0.05f);
 			valueMult *= multiplier;
 		}
 

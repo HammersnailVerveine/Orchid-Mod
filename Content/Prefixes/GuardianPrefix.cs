@@ -49,10 +49,10 @@ namespace OrchidMod.Content.Prefixes
 
 		public override void Apply(Item item)
 			=> item.GetGlobalItem<GuardianPrefixItem>().SetPrefixVariables(damage, knockback, blockDuration, crit, slamDistance);
-
+		
 		public override void ModifyValue(ref float valueMult)
 		{
-			float multiplier = 1f * (damage * 0.98f) * (knockback * 0.94f) * (blockDuration * 0.94f) * (slamDistance * 0.96f) + (crit * 0.0098f);
+			float multiplier = 1f + ((damage - 1f) * 0.05f) + ((knockback - 1f) * 0.05f) + ((blockDuration - 1f) * 0.05f) + ((slamDistance - 1f) * 0.05f) + (crit * 0.0015f);
 			valueMult *= multiplier;
 		}
 
@@ -154,8 +154,11 @@ namespace OrchidMod.Content.Prefixes
 			var globalItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			if (item.ModItem is OrchidModGuardianShield)
 			{
+				List<int> UniversalPrefixesIDs = [36, 37, 38, 39, 40, 41, 53, 54, 55, 56, 57, 59, 60, 61]; // Has to be hardcoded
 				var prefixes = GuardianPrefix.GetPrefixes;
-				return prefixes[Main.rand.Next(prefixes.Count)].Type;
+
+				foreach (var prefix in prefixes) UniversalPrefixesIDs.Add(prefix.Type);
+				return UniversalPrefixesIDs[Main.rand.Next(UniversalPrefixesIDs.Count)];
 			}
 
 			/*

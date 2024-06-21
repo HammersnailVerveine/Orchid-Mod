@@ -55,6 +55,8 @@ namespace OrchidMod.Content.Guardian
 			Item.useAnimation = Item.useTime;
 		}
 
+		public override bool WeaponPrefix() => true;
+
 		public override bool AltFunctionUse(Player player)
 		{
 			return true;
