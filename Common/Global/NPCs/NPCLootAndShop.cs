@@ -72,8 +72,14 @@ namespace OrchidMod.Common.Global.NPCs
 
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)
 		{
-			if (Main.rand.NextBool()) OrchidUtils.AddItemToShop<Skateboard>(shop, ref nextSlot);
-			else OrchidUtils.AddItemToShop<PileOfChips>(shop, ref nextSlot);
+			if (Main.rand.NextBool())
+			{
+				if (WorldGen.shadowOrbSmashed) OrchidUtils.AddItemToShop<Skateboard>(shop, ref nextSlot);
+			}
+			else
+			{
+				OrchidUtils.AddItemToShop<PileOfChips>(shop, ref nextSlot);
+			}
 
 			if (Main.hardMode) OrchidUtils.AddItemToShop<BijouShield>(shop, ref nextSlot, 2);
 		}
@@ -197,15 +203,23 @@ namespace OrchidMod.Common.Global.NPCs
 					}
 					break;
 				case NPCID.GoblinWarrior:
-					npcLoot.Add(ItemDropRule.Common(ItemType<GoblinSpike>(), 20));
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinSpike>(), 15));
+						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinArmyCard>(), 50));
+					}
 					break;
 				case NPCID.GoblinPeon:
 				case NPCID.GoblinThief:
-				case NPCID.GoblinSorcerer:
 				case NPCID.GoblinArcher:
 					{
 						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinArmyFlask>(), 50));
 						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinArmyCard>(), 50));
+					}
+					break;
+				case NPCID.GoblinSorcerer:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinArmyCard>(), 50));
+						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinRune>(), 10));
 					}
 					break;
 				case NPCID.Drippler:

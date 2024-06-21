@@ -2466,7 +2466,7 @@ Items: {
 
 	EnchantedPavise: {
 		DisplayName: Enchanted Pavise
-		Tooltip: ""
+		Tooltip: "Shoots an enchanted shield blast"
 	}
 
 	IronPavise: {
@@ -2842,6 +2842,11 @@ Items: {
 			+1 block and slam charges
 			'''
 	}
+
+	GoblinRune: {
+		DisplayName: Goblin Runebark
+		Tooltip: Summons erratic shadowflames to protect you
+	}
 }
 
 NPCs: {
@@ -3122,6 +3127,7 @@ Projectiles: {
 	WaterSpikeProj.DisplayName: Water Spike Proj
 	MagnetosphereWarhammerProj.DisplayName: Magnetosphere Warhammer Proj
 	MagnetosphereShieldProj.DisplayName: Magnetosphere Shield Proj
+	GoblinRuneProj.DisplayName: Goblin Rune Proj
 }
 
 Configs: {

@@ -11,7 +11,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 		{
 			Item.width = 30;
 			Item.height = 28;
-			Item.value = Item.sellPrice(0, 0, 0, 15);
+			Item.value = Item.sellPrice(0, 0, 20, 0);
 			Item.rare = ItemRarityID.White;
 			Item.UseSound = SoundID.Item176;
 			Item.useAnimation = 30;

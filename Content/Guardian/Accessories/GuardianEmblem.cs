@@ -18,5 +18,17 @@ namespace OrchidMod.Content.Guardian.Accessories
 		{
 			player.GetDamage<GuardianDamageClass>() += 0.15f;
 		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.ReplaceResult(935);
+			recipe.AddIngredient(this, 1);
+			recipe.AddIngredient(ItemID.SoulofMight, 5);
+			recipe.AddIngredient(ItemID.SoulofSight, 5);
+			recipe.AddIngredient(ItemID.SoulofFright, 5);
+			recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.Register();
+		}
 	}
 }

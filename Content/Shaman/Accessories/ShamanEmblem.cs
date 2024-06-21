@@ -14,15 +14,18 @@ namespace OrchidMod.Content.Shaman.Accessories
 			Item.rare = ItemRarityID.LightRed;
 			Item.accessory = true;
 		}
+
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Shaman Emblem");
 			// Tooltip.SetDefault("15% increased shamanic damage");
 		}
+
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			player.GetDamage<ShamanDamageClass>() += 0.15f;
 		}
+
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();

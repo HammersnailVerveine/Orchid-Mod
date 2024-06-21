@@ -21,11 +21,11 @@ namespace OrchidMod.Content.Guardian
 		public int RuneNumber;
 
 		public int GetNumber(Player player) => RuneNumber + player.GetModPlayer<OrchidGuardian>().GuardianBonusRune;
-		public int GetNumber(OrchidGuardian guardian) => RuneNumber + guardian.GuardianBonusRune;
+		public int GetAmount(OrchidGuardian guardian) => RuneNumber + guardian.GuardianBonusRune;
 
 		public virtual void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
 		{
-			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, GetNumber(guardian));
+			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, GetAmount(guardian));
 		}
 
 		public sealed override void SetDefaults()
