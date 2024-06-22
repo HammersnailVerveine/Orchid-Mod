@@ -126,7 +126,7 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.DarkCaster:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<Blum>(), 2));
+						npcLoot.Add(ItemDropRule.Common(ItemType<Blum>(), 15));
 						npcLoot.Add(ItemDropRule.Common(ItemType<DungeonCard>(), 25));
 					}
 					break;

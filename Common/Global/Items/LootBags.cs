@@ -147,7 +147,7 @@ namespace OrchidMod.Common.Global.Items
 								(ModContent.ItemType<SunRay>(), 1),
 								(ModContent.ItemType<TempleWarhammer>(), 1)
 							},
-							chanceDenominator: 3
+							chanceDenominator: 2
 						);
 					}
 					break;
