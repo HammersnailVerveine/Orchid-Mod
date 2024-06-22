@@ -65,7 +65,7 @@ namespace OrchidMod.Content.Guardian
 		
 		public override bool CanUseItem(Player player)
 		{			
-			if (player.whoAmI == Main.myPlayer)
+			if (player.whoAmI == Main.myPlayer && !player.cursed)
 			{
 				var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
 				if (player.ownedProjectileCounts[projectileType] > 0) {
