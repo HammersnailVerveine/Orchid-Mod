@@ -307,8 +307,7 @@ namespace OrchidMod.Common.Global.NPCs
 
 			if (npc.aiStyle == 94) // Celestial Pillar AI 
 			{
-				float numberOfPillars = 4;
-				int quantity = (int)(Main.rand.Next(25, 41) / 2 / numberOfPillars);
+				int quantity = Main.rand.Next(3, 15);
 				if (Main.expertMode) quantity = (int)(quantity * 1.5f);
 				for (int i = 0; i < quantity; i++)
 				{

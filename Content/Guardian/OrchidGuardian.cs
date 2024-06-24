@@ -42,7 +42,7 @@ namespace OrchidMod
 		public int GuardianBlockRecharge = 0;
 		public int GuardianSlamRecharge = 0;
 		public int GuardianDisplayUI = 0;
-		public int GuardianThrowCharge = 0;
+		public float GuardianThrowCharge = 0f;
 		public int SlamCostUI = 0;
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
@@ -56,6 +56,12 @@ namespace OrchidMod
 
 		public override void PostUpdate()
 		{
+		}
+
+		public override void OnRespawn()
+		{
+			GuardianBlock = GuardianBlockMax;
+			GuardianSlam = 1;
 		}
 
 		public override void PostUpdateEquips()
@@ -195,10 +201,10 @@ namespace OrchidMod
 
 		public int ThrowLevel()
 		{
-			if (GuardianThrowCharge < 45) return 0;
-			if (GuardianThrowCharge < 90) return 1;
-			if (GuardianThrowCharge < 135) return 2;
-			if (GuardianThrowCharge < 180) return 3;
+			if (GuardianThrowCharge < 45f) return 0;
+			if (GuardianThrowCharge < 90f) return 1;
+			if (GuardianThrowCharge < 135f) return 2;
+			if (GuardianThrowCharge < 180f) return 3;
 			return 4;
 		}
 	}

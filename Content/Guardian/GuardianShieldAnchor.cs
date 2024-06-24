@@ -109,13 +109,13 @@ namespace OrchidMod.Content.Guardian
 					{
 						isSlamming = 1;
 						Projectile.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
-						Projectile.CritChance = (int)(Main.player[Projectile.owner].GetCritChance<GuardianDamageClass>() + Main.player[Projectile.owner].GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
+						Projectile.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.friendly = true;
 					}
 
-					float slamDistance = (int)(guardianItem.slamDistance * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance());
-					addedDistance = (float)Math.Sin((MathHelper.Pi / guardianItem.Item.useTime) * Projectile.ai[1]) * slamDistance;
+					float slamDistance = (int)(guardianItem.slamDistance * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance() * owner.GetAttackSpeed(DamageClass.Melee));
+					addedDistance = (float)Math.Sin(MathHelper.Pi / guardianItem.Item.useTime * Projectile.ai[1]) * slamDistance;
 					Projectile.ai[1] -= slamDistance / guardianItem.Item.useTime;
 
 					if (Projectile.ai[1] <= 0f)
@@ -379,7 +379,7 @@ namespace OrchidMod.Content.Guardian
 		{
 		}
 
-		public override bool? CanCutTiles() => false;
+		public override bool? CanCutTiles() => Projectile.ai[1] > 0f;
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{

@@ -16,11 +16,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.value = Item.sellPrice(0, 7, 0, 0);
 			Item.rare = ItemRarityID.Lime;
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
-			Item.useAnimation = 45;
-			Item.useTime = 45;
 			Item.knockBack = 10f;
 			Item.shootSpeed = 13f;
 			Item.damage = 196;
+			Item.useTime = 20;
 			range = 45;
 			blockStacks = 2;
 			slamStacks = 2;

@@ -62,8 +62,9 @@ namespace OrchidMod.Content.Guardian
 			{
 				HammerItem = hammerItem;
 				HammerTexture = TextureAssets.Item[hammerItem.Item.type].Value;
-				Projectile.width = HammerTexture.Width;
-				Projectile.height = HammerTexture.Height;
+				Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
+				Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
+				Projectile.scale = hammerItem.Item.scale;
 
 				Projectile.position.X -= Projectile.width / 2;
 				Projectile.position.Y -= Projectile.height / 2;
@@ -92,14 +93,18 @@ namespace OrchidMod.Content.Guardian
 
 					player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + guardian.GuardianThrowCharge * 0.006f * Projectile.spriteDirection); // set arm position (90 degree offset since arm starts lowered)
 					Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianThrowCharge * 0.006f * Projectile.spriteDirection);
-					Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianThrowCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianThrowCharge) * 10f) * player.direction * 0.4f, (Projectile.height - (Projectile.height * 0.007f)  * guardian.GuardianThrowCharge) * 0.4f);
+					Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianThrowCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianThrowCharge) * 10f) * player.direction * 0.4f, (Projectile.height - (Projectile.height * 0.007f) * guardian.GuardianThrowCharge) * 0.4f);
 
 					if (Main.MouseWorld.X > player.Center.X && player.direction != 1) player.ChangeDir(1);
 					else if (Main.MouseWorld.X < player.Center.X && player.direction != -1) player.ChangeDir(-1);
 
-					if (guardian.GuardianThrowCharge < 210) guardian.GuardianThrowCharge++;
+					if (guardian.GuardianThrowCharge < 210f)
+					{
+						guardian.GuardianThrowCharge += 30f / HammerItem.Item.useTime * player.GetAttackSpeed(DamageClass.Melee);
+						if (guardian.GuardianThrowCharge > 210f) guardian.GuardianThrowCharge = 210f;
+					}
 
-					if (guardian.GuardianThrowCharge >= 180 && !Ding)
+					if (guardian.GuardianThrowCharge >= 180f && !Ding)
 					{
 						Ding = true;
 						SoundEngine.PlaySound(SoundID.MaxMana, player.Center);

@@ -13,13 +13,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.value = Item.sellPrice(0, 0, 26, 50);
 			Item.rare = ItemRarityID.White;
 			Item.UseSound = SoundID.Item1;
-			Item.useAnimation = 45;
-			Item.useTime = 45;
 			Item.knockBack = 8f;
 			Item.shootSpeed = 9f;
 			Item.damage = 63;
-			this.range = 25;
-			this.blockStacks = 1;
+			Item.useTime = 35;
+			range = 25;
+			blockStacks = 1;
 		}
 
 		public override void SetStaticDefaults()

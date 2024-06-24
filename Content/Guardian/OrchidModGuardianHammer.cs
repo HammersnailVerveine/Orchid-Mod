@@ -30,7 +30,6 @@ namespace OrchidMod.Content.Guardian
 			Item.autoReuse = false;
 			Item.maxStack = 1;
 			Item.useStyle = ItemUseStyleID.Swing;
-			Item.useAnimation = 30;
 			Item.useTime = 30;
 			Item.knockBack = 10f;
 			Item.shootSpeed = 10f;
@@ -43,9 +42,11 @@ namespace OrchidMod.Content.Guardian
 			orchidItem.guardianWeapon = true;
 
 			SafeSetDefaults();
+
+			Item.useAnimation = Item.useTime;
 		}
 
-		public override bool WeaponPrefix() => true;
+		public override bool MeleePrefix() => true;
 
 		public sealed override void HoldItem(Player player)
 		{
@@ -63,7 +64,7 @@ namespace OrchidMod.Content.Guardian
 			projectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 			projectile.netUpdate = true;
 
-			guardian.GuardianThrowCharge = 0;
+			guardian.GuardianThrowCharge = 0f;
 			return true;
 		}
 		

@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Projectile anchor = GetAnchor(player).Projectile;
 			int type = ModContent.ProjectileType<SpectreShieldProj>();
 			Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(30f)) * Item.shootSpeed;
-			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f), dir, type, (int)(shield.damage * 0.75f), Item.knockBack, player.whoAmI);
+			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f), dir, type, (int)(player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage) * 0.75f), Item.knockBack, player.whoAmI);
 		}
 
 		public override void AddRecipes()
