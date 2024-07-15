@@ -19,7 +19,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.knockBack = 10f;
 			Item.shootSpeed = 10f;
 			Item.useTime = 25;
-			Item.damage = 82;
+			Item.damage = 85;
 			range = 35;
 			blockStacks = 1;
 		}
@@ -41,6 +41,17 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			for (int i = 0; i < 2 + Main.rand.Next(2); i ++)
 			{
 				Vector2 vel = Vector2.Normalize(projectile.velocity.RotatedByRandom(MathHelper.ToRadians(45f)));
+				Projectile newProjectile = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center + vel * 3f, vel * 7f, 976, (int)(projectile.damage * 0.5f), 1f, projectile.owner);
+				newProjectile.DamageType = ModContent.GetInstance<GuardianDamageClass>();
+			}
+		}
+
+
+		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
+		{
+			for (int i = 0; i < 1 + Main.rand.Next(1); i ++)
+			{
+				Vector2 vel = Vector2.Normalize((target.Center - player.Center).RotatedByRandom(MathHelper.ToRadians(30f)));
 				Projectile newProjectile = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center + vel * 3f, vel * 7f, 976, (int)(projectile.damage * 0.5f), 1f, projectile.owner);
 				newProjectile.DamageType = ModContent.GetInstance<GuardianDamageClass>();
 			}

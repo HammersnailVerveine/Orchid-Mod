@@ -228,6 +228,11 @@ Buffs: {
 		DisplayName: Got Gud
 		Description: 30% increased movement speed
 	}
+
+	GuardianRunePotionBuff: {
+		DisplayName: Rune Mastery
+		Description: Increased number of guardian rune projectiles
+	}
 }
 
 Items: {
@@ -2566,7 +2571,7 @@ Items: {
 
 	CrimsonWarhammer: {
 		DisplayName: Heartbeat
-		Tooltip: Restores 5 life on hit
+		Tooltip: Restores life on hit
 	}
 
 	JungleWarhammer: {
@@ -2580,7 +2585,7 @@ Items: {
 	}
 
 	PirateWarhammer: {
-		Tooltip: ""
+		Tooltip: Swing hits make enemies drop more gold
 		DisplayName: Pirate Warhammer
 	}
 
@@ -2860,6 +2865,11 @@ Items: {
 			+1 block and slam charges
 			Can be paired with ore armor
 			'''
+	}
+
+	GuardianRunePotion: {
+		DisplayName: Runic Potion
+		Tooltip: Increases the number of guardian rune projectiles
 	}
 }
 
@@ -3152,6 +3162,11 @@ Configs: {
 		ShowClassTags: {
 			Label: Show tags
 			Tooltip: "{$Enables/Disables the display class tags}"
+		}
+
+		UseOldGuardianHammerUi: {
+			Label: Old Guardian Hammer UI
+			Tooltip: Use the old Guardian Hammer UI (Paper Mario style)
 		}
 	}
 

@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item9;
 			Item.knockBack = 7f;
-			Item.damage = 43;
+			Item.damage = 51;
 			Item.rare = ItemRarityID.Green;
 			Item.useTime = 40;
 			Item.shootSpeed = 8f;
@@ -33,7 +33,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			for (int i = 0; i < 2 + Main.rand.Next(2); i ++)
 			{
 				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(20f)) * Item.shootSpeed;
-				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f), dir, type, (int)(shield.damage * 0.75f), Item.knockBack, player.whoAmI);
+				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f), dir, type, (int)(shield.damage * 0.9f), Item.knockBack, player.whoAmI);
 			}
 		}
 	}

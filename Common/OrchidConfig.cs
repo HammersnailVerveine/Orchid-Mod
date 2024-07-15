@@ -9,9 +9,14 @@ namespace OrchidMod.Common
 		public override bool Autoload(ref string name) => true;
 
 		[Header("General")]
+		[BackgroundColor(128, 255, 128)]
 
 		[DefaultValue(true)]
 		public bool ShowClassTags { get; set; }
+
+		[DefaultValue(false)]
+		[BackgroundColor(128, 128, 255)]
+		public bool UseOldGuardianHammerUi { get; set; }
 	}
 
 	public class OrchidServerConfig : ModConfig

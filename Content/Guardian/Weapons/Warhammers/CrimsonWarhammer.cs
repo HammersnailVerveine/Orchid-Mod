@@ -15,7 +15,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 9f;
 			Item.shootSpeed = 10f;
-			Item.damage = 75;
+			Item.damage = 83;
 			range = 28;
 			blockStacks = 1;
 		}
@@ -36,6 +36,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
 			if (!Weak) guardian.modPlayer.TryHeal(5);
+		}
+
+		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
+		{
+			guardian.modPlayer.TryHeal(2);
 		}
 
 		public override void AddRecipes()

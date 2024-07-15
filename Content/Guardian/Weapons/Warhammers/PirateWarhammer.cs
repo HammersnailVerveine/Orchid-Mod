@@ -14,11 +14,16 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 10f;
 			Item.shootSpeed = 12f;
-			Item.damage = 170;
+			Item.damage = 220;
 			Item.useTime = 25;
 			range = 40;
 			blockStacks = 2;
 			slamStacks = 1;
+		}
+
+		public override void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
+		{
+			target.AddBuff(BuffID.Midas, 300);
 		}
 	}
 }

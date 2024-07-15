@@ -35,7 +35,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 		public override bool SafeAI()
 		{
 			TimeSpent++;
-			SetDistance(140 + (float)Math.Sin(TimeSpent * (MathHelper.Pi / 120f)) * 60f);
+			//SetDistance(140 + (float)Math.Sin(TimeSpent * (MathHelper.Pi / 120f)) * 60f);
+			Spin((float)Math.Cos(TimeSpent * (MathHelper.Pi / 120f)) * (Distance < 200 ? 1 : - 1));
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{

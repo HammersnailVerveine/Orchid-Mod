@@ -15,7 +15,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 5f;
 			Item.shootSpeed = 8f;
-			Item.damage = 27;
+			Item.damage = 43;
 			this.range = 20;
 			this.blockStacks = 1;
 		}

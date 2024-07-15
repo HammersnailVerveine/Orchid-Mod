@@ -5,7 +5,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
 	public class BambooWarhammer : OrchidModGuardianHammer
 	{
-
 		public override void SafeSetDefaults()
 		{
 			Item.width = 38;
@@ -15,7 +14,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 5f;
 			Item.shootSpeed = 8f;
-			Item.damage = 25;
+			Item.damage = 37;
 			range = 18;
 			blockStacks = 1;
 		}

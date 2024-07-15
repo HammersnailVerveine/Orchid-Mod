@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Content.Guardian.Projectiles.Warhammers;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 10f;
 			Item.shootSpeed = 13f;
-			Item.damage = 196;
+			Item.damage = 243;
 			Item.useTime = 20;
 			range = 45;
 			blockStacks = 2;
@@ -27,7 +26,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 		public override bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool weak)
 		{
-
 			if (Main.rand.NextBool(5))
 			{
 				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.GoldFlame, Scale: Main.rand.NextFloat(1f, 1.2f));
@@ -43,6 +41,26 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			return true;
 		}
 
+		public override void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
+		{
+			int type = ModContent.ProjectileType<TempleWarhammerProj>();
+			Vector2 dir = Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi) * (7f + Main.rand.NextFloat(8f));
+			Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.6f), Item.knockBack, player.whoAmI);
+		}
+
+		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
+		{
+			int type = ModContent.ProjectileType<TempleWarhammerProj>();
+			Vector2 dir = Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi) * (7f + Main.rand.NextFloat(8f));
+			Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.6f), Item.knockBack, player.whoAmI);
+
+			for (int i = 0; i < 10; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.GoldFlame, Scale: Main.rand.NextFloat(1.3f, 1.6f));
+				dust.velocity *= 2f;
+			}
+		}
+
 		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
 			int nb = Main.rand.Next(5);
@@ -51,10 +69,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			for (int i = 0; i < nb; i++)
 			{
 				Vector2 dir = Vector2.UnitY.RotatedBy(MathHelper.TwoPi / 6f * i).RotatedByRandom(MathHelper.ToRadians(15f)) * (7f + Main.rand.NextFloat(8f));
-				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.75f), Item.knockBack, player.whoAmI);
+				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.6f), Item.knockBack, player.whoAmI);
 			}
 
-			for (int i = 0; i < 20; i ++)
+			for (int i = 0; i < 20; i++)
 			{
 				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.GoldFlame, Scale: Main.rand.NextFloat(1.3f, 1.6f));
 				dust.velocity *= 2f;

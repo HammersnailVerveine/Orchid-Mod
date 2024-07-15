@@ -14,7 +14,7 @@ namespace OrchidMod.Content.Guardian.Armors.Meteorite
 			Item.height = 22;
 			Item.value = Item.sellPrice(0, 0, 60, 0);
 			Item.rare = ItemRarityID.Blue;
-			Item.defense = 10;
+			Item.defense = 9;
 		}
 
 		public override void UpdateEquip(Player player)

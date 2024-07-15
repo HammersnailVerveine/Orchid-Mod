@@ -17,6 +17,8 @@ namespace OrchidMod.Content.Guardian
 		public int blockStacks;
 		public bool penetrate;
 		public bool tileCollide;
+		public virtual void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit) { }
+		public virtual void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit) { }
 		public virtual void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { }
 		public virtual void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { }
 		public virtual bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak) => true;
@@ -100,6 +102,11 @@ namespace OrchidMod.Content.Guardian
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
+
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "Swing", "Charge and right click to swing")
+			{
+				OverrideColor = new Color(175, 255, 175)
+			});
 		}
 	}
 }

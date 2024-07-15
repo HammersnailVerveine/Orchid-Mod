@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 10f;
 			Item.shootSpeed = 10f;
-			Item.damage = 72;
+			Item.damage = 95;
 			range = 33;
 			blockStacks = 2;
 		}
@@ -36,7 +36,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
-			if (!Weak) OrchidModProjectile.spawnGenericExplosion(projectile, projectile.damage, 10f, 250, 0, true, true);
+			if (!Weak) OrchidModProjectile.spawnGenericExplosion(projectile, (int)(projectile.damage * 1.5f), 10f, 250, 0, true, true);
 			target.AddBuff(BuffID.OnFire, 180);
 		}
 

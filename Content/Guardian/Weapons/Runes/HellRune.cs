@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.shoot = ModContent.ProjectileType<Projectiles.Runes.HellRuneProj>();
 			RuneCost = 2;
 			RuneNumber = 1;
+			RuneDistance = 260;
 		}
 
 		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
@@ -30,6 +31,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 				float angle = 90f - (GetAmount(guardian) - 1) * 10f + 20 * i;
 				NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, 2, angle);
 			}
+
+			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance * 0.75f, 2, 90f);
 		}
 	}
 }
