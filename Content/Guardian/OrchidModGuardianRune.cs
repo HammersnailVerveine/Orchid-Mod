@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Guardian
 		public int RuneNumber;
 
 		public int GetNumber(Player player) => RuneNumber + player.GetModPlayer<OrchidGuardian>().GuardianBonusRune;
-		public int GetAmount(OrchidGuardian guardian) => RuneNumber + guardian.GuardianBonusRune;
+		public int GetAmount(OrchidGuardian guardian, int factor = 1) => RuneNumber + guardian.GuardianBonusRune * factor;
 
 		public virtual void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
 		{

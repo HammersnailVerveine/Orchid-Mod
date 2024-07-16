@@ -20,12 +20,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.damage = 95;
 			Item.shoot = ModContent.ProjectileType<Projectiles.Runes.FrostRuneProj>();
 			RuneCost = 3;
-			RuneNumber = 4;
+			RuneNumber = 12;
 		}
 
 		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
 		{
-			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, GetAmount(guardian) * 3);
+			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, GetAmount(guardian, 3));
 		}
 	}
 }

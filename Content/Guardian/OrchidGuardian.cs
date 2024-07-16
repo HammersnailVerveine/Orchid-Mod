@@ -6,6 +6,7 @@ using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -62,6 +63,11 @@ namespace OrchidMod
 		{
 			GuardianBlock = GuardianBlockMax;
 			GuardianSlam = 1;
+		}
+
+		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+		{
+			GuardianThrowCharge = 0;
 		}
 
 		public override void PostUpdateEquips()

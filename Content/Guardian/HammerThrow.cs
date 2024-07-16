@@ -26,6 +26,7 @@ namespace OrchidMod.Content.Guardian
 		public int ChargeToAdd = 0;
 		public bool penetrate;
 		public bool hitTarget = false;
+		public bool WeakHit = false;
 		public int dir;
 
 		public bool Ding = false;
@@ -90,13 +91,13 @@ namespace OrchidMod.Content.Guardian
 			{
 				if (Projectile.ai[1] <= 0) // Held
 				{
+					if (Main.MouseWorld.X > player.Center.X && player.direction != 1) player.ChangeDir(1);
+					else if (Main.MouseWorld.X < player.Center.X && player.direction != -1) player.ChangeDir(-1);
+
 					player.itemAnimation = 1;
 					Projectile.timeLeft = 600;
 					Projectile.spriteDirection = -player.direction;
 					player.heldProj = Projectile.whoAmI;
-
-					if (Main.MouseWorld.X > player.Center.X && player.direction != 1) player.ChangeDir(1);
-					else if (Main.MouseWorld.X < player.Center.X && player.direction != -1) player.ChangeDir(-1);
 
 					if (guardian.GuardianThrowCharge >= 180f && !Ding)
 					{
@@ -106,6 +107,12 @@ namespace OrchidMod.Content.Guardian
 
 					if (Projectile.ai[1] == 0)
 					{
+						if (WeakHit)
+						{ // Projectiles just did a weak charge swing, kill it
+							Projectile.Kill();
+							return;
+						}
+
 						player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + guardian.GuardianThrowCharge * 0.006f * Projectile.spriteDirection); // set arm position (90 degree offset since arm starts lowered)
 						Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianThrowCharge * 0.006f * Projectile.spriteDirection);
 						Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianThrowCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianThrowCharge) * 10f) * player.direction * 0.4f, (Projectile.height - (Projectile.height * 0.007f) * guardian.GuardianThrowCharge) * 0.4f);
@@ -126,26 +133,37 @@ namespace OrchidMod.Content.Guardian
 
 						if (!player.controlUseItem && player.whoAmI == Main.myPlayer)
 						{
-							Projectile.ai[1] = 1;
-							Projectile.friendly = true;
-
-							Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * HammerItem.Item.shootSpeed;
-
-							if (guardian.ThrowLevel() < 4)
+							if (guardian.GuardianThrowCharge > 10f)
 							{
-								dir *= (0.3f * (guardian.ThrowLevel() + 2) / 3);
-								Projectile.damage = (int)(Projectile.damage / 3f);
-								Projectile.knockBack = (int)(Projectile.knockBack / 3f);
-								Projectile.ai[0] = 1f;
+								Projectile.ai[1] = 1;
+								Projectile.friendly = true;
+
+								Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * HammerItem.Item.shootSpeed;
+
+								if (guardian.ThrowLevel() < 4)
+								{
+									dir *= (0.3f * (guardian.ThrowLevel() + 2) / 3);
+									Projectile.damage = (int)(Projectile.damage * 0.75f);
+									Projectile.knockBack = (int)(Projectile.knockBack / 3f);
+									Projectile.ai[0] = 1f;
+								}
+
+								Projectile.velocity = dir;
+								Projectile.rotation = dir.ToRotation();
+								Projectile.direction = Projectile.spriteDirection;
+								Projectile.netUpdate = true;
+
+								SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
+								guardian.GuardianThrowCharge = 0;
 							}
-
-							Projectile.velocity = dir;
-							Projectile.rotation = dir.ToRotation();
-							Projectile.direction = Projectile.spriteDirection;
-							Projectile.netUpdate = true;
-
-							SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
-							guardian.GuardianThrowCharge = 0;
+							else
+							{
+								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+								Projectile.ai[1] = -61f;
+								Projectile.friendly = true;
+								Projectile.netUpdate = true;
+								hitTarget = false;
+							}
 						}
 						else if (Main.mouseRight)
 						{
@@ -158,15 +176,23 @@ namespace OrchidMod.Content.Guardian
 					}
 					else
 					{
-						if (ChargeToAdd > 0 && Projectile.ai[1] > -30)
+						if (Projectile.ai[1] < -60f) // Makes easier to sync the behaviour after a weak slam
+						{
+							Projectile.ai[1] = -60f;
+							WeakHit = true;
+							guardian.GuardianThrowCharge = 0;
+						}
+
+						if (ChargeToAdd > 0 && Projectile.ai[1] > -30 && ! WeakHit)
 						{
 							ChargeToAdd--;
 							guardian.GuardianThrowCharge += 2f * player.GetAttackSpeed(DamageClass.Melee);
 							if (guardian.GuardianThrowCharge > 210f) guardian.GuardianThrowCharge = 210f;
 						}
-						
-						float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
 
+						Projectile.velocity = Vector2.UnitX * 0.001f * player.direction; // So enemies are KBd in the right direction
+
+						float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
 						Vector2 arm = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianThrowCharge * 0.006f) * Projectile.spriteDirection);
 						player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + (guardian.GuardianThrowCharge * 0.006f + SwingOffset * (3f + guardian.GuardianThrowCharge * 0.006f)) * Projectile.spriteDirection);
 						Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianThrowCharge * 0.006f + SwingOffset * (3f + guardian.GuardianThrowCharge * 0.006f)) * Projectile.spriteDirection);
@@ -180,7 +206,7 @@ namespace OrchidMod.Content.Guardian
 							Projectile.friendly = false;
 						}
 
-							if (Projectile.ai[1] >= 0f)
+						if (Projectile.ai[1] >= 0f)
 						{
 							Projectile.ai[1] = 0f;
 							Projectile.friendly = false;

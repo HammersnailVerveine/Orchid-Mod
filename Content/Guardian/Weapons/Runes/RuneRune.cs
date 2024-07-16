@@ -29,9 +29,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			for (int i = 0; i < GetAmount(guardian); i++)
 			{
 				float angle = 90f - (GetAmount(guardian) - 1) * 10f + 20 * i;
-				NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, 2, angle + 90f, 1f);
 				NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, 2, angle);
 			}
+
+			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, 2, 0f);
 		}
 	}
 }

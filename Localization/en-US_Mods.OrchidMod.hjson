@@ -2661,7 +2661,7 @@ Items: {
 		DisplayName: Meteor Warden Boots
 		Tooltip:
 			'''
-			Increases guardian charges generation by 10%
+			10% increased melee speed
 			10% increased movement speed
 			'''
 	}

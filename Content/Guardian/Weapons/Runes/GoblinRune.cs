@@ -25,7 +25,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 
 		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
 		{
-			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, GetAmount(guardian));
+			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, GetAmount(guardian, 2));
 		}
 	}
 }
