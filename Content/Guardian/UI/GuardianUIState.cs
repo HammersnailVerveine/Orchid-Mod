@@ -26,6 +26,7 @@ namespace OrchidMod.Content.Guardian.UI
 
 		public static Texture2D textureHammerOn;
 		public static Texture2D textureHammerOff;
+		public static Texture2D textureHammerReady;
 
 		public static Texture2D blockOn;
 		public static Texture2D blockOff;
@@ -46,6 +47,8 @@ namespace OrchidMod.Content.Guardian.UI
 			
 			textureHammerOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOn", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOff", AssetRequestMode.ImmediateLoad).Value;
+			textureHammerReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerReady", AssetRequestMode.ImmediateLoad).Value;
+
 			blockOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOn", AssetRequestMode.ImmediateLoad).Value;
 			blockOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOff", AssetRequestMode.ImmediateLoad).Value;
 
@@ -128,11 +131,18 @@ namespace OrchidMod.Content.Guardian.UI
 					if (modPlayer.GuardianThrowCharge > 0f)
 					{
 						int val = 24;
-						float block = modPlayer.GuardianThrowCharge;
-						while (block < 180f)
+						if (modPlayer.GuardianThrowCharge > 180f)
 						{
-							block += 7.5f;
-							val--;
+							spriteBatch.Draw(textureHammerReady, new Vector2(position.X - 14, position.Y - 94), Color.White * 0.8f);
+						}
+						else
+						{
+							float block = modPlayer.GuardianThrowCharge;
+							while (block < 180f)
+							{
+								block += 7.5f;
+								val--;
+							}
 						}
 
 						Rectangle rectangle = textureHammerOn.Bounds;
