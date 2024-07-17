@@ -50,6 +50,12 @@ namespace OrchidMod
 
 		public static int GuardianRechargeTime = 600;
 
+		public override void HideDrawLayers(PlayerDrawSet drawInfo)
+		{
+			drawInfo.cHandOff = -1;
+			drawInfo.cHandOn = -1;
+		}
+
 		public override void Initialize()
 		{
 			modPlayer = Player.GetModPlayer<OrchidPlayer>();

@@ -2871,6 +2871,11 @@ Items: {
 		DisplayName: Runic Potion
 		Tooltip: Increases the number of guardian rune projectiles
 	}
+
+	SilverGauntlet: {
+		DisplayName: Silver Gauntlet
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -3152,6 +3157,7 @@ Projectiles: {
 	MagnetosphereWarhammerProj.DisplayName: Magnetosphere Warhammer Proj
 	MagnetosphereShieldProj.DisplayName: Magnetosphere Shield Proj
 	GoblinRuneProj.DisplayName: Goblin Rune Proj
+	GuardianGauntletAnchor.DisplayName: Guardian Gauntlet Anchor
 }
 
 Configs: {

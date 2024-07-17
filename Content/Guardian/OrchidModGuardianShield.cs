@@ -14,7 +14,7 @@ namespace OrchidMod.Content.Guardian
 {
 	public abstract class OrchidModGuardianShield : OrchidModGuardianItem
 	{
-		public virtual string ShieldTexture => "OrchidMod/Content/Guardian/ShieldTextures/" + this.Name + "_Shield";
+		public virtual string ShieldTexture => Texture + "_Shield";
 		public virtual void ExtraAIShield(Projectile projectile) { }
 		public virtual void PostAIShield(Projectile projectile) { }
 		public virtual void PostDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
