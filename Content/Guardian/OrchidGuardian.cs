@@ -44,6 +44,7 @@ namespace OrchidMod
 		public int GuardianSlamRecharge = 0;
 		public int GuardianDisplayUI = 0;
 		public float GuardianThrowCharge = 0f;
+		public float GuardianGauntletCharge = 0f;
 		public int SlamCostUI = 0;
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();

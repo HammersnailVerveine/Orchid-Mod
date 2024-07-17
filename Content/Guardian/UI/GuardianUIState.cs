@@ -28,6 +28,10 @@ namespace OrchidMod.Content.Guardian.UI
 		public static Texture2D textureHammerOff;
 		public static Texture2D textureHammerReady;
 
+		public static Texture2D textureGauntletOn;
+		public static Texture2D textureGauntletOff;
+		public static Texture2D textureGauntletReady;
+
 		public static Texture2D blockOn;
 		public static Texture2D blockOff;
 
@@ -44,6 +48,10 @@ namespace OrchidMod.Content.Guardian.UI
 			textureHammerMain ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerBar", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerIcon ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerIcon1", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerIconBig ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerIcon2", AssetRequestMode.ImmediateLoad).Value;
+
+			textureGauntletOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/GauntletOn", AssetRequestMode.ImmediateLoad).Value;
+			textureGauntletOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/GauntletOff", AssetRequestMode.ImmediateLoad).Value;
+			textureGauntletReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/GauntletReady", AssetRequestMode.ImmediateLoad).Value;
 			
 			textureHammerOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOn", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOff", AssetRequestMode.ImmediateLoad).Value;
@@ -137,10 +145,10 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 						else
 						{
-							float block = modPlayer.GuardianThrowCharge;
-							while (block < 180f)
+							float charge = modPlayer.GuardianThrowCharge;
+							while (charge < 180f)
 							{
-								block += 7.5f;
+								charge += 7.5f;
 								val--;
 							}
 						}
@@ -153,12 +161,37 @@ namespace OrchidMod.Content.Guardian.UI
 					}
 				}
 
+				if (modPlayer.GuardianGauntletCharge > 0f)
+				{
+					int val = textureGauntletOn.Height;
+					if (modPlayer.GuardianGauntletCharge >= 180f)
+					{
+						spriteBatch.Draw(textureGauntletReady, new Vector2(position.X - 12, position.Y - 94), Color.White * 0.8f);
+					}
+					else
+					{
+						float charge = modPlayer.GuardianGauntletCharge;
+						while (charge < 180f)
+						{
+							charge += 7.5f;
+							val--;
+						}
+					}
+
+					Rectangle rectangle = textureGauntletOn.Bounds;
+					rectangle.Height = val;
+					rectangle.Y = textureGauntletOn.Height - val;
+					spriteBatch.Draw(textureGauntletOff, new Vector2(position.X - 10, position.Y - 92), Color.White);
+					spriteBatch.Draw(textureGauntletOn, new Vector2(position.X - 10, position.Y - 92 + textureHammerOn.Height - val), rectangle, Color.White);
+				}
+
 
 				int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
+				int projectileType2 = ModContent.ProjectileType<GuardianGauntletAnchor>();
 				for (int i = 0; i < Main.projectile.Length; i++)
 				{
 					Projectile proj = Main.projectile[i];
-					if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType && proj.ai[0] > 0f && proj.localAI[0] > 0f)
+					if (proj.active && proj.owner == player.whoAmI && (proj.type == projectileType || proj.type == projectileType2) && proj.ai[0] > 0f && proj.localAI[0] > 0f)
 					{
 						int val = 22;
 						float block = proj.ai[0];

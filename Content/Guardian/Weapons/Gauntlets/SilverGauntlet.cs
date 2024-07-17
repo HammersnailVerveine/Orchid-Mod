@@ -17,8 +17,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.damage = 20;
 			Item.rare = ItemRarityID.White;
 			Item.useTime = 30;
-			slamDistance = 45f;
-			blockDuration = 80;
+			strikeVelocity = 20f;
+			parryDuration = 60;
 		}
 
 		public override void AddRecipes()

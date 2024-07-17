@@ -155,7 +155,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				else 
 				{
-					proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+					proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration()); // Used for UI display
 					shield.OnChangeSelectedItem(player);
 				}
 			}
@@ -166,7 +166,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (shield.SelectedItem != player.selectedItem)
 					{
-						proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+						proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration()); // Used for UI display
 						shield.OnChangeSelectedItem(player);
 					}
 				}

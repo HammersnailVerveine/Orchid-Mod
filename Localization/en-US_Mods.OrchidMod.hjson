@@ -3158,6 +3158,7 @@ Projectiles: {
 	MagnetosphereShieldProj.DisplayName: Magnetosphere Shield Proj
 	GoblinRuneProj.DisplayName: Goblin Rune Proj
 	GuardianGauntletAnchor.DisplayName: Guardian Gauntlet Anchor
+	GauntletHitProjectile.DisplayName: Gauntlet Hit Projectile
 }
 
 Configs: {

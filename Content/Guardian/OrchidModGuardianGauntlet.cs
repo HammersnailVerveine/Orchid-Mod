@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Build.Evaluation;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
 using System;
@@ -23,8 +24,8 @@ namespace OrchidMod.Content.Guardian
 
 		public virtual void SafeHoldItem(Player player) { }
 
-		public float slamDistance = 100f;
-		public int blockDuration = 60;
+		public float strikeVelocity = 100f;
+		public int parryDuration = 60;
 
 		public sealed override void SetDefaults()
 		{
@@ -51,40 +52,91 @@ namespace OrchidMod.Content.Guardian
 		{
 			return true;
 		}
-		
+
 		public override bool CanUseItem(Player player)
-		{		
-			/*
+		{
 			if (player.whoAmI == Main.myPlayer && !player.cursed)
 			{
-				var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
-				if (player.ownedProjectileCounts[projectileType] > 0) {
-					var guardian = player.GetModPlayer<OrchidGuardian>();
-					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-					if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
+				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+				var projectileType = ModContent.ProjectileType<GuardianGauntletAnchor>();
+				int[] anchors = GetAnchors(player);
+				if (anchors != null)
+				{
+					Projectile projectileMain = Main.projectile[anchors[1]];
+					Projectile projectileOff = Main.projectile[anchors[0]];
+					if (projectileMain.ai[0] == 0f && guardian.GuardianGauntletCharge == 0)
 					{
+						if (player.altFunctionUse == 2)
+						{ // Right click
+							if (guardian.GuardianBlock > 0)
+							{
+								SoundEngine.PlaySound(SoundID.Item37, player.Center);
+								guardian.GuardianBlock--;
+								projectileMain.ai[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+								projectileMain.netUpdate = true;
+								projectileOff.ai[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+								projectileOff.netUpdate = true;
+							}
+						}
+						else
+						{ // Left click
+							if (guardian.GuardianGauntletCharge == 0)
+							{
+								guardian.GuardianGauntletCharge++;
+								SoundEngine.PlaySound(SoundID.Item7, player.Center);
+							}
 
+							/*
+							if (proj.ai[1] + proj.ai[0] == 0f && guardian.GuardianBlock > 0)
+							{
+								shield.shieldEffectReady = true;
+								guardian.GuardianBlock--;
+								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+								proj.netUpdate = true;
+								proj.netUpdate2 = true;
+								BlockStart(player, proj);
+							}
+							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if left click again
+							{
+								shield.shieldEffectReady = true;
+								shield.spawnDusts();
+								proj.ai[0] = 0f;
+								proj.netUpdate = true;
+								proj.netUpdate2 = true;
+								resetBlockedEnemiesDuration(guardian);
+								BlockStart(player, proj);
+							}
+							*/
+						}
 					}
 				}
 			}
-			*/
 			return false;
 		}
 
-		public GuardianGauntletAnchor GetAnchor(Player player)
+		public int[] GetAnchors(Player player)
 		{
 			var projectileType = ModContent.ProjectileType<GuardianGauntletAnchor>();
-			if (player.ownedProjectileCounts[projectileType] > 0)
+			int[] anchors = [-1, -1];
+			foreach (Projectile proj in Main.projectile)
 			{
-				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType && i.ai[0] == 0);
-				if (proj != null && proj.ModProjectile is GuardianGauntletAnchor gauntlet)
+				if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType)
 				{
-					return gauntlet;
+					if (anchors[0] == -1)
+					{
+						anchors[0] = proj.whoAmI;
+					}
+					else
+					{
+						anchors[1] = proj.whoAmI;
+						return anchors;
+					}
 				}
 			}
+
 			return null;
 		}
-		
+
 		public sealed override void HoldItem(Player player)
 		{
 			var projectileType = ModContent.ProjectileType<GuardianGauntletAnchor>();
@@ -99,7 +151,8 @@ namespace OrchidMod.Content.Guardian
 					if (proj != null && proj.ModProjectile is GuardianGauntletAnchor) proj.Kill();
 				}
 
-				for (int i = 0; i < 2; i ++)
+				int[] indexes = [-1, -1];
+				for (int i = 0; i < 2; i++)
 				{
 					var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
 
@@ -110,10 +163,20 @@ namespace OrchidMod.Content.Guardian
 					}
 					else
 					{
-						proj.ai[1] = i;
-						proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+						indexes[i] = proj.whoAmI;
+						gauntlet.OffHandGauntlet = i == 0;
+						proj.localAI[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration()); // for UI display
 						gauntlet.OnChangeSelectedItem(player);
 					}
+				}
+
+				if (indexes[1] < indexes[0])
+				{ // Swap order if necessary in Main.projectile[] so the front gauntlet is drawn first
+					Projectile buffer = Main.projectile[indexes[0]];
+					Main.projectile[indexes[0]] = Main.projectile[indexes[1]];
+					Main.projectile[indexes[1]] = buffer;
+					Main.projectile[indexes[0]].whoAmI = indexes[1];
+					Main.projectile[indexes[1]].whoAmI = indexes[0];
 				}
 			}
 			else
@@ -124,7 +187,7 @@ namespace OrchidMod.Content.Guardian
 					{
 						if (gauntlet.SelectedItem != player.selectedItem)
 						{
-							projectile.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+							projectile.localAI[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration()); // for UI display
 							gauntlet.OnChangeSelectedItem(player);
 						}
 					}
@@ -132,6 +195,7 @@ namespace OrchidMod.Content.Guardian
 			}
 			SafeHoldItem(player);
 		}
+
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
@@ -142,12 +206,12 @@ namespace OrchidMod.Content.Guardian
 				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
 			}
 
-			int tooltipSeconds = Math.DivRem((int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration()), 60, out int tooltipTicks);
+			int tooltipSeconds = Math.DivRem((int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration()), 60, out int tooltipTicks);
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "BlockDuration", tooltipSeconds + "." + (int)(tooltipTicks * (100 / 60f)) + " block duration"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", tooltipSeconds + "." + (int)(tooltipTicks * (100 / 60f)) + " parry duration"));
 
-			tooltips.Insert(index + 2, new TooltipLine(Mod, "ShieldStacks", "Right click to guard")
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "ShieldStacks", "Right click to parry")
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});
