@@ -130,9 +130,18 @@ namespace OrchidMod.Content.Prefixes
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
+			string block = "block";
+			string slam = "slam";
+
+			if (item.ModItem is OrchidModGuardianGauntlet)
+			{
+				block = "parry";
+				slam = "punch";
+			}
+
 			if (blockDuration != 1f && blockDuration != 0f)
 			{
-				tooltips.Add(new TooltipLine(Mod, "BlockDurationPrefix", (blockDuration > 1 ? "+" : "") + string.Format("{0:0}", ((blockDuration - 1f) * 100f)) + "% block duration")
+				tooltips.Add(new TooltipLine(Mod, "BlockDurationPrefix", (blockDuration > 1 ? "+" : "") + string.Format("{0:0}", ((blockDuration - 1f) * 100f)) + "% " + block + " duration")
 				{
 					IsModifier = true,
 					IsModifierBad = blockDuration < 1
@@ -141,7 +150,7 @@ namespace OrchidMod.Content.Prefixes
 
 			if (slamDistance != 1f && slamDistance != 0f)
 			{
-				tooltips.Add(new TooltipLine(Mod, "SlamDistancePrefix", (slamDistance > 1 ? "+" : "") + string.Format("{0:0}", ((slamDistance - 1f) * 100f)) + "% slam distance")
+				tooltips.Add(new TooltipLine(Mod, "SlamDistancePrefix", (slamDistance > 1 ? "+" : "") + string.Format("{0:0}", ((slamDistance - 1f) * 100f)) + "% " + slam + " distance")
 				{
 					IsModifier = true,
 					IsModifierBad = slamDistance < 1
@@ -152,7 +161,7 @@ namespace OrchidMod.Content.Prefixes
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
 			var globalItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
-			if (item.ModItem is OrchidModGuardianShield)
+			if (item.ModItem is OrchidModGuardianShield || item.ModItem is OrchidModGuardianGauntlet)
 			{
 				List<int> UniversalPrefixesIDs = [36, 37, 38, 39, 40, 41, 53, 54, 55, 56, 57, 59, 60, 61]; // Has to be hardcoded
 				var prefixes = GuardianPrefix.GetPrefixes;

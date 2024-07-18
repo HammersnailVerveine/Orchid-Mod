@@ -131,7 +131,7 @@ namespace OrchidMod.Content.Guardian
 					{ // Slam just started, make projectile
 						Ding = false; // Also reset ding song for full charge
 						int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
-						float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f);
+						float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration();
 						Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f);
 						if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 						{
@@ -163,6 +163,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.position.Y += offset;
 						Projectile.position.X -= offset * owner.direction;
 					}
+
 					Projectile.rotation = Projectile.ai[1];
 					if (owner.direction == 1) Projectile.rotation += MathHelper.Pi;
 

@@ -207,7 +207,7 @@ namespace OrchidMod
 				Player.immune = true;
 				AddSlam(1);
 
-				int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
+				int projectileType = ModContent.ProjectileType<GuardianGauntletAnchor>();
 				if (Player.ownedProjectileCounts[projectileType] > 0)
 				{
 					var proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && i.type == projectileType);

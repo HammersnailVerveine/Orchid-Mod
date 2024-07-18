@@ -55,6 +55,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			return true;
 		}
+		public override bool WeaponPrefix() => true;
 
 		public override bool CanUseItem(Player player)
 		{
