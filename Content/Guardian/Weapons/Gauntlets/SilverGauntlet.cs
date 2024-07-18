@@ -25,11 +25,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			if (charged) guardian.AddBlock(1);
 		}
 
-		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info)
-		{
-			Main.NewText("fart");
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
