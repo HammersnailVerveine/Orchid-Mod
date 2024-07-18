@@ -4,11 +4,13 @@ using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Guardian.Buffs;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.WorldBuilding;
 
 namespace OrchidMod
 {
@@ -42,10 +44,12 @@ namespace OrchidMod
 		public int GuardianSlam = 0;
 		public int GuardianBlockRecharge = 0;
 		public int GuardianSlamRecharge = 0;
-		public int GuardianDisplayUI = 0;
-		public float GuardianThrowCharge = 0f;
-		public float GuardianGauntletCharge = 0f;
-		public int SlamCostUI = 0;
+		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
+		public float GuardianThrowCharge = 0f; // Player Warhammer Throw Charge, max is 180f
+		public float GuardianGauntletCharge = 0f; // Player Gauntlet Punch Charge, max is 180f
+		public bool GuardianGauntletParry = false; // Player is currently parrying with a gauntlet
+		public bool GuardianGauntletParry2 = false; // Player is currently parrying with a gauntlet (1 frame buffer)
+		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
 
@@ -126,6 +130,9 @@ namespace OrchidMod
 				}
 			}
 
+			if (GuardianGauntletParry2) GuardianGauntletParry2 = false;
+			else GuardianGauntletParry = false;
+
 			SlamCostUI = 0;
 
 			if (GuardianBlock > GuardianBlockMax) GuardianBlock = GuardianBlockMax;
@@ -185,7 +192,36 @@ namespace OrchidMod
 					return false;
 				}
 			}
+
 			return true;
+		}
+
+		public override bool FreeDodge(Player.HurtInfo info)
+		{
+			if (GuardianGauntletParry)
+			{
+				SoundEngine.PlaySound(SoundID.Item37, Player.Center);
+				GuardianGauntletParry = false;
+				GuardianGauntletParry2 = false;
+				Player.immuneTime = 40;
+				Player.immune = true;
+				AddSlam(1);
+
+				int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
+				if (Player.ownedProjectileCounts[projectileType] > 0)
+				{
+					var proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && i.type == projectileType);
+					if (proj != null && proj.ModProjectile is GuardianGauntletAnchor anchor)
+					{
+						if (anchor.GauntletItem.ModItem is OrchidModGuardianGauntlet gauntlet) {
+							gauntlet.OnParry(Player, this, info);
+						}
+					}
+				}
+				return true;
+			}
+
+			return false;
 		}
 
 		public void AddSlam(int nb)

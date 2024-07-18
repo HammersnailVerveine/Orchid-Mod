@@ -2874,7 +2874,7 @@ Items: {
 
 	SilverGauntlet: {
 		DisplayName: Silver Gauntlet
-		Tooltip: ""
+		Tooltip: Grants a block after a fully charged hit
 	}
 }
 
@@ -3157,8 +3157,8 @@ Projectiles: {
 	MagnetosphereWarhammerProj.DisplayName: Magnetosphere Warhammer Proj
 	MagnetosphereShieldProj.DisplayName: Magnetosphere Shield Proj
 	GoblinRuneProj.DisplayName: Goblin Rune Proj
-	GuardianGauntletAnchor.DisplayName: Guardian Gauntlet Anchor
-	GauntletHitProjectile.DisplayName: Gauntlet Hit Projectile
+	GuardianGauntletAnchor.DisplayName: Gauntlet
+	GauntletPunchProjectile.DisplayName: Gauntlet
 }
 
 Configs: {

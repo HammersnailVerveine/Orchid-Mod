@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.Player;
@@ -16,11 +17,13 @@ namespace OrchidMod.Content.Guardian
 		public int TimeSpent = 0;
 		public int LockedOwnerDir = 0;
 		public bool OffHandGauntlet = false;
+		public bool Ding = false;
 
 		public int SelectedItem { get; set; } = -1;
 		public Item GauntletItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
-		public bool Blocking => Projectile.ai[0] > 0;
-		public bool Slamming => Projectile.ai[0] < 0 && !OffHandGauntlet;
+		public bool Blocking => Projectile.ai[0] > 0 && !Charging;
+		public bool Slamming => Projectile.ai[0] < 0;
+		public bool Charging => Projectile.ai[2] > 0;
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
@@ -98,13 +101,16 @@ namespace OrchidMod.Content.Guardian
 
 				if (Blocking)
 				{
+					OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
+					guardian.GuardianGauntletParry = true;
+					guardian.GuardianGauntletParry2 = true;
+
 					Projectile.Center = owner.Center.Floor() + new Vector2(4 * owner.direction, 0);
 					if (OffHandGauntlet) Projectile.position.X += 6 * owner.direction;
 					Projectile.rotation = 0f;
 
-
 					Projectile.ai[0]--;
-					if (Projectile.ai[0] <= 0f)
+					if (Projectile.ai[0] <= 0f || owner.immune)
 					{
 						spawnDusts();
 						Projectile.ai[0] = 0f;
@@ -123,13 +129,30 @@ namespace OrchidMod.Content.Guardian
 
 					if (Projectile.localAI[1] == slamTime)
 					{ // Slam just started, make projectile
-						int projectileType = ModContent.ProjectileType<GauntletHitProjectile>();
+						Ding = false; // Also reset ding song for full charge
+						int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
 						float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f);
-						Projectile strikeProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity + owner.velocity * 1.5f, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f);
-						strikeProj.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
-						strikeProj.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
-						strikeProj.knockBack = guardianItem.Item.knockBack;
-						strikeProj.netUpdate = true;
+						Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f);
+						if (punchProj.ModProjectile is GauntletPunchProjectile punch)
+						{
+							punch.SelectedItem = SelectedItem;
+							punchProj.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
+							punchProj.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
+							punchProj.knockBack = guardianItem.Item.knockBack;
+							punchProj.position += punchProj.velocity * 0.5f;
+							punchProj.rotation = punchProj.velocity.ToRotation();
+							punchProj.velocity += owner.velocity * 1.5f;
+
+							if (Projectile.ai[0] == -1f)
+							{
+								punchProj.damage = (int)(punchProj.damage / 4f);
+								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, owner.Center);
+							}
+							else SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, owner.Center);
+
+							punchProj.netUpdate = true;
+						}
+						else punchProj.Kill();
 					}
 
 					if (Projectile.ai[1] < 1f && Projectile.ai[1] > -1f)
@@ -155,20 +178,36 @@ namespace OrchidMod.Content.Guardian
 				{
 					OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 
-					if (guardian.GuardianGauntletCharge > 0 && !OffHandGauntlet)
+					if (Charging)
 					{
 						guardian.GuardianGauntletCharge += 30f / GauntletItem.useTime * owner.GetAttackSpeed(DamageClass.Melee);
-						if (guardian.GuardianGauntletCharge > 180f) guardian.GuardianGauntletCharge = 180f;
+						if (guardian.GuardianGauntletCharge > 180f)
+						{
+							if (!Ding)
+							{
+								SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
+								Ding = true;
+							}
+							guardian.GuardianGauntletCharge = 180f;
+						}
+						else if (guardian.GuardianGauntletCharge > 8f) guardian.SlamCostUI = 1;
 
 						if (!owner.controlUseItem && owner.whoAmI == Main.myPlayer)
 						{
+							if (guardian.GuardianGauntletCharge < 180f && guardian.GuardianSlam > 0)
+							{ // Consume a slam to fully charge if the player has one
+								guardian.GuardianSlam--;
+								guardian.GuardianGauntletCharge = 180f;
+							}
+
 							if (guardian.GuardianGauntletCharge >= 180f) Projectile.ai[0] = -2f;
 							else Projectile.ai[0] = -1f;
 
 							guardian.GuardianGauntletCharge = 0;
 							Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2;
+							Projectile.ai[2] = 0f;
 							Projectile.netUpdate = true;
-							owner.itemAnimation = (int)Projectile.ai[0];
+							//owner.itemAnimation = (int)Projectile.ai[0];
 						}
 						else
 						{
@@ -178,8 +217,8 @@ namespace OrchidMod.Content.Guardian
 					}
 					else
 					{
-						Projectile.Center = owner.Center.Floor() + new Vector2(-6 * owner.direction, 6);
-						if (OffHandGauntlet) Projectile.position.X += (8 + guardian.GuardianGauntletCharge * 0.01f) * owner.direction;
+						Projectile.Center = owner.Center.Floor() + new Vector2((-6 + guardian.GuardianGauntletCharge * 0.01f) * owner.direction, 6);
+						if (OffHandGauntlet) Projectile.position.X += 8 * owner.direction;
 
 						if (owner.velocity.X != 0)
 						{
@@ -197,18 +236,26 @@ namespace OrchidMod.Content.Guardian
 				if (OffHandGauntlet)
 				{
 					//owner.handoff = -1;
-					float rotation = (Projectile.Center - new Vector2(8 * owner.direction, -6) - owner.Center.Floor()).ToRotation();
-					owner.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.ThreeQuarters, rotation - MathHelper.PiOver2);
+					/*
+					float rotation = (Projectile.Center + new Vector2(4 * owner.direction, Slamming ? 2 : 6) - owner.Center.Floor()).ToRotation();
+					CompositeArmStretchAmount compositeArmStretchAmount = CompositeArmStretchAmount.Quarter; // Tweak the arm based on punch direction if necessary
+					if (Projectile.localAI[1] > 0.55f && (Projectile.ai[1] > -2.25f || Projectile.ai[1] < -4f)) compositeArmStretchAmount = CompositeArmStretchAmount.ThreeQuarters;
+					owner.SetCompositeArmBack(true, compositeArmStretchAmount, rotation - MathHelper.PiOver2);
+					*/
+					owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, owner.direction == 1 ? MathHelper.PiOver2 : -MathHelper.Pi);
 				}
 				else
 				{
 					//owner.handon = -1;
-					float rotation = (Projectile.Center + new Vector2(6 * owner.direction, Slamming ? 2 : 6) - owner.Center.Floor()).ToRotation();
+					float rotation = (Projectile.Center + new Vector2(6 * owner.direction, Slamming ? 2 : Charging ? 8 : 6) - owner.Center.Floor()).ToRotation();
 					CompositeArmStretchAmount compositeArmStretchAmount = CompositeArmStretchAmount.ThreeQuarters; // Tweak the arm based on punch direction if necessary
+					if (Charging) compositeArmStretchAmount = CompositeArmStretchAmount.Quarter;
 					if (Projectile.localAI[1] > 0.55f && (Projectile.ai[1] > -2.25f || Projectile.ai[1] < -4f)) compositeArmStretchAmount = CompositeArmStretchAmount.Full;
 					owner.SetCompositeArmFront(true, compositeArmStretchAmount, rotation - MathHelper.PiOver2);
 				}
 			}
+
+			guardianItem.ExtraAIGauntlet(Projectile);
 		}
 
 		public override void OnKill(int timeLeft)
@@ -247,7 +294,7 @@ namespace OrchidMod.Content.Guardian
 				var effect = SpriteEffects.None;
 				if (player.direction != 1)
 				{
-					if (player.velocity.X != 0 && !Blocking || (player.GetModPlayer<OrchidGuardian>().GuardianGauntletCharge > 0 && !OffHandGauntlet) || Slamming) effect = SpriteEffects.FlipVertically;
+					if (player.velocity.X != 0 && !Blocking || (player.GetModPlayer<OrchidGuardian>().GuardianGauntletCharge > 0 && Projectile.ai[2] != 0) || Slamming) effect = SpriteEffects.FlipVertically;
 					else effect = SpriteEffects.FlipHorizontally;
 				}
 

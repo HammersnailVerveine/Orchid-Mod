@@ -1,5 +1,4 @@
-﻿using Microsoft.Build.Evaluation;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
 using System;
@@ -10,22 +9,26 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using static Terraria.NPC;
 
 namespace OrchidMod.Content.Guardian
 {
 	public abstract class OrchidModGuardianGauntlet : OrchidModGuardianItem
 	{
 		public virtual string GauntletTexture => Texture + "_Gauntlet";
+		public virtual void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info) { }
+		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
+		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
+		public virtual bool ProjectileAI(Player player, Projectile projectile, bool charged) => true;
 		public virtual void ExtraAIGauntlet(Projectile projectile) { }
-		public virtual void PostAIGauntlet(Projectile projectile) { }
 		public virtual void PostDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
-		public virtual bool PreAIGauntlet(Projectile projectile) { return true; }
 		public virtual bool PreDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
 
 		public virtual void SafeHoldItem(Player player) { }
 
 		public float strikeVelocity = 100f;
 		public int parryDuration = 60;
+		public Color color = Color.White;
 
 		public sealed override void SetDefaults()
 		{
@@ -64,18 +67,28 @@ namespace OrchidMod.Content.Guardian
 				{
 					Projectile projectileMain = Main.projectile[anchors[1]];
 					Projectile projectileOff = Main.projectile[anchors[0]];
-					if (projectileMain.ai[0] == 0f && guardian.GuardianGauntletCharge == 0)
-					{
-						if (player.altFunctionUse == 2)
-						{ // Right click
+
+					if (projectileMain.ai[0] == 0f || projectileOff.ai[0] == 0f || (projectileMain.ai[0] > 0f && projectileOff.ai[0] > 0f))
+					{ // At least one of the gauntlets is not being used or both are blocking
+						if (Main.mouseRight && Main.mouseRightRelease && projectileMain.ai[0] <= 0f && projectileOff.ai[0] <= 0f)
+						{ // Right click & None of the gauntlets is blocking = Block
 							if (guardian.GuardianBlock > 0)
 							{
+								player.immuneTime = 0;
+								player.immune = false;
 								SoundEngine.PlaySound(SoundID.Item37, player.Center);
 								guardian.GuardianBlock--;
-								projectileMain.ai[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
-								projectileMain.netUpdate = true;
-								projectileOff.ai[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
-								projectileOff.netUpdate = true;
+								if (projectileMain.ai[0] == 0)
+								{
+									projectileMain.ai[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+									projectileMain.netUpdate = true;
+								}
+
+								if (projectileOff.ai[0] == 0)
+								{
+									projectileOff.ai[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+									projectileOff.netUpdate = true;
+								}
 							}
 						}
 						else
@@ -84,29 +97,18 @@ namespace OrchidMod.Content.Guardian
 							{
 								guardian.GuardianGauntletCharge++;
 								SoundEngine.PlaySound(SoundID.Item7, player.Center);
-							}
 
-							/*
-							if (proj.ai[1] + proj.ai[0] == 0f && guardian.GuardianBlock > 0)
-							{
-								shield.shieldEffectReady = true;
-								guardian.GuardianBlock--;
-								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
-								proj.netUpdate = true;
-								proj.netUpdate2 = true;
-								BlockStart(player, proj);
+								if (projectileMain.ai[0] != 0f)
+								{ // Main gauntlet is slamming or blocking, use offhand one
+									projectileOff.ai[2] = 1f;
+									projectileOff.netUpdate = true;
+								}
+								else
+								{ // else use main hand
+									projectileMain.ai[2] = 1f; 
+									projectileMain.netUpdate = true;
+								}
 							}
-							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if left click again
-							{
-								shield.shieldEffectReady = true;
-								shield.spawnDusts();
-								proj.ai[0] = 0f;
-								proj.netUpdate = true;
-								proj.netUpdate2 = true;
-								resetBlockedEnemiesDuration(guardian);
-								BlockStart(player, proj);
-							}
-							*/
 						}
 					}
 				}

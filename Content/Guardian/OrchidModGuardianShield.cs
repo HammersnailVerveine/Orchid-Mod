@@ -16,9 +16,7 @@ namespace OrchidMod.Content.Guardian
 	{
 		public virtual string ShieldTexture => Texture + "_Shield";
 		public virtual void ExtraAIShield(Projectile projectile) { }
-		public virtual void PostAIShield(Projectile projectile) { }
 		public virtual void PostDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
-		public virtual bool PreAIShield(Projectile projectile) { return true; }
 		public virtual bool PreDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
 
 		public virtual void SafeHoldItem(Player player) { }

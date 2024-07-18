@@ -94,7 +94,7 @@ namespace OrchidMod.Content.Guardian.UI
 					Texture2D texture = check ? textureSlamOn : textureSlamOff;
 					spriteBatch.Draw(texture, new Vector2(position.X - offSet + 18 * i, position.Y + 18), Color.White);
 					if (modPlayer.SlamCostUI > i)
-						spriteBatch.Draw(textureSlamHighlight, new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16), check ? Color.White : Color.DarkGray);
+						spriteBatch.Draw(textureSlamHighlight, new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16), (check ? Color.White * 0.8f : Color.DarkGray) * 0.8f);
 				}
 
 				if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
@@ -136,7 +136,7 @@ namespace OrchidMod.Content.Guardian.UI
 				}
 				else
 				{
-					if (modPlayer.GuardianThrowCharge > 0f)
+					if (modPlayer.GuardianThrowCharge > 8f)
 					{
 						int val = 24;
 						if (modPlayer.GuardianThrowCharge > 180f)
@@ -161,12 +161,12 @@ namespace OrchidMod.Content.Guardian.UI
 					}
 				}
 
-				if (modPlayer.GuardianGauntletCharge > 0f)
+				if (modPlayer.GuardianGauntletCharge > 8f)
 				{
 					int val = textureGauntletOn.Height;
 					if (modPlayer.GuardianGauntletCharge >= 180f)
 					{
-						spriteBatch.Draw(textureGauntletReady, new Vector2(position.X - 12, position.Y - 94), Color.White * 0.8f);
+						spriteBatch.Draw(textureGauntletReady, new Vector2(position.X - 10, position.Y - 94), Color.White * 0.8f);
 					}
 					else
 					{
@@ -181,32 +181,33 @@ namespace OrchidMod.Content.Guardian.UI
 					Rectangle rectangle = textureGauntletOn.Bounds;
 					rectangle.Height = val;
 					rectangle.Y = textureGauntletOn.Height - val;
-					spriteBatch.Draw(textureGauntletOff, new Vector2(position.X - 10, position.Y - 92), Color.White);
-					spriteBatch.Draw(textureGauntletOn, new Vector2(position.X - 10, position.Y - 92 + textureHammerOn.Height - val), rectangle, Color.White);
+					spriteBatch.Draw(textureGauntletOff, new Vector2(position.X - 8, position.Y - 92), Color.White);
+					spriteBatch.Draw(textureGauntletOn, new Vector2(position.X - 8, position.Y - 92 + textureHammerOn.Height - val), rectangle, Color.White);
 				}
-
-
-				int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
-				int projectileType2 = ModContent.ProjectileType<GuardianGauntletAnchor>();
-				for (int i = 0; i < Main.projectile.Length; i++)
+				else
 				{
-					Projectile proj = Main.projectile[i];
-					if (proj.active && proj.owner == player.whoAmI && (proj.type == projectileType || proj.type == projectileType2) && proj.ai[0] > 0f && proj.localAI[0] > 0f)
+					int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
+					int projectileType2 = ModContent.ProjectileType<GuardianGauntletAnchor>();
+					for (int i = 0; i < Main.projectile.Length; i++)
 					{
-						int val = 22;
-						float block = proj.ai[0];
-						while (block < proj.localAI[0])
+						Projectile proj = Main.projectile[i];
+						if (proj.active && proj.owner == player.whoAmI && (proj.type == projectileType || proj.type == projectileType2) && proj.ai[0] > 0f && proj.localAI[0] > 0f)
 						{
-							block += proj.localAI[0] / 20f;
-							val--;
-						}
+							int val = 22;
+							float block = proj.ai[0];
+							while (block < proj.localAI[0])
+							{
+								block += proj.localAI[0] / 20f;
+								val--;
+							}
 
-						Rectangle rectangle = blockOn.Bounds;
-						rectangle.Height = val;
-						rectangle.Y = blockOn.Height - val;
-						spriteBatch.Draw(blockOff, new Vector2(position.X - 10, position.Y - 90), Color.White);
-						spriteBatch.Draw(blockOn, new Vector2(position.X - 10, position.Y - 90 + blockOn.Height - val), rectangle, Color.White);
-						return;
+							Rectangle rectangle = blockOn.Bounds;
+							rectangle.Height = val;
+							rectangle.Y = blockOn.Height - val;
+							spriteBatch.Draw(blockOff, new Vector2(position.X - 10, position.Y - 90), Color.White);
+							spriteBatch.Draw(blockOn, new Vector2(position.X - 10, position.Y - 90 + blockOn.Height - val), rectangle, Color.White);
+							return;
+						}
 					}
 				}
 
