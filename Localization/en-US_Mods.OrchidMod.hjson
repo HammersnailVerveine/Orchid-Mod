@@ -233,6 +233,16 @@ Buffs: {
 		DisplayName: Rune Mastery
 		Description: Increased number of guardian rune projectiles
 	}
+
+	GuardianJungleGauntletBuff: {
+		DisplayName: Feral Frenzy
+		Description: 100% increased melee speed
+	}
+
+	GuardianSpiderGauntletBuff: {
+		DisplayName: Guardian Spider Gauntlet Buff
+		Description: Mods.OrchidMod.Buffs.GuardianSpiderGauntletBuff.Description
+	}
 }
 
 Items: {
@@ -2873,8 +2883,27 @@ Items: {
 	}
 
 	SilverGauntlet: {
-		DisplayName: Silver Gauntlet
+		DisplayName: Silver Gauntlets
 		Tooltip: Grants a block after a fully charged hit
+	}
+
+	TungstenGauntlet: {
+		DisplayName: Tungsten Gauntlets
+		Tooltip: Grants a block after a fully charged hit
+	}
+
+	JungleGauntlet: {
+		DisplayName: Grass Knuckles
+		Tooltip:
+			'''
+			Has a chance to poison enemies
+			Melee speed briefly increased after a parry
+			'''
+	}
+
+	SpiderGauntlet: {
+		DisplayName: Touch of Death
+		Tooltip: Punches launch fangs after a parry
 	}
 }
 
@@ -3159,6 +3188,7 @@ Projectiles: {
 	GoblinRuneProj.DisplayName: Goblin Rune Proj
 	GuardianGauntletAnchor.DisplayName: Gauntlet
 	GauntletPunchProjectile.DisplayName: Gauntlet
+	SpiderGauntletProjectile.DisplayName: Spider Gauntlet Projectile
 }
 
 Configs: {

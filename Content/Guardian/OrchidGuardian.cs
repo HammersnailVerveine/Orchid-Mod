@@ -45,7 +45,7 @@ namespace OrchidMod
 		public int GuardianBlockRecharge = 0;
 		public int GuardianSlamRecharge = 0;
 		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
-		public float GuardianThrowCharge = 0f; // Player Warhammer Throw Charge, max is 180f
+		public float GuardianHammerCharge = 0f; // Player Warhammer Throw Charge, max is 180f
 		public float GuardianGauntletCharge = 0f; // Player Gauntlet Punch Charge, max is 180f
 		public bool GuardianGauntletParry = false; // Player is currently parrying with a gauntlet
 		public bool GuardianGauntletParry2 = false; // Player is currently parrying with a gauntlet (1 frame buffer)
@@ -78,7 +78,8 @@ namespace OrchidMod
 
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
 		{
-			GuardianThrowCharge = 0;
+			GuardianHammerCharge = 0;
+			GuardianGauntletCharge = 0;
 		}
 
 		public override void PostUpdateEquips()
@@ -129,6 +130,9 @@ namespace OrchidMod
 					GuardianBlockedEnemies.Remove(blockedEnemy);
 				}
 			}
+
+			if (Player.HeldItem.ModItem is not OrchidModGuardianGauntlet) GuardianGauntletCharge = 0f;
+			if (Player.HeldItem.ModItem is not OrchidModGuardianHammer) GuardianHammerCharge = 0f;
 
 			if (GuardianGauntletParry2) GuardianGauntletParry2 = false;
 			else GuardianGauntletParry = false;
@@ -250,10 +254,10 @@ namespace OrchidMod
 
 		public int ThrowLevel()
 		{
-			if (GuardianThrowCharge < 45f) return 0;
-			if (GuardianThrowCharge < 90f) return 1;
-			if (GuardianThrowCharge < 135f) return 2;
-			if (GuardianThrowCharge < 180f) return 3;
+			if (GuardianHammerCharge < 45f) return 0;
+			if (GuardianHammerCharge < 90f) return 1;
+			if (GuardianHammerCharge < 135f) return 2;
+			if (GuardianHammerCharge < 180f) return 3;
 			return 4;
 		}
 	}

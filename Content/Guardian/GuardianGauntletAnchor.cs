@@ -79,6 +79,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			TimeSpent++;
 			var owner = Main.player[Projectile.owner];
+			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 
 			if (!owner.active || owner.dead || SelectedItem < 0 || !(owner.HeldItem.ModItem is OrchidModGuardianGauntlet) || GauntletItem == null || GauntletItem.ModItem is not OrchidModGuardianGauntlet guardianItem)
 			{
@@ -101,7 +102,6 @@ namespace OrchidMod.Content.Guardian
 
 				if (Blocking)
 				{
-					OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 					guardian.GuardianGauntletParry = true;
 					guardian.GuardianGauntletParry2 = true;
 
@@ -130,29 +130,32 @@ namespace OrchidMod.Content.Guardian
 					if (Projectile.localAI[1] == slamTime)
 					{ // Slam just started, make projectile
 						Ding = false; // Also reset ding song for full charge
-						int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
-						float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration();
-						Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f);
-						if (punchProj.ModProjectile is GauntletPunchProjectile punch)
+						if (guardianItem.OnPunch(owner, guardian, Projectile, Projectile.ai[0] == -2f))
 						{
-							punch.SelectedItem = SelectedItem;
-							punchProj.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
-							punchProj.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
-							punchProj.knockBack = guardianItem.Item.knockBack;
-							punchProj.position += punchProj.velocity * 0.5f;
-							punchProj.rotation = punchProj.velocity.ToRotation();
-							punchProj.velocity += owner.velocity * 1.5f;
-
-							if (Projectile.ai[0] == -1f)
+							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
+							float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance();
+							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
+							if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 							{
-								punchProj.damage = (int)(punchProj.damage / 4f);
-								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, owner.Center);
-							}
-							else SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, owner.Center);
+								punch.SelectedItem = SelectedItem;
+								punchProj.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
+								punchProj.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
+								punchProj.knockBack = guardianItem.Item.knockBack;
+								punchProj.position += punchProj.velocity * 0.5f;
+								punchProj.rotation = punchProj.velocity.ToRotation();
+								punchProj.velocity += owner.velocity * 1.5f;
 
-							punchProj.netUpdate = true;
+								if (Projectile.ai[0] == -1f)
+								{
+									punchProj.damage = (int)(punchProj.damage / 4f);
+									SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, owner.Center);
+								}
+								else SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, owner.Center);
+
+								punchProj.netUpdate = true;
+							}
+							else punchProj.Kill();
 						}
-						else punchProj.Kill();
 					}
 
 					if (Projectile.ai[1] < 1f && Projectile.ai[1] > -1f)
@@ -177,11 +180,9 @@ namespace OrchidMod.Content.Guardian
 				}
 				else
 				{
-					OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
-
 					if (Charging)
 					{
-						guardian.GuardianGauntletCharge += 30f / GauntletItem.useTime * owner.GetAttackSpeed(DamageClass.Melee);
+						guardian.GuardianGauntletCharge += 30f / GauntletItem.useTime * (owner.GetAttackSpeed(DamageClass.Melee) * 2f - 1f);
 						if (guardian.GuardianGauntletCharge > 180f)
 						{
 							if (!Ding)

@@ -66,7 +66,7 @@ namespace OrchidMod.Content.Guardian
 			projectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 			projectile.netUpdate = true;
 
-			guardian.GuardianThrowCharge = 0f;
+			guardian.GuardianHammerCharge = 0f;
 			return true;
 		}
 		

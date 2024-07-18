@@ -28,6 +28,7 @@ using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.Shaman.Weapons.Hardmode;
 using OrchidMod.Content.Guardian.Accessories;
+using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -297,6 +298,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<IvyChestCard>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<BloomingBud>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<BundleOfClovers>(), ChestType.Ivy, 20));
+			chestLoots.Add(new ChestLoot(ItemType<JungleGauntlet>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DeckJungle>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
 
 			// Sky Island Chests

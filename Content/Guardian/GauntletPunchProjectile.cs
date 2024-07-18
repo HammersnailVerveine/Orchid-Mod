@@ -15,6 +15,8 @@ namespace OrchidMod.Content.Guardian
 		public int SelectedItem { get; set; } = -1;
 		public Item GauntletItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
 		public bool ChargedHit => Projectile.ai[0] == 1f;
+		public bool OffHand => Projectile.ai[1] == 1f;
+
 		public bool FirstHit = false;
 
 		public override void SendExtraAI(BinaryWriter writer)
@@ -100,7 +102,7 @@ namespace OrchidMod.Content.Guardian
 
 				float scale = Projectile.scale * (ChargedHit ? 1.2f : 1f);
 				Vector2 drawPosition = Vector2.Transform(Projectile.Center - offsetVector - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
-				spriteBatch.Draw(TextureMain, drawPosition, null, gauntlet.color * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, scale, effect, 0f);
+				spriteBatch.Draw(TextureMain, drawPosition, null, gauntlet.GetColor(OffHand) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, scale, effect, 0f);
 
 				// Draw code ends here
 

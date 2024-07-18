@@ -99,7 +99,7 @@ namespace OrchidMod.Content.Guardian.UI
 
 				if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
 				{
-					if (modPlayer.GuardianThrowCharge > 0) // Player is preparing to throw a hammer
+					if (modPlayer.GuardianHammerCharge > 0) // Player is preparing to throw a hammer
 					{
 						Vector2 hammerPosition = new Vector2(position.X - textureHammerMain.Width / 2, position.Y - 100);
 						spriteBatch.Draw(textureHammerMain, hammerPosition, Color.White);
@@ -136,16 +136,16 @@ namespace OrchidMod.Content.Guardian.UI
 				}
 				else
 				{
-					if (modPlayer.GuardianThrowCharge > 8f)
+					if (modPlayer.GuardianHammerCharge > 8f)
 					{
 						int val = 24;
-						if (modPlayer.GuardianThrowCharge > 180f)
+						if (modPlayer.GuardianHammerCharge > 180f)
 						{
 							spriteBatch.Draw(textureHammerReady, new Vector2(position.X - 14, position.Y - 94), Color.White * 0.8f);
 						}
 						else
 						{
-							float charge = modPlayer.GuardianThrowCharge;
+							float charge = modPlayer.GuardianHammerCharge;
 							while (charge < 180f)
 							{
 								charge += 7.5f;

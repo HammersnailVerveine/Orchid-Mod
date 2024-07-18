@@ -4,15 +4,15 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
-	public class SilverGauntlet : OrchidModGuardianGauntlet
+	public class TungstenGauntlet : OrchidModGuardianGauntlet
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 30;
+			Item.width = 28;
 			Item.height = 32;
 			Item.knockBack = 5f;
-			Item.damage = 45;
-			Item.value = Item.sellPrice(0, 0, 8, 40);
+			Item.damage = 47;
+			Item.value = Item.sellPrice(0, 0, 12, 25);
 			Item.rare = ItemRarityID.White;
 			Item.useTime = 35;
 			strikeVelocity = 15f;
@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override Color GetColor(bool offHand)
 		{
-			return new Color(209, 216, 217);
+			return new Color(202, 233, 207);
 		}
 
 		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
@@ -33,7 +33,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		{
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.SilverBar, 8);
+			recipe.AddIngredient(ItemID.TungstenBar, 8);
 			recipe.Register();
 		}
 	}

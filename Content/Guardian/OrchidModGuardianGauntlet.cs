@@ -19,16 +19,17 @@ namespace OrchidMod.Content.Guardian
 		public virtual void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info) { }
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
+		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged) => true; // Return false to prevent normal punch projectiles from spawning
 		public virtual bool ProjectileAI(Player player, Projectile projectile, bool charged) => true;
 		public virtual void ExtraAIGauntlet(Projectile projectile) { }
 		public virtual void PostDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
+		public virtual Color GetColor(bool offHand) => Color.White;
 
 		public virtual void SafeHoldItem(Player player) { }
 
-		public float strikeVelocity = 100f;
+		public float strikeVelocity = 10f;
 		public int parryDuration = 60;
-		public Color color = Color.White;
 
 		public sealed override void SetDefaults()
 		{
@@ -40,7 +41,7 @@ namespace OrchidMod.Content.Guardian
 			Item.UseSound = SoundID.Item1;
 			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.useTime = 30;
-			Item.knockBack = 6f;
+			Item.knockBack = 5f;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
