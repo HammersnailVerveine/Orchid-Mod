@@ -70,9 +70,9 @@ namespace OrchidMod.Content.Guardian
 
 					if (projectileMain.ai[0] == 0f || projectileOff.ai[0] == 0f || (projectileMain.ai[0] > 0f && projectileOff.ai[0] > 0f))
 					{ // At least one of the gauntlets is not being used or both are blocking
-						if (Main.mouseRight && Main.mouseRightRelease && projectileMain.ai[0] <= 0f && projectileOff.ai[0] <= 0f)
+						if (Main.mouseRight && Main.mouseRightRelease)
 						{ // Right click & None of the gauntlets is blocking = Block
-							if (guardian.GuardianBlock > 0)
+							if (guardian.GuardianBlock > 0 && projectileMain.ai[0] <= 0f && projectileOff.ai[0] <= 0f)
 							{
 								player.immuneTime = 0;
 								player.immune = false;
