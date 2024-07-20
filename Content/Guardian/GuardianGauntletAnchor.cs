@@ -14,7 +14,6 @@ namespace OrchidMod.Content.Guardian
 {
 	public class GuardianGauntletAnchor : OrchidModProjectile
 	{
-		public int TimeSpent = 0;
 		public int LockedOwnerDir = 0;
 		public bool OffHandGauntlet = false;
 		public bool Ding = false;
@@ -62,6 +61,9 @@ namespace OrchidMod.Content.Guardian
 		{
 			SelectedItem = owner.selectedItem;
 			Projectile.netUpdate = true;
+			Projectile.ai[0] = 0f;
+			Projectile.ai[1] = 0f;
+			Projectile.ai[2] = 0f;
 		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -77,7 +79,6 @@ namespace OrchidMod.Content.Guardian
 
 		public override void AI()
 		{
-			TimeSpent++;
 			var owner = Main.player[Projectile.owner];
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 

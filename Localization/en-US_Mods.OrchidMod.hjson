@@ -240,8 +240,8 @@ Buffs: {
 	}
 
 	GuardianSpiderGauntletBuff: {
-		DisplayName: Guardian Spider Gauntlet Buff
-		Description: Mods.OrchidMod.Buffs.GuardianSpiderGauntletBuff.Description
+		DisplayName: Toxic Punches
+		Description: Punches shoot toxic fangs
 	}
 }
 
@@ -2905,6 +2905,16 @@ Items: {
 		DisplayName: Touch of Death
 		Tooltip: Punches launch fangs after a parry
 	}
+
+	MechanicalGauntlet: {
+		DisplayName: Mechanical Gauntlet
+		Tooltip: ""
+	}
+
+	IceStandard: {
+		DisplayName: Ice Standard
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -3189,6 +3199,7 @@ Projectiles: {
 	GuardianGauntletAnchor.DisplayName: Gauntlet
 	GauntletPunchProjectile.DisplayName: Gauntlet
 	SpiderGauntletProjectile.DisplayName: Spider Gauntlet Projectile
+	GuardianStandardAnchor.DisplayName: Guardian Standard Anchor
 }
 
 Configs: {
