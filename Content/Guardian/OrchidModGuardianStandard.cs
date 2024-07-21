@@ -18,10 +18,13 @@ namespace OrchidMod.Content.Guardian
 	{
 		public int slamStacks;
 		public int blockStacks;
+		public int flagOffset; // Number of diagonal pixels from the top-right of the sprite to the base of the flag
 
 		public virtual string ShaftTexture => Texture + "_Shaft";
 		public virtual string FlagUpTexture => Texture + "_FlagUp";
-		public virtual string FlagDownTexture => Texture + "_FlagDown";
+		public virtual string FlagQuarterTexture => Texture + "_FlagQuarter";
+		public virtual string FlagTwoQuarterTexture => Texture + "_FlagTwoQuarter";
+		public virtual string FlagEndTexture => Texture + "_FlagEnd";
 		public virtual void OnCharge(Player player, OrchidGuardian guardian) { }
 		public virtual void EffectSimple(Player player, OrchidGuardian guardian) { }
 		public virtual void EffectUpgrade(Player player, OrchidGuardian guardian) { }
@@ -46,6 +49,7 @@ namespace OrchidMod.Content.Guardian
 			Item.damage = 0;
 			slamStacks = 0;
 			blockStacks = 0;
+			flagOffset = 0;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
@@ -74,9 +78,12 @@ namespace OrchidMod.Content.Guardian
 				{
 					var guardian = player.GetModPlayer<OrchidGuardian>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-					if (proj != null && proj.ModProjectile is GuardianStandardAnchor standard)
+					if (proj != null && proj.ModProjectile is GuardianStandardAnchor standard && guardian.GuardianStandardCharge == 0f)
 					{
-						// left click
+						proj.ai[0] = 1f;
+						proj.netUpdate = true;
+						guardian.GuardianStandardCharge++;
+						SoundEngine.PlaySound(SoundID.Item7, player.Center);
 					}
 				}
 			}
@@ -141,12 +148,6 @@ namespace OrchidMod.Content.Guardian
 				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
 			}
 
-			/*
-			int index = 0;
-			tt = tooltips.FirstOrDefault(ttip => ttip.Mod.Equals(Mod) && ttip.Name.Equals("ClassTag"));
-			if (tt != null) index = tooltips.FindIndex(ttip => ttip.Mod.Equals(Mod) && ttip.Name.Equals("ClassTag"));
-			else index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
-			*/
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
 
 			if (blockStacks > 0)

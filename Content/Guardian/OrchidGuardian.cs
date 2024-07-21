@@ -47,6 +47,7 @@ namespace OrchidMod
 		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
 		public float GuardianHammerCharge = 0f; // Player Warhammer Throw Charge, max is 180f
 		public float GuardianGauntletCharge = 0f; // Player Gauntlet Punch Charge, max is 180f
+		public float GuardianStandardCharge = 0f; // Player Standard Charge, max is 180f
 		public bool GuardianGauntletParry = false; // Player is currently parrying with a gauntlet
 		public bool GuardianGauntletParry2 = false; // Player is currently parrying with a gauntlet (1 frame buffer)
 		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
@@ -80,6 +81,7 @@ namespace OrchidMod
 		{
 			GuardianHammerCharge = 0;
 			GuardianGauntletCharge = 0;
+			GuardianStandardCharge = 0;
 		}
 
 		public override void PostUpdateEquips()
@@ -133,6 +135,7 @@ namespace OrchidMod
 
 			if (Player.HeldItem.ModItem is not OrchidModGuardianGauntlet) GuardianGauntletCharge = 0f;
 			if (Player.HeldItem.ModItem is not OrchidModGuardianHammer) GuardianHammerCharge = 0f;
+			if (Player.HeldItem.ModItem is not OrchidModGuardianStandard) GuardianStandardCharge = 0f;
 
 			if (GuardianGauntletParry2) GuardianGauntletParry2 = false;
 			else GuardianGauntletParry = false;

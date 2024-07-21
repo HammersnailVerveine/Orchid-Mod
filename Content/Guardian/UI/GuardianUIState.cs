@@ -32,6 +32,10 @@ namespace OrchidMod.Content.Guardian.UI
 		public static Texture2D textureGauntletOff;
 		public static Texture2D textureGauntletReady;
 
+		public static Texture2D textureStandardOn;
+		public static Texture2D textureStandardOff;
+		public static Texture2D textureStandardReady;
+
 		public static Texture2D blockOn;
 		public static Texture2D blockOff;
 
@@ -52,6 +56,10 @@ namespace OrchidMod.Content.Guardian.UI
 			textureGauntletOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/GauntletOn", AssetRequestMode.ImmediateLoad).Value;
 			textureGauntletOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/GauntletOff", AssetRequestMode.ImmediateLoad).Value;
 			textureGauntletReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/GauntletReady", AssetRequestMode.ImmediateLoad).Value;
+
+			textureStandardOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/StandardOn", AssetRequestMode.ImmediateLoad).Value;
+			textureStandardOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/StandardOff", AssetRequestMode.ImmediateLoad).Value;
+			textureStandardReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/StandardReady", AssetRequestMode.ImmediateLoad).Value;
 			
 			textureHammerOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOn", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOff", AssetRequestMode.ImmediateLoad).Value;
@@ -141,7 +149,7 @@ namespace OrchidMod.Content.Guardian.UI
 						int val = 24;
 						if (modPlayer.GuardianHammerCharge > 180f)
 						{
-							spriteBatch.Draw(textureHammerReady, new Vector2(position.X - 14, position.Y - 94), Color.White * 0.8f);
+							spriteBatch.Draw(textureHammerReady, new Vector2(position.X - 14, position.Y - 96), Color.White * 0.8f);
 						}
 						else
 						{
@@ -156,9 +164,33 @@ namespace OrchidMod.Content.Guardian.UI
 						Rectangle rectangle = textureHammerOn.Bounds;
 						rectangle.Height = val;
 						rectangle.Y = textureHammerOn.Height - val;
-						spriteBatch.Draw(textureHammerOff, new Vector2(position.X - 12, position.Y - 92), Color.White);
-						spriteBatch.Draw(textureHammerOn, new Vector2(position.X - 12, position.Y - 92 + textureHammerOn.Height - val), rectangle, Color.White);
+						spriteBatch.Draw(textureHammerOff, new Vector2(position.X - 12, position.Y - 94), Color.White);
+						spriteBatch.Draw(textureHammerOn, new Vector2(position.X - 12, position.Y - 94 + textureHammerOn.Height - val), rectangle, Color.White);
 					}
+				}
+
+				if (modPlayer.GuardianStandardCharge > 8f)
+				{
+					int val = textureStandardOn.Height;
+					if (modPlayer.GuardianStandardCharge >= 180f)
+					{
+						spriteBatch.Draw(textureStandardReady, new Vector2(position.X - 11, position.Y - 96), Color.White * 0.8f);
+					}
+					else
+					{
+						float charge = modPlayer.GuardianStandardCharge;
+						while (charge < 180f)
+						{
+							charge += 7.5f;
+							val--;
+						}
+					}
+
+					Rectangle rectangle = textureStandardOn.Bounds;
+					rectangle.Height = val;
+					rectangle.Y = textureStandardOn.Height - val;
+					spriteBatch.Draw(textureStandardOff, new Vector2(position.X - 9, position.Y - 94), Color.White);
+					spriteBatch.Draw(textureStandardOn, new Vector2(position.X - 9, position.Y - 94 + textureStandardOn.Height - val), rectangle, Color.White);
 				}
 
 				if (modPlayer.GuardianGauntletCharge > 8f)
@@ -166,7 +198,7 @@ namespace OrchidMod.Content.Guardian.UI
 					int val = textureGauntletOn.Height;
 					if (modPlayer.GuardianGauntletCharge >= 180f)
 					{
-						spriteBatch.Draw(textureGauntletReady, new Vector2(position.X - 10, position.Y - 94), Color.White * 0.8f);
+						spriteBatch.Draw(textureGauntletReady, new Vector2(position.X - 10, position.Y - 96), Color.White * 0.8f);
 					}
 					else
 					{
@@ -181,8 +213,8 @@ namespace OrchidMod.Content.Guardian.UI
 					Rectangle rectangle = textureGauntletOn.Bounds;
 					rectangle.Height = val;
 					rectangle.Y = textureGauntletOn.Height - val;
-					spriteBatch.Draw(textureGauntletOff, new Vector2(position.X - 8, position.Y - 92), Color.White);
-					spriteBatch.Draw(textureGauntletOn, new Vector2(position.X - 8, position.Y - 92 + textureHammerOn.Height - val), rectangle, Color.White);
+					spriteBatch.Draw(textureGauntletOff, new Vector2(position.X - 8, position.Y - 94), Color.White);
+					spriteBatch.Draw(textureGauntletOn, new Vector2(position.X - 8, position.Y - 94 + textureGauntletOn.Height - val), rectangle, Color.White);
 				}
 				else
 				{
@@ -204,8 +236,8 @@ namespace OrchidMod.Content.Guardian.UI
 							Rectangle rectangle = blockOn.Bounds;
 							rectangle.Height = val;
 							rectangle.Y = blockOn.Height - val;
-							spriteBatch.Draw(blockOff, new Vector2(position.X - 10, position.Y - 90), Color.White);
-							spriteBatch.Draw(blockOn, new Vector2(position.X - 10, position.Y - 90 + blockOn.Height - val), rectangle, Color.White);
+							spriteBatch.Draw(blockOff, new Vector2(position.X - 10, position.Y - 92), Color.White);
+							spriteBatch.Draw(blockOn, new Vector2(position.X - 10, position.Y - 92 + blockOn.Height - val), rectangle, Color.White);
 							return;
 						}
 					}

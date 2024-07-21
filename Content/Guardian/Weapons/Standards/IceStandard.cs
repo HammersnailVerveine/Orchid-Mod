@@ -13,7 +13,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			Item.value = Item.sellPrice(0, 0, 35, 75);
 			Item.rare = ItemRarityID.Blue;
 			Item.useTime = 35;
+			Item.UseSound = SoundID.DD2_BetsyWindAttack;
 			blockStacks = 1;
+			flagOffset = 8;
 		}
 
 		public override Color GetColor(bool offHand)

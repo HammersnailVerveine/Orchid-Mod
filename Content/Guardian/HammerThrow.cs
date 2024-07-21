@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -86,132 +85,139 @@ namespace OrchidMod.Content.Guardian
 			Player player = Main.player[Projectile.owner];
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 
-			if (player.dead || player.HeldItem.ModItem is not OrchidModGuardianHammer) Projectile.Kill();
 			if (HammerItem != null)
 			{
 				if (Projectile.ai[1] <= 0) // Held
 				{
-					if (Main.MouseWorld.X > player.Center.X && player.direction != 1) player.ChangeDir(1);
-					else if (Main.MouseWorld.X < player.Center.X && player.direction != -1) player.ChangeDir(-1);
-
-					player.itemAnimation = 1;
-					Projectile.timeLeft = 600;
-					Projectile.spriteDirection = -player.direction;
-					player.heldProj = Projectile.whoAmI;
-
-					if (guardian.GuardianHammerCharge >= 180f && !Ding)
+					if (player.dead || player.HeldItem.ModItem is not OrchidModGuardianHammer)
 					{
-						Ding = true;
-						SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
+						Projectile.Kill();
 					}
-
-					if (Projectile.ai[1] == 0)
+					else
 					{
-						if (WeakHit)
-						{ // Projectiles just did a weak charge swing, kill it
-							Projectile.Kill();
-							return;
+						if (Main.MouseWorld.X > player.Center.X && player.direction != 1) player.ChangeDir(1);
+						else if (Main.MouseWorld.X < player.Center.X && player.direction != -1) player.ChangeDir(-1);
+
+						player.itemAnimation = 1;
+						Projectile.timeLeft = 600;
+						Projectile.spriteDirection = -player.direction;
+						player.heldProj = Projectile.whoAmI;
+
+						if (guardian.GuardianHammerCharge >= 180f && !Ding)
+						{
+							Ding = true;
+							SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
 						}
 
-						player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection); // set arm position (90 degree offset since arm starts lowered)
-						Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection);
-						Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f, (Projectile.height - (Projectile.height * 0.007f) * guardian.GuardianHammerCharge) * 0.4f);
-
-
-						if (guardian.GuardianHammerCharge < 210f)
+						if (Projectile.ai[1] == 0)
 						{
-							guardian.GuardianHammerCharge += 30f / HammerItem.Item.useTime * player.GetAttackSpeed(DamageClass.Melee);
-
-							if (ChargeToAdd > 0)
-							{
-								ChargeToAdd--;
-								guardian.GuardianHammerCharge += 2f * player.GetAttackSpeed(DamageClass.Melee);
+							if (WeakHit)
+							{ // Projectiles just did a weak charge swing, kill it
+								Projectile.Kill();
+								return;
 							}
 
-							if (guardian.GuardianHammerCharge > 210f) guardian.GuardianHammerCharge = 210f;
-						}
+							player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection); // set arm position (90 degree offset since arm starts lowered)
+							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection);
+							Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f, (Projectile.height - (Projectile.height * 0.007f) * guardian.GuardianHammerCharge) * 0.4f);
 
-						if (!player.controlUseItem && player.whoAmI == Main.myPlayer)
-						{
-							if (guardian.GuardianHammerCharge > 10f)
+
+							if (guardian.GuardianHammerCharge < 210f)
 							{
-								Projectile.ai[1] = 1;
-								Projectile.friendly = true;
+								guardian.GuardianHammerCharge += 30f / HammerItem.Item.useTime * player.GetAttackSpeed(DamageClass.Melee);
 
-								Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * HammerItem.Item.shootSpeed;
-
-								if (guardian.ThrowLevel() < 4)
+								if (ChargeToAdd > 0)
 								{
-									dir *= (0.3f * (guardian.ThrowLevel() + 2) / 3);
-									Projectile.damage = (int)(Projectile.damage * 0.75f);
-									Projectile.knockBack = (int)(Projectile.knockBack / 3f);
-									Projectile.ai[0] = 1f;
+									ChargeToAdd--;
+									guardian.GuardianHammerCharge += 2f * player.GetAttackSpeed(DamageClass.Melee);
 								}
 
-								Projectile.velocity = dir;
-								Projectile.rotation = dir.ToRotation();
-								Projectile.direction = Projectile.spriteDirection;
-								Projectile.netUpdate = true;
-
-								SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
-								guardian.GuardianHammerCharge = 0;
+								if (guardian.GuardianHammerCharge > 210f) guardian.GuardianHammerCharge = 210f;
 							}
-							else
+
+							if (!player.controlUseItem && player.whoAmI == Main.myPlayer)
+							{
+								if (guardian.GuardianHammerCharge > 10f)
+								{
+									Projectile.ai[1] = 1;
+									Projectile.friendly = true;
+
+									Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * HammerItem.Item.shootSpeed;
+
+									if (guardian.ThrowLevel() < 4)
+									{
+										dir *= (0.3f * (guardian.ThrowLevel() + 2) / 3);
+										Projectile.damage = (int)(Projectile.damage * 0.75f);
+										Projectile.knockBack = (int)(Projectile.knockBack / 3f);
+										Projectile.ai[0] = 1f;
+									}
+
+									Projectile.velocity = dir;
+									Projectile.rotation = dir.ToRotation();
+									Projectile.direction = Projectile.spriteDirection;
+									Projectile.netUpdate = true;
+
+									SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
+									guardian.GuardianHammerCharge = 0;
+								}
+								else
+								{
+									SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+									Projectile.ai[1] = -61f;
+									Projectile.friendly = true;
+									Projectile.netUpdate = true;
+									hitTarget = false;
+								}
+							}
+							else if (Main.mouseRight)
 							{
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-								Projectile.ai[1] = -61f;
+								Projectile.ai[1] = -60f;
 								Projectile.friendly = true;
 								Projectile.netUpdate = true;
 								hitTarget = false;
 							}
 						}
-						else if (Main.mouseRight)
-						{
-							SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-							Projectile.ai[1] = -60f;
-							Projectile.friendly = true;
-							Projectile.netUpdate = true;
-							hitTarget = false;
-						}
-					}
-					else
-					{
-						if (Projectile.ai[1] < -60f) // Makes easier to sync the behaviour after a weak slam
-						{
-							Projectile.ai[1] = -60f;
-							WeakHit = true;
-							guardian.GuardianHammerCharge = 0;
-						}
-
-						if (ChargeToAdd > 0 && Projectile.ai[1] > -30 && ! WeakHit)
-						{
-							ChargeToAdd--;
-							guardian.GuardianHammerCharge += 2f * player.GetAttackSpeed(DamageClass.Melee);
-							if (guardian.GuardianHammerCharge > 210f) guardian.GuardianHammerCharge = 210f;
-						}
-
-						Projectile.velocity = Vector2.UnitX * 0.001f * player.direction; // So enemies are KBd in the right direction
-
-						float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
-						Vector2 arm = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f) * Projectile.spriteDirection);
-						player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
-						Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
-						Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f + (armPosition.X - arm.X) * (2.5f + Projectile.width * 0.035f), (armPosition.Y - arm.Y) * -(1.1f + Projectile.width * 0.015f) + (210f - guardian.GuardianHammerCharge) * 0.075f);
-
-						float toAdd = 30f / HammerItem.Item.useTime * player.GetAttackSpeed(DamageClass.Melee);
-						if (Projectile.ai[1] < -40) Projectile.ai[1] += toAdd * 1.5f;
 						else
 						{
-							Projectile.ai[1] += toAdd * 0.66f;
-							Projectile.friendly = false;
+							if (Projectile.ai[1] < -60f) // Makes easier to sync the behaviour after a weak slam
+							{
+								Projectile.ai[1] = -60f;
+								WeakHit = true;
+								guardian.GuardianHammerCharge = 0;
+							}
+
+							if (ChargeToAdd > 0 && Projectile.ai[1] > -30 && !WeakHit)
+							{
+								ChargeToAdd--;
+								guardian.GuardianHammerCharge += 2f * player.GetAttackSpeed(DamageClass.Melee);
+								if (guardian.GuardianHammerCharge > 210f) guardian.GuardianHammerCharge = 210f;
+							}
+
+							Projectile.velocity = Vector2.UnitX * 0.001f * player.direction; // So enemies are KBd in the right direction
+
+							float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
+							Vector2 arm = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f) * Projectile.spriteDirection);
+							player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
+							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
+							Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f + (armPosition.X - arm.X) * (2.5f + Projectile.width * 0.035f), (armPosition.Y - arm.Y) * -(1.1f + Projectile.width * 0.015f) + (210f - guardian.GuardianHammerCharge) * 0.075f);
+
+							float toAdd = 30f / HammerItem.Item.useTime * player.GetAttackSpeed(DamageClass.Melee);
+							if (Projectile.ai[1] < -40) Projectile.ai[1] += toAdd * 1.5f;
+							else
+							{
+								Projectile.ai[1] += toAdd * 0.66f;
+								Projectile.friendly = false;
+							}
+
+							if (Projectile.ai[1] >= 0f)
+							{
+								Projectile.ai[1] = 0f;
+								Projectile.friendly = false;
+								hitTarget = false;
+							}
 						}
 
-						if (Projectile.ai[1] >= 0f)
-						{
-							Projectile.ai[1] = 0f;
-							Projectile.friendly = false;
-							hitTarget = false;
-						}
 					}
 				}
 				else // Thrown

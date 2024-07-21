@@ -4,19 +4,25 @@ using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian.Buffs;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.Player;
 
 namespace OrchidMod.Content.Guardian
 {
 	public class GuardianStandardAnchor : OrchidModProjectile
 	{
+		public int TimeSpent = 0;
+		public bool Ding = false;
+
 		public int SelectedItem { get; set; } = -1;
 		public Item StandardItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI) => overPlayers.Add(index);
 
 		// ...
 
@@ -39,7 +45,6 @@ namespace OrchidMod.Content.Guardian
 		{
 			SelectedItem = owner.selectedItem;
 			Projectile.ai[0] = 0f;
-			Projectile.ai[1] = 0f;
 			Projectile.netUpdate = true;
 		}
 
@@ -55,7 +60,68 @@ namespace OrchidMod.Content.Guardian
 			}
 			else
 			{
+				if (Main.MouseWorld.X > owner.Center.X && owner.direction != 1) owner.ChangeDir(1);
+				else if (Main.MouseWorld.X < owner.Center.X && owner.direction != -1) owner.ChangeDir(-1);
+
+				TimeSpent++;
 				Projectile.timeLeft = 5;
+
+				if (owner.velocity.X > 0) // This part allows moving the flag based on player movement
+				{
+					Projectile.localAI[1] += Math.Abs(Projectile.localAI[1] - 1) * 0.1f;
+				}
+				else if (owner.velocity.X < 0)
+				{
+					Projectile.localAI[1] -= Math.Abs(-1 - Projectile.localAI[1]) * 0.1f;
+				}
+				else Projectile.localAI[1] *= 0.95f;
+
+
+				if (Projectile.ai[0] == 1f)
+				{ // Being charged by the player
+					if (guardian.GuardianStandardCharge < 180f)
+					{
+						guardian.GuardianStandardCharge += 30f / guardianItem.Item.useTime * owner.GetAttackSpeed(DamageClass.Melee);
+						if (guardian.GuardianStandardCharge > 180f) guardian.GuardianStandardCharge = 180f;
+					}
+
+					if (guardian.GuardianStandardCharge > 180f && !Ding)
+					{
+						Ding = true;
+						SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
+					}
+
+					if (!owner.controlUseItem && owner.whoAmI == Main.myPlayer)
+					{
+						if (guardian.GuardianStandardCharge >= 180f)
+						{
+							SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
+							// buff player
+						}
+
+						guardian.GuardianStandardCharge = 0;
+						Projectile.ai[0] = 0f;
+					}
+
+					owner.itemAnimation = 1;
+					owner.heldProj = Projectile.whoAmI;
+
+					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(8f * owner.direction, - (12 + guardian.GuardianStandardCharge * 0.03f));
+					Projectile.rotation = MathHelper.PiOver4 * (0.25f - guardian.GuardianStandardCharge * 0.0025f) * owner.direction - MathHelper.PiOver4;
+
+					owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
+					owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * - (1f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
+				}
+				else
+				{ // Idle - flag is held further and lower
+					Ding = false;
+
+					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(16f * owner.direction, -8);
+					Projectile.rotation = MathHelper.PiOver4 * 0.5f * owner.direction - MathHelper.PiOver4;
+
+					owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -0.8f * owner.direction);
+					owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -1.2f * owner.direction);
+				}
 			}
 
 			guardianItem.ExtraAIStandard(Projectile);
@@ -92,10 +158,23 @@ namespace OrchidMod.Content.Guardian
 				var texture = ModContent.Request<Texture2D>(guardianItem.ShaftTexture).Value;
 				var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-				Projectile.width = texture.Height;
-				Projectile.height = texture.Height;
 				spriteBatch.Draw(texture, drawPosition, null, color, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				float windSpeed = 0.25f * Main.windSpeedCurrent;
+				float flagRotation = MathHelper.PiOver4 * Projectile.localAI[1] * 0.5f + (float)Math.Sin(TimeSpent * (Math.Abs(windSpeed) > 0.05f ? windSpeed : 0.05f)) * 0.1f;
+				Vector2 flagOffset = Vector2.UnitX.RotatedBy(Projectile.rotation) * -1.5f * Projectile.localAI[1];
+
+				texture = ModContent.Request<Texture2D>(guardianItem.FlagEndTexture).Value;
+				spriteBatch.Draw(texture, drawPosition + flagOffset * 1.3f, null, color, Projectile.rotation + flagRotation * 2.5f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				texture = ModContent.Request<Texture2D>(guardianItem.FlagTwoQuarterTexture).Value;
+				spriteBatch.Draw(texture, drawPosition + flagOffset * 1.2f, null, color, Projectile.rotation + flagRotation * 1.8f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				texture = ModContent.Request<Texture2D>(guardianItem.FlagQuarterTexture).Value;
+				spriteBatch.Draw(texture, drawPosition + flagOffset * 1.1f, null, color, Projectile.rotation + flagRotation * 1.1f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				texture = ModContent.Request<Texture2D>(guardianItem.FlagUpTexture).Value;
+				spriteBatch.Draw(texture, drawPosition + flagOffset, null, color, Projectile.rotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawStandard(spriteBatch, Projectile, player, color);
 
