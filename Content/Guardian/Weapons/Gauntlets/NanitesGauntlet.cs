@@ -4,12 +4,12 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
-	public class SilverGauntlet : OrchidModGuardianGauntlet
+	public class NanitesGauntlet : OrchidModGuardianGauntlet
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 30;
-			Item.height = 32;
+			Item.width = 42;
+			Item.height = 38;
 			Item.knockBack = 5f;
 			Item.damage = 45;
 			Item.value = Item.sellPrice(0, 0, 8, 40);
@@ -17,11 +17,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.useTime = 35;
 			strikeVelocity = 15f;
 			parryDuration = 60;
+			hasArm = true;
+			hasShoulder = true;
 		}
 
 		public override Color GetColor(bool offHand)
 		{
-			return new Color(209, 216, 217);
+			return new Color(0, 255, 255);
 		}
 
 		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)

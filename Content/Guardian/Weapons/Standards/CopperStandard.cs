@@ -4,18 +4,18 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Standards
 {
-	public class IceStandard : OrchidModGuardianStandard
+	public class CopperStandard : OrchidModGuardianStandard
 	{
 		public override void SafeSetDefaults()
 		{
 			Item.width = 42;
 			Item.height = 42;
-			Item.value = Item.sellPrice(0, 0, 35, 75);
-			Item.rare = ItemRarityID.Blue;
-			Item.useTime = 35;
+			Item.value = Item.sellPrice(0, 0, 3, 65);
+			Item.rare = ItemRarityID.White;
+			Item.useTime = 45;
 			Item.UseSound = SoundID.DD2_BetsyWindAttack;
-			guardStacks = 1;
-			flagOffset = 8;
+			slamStacks = 1;
+			flagOffset = 6;
 			auraRange = 10;
 			duration = 600;
 			affectNearbyPlayers = true;
@@ -28,7 +28,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 
 		public override void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool charged)
 		{
-			Main.NewText(charged);
+			player.statDefense += 3;
+			if (isLocalPlayer && charged) player.statDefense += 3;
 		}
 	}
 }

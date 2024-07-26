@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Shields
 {
-	public class HallowedShieldProj : OrchidModProjectile
+	public class HallowedShieldProj : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;

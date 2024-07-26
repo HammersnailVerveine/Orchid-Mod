@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GuardianShieldAnchor : OrchidModProjectile
+	public class GuardianShieldAnchor : OrchidModGuardianProjectile
 	{
 		public int SelectedItem { get; set; } = -1;
 		public Item ShieldItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
@@ -57,7 +57,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			networkedPosition = Main.player[Projectile.owner].Center;
 		}
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			var owner = Main.player[Projectile.owner];
 			var item = ShieldItem;

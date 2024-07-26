@@ -1,30 +1,31 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Guardian.Buffs;
-using OrchidMod.Content.Guardian.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.Player;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GuardianStandardAnchor : OrchidModProjectile
+	public class GuardianStandardAnchor : OrchidModGuardianProjectile
 	{
 		public int TimeSpent = 0;
 		public bool Ding = false;
-
+		public bool Worn => Projectile.ai[1] > 0f; // Standard buff remaining duration
+		public bool Charged => Projectile.ai[2] == 1f; // Has the item been used twice (stronger effects)
+		public Item BuffItem = null;
 		public int SelectedItem { get; set; } = -1;
 		public Item StandardItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
-		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI) => overPlayers.Add(index);
 
-		// ...
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			var owner = Main.player[Projectile.owner];
+			if (owner.HeldItem.ModItem is OrchidModGuardianStandard) overPlayers.Add(index); // Display the flag over the player if it is being held
+		}
 
 		public override void AltSetDefaults()
 		{
@@ -39,12 +40,15 @@ namespace OrchidMod.Content.Guardian
 			Projectile.alpha = 255;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 20;
+			Projectile.netImportant = true;
 		}
 
 		public void OnChangeSelectedItem(Player owner)
 		{
-			SelectedItem = owner.selectedItem;
+			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 			Projectile.ai[0] = 0f;
+			guardian.GuardianStandardCharge = 0;
+			if (!Worn || Main.player[Projectile.owner].inventory[owner.selectedItem].ModItem is OrchidModGuardianStandard) SelectedItem = owner.selectedItem;
 			Projectile.netUpdate = true;
 		}
 
@@ -52,16 +56,22 @@ namespace OrchidMod.Content.Guardian
 		{
 			var owner = Main.player[Projectile.owner];
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
+			bool heldStandard = owner.HeldItem.ModItem is OrchidModGuardianStandard;
 
-			if (!owner.active || owner.dead || SelectedItem < 0 || !(owner.HeldItem.ModItem is OrchidModGuardianStandard) || StandardItem == null || StandardItem.ModItem is not OrchidModGuardianStandard guardianItem)
+			if (!Worn && (!owner.active || owner.dead || SelectedItem < 0 || !heldStandard || StandardItem == null || StandardItem.ModItem is not OrchidModGuardianStandard guardianItem))
 			{
 				Projectile.Kill();
 				return;
 			}
 			else
 			{
-				if (Main.MouseWorld.X > owner.Center.X && owner.direction != 1) owner.ChangeDir(1);
-				else if (Main.MouseWorld.X < owner.Center.X && owner.direction != -1) owner.ChangeDir(-1);
+				guardianItem = (OrchidModGuardianStandard)StandardItem.ModItem;
+
+				if (heldStandard || owner.HeldItem.ModItem is OrchidModGuardianGauntlet)
+				{
+					if (Main.MouseWorld.X > owner.Center.X && owner.direction != 1) owner.ChangeDir(1);
+					else if (Main.MouseWorld.X < owner.Center.X && owner.direction != -1) owner.ChangeDir(-1);
+				}
 
 				TimeSpent++;
 				Projectile.timeLeft = 5;
@@ -76,6 +86,49 @@ namespace OrchidMod.Content.Guardian
 				}
 				else Projectile.localAI[1] *= 0.95f;
 
+				if (Worn)
+				{ // Handles buffs given to nearby players, npcs, etc
+					if (BuffItem == null || BuffItem.ModItem is not OrchidModGuardianStandard buffItem)
+					{
+						Main.NewText("Error with a Standard effect, please tell me how that happened!", Color.Red);
+						Projectile.Kill();
+						return;
+					}
+					else
+					{
+						if (buffItem.affectNearbyPlayers)
+						{
+							foreach (Player player in Main.player)
+							{
+								if (player.active && !player.dead)
+								{
+									buffItem.NearbyPlayerEffect(owner, guardian, player == owner, Charged);
+								}
+							}
+						}
+
+						if (buffItem.affectNearbyNPCs)
+						{
+							foreach (NPC npc in Main.npc)
+							{
+								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < guardianItem.auraRange + npc.width * 0.5f)
+								{
+									buffItem.NearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Charged);
+								}
+							}
+						}
+
+						guardian.StandardAnchor = Projectile;
+						Projectile.ai[1]--;
+						if (Projectile.ai[1] <= 0)
+						{
+							Projectile.ai[1] = 0;
+							Projectile.ai[2] = 0;
+							BuffItem = null;
+							if (!heldStandard && IsLocalOwner) Projectile.Kill();
+						}
+					}
+				}
 
 				if (Projectile.ai[0] == 1f)
 				{ // Being charged by the player
@@ -91,12 +144,19 @@ namespace OrchidMod.Content.Guardian
 						SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 					}
 
-					if (!owner.controlUseItem && owner.whoAmI == Main.myPlayer)
+					if ((!owner.controlUseItem || !heldStandard) && IsLocalOwner)
 					{
 						if (guardian.GuardianStandardCharge >= 180f)
 						{
 							SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
-							// buff player
+							if (BuffItem == StandardItem && !Charged) Projectile.ai[2] = 1f;
+							else if (BuffItem != StandardItem) Projectile.ai[2] = 0f;
+							BuffItem = StandardItem;
+							Projectile.ai[1] = guardianItem.duration * guardian.GuardianStandardTimer;
+							Projectile.netUpdate = true;
+
+							guardian.AddGuard(guardianItem.guardStacks);
+							guardian.AddSlam(guardianItem.slamStacks);
 						}
 
 						guardian.GuardianStandardCharge = 0;
@@ -111,6 +171,11 @@ namespace OrchidMod.Content.Guardian
 
 					owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
 					owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * - (1f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
+				}
+				else if (Worn && !heldStandard)
+				{ // Display on player back
+					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(-8f * owner.direction, -12);
+					Projectile.rotation = MathHelper.PiOver4 * -0.3f * owner.direction - MathHelper.PiOver4;
 				}
 				else
 				{ // Idle - flag is held further and lower
@@ -152,6 +217,7 @@ namespace OrchidMod.Content.Guardian
 
 			var player = Main.player[Projectile.owner];
 			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
+			if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not OrchidModGuardianStandard) color *= Projectile.ai[1] / 30f;
 
 			if (guardianItem.PreDrawStandard(spriteBatch, Projectile, player, ref color))
 			{

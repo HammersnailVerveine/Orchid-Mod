@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Misc
 {
-	public class WaterSpikeProj : OrchidModProjectile
+	public class WaterSpikeProj : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;

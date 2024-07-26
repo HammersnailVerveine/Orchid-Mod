@@ -58,7 +58,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			return true;
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			target.AddBuff(BuffID.OnFire, 300);
 		}

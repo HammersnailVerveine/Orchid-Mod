@@ -1,30 +1,33 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static Terraria.NPC;
 
 namespace OrchidMod.Content.Guardian
 {
 	public abstract class OrchidModGuardianStandard : OrchidModGuardianItem
 	{
-		public int slamStacks;
-		public int blockStacks;
+		public int slamStacks; // Stam Stacks given by the item
+		public int guardStacks; // Block Stacks given by the item
 		public int flagOffset; // Number of diagonal pixels from the top-right of the sprite to the base of the flag
+		public float auraRange; // Flag effect range in tiles
+		public bool affectNearbyPlayers; // Flag has an effect on nearby players
+		public bool affectNearbyNPCs; // Flag has an effect on nearby npcs
+		public int duration; // Effect duration in ticks
 
 		public virtual string ShaftTexture => Texture + "_Shaft";
 		public virtual string FlagUpTexture => Texture + "_FlagUp";
 		public virtual string FlagQuarterTexture => Texture + "_FlagQuarter";
 		public virtual string FlagTwoQuarterTexture => Texture + "_FlagTwoQuarter";
 		public virtual string FlagEndTexture => Texture + "_FlagEnd";
+		public virtual void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool charged) { } // isLocalPlayer is true when this is ran on the client being affected
+		public virtual void NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool charged) { } // isLocalPlayer is true when this is ran by the guardian with the flag active
 		public virtual void OnCharge(Player player, OrchidGuardian guardian) { }
 		public virtual void EffectSimple(Player player, OrchidGuardian guardian) { }
 		public virtual void EffectUpgrade(Player player, OrchidGuardian guardian) { }
@@ -48,13 +51,19 @@ namespace OrchidMod.Content.Guardian
 			Item.knockBack = 0f;
 			Item.damage = 0;
 			slamStacks = 0;
-			blockStacks = 0;
+			guardStacks = 0;
 			flagOffset = 0;
+			auraRange = 0;
+			duration = 1800; // 30 sec
+			affectNearbyPlayers = false;
+			affectNearbyNPCs = false;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
 
 			SafeSetDefaults();
+
+			auraRange *= 16f;
 			Item.useAnimation = Item.useTime;
 		}
 
@@ -150,9 +159,9 @@ namespace OrchidMod.Content.Guardian
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
 
-			if (blockStacks > 0)
+			if (guardStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.blockStacks + " shield block" + (this.blockStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.guardStacks + " shield block" + (this.guardStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});

@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GauntletPunchProjectile : OrchidModProjectile
+	public class GauntletPunchProjectile : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		public int SelectedItem { get; set; } = -1;
@@ -61,7 +61,7 @@ namespace OrchidMod.Content.Guardian
 			}
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			var owner = Main.player[Projectile.owner];
 			if (!owner.active || owner.dead || SelectedItem < 0 || GauntletItem.ModItem is not OrchidModGuardianGauntlet gauntlet)
@@ -70,7 +70,6 @@ namespace OrchidMod.Content.Guardian
 			}
 			else
 			{
-				OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 				if (!FirstHit)
 				{
 					FirstHit = true;

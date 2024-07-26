@@ -164,7 +164,7 @@ namespace OrchidMod.Content.Prefixes
 				modPlayer.modPlayerShaman.ShamanBondDuration += shamanTimer;
 				modPlayer.modPlayerAlchemist.alchemistPotencyMax += alchemistPotency;
 				modPlayer.modPlayerGambler.gamblerChipsMax += gamblerChip;
-				modPlayer.modPlayerGuardian.GuardianBlockMax += guardianBlock;
+				modPlayer.modPlayerGuardian.GuardianGuardMax += guardianBlock;
 			}
 		}
 

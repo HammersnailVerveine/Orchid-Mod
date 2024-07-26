@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 			player.GetCritChance<GuardianDamageClass>() += 12;
 			player.GetDamage<GuardianDamageClass>() += 0.12f;
 			modPlayer.GuardianSlamMax += 1;
-			modPlayer.GuardianBlockMax += 1;
+			modPlayer.GuardianGuardMax += 1;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

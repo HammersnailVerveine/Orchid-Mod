@@ -39,6 +39,9 @@ namespace OrchidMod.Content.Guardian.UI
 		public static Texture2D blockOn;
 		public static Texture2D blockOff;
 
+		public static Texture2D textureIconStandard;
+		public static Texture2D textureIconRune;
+
 		public override int InsertionIndex(List<GameInterfaceLayer> layers)
 			=> layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
 		public override void OnInitialize()
@@ -68,6 +71,9 @@ namespace OrchidMod.Content.Guardian.UI
 			blockOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOn", AssetRequestMode.ImmediateLoad).Value;
 			blockOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOff", AssetRequestMode.ImmediateLoad).Value;
 
+			textureIconStandard ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconStandard", AssetRequestMode.ImmediateLoad).Value;
+			textureIconRune ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconRune", AssetRequestMode.ImmediateLoad).Value;
+
 			Width.Set(0f, 0f);
 			Height.Set(0f, 0f);
 			Left.Set(Main.screenWidth / 2, 0f);
@@ -88,14 +94,16 @@ namespace OrchidMod.Content.Guardian.UI
 				Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height + player.gfxOffY + 12 : 10 + player.gfxOffY)).Floor();
 				position = Vector2.Transform(position - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
 
-				int offSet = (int)(modPlayer.GuardianBlockMax / 2f * (textureBlockOn.Width + 2));
-				for (int i = 0; i < modPlayer.GuardianBlockMax; i++)
+				int offSet = (int)(modPlayer.GuardianGuardMax / 2f * (textureBlockOn.Width + 2));
+				int offSetIcons = offSet;
+				for (int i = 0; i < modPlayer.GuardianGuardMax; i++)
 				{
-					Texture2D texture = modPlayer.GuardianBlock > i ? textureBlockOn : textureBlockOff;
+					Texture2D texture = modPlayer.GuardianGuard > i ? textureBlockOn : textureBlockOff;
 					spriteBatch.Draw(texture, new Vector2(position.X - offSet + (textureBlockOn.Width + 2) * i, position.Y), Color.White);
 				}
 
 				offSet = (int)(modPlayer.GuardianSlamMax / 2f * (textureSlamOn.Width + 2));
+				if (offSet > offSetIcons) offSetIcons = offSet; // Calculates the offset for banner and rune icon based on the largest offset between block (guard) and slam stacks
 				for (int i = 0; i < modPlayer.GuardianSlamMax; i++)
 				{
 					bool check = modPlayer.GuardianSlam > i;
@@ -103,6 +111,21 @@ namespace OrchidMod.Content.Guardian.UI
 					spriteBatch.Draw(texture, new Vector2(position.X - offSet + 18 * i, position.Y + 18), Color.White);
 					if (modPlayer.SlamCostUI > i)
 						spriteBatch.Draw(textureSlamHighlight, new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16), (check ? Color.White * 0.8f : Color.DarkGray) * 0.8f);
+				}
+
+				offSet = (int)((textureIconRune.Width + 2) * 0.5f);
+				if (modPlayer.RuneProjectiles.Count > 0)
+				{
+					float colorMult = modPlayer.RuneProjectiles[0].timeLeft > 275 ? 1f : (float)Math.Abs(Math.Sin((modPlayer.RuneProjectiles[0].timeLeft * 0.5f) / Math.PI / 4f));
+					offSet = (int)(offSet * (modPlayer.StandardAnchor == null ? 1f : 2f));
+					spriteBatch.Draw(textureIconRune, new Vector2(position.X - offSet, position.Y + 36), Color.White * colorMult);
+					offSet -= textureIconRune.Width + 2;
+				}
+
+				if (modPlayer.StandardAnchor != null)
+				{
+					float colorMult = modPlayer.StandardAnchor.ai[1] > 275 ? 1f : (float)Math.Abs(Math.Sin((modPlayer.StandardAnchor.ai[1] * 0.5f) / Math.PI / 4f));
+					spriteBatch.Draw(textureIconStandard, new Vector2(position.X - offSet, position.Y + 36), Color.White * colorMult);
 				}
 
 				if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)

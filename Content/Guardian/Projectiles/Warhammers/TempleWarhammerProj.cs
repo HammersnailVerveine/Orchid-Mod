@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 {
-	public class TempleWarhammerProj : OrchidModProjectile
+	public class TempleWarhammerProj : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
@@ -81,7 +81,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 			}
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			if (Projectile.penetrate == 1)
 			{

@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Shields
 {
-	public class MagnetosphereShieldProj : OrchidModProjectile
+	public class MagnetosphereShieldProj : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
@@ -44,7 +44,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 				OldRotation.RemoveAt(0);
 			}
 		}
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			if (Projectile.timeLeft > 30) Projectile.timeLeft = 30;
 		}

@@ -20,11 +20,12 @@ namespace OrchidMod
 
 		// Can be edited by gear
 
-		public float GuardianRecharge = 1f; // Natural guardian slam/block regeneration multiplier
-		public int GuardianBlockMax = 3; // Max block charges
+		public float GuardianRecharge = 1f; // Natural guardian slam/guard regeneration multiplier
+		public int GuardianGuardMax = 3; // Max guard charges
 		public int GuardianSlamMax = 3; // Max slam charges
 		public int GuardianBonusRune = 0; // Bonus projectiles spawned by runes
 		public float GuardianRuneTimer = 1f; // Rune duration multiplier
+		public float GuardianStandardTimer = 1f; // Standard duration multiplier
 		public float GuardianSlamDistance = 1f; // Slam Distance multiplier
 		public float GuardianBlockDuration = 1f; // Block Duration multiplier
 
@@ -40,9 +41,9 @@ namespace OrchidMod
 
 		// Dynamic gameplay and UI fields
 
-		public int GuardianBlock = 0;
+		public int GuardianGuard = 0;
 		public int GuardianSlam = 0;
-		public int GuardianBlockRecharge = 0;
+		public int GuardianGuardRecharge = 0;
 		public int GuardianSlamRecharge = 0;
 		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
 		public float GuardianHammerCharge = 0f; // Player Warhammer Throw Charge, max is 180f
@@ -53,6 +54,7 @@ namespace OrchidMod
 		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
+		public Projectile StandardAnchor;
 
 		public static int GuardianRechargeTime = 600;
 
@@ -73,7 +75,7 @@ namespace OrchidMod
 
 		public override void OnRespawn()
 		{
-			GuardianBlock = GuardianBlockMax;
+			GuardianGuard = GuardianGuardMax;
 			GuardianSlam = 1;
 		}
 
@@ -93,15 +95,15 @@ namespace OrchidMod
 		{
 			if (GuardianRecharge <= 0f) GuardianRecharge = 0.005f; // Failsafe in case of excessive recharge
 
-			if (GuardianBlock == GuardianBlockMax)
+			if (GuardianGuard == GuardianGuardMax)
 			{
-				GuardianBlockRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
+				GuardianGuardRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
 			}
 
-			if (GuardianBlockRecharge == 0)
+			if (GuardianGuardRecharge == 0)
 			{
-				GuardianBlock++;
-				GuardianBlockRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
+				GuardianGuard++;
+				GuardianGuardRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
 			}
 
 			if (GuardianSlam > 0)
@@ -119,7 +121,7 @@ namespace OrchidMod
 				GuardianSlamRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
 			}
 
-			GuardianBlockRecharge--;
+			GuardianGuardRecharge--;
 			GuardianSlamRecharge--;
 			GuardianDisplayUI--;
 
@@ -142,13 +144,16 @@ namespace OrchidMod
 
 			SlamCostUI = 0;
 
-			if (GuardianBlock > GuardianBlockMax) GuardianBlock = GuardianBlockMax;
+			if (GuardianGuard > GuardianGuardMax) GuardianGuard = GuardianGuardMax;
 			if (GuardianSlam > GuardianSlamMax) GuardianSlam = GuardianSlamMax;
+
+			StandardAnchor = null;
+			RuneProjectiles.Clear();
 
 			// Resetting equipment variables
 
 			GuardianRecharge = 1f;
-			GuardianBlockMax = 3;
+			GuardianGuardMax = 3;
 			GuardianSlamMax = 3;
 			GuardianBonusRune = 0;
 			GuardianRuneTimer = 1f;
@@ -181,11 +186,11 @@ namespace OrchidMod
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
-			if (!Player.HasBuff<BambooCooldown>() && GuardianBamboo && GuardianBlock < GuardianBlockMax)
+			if (!Player.HasBuff<BambooCooldown>() && GuardianBamboo && GuardianGuard < GuardianGuardMax)
 			{
 				Player.AddBuff(ModContent.BuffType<BambooCooldown>(), 600);
 				SoundEngine.PlaySound(SoundID.Item37, Player.Center);
-				AddBlock(1);
+				AddGuard(1);
 				if (GuardianDisplayUI < 0) GuardianDisplayUI = 0;
 			}
 		}
@@ -243,15 +248,15 @@ namespace OrchidMod
 			}
 		}
 
-		public void AddBlock(int nb)
+		public void AddGuard(int nb)
 		{
-			if (GuardianBlock + nb > GuardianBlockMax) nb = GuardianBlockMax - GuardianBlock;
+			if (GuardianGuard + nb > GuardianGuardMax) nb = GuardianGuardMax - GuardianGuard;
 			if (nb > 0)
 			{
 				Rectangle rect = Player.Hitbox;
 				rect.Y -= 64;
-				CombatText.NewText(rect, Color.LightSkyBlue, "+" + nb + " block" + (nb > 1 ? "s" : ""), false, true);
-				GuardianBlock += nb;
+				CombatText.NewText(rect, Color.LightSkyBlue, "+" + nb + " guard" + (nb > 1 ? "s" : ""), false, true);
+				GuardianGuard += nb;
 			}
 		}
 

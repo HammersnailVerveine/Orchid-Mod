@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			modPlayer.GuardianSlamMax += 2;
-			modPlayer.GuardianBlockMax += 2;
+			modPlayer.GuardianGuardMax += 2;
 			player.GetDamage<GuardianDamageClass>() += 0.12f;
 		}
 

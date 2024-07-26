@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 {
-	public class SpiderGauntletProjectile : OrchidModProjectile
+	public class SpiderGauntletProjectile : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		private static Texture2D TextureAlt;
@@ -46,7 +46,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			if (Projectile.ai[1] > 20) Projectile.velocity *= 0.8f;
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			if (Main.rand.NextBool(5) || Projectile.ai[0] == 1f) target.AddBuff(BuffID.Venom, 240 + Main.rand.Next(120));
 		}

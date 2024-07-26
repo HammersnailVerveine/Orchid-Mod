@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 {
-	public class MagnetosphereWarhammerProj : OrchidModProjectile
+	public class MagnetosphereWarhammerProj : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;

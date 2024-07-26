@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ID;
-using OrchidMod.Content.Gambler.UI;
+using OrchidMod.Content.Alchemist.Misc;
+using OrchidMod.Content.Gambler.Misc;
+using OrchidMod.Content.Guardian.Misc;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -21,6 +18,7 @@ namespace OrchidMod.Common.Global.NPCs
 
 		public bool AlchemistHit = false;
 		public bool GamblerHit = false;
+		public bool GuardianHit = false;
 		public bool ShamanWater = false;
 		public bool ShamanWind = false;
 
@@ -103,12 +101,20 @@ namespace OrchidMod.Common.Global.NPCs
 		{
 			if (AlchemistHit && Main.rand.NextBool(4))
 			{
-				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Content.Alchemist.Misc.Potency>());
+				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Potency>());
 			}
+
 			if (GamblerHit && Main.rand.NextBool(4))
 			{
-				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Content.Gambler.Misc.Chip>());
+				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Chip>());
 			}
+
+			if (GuardianHit && Main.rand.NextBool(4))
+			{
+				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Guard>());
+			}
+
+			Main.NewText(GuardianHit);
 		}
 	}
 }

@@ -1,7 +1,6 @@
 using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Guardian;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -29,11 +28,6 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Sap Bubble");
 		}
 
 		public override void SafeOnSpawn(IEntitySource source)

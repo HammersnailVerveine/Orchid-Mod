@@ -10,7 +10,7 @@ using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Shields
 {
-	public class EnchantedPaviseProj : OrchidModProjectile
+	public class EnchantedPaviseProj : OrchidModGuardianProjectile
 	{
 		public override void AltSetDefaults()
 		{

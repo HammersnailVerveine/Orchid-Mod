@@ -221,7 +221,7 @@ Buffs: {
 
 	BambooCooldown: {
 		DisplayName: Bamboo Cooldown
-		Description: Cannot generate block charges by taking damage
+		Description: Cannot generate guard charges by taking damage
 	}
 
 	GuardianGitBuff: {
@@ -2636,7 +2636,7 @@ Items: {
 
 	GuardianBambooHead: {
 		DisplayName: Bamboo Helmet
-		Tooltip: +1 block charge
+		Tooltip: +1 guard charge
 	}
 
 	GuardianBambooChest: {
@@ -2663,7 +2663,7 @@ Items: {
 		Tooltip:
 			'''
 			5% increased opposing damage
-			+1 block charge
+			+1 guard charge
 			'''
 	}
 
@@ -2690,7 +2690,7 @@ Items: {
 		Tooltip:
 			'''
 			12% increased opposing damage
-			+2 block and slam charges
+			+2 guard and slam charges
 			'''
 	}
 
@@ -2708,7 +2708,7 @@ Items: {
 		Tooltip:
 			'''
 			12% increased opposing damage and critical strike chance
-			+1 block and slam charges
+			+1 guard and slam charges
 			'''
 	}
 
@@ -2717,7 +2717,7 @@ Items: {
 		Tooltip:
 			'''
 			15% increased opposing damage and 8% increased opposing critical strike chance
-			+1 block and slam charges
+			+1 guard and slam charges
 			'''
 	}
 
@@ -2726,7 +2726,7 @@ Items: {
 		Tooltip:
 			'''
 			12% increased opposing damage and critical strike chance
-			+2 block charges and 1 slam charge
+			+2 guard charges and 1 slam charge
 			'''
 	}
 
@@ -2735,7 +2735,7 @@ Items: {
 		Tooltip:
 			'''
 			16% increased opposing damage
-			+1 block charge and 2 slam charges
+			+1 guard charge and 2 slam charges
 			'''
 	}
 
@@ -2832,7 +2832,7 @@ Items: {
 		Tooltip:
 			'''
 			10% increased opposing damage and movement speed
-			+1 block and slam charges
+			+1 guard and slam charges
 			'''
 	}
 
@@ -2841,7 +2841,7 @@ Items: {
 		Tooltip:
 			'''
 			11% increased opposing damage and 10% increased opposing critical strike chance
-			+1 block and slam charges
+			+1 guard and slam charges
 			'''
 	}
 
@@ -2850,7 +2850,7 @@ Items: {
 		Tooltip:
 			'''
 			18% increased opposing damage and 7% increased movement speed
-			+1 block and slam charges
+			+1 guard and slam charges
 			'''
 	}
 
@@ -2859,7 +2859,7 @@ Items: {
 		Tooltip:
 			'''
 			16% increased opposing damage
-			+1 block and slam charges
+			+1 guard and slam charges
 			'''
 	}
 
@@ -2872,7 +2872,7 @@ Items: {
 		DisplayName: Gud Knight Helmet
 		Tooltip:
 			'''
-			+1 block and slam charges
+			+1 guard and slam charges
 			Can be paired with ore armor
 			'''
 	}
@@ -2882,14 +2882,19 @@ Items: {
 		Tooltip: Increases the number of guardian rune projectiles
 	}
 
+	Guard: {
+		DisplayName: Guard
+		Tooltip: ""
+	}
+
 	SilverGauntlet: {
 		DisplayName: Silver Gauntlets
-		Tooltip: Grants a block after a fully charged hit
+		Tooltip: Grants a guard after a fully charged hit
 	}
 
 	TungstenGauntlet: {
 		DisplayName: Tungsten Gauntlets
-		Tooltip: Grants a block after a fully charged hit
+		Tooltip: Grants a guard after a fully charged hit
 	}
 
 	JungleGauntlet: {
@@ -2913,6 +2918,21 @@ Items: {
 
 	IceStandard: {
 		DisplayName: Ice Standard
+		Tooltip: ""
+	}
+
+	Block: {
+		DisplayName: Block
+		Tooltip: ""
+	}
+
+	NanitesGauntlet: {
+		DisplayName: Nanites Gauntlet
+		Tooltip: ""
+	}
+
+	CopperStandard: {
+		DisplayName: Copper Standard
 		Tooltip: ""
 	}
 }

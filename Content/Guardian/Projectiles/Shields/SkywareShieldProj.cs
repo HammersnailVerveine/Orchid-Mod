@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Shields
 {
-	public class SkywareShieldProj : OrchidModProjectile
+	public class SkywareShieldProj : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
@@ -74,7 +74,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 				OldRotation.RemoveAt(0);
 			}
 		}
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			Projectile.penetrate = -1;
 			Projectile.friendly = false;

@@ -66,17 +66,6 @@ namespace OrchidMod.Content.Guardian
 			Projectile.ai[2] = 0f;
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			var owner = Main.player[Projectile.owner];
-			var item = GauntletItem;
-			if (item == null || !(item.ModItem is OrchidModGuardianGauntlet guardianItem))
-			{
-				Projectile.Kill();
-				return;
-			}
-		}
-
 		public override void AI()
 		{
 			var owner = Main.player[Projectile.owner];
@@ -290,6 +279,24 @@ namespace OrchidMod.Content.Guardian
 
 			if (guardianItem.PreDrawGauntlet(spriteBatch, Projectile, player, ref color))
 			{
+				if (guardianItem.hasArm)
+				{
+					var effectArm = player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+					var textureArm = ModContent.Request<Texture2D>(guardianItem.ArmTexture).Value;
+					float armRotation = player.compositeFrontArm.rotation + MathHelper.PiOver2 * (player.direction == -1 ? 1.5f : 0.5f);
+					if (Blocking) armRotation += MathHelper.PiOver4 * -0.5f * player.direction;
+					Vector2 armPosition = Vector2.Transform(player.Center.Floor() + new Vector2(6 * -player.direction, -2.5f) - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+					spriteBatch.Draw(textureArm, armPosition, null, color, armRotation, textureArm.Size() * 0.5f, Projectile.scale, effectArm, 0f);
+				}
+
+				if (guardianItem.hasShoulder)
+				{
+					var effectShoulder = player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+					var textureShoulder = ModContent.Request<Texture2D>(guardianItem.ShoulderTexture).Value;
+					Vector2 shouldePosition = Vector2.Transform(player.Center.Floor() + new Vector2(6 * -player.direction, -3f) - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+					spriteBatch.Draw(textureShoulder, shouldePosition, null, color, 0f, textureShoulder.Size() * 0.5f, Projectile.scale, effectShoulder, 0f);
+				}
+
 				var texture = ModContent.Request<Texture2D>(guardianItem.GauntletTexture).Value;
 				var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				float rotation = Projectile.rotation;

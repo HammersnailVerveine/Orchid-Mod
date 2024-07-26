@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class HammerThrow : OrchidModProjectile
+	public class HammerThrow : OrchidModGuardianProjectile
 	{
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
@@ -344,10 +344,8 @@ namespace OrchidMod.Content.Guardian
 			return false;
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
-			Player player = Main.player[Projectile.owner];
-			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 			if (Projectile.ai[1] > 0)
 			{ // Throw
 				bool weak = WeakThrow();
@@ -356,7 +354,7 @@ namespace OrchidMod.Content.Guardian
 					if (!weak)
 					{
 						guardian.AddSlam(HammerItem.slamStacks);
-						guardian.AddBlock(HammerItem.blockStacks);
+						guardian.AddGuard(HammerItem.blockStacks);
 					}
 					hitTarget = true;
 					HammerItem.OnThrowHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit, weak);

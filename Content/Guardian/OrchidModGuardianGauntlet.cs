@@ -15,7 +15,12 @@ namespace OrchidMod.Content.Guardian
 {
 	public abstract class OrchidModGuardianGauntlet : OrchidModGuardianItem
 	{
+		public bool hasArm = false;
+		public bool hasShoulder = false;
+
 		public virtual string GauntletTexture => Texture + "_Gauntlet";
+		public virtual string ArmTexture => Texture + "_Arm";
+		public virtual string ShoulderTexture => Texture + "_Shoulder";
 		public virtual void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info) { }
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
@@ -74,12 +79,12 @@ namespace OrchidMod.Content.Guardian
 					{ // At least one of the gauntlets is not being used or both are blocking
 						if (Main.mouseRight && Main.mouseRightRelease)
 						{ // Right click & None of the gauntlets is blocking = Block
-							if (guardian.GuardianBlock > 0 && projectileMain.ai[0] <= 0f && projectileOff.ai[0] <= 0f)
+							if (guardian.GuardianGuard > 0 && projectileMain.ai[0] <= 0f && projectileOff.ai[0] <= 0f)
 							{
 								player.immuneTime = 0;
 								player.immune = false;
 								SoundEngine.PlaySound(SoundID.Item37, player.Center);
-								guardian.GuardianBlock--;
+								guardian.GuardianGuard--;
 								if (projectileMain.ai[0] == 0)
 								{
 									projectileMain.ai[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());

@@ -88,10 +88,10 @@ namespace OrchidMod.Content.Guardian
 								proj.netUpdate2 = true;
 							}
 						} else { // Left click
-							if (proj.ai[1] + proj.ai[0] == 0f && guardian.GuardianBlock > 0) 
+							if (proj.ai[1] + proj.ai[0] == 0f && guardian.GuardianGuard > 0) 
 							{
 								shield.shieldEffectReady = true;
-								guardian.GuardianBlock --;
+								guardian.GuardianGuard --;
 								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
 								proj.netUpdate = true;
 								proj.netUpdate2 = true;

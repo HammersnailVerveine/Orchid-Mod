@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Shields
 {
-	public class SpectreShieldProj : OrchidModProjectile
+	public class SpectreShieldProj : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
@@ -82,7 +82,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 			}
 		}
 
-		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			Cooldown = Main.rand.Next(30);
 			if (Projectile.penetrate == 1)

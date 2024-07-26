@@ -3,23 +3,25 @@ using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.DataStructures;
 
-namespace OrchidMod.Content.Guardian.Projectiles
+namespace OrchidMod.Content.Guardian
 {
-	public abstract class GuardianRuneProjectile : OrchidModProjectile
+	public abstract class GuardianRuneProjectile : OrchidModGuardianProjectile
 	{
 		public Player owner;
 		public OrchidGuardian guardian;
 
 		public virtual bool SafeAI() => true;
-		public virtual void SafeOnSpawn(IEntitySource source) {}
+		public virtual void SafeOnSpawn(IEntitySource source) { }
 		public float Distance => Projectile.ai[0];
 		public float Angle => Projectile.ai[1];
 
-		public void Spin(float val) {
+		public void Spin(float val)
+		{
 			Projectile.ai[1] += val;
 		}
 
-		public void SetDistance(float val) {
+		public void SetDistance(float val)
+		{
 			Projectile.ai[0] = val;
 		}
 
@@ -41,6 +43,7 @@ namespace OrchidMod.Content.Guardian.Projectiles
 
 		public sealed override void AI()
 		{
+			guardian.RuneProjectiles.Add(Projectile);
 			if (owner.dead) Projectile.Kill();
 			if (SafeAI())
 			{

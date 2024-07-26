@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Shields
 {
-	public class BijouShieldProj : OrchidModProjectile
+	public class BijouShieldProj : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
