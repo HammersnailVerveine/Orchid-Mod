@@ -89,7 +89,7 @@ namespace OrchidMod.Content.Guardian
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			if (blockStacks > 0) {
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.blockStacks + " shield block" + (this.blockStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.blockStacks + " guard charge" + (this.blockStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
@@ -97,7 +97,7 @@ namespace OrchidMod.Content.Guardian
 
 			if (slamStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.slamStacks + " shield slam" + (this.slamStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.slamStacks + " slam charge" + (this.slamStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});

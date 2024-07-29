@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,7 @@ namespace OrchidMod.Content.Guardian
 		public int TimeSpent = 0;
 		public bool Ding = false;
 		public bool Worn => Projectile.ai[1] > 0f; // Standard buff remaining duration
-		public bool Charged => Projectile.ai[2] == 1f; // Has the item been used twice (stronger effects)
+		public bool Reinforced => Projectile.ai[2] == 1f && ((BuffItem == StandardItem) || (Main.player[Projectile.owner].HeldItem.ModItem is not OrchidModGuardianStandard && Worn)); // Has the item been used twice (stronger effects)
 		public Item BuffItem = null;
 		public int SelectedItem { get; set; } = -1;
 		public Item StandardItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
@@ -100,9 +101,9 @@ namespace OrchidMod.Content.Guardian
 						{
 							foreach (Player player in Main.player)
 							{
-								if (player.active && !player.dead)
+								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (guardianItem.auraRange + player.width * 0.5f))
 								{
-									buffItem.NearbyPlayerEffect(owner, guardian, player == owner, Charged);
+									buffItem.NearbyPlayerEffect(owner, guardian, player == owner, Projectile.ai[2] == 1f);
 								}
 							}
 						}
@@ -111,9 +112,9 @@ namespace OrchidMod.Content.Guardian
 						{
 							foreach (NPC npc in Main.npc)
 							{
-								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < guardianItem.auraRange + npc.width * 0.5f)
+								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < (guardianItem.auraRange + npc.width * 0.5f))
 								{
-									buffItem.NearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Charged);
+									buffItem.NearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Projectile.ai[2] == 1f);
 								}
 							}
 						}
@@ -149,14 +150,32 @@ namespace OrchidMod.Content.Guardian
 						if (guardian.GuardianStandardCharge >= 180f)
 						{
 							SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
-							if (BuffItem == StandardItem && !Charged) Projectile.ai[2] = 1f;
-							else if (BuffItem != StandardItem) Projectile.ai[2] = 0f;
+
+							if (BuffItem == StandardItem && !Reinforced)
+							{
+								Projectile.ai[2] = 1f;
+								CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced");
+							}
+							else
+							{
+								if (BuffItem != StandardItem) Projectile.ai[2] = 0f;
+								if (!Reinforced) CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Charged", false);
+							}
+
 							BuffItem = StandardItem;
 							Projectile.ai[1] = guardianItem.duration * guardian.GuardianStandardTimer;
 							Projectile.netUpdate = true;
 
 							guardian.AddGuard(guardianItem.guardStacks);
 							guardian.AddSlam(guardianItem.slamStacks);
+
+							int projectileType = ModContent.ProjectileType<StandardAuraProjectile>();
+							Projectile auraProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), owner.Center, Vector2.Zero, projectileType, 0, 0f, owner.whoAmI);
+							if (auraProj.ModProjectile is StandardAuraProjectile aura)
+							{
+								aura.SelectedItem = SelectedItem;
+								auraProj.netUpdate = true;
+							}
 						}
 
 						guardian.GuardianStandardCharge = 0;
@@ -219,9 +238,12 @@ namespace OrchidMod.Content.Guardian
 			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
 			if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not OrchidModGuardianStandard) color *= Projectile.ai[1] / 30f;
 
+			if (player.HeldItem.ModItem is not OrchidModGuardianStandard && Worn) guardianItem = (OrchidModGuardianStandard)BuffItem.ModItem;
+
 			if (guardianItem.PreDrawStandard(spriteBatch, Projectile, player, ref color))
 			{
 				var texture = ModContent.Request<Texture2D>(guardianItem.ShaftTexture).Value;
+
 				var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 				spriteBatch.Draw(texture, drawPosition, null, color, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
@@ -230,17 +252,31 @@ namespace OrchidMod.Content.Guardian
 				float flagRotation = MathHelper.PiOver4 * Projectile.localAI[1] * 0.5f + (float)Math.Sin(TimeSpent * (Math.Abs(windSpeed) > 0.05f ? windSpeed : 0.05f)) * 0.1f;
 				Vector2 flagOffset = Vector2.UnitX.RotatedBy(Projectile.rotation) * -1.5f * Projectile.localAI[1];
 
-				texture = ModContent.Request<Texture2D>(guardianItem.FlagEndTexture).Value;
-				spriteBatch.Draw(texture, drawPosition + flagOffset * 1.3f, null, color, Projectile.rotation + flagRotation * 2.5f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				Texture2D textureEnd = ModContent.Request<Texture2D>(guardianItem.FlagEndTexture).Value;
+				Texture2D textureQuarter = ModContent.Request<Texture2D>(guardianItem.FlagTwoQuarterTexture).Value;
+				Texture2D textureTwoQuarter = ModContent.Request<Texture2D>(guardianItem.FlagQuarterTexture).Value;
+				Texture2D textureUp = ModContent.Request<Texture2D>(guardianItem.FlagUpTexture).Value;
 
-				texture = ModContent.Request<Texture2D>(guardianItem.FlagTwoQuarterTexture).Value;
-				spriteBatch.Draw(texture, drawPosition + flagOffset * 1.2f, null, color, Projectile.rotation + flagRotation * 1.8f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				if (Reinforced)
+				{
+					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
-				texture = ModContent.Request<Texture2D>(guardianItem.FlagQuarterTexture).Value;
-				spriteBatch.Draw(texture, drawPosition + flagOffset * 1.1f, null, color, Projectile.rotation + flagRotation * 1.1f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+					Color glowColor = guardianItem.GetColor();
+					if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not OrchidModGuardianStandard) glowColor *= Projectile.ai[1] / 30f;
+					spriteBatch.Draw(textureEnd, drawPosition + flagOffset * 1.3f, null, glowColor, Projectile.rotation + flagRotation * 2.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+					spriteBatch.Draw(textureQuarter, drawPosition + flagOffset * 1.2f, null, glowColor, Projectile.rotation + flagRotation * 1.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+					spriteBatch.Draw(textureTwoQuarter, drawPosition + flagOffset * 1.1f, null, glowColor, Projectile.rotation + flagRotation * 1f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+					spriteBatch.Draw(textureUp, drawPosition + flagOffset, null, glowColor, Projectile.rotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
 
-				texture = ModContent.Request<Texture2D>(guardianItem.FlagUpTexture).Value;
-				spriteBatch.Draw(texture, drawPosition + flagOffset, null, color, Projectile.rotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+					spriteBatch.End();
+					spriteBatch.Begin(spriteBatchSnapshot);
+				}
+
+				spriteBatch.Draw(textureEnd, drawPosition + flagOffset * 1.3f, null, color, Projectile.rotation + flagRotation * 2.4f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(textureQuarter, drawPosition + flagOffset * 1.2f, null, color, Projectile.rotation + flagRotation * 1.4f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(textureTwoQuarter, drawPosition + flagOffset * 1.1f, null, color, Projectile.rotation + flagRotation * 1f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(textureUp, drawPosition + flagOffset, null, color, Projectile.rotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawStandard(spriteBatch, Projectile, player, color);
 

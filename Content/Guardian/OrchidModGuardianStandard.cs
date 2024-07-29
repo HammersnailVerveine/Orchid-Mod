@@ -34,7 +34,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void ExtraAIStandard(Projectile projectile) { }
 		public virtual void PostDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
-		public virtual Color GetColor(bool offHand) => Color.White;
+		public virtual Color GetColor() => Color.White;
 
 		public virtual void SafeHoldItem(Player player) { }
 
@@ -49,7 +49,7 @@ namespace OrchidMod.Content.Guardian
 			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.useTime = 30;
 			Item.knockBack = 0f;
-			Item.damage = 0;
+			Item.damage = 1;
 			slamStacks = 0;
 			guardStacks = 0;
 			flagOffset = 0;
@@ -149,19 +149,11 @@ namespace OrchidMod.Content.Guardian
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
-			if (tt != null)
-			{
-				string[] splitText = tt.Text.Split(' ');
-				string damageValue = splitText.First();
-				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
-			}
-
-			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("ItemName"));
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 
 			if (guardStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.guardStacks + " shield block" + (this.guardStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.guardStacks + " guard charge" + (this.guardStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
@@ -169,11 +161,15 @@ namespace OrchidMod.Content.Guardian
 
 			if (slamStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.slamStacks + " shield slam" + (this.slamStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.slamStacks + " slam charge" + (this.slamStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
+
+			tooltips.RemoveAll(x => x.Name == "Damage" && x.Mod == "Terraria");
+			tooltips.RemoveAll(x => x.Name == "Knockback" && x.Mod == "Terraria");
+			tooltips.RemoveAll(x => x.Name == "CritChance" && x.Mod == "Terraria");
 		}
 	}
 }

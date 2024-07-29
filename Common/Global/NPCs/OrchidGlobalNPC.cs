@@ -113,8 +113,6 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Guard>());
 			}
-
-			Main.NewText(GuardianHit);
 		}
 	}
 }

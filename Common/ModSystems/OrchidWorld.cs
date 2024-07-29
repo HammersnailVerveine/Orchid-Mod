@@ -29,6 +29,7 @@ using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.Shaman.Weapons.Hardmode;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
+using OrchidMod.Content.Guardian.Weapons.Standards;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -276,6 +277,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<IceChestFlask>(), ChestType.Ice, 20));
 			chestLoots.Add(new ChestLoot(ItemType<IceChestCard>(), ChestType.Ice, 20));
 			chestLoots.Add(new ChestLoot(ItemType<AvalancheScepter>(), ChestType.Ice, 20));
+			chestLoots.Add(new ChestLoot(ItemType<IceStandard>(), ChestType.Ice, 20));
 
 			// Dungeon Chests (Locked)
 			chestLoots.Add(new ChestLoot(ItemType<TiamatRelic>(), ChestType.DungeonLocked, 50, 1, 3, true));

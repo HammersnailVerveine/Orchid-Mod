@@ -2916,11 +2916,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	IceStandard: {
-		DisplayName: Ice Standard
-		Tooltip: ""
-	}
-
 	Block: {
 		DisplayName: Block
 		Tooltip: ""
@@ -2931,9 +2926,31 @@ Items: {
 		Tooltip: ""
 	}
 
+	IceStandard: {
+		DisplayName: Ice Standard
+		Tooltip:
+			'''
+			Fully charging continuously slows nearby enemies
+			When reinforced, defense increases by 5
+			'''
+	}
+
 	CopperStandard: {
 		DisplayName: Copper Standard
-		Tooltip: ""
+		Tooltip:
+			'''
+			Fully charging increases defense by 3
+			When reinforced, defense further increases to 7
+			'''
+	}
+
+	TinStandard: {
+		DisplayName: Tin Standard
+		Tooltip:
+			'''
+			Fully charging increases defense by 4
+			When reinforced, defense further increases to 8
+			'''
 	}
 }
 
@@ -3220,6 +3237,7 @@ Projectiles: {
 	GauntletPunchProjectile.DisplayName: Gauntlet
 	SpiderGauntletProjectile.DisplayName: Spider Gauntlet Projectile
 	GuardianStandardAnchor.DisplayName: Guardian Standard Anchor
+	StandardAuraProjectile.DisplayName: Standard Aura Projectile
 }
 
 Configs: {
