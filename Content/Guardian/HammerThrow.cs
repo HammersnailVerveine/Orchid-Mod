@@ -308,11 +308,22 @@ namespace OrchidMod.Content.Guardian
 		{
 			if (HammerTexture == null) return false;
 
+			float rotationBonus = 0f;
+
 			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
 			var position = Projectile.Center - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
-			var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			SpriteEffects effect;
+			if (Projectile.spriteDirection == 1)
+			{
+				effect = SpriteEffects.FlipHorizontally;
+				rotationBonus += MathHelper.PiOver2;
+			}
+			else
+			{
+				effect = SpriteEffects.None;
+				rotationBonus -= MathHelper.PiOver2;
+			}
 
-			float rotationBonus = 0f;
 			if (Projectile.ai[1] == 0)
 			{
 				Player player = Main.player[Projectile.owner];
@@ -337,7 +348,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * (((WeakThrow() ? 0.05f : 0.15f) * i));
 					position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
-					spriteBatch.Draw(HammerTexture, position, null, color, OldRotation[i], HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
+					spriteBatch.Draw(HammerTexture, position, null, color, OldRotation[i] + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 			}
 
