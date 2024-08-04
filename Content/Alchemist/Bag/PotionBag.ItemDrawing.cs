@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.Graphics;
+using OrchidMod.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -16,37 +16,35 @@ namespace OrchidMod.Content.Alchemist.Bag
 		{
 			if (dye.IsAir) return;
 
-			var sbInfo = new SpriteBatchInfo(spriteBatch);
 			var shader = GameShaders.Armor.GetShaderFromItemId(dye.type);
 			var texture = ModContent.Request<Texture2D>(Texture + "_Dye");
 			var rect = new Rectangle(0, 0, texture.Width(), texture.Height());
 
-			spriteBatch.End();
-			sbInfo.Begin(spriteBatch, SpriteSortMode.Immediate, BlendState.AlphaBlend, null);
+			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+			spriteBatch.Begin(spriteBatchSnapshot with { SortMode = SpriteSortMode.Immediate });
 
 			shader.Apply(Item, new DrawData(texture.Value, rect, lightColor));
 			spriteBatch.Draw(texture.Value, Item.Center - Main.screenPosition, rect, lightColor, rotation, texture.Size() * 0.5f, scale, SpriteEffects.None, 0f);
 
 			spriteBatch.End();
-			sbInfo.Begin(spriteBatch);
+			spriteBatch.Begin(spriteBatchSnapshot);
 		}
 
 		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
 		{
 			if (dye.IsAir) return;
 
-			var sbInfo = new SpriteBatchInfo(spriteBatch);
 			var shader = GameShaders.Armor.GetShaderFromItemId(dye.type);
 			var texture = ModContent.Request<Texture2D>(Texture + "_Dye");
 
-			spriteBatch.End();
-			sbInfo.Begin(spriteBatch, SpriteSortMode.Immediate, BlendState.AlphaBlend, null);
+			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+			spriteBatch.Begin(spriteBatchSnapshot with { SortMode = SpriteSortMode.Immediate });
 
 			shader.Apply(Item, new DrawData(texture.Value, frame, drawColor));
 			spriteBatch.Draw(texture.Value, position, frame, drawColor, 0f, origin, scale, SpriteEffects.None, 0f);
 
 			spriteBatch.End();
-			sbInfo.Begin(spriteBatch);
+			spriteBatch.Begin(spriteBatchSnapshot);
 		}
 
 		// ...
