@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.Graphics.Primitives;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -12,7 +11,7 @@ namespace OrchidMod.Utilities
 		public static void AddVertex(this List<VertexPositionColorTexture> vertices, Vector2 position, Color color, Vector2 texCoords)
 			=> vertices.Add(new(new Vector3(position - Main.screenPosition, 0), color, texCoords));
 
-		public static void UpdatePointsAsSimpleTrail(this PrimitiveStrip strip, Vector2 currentPosition, uint maxPoints, float? maxLength = null)
+		/*public static void UpdatePointsAsSimpleTrail(this PrimitiveStrip strip, Vector2 currentPosition, uint maxPoints, float? maxLength = null)
         {
             ref var points = ref strip.Points;
 
@@ -45,6 +44,6 @@ namespace OrchidMod.Utilities
             var vector = Vector2.Normalize(points[lastIndex] - points[lastIndex - 1]) * (maxLength - length) ?? Vector2.Zero;
             points.RemoveRange(lastIndex, points.Count - lastIndex);
             points.Add(points[lastIndex - 1] + vector);
-        }
+        }*/
     }
 }

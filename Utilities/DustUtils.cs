@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using OrchidMod.Common.Graphics;
 using System;
 using Terraria;
 
@@ -7,9 +6,6 @@ namespace OrchidMod.Utilities
 {
 	public static partial class OrchidUtils
 	{
-		public static void SetTransparentEffect(this Dust dust)
-			=> dust.shader = EffectLoader.GetTransparentDustShaderData();
-
 		public static void SpawnDustCircle(Vector2 center, float radius, int count, int type, Action<Dust> onSpawn = null)
 		{
 			for (int i = 0; i < count; i++)
