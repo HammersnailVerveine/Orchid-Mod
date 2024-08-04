@@ -2927,7 +2927,7 @@ Items: {
 	}
 
 	IceStandard: {
-		DisplayName: Ice Standard
+		DisplayName: Frozen Tirade
 		Tooltip:
 			'''
 			Fully charging continuously slows nearby enemies
