@@ -34,7 +34,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Air
 			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
 
 			this.dustVal++;
-			if (modPlayer.modPlayer.timer120 % 3 == 0)
+			if (modPlayer.modPlayer.Timer120 % 3 == 0)
 			{
 				this.spawnDust(sporeType, range);
 			}

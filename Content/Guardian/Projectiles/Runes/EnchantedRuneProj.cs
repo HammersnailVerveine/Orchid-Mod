@@ -55,7 +55,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			Spin(Projectile.frame == 0 ? 1.2f : -1.7f);
 			Projectile.rotation += (Projectile.frame == 0 ? 0.11f : 0.16f) * animDirection;
 
-			if (guardian.modPlayer.timer120 % 2 == 0)
+			if (guardian.modPlayer.Timer120 % 2 == 0)
 			{
 				OldPosition.Add(new Vector2(Projectile.Center.X, Projectile.Center.Y));
 				OldRotation.Add(0f + Projectile.rotation);

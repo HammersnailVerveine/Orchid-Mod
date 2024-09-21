@@ -56,8 +56,8 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			bushRightPos = Projectile.Center;
 			bushLeftPos.X -= (bushTexture.Width / 4);
 			bushRightPos.X += (bushTexture.Width / 4);
-			bushLeftPos.Y -= ((Math.Abs(modPlayer.modPlayer.timer120 - 60)) / 10) - (bushTexture.Height / 12) - 8;
-			bushRightPos.Y -= ((Math.Abs(modPlayer.modPlayer.timer120 - 60) * -1f) / 10) - (bushTexture.Height / 12 * -1f) - 8;
+			bushLeftPos.Y -= ((Math.Abs(modPlayer.modPlayer.Timer120 - 60)) / 10) - (bushTexture.Height / 12) - 8;
+			bushRightPos.Y -= ((Math.Abs(modPlayer.modPlayer.Timer120 - 60) * -1f) / 10) - (bushTexture.Height / 12 * -1f) - 8;
 			
 			Projectile.ai[0] --;
 			if (Projectile.ai[0] <= 0) {
@@ -112,7 +112,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 					newBounds.Y += proj.frame * newBounds.Height;
 					position.X -= (newBounds.Width - proj.width) / 2f;
 					position.Y -= (newBounds.Height - proj.height) / 2f;
-					float lightMult = 0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 90f);
+					float lightMult = 0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 90f);
 					spriteBatch.Draw(fruitTextureOutline, position, newBounds, lightColor * lightMult, proj.rotation, Vector2.Zero, proj.scale, SpriteEffects.None, 0f);
 					spriteBatch.Draw(fruitTexture, position, newBounds, lightColor, proj.rotation, Vector2.Zero, proj.scale, SpriteEffects.None, 0f);
 					

@@ -37,7 +37,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 		public override Color? GetAlpha(Color lightColor)
 		{
-			float lightMult = 0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 30f);
+			float lightMult = 0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 30f);
 			return lightColor * lightMult;
 		}
 
@@ -140,7 +140,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			arrowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Content/Gambler/Projectiles/SkyCardProjAlt_Arrow", AssetRequestMode.ImmediateLoad).Value;
 			Vector2 position = Projectile.Center - Main.screenPosition;
 			position.X -= arrowTexture.Width / 2f;
-			position.Y -= 40 + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 5f);
+			position.Y -= 40 + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 5f);
 			if (target != null) spriteBatch.Draw(arrowTexture, position, null, Color.White);
 			return true;
 		}

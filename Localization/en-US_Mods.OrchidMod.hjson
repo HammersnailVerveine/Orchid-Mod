@@ -2952,6 +2952,11 @@ Items: {
 			When reinforced, defense further increases to 8
 			'''
 	}
+
+	DesertStandard: {
+		DisplayName: Desert Standard
+		Tooltip: ""
+	}
 }
 
 NPCs: {

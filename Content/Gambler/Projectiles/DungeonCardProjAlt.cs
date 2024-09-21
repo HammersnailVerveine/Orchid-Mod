@@ -43,7 +43,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			NPC target = Main.npc[(int)Projectile.ai[1]];
 			Projectile.velocity *= 0.95f;
 
-			if (modPlayer.modPlayer.timer120 % 5 == 0)
+			if (modPlayer.modPlayer.Timer120 % 5 == 0)
 				Projectile.frame++;
 			if (Projectile.frame == 8)
 				Projectile.frame = 1;

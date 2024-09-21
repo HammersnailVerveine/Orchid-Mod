@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Content.Guardian;
+using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Common.ModObjects
@@ -17,17 +21,17 @@ namespace OrchidMod.Common.ModObjects
 		public int originalSelectedItem;
 		public bool autoRevertSelectedItem = false;
 
-		public int timer120 = 0;
+		public int PlayerImmunity = 0;
+		public int Timer120 = 0;
 		public int Timer = 0;
-		public int doubleTap = 0;
-		public int doubleTapCooldown = 0;
-		public bool doubleTapLock = false;
+		// public int doubleTap = 0;
+		// public int doubleTapCooldown = 0;
+		// public bool doubleTapLock = false;
 		public int keepSelected = -1;
 
-		/*General*/
-
-		public bool generalTools = false;
-		public bool generalStatic = false;
+		public Vector2 ForcedVelocityVector = Vector2.Zero; // vector the player will be moved every frame if ForcedVelocityTimer > 0, ignoring normal velocity
+		public float ForcedVelocityUpkeep = 0f; // Should the forced velocity be applied to the player velocity when it ends
+		public int ForcedVelocityTimer = 0; // How long should the forced velocity be kept
 
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
 		{
@@ -64,20 +68,47 @@ namespace OrchidMod.Common.ModObjects
 		public override void ResetEffects()
 		{
 			Timer++;
-			timer120++;
-			if (timer120 == 120)
-				timer120 = 0;
+			Timer120++;
+			if (Timer120 == 120)
+				Timer120 = 0;
 
 			remoteCopterPet = false;
-
-			generalTools = false;
-			generalStatic = false;
 
 			if (keepSelected != -1)
 			{
 				Player.selectedItem = keepSelected;
 				keepSelected = -1;
 			}
+
+			if (PlayerImmunity > 0) PlayerImmunity--;
+
+			if (ForcedVelocityTimer > 0)
+			{
+				if (ForcedVelocityTimer <= 0)
+				{
+					ForcedVelocityVector = Vector2.Zero;
+					ForcedVelocityUpkeep = 0f;
+				}
+				else
+				{
+					Player.velocity = Vector2.Zero;
+					Player.position += ForcedVelocityVector;
+					Player.velocity = ForcedVelocityVector * ForcedVelocityUpkeep;
+				}
+
+				ForcedVelocityTimer--;
+			}
+		}
+
+		public override bool FreeDodge(Player.HurtInfo info)
+		{
+			if (PlayerImmunity > 0)
+			{
+				SoundEngine.PlaySound(SoundID.Item1, Player.Center);
+				return true;
+			}
+
+			return false;
 		}
 
 		public void TryHeal(int amount)

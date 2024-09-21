@@ -204,7 +204,7 @@ namespace OrchidMod
 		public override void PostUpdateEquips()
 		{
 			int regenComparator = alchemistPotencyWait <= 120 ? alchemistPotencyWait <= 0 ? (int)(alchemistRegenPotency / 3) : (int)(alchemistRegenPotency / 2) : alchemistRegenPotency;
-			if (alchemistPotency < alchemistPotencyMax && ((alchemistRegenPotency > 0) ? modPlayer.timer120 % regenComparator == 0 : true))
+			if (alchemistPotency < alchemistPotencyMax && ((alchemistRegenPotency > 0) ? modPlayer.Timer120 % regenComparator == 0 : true))
 			{
 				alchemistPotencyDisplayTimer = 180;
 				alchemistPotency++;

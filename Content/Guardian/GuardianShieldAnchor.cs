@@ -398,7 +398,7 @@ namespace OrchidMod.Content.Guardian
 				//Projectile.width = texture.Width;
 				Projectile.width = texture.Height;
 				Projectile.height = texture.Height;
-				float colorMult = (Projectile.ai[1] + Projectile.ai[0] > 0 ? 1f : (0.4f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 120f)));
+				float colorMult = (Projectile.ai[1] + Projectile.ai[0] > 0 ? 1f : (0.4f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 120f)));
 				spriteBatch.Draw(texture, drawPosition, null, color * colorMult, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawShield(spriteBatch, Projectile, player, color);

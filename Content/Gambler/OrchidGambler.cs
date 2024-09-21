@@ -154,7 +154,7 @@ namespace OrchidMod
 			gamblerRedrawCooldownUse -= gamblerRedrawCooldownUse > 0 ? 1 : 0;
 			gamblerShuffleCooldown -= gamblerShuffleCooldown > 0 ? 1 : 0;
 			gamblerUIDisplayTimer = gamblerShuffleCooldown <= 0 && gamblerDieDuration <= 0 ? gamblerUIDisplayTimer > 0 ? gamblerUIDisplayTimer - 1 : gamblerUIDisplayTimer : 300;
-			if (gamblerChips > 0 && gamblerUIDisplayTimer <= 0 && modPlayer.timer120 % 60 == 0)
+			if (gamblerChips > 0 && gamblerUIDisplayTimer <= 0 && modPlayer.Timer120 % 60 == 0)
 			{
 				gamblerChips--;
 				gamblerUIDisplayTimer = gamblerChips == 0 ? 60 : 0;

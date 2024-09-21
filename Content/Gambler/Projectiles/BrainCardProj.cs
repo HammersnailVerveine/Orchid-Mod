@@ -84,7 +84,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 					{
 						if (this.bounceDelay <= 0)
 						{
-							if (modPlayer.modPlayer.timer120 % 2 == 0)
+							if (modPlayer.modPlayer.Timer120 % 2 == 0)
 							{
 								this.spawnDust(60, 100);
 							}

@@ -100,7 +100,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 					}
 				}
 			} else {
-				if (modPlayer.modPlayer.timer120 % 120 == 0)
+				if (modPlayer.modPlayer.Timer120 % 120 == 0)
 				{
 					Vector2 vel = (new Vector2(0f, -5f).RotatedByRandom(MathHelper.ToRadians(80)));
 					Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, vel.X, vel.Y, projType, 0, 0, Projectile.owner);

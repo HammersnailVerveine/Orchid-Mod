@@ -57,7 +57,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 			if (Main.myPlayer == Projectile.owner)
 			{
-				if (modPlayer.modPlayer.timer120 % 2 == 0)
+				if (modPlayer.modPlayer.Timer120 % 2 == 0)
 				{
 					this.spawnDust(59, 250);
 				}
@@ -88,7 +88,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 								Projectile.ai[1] = 1f;
 								Projectile.netUpdate = true;
 							}
-							if (modPlayer.modPlayer.timer120 % (int)(60 / this.projectilePoll) == 0)
+							if (modPlayer.modPlayer.Timer120 % (int)(60 / this.projectilePoll) == 0)
 							{
 								this.fireProj++;
 							}
@@ -113,7 +113,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 								Projectile.netUpdate = true;
 								this.fireProj = 0;
 							}
-							if (modPlayer.modPlayer.timer120 % 30 == 0)
+							if (modPlayer.modPlayer.Timer120 % 30 == 0)
 							{
 								this.projectilePoll += this.projectilePoll + 1 > 10 ? 0 : 1;
 							}

@@ -49,7 +49,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Sigil
 		{
 			Texture2D outlineTexture = GetOutlineTexture();
 			if (outlineTexture == null) return;
-			Color color = lightColor * (0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 90f));
+			Color color = lightColor * (0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 90f));
 			color.R += 20;
 			color.G += 20;
 			color.B += 20;

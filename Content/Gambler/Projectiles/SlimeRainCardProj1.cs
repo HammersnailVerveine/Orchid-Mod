@@ -32,12 +32,12 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
 			int cardType = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj ? modPlayer.gamblerCardDummy.type : modPlayer.gamblerCardCurrent.type;
 
-			if (modPlayer.modPlayer.timer120 % 20 == 0)
+			if (modPlayer.modPlayer.Timer120 % 20 == 0)
 			{
 				Projectile.frame += Projectile.frame + 1 == 3 ? -2 : 1;
 			}
 
-			if (modPlayer.modPlayer.timer120 % 30 == 0)
+			if (modPlayer.modPlayer.Timer120 % 30 == 0)
 			{
 				int projType = ProjectileType<Content.Gambler.Projectiles.SlimeRainCardProj2>();
 				bool dummy = Projectile.GetGlobalProjectile<OrchidGlobalProjectile>().gamblerDummyProj;

@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Alchemist.Buffs
 		public override void Update(Player player, ref int buffIndex)
 		{
 			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
-			if (modPlayer.modPlayer.timer120 % 60 == 0 && player.velocity.X != 0f)
+			if (modPlayer.modPlayer.Timer120 % 60 == 0 && player.velocity.X != 0f)
 			{
 				int projType = ProjectileType<Content.Alchemist.Projectiles.Water.BloodMoonFlaskProj>();
 				int itemType = ItemType<Alchemist.Weapons.Water.BloodMoonFlask>();

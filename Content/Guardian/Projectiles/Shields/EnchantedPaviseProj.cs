@@ -25,7 +25,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 		}
 		public override Color? GetAlpha(Color lightColor)
 		{
-			float lightMult = 0.25f + Math.Abs((1f * (Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 % 30) - 15) / 10f);
+			float lightMult = 0.25f + Math.Abs((1f * (Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 % 30) - 15) / 10f);
 			return lightColor * lightMult;
 		}
 

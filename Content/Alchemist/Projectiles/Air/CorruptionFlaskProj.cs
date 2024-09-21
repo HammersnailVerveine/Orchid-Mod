@@ -42,7 +42,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Air
 			Projectile.velocity.Y += 0.05f;
 
 			this.dustVal++;
-			if (modPlayer.timer120 % 3 == 0)
+			if (modPlayer.Timer120 % 3 == 0)
 			{
 				this.spawnDust(sporeType, range);
 			}

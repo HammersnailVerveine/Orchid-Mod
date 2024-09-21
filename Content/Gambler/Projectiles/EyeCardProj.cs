@@ -113,7 +113,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				}
 			}
 
-			if (modPlayer.modPlayer.timer120 % 2 == 0 && Projectile.ai[1] == 0)
+			if (modPlayer.modPlayer.Timer120 % 2 == 0 && Projectile.ai[1] == 0)
 			{
 				this.spawnDust(35);
 			}

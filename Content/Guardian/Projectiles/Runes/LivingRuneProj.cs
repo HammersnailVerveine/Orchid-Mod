@@ -42,7 +42,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 		{
 			Spin(1.2f);
 
-			if (guardian.modPlayer.timer120 % 2 == 0)
+			if (guardian.modPlayer.Timer120 % 2 == 0)
 			{
 				OldPosition.Add(new Vector2(Projectile.Center.X, Projectile.Center.Y));
 				OldRotation.Add(0f + Projectile.rotation);

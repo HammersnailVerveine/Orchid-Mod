@@ -51,7 +51,7 @@ namespace OrchidMod.Content.Gambler
 
 		public void DrawOutline(Texture2D outline, SpriteBatch spriteBatch, Color lightColor)
 		{
-			float lightMult = 0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().timer120 - 60) / 90f);
+			float lightMult = 0.25f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 90f);
 			spriteBatch.Draw(outline, Projectile.position - new Vector2(2, 2) - Main.screenPosition, null, lightColor * lightMult, Projectile.rotation, Vector2.Zero, Projectile.scale, SpriteEffects.None, 0f);
 		}
 

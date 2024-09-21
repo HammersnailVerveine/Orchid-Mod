@@ -194,35 +194,35 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
-			if (!ShamanFireBondReleased) ShamanFireBond += ShamanFireBondPoll > 0 && ShamanFireBond < 100 ? 1f * ShamanBondLoadRate : ShamanFireBondPoll < -ShamanBondUnloadDelay && ShamanFireBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			if (!ShamanFireBondReleased) ShamanFireBond += ShamanFireBondPoll > 0 && ShamanFireBond < 100 ? 1f * ShamanBondLoadRate : ShamanFireBondPoll < -ShamanBondUnloadDelay && ShamanFireBond > 0 && modPlayer.Timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
 			else
 			{
 				ShamanFireBond--;
 				if (ShamanFireBond == 0) ShamanFireBondReleased = false;
 			}
 
-			if (!ShamanWaterBondReleased) ShamanWaterBond += ShamanWaterBondPoll > 0 && ShamanWaterBond < 100 ? 1f * ShamanBondLoadRate : ShamanWaterBondPoll < -ShamanBondUnloadDelay && ShamanWaterBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			if (!ShamanWaterBondReleased) ShamanWaterBond += ShamanWaterBondPoll > 0 && ShamanWaterBond < 100 ? 1f * ShamanBondLoadRate : ShamanWaterBondPoll < -ShamanBondUnloadDelay && ShamanWaterBond > 0 && modPlayer.Timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
 			else
 			{
 				ShamanWaterBond--;
 				if (ShamanWaterBond == 0) ShamanWaterBondReleased = false;
 			}
 
-			if (!ShamanAirBondReleased) ShamanAirBond += ShamanAirBondPoll > 0 && ShamanAirBond < 100 ? 1f * ShamanBondLoadRate : ShamanAirBondPoll < -ShamanBondUnloadDelay && ShamanAirBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			if (!ShamanAirBondReleased) ShamanAirBond += ShamanAirBondPoll > 0 && ShamanAirBond < 100 ? 1f * ShamanBondLoadRate : ShamanAirBondPoll < -ShamanBondUnloadDelay && ShamanAirBond > 0 && modPlayer.Timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
 			else
 			{
 				ShamanAirBond--;
 				if (ShamanAirBond == 0) ShamanAirBondReleased = false;
 			}
 
-			if (!ShamanEarthBondReleased) ShamanEarthBond += ShamanEarthBondPoll > 0 && ShamanEarthBond < 100 ? 1f * ShamanBondLoadRate : ShamanEarthBondPoll < -ShamanBondUnloadDelay && ShamanEarthBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			if (!ShamanEarthBondReleased) ShamanEarthBond += ShamanEarthBondPoll > 0 && ShamanEarthBond < 100 ? 1f * ShamanBondLoadRate : ShamanEarthBondPoll < -ShamanBondUnloadDelay && ShamanEarthBond > 0 && modPlayer.Timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
 			else
 			{
 				ShamanEarthBond--;
 				if (ShamanEarthBond == 0) ShamanEarthBondReleased = false;
 			}
 
-			if (!ShamanSpiritBondReleased) ShamanSpiritBond += ShamanSpiritBondPoll > 0 && ShamanSpiritBond < 100 ? 1f * ShamanBondLoadRate : ShamanSpiritBondPoll < -ShamanBondUnloadDelay && ShamanSpiritBond > 0 && modPlayer.timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
+			if (!ShamanSpiritBondReleased) ShamanSpiritBond += ShamanSpiritBondPoll > 0 && ShamanSpiritBond < 100 ? 1f * ShamanBondLoadRate : ShamanSpiritBondPoll < -ShamanBondUnloadDelay && ShamanSpiritBond > 0 && modPlayer.Timer120 % 6 == 0 ? -1f * ShamanBondUnloadRate : 0;
 			else
 			{
 				ShamanSpiritBond--;

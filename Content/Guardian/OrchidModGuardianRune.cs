@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
-using OrchidMod.Content.Guardian;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -9,7 +7,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Content.Guardian
 {
@@ -63,8 +60,13 @@ namespace OrchidMod.Content.Guardian
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
 			guardian.GuardianSlam -= RuneCost;
-			foreach (Projectile projectile in guardian.RuneProjectiles)
-				projectile.Kill();
+			foreach (Projectile projectile in Main.projectile)
+			{
+				if (projectile.ModProjectile is GuardianRuneProjectile && projectile.owner == player.whoAmI)
+				{
+					projectile.Kill();
+				}
+			}
 			int crit = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 			Activate(player, guardian, Item.shoot, (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage), Item.knockBack, crit, (int)(RuneDuration * guardian.GuardianRuneTimer), RuneDistance, RuneNumber);
 			return true;
@@ -107,7 +109,6 @@ namespace OrchidMod.Content.Guardian
 			projectile.timeLeft = duration;
 			projectile.CritChance = critChance;
 			projectile.netUpdate = true;
-			guardian.RuneProjectiles.Add(projectile);
 			return projectile;
 		}
 
