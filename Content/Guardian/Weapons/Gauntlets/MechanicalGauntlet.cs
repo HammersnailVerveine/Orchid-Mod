@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Content.Guardian.Buffs;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
@@ -31,8 +34,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged)
 		{
-			if (charged)
+			if (player.HasBuff<GuardianMechanicalGauntletBuff>())
 			{
+				player.ClearBuff(ModContent.BuffType<GuardianMechanicalGauntletBuff>());
+				SoundEngine.PlaySound(SoundID.Item14, player.Center);
 				strikeVelocity = 80f;
 				Vector2 playerDashVelocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity * 0.4f;
 				guardian.modPlayer.ForcedVelocityVector = playerDashVelocity;
@@ -42,6 +47,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 			else strikeVelocity = 25f;
 			return true;
+		}
+
+		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info)
+		{
+			player.AddBuff(ModContent.BuffType<GuardianMechanicalGauntletBuff>(), 60);
 		}
 
 		public override void AddRecipes()

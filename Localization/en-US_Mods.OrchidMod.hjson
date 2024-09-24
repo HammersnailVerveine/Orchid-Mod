@@ -243,6 +243,11 @@ Buffs: {
 		DisplayName: Toxic Punches
 		Description: Punches shoot toxic fangs
 	}
+
+	GuardianMechanicalGauntletBuff: {
+		DisplayName: Rocket Punch
+		Description: Punch to propel yourself!
+	}
 }
 
 Items: {
@@ -2912,8 +2917,8 @@ Items: {
 	}
 
 	MechanicalGauntlet: {
-		DisplayName: Mechanical Gauntlet
-		Tooltip: ""
+		DisplayName: Rocket Fist
+		Tooltip: Punching after a parry propels forward
 	}
 
 	Block: {
