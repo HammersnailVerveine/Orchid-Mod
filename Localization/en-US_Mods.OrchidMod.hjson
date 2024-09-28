@@ -2927,8 +2927,13 @@ Items: {
 	}
 
 	NanitesGauntlet: {
-		DisplayName: Nanites Gauntlet
-		Tooltip: ""
+		DisplayName: Cybernetic Strongarm
+		Tooltip:
+			'''
+			Drastically improves movement capabilities when held
+			Restores health on hit and parry
+			'Nanomachines, Son!'
+			'''
 	}
 
 	IceStandard: {

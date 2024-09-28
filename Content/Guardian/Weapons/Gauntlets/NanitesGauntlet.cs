@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
@@ -11,12 +12,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.width = 42;
 			Item.height = 38;
 			Item.knockBack = 5f;
-			Item.damage = 45;
-			Item.value = Item.sellPrice(0, 0, 8, 40);
-			Item.rare = ItemRarityID.White;
-			Item.useTime = 35;
-			strikeVelocity = 15f;
-			parryDuration = 60;
+			Item.damage = 415;
+			Item.value = Item.sellPrice(0, 7, 50, 0);
+			Item.rare = ItemRarityID.Yellow;
+			Item.useTime = 10;
+			strikeVelocity = 30f;
+			parryDuration = 90;
 			hasArm = true;
 			hasShoulder = true;
 		}
@@ -26,17 +27,25 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			return new Color(0, 255, 255);
 		}
 
-		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
+		public override void SafeHoldItem(Player player)
 		{
-			if (charged) guardian.AddGuard(1);
+			Vector2 intendedVelocity = player.velocity * 0.05f;
+			Vector2 addedVelocity = Vector2.Zero;
+
+			for (int i = 0; i < 10; i++)
+				addedVelocity += Collision.TileCollision(player.position + addedVelocity, intendedVelocity, player.width, player.height, false, false, (int)player.gravDir);
+
+			player.position += addedVelocity;
 		}
 
-		public override void AddRecipes()
+		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
 		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.SilverBar, 8);
-			recipe.Register();
+			guardian.modPlayer.TryHeal(charged ? 5 : 2);
+		}
+
+		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info)
+		{
+			guardian.modPlayer.TryHeal(5);
 		}
 	}
 }

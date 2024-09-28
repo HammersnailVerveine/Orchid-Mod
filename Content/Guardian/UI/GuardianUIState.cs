@@ -130,7 +130,7 @@ namespace OrchidMod.Content.Guardian.UI
 
 				if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
 				{
-					if (modPlayer.GuardianHammerCharge > 0) // Player is preparing to throw a hammer
+					if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
 					{
 						Vector2 hammerPosition = new Vector2(position.X - textureHammerMain.Width / 2, position.Y - 100);
 						spriteBatch.Draw(textureHammerMain, hammerPosition, Color.White);
@@ -167,7 +167,7 @@ namespace OrchidMod.Content.Guardian.UI
 				}
 				else
 				{
-					if (modPlayer.GuardianHammerCharge > 8f)
+					if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
 					{
 						int val = 24;
 						if (modPlayer.GuardianHammerCharge > 180f)
@@ -192,7 +192,7 @@ namespace OrchidMod.Content.Guardian.UI
 					}
 				}
 
-				if (modPlayer.GuardianStandardCharge > 8f)
+				if (modPlayer.GuardianStandardCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
 				{
 					int val = textureStandardOn.Height;
 					if (modPlayer.GuardianStandardCharge >= 180f)
@@ -216,7 +216,7 @@ namespace OrchidMod.Content.Guardian.UI
 					spriteBatch.Draw(textureStandardOn, new Vector2(position.X - 9, position.Y - 94 + textureStandardOn.Height - val), rectangle, Color.White);
 				}
 
-				if (modPlayer.GuardianGauntletCharge > 8f)
+				if (modPlayer.GuardianGauntletCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
 				{
 					int val = textureGauntletOn.Height;
 					if (modPlayer.GuardianGauntletCharge >= 180f)

@@ -182,7 +182,7 @@ namespace OrchidMod.Content.Guardian
 							}
 							guardian.GuardianGauntletCharge = 180f;
 						}
-						else if (guardian.GuardianGauntletCharge > 8f) guardian.SlamCostUI = 1;
+						else if (guardian.GuardianGauntletCharge > (70 * owner.GetAttackSpeed(DamageClass.Melee) - owner.HeldItem.useTime) / 2.5f) guardian.SlamCostUI = 1;
 
 						if (!owner.controlUseItem && owner.whoAmI == Main.myPlayer)
 						{

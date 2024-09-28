@@ -26,6 +26,7 @@ using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Common.ModSystems;
 using OrchidMod.Content.Guardian.Armors.Misc;
+using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -44,6 +45,11 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.Demolitionist:
 					{
 						shop.Add(ItemType<GunpowderFlask>());
+					}
+					break;
+				case NPCID.Cyborg:
+					{
+						shop.Add(ItemType<NanitesGauntlet>());
 					}
 					break;
 				case NPCID.Dryad:
