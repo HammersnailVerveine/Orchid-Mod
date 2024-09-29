@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item101;
 			Item.knockBack = 6f;
-			Item.damage = 80;
+			Item.damage = 160;
 			Item.rare = ItemRarityID.Pink;
 			Item.useTime = 50;
 			distance = 40f;
@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Projectile anchor = GetAnchor(player).Projectile;
 			int type = ModContent.ProjectileType<BijouShieldProj>();
 			Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * 5f;
-			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 2f), Item.knockBack, player.whoAmI);
+			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage), Item.knockBack, player.whoAmI);
 		}
 	}
 }

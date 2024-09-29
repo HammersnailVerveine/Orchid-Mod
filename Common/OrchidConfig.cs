@@ -17,6 +17,14 @@ namespace OrchidMod.Common
 		[DefaultValue(false)]
 		[BackgroundColor(128, 128, 255)]
 		public bool UseOldGuardianHammerUi { get; set; }
+
+		[DefaultValue(false)]
+		[BackgroundColor(255, 128, 128)]
+		public bool SwapPaviseImputs { get; set; }
+
+		[DefaultValue(false)]
+		[BackgroundColor(255, 128, 128)]
+		public bool SwapGauntletImputs { get; set; }
 	}
 
 	public class OrchidServerConfig : ModConfig

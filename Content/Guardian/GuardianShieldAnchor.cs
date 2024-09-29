@@ -42,7 +42,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.netImportant = true;
 			Projectile.alpha = 255;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 20;
+			Projectile.localNPCHitCooldown = 120;
 		}
 
 		public void OnChangeSelectedItem(Player owner)
@@ -111,6 +111,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
 						Projectile.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 						Projectile.knockBack = guardianItem.Item.knockBack;
+						Projectile.ResetLocalNPCHitImmunity();
 						Projectile.friendly = true;
 					}
 
@@ -152,6 +153,10 @@ namespace OrchidMod.Content.Guardian
 									guardianItem.Protect(owner, Projectile);
 									shieldEffectReady = false;
 									SoundEngine.PlaySound(SoundID.Item37, owner.Center);
+									if (modPlayer.GuardianHoneyPotion)
+									{ // Heal the player if they have the honey potion effect
+										modPlayer.modPlayer.TryHeal((int)(owner.statLifeMax2 * 0.01f));
+									}
 								}
 								proj.Kill();
 								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
@@ -225,6 +230,11 @@ namespace OrchidMod.Content.Guardian
 									damage = owner.GetDamage<GuardianDamageClass>().ApplyTo(damage);
 									bool crit = Main.rand.NextFloat(100) < Projectile.CritChance;
 									owner.ApplyDamageToNPC(target, (int)damage, 0f, owner.direction, crit, ModContent.GetInstance<GuardianDamageClass>());
+								}
+
+								if (modPlayer.GuardianHoneyPotion)
+								{ // Heal the player if they have the honey potion effect
+									modPlayer.modPlayer.TryHeal((int)(owner.statLifeMax2 * 0.01f));
 								}
 							}
 						}

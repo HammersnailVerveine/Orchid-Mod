@@ -18,7 +18,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.height = 42;
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 13f;
-			Item.damage = 62;
+			Item.damage = 124;
 			Item.rare = ItemRarityID.Green;
 			Item.useTime = 35;
 			distance = 28f;

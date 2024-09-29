@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using System;
 using System.Collections.Generic;
@@ -69,9 +70,13 @@ namespace OrchidMod.Content.Guardian
 				if (player.ownedProjectileCounts[projectileType] > 0) {
 					var guardian = player.GetModPlayer<OrchidGuardian>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+
+					bool shouldBlock = player.altFunctionUse != 2;
+					if (ModContent.GetInstance<OrchidClientConfig>().SwapPaviseImputs) shouldBlock = !shouldBlock;
+
 					if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
 					{
-						if (player.altFunctionUse == 2) { // Right click
+						if (shouldBlock) { // Block
 							if (proj.ai[1] == 0f && guardian.GuardianSlam > 0) 
 							{
 								SoundEngine.PlaySound(Item.UseSound, player.Center);
@@ -87,7 +92,7 @@ namespace OrchidMod.Content.Guardian
 								proj.netUpdate = true;
 								proj.netUpdate2 = true;
 							}
-						} else { // Left click
+						} else { // Slam
 							if (proj.ai[1] + proj.ai[0] == 0f && guardian.GuardianGuard > 0) 
 							{
 								shield.shieldEffectReady = true;

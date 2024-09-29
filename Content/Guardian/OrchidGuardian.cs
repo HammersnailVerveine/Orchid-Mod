@@ -38,6 +38,7 @@ namespace OrchidMod
 		public bool GuardianSpikeTemple = false;
 		public bool GuardianBamboo = false;
 		public bool GuardianGit = false;
+		public bool GuardianHoneyPotion = false;
 
 		// Dynamic gameplay and UI fields
 
@@ -60,8 +61,12 @@ namespace OrchidMod
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
-			drawInfo.cHandOff = -1;
-			drawInfo.cHandOn = -1;
+			if (Player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+			{
+				//PlayerDrawLayers.ArmOverItem.Hide();
+				//PlayerDrawLayers.Torso.Hide();
+				//PlayerDrawLayers.Skin.Hide();
+			}
 		}
 
 		public override void Initialize()
@@ -167,6 +172,7 @@ namespace OrchidMod
 			GuardianSpikeTemple = false;
 			GuardianBamboo = false;
 			GuardianGit = false;
+			GuardianHoneyPotion = false;
 		}
 
 		public void OnBlock(NPC npc, Projectile projectile, Projectile shieldAnchor, bool firstBlock)
@@ -225,8 +231,14 @@ namespace OrchidMod
 					var proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && i.type == projectileType);
 					if (proj != null && proj.ModProjectile is GuardianGauntletAnchor anchor)
 					{
-						if (anchor.GauntletItem.ModItem is OrchidModGuardianGauntlet gauntlet) {
+						if (anchor.GauntletItem.ModItem is OrchidModGuardianGauntlet gauntlet)
+						{
 							gauntlet.OnParry(Player, this, info);
+
+							if (GuardianHoneyPotion)
+							{ // Heal the player if they have the honey potion effect
+								modPlayer.TryHeal((int)(Player.statLifeMax2 * 0.01f));
+							}
 						}
 					}
 				}

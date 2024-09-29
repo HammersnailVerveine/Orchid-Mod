@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 7f;
-			Item.damage = 34;
+			Item.damage = 68;
 			Item.rare = ItemRarityID.Blue;
 			Item.useTime = 35;
 			distance = 40f;
@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Projectile anchor = GetAnchor(player).Projectile;
 			int type = ModContent.ProjectileType<EnchantedPaviseProj>();
 			Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * 0.1f;
-			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.75f), Item.knockBack, player.whoAmI);
+			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.4f), Item.knockBack, player.whoAmI);
 		}
 	}
 }

@@ -14,17 +14,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 7f;
-			Item.damage = 31;
+			Item.damage = 62;
 			Item.rare = ItemRarityID.White;
 			Item.useTime = 35;
 			distance = 35f;
 			slamDistance = 45f;
 			blockDuration = 80;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Iron Pavise");
 		}
 
 		public override void AddRecipes()

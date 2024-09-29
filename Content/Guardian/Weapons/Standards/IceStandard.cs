@@ -8,14 +8,14 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 42;
-			Item.height = 42;
+			Item.width = 38;
+			Item.height = 38;
 			Item.value = Item.sellPrice(0, 0, 35, 75);
 			Item.rare = ItemRarityID.Blue;
 			Item.useTime = 30;
 			Item.UseSound = SoundID.DD2_BetsyWindAttack;
 			guardStacks = 1;
-			flagOffset = 8;
+			flagOffset = 4;
 			auraRange = 10;
 			duration = 1800;
 			affectNearbyPlayers = true;

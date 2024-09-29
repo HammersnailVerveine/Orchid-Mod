@@ -248,6 +248,11 @@ Buffs: {
 		DisplayName: Rocket Punch
 		Description: Punch to propel yourself!
 	}
+
+	GuardianHoneyPotionBuff: {
+		DisplayName: Sweetguard
+		Description: Recovers 1% health on block or parry
+	}
 }
 
 Items: {
@@ -2887,6 +2892,11 @@ Items: {
 		Tooltip: Increases the number of guardian rune projectiles
 	}
 
+	GuardianHoneyPotion: {
+		DisplayName: Sweetguard Potion
+		Tooltip: Recovers health on block or parry
+	}
+
 	Guard: {
 		DisplayName: Guard
 		Tooltip: ""
@@ -2917,7 +2927,7 @@ Items: {
 	}
 
 	MechanicalGauntlet: {
-		DisplayName: Rocket Fist
+		DisplayName: Iron Fist
 		Tooltip: Punching after a parry propels forward
 	}
 
@@ -2966,6 +2976,15 @@ Items: {
 	DesertStandard: {
 		DisplayName: Desert Standard
 		Tooltip: ""
+	}
+
+	PaladinGauntlet: {
+		DisplayName: Tyr's Hand
+		Tooltip:
+			'''
+			Charged punches release homing bolts of light
+			Punches launch projectiles after a parry
+			'''
 	}
 }
 
@@ -3268,6 +3287,16 @@ Configs: {
 		UseOldGuardianHammerUi: {
 			Label: Old Guardian Hammer UI
 			Tooltip: Use the old Guardian Hammer UI (Paper Mario style)
+		}
+
+		SwapPaviseImputs: {
+			Label: Swap Pavise Imputs
+			Tooltip: Swap Left and Right click inputs for Guardian Pavises
+		}
+
+		SwapGauntletImputs: {
+			Label: Swap Gauntlets Imputs
+			Tooltip: Swap Left and Right click inputs for Guardian Gauntlets
 		}
 	}
 

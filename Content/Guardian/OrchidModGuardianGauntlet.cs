@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using System;
 using System.Collections.Generic;
@@ -55,12 +56,11 @@ namespace OrchidMod.Content.Guardian
 			Item.useAnimation = Item.useTime;
 		}
 
-		// public override bool WeaponPrefix() => true;
-
 		public override bool AltFunctionUse(Player player)
 		{
 			return true;
 		}
+
 		public override bool WeaponPrefix() => true;
 
 		public override bool CanUseItem(Player player)
@@ -75,9 +75,12 @@ namespace OrchidMod.Content.Guardian
 					Projectile projectileMain = Main.projectile[anchors[1]];
 					Projectile projectileOff = Main.projectile[anchors[0]];
 
+					bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
+					if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs) shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
+
 					if (projectileMain.ai[0] == 0f || projectileOff.ai[0] == 0f || (projectileMain.ai[0] > 0f && projectileOff.ai[0] > 0f))
 					{ // At least one of the gauntlets is not being used or both are blocking
-						if (Main.mouseRight && Main.mouseRightRelease)
+						if (shouldBlock)
 						{ // Right click & None of the gauntlets is blocking = Block
 							if (guardian.GuardianGuard > 0 && projectileMain.ai[0] <= 0f && projectileOff.ai[0] <= 0f)
 							{

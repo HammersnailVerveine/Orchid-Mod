@@ -59,7 +59,8 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.SkeletonMerchant:
 					{
-						shop.Add(ItemType<GuardianGitHelm>(), [Condition.TimeNight]);
+						shop.Add(ItemType<GuardianGitHelm>());
+						//shop.Add(ItemType<GuardianGitHelm>(), [Condition.TimeNight]);
 					}
 					break;
 			}
