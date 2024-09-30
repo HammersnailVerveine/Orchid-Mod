@@ -74,6 +74,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 					Vector2 newVelocity = Vector2.Normalize(closestTarget.Center - Projectile.Center) * 0.8f;
 					Projectile.velocity = Projectile.velocity * 0.95f + newVelocity;
 				}
+				else if (Projectile.timeLeft > 11) Projectile.timeLeft--;
 			}
 			Projectile.rotation = Projectile.velocity.ToRotation();
 		}

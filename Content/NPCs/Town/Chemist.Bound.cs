@@ -14,12 +14,8 @@ namespace OrchidMod.Content.NPCs.Town
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Bound Chemist");
-
 			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-
-			//CreateMoodTranslationBasedOnChemist();
 		}
 
 		public override void SetDefaults()
@@ -90,12 +86,12 @@ namespace OrchidMod.Content.NPCs.Town
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			bool foundNPC = (NPC.FindFirstNPC(ModContent.NPCType<Chemist>()) + NPC.FindFirstNPC(ModContent.NPCType<BoundChemist>())) > 0;
+			bool foundNPC = NPC.FindFirstNPC(ModContent.NPCType<Chemist>()) > 0 || NPC.FindFirstNPC(ModContent.NPCType<BoundChemist>()) > 0;
 			bool inMineshaft = false;
 
 			if (!foundNPC && !OrchidWorld.foundChemist)
 			{
-				Player player = Main.player[(int)Player.FindClosest(new Vector2(Main.maxTilesX / 2 * 16f, (Main.maxTilesY / 3 + 100) * 16f), 1, 1)];
+				Player player = Main.player[Player.FindClosest(new Vector2(Main.maxTilesX / 2 * 16f, (Main.maxTilesY / 3 + 100) * 16f), 1, 1)];
 				int MSMinPosX = (Main.maxTilesX / 2) - ((OrchidMSarrays.MSLenght * 15) / 2) + 10;
 				int MSMinPosY = (Main.maxTilesY / 3 + 100) + 10;
 				Rectangle rect = new Rectangle(MSMinPosX, MSMinPosY, (OrchidMSarrays.MSLenght * 15) - 20, (OrchidMSarrays.MSHeight * 14) - 20);

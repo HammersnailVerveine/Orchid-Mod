@@ -30,6 +30,7 @@ using OrchidMod.Content.Shaman.Weapons.Hardmode;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Guardian.Weapons.Standards;
+using OrchidMineshaft.Tiles.Chests;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -367,26 +368,13 @@ namespace OrchidMod.Common.ModSystems
 
 		public void HandleSpecialChests(Chest chest)
 		{
-			/*
-			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.MinersLockboxTile>())
+			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<MinersLockboxTile>())
 			{
-				int[] specialItemPoll = {49, 50, 53, 54, 55, 975, 997, 930, ItemType<Content.Shaman.Weapons.EnchantedScepter>()
-					, ItemType<Content.Alchemist.Weapons.Air.CloudInAVial>(), ItemType<Content.Gambler.Weapons.Cards.GoldChestCard>()};
+				int[] specialItemPoll = {ItemType<EnchantedScepter>(), ItemType<CloudInAVial>(), ItemType<GoldChestCard>(), ItemType<EnchantedRune>(), ItemType<EnchantedPavise>()};
 				int rand = Main.rand.Next(specialItemPoll);
-
-				chest.item[0].SetDefaults(Mod.Find<ModItem>("HauntedCandle").Type);
-				placeInChest(chest, 71, Main.rand.Next(80, 99)); // Copper Coins
-				placeInChest(chest, 72, Main.rand.Next(80, 99)); // Silver Coins
-				placeInChest(chest, 28, Main.rand.Next(3, 8)); // Healing Pots
-				placeInChest(chest, 2, Main.rand.Next(5, 15)); // Iron Bars
-				placeInChest(chest, 166, Main.rand.Next(10, 20)); // Bombs
-				placeInChest(chest, 965, Main.rand.Next(50, 100)); // Ropes
-				placeInChest(chest, ItemType<Content.Gambler.Weapons.Cards.DetonatorCard>(), 1); // Ropes
-
-				if (rand == 930) placeInChest(chest, 931, Main.rand.Next(21) + 30); // Flares
+				placeInChest(chest, ItemType<DetonatorCard>(), 1);
 				placeInChest(chest, rand, 1);
 			}
-			*/
 
 			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>())
 			{
