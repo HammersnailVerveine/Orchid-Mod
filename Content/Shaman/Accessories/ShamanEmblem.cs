@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using OrchidMod.Content.Guardian.Accessories;
 
 namespace OrchidMod.Content.Shaman.Accessories
 {
@@ -17,8 +18,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			// DisplayName.SetDefault("Shaman Emblem");
-			// Tooltip.SetDefault("15% increased shamanic damage");
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GuardianEmblem>();
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
@@ -26,7 +26,6 @@ namespace OrchidMod.Content.Shaman.Accessories
 			player.GetDamage<ShamanDamageClass>() += 0.15f;
 		}
 
-		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -38,6 +37,5 @@ namespace OrchidMod.Content.Shaman.Accessories
 			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.Register();
 		}
-		*/
 	}
 }

@@ -1,5 +1,7 @@
+using OrchidMod.Content.Shaman.Accessories;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
@@ -12,6 +14,11 @@ namespace OrchidMod.Content.Guardian.Accessories
 			Item.value = Item.sellPrice(0, 2, 0, 0);
 			Item.rare = ItemRarityID.LightRed;
 			Item.accessory = true;
+		}
+
+		public override void SetStaticDefaults()
+		{
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ShamanEmblem>();
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
