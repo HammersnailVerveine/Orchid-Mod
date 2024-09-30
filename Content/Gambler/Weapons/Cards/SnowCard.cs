@@ -8,7 +8,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Content.Gambler.Weapons.Cards
 {
-	public class SnowCard : OrchidModGamblerItem
+	public class SnowCard : OrchidModGamblerCard
 	{
 		public override void SafeSetDefaults()
 		{
@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Gambler.Weapons.Cards
 			Item.shootSpeed = 5f;
 
 			this.cardRequirement = 1;
-			this.cardSets = GamblerCardSets.Biome;
+			cardSets.Add(GamblerCardSet.Biome);
 		}
 
 		public override void SetStaticDefaults()

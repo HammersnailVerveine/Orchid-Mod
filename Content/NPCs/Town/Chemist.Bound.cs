@@ -1,11 +1,10 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Assets;
 using OrchidMod.Common.ModSystems;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
+using OrchidMineshaft.WorldgenArrays;
 
 namespace OrchidMod.Content.NPCs.Town
 {
@@ -88,12 +87,7 @@ namespace OrchidMod.Content.NPCs.Town
 				}
 			}
 		}
-		public override float SpawnChance(NPCSpawnInfo spawnInfo)
-		{
-			return 0f;
-		}
 
-		/*
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			bool foundNPC = (NPC.FindFirstNPC(ModContent.NPCType<Chemist>()) + NPC.FindFirstNPC(ModContent.NPCType<BoundChemist>())) > 0;
@@ -114,22 +108,5 @@ namespace OrchidMod.Content.NPCs.Town
 
 			return !OrchidWorld.foundChemist && !foundNPC && inMineshaft ? 5f : 0f;
 		}
-		*/
-
-		/*
-		private void CreateMoodTranslationBasedOnChemist()
-		{
-			var list = new List<string>() { "Content", "NoHome", "LoveSpace", "FarFromHome", "DislikeCrowded",
-											"HateCrowded", "LikeBiome", "DislikeBiome", "HateBiome", "LikeNPC",
-											"LoveNPC", "DislikeNPC", "HateNPC" };
-
-			foreach (var str in list)
-			{
-				var tr = Language.GetOrRegister(Mod, "TownNPCMood.BoundChemist." + str);
-				// tr.SetDefault("{$Mods.OrchidMod.TownNPCMood.Chemist." + str + "}");
-				LocalizationLoader.AddTranslation(tr) // tModPorter Note: Removed. Use Language.GetOrRegister;
-			}
-		}
-		*/
 	}
 }

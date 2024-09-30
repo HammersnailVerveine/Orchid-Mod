@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Gambler.Weapons.Cards
 {
-	public class SapCard : OrchidModGamblerItem
+	public class SapCard : OrchidModGamblerCard
 	{
 		public override void SafeSetDefaults()
 		{
@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Gambler.Weapons.Cards
 			Item.channel = true;
 
 			this.cardRequirement = 0;
-			this.cardSets = GamblerCardSets.Elemental;
+			cardSets.Add(GamblerCardSet.Elemental);
 		}
 		public override void SetStaticDefaults()
 		{

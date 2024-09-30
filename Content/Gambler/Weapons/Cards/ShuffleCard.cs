@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Content.Gambler.Weapons.Cards
 {
-	public class ShuffleCard : OrchidModGamblerItem
+	public class ShuffleCard : OrchidModGamblerCard
 	{
 		public override void SafeSetDefaults()
 		{
@@ -18,23 +18,13 @@ namespace OrchidMod.Content.Gambler.Weapons.Cards
 			Item.useAnimation = 25;
 			Item.useTime = 25;
 			Item.shootSpeed = 10f;
-
-			this.cardRequirement = 0;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Playing Card : Shuffle");
-			/* Tooltip.SetDefault("Randomly shoots a selection of clubs, spades, diamonds and hearts"
-							+ "\nEach projectile has its own properties and behaviour"
-							+ "\nHold the attack button to create more projectiles and enhance their effects"
-							+ "\nDamage increases with the number of cards in your deck"); */
+			cardRequirement = 0;
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			int projType = ProjectileType<Content.Gambler.Projectiles.ShuffleCardProj>();
+			int projType = ProjectileType<Projectiles.ShuffleCardProj>();
 			float aiType = Main.rand.Next(4);
 			int count = 0;
 			int damageCount = damage + (int)(modPlayer.GetNbGamblerCards() * 1.2f);

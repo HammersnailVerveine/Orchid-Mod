@@ -25,7 +25,6 @@ namespace OrchidMod.Common.Global.Items
 		public int gamblerCardRequirement = 0;
 		public bool gamblerDeck = false;
 		public bool guardianWeapon = false;
-		public GamblerCardSets gamblerCardSets = GamblerCardSets.Without;
 		public AlchemistElement alchemistElement = AlchemistElement.NULL;
 
 		public delegate void KillFirstDelegate(int timeLeft, Player player, OrchidAlchemist modPlayer, AlchemistProj alchProj, Projectile projectile, OrchidGlobalItemPerEntity globalItem);

@@ -2,7 +2,6 @@
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Common.Global.Items;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -15,10 +14,10 @@ using Terraria.Utilities;
 namespace OrchidMod.Content.Gambler
 {
 	[ClassTag(ClassTags.Gambler)]
-	public abstract class OrchidModGamblerItem : ModItem
+	public abstract class OrchidModGamblerCard : ModItem
 	{
 		public int cardRequirement = -1;
-		public GamblerCardSets cardSets;
+		public List<GamblerCardSet> cardSets;
 
 		public virtual void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockBack, bool dummy = false) { }
 
@@ -33,12 +32,12 @@ namespace OrchidMod.Content.Gambler
 			Item.UseSound = SoundID.Item64;
 			Item.consumable = true;
 			Item.autoReuse = false;
+			cardSets = new List<GamblerCardSet>();
 
 			this.SafeSetDefaults();
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.gamblerCardRequirement = this.cardRequirement;
-			orchidItem.gamblerCardSets = cardSets;
 			orchidItem.gamblerShootDelegate = this.GamblerShoot;
 		}
 		/*
@@ -191,14 +190,17 @@ namespace OrchidMod.Content.Gambler
 
 		private void AddCardSetsTooltipLine(List<TooltipLine> tooltips)
 		{
-			if (cardSets.Equals(GamblerCardSets.Without)) return;
+			if (cardSets.Count == 0) return;
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0")); // Ok...
 
 			if (index < 0) return;
 
 			var hexColor = Colors.AlphaDarken(new Color(175, 255, 175)).Hex3();
-			var strCardSets = cardSets.ToString();
+			var strCardSets = "";
+
+			foreach (GamblerCardSet cardSet in cardSets) strCardSets += ", " + cardSet.ToString();
+			strCardSets = strCardSets.Remove(0, 2);
 
 			tooltips.Insert(index, new TooltipLine(Mod, "TagsTag", $"{(strCardSets.Split(", ").Length > 1 ? "Sets" : "Set")}: [c/{hexColor}:{strCardSets}]"));
 		}

@@ -1,12 +1,12 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Assets;
+using OrchidMod.Common;
 using OrchidMod.Content.Gambler;
 using OrchidMod.Content.Gambler.Accessories;
 using OrchidMod.Content.Gambler.Decks;
 using OrchidMod.Content.Gambler.Weapons.Cards;
 using OrchidMod.Content.Gambler.Weapons.Chips;
 using OrchidMod.Content.Gambler.Weapons.Dice;
-using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
@@ -50,30 +50,6 @@ namespace OrchidMod.Content.NPCs.Town
 
 			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-
-			/*
-			void CreateMoodTranslation(string key, string text)
-			{
-				//var tr = Language.GetOrRegister(Mod, "TownNPCMood.Croupier." + key);
-				// tr.SetDefault(text);
-				//LocalizationLoader.AddTranslation(tr) // tModPorter Note: Removed. Use Language.GetOrRegister ;
-			}
-
-			CreateMoodTranslation("Content", "Ey, that sure is a fine place to deal with.");
-			CreateMoodTranslation("NoHome", "Being homeless reminds me of darker times...");
-			CreateMoodTranslation("LoveSpace", "If i knew i'd end up is such a cool corner, I'd have arrived earlier!");
-			CreateMoodTranslation("FarFromHome", "Chief, it's not that I don't like this place, but I'd like to go back?");
-			CreateMoodTranslation("DislikeCrowded", "Neighbors are fine and all, but y'know, that's a bit much.");
-			CreateMoodTranslation("HateCrowded", "So many bystanders! Can't even ... play an honest game without being seen!");
-			CreateMoodTranslation("LikeBiome", "{BiomeName} is chill, I'm down to stay.");
-			CreateMoodTranslation("LoveBiome", "{BiomeName} is perfect to keep pristine cards.");
-			CreateMoodTranslation("DislikeBiome", "{BiomeName} is fine with me, but my cards? Not much.");
-			CreateMoodTranslation("HateBiome", "The moisture in {BiomeName} air is ruining my cards!");
-			CreateMoodTranslation("LikeNPC", "{NPCName} is a cool girl. Chemistry reminds me of that one game...");
-			CreateMoodTranslation("LoveNPC", "{NPCName} is an amazing buddy, we play every night around a nice beer!");
-			CreateMoodTranslation("DislikeNPC", "I didn't believe it, but {NPCName} taught me that goblins really CAN'T play cards.");
-			CreateMoodTranslation("HateNPC", "{NPCName} keeps pestering me about gambling, and blah, blah. why is he so nosy?");
-			*/
 		}
 
 		public override void SetDefaults()
@@ -110,12 +86,6 @@ namespace OrchidMod.Content.NPCs.Town
 			=> new CroupierProfile();
 
 		public override bool CanTownNPCSpawn(int numTownNPCs)
-		{ 
-			return false;
-		}
-
-		/*
-		public override bool CanTownNPCSpawn(int numTownNPCs)
 		{
 			if (Main.netMode == NetmodeID.SinglePlayer)
 			{
@@ -140,7 +110,6 @@ namespace OrchidMod.Content.NPCs.Town
 			}
 			return false;
 		}
-		*/
 
 		public override List<string> SetNPCNameList()
 		{
@@ -247,76 +216,21 @@ namespace OrchidMod.Content.NPCs.Town
 		public override void AddShops()
 		{
 			var npcShop = new NPCShop(Type, "Shop");
-			OrchidUtils.AddItemToShop<GamblerDummy>(npcShop);
-			OrchidUtils.AddItemToShop<GamblingChip>(npcShop);
-			OrchidUtils.AddItemToShop<GamblingDie>(npcShop);
-			OrchidUtils.AddItemToShop<ShuffleCard>(npcShop);
-		}
-
-		public override void ModifyActiveShop(string shopName, Item[] items)
-		{
-			var player = Main.player[Main.myPlayer];
-			var modPlayer = player.GetModPlayer<OrchidGambler>();
-
-			if (player.ZoneForest)
-			{
-				OrchidUtils.AddItemToShop<ForestCard>(items);
-			}
-
-			if (player.ZoneSnow)
-			{
-				OrchidUtils.AddItemToShop<SnowCard>(items);
-			}
-
-			if (player.ZoneDesert)
-			{
-				OrchidUtils.AddItemToShop<DesertCard>(items);
-			}
-
-			if (player.ZoneBeach)
-			{
-				OrchidUtils.AddItemToShop<OceanCard>(items);
-			}
-
-			if (player.ZoneJungle)
-			{
-				OrchidUtils.AddItemToShop<JungleCard>(items);
-			}
-
-			if (player.ZoneGlowshroom)
-			{
-				OrchidUtils.AddItemToShop<MushroomCard>(items);
-			}
-
-			if (player.ZoneSkyHeight)
-			{
-				OrchidUtils.AddItemToShop<SkyCard>(items);
-			}
-
-			if (Main.slimeRain)
-			{
-				OrchidUtils.AddItemToShop<SlimeRainCard>(items);
-			}
-
-			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Slime) > 2)
-			{
-				OrchidUtils.AddItemToShop<SlimyLollipop>(items);
-			}
-
-			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Biome) > 2)
-			{
-				OrchidUtils.AddItemToShop<LuckySprout>(items);
-			}
-
-			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Boss) > 2)
-			{
-				OrchidUtils.AddItemToShop<ConquerorsPennant>(items);
-			}
-
-			if (modPlayer.CheckSetCardsInDeck(GamblerCardSets.Elemental) > 2)
-			{
-				OrchidUtils.AddItemToShop<ElementalLens>(items);
-			}
+			npcShop.Add<GamblerDummy>();
+			npcShop.Add<GamblingChip>();
+			npcShop.Add<GamblingDie>();
+			npcShop.Add<ShuffleCard>();
+			npcShop.Add<ForestCard>([Condition.InShoppingZoneForest]);
+			npcShop.Add<SnowCard>([Condition.InSnow]);
+			npcShop.Add<DesertCard>([Condition.InDesert]);
+			npcShop.Add<OceanCard>([Condition.InBeach]);
+			npcShop.Add<JungleCard>([Condition.InJungle]);
+			npcShop.Add<MushroomCard>([Condition.InGlowshroom]);
+			npcShop.Add<SlimeRainCard>([OrchidConditions.SlimeRain]);
+			npcShop.Add<LuckySprout>([OrchidConditions.GamblerSetBiome]);
+			npcShop.Add<ConquerorsPennant>([OrchidConditions.GamblerSetBoss]);
+			npcShop.Add<ElementalLens>([OrchidConditions.GamblerSetElemental]);
+			npcShop.Register();
 		}
 
 		public override bool CanGoToStatue(bool toKingStatue)

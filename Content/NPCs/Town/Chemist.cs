@@ -1,4 +1,5 @@
 using OrchidMod.Assets;
+using OrchidMod.Common;
 using OrchidMod.Common.ModSystems;
 using OrchidMod.Content.Alchemist;
 using OrchidMod.Content.Alchemist.Accessories;
@@ -8,7 +9,6 @@ using OrchidMod.Content.Alchemist.Misc.Scrolls;
 using OrchidMod.Content.Alchemist.Weapons.Catalysts;
 using OrchidMod.Content.Alchemist.Weapons.Nature;
 using OrchidMod.Content.Items.Materials;
-using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
@@ -39,7 +39,6 @@ namespace OrchidMod.Content.NPCs.Town
 			NPCID.Sets.AttackAverageChance[Type] = 30;
 			NPCID.Sets.HatOffsetY[Type] = 4;
 
-			// They were chosen randomly, so it's better to choose them yourself
 			var happiness = NPC.Happiness;
 			happiness.SetBiomeAffection<ForestBiome>(AffectionLevel.Like);
 			happiness.SetBiomeAffection<JungleBiome>(AffectionLevel.Love);
@@ -52,30 +51,6 @@ namespace OrchidMod.Content.NPCs.Town
 
 			var drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() { Velocity = 1f };
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
-
-			/*
-			void CreateMoodTranslation(string key, string text)
-			{
-				var tr = Language.GetOrRegister(Mod, "TownNPCMood.Chemist." + key);
-				// tr.SetDefault(text);
-				LocalizationLoader.AddTranslation(tr)// tModPorter Note: Removed. Use Language.GetOrRegister;
-			}
-
-			CreateMoodTranslation("Content", "This is a neat place to experiment in!");
-			CreateMoodTranslation("NoHome", "If only I could get a place to setup my lab...");
-			CreateMoodTranslation("LoveSpace", "Chemistry is amazing with this place! Got it?");
-			CreateMoodTranslation("FarFromHome", "I hope my lab is alright at home...");
-			CreateMoodTranslation("DislikeCrowded", "There are so many people around, it's distracting me.");
-			CreateMoodTranslation("HateCrowded", "How am I supposed to experiment in such a crowded place?");
-			CreateMoodTranslation("LikeBiome", "{BiomeName} is a nice place to find ingredients.");
-			CreateMoodTranslation("LoveBiome", "{BiomeName} is amazing! So many cool things to toy, uh, experiment with!");
-			CreateMoodTranslation("DislikeBiome", "{BiomeName} is hot and dry. I'm glad I piled up on ingredients already.");
-			CreateMoodTranslation("HateBiome", "{BiomeName} reminds me of when you found me. What a dreadful experience...");
-			CreateMoodTranslation("LikeNPC", "{NPCName} is a cool dude, I didn't expect him to like chemistry.");
-			CreateMoodTranslation("LoveNPC", "{NPCName} knows so much reagents! She's been helping me a ton.");
-			CreateMoodTranslation("DislikeNPC", "I sure hope {NPCName} doesn't blow my lab up again...");
-			CreateMoodTranslation("HateNPC", "{NPCName} keeps pestering me about creating new weapons, can't he leave me alone?");
-			*/
 		}
 
 		public override void SetDefaults()
@@ -226,39 +201,33 @@ namespace OrchidMod.Content.NPCs.Town
 		{
 			foreach (Item item in items)
 			{
+				if (item == null || item.type == ItemID.None)
+				{
+					continue;
+				}
+
 				if (item.type == ModContent.ItemType<PotionBag>())
 				{
 					(item.ModItem as PotionBag).InShop = true;
 				}
 			}
-
-			var player = Main.player[Main.myPlayer];
-			var modPlayer = player.GetModPlayer<OrchidAlchemist>();
-
-			if (modPlayer.alchemistKnownReactions.Count > 4)
-			{
-				OrchidUtils.AddItemToShop<ReactiveVials>(items);
-			}
 		}
 
 		public override void AddShops()
 		{
+			NPCShop npcShop = new NPCShop(Type, "Shop");
+			npcShop.Add<UIItem>();
+			npcShop.Add<UIItemKeys>();
+			npcShop.Add<ReactionItem>();
+			npcShop.Add<PotionBag>();
+			npcShop.Add<EmptyFlask>();
+			npcShop.Add<WeightedBottles>();
+			npcShop.Add<IronCatalyst>();
+			npcShop.Add<AttractiteFlask>();
+			npcShop.Add<AlchemicStabilizer>([Condition.DownedQueenBee]);
+			npcShop.Add<ReactiveVials>([OrchidConditions.AlchemistKnownReactions4]);
 
-			var npcShop = new NPCShop(Type, "Shop");
-			OrchidUtils.AddItemToShop<UIItem>(npcShop);
-			OrchidUtils.AddItemToShop<UIItemKeys>(npcShop);
-			OrchidUtils.AddItemToShop<ReactionItem>(npcShop);
-			OrchidUtils.AddItemToShop<PotionBag>(npcShop);
-			OrchidUtils.AddItemToShop<EmptyFlask>(npcShop);
-
-			if (NPC.downedQueenBee)
-			{
-				OrchidUtils.AddItemToShop<AlchemicStabilizer>(npcShop);
-			}
-
-			OrchidUtils.AddItemToShop<WeightedBottles>(npcShop);
-			OrchidUtils.AddItemToShop<IronCatalyst>(npcShop);
-			OrchidUtils.AddItemToShop<AttractiteFlask>(npcShop);
+			npcShop.Register();
 		}
 
 		public override bool CanGoToStatue(bool toQueenStatue)

@@ -3,5 +3,6 @@ version = 1.4.0.8
 displayName = Orchid Mod
 hideCode = true
 hideResources = true
+modReferences = OrchidMineshaft@1.2.5
 homepage = https://forums.terraria.org/index.php?threads/orchid-mod.78865/
 sortAfter = ThoriumMod

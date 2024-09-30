@@ -68,6 +68,15 @@ namespace OrchidMod
 		public bool gamblerImp = false;
 		public bool gamblerSlimyLollipop = false;
 
+		public OrchidModGamblerCard GetCurrentGamblerItem()
+		{
+			if (gamblerCardCurrent.ModItem is OrchidModGamblerCard gamblerItem)
+			{
+				return gamblerItem;
+			}
+			return null;
+		}
+
 		public void Reset()
 		{
 			gamblerShuffleCooldown = 0;
@@ -498,8 +507,7 @@ namespace OrchidMod
 
 			if (gamblerPennant)
 			{
-				OrchidGlobalItemPerEntity orchidItem = gamblerCardCurrent.GetGlobalItem<OrchidGlobalItemPerEntity>();
-				if (orchidItem.gamblerCardSets.HasFlag(GamblerCardSets.Boss))
+				if (GetCurrentGamblerItem().cardSets.Contains(GamblerCardSet.Boss))
 				{
 					Player.AddBuff(BuffType<Content.Gambler.Buffs.ConquerorsPennantBuff>(), 60 * 10);
 				}
@@ -543,13 +551,15 @@ namespace OrchidMod
 			return false;
 		}
 
-		public int CheckSetCardsInDeck(GamblerCardSets sets)
+		public int CheckSetCardsInDeck(GamblerCardSet sets)
 		{
 			int nbCards = 0;
 			for (int i = 0; i < 20; i++)
 			{
-				OrchidGlobalItemPerEntity orchidItem = gamblerCardsItem[i].GetGlobalItem<OrchidGlobalItemPerEntity>();
-				nbCards += orchidItem.gamblerCardSets.HasFlag(sets) ? 1 : 0;
+				if (gamblerCardsItem[i].ModItem is OrchidModGamblerCard gamblerItem && gamblerItem.cardSets.Contains(sets))
+				{
+					nbCards++;
+				}
 			}
 			return nbCards;
 		}
@@ -558,8 +568,7 @@ namespace OrchidMod
 		{
 			if (gamblerSlimyLollipop)
 			{
-				OrchidGlobalItemPerEntity orchidItem = gamblerCardCurrent.GetGlobalItem<OrchidGlobalItemPerEntity>();
-				if (orchidItem.gamblerCardSets.HasFlag(GamblerCardSets.Slime) && Main.rand.Next(180) == 0)
+				if (GetCurrentGamblerItem().cardSets.Contains(GamblerCardSet.Slime) && Main.rand.NextBool(180))
 				{
 					float scale = 1f - (Main.rand.NextFloat() * .3f);
 					int rand = Main.rand.Next(3) + 1;

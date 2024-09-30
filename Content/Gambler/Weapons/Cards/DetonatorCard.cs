@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Content.Gambler.Weapons.Cards
 {
-	public class DetonatorCard : OrchidModGamblerItem
+	public class DetonatorCard : OrchidModGamblerCard
 	{
 		public override void SafeSetDefaults()
 		{
@@ -18,20 +18,12 @@ namespace OrchidMod.Content.Gambler.Weapons.Cards
 			Item.useAnimation = 60;
 			Item.useTime = 60;
 			Item.shootSpeed = 10f;
-
-			this.cardRequirement = 0;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Playing Card : Detonator");
-			/* Tooltip.SetDefault("Throws explosives, detonating upon releasing left click"
-							+ "\nHas a small delay before being able to detonate"); */
+			cardRequirement = 0;
 		}
 
 		public override void GamblerShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int damage, float knockback, bool dummy = false)
 		{
-			int projType = ProjectileType<Content.Gambler.Projectiles.DetonatorCardProj>();
+			int projType = ProjectileType<Projectiles.DetonatorCardProj>();
 			bool found = false;
 			for (int l = 0; l < Main.projectile.Length; l++)
 			{

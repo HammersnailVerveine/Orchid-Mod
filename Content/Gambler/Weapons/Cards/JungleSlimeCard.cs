@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Content.Gambler.Weapons.Cards
 {
-	public class JungleSlimeCard : OrchidModGamblerItem
+	public class JungleSlimeCard : OrchidModGamblerCard
 	{
 		public override void SafeSetDefaults()
 		{
@@ -20,7 +20,7 @@ namespace OrchidMod.Content.Gambler.Weapons.Cards
 			Item.useTime = 30;
 
 			this.cardRequirement = 5;
-			this.cardSets = GamblerCardSets.Slime;
+			cardSets.Add(GamblerCardSet.Slime);
 		}
 
 		public override void SetStaticDefaults()

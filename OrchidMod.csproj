@@ -13,6 +13,11 @@
 	  <EmbeddedResource Remove="Common\Globals.Tiles\**" />
 	  <None Remove="Common\Globals.Tiles\**" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="OrchidMineshaft">
+	    <HintPath>lib\OrchidMineshaft.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 
 	<!-- References -->
 

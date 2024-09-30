@@ -3007,7 +3007,7 @@ NPCs: {
 			DislikeCrowded: There are so many people around, it's distracting me.
 			HateCrowded: How am I supposed to experiment in such a crowded place?
 			LoveBiome: "{BiomeName} is a nice place to find ingredients."
-			LikeBiome: "{BiomeName} is amazing! So many cool things to toy, uh, experiment with!"
+			LikeBiome: "{BiomeName} is awesome! So many cool things to toy, uh, experiment with!"
 			DislikeBiome: "{BiomeName} is hot and dry. I'm glad I piled up on ingredients already."
 			HateBiome: "{BiomeName} reminds me of when you found me. What a dreadful experience..."
 			LoveNPC: "{NPCName} knows so much reagents! She's been helping me a ton."
@@ -3324,4 +3324,13 @@ DamageClasses: {
 	GamblerDamageClass.DisplayName: gambling damage
 	GuardianDamageClass.DisplayName: opposing damage
 	ShamanDamageClass.DisplayName: shamanic damage
+}
+
+Conditions: {
+	SlimeRain: Mods.OrchidMod.Conditions.SlimeRain
+	GamblerSetSlime: Mods.OrchidMod.Conditions.GamblerSetSlime
+	GamblerSetBoss: Mods.OrchidMod.Conditions.GamblerSetBoss
+	GamblerSetBiome: Mods.OrchidMod.Conditions.GamblerSetBiome
+	GamblerSetElemental: Mods.OrchidMod.Conditions.GamblerSetElemental
+	AlchemistKnownReactions4: Mods.OrchidMod.Conditions.AlchemistKnownReactions4
 }

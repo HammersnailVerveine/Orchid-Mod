@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Content.Gambler.Weapons.Cards
 {
-	public class EaterCard : OrchidModGamblerItem
+	public class EaterCard : OrchidModGamblerCard
 	{
 		public override void SafeSetDefaults()
 		{
@@ -17,9 +17,8 @@ namespace OrchidMod.Content.Gambler.Weapons.Cards
 			Item.knockBack = 1f;
 			Item.useAnimation = 30;
 			Item.useTime = 30;
-
-			this.cardRequirement = 5;
-			this.cardSets = GamblerCardSets.Boss;
+			cardRequirement = 5;
+			cardSets.Add(GamblerCardSet.Boss);
 		}
 
 		public override void SetStaticDefaults()
