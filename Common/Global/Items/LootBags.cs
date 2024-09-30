@@ -97,11 +97,12 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<BeeSeeker>(), 1),
+								//(ModContent.ItemType<BeeSeeker>(), 1),
 								(ModContent.ItemType<WaxyVial>(), 1),
 								(ModContent.ItemType<QueenBeeFlask>(), 1)
 							},
 							chanceDenominator: 2
+							//chanceDenominator: 3
 						);
 						QuickSpawnItem<BeeRune>(player, 1, 4);
 					}
@@ -130,8 +131,8 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<BulbScepter>(), 1),
-								(ModContent.ItemType<FloralStinger>(), 1),
+								//(ModContent.ItemType<BulbScepter>(), 1),
+								//(ModContent.ItemType<FloralStinger>(), 1),
 							},
 							chanceDenominator: 3
 						);
@@ -144,10 +145,11 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<SunRay>(), 1),
+								//(ModContent.ItemType<SunRay>(), 1),
 								(ModContent.ItemType<TempleWarhammer>(), 1)
 							},
-							chanceDenominator: 2
+							//chanceDenominator: 2
+							chanceDenominator: 4
 						);
 					}
 					break;
@@ -162,8 +164,8 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<Nirvana>(), 1),
-								(ModContent.ItemType<TheCore>(), 1)
+								//(ModContent.ItemType<Nirvana>(), 1),
+								//(ModContent.ItemType<TheCore>(), 1)
 							},
 							chanceDenominator: 5
 						);
@@ -176,6 +178,7 @@ namespace OrchidMod.Common.Global.Items
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod == null) goto SkipThorium;
 
+			/*
 			if (thoriumMod.IsItemTypeEquals("ThunderBirdBag", arg))
 			{
 				QuickSpawnItem<ThunderScepter>(player, 1, 4);
@@ -230,6 +233,7 @@ namespace OrchidMod.Common.Global.Items
 				QuickSpawnItem<AbyssionScepter>(player, 1, 6);
 				return;
 			}
+			*/
 
 		SkipThorium:
 			return;

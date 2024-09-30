@@ -103,6 +103,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 				damage += 1.1f;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -111,5 +112,6 @@ namespace OrchidMod.Content.Shaman.Accessories
 			recipe.AddIngredient(ItemID.Feather, 4);
 			recipe.Register();
 		}
+		*/
 	}
 }

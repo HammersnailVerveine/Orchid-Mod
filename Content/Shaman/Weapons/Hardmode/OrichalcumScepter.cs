@@ -39,9 +39,12 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 				this.NewShamanProjectile(player, source, position, velocity, type, damage, knockback);
 			return false;
 		}
+
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.OrichalcumBar, 10)
 			.AddTile(TileID.MythrilAnvil)
 			.Register();
+		*/
 	}
 }

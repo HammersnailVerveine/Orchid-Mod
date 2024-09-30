@@ -40,9 +40,11 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			return false;
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.PalladiumBar, 10)
 			.AddTile(TileID.MythrilAnvil)
 			.Register();
+		*/
 	}
 }

@@ -40,6 +40,7 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 			if (!player.controlDown && modPlayer.IsShamanicBondReleased(ShamanElement.AIR)) player.gravity /= 3;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -54,5 +55,6 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

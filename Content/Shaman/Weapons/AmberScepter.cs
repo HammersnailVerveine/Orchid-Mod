@@ -38,11 +38,13 @@ namespace OrchidMod.Content.Shaman.Weapons
 			shamanPlayer.modPlayer.TryHeal(20);
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.Amber, 8)
 			.AddIngredient(ItemID.FossilOre, 15)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }
 

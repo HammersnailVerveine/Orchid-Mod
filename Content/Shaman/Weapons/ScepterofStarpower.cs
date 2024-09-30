@@ -36,10 +36,12 @@ namespace OrchidMod.Content.Shaman.Weapons
 			crit += 10 * modPlayer.CountShamanicBonds();
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.FallenStar, 5)
 			.AddIngredient(ItemID.Wood, 10)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }

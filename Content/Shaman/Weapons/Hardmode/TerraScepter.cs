@@ -64,10 +64,12 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			return Color.White;
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ModContent.ItemType<TrueSanctify>(), 1)
 			.AddIngredient(ModContent.ItemType<TrueDepthsBaton>(), 1)
 			.AddTile(TileID.MythrilAnvil)
 			.Register();
+		*/
 	}
 }

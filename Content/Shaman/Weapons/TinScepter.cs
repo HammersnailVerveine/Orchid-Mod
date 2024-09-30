@@ -29,12 +29,13 @@ namespace OrchidMod.Content.Shaman.Weapons
 			this.Element = ShamanElement.EARTH;
 			CatalystMovement = ShamanSummonMovement.FLOATABOVE;
 		}
-
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.Topaz, 8)
 			.AddIngredient(ItemID.TinBar, 10)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }
 

@@ -41,9 +41,11 @@ namespace OrchidMod.Content.Shaman.Weapons
 				damage *= 2f;
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.MeteoriteBar, 20)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }

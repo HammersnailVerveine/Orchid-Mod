@@ -63,12 +63,13 @@ namespace OrchidMod.Content.Shaman.Weapons
 				}
 			}
 		}
-
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.JungleSpores, 8)
 			.AddIngredient(ItemID.Stinger, 5)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }
 

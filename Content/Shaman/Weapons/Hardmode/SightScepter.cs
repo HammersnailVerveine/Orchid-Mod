@@ -43,11 +43,13 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 				damage *= 1.5f;
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.HallowedBar, 12)
 			.AddIngredient(ItemID.SoulofSight, 20)
 			.AddTile(TileID.MythrilAnvil)
 			.Register();
+		*/
 
 		public override void ExtraAICatalyst(Projectile projectile, bool after)
 		{

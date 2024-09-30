@@ -48,10 +48,12 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			return false;
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18)
 			.AddTile(TileID.LunarCraftingStation)
 			.Register();
+		*/
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{

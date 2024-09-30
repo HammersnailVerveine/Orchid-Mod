@@ -38,8 +38,8 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				case NPCID.WitchDoctor:
 					{
-						shop.Add(ItemType<ShamanRod>());
-						shop.Add(ItemType<RitualScepter>(), [Condition.Hardmode]);
+						// shop.Add(ItemType<ShamanRod>());
+						// shop.Add(ItemType<RitualScepter>(), [Condition.Hardmode]);
 					}
 					break;
 				case NPCID.Demolitionist:
@@ -54,7 +54,7 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.Dryad:
 					{
-						shop.Add(ItemType<DryadsGift>());
+						// shop.Add(ItemType<DryadsGift>());
 					}
 					break;
 				case NPCID.SkeletonMerchant:
@@ -70,7 +70,7 @@ namespace OrchidMod.Common.Global.NPCs
 
 			if (thoriumMod.IsNPCTypeEquals("ConfusedZombie", shop.NpcType))
 			{
-				OrchidUtils.AddItemToShop<PatchWerkScepter>(shop);
+				// OrchidUtils.AddItemToShop<PatchWerkScepter>(shop);
 				return;
 			}
 
@@ -117,39 +117,39 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.WyvernHead:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<WyvernTailFeather>(), 15));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<WyvernTailFeather>(), 15));
 					}
 					break;
 				case NPCID.UndeadViking:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<FrostburnSigil>(), 30));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<FrostburnSigil>(), 30));
 					}
 					break;
 				case NPCID.Demon:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<FurnaceSigil>(), 30));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<FurnaceSigil>(), 30));
 						npcLoot.Add(ItemDropRule.Common(ItemType<DemonicPocketMirror>(), 20));
 					}
 					break;
 				case NPCID.DarkCaster:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<Blum>(), 15));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<Blum>(), 15));
 						npcLoot.Add(ItemDropRule.Common(ItemType<DungeonCard>(), 25));
 					}
 					break;
 				case NPCID.FireImp:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<MeltedRing>(), 20));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<MeltedRing>(), 20));
 					}
 					break;
 				case NPCID.IceQueen:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<IceFlakeCone>(), 10));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<IceFlakeCone>(), 10));
 					}
 					break;
 				case NPCID.RuneWizard:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<RuneScepter>(), 2));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<RuneScepter>(), 2));
 						npcLoot.Add(ItemDropRule.Common(ItemType<RuneRune>(), 2));
 					}
 					break;
@@ -160,37 +160,37 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.GoblinSummoner:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinStick>(), 3));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<GoblinStick>(), 3));
 					}
 					break;
 				case NPCID.MourningWood:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<MourningTorch>(), 10));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<MourningTorch>(), 10));
 					}
 					break;
 				case NPCID.SantaNK1:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<FragilePresent>(), 10));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<FragilePresent>(), 10));
 					}
 					break;
 				case NPCID.Mimic:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<HeavyBracer>(), 10));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<HeavyBracer>(), 10));
 					}
 					break;
 				case NPCID.IceMimic:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<IceMimicScepter>(), 3));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<IceMimicScepter>(), 3));
 					}
 					break;
 				case NPCID.UndeadMiner:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<TreasuredBaubles>(), 5));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<TreasuredBaubles>(), 5));
 					}
 					break;
 				case NPCID.Harpy:
 					{
-						npcLoot.Add(ItemDropRule.ByCondition(new OrchidDropConditions.DownedEyeOfCthulhu(), ItemType<HarpyTalon>(), 5));
+						// npcLoot.Add(ItemDropRule.ByCondition(new OrchidDropConditions.DownedEyeOfCthulhu(), ItemType<HarpyTalon>(), 5));
 					}
 					break;
 				case NPCID.ElfCopter:
@@ -207,7 +207,7 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.HornetSpikey:
 				case NPCID.HornetStingy:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<PoisonSigil>(), 30));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<PoisonSigil>(), 30));
 						npcLoot.Add(ItemDropRule.Common(ItemType<PoisonVial>(), 20));
 					}
 					break;
@@ -249,19 +249,19 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.DiabolistRed:
 				case NPCID.DiabolistWhite:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<DiabolistRune>(), 20));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<DiabolistRune>(), 20));
 					}
 					break;
 				case NPCID.MartianSaucerCore:
 				case NPCID.MartianSaucer:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<MartianBeamer>(), 4));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<MartianBeamer>(), 4));
 					}
 					break;
 				case NPCID.Lihzahrd:
 				case NPCID.LihzahrdCrawler:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<LihzahrdSilk>(), 4));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<LihzahrdSilk>(), 4));
 						npcLoot.Add(ItemDropRule.Common(ItemType<SunPriestTorch>(), 100));
 						npcLoot.Add(ItemDropRule.Common(ItemType<SunPriestBelt>(), 300));
 					}
@@ -269,7 +269,7 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.BlackRecluse:
 				case NPCID.BlackRecluseWall:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<VenomSigil>(), 40));
+						// npcLoot.Add(ItemDropRule.Common(ItemType<VenomSigil>(), 40));
 					}
 					break;
 				case NPCID.Paladin:
@@ -304,17 +304,14 @@ namespace OrchidMod.Common.Global.NPCs
 
 		public override void OnKill(NPC npc)
 		{
-			// TODO : UDPATE THE UNDER
-
 			OrchidGlobalNPC globalNPC = npc.GetGlobalNPC<OrchidGlobalNPC>();
-
 
 			if (npc.type == NPCID.CultistBoss)
 			{
 				int rand;
 				if (Main.expertMode) rand = Main.rand.Next(73) + 18;
 				else rand = Main.rand.Next(49) + 12;
-				Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<AbyssFragment>(), rand, false, 0, false, false);
+				// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<AbyssFragment>(), rand, false, 0, false, false);
 			}
 
 			if (npc.aiStyle == 94) // Celestial Pillar AI 
@@ -347,7 +344,7 @@ namespace OrchidMod.Common.Global.NPCs
 					int rand = Main.rand.Next(3);
 					if (rand == 0)
 					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BeeSeeker>());
+						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BeeSeeker>());
 					}
 					else if (rand == 1)
 					{
@@ -375,13 +372,13 @@ namespace OrchidMod.Common.Global.NPCs
 				{
 					if (Main.rand.NextBool(5))
 					{
-						if (Main.rand.NextBool(2))
+						if (Main.rand.NextBool())
 						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Nirvana>());
+							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Nirvana>());
 						}
 						else
 						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<TheCore>());
+							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<TheCore>());
 						}
 					}
 				}
@@ -391,8 +388,15 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.NextBool()) Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<ShamanEmblem>());
-					else Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<GuardianEmblem>());
+					if (Main.rand.NextBool())
+					{
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<ShamanEmblem>());
+					}
+					else
+					{
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<GuardianEmblem>());
+					}
+
 					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<OrchidEmblem>());
 				}
 			}
@@ -422,13 +426,13 @@ namespace OrchidMod.Common.Global.NPCs
 				{
 					if (Main.rand.NextBool(3))
 					{
-						if (Main.rand.NextBool(2))
+						if (Main.rand.NextBool())
 						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BulbScepter>());
+							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BulbScepter>());
 						}
 						else
 						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<FloralStinger>());
+							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<FloralStinger>());
 						}
 					}
 				}
@@ -448,7 +452,7 @@ namespace OrchidMod.Common.Global.NPCs
 				{
 					if (Main.rand.NextBool(3))
 					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<SunRay>());
+						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<SunRay>());
 					}
 					else
 					{
@@ -527,6 +531,7 @@ namespace OrchidMod.Common.Global.NPCs
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
+				/*
 				if (thoriumMod.IsNPCTypeEquals("TheGrandThunderBirdv2", npc.type))
 				{
 					if (!Main.expertMode)
@@ -651,6 +656,7 @@ namespace OrchidMod.Common.Global.NPCs
 				{
 					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<PatchWerkScepter>());
 				}
+				*/
 			}
 			else
 			{

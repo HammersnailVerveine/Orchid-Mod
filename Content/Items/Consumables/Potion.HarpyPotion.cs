@@ -1,5 +1,4 @@
 using OrchidMod.Assets;
-using OrchidMod.Content.Shaman.Misc;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,20 +26,13 @@ namespace OrchidMod.Content.Items.Consumables
 			Item.buffTime = 60 * 180;
 		}
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Cloud Burst Potion");
-			/* Tooltip.SetDefault("Your first bonus jump will release a burst of damaging feathers"
-						  + "\nAllows you to double jump, if you cannot already"); */
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Bottles);
 			recipe.AddIngredient(ItemID.BottledWater, 1);
-			recipe.AddIngredient(ItemID.Deathweed, 1);
-			recipe.AddIngredient(ModContent.ItemType<HarpyTalon>(), 1);
+			recipe.AddIngredient(ItemID.Moonglow, 1);
+			recipe.AddIngredient(ItemID.Damselfish, 1);
 			recipe.AddIngredient(ItemID.Feather, 1);
 			recipe.Register();
 		}

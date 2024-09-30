@@ -40,11 +40,13 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			return false;
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ModContent.ItemType<Misc.RitualScepter>(), 1)
 			.AddIngredient(ItemID.Ichor, 20)
 			.AddIngredient(ItemID.SoulofNight, 15)
 			.AddTile(TileID.MythrilAnvil)
 			.Register();
+		*/
 	}
 }

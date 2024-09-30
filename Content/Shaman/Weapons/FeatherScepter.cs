@@ -66,11 +66,13 @@ namespace OrchidMod.Content.Shaman.Weapons
 			return false;
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ModContent.ItemType<HarpyTalon>(), 2)
 			.AddIngredient(ItemID.Feather, 5)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }
 

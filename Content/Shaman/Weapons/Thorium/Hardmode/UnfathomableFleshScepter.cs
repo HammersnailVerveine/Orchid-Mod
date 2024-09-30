@@ -34,6 +34,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 							+ "\nAfter stealing life, your regeneration will be nullified for a moment"); */
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -46,6 +47,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }
 

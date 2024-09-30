@@ -28,6 +28,7 @@ namespace OrchidMod.Content.Shaman.Armors.Downpour
 			player.GetDamage<ShamanDamageClass>() += 0.15f;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -42,5 +43,6 @@ namespace OrchidMod.Content.Shaman.Armors.Downpour
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}
+		*/
 	}
 }

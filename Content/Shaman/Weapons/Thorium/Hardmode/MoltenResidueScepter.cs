@@ -33,6 +33,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 							+ "\nThe explosion size and damage depends on your number of active shamanic bonds"); */
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -46,6 +47,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }
 

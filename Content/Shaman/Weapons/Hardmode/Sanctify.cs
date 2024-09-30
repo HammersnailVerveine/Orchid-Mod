@@ -75,9 +75,11 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 		}
 		*/
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.HallowedBar, 12)
 			.AddTile(TileID.MythrilAnvil)
 			.Register();
+		*/
 	}
 }

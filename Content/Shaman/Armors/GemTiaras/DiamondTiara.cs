@@ -48,6 +48,7 @@ namespace OrchidMod.Content.Shaman.Armors.GemTiaras
 			player.statDefense += 2;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -56,5 +57,6 @@ namespace OrchidMod.Content.Shaman.Armors.GemTiaras
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

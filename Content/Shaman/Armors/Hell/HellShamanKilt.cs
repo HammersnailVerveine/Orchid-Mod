@@ -28,6 +28,7 @@ namespace OrchidMod.Content.Shaman.Armors.Hell
 			player.GetDamage<ShamanDamageClass>() += 0.08f;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -37,5 +38,6 @@ namespace OrchidMod.Content.Shaman.Armors.Hell
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

@@ -33,6 +33,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 							+ "\nIf you have 3 or more bonds, hitting has a chance to summon a shadow portal"); */
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -45,6 +46,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }
 

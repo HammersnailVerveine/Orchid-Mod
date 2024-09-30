@@ -27,6 +27,7 @@ namespace OrchidMod.Content.Shaman.Armors.Hell
 			return new Vector2(-2, 0);
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -36,5 +37,6 @@ namespace OrchidMod.Content.Shaman.Armors.Hell
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

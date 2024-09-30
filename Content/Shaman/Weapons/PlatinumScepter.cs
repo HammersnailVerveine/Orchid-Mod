@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Shaman;
 using OrchidMod.Content.Shaman.Projectiles;
 using System;
 using System.Collections.Generic;
@@ -30,12 +29,13 @@ namespace OrchidMod.Content.Shaman.Weapons
 			this.Element = ShamanElement.EARTH;
 			CatalystMovement = ShamanSummonMovement.FLOATABOVE;
 		}
-
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.Diamond, 8)
 			.AddIngredient(ItemID.PlatinumBar, 10)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }
 

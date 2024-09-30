@@ -26,6 +26,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 		{
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -36,5 +37,6 @@ namespace OrchidMod.Content.Shaman.Accessories
 			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.Register();
 		}
+		*/
 	}
 }

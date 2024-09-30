@@ -1,9 +1,7 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Content.Shaman.Projectiles;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shaman.Weapons
 {

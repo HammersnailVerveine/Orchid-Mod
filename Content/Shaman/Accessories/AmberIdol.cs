@@ -22,6 +22,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 			if (shaman.IsShamanicBondReleased(ShamanElement.EARTH)) player.lifeRegen += 5;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -29,5 +30,6 @@ namespace OrchidMod.Content.Shaman.Accessories
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

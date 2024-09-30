@@ -48,6 +48,7 @@ namespace OrchidMod.Content.Shaman.Armors.OreHelms
 			player.armorEffectDrawShadow = true;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -55,5 +56,6 @@ namespace OrchidMod.Content.Shaman.Armors.OreHelms
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

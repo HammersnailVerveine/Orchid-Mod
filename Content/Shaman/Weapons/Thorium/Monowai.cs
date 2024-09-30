@@ -43,6 +43,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 			return false;
 		}
 
+		/*
 		//TODO Thorium: Monitor, aDarksteelAlloy will get renamed to DarksteelAlloy sometime in the future
 		public override void AddRecipes()
 		{
@@ -57,5 +58,6 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }

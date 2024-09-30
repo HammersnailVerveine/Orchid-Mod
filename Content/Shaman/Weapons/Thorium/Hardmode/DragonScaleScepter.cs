@@ -33,6 +33,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 							+ "\nThe more shamanic bonds you have, the more enemies can be hit"); */
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -45,6 +46,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }
 

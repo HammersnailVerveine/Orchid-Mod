@@ -31,6 +31,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 							+ "\nIf you have 3 opal orbs, your next hit will increase your shamanic critical strike damage for 30 seconds"); */
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -43,5 +44,6 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }

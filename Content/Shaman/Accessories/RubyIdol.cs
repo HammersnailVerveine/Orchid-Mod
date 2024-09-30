@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 			if (element == ShamanElement.FIRE) catalyst.damage = (int)(catalyst.damage * 1.2f);
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -28,5 +29,6 @@ namespace OrchidMod.Content.Shaman.Accessories
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

@@ -54,6 +54,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			return true;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
@@ -64,5 +65,6 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}
+		*/
 	}
 }

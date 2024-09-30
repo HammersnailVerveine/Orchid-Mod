@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Shaman.Armors.Thorium.Viscount
 		{
 			return new Vector2(-2, 0);
 		}
-
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -40,5 +40,6 @@ namespace OrchidMod.Content.Shaman.Armors.Thorium.Viscount
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

@@ -38,11 +38,13 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Lighting.AddLight(Item.Center, Color.Pink.ToVector3() * 0.55f * Main.essScale);
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ModContent.ItemType<Misc.RitualScepter>(), 1)
 			.AddIngredient(ItemID.CrystalShard, 20)
 			.AddIngredient(ItemID.SoulofLight, 15)
 			.AddTile(TileID.MythrilAnvil)
 			.Register();
+		*/
 	}
 }

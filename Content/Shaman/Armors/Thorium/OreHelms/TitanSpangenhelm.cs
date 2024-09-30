@@ -52,6 +52,7 @@ namespace OrchidMod.Content.Shaman.Armors.Thorium.OreHelms
 			player.GetDamage(DamageClass.Generic) += 0.18f;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			Mod thoriumMod = OrchidMod.ThoriumMod;
@@ -63,5 +64,6 @@ namespace OrchidMod.Content.Shaman.Armors.Thorium.OreHelms
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }

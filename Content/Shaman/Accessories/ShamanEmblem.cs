@@ -26,6 +26,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 			player.GetDamage<ShamanDamageClass>() += 0.15f;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -37,5 +38,6 @@ namespace OrchidMod.Content.Shaman.Accessories
 			recipe.AddTile(TileID.TinkerersWorkbench);
 			recipe.Register();
 		}
+		*/
 	}
 }

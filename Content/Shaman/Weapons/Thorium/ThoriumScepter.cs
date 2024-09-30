@@ -34,6 +34,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 							+ "\nIf you have 3 or more active shamanic bonds, the bonus projectiles will home at nearby enemies"); */
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -45,6 +46,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }
 

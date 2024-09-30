@@ -44,7 +44,7 @@ namespace OrchidMod.Content.Shaman.Armors.Thorium.Viscount
 			// buff timer  3;
 			modPlayer.shamanVampire = true;
 		}
-
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -52,5 +52,6 @@ namespace OrchidMod.Content.Shaman.Armors.Thorium.Viscount
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

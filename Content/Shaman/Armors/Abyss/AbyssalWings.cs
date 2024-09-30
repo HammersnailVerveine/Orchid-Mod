@@ -44,7 +44,7 @@ namespace OrchidMod.Content.Shaman.Armors.Abyss
 			constantAscend = 0.135f;
 		}
 		
-
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -53,6 +53,7 @@ namespace OrchidMod.Content.Shaman.Armors.Abyss
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}
+		*/
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{

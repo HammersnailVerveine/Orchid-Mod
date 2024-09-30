@@ -43,6 +43,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 			if (tt != null) tt.OverrideColor = Main.DiscoColor;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -54,6 +55,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }
 

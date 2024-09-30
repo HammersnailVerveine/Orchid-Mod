@@ -50,6 +50,7 @@ namespace OrchidMod.Content.Shaman.Armors.OreHelms
 			smallPulse = true;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -57,5 +58,6 @@ namespace OrchidMod.Content.Shaman.Armors.OreHelms
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}
+		*/
 	}
 }

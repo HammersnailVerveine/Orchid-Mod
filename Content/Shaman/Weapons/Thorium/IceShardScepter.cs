@@ -39,6 +39,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 			crit += 10 * modPlayer.CountShamanicBonds();
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -50,5 +51,6 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }

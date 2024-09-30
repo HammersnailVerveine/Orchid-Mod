@@ -48,6 +48,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 			return false;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -60,6 +61,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }
 

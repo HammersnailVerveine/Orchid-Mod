@@ -30,6 +30,7 @@ namespace OrchidMod.Content.Shaman.Armors.SunPriest
 			player.GetDamage<ShamanDamageClass>() += 0.06f;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -38,5 +39,6 @@ namespace OrchidMod.Content.Shaman.Armors.SunPriest
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}
+		*/
 	}
 }

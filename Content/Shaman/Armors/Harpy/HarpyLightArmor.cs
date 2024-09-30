@@ -27,6 +27,7 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 			return new Vector2(-2, 0);
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -41,5 +42,6 @@ namespace OrchidMod.Content.Shaman.Armors.Harpy
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

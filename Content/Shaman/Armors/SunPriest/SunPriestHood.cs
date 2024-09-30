@@ -43,6 +43,7 @@ namespace OrchidMod.Content.Shaman.Armors.SunPriest
 			modPlayer.shamanSmite = true;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -51,5 +52,6 @@ namespace OrchidMod.Content.Shaman.Armors.SunPriest
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}
+		*/
 	}
 }

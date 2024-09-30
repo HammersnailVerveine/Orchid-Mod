@@ -48,7 +48,7 @@ namespace OrchidMod.Content.Shaman.Weapons
 			return true;
 		}
 
-
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -67,5 +67,6 @@ namespace OrchidMod.Content.Shaman.Weapons
 			recipe.AddTile(TileID.DemonAltar);
 			recipe.Register();
 		}
+		*/
 	}
 }

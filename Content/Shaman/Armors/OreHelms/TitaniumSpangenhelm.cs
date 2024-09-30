@@ -49,6 +49,7 @@ namespace OrchidMod.Content.Shaman.Armors.OreHelms
 			shortTrail = true;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -56,5 +57,6 @@ namespace OrchidMod.Content.Shaman.Armors.OreHelms
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}
+		*/
 	}
 }

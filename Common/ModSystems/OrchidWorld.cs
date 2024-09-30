@@ -47,7 +47,7 @@ namespace OrchidMod.Common.ModSystems
 			foundSlimeCard = false;
 		}
 
-		public override void SaveWorldData(TagCompound tag)/* Suggestion: Edit tag parameter rather than returning new TagCompound */
+		public override void SaveWorldData(TagCompound tag)
 		{
 			var orchidTags = new List<string>();
 
@@ -61,11 +61,6 @@ namespace OrchidMod.Common.ModSystems
 				orchidTags.Add("slimecard");
 			}
 
-			//return new TagCompound
-			//{
-			//	["downed"] = downed,
-			//};
-
 			tag.Add("orchidTags", orchidTags);
 		}
 
@@ -75,23 +70,6 @@ namespace OrchidMod.Common.ModSystems
 			foundChemist = orchidTags.Contains("chemist");
 			foundSlimeCard = orchidTags.Contains("slimecard");
 		}
-
-		/*
-		public override void LoadLegacy(BinaryReader reader)
-		{
-			int loadVersion = reader.ReadInt32();
-			if (loadVersion == 0)
-			{
-				BitsByte flags = reader.ReadByte();
-				foundChemist = flags[0];
-				foundSlimeCard = flags[1];
-			}
-			else
-			{
-				Mod.Logger.WarnFormat("OrchidMod: Unknown loadVersion: {0}", loadVersion);
-			}
-		}
-		*/
 
 		public override void NetSend(BinaryWriter writer)
 		{
@@ -171,7 +149,7 @@ namespace OrchidMod.Common.ModSystems
 
 					progress.Message = "Orchid Mod: Biome Chests";
 
-					int rounds = 1;
+					// int rounds = 1;
 					// Terra Custom Support
 					// Type TerraCustom_Settings = typeof(Main).Assembly.GetType("Terraria.TerraCustom.Setting");
 					// if (TerraCustom_Settings != null)
@@ -250,7 +228,7 @@ namespace OrchidMod.Common.ModSystems
 
 			// Surface Chests
 			chestLoots.Add(new ChestLoot(ItemType<EmbersCard>(), ChestType.SurfaceWooden, 20));
-			chestLoots.Add(new ChestLoot(ItemType<AdornedBranch>(), ChestType.SurfaceWooden, 20));
+			// chestLoots.Add(new ChestLoot(ItemType<AdornedBranch>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EmberVial>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<Warhammer>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<GuideShield>(), ChestType.SurfaceWooden, 20));
@@ -266,7 +244,7 @@ namespace OrchidMod.Common.ModSystems
 
 			// Gold Chests
 			chestLoots.Add(new ChestLoot(ItemType<GoldChestCard>(), ChestType.Gold, 20));
-			chestLoots.Add(new ChestLoot(ItemType<EnchantedScepter>(), ChestType.Gold, 20));
+			// chestLoots.Add(new ChestLoot(ItemType<EnchantedScepter>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EnchantedRune>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EnchantedPavise>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<CloudInAVial>(), ChestType.Gold, 20));
@@ -277,19 +255,19 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<BlizzardInAVial>(), ChestType.Ice, 20));
 			chestLoots.Add(new ChestLoot(ItemType<IceChestFlask>(), ChestType.Ice, 20));
 			chestLoots.Add(new ChestLoot(ItemType<IceChestCard>(), ChestType.Ice, 20));
-			chestLoots.Add(new ChestLoot(ItemType<AvalancheScepter>(), ChestType.Ice, 20));
+			// chestLoots.Add(new ChestLoot(ItemType<AvalancheScepter>(), ChestType.Ice, 20));
 			chestLoots.Add(new ChestLoot(ItemType<IceStandard>(), ChestType.Ice, 20));
 
 			// Dungeon Chests (Locked)
 			chestLoots.Add(new ChestLoot(ItemType<TiamatRelic>(), ChestType.DungeonLocked, 50, 1, 3, true));
-			chestLoots.Add(new ChestLoot(ItemType<SpiritedWater>(), ChestType.DungeonLocked, 20));
+			// chestLoots.Add(new ChestLoot(ItemType<SpiritedWater>(), ChestType.DungeonLocked, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DungeonFlask>(), ChestType.DungeonLocked, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DungeonCatalyst>(), ChestType.DungeonLocked, 20));
 			chestLoots.Add(new ChestLoot(ItemType<Rusalka>(), ChestType.DungeonLocked, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DeckBone>(), ChestType.DungeonLocked, 5, needToPlace: 0, ignoreChestLimit: true));
 
 			// Shadow Chests
-			chestLoots.Add(new ChestLoot(ItemType<FireBatScepter>(), ChestType.Shadow, 30));
+			// chestLoots.Add(new ChestLoot(ItemType<FireBatScepter>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<ShadowChestFlask>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<KeystoneOfTheConvent>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<ImpDiceCup>(), ChestType.Shadow, 30));
@@ -297,7 +275,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<HellRune>(), ChestType.Shadow, 30));
 
 			// Jungle Chests
-			chestLoots.Add(new ChestLoot(ItemType<DeepForestCharm>(), ChestType.Ivy, 20));
+			// chestLoots.Add(new ChestLoot(ItemType<DeepForestCharm>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<IvyChestCard>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<BloomingBud>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<BundleOfClovers>(), ChestType.Ivy, 20));
@@ -309,7 +287,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<SkywareShield>(), ChestType.SkyIsland, 30));
 
 			// Underground Desert Chests
-			chestLoots.Add(new ChestLoot(ItemType<RuneOfHorus>(), ChestType.Sandstone, 20));
+			// chestLoots.Add(new ChestLoot(ItemType<RuneOfHorus>(), ChestType.Sandstone, 20));
 			chestLoots.Add(new ChestLoot(ItemType<StormWarhammer>(), ChestType.Sandstone, 20));
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
@@ -370,7 +348,7 @@ namespace OrchidMod.Common.ModSystems
 		{
 			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<MinersLockboxTile>())
 			{
-				int[] specialItemPoll = {ItemType<EnchantedScepter>(), ItemType<CloudInAVial>(), ItemType<GoldChestCard>(), ItemType<EnchantedRune>(), ItemType<EnchantedPavise>()};
+				int[] specialItemPoll = {/*ItemType<EnchantedScepter>(), */ItemType<CloudInAVial>(), ItemType<GoldChestCard>(), ItemType<EnchantedRune>(), ItemType<EnchantedPavise>()};
 				int rand = Main.rand.Next(specialItemPoll);
 				placeInChest(chest, ItemType<DetonatorCard>(), 1);
 				placeInChest(chest, rand, 1);

@@ -28,6 +28,7 @@ namespace OrchidMod.Content.Shaman.Armors.Thorium.Viscount
 			player.GetDamage<ShamanDamageClass>() += 0.08f;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -35,5 +36,6 @@ namespace OrchidMod.Content.Shaman.Armors.Thorium.Viscount
 			recipe.AddTile(TileID.Anvils);
 			recipe.Register();
 		}
+		*/
 	}
 }

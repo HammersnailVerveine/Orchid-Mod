@@ -36,6 +36,7 @@ namespace OrchidMod.Content.Shaman.Armors.SunPriest
 			return new Vector2(-2, 0);
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -44,5 +45,6 @@ namespace OrchidMod.Content.Shaman.Armors.SunPriest
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}
+		*/
 	}
 }

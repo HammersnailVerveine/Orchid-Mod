@@ -42,6 +42,7 @@ namespace OrchidMod.Content.Shaman.Armors.Downpour
 			modPlayer.shamanDownpour = true;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -56,5 +57,6 @@ namespace OrchidMod.Content.Shaman.Armors.Downpour
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}
+		*/
 	}
 }

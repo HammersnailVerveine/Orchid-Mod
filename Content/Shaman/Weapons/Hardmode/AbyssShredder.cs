@@ -62,10 +62,12 @@ namespace OrchidMod.Content.Shaman.Weapons.Hardmode
 			Lighting.AddLight(Item.Center, Color.Blue.ToVector3() * 0.55f * Main.essScale);
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ModContent.ItemType<Misc.AbyssFragment>(), 18)
 			.AddTile(TileID.LunarCraftingStation)
 			.Register();
+		*/
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{

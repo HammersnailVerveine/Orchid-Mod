@@ -59,11 +59,12 @@ namespace OrchidMod.Content.Shaman.Weapons
 				}
 			}
 		}
-
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.DemoniteBar, 10)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }
 

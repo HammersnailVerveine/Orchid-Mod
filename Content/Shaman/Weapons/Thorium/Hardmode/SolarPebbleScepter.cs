@@ -33,6 +33,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 							+ "\nHitting will charge an eclipse above you, releasing homing flames when full"); */
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -45,6 +46,7 @@ namespace OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode
 				recipe.Register();
 			}
 		}
+		*/
 	}
 }
 

@@ -56,6 +56,7 @@ namespace OrchidMod.Content.Shaman.Accessories
 			*/
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -64,5 +65,6 @@ namespace OrchidMod.Content.Shaman.Accessories
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}
+		*/
 	}
 }

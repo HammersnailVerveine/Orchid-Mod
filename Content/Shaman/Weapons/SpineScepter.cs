@@ -59,11 +59,12 @@ namespace OrchidMod.Content.Shaman.Weapons
 				}
 			}
 		}
-
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.CrimtaneBar, 10)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }
 
