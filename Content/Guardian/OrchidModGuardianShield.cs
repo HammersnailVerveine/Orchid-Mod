@@ -191,7 +191,8 @@ namespace OrchidMod.Content.Guardian
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "BlockDuration", tooltipSeconds + "." + (int)(tooltipTicks * (100 / 60f)) + " block duration"));
 
-			tooltips.Insert(index + 2, new TooltipLine(Mod, "ShieldStacks", "Right click to slam")
+			string click = ModContent.GetInstance<OrchidClientConfig>().SwapPaviseImputs ? "Left" : "Right";
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", click + " click to block")
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});

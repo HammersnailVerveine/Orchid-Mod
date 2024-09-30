@@ -272,6 +272,11 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.Common(ItemType<VenomSigil>(), 40));
 					}
 					break;
+				case NPCID.Paladin:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<PaladinGauntlet>(), 15));
+					}
+					break;
 				default:
 					break;
 			}

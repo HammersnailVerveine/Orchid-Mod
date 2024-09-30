@@ -76,14 +76,20 @@ namespace OrchidMod.Content.Guardian
 					Projectile projectileOff = Main.projectile[anchors[0]];
 
 					bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
-					if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs) shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
+					bool shoundpunch = Main.mouseLeft && Main.mouseLeftRelease;
+					if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs)
+					{
+						shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
+						shoundpunch = Main.mouseRight && Main.mouseRightRelease;
+					}
 
 					if (projectileMain.ai[0] == 0f || projectileOff.ai[0] == 0f || (projectileMain.ai[0] > 0f && projectileOff.ai[0] > 0f))
 					{ // At least one of the gauntlets is not being used or both are blocking
 						if (shouldBlock)
 						{ // Right click & None of the gauntlets is blocking = Block
-							if (guardian.GuardianGuard > 0 && projectileMain.ai[0] <= 0f && projectileOff.ai[0] <= 0f)
-							{
+							if (guardian.GuardianGuard > 0 && (projectileMain.ai[0] <= 0f || projectileOff.ai[0] <= 0f) 
+								&& !(projectileMain.ai[0] > 0 && projectileMain.ai[2] <= 0) && !(projectileOff.ai[0] > 0 && projectileOff.ai[2] <= 0))
+							{ // Player is not already blocking with a gauntlet
 								player.immuneTime = 0;
 								player.immune = false;
 								SoundEngine.PlaySound(SoundID.Item37, player.Center);
@@ -101,7 +107,7 @@ namespace OrchidMod.Content.Guardian
 								}
 							}
 						}
-						else
+						else if (shoundpunch)
 						{ // Left click
 							if (guardian.GuardianGauntletCharge == 0)
 							{
@@ -223,7 +229,8 @@ namespace OrchidMod.Content.Guardian
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", tooltipSeconds + "." + (int)(tooltipTicks * (100 / 60f)) + " parry duration"));
 
-			tooltips.Insert(index + 2, new TooltipLine(Mod, "ShieldStacks", "Right click to parry")
+			string click = ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? "Left" : "Right";
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", click + " click to parry")
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});

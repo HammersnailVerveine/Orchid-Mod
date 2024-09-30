@@ -16,6 +16,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.value = Item.sellPrice(0, 7, 50, 0);
 			Item.rare = ItemRarityID.Yellow;
 			Item.useTime = 10;
+			Item.crit = 10;
 			strikeVelocity = 30f;
 			parryDuration = 90;
 			hasArm = true;

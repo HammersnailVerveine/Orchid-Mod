@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
 using OrchidMod.Common.ModObjects;
 using System;
 using System.Collections.Generic;
@@ -184,7 +185,7 @@ namespace OrchidMod.Content.Guardian
 						}
 						else if (guardian.GuardianGauntletCharge > (70 * owner.GetAttackSpeed(DamageClass.Melee) - owner.HeldItem.useTime) / 2.5f) guardian.SlamCostUI = 1;
 
-						if (!owner.controlUseItem && owner.whoAmI == Main.myPlayer)
+						if ((ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? !Main.mouseRight : !Main.mouseLeft) && owner.whoAmI == Main.myPlayer)
 						{
 							if (guardian.GuardianGauntletCharge < 180f && guardian.GuardianSlam > 0)
 							{ // Consume a slam to fully charge if the player has one
