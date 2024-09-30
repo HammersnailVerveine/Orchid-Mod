@@ -11,6 +11,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
+using static Terraria.Player;
 
 namespace OrchidMod
 {
@@ -59,17 +60,23 @@ namespace OrchidMod
 
 		public static int GuardianRechargeTime = 600;
 
-		/*
-		public override void HideDrawLayers(PlayerDrawSet drawInfo)
+		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
 		{
-			if (Player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+			if (Player.HeldItem.ModItem is OrchidModGuardianGauntlet gauntlet)
 			{
-				//PlayerDrawLayers.ArmOverItem.Hide();
-				//PlayerDrawLayers.Torso.Hide();
-				//PlayerDrawLayers.Skin.Hide();
+				drawInfo.compShoulderOverFrontArm = true; // Why is this not on by default
+				drawInfo.compBackArmFrame = Rectangle.Empty; // Makes the back arm disappear when holding a gauntlet
+				if (gauntlet.hasArm)
+				{ // Makes the front arm disappear if the gauntlet has its own arm texture.
+					drawInfo.compFrontArmFrame = new Rectangle(1, 1, 1 ,1); // An empty rectangle crashes the game
+				}
+
+				if (gauntlet.hasShoulder)
+				{
+					drawInfo.hideCompositeShoulders = true; // Makes the shoulders disappear if the gauntlet has its own shoulder texture
+				}
 			}
 		}
-		*/
 
 		public override void Initialize()
 		{

@@ -234,7 +234,7 @@ namespace OrchidMod.Content.Guardian
 					if (Projectile.localAI[1] > 0.55f && (Projectile.ai[1] > -2.25f || Projectile.ai[1] < -4f)) compositeArmStretchAmount = CompositeArmStretchAmount.ThreeQuarters;
 					owner.SetCompositeArmBack(true, compositeArmStretchAmount, rotation - MathHelper.PiOver2);
 					*/
-					owner.SetCompositeArmBack(true, CompositeArmStretchAmount.None, owner.direction * -MathHelper.Pi);
+					//owner.SetCompositeArmBack(true, CompositeArmStretchAmount.None, owner.direction * -MathHelper.Pi);
 				}
 				else
 				{
