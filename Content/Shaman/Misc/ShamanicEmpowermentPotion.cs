@@ -28,6 +28,8 @@ namespace OrchidMod.Content.Shaman.Misc
 			// DisplayName.SetDefault("Shamanic Accurary Potion");
 			// Tooltip.SetDefault("The source of your shamanic attacks will stay in position better");
 		}
+
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -38,5 +40,6 @@ namespace OrchidMod.Content.Shaman.Misc
 			recipe.AddIngredient(ItemID.Feather, 1);
 			recipe.Register();
 		}
+		*/
 	}
 }

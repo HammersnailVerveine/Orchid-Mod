@@ -31,9 +31,11 @@ namespace OrchidMod.Content.Shaman.Weapons
 							  + "\nProjectile will grow faster if you have 3 or more active shamanic bonds"); */
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ItemID.HellstoneBar, 18)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }

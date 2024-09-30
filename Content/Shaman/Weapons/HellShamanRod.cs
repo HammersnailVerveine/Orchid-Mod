@@ -50,10 +50,12 @@ namespace OrchidMod.Content.Shaman.Weapons
 			return false;
 		}
 
+		/*
 		public override void AddRecipes() => CreateRecipe()
 			.AddIngredient(ModContent.ItemType<ShamanRod>(), 1)
 			.AddIngredient(ItemID.HellstoneBar, 12)
 			.AddTile(TileID.Anvils)
 			.Register();
+		*/
 	}
 }
