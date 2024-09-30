@@ -227,7 +227,6 @@ namespace OrchidMod.Content.Guardian
 
 				if (OffHandGauntlet)
 				{
-					//owner.handoff = -1;
 					/*
 					float rotation = (Projectile.Center + new Vector2(4 * owner.direction, Slamming ? 2 : 6) - owner.Center.Floor()).ToRotation();
 					CompositeArmStretchAmount compositeArmStretchAmount = CompositeArmStretchAmount.Quarter; // Tweak the arm based on punch direction if necessary
@@ -238,7 +237,6 @@ namespace OrchidMod.Content.Guardian
 				}
 				else
 				{
-					//owner.handon = -1;
 					float rotation = (Projectile.Center + new Vector2(6 * owner.direction, Slamming ? 2 : Charging ? 8 : 6) - owner.Center.Floor()).ToRotation();
 					CompositeArmStretchAmount compositeArmStretchAmount = CompositeArmStretchAmount.ThreeQuarters; // Tweak the arm based on punch direction if necessary
 					if (Charging) compositeArmStretchAmount = CompositeArmStretchAmount.Quarter;

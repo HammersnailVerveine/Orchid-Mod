@@ -59,6 +59,7 @@ namespace OrchidMod
 
 		public static int GuardianRechargeTime = 600;
 
+		/*
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
 			if (Player.HeldItem.ModItem is OrchidModGuardianGauntlet)
@@ -68,6 +69,7 @@ namespace OrchidMod
 				//PlayerDrawLayers.Skin.Hide();
 			}
 		}
+		*/
 
 		public override void Initialize()
 		{

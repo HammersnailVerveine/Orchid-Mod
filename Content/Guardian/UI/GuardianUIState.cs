@@ -128,55 +128,82 @@ namespace OrchidMod.Content.Guardian.UI
 					spriteBatch.Draw(textureIconStandard, new Vector2(position.X - offSet, position.Y + 36), Color.White * colorMult);
 				}
 
-				if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
+				if (player.HeldItem.useTime > 0)
 				{
-					if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+					if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
 					{
-						Vector2 hammerPosition = new Vector2(position.X - textureHammerMain.Width / 2, position.Y - 100);
-						spriteBatch.Draw(textureHammerMain, hammerPosition, Color.White);
-
-						int throwCharge = modPlayer.ThrowLevel();
-						if (throwCharge > 0)
+						if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
 						{
-							Vector2 iconPosition = hammerPosition + new Vector2(4, 2);
-							Color color = new Color(87, 220, 0);
-							spriteBatch.Draw(textureHammerIcon, iconPosition, color);
-						}
+							Vector2 hammerPosition = new Vector2(position.X - textureHammerMain.Width / 2, position.Y - 100);
+							spriteBatch.Draw(textureHammerMain, hammerPosition, Color.White);
 
-						if (throwCharge > 1)
-						{
-							Vector2 iconPosition = hammerPosition + new Vector2(16, 2);
-							Color color = new Color(255, 223, 0);
-							spriteBatch.Draw(textureHammerIcon, iconPosition, color);
-						}
+							int throwCharge = modPlayer.ThrowLevel();
+							if (throwCharge > 0)
+							{
+								Vector2 iconPosition = hammerPosition + new Vector2(4, 2);
+								Color color = new Color(87, 220, 0);
+								spriteBatch.Draw(textureHammerIcon, iconPosition, color);
+							}
 
-						if (throwCharge > 2)
-						{
-							Vector2 iconPosition = hammerPosition + new Vector2(28, 2);
-							Color color = new Color(255, 150, 0);
-							spriteBatch.Draw(textureHammerIcon, iconPosition, color);
-						}
+							if (throwCharge > 1)
+							{
+								Vector2 iconPosition = hammerPosition + new Vector2(16, 2);
+								Color color = new Color(255, 223, 0);
+								spriteBatch.Draw(textureHammerIcon, iconPosition, color);
+							}
 
-						if (throwCharge > 3)
-						{
-							Vector2 iconPosition = hammerPosition + new Vector2(40, 0);
-							Color color = new Color(255, 27, 0);
-							spriteBatch.Draw(textureHammerIconBig, iconPosition, color);
+							if (throwCharge > 2)
+							{
+								Vector2 iconPosition = hammerPosition + new Vector2(28, 2);
+								Color color = new Color(255, 150, 0);
+								spriteBatch.Draw(textureHammerIcon, iconPosition, color);
+							}
+
+							if (throwCharge > 3)
+							{
+								Vector2 iconPosition = hammerPosition + new Vector2(40, 0);
+								Color color = new Color(255, 27, 0);
+								spriteBatch.Draw(textureHammerIconBig, iconPosition, color);
+							}
 						}
 					}
-				}
-				else
-				{
-					if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+					else
 					{
-						int val = 24;
-						if (modPlayer.GuardianHammerCharge > 180f)
+						if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
 						{
-							spriteBatch.Draw(textureHammerReady, new Vector2(position.X - 14, position.Y - 96), Color.White * 0.8f);
+							int val = 24;
+							if (modPlayer.GuardianHammerCharge > 180f)
+							{
+								spriteBatch.Draw(textureHammerReady, new Vector2(position.X - 14, position.Y - 96), Color.White * 0.8f);
+							}
+							else
+							{
+								float charge = modPlayer.GuardianHammerCharge;
+								while (charge < 180f)
+								{
+									charge += 7.5f;
+									val--;
+								}
+							}
+
+							Rectangle rectangle = textureHammerOn.Bounds;
+							rectangle.Height = val;
+							rectangle.Y = textureHammerOn.Height - val;
+							spriteBatch.Draw(textureHammerOff, new Vector2(position.X - 12, position.Y - 94), Color.White);
+							spriteBatch.Draw(textureHammerOn, new Vector2(position.X - 12, position.Y - 94 + textureHammerOn.Height - val), rectangle, Color.White);
+						}
+					}
+
+					if (modPlayer.GuardianStandardCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+					{
+						int val = textureStandardOn.Height;
+						if (modPlayer.GuardianStandardCharge >= 180f)
+						{
+							spriteBatch.Draw(textureStandardReady, new Vector2(position.X - 11, position.Y - 96), Color.White * 0.8f);
 						}
 						else
 						{
-							float charge = modPlayer.GuardianHammerCharge;
+							float charge = modPlayer.GuardianStandardCharge;
 							while (charge < 180f)
 							{
 								charge += 7.5f;
@@ -184,84 +211,60 @@ namespace OrchidMod.Content.Guardian.UI
 							}
 						}
 
-						Rectangle rectangle = textureHammerOn.Bounds;
+						Rectangle rectangle = textureStandardOn.Bounds;
 						rectangle.Height = val;
-						rectangle.Y = textureHammerOn.Height - val;
-						spriteBatch.Draw(textureHammerOff, new Vector2(position.X - 12, position.Y - 94), Color.White);
-						spriteBatch.Draw(textureHammerOn, new Vector2(position.X - 12, position.Y - 94 + textureHammerOn.Height - val), rectangle, Color.White);
+						rectangle.Y = textureStandardOn.Height - val;
+						spriteBatch.Draw(textureStandardOff, new Vector2(position.X - 9, position.Y - 94), Color.White);
+						spriteBatch.Draw(textureStandardOn, new Vector2(position.X - 9, position.Y - 94 + textureStandardOn.Height - val), rectangle, Color.White);
 					}
-				}
 
-				if (modPlayer.GuardianStandardCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
-				{
-					int val = textureStandardOn.Height;
-					if (modPlayer.GuardianStandardCharge >= 180f)
+					if (modPlayer.GuardianGauntletCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
 					{
-						spriteBatch.Draw(textureStandardReady, new Vector2(position.X - 11, position.Y - 96), Color.White * 0.8f);
-					}
-					else
-					{
-						float charge = modPlayer.GuardianStandardCharge;
-						while (charge < 180f)
+						int val = textureGauntletOn.Height;
+						if (modPlayer.GuardianGauntletCharge >= 180f)
 						{
-							charge += 7.5f;
-							val--;
+							spriteBatch.Draw(textureGauntletReady, new Vector2(position.X - 10, position.Y - 96), Color.White * 0.8f);
 						}
-					}
-
-					Rectangle rectangle = textureStandardOn.Bounds;
-					rectangle.Height = val;
-					rectangle.Y = textureStandardOn.Height - val;
-					spriteBatch.Draw(textureStandardOff, new Vector2(position.X - 9, position.Y - 94), Color.White);
-					spriteBatch.Draw(textureStandardOn, new Vector2(position.X - 9, position.Y - 94 + textureStandardOn.Height - val), rectangle, Color.White);
-				}
-
-				if (modPlayer.GuardianGauntletCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
-				{
-					int val = textureGauntletOn.Height;
-					if (modPlayer.GuardianGauntletCharge >= 180f)
-					{
-						spriteBatch.Draw(textureGauntletReady, new Vector2(position.X - 10, position.Y - 96), Color.White * 0.8f);
-					}
-					else
-					{
-						float charge = modPlayer.GuardianGauntletCharge;
-						while (charge < 180f)
+						else
 						{
-							charge += 7.5f;
-							val--;
-						}
-					}
-
-					Rectangle rectangle = textureGauntletOn.Bounds;
-					rectangle.Height = val;
-					rectangle.Y = textureGauntletOn.Height - val;
-					spriteBatch.Draw(textureGauntletOff, new Vector2(position.X - 8, position.Y - 94), Color.White);
-					spriteBatch.Draw(textureGauntletOn, new Vector2(position.X - 8, position.Y - 94 + textureGauntletOn.Height - val), rectangle, Color.White);
-				}
-				else
-				{
-					int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
-					int projectileType2 = ModContent.ProjectileType<GuardianGauntletAnchor>();
-					for (int i = 0; i < Main.projectile.Length; i++)
-					{
-						Projectile proj = Main.projectile[i];
-						if (proj.active && proj.owner == player.whoAmI && (proj.type == projectileType || proj.type == projectileType2) && proj.ai[0] > 0f && proj.localAI[0] > 0f)
-						{
-							int val = 22;
-							float block = proj.ai[0];
-							while (block < proj.localAI[0])
+							float charge = modPlayer.GuardianGauntletCharge;
+							while (charge < 180f)
 							{
-								block += proj.localAI[0] / 20f;
+								charge += 7.5f;
 								val--;
 							}
+						}
 
-							Rectangle rectangle = blockOn.Bounds;
-							rectangle.Height = val;
-							rectangle.Y = blockOn.Height - val;
-							spriteBatch.Draw(blockOff, new Vector2(position.X - 10, position.Y - 92), Color.White);
-							spriteBatch.Draw(blockOn, new Vector2(position.X - 10, position.Y - 92 + blockOn.Height - val), rectangle, Color.White);
-							return;
+						Rectangle rectangle = textureGauntletOn.Bounds;
+						rectangle.Height = val;
+						rectangle.Y = textureGauntletOn.Height - val;
+						spriteBatch.Draw(textureGauntletOff, new Vector2(position.X - 8, position.Y - 94), Color.White);
+						spriteBatch.Draw(textureGauntletOn, new Vector2(position.X - 8, position.Y - 94 + textureGauntletOn.Height - val), rectangle, Color.White);
+					}
+					else
+					{
+						int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
+						int projectileType2 = ModContent.ProjectileType<GuardianGauntletAnchor>();
+						for (int i = 0; i < Main.projectile.Length; i++)
+						{
+							Projectile proj = Main.projectile[i];
+							if (proj.active && proj.owner == player.whoAmI && (proj.type == projectileType || proj.type == projectileType2) && proj.ai[0] > 0f && proj.localAI[0] > 0f)
+							{
+								int val = 22;
+								float block = proj.ai[0];
+								while (block < proj.localAI[0])
+								{
+									block += proj.localAI[0] / 20f;
+									val--;
+								}
+
+								Rectangle rectangle = blockOn.Bounds;
+								rectangle.Height = val;
+								rectangle.Y = blockOn.Height - val;
+								spriteBatch.Draw(blockOff, new Vector2(position.X - 10, position.Y - 92), Color.White);
+								spriteBatch.Draw(blockOn, new Vector2(position.X - 10, position.Y - 92 + blockOn.Height - val), rectangle, Color.White);
+								return;
+							}
 						}
 					}
 				}

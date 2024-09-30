@@ -253,6 +253,11 @@ Buffs: {
 		DisplayName: Sweetguard
 		Description: Recovers 1% health on block or parry
 	}
+
+	GuardianPaladinGauntletBuff: {
+		DisplayName: Guardian Paladin Gauntlet Buff
+		Description: Releases sparks of light when punching
+	}
 }
 
 Items: {
@@ -2982,8 +2987,8 @@ Items: {
 		DisplayName: Tyr's Hand
 		Tooltip:
 			'''
-			Charged punches release homing bolts of light
-			Punches launch projectiles after a parry
+			Charged punches release homing shards of light
+			Parries improve non-charged punches
 			'''
 	}
 }
@@ -3272,6 +3277,7 @@ Projectiles: {
 	SpiderGauntletProjectile.DisplayName: Spider Gauntlet Projectile
 	GuardianStandardAnchor.DisplayName: Guardian Standard Anchor
 	StandardAuraProjectile.DisplayName: Standard Aura Projectile
+	PaladinGauntletProjectile.DisplayName: Paladin Gauntlet Projectile
 }
 
 Configs: {
