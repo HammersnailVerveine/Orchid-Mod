@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -39,6 +40,16 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 			Projectile.ai[0] = Main.rand.NextFloat(-0.05f, 0.05f);
 		}
 
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(Projectile.timeLeft);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			Projectile.timeLeft = reader.ReadInt32();
+		}
+
 		public override void AI()
 		{
 			Projectile.friendly = Projectile.penetrate == 1 && Projectile.timeLeft < 180;
@@ -73,13 +84,6 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 					Projectile.velocity = Projectile.velocity * 0.92f + newVelocity;
 				}
 			}
-			else
-			{
-				if (Projectile.timeLeft > 30)
-				{
-					Projectile.timeLeft = 30;
-				}
-			}
 
 			if ((OldPosition.Count > 10 || Projectile.penetrate == -1) && OldPosition.Count > 0)
 			{
@@ -94,7 +98,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 			{
 				Projectile.penetrate = -1;
 				Projectile.velocity *= 0f;
-				Projectile.netUpdate = true;
+				Projectile.timeLeft = 30;
 			}
 		}
 

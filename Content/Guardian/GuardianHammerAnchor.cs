@@ -421,16 +421,18 @@ namespace OrchidMod.Content.Guardian
 		{
 			Item item = new Item();
 			int itemtype = reader.ReadInt32();
-			range = reader.ReadInt32();
 			if (HammerItem == null)
 			{
 				item.SetDefaults(itemtype);
-				if (item.ModItem is OrchidModGuardianHammer hammerItem && Main.netMode != NetmodeID.Server)
+				if (item.ModItem is OrchidModGuardianHammer hammerItem)
 				{
 					HammerItem = hammerItem;
-					HammerTexture = TextureAssets.Item[hammerItem.Item.type].Value;
-					Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
-					Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
+					if (Main.netMode != NetmodeID.Server)
+					{
+						HammerTexture = TextureAssets.Item[hammerItem.Item.type].Value;
+						Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
+						Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
+					}
 					Projectile.scale = hammerItem.Item.scale;
 
 					Projectile.position.X -= Projectile.width / 2;
