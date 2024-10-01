@@ -60,9 +60,9 @@ namespace OrchidMod
 
 		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
 		{
-			if (Player.HeldItem.ModItem is OrchidModGuardianGauntlet gauntlet)
+			Item item = Player.HeldItem;
+			if (item.ModItem is OrchidModGuardianGauntlet gauntlet)
 			{
-				drawInfo.compShoulderOverFrontArm = true; // Why is this not on by default
 				drawInfo.compBackArmFrame = Rectangle.Empty; // Makes the back arm disappear when holding a gauntlet
 				if (gauntlet.hasArm)
 				{ // Makes the front arm disappear if the gauntlet has its own arm texture.
@@ -73,6 +73,12 @@ namespace OrchidMod
 				{
 					drawInfo.hideCompositeShoulders = true; // Makes the shoulders disappear if the gauntlet has its own shoulder texture
 				}
+			}
+
+			if (item.ModItem is OrchidModGuardianItem && Player.compositeFrontArm.enabled)
+			{
+				drawInfo.compShoulderOverFrontArm = true; // Why is this not on by default
+				drawInfo.hideCompositeShoulders = false;
 			}
 		}
 
