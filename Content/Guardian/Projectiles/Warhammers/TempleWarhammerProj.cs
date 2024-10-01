@@ -99,6 +99,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 				Projectile.penetrate = -1;
 				Projectile.velocity *= 0f;
 				Projectile.timeLeft = 30;
+				Projectile.netUpdate = true;
 			}
 		}
 
