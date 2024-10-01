@@ -11,13 +11,17 @@ namespace OrchidMod.Content.Guardian
 	public class GauntletPunchProjectile : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
-		public int SelectedItem => (int)Projectile.ai[2];
-		public Item GauntletItem;
+		public OrchidModGuardianGauntlet GauntletItem;
 		public bool ChargedHit => Projectile.ai[0] == 1f;
 		public bool OffHand => Projectile.ai[1] == 1f;
 
 		public bool FirstHit = false;
 		public bool Initialized = false;
+
+		public override void Load()
+		{
+			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+		}
 
 		public override void AltSetDefaults()
 		{
@@ -31,7 +35,6 @@ namespace OrchidMod.Content.Guardian
 			Projectile.alpha = 96;
 			Projectile.penetrate = -1;
 			Projectile.alpha = 255;
-			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 60;
 		}
@@ -43,7 +46,15 @@ namespace OrchidMod.Content.Guardian
 			if (!Initialized)
 			{
 				Initialized = true;
-				GauntletItem = owner.inventory[SelectedItem];
+
+				foreach (Projectile projectile in Main.projectile)
+				{
+					if (projectile.ModProjectile is GuardianGauntletAnchor anchor && projectile.owner == Projectile.owner)
+					{
+						GauntletItem = anchor.GauntletItem.ModItem as OrchidModGuardianGauntlet;
+					}
+				}
+
 				if (!IsLocalOwner)
 				{
 					owner.GetModPlayer<OrchidGuardian>().GuardianGauntletCharge = 0; // probably not the best place to put this but it works. (fixes a minor visual issue)
@@ -51,27 +62,18 @@ namespace OrchidMod.Content.Guardian
 				}
 			}
 
-			if (!owner.active || owner.dead || GauntletItem.ModItem is not OrchidModGuardianGauntlet gauntlet)
+
+			if (GauntletItem.ProjectileAI(owner, Projectile, ChargedHit))
 			{
-				if (IsLocalOwner)
-				{
-					Projectile.Kill();
-				}
-			}
-			else
-			{
-				if (gauntlet.ProjectileAI(owner, Projectile, ChargedHit))
-				{
-					Projectile.rotation = Projectile.velocity.ToRotation();
-					Projectile.velocity *= 0.8f;
-				}
+				Projectile.rotation = Projectile.velocity.ToRotation();
+				Projectile.velocity *= 0.8f;
 			}
 		}
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			var owner = Main.player[Projectile.owner];
-			if (!owner.active || owner.dead || SelectedItem < 0 || GauntletItem.ModItem is not OrchidModGuardianGauntlet gauntlet)
+			if (!owner.active || owner.dead || GauntletItem == null)
 			{
 				return;
 			}
@@ -80,9 +82,9 @@ namespace OrchidMod.Content.Guardian
 				if (!FirstHit)
 				{
 					FirstHit = true;
-					gauntlet.OnHitFirst(owner, guardian, target, Projectile, hit, ChargedHit);
+					GauntletItem.OnHitFirst(owner, guardian, target, Projectile, hit, ChargedHit);
 				}
-				gauntlet.OnHit(owner, guardian, target, Projectile, hit, ChargedHit);
+				GauntletItem.OnHit(owner, guardian, target, Projectile, hit, ChargedHit);
 			}
 		}
 
@@ -90,11 +92,7 @@ namespace OrchidMod.Content.Guardian
 		{
 
 			var owner = Main.player[Projectile.owner];
-			if (GauntletItem.ModItem is not OrchidModGuardianGauntlet gauntlet)
-			{
-				Projectile.Kill();
-			}
-			else
+			if (GauntletItem != null)
 			{
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
@@ -108,7 +106,7 @@ namespace OrchidMod.Content.Guardian
 
 				float scale = Projectile.scale * (ChargedHit ? 1.2f : 1f);
 				Vector2 drawPosition = Vector2.Transform(Projectile.Center - offsetVector - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
-				spriteBatch.Draw(TextureMain, drawPosition, null, gauntlet.GetColor(OffHand) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, scale, effect, 0f);
+				spriteBatch.Draw(TextureMain, drawPosition, null, GauntletItem.GetColor(OffHand) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, scale, effect, 0f);
 
 				// Draw code ends here
 

@@ -139,7 +139,7 @@ namespace OrchidMod.Content.Guardian
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
 							float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance();
-							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f, SelectedItem);
+							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f, Projectile.whoAmI);
 							if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 							{
 								punchProj.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);

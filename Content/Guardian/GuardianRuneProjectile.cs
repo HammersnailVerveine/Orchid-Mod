@@ -50,7 +50,7 @@ namespace OrchidMod.Content.Guardian
 			}
 			else
 			{
-				Projectile.timeLeft = 10;
+				Projectile.timeLeft = 120;
 			}
 
 			guardian.RuneProjectiles.Add(Projectile);

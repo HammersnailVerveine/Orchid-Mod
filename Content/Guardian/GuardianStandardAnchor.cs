@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Guardian
 		public bool Reinforced => Projectile.ai[2] == 1f && ((BuffItem == StandardItem) || (Main.player[Projectile.owner].HeldItem.ModItem is not OrchidModGuardianStandard && Worn)); // Has the item been used twice (stronger effects)
 		public Item BuffItem = null;
 		public int SelectedItem { get; set; } = -1;
-		public Item StandardItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
+		public Item StandardItem => Main.player[Projectile.owner].inventory[SelectedItem];
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
@@ -194,7 +194,7 @@ namespace OrchidMod.Content.Guardian
 							guardian.AddSlam(guardianItem.slamStacks);
 
 							int projectileType = ModContent.ProjectileType<StandardAuraProjectile>();
-							Projectile auraProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), owner.Center, Vector2.Zero, projectileType, 0, 0f, owner.whoAmI, ai2 : SelectedItem);
+							Projectile auraProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), owner.Center, Vector2.Zero, projectileType, 0, 0f, owner.whoAmI);
 						}
 
 						guardian.GuardianStandardCharge = 0;
