@@ -19,6 +19,8 @@ namespace OrchidMod.Content.Guardian
 		public Item ShieldItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
 
 		public bool shieldEffectReady = true;
+		public bool NeedNetUpdate = false;
+
 		public byte isSlamming = 0;
 		public Vector2 aimedLocation = Vector2.Zero;
 		public Vector2 oldOwnerPos = Vector2.Zero;
@@ -26,7 +28,7 @@ namespace OrchidMod.Content.Guardian
 		public Vector2 hitbox = Vector2.Zero;
 		public Vector2 hitboxOrigin = Vector2.Zero;
 
-		public Vector2 networkedPosition = Vector2.Zero;
+		public float networkedRotation => Projectile.ai[2];
 
 		// ...
 
@@ -53,10 +55,6 @@ namespace OrchidMod.Content.Guardian
 			Projectile.netUpdate = true;
 		}
 
-		public override void OnSpawn(IEntitySource source)
-		{
-			networkedPosition = Main.player[Projectile.owner].Center;
-		}
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			var owner = Main.player[Projectile.owner];
@@ -101,6 +99,12 @@ namespace OrchidMod.Content.Guardian
 
 			if (!death)
 			{
+				if (NeedNetUpdate)
+				{
+					NeedNetUpdate = false;
+					Projectile.netUpdate = true;
+				}
+
 				float addedDistance = 0f;
 				if (Projectile.ai[1] > 0f)
 				{ // Shield bash
@@ -253,7 +257,7 @@ namespace OrchidMod.Content.Guardian
 					{
 						aimedLocation = Main.MouseWorld - owner.Center.Floor();
 						aimedLocation.Normalize();
-						Projectile.velocity = aimedLocation;
+						Projectile.velocity = aimedLocation * float.Epsilon;
 						aimedLocation *= (guardianItem.distance + addedDistance) * -1f;
 
 						Projectile.rotation = aimedLocation.ToRotation();
@@ -261,41 +265,25 @@ namespace OrchidMod.Content.Guardian
 
 						aimedLocation = owner.Center.Floor() - aimedLocation - new Vector2(Projectile.width / 2f, Projectile.height / 2f);
 
-						if (networkedPosition.Distance(aimedLocation) > 5f && Projectile.ai[1] <= 0f)
+						if (Math.Abs(networkedRotation - Projectile.rotation) > 0.025f)
 						{
-							networkedPosition = aimedLocation;
+							Projectile.ai[2] = Projectile.rotation; // networked rotation
 							Projectile.netUpdate = true;
 						}
 					}
-					else
-					{
-						aimedLocation = Projectile.position;
-					}
 				}
 
-				if (Main.myPlayer == Projectile.owner)
+				if (IsLocalOwner)
 				{
 					Projectile.position = aimedLocation;
 				}
 				else
 				{
-					Vector2 dir = owner.Center - Projectile.Center;
-					Projectile.rotation = dir.ToRotation();
-					Projectile.direction = Projectile.spriteDirection;
-					if (addedDistance > 0f)
-					{
-						dir.Normalize();
-						Projectile.position = networkedPosition + owner.Center.Floor() - oldOwnerPos + dir * -addedDistance;
-					}
-					else
-					{
-						Projectile.position += owner.Center.Floor() - oldOwnerPos;
-						networkedPosition = Projectile.position;
-					}
+					Projectile.Center = owner.Center.Floor() - networkedRotation.ToRotationVector2() * (guardianItem.distance + addedDistance);
+					Projectile.rotation = networkedRotation;
 				}
 
 				Projectile.timeLeft = 5;
-				Projectile.velocity *= float.Epsilon;
 
 				if (isSlamming == 1) // Slam() is called here so the projectile has the time to reposition properly before effects such as projectile spawns are called
 				{

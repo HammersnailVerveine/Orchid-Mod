@@ -18,9 +18,10 @@ namespace OrchidMod.Content.Guardian
 		public int LockedOwnerDir = 0;
 		public bool OffHandGauntlet = false;
 		public bool Ding = false;
+		public bool NeedNetUpdate = false;
 
 		public int SelectedItem { get; set; } = -1;
-		public Item GauntletItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
+		public Item GauntletItem => Main.player[Projectile.owner].inventory[SelectedItem];
 		public bool Blocking => Projectile.ai[0] > 0 && !Charging;
 		public bool Slamming => Projectile.ai[0] < 0;
 		public bool Charging => Projectile.ai[2] > 0;
@@ -45,6 +46,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.alpha = 255;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 20;
+			Projectile.netImportant = true;
 		}
 
 		public override void SendExtraAI(BinaryWriter writer)
@@ -61,10 +63,10 @@ namespace OrchidMod.Content.Guardian
 		public void OnChangeSelectedItem(Player owner)
 		{
 			SelectedItem = owner.selectedItem;
-			Projectile.netUpdate = true;
 			Projectile.ai[0] = 0f;
 			Projectile.ai[1] = 0f;
 			Projectile.ai[2] = 0f;
+			Projectile.netUpdate = true;
 		}
 
 		public override void AI()
@@ -74,13 +76,19 @@ namespace OrchidMod.Content.Guardian
 
 			if (!owner.active || owner.dead || SelectedItem < 0 || !(owner.HeldItem.ModItem is OrchidModGuardianGauntlet) || GauntletItem == null || GauntletItem.ModItem is not OrchidModGuardianGauntlet guardianItem)
 			{
-				Projectile.Kill();
+				if (IsLocalOwner) Projectile.Kill();
 				return;
 			}
 			else
 			{
+				if (NeedNetUpdate)
+				{
+					NeedNetUpdate = false;
+					Projectile.netUpdate = true;
+				}
+
 				Projectile.timeLeft = 5;
-				if (OffHandGauntlet) // Offhand is always loaded first; no need to do that twice
+				if (OffHandGauntlet && IsLocalOwner) // Offhand is always loaded first; no need to do that twice
 				{
 					if (Main.projectile[guardianItem.GetAnchors(owner)[1]].ai[0] >= 0)
 					{ // Lock the player direction while slamming
@@ -118,22 +126,26 @@ namespace OrchidMod.Content.Guardian
 					float addedDistance = (float)Math.Sin(MathHelper.Pi / slamTime * Projectile.localAI[1]) * slamTime;
 					Projectile.Center = owner.Center.Floor() + new Vector2(4 * owner.direction, 0) + Vector2.UnitY.RotatedBy(Projectile.ai[1]) * addedDistance;
 
-					if (Projectile.localAI[1] == slamTime)
+					if (!IsLocalOwner)
+					{ // Rotates the player in the direction of the punch for other clients
+						Vector2 puchDir = (Projectile.ai[1] + MathHelper.PiOver2).ToRotationVector2();
+						if (puchDir.X > 0 && owner.direction != 1) owner.ChangeDir(1);
+						else if (puchDir.X < 0 && owner.direction != -1) owner.ChangeDir(-1);
+					}
+					else if (Projectile.localAI[1] == slamTime)
 					{ // Slam just started, make projectile
 						Ding = false; // Also reset ding song for full charge
 						if (guardianItem.OnPunch(owner, guardian, Projectile, Projectile.ai[0] == -2f))
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
 							float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance();
-							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
+							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f, SelectedItem);
 							if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 							{
-								punch.SelectedItem = SelectedItem;
 								punchProj.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
 								punchProj.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 								punchProj.knockBack = guardianItem.Item.knockBack;
 								punchProj.position += punchProj.velocity * 0.5f;
-								punchProj.rotation = punchProj.velocity.ToRotation();
 								punchProj.velocity += owner.velocity * 1.5f;
 
 								if (Projectile.ai[0] == -1f)
@@ -176,7 +188,7 @@ namespace OrchidMod.Content.Guardian
 						guardian.GuardianGauntletCharge += 30f / GauntletItem.useTime * (owner.GetAttackSpeed(DamageClass.Melee) * 2f - 1f);
 						if (guardian.GuardianGauntletCharge > 180f)
 						{
-							if (!Ding)
+							if (!Ding && IsLocalOwner)
 							{
 								SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 								Ding = true;
@@ -197,10 +209,13 @@ namespace OrchidMod.Content.Guardian
 							else Projectile.ai[0] = -1f;
 
 							guardian.GuardianGauntletCharge = 0;
-							Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2;
-							Projectile.ai[2] = 0f;
-							Projectile.netUpdate = true;
-							//owner.itemAnimation = (int)Projectile.ai[0];
+
+							if (IsLocalOwner)
+							{
+								Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2;
+								Projectile.ai[2] = 0f;
+								Projectile.netUpdate = true;
+							}
 						}
 						else
 						{

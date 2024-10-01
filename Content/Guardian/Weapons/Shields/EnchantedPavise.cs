@@ -27,10 +27,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 
 		public override void Slam(Player player, Projectile shield)
 		{
-			Projectile anchor = GetAnchor(player).Projectile;
-			int type = ModContent.ProjectileType<EnchantedPaviseProj>();
-			Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * 0.1f;
-			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.6f), Item.knockBack, player.whoAmI);
+			if (IsLocalPlayer(player))
+			{
+				Projectile anchor = GetAnchor(player).Projectile;
+				int type = ModContent.ProjectileType<EnchantedPaviseProj>();
+				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * 0.1f;
+				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.6f), Item.knockBack, player.whoAmI);
+			}
 		}
 	}
 }

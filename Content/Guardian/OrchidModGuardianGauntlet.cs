@@ -97,13 +97,13 @@ namespace OrchidMod.Content.Guardian
 								if (projectileMain.ai[0] == 0)
 								{
 									projectileMain.ai[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
-									projectileMain.netUpdate = true;
+									(projectileMain.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
 								}
 
 								if (projectileOff.ai[0] == 0)
 								{
 									projectileOff.ai[0] = (int)(parryDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
-									projectileOff.netUpdate = true;
+									(projectileOff.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
 								}
 							}
 						}
@@ -117,12 +117,12 @@ namespace OrchidMod.Content.Guardian
 								if (projectileMain.ai[0] != 0f)
 								{ // Main gauntlet is slamming or blocking, use offhand one
 									projectileOff.ai[2] = 1f;
-									projectileOff.netUpdate = true;
+									(projectileOff.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
 								}
 								else
 								{ // else use main hand
 									projectileMain.ai[2] = 1f; 
-									projectileMain.netUpdate = true;
+									(projectileMain.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
 								}
 							}
 						}

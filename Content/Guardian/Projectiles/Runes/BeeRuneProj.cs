@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,7 +23,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 		}
 
-		public override void SafeOnSpawn(IEntitySource source)
+		public override void FirstFrame()
 		{
 			TimeSpent += Main.rand.Next(120);
 		}

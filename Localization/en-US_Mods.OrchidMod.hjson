@@ -3278,6 +3278,7 @@ Projectiles: {
 	GuardianStandardAnchor.DisplayName: Guardian Standard Anchor
 	StandardAuraProjectile.DisplayName: Standard Aura Projectile
 	PaladinGauntletProjectile.DisplayName: Paladin Gauntlet Projectile
+	GuardianHammerAnchor.DisplayName: Guardian Hammer Anchor
 }
 
 Configs: {

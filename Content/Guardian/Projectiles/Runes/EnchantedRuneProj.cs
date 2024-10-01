@@ -1,11 +1,9 @@
 using Terraria.GameContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.DataStructures;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Runes
 {
@@ -41,7 +39,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			// DisplayName.SetDefault("Enchanted Sparkle");
 		}
 
-		public override void SafeOnSpawn(IEntitySource source)
+		public override void FirstFrame()
 		{
 			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
 			Projectile.frame = Distance > 100f ? 0 : 1;

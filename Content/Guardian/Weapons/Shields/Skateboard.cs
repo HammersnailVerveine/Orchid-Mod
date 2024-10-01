@@ -63,7 +63,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				if (anchor.aimedLocation.Y > owner.Center.Y && (Math.Abs(anchor.aimedLocation.X - owner.Center.X) < 32f) && owner.grapCount == 0 && owner.mount.Type == MountID.None && (owner.velocity.Y > 1f || projectile.ai[2] != 0f))
 				{
 					anchor.aimedLocation = owner.Center.Floor() - new Vector2(projectile.width / 2f, projectile.height / 2f) + Vector2.UnitY * distance;
-					anchor.networkedPosition = anchor.aimedLocation;
+					anchor.Projectile.ai[2] = -MathHelper.PiOver2; // networkedrotation
 					projectile.rotation = -MathHelper.PiOver2;
 
 					// Collision with the ground, do skating stuff

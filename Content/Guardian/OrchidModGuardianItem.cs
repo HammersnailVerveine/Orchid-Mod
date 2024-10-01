@@ -11,6 +11,8 @@ namespace OrchidMod.Content.Guardian
 	[ClassTag(ClassTags.Guardian)]
 	public abstract class OrchidModGuardianItem : ModItem
 	{
+		public bool IsLocalPlayer(Player player) => player.whoAmI == Main.myPlayer;
+
 		public virtual void SafeSetDefaults() { }
 
 		public override void SetDefaults()

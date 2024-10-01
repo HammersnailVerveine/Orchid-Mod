@@ -26,10 +26,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			return new Color(205, 134, 71);
 		}
 
-		public override void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool charged)
+		public override void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
 		{
 			player.statDefense += 3;
-			if (isLocalPlayer && charged) player.statDefense += 4;
+			if (isLocalPlayer && reinforced) player.statDefense += 4;
 		}
 
 		public override void AddRecipes()

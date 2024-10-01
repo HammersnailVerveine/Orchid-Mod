@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Content.Guardian.Projectiles.Shields;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
@@ -24,12 +26,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 
 		public override void Slam(Player player, Projectile shield)
 		{
-			Projectile anchor = GetAnchor(player).Projectile;
-			int type = ProjectileID.SporeCloud;
-			for (int i = 0; i < 1 + Main.rand.Next(3); i ++)
+			if (IsLocalPlayer(player))
 			{
-				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(10f)) * (8f + Main.rand.NextFloat(4f));
-				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.4f), Item.knockBack, player.whoAmI);
+				Projectile anchor = GetAnchor(player).Projectile;
+				int type = ProjectileID.SporeCloud;
+				for (int i = 0; i < 1 + Main.rand.Next(3); i++)
+				{
+					Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(10f)) * (8f + Main.rand.NextFloat(4f));
+					Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.4f), Item.knockBack, player.whoAmI);
+				}
 			}
 		}
 

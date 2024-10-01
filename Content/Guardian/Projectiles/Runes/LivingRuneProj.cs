@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.DataStructures;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Runes
 {
@@ -30,12 +29,12 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			Projectile.localNPCHitCooldown = 30;
 		}
 
-		public override void SafeOnSpawn(IEntitySource source)
+		public override void FirstFrame()
 		{
-			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
 			OldPosition = new List<Vector2>();
 			OldRotation = new List<float>();
-			texture = TextureAssets.Projectile[this.Type].Value;
+			texture = TextureAssets.Projectile[Type].Value;
+			animDirection = (Main.rand.NextBool(2) ? 1 : -1);
 		}
 
 		public override bool SafeAI()

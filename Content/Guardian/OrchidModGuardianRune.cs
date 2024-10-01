@@ -37,7 +37,7 @@ namespace OrchidMod.Content.Guardian
 			Item.useTime = 30;
 			Item.shootSpeed = 00f;
 			RuneCost = 1;
-			RuneDuration = 3600;
+			RuneDuration = 1800;
 			RuneDistance = 100f;
 			RuneNumber = 1;
 
@@ -58,17 +58,20 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool? UseItem(Player player)
 		{
-			var guardian = player.GetModPlayer<OrchidGuardian>();
-			guardian.GuardianSlam -= RuneCost;
-			foreach (Projectile projectile in Main.projectile)
+			if (player.whoAmI == Main.myPlayer)
 			{
-				if (projectile.ModProjectile is GuardianRuneProjectile && projectile.owner == player.whoAmI)
+				var guardian = player.GetModPlayer<OrchidGuardian>();
+				guardian.GuardianSlam -= RuneCost;
+				foreach (Projectile projectile in Main.projectile)
 				{
-					projectile.Kill();
+					if (projectile.ModProjectile is GuardianRuneProjectile && projectile.owner == player.whoAmI)
+					{
+						projectile.Kill();
+					}
 				}
+				int crit = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
+				Activate(player, guardian, Item.shoot, (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage), Item.knockBack, crit, (int)(RuneDuration * guardian.GuardianRuneTimer), RuneDistance, RuneNumber);
 			}
-			int crit = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
-			Activate(player, guardian, Item.shoot, (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage), Item.knockBack, crit, (int)(RuneDuration * guardian.GuardianRuneTimer), RuneDistance, RuneNumber);
 			return true;
 		}
 
@@ -99,7 +102,7 @@ namespace OrchidMod.Content.Guardian
 				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
 			}
 
-			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback")); // "UseMana"
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "UseSlams", "Uses " + this.RuneCost + " shield slams"));
 		}
 

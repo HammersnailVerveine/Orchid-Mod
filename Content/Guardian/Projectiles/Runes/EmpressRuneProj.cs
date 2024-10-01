@@ -4,8 +4,6 @@ using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Runes
@@ -33,7 +31,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			Projectile.localNPCHitCooldown = 30;
 		}
 
-		public override void SafeOnSpawn(IEntitySource source)
+		public override void FirstFrame()
 		{
 			if (Projectile.ai[2] != 0) TimeSpent += 60;
 		}

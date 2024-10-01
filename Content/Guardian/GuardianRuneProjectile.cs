@@ -1,19 +1,19 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Common.ModObjects;
 using Terraria;
-using Terraria.DataStructures;
 
 namespace OrchidMod.Content.Guardian
 {
 	public abstract class GuardianRuneProjectile : OrchidModGuardianProjectile
 	{
-		public Player owner;
-		public OrchidGuardian guardian;
+		public Player owner => Main.player[Projectile.owner];
+		public OrchidGuardian guardian => owner.GetModPlayer<OrchidGuardian>();
 
 		public virtual bool SafeAI() => true;
-		public virtual void SafeOnSpawn(IEntitySource source) { }
+		public virtual void FirstFrame() { }
 		public float Distance => Projectile.ai[0];
 		public float Angle => Projectile.ai[1];
+
+		public bool JustCreated = true;
 
 		public void Spin(float val)
 		{
@@ -32,19 +32,29 @@ namespace OrchidMod.Content.Guardian
 			SafeSetDefaults();
 		}
 
-		public sealed override void OnSpawn(IEntitySource source)
-		{
-			owner = Main.player[Projectile.owner];
-			guardian = owner.GetModPlayer<OrchidGuardian>();
-			Projectile.netUpdate = true;
-			Projectile.netUpdate2 = true;
-			SafeOnSpawn(source);
-		}
-
 		public sealed override void AI()
 		{
+			if (JustCreated)
+			{
+				JustCreated = false;
+				Projectile.netUpdate = true;
+				FirstFrame();
+			}
+
+			if (IsLocalOwner)
+			{
+				if (owner.dead)
+				{
+					Projectile.Kill();
+				}
+			}
+			else
+			{
+				Projectile.timeLeft = 10;
+			}
+
 			guardian.RuneProjectiles.Add(Projectile);
-			if (owner.dead) Projectile.Kill();
+
 			if (SafeAI())
 			{
 				Vector2 position = new Vector2(0f, Projectile.ai[0]);

@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			Projectile.localNPCHitCooldown = 30;
 		}
 
-		public override void SafeOnSpawn(IEntitySource source)
+		public override void FirstFrame()
 		{
 			if (Projectile.ai[2] != 0) TimeSpent += 60;
 		}

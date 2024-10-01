@@ -16,11 +16,24 @@ namespace OrchidMod.Content.Guardian
 	{
 		public int TimeSpent = 0;
 		public bool Ding = false;
+		public bool NeedNetUpdate = false;
 		public bool Worn => Projectile.ai[1] > 0f; // Standard buff remaining duration
 		public bool Reinforced => Projectile.ai[2] == 1f && ((BuffItem == StandardItem) || (Main.player[Projectile.owner].HeldItem.ModItem is not OrchidModGuardianStandard && Worn)); // Has the item been used twice (stronger effects)
 		public Item BuffItem = null;
 		public int SelectedItem { get; set; } = -1;
 		public Item StandardItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(SelectedItem);
+			writer.Write(BuffItem != null);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			SelectedItem = reader.ReadInt32();
+			if (reader.ReadBoolean()) BuffItem = StandardItem;
+		}
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
 		{
@@ -57,21 +70,32 @@ namespace OrchidMod.Content.Guardian
 		{
 			var owner = Main.player[Projectile.owner];
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
-			bool heldStandard = owner.HeldItem.ModItem is OrchidModGuardianStandard;
 
-			if (!Worn && (!owner.active || owner.dead || SelectedItem < 0 || !heldStandard || StandardItem == null || StandardItem.ModItem is not OrchidModGuardianStandard guardianItem))
+			if (!Worn && (!owner.active || owner.dead || SelectedItem < 0 || StandardItem == null || StandardItem.ModItem is not OrchidModGuardianStandard guardianItem))
 			{
 				Projectile.Kill();
 				return;
 			}
 			else
 			{
+				bool heldStandard = owner.HeldItem.ModItem is OrchidModGuardianStandard;
+				if (!Worn && !heldStandard && IsLocalOwner)
+				{
+					Projectile.Kill();
+					return;
+				}
+
 				guardianItem = (OrchidModGuardianStandard)StandardItem.ModItem;
 
-				if (heldStandard || owner.HeldItem.ModItem is OrchidModGuardianGauntlet)
+				if ((heldStandard || owner.HeldItem.ModItem is OrchidModGuardianGauntlet) && IsLocalOwner)
 				{
 					if (Main.MouseWorld.X > owner.Center.X && owner.direction != 1) owner.ChangeDir(1);
 					else if (Main.MouseWorld.X < owner.Center.X && owner.direction != -1) owner.ChangeDir(-1);
+					if (NeedNetUpdate)
+					{
+						NeedNetUpdate = false;
+						Projectile.netUpdate = true;
+					}
 				}
 
 				TimeSpent++;
@@ -103,7 +127,7 @@ namespace OrchidMod.Content.Guardian
 							{
 								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (guardianItem.auraRange + player.width * 0.5f))
 								{
-									buffItem.NearbyPlayerEffect(owner, guardian, player == owner, Projectile.ai[2] == 1f);
+									buffItem.NearbyPlayerEffect(player, guardian, player == owner, Projectile.ai[2] == 1f);
 								}
 							}
 						}
@@ -139,7 +163,7 @@ namespace OrchidMod.Content.Guardian
 						if (guardian.GuardianStandardCharge > 180f) guardian.GuardianStandardCharge = 180f;
 					}
 
-					if (guardian.GuardianStandardCharge > 180f && !Ding)
+					if (guardian.GuardianStandardCharge >= 180f && !Ding && IsLocalOwner)
 					{
 						Ding = true;
 						SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
@@ -170,12 +194,7 @@ namespace OrchidMod.Content.Guardian
 							guardian.AddSlam(guardianItem.slamStacks);
 
 							int projectileType = ModContent.ProjectileType<StandardAuraProjectile>();
-							Projectile auraProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), owner.Center, Vector2.Zero, projectileType, 0, 0f, owner.whoAmI);
-							if (auraProj.ModProjectile is StandardAuraProjectile aura)
-							{
-								aura.SelectedItem = SelectedItem;
-								auraProj.netUpdate = true;
-							}
+							Projectile auraProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), owner.Center, Vector2.Zero, projectileType, 0, 0f, owner.whoAmI, ai2 : SelectedItem);
 						}
 
 						guardian.GuardianStandardCharge = 0;
@@ -281,16 +300,6 @@ namespace OrchidMod.Content.Guardian
 			guardianItem.PostDrawStandard(spriteBatch, Projectile, player, color);
 
 			return false;
-		}
-
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			writer.Write(SelectedItem);
-		}
-
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			SelectedItem = reader.ReadInt32();
 		}
 	}
 }

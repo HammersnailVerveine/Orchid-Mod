@@ -6,7 +6,6 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
@@ -26,8 +25,8 @@ namespace OrchidMod.Content.Guardian
 		public virtual string FlagQuarterTexture => Texture + "_FlagQuarter";
 		public virtual string FlagTwoQuarterTexture => Texture + "_FlagTwoQuarter";
 		public virtual string FlagEndTexture => Texture + "_FlagEnd";
-		public virtual void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool charged) { } // isLocalPlayer is true when this is ran on the client being affected
-		public virtual void NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool charged) { } // isLocalPlayer is true when this is ran by the guardian with the flag active
+		public virtual void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced) { } // isLocalPlayer is true when this is ran on the client being affected
+		public virtual void NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced) { } // isLocalPlayer is true when this is ran by the guardian with the flag active
 		public virtual void OnCharge(Player player, OrchidGuardian guardian) { }
 		public virtual void EffectSimple(Player player, OrchidGuardian guardian) { }
 		public virtual void EffectUpgrade(Player player, OrchidGuardian guardian) { }
@@ -87,10 +86,10 @@ namespace OrchidMod.Content.Guardian
 				{
 					var guardian = player.GetModPlayer<OrchidGuardian>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-					if (proj != null && proj.ModProjectile is GuardianStandardAnchor standard && guardian.GuardianStandardCharge == 0f)
+					if (proj != null && proj.ModProjectile is GuardianStandardAnchor anchor && guardian.GuardianStandardCharge == 0f)
 					{
 						proj.ai[0] = 1f;
-						proj.netUpdate = true;
+						anchor.NeedNetUpdate = true;
 						guardian.GuardianStandardCharge++;
 						SoundEngine.PlaySound(SoundID.Item7, player.Center);
 					}

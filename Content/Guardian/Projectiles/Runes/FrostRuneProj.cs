@@ -4,7 +4,6 @@ using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -34,7 +33,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			OldRotation = new List<float>();
 		}
 
-		public override void SafeOnSpawn(IEntitySource source)
+		public override void FirstFrame()
 		{
 			rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 			Projectile.frame = Main.rand.Next(Main.projFrames[Projectile.type]);

@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.ModObjects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class HammerThrow : OrchidModGuardianProjectile
+	public class GuardianHammerAnchor : OrchidModGuardianProjectile
 	{
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
@@ -26,6 +26,7 @@ namespace OrchidMod.Content.Guardian
 		public bool penetrate;
 		public bool hitTarget = false;
 		public bool WeakHit = false;
+		public bool NeedNetUpdate = false;
 		public int dir;
 
 		public bool Ding = false;
@@ -47,6 +48,9 @@ namespace OrchidMod.Content.Guardian
 			Projectile.tileCollide = false;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
+			
+			OldPosition = new List<Vector2>();
+			OldRotation = new List<float>();
 		}
 
 		public override void OnSpawn(IEntitySource source)
@@ -54,12 +58,13 @@ namespace OrchidMod.Content.Guardian
 			Player player = Main.player[Projectile.owner];
 			Item item = player.inventory[player.selectedItem];
 
-			OldPosition = new List<Vector2>();
-			OldRotation = new List<float>();
 
 			if (item == null || !(item.ModItem is OrchidModGuardianHammer hammerItem))
 			{
-				Projectile.Kill();
+				if (Projectile.owner == Main.myPlayer)
+				{
+					Projectile.Kill();
+				}
 				return;
 			}
 			else
@@ -75,6 +80,7 @@ namespace OrchidMod.Content.Guardian
 
 				range = HammerItem.range;
 				penetrate = HammerItem.penetrate;
+				Projectile.netUpdate = true;
 			}
 
 			dir = (Projectile.velocity.X > 0 ? 1 : -1);
@@ -87,16 +93,28 @@ namespace OrchidMod.Content.Guardian
 
 			if (HammerItem != null)
 			{
+				if (NeedNetUpdate)
+				{
+					NeedNetUpdate = false;
+					Projectile.netUpdate = true;
+				}
+
 				if (Projectile.ai[1] <= 0) // Held
 				{
 					if (player.dead || player.HeldItem.ModItem is not OrchidModGuardianHammer)
 					{
-						Projectile.Kill();
+						if (Projectile.owner == Main.myPlayer)
+						{
+							Projectile.Kill();
+						}
 					}
 					else
 					{
-						if (Main.MouseWorld.X > player.Center.X && player.direction != 1) player.ChangeDir(1);
-						else if (Main.MouseWorld.X < player.Center.X && player.direction != -1) player.ChangeDir(-1);
+						if (Projectile.owner == Main.myPlayer)
+						{
+							if (Main.MouseWorld.X > player.Center.X && player.direction != 1) player.ChangeDir(1);
+							else if (Main.MouseWorld.X < player.Center.X && player.direction != -1) player.ChangeDir(-1);
+						}
 
 						player.itemAnimation = 1;
 						Projectile.timeLeft = 600;
@@ -135,47 +153,50 @@ namespace OrchidMod.Content.Guardian
 								if (guardian.GuardianHammerCharge > 210f) guardian.GuardianHammerCharge = 210f;
 							}
 
-							if (!player.controlUseItem && player.whoAmI == Main.myPlayer)
+							if (player.whoAmI == Main.myPlayer)
 							{
-								if (guardian.GuardianHammerCharge > 10f)
+								if (!player.controlUseItem)
 								{
-									Projectile.ai[1] = 1;
-									Projectile.friendly = true;
-
-									Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * HammerItem.Item.shootSpeed;
-
-									if (guardian.ThrowLevel() < 4)
+									if (guardian.GuardianHammerCharge > 10f)
 									{
-										dir *= (0.3f * (guardian.ThrowLevel() + 2) / 3);
-										Projectile.damage = (int)(Projectile.damage * 0.75f);
-										Projectile.knockBack = (int)(Projectile.knockBack / 3f);
-										Projectile.ai[0] = 1f;
+										Projectile.ai[1] = 1;
+										Projectile.friendly = true;
+
+										Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * HammerItem.Item.shootSpeed;
+
+										if (guardian.ThrowLevel() < 4)
+										{
+											dir *= (0.3f * (guardian.ThrowLevel() + 2) / 3);
+											Projectile.damage = (int)(Projectile.damage * 0.75f);
+											Projectile.knockBack = (int)(Projectile.knockBack / 3f);
+											Projectile.ai[0] = 1f;
+										}
+
+										Projectile.velocity = dir;
+										Projectile.rotation = dir.ToRotation();
+										Projectile.direction = Projectile.spriteDirection;
+										Projectile.netUpdate = true;
+
+										SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
+										guardian.GuardianHammerCharge = 0;
 									}
-
-									Projectile.velocity = dir;
-									Projectile.rotation = dir.ToRotation();
-									Projectile.direction = Projectile.spriteDirection;
-									Projectile.netUpdate = true;
-
-									SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
-									guardian.GuardianHammerCharge = 0;
+									else
+									{
+										SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+										Projectile.ai[1] = -61f;
+										Projectile.friendly = true;
+										Projectile.netUpdate = true;
+										hitTarget = false;
+									}
 								}
-								else
+								else if (Main.mouseRight)
 								{
 									SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-									Projectile.ai[1] = -61f;
+									Projectile.ai[1] = -60f;
 									Projectile.friendly = true;
 									Projectile.netUpdate = true;
 									hitTarget = false;
 								}
-							}
-							else if (Main.mouseRight)
-							{
-								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-								Projectile.ai[1] = -60f;
-								Projectile.friendly = true;
-								Projectile.netUpdate = true;
-								hitTarget = false;
 							}
 						}
 						else
@@ -266,7 +287,7 @@ namespace OrchidMod.Content.Guardian
 								Projectile.velocity += vel;
 							}
 
-							if (dist < 30f)
+							if (dist < 30f && player.whoAmI == Main.myPlayer)
 							{
 								Projectile.Kill();
 							}
@@ -375,6 +396,7 @@ namespace OrchidMod.Content.Guardian
 				if (!penetrate)
 				{
 					range = -40;
+					Projectile.netUpdate = true;
 				}
 			}
 			else
@@ -386,6 +408,37 @@ namespace OrchidMod.Content.Guardian
 					ChargeToAdd += 30;
 				}
 				HammerItem.OnMeleeHit(player, guardian, target, Projectile, hit.Knockback, hit.Crit);
+			}
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(HammerItem.Item.type);
+			writer.Write(range);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			Item item = new Item();
+			int itemtype = reader.ReadInt32();
+			range = reader.ReadInt32();
+			if (HammerItem == null)
+			{
+				item.SetDefaults(itemtype);
+				if (item.ModItem is OrchidModGuardianHammer hammerItem && Main.netMode != NetmodeID.Server)
+				{
+					HammerItem = hammerItem;
+					HammerTexture = TextureAssets.Item[hammerItem.Item.type].Value;
+					Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
+					Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
+					Projectile.scale = hammerItem.Item.scale;
+
+					Projectile.position.X -= Projectile.width / 2;
+					Projectile.position.Y -= Projectile.height / 2;
+
+					range = HammerItem.range;
+					penetrate = HammerItem.penetrate;
+				}
 			}
 		}
 	}

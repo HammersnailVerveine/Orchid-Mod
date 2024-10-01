@@ -1,10 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.ModObjects;
 using OrchidMod.Utilities;
-using System.Collections.Generic;
-using System.IO;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
@@ -12,21 +11,13 @@ namespace OrchidMod.Content.Guardian
 	public class GauntletPunchProjectile : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
-		public int SelectedItem { get; set; } = -1;
-		public Item GauntletItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
+		public int SelectedItem => (int)Projectile.ai[2];
+		public Item GauntletItem;
 		public bool ChargedHit => Projectile.ai[0] == 1f;
 		public bool OffHand => Projectile.ai[1] == 1f;
 
 		public bool FirstHit = false;
-
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			writer.Write(SelectedItem);
-		}
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			SelectedItem = reader.ReadInt32();
-		}
+		public bool Initialized = false;
 
 		public override void AltSetDefaults()
 		{
@@ -47,15 +38,31 @@ namespace OrchidMod.Content.Guardian
 
 		public override void AI()
 		{
-			var owner = Main.player[Projectile.owner];
-			if (!owner.active || owner.dead || SelectedItem < 0 || GauntletItem.ModItem is not OrchidModGuardianGauntlet gauntlet)
+
+			Player owner = Main.player[Projectile.owner];
+			if (!Initialized)
 			{
-				Projectile.Kill();
+				Initialized = true;
+				GauntletItem = owner.inventory[SelectedItem];
+				if (!IsLocalOwner)
+				{
+					owner.GetModPlayer<OrchidGuardian>().GuardianGauntletCharge = 0; // probably not the best place to put this but it works. (fixes a minor visual issue)
+					SoundEngine.PlaySound(ChargedHit ? SoundID.DD2_MonkStaffGroundMiss : SoundID.DD2_MonkStaffSwing, owner.Center);
+				}
+			}
+
+			if (!owner.active || owner.dead || GauntletItem.ModItem is not OrchidModGuardianGauntlet gauntlet)
+			{
+				if (IsLocalOwner)
+				{
+					Projectile.Kill();
+				}
 			}
 			else
 			{
 				if (gauntlet.ProjectileAI(owner, Projectile, ChargedHit))
 				{
+					Projectile.rotation = Projectile.velocity.ToRotation();
 					Projectile.velocity *= 0.8f;
 				}
 			}
@@ -83,7 +90,7 @@ namespace OrchidMod.Content.Guardian
 		{
 
 			var owner = Main.player[Projectile.owner];
-			if (!owner.active || owner.dead || SelectedItem < 0 || GauntletItem.ModItem is not OrchidModGuardianGauntlet gauntlet)
+			if (GauntletItem.ModItem is not OrchidModGuardianGauntlet gauntlet)
 			{
 				Projectile.Kill();
 			}

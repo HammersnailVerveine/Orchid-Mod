@@ -24,7 +24,6 @@ namespace OrchidMod.Content.Guardian
 		public virtual void SlamHitFirst(Player player, Projectile shield, NPC npc) { } // Called up to once upon hitting an enemy when slamming
 		public virtual void SlamHit(Player player, Projectile shield, NPC npc) { } // Called upon hitting an enemy when slamming
 		public virtual void Slam(Player player, Projectile shield) { } // Called upon slamming
-
 		public virtual void Push(Player player, Projectile shield, NPC npc) { } // Called upon pushing an enemy while blocking
 		public virtual void Protect(Player player, Projectile shield) { } // Called up to once when the first projectile is blocked or enemy pushed
 		public virtual void Block(Player player, Projectile shield, Projectile projectile) {  // Called when any projectile is blocked
@@ -51,7 +50,7 @@ namespace OrchidMod.Content.Guardian
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
 
-			this.SafeSetDefaults();
+			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;
 		}
 
@@ -89,8 +88,7 @@ namespace OrchidMod.Content.Guardian
 									proj.ai[0] = 0f;
 									resetBlockedEnemiesDuration(guardian);
 								}
-								proj.netUpdate = true;
-								proj.netUpdate2 = true;
+								shield.NeedNetUpdate = true;
 							}
 						} else { // Slam
 							if (proj.ai[1] + proj.ai[0] == 0f && guardian.GuardianGuard > 0) 
@@ -98,8 +96,7 @@ namespace OrchidMod.Content.Guardian
 								shield.shieldEffectReady = true;
 								guardian.GuardianGuard --;
 								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
-								proj.netUpdate = true;
-								proj.netUpdate2 = true;
+								shield.NeedNetUpdate = true;
 								BlockStart(player, proj);
 							}
 							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if left click again
@@ -107,8 +104,7 @@ namespace OrchidMod.Content.Guardian
 								shield.shieldEffectReady = true;
 								shield.spawnDusts();
 								proj.ai[0] = 0f;
-								proj.netUpdate = true;
-								proj.netUpdate2 = true;
+								shield.NeedNetUpdate = true;
 								resetBlockedEnemiesDuration(guardian);
 								BlockStart(player, proj);
 							} 

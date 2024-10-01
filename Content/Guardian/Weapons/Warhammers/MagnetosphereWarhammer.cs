@@ -38,14 +38,20 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
         public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
-			int type = ModContent.ProjectileType<MagnetosphereWarhammerProj>();
-			Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, Vector2.Zero, type, (int)(projectile.damage), Item.knockBack, player.whoAmI);
+			if (IsLocalPlayer(player))
+			{
+				int type = ModContent.ProjectileType<MagnetosphereWarhammerProj>();
+				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, Vector2.Zero, type, (int)(projectile.damage), Item.knockBack, player.whoAmI);
+			}
 		}
 
 		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
 		{
-			int type = ModContent.ProjectileType<MagnetosphereWarhammerProj>();
-			Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, Vector2.Zero, type, (int)(projectile.damage), Item.knockBack, player.whoAmI);
+			if (IsLocalPlayer(player))
+			{
+				int type = ModContent.ProjectileType<MagnetosphereWarhammerProj>();
+				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, Vector2.Zero, type, (int)(projectile.damage), Item.knockBack, player.whoAmI);
+			}
 		}
 
 		public override void AddRecipes()

@@ -24,7 +24,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
-			if (!Weak)
+			if (!Weak && IsLocalPlayer(player))
 			{
 				for (int i = 0; i < 6; i++)
 				{
@@ -36,10 +36,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
 		{
-			for (int i = 0; i < 3; i++)
+			if (IsLocalPlayer(player))
 			{
-				Vector2 dir = Vector2.UnitY.RotatedBy(MathHelper.TwoPi / 3f * i).RotatedByRandom(MathHelper.ToRadians(15f)) * (1f + Main.rand.NextFloat(4f));
-				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, ProjectileID.SporeCloud, (int)(projectile.damage * 0.75f), Item.knockBack, player.whoAmI);
+				for (int i = 0; i < 3; i++)
+				{
+					Vector2 dir = Vector2.UnitY.RotatedBy(MathHelper.TwoPi / 3f * i).RotatedByRandom(MathHelper.ToRadians(15f)) * (1f + Main.rand.NextFloat(4f));
+					Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, ProjectileID.SporeCloud, (int)(projectile.damage * 0.75f), Item.knockBack, player.whoAmI);
+				}
 			}
 		}
 

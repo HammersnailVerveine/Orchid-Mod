@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoMod.Core.Utils;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
@@ -12,17 +14,9 @@ namespace OrchidMod.Content.Guardian
 	public class StandardAuraProjectile : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
-		public int SelectedItem { get; set; } = -1;
-		public Item StandardItem => Main.player[Projectile.owner].inventory[this.SelectedItem];
-
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			writer.Write(SelectedItem);
-		}
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			SelectedItem = reader.ReadInt32();
-		}
+		public int SelectedItem => (int)Projectile.ai[2];
+		public Item StandardItem;
+		public bool Initialized = false;
 
 		public override void AltSetDefaults()
 		{
@@ -43,6 +37,17 @@ namespace OrchidMod.Content.Guardian
 
 		public override void AI()
 		{
+			if (!Initialized)
+			{
+				Initialized = true;
+				StandardItem = Main.player[Projectile.owner].inventory[SelectedItem];
+
+				if (!IsLocalOwner)
+				{
+					SoundEngine.PlaySound(StandardItem.UseSound, Main.player[Projectile.owner].Center);
+				}
+			}
+
 			Projectile.scale *= 1.1f;
 			Projectile.alpha -= 8;
 		}
@@ -51,7 +56,10 @@ namespace OrchidMod.Content.Guardian
 		{
 			if (StandardItem.ModItem is not OrchidModGuardianStandard standard)
 			{
-				Projectile.Kill();
+				if (IsLocalOwner)
+				{
+					Projectile.Kill();
+				}
 			}
 			else
 			{

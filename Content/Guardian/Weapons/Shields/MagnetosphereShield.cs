@@ -28,10 +28,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 
 		public override void Slam(Player player, Projectile shield)
 		{
-			Projectile anchor = GetAnchor(player).Projectile;
-			int type = ModContent.ProjectileType<MagnetosphereShieldProj>();
-			Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * Item.shootSpeed;
-			Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.75f), Item.knockBack, player.whoAmI);
+			if (IsLocalPlayer(player))
+			{
+				Projectile anchor = GetAnchor(player).Projectile;
+				int type = ModContent.ProjectileType<MagnetosphereShieldProj>();
+				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * Item.shootSpeed;
+				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.75f), Item.knockBack, player.whoAmI);
+			}
 		}
 
 		public override void AddRecipes()

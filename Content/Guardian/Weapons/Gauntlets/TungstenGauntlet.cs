@@ -10,7 +10,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		{
 			Item.width = 28;
 			Item.height = 32;
-			Item.knockBack = 5f;
+			Item.knockBack = 3f;
 			Item.damage = 47;
 			Item.value = Item.sellPrice(0, 0, 12, 25);
 			Item.rare = ItemRarityID.White;

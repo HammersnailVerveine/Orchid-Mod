@@ -73,6 +73,13 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 					Projectile.velocity = Projectile.velocity * 0.92f + newVelocity;
 				}
 			}
+			else
+			{
+				if (Projectile.timeLeft > 30)
+				{
+					Projectile.timeLeft = 30;
+				}
+			}
 
 			if ((OldPosition.Count > 10 || Projectile.penetrate == -1) && OldPosition.Count > 0)
 			{
@@ -87,6 +94,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 			{
 				Projectile.penetrate = -1;
 				Projectile.velocity *= 0f;
+				Projectile.netUpdate = true;
 			}
 		}
 

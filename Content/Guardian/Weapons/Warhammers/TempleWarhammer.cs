@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 				dust.velocity = dust.velocity * 0.25f + projectile.velocity * 0.2f;
 			}
 
-			if (Main.rand.NextBool(15) && !weak)
+			if (Main.rand.NextBool(15) && !weak && IsLocalPlayer(player))
 			{
 				Vector2 dir = Vector2.Normalize(projectile.velocity.RotatedByRandom(MathHelper.ToRadians(45f))) * (7f + Main.rand.NextFloat(8f) * (projectile.timeLeft > 600 - range ? 1 : -1));
 				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, ModContent.ProjectileType<TempleWarhammerProj>(), (int)(projectile.damage * 0.75f), Item.knockBack, player.whoAmI);
@@ -43,16 +43,22 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 		public override void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
 		{
-			int type = ModContent.ProjectileType<TempleWarhammerProj>();
-			Vector2 dir = Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi) * (7f + Main.rand.NextFloat(8f));
-			Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.6f), Item.knockBack, player.whoAmI);
+			if (IsLocalPlayer(player))
+			{
+				int type = ModContent.ProjectileType<TempleWarhammerProj>();
+				Vector2 dir = Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi) * (7f + Main.rand.NextFloat(8f));
+				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.6f), Item.knockBack, player.whoAmI);
+			}
 		}
 
 		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
 		{
-			int type = ModContent.ProjectileType<TempleWarhammerProj>();
-			Vector2 dir = Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi) * (7f + Main.rand.NextFloat(8f));
-			Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.6f), Item.knockBack, player.whoAmI);
+			if (IsLocalPlayer(player))
+			{
+				int type = ModContent.ProjectileType<TempleWarhammerProj>();
+				Vector2 dir = Vector2.UnitY.RotatedByRandom(MathHelper.TwoPi) * (7f + Main.rand.NextFloat(8f));
+				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.6f), Item.knockBack, player.whoAmI);
+			}
 
 			for (int i = 0; i < 10; i++)
 			{
@@ -63,13 +69,16 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
-			int nb = Main.rand.Next(5);
-			if (!Weak) nb += 6;
-			int type = ModContent.ProjectileType<TempleWarhammerProj>();
-			for (int i = 0; i < nb; i++)
+			if (IsLocalPlayer(player))
 			{
-				Vector2 dir = Vector2.UnitY.RotatedBy(MathHelper.TwoPi / 6f * i).RotatedByRandom(MathHelper.ToRadians(15f)) * (7f + Main.rand.NextFloat(8f));
-				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.6f), Item.knockBack, player.whoAmI);
+				int nb = Main.rand.Next(5);
+				if (!Weak) nb += 6;
+				int type = ModContent.ProjectileType<TempleWarhammerProj>();
+				for (int i = 0; i < nb; i++)
+				{
+					Vector2 dir = Vector2.UnitY.RotatedBy(MathHelper.TwoPi / 6f * i).RotatedByRandom(MathHelper.ToRadians(15f)) * (7f + Main.rand.NextFloat(8f));
+					Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, type, (int)(projectile.damage * 0.6f), Item.knockBack, player.whoAmI);
+				}
 			}
 
 			for (int i = 0; i < 20; i++)

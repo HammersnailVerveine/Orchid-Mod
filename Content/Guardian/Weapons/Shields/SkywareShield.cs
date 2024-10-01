@@ -28,12 +28,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 
 		public override void Slam(Player player, Projectile shield)
 		{
-			Projectile anchor = GetAnchor(player).Projectile;
-			int type = ModContent.ProjectileType<SkywareShieldProj>();
-			for (int i = 0; i < 2 + Main.rand.Next(2); i ++)
+			if (IsLocalPlayer(player))
 			{
-				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(20f)) * Item.shootSpeed;
-				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f), dir, type, (int)(shield.damage * 0.7f), Item.knockBack, player.whoAmI);
+				Projectile anchor = GetAnchor(player).Projectile;
+				int type = ModContent.ProjectileType<SkywareShieldProj>();
+				for (int i = 0; i < 2 + Main.rand.Next(2); i++)
+				{
+					Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(20f)) * Item.shootSpeed;
+					Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f), dir, type, (int)(shield.damage * 0.7f), Item.knockBack, player.whoAmI);
+				}
 			}
 		}
 	}

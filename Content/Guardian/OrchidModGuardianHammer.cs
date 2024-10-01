@@ -59,12 +59,11 @@ namespace OrchidMod.Content.Guardian
 		public override bool? UseItem(Player player)
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
-			int projType = ProjectileType<HammerThrow>();
+			int projType = ProjectileType<GuardianHammerAnchor>();
 
 			int damage = (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage);
 			Projectile projectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.Zero, projType, damage, Item.knockBack, player.whoAmI);
 			projectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
-			projectile.netUpdate = true;
 
 			guardian.GuardianHammerCharge = 0f;
 			return true;
@@ -72,7 +71,7 @@ namespace OrchidMod.Content.Guardian
 		
 		public override bool CanUseItem(Player player)
 		{
-			int projType = ProjectileType<HammerThrow>();
+			int projType = ProjectileType<GuardianHammerAnchor>();
 			if (player.ownedProjectileCounts[projType] > 0) return false;
 			return base.CanUseItem(player);
 		}
