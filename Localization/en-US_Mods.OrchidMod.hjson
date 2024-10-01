@@ -3096,7 +3096,6 @@ Projectiles: {
 	EnchantedPaviseProj.DisplayName: Enchanted Pavise
 	LivingRuneProj.DisplayName: Living Rune Proj
 	EnchantedRuneProj.DisplayName: Enchanted Rune
-	HammerThrow.DisplayName: Hammer Throw
 	GuardianShieldAnchor.DisplayName: Guardian Shield Anchor
 	SnowCardProjAlt.DisplayName: Snow Card Proj Alt
 	SnowCardProj.DisplayName: Snow Card Proj
