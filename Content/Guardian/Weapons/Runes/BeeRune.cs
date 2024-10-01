@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.shoot = ModContent.ProjectileType<Projectiles.Runes.BeeRuneProj>();
 			RuneCost = 2;
 			RuneNumber = 3;
+			RuneDuration = 35 * 60;
 		}
 	}
 }

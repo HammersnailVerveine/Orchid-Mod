@@ -22,6 +22,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			RuneCost = 1;
 			RuneDistance = 120f;
 			RuneNumber = 2;
+			RuneDuration = 15 * 60;
 		}
 	}
 }

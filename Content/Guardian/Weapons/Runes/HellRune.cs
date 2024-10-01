@@ -22,6 +22,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			RuneCost = 2;
 			RuneNumber = 1;
 			RuneDistance = 260;
+			RuneDuration = 30 * 60;
 		}
 
 		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)

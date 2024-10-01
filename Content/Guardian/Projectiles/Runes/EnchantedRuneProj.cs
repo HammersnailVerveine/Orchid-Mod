@@ -90,7 +90,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
 				var color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * 0.2f * i;
-				var position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+				var position = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(texture, position, rect, color, OldRotation[i], rect.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			}
 

@@ -22,6 +22,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			RuneCost = 2;
 			RuneDistance = 140f;
 			RuneNumber = 2;
+			RuneDuration = 20 * 60;
 		}
 
 		public override void SetStaticDefaults()

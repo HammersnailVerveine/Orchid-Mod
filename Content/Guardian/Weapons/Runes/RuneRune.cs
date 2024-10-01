@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.shoot = ModContent.ProjectileType<Projectiles.Runes.RuneRuneProj>();
 			RuneCost = 3;
 			RuneNumber = 1;
+			RuneDuration = 35 * 60;
 		}
 
 		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)

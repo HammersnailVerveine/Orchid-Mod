@@ -46,6 +46,7 @@ namespace OrchidMod.Content.Guardian
 			if (!Initialized)
 			{
 				Initialized = true;
+				Projectile.rotation = (Projectile.velocity - owner.velocity * 1.5f).ToRotation();
 
 				foreach (Projectile projectile in Main.projectile)
 				{
@@ -65,7 +66,6 @@ namespace OrchidMod.Content.Guardian
 
 			if (GauntletItem.ProjectileAI(owner, Projectile, ChargedHit))
 			{
-				Projectile.rotation = Projectile.velocity.ToRotation();
 				Projectile.velocity *= 0.8f;
 			}
 		}

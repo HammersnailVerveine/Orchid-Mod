@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common.Global.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -102,7 +103,12 @@ namespace OrchidMod.Content.Guardian
 				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
 			}
 
+			int tooltipSeconds = Math.DivRem((int)(RuneDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer), 60, out int tooltipTicks);
+
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "RuneDuration", tooltipSeconds + " seconds duration"));
+
+			index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "UseSlams", "Uses " + this.RuneCost + " shield slams"));
 		}
 
