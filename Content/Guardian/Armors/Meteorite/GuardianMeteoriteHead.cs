@@ -11,7 +11,7 @@ namespace OrchidMod.Content.Guardian.Armors.Meteorite
 		public override void SafeSetDefaults()
 		{
 			Item.width = 26;
-			Item.height = 22;
+			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 60, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.defense = 9;
