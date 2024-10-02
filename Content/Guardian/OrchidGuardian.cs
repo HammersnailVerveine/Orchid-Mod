@@ -3,6 +3,7 @@ using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Guardian.Buffs;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
+using OrchidMod.Content.Guardian.Projectiles.Misc;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -188,21 +189,6 @@ namespace OrchidMod
 			GuardianHoneyPotion = false;
 		}
 
-		public void OnBlock(NPC npc, Projectile projectile, Projectile shieldAnchor, bool firstBlock)
-		{
-			if (npc != null) // a npc has been blocked
-			{
-				// ...
-			}
-
-			if (projectile != null) // a projectile has been blocked
-			{
-				// ...
-			}
-
-			if (GuardianGit) Player.AddBuff(ModContent.BuffType<GuardianGitBuff>(), 600);
-		}
-
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
 			if (!Player.HasBuff<BambooCooldown>() && GuardianBamboo && GuardianGuard < GuardianGuardMax)
@@ -236,7 +222,6 @@ namespace OrchidMod
 				GuardianGauntletParry2 = false;
 				Player.immuneTime = 40;
 				Player.immune = true;
-				AddSlam(1);
 
 				int projectileType = ModContent.ProjectileType<GuardianGauntletAnchor>();
 				if (Player.ownedProjectileCounts[projectileType] > 0)
@@ -247,10 +232,20 @@ namespace OrchidMod
 						if (anchor.GauntletItem.ModItem is OrchidModGuardianGauntlet gauntlet)
 						{
 							gauntlet.OnParry(Player, this, info);
+							info.DamageSource.TryGetCausingEntity(out Entity entity);
+							if (entity != null)
+							{
+								if (entity is NPC npc)
+								{
+									OnBlockNPC(proj, npc);
+									OnBlockNPCFirst(proj, npc);
+								} 
 
-							if (GuardianHoneyPotion)
-							{ // Heal the player if they have the honey potion effect
-								modPlayer.TryHeal((int)(Player.statLifeMax2 * 0.01f));
+								if (entity is Projectile projectile)
+								{
+									OnBlockProjectile(proj, projectile);
+									OnBlockProjectileFirst(proj, projectile);
+								}
 							}
 						}
 					}
@@ -282,6 +277,84 @@ namespace OrchidMod
 				rect.Y -= 64;
 				CombatText.NewText(rect, Color.LightSkyBlue, "+" + nb + " guard" + (nb > 1 ? "s" : ""), false, true);
 				GuardianGuard += nb;
+			}
+		}
+
+		public void OnBlockAnyFirst(Projectile anchor, ref int toAdd)
+		{ // Called by both FirstBlockEffect methods to do universal on-first-block effect
+			if (GuardianMeteorite && Main.rand.NextBool(2))
+			{
+				toAdd++;
+			}
+
+			if (GuardianHoneyPotion)
+			{ // Heal the player if they have the honey potion effect
+				modPlayer.TryHeal((int)(Player.statLifeMax2 * 0.01f));
+			}
+		}
+
+		public void OnBlockNPCFirst(Projectile anchor, NPC target)
+		{ // Called anytime the player blocks/parries their first NPC
+			int toAdd = 1;
+			OnBlockAnyFirst(anchor, ref toAdd);
+
+			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor)
+			{
+				if (GuardianSpikeGoblin)
+				{
+					float damage = Player.statDefense;
+					if (GuardianSpikeTemple) damage *= 3f;
+					else if (GuardianSpikeMechanical) damage *= 2.5f;
+					else if (GuardianSpikeDungeon) damage *= 1.5f;
+
+					damage = Player.GetDamage<GuardianDamageClass>().ApplyTo(damage);
+					bool crit = Main.rand.NextFloat(100) < anchor.CritChance;
+					Player.ApplyDamageToNPC(target, (int)damage, 0f, Player.direction, crit, ModContent.GetInstance<GuardianDamageClass>());
+				}
+			}
+
+			AddSlam(toAdd);
+		}
+
+		public void OnBlockProjectileFirst(Projectile anchor, Projectile blockedProjectile)
+		{ // Called anytime the player blocks/parries their first projectile
+			int toAdd = 1;
+			OnBlockAnyFirst(anchor, ref toAdd);
+			AddSlam(toAdd);
+		}
+
+		public void OnBlockAny(Projectile anchor)
+		{ // Called by both BlockEffect methods to do universal block effects
+			if (GuardianGit)
+			{
+				Player.AddBuff(ModContent.BuffType<GuardianGitBuff>(), 600);
+			}
+		}
+
+		public void OnBlockNPC(Projectile anchor, NPC target)
+		{ // Called anytime the player blocks/parries a NPC
+			OnBlockAny(anchor);
+		}
+
+		public void OnBlockProjectile(Projectile anchor, Projectile blockedProjectile)
+		{ // Called anytime the player blocks/parries a projectile
+			OnBlockAny(anchor);
+
+			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor)
+			{
+				if (GuardianSpikeDungeon)
+				{
+					int type = ModContent.ProjectileType<WaterSpikeProj>();
+					Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center) * 10f;
+					int damage = (int)Player.GetDamage<GuardianDamageClass>().ApplyTo(30); // Duplicate changes in the Dungeon Spike item
+					Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), anchor.Center, dir, type, damage, 1f, Player.whoAmI);
+					projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+				}
+
+				if (GuardianSpikeTemple || GuardianSpikeMechanical)
+				{
+					Player.AddBuff(ModContent.BuffType<GuardianSpikeBuff>(), 600);
+				}
 			}
 		}
 

@@ -148,36 +148,16 @@ namespace OrchidMod.Content.Guardian
 							if (LineIntersectsRect(p1, p2, proj.Hitbox) || proj.Hitbox.Intersects(Projectile.Hitbox))
 							{
 								guardianItem.Block(owner, Projectile, proj);
-								modPlayer.OnBlock(null, proj, Projectile, shieldEffectReady);
+								modPlayer.OnBlockProjectile(Projectile, proj);
 								if (shieldEffectReady)
 								{
-									int toAdd = 1;
-									if (modPlayer.GuardianMeteorite && Main.rand.NextBool(2)) toAdd++;
-									modPlayer.AddSlam(toAdd);
+									modPlayer.OnBlockProjectileFirst(Projectile, proj);
 									guardianItem.Protect(owner, Projectile);
 									shieldEffectReady = false;
 									SoundEngine.PlaySound(SoundID.Item37, owner.Center);
-									if (modPlayer.GuardianHoneyPotion)
-									{ // Heal the player if they have the honey potion effect
-										modPlayer.modPlayer.TryHeal((int)(owner.statLifeMax2 * 0.01f));
-									}
 								}
 								proj.Kill();
 								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
-
-								if (modPlayer.GuardianSpikeDungeon)
-								{
-									int type = ModContent.ProjectileType<WaterSpikeProj>();
-									Vector2 dir = Vector2.Normalize(Projectile.Center - owner.Center) * 10f;
-									int damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(30); // Duplicate changes in the Dungeon Spike item
-									Projectile projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, dir, type, damage, 1f, owner.whoAmI);
-									projectile.CritChance = (int)(Main.player[Projectile.owner].GetCritChance<GuardianDamageClass>() + Main.player[Projectile.owner].GetCritChance<GenericDamageClass>());
-								}
-
-								if (modPlayer.GuardianSpikeTemple || modPlayer.GuardianSpikeMechanical)
-								{
-									owner.AddBuff(ModContent.BuffType<GuardianSpikeBuff>(), 600);
-								}
 							}
 						}
 					}
@@ -213,33 +193,13 @@ namespace OrchidMod.Content.Guardian
 							}
 
 							guardianItem.Push(owner, Projectile, target);
+							modPlayer.OnBlockNPC(Projectile, target);
 							if (shieldEffectReady)
 							{ // First parry stuff
-								int toAdd = 1;
-								if (modPlayer.GuardianMeteorite && Main.rand.NextBool(2)) toAdd++;
-								modPlayer.AddSlam(toAdd);
+								modPlayer.OnBlockNPCFirst(Projectile, target);
 								guardianItem.Protect(owner, Projectile);
 								shieldEffectReady = false;
 								SoundEngine.PlaySound(SoundID.Item37, owner.Center);
-
-								modPlayer.OnBlock(target, null, Projectile, true);
-
-								if (modPlayer.GuardianSpikeGoblin)
-								{
-									float damage = owner.statDefense;
-									if (modPlayer.GuardianSpikeTemple) damage *= 3f;
-									else if (modPlayer.GuardianSpikeMechanical) damage *= 2.5f;
-									else if (modPlayer.GuardianSpikeDungeon) damage *= 1.5f;
-
-									damage = owner.GetDamage<GuardianDamageClass>().ApplyTo(damage);
-									bool crit = Main.rand.NextFloat(100) < Projectile.CritChance;
-									owner.ApplyDamageToNPC(target, (int)damage, 0f, owner.direction, crit, ModContent.GetInstance<GuardianDamageClass>());
-								}
-
-								if (modPlayer.GuardianHoneyPotion)
-								{ // Heal the player if they have the honey potion effect
-									modPlayer.modPlayer.TryHeal((int)(owner.statLifeMax2 * 0.01f));
-								}
 							}
 						}
 					}
@@ -381,7 +341,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			if (!(this.ShieldItem.ModItem is OrchidModGuardianShield guardianItem)) return false;
+			if (!(ShieldItem.ModItem is OrchidModGuardianShield guardianItem)) return false;
 			if (!ModContent.HasAsset(guardianItem.ShieldTexture)) return false;
 
 			var player = Main.player[Projectile.owner];

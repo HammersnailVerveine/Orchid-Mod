@@ -38,7 +38,7 @@ namespace OrchidMod.Content.Guardian.Armors.Misc
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.setBonus = "Blocking increases movement speed by 30%";
+			player.setBonus = "Blocks or parries increases movement speed by 30%";
 			modPlayer.GuardianGit = true;
 		}
 	}

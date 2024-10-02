@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Guardian.Armors.Meteorite
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.setBonus = "Parries have a 50% chance to give an additional slam charge";
+			player.setBonus = "Blocks or parries have a 50% chance to give an additional slam charge";
 			modPlayer.GuardianMeteorite = true;
 		}
 

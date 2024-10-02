@@ -1,4 +1,3 @@
-using OrchidMod.Content.Gambler.Misc;
 using Terraria;
 using Terraria.ID;
 
