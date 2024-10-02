@@ -2991,6 +2991,16 @@ Items: {
 			Parries improve non-charged punches
 			'''
 	}
+
+	CobaltGauntlet: {
+		DisplayName: Cobalt Claws
+		Tooltip: ""
+	}
+
+	PalladiumGauntlet: {
+		DisplayName: Palladium Gauntlet
+		Tooltip: ""
+	}
 }
 
 NPCs: {
