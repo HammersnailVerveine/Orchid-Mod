@@ -71,7 +71,7 @@ namespace OrchidMod.Content.Guardian
 			var owner = Main.player[Projectile.owner];
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 
-			if ((!Worn || !owner.active || owner.dead) && (SelectedItem < 0 || StandardItem == null || StandardItem.ModItem is not OrchidModGuardianStandard guardianItem))
+			if ((!Worn && (SelectedItem < 0 || StandardItem == null || StandardItem.ModItem is not OrchidModGuardianStandard guardianItem)) || !owner.active || owner.dead)
 			{
 				Projectile.Kill();
 				return;
