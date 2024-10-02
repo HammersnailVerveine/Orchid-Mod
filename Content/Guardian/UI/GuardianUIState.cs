@@ -128,7 +128,7 @@ namespace OrchidMod.Content.Guardian.UI
 					spriteBatch.Draw(textureIconStandard, new Vector2(position.X - offSet, position.Y + 36), Color.White * colorMult);
 				}
 
-				if (player.HeldItem.useTime > 0)
+				if (player.HeldItem.ModItem is OrchidModGuardianItem)
 				{
 					if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
 					{
