@@ -25,7 +25,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info) { }
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
-		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged) => true; // Return false to prevent normal punch projectiles from spawning
+		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage) => true; // Return false to prevent normal punch projectiles from spawning
 		public virtual bool ProjectileAI(Player player, Projectile projectile, bool charged) => true;
 		public virtual void ExtraAIGauntlet(Projectile projectile) { }
 		public virtual void PostDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }

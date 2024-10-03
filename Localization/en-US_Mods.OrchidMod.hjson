@@ -2933,7 +2933,7 @@ Items: {
 
 	MechanicalGauntlet: {
 		DisplayName: Iron Fist
-		Tooltip: Punching after a parry propels forward
+		Tooltip: Punching after a parry propels forward, dealing double damage
 	}
 
 	Block: {
@@ -2999,6 +2999,16 @@ Items: {
 
 	PalladiumGauntlet: {
 		DisplayName: Palladium Gauntlet
+		Tooltip: ""
+	}
+
+	MythrilWarhammer: {
+		DisplayName: Mythril Warhammer
+		Tooltip: ""
+	}
+
+	OrichalcumWarhammer: {
+		DisplayName: Orichalcum Warhammer
 		Tooltip: ""
 	}
 }

@@ -17,8 +17,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.damage = 220;
 			Item.useTime = 25;
 			range = 40;
-			blockStacks = 2;
-			slamStacks = 1;
+			blockStacks = 0;
+			slamStacks = 3;
 		}
 
 		public override void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)

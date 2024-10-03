@@ -1,6 +1,6 @@
-﻿using OrchidMod.Common.ModObjects;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
+using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {

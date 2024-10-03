@@ -33,7 +33,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			player.AddBuff(ModContent.BuffType<GuardianPaladinGauntletBuff>(), 600);
 		}
 
-		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged)
+		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage)
 		{
 			if (charged)
 			{
@@ -42,8 +42,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				{
 					float speed = strikeVelocity * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.55f, 0.8f);
 					Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2).RotatedByRandom(MathHelper.ToRadians(40));
-					int damage = (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage * 0.35f);
-					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, damage, Item.knockBack, player.whoAmI, 1f);
+					int shardDamage = (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage * 0.35f);
+					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, shardDamage, Item.knockBack, player.whoAmI, 1f);
 					newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 					newProjectile.rotation = newProjectile.velocity.ToRotation();
 					newProjectile.velocity += player.velocity * 1.5f;
@@ -61,8 +61,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				{
 					float speed = strikeVelocity * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.5f, 0.65f);
 					Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2).RotatedByRandom(MathHelper.ToRadians(5));
-					int damage = (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage * 0.35f);
-					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, damage, Item.knockBack, player.whoAmI);
+					int shardDamage = (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage * 0.35f);
+					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, shardDamage, Item.knockBack, player.whoAmI);
 					newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 					newProjectile.rotation = newProjectile.velocity.ToRotation();
 					newProjectile.velocity += player.velocity * 1.5f;

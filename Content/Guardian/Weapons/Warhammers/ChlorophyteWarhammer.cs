@@ -29,7 +29,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 				for (int i = 0; i < 6; i++)
 				{
 					Vector2 dir = Vector2.UnitY.RotatedBy(MathHelper.TwoPi / 6f * i).RotatedByRandom(MathHelper.ToRadians(15f)) * (2f + Main.rand.NextFloat(6f));
-					Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, ProjectileID.SporeCloud, projectile.damage, Item.knockBack, player.whoAmI);
+					Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, ProjectileID.SporeCloud, (int)(projectile.damage * 0.5f), Item.knockBack, player.whoAmI);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 				for (int i = 0; i < 3; i++)
 				{
 					Vector2 dir = Vector2.UnitY.RotatedBy(MathHelper.TwoPi / 3f * i).RotatedByRandom(MathHelper.ToRadians(15f)) * (1f + Main.rand.NextFloat(4f));
-					Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, ProjectileID.SporeCloud, (int)(projectile.damage * 0.75f), Item.knockBack, player.whoAmI);
+					Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, ProjectileID.SporeCloud, (int)(projectile.damage * 0.5f), Item.knockBack, player.whoAmI);
 				}
 			}
 		}

@@ -135,14 +135,15 @@ namespace OrchidMod.Content.Guardian
 					else if (Projectile.localAI[1] == slamTime)
 					{ // Slam just started, make projectile
 						Ding = false; // Also reset ding song for full charge
-						if (guardianItem.OnPunch(owner, guardian, Projectile, Projectile.ai[0] == -2f))
+						int damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
+						if (guardianItem.OnPunch(owner, guardian, Projectile, Projectile.ai[0] == -2f, ref damage))
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
 							float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance();
 							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f, Projectile.whoAmI);
 							if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 							{
-								punchProj.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
+								punchProj.damage = damage;
 								punchProj.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 								punchProj.knockBack = guardianItem.Item.knockBack;
 								punchProj.position += punchProj.velocity * 0.5f;

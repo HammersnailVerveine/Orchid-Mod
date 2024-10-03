@@ -34,15 +34,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			player.AddBuff(ModContent.BuffType<GuardianSpiderGauntletBuff>(), 480);
 		}
 
-		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged)
+		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage)
 		{
 			if (player.HasBuff<GuardianSpiderGauntletBuff>())
 			{
 				int projectileType = ModContent.ProjectileType<SpiderGauntletProjectile>();
 				float speed = strikeVelocity * (charged ? 1f : 0.75f) * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.85f, 1.15f);
 				Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2).RotatedByRandom(MathHelper.ToRadians(5));
-				int damage = (int)(player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage) * (charged ? 1.5f : 0.5f));
-				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, damage, Item.knockBack, player.whoAmI, charged ? 1f : 0f);
+				int spikeDamage = (int)(player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage) * (charged ? 1.5f : 0.5f));
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, spikeDamage, Item.knockBack, player.whoAmI, charged ? 1f : 0f);
 				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 				newProjectile.position += newProjectile.velocity * 0.5f;
 				newProjectile.rotation = newProjectile.velocity.ToRotation();

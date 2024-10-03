@@ -32,18 +32,19 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			player.noFallDmg = true;
 		}
 
-		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged)
+		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage)
 		{
 			if (player.HasBuff<GuardianMechanicalGauntletBuff>())
 			{
 				player.ClearBuff(ModContent.BuffType<GuardianMechanicalGauntletBuff>());
 				SoundEngine.PlaySound(SoundID.Item14, player.Center);
-				strikeVelocity = 80f;
-				Vector2 playerDashVelocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity * 0.4f;
+				strikeVelocity = 45f;
+				damage *= 2;
+				Vector2 playerDashVelocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity * 0.3f;
 				guardian.modPlayer.ForcedVelocityVector = playerDashVelocity;
-				guardian.modPlayer.ForcedVelocityTimer = 20;
-				guardian.modPlayer.PlayerImmunity = 20;
-				guardian.modPlayer.ForcedVelocityUpkeep = 0.1f;
+				guardian.modPlayer.ForcedVelocityTimer = 15;
+				guardian.modPlayer.PlayerImmunity = 15;
+				guardian.modPlayer.ForcedVelocityUpkeep = 0.3f;
 			}
 			else strikeVelocity = 25f;
 			return true;
@@ -57,7 +58,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.AddRecipeGroup(RecipeGroupID.IronBar, 20);
 			recipe.AddIngredient(ItemID.SoulofFright, 20);
 			recipe.Register();

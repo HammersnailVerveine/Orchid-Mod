@@ -92,8 +92,12 @@ namespace OrchidMod.Common.ModObjects
 				else
 				{
 					Player.velocity = Vector2.Zero;
-					Player.position += ForcedVelocityVector;
 					Player.velocity = ForcedVelocityVector * ForcedVelocityUpkeep;
+					Vector2 addedVelocity = Vector2.Zero;
+					for (int i = 0; i < 10; i++)
+						addedVelocity += Collision.TileCollision(Player.position + addedVelocity, ForcedVelocityVector * 0.1f, Player.width, Player.height, false, false, (int)Player.gravDir);
+
+					Player.position += addedVelocity;
 				}
 
 				ForcedVelocityTimer--;
