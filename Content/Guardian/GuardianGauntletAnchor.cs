@@ -140,9 +140,10 @@ namespace OrchidMod.Content.Guardian
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
 							float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance();
-							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f, Projectile.whoAmI);
+							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
 							if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 							{
+								punch.GauntletItem = GauntletItem.ModItem as OrchidModGuardianGauntlet;
 								punchProj.damage = damage;
 								punchProj.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 								punchProj.knockBack = guardianItem.Item.knockBack;
@@ -242,18 +243,8 @@ namespace OrchidMod.Content.Guardian
 					}
 				}
 
-				if (OffHandGauntlet)
-				{
-					/*
-					float rotation = (Projectile.Center + new Vector2(4 * owner.direction, Slamming ? 2 : 6) - owner.Center.Floor()).ToRotation();
-					CompositeArmStretchAmount compositeArmStretchAmount = CompositeArmStretchAmount.Quarter; // Tweak the arm based on punch direction if necessary
-					if (Projectile.localAI[1] > 0.55f && (Projectile.ai[1] > -2.25f || Projectile.ai[1] < -4f)) compositeArmStretchAmount = CompositeArmStretchAmount.ThreeQuarters;
-					owner.SetCompositeArmBack(true, compositeArmStretchAmount, rotation - MathHelper.PiOver2);
-					*/
-					//owner.SetCompositeArmBack(true, CompositeArmStretchAmount.None, owner.direction * -MathHelper.Pi);
-				}
-				else
-				{
+				if (!OffHandGauntlet)
+				{ // Composite arm stuff for the front arm (the back arm is disabled while holding gauntlets)
 					float rotation = (Projectile.Center + new Vector2(6 * owner.direction, Slamming ? 2 : Charging ? 8 : 6) - owner.Center.Floor()).ToRotation();
 					CompositeArmStretchAmount compositeArmStretchAmount = CompositeArmStretchAmount.ThreeQuarters; // Tweak the arm based on punch direction if necessary
 					if (Charging) compositeArmStretchAmount = CompositeArmStretchAmount.Quarter;

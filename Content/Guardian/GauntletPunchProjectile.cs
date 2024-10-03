@@ -48,16 +48,16 @@ namespace OrchidMod.Content.Guardian
 				Initialized = true;
 				Projectile.rotation = (Projectile.velocity - owner.velocity * 1.5f).ToRotation();
 
-				foreach (Projectile projectile in Main.projectile)
-				{
-					if (projectile.ModProjectile is GuardianGauntletAnchor anchor && projectile.owner == Projectile.owner)
-					{
-						GauntletItem = anchor.GauntletItem.ModItem as OrchidModGuardianGauntlet;
-					}
-				}
-
 				if (!IsLocalOwner)
 				{
+					foreach (Projectile projectile in Main.projectile)
+					{ // This cannot be reliably synced with packets (?)
+						if (projectile.ModProjectile is GuardianGauntletAnchor anchor && projectile.owner == Projectile.owner)
+						{
+							GauntletItem = anchor.GauntletItem.ModItem as OrchidModGuardianGauntlet;
+						}
+					}
+
 					owner.GetModPlayer<OrchidGuardian>().GuardianGauntletCharge = 0; // probably not the best place to put this but it works. (fixes a minor visual issue)
 					SoundEngine.PlaySound(ChargedHit ? SoundID.DD2_MonkStaffGroundMiss : SoundID.DD2_MonkStaffSwing, owner.Center);
 				}
