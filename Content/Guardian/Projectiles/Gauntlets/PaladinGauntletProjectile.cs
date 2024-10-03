@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			Projectile.height = 16;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 45;
+			Projectile.timeLeft = 50;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = -1;
@@ -38,7 +38,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 		{
 			if (Projectile.ai[0] == 0)
 			{
-				Projectile.timeLeft -= Main.rand.Next(5) + 20;
+				Projectile.timeLeft -= Main.rand.Next(5) + 25;
 			}
 		}
 
@@ -58,7 +58,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			if (Projectile.ai[0] == 1f)
 			{
 				NPC closestTarget = null;
-				float distanceClosest = 240f;
+				float distanceClosest = 360f;
 				foreach (NPC npc in Main.npc)
 				{
 					float distance = Projectile.Center.Distance(npc.Center);

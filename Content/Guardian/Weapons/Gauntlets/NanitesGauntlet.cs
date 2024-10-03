@@ -30,13 +30,16 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override void SafeHoldItem(Player player)
 		{
-			Vector2 intendedVelocity = player.velocity * 0.05f;
-			Vector2 addedVelocity = Vector2.Zero;
+			if (player.mount.Type != MountID.None)
+			{
+				Vector2 intendedVelocity = player.velocity * 0.05f;
+				Vector2 addedVelocity = Vector2.Zero;
 
-			for (int i = 0; i < 10; i++)
-				addedVelocity += Collision.TileCollision(player.position + addedVelocity, intendedVelocity, player.width, player.height, false, false, (int)player.gravDir);
+				for (int i = 0; i < 10; i++)
+					addedVelocity += Collision.TileCollision(player.position + addedVelocity, intendedVelocity, player.width, player.height, false, false, (int)player.gravDir);
 
-			player.position += addedVelocity;
+				player.position += addedVelocity;
+			}
 		}
 
 		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
