@@ -12,6 +12,7 @@ using System;
 using Terraria.ModLoader.Core;
 using System.Reflection;
 using OrchidMod.Common.Attributes;
+using OrchidMod.Common.Global.NPCs;
 
 namespace OrchidMod
 {
@@ -126,6 +127,22 @@ namespace OrchidMod
 						packet.Write(playernumber);
 						packet.Write(modPlayerGambler.gamblerHasCardInDeck);
 						packet.Send(-1, playernumber);
+					}
+					break;
+
+				case OrchidModMessageType.NPCHITBYCLASS: // Received by the server when a player damages a NPC for the first time with a orchid damage class
+					OrchidGlobalNPC globalNPC = Main.npc[reader.ReadByte()].GetGlobalNPC<OrchidGlobalNPC>();
+					switch (reader.ReadByte())
+					{
+						default:
+							globalNPC.AlchemistHit = true;
+							break;
+						case 1:
+							globalNPC.GamblerHit = true;
+							break;
+						case 2:
+							globalNPC.GuardianHit = true;
+							break;
 					}
 					break;
 

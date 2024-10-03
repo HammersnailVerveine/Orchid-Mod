@@ -302,7 +302,7 @@ namespace OrchidMod.Content.Guardian
 			}
 		}
 
-		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		public override void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
 			if (Projectile.ai[1] < 0) // Less  damage for melee hits
 			{

@@ -34,7 +34,7 @@ namespace OrchidMod.Content.Guardian.Misc
 		public override bool CanPickup(Player player)
 		{
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-			if (guardian.GuardianGuard >= guardian.GuardianGuardMax) return false;
+			if (guardian.GuardianGuard >= guardian.GuardianGuardMax && Main.netMode == NetmodeID.SinglePlayer) return false; // CBA to sync guard stacks in mp
 			return base.CanPickup(player);
 		}
 

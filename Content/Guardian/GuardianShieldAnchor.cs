@@ -333,10 +333,6 @@ namespace OrchidMod.Content.Guardian
 			}
 		}
 
-		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-		{
-		}
-
 		public override bool? CanCutTiles() => Projectile.ai[1] > 0f;
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
