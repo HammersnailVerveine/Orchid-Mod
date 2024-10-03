@@ -46,7 +46,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 				newProjectile.position += newProjectile.velocity * 0.5f;
 				newProjectile.rotation = newProjectile.velocity.ToRotation();
-				newProjectile.velocity += player.velocity * 1.5f;
 				newProjectile.netUpdate = true;
 			}
 			return true;

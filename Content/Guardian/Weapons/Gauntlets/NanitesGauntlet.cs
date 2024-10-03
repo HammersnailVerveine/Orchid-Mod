@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override void SafeHoldItem(Player player)
 		{
-			if (player.mount.Type != MountID.None)
+			if (player.mount.Type == MountID.None)
 			{
 				Vector2 intendedVelocity = player.velocity * 0.05f;
 				Vector2 addedVelocity = Vector2.Zero;
