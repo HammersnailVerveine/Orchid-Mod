@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using OrchidMod.Common.Global.Items;
@@ -49,7 +50,7 @@ namespace OrchidMod.Content.Prefixes
 
 		public override void Apply(Item item)
 			=> item.GetGlobalItem<GuardianPrefixItem>().SetPrefixVariables(damage, knockback, blockDuration, crit, slamDistance);
-		
+
 		public override void ModifyValue(ref float valueMult)
 		{
 			float multiplier = 1f + ((damage - 1f) * 0.05f) + ((knockback - 1f) * 0.05f) + ((blockDuration - 1f) * 0.05f) + ((slamDistance - 1f) * 0.05f) + (crit * 0.0015f);
@@ -130,31 +131,58 @@ namespace OrchidMod.Content.Prefixes
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			string block = "block";
-			string slam = "slam";
-
-			if (item.ModItem is OrchidModGuardianGauntlet)
+			if ((blockDuration != 1f && blockDuration != 0f) || (slamDistance != 1f && slamDistance != 0f))
 			{
-				block = "parry";
-				slam = "punch";
-			}
+				string block = "block";
+				string slam = "slam";
 
-			if (blockDuration != 1f && blockDuration != 0f)
-			{
-				tooltips.Add(new TooltipLine(Mod, "BlockDurationPrefix", (blockDuration > 1 ? "+" : "") + string.Format("{0:0}", ((blockDuration - 1f) * 100f)) + "% " + block + " duration")
+				if (item.ModItem is OrchidModGuardianGauntlet)
 				{
-					IsModifier = true,
-					IsModifierBad = blockDuration < 1
-				});
-			}
+					block = "parry";
+					slam = "punch";
+				}
 
-			if (slamDistance != 1f && slamDistance != 0f)
-			{
-				tooltips.Add(new TooltipLine(Mod, "SlamDistancePrefix", (slamDistance > 1 ? "+" : "") + string.Format("{0:0}", ((slamDistance - 1f) * 100f)) + "% " + slam + " distance")
+				// I have no clue how to do this in a clean way
+				int index = -1;
+				for (int i = 5; i >= 0; i--)
 				{
-					IsModifier = true,
-					IsModifierBad = slamDistance < 1
-				});
+					index = tooltips.FindIndex(ttip => ttip.Name.Equals("Tooltip" + i));
+					if (index != -1)
+					{
+						index++;
+						break;
+					}
+				}
+
+				if (index == -1)
+				{
+					index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("PrefixDamage"));
+					if (index == -1) index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("PrefixCritChance"));
+					if (index == -1) index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("PrefixKnockback"));
+					if (index == -1) index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Material"));
+					if (index == -1) index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+					if (index == -1) return;
+					index += 3;
+				}
+
+
+				if (blockDuration != 1f && blockDuration != 0f)
+				{
+					tooltips.Insert(index, new TooltipLine(Mod, "BlockDurationPrefix", (blockDuration > 1 ? "+" : "") + string.Format("{0:0}", ((blockDuration - 1f) * 100f)) + "% " + block + " duration")
+					{
+						IsModifier = true,
+						IsModifierBad = blockDuration < 1
+					});
+				}
+
+				if (slamDistance != 1f && slamDistance != 0f)
+				{
+					tooltips.Insert(index, new TooltipLine(Mod, "SlamDistancePrefix", (slamDistance > 1 ? "+" : "") + string.Format("{0:0}", ((slamDistance - 1f) * 100f)) + "% " + slam + " distance")
+					{
+						IsModifier = true,
+						IsModifierBad = slamDistance < 1
+					});
+				}
 			}
 		}
 
