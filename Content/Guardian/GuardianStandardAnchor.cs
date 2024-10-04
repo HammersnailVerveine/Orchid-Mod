@@ -154,7 +154,7 @@ namespace OrchidMod.Content.Guardian
 							{
 								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (buffItem.AuraRange + player.width * 0.5f))
 								{
-									buffItem.NearbyPlayerEffect(player, guardian, player == owner, Projectile.ai[2] == 1f);
+									buffItem.NearbyPlayerEffect(player.GetModPlayer<OrchidGuardian>().GuardianStandardStats, player, guardian, player == owner, Projectile.ai[2] == 1f);
 									AnyNear = buffItem.DrawAura(true, false, IsLocalOwner, Projectile.ai[2] == 1f);
 								}
 							}

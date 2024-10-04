@@ -2991,14 +2991,18 @@ Items: {
 		DisplayName: Petal Pennant
 		Tooltip:
 			'''
-			Fully charging increases maximum life
+			Fully charging increases maximum life by 50
 			When reinforced, drastically increases life regeneration at low health
 			'''
 	}
 
 	DesertStandard: {
-		DisplayName: Desert Standard
-		Tooltip: ""
+		DisplayName: Baalic Stormcrest
+		Tooltip:
+			'''
+			Fully charging increases movement speed by 10%
+			When reinforced, shocks nearby enemies on hit
+			'''
 	}
 
 	PaladinGauntlet: {

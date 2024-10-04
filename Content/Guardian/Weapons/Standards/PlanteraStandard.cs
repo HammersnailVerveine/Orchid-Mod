@@ -27,16 +27,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			return new Color(225, 128, 206);
 		}
 
-		public override void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
+		public override void NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
 		{
-			player.statLifeMax2 += 50;
-			if (reinforced && player.statLife <= player.statLifeMax2 * 0.25f && isLocalPlayer)
+			standardStats.lifeMax += 50;
+			if (reinforced && affectedPlayer.statLife <= affectedPlayer.statLifeMax2 * 0.25f && isLocalPlayer)
 			{
-				guardian.GuardianPlanteraStandardHeal = true;
-
+				standardStats.lifeRegen += 6;
 				if (Main.rand.NextBool(20))
 				{
-					Dust.NewDustDirect(player.position, player.width, player.height, DustID.PlanteraBulb).noGravity = true;
+					Dust.NewDustDirect(affectedPlayer.position, affectedPlayer.width, affectedPlayer.height, DustID.PlanteraBulb).noGravity = true;
 				}
 			}
 		}

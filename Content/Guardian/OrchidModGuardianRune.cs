@@ -71,7 +71,7 @@ namespace OrchidMod.Content.Guardian
 					}
 				}
 				int crit = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
-				Activate(player, guardian, Item.shoot, (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage), Item.knockBack, crit, (int)(RuneDuration * guardian.GuardianRuneTimer), RuneDistance, RuneNumber);
+				Activate(player, guardian, Item.shoot, guardian.GetGuardianDamage(Item.damage), Item.knockBack, crit, (int)(RuneDuration * guardian.GuardianRuneTimer), RuneDistance, RuneNumber);
 			}
 			return true;
 		}

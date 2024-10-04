@@ -135,7 +135,7 @@ namespace OrchidMod.Content.Guardian
 					else if (Projectile.localAI[1] == slamTime)
 					{ // Slam just started, make projectile
 						Ding = false; // Also reset ding song for full charge
-						int damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
+						int damage = guardian.GetGuardianDamage(guardianItem.Item.damage);
 						if (guardianItem.OnPunch(owner, guardian, Projectile, Projectile.ai[0] == -2f, ref damage))
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();

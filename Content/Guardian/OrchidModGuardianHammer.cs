@@ -63,7 +63,7 @@ namespace OrchidMod.Content.Guardian
 			var guardian = player.GetModPlayer<OrchidGuardian>();
 			int projType = ProjectileType<GuardianHammerAnchor>();
 
-			int damage = (int)player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage);
+			int damage = guardian.GetGuardianDamage(Item.damage);
 			Projectile projectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.Zero, projType, damage, Item.knockBack, player.whoAmI);
 			projectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 

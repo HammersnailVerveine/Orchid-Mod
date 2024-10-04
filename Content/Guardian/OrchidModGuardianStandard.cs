@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual string FlagQuarterTexture => Texture + "_FlagQuarter";
 		public virtual string FlagTwoQuarterTexture => Texture + "_FlagTwoQuarter";
 		public virtual string FlagEndTexture => Texture + "_FlagEnd";
-		public virtual void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced) { } // isLocalPlayer is true when this is ran on the client being affected
+		public virtual void NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced) { } // isLocalPlayer is true when this is ran on the client being affected. Do not change stats on the affectedPlayer it won't work, use standardStats
 		public virtual void NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced) { } // isLocalPlayer is true when this is ran by the guardian with the flag active
 		public virtual void OnCharge(Player player, OrchidGuardian guardian) { }
 		public virtual void EffectSimple(Player player, OrchidGuardian guardian) { }
@@ -175,6 +175,38 @@ namespace OrchidMod.Content.Guardian
 			tooltips.RemoveAll(x => x.Name == "Damage" && x.Mod == "Terraria");
 			tooltips.RemoveAll(x => x.Name == "Knockback" && x.Mod == "Terraria");
 			tooltips.RemoveAll(x => x.Name == "CritChance" && x.Mod == "Terraria");
+		}
+	}
+
+	public class GuardianStandardStats()
+	{
+		public int lifeMax = 0;
+		public int lifeRegen = 0;
+		public int defense;
+		public float moveSpeed = 0f;
+		public float guardianDamage = 0f;
+		public float allDamage = 0f;
+
+		public void ApplyStats(Player player)
+		{
+			player.statLifeMax2 += lifeMax;
+			player.statDefense += defense;
+			player.moveSpeed += moveSpeed;
+			player.GetDamage<GuardianDamageClass>() += guardianDamage;
+			player.GetDamage(DamageClass.Generic) += allDamage;
+
+			lifeMax = 0;
+			defense = 0;
+			moveSpeed = 0f;
+			guardianDamage = 0f;
+			allDamage = 0f;
+		}
+
+		public void ApplyLifeRegen(Player player)
+		{
+			player.lifeRegen += lifeRegen;
+
+			lifeRegen = 0;
 		}
 	}
 }

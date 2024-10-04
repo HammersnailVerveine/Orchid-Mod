@@ -12,23 +12,25 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			Item.height = 44;
 			Item.value = Item.sellPrice(0, 0, 30, 0);
 			Item.rare = ItemRarityID.Blue;
-			Item.useTime = 30;
+			Item.useTime = 25;
 			Item.UseSound = SoundID.DD2_BetsyWindAttack;
-			GuardStacks = 1;
+			SlamStacks = 1;
 			FlagOffset = 8;
-			AuraRange = 10;
-			StandardDuration = 1800;
+			AuraRange = 15;
+			StandardDuration = 1200;
 			AffectNearbyPlayers = true;
 			AffectNearbyNPCs = true;
 		}
+		public override bool DrawAura(bool isPlayer, bool isNPC, bool isOwner, bool isReinforced) => (isNPC && isOwner && isReinforced) || (isPlayer && !isOwner);
 
 		public override Color GetColor()
 		{
-			return new Color(106, 210, 255);
+			return new Color(255, 249, 59);
 		}
 
-		public override void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
+		public override void NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
 		{
+			standardStats.moveSpeed += 0.1f;
 		}
 
 		public override void NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced)

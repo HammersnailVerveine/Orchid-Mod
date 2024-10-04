@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				int projectileType = ModContent.ProjectileType<SpiderGauntletProjectile>();
 				float speed = strikeVelocity * (charged ? 1f : 0.75f) * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.85f, 1.15f);
 				Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2).RotatedByRandom(MathHelper.ToRadians(5));
-				int spikeDamage = (int)(player.GetDamage<GuardianDamageClass>().ApplyTo(Item.damage) * (charged ? 1.5f : 0.5f));
+				int spikeDamage = (int)(guardian.GetGuardianDamage(Item.damage) * (charged ? 1.5f : 0.5f));
 				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, spikeDamage, Item.knockBack, player.whoAmI, charged ? 1f : 0f);
 				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 				newProjectile.position += newProjectile.velocity * 0.5f;

@@ -109,7 +109,7 @@ namespace OrchidMod.Content.Guardian
 					if (isSlamming == 0)
 					{
 						isSlamming = 1;
-						Projectile.damage = (int)owner.GetDamage<GuardianDamageClass>().ApplyTo(guardianItem.Item.damage);
+						Projectile.damage = owner.GetModPlayer<OrchidGuardian>().GetGuardianDamage(guardianItem.Item.damage);
 						Projectile.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.ResetLocalNPCHitImmunity();

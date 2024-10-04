@@ -39,15 +39,14 @@ namespace OrchidMod
 		public bool GuardianBamboo = false;
 		public bool GuardianGit = false;
 		public bool GuardianHoneyPotion = false;
-		public bool GuardianPlanteraStandardLife = false;
-		public bool GuardianPlanteraStandardHeal = false;
 
 		// Dynamic gameplay and UI fields
 
-		public int GuardianGuard = 0;
-		public int GuardianSlam = 0;
-		public int GuardianGuardRecharge = 0;
-		public int GuardianSlamRecharge = 0;
+		public GuardianStandardStats GuardianStandardStats = new GuardianStandardStats(); // Used to receive stats from standards
+		public int GuardianGuard = 0; // Current Guard stacks
+		public int GuardianSlam = 0; // Current Slam Stacks
+		public int GuardianGuardRecharge = 0; // Current timer for guard stack recharge
+		public int GuardianSlamRecharge = 0; // Current timer for slam stack recharge
 		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
 		public float GuardianHammerCharge = 0f; // Player Warhammer Throw Charge, max is 180f
 		public float GuardianGauntletCharge = 0f; // Player Gauntlet Punch Charge, max is 180f
@@ -60,6 +59,8 @@ namespace OrchidMod
 		public Projectile StandardAnchor;
 
 		public static int GuardianRechargeTime = 600;
+
+		public int GetGuardianDamage(float damage) => (int)(Player.GetDamage<GuardianDamageClass>().ApplyTo(damage) + Player.GetDamage(DamageClass.Generic).ApplyTo(damage) - damage);
 
 		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
 		{
@@ -109,17 +110,16 @@ namespace OrchidMod
 
 		public override void PostUpdateEquips()
 		{
-			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>())) Player.GetCritChance<GuardianDamageClass>() += 15;
+			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>()))
+			{
+				Player.GetCritChance<GuardianDamageClass>() += 15;
+			}
+			GuardianStandardStats.ApplyStats(Player); // Standards apply their stats here
 		}
 
 		public override void UpdateLifeRegen()
 		{
-			if (GuardianPlanteraStandardHeal)
-			{
-				Player.lifeRegen += 6;
-			}
-
-			GuardianPlanteraStandardHeal = false; // Doesn't work if placed in ResetEffects()
+			GuardianStandardStats.ApplyLifeRegen(Player); // Standards apply their stats here
 		}
 
 		public override void ResetEffects()
@@ -320,7 +320,7 @@ namespace OrchidMod
 					else if (GuardianSpikeMechanical) damage *= 2.5f;
 					else if (GuardianSpikeDungeon) damage *= 1.5f;
 
-					damage = Player.GetDamage<GuardianDamageClass>().ApplyTo(damage);
+					damage = GetGuardianDamage(damage);
 					bool crit = Main.rand.NextFloat(100) < anchor.CritChance;
 					Player.ApplyDamageToNPC(target, (int)damage, 0f, Player.direction, crit, ModContent.GetInstance<GuardianDamageClass>());
 				}
@@ -359,7 +359,7 @@ namespace OrchidMod
 				{
 					int type = ModContent.ProjectileType<WaterSpikeProj>();
 					Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center) * 10f;
-					int damage = (int)Player.GetDamage<GuardianDamageClass>().ApplyTo(30); // Duplicate changes in the Dungeon Spike item
+					int damage = GetGuardianDamage(30); // Duplicate changes in the Dungeon Spike item
 					Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), anchor.Center, dir, type, damage, 1f, Player.whoAmI);
 					projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
 				}
