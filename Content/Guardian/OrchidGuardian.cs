@@ -116,7 +116,7 @@ namespace OrchidMod
 		{
 			if (GuardianPlanteraStandardHeal)
 			{
-				Player.lifeRegen += 4;
+				Player.lifeRegen += 6;
 			}
 
 			GuardianPlanteraStandardHeal = false; // Doesn't work if placed in ResetEffects()
