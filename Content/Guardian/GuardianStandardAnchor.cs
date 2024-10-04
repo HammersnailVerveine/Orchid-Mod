@@ -74,7 +74,7 @@ namespace OrchidMod.Content.Guardian
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 			Projectile.ai[0] = 0f;
 			guardian.GuardianStandardCharge = 0;
-			if (!Worn || Main.player[Projectile.owner].inventory[owner.selectedItem].ModItem is OrchidModGuardianStandard) SelectedItem = owner.selectedItem;
+			if (!Worn || owner.inventory[owner.selectedItem].ModItem is OrchidModGuardianStandard) SelectedItem = owner.selectedItem;
 			Projectile.netUpdate = true;
 		}
 
@@ -112,7 +112,7 @@ namespace OrchidMod.Content.Guardian
 					guardian.GuardianStandardCharge = 0;
 				}
 
-				if ((heldStandard || owner.HeldItem.ModItem is OrchidModGuardianGauntlet) && IsLocalOwner)
+				if ((heldStandard || owner.HeldItem.ModItem is OrchidModGuardianStandard) && IsLocalOwner)
 				{
 					if (Main.MouseWorld.X > owner.Center.X && owner.direction != 1) owner.ChangeDir(1);
 					else if (Main.MouseWorld.X < owner.Center.X && owner.direction != -1) owner.ChangeDir(-1);
@@ -271,18 +271,10 @@ namespace OrchidMod.Content.Guardian
 				}
 			}
 		}
-		public void spawnDusts()
-		{
-			Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
-			for (int i = 0; i < 5; i++)
-			{
-				Main.dust[Dust.NewDust(pos, 20, 20, DustID.Smoke)].velocity *= 0.25f;
-			}
-		}
 
 		public override void OnKill(int timeLeft)
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 5; i++)
 			{
 				Main.dust[Dust.NewDust(Projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.25f;
 			}

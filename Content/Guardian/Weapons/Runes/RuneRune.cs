@@ -14,7 +14,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.value = Item.sellPrice(0, 3, 0, 0);
 			Item.rare = ItemRarityID.Pink;
 			Item.UseSound = SoundID.Item176;
-			Item.useAnimation = 30;
 			Item.useTime = 30;
 			Item.knockBack = 3f;
 			Item.damage = 97;
@@ -24,12 +23,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			RuneDuration = 35 * 60;
 		}
 
-		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
+		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int amount)
 		{
 
-			for (int i = 0; i < GetAmount(guardian); i++)
+			for (int i = 0; i < amount; i++)
 			{
-				float angle = 90f - (GetAmount(guardian) - 1) * 10f + 20 * i;
+				float angle = 90f - (amount - 1) * 10f + 20 * i;
 				NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, 2, angle);
 			}
 

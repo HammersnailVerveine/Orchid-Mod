@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
@@ -13,17 +15,21 @@ namespace OrchidMod.Content.Guardian
 {
 	public abstract class OrchidModGuardianRune : OrchidModGuardianItem
 	{
-		public int RuneCost;
-		public int RuneDuration;
-		public float RuneDistance;
-		public int RuneNumber;
-
+		public int RuneCost; // Cost in slam
+		public int RuneDuration; // Duration in ticks
+		public float RuneDistance; // Projectile distance to player on spawn
+		public int RuneNumber; // How many projectiles are spawned by default
+		public int RuneAmountScaling; // How many projectiles are added for each bonus projectile stat point
+		public virtual void ExtraAIRune(Projectile projectile) { } // Called at the end of the anchor AI for extra effects
+		public virtual void PostDrawRune(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { } // Called after drawing the rune anchor
+		public virtual bool PreDrawRune(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; } // Called before drawing the rune anchor, return false to prevent it
+		public virtual void SafeHoldItem(Player player) { }
 		public int GetNumber(Player player) => RuneNumber + player.GetModPlayer<OrchidGuardian>().GuardianBonusRune;
-		public int GetAmount(OrchidGuardian guardian, int factor = 1) => RuneNumber + guardian.GuardianBonusRune * factor;
+		public int GetAmount(OrchidGuardian guardian) => RuneNumber + guardian.GuardianBonusRune * RuneAmountScaling;
 
-		public virtual void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
+		public virtual void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int amount)
 		{
-			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, GetAmount(guardian));
+			NewRuneProjectiles(player, guardian, duration, type, damage, knockback, critChance, distance, amount);
 		}
 
 		public sealed override void SetDefaults()
@@ -41,20 +47,70 @@ namespace OrchidMod.Content.Guardian
 			RuneDuration = 1800;
 			RuneDistance = 100f;
 			RuneNumber = 1;
+			RuneAmountScaling = 1;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
 
 			SafeSetDefaults();
+			Item.useAnimation = Item.useTime;
 		}
 
 		public override bool WeaponPrefix() => true;
 
 		public sealed override void HoldItem(Player player)
 		{
+			var projectileType = ModContent.ProjectileType<GuardianRuneAnchor>();
 			var guardian = player.GetModPlayer<OrchidGuardian>();
 			guardian.GuardianDisplayUI = 300;
 			guardian.SlamCostUI = RuneCost;
+
+			if (player.ownedProjectileCounts[projectileType] == 0)
+			{
+				var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
+
+				var proj = Main.projectile[index];
+				if (proj.ModProjectile is not GuardianRuneAnchor rune)
+				{
+					proj.Kill();
+				}
+				else
+				{
+					rune.OnChangeSelectedItem(player);
+				}
+			}
+			else
+			{
+				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+				if (proj != null && proj.ModProjectile is GuardianRuneAnchor rune)
+				{
+					if (rune.SelectedItem != player.selectedItem)
+					{
+						rune.OnChangeSelectedItem(player);
+					}
+				}
+			}
+			SafeHoldItem(player);
+		}
+
+		public override bool CanUseItem(Player player)
+		{
+			var guardian = player.GetModPlayer<OrchidGuardian>();
+			if (player.whoAmI == Main.myPlayer && !player.cursed && guardian.GuardianSlam >= RuneCost)
+			{
+				var projectileType = ModContent.ProjectileType<GuardianRuneAnchor>();
+				if (player.ownedProjectileCounts[projectileType] > 0)
+				{
+					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+					if (proj != null && proj.ModProjectile is GuardianRuneAnchor anchor && guardian.GuardianRuneCharge == 0f)
+					{
+						proj.ai[0] = 1f;
+						anchor.NeedNetUpdate = true;
+						SoundEngine.PlaySound(SoundID.Item7, player.Center);
+					}
+				}
+			}
+			return false;
 		}
 
 		public override bool? UseItem(Player player)
@@ -62,16 +118,6 @@ namespace OrchidMod.Content.Guardian
 			if (player.whoAmI == Main.myPlayer)
 			{
 				var guardian = player.GetModPlayer<OrchidGuardian>();
-				guardian.GuardianSlam -= RuneCost;
-				foreach (Projectile projectile in Main.projectile)
-				{
-					if (projectile.ModProjectile is GuardianRuneProjectile && projectile.owner == player.whoAmI)
-					{
-						projectile.Kill();
-					}
-				}
-				int crit = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
-				Activate(player, guardian, Item.shoot, guardian.GetGuardianDamage(Item.damage), Item.knockBack, crit, (int)(RuneDuration * guardian.GuardianRuneTimer), RuneDistance, RuneNumber);
 			}
 			return true;
 		}
@@ -79,13 +125,6 @@ namespace OrchidMod.Content.Guardian
 		public override bool AltFunctionUse(Player player)
 		{
 			return true;
-		}
-		
-		public override bool CanUseItem(Player player)
-		{
-			if (player.GetModPlayer<OrchidGuardian>().GuardianSlam < RuneCost)
-				return false;
-			return base.CanUseItem(player);
 		}
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

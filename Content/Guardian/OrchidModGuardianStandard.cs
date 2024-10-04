@@ -100,20 +100,6 @@ namespace OrchidMod.Content.Guardian
 			return false;
 		}
 
-		public GuardianShieldAnchor GetAnchor(Player player)
-		{
-			var projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
-			if (player.ownedProjectileCounts[projectileType] > 0)
-			{
-				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-				if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
-				{
-					return shield;
-				}
-			}
-			return null;
-		}
-
 		public sealed override void HoldItem(Player player)
 		{
 			var projectileType = ModContent.ProjectileType<GuardianStandardAnchor>();
@@ -145,7 +131,7 @@ namespace OrchidMod.Content.Guardian
 					}
 				}
 			}
-			this.SafeHoldItem(player);
+			SafeHoldItem(player);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

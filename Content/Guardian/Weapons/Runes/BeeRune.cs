@@ -14,7 +14,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item176;
-			Item.useAnimation = 30;
 			Item.useTime = 30;
 			Item.knockBack = 3f;
 			Item.damage = 22;

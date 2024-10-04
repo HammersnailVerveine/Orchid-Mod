@@ -36,6 +36,10 @@ namespace OrchidMod.Content.Guardian.UI
 		public static Texture2D textureStandardOff;
 		public static Texture2D textureStandardReady;
 
+		public static Texture2D textureRuneOn;
+		public static Texture2D textureRuneOff;
+		public static Texture2D textureRuneReady;
+
 		public static Texture2D blockOn;
 		public static Texture2D blockOff;
 
@@ -51,7 +55,7 @@ namespace OrchidMod.Content.Guardian.UI
 			textureSlamOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/SlamBarOn", AssetRequestMode.ImmediateLoad).Value;
 			textureSlamOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/SlamBarOff", AssetRequestMode.ImmediateLoad).Value;
 			textureSlamHighlight ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/SlamBarHighlight", AssetRequestMode.ImmediateLoad).Value;
-			
+
 			textureHammerMain ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerBar", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerIcon ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerIcon1", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerIconBig ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerIcon2", AssetRequestMode.ImmediateLoad).Value;
@@ -63,7 +67,11 @@ namespace OrchidMod.Content.Guardian.UI
 			textureStandardOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/StandardOn", AssetRequestMode.ImmediateLoad).Value;
 			textureStandardOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/StandardOff", AssetRequestMode.ImmediateLoad).Value;
 			textureStandardReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/StandardReady", AssetRequestMode.ImmediateLoad).Value;
-			
+
+			textureRuneOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/RuneOn", AssetRequestMode.ImmediateLoad).Value;
+			textureRuneOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/RuneOff", AssetRequestMode.ImmediateLoad).Value;
+			textureRuneReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/RuneReady", AssetRequestMode.ImmediateLoad).Value;
+
 			textureHammerOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOn", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOff", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerReady", AssetRequestMode.ImmediateLoad).Value;
@@ -130,9 +138,9 @@ namespace OrchidMod.Content.Guardian.UI
 
 				if (player.HeldItem.ModItem is OrchidModGuardianItem)
 				{
-					if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
+					if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianHammer)
 					{
-						if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+						if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
 						{
 							Vector2 hammerPosition = new Vector2(position.X - textureHammerMain.Width / 2, position.Y - 100);
 							spriteBatch.Draw(textureHammerMain, hammerPosition, Color.White);
@@ -166,10 +174,7 @@ namespace OrchidMod.Content.Guardian.UI
 								spriteBatch.Draw(textureHammerIconBig, iconPosition, color);
 							}
 						}
-					}
-					else
-					{
-						if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+						else
 						{
 							int val = 24;
 							if (modPlayer.GuardianHammerCharge > 180f)
@@ -194,7 +199,7 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (modPlayer.GuardianStandardCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+					if (modPlayer.GuardianStandardCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianStandard)
 					{
 						int val = textureStandardOn.Height;
 						if (modPlayer.GuardianStandardCharge >= 180f)
@@ -218,7 +223,31 @@ namespace OrchidMod.Content.Guardian.UI
 						spriteBatch.Draw(textureStandardOn, new Vector2(position.X - 9, position.Y - 94 + textureStandardOn.Height - val), rectangle, Color.White);
 					}
 
-					if (modPlayer.GuardianGauntletCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+					if (modPlayer.GuardianRuneCharge > (23 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianRune)
+					{
+						int val = textureRuneOn.Height;
+						if (modPlayer.GuardianRuneCharge >= 180f)
+						{
+							spriteBatch.Draw(textureRuneReady, new Vector2(position.X - 11, position.Y - 96), Color.White * 0.8f);
+						}
+						else
+						{
+							float charge = modPlayer.GuardianRuneCharge;
+							while (charge < 180f)
+							{
+								charge += 7.5f;
+								val--;
+							}
+						}
+
+						Rectangle rectangle = textureRuneOn.Bounds;
+						rectangle.Height = val;
+						rectangle.Y = textureRuneOn.Height - val;
+						spriteBatch.Draw(textureRuneOff, new Vector2(position.X - 9, position.Y - 94), Color.White);
+						spriteBatch.Draw(textureRuneOn, new Vector2(position.X - 9, position.Y - 94 + textureRuneOn.Height - val), rectangle, Color.White);
+					}
+
+					if (modPlayer.GuardianGauntletCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
 					{
 						int val = textureGauntletOn.Height;
 						if (modPlayer.GuardianGauntletCharge >= 180f)
