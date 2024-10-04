@@ -318,7 +318,9 @@ namespace OrchidMod.Content.Guardian
 					if (Alpha > 0f && BuffItem != null)
 					{ // Aura around the player showing range
 						OrchidModGuardianStandard standard = (BuffItem.ModItem as OrchidModGuardianStandard);
-						float alphamult = (float)(Math.Sin(TimeSpent * 0.075f) * 0.075f + 1f) * Alpha;
+						float lightalpha = (color.R + color.G + color.B) / 765f;
+						if (lightalpha < 0.5f) lightalpha = 0.5f;
+						float alphamult = (float)(Math.Sin(TimeSpent * 0.075f) * 0.075f + 1f) * Alpha * lightalpha;
 						Vector2 drawPositionAura = Vector2.Transform(player.Center.Floor() - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 						spriteBatch.Draw(TextureAura, drawPositionAura, null, standard.GetColor() * alphamult, 0f, TextureAura.Size() * 0.5f, 0.00625f * standard.AuraRange, SpriteEffects.None, 0f); ;
 					}
