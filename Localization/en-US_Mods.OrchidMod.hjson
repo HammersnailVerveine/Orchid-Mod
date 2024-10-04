@@ -2987,6 +2987,15 @@ Items: {
 			'''
 	}
 
+	PlanteraStandard: {
+		DisplayName: Petal Pennant
+		Tooltip:
+			'''
+			Fully charging increases maximum life
+			When reinforced, drastically increases life regeneration at low health
+			'''
+	}
+
 	DesertStandard: {
 		DisplayName: Desert Standard
 		Tooltip: ""

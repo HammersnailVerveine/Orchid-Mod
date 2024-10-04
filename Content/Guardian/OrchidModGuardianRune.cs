@@ -45,7 +45,7 @@ namespace OrchidMod.Content.Guardian
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
 
-			this.SafeSetDefaults();
+			SafeSetDefaults();
 		}
 
 		public override bool WeaponPrefix() => true;

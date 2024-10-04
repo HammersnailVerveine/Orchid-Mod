@@ -17,7 +17,6 @@ namespace OrchidMod.Content.Guardian
 		public int GuardStacks; // Block Stacks given by the item
 		public int FlagOffset; // Number of diagonal pixels from the top-right of the sprite to the base of the flag
 		public float AuraRange; // Flag effect range in tiles
-		public bool OnlyAffectLocalPlayer; // Only used for aura range display
 		public bool AffectNearbyPlayers; // Flag has an effect on nearby players
 		public bool AffectNearbyNPCs; // Flag has an effect on nearby npcs
 		public int StandardDuration; // Effect duration in ticks
@@ -36,6 +35,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void PostDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
 		public virtual Color GetColor() => Color.White;
+		public virtual bool DrawAura(bool isPlayer, bool isNPC, bool isOwner, bool isReinforced) => (AffectNearbyPlayers && isPlayer && !isOwner) || (AffectNearbyNPCs && isNPC && isOwner); // Whether or not the aura should be drawn. This should cover most cases.
 
 		public virtual void SafeHoldItem(Player player) { }
 
@@ -58,7 +58,6 @@ namespace OrchidMod.Content.Guardian
 			StandardDuration = 1800; // 30 sec
 			AffectNearbyPlayers = false;
 			AffectNearbyNPCs = false;
-			OnlyAffectLocalPlayer = false;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;

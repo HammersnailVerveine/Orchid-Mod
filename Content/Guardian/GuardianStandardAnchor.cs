@@ -155,7 +155,7 @@ namespace OrchidMod.Content.Guardian
 								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (buffItem.AuraRange + player.width * 0.5f))
 								{
 									buffItem.NearbyPlayerEffect(player, guardian, player == owner, Projectile.ai[2] == 1f);
-									if (player.whoAmI != owner.whoAmI && !buffItem.OnlyAffectLocalPlayer) AnyNear = true;
+									AnyNear = buffItem.DrawAura(true, false, IsLocalOwner, Projectile.ai[2] == 1f);
 								}
 							}
 						}
@@ -167,7 +167,7 @@ namespace OrchidMod.Content.Guardian
 								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < (buffItem.AuraRange + npc.width * 0.5f))
 								{
 									buffItem.NearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Projectile.ai[2] == 1f);
-									AnyNear = true;
+									AnyNear = buffItem.DrawAura(false, true, IsLocalOwner, Projectile.ai[2] == 1f);
 								}
 							}
 						}
@@ -333,7 +333,7 @@ namespace OrchidMod.Content.Guardian
 
 					if (Reinforced)
 					{ // Flag glow effect when reinforced
-						Color glowColor = guardianItem.GetColor();
+						Color glowColor = Color.White;
 						if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not OrchidModGuardianStandard) glowColor *= Projectile.ai[1] / 30f;
 						spriteBatch.Draw(textureEnd, drawPosition + flagOffset * 1.3f, null, glowColor, Projectile.rotation + flagRotation * 2.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
 						spriteBatch.Draw(textureQuarter, drawPosition + flagOffset * 1.2f, null, glowColor, Projectile.rotation + flagRotation * 1.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);

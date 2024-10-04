@@ -242,7 +242,7 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.PirateDeadeye:
 				case NPCID.PirateDeckhand:
 				case NPCID.PirateCrossbower:
-						npcLoot.Add(ItemDropRule.Common(ItemType<PirateWarhammer>(), 100));
+					npcLoot.Add(ItemDropRule.Common(ItemType<PirateWarhammer>(), 100));
 					break;
 				case NPCID.PirateCaptain:
 					{
@@ -428,16 +428,17 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.NextBool(3))
+					switch (Main.rand.Next(3))
 					{
-						if (Main.rand.NextBool())
-						{
-							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BulbScepter>());
-						}
-						else
-						{
+						default:
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<PlanteraStandard>());
+							break;
+						case 1:
 							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<FloralStinger>());
-						}
+							break;
+						case 2:
+							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BulbScepter>());
+							break;
 					}
 				}
 			}

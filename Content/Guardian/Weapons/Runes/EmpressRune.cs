@@ -21,13 +21,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			Item.damage = 254;
 			Item.shoot = ModContent.ProjectileType<Projectiles.Runes.EmpressRuneProj>();
 			RuneCost = 4;
-			RuneNumber = 2;
+			RuneNumber = 6;
 			RuneDuration = 45 * 60;
 		}
 
 		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int number)
 		{
-			for (int i  = 0; i < GetAmount(guardian) * 2; i ++)
+			for (int i  = 0; i < GetAmount(guardian); i ++)
 			{
 				int offset = (60 - 4 * i);
 				if (offset < 20) offset = 20;

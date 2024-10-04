@@ -52,7 +52,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					foreach (Projectile projectile in Main.projectile)
 					{ // This cannot be reliably synced with packets (?)
-						if (projectile.ModProjectile is GuardianGauntletAnchor anchor && projectile.owner == Projectile.owner)
+						if (projectile.ModProjectile is GuardianGauntletAnchor anchor && projectile.owner == Projectile.owner && projectile.active)
 						{
 							GauntletItem = anchor.GauntletItem.ModItem as OrchidModGuardianGauntlet;
 						}

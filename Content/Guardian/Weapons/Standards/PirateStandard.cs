@@ -20,8 +20,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			StandardDuration = 2100;
 			AffectNearbyPlayers = true;
 			AffectNearbyNPCs = true;
-			OnlyAffectLocalPlayer = true;
 		}
+
+		public override bool DrawAura(bool isPlayer, bool isNPC, bool isOwner, bool isReinforced) => isNPC && isOwner;
 
 		public override Color GetColor()
 		{

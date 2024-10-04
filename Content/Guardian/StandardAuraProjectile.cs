@@ -38,9 +38,10 @@ namespace OrchidMod.Content.Guardian
 
 				foreach (Projectile projectile in Main.projectile)
 				{
-					if (projectile.ModProjectile is GuardianStandardAnchor anchor && projectile.owner == Projectile.owner)
+					if (projectile.ModProjectile is GuardianStandardAnchor anchor && projectile.owner == Projectile.owner && projectile.active)
 					{
-						StandardItem = anchor.StandardItem.ModItem as OrchidModGuardianStandard;
+						if (anchor.BuffItem != null) StandardItem = anchor.BuffItem.ModItem as OrchidModGuardianStandard;
+						else StandardItem = anchor.StandardItem.ModItem as OrchidModGuardianStandard;
 					}
 				}
 

@@ -4,41 +4,45 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Standards
 {
-	public class IceStandard : OrchidModGuardianStandard
+	public class PlanteraStandard : OrchidModGuardianStandard
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 38;
-			Item.height = 38;
-			Item.value = Item.sellPrice(0, 0, 35, 75);
-			Item.rare = ItemRarityID.Blue;
+			Item.width = 44;
+			Item.height = 44;
+			Item.value = Item.sellPrice(0, 7, 50, 0);
+			Item.rare = ItemRarityID.Yellow;
 			Item.useTime = 30;
 			Item.UseSound = SoundID.DD2_BetsyWindAttack;
+			SlamStacks = 2;
 			GuardStacks = 1;
 			FlagOffset = 4;
-			AuraRange = 10;
-			StandardDuration = 1500;
+			AuraRange = 8;
+			StandardDuration = 2400;
 			AffectNearbyPlayers = true;
-			AffectNearbyNPCs = true;
 		}
-		public override bool DrawAura(bool isPlayer, bool isNPC, bool isOwner, bool isReinforced) => isNPC && isOwner;
 
 		public override Color GetColor()
 		{
-			return new Color(106, 210, 255);
+			return new Color(225, 128, 206);
 		}
 
 		public override void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
 		{
-			if (isLocalPlayer && reinforced) player.statDefense += 5;
+			player.statLifeMax2 += 50;
+			if (reinforced && player.statLife <= player.statLifeMax2 * 0.25f && isLocalPlayer)
+			{
+				guardian.GuardianPlanteraStandardHeal = true;
+
+				if (Main.rand.NextBool(20))
+				{
+					Dust.NewDustDirect(player.position, player.width, player.height, DustID.PlanteraBulb).noGravity = true;
+				}
+			}
 		}
 
 		public override void NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced)
 		{
-			if (npc.knockBackResist > 0f)
-			{
-				npc.velocity.X *= 0.85f;
-			}
 		}
 	}
 }

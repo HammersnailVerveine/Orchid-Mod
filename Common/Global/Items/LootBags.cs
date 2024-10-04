@@ -27,6 +27,7 @@ using OrchidMod.Content.Guardian.Weapons.Warhammers;
 using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Accessories;
+using OrchidMod.Content.Guardian.Weapons.Standards;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -133,10 +134,11 @@ namespace OrchidMod.Common.Global.Items
 							{
 								//(ModContent.ItemType<BulbScepter>(), 1),
 								//(ModContent.ItemType<FloralStinger>(), 1),
-							},
-							chanceDenominator: 3
+								//(ModContent.ItemType<PlanteraStandard>(), 1),
+							}
 						);
 						QuickSpawnItem<OrnateOrchid>(player, 1, 20);
+						QuickSpawnItem<PlanteraStandard>(player, 1, 3); // Delete when shaman items are readded
 					}
 					break;
 				case ItemID.GolemBossBag:

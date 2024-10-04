@@ -39,6 +39,8 @@ namespace OrchidMod
 		public bool GuardianBamboo = false;
 		public bool GuardianGit = false;
 		public bool GuardianHoneyPotion = false;
+		public bool GuardianPlanteraStandardLife = false;
+		public bool GuardianPlanteraStandardHeal = false;
 
 		// Dynamic gameplay and UI fields
 
@@ -108,6 +110,16 @@ namespace OrchidMod
 		public override void PostUpdateEquips()
 		{
 			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>())) Player.GetCritChance<GuardianDamageClass>() += 15;
+		}
+
+		public override void UpdateLifeRegen()
+		{
+			if (GuardianPlanteraStandardHeal)
+			{
+				Player.lifeRegen += 4;
+			}
+
+			GuardianPlanteraStandardHeal = false; // Doesn't work if placed in ResetEffects()
 		}
 
 		public override void ResetEffects()
