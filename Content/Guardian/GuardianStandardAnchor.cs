@@ -14,6 +14,7 @@ namespace OrchidMod.Content.Guardian
 {
 	public class GuardianStandardAnchor : OrchidModGuardianProjectile
 	{
+		public static Texture2D TextureAura;
 		public int TimeSpent = 0;
 		public bool Ding = false;
 		public bool NeedNetUpdate = false;
@@ -22,6 +23,17 @@ namespace OrchidMod.Content.Guardian
 		public Item BuffItem = null;
 		public int SelectedItem { get; set; } = -1;
 		public Item StandardItem => Main.player[Projectile.owner].inventory[SelectedItem];
+
+		public float Alpha
+		{
+			get => Projectile.localAI[0];
+			set => Projectile.localAI[0] = value;
+		}
+
+		public override void Load()
+		{
+			TextureAura ??= ModContent.Request<Texture2D>(Texture + "_Aura", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+		}
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
@@ -71,7 +83,7 @@ namespace OrchidMod.Content.Guardian
 			var owner = Main.player[Projectile.owner];
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 
-			if ((!Worn && (SelectedItem < 0 || StandardItem == null || StandardItem.ModItem is not OrchidModGuardianStandard guardianItem)) || !owner.active || owner.dead)
+			if ((!Worn && (SelectedItem < 0 || StandardItem == null || StandardItem.ModItem is not OrchidModGuardianStandard)) || !owner.active || owner.dead)
 			{
 				Projectile.Kill();
 				return;
@@ -79,13 +91,26 @@ namespace OrchidMod.Content.Guardian
 			else
 			{
 				bool heldStandard = owner.HeldItem.ModItem is OrchidModGuardianStandard;
-				if (!Worn && !heldStandard && IsLocalOwner)
+				if (!heldStandard)
 				{
-					Projectile.Kill();
-					return;
+					if (IsLocalOwner)
+					{
+						if (!Worn)
+						{
+							Projectile.Kill();
+							return;
+						}
+					}
+					else
+					{
+						Projectile.ai[0] = 0f;
+					}
 				}
 
-				guardianItem = (OrchidModGuardianStandard)StandardItem.ModItem;
+				if (!IsLocalOwner && Projectile.ai[0] == 0f)
+				{ // Adresses a visual issue
+					guardian.GuardianStandardCharge = 0;
+				}
 
 				if ((heldStandard || owner.HeldItem.ModItem is OrchidModGuardianGauntlet) && IsLocalOwner)
 				{
@@ -121,26 +146,41 @@ namespace OrchidMod.Content.Guardian
 					}
 					else
 					{
-						if (buffItem.affectNearbyPlayers)
-						{
+						bool AnyNear = false; // Used for Alpha stuff
+
+						if (buffItem.AffectNearbyPlayers)
+						{ // Called on every client to affect nearby players
 							foreach (Player player in Main.player)
 							{
-								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (guardianItem.auraRange + player.width * 0.5f))
+								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (buffItem.AuraRange + player.width * 0.5f))
 								{
 									buffItem.NearbyPlayerEffect(player, guardian, player == owner, Projectile.ai[2] == 1f);
+									if (player.whoAmI != owner.whoAmI && !buffItem.OnlyAffectLocalPlayer) AnyNear = true;
 								}
 							}
 						}
 
-						if (buffItem.affectNearbyNPCs)
-						{
+						if (buffItem.AffectNearbyNPCs)
+						{ // Called on every client to affect nearby NPCs
 							foreach (NPC npc in Main.npc)
 							{
-								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < (guardianItem.auraRange + npc.width * 0.5f))
+								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < (buffItem.AuraRange + npc.width * 0.5f))
 								{
 									buffItem.NearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Projectile.ai[2] == 1f);
+									AnyNear = true;
 								}
 							}
+						}
+
+						if (AnyNear && Projectile.ai[1] > 50f)
+						{ // Used for the Alpha of the effect radius aura
+							Alpha += 0.01f;
+							if (Alpha > 0.5f) Alpha = 0.5f;
+						}
+						else
+						{
+							Alpha -= 0.01f;
+							if (Alpha < 0f) Alpha = 0f;
 						}
 
 						guardian.StandardAnchor = Projectile;
@@ -155,79 +195,81 @@ namespace OrchidMod.Content.Guardian
 					}
 				}
 
-				if (Projectile.ai[0] == 1f)
-				{ // Being charged by the player
-					if (guardian.GuardianStandardCharge < 180f)
-					{
-						guardian.GuardianStandardCharge += 30f / guardianItem.Item.useTime * owner.GetAttackSpeed(DamageClass.Melee);
-						if (guardian.GuardianStandardCharge > 180f) guardian.GuardianStandardCharge = 180f;
-					}
-
-					if (guardian.GuardianStandardCharge >= 180f && !Ding && IsLocalOwner)
-					{
-						Ding = true;
-						SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
-					}
-
-					if ((!owner.controlUseItem || !heldStandard) && IsLocalOwner)
-					{
-						if (guardian.GuardianStandardCharge >= 180f)
+				if (StandardItem.ModItem is OrchidModGuardianStandard guardianItem)
+				{
+					if (Projectile.ai[0] == 1f)
+					{ // Being charged by the player
+						if (guardian.GuardianStandardCharge < 180f)
 						{
-							SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
-
-							if (BuffItem == StandardItem && !Reinforced)
-							{
-								Projectile.ai[2] = 1f;
-								CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced");
-							}
-							else
-							{
-								if (BuffItem != StandardItem) Projectile.ai[2] = 0f;
-								if (!Reinforced) CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Charged", false);
-							}
-
-							BuffItem = StandardItem;
-							Projectile.ai[1] = guardianItem.duration * guardian.GuardianStandardTimer;
-							Projectile.netUpdate = true;
-
-							guardian.AddGuard(guardianItem.guardStacks);
-							guardian.AddSlam(guardianItem.slamStacks);
-
-							int projectileType = ModContent.ProjectileType<StandardAuraProjectile>();
-							Projectile auraProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), owner.Center, Vector2.Zero, projectileType, 0, 0f, owner.whoAmI);
+							guardian.GuardianStandardCharge += 30f / guardianItem.Item.useTime * owner.GetAttackSpeed(DamageClass.Melee);
+							if (guardian.GuardianStandardCharge > 180f) guardian.GuardianStandardCharge = 180f;
 						}
 
-						guardian.GuardianStandardCharge = 0;
-						Projectile.ai[0] = 0f;
+						if (guardian.GuardianStandardCharge >= 180f && !Ding && IsLocalOwner)
+						{
+							Ding = true;
+							SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
+						}
+
+						if ((!owner.controlUseItem || !heldStandard) && IsLocalOwner)
+						{
+							if (guardian.GuardianStandardCharge >= 180f)
+							{
+								SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
+
+								if (BuffItem == StandardItem && !Reinforced)
+								{
+									Projectile.ai[2] = 1f;
+									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced");
+								}
+								else
+								{
+									if (BuffItem != StandardItem) Projectile.ai[2] = 0f;
+									if (!Reinforced) CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Charged", false);
+								}
+
+								BuffItem = StandardItem;
+								Projectile.ai[1] = guardianItem.StandardDuration * guardian.GuardianStandardTimer;
+
+								guardian.AddGuard(guardianItem.GuardStacks);
+								guardian.AddSlam(guardianItem.SlamStacks);
+
+								int projectileType = ModContent.ProjectileType<StandardAuraProjectile>();
+								Projectile auraProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), owner.Center, Vector2.Zero, projectileType, 0, 0f, owner.whoAmI);
+							}
+
+							guardian.GuardianStandardCharge = 0;
+							Projectile.ai[0] = 0f;
+							Projectile.netUpdate = true;
+						}
+
+						owner.itemAnimation = 1;
+						owner.heldProj = Projectile.whoAmI;
+
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(8f * owner.direction, -(12 + guardian.GuardianStandardCharge * 0.03f));
+						Projectile.rotation = MathHelper.PiOver4 * (0.25f - guardian.GuardianStandardCharge * 0.0025f) * owner.direction - MathHelper.PiOver4;
+
+						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
+						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -(1f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
 					}
+					else if (Worn && !heldStandard)
+					{ // Display on player back
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(-8f * owner.direction, -12);
+						Projectile.rotation = MathHelper.PiOver4 * -0.3f * owner.direction - MathHelper.PiOver4;
+					}
+					else
+					{ // Idle - flag is held further and lower
+						Ding = false;
 
-					owner.itemAnimation = 1;
-					owner.heldProj = Projectile.whoAmI;
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(16f * owner.direction, -8);
+						Projectile.rotation = MathHelper.PiOver4 * 0.5f * owner.direction - MathHelper.PiOver4;
 
-					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(8f * owner.direction, - (12 + guardian.GuardianStandardCharge * 0.03f));
-					Projectile.rotation = MathHelper.PiOver4 * (0.25f - guardian.GuardianStandardCharge * 0.0025f) * owner.direction - MathHelper.PiOver4;
-
-					owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
-					owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * - (1f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
-				}
-				else if (Worn && !heldStandard)
-				{ // Display on player back
-					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(-8f * owner.direction, -12);
-					Projectile.rotation = MathHelper.PiOver4 * -0.3f * owner.direction - MathHelper.PiOver4;
-				}
-				else
-				{ // Idle - flag is held further and lower
-					Ding = false;
-
-					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(16f * owner.direction, -8);
-					Projectile.rotation = MathHelper.PiOver4 * 0.5f * owner.direction - MathHelper.PiOver4;
-
-					owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -0.8f * owner.direction);
-					owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -1.2f * owner.direction);
+						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -0.8f * owner.direction);
+						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -1.2f * owner.direction);
+					}
+					guardianItem.ExtraAIStandard(Projectile);
 				}
 			}
-
-			guardianItem.ExtraAIStandard(Projectile);
 		}
 		public void spawnDusts()
 		{
@@ -276,18 +318,28 @@ namespace OrchidMod.Content.Guardian
 				Texture2D textureTwoQuarter = ModContent.Request<Texture2D>(guardianItem.FlagQuarterTexture).Value;
 				Texture2D textureUp = ModContent.Request<Texture2D>(guardianItem.FlagUpTexture).Value;
 
-				if (Reinforced)
+				if (Alpha > 0f || Reinforced)
 				{
 					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
-					Color glowColor = guardianItem.GetColor();
-					if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not OrchidModGuardianStandard) glowColor *= Projectile.ai[1] / 30f;
-					spriteBatch.Draw(textureEnd, drawPosition + flagOffset * 1.3f, null, glowColor, Projectile.rotation + flagRotation * 2.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
-					spriteBatch.Draw(textureQuarter, drawPosition + flagOffset * 1.2f, null, glowColor, Projectile.rotation + flagRotation * 1.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
-					spriteBatch.Draw(textureTwoQuarter, drawPosition + flagOffset * 1.1f, null, glowColor, Projectile.rotation + flagRotation * 1f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
-					spriteBatch.Draw(textureUp, drawPosition + flagOffset, null, glowColor, Projectile.rotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+					if (Alpha > 0f && BuffItem != null)
+					{ // Aura around the player showing range
+						OrchidModGuardianStandard standard = (BuffItem.ModItem as OrchidModGuardianStandard);
+						float alphamult = (float)(Math.Sin(TimeSpent * 0.075f) * 0.075f + 1f) * Alpha;
+						Vector2 drawPositionAura = Vector2.Transform(player.Center.Floor() - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+						spriteBatch.Draw(TextureAura, drawPositionAura, null, standard.GetColor() * alphamult, 0f, TextureAura.Size() * 0.5f, 0.00625f * standard.AuraRange, SpriteEffects.None, 0f); ;
+					}
 
+					if (Reinforced)
+					{ // Flag glow effect when reinforced
+						Color glowColor = guardianItem.GetColor();
+						if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not OrchidModGuardianStandard) glowColor *= Projectile.ai[1] / 30f;
+						spriteBatch.Draw(textureEnd, drawPosition + flagOffset * 1.3f, null, glowColor, Projectile.rotation + flagRotation * 2.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+						spriteBatch.Draw(textureQuarter, drawPosition + flagOffset * 1.2f, null, glowColor, Projectile.rotation + flagRotation * 1.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+						spriteBatch.Draw(textureTwoQuarter, drawPosition + flagOffset * 1.1f, null, glowColor, Projectile.rotation + flagRotation * 1f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+						spriteBatch.Draw(textureUp, drawPosition + flagOffset, null, glowColor, Projectile.rotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+					}
 					spriteBatch.End();
 					spriteBatch.Begin(spriteBatchSnapshot);
 				}

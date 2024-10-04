@@ -17,8 +17,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.shootSpeed = 9f;
 			Item.damage = 90;
 			Item.useTime = 35;
-			range = 25;
-			blockStacks = 1;
+			Range = 25;
+			BlockStacks = 1;
+			ReturnSpeed = 0.8f;
 		}
 
 		public override void SetStaticDefaults()

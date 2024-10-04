@@ -4,35 +4,38 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Standards
 {
-	public class DesertStandard : OrchidModGuardianStandard
+	public class PirateStandard : OrchidModGuardianStandard
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 44;
-			Item.height = 44;
-			Item.value = Item.sellPrice(0, 0, 30, 0);
-			Item.rare = ItemRarityID.Blue;
+			Item.width = 42;
+			Item.height = 42;
+			Item.value = Item.sellPrice(0, 4, 50, 0);
+			Item.rare = ItemRarityID.LightRed;
 			Item.useTime = 30;
 			Item.UseSound = SoundID.DD2_BetsyWindAttack;
-			GuardStacks = 1;
-			FlagOffset = 8;
-			AuraRange = 10;
-			StandardDuration = 1800;
+			SlamStacks = 2;
+			FlagOffset = 7;
+			AuraRange = 15;
+			StandardDuration = 2100;
 			AffectNearbyPlayers = true;
 			AffectNearbyNPCs = true;
+			OnlyAffectLocalPlayer = true;
 		}
 
 		public override Color GetColor()
 		{
-			return new Color(106, 210, 255);
+			return new Color(200, 200, 200);
 		}
 
 		public override void NearbyPlayerEffect(Player player, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
 		{
+			if (isLocalPlayer && reinforced) player.GetDamage<GuardianDamageClass>() += 0.1f;
 		}
 
 		public override void NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced)
 		{
+			npc.AddBuff(BuffID.Midas, 30);
 		}
 	}
 }

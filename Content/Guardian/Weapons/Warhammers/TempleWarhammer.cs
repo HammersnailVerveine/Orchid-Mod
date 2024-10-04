@@ -19,9 +19,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.shootSpeed = 13f;
 			Item.damage = 243;
 			Item.useTime = 20;
-			range = 45;
-			blockStacks = 2;
-			slamStacks = 2;
+			Range = 45;
+			BlockStacks = 2;
+			SlamStacks = 2;
+			ReturnSpeed = 1.5f;
 		}
 
 		public override bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool weak)
@@ -34,7 +35,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 			if (Main.rand.NextBool(15) && !weak && IsLocalPlayer(player))
 			{
-				Vector2 dir = Vector2.Normalize(projectile.velocity.RotatedByRandom(MathHelper.ToRadians(45f))) * (7f + Main.rand.NextFloat(8f) * (projectile.timeLeft > 600 - range ? 1 : -1));
+				Vector2 dir = Vector2.Normalize(projectile.velocity.RotatedByRandom(MathHelper.ToRadians(45f))) * (7f + Main.rand.NextFloat(8f) * (projectile.timeLeft > 600 - Range ? 1 : -1));
 				Projectile.NewProjectile(Item.GetSource_FromThis(), projectile.Center, dir, ModContent.ProjectileType<TempleWarhammerProj>(), (int)(projectile.damage * 0.75f), Item.knockBack, player.whoAmI);
 			}
 

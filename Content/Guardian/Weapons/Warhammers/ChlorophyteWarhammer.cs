@@ -17,9 +17,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.shootSpeed = 13f;
 			Item.damage = 228;
 			Item.useTime = 25;
-			range = 45;
-			blockStacks = 2;
-			slamStacks = 1;
+			Range = 45;
+			BlockStacks = 2;
+			SlamStacks = 1;
+			ReturnSpeed = 1.5f;
 		}
 
 		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)

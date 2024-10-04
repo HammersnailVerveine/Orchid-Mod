@@ -16,8 +16,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.knockBack = 9f;
 			Item.shootSpeed = 10f;
 			Item.damage = 107;
-			range = 28;
-			slamStacks = 2;
+			Range = 28;
+			SlamStacks = 2;
+			ReturnSpeed = 0.9f;
 		}
 
 		public override bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool weak)

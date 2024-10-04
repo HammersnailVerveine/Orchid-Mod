@@ -78,8 +78,8 @@ namespace OrchidMod.Content.Guardian
 				Projectile.position.X -= Projectile.width / 2;
 				Projectile.position.Y -= Projectile.height / 2;
 
-				range = HammerItem.range;
-				penetrate = HammerItem.penetrate;
+				range = HammerItem.Range;
+				penetrate = HammerItem.Penetrate;
 				Projectile.netUpdate = true;
 			}
 
@@ -245,7 +245,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (HammerItem.ThrowAI(player, guardian, Projectile, WeakThrow()))
 					{
-						if (Projectile.timeLeft < 598 && HammerItem.tileCollide && range > 0) // Delay helps preventing the hammer from instantly despawning if launched from inside a tile
+						if (Projectile.timeLeft < 598 && HammerItem.TileCollide && range > 0) // Delay helps preventing the hammer from instantly despawning if launched from inside a tile
 						{ // Hammer has a smaller hitbox for tilecollide stuff
 							Vector2 collideVelocity = Collision.TileCollision(Projectile.Center - Vector2.One * 10f, Projectile.velocity, 20, 20, true, true, (int)player.gravDir);
 							if (collideVelocity != Projectile.velocity)
@@ -271,8 +271,7 @@ namespace OrchidMod.Content.Guardian
 						if (range < 0)
 						{
 							float dist = Projectile.Center.Distance(player.Center);
-							Vector2 vel = player.Center - Projectile.Center;
-							vel.Normalize();
+							Vector2 vel = Vector2.Normalize(player.Center - Projectile.Center) * HammerItem.ReturnSpeed;
 
 							if (range < -40)
 							{
@@ -385,8 +384,8 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (!weak)
 					{
-						guardian.AddSlam(HammerItem.slamStacks);
-						guardian.AddGuard(HammerItem.blockStacks);
+						guardian.AddSlam(HammerItem.SlamStacks);
+						guardian.AddGuard(HammerItem.BlockStacks);
 					}
 					hitTarget = true;
 					HammerItem.OnThrowHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit, weak);
@@ -442,8 +441,8 @@ namespace OrchidMod.Content.Guardian
 					Projectile.position.X -= Projectile.width / 2;
 					Projectile.position.Y -= Projectile.height / 2;
 
-					range = HammerItem.range;
-					penetrate = HammerItem.penetrate;
+					range = HammerItem.Range;
+					penetrate = HammerItem.Penetrate;
 				}
 			}
 		}

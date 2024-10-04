@@ -6,8 +6,6 @@ using Terraria.ID;
 using OrchidMod.Content.Alchemist.Misc;
 using OrchidMod.Content.Gambler.Misc;
 using OrchidMod.Content.Guardian.Misc;
-using Terraria.Localization;
-using Terraria.Chat;
 
 namespace OrchidMod.Common.Global.NPCs
 {

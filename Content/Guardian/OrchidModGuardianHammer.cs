@@ -12,11 +12,12 @@ namespace OrchidMod.Content.Guardian
 {
 	public abstract class OrchidModGuardianHammer : OrchidModGuardianItem
 	{
-		public int range;
-		public int slamStacks;
-		public int blockStacks;
-		public bool penetrate;
-		public bool tileCollide;
+		public int Range;
+		public int SlamStacks;
+		public int BlockStacks;
+		public bool Penetrate;
+		public bool TileCollide;
+		public float ReturnSpeed;
 		public virtual void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit) { }
 		public virtual void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit) { }
 		public virtual void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { }
@@ -25,7 +26,7 @@ namespace OrchidMod.Content.Guardian
 
 		public sealed override void SetDefaults()
 		{
-			Item.DamageType = ModContent.GetInstance<GuardianDamageClass>();
+			Item.DamageType = GetInstance<GuardianDamageClass>();
 			Item.noMelee = true;
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item1;
@@ -35,10 +36,11 @@ namespace OrchidMod.Content.Guardian
 			Item.useTime = 30;
 			Item.knockBack = 10f;
 			Item.shootSpeed = 10f;
-			range = 0;
-			penetrate = false;
-			tileCollide = true;
-			slamStacks = 0;
+			Range = 0;
+			Penetrate = false;
+			TileCollide = true;
+			SlamStacks = 0;
+			ReturnSpeed = 1f;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
@@ -87,16 +89,16 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			if (blockStacks > 0) {
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.blockStacks + " guard charge" + (this.blockStacks > 1 ? "s" : ""))
+			if (BlockStacks > 0) {
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.BlockStacks + " guard charge" + (this.BlockStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
 
-			if (slamStacks > 0)
+			if (SlamStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.slamStacks + " slam charge" + (this.slamStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.SlamStacks + " slam charge" + (this.SlamStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});

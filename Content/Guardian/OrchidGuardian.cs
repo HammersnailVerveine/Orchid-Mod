@@ -220,6 +220,7 @@ namespace OrchidMod
 				SoundEngine.PlaySound(SoundID.Item37, Player.Center);
 				GuardianGauntletParry = false;
 				GuardianGauntletParry2 = false;
+				modPlayer.PlayerImmunity = 40;
 				Player.immuneTime = 40;
 				Player.immune = true;
 

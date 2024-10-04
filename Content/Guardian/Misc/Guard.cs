@@ -42,7 +42,7 @@ namespace OrchidMod.Content.Guardian.Misc
 		{
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 			guardian.AddGuard(1);
-			SoundEngine.PlaySound(SoundID.Item53, player.Center); // (2, position, 85)
+			SoundEngine.PlaySound(SoundID.Item53, player.Center);
 			return false;
 		}
 	}

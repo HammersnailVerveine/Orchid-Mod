@@ -14,12 +14,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			Item.rare = ItemRarityID.Blue;
 			Item.useTime = 30;
 			Item.UseSound = SoundID.DD2_BetsyWindAttack;
-			guardStacks = 1;
-			flagOffset = 4;
-			auraRange = 10;
-			duration = 1800;
-			affectNearbyPlayers = true;
-			affectNearbyNPCs = true;
+			GuardStacks = 1;
+			FlagOffset = 4;
+			AuraRange = 10;
+			StandardDuration = 1500;
+			AffectNearbyPlayers = true;
+			AffectNearbyNPCs = true;
+			OnlyAffectLocalPlayer = true;
 		}
 
 		public override Color GetColor()

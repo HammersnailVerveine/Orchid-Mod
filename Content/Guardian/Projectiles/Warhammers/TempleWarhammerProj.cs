@@ -83,6 +83,11 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 					Vector2 newVelocity = Vector2.Normalize(closestTarget.Center - Projectile.Center) * 0.8f;
 					Projectile.velocity = Projectile.velocity * 0.92f + newVelocity;
 				}
+				else if (Projectile.timeLeft > 33) 
+				{
+					Projectile.timeLeft -= 4;
+					Projectile.velocity *= 0.95f;
+				}
 			}
 
 			if ((OldPosition.Count > 10 || Projectile.penetrate == -1) && OldPosition.Count > 0)

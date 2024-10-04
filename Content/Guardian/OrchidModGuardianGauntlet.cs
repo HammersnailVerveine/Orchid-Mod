@@ -91,6 +91,7 @@ namespace OrchidMod.Content.Guardian
 								&& !(projectileMain.ai[0] > 0 && projectileMain.ai[2] <= 0) && !(projectileOff.ai[0] > 0 && projectileOff.ai[2] <= 0))
 							{ // Player is not already blocking with a gauntlet
 								player.immuneTime = 0;
+								guardian.modPlayer.PlayerImmunity = 0;
 								player.immune = false;
 								SoundEngine.PlaySound(SoundID.Item37, player.Center);
 								guardian.GuardianGuard--;

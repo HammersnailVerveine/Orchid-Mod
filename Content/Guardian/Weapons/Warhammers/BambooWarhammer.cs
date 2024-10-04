@@ -15,8 +15,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.knockBack = 5f;
 			Item.shootSpeed = 8f;
 			Item.damage = 37;
-			range = 18;
-			blockStacks = 1;
+			Range = 18;
+			BlockStacks = 1;
+			ReturnSpeed = 0.7f;
 		}
 
 		public override void AddRecipes()

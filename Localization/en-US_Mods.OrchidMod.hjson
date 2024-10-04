@@ -2956,7 +2956,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging continuously slows nearby enemies
-			When reinforced, defense increases by 5
+			When reinforced, your defense increases by 5
 			'''
 	}
 
@@ -2965,7 +2965,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging increases defense by 3
-			When reinforced, defense further increases to 7
+			When reinforced, your defense further increases to 7
 			'''
 	}
 
@@ -2974,7 +2974,16 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging increases defense by 4
-			When reinforced, defense further increases to 8
+			When reinforced, your defense further increases to 8
+			'''
+	}
+
+	PirateStandard: {
+		DisplayName: Jolly Roger
+		Tooltip:
+			'''
+			Fully charging causes nearby enemies to drop more money on death
+			When reinforced, increases your opposing damage by 10%
 			'''
 	}
 

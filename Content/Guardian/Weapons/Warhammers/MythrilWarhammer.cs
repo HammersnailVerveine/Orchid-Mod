@@ -16,9 +16,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.shootSpeed = 10f;
 			Item.damage = 246;
 			Item.useTime = 35;
-			range = 35;
-			blockStacks = 2;
-			slamStacks = 1;
+			Range = 35;
+			BlockStacks = 2;
+			SlamStacks = 1;
+			ReturnSpeed = 1.25f;
 		}
 
 		public override void AddRecipes()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -12,13 +13,14 @@ namespace OrchidMod.Content.Guardian
 {
 	public abstract class OrchidModGuardianStandard : OrchidModGuardianItem
 	{
-		public int slamStacks; // Stam Stacks given by the item
-		public int guardStacks; // Block Stacks given by the item
-		public int flagOffset; // Number of diagonal pixels from the top-right of the sprite to the base of the flag
-		public float auraRange; // Flag effect range in tiles
-		public bool affectNearbyPlayers; // Flag has an effect on nearby players
-		public bool affectNearbyNPCs; // Flag has an effect on nearby npcs
-		public int duration; // Effect duration in ticks
+		public int SlamStacks; // Stam Stacks given by the item
+		public int GuardStacks; // Block Stacks given by the item
+		public int FlagOffset; // Number of diagonal pixels from the top-right of the sprite to the base of the flag
+		public float AuraRange; // Flag effect range in tiles
+		public bool OnlyAffectLocalPlayer; // Only used for aura range display
+		public bool AffectNearbyPlayers; // Flag has an effect on nearby players
+		public bool AffectNearbyNPCs; // Flag has an effect on nearby npcs
+		public int StandardDuration; // Effect duration in ticks
 
 		public virtual string ShaftTexture => Texture + "_Shaft";
 		public virtual string FlagUpTexture => Texture + "_FlagUp";
@@ -49,20 +51,21 @@ namespace OrchidMod.Content.Guardian
 			Item.useTime = 30;
 			Item.knockBack = 0f;
 			Item.damage = 1;
-			slamStacks = 0;
-			guardStacks = 0;
-			flagOffset = 0;
-			auraRange = 0;
-			duration = 1800; // 30 sec
-			affectNearbyPlayers = false;
-			affectNearbyNPCs = false;
+			SlamStacks = 0;
+			GuardStacks = 0;
+			FlagOffset = 0;
+			AuraRange = 0;
+			StandardDuration = 1800; // 30 sec
+			AffectNearbyPlayers = false;
+			AffectNearbyNPCs = false;
+			OnlyAffectLocalPlayer = false;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
 
 			SafeSetDefaults();
 
-			auraRange *= 16f;
+			AuraRange *= 16f;
 			Item.useAnimation = Item.useTime;
 		}
 
@@ -150,21 +153,25 @@ namespace OrchidMod.Content.Guardian
 		{
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 
-			if (guardStacks > 0)
+			if (GuardStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.guardStacks + " guard charge" + (this.guardStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.GuardStacks + " guard charge" + (this.GuardStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
 
-			if (slamStacks > 0)
+			if (SlamStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.slamStacks + " slam charge" + (this.slamStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.SlamStacks + " slam charge" + (this.SlamStacks > 1 ? "s" : ""))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
+
+			int tooltipSeconds = Math.DivRem((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer), 60, out int tooltipTicks);
+			index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "RuneDuration", tooltipSeconds + " seconds duration"));
 
 			tooltips.RemoveAll(x => x.Name == "Damage" && x.Mod == "Terraria");
 			tooltips.RemoveAll(x => x.Name == "Knockback" && x.Mod == "Terraria");

@@ -27,6 +27,7 @@ using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Common.ModSystems;
 using OrchidMod.Content.Guardian.Armors.Misc;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
+using OrchidMod.Content.Guardian.Weapons.Standards;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -241,9 +242,12 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.PirateDeadeye:
 				case NPCID.PirateDeckhand:
 				case NPCID.PirateCrossbower:
+						npcLoot.Add(ItemDropRule.Common(ItemType<PirateWarhammer>(), 100));
+					break;
 				case NPCID.PirateCaptain:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<PirateWarhammer>(), npc.type == NPCID.PirateCaptain ? 20 : 100));
+						npcLoot.Add(ItemDropRule.Common(ItemType<PirateWarhammer>(), 20));
+						npcLoot.Add(ItemDropRule.Common(ItemType<PirateStandard>(), 10));
 					}
 					break;
 				case NPCID.DiabolistRed:
