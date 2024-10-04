@@ -124,7 +124,7 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
-			if (GuardianRecharge <= 0f) GuardianRecharge = 0.005f; // Failsafe in case of excessive recharge
+			if (GuardianRecharge <= 0.005f) GuardianRecharge = 0.005f; // Failsafe in case of excessive recharge
 
 			if (GuardianGuard == GuardianGuardMax)
 			{
