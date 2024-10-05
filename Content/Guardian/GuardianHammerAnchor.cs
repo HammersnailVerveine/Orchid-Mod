@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -124,7 +125,8 @@ namespace OrchidMod.Content.Guardian
 						if (guardian.GuardianHammerCharge >= 180f && !Ding)
 						{
 							Ding = true;
-							SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
+							if (ModContent.GetInstance<OrchidClientConfig>().AltGuardianChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, player.Center);
+							else SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
 						}
 
 						if (Projectile.ai[1] == 0)

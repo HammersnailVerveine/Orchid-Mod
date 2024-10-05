@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -208,7 +209,8 @@ namespace OrchidMod.Content.Guardian
 						if (guardian.GuardianStandardCharge >= 180f && !Ding && IsLocalOwner)
 						{
 							Ding = true;
-							SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
+							if (ModContent.GetInstance<OrchidClientConfig>().AltGuardianChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
+							else SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 						}
 
 						if ((!owner.controlUseItem || !heldStandard) && IsLocalOwner)

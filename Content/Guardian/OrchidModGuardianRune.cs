@@ -63,7 +63,6 @@ namespace OrchidMod.Content.Guardian
 			var projectileType = ModContent.ProjectileType<GuardianRuneAnchor>();
 			var guardian = player.GetModPlayer<OrchidGuardian>();
 			guardian.GuardianDisplayUI = 300;
-			guardian.SlamCostUI = RuneCost;
 
 			if (player.ownedProjectileCounts[projectileType] == 0)
 			{
@@ -96,7 +95,7 @@ namespace OrchidMod.Content.Guardian
 		public override bool CanUseItem(Player player)
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
-			if (player.whoAmI == Main.myPlayer && !player.cursed && guardian.GuardianSlam >= RuneCost)
+			if (player.whoAmI == Main.myPlayer && !player.cursed)
 			{
 				var projectileType = ModContent.ProjectileType<GuardianRuneAnchor>();
 				if (player.ownedProjectileCounts[projectileType] > 0)
@@ -104,6 +103,15 @@ namespace OrchidMod.Content.Guardian
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
 					if (proj != null && proj.ModProjectile is GuardianRuneAnchor anchor && guardian.GuardianRuneCharge == 0f)
 					{
+						foreach (Projectile projectile in Main.projectile) 
+						{
+							if (projectile.active && projectile.owner == player.whoAmI && projectile.type == Item.shoot)
+							{ // Sets the player rune charge to a value depending on the remaining time left of the projectile, ai[1] helps syncing it on other clients
+								proj.ai[1] = 90f * (projectile.timeLeft / (float)(RuneDuration * guardian.GuardianRuneTimer));
+								break;
+							}
+						}
+
 						proj.ai[0] = 1f;
 						anchor.NeedNetUpdate = true;
 						SoundEngine.PlaySound(SoundID.Item7, player.Center);

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,12 @@ namespace OrchidMod.Content.Guardian
 		public bool NeedNetUpdate = false;
 		public int SelectedItem { get; set; } = -1;
 		public Item RuneItem => Main.player[Projectile.owner].inventory[SelectedItem];
+
+		public float PreviousruneCost
+		{
+			get => Projectile.localAI[1];
+			set => Projectile.localAI[1] = value;
+		}
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
@@ -91,14 +98,25 @@ namespace OrchidMod.Content.Guardian
 
 				if (RuneItem.ModItem is OrchidModGuardianRune guardianItem)
 				{
+					int runeCost = guardianItem.RuneCost;
+
 					if (Projectile.ai[0] == 1f)
 					{ // Being charged by the player
+						if (guardian.GuardianRuneCharge < Projectile.ai[1])
+						{
+							guardian.GuardianRuneCharge = Projectile.ai[1];
+						}
+
 						if (guardian.GuardianRuneCharge <= 180f)
 						{
 							guardian.GuardianRuneCharge += 10f / guardianItem.Item.useTime * owner.GetAttackSpeed(DamageClass.Melee); // Very slow charge time compared to other items
 							if (guardian.GuardianRuneCharge > 180f)
 							{
 								guardian.GuardianRuneCharge = 180f;
+							}
+
+							if (guardian.GuardianRuneCharge > 120f)
+							{
 								Projectile.localAI[0] += 0.015f; // used for full charge glow
 								if (Projectile.localAI[0] > 1f) Projectile.localAI[0] = 1f;
 							}
@@ -106,18 +124,44 @@ namespace OrchidMod.Content.Guardian
 						}
 
 						if (guardian.GuardianRuneCharge >= 180f && !Ding && IsLocalOwner)
-						{
+						{ // Ding sound on full charge
 							Ding = true;
-							SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
+							if (ModContent.GetInstance<OrchidClientConfig>().AltGuardianChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
+							else SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 						}
+
+						// Slam cost calculations
+						float segment = 120f / guardianItem.RuneCost; // 120 is the max charge for non Reinforced effects
+						while (segment < guardian.GuardianRuneCharge)
+						{
+							segment += 120f / guardianItem.RuneCost;
+							runeCost--;
+
+							if (runeCost < PreviousruneCost && runeCost >= 0 && IsLocalOwner)
+							{
+								PreviousruneCost = runeCost;
+								if (PreviousruneCost == 0)
+								{
+									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Charged", false);
+									SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact, owner.Center);
+								}
+								else
+								{
+									SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, owner.Center);
+								}
+							}
+
+						}
+
+						//Main.NewText(runeCost + " " + (guardian.GuardianRuneCharge / 180f).ToString("0.00") + "% " + PreviousruneCost);
 
 						if (!owner.controlUseItem && IsLocalOwner)
 						{
 							bool fullyCharged = guardian.GuardianRuneCharge >= 180f;
-							if (guardian.GuardianSlam >= guardianItem.RuneCost)
+							if (guardian.GuardianSlam >= runeCost)
 							{
 								SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
-								guardian.GuardianSlam -= guardianItem.RuneCost;
+								guardian.GuardianSlam -= runeCost;
 
 								foreach (Projectile projectile in Main.projectile)
 								{
@@ -131,16 +175,16 @@ namespace OrchidMod.Content.Guardian
 								if (fullyCharged)
 								{
 									runeAmount++;
-									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Charged", false);
+									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced", false);
 								}
 
 								guardianItem.Activate(owner, guardian, RuneItem.shoot, guardian.GetGuardianDamage(RuneItem.damage), RuneItem.knockBack, crit, (int)(guardianItem.RuneDuration * guardian.GuardianRuneTimer), guardianItem.RuneDistance, runeAmount);
 							}
 							else
 							{
-								CombatText.NewText(owner.Hitbox, new Color(125, 205, 125), "Cannot use", false, true);
+								SoundEngine.PlaySound(SoundID.LiquidsWaterLava, owner.Center);
+								CombatText.NewText(owner.Hitbox, new Color(255, 125, 125), "Failed", false, true);
 							}
-
 							guardian.GuardianRuneCharge = 0;
 							Projectile.ai[0] = 0f;
 							Projectile.netUpdate = true;
@@ -148,14 +192,27 @@ namespace OrchidMod.Content.Guardian
 
 						owner.itemAnimation = 1;
 						owner.heldProj = Projectile.whoAmI;
-						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(14f * owner.direction, -(2 + guardian.GuardianRuneCharge * 0.05f));
-						Projectile.rotation = owner.direction * 0.4f - (owner.direction * 0.0025f) * guardian.GuardianRuneCharge;
-						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianRuneCharge * 0.0025f) * owner.direction);
-						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -(1f + guardian.GuardianRuneCharge * 0.0025f) * owner.direction);
+						if (guardian.GuardianRuneCharge < 120f)
+						{
+							Projectile.rotation = owner.direction * 0.4f - (owner.direction * 0.00375f) * guardian.GuardianRuneCharge;
+							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * 0.6f + guardian.GuardianRuneCharge * 0.00375f * -owner.direction);
+							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * 1f + guardian.GuardianRuneCharge * 0.00375f * -owner.direction);
+							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(14f * owner.direction, -(2 + guardian.GuardianRuneCharge * 0.05f));
+						}
+						else
+						{
+							Projectile.rotation = 0f;
+							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * 1.05f * -owner.direction);
+							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * 1.45f * -owner.direction);
+							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(14f * owner.direction, -(8 + (float)Math.Sin(Projectile.localAI[2]) + (guardian.GuardianRuneCharge - 120) * 0.2f));
+							Projectile.localAI[2] += 0.1f;
+						}
 					}
 					else
 					{ // Idle - rune is held further and lower
 						Ding = false;
+						PreviousruneCost = guardianItem.RuneCost;
+						Projectile.localAI[2] = 0f;
 
 						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(16f * owner.direction, 4);
 						Projectile.rotation = owner.direction * 0.5f;
@@ -163,6 +220,7 @@ namespace OrchidMod.Content.Guardian
 						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -0.8f * owner.direction);
 					}
 
+					guardian.SlamCostUI = runeCost;
 					Projectile.spriteDirection = owner.direction;
 					guardianItem.ExtraAIRune(Projectile);
 				}
@@ -192,7 +250,7 @@ namespace OrchidMod.Content.Guardian
 				var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-				if (player.GetModPlayer<OrchidGuardian>().GuardianRuneCharge >= 180f) // max charge
+				if (player.GetModPlayer<OrchidGuardian>().GuardianRuneCharge >= 120f) // max charge
 				{
 					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });

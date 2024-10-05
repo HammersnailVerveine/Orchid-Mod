@@ -3347,6 +3347,11 @@ Configs: {
 			Label: Swap Gauntlets Imputs
 			Tooltip: Swap Left and Right click inputs for Guardian Gauntlets
 		}
+
+		AltGuardianChargeSounds: {
+			Label: Alternative Guardian Charge Sounds
+			Tooltip: Replaces the Sound played when fully charging a guardian item
+		}
 	}
 
 	OrchidServerConfig: {

@@ -192,7 +192,8 @@ namespace OrchidMod.Content.Guardian
 						{
 							if (!Ding && IsLocalOwner)
 							{
-								SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
+								if (ModContent.GetInstance<OrchidClientConfig>().AltGuardianChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
+								else SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 								Ding = true;
 							}
 							guardian.GuardianGauntletCharge = 180f;
