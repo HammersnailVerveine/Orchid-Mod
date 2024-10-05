@@ -2574,8 +2574,8 @@ Items: {
 		Tooltip: ""
 	}
 
-	ChlorophiteShield: {
-		DisplayName: Chlorophite Pavise
+	ChlorophyteShield: {
+		DisplayName: Chlorophyte Pavise
 		Tooltip: Shoots spore clouds
 	}
 

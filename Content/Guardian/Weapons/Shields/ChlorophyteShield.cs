@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
-	public class ChlorophiteShield : OrchidModGuardianShield
+	public class ChlorophyteShield : OrchidModGuardianShield
 	{
 		public override void SafeSetDefaults()
 		{

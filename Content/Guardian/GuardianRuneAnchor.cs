@@ -174,7 +174,7 @@ namespace OrchidMod.Content.Guardian
 								int runeAmount = guardianItem.GetAmount(guardian);
 								if (fullyCharged)
 								{
-									runeAmount++;
+									runeAmount += guardianItem.RuneAmountScaling;
 									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced", false);
 								}
 
@@ -254,7 +254,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
-					spriteBatch.Draw(texture, drawPosition, null, Color.White * Projectile.localAI[0], Projectile.rotation, texture.Size() * 0.5f, Projectile.scale * 0.9f, effect, 0f);
+					spriteBatch.Draw(texture, drawPosition, null, guardianItem.GetGlowColor() * Projectile.localAI[0], Projectile.rotation, texture.Size() * 0.5f, Projectile.scale * 0.9f, effect, 0f);
 					spriteBatch.End();
 					spriteBatch.Begin(spriteBatchSnapshot);
 				}

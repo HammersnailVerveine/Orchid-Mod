@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,6 +24,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 			RuneAmountScaling = 3;
 			RuneDuration = 40 * 60;
 		}
+
+		public override Color GetGlowColor() => new Color(255, 0, 0);
 
 		public override void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int amount)
 		{

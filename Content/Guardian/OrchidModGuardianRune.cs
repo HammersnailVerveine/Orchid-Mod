@@ -24,7 +24,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void PostDrawRune(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { } // Called after drawing the rune anchor
 		public virtual bool PreDrawRune(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; } // Called before drawing the rune anchor, return false to prevent it
 		public virtual void SafeHoldItem(Player player) { }
-		public int GetNumber(Player player) => RuneNumber + player.GetModPlayer<OrchidGuardian>().GuardianBonusRune;
+		public virtual Color GetGlowColor() => Color.White; // Used to draw the glow color when reinforced
 		public int GetAmount(OrchidGuardian guardian) => RuneNumber + guardian.GuardianBonusRune * RuneAmountScaling;
 
 		public virtual void Activate(Player player, OrchidGuardian guardian, int type, int damage, float knockback, int critChance, int duration, float distance, int amount)
