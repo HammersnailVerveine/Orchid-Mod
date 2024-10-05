@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -21,7 +22,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			Projectile.height = 64;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 17;
+			Projectile.timeLeft = 22;
 			Projectile.scale = 1f;
 			Projectile.penetrate = -1;
 			Projectile.alpha = 255;
@@ -34,7 +35,16 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 		{
 			Player owner = Owner;
 			Projectile.Center = owner.Center;
-			Dust.NewDust(owner.position, owner.width, owner.height, DustID.Torch); 
+			Dust.NewDust(owner.position, owner.width, owner.height, DustID.Torch);
+
+			if (!IsLocalOwner && Projectile.timeLeft == 22)
+			{ // Lazy way of syncing the dash without making my own packet
+				OrchidPlayer orchidPlayer = owner.GetModPlayer<OrchidPlayer>();
+				orchidPlayer.ForcedVelocityVector = Projectile.velocity;
+				orchidPlayer.ForcedVelocityTimer = 20;
+				orchidPlayer.PlayerImmunity = 20;
+				orchidPlayer.ForcedVelocityUpkeep = 0.3f;
+			}
 		}
 	}
 }

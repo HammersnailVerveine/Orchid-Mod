@@ -41,12 +41,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				SoundEngine.PlaySound(SoundID.Item14, player.Center);
 				Vector2 playerDashVelocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2) * 15f;
 				guardian.modPlayer.ForcedVelocityVector = playerDashVelocity;
-				guardian.modPlayer.ForcedVelocityTimer = 15;
-				guardian.modPlayer.PlayerImmunity = 15;
+				guardian.modPlayer.ForcedVelocityTimer = 20;
+				guardian.modPlayer.PlayerImmunity = 20;
 				guardian.modPlayer.ForcedVelocityUpkeep = 0.3f;
 
 				int projectileType = ModContent.ProjectileType<MechanicalGauntletProjectile>();
-				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, guardian.GetGuardianDamage(Item.damage) * 2, Item.knockBack, player.whoAmI);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, guardian.modPlayer.ForcedVelocityVector, projectileType, guardian.GetGuardianDamage(Item.damage) * 2, Item.knockBack, player.whoAmI);
 				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 				return false;
 			}
