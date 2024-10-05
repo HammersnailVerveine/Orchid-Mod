@@ -15,19 +15,23 @@ namespace OrchidMod.Common
 		public bool ShowClassTags { get; set; }
 
 		[DefaultValue(false)]
-		[BackgroundColor(128, 128, 255)]
+		[BackgroundColor(151, 120, 79)]
 		public bool UseOldGuardianHammerUi { get; set; }
 
 		[DefaultValue(false)]
-		[BackgroundColor(128, 128, 255)]
+		[BackgroundColor(151, 120, 79)]
 		public bool AltGuardianChargeSounds { get; set; }
 
 		[DefaultValue(false)]
-		[BackgroundColor(255, 128, 128)]
+		[BackgroundColor(151, 120, 79)]
+		public bool BlockCancelChain { get; set; }
+
+		[DefaultValue(false)]
+		[BackgroundColor(151, 120, 79)]
 		public bool SwapPaviseImputs { get; set; }
 
 		[DefaultValue(false)]
-		[BackgroundColor(255, 128, 128)]
+		[BackgroundColor(151, 120, 79)]
 		public bool SwapGauntletImputs { get; set; }
 	}
 

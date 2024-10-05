@@ -70,12 +70,12 @@ namespace OrchidMod.Content.Guardian
 					var guardian = player.GetModPlayer<OrchidGuardian>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
 
-					bool shouldBlock = player.altFunctionUse != 2;
-					if (ModContent.GetInstance<OrchidClientConfig>().SwapPaviseImputs) shouldBlock = !shouldBlock;
+					bool shouldSlam = player.altFunctionUse != 2;
+					if (ModContent.GetInstance<OrchidClientConfig>().SwapPaviseImputs) shouldSlam = !shouldSlam;
 
 					if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
 					{
-						if (shouldBlock) { // Block
+						if (shouldSlam) { // Slam
 							if (proj.ai[1] == 0f && guardian.GuardianSlam > 0) 
 							{
 								SoundEngine.PlaySound(Item.UseSound, player.Center);
@@ -90,7 +90,7 @@ namespace OrchidMod.Content.Guardian
 								}
 								shield.NeedNetUpdate = true;
 							}
-						} else { // Slam
+						} else { // Block
 							if (proj.ai[1] + proj.ai[0] == 0f && guardian.GuardianGuard > 0) 
 							{
 								shield.shieldEffectReady = true;
@@ -99,14 +99,23 @@ namespace OrchidMod.Content.Guardian
 								shield.NeedNetUpdate = true;
 								BlockStart(player, proj);
 							}
-							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if left click again
+							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if click again
 							{
-								shield.shieldEffectReady = true;
-								shield.spawnDusts();
-								proj.ai[0] = 0f;
-								shield.NeedNetUpdate = true;
-								resetBlockedEnemiesDuration(guardian);
-								BlockStart(player, proj);
+								if (ModContent.GetInstance<OrchidClientConfig>().BlockCancelChain && guardian.GuardianGuard > 0)
+								{
+									shield.shieldEffectReady = true;
+									guardian.GuardianGuard--;
+									proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+									shield.NeedNetUpdate = true;
+									BlockStart(player, proj);
+								}
+								else
+								{
+									shield.shieldEffectReady = true;
+									shield.spawnDusts();
+									proj.ai[0] = 0f;
+									shield.NeedNetUpdate = true;
+								}
 							} 
 						}
 					}

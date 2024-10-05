@@ -3352,6 +3352,11 @@ Configs: {
 			Label: Alternative Guardian Charge Sounds
 			Tooltip: Replaces the Sound played when fully charging a guardian item
 		}
+
+		BlockCancelChain: {
+			Label: Pavise Block Cancel Auto-re-use
+			Tooltip: If possible, automatically starts blocking again when cancelling a block with right click
+		}
 	}
 
 	OrchidServerConfig: {
