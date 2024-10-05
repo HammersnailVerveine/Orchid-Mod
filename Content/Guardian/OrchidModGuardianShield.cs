@@ -98,16 +98,30 @@ namespace OrchidMod.Content.Guardian
 								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
 								shield.NeedNetUpdate = true;
 								BlockStart(player, proj);
+								SoundEngine.PlaySound(SoundID.Item1, player.Center);
 							}
 							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if click again
 							{
 								if (ModContent.GetInstance<OrchidClientConfig>().BlockCancelChain && guardian.GuardianGuard > 0)
 								{
+									// Taken from the shield anchor code
+									Vector2 aimedLocation = Main.MouseWorld - player.Center.Floor();
+									aimedLocation.Normalize();
+									proj.velocity = aimedLocation * float.Epsilon;
+									aimedLocation *= -distance;
+									proj.rotation = aimedLocation.ToRotation();
+									proj.direction = proj.spriteDirection;
+									aimedLocation = player.Center.Floor() - aimedLocation - new Vector2(proj.width / 2f, proj.height / 2f);
+									proj.position = aimedLocation;
+									shield.aimedLocation = aimedLocation;
+									proj.ai[2] = proj.rotation; // networked rotation
+
 									shield.shieldEffectReady = true;
 									guardian.GuardianGuard--;
 									proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
 									shield.NeedNetUpdate = true;
 									BlockStart(player, proj);
+									SoundEngine.PlaySound(SoundID.Item1, player.Center);
 								}
 								else
 								{
