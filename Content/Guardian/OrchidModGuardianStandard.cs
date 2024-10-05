@@ -35,7 +35,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void PostDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
 		public virtual Color GetColor() => Color.White;
-		public virtual bool DrawAura(bool isPlayer, bool isNPC, bool isOwner, bool isReinforced) => (AffectNearbyPlayers && isPlayer && !isOwner) || (AffectNearbyNPCs && isNPC && isOwner); // Whether or not the aura should be drawn. This should cover most cases.
+		public virtual bool DrawAura(bool isPlayer, bool PlayerisOwner, bool isNPC, bool isOwner, bool isReinforced) => (AffectNearbyPlayers && isPlayer && !PlayerisOwner) || (AffectNearbyNPCs && isNPC && isOwner); // Whether or not the aura should be drawn. This should cover most cases.
 
 		public virtual void SafeHoldItem(Player player) { }
 

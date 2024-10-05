@@ -156,7 +156,7 @@ namespace OrchidMod.Content.Guardian
 								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (buffItem.AuraRange + player.width * 0.5f))
 								{
 									buffItem.NearbyPlayerEffect(player.GetModPlayer<OrchidGuardian>().GuardianStandardStats, player, guardian, player == owner, Projectile.ai[2] == 1f);
-									AnyNear = buffItem.DrawAura(true, false, IsLocalOwner, Projectile.ai[2] == 1f);
+									AnyNear = buffItem.DrawAura(true, player.whoAmI == owner.whoAmI, false, IsLocalOwner, Projectile.ai[2] == 1f);
 								}
 							}
 						}
@@ -168,7 +168,7 @@ namespace OrchidMod.Content.Guardian
 								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < (buffItem.AuraRange + npc.width * 0.5f))
 								{
 									buffItem.NearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Projectile.ai[2] == 1f);
-									AnyNear = buffItem.DrawAura(false, true, IsLocalOwner, Projectile.ai[2] == 1f);
+									AnyNear = buffItem.DrawAura(false, false, true, IsLocalOwner, Projectile.ai[2] == 1f);
 								}
 							}
 						}

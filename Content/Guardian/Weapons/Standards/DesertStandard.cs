@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			AffectNearbyPlayers = true;
 			AffectNearbyNPCs = true;
 		}
-		public override bool DrawAura(bool isPlayer, bool isNPC, bool isOwner, bool isReinforced) => (isNPC && isOwner && isReinforced) || (isPlayer && !isOwner);
+		public override bool DrawAura(bool isPlayer, bool PlayerisOwner, bool isNPC, bool isOwner, bool isReinforced) => (isNPC && isOwner && isReinforced) || (isPlayer && !PlayerisOwner);
 
 		public override Color GetColor()
 		{
