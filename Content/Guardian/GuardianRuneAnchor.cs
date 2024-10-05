@@ -195,8 +195,8 @@ namespace OrchidMod.Content.Guardian
 						if (guardian.GuardianRuneCharge < 120f)
 						{
 							Projectile.rotation = owner.direction * 0.4f - (owner.direction * 0.00375f) * guardian.GuardianRuneCharge;
-							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * 0.6f + guardian.GuardianRuneCharge * 0.00375f * -owner.direction);
-							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * 1f + guardian.GuardianRuneCharge * 0.00375f * -owner.direction);
+							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianRuneCharge * 0.0025f) * owner.direction);
+							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -(1f + guardian.GuardianRuneCharge * 0.0025f) * owner.direction);
 							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(14f * owner.direction, -(2 + guardian.GuardianRuneCharge * 0.05f));
 						}
 						else
