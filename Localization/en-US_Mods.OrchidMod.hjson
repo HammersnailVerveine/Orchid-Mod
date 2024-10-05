@@ -3321,6 +3321,7 @@ Projectiles: {
 	PaladinGauntletProjectile.DisplayName: Paladin Gauntlet Projectile
 	GuardianHammerAnchor.DisplayName: Guardian Hammer Anchor
 	GuardianRuneAnchor.DisplayName: Guardian Rune Anchor
+	MechanicalGauntletProjectile.DisplayName: Mechanical Gauntlet Projectile
 }
 
 Configs: {

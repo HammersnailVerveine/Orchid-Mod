@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Content.Guardian.Buffs;
+using OrchidMod.Content.Guardian.Projectiles.Gauntlets;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -38,15 +39,17 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			{
 				player.ClearBuff(ModContent.BuffType<GuardianMechanicalGauntletBuff>());
 				SoundEngine.PlaySound(SoundID.Item14, player.Center);
-				strikeVelocity = 45f;
-				damage *= 2;
-				Vector2 playerDashVelocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity * 0.3f;
+				Vector2 playerDashVelocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2) * 15f;
 				guardian.modPlayer.ForcedVelocityVector = playerDashVelocity;
 				guardian.modPlayer.ForcedVelocityTimer = 15;
 				guardian.modPlayer.PlayerImmunity = 15;
 				guardian.modPlayer.ForcedVelocityUpkeep = 0.3f;
+
+				int projectileType = ModContent.ProjectileType<MechanicalGauntletProjectile>();
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, guardian.GetGuardianDamage(Item.damage) * 2, Item.knockBack, player.whoAmI);
+				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
+				return false;
 			}
-			else strikeVelocity = 25f;
 			return true;
 		}
 

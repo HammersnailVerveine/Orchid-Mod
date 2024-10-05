@@ -18,6 +18,7 @@ namespace OrchidMod.Common.ModObjects
 		public bool projOwner = false;
 
 		public bool IsLocalOwner => Projectile.owner == Main.myPlayer;
+		public Player Owner => Main.player[Projectile.owner];
 		public static bool IsValidTarget(NPC npc, bool includecritter = false) => npc.active && !npc.dontTakeDamage && !npc.friendly && (includecritter || !npc.CountsAsACritter);
 
 		public sealed override bool PreAI()
