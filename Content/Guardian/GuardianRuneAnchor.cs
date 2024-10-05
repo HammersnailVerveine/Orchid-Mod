@@ -153,8 +153,6 @@ namespace OrchidMod.Content.Guardian
 
 						}
 
-						//Main.NewText(runeCost + " " + (guardian.GuardianRuneCharge / 180f).ToString("0.00") + "% " + PreviousruneCost);
-
 						if (!owner.controlUseItem && IsLocalOwner)
 						{
 							bool fullyCharged = guardian.GuardianRuneCharge >= 180f;
