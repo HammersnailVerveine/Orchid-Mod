@@ -8,6 +8,7 @@ namespace OrchidMod.Content.Guardian.Accessories
 	public class BadgeBattlesPast : OrchidModGuardianItem
 	{
 		float damageIncrease = 0f;
+		int timer = 0;
 
 		public override void SafeSetDefaults()
 		{
@@ -30,15 +31,21 @@ namespace OrchidMod.Content.Guardian.Accessories
 				if (proj.ai[0] > 0)
 				{
 					damageIncrease += 0.008f;
-					player.GetDamage<GuardianDamageClass>() += damageIncrease;
+					timer = 30;
 				}
-				else
+				else if (timer > 0)
 				{
-					damageIncrease = 0f;
+					timer--;
+					if (timer <= 0)
+					{
+						damageIncrease = 0f;
+					}
 				}
+				player.GetDamage<GuardianDamageClass>() += damageIncrease;
 			}
 			else
 			{
+				timer = 0;
 				damageIncrease = 0f;
 			}
 		}
