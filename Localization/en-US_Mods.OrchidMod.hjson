@@ -3035,8 +3035,8 @@ Items: {
 	}
 
 	BadgeBattlesPast: {
-		DisplayName: Badge Battles Past
-		Tooltip: ""
+		DisplayName: Badge of Battles Past
+		Tooltip: Opposing damage continuously increases while blocking with a pavise
 	}
 
 	ColossalWormTooth: {

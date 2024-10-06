@@ -20,7 +20,7 @@ namespace OrchidMod.Content.Guardian.Accessories
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>()
+			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 
 			int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
 			if (player.ownedProjectileCounts[projectileType] > 0)
@@ -31,6 +31,10 @@ namespace OrchidMod.Content.Guardian.Accessories
 				{
 					damageIncrease += 0.008f;
 					player.GetDamage<GuardianDamageClass>() += damageIncrease;
+				}
+				else
+				{
+					damageIncrease = 0f;
 				}
 			}
 			else
