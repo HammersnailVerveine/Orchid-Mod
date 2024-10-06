@@ -281,6 +281,21 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.Common(ItemType<PaladinGauntlet>(), 15));
 					}
 					break;
+				case NPCID.DevourerHead:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<ColossalWormTooth>(), 10));
+					}
+					break;
+				case NPCID.ShortBones:
+				case NPCID.AngryBones:
+				case NPCID.BigBoned:
+				case NPCID.AngryBonesBig:
+				case NPCID.AngryBonesBigHelmet:
+				case NPCID.AngryBonesBigMuscle:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<BadgeBattlesPast>(), 20));
+					}
+					break;
 				default:
 					break;
 			}
