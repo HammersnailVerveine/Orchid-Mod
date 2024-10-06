@@ -106,8 +106,16 @@ namespace OrchidMod.Content.Guardian
 			var guardian = player.GetModPlayer<OrchidGuardian>();
 			guardian.GuardianDisplayUI = 300;
 
-			if (player.ownedProjectileCounts[projectileType] == 0)
+			if (player.ownedProjectileCounts[projectileType] != 1)
 			{
+				foreach (Projectile projectile in Main.projectile)
+				{
+					if (projectile.active && projectile.owner == player.whoAmI && projectile.type == projectileType)
+					{
+						projectile.Kill();
+					}
+				}
+
 				var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
 
 				var proj = Main.projectile[index];

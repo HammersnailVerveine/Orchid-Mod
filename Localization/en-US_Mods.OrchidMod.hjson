@@ -3033,6 +3033,11 @@ Items: {
 		DisplayName: Orichalcum Warhammer
 		Tooltip: ""
 	}
+
+	BadgeBattlesPast: {
+		DisplayName: Badge Battles Past
+		Tooltip: ""
+	}
 }
 
 NPCs: {
