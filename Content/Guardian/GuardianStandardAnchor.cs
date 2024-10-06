@@ -289,8 +289,6 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Main.NewText("Standard " + Owner.name + " " + Owner.ownedProjectileCounts[Projectile.type]);
-
 			if (StandardItem.ModItem is not OrchidModGuardianStandard guardianItem) return false;
 			if (!ModContent.HasAsset(guardianItem.ShaftTexture)) return false;
 

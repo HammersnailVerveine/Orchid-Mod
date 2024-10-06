@@ -40,7 +40,6 @@ namespace OrchidMod
 		public bool GuardianGit = false;
 		public bool GuardianHoneyPotion = false;
 		public bool GuardianWormTooth = false;
-		public bool GuardianBattlesPast = false;
 
 		// Dynamic gameplay and UI fields
 
@@ -205,7 +204,6 @@ namespace OrchidMod
 			GuardianGit = false;
 			GuardianHoneyPotion = false;
 			GuardianWormTooth = false;
-			GuardianBattlesPast = false;
 		}
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

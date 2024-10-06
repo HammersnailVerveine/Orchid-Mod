@@ -235,8 +235,6 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			Main.NewText("Rune " + Owner.name + " " + Owner.ownedProjectileCounts[Projectile.type]);
-
 			if (RuneItem.ModItem is not OrchidModGuardianRune guardianItem) return false;
 			var player = Main.player[Projectile.owner];
 			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
