@@ -3038,6 +3038,11 @@ Items: {
 		DisplayName: Badge Battles Past
 		Tooltip: ""
 	}
+
+	ColossalWormTooth: {
+		DisplayName: Colossal Worm Tooth
+		Tooltip: Players affected by your standards gain 5% increased damage
+	}
 }
 
 NPCs: {

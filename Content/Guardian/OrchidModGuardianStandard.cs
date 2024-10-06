@@ -26,8 +26,8 @@ namespace OrchidMod.Content.Guardian
 		public virtual string FlagQuarterTexture => Texture + "_FlagQuarter";
 		public virtual string FlagTwoQuarterTexture => Texture + "_FlagTwoQuarter";
 		public virtual string FlagEndTexture => Texture + "_FlagEnd";
-		public virtual void NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced) { } // isLocalPlayer is true when this is ran on the client being affected. Do not change stats on the affectedPlayer it won't work, use standardStats
-		public virtual void NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced) { } // isLocalPlayer is true when this is ran by the guardian with the flag active
+		public virtual bool NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced) => false; // isLocalPlayer is true when this is ran on the client being affected. Do not change stats on the affectedPlayer it won't work, use standardStats - Should return true if the player was affected
+		public virtual bool NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced) => false; // isLocalPlayer is true when this is ran by the guardian with the flag active - Should return true if the npc was affected
 		public virtual void OnCharge(Player player, OrchidGuardian guardian) { }
 		public virtual void EffectSimple(Player player, OrchidGuardian guardian) { }
 		public virtual void EffectUpgrade(Player player, OrchidGuardian guardian) { }
@@ -35,7 +35,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void PostDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
 		public virtual Color GetColor() => Color.White;
-		public virtual bool DrawAura(bool isPlayer, bool PlayerisOwner, bool isNPC, bool isOwner, bool isReinforced) => (AffectNearbyPlayers && isPlayer && !PlayerisOwner) || (AffectNearbyNPCs && isNPC && isOwner); // Whether or not the aura should be drawn. This should cover most cases.
+		public virtual bool DrawAura(bool isPlayer, bool PlayerisOwner, bool isNPC, bool isOwner, bool isReinforced) => (isPlayer && !PlayerisOwner) || (isNPC && isOwner); // Whether or not the aura should be drawn. This should cover most cases.
 
 		public virtual void SafeHoldItem(Player player) { }
 

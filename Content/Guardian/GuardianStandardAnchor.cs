@@ -39,7 +39,7 @@ namespace OrchidMod.Content.Guardian
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write(SelectedItem);
-			writer.Write(BuffItem != null);
+			writer.Write(BuffItem != null && BuffItem == StandardItem);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -155,8 +155,11 @@ namespace OrchidMod.Content.Guardian
 							{
 								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (buffItem.AuraRange + player.width * 0.5f))
 								{
-									buffItem.NearbyPlayerEffect(player.GetModPlayer<OrchidGuardian>().GuardianStandardStats, player, guardian, player == owner, Projectile.ai[2] == 1f);
-									AnyNear = buffItem.DrawAura(true, player.whoAmI == owner.whoAmI, false, IsLocalOwner, Projectile.ai[2] == 1f);
+									if (buffItem.NearbyPlayerEffect(player.GetModPlayer<OrchidGuardian>().GuardianStandardStats, player, guardian, player == owner, Projectile.ai[2] == 1f))
+									{ // If the player is affected by the standard, checks the guardian's modplayer for bonus effects
+										guardian.StandardNearbyPlayerEffect(player.GetModPlayer<OrchidGuardian>().GuardianStandardStats, player, guardian, player == owner, Projectile.ai[2] == 1f);
+									}
+									if (!AnyNear) AnyNear = buffItem.DrawAura(true, player.whoAmI == owner.whoAmI, false, IsLocalOwner, Projectile.ai[2] == 1f);
 								}
 							}
 						}
@@ -167,8 +170,11 @@ namespace OrchidMod.Content.Guardian
 							{
 								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < (buffItem.AuraRange + npc.width * 0.5f))
 								{
-									buffItem.NearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Projectile.ai[2] == 1f);
-									AnyNear = buffItem.DrawAura(false, false, true, IsLocalOwner, Projectile.ai[2] == 1f);
+									if (buffItem.NearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Projectile.ai[2] == 1f))
+									{ // If the npc is affected by the standard, checks the guardian's modplayer for bonus effects
+										guardian.StandardNearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Projectile.ai[2] == 1f);
+									}
+									if (!AnyNear) AnyNear = buffItem.DrawAura(false, false, true, IsLocalOwner, Projectile.ai[2] == 1f);
 								}
 							}
 						}
@@ -245,9 +251,6 @@ namespace OrchidMod.Content.Guardian
 							Projectile.netUpdate = true;
 						}
 
-						owner.itemAnimation = 1;
-						owner.heldProj = Projectile.whoAmI;
-
 						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(8f * owner.direction, -(12 + guardian.GuardianStandardCharge * 0.03f));
 						Projectile.rotation = MathHelper.PiOver4 * (0.25f - guardian.GuardianStandardCharge * 0.0025f) * owner.direction - MathHelper.PiOver4;
 
@@ -286,6 +289,8 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
+			Main.NewText("Standard " + Owner.name + " " + Owner.ownedProjectileCounts[Projectile.type]);
+
 			if (StandardItem.ModItem is not OrchidModGuardianStandard guardianItem) return false;
 			if (!ModContent.HasAsset(guardianItem.ShaftTexture)) return false;
 

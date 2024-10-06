@@ -66,24 +66,27 @@ namespace OrchidMod.Content.Guardian
 
 			if (player.ownedProjectileCounts[projectileType] != 1)
 			{
-				foreach(Projectile projectile in Main.projectile)
+				if (IsLocalPlayer(player))
 				{
-					if (projectile.active && projectile.owner == player.whoAmI && projectile.type == projectileType)
+					foreach (Projectile projectile in Main.projectile)
 					{
-						projectile.Kill();
+						if (projectile.active && projectile.owner == player.whoAmI && projectile.type == projectileType)
+						{
+							projectile.Kill();
+						}
 					}
-				}
 
-				var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
+					var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
 
-				var proj = Main.projectile[index];
-				if (proj.ModProjectile is not GuardianRuneAnchor rune)
-				{
-					proj.Kill();
-				}
-				else
-				{
-					rune.OnChangeSelectedItem(player);
+					var proj = Main.projectile[index];
+					if (proj.ModProjectile is not GuardianRuneAnchor rune)
+					{
+						proj.Kill();
+					}
+					else
+					{
+						rune.OnChangeSelectedItem(player);
+					}
 				}
 			}
 			else
@@ -120,6 +123,7 @@ namespace OrchidMod.Content.Guardian
 							}
 						}
 
+						guardian.GuardianRuneCharge++;
 						proj.ai[0] = 1f;
 						anchor.NeedNetUpdate = true;
 						SoundEngine.PlaySound(SoundID.Item7, player.Center);

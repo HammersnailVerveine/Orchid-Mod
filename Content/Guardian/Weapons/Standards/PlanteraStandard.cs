@@ -27,7 +27,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			return new Color(225, 128, 206);
 		}
 
-		public override void NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
+		public override bool NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
 		{
 			standardStats.lifeMax += 50;
 			if (reinforced && affectedPlayer.statLife <= affectedPlayer.statLifeMax2 * 0.25f && isLocalPlayer)
@@ -38,10 +38,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 					Dust.NewDustDirect(affectedPlayer.position, affectedPlayer.width, affectedPlayer.height, DustID.PlanteraBulb).noGravity = true;
 				}
 			}
-		}
-
-		public override void NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced)
-		{
+			return true;
 		}
 	}
 }

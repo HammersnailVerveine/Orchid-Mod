@@ -39,6 +39,8 @@ namespace OrchidMod
 		public bool GuardianBamboo = false;
 		public bool GuardianGit = false;
 		public bool GuardianHoneyPotion = false;
+		public bool GuardianWormTooth = false;
+		public bool GuardianBattlesPast = false;
 
 		// Dynamic gameplay and UI fields
 
@@ -202,6 +204,8 @@ namespace OrchidMod
 			GuardianBamboo = false;
 			GuardianGit = false;
 			GuardianHoneyPotion = false;
+			GuardianWormTooth = false;
+			GuardianBattlesPast = false;
 		}
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
@@ -294,6 +298,19 @@ namespace OrchidMod
 				CombatText.NewText(rect, Color.LightSkyBlue, "+" + nb + " guard" + (nb > 1 ? "s" : ""), false, true);
 				GuardianGuard += nb;
 			}
+		}
+
+		public void StandardNearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
+		{ // Called after affectedPlayer has been affected by a standard held by guardian. isLocalPlayer is true when this is ran by the client holding the standard. Do not change stats on the affectedPlayer it won't work, use standardStats
+			if (GuardianWormTooth)
+			{
+				standardStats.allDamage += 0.05f;
+			}
+		}
+
+		public void StandardNearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced)
+		{ // isLocalPlayer is true when this is ran by the client holding the standard - Should return true if the npc was affected
+			// ..
 		}
 
 		public void OnBlockAnyFirst(Projectile anchor, ref int toAdd)
