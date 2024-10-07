@@ -5,8 +5,7 @@ namespace OrchidMod.Content.Guardian
 {
 	public abstract class GuardianRuneProjectile : OrchidModGuardianProjectile
 	{
-		public Player owner => Main.player[Projectile.owner];
-		public OrchidGuardian guardian => owner.GetModPlayer<OrchidGuardian>();
+		public OrchidGuardian guardian => Owner.GetModPlayer<OrchidGuardian>();
 
 		public virtual bool SafeAI() => true;
 		public virtual void FirstFrame() { }
@@ -43,7 +42,7 @@ namespace OrchidMod.Content.Guardian
 
 			if (IsLocalOwner)
 			{
-				if (owner.dead)
+				if (Owner.dead)
 				{
 					Projectile.Kill();
 				}
@@ -59,7 +58,7 @@ namespace OrchidMod.Content.Guardian
 			{
 				Vector2 position = new Vector2(0f, Projectile.ai[0]);
 				position = position.RotatedBy(MathHelper.ToRadians(Projectile.ai[1]));
-				Projectile.position = owner.Center + position - new Vector2(Projectile.width, Projectile.height) * 0.5f + Vector2.UnitY * owner.gfxOffY;
+				Projectile.position = Owner.Center + position - new Vector2(Projectile.width, Projectile.height) * 0.5f + Vector2.UnitY * Owner.gfxOffY;
 			}
 		}
 	}

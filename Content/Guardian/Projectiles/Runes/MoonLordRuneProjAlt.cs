@@ -1,19 +1,18 @@
+using Microsoft.Build.Evaluation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.ModObjects;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
+namespace OrchidMod.Content.Guardian.Projectiles.Runes
 {
-	public class SpiderGauntletProjectile : OrchidModGuardianProjectile
+	public class MoonLordRuneProjAlt : OrchidModGuardianProjectile
 	{
 		private static Texture2D TextureMain;
-		private static Texture2D TextureAlt;
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
 
@@ -28,8 +27,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			Projectile.alpha = 96;
 			Projectile.penetrate = 1;
 			Projectile.alpha = 255;
+			Projectile.tileCollide = false;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-			TextureAlt ??= ModContent.Request<Texture2D>(Texture + "_Alt", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			OldPosition = new List<Vector2>();
 			OldRotation = new List<float>();
 			Projectile.usesLocalNPCImmunity = true;
@@ -38,17 +37,19 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 
 		public override void AI()
 		{
+			if (Projectile.timeLeft == 60)
+			{
+				for (int i = 0; i < 10; i ++)
+				{
+					Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Vortex, Scale: Main.rand.NextFloat(0.8f, 1f));
+					dust.velocity = dust.velocity * 0.5f + Projectile.velocity;
+					dust.noGravity = true;
+				}
+			}
+
 			OldPosition.Add(Projectile.Center);
 			Projectile.rotation = Projectile.velocity.ToRotation();
 			if (OldPosition.Count > 5) OldPosition.RemoveAt(0);
-
-			Projectile.ai[1]++;
-			if (Projectile.ai[1] > 20) Projectile.velocity *= 0.8f;
-		}
-
-		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
-		{
-			if (Main.rand.NextBool(5) || Projectile.ai[0] == 1f) target.AddBuff(BuffID.Venom, 240 + Main.rand.Next(120));
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -60,12 +61,11 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 10) colorMult *= Projectile.timeLeft / 10f;
-			Texture2D texture = Projectile.ai[0] == 1f ? TextureAlt : TextureMain;
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
 				Vector2 drawPositionTrail = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
-				spriteBatch.Draw(texture, drawPositionTrail, null, lightColor * 0.2f * (i + 1) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.20f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(TextureMain, drawPositionTrail, null, lightColor * 0.2f * (i + 1) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.22f, SpriteEffects.None, 0f);
 			}
 
 			// Draw code ends here
@@ -74,7 +74,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			spriteBatch.Begin(spriteBatchSnapshot);
 
 			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
-			spriteBatch.Draw(texture, drawPosition, null, lightColor * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale + Projectile.ai[0] * 0.1f, SpriteEffects.None, 0f);
+			spriteBatch.Draw(TextureMain, drawPosition, null, lightColor * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 	}

@@ -3043,6 +3043,11 @@ Items: {
 		DisplayName: Colossal Worm Tooth
 		Tooltip: Players affected by your standards gain 5% increased damage
 	}
+
+	MoonLordRune: {
+		DisplayName: Moon Rune
+		Tooltip: Summons otherworldly portals to protect you
+	}
 }
 
 NPCs: {
@@ -3332,6 +3337,8 @@ Projectiles: {
 	GuardianHammerAnchor.DisplayName: Guardian Hammer Anchor
 	GuardianRuneAnchor.DisplayName: Guardian Rune Anchor
 	MechanicalGauntletProjectile.DisplayName: Mechanical Gauntlet Projectile
+	MoonLordRuneProj.DisplayName: Moon Lord Rune Proj
+	MoonLordRuneProjAlt.DisplayName: Moon Lord Rune Proj Alt
 }
 
 Configs: {
