@@ -36,9 +36,10 @@ namespace OrchidMod.Content.Guardian.Accessories
 				else if (timer > 0)
 				{
 					timer--;
-					if (timer <= 0)
+					if (timer <= 0 || proj.ai[1] > 0)
 					{
 						damageIncrease = 0f;
+						timer = 0;
 					}
 				}
 				player.GetDamage<GuardianDamageClass>() += damageIncrease;

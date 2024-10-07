@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Content.Guardian.Misc
 {
 	[ClassTag(Common.ClassTags.Guardian)]
-	public class GuardianFragmentMaterial : ModItem
+	public class HorizonFragment : ModItem
 	{
 		public override void SetDefaults()
 		{
@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Guardian.Misc
 
 		public override void PostUpdate()
 		{
-			Lighting.AddLight(Item.Center, Color.Teal.ToVector3() * 0.55f * Main.essScale);
+			Lighting.AddLight(Item.Center, new Color(244, 188, 154).ToVector3() * 0.55f * Main.essScale);
 		}
 
 		public override Color? GetAlpha(Color lightColor) => Color.White;

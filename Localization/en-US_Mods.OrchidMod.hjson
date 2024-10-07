@@ -2759,11 +2759,6 @@ Items: {
 		Tooltip: "'Extremely light'"
 	}
 
-	GuardianFragmentMaterial: {
-		DisplayName: Magnetosphere Fragment
-		Tooltip: Invisible forces appear to protect this fragment
-	}
-
 	GoblinSpike: {
 		DisplayName: Goblin Shield Spike
 		Tooltip: Deals 100% of your defense as damage to blocked enemies
@@ -2801,16 +2796,6 @@ Items: {
 			Increases opposing damage and critical strike chance by 15% after blocking a projectile
 			10% increased opposing damage and critical strike chance 
 			'''
-	}
-
-	MagnetosphereWarhammer: {
-		DisplayName: Magnetosheath
-		Tooltip: Kinetic plasma instabilities generate plasma waves
-	}
-
-	MagnetosphereShield: {
-		DisplayName: Bow Shock
-		Tooltip: Bow shocks are created when solar winds blow on a magnetic field
 	}
 
 	Skateboard: {
@@ -3047,6 +3032,20 @@ Items: {
 	MoonLordRune: {
 		DisplayName: Moon Rune
 		Tooltip: Summons otherworldly portals to protect you
+	}
+
+	HorizonFragment: {
+		DisplayName: Horizon Fragment
+		Tooltip: The edge of vastness beyond comprehension lies within this fragment
+	}
+
+	HorizonShield: {
+		DisplayName: Terminus
+		Tooltip:
+			'''
+			Releases homing bolts of energy
+			Greatly reinforced after a successful block
+			'''
 	}
 }
 
@@ -3325,8 +3324,6 @@ Projectiles: {
 	FrostRuneProj.DisplayName: Frost Rune Proj
 	EmpressRuneProj.DisplayName: Empress Rune Proj
 	WaterSpikeProj.DisplayName: Water Spike Proj
-	MagnetosphereWarhammerProj.DisplayName: Magnetosphere Warhammer Proj
-	MagnetosphereShieldProj.DisplayName: Magnetosphere Shield Proj
 	GoblinRuneProj.DisplayName: Goblin Rune Proj
 	GuardianGauntletAnchor.DisplayName: Gauntlet
 	GauntletPunchProjectile.DisplayName: Gauntlet
@@ -3339,6 +3336,9 @@ Projectiles: {
 	MechanicalGauntletProjectile.DisplayName: Mechanical Gauntlet Projectile
 	MoonLordRuneProj.DisplayName: Moon Lord Rune Proj
 	MoonLordRuneProjAlt.DisplayName: Moon Lord Rune Proj Alt
+	HorizonShieldProjBlue.DisplayName: Horizon Shield Proj Blue
+	HorizonShieldProjOrange.DisplayName: Horizon Shield Proj Orange
+	HorizonShieldProj.DisplayName: Horizon Shield Proj
 }
 
 Configs: {

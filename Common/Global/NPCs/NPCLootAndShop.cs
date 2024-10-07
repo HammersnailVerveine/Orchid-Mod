@@ -339,7 +339,7 @@ namespace OrchidMod.Common.Global.NPCs
 				if (Main.expertMode) quantity = (int)(quantity * 1.5f);
 				for (int i = 0; i < quantity; i++)
 				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<GuardianFragmentMaterial>(), Main.rand.Next(1, 4), false, 0, false, false);
+					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<HorizonFragment>(), Main.rand.Next(1, 4), false, 0, false, false);
 				}
 			}
 
