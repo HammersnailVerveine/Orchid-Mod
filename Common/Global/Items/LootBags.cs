@@ -28,6 +28,7 @@ using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Content.Guardian.Weapons.Standards;
+using OrchidMod.Content.Guardian.Weapons.Shields;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -161,15 +162,22 @@ namespace OrchidMod.Common.Global.Items
 					}
 					break;
 				case ItemID.MoonLordBossBag:
-					{
+					{ // Vanilla is 2 random items from the loot pool
 						QuickSpawnRandomItemFromList(
 							player: player,
 							items: new()
 							{
 								//(ModContent.ItemType<Nirvana>(), 1),
 								//(ModContent.ItemType<TheCore>(), 1)
-							},
-							chanceDenominator: 5
+							}
+						);
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
+								(ModContent.ItemType<MoonLordRune>(), 1),
+								(ModContent.ItemType<MoonLordShield>(), 1)
+							}
 						);
 					}
 					break;

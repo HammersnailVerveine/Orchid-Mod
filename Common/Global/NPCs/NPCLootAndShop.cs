@@ -388,17 +388,23 @@ namespace OrchidMod.Common.Global.NPCs
 			if (npc.type == NPCID.MoonLordCore)
 			{
 				if (!Main.expertMode)
-				{
-					if (Main.rand.NextBool(5))
+				{ // Vanilla is 2 random items from the loot pool
+					if (Main.rand.NextBool())
 					{
-						if (Main.rand.NextBool())
-						{
-							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Nirvana>());
-						}
-						else
-						{
-							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<TheCore>());
-						}
+						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Nirvana>());
+					}
+					else
+					{
+						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<TheCore>());
+					}
+
+					if (Main.rand.NextBool())
+					{
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<MoonLordRune>());
+					}
+					else
+					{
+						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<MoonLordShield>());
 					}
 				}
 			}
