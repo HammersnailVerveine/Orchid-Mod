@@ -3047,6 +3047,15 @@ Items: {
 			Greatly reinforced after a successful block
 			'''
 	}
+
+	MoonLordShield: {
+		DisplayName: Sickflip
+		Tooltip:
+			'''
+			Block downwards while falling to skate
+			Slam to launch yourself backwards
+			'''
+	}
 }
 
 NPCs: {
