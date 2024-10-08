@@ -6,6 +6,9 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Utilities;
 using OrchidMod.Common.ModObjects;
+using System.IO;
+using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
@@ -14,6 +17,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 		public float playerVelocity;
 		public float originalHeight;
 		public int TimeSpent;
+
+		public Color Color => new Color(Main.DiscoR / 2, (byte)(Main.DiscoG / 1.25f), (byte)(Main.DiscoB / 1.5f));
 
 		public override void SafeSetDefaults()
 		{
@@ -25,13 +30,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.damage = 963;
 			Item.rare = ItemRarityID.Red;
 			Item.useTime = 60;
-			distance = 28f;
+			distance = 26f;
 			slamDistance = 150f;
 			blockDuration = 600;
 		}
 
 		public override void Slam(Player player, Projectile shield)
 		{
+			playerVelocity = 0;
+			originalHeight = 0;
 			Player owner = Main.player[shield.owner];
 			if (shield.ModProjectile is GuardianShieldAnchor anchor)
 			{
@@ -50,30 +57,31 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 		public override void BlockStart(Player player, Projectile shield)
 		{
 			playerVelocity = 0;
+			originalHeight = 0;
 			player.velocity *= 0f;
+			TimeSpent = 0;
 		}
 
 		public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
 		{
-			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Main.DiscoColor, rotation, scale);
+			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color, rotation, scale);
 		}
 
 		public override void ExtraAIShield(Projectile projectile)
 		{
-			TimeSpent++;
 			if (projectile.ai[1] > 0f) // is slamming
 			{
 
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.RainbowMk2, newColor: Main.DiscoColor);
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.RainbowMk2, newColor: Color);
 				dust.noGravity = true;
 				dust.velocity *= 0.5f;
-				dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.RainbowMk2, newColor: Main.DiscoColor);
+				dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.RainbowMk2, newColor: Color);
 				dust.noGravity = true;
-				dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Smoke, newColor: Main.DiscoColor);
+				dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Smoke, newColor: Color);
 				dust.noGravity = true;
 				dust.velocity *= 0.5f;
 				dust.scale *= Main.rand.NextFloat(1f, 1.5f);
-				dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Smoke, newColor: Main.DiscoColor);
+				dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Smoke, newColor: Color);
 				dust.noGravity = true;
 				dust.scale *= Main.rand.NextFloat(1f, 1.5f);
 			}
@@ -90,6 +98,21 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				// playing is aiming down has no hook or mount, and is falling. Place the shield down and allow skating
 				if (anchor.aimedLocation.Y > owner.Center.Y && (Math.Abs(anchor.aimedLocation.X - owner.Center.X) < 48f) && owner.grapCount == 0 && owner.mount.Type == MountID.None)
 				{
+					TimeSpent++;
+
+					if (TimeSpent % 60 == 0)
+					{
+						OrchidGuardian guardian = Main.player[projectile.owner].GetModPlayer<OrchidGuardian>();
+						if (TimeSpent % 120 == 0)
+						{
+							guardian.AddGuard(1);
+						}
+						else
+						{
+							guardian.AddSlam(1);
+						}
+					}
+
 					if (projectile.ai[2] != -MathHelper.PiOver2)
 					{
 						anchor.aimedLocation = owner.Center.Floor() - new Vector2(projectile.width / 2f, projectile.height / 2f) + Vector2.UnitY * distance;
@@ -103,28 +126,40 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 					if (originalHeight != 0f) owner.position.Y = originalHeight;
 					if (TimeSpent % 21 == 0) SoundEngine.PlaySound(SoundID.Item24, projectile.Center);
 
-					Dust dust = Dust.NewDustDirect(projectile.Center - new Vector2(13, 1), 6, 6, DustID.Smoke, newColor: Main.DiscoColor);
-					dust.noGravity = true;
-					dust.velocity *= 0.5f;
-					dust.velocity.Y = 1f;
-					dust.scale *= Main.rand.NextFloat(1f, 1.5f);
-					dust = Dust.NewDustDirect(projectile.Center + new Vector2(7, 1), 6, 6, DustID.Smoke, newColor: Main.DiscoColor);
-					dust.noGravity = true;
-					dust.velocity *= 0.5f;
-					dust.velocity.Y = 1f;
-					dust.scale *= Main.rand.NextFloat(1f, 1.5f);
-
 					if (playerVelocity != 0)
 					{
+						if (owner.direction < 0 && playerVelocity > 0 || owner.direction > 0 && playerVelocity < 0)
+						{
+							SoundEngine.PlaySound(SoundID.Item115, projectile.Center);
+							playerVelocity *= -1f;
+						}
+
 						owner.velocity.Y -= -0.00001f;
 						owner.fallStart = (int)(owner.position.Y / 16f);
 						owner.fallStart2 = (int)(owner.position.Y / 16f);
 						owner.velocity.X = playerVelocity;
 
-						dust = Dust.NewDustDirect(projectile.Center - new Vector2(13, 1), 6, 6, DustID.RainbowMk2, -playerVelocity * 0.5f, 0.5f, newColor: Main.DiscoColor);
+						Dust dust = Dust.NewDustDirect(projectile.Center - new Vector2(13, 1), 6, 6, DustID.Smoke, newColor: Color);
 						dust.noGravity = true;
-						dust = Dust.NewDustDirect(projectile.Center + new Vector2(7, 1), 6, 6, DustID.RainbowMk2, -playerVelocity * 0.5f, 0.5f, newColor: Main.DiscoColor);
+						dust.velocity *= 0.5f;
+						dust.velocity.Y = 1f;
+						dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+						dust = Dust.NewDustDirect(projectile.Center + new Vector2(7, 1), 6, 6, DustID.Smoke, newColor: Color);
 						dust.noGravity = true;
+						dust.velocity *= 0.5f;
+						dust.velocity.Y = 1f;
+						dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+
+						dust = Dust.NewDustDirect(projectile.Center - new Vector2(13, 1), 6, 6, DustID.RainbowMk2, 0f, 0f, newColor: Color);
+						dust.noGravity = true;
+						dust.velocity.X = playerVelocity * 0.1f;
+						dust.velocity.Y = (float)Math.Sin(TimeSpent * 0.25f) * 5f;
+						dust = Dust.NewDustDirect(projectile.Center + new Vector2(7, 1), 6, 6, DustID.RainbowMk2, 0f, 0f, newColor: Color);
+						dust.noGravity = true;
+						dust.velocity.X = playerVelocity * 0.1f;
+						dust.velocity.Y = (float)Math.Sin(TimeSpent * 0.25f) * 5f;
+
+						projectile.rotation = projectile.ai[2] + 0.01f * playerVelocity;
 					}
 					else
 					{
@@ -133,6 +168,30 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 						{
 							if (Math.Abs(playerVelocity) < 8f) playerVelocity = 15f * Math.Sign(playerVelocity);
 							SoundEngine.PlaySound(SoundID.Item115, projectile.Center);
+						}
+
+						Dust dust = Dust.NewDustDirect(projectile.Center - new Vector2(13, 1), 6, 6, DustID.RainbowMk2, 0f, 0f, newColor: Color);
+						dust.noGravity = true;
+						dust.velocity.X = (float)Math.Sin(TimeSpent * 0.25f) * 5f;
+						dust.velocity.Y = 3f;
+						dust = Dust.NewDustDirect(projectile.Center + new Vector2(7, 1), 6, 6, DustID.RainbowMk2, 0f, 0f, newColor: Color);
+						dust.noGravity = true;
+						dust.velocity.X = (float)Math.Sin(TimeSpent * 0.25f) * 5f;
+						dust.velocity.Y = 3f;
+
+						if (Main.rand.NextBool(3))
+						{
+
+							dust = Dust.NewDustDirect(projectile.Center - new Vector2(13, 1), 6, 6, DustID.Smoke, newColor: Color);
+							dust.noGravity = true;
+							dust.velocity *= 0.5f;
+							dust.velocity.Y = 1f;
+							dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+							dust = Dust.NewDustDirect(projectile.Center + new Vector2(7, 1), 6, 6, DustID.Smoke, newColor: Color);
+							dust.noGravity = true;
+							dust.velocity *= 0.5f;
+							dust.velocity.Y = 1f;
+							dust.scale *= Main.rand.NextFloat(1f, 1.5f);
 						}
 					}
 				}
