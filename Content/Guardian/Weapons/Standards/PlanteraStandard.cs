@@ -37,6 +37,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 				{
 					Dust.NewDustDirect(affectedPlayer.position, affectedPlayer.width, affectedPlayer.height, DustID.PlanteraBulb).noGravity = true;
 				}
+
+				if (Main.rand.NextBool(30))
+				{
+					Dust.NewDustDirect(affectedPlayer.position, affectedPlayer.width, affectedPlayer.height, DustID.HealingPlus);
+				}
 			}
 			return true;
 		}
