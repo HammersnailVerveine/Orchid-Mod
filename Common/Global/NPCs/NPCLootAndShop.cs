@@ -58,6 +58,11 @@ namespace OrchidMod.Common.Global.NPCs
 						// shop.Add(ItemType<DryadsGift>());
 					}
 					break;
+				case NPCID.Merchant:
+					{
+						shop.Add(ItemType<GuardianBuffStation>(), [Condition.Hardmode]);
+					}
+					break;
 				case NPCID.SkeletonMerchant:
 					{
 						shop.Add(ItemType<GuardianGitHelm>());

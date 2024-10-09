@@ -6,6 +6,7 @@ Keybinds: {
 Tiles: {
 	JungleLilyTile.MapEntry: Jungle Lily
 	ShamanBiomeChestTile.MapEntry: Mushroom Chest
+	GuardianBuffStationTile.MapEntry: Spinning Dummy
 }
 
 Buffs: {
@@ -257,6 +258,11 @@ Buffs: {
 	GuardianPaladinGauntletBuff: {
 		DisplayName: Guardian Paladin Gauntlet Buff
 		Description: Releases sparks of light when punching
+	}
+
+	GuardianBuffStationBuff: {
+		DisplayName: Battle Ready
+		Description: +1 slam charge
 	}
 }
 
@@ -3056,6 +3062,11 @@ Items: {
 			Slam to launch yourself backwards
 			Recover guard and slam charges while skating
 			'''
+	}
+
+	GuardianBuffStation: {
+		DisplayName: Spinning Dummy
+		Tooltip: Increases maximum slam charges
 	}
 }
 
