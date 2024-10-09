@@ -2894,12 +2894,12 @@ Items: {
 
 	SilverGauntlet: {
 		DisplayName: Silver Gauntlets
-		Tooltip: Grants a guard after a fully charged hit
+		Tooltip: ""
 	}
 
 	TungstenGauntlet: {
 		DisplayName: Tungsten Gauntlets
-		Tooltip: Grants a guard after a fully charged hit
+		Tooltip: ""
 	}
 
 	JungleGauntlet: {

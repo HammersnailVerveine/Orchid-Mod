@@ -24,11 +24,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			return new Color(202, 233, 207);
 		}
 
-		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
-		{
-			if (charged) guardian.AddGuard(1);
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();

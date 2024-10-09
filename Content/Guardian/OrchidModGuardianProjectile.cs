@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian
 
 		public sealed override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
+			SafeModifyHitNPC(target, ref modifiers);
 			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
 			if (!modTarget.GuardianHit)
 			{
