@@ -307,7 +307,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			if (Projectile.ai[1] < 0) // Less  damage for melee hits
 			{
-				if (Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianHammerCharge < 210f)
+				if (Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianHammerCharge < 180f)
 				{
 					modifiers.FinalDamage *= 0.5f;
 				}
@@ -322,7 +322,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			if (Projectile.ai[1] < 0) // Less  damage for melee hits
 			{
-				if (Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianHammerCharge < 210f)
+				if (Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianHammerCharge < 180f)
 				{
 					modifiers.FinalDamage *= 0.5f;
 				}
