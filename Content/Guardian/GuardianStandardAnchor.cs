@@ -92,35 +92,35 @@ namespace OrchidMod.Content.Guardian
 			else
 			{
 				bool heldStandard = owner.HeldItem.ModItem is OrchidModGuardianStandard;
-				if (!heldStandard)
+
+				if (IsLocalOwner)
 				{
-					if (IsLocalOwner)
+					if (heldStandard)
 					{
-						if (!Worn)
+						if (Main.MouseWorld.X > owner.Center.X && owner.direction != 1) owner.ChangeDir(1);
+						else if (Main.MouseWorld.X < owner.Center.X && owner.direction != -1) owner.ChangeDir(-1);
+						if (NeedNetUpdate)
 						{
-							Projectile.Kill();
-							return;
+							NeedNetUpdate = false;
+							Projectile.netUpdate = true;
 						}
 					}
-					else
+					else if (!Worn)
+					{
+						Projectile.Kill();
+						return;
+					}
+				}
+				else
+				{
+					if (!heldStandard)
 					{
 						Projectile.ai[0] = 0f;
 					}
-				}
 
-				if (!IsLocalOwner && Projectile.ai[0] == 0f)
-				{ // Adresses a visual issue
-					guardian.GuardianStandardCharge = 0;
-				}
-
-				if ((heldStandard || owner.HeldItem.ModItem is OrchidModGuardianStandard) && IsLocalOwner)
-				{
-					if (Main.MouseWorld.X > owner.Center.X && owner.direction != 1) owner.ChangeDir(1);
-					else if (Main.MouseWorld.X < owner.Center.X && owner.direction != -1) owner.ChangeDir(-1);
-					if (NeedNetUpdate)
-					{
-						NeedNetUpdate = false;
-						Projectile.netUpdate = true;
+					if (Projectile.ai[0] == 0f)
+					{ // Adresses a visual issue
+						guardian.GuardianStandardCharge = 0;
 					}
 				}
 
@@ -259,8 +259,8 @@ namespace OrchidMod.Content.Guardian
 					}
 					else if (Worn && !heldStandard)
 					{ // Display on player back
-						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(-8f * owner.direction, -12);
-						Projectile.rotation = MathHelper.PiOver4 * -0.3f * owner.direction - MathHelper.PiOver4;
+						Projectile.Center = owner.MountedCenter.Floor();
+						//Projectile.rotation = MathHelper.PiOver4 * 0.5f * owner.direction - MathHelper.PiOver4;
 					}
 					else
 					{ // Idle - flag is held further and lower
@@ -303,12 +303,20 @@ namespace OrchidMod.Content.Guardian
 				var texture = ModContent.Request<Texture2D>(guardianItem.ShaftTexture).Value;
 
 				var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+				float drawRotation = Projectile.rotation;
+
+				if (Worn && player.HeldItem.ModItem is not OrchidModGuardianStandard)
+				{
+					drawPosition += new Vector2(-8f * player.direction, -12);
+					drawRotation = MathHelper.PiOver4 * 0.5f * -player.direction - MathHelper.PiOver4;
+				}
+
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-				spriteBatch.Draw(texture, drawPosition, null, color, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(texture, drawPosition, null, color, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 
 				float windSpeed = 0.25f * Main.windSpeedCurrent;
 				float flagRotation = MathHelper.PiOver4 * Projectile.localAI[1] * 0.5f + (float)Math.Sin(TimeSpent * (Math.Abs(windSpeed) > 0.05f ? windSpeed : 0.05f)) * 0.1f;
-				Vector2 flagOffset = Vector2.UnitX.RotatedBy(Projectile.rotation) * -1.5f * Projectile.localAI[1];
+				Vector2 flagOffset = Vector2.UnitX.RotatedBy(drawRotation) * -1.5f * Projectile.localAI[1];
 
 				Texture2D textureEnd = ModContent.Request<Texture2D>(guardianItem.FlagEndTexture).Value;
 				Texture2D textureQuarter = ModContent.Request<Texture2D>(guardianItem.FlagTwoQuarterTexture).Value;
@@ -334,19 +342,19 @@ namespace OrchidMod.Content.Guardian
 					{ // Flag glow effect when reinforced
 						Color glowColor = Color.White;
 						if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not OrchidModGuardianStandard) glowColor *= Projectile.ai[1] / 30f;
-						spriteBatch.Draw(textureEnd, drawPosition + flagOffset * 1.3f, null, glowColor, Projectile.rotation + flagRotation * 2.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
-						spriteBatch.Draw(textureQuarter, drawPosition + flagOffset * 1.2f, null, glowColor, Projectile.rotation + flagRotation * 1.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
-						spriteBatch.Draw(textureTwoQuarter, drawPosition + flagOffset * 1.1f, null, glowColor, Projectile.rotation + flagRotation * 1f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
-						spriteBatch.Draw(textureUp, drawPosition + flagOffset, null, glowColor, Projectile.rotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+						spriteBatch.Draw(textureEnd, drawPosition + flagOffset * 1.3f, null, glowColor, drawRotation + flagRotation * 2.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+						spriteBatch.Draw(textureQuarter, drawPosition + flagOffset * 1.2f, null, glowColor, drawRotation + flagRotation * 1.4f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+						spriteBatch.Draw(textureTwoQuarter, drawPosition + flagOffset * 1.1f, null, glowColor, drawRotation + flagRotation * 1f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
+						spriteBatch.Draw(textureUp, drawPosition + flagOffset, null, glowColor, drawRotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale * 1.1f, effect, 0f);
 					}
 					spriteBatch.End();
 					spriteBatch.Begin(spriteBatchSnapshot);
 				}
 
-				spriteBatch.Draw(textureEnd, drawPosition + flagOffset * 1.3f, null, color, Projectile.rotation + flagRotation * 2.4f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
-				spriteBatch.Draw(textureQuarter, drawPosition + flagOffset * 1.2f, null, color, Projectile.rotation + flagRotation * 1.4f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
-				spriteBatch.Draw(textureTwoQuarter, drawPosition + flagOffset * 1.1f, null, color, Projectile.rotation + flagRotation * 1f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
-				spriteBatch.Draw(textureUp, drawPosition + flagOffset, null, color, Projectile.rotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(textureEnd, drawPosition + flagOffset * 1.3f, null, color, drawRotation + flagRotation * 2.4f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(textureQuarter, drawPosition + flagOffset * 1.2f, null, color, drawRotation + flagRotation * 1.4f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(textureTwoQuarter, drawPosition + flagOffset * 1.1f, null, color, drawRotation + flagRotation * 1f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(textureUp, drawPosition + flagOffset, null, color, drawRotation + flagRotation * 0.5f, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawStandard(spriteBatch, Projectile, player, color);
 

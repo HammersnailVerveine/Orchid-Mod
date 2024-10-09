@@ -104,7 +104,7 @@ namespace OrchidMod.Content.Guardian
 					guardian.GuardianGauntletParry = true;
 					guardian.GuardianGauntletParry2 = true;
 
-					Projectile.Center = owner.Center.Floor() + new Vector2(4 * owner.direction, 0);
+					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(4 * owner.direction, 0);
 					if (OffHandGauntlet) Projectile.position.X += 6 * owner.direction;
 					Projectile.rotation = 0f;
 
@@ -124,7 +124,7 @@ namespace OrchidMod.Content.Guardian
 					}
 
 					float addedDistance = (float)Math.Sin(MathHelper.Pi / slamTime * Projectile.localAI[1]) * slamTime;
-					Projectile.Center = owner.Center.Floor() + new Vector2(4 * owner.direction, 0) + Vector2.UnitY.RotatedBy(Projectile.ai[1]) * addedDistance;
+					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(4 * owner.direction, 0) + Vector2.UnitY.RotatedBy(Projectile.ai[1]) * addedDistance;
 
 					if (!IsLocalOwner)
 					{ // Rotates the player in the direction of the punch for other clients
@@ -140,7 +140,7 @@ namespace OrchidMod.Content.Guardian
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
 							float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance();
-							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
+							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
 							if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 							{
 								punch.GauntletItem = GauntletItem.ModItem as OrchidModGuardianGauntlet;
@@ -215,20 +215,20 @@ namespace OrchidMod.Content.Guardian
 
 							if (IsLocalOwner)
 							{
-								Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.Center).ToRotation() - MathHelper.PiOver2;
+								Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
 								Projectile.ai[2] = 0f;
 								Projectile.netUpdate = true;
 							}
 						}
 						else
 						{
-							Projectile.Center = owner.Center.Floor() + new Vector2(-(4 + guardian.GuardianGauntletCharge * 0.033f) * owner.direction, 4);
+							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(-(4 + guardian.GuardianGauntletCharge * 0.033f) * owner.direction, 4);
 							Projectile.rotation = MathHelper.PiOver2;
 						}
 					}
 					else
 					{
-						Projectile.Center = owner.Center.Floor() + new Vector2((-6 + guardian.GuardianGauntletCharge * 0.01f) * owner.direction, 6);
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2((-6 + guardian.GuardianGauntletCharge * 0.01f) * owner.direction, 6);
 						if (OffHandGauntlet) Projectile.position.X += 8 * owner.direction;
 
 						if (owner.velocity.X != 0)
@@ -246,7 +246,7 @@ namespace OrchidMod.Content.Guardian
 
 				if (!OffHandGauntlet)
 				{ // Composite arm stuff for the front arm (the back arm is disabled while holding gauntlets)
-					float rotation = (Projectile.Center + new Vector2(6 * owner.direction, Slamming ? 2 : Charging ? 8 : 6) - owner.Center.Floor()).ToRotation();
+					float rotation = (Projectile.Center + new Vector2(6 * owner.direction, Slamming ? 2 : Charging ? 8 : 6) - owner.MountedCenter.Floor()).ToRotation();
 					CompositeArmStretchAmount compositeArmStretchAmount = CompositeArmStretchAmount.ThreeQuarters; // Tweak the arm based on punch direction if necessary
 					if (Charging) compositeArmStretchAmount = CompositeArmStretchAmount.Quarter;
 					if (Projectile.localAI[1] > 0.55f && (Projectile.ai[1] > -2.25f || Projectile.ai[1] < -4f)) compositeArmStretchAmount = CompositeArmStretchAmount.Full;
