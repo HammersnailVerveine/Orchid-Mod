@@ -305,7 +305,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (Projectile.ai[1] < 0) // Less  damage for melee hits
+			if (Projectile.ai[1] < 0) // Less damage for melee hits
 			{
 				if (Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianHammerCharge < 180f)
 				{
@@ -320,7 +320,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
 		{
-			if (Projectile.ai[1] < 0) // Less  damage for melee hits
+			if (Projectile.ai[1] < 0) // Less damage for melee hits
 			{
 				if (Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianHammerCharge < 180f)
 				{
