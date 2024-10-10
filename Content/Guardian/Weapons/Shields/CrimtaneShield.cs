@@ -33,7 +33,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.CrimtaneBar, 10);
-			recipe.AddIngredient(ItemID.TissueSample, 5);
 			recipe.Register();
 		}
 	}
