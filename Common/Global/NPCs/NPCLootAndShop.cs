@@ -481,13 +481,16 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				if (!Main.expertMode)
 				{
-					if (Main.rand.NextBool(3))
+					switch (Main.rand.Next(3))
 					{
-						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<SunRay>());
-					}
-					else
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<TempleWarhammer>());
+						default:
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<TempleWarhammer>());
+							break;
+						case 1:
+							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<SunRay>());
+							break;
+						case 2:
+							break;
 					}
 				}
 			}

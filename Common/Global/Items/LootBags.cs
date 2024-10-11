@@ -152,7 +152,7 @@ namespace OrchidMod.Common.Global.Items
 								(ModContent.ItemType<TempleWarhammer>(), 1)
 							},
 							//chanceDenominator: 2
-							chanceDenominator: 4
+							chanceDenominator: 3
 						);
 					}
 					break;
