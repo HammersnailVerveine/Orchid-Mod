@@ -31,6 +31,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 		public override bool NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
 		{
 			standardStats.moveSpeed += 0.1f;
+			if (reinforced && isLocalPlayer)
+			{
+				guardian.GuardianStandardDesert = true;
+				guardian.GuardianStandardBuffer = true;
+			}
 			return true;
 		}
 

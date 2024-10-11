@@ -4,6 +4,7 @@ using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Guardian.Buffs;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
+using OrchidMod.Content.Guardian.Projectiles.Standards;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -31,15 +32,16 @@ namespace OrchidMod
 
 		// Set effects, accessories, misc
 
-		public bool GuardianMeteorite = false;
-		public bool GuardianSpikeGoblin = false;
+		public bool GuardianMeteorite = false; // Armor Sets
+		public bool GuardianBamboo = false;
+		public bool GuardianGit = false;
+		public bool GuardianSpikeGoblin = false; // Accessories
 		public bool GuardianSpikeDungeon = false;
 		public bool GuardianSpikeMechanical = false;
 		public bool GuardianSpikeTemple = false;
-		public bool GuardianBamboo = false;
-		public bool GuardianGit = false;
-		public bool GuardianHoneyPotion = false;
 		public bool GuardianWormTooth = false;
+		public bool GuardianStandardDesert = false; // Standards
+		public bool GuardianHoneyPotion = false; // Misc
 
 		// Dynamic gameplay and UI fields
 
@@ -55,6 +57,7 @@ namespace OrchidMod
 		public float GuardianRuneCharge = 0f; // Player Rune Charge, max is 180f
 		public bool GuardianGauntletParry = false; // Player is currently parrying with a gauntlet
 		public bool GuardianGauntletParry2 = false; // Player is currently parrying with a gauntlet (1 frame buffer)
+		public bool GuardianStandardBuffer = false; // used to delay the deactivation of various standards effects by 1 frame
 		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
@@ -185,6 +188,17 @@ namespace OrchidMod
 			StandardAnchor = null;
 			RuneProjectiles.Clear();
 
+			// Resetting standards effects
+
+			if (GuardianStandardBuffer)
+			{
+				GuardianStandardBuffer = false;
+			}
+			else
+			{ // Reset standards here
+				GuardianStandardDesert = false;
+			}
+
 			// Resetting equipment variables
 
 			GuardianRecharge = 1f;
@@ -230,6 +244,27 @@ namespace OrchidMod
 			return true;
 		}
 
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (proj.ModProjectile is OrchidModGuardianProjectile)
+			{
+				if (GuardianStandardDesert)
+				{
+					int type = ModContent.ProjectileType<DesertStandardProj>();
+					if (proj.type != type)
+					{
+						SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, Player.Center);
+						float damage = (damageDone * 0.5f);
+						if (damage > 30) damage = 30;
+						Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), target.Center, Vector2.UnitY * -10f, type, (int)damage, 1f, Player.whoAmI, target.whoAmI); 
+						projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+					}
+				}
+
+				//..
+			}
+		}
+
 		public override bool FreeDodge(Player.HurtInfo info)
 		{
 			if (GuardianGauntletParry)
@@ -273,6 +308,8 @@ namespace OrchidMod
 
 			return false;
 		}
+
+		// Below are custom Guardian Methods
 
 		public void AddSlam(int nb)
 		{

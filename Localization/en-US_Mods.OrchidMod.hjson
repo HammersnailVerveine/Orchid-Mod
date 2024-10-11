@@ -2992,7 +2992,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging increases movement speed by 10%
-			When reinforced, shocks nearby enemies on hit
+			When reinforced, shocks another nearby enemy on hit
 			'''
 	}
 
@@ -3360,6 +3360,7 @@ Projectiles: {
 	HorizonShieldProjBlue.DisplayName: Horizon Shield Proj Blue
 	HorizonShieldProjOrange.DisplayName: Horizon Shield Proj Orange
 	HorizonShieldProj.DisplayName: Horizon Shield Proj
+	DesertStandardProj.DisplayName: Desert Standard Proj
 }
 
 Configs: {
