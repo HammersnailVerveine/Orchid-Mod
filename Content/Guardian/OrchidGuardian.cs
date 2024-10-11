@@ -255,7 +255,7 @@ namespace OrchidMod
 					{
 						SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, Player.Center);
 						float damage = (damageDone * 0.5f);
-						if (damage > 30) damage = 30;
+						if (damage > 20) damage = 20;
 						Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), target.Center, Vector2.UnitY * -10f, type, (int)damage, 1f, Player.whoAmI, target.whoAmI); 
 						projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
 					}

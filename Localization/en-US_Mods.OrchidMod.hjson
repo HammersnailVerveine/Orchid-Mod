@@ -2595,7 +2595,7 @@ Items: {
 		Tooltip: ""
 	}
 
-	StormWarhammer: {
+	DesertWarhammer: {
 		DisplayName: Stormbreaker
 		Tooltip: ""
 	}

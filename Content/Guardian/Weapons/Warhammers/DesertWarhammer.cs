@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
-	public class StormWarhammer : OrchidModGuardianHammer
+	public class DesertWarhammer : OrchidModGuardianHammer
 	{
 
 		public override void SafeSetDefaults()

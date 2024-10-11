@@ -288,7 +288,8 @@ namespace OrchidMod.Common.ModSystems
 
 			// Underground Desert Chests
 			// chestLoots.Add(new ChestLoot(ItemType<RuneOfHorus>(), ChestType.Sandstone, 20));
-			chestLoots.Add(new ChestLoot(ItemType<StormWarhammer>(), ChestType.Sandstone, 20));
+			chestLoots.Add(new ChestLoot(ItemType<DesertWarhammer>(), ChestType.Sandstone, 20));
+			chestLoots.Add(new ChestLoot(ItemType<DesertStandard>(), ChestType.Sandstone, 20));
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
