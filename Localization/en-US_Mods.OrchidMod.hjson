@@ -2988,7 +2988,7 @@ Items: {
 	}
 
 	DesertStandard: {
-		DisplayName: Baalic Stormcrest
+		DisplayName: Stormwoven Crest
 		Tooltip:
 			'''
 			Fully charging increases movement speed by 10%
