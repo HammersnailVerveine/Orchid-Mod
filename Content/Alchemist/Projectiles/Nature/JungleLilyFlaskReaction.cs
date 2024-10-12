@@ -64,7 +64,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Nature
 					{
 						Tile tile = Framing.GetTileSafely(k, l);
 
-						if (tile.TileType == ModContent.TileType<Content.Items.Materials.JungleLilyTile>() && tile.TileFrameX % 36 == 0 && tile.TileFrameY == 0 && tile.HasTile)
+						if (tile.TileType == ModContent.TileType<Content.General.Materials.JungleLilyTile>() && tile.TileFrameX % 36 == 0 && tile.TileFrameY == 0 && tile.HasTile)
 						{
 							OrchidModProjectile.spawnDustCircle(new Vector2((k + 1) * 16, (l + 1) * 16), ModContent.DustType<Content.Dusts.BloomingDust>(), 5, 8, true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
 
@@ -75,7 +75,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Nature
 								NetMessage.SendData(MessageID.TileSquare, -1, -1, null, 0, k, l);
 							}
 
-							Item.NewItem(new EntitySource_TileBreak(k, l), (k + 1) * 16, (l + 1) * 16, 0, 0, ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>());
+							Item.NewItem(new EntitySource_TileBreak(k, l), (k + 1) * 16, (l + 1) * 16, 0, 0, ModContent.ItemType<Content.General.Materials.JungleLilyBloomed>());
 						}
 					}
 				}

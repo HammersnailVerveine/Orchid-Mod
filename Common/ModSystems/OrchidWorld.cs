@@ -31,6 +31,7 @@ using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Guardian.Weapons.Standards;
 using OrchidMineshaft.Tiles.Chests;
+using OrchidMod.Content.General.Misc;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -114,7 +115,7 @@ namespace OrchidMod.Common.ModSystems
 								tile.ClearTile();
 							}
 						}
-						WorldGen.PlaceTile(x, y, TileType<Content.Items.Materials.JungleLilyTile>(), style: WorldGen.genRand.Next(4));
+						WorldGen.PlaceTile(x, y, TileType<Content.General.Materials.JungleLilyTile>(), style: WorldGen.genRand.Next(4));
 					}
 				}
 			}
@@ -179,7 +180,7 @@ namespace OrchidMod.Common.ModSystems
 										continue;
 									}
 
-									int chestIndex = WorldGen.PlaceChest(x - 1, y - 1, (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>(), false, 1);
+									int chestIndex = WorldGen.PlaceChest(x - 1, y - 1, (ushort)TileType<Content.General.Placeables.ShamanBiomeChestTile>(), false, 1);
 
 									if (chestIndex < 0)
 									{
@@ -355,7 +356,7 @@ namespace OrchidMod.Common.ModSystems
 				placeInChest(chest, rand, 1);
 			}
 
-			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<Content.Items.Placeables.ShamanBiomeChestTile>())
+			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<ShamanBiomeChestTile>())
 			{
 				chest.item[0].SetDefaults(ItemType<ShroomiteScepter>());
 				chest.item[1].SetDefaults(183); // Glowing Mushroom

@@ -10,7 +10,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Items.Melee
+namespace OrchidMod.Content.General.Melee
 {
 	public class PrototypeSecrecy : ModItem
 	{

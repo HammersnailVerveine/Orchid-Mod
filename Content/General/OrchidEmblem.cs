@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using OrchidMod.Assets;
 
-namespace OrchidMod.Content.Items
+namespace OrchidMod.Content.General
 {
 	public class OrchidEmblem : ModItem
 	{

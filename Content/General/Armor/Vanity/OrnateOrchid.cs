@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace OrchidMod.Content.Items.Armor.Vanity
+namespace OrchidMod.Content.General.Armor.Vanity
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class OrnateOrchid : ModItem

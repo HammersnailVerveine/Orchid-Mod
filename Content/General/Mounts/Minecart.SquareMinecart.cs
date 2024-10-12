@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Items.Mounts
+namespace OrchidMod.Content.General.Mounts
 {
 	public class SquareMinecart : ModItem
 	{

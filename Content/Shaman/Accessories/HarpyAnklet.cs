@@ -1,4 +1,4 @@
-using OrchidMod.Content.Items.Consumables;
+using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.Shaman.Projectiles.Equipment;
 using Terraria;
 using Terraria.ID;

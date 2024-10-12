@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Items.Consumables
+namespace OrchidMod.Content.General.Misc
 {
 	public class HarpyPotion : ModItem
 	{

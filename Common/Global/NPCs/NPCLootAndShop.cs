@@ -15,10 +15,9 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OrchidMod.Content.Items.Placeables;
-using OrchidMod.Content.Items.Pets;
+using OrchidMod.Content.General.Pets;
 using static Terraria.ModLoader.ModContent;
-using OrchidMod.Content.Items;
+using OrchidMod.Content.General;
 using OrchidMod.Content.Guardian.Weapons.Warhammers;
 using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Misc;
@@ -28,6 +27,8 @@ using OrchidMod.Common.ModSystems;
 using OrchidMod.Content.Guardian.Armors.Misc;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Guardian.Weapons.Standards;
+using OrchidMod.Content.General.Misc;
+using OrchidMod.Content.General.Armor.Vanity;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -66,7 +67,13 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.SkeletonMerchant:
 					{
 						shop.Add(ItemType<GuardianGitHelm>());
-						//shop.Add(ItemType<GuardianGitHelm>(), [Condition.TimeNight]);
+					}
+					break;
+				case NPCID.Clothier:
+					{
+						shop.Add(ItemType<EmpressPlateHead>(), [Condition.DownedEmpressOfLight, Condition.InHallow]);
+						shop.Add(ItemType<EmpressPlateChest>(), [Condition.DownedEmpressOfLight, Condition.InHallow]);
+						shop.Add(ItemType<EmpressPlateLegs>(), [Condition.DownedEmpressOfLight, Condition.InHallow]);
 					}
 					break;
 			}

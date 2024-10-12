@@ -43,14 +43,14 @@ namespace OrchidMod.Content.Alchemist.Weapons.Nature
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ModContent.ItemType<Content.Alchemist.Misc.EmptyFlask>(), 1);
-			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLily>(), 2);
+			recipe.AddIngredient(ModContent.ItemType<Content.General.Materials.JungleLily>(), 2);
 			recipe.AddIngredient(ItemID.Stinger, 5);
 			recipe.Register();
 
 			recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ModContent.ItemType<Content.Alchemist.Misc.EmptyFlask>(), 1);
-			recipe.AddIngredient(ModContent.ItemType<Content.Items.Materials.JungleLilyBloomed>(), 1);
+			recipe.AddIngredient(ModContent.ItemType<Content.General.Materials.JungleLilyBloomed>(), 1);
 			recipe.AddIngredient(ItemID.Stinger, 5);
 			recipe.Register();
 		}

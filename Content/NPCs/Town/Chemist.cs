@@ -8,7 +8,7 @@ using OrchidMod.Content.Alchemist.Misc;
 using OrchidMod.Content.Alchemist.Misc.Scrolls;
 using OrchidMod.Content.Alchemist.Weapons.Catalysts;
 using OrchidMod.Content.Alchemist.Weapons.Nature;
-using OrchidMod.Content.Items.Materials;
+using OrchidMod.Content.General.Materials;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;

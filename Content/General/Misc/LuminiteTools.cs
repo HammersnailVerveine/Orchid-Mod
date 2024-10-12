@@ -9,13 +9,13 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Items.Tools
+namespace OrchidMod.Content.General.Misc
 {
 	// Abyss Tools
 
 	public class AbyssHamaxe : LuminiteTool
 	{
-		public AbyssHamaxe() : base(name: "Abyss Hamaxe", lightColor: LuminiteTool.AbyssColor, itemCloneType: ItemID.LunarHamaxeSolar) { }
+		public AbyssHamaxe() : base(name: "Abyss Hamaxe", lightColor: AbyssColor, itemCloneType: ItemID.LunarHamaxeSolar) { }
 
 		public override void AddRecipes()
 		{
@@ -29,7 +29,7 @@ namespace OrchidMod.Content.Items.Tools
 
 	public class AbyssPickaxe : LuminiteTool
 	{
-		public AbyssPickaxe() : base(name: "Abyss Pickaxe", lightColor: LuminiteTool.AbyssColor, itemCloneType: ItemID.SolarFlarePickaxe) { }
+		public AbyssPickaxe() : base(name: "Abyss Pickaxe", lightColor: AbyssColor, itemCloneType: ItemID.SolarFlarePickaxe) { }
 
 		public override void AddRecipes()
 		{
@@ -43,7 +43,7 @@ namespace OrchidMod.Content.Items.Tools
 
 	public class AbyssDrill : LuminiteTool
 	{
-		public AbyssDrill() : base(name: "Abyss Drill", lightColor: LuminiteTool.AbyssColor, itemCloneType: ItemID.SolarFlareDrill) { }
+		public AbyssDrill() : base(name: "Abyss Drill", lightColor: AbyssColor, itemCloneType: ItemID.SolarFlareDrill) { }
 
 		public override int GetProjectileType()
 			=> ModContent.ProjectileType<AbyssDrillProjectile>();
@@ -174,7 +174,7 @@ namespace OrchidMod.Content.Items.Tools
 		public sealed override void AI()
 		{
 			var owner = Main.player[Projectile.owner];
-			Projectile.rotation += MathHelper.PiOver2 * (-owner.direction) * (owner.gravDir);
+			Projectile.rotation += MathHelper.PiOver2 * -owner.direction * owner.gravDir;
 		}
 	}
 }

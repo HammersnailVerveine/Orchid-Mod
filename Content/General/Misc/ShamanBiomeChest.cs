@@ -13,7 +13,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace OrchidMod.Content.Items.Placeables
+namespace OrchidMod.Content.General.Misc
 {
 	public class ShamanBiomeChest : ModItem
 	{
@@ -124,7 +124,7 @@ namespace OrchidMod.Content.Items.Placeables
 			if (tile.TileFrameY != 0) top--;
 
 			int chest = Chest.FindChest(left, top);
-			return name + ((Main.chest[chest].name != "") ? (": " + Main.chest[chest].name) : "");
+			return name + (Main.chest[chest].name != "" ? ": " + Main.chest[chest].name : "");
 		}
 
 		public override ushort GetMapOption(int i, int j)
@@ -204,7 +204,7 @@ namespace OrchidMod.Content.Items.Placeables
 				}
 				else
 				{
-					NetMessage.SendData(MessageID.RequestChestOpen, -1, -1, null, left, (float)top, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(MessageID.RequestChestOpen, -1, -1, null, left, top, 0f, 0f, 0, 0, 0);
 					Main.stackSplit = 600;
 				}
 			}
@@ -220,7 +220,7 @@ namespace OrchidMod.Content.Items.Placeables
 					{
 						if (Main.netMode == NetmodeID.MultiplayerClient)
 						{
-							NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, (float)left, (float)top);
+							NetMessage.SendData(MessageID.LockAndUnlock, -1, -1, null, player.whoAmI, 1f, left, top);
 						}
 					}
 				}

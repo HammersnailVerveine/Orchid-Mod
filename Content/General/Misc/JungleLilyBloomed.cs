@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using OrchidMod.Assets;
 
-namespace OrchidMod.Content.Items.Materials
+namespace OrchidMod.Content.General.Materials
 {
 	public class JungleLilyBloomed : ModItem
 	{

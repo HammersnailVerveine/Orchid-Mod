@@ -3073,6 +3073,21 @@ Items: {
 		DisplayName: Spinning Dummy
 		Tooltip: Increases maximum slam charges
 	}
+
+	EmpressPlateChest: {
+		DisplayName: Empress Plate Chest
+		Tooltip: Actually too bulky for the empress' taste
+	}
+
+	EmpressPlateHead: {
+		DisplayName: Empress Plate Head
+		Tooltip: Actually too bulky for the empress' taste
+	}
+
+	EmpressPlateLegs: {
+		DisplayName: Empress Plate Legs
+		Tooltip: Actually too bulky for the empress' taste
+	}
 }
 
 NPCs: {

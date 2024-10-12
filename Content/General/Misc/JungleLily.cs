@@ -9,7 +9,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace OrchidMod.Content.Items.Materials
+namespace OrchidMod.Content.General.Materials
 {
 	public class JungleLily : ModItem
 	{

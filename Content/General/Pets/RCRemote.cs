@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Items.Pets
+namespace OrchidMod.Content.General.Pets
 {
 	public class RCRemote : ModItem
 	{
