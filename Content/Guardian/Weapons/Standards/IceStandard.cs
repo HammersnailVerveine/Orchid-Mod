@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 		{
 			if (isLocalPlayer && reinforced)
 			{
-				standardStats.defense += 5;
+				standardStats.defense += 10;
 				return true;
 			}
 			return false;

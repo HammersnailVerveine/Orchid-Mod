@@ -40,6 +40,7 @@ namespace OrchidMod
 		public bool GuardianSpikeMechanical = false;
 		public bool GuardianSpikeTemple = false;
 		public bool GuardianWormTooth = false;
+		public bool GuardianMonsterFang = false;
 		public bool GuardianStandardDesert = false; // Standards
 		public bool GuardianHoneyPotion = false; // Misc
 
@@ -218,6 +219,7 @@ namespace OrchidMod
 			GuardianGit = false;
 			GuardianHoneyPotion = false;
 			GuardianWormTooth = false;
+			GuardianMonsterFang = false;
 		}
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
@@ -340,6 +342,11 @@ namespace OrchidMod
 			if (GuardianWormTooth)
 			{
 				standardStats.allDamage += 0.05f;
+			}
+
+			if (GuardianMonsterFang)
+			{
+				standardStats.lifeRegen += 2;
 			}
 		}
 

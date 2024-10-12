@@ -3035,6 +3035,11 @@ Items: {
 		Tooltip: Players affected by your standards gain 5% increased damage
 	}
 
+	TerrifyingMonsterFang: {
+		DisplayName: Terrifying Monster Fang
+		Tooltip: Players affected by your standards gain life regeneration
+	}
+
 	MoonLordRune: {
 		DisplayName: Moon Rune
 		Tooltip: Summons otherworldly portals to protect you

@@ -291,6 +291,11 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.Common(ItemType<ColossalWormTooth>(), 10));
 					}
 					break;
+				case NPCID.FaceMonster:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<TerrifyingMonsterFang>(), 10));
+					}
+					break;
 				case NPCID.ShortBones:
 				case NPCID.AngryBones:
 				case NPCID.BigBoned:
