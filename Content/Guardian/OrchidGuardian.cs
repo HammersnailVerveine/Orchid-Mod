@@ -250,10 +250,11 @@ namespace OrchidMod
 		{
 			if (proj.ModProjectile is OrchidModGuardianProjectile)
 			{
-				if (GuardianStandardDesert)
+				if (GuardianStandardDesert && StandardAnchor != null)
 				{
 					int type = ModContent.ProjectileType<DesertStandardProj>();
-					if (proj.type != type)
+					float range = ((StandardAnchor.ModProjectile as GuardianStandardAnchor).BuffItem.ModItem as OrchidModGuardianStandard).AuraRange + target.width * 0.5f;
+					if (proj.type != type && target.Center.Distance(Player.Center) < range)
 					{
 						SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, Player.Center);
 						float damage = (damageDone * 0.5f);
