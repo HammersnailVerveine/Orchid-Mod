@@ -1,10 +1,13 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
 {
 	public abstract class GuardianRuneProjectile : OrchidModGuardianProjectile
 	{
+		public int baseDamage = 0;
+		public int baseCrit = 0;
 		public OrchidGuardian guardian => Owner.GetModPlayer<OrchidGuardian>();
 
 		public virtual bool SafeAI() => true;
@@ -37,11 +40,18 @@ namespace OrchidMod.Content.Guardian
 			{
 				JustCreated = false;
 				Projectile.netUpdate = true;
+				baseCrit = Projectile.CritChance;
+				baseDamage = Projectile.damage;
 				FirstFrame();
 			}
 
 			if (IsLocalOwner)
 			{
+				Player owner = Owner;
+				OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
+				Projectile.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + baseCrit);
+				Projectile.damage = guardian.GetGuardianDamage(baseDamage);
+
 				if (Owner.dead)
 				{
 					Projectile.Kill();

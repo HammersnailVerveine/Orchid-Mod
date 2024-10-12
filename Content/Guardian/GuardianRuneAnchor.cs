@@ -168,7 +168,7 @@ namespace OrchidMod.Content.Guardian
 										projectile.Kill();
 									}
 								}
-								int crit = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + RuneItem.crit);
+
 								int runeAmount = guardianItem.GetAmount(guardian);
 								if (fullyCharged)
 								{
@@ -176,7 +176,7 @@ namespace OrchidMod.Content.Guardian
 									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced", false);
 								}
 
-								guardianItem.Activate(owner, guardian, RuneItem.shoot, guardian.GetGuardianDamage(RuneItem.damage), RuneItem.knockBack, crit, (int)(guardianItem.RuneDuration * guardian.GuardianRuneTimer), guardianItem.RuneDistance, runeAmount);
+								guardianItem.Activate(owner, guardian, RuneItem.shoot, RuneItem.damage, RuneItem.knockBack, RuneItem.crit, (int)(guardianItem.RuneDuration * guardian.GuardianRuneTimer), guardianItem.RuneDistance, runeAmount);
 							}
 							else
 							{
