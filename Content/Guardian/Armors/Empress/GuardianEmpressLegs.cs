@@ -10,8 +10,8 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 22;
-			Item.height = 14;
+			Item.width = 24;
+			Item.height = 16;
 			Item.value = Item.sellPrice(0, 4, 80, 0);
 			Item.rare = ItemRarityID.Yellow;
 			Item.defense = 21;
@@ -22,6 +22,7 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			player.GetDamage<GuardianDamageClass>() += 0.1f;
 			player.moveSpeed += 0.15f;
+			player.aggro += 250;
 		}
 
 		public override void AddRecipes()

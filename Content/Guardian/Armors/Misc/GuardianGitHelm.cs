@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Armors.Misc
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			modPlayer.GuardianSlamMax += 1;
 			modPlayer.GuardianGuardMax += 1;
+			player.aggro += 250;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

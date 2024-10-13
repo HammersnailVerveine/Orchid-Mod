@@ -2662,7 +2662,11 @@ Items: {
 
 	GuardianBambooChest: {
 		DisplayName: Bamboo Chestplate
-		Tooltip: Increases guardian charges generation by 10%
+		Tooltip:
+			'''
+			Increases guardian charges generation by 10%
+			Enemies are more likely to target you
+			'''
 	}
 
 	GuardianBambooLegs: {
@@ -2676,6 +2680,7 @@ Items: {
 			'''
 			5% increased opposing damage
 			+1 slam charge
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -2703,6 +2708,16 @@ Items: {
 			'''
 			13% increased opposing damage
 			Increases guardian charges generation by 15%
+			Enemies are more likely to target you
+			'''
+	}
+
+	GuardianEmpressChestAlt: {
+		DisplayName: Empress Chestplate
+		Tooltip:
+			'''
+			8% increased opposing damage
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -2712,6 +2727,7 @@ Items: {
 			'''
 			12% increased opposing damage
 			+2 guard and slam charges
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -2721,6 +2737,7 @@ Items: {
 			'''
 			10% increased opposing damage
 			15% increased movement speed
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -2730,6 +2747,7 @@ Items: {
 			'''
 			12% increased opposing damage and critical strike chance
 			+1 guard and slam charges
+			Enemies are a lot more likely to target you
 			'''
 	}
 
@@ -2739,6 +2757,7 @@ Items: {
 			'''
 			15% increased opposing damage and 8% increased opposing critical strike chance
 			+1 guard and slam charges
+			Enemies are a lot more likely to target you
 			'''
 	}
 
@@ -2748,6 +2767,7 @@ Items: {
 			'''
 			12% increased opposing damage and critical strike chance
 			+2 guard charges and 1 slam charge
+			Enemies are a lot more likely to target you
 			'''
 	}
 
@@ -2757,6 +2777,7 @@ Items: {
 			'''
 			16% increased opposing damage
 			+1 guard charge and 2 slam charges
+			Enemies are a lot more likely to target you
 			'''
 	}
 
@@ -2839,6 +2860,7 @@ Items: {
 			'''
 			10% increased opposing damage and movement speed
 			+1 guard and slam charges
+			Enemies are a lot more likely to target you
 			'''
 	}
 
@@ -2848,6 +2870,7 @@ Items: {
 			'''
 			11% increased opposing damage and 10% increased opposing critical strike chance
 			+1 guard and slam charges
+			Enemies are a lot more likely to target you
 			'''
 	}
 
@@ -2857,6 +2880,7 @@ Items: {
 			'''
 			18% increased opposing damage and 7% increased movement speed
 			+1 guard and slam charges
+			Enemies are a lot more likely to target you
 			'''
 	}
 
@@ -2866,6 +2890,7 @@ Items: {
 			'''
 			16% increased opposing damage
 			+1 guard and slam charges
+			Enemies are a lot more likely to target you
 			'''
 	}
 
@@ -2880,6 +2905,7 @@ Items: {
 			'''
 			+1 guard and slam charges
 			Can be paired with ore armor
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -3075,17 +3101,17 @@ Items: {
 	}
 
 	EmpressPlateChest: {
-		DisplayName: Empress Plate Chest
+		DisplayName: Empress Plated Chestplate
 		Tooltip: Actually too bulky for the empress' taste
 	}
 
 	EmpressPlateHead: {
-		DisplayName: Empress Plate Head
+		DisplayName: Empress Plated Headgear
 		Tooltip: Actually too bulky for the empress' taste
 	}
 
 	EmpressPlateLegs: {
-		DisplayName: Empress Plate Legs
+		DisplayName: Empress Plated Legguards
 		Tooltip: Actually too bulky for the empress' taste
 	}
 }

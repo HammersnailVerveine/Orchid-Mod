@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Content.Guardian.Armors.Empress
 {
 	[AutoloadEquip(EquipType.Body)]
-	public class GuardianEmpressChest : OrchidModGuardianEquipable
+	public class GuardianEmpressChestAlt : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{
@@ -14,14 +14,13 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 			Item.height = 18;
 			Item.value = Item.sellPrice(0, 5, 10, 0);
 			Item.rare = ItemRarityID.Yellow;
-			Item.defense = 36;
+			Item.defense = 48;
 		}
 
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianRecharge -= 0.15f;
-			player.GetDamage<GuardianDamageClass>() += 0.13f;
+			player.GetDamage<GuardianDamageClass>() += 0.8f;
 			player.aggro += 250;
 		}
 

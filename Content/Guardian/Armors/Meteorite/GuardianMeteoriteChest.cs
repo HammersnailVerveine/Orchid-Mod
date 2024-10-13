@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Armors.Meteorite
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			modPlayer.GuardianSlamMax ++;
 			player.GetDamage<GuardianDamageClass>() += 0.05f;
+			player.aggro += 250;
 		}
 
 		public override void AddRecipes()
