@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Assets;
+using OrchidMod.Content.General.Dusts;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.DataStructures;
@@ -64,7 +65,7 @@ namespace OrchidMod.Content.General.Materials
 			// name.SetDefault("Jungle Lily");
 			AddMapEntry(new Color(177, 46, 77), name);
 
-			DustType = ModContent.DustType<Content.Dusts.BloomingDust>();
+			DustType = ModContent.DustType<BloomingDust>();
 			HitSound = SoundID.Grass;
 		}
 

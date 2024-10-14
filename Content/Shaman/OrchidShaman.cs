@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common.Global.Projectiles;
 using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.General.Dusts;
 using OrchidMod.Content.Shaman;
 using OrchidMod.Content.Shaman.Projectiles.Equipment;
 using Terraria;
@@ -174,7 +175,7 @@ namespace OrchidMod
 			{
 				if (Main.rand.NextBool(6) && drawInfo.shadow == 0f && Player.wingTime > 0)
 				{
-					int dust = Dust.NewDust(drawInfo.Position - new Vector2(15f, 2f), Player.width + 30, Player.height + 4, DustType<Content.Dusts.AbyssalDust>());
+					int dust = Dust.NewDust(drawInfo.Position - new Vector2(15f, 2f), Player.width + 30, Player.height + 4, DustType<AbyssalDust>());
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.Y -= 0.5f;
 					Main.dust[dust].scale = 1.75f;
@@ -182,7 +183,7 @@ namespace OrchidMod
 				}
 				if (Main.rand.NextBool(6) && drawInfo.shadow == 0f && Player.wingTime > 0)
 				{
-					int dust = Dust.NewDust(drawInfo.Position - new Vector2(15f, 2f), Player.width + 30, Player.height + 4, DustType<Content.Dusts.AbyssalBrightDust>());
+					int dust = Dust.NewDust(drawInfo.Position - new Vector2(15f, 2f), Player.width + 30, Player.height + 4, DustType<AbyssalBrightDust>());
 					Main.dust[dust].noGravity = true;
 					Main.dust[dust].velocity.Y -= 0.5f;
 					Main.dust[dust].scale = 1.75f;

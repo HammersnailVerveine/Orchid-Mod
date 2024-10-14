@@ -3,7 +3,6 @@ using OrchidMod.Content.Alchemist.Weapons.Air;
 using OrchidMod.Content.Alchemist.Weapons.Catalysts;
 using OrchidMod.Content.Alchemist.Weapons.Fire;
 using OrchidMod.Content.Alchemist.Weapons.Water;
-using OrchidMod.Content.General;
 using OrchidMod.Content.General.Materials;
 using OrchidMod.Content.Gambler.Accessories;
 using OrchidMod.Content.Gambler.Decks;
@@ -29,6 +28,7 @@ using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Content.Guardian.Weapons.Standards;
 using OrchidMod.Content.Guardian.Weapons.Shields;
+using OrchidMod.Content.General.Misc;
 
 namespace OrchidMod.Common.Global.Items
 {

@@ -1,18 +1,13 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
-using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 {
 	public class MechanicalGauntletProjectile : OrchidModGuardianProjectile
 	{
-		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
 

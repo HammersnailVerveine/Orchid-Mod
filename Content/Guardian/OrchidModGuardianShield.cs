@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
+using OrchidMod.Content.General.Prefixes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,7 +96,7 @@ namespace OrchidMod.Content.Guardian
 							{
 								shield.shieldEffectReady = true;
 								guardian.GuardianGuard --;
-								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration());
 								shield.NeedNetUpdate = true;
 								BlockStart(player, proj);
 								SoundEngine.PlaySound(SoundID.Item1, player.Center);
@@ -118,7 +119,7 @@ namespace OrchidMod.Content.Guardian
 
 									shield.shieldEffectReady = true;
 									guardian.GuardianGuard--;
-									proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration());
+									proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration());
 									shield.NeedNetUpdate = true;
 									BlockStart(player, proj);
 									SoundEngine.PlaySound(SoundID.Item1, player.Center);
@@ -177,7 +178,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				else 
 				{
-					proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration()); // Used for UI display
+					proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()); // Used for UI display
 					shield.OnChangeSelectedItem(player);
 				}
 			}
@@ -188,7 +189,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (shield.SelectedItem != player.selectedItem)
 					{
-						proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration()); // Used for UI display
+						proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()); // Used for UI display
 						shield.OnChangeSelectedItem(player);
 					}
 				}
@@ -205,7 +206,7 @@ namespace OrchidMod.Content.Guardian
 				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
 			}
 
-			int tooltipSeconds = Math.DivRem((int)(blockDuration * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetBlockDuration()), 60, out int tooltipTicks);
+			int tooltipSeconds = Math.DivRem((int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()), 60, out int tooltipTicks);
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "BlockDuration", tooltipSeconds + "." + (int)(tooltipTicks * (100 / 60f)) + " block duration"));

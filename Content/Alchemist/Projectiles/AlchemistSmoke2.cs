@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Content.General.Dusts;
 using Terraria;
 using static Terraria.ModLoader.ModContent;
 
@@ -53,7 +54,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles
 			}
 			if (Main.rand.NextBool(30))
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<Content.Dusts.WhiteDust>(), 0.0f, 0.0f, 0, this.glowColor);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<WhiteDust>(), 0.0f, 0.0f, 0, this.glowColor);
 				Main.dust[dust].velocity *= 0.5f; ;
 				Main.dust[dust].noGravity = true;
 			}
@@ -71,7 +72,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles
 		{
 			for (int i = 0; i < 2; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<Content.Dusts.WhiteDust>(), 0.0f, 0.0f, 0, this.glowColor);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<WhiteDust>(), 0.0f, 0.0f, 0, this.glowColor);
 				Main.dust[dust].velocity *= 0.5f; ;
 				Main.dust[dust].noGravity = true;
 			}

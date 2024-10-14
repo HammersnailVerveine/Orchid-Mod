@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Guardian.Buffs;
 using OrchidMod.Content.Guardian.Projectiles.Gauntlets;
 using Terraria;
@@ -39,7 +40,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			if (player.HasBuff<GuardianSpiderGauntletBuff>())
 			{
 				int projectileType = ModContent.ProjectileType<SpiderGauntletProjectile>();
-				float speed = strikeVelocity * (charged ? 1f : 0.75f) * Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.85f, 1.15f);
+				float speed = strikeVelocity * (charged ? 1f : 0.75f) * Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.85f, 1.15f);
 				Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2).RotatedByRandom(MathHelper.ToRadians(5));
 				int spikeDamage = (int)(guardian.GetGuardianDamage(Item.damage) * (charged ? 1.5f : 0.5f));
 				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, spikeDamage, Item.knockBack, player.whoAmI, charged ? 1f : 0f);

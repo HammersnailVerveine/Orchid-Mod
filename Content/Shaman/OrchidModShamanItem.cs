@@ -12,6 +12,7 @@ using Terraria.Audio;
 using Terraria.Localization;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Common.Global.Items;
+using OrchidMod.Content.General.Prefixes;
 
 namespace OrchidMod.Content.Shaman
 {
@@ -118,7 +119,7 @@ namespace OrchidMod.Content.Shaman
 						return false;
 					}
 
-					int duration = (Item.GetGlobalItem<Prefixes.ShamanPrefixItem>().GetBondDuration() + shamanPlayer.ShamanBondDuration) * 60;
+					int duration = (Item.GetGlobalItem<ShamanPrefixItem>().GetBondDuration() + shamanPlayer.ShamanBondDuration) * 60;
 
 					switch (Element)
 					{

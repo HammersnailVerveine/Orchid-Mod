@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Content.General.Dusts;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -31,7 +32,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Reactive
 
 			if (Main.rand.NextBool(60))
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<Content.Dusts.BloomingAltDust>());
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<BloomingAltDust>());
 				Main.dust[dust].velocity *= 0.1f;
 				Main.dust[dust].scale *= 1f;
 				Main.dust[dust].noGravity = true;
@@ -42,7 +43,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Reactive
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<Content.Dusts.BloomingAltDust>());
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustType<BloomingAltDust>());
 				Main.dust[dust].velocity *= 1.5f;
 				Main.dust[dust].scale *= 1f;
 				Main.dust[dust].noGravity = true;

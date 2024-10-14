@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.General.Prefixes;
 using System;
 using System.IO;
 using Terraria;
@@ -116,7 +117,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.friendly = true;
 					}
 
-					float slamDistance = (int)(guardianItem.slamDistance * guardianItem.Item.GetGlobalItem<Prefixes.GuardianPrefixItem>().GetSlamDistance() * owner.GetAttackSpeed(DamageClass.Melee));
+					float slamDistance = (int)(guardianItem.slamDistance * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetAttackSpeed(DamageClass.Melee));
 					addedDistance = (float)Math.Sin(MathHelper.Pi / guardianItem.Item.useTime * Projectile.ai[1]) * slamDistance;
 					Projectile.ai[1] -= slamDistance / guardianItem.Item.useTime;
 

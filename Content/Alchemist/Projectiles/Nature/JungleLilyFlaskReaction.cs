@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.General.Dusts;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -66,7 +67,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Nature
 
 						if (tile.TileType == ModContent.TileType<Content.General.Materials.JungleLilyTile>() && tile.TileFrameX % 36 == 0 && tile.TileFrameY == 0 && tile.HasTile)
 						{
-							OrchidModProjectile.spawnDustCircle(new Vector2((k + 1) * 16, (l + 1) * 16), ModContent.DustType<Content.Dusts.BloomingDust>(), 5, 8, true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
+							OrchidModProjectile.spawnDustCircle(new Vector2((k + 1) * 16, (l + 1) * 16), ModContent.DustType<BloomingDust>(), 5, 8, true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
 
 							WorldGen.KillTile(k, l, false, false, true);
 

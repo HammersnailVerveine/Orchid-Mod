@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Common.Global.Items;
+using OrchidMod.Content.General.Dusts;
 
 namespace OrchidMod.Content.Alchemist.Weapons.Nature
 {
@@ -21,7 +22,7 @@ namespace OrchidMod.Content.Alchemist.Weapons.Nature
 			Item.value = Item.sellPrice(0, 0, 10, 0);
 			this.potencyCost = 3;
 			this.element = AlchemistElement.NATURE;
-			this.rightClickDust = DustType<Content.Dusts.BloomingDust>();
+			this.rightClickDust = DustType<BloomingDust>();
 			this.colorR = 177;
 			this.colorG = 46;
 			this.colorB = 77;

@@ -17,7 +17,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using OrchidMod.Content.General.Pets;
 using static Terraria.ModLoader.ModContent;
-using OrchidMod.Content.General;
 using OrchidMod.Content.Guardian.Weapons.Warhammers;
 using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Misc;

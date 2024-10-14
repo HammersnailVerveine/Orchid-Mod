@@ -1,4 +1,4 @@
-﻿using OrchidMod.Content.NPCs.Town;
+﻿using OrchidMod.Content.General.NPCs.Town;
 using System.Collections.Generic;
 using Terraria.ModLoader;
 
