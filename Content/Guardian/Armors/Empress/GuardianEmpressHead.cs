@@ -11,7 +11,7 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 30;
+			Item.width = 26;
 			Item.height = 22;
 			Item.value = Item.sellPrice(0, 4, 30, 0);
 			Item.rare = ItemRarityID.Yellow;
