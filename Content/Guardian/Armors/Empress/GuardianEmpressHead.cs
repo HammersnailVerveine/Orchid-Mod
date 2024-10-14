@@ -22,8 +22,8 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianSlamMax += 2;
-			modPlayer.GuardianGuardMax += 2;
+			modPlayer.GuardianSlamMax += 1;
+			modPlayer.GuardianGuardMax += 1;
 			player.aggro += 250;
 			player.GetDamage<GuardianDamageClass>() += 0.12f;
 		}
@@ -45,10 +45,10 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 			}
 			else
 			{
-				player.setBonus = "Reduces damage taken by 20% while holding a pavise\nEnemies are drastically more likely to target you";
-				if (player.HeldItem.ModItem is OrchidModGuardianShield)
+				player.setBonus = "Reduces damage taken by 30% while holding a pavise or gauntlets\nEnemies are drastically more likely to target you";
+				if (player.HeldItem.ModItem is OrchidModGuardianShield || player.HeldItem.ModItem is OrchidModGuardianGauntlet)
 				{
-					player.endurance += 0.2f;
+					player.endurance += 0.3f;
 					player.aggro += 1000;
 				}
 			}

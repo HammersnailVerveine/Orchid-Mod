@@ -2708,6 +2708,7 @@ Items: {
 			'''
 			13% increased opposing damage
 			Increases guardian charges generation by 15%
+			+2 slam charges
 			Enemies are more likely to target you
 			'''
 	}
@@ -2717,6 +2718,7 @@ Items: {
 		Tooltip:
 			'''
 			8% increased opposing damage
+			+2 guard charges
 			Enemies are more likely to target you
 			'''
 	}
@@ -2726,7 +2728,7 @@ Items: {
 		Tooltip:
 			'''
 			12% increased opposing damage
-			+2 guard and slam charges
+			+1 guard and slam charges
 			Enemies are more likely to target you
 			'''
 	}
@@ -3117,6 +3119,11 @@ Items: {
 
 	SageOwl: {
 		DisplayName: Sage Owl
+		Tooltip: ""
+	}
+
+	HorizonDye: {
+		DisplayName: Horizon Dye
 		Tooltip: ""
 	}
 }

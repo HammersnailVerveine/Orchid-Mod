@@ -13,6 +13,8 @@ using Terraria.ModLoader.Core;
 using System.Reflection;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Common.Global.NPCs;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.Graphics.Shaders;
 
 namespace OrchidMod
 {
@@ -71,9 +73,15 @@ namespace OrchidMod
 			);
 		}
 
+		public void LoadShaders()
+		{
+			GameShaders.Misc["OrchidMod:HorizonGlow"] = new MiscShaderData(this.Assets.Request<Effect>("Assets/Effects/HorizonGlow"), "HorizonShaderPass");
+		}
+
 		public override void Load()
 		{
 			LoadContent();
+			LoadShaders();
 
 			ThoriumMod = OrchidUtils.GetModWithPossibleNull("ThoriumMod");
 
