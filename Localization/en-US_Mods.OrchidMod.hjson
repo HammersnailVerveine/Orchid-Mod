@@ -3114,6 +3114,11 @@ Items: {
 		DisplayName: Empress Plated Legguards
 		Tooltip: Actually too bulky for the empress' taste
 	}
+
+	SageOwl: {
+		DisplayName: Sage Owl
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -3407,7 +3412,8 @@ Projectiles: {
 	HorizonShieldProjOrange.DisplayName: Horizon Shield Proj Orange
 	HorizonShieldProj.DisplayName: Horizon Shield Proj
 	DesertStandardProj.DisplayName: Desert Standard Proj
-	SageWardenOwl.DisplayName: Sage Warden Owl
+	SageOwl.DisplayName: Sage Owl
+	ShapeshifterShapeshiftAnchor.DisplayName: Shapeshifter Shapeshift Anchor
 }
 
 Configs: {
@@ -3464,6 +3470,7 @@ DamageClasses: {
 	GamblerDamageClass.DisplayName: gambling damage
 	GuardianDamageClass.DisplayName: opposing damage
 	ShamanDamageClass.DisplayName: shamanic damage
+	ShapeshifterDamageClass.DisplayName: feral damage
 }
 
 Conditions: {

@@ -10,6 +10,7 @@ namespace OrchidMod.Common
 		public static readonly Color GamblerTag = new(255, 200, 0);
 		public static readonly Color GuardianTag = new(165, 130, 100);
 		public static readonly Color ShamanTag = new(0, 192, 255);
+		public static readonly Color ShapeshifterTag = new(100, 175, 150);
 
 		public static readonly Color CrossmodContentWarning = new(255, 130, 110);
 
@@ -22,6 +23,7 @@ namespace OrchidMod.Common
 				ClassTags.Gambler => GamblerTag,
 				ClassTags.Guardian => GuardianTag,
 				ClassTags.Shaman => ShamanTag,
+				ClassTags.Shapeshifter => ShapeshifterTag,
 				_ => throw new NotImplementedException()
 			};
 		}	

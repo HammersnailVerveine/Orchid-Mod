@@ -19,6 +19,8 @@ namespace OrchidMod.Common.Global.NPCs
 		public bool AlchemistHit = false;
 		public bool GamblerHit = false;
 		public bool GuardianHit = false;
+		public bool ShamanHit = false;
+		public bool ShapeshifterHit = false;
 		public bool ShamanWater = false;
 		public bool ShamanWind = false;
 

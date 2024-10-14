@@ -7,6 +7,7 @@
 		Dancer,
 		Gambler,
 		Guardian,
-		Shaman
+		Shaman,
+		Shapeshifter
 	}
 }

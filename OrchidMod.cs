@@ -143,6 +143,12 @@ namespace OrchidMod
 						case 2:
 							globalNPC.GuardianHit = true;
 							break;
+						case 3:
+							globalNPC.ShamanHit = true;
+							break;
+						case 4:
+							globalNPC.ShapeshifterHit = true;
+							break;
 					}
 					break;
 
