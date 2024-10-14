@@ -3407,6 +3407,7 @@ Projectiles: {
 	HorizonShieldProjOrange.DisplayName: Horizon Shield Proj Orange
 	HorizonShieldProj.DisplayName: Horizon Shield Proj
 	DesertStandardProj.DisplayName: Desert Standard Proj
+	SageWardenOwl.DisplayName: Sage Warden Owl
 }
 
 Configs: {
