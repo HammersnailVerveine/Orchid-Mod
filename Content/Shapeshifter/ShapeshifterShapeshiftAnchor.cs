@@ -9,6 +9,7 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.Player;
@@ -136,11 +137,17 @@ namespace OrchidMod.Content.Shapeshifter
 					spriteBatch.Draw(TextureShapeshift, drawPosition2, drawRectangle, lightColor * 0.075f * (i + 1), OldRotation[i], drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
+
 				spriteBatch.End();
 				spriteBatch.Begin(spriteBatchSnapshot);
+				//Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+				//GameShaders.Misc["OrchidMod:HorizonGlow"].Apply();
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
 				spriteBatch.Draw(TextureShapeshift, drawPosition, drawRectangle, lightColor, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				//spriteBatch.End();
+				//spriteBatch.Begin(spriteBatchSnapshot);
 				return false;
 
 			}

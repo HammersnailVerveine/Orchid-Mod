@@ -35,6 +35,7 @@ namespace OrchidMod
 		public bool GuardianMeteorite = false; // Armor Sets
 		public bool GuardianBamboo = false;
 		public bool GuardianGit = false;
+		public bool GuardianHorizon = false;
 		public bool GuardianSpikeGoblin = false; // Accessories
 		public bool GuardianSpikeDungeon = false;
 		public bool GuardianSpikeMechanical = false;
@@ -99,6 +100,30 @@ namespace OrchidMod
 
 		public override void PostUpdate()
 		{
+			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>()))
+			{
+				Player.GetCritChance<GuardianDamageClass>() += 15;
+			}
+
+			if (GuardianHorizon && Player.statLife > Player.statLifeMax2 * 0.5f && Player.statLife > 20)
+			{
+				if (GuardianSlam == 0)
+				{
+					AddSlam(1);
+					Player.statLife -= 20;
+					CombatText.NewText(Player.Hitbox, CombatText.DamagedFriendly, 20, false, true);
+					SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Player.Center);
+				}
+				else if (GuardianGuard == 0)
+				{
+					AddGuard(1);
+					Player.statLife -= 20;
+					CombatText.NewText(Player.Hitbox, CombatText.DamagedFriendly, 20, false, true);
+					SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Player.Center);
+				}
+			}
+
+			GuardianStandardStats.ApplyStats(Player); // Standards apply their stats here
 		}
 
 		public override void OnRespawn()
@@ -114,16 +139,6 @@ namespace OrchidMod
 			GuardianStandardCharge = 0;
 			GuardianRuneCharge = 0;
 		}
-
-		public override void PostUpdateEquips()
-		{
-			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>()))
-			{
-				Player.GetCritChance<GuardianDamageClass>() += 15;
-			}
-			GuardianStandardStats.ApplyStats(Player); // Standards apply their stats here
-		}
-
 		public override void UpdateLifeRegen()
 		{
 			GuardianStandardStats.ApplyLifeRegen(Player); // Standards apply their stats here
@@ -217,6 +232,7 @@ namespace OrchidMod
 			GuardianSpikeTemple = false;
 			GuardianBamboo = false;
 			GuardianGit = false;
+			GuardianHorizon = false;
 			GuardianHoneyPotion = false;
 			GuardianWormTooth = false;
 			GuardianMonsterFang = false;
