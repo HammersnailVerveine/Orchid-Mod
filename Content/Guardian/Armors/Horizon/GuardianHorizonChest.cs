@@ -72,6 +72,9 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 			if (drawPlayer.armor[11].type == ItemType<GuardianHorizonChest>() || (drawPlayer.armor[11].type == ItemID.None && drawPlayer.armor[1].type == ItemType<GuardianHorizonChest>()))
 			{
 				Color color = drawPlayer.GetImmuneAlphaPure(Color.White, drawInfo.shadow);
+				float mult = (((float)drawPlayer.statLifeMax2 - (float)drawPlayer.statLife) / (float)drawPlayer.statLifeMax2) * 0.66f;
+				if (mult > 0.5f) mult = 0.5f;
+				color *= mult;
 
 				Texture2D texture = Request<Texture2D>("OrchidMod/Content/Guardian/Armors/Horizon/GuardianHorizonChest_Body_Glow").Value;
 				float drawX = (int)drawInfo.Position.X + drawPlayer.width / 2;
@@ -81,11 +84,11 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 				Rectangle frame = new(0, 0, 40, 56);
 				if (drawPlayer.Male)
 				{
-					if (drawPlayer.bodyFrame == new Rectangle(0, 56 * 7, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 8, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 9, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 14, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 15, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 16, 40, 56))
+					if (drawPlayer.compositeFrontArm.enabled || drawPlayer.bodyFrame == new Rectangle(0, 56 * 7, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 8, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 9, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 14, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 15, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 16, 40, 56))
 					{
 						frame = new(0, 2, 40, 56); //walking bop
 					}
-					if (drawPlayer.bodyFrame == new Rectangle(0, 56 * 5, 40, 56))
+					if (drawPlayer.bodyFrame == new Rectangle(0, 56 * 5, 40, 56) && !drawPlayer.compositeFrontArm.enabled)
 					{
 						frame = new(40, 0, 40, 56); //jumping frame
 					}
@@ -93,11 +96,11 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 				else
 				{
 					frame = new(0, 112, 40, 56);
-					if (drawPlayer.bodyFrame == new Rectangle(0, 56 * 7, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 8, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 9, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 14, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 15, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 16, 40, 56))
+					if (drawPlayer.compositeFrontArm.enabled || drawPlayer.bodyFrame == new Rectangle(0, 56 * 7, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 8, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 9, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 14, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 15, 40, 56) || drawPlayer.bodyFrame == new Rectangle(0, 56 * 16, 40, 56))
 					{
 						frame = new(0, 114, 40, 56); //walking bop
 					}
-					if (drawPlayer.bodyFrame == new Rectangle(0, 56 * 5, 40, 56))
+					if (drawPlayer.bodyFrame == new Rectangle(0, 56 * 5, 40, 56) && !drawPlayer.compositeFrontArm.enabled)
 					{
 						frame = new(40, 112, 40, 56); //jumping frame
 					}
@@ -129,9 +132,12 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 				return;
 			}
 
-			if (drawPlayer.armor[11].type == ItemType<GuardianHorizonChest>() || (drawPlayer.armor[11].type == ItemID.None && drawPlayer.armor[1].type == ItemType<GuardianHorizonChest>()) && drawPlayer.bodyFrame != new Rectangle(0, 56 * 5, 40, 56))
+			if (drawPlayer.armor[11].type == ItemType<GuardianHorizonChest>() || (drawPlayer.armor[11].type == ItemID.None && drawPlayer.armor[1].type == ItemType<GuardianHorizonChest>()) && (drawPlayer.bodyFrame != new Rectangle(0, 56 * 5, 40, 56) || drawPlayer.compositeFrontArm.enabled))
 			{
 				Color color = drawPlayer.GetImmuneAlphaPure(Color.White, drawInfo.shadow);
+				float mult = (((float)drawPlayer.statLifeMax2 - (float)drawPlayer.statLife) / (float)drawPlayer.statLifeMax2) * 0.66f;
+				if (mult > 0.5f) mult = 0.5f;
+				color *= mult;
 
 				Texture2D texture = Request<Texture2D>("OrchidMod/Content/Guardian/Armors/Horizon/GuardianHorizonChest_Body_Glow").Value;
 				float drawX = (int)drawInfo.Position.X + drawPlayer.width / 2;

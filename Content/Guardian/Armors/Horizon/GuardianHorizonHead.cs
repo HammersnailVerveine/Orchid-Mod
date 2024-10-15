@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModSystems;
 using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Utilities;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
@@ -98,6 +99,9 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 			if (drawPlayer.armor[10].type == ItemType<GuardianHorizonHead>() || (drawPlayer.armor[10].type == ItemID.None && drawPlayer.armor[0].type == ItemType<GuardianHorizonHead>()))
 			{
 				Color color = drawPlayer.GetImmuneAlphaPure(Color.White, drawInfo.shadow);
+				float mult = (((float)drawPlayer.statLifeMax2 - (float)drawPlayer.statLife) / (float)drawPlayer.statLifeMax2) * 0.66f;
+				if (mult > 0.5f) mult = 0.5f;
+				color *= mult;
 
 				Texture2D texture = Request<Texture2D>("OrchidMod/Content/Guardian/Armors/Horizon/GuardianHorizonHead_Head_Glow").Value;
 				Vector2 drawPos = drawInfo.Position - Main.screenPosition + new Vector2(drawPlayer.width / 2 - drawPlayer.bodyFrame.Width / 2, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition;

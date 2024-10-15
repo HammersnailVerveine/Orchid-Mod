@@ -105,26 +105,6 @@ namespace OrchidMod
 				Player.GetCritChance<GuardianDamageClass>() += 15;
 			}
 
-			/*
-			if (GuardianHorizon && Player.statLife > Player.statLifeMax2 * 0.5f && Player.statLife > 20)
-			{
-				if (GuardianSlam == 0)
-				{
-					AddSlam(1);
-					Player.statLife -= 20;
-					CombatText.NewText(Player.Hitbox, CombatText.DamagedFriendly, 20, false, true);
-					SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Player.Center);
-				}
-				else if (GuardianGuard == 0)
-				{
-					AddGuard(1);
-					Player.statLife -= 20;
-					CombatText.NewText(Player.Hitbox, CombatText.DamagedFriendly, 20, false, true);
-					SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Player.Center);
-				}
-			}
-			*/
-
 			GuardianStandardStats.ApplyStats(Player); // Standards apply their stats here
 		}
 
