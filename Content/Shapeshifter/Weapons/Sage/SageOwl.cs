@@ -21,8 +21,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void SafeSetDefaults()
 		{
-			Item.width = 26;
-			Item.height = 26;
+			Item.width = 32;
+			Item.height = 32;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Zombie111;
@@ -45,7 +45,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			Player owner = Main.player[projectile.owner];
 			Vector2 intendedVelocity = projectile.velocity;
+			owner.fallStart = (int)(owner.position.Y / 16f);
+			owner.fallStart2 = (int)(owner.position.Y / 16f);
 			anchor.Timespent++;
+
+			owner.nightVision = true;
+
+			// ANIMATION
 
 			if (anchor.Timespent % 6 == 0 && anchor.Timespent > 0)
 			{ // Animation frames
@@ -66,6 +72,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					anchor.Frame = 1;
 				}
 			}
+
+			// MOVEMENT
 
 			bool grounded = false;
 			for (int i = 0; i < 10; i++)
@@ -115,9 +123,24 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 			else if (anchor.Frame == 3 || WasGliding)
 			{ // Idle (slowly falling)
-				intendedVelocity.Y = WasGliding ? 0 : -1f;
+				if (WasGliding)
+				{
+					intendedVelocity.Y = 0;
+					WasGliding = false;
+				}
+				else if (grounded)
+				{
+					intendedVelocity.Y -= 1f;
+					if (intendedVelocity.Y > -1f)
+					{
+						intendedVelocity.Y = -1f;
+					}
+				}
+				else
+				{
+					intendedVelocity.Y = -1f;
+				}
 				SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
-				WasGliding = false;
 			}
 
 			if (owner.controlLeft || owner.controlRight)
@@ -130,9 +153,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 				if (grounded)
 				{ // Helps staying a bit more over the ground while moving left and right
+					/*
 					if (intendedVelocity.Y > -0.1f)
 					{
 						intendedVelocity.Y = -0.1f;
+					}
+					*/
+					if ((anchor.Timespent + 1) % 6 != 0)
+					{
+						anchor.Timespent++;
 					}
 				}
 
@@ -171,7 +200,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				if (intendedVelocity.Y > -0.5f)
 				{
 					intendedVelocity.Y = -0.5f;
-				} 
+				}
 				projectile.gfxOffY = 0;
 				owner.gfxOffY = 0;
 			}
@@ -184,6 +213,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			projectile.velocity = finalVelocity;
+
+			// POSITION AND ROTATION VISUALS
 
 			anchor.OldPosition.Add(projectile.Center);
 			anchor.OldRotation.Add(projectile.rotation);
