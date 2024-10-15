@@ -88,14 +88,14 @@ namespace OrchidMod.Content.Guardian
 					{ // At least one of the gauntlets is not being used or both are blocking
 						if (shouldBlock)
 						{ // Right click & None of the gauntlets is blocking = Block
-							if (guardian.GuardianGuard > 0 && (projectileMain.ai[0] <= 0f || projectileOff.ai[0] <= 0f) 
+							if (guardian.UseGuard(1, true) && (projectileMain.ai[0] <= 0f || projectileOff.ai[0] <= 0f) 
 								&& !(projectileMain.ai[0] > 0 && projectileMain.ai[2] <= 0) && !(projectileOff.ai[0] > 0 && projectileOff.ai[2] <= 0))
 							{ // Player is not already blocking with a gauntlet
 								player.immuneTime = 0;
 								guardian.modPlayer.PlayerImmunity = 0;
 								player.immune = false;
 								SoundEngine.PlaySound(SoundID.Item37, player.Center);
-								guardian.GuardianGuard--;
+								guardian.UseGuard(1);
 								if (projectileMain.ai[0] == 0)
 								{
 									projectileMain.ai[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration());

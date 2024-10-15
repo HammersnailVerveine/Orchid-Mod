@@ -156,10 +156,10 @@ namespace OrchidMod.Content.Guardian
 						if (!owner.controlUseItem && IsLocalOwner)
 						{
 							bool fullyCharged = guardian.GuardianRuneCharge >= 180f;
-							if (guardian.GuardianSlam >= runeCost)
+							if (guardian.UseSlam(runeCost, true))
 							{
 								SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
-								guardian.GuardianSlam -= runeCost;
+								guardian.UseSlam(runeCost);
 
 								foreach (Projectile projectile in Main.projectile)
 								{

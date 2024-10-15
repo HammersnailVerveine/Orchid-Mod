@@ -77,10 +77,10 @@ namespace OrchidMod.Content.Guardian
 					if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
 					{
 						if (shouldSlam) { // Slam
-							if (proj.ai[1] == 0f && guardian.GuardianSlam > 0) 
+							if (proj.ai[1] == 0f && guardian.UseSlam(1, true)) 
 							{
 								SoundEngine.PlaySound(Item.UseSound, player.Center);
-								guardian.GuardianSlam --;
+								guardian.UseSlam();
 								shield.shieldEffectReady = true;
 								proj.ai[1] = Item.useTime;
 								if (proj.ai[0] > 0f) 
@@ -92,10 +92,10 @@ namespace OrchidMod.Content.Guardian
 								shield.NeedNetUpdate = true;
 							}
 						} else { // Block
-							if (proj.ai[1] + proj.ai[0] == 0f && guardian.GuardianGuard > 0) 
+							if (proj.ai[1] + proj.ai[0] == 0f && guardian.UseGuard(1, true)) 
 							{
 								shield.shieldEffectReady = true;
-								guardian.GuardianGuard --;
+								guardian.UseGuard();
 								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration());
 								shield.NeedNetUpdate = true;
 								BlockStart(player, proj);
@@ -103,7 +103,7 @@ namespace OrchidMod.Content.Guardian
 							}
 							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if click again
 							{
-								if (ModContent.GetInstance<OrchidClientConfig>().BlockCancelChain && guardian.GuardianGuard > 0)
+								if (ModContent.GetInstance<OrchidClientConfig>().BlockCancelChain && guardian.UseGuard(1, true))
 								{
 									// Taken from the shield anchor code
 									Vector2 aimedLocation = Main.MouseWorld - player.Center.Floor();
@@ -118,7 +118,7 @@ namespace OrchidMod.Content.Guardian
 									proj.ai[2] = proj.rotation; // networked rotation
 
 									shield.shieldEffectReady = true;
-									guardian.GuardianGuard--;
+									guardian.UseGuard();
 									proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration());
 									shield.NeedNetUpdate = true;
 									BlockStart(player, proj);

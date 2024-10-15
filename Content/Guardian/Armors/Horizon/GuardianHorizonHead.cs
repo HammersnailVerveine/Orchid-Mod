@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.setBonus = "While above 50% life, consumes 20 life to recover guardian charges";
+			player.setBonus = "While above 50% life, consumes it instead of guardian charges";
 			modPlayer.GuardianHorizon = true;
 		}
 

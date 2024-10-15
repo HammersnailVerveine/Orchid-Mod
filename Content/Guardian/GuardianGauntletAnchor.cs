@@ -203,9 +203,9 @@ namespace OrchidMod.Content.Guardian
 
 						if ((ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? !Main.mouseRight : !Main.mouseLeft) && owner.whoAmI == Main.myPlayer)
 						{
-							if (guardian.GuardianGauntletCharge < 180f && guardian.GuardianSlam > 0)
+							if (guardian.GuardianGauntletCharge < 180f && guardian.UseSlam(1, true))
 							{ // Consume a slam to fully charge if the player has one
-								guardian.GuardianSlam--;
+								guardian.UseSlam();
 								guardian.GuardianGauntletCharge = 180f;
 							}
 

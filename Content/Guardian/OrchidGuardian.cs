@@ -105,6 +105,7 @@ namespace OrchidMod
 				Player.GetCritChance<GuardianDamageClass>() += 15;
 			}
 
+			/*
 			if (GuardianHorizon && Player.statLife > Player.statLifeMax2 * 0.5f && Player.statLife > 20)
 			{
 				if (GuardianSlam == 0)
@@ -122,6 +123,7 @@ namespace OrchidMod
 					SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Player.Center);
 				}
 			}
+			*/
 
 			GuardianStandardStats.ApplyStats(Player); // Standards apply their stats here
 		}
@@ -330,7 +332,7 @@ namespace OrchidMod
 
 		// Below are custom Guardian Methods
 
-		public void AddSlam(int nb)
+		public void AddSlam(int nb = 1)
 		{
 			if (GuardianSlam + nb > GuardianSlamMax) nb = GuardianSlamMax - GuardianSlam;
 			if (nb > 0)
@@ -342,7 +344,7 @@ namespace OrchidMod
 			}
 		}
 
-		public void AddGuard(int nb)
+		public void AddGuard(int nb = 1)
 		{
 			if (GuardianGuard + nb > GuardianGuardMax) nb = GuardianGuardMax - GuardianGuard;
 			if (nb > 0)
@@ -352,6 +354,54 @@ namespace OrchidMod
 				CombatText.NewText(rect, Color.LightSkyBlue, "+" + nb + " guard" + (nb > 1 ? "s" : ""), false, true);
 				GuardianGuard += nb;
 			}
+		}
+
+		public bool UseSlam(int nb = 1, bool checkOnly = false)
+		{
+			if (GuardianHorizon && Player.statLife > Player.statLifeMax2 * 0.5f && Player.statLife > 20)
+			{ // Horizon armor set consumes health instead of guardian charges
+				if (!checkOnly)
+				{
+					Player.statLife -= 20;
+					CombatText.NewText(Player.Hitbox, CombatText.DamagedFriendly, 20, false, true);
+					SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Player.Center);
+				}
+				return true;
+			}
+
+			if (GuardianSlam >= nb)
+			{
+				if (!checkOnly)
+				{
+					GuardianSlam -= nb;
+				}
+				return true;
+			}
+			return false;
+		}
+
+		public bool UseGuard(int nb = 1, bool checkOnly = false)
+		{
+			if (GuardianHorizon && Player.statLife > Player.statLifeMax2 * 0.5f && Player.statLife > 20)
+			{ // Horizon armor set consumes health instead of guardian charges
+				if (!checkOnly)
+				{
+					Player.statLife -= 20;
+					CombatText.NewText(Player.Hitbox, CombatText.DamagedFriendly, 20, false, true);
+					SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, Player.Center);
+				}
+				return true;
+			}
+
+			if (GuardianGuard >= nb)
+			{
+				if (!checkOnly)
+				{
+					GuardianGuard -= nb;
+				}
+				return true;
+			}
+			return false;
 		}
 
 		public void StandardNearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
