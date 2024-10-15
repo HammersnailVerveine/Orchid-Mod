@@ -1,7 +1,9 @@
 using Microsoft.Build.Evaluation;
+using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.Shapeshifter.Dusts;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -15,9 +17,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 {
 	public class SageOwl : OrchidModShapeshifterShapeshift
 	{
-		bool WasGliding = false;
-		bool WasAscending = false;
-		bool Landed = false;
+		public bool WasGliding = false;
+		public bool Landed = false;
+		public bool TouchedGround = false;
+		public bool LateralMovement = false;
+		public bool CanAscend = false;
+		public int AscendTimer = 0;
 
 		public override void SafeSetDefaults()
 		{
@@ -75,123 +80,195 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			// MOVEMENT
 
-			bool grounded = false;
-			for (int i = 0; i < 10; i++)
-			{ // Checks if the player/projectile is within 2 tiles of the ground
-				if (Collision.TileCollision(projectile.position + Vector2.UnitY * 3.2f * i, Vector2.UnitY * 3.2f, projectile.width, projectile.height, false, false, (int)owner.gravDir) != Vector2.UnitY * 3.2f)
-				{
-					grounded = true;
-					break;
-				}
-			}
+			if (AscendTimer > 0)
+			{ // Player is ascending, prevent normal movement for a duration
+				AscendTimer --;
+				WasGliding = false;
+				Landed = false;
+				TouchedGround = false;
+				LateralMovement = false;
+				CanAscend = false;
 
-			if (grounded)
-			{
-				intendedVelocity.Y += 0.05f;
-				if (anchor.Timespent < 0) anchor.Timespent = 0;
+				if ((anchor.Timespent + 1) % 6 != 0)
+				{
+					anchor.Timespent++;
+				}
+
+				if (AscendTimer > 85)
+				{ // Ascend quickly
+					if (anchor.Frame == 3)
+					{
+						intendedVelocity.Y -= 1f;
+						if (intendedVelocity.Y > -1f)
+						{
+							intendedVelocity.Y = -1f;
+						}
+						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
+					}
+
+					if (owner.controlDown)
+					{ // Control height a bit by pressing down
+						AscendTimer--;
+					}
+				}
+				else
+				{ // Stay in place for a while after reaching max height
+					if (AscendTimer == 85)
+					{
+						SoundEngine.PlaySound(Main.rand.NextBool() ? SoundID.Zombie110 : SoundID.Zombie111, projectile.Center);
+					}
+					intendedVelocity *= 0.8f;
+				}
+				FeatherDust(projectile, 30);
 			}
 			else
-			{
-				intendedVelocity.Y += 0.15f;
-			}
-
-
-			if (owner.controlDown || owner.controlUp || owner.controlJump)
-			{ // Vertical movement
-				if (anchor.Frame < 0) anchor.Frame = 0;
-				if (owner.controlJump || owner.controlUp)
-				{
-					if (owner.controlJump && grounded)
-					{ // Player is grounded and presses up. Propels the player upwards
-
-					}
-					else
-					{ // Slowly glides down
-						if (anchor.Frame == 4) anchor.Frame = 3;
-						intendedVelocity.Y = 0.8f;
-						WasGliding = true;
-					}
+			{ // Normal movement
+				if (!Landed)
+				{ // Drops feathers while flying
+					FeatherDust(projectile, 90);
 				}
-				else
-				{ // Stops flapping the wings, falling down faster
-					if (anchor.Frame == 4 || anchor.Frame == 3)
+
+				bool grounded = false;
+				for (int i = 0; i < 10; i++)
+				{ // Checks if the player/projectile is within 2 tiles of the ground
+					if (Collision.TileCollision(projectile.position + Vector2.UnitY * 3.2f * i, Vector2.UnitY * 3.2f, projectile.width, projectile.height, false, false, (int)owner.gravDir) != Vector2.UnitY * 3.2f)
 					{
-						anchor.Frame = 2;
+						grounded = true;
+						if (i == 0)
+						{
+							TouchedGround = true;
+						}
+						break;
 					}
-					intendedVelocity.Y += 0.05f;
-				}
-			}
-			else if (anchor.Frame == 3 || WasGliding)
-			{ // Idle (slowly falling)
-				if (WasGliding)
-				{
-					intendedVelocity.Y = 0;
-					WasGliding = false;
-				}
-				else if (grounded)
-				{
-					intendedVelocity.Y -= 1f;
-					if (intendedVelocity.Y > -1f)
-					{
-						intendedVelocity.Y = -1f;
-					}
-				}
-				else
-				{
-					intendedVelocity.Y = -1f;
-				}
-				SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
-			}
-
-			if (owner.controlLeft || owner.controlRight)
-			{
-				if (Landed)
-				{ // Kickstart if the owl was landed
-					Landed = false;
-					intendedVelocity.Y = -2f;
 				}
 
 				if (grounded)
-				{ // Helps staying a bit more over the ground while moving left and right
-					/*
-					if (intendedVelocity.Y > -0.1f)
-					{
-						intendedVelocity.Y = -0.1f;
-					}
-					*/
-					if ((anchor.Timespent + 1) % 6 != 0)
-					{
-						anchor.Timespent++;
-					}
+				{
+					intendedVelocity.Y += 0.05f;
+					if (anchor.Timespent < 0) anchor.Timespent = 0;
+					CanAscend = true;
+				}
+				else
+				{
+					TouchedGround = false;
+					intendedVelocity.Y += 0.15f;
 				}
 
-				if (owner.controlLeft && !owner.controlRight)
-				{ // Left movement
-					intendedVelocity.X -= 0.25f;
-					if (intendedVelocity.X < -5f) intendedVelocity.X = -5f;
-					projectile.direction = -1;
-					projectile.spriteDirection = -1;
-				}
-				else if (owner.controlRight && !owner.controlLeft)
-				{ // Right movement
-					intendedVelocity.X += 0.25f;
-					if (intendedVelocity.X > 5f) intendedVelocity.X = 5f;
-					projectile.direction = 1;
-					projectile.spriteDirection = 1;
-				}
-			}
-			else
-			{
-				intendedVelocity.X *= 0.9f;
-				if (Math.Abs(intendedVelocity.X) < 0.5f && grounded)
-				{ // Player close to the ground and not moving = landing frame
-					if (intendedVelocity.Y < 0.25f)
+				if (owner.controlJump && CanAscend)
+				{ // Check for an ascend input
+					AscendTimer = 120;
+					anchor.Timespent = 0;
+					anchor.Frame = 2;
+					intendedVelocity.Y = -2f;
+					intendedVelocity.X = 0f;
+					CanAscend = false;
+					SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
+
+					for (int i = 0; i < 5; i ++)
 					{
-						intendedVelocity.Y = 0.25f;
+						FeatherDust(projectile, 1);
 					}
-					intendedVelocity.X *= 0.5f;
-					anchor.Frame = 0;
-					Landed = true;
+				}
+				else
+				{ // Normal movement
+					if ((owner.controlDown || owner.controlUp || owner.controlJump) && !TouchedGround)
+					{ // Vertical movement (Deactivated if too close to the ground)
+						if (anchor.Frame < 0) anchor.Frame = 0;
+						if (owner.controlJump || owner.controlUp)
+						{ // Slowly glides down
+							if (anchor.Frame == 4) anchor.Frame = 3;
+							intendedVelocity.Y = 0.8f;
+							WasGliding = true;
+						}
+						else
+						{ // Stops flapping the wings, falling down faster
+							if (anchor.Frame == 4 || anchor.Frame == 3)
+							{
+								anchor.Frame = 2;
+							}
+							intendedVelocity.Y += 0.05f;
+						}
+					}
+					else if (anchor.Frame == 3 || WasGliding)
+					{ // Idle (slowly falling)
+						if (WasGliding)
+						{ // No vertical ascend after a glide
+							intendedVelocity.Y = 0;
+							WasGliding = false;
+						}
+						else if (grounded)
+						{ // Pushes the player up more if near the ground while moving (helps with navigation)
+							if (LateralMovement)
+							{
+								intendedVelocity.Y -= 1f;
+								if (intendedVelocity.Y > -1f)
+								{
+									intendedVelocity.Y = -1f;
+								}
+
+							}
+						}
+						else
+						{ // Else slowly flaps down
+							intendedVelocity.Y = -1f;
+						}
+						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
+					}
+
+					if (owner.controlLeft || owner.controlRight)
+					{
+						if (Landed)
+						{ // Kickstart if the owl was landed
+							Landed = false;
+							intendedVelocity.Y = -2f;
+						}
+
+						if (grounded)
+						{ // Helps staying a bit more over the ground while moving left and right
+							/*
+							if (intendedVelocity.Y > -0.1f)
+							{
+								intendedVelocity.Y = -0.1f;
+							}
+							*/
+							if ((anchor.Timespent + 1) % 6 != 0)
+							{
+								anchor.Timespent++;
+							}
+						}
+
+						if (owner.controlLeft && !owner.controlRight)
+						{ // Left movement
+							intendedVelocity.X -= 0.25f;
+							if (intendedVelocity.X < -5f) intendedVelocity.X = -5f;
+							projectile.direction = -1;
+							projectile.spriteDirection = -1;
+							LateralMovement = true;
+						}
+						else if (owner.controlRight && !owner.controlLeft)
+						{ // Right movement
+							intendedVelocity.X += 0.25f;
+							if (intendedVelocity.X > 5f) intendedVelocity.X = 5f;
+							projectile.direction = 1;
+							projectile.spriteDirection = 1;
+							LateralMovement = true;
+						}
+					}
+					else
+					{
+						LateralMovement = false;
+						intendedVelocity.X *= 0.9f;
+						if (Math.Abs(intendedVelocity.X) < 0.5f && TouchedGround)
+						{ // Player close to the ground and not moving = landing frame
+							if (intendedVelocity.Y < 0.25f)
+							{
+								intendedVelocity.Y = 0.25f;
+							}
+							intendedVelocity.X *= 0.5f;
+							anchor.Frame = 0;
+							Landed = true;
+						}
+					}
 				}
 			}
 
@@ -225,6 +302,17 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				anchor.OldPosition.RemoveAt(0);
 				anchor.OldRotation.RemoveAt(0);
 				anchor.OldFrame.RemoveAt(0);
+			}
+		}
+
+		public void FeatherDust(Projectile projectile, int rand = 1)
+		{
+			if (Main.rand.NextBool(rand))
+			{
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, ModContent.DustType<SageOwlDust>(), Scale: Main.rand.NextFloat(1.2f, 1.4f));
+				dust.velocity *= 0.5f;
+				dust.velocity.Y = 2f;
+				dust.customData = Main.rand.Next(314);
 			}
 		}
 

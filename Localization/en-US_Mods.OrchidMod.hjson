@@ -3185,6 +3185,8 @@ NPCs: {
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
 		}
+
+		Census.SpawnCondition: Find in the main mineshaft, in the center of your world
 	}
 
 	Croupier: {
@@ -3208,6 +3210,8 @@ NPCs: {
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
 		}
+
+		Census.SpawnCondition: Have a gamber card ([i:8427][i:8409] etc.) in your deck
 	}
 
 	DownpourElemental.DisplayName: Downpour Elemental

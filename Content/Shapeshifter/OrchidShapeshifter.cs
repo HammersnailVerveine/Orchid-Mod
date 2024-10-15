@@ -54,8 +54,8 @@ namespace OrchidMod
 			}
 			else
 			{
-				Player.width = Player.defaultWidth;
-				Player.height = Player.defaultHeight;
+				//Player.width = Player.defaultWidth;
+				//Player.height = Player.defaultHeight;
 				Shapeshift = null;
 			}
 		}
