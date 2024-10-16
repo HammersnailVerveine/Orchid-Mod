@@ -3128,7 +3128,7 @@ Items: {
 		RightClick: Marks enemies below you, they take increased damage
 		Jump: Quickly fly up before hovering for a short duration
 		Passive: Increases night vision
-		Tooltip: Considerable effort went into this carving, seemingly in vain
+		Tooltip: Considerable effort went into this carving, likely in vain
 	}
 
 	HorizonDye: {
@@ -3516,6 +3516,17 @@ Configs: {
 			Tooltip: "{$Enables/Disables loading Crossmod-Content without required mods}"
 		}
 	}
+}
+
+Misc: {
+	ShapeshifterLeftClick: "[c/AFFFAF:Left click: ]"
+	ShapeshifterRightClick: "[c/AFFFAF:Right click: ]"
+	ShapeshifterJump: "[c/AFFFAF:Jump: ]"
+	ShapeshifterPassive: "[c/AFFFAF:Passive: ]"
+	ShapeshifterNone: Other shape
+	ShapeshifterSage: Sage shape
+	ShapeshifterPredator: Predator shape
+	ShapeshifterWarden: Warden shape
 }
 
 DamageClasses: {

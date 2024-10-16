@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -16,11 +17,13 @@ namespace OrchidMod.Content.Shapeshifter
 		public int ShapeshiftHeight;
 		public bool AutoReuseLeft;
 		public bool AutoReuseRight;
+		public ShapeshifterShapeshiftType ShapeshiftType;
 
-		public virtual string LeftClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".LeftClick"));
-		public virtual string RightClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".RightClick"));
-		public virtual string JumpTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Jump"));
-		public virtual string PassiveTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Passive"));
+		public virtual string LeftClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterLeftClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".LeftClick"));
+		public virtual string RightClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterRightClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".RightClick"));
+		public virtual string JumpTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterJump")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Jump"));
+		public virtual string PassiveTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterPassive")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Passive"));
+		public virtual string TypeTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.Shapeshifter" + ShapeshiftType.ToString()));
 		public virtual string ShapeshiftTexture => Texture + "_Shapeshift";
 		public virtual string IconTexture => Texture + "_Icon";
 		public virtual void PreDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Vector2 drawPosition, Rectangle drawRectangle, SpriteEffects effect, Player player, Color lightColor) { } // Called before drawing the shapeshift anchor if it is going to be drawn
@@ -104,10 +107,14 @@ namespace OrchidMod.Content.Shapeshifter
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "ToolTipLeftClick", "[c/AFFFAF:Left click:] " + LeftClickTooltip));
-			tooltips.Insert(index + 2, new TooltipLine(Mod, "ToolTipRightClick", "[c/AFFFAF:Right click:] " + RightClickTooltip));
-			tooltips.Insert(index + 3, new TooltipLine(Mod, "ToolTipJump", "[c/AFFFAF:Jump:] " + JumpTooltip));
-			tooltips.Insert(index + 4, new TooltipLine(Mod, "ToolTipPassive", "[c/AFFFAF:Passive:] " + PassiveTooltip));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ToolTipType", TypeTooltip)
+			{
+				OverrideColor = OrchidColors.GetClassTagColor(ClassTags.Shapeshifter)
+			});
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "ToolTipLeftClick", LeftClickTooltip));
+			tooltips.Insert(index + 3, new TooltipLine(Mod, "ToolTipRightClick", RightClickTooltip));
+			tooltips.Insert(index + 4, new TooltipLine(Mod, "ToolTipJump", JumpTooltip));
+			tooltips.Insert(index + 5, new TooltipLine(Mod, "ToolTipPassive", PassiveTooltip));
 		}
 	}
 }

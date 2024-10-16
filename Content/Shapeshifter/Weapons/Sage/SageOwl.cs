@@ -36,6 +36,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.damage = 17;
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 30;
+			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
