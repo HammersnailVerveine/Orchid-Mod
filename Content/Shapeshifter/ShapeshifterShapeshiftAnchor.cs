@@ -219,6 +219,9 @@ namespace OrchidMod.Content.Shapeshifter
 			OrchidShapeshifter shapeshifter = owner.GetModPlayer<OrchidShapeshifter>();
 			shapeshifter.Shapeshift = null;
 			shapeshifter.ShapeshiftAnchor = null;
+			owner.width = Player.defaultWidth;
+			owner.height = Player.defaultHeight;
+			owner.position = Projectile.position + new Vector2(Projectile.width * 0.5f - owner.width * 0.5f, Projectile.height - owner.height);
 
 			for (int i = 0; i < 3; i++)
 			{

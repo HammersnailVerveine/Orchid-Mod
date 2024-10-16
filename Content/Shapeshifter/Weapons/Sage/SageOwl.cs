@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void SafeSetDefaults()
 		{
-			Item.width = 24;
+			Item.width = 32;
 			Item.height = 32;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.shootSpeed = 10f;
 			Item.knockBack = 3f;
 			Item.damage = 17;
-			ShapeshiftWidth = 30;
+			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 30;
 		}
 

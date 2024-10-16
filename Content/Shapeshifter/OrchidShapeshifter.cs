@@ -54,7 +54,7 @@ namespace OrchidMod
 				Player.Center = projectile.Center;
 			}
 			else if (ShapeshiftAnchor != null || Shapeshift != null)
-			{
+			{ // Failsafe in case the anchor isn't properly killed
 				Player.width = Player.defaultWidth;
 				Player.height = Player.defaultHeight;
 				Shapeshift = null;
