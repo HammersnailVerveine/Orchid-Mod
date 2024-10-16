@@ -74,14 +74,6 @@ namespace OrchidMod
 			}
 		}
 
-		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-		{
-			if (target.HasBuff<SageOwlDebuff>())
-			{
-				modifiers.FlatBonusDamage += 3;
-			}
-		}
-
 		public override void OnRespawn()
 		{
 		}

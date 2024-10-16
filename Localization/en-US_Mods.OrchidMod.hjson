@@ -3124,7 +3124,11 @@ Items: {
 
 	SageOwl: {
 		DisplayName: Peculiar Owl Idol
-		Tooltip: ""
+		LeftClick: Shoots a barrage of feathers
+		RightClick: Marks enemies below you, they take increased damage
+		Jump: Quickly fly up before hovering for a short duration
+		Passive: Increases night vision
+		Tooltip: Considerable effort went into this carving, seemingly in vain
 	}
 
 	HorizonDye: {
