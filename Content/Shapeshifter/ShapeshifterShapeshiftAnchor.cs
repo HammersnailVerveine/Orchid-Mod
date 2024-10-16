@@ -24,6 +24,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public int Timespent = 0;
 		public Texture2D TextureShapeshift;
 		public Texture2D TextureShapeshiftGlow;
+		public Texture2D TextureShapeshiftIcon;
 
 		public bool CanLeftClick => LeftCLickCooldown <= 0f;
 		public bool CanRightClick => RightCLickCooldown <= 0f;
@@ -87,8 +88,9 @@ namespace OrchidMod.Content.Shapeshifter
 				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
 
 				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
+				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftGlow = null;
-				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset))
+				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
 				{
 					TextureShapeshiftGlow = asset.Value;
 				}
@@ -116,8 +118,9 @@ namespace OrchidMod.Content.Shapeshifter
 				RightCLickCooldown = shapeshiftItem.Item.useTime;
 
 				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
+				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftGlow = null;
-				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset))
+				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
 				{
 					TextureShapeshiftGlow = asset.Value;
 				}
@@ -200,6 +203,12 @@ namespace OrchidMod.Content.Shapeshifter
 			}
 			else
 			{
+				if (NeedNetUpdate)
+				{
+					NeedNetUpdate = false;
+					Projectile.netUpdate = true;
+				}
+
 				Projectile.timeLeft = 5;
 			}
 		}
@@ -257,7 +266,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 				if (TextureShapeshiftGlow != null)
 				{
-					spriteBatch.Draw(TextureShapeshiftGlow, drawPosition, drawRectangle, lightColor, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					spriteBatch.Draw(TextureShapeshiftGlow, drawPosition, drawRectangle, Color.White, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
 				//spriteBatch.End();

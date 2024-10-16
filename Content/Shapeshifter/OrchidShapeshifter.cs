@@ -29,7 +29,7 @@ namespace OrchidMod
 			{
 				foreach (var layer in PlayerDrawLayerLoader.DrawOrder)
 				{
-				layer.Hide();
+					layer.Hide();
 				}
 			}
 		}
@@ -53,10 +53,10 @@ namespace OrchidMod
 				Player.velocity = projectile.velocity;
 				Player.Center = projectile.Center;
 			}
-			else
+			else if (ShapeshiftAnchor != null || Shapeshift != null)
 			{
-				//Player.width = Player.defaultWidth;
-				//Player.height = Player.defaultHeight;
+				Player.width = Player.defaultWidth;
+				Player.height = Player.defaultHeight;
 				Shapeshift = null;
 				ShapeshiftAnchor = null;
 			}

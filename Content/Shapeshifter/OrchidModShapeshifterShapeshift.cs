@@ -16,6 +16,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool AutoReuseRight;
 
 		public virtual string ShapeshiftTexture => Texture + "_Shapeshift";
+		public virtual string IconTexture => Texture + "_Icon";
 		public virtual void PostDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { } // Called after drawing the shapeshift anchor
 		public virtual bool PreDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; } // Called before drawing the shapeshift anchor, return false to prevent it
 		public virtual void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Very important, this is the AI of the shapeshift

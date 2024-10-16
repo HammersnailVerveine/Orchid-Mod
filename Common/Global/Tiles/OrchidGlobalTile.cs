@@ -31,8 +31,8 @@ namespace OrchidMod.Common.Global.Tiles
 					{
 						bool isShadowOrb = tile.TileFrameX == 0;
 
-						DropTileBreakItem(isShadowOrb ? ModContent.ItemType<ShadowWeaver>() : ModContent.ItemType<BloodCaller>(), i, j, 1, 4);
-						DropTileBreakItem(isShadowOrb ? ModContent.ItemType<DemoniteCatalyst>() : ModContent.ItemType<CrimtaneCatalyst>(), i, j, 1, 4);
+						//DropTileBreakItem(isShadowOrb ? ModContent.ItemType<ShadowWeaver>() : ModContent.ItemType<BloodCaller>(), i, j, 1, 4);
+						//DropTileBreakItem(isShadowOrb ? ModContent.ItemType<DemoniteCatalyst>() : ModContent.ItemType<CrimtaneCatalyst>(), i, j, 1, 4);
 					}
 					break;
 			}
