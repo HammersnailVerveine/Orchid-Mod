@@ -358,11 +358,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			anchor.OldRotation.Add(projectile.rotation);
 			anchor.OldFrame.Add(anchor.Frame);
 
-			if (anchor.OldPosition.Count > 5)
+			for (int i = 0; i < 2; i++)
 			{
-				anchor.OldPosition.RemoveAt(0);
-				anchor.OldRotation.RemoveAt(0);
-				anchor.OldFrame.RemoveAt(0);
+				if (anchor.OldPosition.Count > (AscendTimer > 80 ? 7 : 5))
+				{
+					anchor.OldPosition.RemoveAt(0);
+					anchor.OldRotation.RemoveAt(0);
+					anchor.OldFrame.RemoveAt(0);
+				}
 			}
 		}
 

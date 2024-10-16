@@ -39,8 +39,20 @@ namespace OrchidMod
 			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 		}
 
+		public override void ResetEffects()
+		{
+			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
+			{
+				if (Player.mount.Active || Player.grappling[0] >= 0)
+				{ // Disable the shapeshift if the player is mounted or uses a hook
+					ShapeshiftAnchor.Projectile.Kill();
+				}
+			}
+		}
+
 		public override void PostUpdate()
 		{
+
 			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
 			{ // Runs the shapeshift AI and adjust player position accordingly
 				Player.width = Shapeshift.ShapeshiftWidth;
@@ -49,7 +61,7 @@ namespace OrchidMod
 				Projectile projectile = ShapeshiftAnchor.Projectile;
 				Shapeshift.ShapeshiftAnchorAI(projectile, ShapeshiftAnchor, Player, this);
 				ShapeshiftAnchor.ExtraAI();
-				
+
 				Player.velocity = projectile.velocity;
 				Player.Center = projectile.Center;
 			}

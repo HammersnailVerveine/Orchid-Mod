@@ -67,6 +67,12 @@ namespace OrchidMod.Content.Shapeshifter
 					}
 					else
 					{
+						if (player.mount.Active)
+						{
+							player.mount.Dismount(player);
+						}
+
+						player.RemoveAllGrapplingHooks();
 						anchor.OnChangeSelectedItem(player);
 						anchor.NeedNetUpdate = true;
 					}
