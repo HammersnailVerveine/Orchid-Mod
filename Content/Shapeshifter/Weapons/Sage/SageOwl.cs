@@ -37,8 +37,16 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			anchor.Frame = 2;
+			anchor.Timespent = 0;
 			projectile.direction = player.direction;
 			projectile.spriteDirection = player.direction;
+
+			WasGliding = false;
+			Landed = false;
+			TouchedGround = false;
+			LateralMovement = false;
+			CanAscend = false;
+			AscendTimer = 0;
 
 			for (int i = 0; i < 8; i++)
 			{
@@ -170,6 +178,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					intendedVelocity.X = 0f;
 					CanAscend = false;
 					SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
+					anchor.NeedNetUpdate = true;
 
 					for (int i = 0; i < 5; i ++)
 					{

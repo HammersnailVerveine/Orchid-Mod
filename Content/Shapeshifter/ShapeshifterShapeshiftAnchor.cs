@@ -25,6 +25,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public Texture2D TextureShapeshift;
 		public Texture2D TextureShapeshiftGlow;
 		public Texture2D TextureShapeshiftIcon;
+		public Texture2D TextureShapeshiftIconBorder;
 
 		public bool CanLeftClick => LeftCLickCooldown <= 0f;
 		public bool CanRightClick => RightCLickCooldown <= 0f;
@@ -89,6 +90,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
+				TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture + "_Border", AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftGlow = null;
 				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
 				{
@@ -119,6 +121,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
+				TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture + "_Border", AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftGlow = null;
 				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
 				{
