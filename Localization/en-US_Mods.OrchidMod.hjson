@@ -264,6 +264,11 @@ Buffs: {
 		DisplayName: Battle Ready
 		Description: +1 slam charge
 	}
+
+	SageOwlDebuff: {
+		DisplayName: Sage Owl Debuff
+		Description: Reduced defense
+	}
 }
 
 Items: {
@@ -3459,6 +3464,7 @@ Projectiles: {
 	SageOwl.DisplayName: Sage Owl
 	ShapeshifterShapeshiftAnchor.DisplayName: Shapeshifter Shapeshift Anchor
 	SageOwlProj.DisplayName: Sage Owl Proj
+	SageOwlProjAlt.DisplayName: Sage Owl Proj Alt
 }
 
 Configs: {

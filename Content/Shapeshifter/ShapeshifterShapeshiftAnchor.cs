@@ -87,6 +87,9 @@ namespace OrchidMod.Content.Shapeshifter
 				Projectile.height = shapeshiftItem.ShapeshiftHeight;
 				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
 				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
+				Projectile.ai[0] = 0f;
+				Projectile.ai[1] = 0f;
+				Projectile.ai[2] = 0f;
 
 				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
@@ -118,6 +121,9 @@ namespace OrchidMod.Content.Shapeshifter
 				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
 				LeftCLickCooldown = shapeshiftItem.Item.useTime;
 				RightCLickCooldown = shapeshiftItem.Item.useTime;
+				Projectile.ai[0] = 0f;
+				Projectile.ai[1] = 0f;
+				Projectile.ai[2] = 0f;
 
 				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
@@ -133,7 +139,9 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public void ExtraAI()
 		{
+			Timespent++;
 			LeftCLickCooldown--;
+			RightCLickCooldown--;
 
 			if (Projectile.position.X > Main.maxTilesX * 16 - (672 + Projectile.width))
 			{ // Prevents the player from leaving the map through the right
@@ -244,12 +252,15 @@ namespace OrchidMod.Content.Shapeshifter
 			if (ShapeshifterItem.ModItem is not OrchidModShapeshifterShapeshift shapeshifterItem || TextureShapeshift == null) return false;
 			var player = Main.player[Projectile.owner];
 
-			if (shapeshifterItem.PreDrawShapeshift(spriteBatch, Projectile, player, ref lightColor))
+			if (shapeshifterItem.ShouldDrawShapeshift(spriteBatch, Projectile, player, ref lightColor))
 			{
 				Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				Rectangle drawRectangle = TextureShapeshift.Bounds;
 				drawRectangle.Height = drawRectangle.Width;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+				drawRectangle.Y = drawRectangle.Height * Frame;
+				shapeshifterItem.PreDrawShapeshift(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, lightColor);
 
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
@@ -277,10 +288,8 @@ namespace OrchidMod.Content.Shapeshifter
 
 				//spriteBatch.End();
 				//spriteBatch.Begin(spriteBatchSnapshot);
-				return false;
-
+				shapeshifterItem.PostDrawShapeshift(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, lightColor);
 			}
-			shapeshifterItem.PostDrawShapeshift(spriteBatch, Projectile, player, lightColor);
 
 			return false;
 		}

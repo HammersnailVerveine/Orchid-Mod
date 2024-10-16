@@ -1,5 +1,6 @@
 ﻿using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
+using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -52,7 +53,6 @@ namespace OrchidMod
 
 		public override void PostUpdate()
 		{
-
 			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
 			{ // Runs the shapeshift AI and adjust player position accordingly
 				Player.width = Shapeshift.ShapeshiftWidth;
@@ -71,6 +71,14 @@ namespace OrchidMod
 				Player.height = Player.defaultHeight;
 				Shapeshift = null;
 				ShapeshiftAnchor = null;
+			}
+		}
+
+		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (target.HasBuff<SageOwlDebuff>())
+			{
+				modifiers.FlatBonusDamage += 3;
 			}
 		}
 

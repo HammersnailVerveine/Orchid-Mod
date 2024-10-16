@@ -1,7 +1,11 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.General.Prefixes;
+using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using OrchidMod.Content.Shapeshifter.Dusts;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
+using OrchidMod.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -64,12 +68,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			Vector2 intendedVelocity = projectile.velocity;
+			// MISC EFFECTS
+
 			player.fallStart = (int)(player.position.Y / 16f);
 			player.fallStart2 = (int)(player.position.Y / 16f);
-			anchor.Timespent++;
-
 			player.nightVision = true;
+			player.noFallDmg = true;
 
 			// ANIMATION
 
@@ -95,9 +99,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			// MOVEMENT
 
-			if (AscendTimer > 0)
-			{ // Player is ascending, prevent normal movement for a duration
-				AscendTimer --;
+			Vector2 intendedVelocity = projectile.velocity;
+			if (AscendTimer > 0 || anchor.Projectile.ai[2] > 0)
+			{ // Player is ascending || right click animation, prevent normal movement for a duration
+				AscendTimer--;
 				WasGliding = false;
 				Landed = false;
 				TouchedGround = false;
@@ -132,6 +137,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					{
 						SoundEngine.PlaySound(Main.rand.NextBool() ? SoundID.Zombie110 : SoundID.Zombie111, projectile.Center);
 					}
+
+					if (anchor.Projectile.ai[2] > 0)
+					{ // Right click animation stuff
+						anchor.Projectile.ai[2]--;
+						anchor.Frame = 2;
+						Color color = Color.Aqua * (float)Math.Sin(projectile.ai[2] * 0.1046f) * 0.5f;
+						Lighting.AddLight(projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+					}
+
 					intendedVelocity *= 0.8f;
 				}
 				FeatherDust(projectile, 30);
@@ -180,7 +194,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
 					anchor.NeedNetUpdate = true;
 
-					for (int i = 0; i < 5; i ++)
+					for (int i = 0; i < 5; i++)
 					{
 						FeatherDust(projectile, 1);
 					}
@@ -316,24 +330,58 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			if (IsLocalPlayer(player))
 			{
-				if (Main.mouseLeft && (Main.mouseLeftRelease || AutoReuseLeft) && anchor.CanLeftClick && !Landed)
+				if (CanLeftClick(anchor) && !Landed)
 				{ // Left click attack
 					int projectileType = ModContent.ProjectileType<SageOwlProj>();
 					for (int i = 0; i < 3; i++)
 					{
 						Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * (0.85f + i * 0.15f);
 						int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI, 1f);
+						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
 						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 						newProjectile.netUpdate = true;
 					}
 
 					anchor.LeftCLickCooldown = Item.useTime;
-					SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
-					FeatherDust(projectile, 2);
 					anchor.Projectile.ai[0] = 10;
 					anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 					anchor.NeedNetUpdate = true;
+
+					SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
+					FeatherDust(projectile, 2);
+				}
+
+				if (CanRightClick(anchor) && !Landed && AscendTimer < 85)
+				{ // Spawns a projectile that does nothing but provides visuals on the ability effect
+					projectile.velocity *= 0f;
+					int projectileType = ModContent.ProjectileType<SageOwlProjAlt>();;
+					Vector2 position = projectile.Center;
+					position.Y += 90;
+					Projectile.NewProjectile(Item.GetSource_FromAI(), position, Vector2.Zero, projectileType, 0, 0f, player.whoAmI);
+
+					foreach (NPC npc in Main.npc) 
+					{ // Applies the ability debuff to all valid NPCs
+						if (OrchidModProjectile.IsValidTarget(npc))
+						{
+							float angle = (npc.Center - projectile.Center).ToRotation();
+							if (npc.Center.Distance(projectile.Center) < 480f && angle > MathHelper.Pi * 0.25f && angle < MathHelper.Pi * 0.75f)
+							{
+								npc.AddBuff(ModContent.BuffType<SageOwlDebuff>(), 600);
+							}
+						}
+					}
+
+					// adjust shapeshift anchor fields
+					anchor.RightCLickCooldown = Item.useTime * 4;
+					anchor.Projectile.ai[2] = 30;
+					anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+					anchor.NeedNetUpdate = true;
+
+					SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, projectile.Center);
+					for (int i = 0; i < 3; i++)
+					{
+						FeatherDust(projectile, 2);
+					}
 				}
 			}
 
@@ -366,6 +414,21 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					anchor.OldRotation.RemoveAt(0);
 					anchor.OldFrame.RemoveAt(0);
 				}
+			}
+		}
+
+		public override void PreDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Vector2 drawPosition, Rectangle drawRectangle, SpriteEffects effect, Player player, Color lightColor)
+		{
+			if (projectile.ai[2] > 0)
+			{
+				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+
+				float scalemult = (float)Math.Sin(projectile.ai[2] * 0.1046f) * 0.25f + 1f;
+				spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, lightColor * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+
+				spriteBatch.End();
+				spriteBatch.Begin(spriteBatchSnapshot);
 			}
 		}
 

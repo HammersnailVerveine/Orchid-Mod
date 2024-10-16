@@ -29,8 +29,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			OldPosition = new List<Vector2>();
 			OldRotation = new List<float>();
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 10;
 		}
 
 		public override void AI()
