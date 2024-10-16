@@ -214,7 +214,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						}
 						else if (grounded)
 						{ // Pushes the player up more if near the ground while moving (helps with navigation)
-							if (LateralMovement || anchor.Projectile.ai[0] > 0 || anchor.IsLeftClicking)
+							if (LateralMovement || anchor.Projectile.ai[0] > -30 || anchor.IsLeftClicking)
 							{
 								intendedVelocity.Y -= 1f;
 								if (intendedVelocity.Y > -1f)
@@ -231,7 +231,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 					}
 
-					if (player.controlLeft || player.controlRight || anchor.Projectile.ai[0] > 0 || anchor.IsLeftClicking)
+					if (player.controlLeft || player.controlRight || anchor.Projectile.ai[0] > -30 || anchor.IsLeftClicking)
 					{
 						if (Landed)
 						{ // Kickstart if the owl was landed
@@ -337,14 +337,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 			}
 
-			if (anchor.Projectile.ai[0] > 0)
+			if (anchor.Projectile.ai[0] > -30)
 			{ // Override animation during attack
 				anchor.Projectile.ai[0]--;
 				if (anchor.Projectile.ai[0] == 0)
 				{
 					anchor.Frame = 1;
 				}
-				else
+				else if (anchor.Projectile.ai[0] > 0)
 				{
 					anchor.Frame = 7;
 					projectile.direction = (int)anchor.Projectile.ai[1];

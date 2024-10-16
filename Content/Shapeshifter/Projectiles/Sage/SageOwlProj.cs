@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Projectile.height = 12;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 65;
+			Projectile.timeLeft = 60;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = 1;
