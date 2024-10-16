@@ -1,13 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Guardian;
+﻿using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod
@@ -17,6 +11,9 @@ namespace OrchidMod
 		public OrchidPlayer modPlayer;
 		public ShapeshifterShapeshiftAnchor ShapeshiftAnchor;
 		public OrchidModShapeshifterShapeshift Shapeshift;
+
+		public int GetShapeshifterDamage(float damage) => (int)(Player.GetDamage<ShapeshifterDamageClass>().ApplyTo(damage) + Player.GetDamage(DamageClass.Generic).ApplyTo(damage) - damage);
+		public int GetShapeshifterCrit(int additionalCritChance) => (int)(Player.GetCritChance<ShapeshifterDamageClass>() + Player.GetCritChance<GenericDamageClass>() + additionalCritChance);
 
 		// Can be edited by gear
 
@@ -44,19 +41,24 @@ namespace OrchidMod
 
 		public override void PostUpdate()
 		{
-			if (ShapeshiftAnchor != null)
-			{
+			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
+			{ // Runs the shapeshift AI and adjust player position accordingly
 				Player.width = Shapeshift.ShapeshiftWidth;
 				Player.height = Shapeshift.ShapeshiftHeight;
-				Shapeshift.ShapeshiftAnchorAI(ShapeshiftAnchor.Projectile, ShapeshiftAnchor);
-				Player.velocity = ShapeshiftAnchor.Projectile.velocity;
-				Player.Center = ShapeshiftAnchor.Projectile.Center;
+
+				Projectile projectile = ShapeshiftAnchor.Projectile;
+				Shapeshift.ShapeshiftAnchorAI(projectile, ShapeshiftAnchor, Player, this);
+				ShapeshiftAnchor.ExtraAI();
+				
+				Player.velocity = projectile.velocity;
+				Player.Center = projectile.Center;
 			}
 			else
 			{
 				//Player.width = Player.defaultWidth;
 				//Player.height = Player.defaultHeight;
 				Shapeshift = null;
+				ShapeshiftAnchor = null;
 			}
 		}
 

@@ -1,15 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.Global.Items;
-using OrchidMod.Content.Shapeshifter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter
@@ -18,12 +11,15 @@ namespace OrchidMod.Content.Shapeshifter
 	{
 		public int ShapeshiftWidth;
 		public int ShapeshiftHeight;
+		public bool AutoReuseLeft;
+		public bool AutoReuseRight;
 
 		public virtual string ShapeshiftTexture => Texture + "_Shapeshift";
 		public virtual void PostDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { } // Called after drawing the shapeshift anchor
 		public virtual bool PreDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; } // Called before drawing the shapeshift anchor, return false to prevent it
-		public virtual void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor) { } // Very important, this is the AI of the shapeshift
-		public virtual void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor) { } // Makes stuff happen when the player just transformed
+		public virtual void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Very important, this is the AI of the shapeshift
+		public virtual void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Makes stuff happen when the player just transformed
+		public virtual void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor) { } // Makes stuff happen when the anchor disappears (player leaves shapeshift form)
 
 		public sealed override void SetDefaults()
 		{
@@ -38,6 +34,8 @@ namespace OrchidMod.Content.Shapeshifter
 			Item.shootSpeed = 0f;
 			ShapeshiftWidth = 10;
 			ShapeshiftHeight = 10;
+			AutoReuseLeft = true;
+			AutoReuseRight = false;
 
 			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;

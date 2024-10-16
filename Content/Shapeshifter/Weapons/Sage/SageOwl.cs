@@ -1,15 +1,10 @@
-using Microsoft.Build.Evaluation;
-using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Shapeshifter.Dusts;
-using OrchidMod.Utilities;
+using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,35 +21,47 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void SafeSetDefaults()
 		{
-			Item.width = 32;
+			Item.width = 24;
 			Item.height = 32;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Zombie111;
 			Item.useTime = 30;
+			Item.shootSpeed = 10f;
 			Item.knockBack = 3f;
-			Item.damage = 22;
+			Item.damage = 20;
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 30;
 		}
 
-		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor)
+		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			Player owner = Main.player[projectile.owner];
 			anchor.Frame = 2;
-			projectile.direction = owner.direction;
-			projectile.spriteDirection = owner.direction;
+			projectile.direction = player.direction;
+			projectile.spriteDirection = player.direction;
+
+			for (int i = 0; i < 8; i++)
+			{
+				FeatherDust(projectile, 1);
+			}
 		}
 
-		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor)
+		public override void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor)
 		{
-			Player owner = Main.player[projectile.owner];
+			for (int i = 0; i < 5; i++)
+			{
+				FeatherDust(projectile, 1);
+			}
+		}
+
+		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
 			Vector2 intendedVelocity = projectile.velocity;
-			owner.fallStart = (int)(owner.position.Y / 16f);
-			owner.fallStart2 = (int)(owner.position.Y / 16f);
+			player.fallStart = (int)(player.position.Y / 16f);
+			player.fallStart2 = (int)(player.position.Y / 16f);
 			anchor.Timespent++;
 
-			owner.nightVision = true;
+			player.nightVision = true;
 
 			// ANIMATION
 
@@ -106,7 +113,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 					}
 
-					if (owner.controlDown)
+					if (player.controlDown)
 					{ // Control height a bit by pressing down
 						AscendTimer--;
 					}
@@ -131,7 +138,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				bool grounded = false;
 				for (int i = 0; i < 10; i++)
 				{ // Checks if the player/projectile is within 2 tiles of the ground
-					if (Collision.TileCollision(projectile.position + Vector2.UnitY * 3.2f * i, Vector2.UnitY * 3.2f, projectile.width, projectile.height, false, false, (int)owner.gravDir) != Vector2.UnitY * 3.2f)
+					if (Collision.TileCollision(projectile.position + Vector2.UnitY * 3.2f * i, Vector2.UnitY * 3.2f, projectile.width, projectile.height, false, false, (int)player.gravDir) != Vector2.UnitY * 3.2f)
 					{
 						grounded = true;
 						if (i == 0)
@@ -154,7 +161,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					intendedVelocity.Y += 0.15f;
 				}
 
-				if (owner.controlJump && CanAscend)
+				if (player.controlJump && CanAscend)
 				{ // Check for an ascend input
 					AscendTimer = 120;
 					anchor.Timespent = 0;
@@ -171,10 +178,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 				else
 				{ // Normal movement
-					if ((owner.controlDown || owner.controlUp || owner.controlJump) && !TouchedGround)
+					if ((player.controlDown || player.controlUp || player.controlJump) && !TouchedGround)
 					{ // Vertical movement (Deactivated if too close to the ground)
 						if (anchor.Frame < 0) anchor.Frame = 0;
-						if (owner.controlJump || owner.controlUp)
+						if (player.controlJump || player.controlUp)
 						{ // Slowly glides down
 							if (anchor.Frame == 4) anchor.Frame = 3;
 							intendedVelocity.Y = 0.8f;
@@ -198,7 +205,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						}
 						else if (grounded)
 						{ // Pushes the player up more if near the ground while moving (helps with navigation)
-							if (LateralMovement)
+							if (LateralMovement || anchor.Projectile.ai[0] > 0 || anchor.IsLeftClicking)
 							{
 								intendedVelocity.Y -= 1f;
 								if (intendedVelocity.Y > -1f)
@@ -215,7 +222,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 					}
 
-					if (owner.controlLeft || owner.controlRight)
+					if (player.controlLeft || player.controlRight || anchor.Projectile.ai[0] > 0 || anchor.IsLeftClicking)
 					{
 						if (Landed)
 						{ // Kickstart if the owl was landed
@@ -237,7 +244,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 							}
 						}
 
-						if (owner.controlLeft && !owner.controlRight)
+						if (player.controlLeft && !player.controlRight)
 						{ // Left movement
 							intendedVelocity.X -= 0.25f;
 							if (intendedVelocity.X < -5f) intendedVelocity.X = -5f;
@@ -245,7 +252,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 							projectile.spriteDirection = -1;
 							LateralMovement = true;
 						}
-						else if (owner.controlRight && !owner.controlLeft)
+						else if (player.controlRight && !player.controlLeft)
 						{ // Right movement
 							intendedVelocity.X += 0.25f;
 							if (intendedVelocity.X > 5f) intendedVelocity.X = 5f;
@@ -253,13 +260,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 							projectile.spriteDirection = 1;
 							LateralMovement = true;
 						}
+						else
+						{
+							LateralMovement = false;
+							intendedVelocity.X *= 0.9f;
+						}
 					}
 					else
 					{
 						LateralMovement = false;
 						intendedVelocity.X *= 0.9f;
 						if (Math.Abs(intendedVelocity.X) < 0.5f && TouchedGround)
-						{ // Player close to the ground and not moving = landing frame
+						{ // Player close to the ground, not attacking and not moving = landing frame
 							if (intendedVelocity.Y < 0.25f)
 							{
 								intendedVelocity.Y = 0.25f;
@@ -272,24 +284,64 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 			}
 
-			if (projectile.gfxOffY != 0 || owner.gfxOffY != 0)
+			if (projectile.gfxOffY != 0 || player.gfxOffY != 0)
 			{ // fuck slopes all my homies hate slopes
 				if (intendedVelocity.Y > -0.5f)
 				{
 					intendedVelocity.Y = -0.5f;
 				}
 				projectile.gfxOffY = 0;
-				owner.gfxOffY = 0;
+				player.gfxOffY = 0;
 			}
 
 			Vector2 finalVelocity = Vector2.Zero;
 			intendedVelocity /= 10f;
 			for (int i = 0; i < 10; i++)
 			{
-				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)owner.gravDir);
+				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
 			}
 
 			projectile.velocity = finalVelocity;
+
+			// ATTACK
+
+			if (IsLocalPlayer(player))
+			{
+				if (Main.mouseLeft && (Main.mouseLeftRelease || AutoReuseLeft) && anchor.CanLeftClick && !Landed)
+				{ // Left click attack
+					int projectileType = ModContent.ProjectileType<SageOwlProj>();
+					for (int i = 0; i < 3; i++)
+					{
+						Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * (0.85f + i * 0.15f);
+						int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI, 1f);
+						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+						newProjectile.netUpdate = true;
+					}
+
+					anchor.LeftCLickCooldown = Item.useTime;
+					SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
+					FeatherDust(projectile, 2);
+					anchor.Projectile.ai[0] = 10;
+					anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+					anchor.NeedNetUpdate = true;
+				}
+			}
+
+			if (anchor.Projectile.ai[0] > 0)
+			{ // Override animation during attack
+				anchor.Projectile.ai[0]--;
+				if (anchor.Projectile.ai[0] == 0)
+				{
+					anchor.Frame = 1;
+				}
+				else
+				{
+					anchor.Frame = 7;
+					projectile.direction = (int)anchor.Projectile.ai[1];
+					projectile.spriteDirection = projectile.direction;
+				}
+			}
 
 			// POSITION AND ROTATION VISUALS
 

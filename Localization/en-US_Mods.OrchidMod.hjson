@@ -3458,6 +3458,7 @@ Projectiles: {
 	DesertStandardProj.DisplayName: Desert Standard Proj
 	SageOwl.DisplayName: Sage Owl
 	ShapeshifterShapeshiftAnchor.DisplayName: Shapeshifter Shapeshift Anchor
+	SageOwlProj.DisplayName: Sage Owl Proj
 }
 
 Configs: {

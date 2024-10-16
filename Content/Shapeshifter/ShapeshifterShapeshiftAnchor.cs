@@ -1,18 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common;
-using OrchidMod.Content.Guardian;
 using OrchidMod.Utilities;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.Player;
 
 namespace OrchidMod.Content.Shapeshifter
 {
@@ -29,19 +23,22 @@ namespace OrchidMod.Content.Shapeshifter
 		public int Timespent = 0;
 		public Texture2D TextureShapeshift;
 
-		public override void SendExtraAI(BinaryWriter writer)
+		public bool CanLeftClick => LeftCLickCooldown <= 0f;
+		public bool CanRightClick => RightCLickCooldown <= 0f;
+
+		public bool IsLeftClicking;
+		public bool IsRightClicking;
+
+		public int LeftCLickCooldown
 		{
-			writer.Write(SelectedItem);
+			get => (int)Projectile.localAI[0];
+			set => Projectile.localAI[0] = value;
 		}
 
-		public override void ReceiveExtraAI(BinaryReader reader)
+		public int RightCLickCooldown
 		{
-			SelectedItem = reader.ReadInt32();
-		}
-
-		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
-		{
-			overPlayers.Add(index);
+			get => (int)Projectile.localAI[1];
+			set => Projectile.localAI[1] = value;
 		}
 
 		public override void AltSetDefaults()
@@ -63,6 +60,38 @@ namespace OrchidMod.Content.Shapeshifter
 			OldFrame = new List<int>();
 		}
 
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(SelectedItem);
+			writer.Write(IsLeftClicking);
+			writer.Write(IsRightClicking);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			SelectedItem = reader.ReadInt32();
+			IsLeftClicking = reader.ReadBoolean();
+			IsRightClicking = reader.ReadBoolean();
+
+			Player owner = Owner;
+			if (owner.inventory[owner.selectedItem].ModItem is OrchidModShapeshifterShapeshift shapeshiftItem)
+			{
+				OrchidShapeshifter shapeshifter = owner.GetModPlayer<OrchidShapeshifter>();
+				shapeshifter.Shapeshift = shapeshiftItem;
+				shapeshifter.ShapeshiftAnchor = this;
+				Projectile.width = shapeshiftItem.ShapeshiftWidth;
+				Projectile.height = shapeshiftItem.ShapeshiftHeight;
+				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
+				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
+			}
+		}
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			overPlayers.Add(index);
+		}
+
 		public void OnChangeSelectedItem(Player owner)
 		{
 			OrchidShapeshifter shapeshifter = owner.GetModPlayer<OrchidShapeshifter>();
@@ -73,16 +102,81 @@ namespace OrchidMod.Content.Shapeshifter
 				shapeshifter.ShapeshiftAnchor = this;
 				Projectile.width = shapeshiftItem.ShapeshiftWidth;
 				Projectile.height = shapeshiftItem.ShapeshiftHeight;
-				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this);
+				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
 				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
+				LeftCLickCooldown = shapeshiftItem.Item.useTime;
+				RightCLickCooldown = shapeshiftItem.Item.useTime;
 			}
 			Projectile.netUpdate = true;
 		}
 
+		public void ExtraAI()
+		{
+			LeftCLickCooldown--;
+
+			if (Projectile.position.X > Main.maxTilesX * 16 - (672 + Projectile.width))
+			{ // Prevents the player from leaving the map through the right
+				Projectile.position.X = Main.maxTilesX * 16 - (672 + Projectile.width);
+				if (Projectile.velocity.X > 0)
+				{
+					Projectile.velocity.X = 0;
+				}
+			}
+			else if (Projectile.position.X < 657)
+			{ // Prevents the player from leaving the map through the left
+				Projectile.position.X = 657;
+				if (Projectile.velocity.X < 0)
+				{
+					Projectile.velocity.X = 0;
+				}
+			}
+
+			if (Projectile.position.Y > Main.maxTilesY * 16 - (672 + Projectile.height))
+			{ // Prevents the player from leaving the map through the bottom
+				Projectile.position.X = Main.maxTilesY * 16 - (672 + Projectile.height);
+				if (Projectile.velocity.Y > 0)
+				{
+					Projectile.velocity.Y = 0;
+				}
+			}
+			else if (Projectile.position.Y < 657)
+			{ // Prevents the player from leaving the map through the top
+				Projectile.position.Y = 657;
+				if (Projectile.velocity.Y < 0)
+				{
+					Projectile.velocity.Y = 0;
+				}
+			}
+
+			if (!IsLeftClicking && Main.mouseLeft)
+			{
+				IsLeftClicking = true;
+				Projectile.netUpdate = true;
+			}
+
+			if (IsLeftClicking && !Main.mouseLeft)
+			{
+				IsLeftClicking = false;
+				Projectile.netUpdate = true;
+			}
+
+			if (!IsRightClicking && Main.mouseRight)
+			{
+				IsRightClicking = false;
+				Projectile.netUpdate = true;
+			}
+
+			if (IsRightClicking && !Main.mouseRight)
+			{
+				IsRightClicking = true;
+				Projectile.netUpdate = true;
+			}
+		}
+
 		public override void AI()
 		{
-			var owner = Owner;
+			Player owner = Owner;
 			OrchidShapeshifter shapeshifter = owner.GetModPlayer<OrchidShapeshifter>();
 
 			if ((SelectedItem < 0 || !owner.active || owner.dead || owner.HeldItem.ModItem is not OrchidModShapeshifterShapeshift) && IsLocalOwner)
@@ -93,10 +187,6 @@ namespace OrchidMod.Content.Shapeshifter
 			else
 			{
 				Projectile.timeLeft = 5;
-
-				if (ShapeshifterItem.ModItem is OrchidModShapeshifterShapeshift shapeshifterItem)
-				{
-				}
 			}
 		}
 
@@ -110,6 +200,11 @@ namespace OrchidMod.Content.Shapeshifter
 			for (int i = 0; i < 3; i++)
 			{
 				Main.dust[Dust.NewDust(Projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.25f;
+			}
+
+			if (ShapeshifterItem.ModItem is OrchidModShapeshifterShapeshift shapeshifterItem)
+			{
+				shapeshifterItem.OnKillAnchor(Projectile, this);
 			}
 		}
 

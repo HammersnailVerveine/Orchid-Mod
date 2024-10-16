@@ -23,9 +23,9 @@ namespace OrchidMod.Content.Shapeshifter
 		{
 			SafeModifyHitNPC(target, ref modifiers);
 			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
-			if (!modTarget.GuardianHit)
+			if (!modTarget.ShapeshifterHit)
 			{
-				modTarget.GuardianHit = true;
+				modTarget.ShapeshifterHit = true;
 
 				if (Main.netMode == NetmodeID.MultiplayerClient)
 				{
