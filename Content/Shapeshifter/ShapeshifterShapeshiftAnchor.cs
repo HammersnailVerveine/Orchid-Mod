@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Utilities;
+using ReLogic.Content;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -22,6 +23,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public int Frame = 0;
 		public int Timespent = 0;
 		public Texture2D TextureShapeshift;
+		public Texture2D TextureShapeshiftGlow;
 
 		public bool CanLeftClick => LeftCLickCooldown <= 0f;
 		public bool CanRightClick => RightCLickCooldown <= 0f;
@@ -82,8 +84,14 @@ namespace OrchidMod.Content.Shapeshifter
 				Projectile.width = shapeshiftItem.ShapeshiftWidth;
 				Projectile.height = shapeshiftItem.ShapeshiftHeight;
 				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
-				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
+
+				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
+				TextureShapeshiftGlow = null;
+				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset))
+				{
+					TextureShapeshiftGlow = asset.Value;
+				}
 			}
 		}
 
@@ -103,10 +111,16 @@ namespace OrchidMod.Content.Shapeshifter
 				Projectile.width = shapeshiftItem.ShapeshiftWidth;
 				Projectile.height = shapeshiftItem.ShapeshiftHeight;
 				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
-				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
 				LeftCLickCooldown = shapeshiftItem.Item.useTime;
 				RightCLickCooldown = shapeshiftItem.Item.useTime;
+
+				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
+				TextureShapeshiftGlow = null;
+				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset))
+				{
+					TextureShapeshiftGlow = asset.Value;
+				}
 			}
 			Projectile.netUpdate = true;
 		}
@@ -240,6 +254,11 @@ namespace OrchidMod.Content.Shapeshifter
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
 				spriteBatch.Draw(TextureShapeshift, drawPosition, drawRectangle, lightColor, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				if (TextureShapeshiftGlow != null)
+				{
+					spriteBatch.Draw(TextureShapeshiftGlow, drawPosition, drawRectangle, lightColor, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+				}
 
 				//spriteBatch.End();
 				//spriteBatch.Begin(spriteBatchSnapshot);
