@@ -289,6 +289,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
+			if (SelectedItem < 0 || SelectedItem > 58) return false;
 			if (StandardItem.ModItem is not OrchidModGuardianStandard guardianItem) return false;
 			if (!ModContent.HasAsset(guardianItem.ShaftTexture)) return false;
 
