@@ -63,7 +63,7 @@ namespace OrchidMod
 				ShapeshiftAnchor.ExtraAI();
 
 				Player.velocity = projectile.velocity;
-				Player.Center = projectile.Center;
+				Player.Center = projectile.Center + projectile.velocity;
 			}
 			else if (ShapeshiftAnchor != null || Shapeshift != null)
 			{ // Failsafe in case the anchor isn't properly killed
