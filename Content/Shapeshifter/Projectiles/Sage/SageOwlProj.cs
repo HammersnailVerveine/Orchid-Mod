@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Projectile.height = 12;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 60;
+			Projectile.timeLeft = 45;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = 1;
@@ -57,7 +57,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			float colorMult = 1f;
-			if (Projectile.timeLeft < 10) colorMult *= Projectile.timeLeft / 10f;
+			if (Projectile.timeLeft < 7) colorMult *= Projectile.timeLeft / 7f;
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
