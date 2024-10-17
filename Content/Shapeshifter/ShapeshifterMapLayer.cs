@@ -11,7 +11,7 @@ namespace OrchidMod.Content.Shapeshifter
 	{
 		public override void Draw(ref MapOverlayDrawContext context, ref string text) {
 			const float scaleIfNotSelected = 1f;
-			const float scaleIfSelected = scaleIfNotSelected * 2f;
+			const float scaleIfSelected = scaleIfNotSelected * 1.33f;
 
 			foreach (Player player in Main.player)
 			{
