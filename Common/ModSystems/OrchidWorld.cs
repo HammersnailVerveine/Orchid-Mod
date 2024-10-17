@@ -32,6 +32,7 @@ using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Guardian.Weapons.Standards;
 using OrchidMineshaft.Tiles.Chests;
 using OrchidMod.Content.General.Misc;
+using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -281,6 +282,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<BloomingBud>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<BundleOfClovers>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<JungleGauntlet>(), ChestType.Ivy, 20));
+			chestLoots.Add(new ChestLoot(ItemType<SageOwl>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
 			chestLoots.Add(new ChestLoot(ItemType<DeckJungle>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
 
 			// Sky Island Chests
