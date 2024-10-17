@@ -3168,6 +3168,11 @@ Items: {
 			Enemies are a lot more likely to target you
 			'''
 	}
+
+	WardenTortoise: {
+		DisplayName: Warden Tortoise
+		Tooltip: ""
+	}
 }
 
 NPCs: {

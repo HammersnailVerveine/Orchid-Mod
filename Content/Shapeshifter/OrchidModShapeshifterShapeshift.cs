@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Content.General.Prefixes;
+using OrchidMod.Content.Guardian;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -34,8 +36,10 @@ namespace OrchidMod.Content.Shapeshifter
 		public virtual void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor) { } // Makes stuff happen when the anchor disappears (player leaves shapeshift form)
 		public virtual bool CanLeftClick(ShapeshifterShapeshiftAnchor anchor) => Main.mouseLeft && (Main.mouseLeftRelease || AutoReuseLeft) && anchor.CanLeftClick; // left click has priority over right click
 		public virtual bool CanRightClick(ShapeshifterShapeshiftAnchor anchor) => Main.mouseRight && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick && anchor.CanLeftClick && !Main.mouseLeft;
+		public virtual void SafeHoldItem(Player player) { }
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) => false;
+
 
 		public sealed override void SetDefaults()
 		{
@@ -55,6 +59,24 @@ namespace OrchidMod.Content.Shapeshifter
 
 			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;
+		}
+
+		public sealed override void HoldItem(Player player)
+		{
+			var projectileType = ModContent.ProjectileType<ShapeshifterShapeshiftAnchor>();
+
+			if (player.ownedProjectileCounts[projectileType] != 0)
+			{
+				Projectile proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+				if (proj != null && proj.ModProjectile is ShapeshifterShapeshiftAnchor anchor)
+				{
+					if (anchor.ShapeshifterItem != Item)
+					{
+						proj.Kill();
+					}
+				}
+			}
+			SafeHoldItem(player);
 		}
 
 		public override bool CanUseItem(Player player)
@@ -115,6 +137,30 @@ namespace OrchidMod.Content.Shapeshifter
 			tooltips.Insert(index + 3, new TooltipLine(Mod, "ToolTipRightClick", RightClickTooltip));
 			tooltips.Insert(index + 4, new TooltipLine(Mod, "ToolTipJump", JumpTooltip));
 			tooltips.Insert(index + 5, new TooltipLine(Mod, "ToolTipPassive", PassiveTooltip));
+		}
+
+		// Custom methods
+
+		public void FinalVelocityCalculations(Vector2 intendedVelocity, Projectile projectile, Player player)
+		{
+			if (projectile.gfxOffY != 0 || player.gfxOffY != 0)
+			{ // fuck slopes all my homies hate slopes
+				if (intendedVelocity.Y > -0.5f)
+				{
+					intendedVelocity.Y = -0.5f;
+				}
+				projectile.gfxOffY = 0;
+				player.gfxOffY = 0;
+			}
+
+			Vector2 finalVelocity = Vector2.Zero;
+			intendedVelocity /= 10f;
+			for (int i = 0; i < 10; i++)
+			{
+				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+			}
+
+			projectile.velocity = finalVelocity;
 		}
 	}
 }

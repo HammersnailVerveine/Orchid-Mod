@@ -308,24 +308,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 			}
 
-			if (projectile.gfxOffY != 0 || player.gfxOffY != 0)
-			{ // fuck slopes all my homies hate slopes
-				if (intendedVelocity.Y > -0.5f)
-				{
-					intendedVelocity.Y = -0.5f;
-				}
-				projectile.gfxOffY = 0;
-				player.gfxOffY = 0;
-			}
-
-			Vector2 finalVelocity = Vector2.Zero;
-			intendedVelocity /= 10f;
-			for (int i = 0; i < 10; i++)
-			{
-				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
-			}
-
-			projectile.velocity = finalVelocity;
+			FinalVelocityCalculations(intendedVelocity, projectile, player);
 
 			// ATTACK
 
