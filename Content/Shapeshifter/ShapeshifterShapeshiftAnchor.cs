@@ -254,13 +254,14 @@ namespace OrchidMod.Content.Shapeshifter
 
 			if (shapeshifterItem.ShouldDrawShapeshift(spriteBatch, Projectile, player, ref lightColor))
 			{
+				Color color = player.GetImmuneAlphaPure(lightColor, 0f);
 				Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				Rectangle drawRectangle = TextureShapeshift.Bounds;
 				drawRectangle.Height = drawRectangle.Width;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
-				shapeshifterItem.PreDrawShapeshift(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, lightColor);
+				shapeshifterItem.PreDrawShapeshift(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, color);
 
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
@@ -269,7 +270,7 @@ namespace OrchidMod.Content.Shapeshifter
 				{
 					drawRectangle.Y = drawRectangle.Height * OldFrame[i];
 					Vector2 drawPosition2 = Vector2.Transform(OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-					spriteBatch.Draw(TextureShapeshift, drawPosition2, drawRectangle, lightColor * 0.075f * (i + 1), OldRotation[i], drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					spriteBatch.Draw(TextureShapeshift, drawPosition2, drawRectangle, color * 0.075f * (i + 1), OldRotation[i], drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
 
@@ -279,16 +280,16 @@ namespace OrchidMod.Content.Shapeshifter
 				//GameShaders.Misc["OrchidMod:HorizonGlow"].Apply();
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
-				spriteBatch.Draw(TextureShapeshift, drawPosition, drawRectangle, lightColor, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(TextureShapeshift, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 
 				if (TextureShapeshiftGlow != null)
 				{
-					spriteBatch.Draw(TextureShapeshiftGlow, drawPosition, drawRectangle, Color.White, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					spriteBatch.Draw(TextureShapeshiftGlow, drawPosition, drawRectangle, player.GetImmuneAlphaPure(Color.White, 0f), Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
 				//spriteBatch.End();
 				//spriteBatch.Begin(spriteBatchSnapshot);
-				shapeshifterItem.PostDrawShapeshift(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, lightColor);
+				shapeshifterItem.PostDrawShapeshift(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, color);
 			}
 
 			return false;
