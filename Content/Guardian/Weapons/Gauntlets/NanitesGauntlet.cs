@@ -38,7 +38,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				for (int i = 0; i < 10; i++)
 					addedVelocity += Collision.TileCollision(player.position + addedVelocity, intendedVelocity, player.width, player.height, false, false, (int)player.gravDir);
 
-				player.position += addedVelocity;
+				if (addedVelocity.Length() > 0.1f)
+				{
+					player.position += addedVelocity;
+				}
 			}
 		}
 
