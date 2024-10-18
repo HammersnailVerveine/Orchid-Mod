@@ -1,4 +1,5 @@
-﻿using OrchidMod.Common.ModObjects;
+﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
 using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using Terraria;
@@ -71,6 +72,22 @@ namespace OrchidMod
 				Player.height = Player.defaultHeight;
 				Shapeshift = null;
 				ShapeshiftAnchor = null;
+			}
+		}
+
+		public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
+		{
+			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
+			{
+				ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
+			}
+		}
+
+		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+		{
+			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
+			{
+				ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
 			}
 		}
 
