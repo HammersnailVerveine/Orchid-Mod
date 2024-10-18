@@ -308,7 +308,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 			}
 
-			FinalVelocityCalculations(intendedVelocity, projectile, player);
+			FinalVelocityCalculations(ref intendedVelocity, projectile, player);
 
 			// ATTACK
 

@@ -27,7 +27,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			Item.height = 32;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
-			Item.UseSound = SoundID.Zombie111;
+			Item.UseSound = SoundID.NPCHit24;
 			Item.useTime = 30;
 			Item.shootSpeed = 10f;
 			Item.knockBack = 3f;
@@ -84,7 +84,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 			else if (LateralMovement)
 			{ // Player is moving left or right, cycle through frames
-				if (anchor.Timespent % 6 == 0 && anchor.Timespent > 0)
+				if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
 				{
 					anchor.Frame++;
 					if (anchor.Frame == 5)
@@ -111,6 +111,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				if (projectile.ai[0] < -5)
 				{ // Prevents horizontal movement while blocking, but cancels the block
 					projectile.ai[0] = -5;
+					anchor.NeedNetUpdate = true;
 				}
 				else
 				{
@@ -133,17 +134,17 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					else
 					{
 						LateralMovement = false;
-						intendedVelocity.X *= 0.8f;
+						intendedVelocity.X *= 0.7f;
 					}
 				}
 			}
 			else
 			{
 				LateralMovement = false;
-				intendedVelocity.X *= 0.8f;
+				intendedVelocity.X *= 0.7f;
 			}
 
-			FinalVelocityCalculations(intendedVelocity, projectile, player);
+			FinalVelocityCalculations(ref intendedVelocity, projectile, player, true);
 
 			// ATTACK
 
@@ -166,7 +167,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					anchor.NeedNetUpdate = true;
 
 					anchor.Frame = 7;
-					SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
+					SoundEngine.PlaySound(SoundID.Zombie33, projectile.Center);
+					//SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
 				}
 
 				if (CanRightClick(anchor))

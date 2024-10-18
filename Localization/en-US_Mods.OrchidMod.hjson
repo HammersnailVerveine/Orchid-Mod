@@ -3122,15 +3122,6 @@ Items: {
 		Tooltip: Actually too bulky for the empress' taste
 	}
 
-	SageOwl: {
-		DisplayName: Peculiar Owl Idol
-		LeftClick: Shoots a barrage of feathers
-		RightClick: Marks enemies below you, they take increased damage
-		Jump: Quickly fly up before hovering for a short duration
-		Passive: Increases night vision
-		Tooltip: Considerable effort went into this carving, likely in vain
-	}
-
 	HorizonDye: {
 		DisplayName: Horizon Dye
 		Tooltip: ""
@@ -3167,6 +3158,15 @@ Items: {
 			Reduces damage taken by 10%
 			Enemies are a lot more likely to target you
 			'''
+	}
+
+	SageOwl: {
+		DisplayName: Peculiar Owl Idol
+		LeftClick: Shoots a barrage of feathers
+		RightClick: Marks enemies below you, they take increased damage
+		Jump: Quickly fly up before hovering for a short duration
+		Passive: Increases night vision
+		Tooltip: Considerable effort went into this carving, likely in vain
 	}
 
 	WardenTortoise: {

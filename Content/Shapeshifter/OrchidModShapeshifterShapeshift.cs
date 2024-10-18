@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Guardian;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -37,6 +38,8 @@ namespace OrchidMod.Content.Shapeshifter
 		public virtual bool CanLeftClick(ShapeshifterShapeshiftAnchor anchor) => Main.mouseLeft && (Main.mouseLeftRelease || AutoReuseLeft) && anchor.CanLeftClick; // left click has priority over right click
 		public virtual bool CanRightClick(ShapeshifterShapeshiftAnchor anchor) => Main.mouseRight && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick && anchor.CanLeftClick && !Main.mouseLeft;
 		public virtual void SafeHoldItem(Player player) { }
+
+		private static int AllowGFXOffY; // used to prevent visual issues with slopes
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) => false;
 
@@ -141,16 +144,37 @@ namespace OrchidMod.Content.Shapeshifter
 
 		// Custom methods
 
-		public void FinalVelocityCalculations(Vector2 intendedVelocity, Projectile projectile, Player player)
-		{
-			if (projectile.gfxOffY != 0 || player.gfxOffY != 0)
-			{ // fuck slopes all my homies hate slopes
-				if (intendedVelocity.Y > -0.5f)
+		public void FinalVelocityCalculations(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true)
+		{ // Prevents the player from phashing through tiles after all othe velocity calculations
+			if (stepUpDown)
+			{ // Allows the projectiles to "step" up and down tiles like a walking player would
+				if (StepUpTiles(intendedVelocity, projectile, player))
 				{
-					intendedVelocity.Y = -0.5f;
+					intendedVelocity.Y = 0;
 				}
-				projectile.gfxOffY = 0;
-				player.gfxOffY = 0;
+			}
+
+			if (cancelSlopeOffet)
+			{ // Prevents issues with player phasing through slopes
+				if (projectile.gfxOffY != 0)
+				{ // fuck slopes all my homies hate slopes
+					if (intendedVelocity.Y > -0.5f)
+					{
+						intendedVelocity.Y = -0.5f;
+					}
+					projectile.gfxOffY = 0;
+					//player.gfxOffY = 0;
+				}
+
+				if (player.gfxOffY != 0 && AllowGFXOffY <= 0)
+				{ // I hate slopes
+					player.gfxOffY = 0;
+				}
+
+				if (AllowGFXOffY > 0)
+				{
+					AllowGFXOffY--;
+				}
 			}
 
 			Vector2 finalVelocity = Vector2.Zero;
@@ -162,5 +186,97 @@ namespace OrchidMod.Content.Shapeshifter
 
 			projectile.velocity = finalVelocity;
 		}
+
+		public bool CanGoUp(Vector2 intendedVelocity, Projectile projectile, Player player)
+		{ // false if the player is unable to go upbecause of a tile above their hitbox
+			float velocityY = intendedVelocity.Y;
+			if (intendedVelocity.Y > -1f)
+			{
+				intendedVelocity.Y = -1f;
+			}
+
+			return (Collision.TileCollision(projectile.position, Vector2.UnitY * intendedVelocity.Y, projectile.width, projectile.height, false, false, (int)player.gravDir) == Vector2.UnitY * intendedVelocity.Y);
+		}
+
+		public bool StepUpTiles(Vector2 intendedVelocity, Projectile projectile, Player player)
+		{
+			if (CanGoUp(intendedVelocity, projectile, player))
+			{
+				Vector2 finalVelocity = Vector2.Zero;
+				intendedVelocity.Y = 0;
+				intendedVelocity /= 10f;
+				for (int i = 0; i < 10; i++)
+				{
+					finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+					if (Math.Abs(finalVelocity.X - intendedVelocity.X * (i + 1)) > 0.001f)
+					{ // A tile was hit on the X axis
+						Vector2 newPosition = projectile.position;
+						newPosition.Y -= 16;
+						Vector2 finalVelocity2 = Vector2.Zero;
+						float offY;
+						for (int j = 0; j < 10; j++)
+						{
+							finalVelocity2 += Collision.TileCollision(newPosition + finalVelocity2, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+							if (Math.Abs(finalVelocity2.X - intendedVelocity.X * (j + 1)) > 0.001f)
+							{ // A tile was hit on the X axis above the first tested tile
+								if (finalVelocity2.X > finalVelocity.X)
+								{ // Player will hit a tile from the new position, but could go further on the X axis than previously. Go up a tile
+									newPosition = projectile.position + finalVelocity2;
+									newPosition.Y -= 16f;
+									offY = 16f - Collision.TileCollision(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
+									projectile.position.Y -= offY;
+								}
+								AllowGFXOffY = 10;
+								return true;
+							}
+						}
+
+						// The tile above is empty and the player can go up the tile
+						newPosition = projectile.position + finalVelocity2;
+						newPosition.Y -= 16f;
+						offY = 16f - Collision.TileCollision(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
+						projectile.position.Y -= offY;
+						AllowGFXOffY = 10;
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		/*
+		public bool CanGoDown(Vector2 intendedVelocity, Projectile projectile, Player player)
+		{ // false if the player is unable to go upbecause of a tile above their hitbox
+			float velocityY = intendedVelocity.Y;
+			if (intendedVelocity.Y < 8f)
+			{
+				intendedVelocity.Y = 8f;
+			}
+
+			return (Collision.TileCollision(projectile.position, Vector2.UnitY * intendedVelocity.Y, projectile.width, projectile.height, false, false, (int)player.gravDir) == Vector2.UnitY * intendedVelocity.Y);
+		}
+
+
+		public void StepDownTiles(Vector2 intendedVelocity, Projectile projectile, Player player)
+		{
+			if (CanGoDown(intendedVelocity, projectile, player))
+			{
+				Vector2 finalVelocity = Vector2.Zero;
+				intendedVelocity.Y = 1.6f;
+				for (int i = 0; i < 11; i++)
+				{
+					finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+					if (Math.Abs(finalVelocity.Y - intendedVelocity.Y * (i + 1)) > 0.001f)
+					{ // A tile was hit on the Y axis, warp the player down
+						Main.NewText("Down");
+						Vector2 newPosition = projectile.position;
+						projectile.position.Y += finalVelocity.Y;
+						player.gfxOffY = finalVelocity.Y;
+						return;
+					}
+				}
+			}
+		}
+		*/
 	}
 }
