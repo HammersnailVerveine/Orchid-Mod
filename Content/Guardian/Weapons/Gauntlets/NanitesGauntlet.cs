@@ -12,7 +12,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.width = 42;
 			Item.height = 38;
 			Item.knockBack = 5f;
-			Item.damage = 415;
+			Item.damage = 495;
 			Item.value = Item.sellPrice(0, 7, 50, 0);
 			Item.rare = ItemRarityID.Yellow;
 			Item.useTime = 10;
@@ -47,12 +47,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
 		{
-			guardian.modPlayer.TryHeal(charged ? 5 : 2);
+			guardian.modPlayer.TryHeal(charged ? 10 : 5);
 		}
 
 		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info)
 		{
-			guardian.modPlayer.TryHeal(5);
+			guardian.modPlayer.TryHeal(20);
 		}
 	}
 }
