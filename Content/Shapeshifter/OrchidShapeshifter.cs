@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
-using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -77,16 +76,16 @@ namespace OrchidMod
 
 		public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
 		{
-			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
-			{
+			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active && !Player.noKnockback)
+			{ // Player knockback on hit
 				ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
 			}
 		}
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
-			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
-			{
+			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active && !Player.noKnockback)
+			{ // Player knockback on hit
 				ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
 			}
 		}
