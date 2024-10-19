@@ -268,18 +268,20 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 							}
 						}
 
+						float speedMult = player.moveSpeed;
+
 						if (player.controlLeft && !player.controlRight)
 						{ // Left movement
-							intendedVelocity.X -= 0.25f;
-							if (intendedVelocity.X < -5f) intendedVelocity.X = -5f;
+							intendedVelocity.X -= 0.25f * speedMult;
+							if (intendedVelocity.X < -5f * speedMult) intendedVelocity.X = -5f * speedMult;
 							projectile.direction = -1;
 							projectile.spriteDirection = -1;
 							LateralMovement = true;
 						}
 						else if (player.controlRight && !player.controlLeft)
 						{ // Right movement
-							intendedVelocity.X += 0.25f;
-							if (intendedVelocity.X > 5f) intendedVelocity.X = 5f;
+							intendedVelocity.X += 0.25f * speedMult;
+							if (intendedVelocity.X > 5f * speedMult) intendedVelocity.X = 5f * speedMult;
 							projectile.direction = 1;
 							projectile.spriteDirection = 1;
 							LateralMovement = true;

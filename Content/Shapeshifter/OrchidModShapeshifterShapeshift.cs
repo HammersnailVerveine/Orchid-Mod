@@ -76,6 +76,7 @@ namespace OrchidMod.Content.Shapeshifter
 					if (anchor.ShapeshifterItem != Item)
 					{
 						proj.Kill();
+						CreateNewAnchor(player);
 					}
 				}
 			}
@@ -97,27 +98,33 @@ namespace OrchidMod.Content.Shapeshifter
 						}
 					}
 
-					var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
-
-					var proj = Main.projectile[index];
-					if (proj.ModProjectile is not ShapeshifterShapeshiftAnchor anchor)
-					{
-						proj.Kill();
-					}
-					else
-					{
-						if (player.mount.Active)
-						{
-							player.mount.Dismount(player);
-						}
-
-						player.RemoveAllGrapplingHooks();
-						anchor.OnChangeSelectedItem(player);
-						anchor.NeedNetUpdate = true;
-					}
+					CreateNewAnchor(player);
 				}
 			}
 			return false;
+		}
+
+		public void CreateNewAnchor(Player player)
+		{
+			int projectileType = ModContent.ProjectileType<ShapeshifterShapeshiftAnchor>();
+			var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
+
+			var proj = Main.projectile[index];
+			if (proj.ModProjectile is not ShapeshifterShapeshiftAnchor anchor)
+			{
+				proj.Kill();
+			}
+			else
+			{
+				if (player.mount.Active)
+				{
+					player.mount.Dismount(player);
+				}
+
+				player.RemoveAllGrapplingHooks();
+				anchor.OnChangeSelectedItem(player);
+				anchor.NeedNetUpdate = true;
+			}
 		}
 
 

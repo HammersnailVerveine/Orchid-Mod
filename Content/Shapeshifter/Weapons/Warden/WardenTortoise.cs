@@ -119,7 +119,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				}
 				else
 				{
-					float speedMult = 1f;
+					float speedMult = player.moveSpeed;
 					if (anchor.Projectile.ai[2] > 0)
 					{
 						speedMult *= 1.75f;
