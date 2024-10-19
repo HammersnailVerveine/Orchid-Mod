@@ -38,10 +38,19 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			projectile.direction = player.direction;
 			projectile.spriteDirection = player.direction;
 			LateralMovement = false;
+
+			for (int i = 0; i < 8; i++)
+			{
+				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+			}
 		}
 
 		public override void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor)
 		{
+			for (int i = 0; i < 5; i++)
+			{
+				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+			}
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
