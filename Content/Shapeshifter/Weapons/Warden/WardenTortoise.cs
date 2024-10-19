@@ -156,7 +156,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					Vector2 position = projectile.Center;
 					Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f) / 15f;
 
-					for (int i = 0; i < 15; i++)
+					for (int i = 0; i < (player.HasBuff<WardenTortoiseBuff>() ? 45 : 15); i++)
 					{
 						position += Collision.TileCollision(position, offSet, 2, 2, true, false, (int)player.gravDir);
 
