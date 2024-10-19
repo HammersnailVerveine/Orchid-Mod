@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.UseSound = SoundID.Zombie111;
 			Item.useTime = 30;
 			Item.shootSpeed = 10f;
-			Item.knockBack = 3f;
+			Item.knockBack = 1f;
 			Item.damage = 19;
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 30;

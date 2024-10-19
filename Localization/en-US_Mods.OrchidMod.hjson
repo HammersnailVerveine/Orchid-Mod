@@ -269,6 +269,11 @@ Buffs: {
 		DisplayName: Sage Owl Debuff
 		Description: Reduced defense
 	}
+
+	WardenTortoiseBuff: {
+		DisplayName: Snapjaw
+		Description: Your next chomp is greatly enhanced
+	}
 }
 
 Items: {
@@ -3166,12 +3171,16 @@ Items: {
 		RightClick: Marks enemies below you, they take increased damage
 		Jump: Quickly fly up before hovering for a short duration
 		Passive: Increases night vision
-		Tooltip: Considerable effort went into this carving, likely in vain
+		Tooltip: Transforms into a Peculiar Owl, gaining unique abilities
 	}
 
 	WardenTortoise: {
 		DisplayName: Warden Tortoise
-		Tooltip: ""
+		LeftClick: Snaps your jaws, reinforced after negating damage
+		RightClick: Go into your shell, negating incoming damage
+		Jump: Increases movement speed, but prevents attacking
+		Passive: Damage taken reduced by 20%
+		Tooltip: Transforms into a Snapjaw, gaining unique abilities
 	}
 }
 
@@ -3474,6 +3483,7 @@ Projectiles: {
 	ShapeshifterShapeshiftAnchor.DisplayName: Shapeshifter Shapeshift Anchor
 	SageOwlProj.DisplayName: Sage Owl Proj
 	SageOwlProjAlt.DisplayName: Sage Owl Proj Alt
+	WardenTortoiseProj.DisplayName: Warden Tortoise Proj
 }
 
 Configs: {

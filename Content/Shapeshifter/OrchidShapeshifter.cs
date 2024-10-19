@@ -12,6 +12,7 @@ namespace OrchidMod
 		public OrchidPlayer modPlayer;
 		public ShapeshifterShapeshiftAnchor ShapeshiftAnchor;
 		public OrchidModShapeshifterShapeshift Shapeshift;
+		public bool IsShapeshifted => ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active;
 
 		public int GetShapeshifterDamage(float damage) => (int)(Player.GetDamage<ShapeshifterDamageClass>().ApplyTo(damage) + Player.GetDamage(DamageClass.Generic).ApplyTo(damage) - damage);
 		public int GetShapeshifterCrit(int additionalCritChance) => (int)(Player.GetCritChance<ShapeshifterDamageClass>() + Player.GetCritChance<GenericDamageClass>() + additionalCritChance);
@@ -53,7 +54,7 @@ namespace OrchidMod
 
 		public override void PostUpdate()
 		{
-			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
+			if (IsShapeshifted)
 			{ // Runs the shapeshift AI and adjust player position accordingly
 				Player.width = Shapeshift.ShapeshiftWidth;
 				Player.height = Shapeshift.ShapeshiftHeight;
@@ -76,7 +77,7 @@ namespace OrchidMod
 
 		public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
 		{
-			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active && !Player.noKnockback)
+			if (IsShapeshifted && !Player.noKnockback)
 			{ // Player knockback on hit
 				ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
 			}
@@ -84,18 +85,27 @@ namespace OrchidMod
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
-			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active && !Player.noKnockback)
+			if (IsShapeshifted && !Player.noKnockback)
 			{ // Player knockback on hit
 				ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
 			}
 		}
 
-		public override void OnRespawn()
+		public override void ModifyHurt(ref Player.HurtModifiers modifiers)
 		{
+			if (IsShapeshifted)
+			{
+				Shapeshift.ShapeshiftModifyHurt(ref modifiers, ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
+			}
 		}
 
-		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
+		public override bool FreeDodge(Player.HurtInfo info)
 		{
+			if (IsShapeshifted)
+			{
+				return Shapeshift.ShapeshiftFreeDodge(info, ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
+			}
+			return false;
 		}
 	}
 }
