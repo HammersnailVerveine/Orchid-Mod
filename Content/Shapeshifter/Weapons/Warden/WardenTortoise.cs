@@ -160,15 +160,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					{
 						position += Collision.TileCollision(position, offSet, 2, 2, true, false, (int)player.gravDir);
 
-						for (int k = 0; k < Main.npc.Length; k++)
+						foreach (NPC npc in Main.npc)
 						{
-							NPC npc = Main.npc[k];
 							if (OrchidModProjectile.IsValidTarget(npc))
 							{
 								if (position.Distance(npc.Center) < npc.width + 32f) // if the NPC is close to the projectile path, snaps to it.
 								{
 									position = npc.Center;
-									break; ;
+									break;
 								}
 							}
 						}
