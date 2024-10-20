@@ -14,7 +14,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
-		public List<float> OldRotation;
 
 		public int TimeSpent;
 
@@ -30,7 +29,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Projectile.tileCollide = false;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			OldPosition = new List<Vector2>();
-			OldRotation = new List<float>();
 		}
 
 		public override void AI()
@@ -74,13 +72,11 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 				OldPosition[i] = pos;
 			}
 
-			OldPosition.Add(Projectile.Center + new Vector2(Main.rand.NextFloat(-2f, 2f), Main.rand.NextFloat(-3f, 3f)));
-			OldRotation.Add(Projectile.rotation + Main.rand.NextFloat(MathHelper.Pi));
+			OldPosition.Add(Projectile.Center + new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), Main.rand.NextFloat(-1f, 1f)));
 
 			if (OldPosition.Count > 5)
 			{
 				OldPosition.RemoveAt(0);
-				OldRotation.RemoveAt(0);
 			}
 
 			if (Main.rand.NextBool(10))
@@ -109,15 +105,12 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 15) colorMult *= Projectile.timeLeft / 15f;
-			Color color = new Color(180, 234, 237); // to 54 150 248
+			Color color = new Color(32, 142, 207);
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				color.R -= 18;
-				color.G -= 12;
-				color.B -= 2;
 				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
-				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.18f * (i + 1) * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.12f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.18f * (i + 1) * colorMult, 0f, TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.12f, SpriteEffects.None, 0f);
 			}
 
 			spriteBatch.End();
