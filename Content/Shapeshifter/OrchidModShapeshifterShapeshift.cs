@@ -243,9 +243,10 @@ namespace OrchidMod.Content.Shapeshifter
 									newPosition.Y -= 16f;
 									offY = 16f - Collision.TileCollision(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
 									projectile.position.Y -= offY;
+									AllowGFXOffY = 5;
+									return true;
 								}
-								AllowGFXOffY = 10;
-								return true;
+								return false;
 							}
 						}
 
@@ -254,7 +255,7 @@ namespace OrchidMod.Content.Shapeshifter
 						newPosition.Y -= 16f;
 						offY = 16f - Collision.TileCollision(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
 						projectile.position.Y -= offY;
-						AllowGFXOffY = 10;
+						AllowGFXOffY = 5;
 						return true;
 					}
 				}
