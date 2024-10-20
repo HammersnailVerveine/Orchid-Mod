@@ -60,6 +60,12 @@ namespace OrchidMod
 			if (IsShapeshifted)
 			{
 				Shapeshift.ShapeshiftBuffs(ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
+
+				// Cancels some accessories to prevent visual issues
+
+				Player.rocketBoots = 0;
+				Player.vanityRocketBoots = 0;
+				Player.accRunSpeed = 3f;
 			}
 
 			// Misc Effects that should be called before Shapeshifter Core mechanics (eg : stat changes that should affec the shapeshifted player)
