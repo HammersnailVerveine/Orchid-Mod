@@ -23,7 +23,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.width = 30;
 			Item.height = 36;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
-			Item.rare = ItemRarityID.Green;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.NPCDeath4;
 			Item.useTime = 40;
 			Item.shootSpeed = 48f;
