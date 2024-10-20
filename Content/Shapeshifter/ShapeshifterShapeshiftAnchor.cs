@@ -241,7 +241,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 			if (ShapeshifterItem.ModItem is OrchidModShapeshifterShapeshift shapeshifterItem)
 			{
-				shapeshifterItem.OnKillAnchor(Projectile, this);
+				shapeshifterItem.OnKillAnchor(Projectile, this, owner, shapeshifter);
 			}
 		}
 

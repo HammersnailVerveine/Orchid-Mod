@@ -3,6 +3,7 @@ using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod
@@ -21,6 +22,8 @@ namespace OrchidMod
 
 
 		// Set effects, accessories, misc
+
+		public int ShapeshifterSageFoxSpeed = 0;
 
 
 		// Dynamic gameplay and UI fields
@@ -52,8 +55,21 @@ namespace OrchidMod
 			}
 		}
 
+		public override void PostUpdateEquips()
+		{
+			// Misc Effects that should be called before Shapeshifter Core mechanics (eg : stat changes that should affec the shapeshifted player)
+
+			if (ShapeshifterSageFoxSpeed > 0)
+			{
+				ShapeshifterSageFoxSpeed--;
+				Player.moveSpeed += ShapeshifterSageFoxSpeed * 0.003f;
+			}
+		}
+
 		public override void PostUpdate()
 		{
+			// Shapeshifter core stuff
+
 			if (IsShapeshifted)
 			{ // Runs the shapeshift AI and adjust player position accordingly
 				Player.width = Shapeshift.ShapeshiftWidth;
@@ -72,6 +88,18 @@ namespace OrchidMod
 				Player.height = Player.defaultHeight;
 				Shapeshift = null;
 				ShapeshiftAnchor = null;
+			}
+
+			// Misc Effects that should be called after shapeshifter core mechanics (eg: that depend of the player width and height to be correct)
+
+			if (ShapeshifterSageFoxSpeed > 0)
+			{
+				if (Main.rand.NextBool((int)(30 - ShapeshifterSageFoxSpeed / 6f) + 1))
+				{
+					Dust dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.IceTorch, Scale: Main.rand.NextFloat(0.8f, 1.2f));
+					dust.noGravity = true;
+					dust.noLight = true;
+				}
 			}
 		}
 

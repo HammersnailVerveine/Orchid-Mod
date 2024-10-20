@@ -1,8 +1,11 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
+using OrchidMod.Utilities;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -24,7 +27,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.useTime = 40;
 			Item.shootSpeed = 48f;
 			Item.knockBack = 5f;
-			Item.damage = 53;
+			Item.damage = 34;
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
@@ -32,6 +35,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			shapeshifter.ShapeshifterSageFoxSpeed = 180;
+
 			anchor.Frame = 1;
 			anchor.Timespent = 0;
 			projectile.direction = player.direction;
@@ -44,8 +49,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 		}
 
-		public override void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor)
+		public override void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			shapeshifter.ShapeshifterSageFoxSpeed = 180;
+
 			for (int i = 0; i < 5; i++)
 			{
 				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
@@ -56,7 +63,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			// MISC EFFECTS
 			// ANIMATION
-			
+
+			if (anchor.Projectile.ai[2] > 0)
+			{ // Left click animation
+				anchor.Projectile.ai[2]--;
+				Color color = Color.Aqua * (float)Math.Sin(projectile.ai[2] * 0.1046f) * 0.2f;
+				Lighting.AddLight(projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+			}
+
 			if (LateralMovement)
 			{ // Player is moving left or right, cycle through frames
 				if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
@@ -142,8 +156,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, ai0, ai1);
 						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 
+						projectile.ai[2] = 30;
 						anchor.LeftCLickCooldown = Item.useTime;
+						anchor.NeedNetUpdate = true;
 						SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
+
+
+						for (int i = 0; i < 5; i++)
+						{
+							Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(0.8f, 1.2f));
+							dust.noGravity = true;
+							dust.noLight = true;
+						}
 					}
 				}
 
@@ -171,6 +195,21 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					anchor.OldRotation.RemoveAt(0);
 					anchor.OldFrame.RemoveAt(0);
 				}
+			}
+		}
+
+		public override void PreDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Vector2 drawPosition, Rectangle drawRectangle, SpriteEffects effect, Player player, Color lightColor)
+		{
+			if (projectile.ai[2] > 0)
+			{
+				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+
+				float scalemult = (float)Math.Sin(projectile.ai[2] * 0.1046f) * 0.125f + 1f;
+				spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, new Color(54, 150, 248) * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+
+				spriteBatch.End();
+				spriteBatch.Begin(spriteBatchSnapshot);
 			}
 		}
 	}

@@ -3184,8 +3184,12 @@ Items: {
 	}
 
 	SageFox: {
-		DisplayName: Sage Fox
-		Tooltip: ""
+		DisplayName: Foxfire Spirit Idol
+		LeftClick: Conjures up to 3 foxfire flames
+		RightClick: Become ethereal, damaging enemies you pass through
+		Jump: Blink towards your cursor, conjuring 3 foxfire flames
+		Passive: Shapeshifting in and out gives decaying movement speed
+		Tooltip: Transforms into a Foxfire spirit, gaining unique abilities
 	}
 }
 

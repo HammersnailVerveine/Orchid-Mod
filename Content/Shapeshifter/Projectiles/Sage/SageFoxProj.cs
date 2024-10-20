@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Projectile.aiStyle = 0;
 			Projectile.scale = 1f;
 			Projectile.penetrate = 1;
-			Projectile.timeLeft = 300;
+			Projectile.timeLeft = 600;
 			Projectile.tileCollide = false;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			OldPosition = new List<Vector2>();
@@ -95,6 +95,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			{
 				Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(0.8f, 1.2f));
 				dust.noGravity = true;
+				dust.noLight = true;
 			}
 		}
 
@@ -109,7 +110,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			float colorMult = 1f;
-			if (Projectile.timeLeft < 30) colorMult *= Projectile.timeLeft / 30f;
+			if (Projectile.timeLeft < 15) colorMult *= Projectile.timeLeft / 15f;
 			Color color = new Color(180, 234, 237); // to 54 150 248
 
 			for (int i = 0; i < OldPosition.Count; i++)

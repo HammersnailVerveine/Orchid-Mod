@@ -59,7 +59,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 		}
 
-		public override void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor)
+		public override void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			for (int i = 0; i < 5; i++)
 			{
