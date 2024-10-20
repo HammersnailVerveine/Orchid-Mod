@@ -278,8 +278,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
-
-			intendedVelocity.Y += 0.2f;
+			if (intendedVelocity.Y < 9.5f)
+			{ // gravity
+				intendedVelocity.Y += 0.2f;
+				if (intendedVelocity.Y > 9.5f)
+				{
+					intendedVelocity.Y = 9.5f;
+				}
+			}
 
 			// Normal movement
 			if (player.controlLeft || player.controlRight)

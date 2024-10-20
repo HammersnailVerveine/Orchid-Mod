@@ -157,7 +157,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 		// Custom methods
 
-		public void FinalVelocityCalculations(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true)
+		public void FinalVelocityCalculations(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true, bool preventDownInput = false)
 		{ // Prevents the player from phashing through tiles after all othe velocity calculations
 			if (stepUpDown)
 			{ // Allows the projectiles to "step" up and down tiles like a walking player would
@@ -190,11 +190,12 @@ namespace OrchidMod.Content.Shapeshifter
 				}
 			}
 
+			bool goThroughPlatforms = player.controlDown && !preventDownInput && intendedVelocity.Y < 0.5f;
 			Vector2 finalVelocity = Vector2.Zero;
 			intendedVelocity /= 10f;
 			for (int i = 0; i < 10; i++)
 			{
-				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, goThroughPlatforms, false, (int)player.gravDir);
 			}
 
 			projectile.velocity = finalVelocity;
