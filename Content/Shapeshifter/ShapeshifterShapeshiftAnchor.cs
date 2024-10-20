@@ -33,13 +33,13 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool IsLeftClicking;
 		public bool IsRightClicking;
 
-		public int LeftCLickCooldown
+		public float LeftCLickCooldown
 		{
 			get => (int)Projectile.localAI[0];
 			set => Projectile.localAI[0] = value;
 		}
 
-		public int RightCLickCooldown
+		public float RightCLickCooldown
 		{
 			get => (int)Projectile.localAI[1];
 			set => Projectile.localAI[1] = value;

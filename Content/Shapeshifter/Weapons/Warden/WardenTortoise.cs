@@ -1,9 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -17,8 +15,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override void SafeSetDefaults()
 		{
-			Item.width = 32;
-			Item.height = 32;
+			Item.width = 30;
+			Item.height = 30;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.NPCHit24;
@@ -33,7 +31,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			anchor.Frame = 2;
+			anchor.Frame = 0;
 			anchor.Timespent = 0;
 			projectile.direction = player.direction;
 			projectile.spriteDirection = player.direction;
@@ -211,7 +209,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					anchor.NeedNetUpdate = true;
 
 					anchor.Frame = 7;
-					//SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
 				}
 
 				if (CanRightClick(anchor))

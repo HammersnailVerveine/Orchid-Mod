@@ -3182,6 +3182,11 @@ Items: {
 		Passive: Damage taken reduced by 20%
 		Tooltip: Transforms into a Snapjaw, gaining unique abilities
 	}
+
+	SageFox: {
+		DisplayName: Sage Fox
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -3484,6 +3489,7 @@ Projectiles: {
 	SageOwlProj.DisplayName: Sage Owl Proj
 	SageOwlProjAlt.DisplayName: Sage Owl Proj Alt
 	WardenTortoiseProj.DisplayName: Warden Tortoise Proj
+	SageFoxProj.DisplayName: Sage Fox Proj
 }
 
 Configs: {
