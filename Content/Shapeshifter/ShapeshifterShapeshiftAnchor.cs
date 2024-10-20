@@ -151,8 +151,9 @@ namespace OrchidMod.Content.Shapeshifter
 		public void ExtraAI(Player player, OrchidShapeshifter shapeshifter)
 		{
 			Timespent++;
-			LeftCLickCooldown--;
-			RightCLickCooldown--;
+
+			LeftCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedLeft ? player.GetAttackSpeed(DamageClass.Melee) : 1;
+			RightCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedRight ? player.GetAttackSpeed(DamageClass.Melee) : 1;
 
 			if (Projectile.position.X > Main.maxTilesX * 16 - (672 + Projectile.width))
 			{ // Prevents the player from leaving the map through the right

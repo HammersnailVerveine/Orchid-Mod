@@ -14,10 +14,12 @@ namespace OrchidMod.Content.Shapeshifter
 {
 	public abstract class OrchidModShapeshifterShapeshift : OrchidModShapeshifterItem
 	{
-		public int ShapeshiftWidth;
-		public int ShapeshiftHeight;
-		public bool AutoReuseLeft;
-		public bool AutoReuseRight;
+		public int ShapeshiftWidth; // Hitbox Width
+		public int ShapeshiftHeight; // Hitbox Height
+		public bool AutoReuseLeft; // Whether left ability click casts repeatedly hy holding the input
+		public bool AutoReuseRight; // Whether right ability click casts repeatedly hy holding the input
+		public bool MeleeSpeedLeft; // Whether melee speed makes left click recover faster
+		public bool MeleeSpeedRight; // Whether melee speed makes right click recover faster
 		public ShapeshifterShapeshiftType ShapeshiftType;
 
 		public virtual string LeftClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterLeftClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".LeftClick"));
@@ -65,6 +67,8 @@ namespace OrchidMod.Content.Shapeshifter
 			ShapeshiftHeight = 10;
 			AutoReuseLeft = true;
 			AutoReuseRight = false;
+			MeleeSpeedLeft = false;
+			MeleeSpeedRight = false;
 
 			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;

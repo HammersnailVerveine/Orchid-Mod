@@ -1,9 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
-using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using OrchidMod.Utilities;
 using System;
 using System.Linq;
@@ -32,6 +29,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
+			MeleeSpeedLeft = true;
 		}
 
 
