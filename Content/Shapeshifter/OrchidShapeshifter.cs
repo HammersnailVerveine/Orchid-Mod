@@ -85,17 +85,17 @@ namespace OrchidMod
 
 				if (Player.whoAmI == Main.myPlayer)
 				{ // Shapeshift inputs
-					if (Shapeshift.CanLeftClick(projectile, ShapeshiftAnchor, Player, this))
+					if (Shapeshift.ShapeshiftCanLeftClick(projectile, ShapeshiftAnchor, Player, this))
 					{
 						Shapeshift.ShapeshiftOnLeftClick(projectile, ShapeshiftAnchor, Player, this); 
 					}
 
-					if (Shapeshift.CanRightClick(projectile, ShapeshiftAnchor, Player, this))
+					if (Shapeshift.ShapeshiftCanRightClick(projectile, ShapeshiftAnchor, Player, this))
 					{
 						Shapeshift.ShapeshiftOnRightClick(projectile, ShapeshiftAnchor, Player, this); 
 					}
 
-					if (Shapeshift.CanJump(projectile, ShapeshiftAnchor, Player, this))
+					if (Shapeshift.ShapeshiftCanJump(projectile, ShapeshiftAnchor, Player, this))
 					{
 						Shapeshift.ShapeshiftOnJump(projectile, ShapeshiftAnchor, Player, this); 
 					}

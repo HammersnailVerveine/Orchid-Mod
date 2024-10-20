@@ -51,7 +51,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 		}
 
-		public override bool CanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.CanLeftClick(projectile, anchor, player, shapeshifter) && anchor.Projectile.ai[2] <= 0;
+		public override bool ShapeshiftCanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanLeftClick(projectile, anchor, player, shapeshifter) && anchor.Projectile.ai[2] <= 0;
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{

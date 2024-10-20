@@ -67,7 +67,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 		}
 
-		public override bool CanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.CanLeftClick(projectile, anchor, player, shapeshifter) && !Landed;
+		public override bool ShapeshiftCanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanLeftClick(projectile, anchor, player, shapeshifter) && !Landed;
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
@@ -90,7 +90,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			FeatherDust(projectile, 2);
 		}
 
-		public override bool CanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.CanRightClick() && !Landed && AscendTimer < 85;
+		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanRightClick(projectile, anchor, player, shapeshifter) && !Landed && AscendTimer < 85;
 
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
@@ -125,7 +125,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 		}
 
-		public override bool CanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.controlJump && CanAscend;
+		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.controlJump && CanAscend;
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
@@ -244,7 +244,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					intendedVelocity.Y += 0.15f;
 				}
 
-				if (CanJump(projectile, anchor, player, shapeshifter))
+				if (ShapeshiftCanJump(projectile, anchor, player, shapeshifter))
 				{ // Check for an ascend input
 					AscendTimer = 120;
 					anchor.Timespent = 0;
