@@ -11,7 +11,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 {
 	public class SageFoxProj : OrchidModShapeshifterProjectile
 	{
-		public int TimeSpent = 0;
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
@@ -35,13 +34,21 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 		public override void AI()
 		{
-			TimeSpent++;
-
 			if (target == null)
 			{
-				Projectile.ai[0] += 3f;
-				Vector2 position = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(Projectile.ai[0] + Projectile.ai[1] * 120f)) * 64f;
-				Projectile.position = Owner.Center + position - new Vector2(Projectile.width, Projectile.height) * 0.5f + Vector2.UnitY * Owner.gfxOffY;
+				if (Projectile.ai[1] >= 0)
+				{
+					Projectile.ai[0] += 3f;
+					Vector2 position = Vector2.UnitY.RotatedBy(MathHelper.ToRadians(Projectile.ai[0] + Projectile.ai[1] * 120f)) * 64f;
+					Projectile.position = Owner.Center + position - new Vector2(Projectile.width, Projectile.height) * 0.5f + Vector2.UnitY * Owner.gfxOffY;
+				}
+				else
+				{
+					if (Projectile.timeLeft > 300)
+					{
+						Projectile.timeLeft = 300;
+					}
+				}
 
 				NPC closestTarget = null;
 				float distanceClosest = 200f;
@@ -73,6 +80,25 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 				if (Projectile.timeLeft > 60)
 				{
 					Projectile.timeLeft = 60;
+				}
+
+				NPC closestTarget = null;
+				float distanceClosest = 200f;
+				foreach (NPC npc in Main.npc)
+				{
+					float distance = Projectile.Center.Distance(npc.Center);
+					if (IsValidTarget(npc) && distance < distanceClosest)
+					{
+						closestTarget = npc;
+						distanceClosest = distance;
+					}
+				}
+
+				if (closestTarget != null)
+				{
+					Projectile.timeLeft += 120;
+					target = closestTarget;
+					SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
 				}
 			}
 

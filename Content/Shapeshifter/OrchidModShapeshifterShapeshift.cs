@@ -38,6 +38,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public virtual bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => false; // Called when the player takes damage, return true to not take the hit (used for some effects like the tortoise block)
 		public virtual void ShapeshiftModifyHurt(ref Player.HurtModifiers modifiers, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Allows modifying damage taken while shapeshifted
 		public virtual void SafeHoldItem(Player player) { }
+		public virtual Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(lightColor, 0f); // used to draw the shapeshift anchor
 
 		private static int AllowGFXOffY; // used to prevent visual issues with slopes
 
@@ -248,6 +249,23 @@ namespace OrchidMod.Content.Shapeshifter
 					}
 				}
 			}
+			return false;
+		}
+
+		public bool IsGrounded(Projectile projectile, Player player, float distanceToGround = 32f)
+		{ // Returns true if the player is below "distanceToGround" from a solid tile
+			Vector2 intendedVelocity = Vector2.UnitY * distanceToGround * 0.1f;
+			Vector2 finalVelocity = Vector2.Zero;
+
+			for (int j = 0; j < 10; j++)
+			{
+				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+				if (Math.Abs(finalVelocity.Y - intendedVelocity.Y * (j + 1)) > 0.001f)
+				{ // A tile was hit on the Y axis
+					return true;
+				}
+			}
+
 			return false;
 		}
 

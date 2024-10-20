@@ -6,6 +6,7 @@ using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using OrchidMod.Utilities;
 using System;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -33,6 +34,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
 		}
 
+		public override bool CanRightClick(ShapeshifterShapeshiftAnchor anchor) => Main.mouseRight && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick;
+
+		public override Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (projectile.ai[1] > 0)
+			{ // Right click phaseshift is active
+				drawPlayerAsAdditive = true;
+				return new Color(54, 150, 248) * 0.75f;
+			}
+			return base.GetColor(ref drawPlayerAsAdditive, lightColor, projectile, anchor, player, shapeshifter);
+		}
+
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			shapeshifter.ShapeshifterSageFoxSpeed = 180;
@@ -45,7 +58,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 8; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
+				dust.noGravity = true;
+				dust.noLight = true;
 			}
 		}
 
@@ -55,37 +70,92 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 5; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
+				dust.noGravity = true;
+				dust.noLight = true;
 			}
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			// MISC EFFECTS
-			// ANIMATION
 
-			if (anchor.Projectile.ai[2] > 0)
-			{ // Left click animation
+			bool grounded = IsGrounded(projectile, player);
+
+			if ((int)projectile.ai[0] < 601)
+			{ // Increases the dash timer
+				projectile.ai[0]++;
+
+				if ((int)projectile.ai[0] % 300 == 0)
+				{ // Spawns a projectile following the player when the dash is ready
+					int projectileType = ModContent.ProjectileType<SageFoxProjAlt>();
+					Vector2 offset = Vector2.UnitY.RotatedByRandom(3.14f) * 64f;
+					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + offset, Vector2.Zero, projectileType, 0, 0f, player.whoAmI, offset.X * 0.375f, offset.Y * 0.375f);
+					SoundEngine.PlaySound(SoundID.Item30, projectile.Center);
+				}
+			}
+
+			if (projectile.ai[1] > 0)
+			{ // Right click shift lighting and damage
+				projectile.damage = shapeshifter.GetShapeshifterDamage(Item.damage * 1.5f);
+				projectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+				projectile.friendly = true;
+
+				projectile.ai[1]--;
+				Color color = Color.Aqua * ((float)Math.Sin(projectile.ai[1] * 0.1046f) * 0.2f + 0.2f);
+				Lighting.AddLight(projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
+
+				if (Main.rand.NextBool(2))
+				{
+					Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
+					dust.noGravity = true;
+					dust.noLight = true;
+				}
+
+				if (projectile.ai[1] <= 0)
+				{
+					SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, projectile.Center);
+				}
+			}
+			else
+			{
+				projectile.damage = 0;
+				projectile.CritChance = 0;
+				projectile.friendly = false;
+			}
+
+			if (projectile.ai[2] > 0)
+			{ // Left click lighting
 				anchor.Projectile.ai[2]--;
 				Color color = Color.Aqua * (float)Math.Sin(projectile.ai[2] * 0.1046f) * 0.2f;
 				Lighting.AddLight(projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 			}
 
-			if (LateralMovement)
-			{ // Player is moving left or right, cycle through frames
-				if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
-				{
-					anchor.Frame++;
-					if (anchor.Frame == 8)
+			// ANIMATION
+
+			if (grounded)
+			{
+				if (LateralMovement)
+				{ // Player is moving left or right, cycle through frames
+					if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
 					{
-						anchor.Frame = 1;
+						anchor.Frame++;
+						if (anchor.Frame == 8)
+						{
+							anchor.Frame = 1;
+						}
 					}
+				}
+				else
+				{ // idle frame
+					anchor.Timespent = 0;
+					anchor.Frame = 0;
 				}
 			}
 			else
-			{
+			{ // Falling frame
 				anchor.Timespent = 0;
-				anchor.Frame = 0;
+				anchor.Frame = 5;
 			}
 
 			// MOVEMENT
@@ -98,10 +168,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			if (player.controlLeft || player.controlRight)
 			{ // Player is inputting a movement key
 				float speedMult = player.moveSpeed;
+				float acceleration = speedMult;
+				if (!grounded) acceleration *= 0.5f;
 
 				if (player.controlLeft && !player.controlRight)
 				{ // Left movement
-					intendedVelocity.X -= 0.2f * speedMult;
+					intendedVelocity.X -= 0.2f * acceleration;
 					if (intendedVelocity.X < -5f * speedMult) intendedVelocity.X = -5f * speedMult;
 					projectile.direction = -1;
 					projectile.spriteDirection = -1;
@@ -109,7 +181,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 				else if (player.controlRight && !player.controlLeft)
 				{ // Right movement
-					intendedVelocity.X += 0.2f * speedMult;
+					intendedVelocity.X += 0.2f * acceleration;
 					if (intendedVelocity.X > 5f * speedMult) intendedVelocity.X = 5f * speedMult;
 					projectile.direction = 1;
 					projectile.spriteDirection = 1;
@@ -141,7 +213,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					int count = 0;
 					foreach (Projectile proj in Main.projectile)
 					{
-						if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType)
+						if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType && proj.ai[1] >= 0f)
 						{
 							count++;
 							ai0 = proj.ai[0];
@@ -164,7 +236,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 						for (int i = 0; i < 5; i++)
 						{
-							Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(0.8f, 1.2f));
+							Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
 							dust.noGravity = true;
 							dust.noLight = true;
 						}
@@ -173,11 +245,79 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 				if (CanRightClick(anchor))
 				{ // Right click attack
+					anchor.RightCLickCooldown = 180;
+					anchor.NeedNetUpdate = true;
+					projectile.ai[1] = 90;
 					SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, projectile.Center);
+
+					for (int i = 0; i < 8; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
+						dust.noGravity = true;
+						dust.noLight = true;
+					}
 				}
 
-				if (player.controlJump)
-				{
+				if (anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 300)
+				{ // Jump dash
+
+					for (int i = 0; i < 10; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
+						dust.noGravity = true;
+					}
+
+					projectile.ai[0] -= 300;
+					Vector2 position = projectile.position;
+					Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 8f;
+
+					for (int i = 0; i < 32; i++)
+					{
+						position += Collision.TileCollision(position, offSet, projectile.width, projectile.height, true, false, (int)player.gravDir);
+						Dust dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
+						dust.noGravity = true;
+					}
+
+					projectile.position = position;
+					projectile.velocity = offSet;
+					projectile.velocity.Y *= 0.5f;
+					anchor.NeedNetUpdate = true;
+
+					// Spawn 3 foxfire flames after the dash
+					int projectileType = ModContent.ProjectileType<SageFoxProj>();
+
+					foreach (Projectile proj in Main.projectile)
+					{
+						if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType)
+						{
+							proj.ai[1] = -1;
+						}
+					}
+
+					for (int j = 0; j < 3; j ++)
+					{
+						int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, 0f, j);
+						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+
+						projectile.ai[2] = 30;
+						anchor.LeftCLickCooldown = Item.useTime;
+						anchor.NeedNetUpdate = true;
+					}
+
+					SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
+
+					// Kill one of the dash indicators following the player
+					int projectileType2 = ModContent.ProjectileType<SageFoxProjAlt>();
+					Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType2).Kill();
+
+					for (int i = 0; i < 30; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
+						dust.noGravity = true;
+					}
+
+					SoundEngine.PlaySound(SoundID.Item28, projectile.Center);
 				}
 			}
 
@@ -189,7 +329,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 2; i++)
 			{
-				if (anchor.OldPosition.Count > 5)
+				if (anchor.OldPosition.Count > (projectile.ai[1] > 0 ? 8 : 5))
 				{
 					anchor.OldPosition.RemoveAt(0);
 					anchor.OldRotation.RemoveAt(0);
@@ -211,6 +351,21 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				spriteBatch.End();
 				spriteBatch.Begin(spriteBatchSnapshot);
 			}
+		}
+
+		public override bool ShouldDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor)
+		{
+			return base.ShouldDrawShapeshift(spriteBatch, projectile, player, ref lightColor);
+		}
+
+		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (projectile.ai[1] > 0)
+			{
+				return true;
+			}
+
+			return false;
 		}
 	}
 }

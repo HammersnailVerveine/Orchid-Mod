@@ -32,6 +32,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public bool IsLeftClicking;
 		public bool IsRightClicking;
+		public bool ControlJumpRelease;
 
 		public float LeftCLickCooldown
 		{
@@ -43,6 +44,16 @@ namespace OrchidMod.Content.Shapeshifter
 		{
 			get => (int)Projectile.localAI[1];
 			set => Projectile.localAI[1] = value;
+		}
+
+		public bool JumpWithControlRelease(Player player)
+		{
+			if (ControlJumpRelease && player.controlJump)
+			{
+				ControlJumpRelease = false;
+				return true;
+			}
+			return false;
 		}
 
 		public override void AltSetDefaults()
@@ -137,7 +148,7 @@ namespace OrchidMod.Content.Shapeshifter
 			Projectile.netUpdate = true;
 		}
 
-		public void ExtraAI()
+		public void ExtraAI(Player player, OrchidShapeshifter shapeshifter)
 		{
 			Timespent++;
 			LeftCLickCooldown--;
@@ -200,6 +211,11 @@ namespace OrchidMod.Content.Shapeshifter
 				IsRightClicking = true;
 				Projectile.netUpdate = true;
 			}
+
+			if (!ControlJumpRelease && !player.controlJump)
+			{
+				ControlJumpRelease = true;
+			}
 		}
 
 		public override void AI()
@@ -254,7 +270,8 @@ namespace OrchidMod.Content.Shapeshifter
 
 			if (shapeshifterItem.ShouldDrawShapeshift(spriteBatch, Projectile, player, ref lightColor))
 			{
-				Color color = player.GetImmuneAlphaPure(lightColor, 0f);
+				bool drawAsAdditive = false;
+				Color color = shapeshifterItem.GetColor(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
 				Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				Rectangle drawRectangle = TextureShapeshift.Bounds;
 				drawRectangle.Height = drawRectangle.Width;
@@ -273,9 +290,12 @@ namespace OrchidMod.Content.Shapeshifter
 					spriteBatch.Draw(TextureShapeshift, drawPosition2, drawRectangle, color * 0.075f * (i + 1), OldRotation[i], drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
+				if (!drawAsAdditive)
+				{
+					spriteBatch.End();
+					spriteBatch.Begin(spriteBatchSnapshot);
+				}
 
-				spriteBatch.End();
-				spriteBatch.Begin(spriteBatchSnapshot);
 				//Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 				//GameShaders.Misc["OrchidMod:HorizonGlow"].Apply();
 
@@ -285,6 +305,13 @@ namespace OrchidMod.Content.Shapeshifter
 				if (TextureShapeshiftGlow != null)
 				{
 					spriteBatch.Draw(TextureShapeshiftGlow, drawPosition, drawRectangle, player.GetImmuneAlphaPure(Color.White, 0f), Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+				}
+
+
+				if (drawAsAdditive)
+				{
+					spriteBatch.End();
+					spriteBatch.Begin(spriteBatchSnapshot);
 				}
 
 				//spriteBatch.End();

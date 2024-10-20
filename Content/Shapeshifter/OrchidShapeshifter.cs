@@ -77,7 +77,7 @@ namespace OrchidMod
 
 				Projectile projectile = ShapeshiftAnchor.Projectile;
 				Shapeshift.ShapeshiftAnchorAI(projectile, ShapeshiftAnchor, Player, this);
-				ShapeshiftAnchor.ExtraAI();
+				ShapeshiftAnchor.ExtraAI(Player, this);
 
 				Player.velocity = projectile.velocity;
 				Player.Center = projectile.Center + projectile.velocity;
@@ -96,7 +96,7 @@ namespace OrchidMod
 			{
 				if (Main.rand.NextBool((int)(30 - ShapeshifterSageFoxSpeed / 6f) + 1))
 				{
-					Dust dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.IceTorch, Scale: Main.rand.NextFloat(0.8f, 1.2f));
+					Dust dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
 					dust.noGravity = true;
 					dust.noLight = true;
 				}
