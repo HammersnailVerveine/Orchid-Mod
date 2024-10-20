@@ -20,8 +20,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void SafeSetDefaults()
 		{
-			Item.width = 32;
-			Item.height = 32;
+			Item.width = 30;
+			Item.height = 36;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.NPCDeath4;
