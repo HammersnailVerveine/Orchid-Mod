@@ -3184,7 +3184,7 @@ Items: {
 	}
 
 	SageFox: {
-		DisplayName: Foxfire Spirit Idol
+		DisplayName: Ice Fox Statuette
 		LeftClick: Conjures up to 3 foxfire flames
 		RightClick: Become ethereal, damaging enemies you pass through
 		Jump: Blink towards your cursor, conjuring 3 foxfire flames
