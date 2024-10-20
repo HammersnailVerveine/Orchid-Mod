@@ -57,6 +57,11 @@ namespace OrchidMod
 
 		public override void PostUpdateEquips()
 		{
+			if (IsShapeshifted)
+			{
+				Shapeshift.ShapeshiftBuffs(ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
+			}
+
 			// Misc Effects that should be called before Shapeshifter Core mechanics (eg : stat changes that should affec the shapeshifted player)
 
 			if (ShapeshifterSageFoxSpeed > 0)
@@ -77,6 +82,25 @@ namespace OrchidMod
 
 				Projectile projectile = ShapeshiftAnchor.Projectile;
 				Shapeshift.ShapeshiftAnchorAI(projectile, ShapeshiftAnchor, Player, this);
+
+				if (Player.whoAmI == Main.myPlayer)
+				{ // Shapeshift inputs
+					if (Shapeshift.CanLeftClick(projectile, ShapeshiftAnchor, Player, this))
+					{
+						Shapeshift.ShapeshiftOnLeftClick(projectile, ShapeshiftAnchor, Player, this); 
+					}
+
+					if (Shapeshift.CanRightClick(projectile, ShapeshiftAnchor, Player, this))
+					{
+						Shapeshift.ShapeshiftOnRightClick(projectile, ShapeshiftAnchor, Player, this); 
+					}
+
+					if (Shapeshift.CanJump(projectile, ShapeshiftAnchor, Player, this))
+					{
+						Shapeshift.ShapeshiftOnJump(projectile, ShapeshiftAnchor, Player, this); 
+					}
+				}
+
 				ShapeshiftAnchor.ExtraAI(Player, this);
 
 				Player.velocity = projectile.velocity;

@@ -34,7 +34,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
 		}
 
-		public override bool CanRightClick(ShapeshifterShapeshiftAnchor anchor) => Main.mouseRight && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick;
 
 		public override Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
@@ -74,6 +73,124 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				dust.noGravity = true;
 				dust.noLight = true;
 			}
+		}
+
+		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			int projectileType = ModContent.ProjectileType<SageFoxProj>();
+			float ai1 = 0f;
+			float ai0 = 0f;
+			int count = 0;
+			foreach (Projectile proj in Main.projectile)
+			{
+				if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType && proj.ai[1] >= 0f)
+				{
+					count++;
+					ai0 = proj.ai[0];
+					if (proj.ai[1] == 0f) ai1 = 1f;
+					if (proj.ai[1] == 1f && ai1 == 1f) ai1 = 2f;
+				}
+			}
+
+			if (count < 3)
+			{ // Spawn a flame if less than 3 currently exist
+				int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, ai0, ai1);
+				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+
+				projectile.ai[2] = 30;
+				anchor.LeftCLickCooldown = Item.useTime;
+				anchor.NeedNetUpdate = true;
+				SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
+
+
+				for (int i = 0; i < 5; i++)
+				{
+					Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
+					dust.noGravity = true;
+					dust.noLight = true;
+				}
+			}
+		}
+
+		public override bool CanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => Main.mouseRight && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick;
+
+		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			anchor.RightCLickCooldown = 180;
+			anchor.NeedNetUpdate = true;
+			projectile.ai[1] = 90;
+			SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, projectile.Center);
+
+			for (int i = 0; i < 8; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
+				dust.noGravity = true;
+				dust.noLight = true;
+			}
+		}
+
+		public override bool CanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 300;
+
+		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
+				dust.noGravity = true;
+			}
+
+			projectile.ai[0] -= 300;
+			Vector2 position = projectile.position;
+			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 8f;
+
+			for (int i = 0; i < 32; i++)
+			{
+				position += Collision.TileCollision(position, offSet, projectile.width, projectile.height, true, false, (int)player.gravDir);
+				Dust dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
+				dust.noGravity = true;
+			}
+
+			projectile.position = position;
+			projectile.velocity = offSet;
+			projectile.velocity.Y *= 0.5f;
+			anchor.NeedNetUpdate = true;
+
+			// Spawn 3 foxfire flames after the dash
+			int projectileType = ModContent.ProjectileType<SageFoxProj>();
+
+			foreach (Projectile proj in Main.projectile)
+			{
+				if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType)
+				{
+					proj.ai[1] = -1;
+				}
+			}
+
+			for (int j = 0; j < 3; j++)
+			{
+				int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, 0f, j);
+				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+
+				projectile.ai[2] = 30;
+				anchor.LeftCLickCooldown = Item.useTime;
+				anchor.NeedNetUpdate = true;
+			}
+
+			SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
+
+			// Kill one of the dash indicators following the player
+			int projectileType2 = ModContent.ProjectileType<SageFoxProjAlt>();
+			Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType2).Kill();
+
+			for (int i = 0; i < 30; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
+				dust.noGravity = true;
+			}
+
+			SoundEngine.PlaySound(SoundID.Item28, projectile.Center);
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -200,126 +317,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			FinalVelocityCalculations(ref intendedVelocity, projectile, player, true);
-
-			// ATTACK
-
-			if (IsLocalPlayer(player))
-			{
-				if (CanLeftClick(anchor))
-				{ // Left click attack - regularly spawns homing flames
-					int projectileType = ModContent.ProjectileType<SageFoxProj>();
-					float ai1 = 0f;
-					float ai0 = 0f;
-					int count = 0;
-					foreach (Projectile proj in Main.projectile)
-					{
-						if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType && proj.ai[1] >= 0f)
-						{
-							count++;
-							ai0 = proj.ai[0];
-							if (proj.ai[1] == 0f) ai1 = 1f;
-							if (proj.ai[1] == 1f && ai1 == 1f) ai1 = 2f;
-						}
-					}
-
-					if (count < 3)
-					{ // Spawn a flame if less than 3 currently exist
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, ai0, ai1);
-						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-
-						projectile.ai[2] = 30;
-						anchor.LeftCLickCooldown = Item.useTime;
-						anchor.NeedNetUpdate = true;
-						SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
-
-
-						for (int i = 0; i < 5; i++)
-						{
-							Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
-							dust.noGravity = true;
-							dust.noLight = true;
-						}
-					}
-				}
-
-				if (CanRightClick(anchor))
-				{ // Right click attack
-					anchor.RightCLickCooldown = 180;
-					anchor.NeedNetUpdate = true;
-					projectile.ai[1] = 90;
-					SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, projectile.Center);
-
-					for (int i = 0; i < 8; i++)
-					{
-						Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
-						dust.noGravity = true;
-						dust.noLight = true;
-					}
-				}
-
-				if (anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 300)
-				{ // Jump dash
-
-					for (int i = 0; i < 10; i++)
-					{
-						Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
-						dust.noGravity = true;
-					}
-
-					projectile.ai[0] -= 300;
-					Vector2 position = projectile.position;
-					Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 8f;
-
-					for (int i = 0; i < 32; i++)
-					{
-						position += Collision.TileCollision(position, offSet, projectile.width, projectile.height, true, false, (int)player.gravDir);
-						Dust dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
-						dust.noGravity = true;
-					}
-
-					projectile.position = position;
-					projectile.velocity = offSet;
-					projectile.velocity.Y *= 0.5f;
-					anchor.NeedNetUpdate = true;
-
-					// Spawn 3 foxfire flames after the dash
-					int projectileType = ModContent.ProjectileType<SageFoxProj>();
-
-					foreach (Projectile proj in Main.projectile)
-					{
-						if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType)
-						{
-							proj.ai[1] = -1;
-						}
-					}
-
-					for (int j = 0; j < 3; j ++)
-					{
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, 0f, j);
-						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-
-						projectile.ai[2] = 30;
-						anchor.LeftCLickCooldown = Item.useTime;
-						anchor.NeedNetUpdate = true;
-					}
-
-					SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
-
-					// Kill one of the dash indicators following the player
-					int projectileType2 = ModContent.ProjectileType<SageFoxProjAlt>();
-					Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType2).Kill();
-
-					for (int i = 0; i < 30; i++)
-					{
-						Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
-						dust.noGravity = true;
-					}
-
-					SoundEngine.PlaySound(SoundID.Item28, projectile.Center);
-				}
-			}
 
 			// POSITION AND ROTATION VISUALS
 

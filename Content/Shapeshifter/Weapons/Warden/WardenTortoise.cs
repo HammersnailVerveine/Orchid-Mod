@@ -51,16 +51,93 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 		}
 
+		public override bool CanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.CanLeftClick(projectile, anchor, player, shapeshifter) && anchor.Projectile.ai[2] <= 0;
+
+		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			Vector2 position = projectile.Center;
+			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f) / 15f;
+
+			for (int i = 0; i < (player.HasBuff<WardenTortoiseBuff>() ? 45 : 15); i++)
+			{
+				position += Collision.TileCollision(position, offSet, 2, 2, true, false, (int)player.gravDir);
+
+				foreach (NPC npc in Main.npc)
+				{
+					if (OrchidModProjectile.IsValidTarget(npc))
+					{
+						if (position.Distance(npc.Center) < npc.width + 32f) // if the NPC is close to the projectile path, snaps to it.
+						{
+							position = npc.Center;
+							break;
+						}
+					}
+				}
+			}
+
+			if (player.HasBuff<WardenTortoiseBuff>())
+			{
+				player.ClearBuff(ModContent.BuffType<WardenTortoiseBuff>());
+				int projectileType = ModContent.ProjectileType<WardenTortoiseProj>();
+				int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 5f);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack * 2f, player.whoAmI, 1f);
+				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+				SoundEngine.PlaySound(SoundID.Item108, projectile.Center);
+			}
+			else
+			{
+				int projectileType = ModContent.ProjectileType<WardenTortoiseProj>();
+				int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack, player.whoAmI);
+				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+				SoundEngine.PlaySound(SoundID.Zombie33, projectile.Center);
+			}
+
+			if (anchor.RightCLickCooldown > 60)
+			{
+				anchor.RightCLickCooldown = 60;
+			}
+
+			anchor.LeftCLickCooldown = Item.useTime;
+			anchor.Projectile.ai[0] = 10;
+			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+			anchor.NeedNetUpdate = true;
+
+			anchor.Frame = 7;
+		}
+
+		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			anchor.NeedNetUpdate = true;
+			anchor.RightCLickCooldown = 360;
+			anchor.Projectile.ai[0] = -300;
+			anchor.Projectile.ai[1] = projectile.spriteDirection;
+			projectile.velocity.X = 0f;
+			SoundEngine.PlaySound(SoundID.NPCHit24, projectile.Center);
+		}
+
+		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (anchor.Projectile.ai[2] <= 0)
+			{ // Starts sprinting for at least 1 second when pressed
+				anchor.Projectile.ai[2] = 60;
+				SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
+				anchor.NeedNetUpdate = true;
+			}
+			else if (anchor.Projectile.ai[2] <= 5)
+			{ // Maintains sprint while pressed
+				anchor.Projectile.ai[2] = 5;
+			}
+		}
+
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			// MISC EFFECTS
+			// MISC EFFECTS & ANIMATION
 
 			if (anchor.Projectile.ai[2] > 0)
 			{
 				anchor.Projectile.ai[2]--;
 			}
-
-			// ANIMATION
 
 			if (anchor.Projectile.ai[0] != 0)
 			{ // Override animation during left and right click attack
@@ -153,87 +230,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 
 			FinalVelocityCalculations(ref intendedVelocity, projectile, player, true);
-
-			// ATTACK
-
-			if (IsLocalPlayer(player))
-			{
-				if (CanLeftClick(anchor) && anchor.Projectile.ai[2] <= 0)
-				{ // Left click attack
-					Vector2 position = projectile.Center;
-					Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f) / 15f;
-
-					for (int i = 0; i < (player.HasBuff<WardenTortoiseBuff>() ? 45 : 15); i++)
-					{
-						position += Collision.TileCollision(position, offSet, 2, 2, true, false, (int)player.gravDir);
-
-						foreach (NPC npc in Main.npc)
-						{
-							if (OrchidModProjectile.IsValidTarget(npc))
-							{
-								if (position.Distance(npc.Center) < npc.width + 32f) // if the NPC is close to the projectile path, snaps to it.
-								{
-									position = npc.Center;
-									break;
-								}
-							}
-						}
-					}
-
-					if (player.HasBuff<WardenTortoiseBuff>())
-					{
-						player.ClearBuff(ModContent.BuffType<WardenTortoiseBuff>());
-						int projectileType = ModContent.ProjectileType<WardenTortoiseProj>();
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 5f);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack * 2f, player.whoAmI, 1f);
-						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-						SoundEngine.PlaySound(SoundID.Item108, projectile.Center);
-					}
-					else
-					{
-						int projectileType = ModContent.ProjectileType<WardenTortoiseProj>();
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack, player.whoAmI);
-						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-						SoundEngine.PlaySound(SoundID.Zombie33, projectile.Center);
-					}
-
-					if (anchor.RightCLickCooldown > 60) 
-					{
-						anchor.RightCLickCooldown = 60;
-					}
-
-					anchor.LeftCLickCooldown = Item.useTime;
-					anchor.Projectile.ai[0] = 10;
-					anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
-					anchor.NeedNetUpdate = true;
-
-					anchor.Frame = 7;
-				}
-
-				if (CanRightClick(anchor))
-				{ // Right click attack
-					anchor.NeedNetUpdate = true;
-					anchor.RightCLickCooldown = 360;
-					anchor.Projectile.ai[0] = -300;
-					anchor.Projectile.ai[1] = projectile.spriteDirection;
-					projectile.velocity.X = 0f;
-					SoundEngine.PlaySound(SoundID.NPCHit24, projectile.Center);
-				}
-
-				if (player.controlJump)
-				{
-					if (anchor.Projectile.ai[2] <= 0)
-					{ // Starts sprinting for at least 1 second when pressed
-						anchor.Projectile.ai[2] = 60;
-						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
-					}
-					else if (anchor.Projectile.ai[2] <= 5)
-					{ // Maintains sprint while pressed
-						anchor.Projectile.ai[2] = 5; 
-					}
-				}
-			}
 
 			// POSITION AND ROTATION VISUALS
 

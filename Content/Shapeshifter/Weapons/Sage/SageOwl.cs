@@ -67,6 +67,66 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 		}
 
+		public override bool CanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.CanLeftClick(projectile, anchor, player, shapeshifter) && !Landed;
+
+		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			int projectileType = ModContent.ProjectileType<SageOwlProj>();
+			for (int i = 0; i < 3; i++)
+			{
+				Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * (0.85f + i * 0.15f);
+				int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
+				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+				newProjectile.netUpdate = true;
+			}
+
+			anchor.LeftCLickCooldown = Item.useTime;
+			anchor.Projectile.ai[0] = 10;
+			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+			anchor.NeedNetUpdate = true;
+
+			SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
+			FeatherDust(projectile, 2);
+		}
+
+		public override bool CanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.CanRightClick() && !Landed && AscendTimer < 85;
+
+		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			projectile.velocity *= 0f;
+			int projectileType = ModContent.ProjectileType<SageOwlProjAlt>(); ;
+			Vector2 position = projectile.Center;
+			position.Y += 90;
+			Projectile.NewProjectile(Item.GetSource_FromAI(), position, Vector2.Zero, projectileType, 0, 0f, player.whoAmI);
+
+			foreach (NPC npc in Main.npc)
+			{ // Applies the ability debuff to all valid NPCs
+				if (OrchidModProjectile.IsValidTarget(npc))
+				{
+					float angle = (npc.Center - projectile.Center).ToRotation();
+					if (npc.Center.Distance(projectile.Center) < 480f && angle > MathHelper.Pi * 0.25f && angle < MathHelper.Pi * 0.75f)
+					{
+						npc.AddBuff(ModContent.BuffType<SageOwlDebuff>(), 600);
+					}
+				}
+			}
+
+			// adjust shapeshift anchor fields
+			anchor.RightCLickCooldown = Item.useTime * 4;
+			anchor.Projectile.ai[2] = 30;
+			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+			anchor.NeedNetUpdate = true;
+
+			SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, projectile.Center);
+			for (int i = 0; i < 3; i++)
+			{
+				FeatherDust(projectile, 2);
+			}
+		}
+
+		public override bool CanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.controlJump && CanAscend;
+
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			// MISC EFFECTS
@@ -184,7 +244,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					intendedVelocity.Y += 0.15f;
 				}
 
-				if (player.controlJump && CanAscend)
+				if (CanJump(projectile, anchor, player, shapeshifter))
 				{ // Check for an ascend input
 					AscendTimer = 120;
 					anchor.Timespent = 0;
@@ -313,63 +373,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			FinalVelocityCalculations(ref intendedVelocity, projectile, player);
 
 			// ATTACK
-
-			if (IsLocalPlayer(player))
-			{
-				if (CanLeftClick(anchor) && !Landed)
-				{ // Left click attack
-					int projectileType = ModContent.ProjectileType<SageOwlProj>();
-					for (int i = 0; i < 3; i++)
-					{
-						Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * (0.85f + i * 0.15f);
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
-						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-						newProjectile.netUpdate = true;
-					}
-
-					anchor.LeftCLickCooldown = Item.useTime;
-					anchor.Projectile.ai[0] = 10;
-					anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
-					anchor.NeedNetUpdate = true;
-
-					SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
-					FeatherDust(projectile, 2);
-				}
-
-				if (CanRightClick(anchor) && !Landed && AscendTimer < 85)
-				{ // Spawns a projectile that does nothing but provides visuals on the ability effect
-					projectile.velocity *= 0f;
-					int projectileType = ModContent.ProjectileType<SageOwlProjAlt>();;
-					Vector2 position = projectile.Center;
-					position.Y += 90;
-					Projectile.NewProjectile(Item.GetSource_FromAI(), position, Vector2.Zero, projectileType, 0, 0f, player.whoAmI);
-
-					foreach (NPC npc in Main.npc) 
-					{ // Applies the ability debuff to all valid NPCs
-						if (OrchidModProjectile.IsValidTarget(npc))
-						{
-							float angle = (npc.Center - projectile.Center).ToRotation();
-							if (npc.Center.Distance(projectile.Center) < 480f && angle > MathHelper.Pi * 0.25f && angle < MathHelper.Pi * 0.75f)
-							{
-								npc.AddBuff(ModContent.BuffType<SageOwlDebuff>(), 600);
-							}
-						}
-					}
-
-					// adjust shapeshift anchor fields
-					anchor.RightCLickCooldown = Item.useTime * 4;
-					anchor.Projectile.ai[2] = 30;
-					anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
-					anchor.NeedNetUpdate = true;
-
-					SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, projectile.Center);
-					for (int i = 0; i < 3; i++)
-					{
-						FeatherDust(projectile, 2);
-					}
-				}
-			}
 
 			if (anchor.Projectile.ai[0] > -30)
 			{ // Override animation during attack
