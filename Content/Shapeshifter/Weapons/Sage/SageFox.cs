@@ -79,14 +79,23 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			float ai1 = 0f;
 			float ai0 = 0f;
 			int count = 0;
+			bool found2 = false;
 			foreach (Projectile proj in Main.projectile)
 			{
 				if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType && proj.ai[1] >= 0f)
 				{
 					count++;
 					ai0 = proj.ai[0];
-					if (proj.ai[1] == 0f) ai1 = 1f;
-					if (proj.ai[1] == 1f && ai1 == 1f) ai1 = 2f;
+					if (proj.ai[1] == 0f && ai1 == 0f) ai1 = 1f;
+					if (proj.ai[1] == 1f && !found2) ai1 = 2f;
+					if (proj.ai[1] == 2f)
+					{
+						found2 = true;
+						if (ai1 == 2f)
+						{
+							ai1 = 0f;
+						}
+					}
 				}
 			}
 
