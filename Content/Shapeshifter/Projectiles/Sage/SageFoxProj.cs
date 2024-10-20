@@ -57,6 +57,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				if (closestTarget != null)
 				{
+					Projectile.timeLeft += 120;
 					target = closestTarget;
 					SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
 				}
