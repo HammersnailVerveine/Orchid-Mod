@@ -19,6 +19,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 	{
 		public int TimeSpent = 0;
 		public bool Ding = false;
+		public bool Blast = false;
 		public bool NeedNetUpdate = false;
 		public int SelectedItem { get; set; } = -1;
 		public Item HorizonLanceItem => Main.player[Projectile.owner].inventory[SelectedItem];
@@ -120,7 +121,49 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 				if (HorizonLanceItem.ModItem is HorizonLance guardianItem)
 				{
-					if (Projectile.ai[0] == 1f)
+					if (Projectile.ai[0] < 0f)
+					{ // Stabbing
+						Vector2 puchDir = (Projectile.ai[2] + MathHelper.PiOver2).ToRotationVector2();
+						if (puchDir.X > 0 && owner.direction != 1) owner.ChangeDir(1);
+						else if (puchDir.X < 0 && owner.direction != -1) owner.ChangeDir(-1);
+
+						float addedDistance = 36f;
+						if (Projectile.ai[0] < -50)
+						{
+							addedDistance = 36f * (50f / -Projectile.ai[0]);
+						}
+
+						if (Projectile.ai[0] > -10)
+						{
+							addedDistance -= 0.8f * (10 + Projectile.ai[0]);
+
+							if (!Blast)
+							{
+								Blast = true;
+								SoundEngine.PlaySound(SoundID.Item122, owner.Center);
+
+								// Fire projectile
+							}
+						}
+
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(4 * owner.direction, 2f) + Vector2.UnitY.RotatedBy(Projectile.ai[2]) * addedDistance;
+						Projectile.rotation = Projectile.ai[2] - MathHelper.PiOver4 * 5f;
+						float addedRotation = 0f;
+						if (Projectile.ai[2] + MathHelper.PiOver2 > 0f)
+						{
+							addedRotation = (Projectile.ai[2] + owner.direction * MathHelper.PiOver2) * 0.65f;
+						}
+						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -owner.direction + addedRotation);
+
+						Projectile.ai[0]++;
+
+						if (Projectile.ai[0] >= 0f)
+						{
+							Projectile.ai[0] = 0f;
+							Projectile.ai[2] = 0f;
+						}
+					}
+					else if (Projectile.ai[0] == 1f)
 					{ // Being charged by the player
 						Projectile.Center = owner.MountedCenter.Floor() + new Vector2((28f - guardian.GuardianStandardCharge * 0.03f) * owner.direction, 2f + guardian.GuardianStandardCharge * 0.045f);
 						Projectile.rotation = MathHelper.PiOver4 * (1.75f + guardian.GuardianStandardCharge * 0.0015f) * owner.direction - MathHelper.PiOver4;
@@ -142,18 +185,23 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 						if ((!owner.controlUseItem || !heldStandard) && IsLocalOwner)
 						{
 							if (guardian.GuardianStandardCharge >= 180f)
-							{
+							{ // Full charge
 								SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
 
 								Projectile.ai[1] = guardianItem.StandardDuration * guardian.GuardianStandardTimer;
 								guardian.AddGuard(2);
 
-								// Stab animation stuff
-								Main.NewText("Stab");
+								// Stab starts
+								Projectile.ai[2] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
+								Projectile.ai[0] = -60f;
+							}
+							else
+							{ // Not enough charge = Reset to idle
+								Projectile.ai[0] = 0f;
 							}
 
+							Blast = false;
 							guardian.GuardianStandardCharge = 0;
-							Projectile.ai[0] = 0f;
 							Projectile.netUpdate = true;
 						}
 					}
@@ -209,7 +257,9 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
-				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+				//spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+
 				float colorMult = (float)Math.Sin(TimeSpent * 0.075f) * 0.1f + 0.9f;
 				spriteBatch.Draw(textureGlow, drawPosition, null, Color.White * colorMult, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 

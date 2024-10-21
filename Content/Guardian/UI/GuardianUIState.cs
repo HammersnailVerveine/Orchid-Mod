@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Common.UIs;
+using OrchidMod.Content.Guardian.Weapons.Misc;
 using OrchidMod.Utilities;
 using ReLogic.Content;
 using System;
@@ -199,7 +200,7 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (modPlayer.GuardianStandardCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianStandard)
+					if (modPlayer.GuardianStandardCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && (player.HeldItem.ModItem is OrchidModGuardianStandard || player.HeldItem.ModItem is HorizonLance))
 					{
 						int val = textureStandardOn.Height;
 						if (modPlayer.GuardianStandardCharge >= 180f)

@@ -28,7 +28,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			Item.maxStack = 1;
 			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.Thrust;
-			Item.UseSound = SoundID.DD2_BetsyWindAttack;
+			Item.UseSound = SoundID.DD2_GhastlyGlaiveImpactGhost;
 			Item.useAnimation = Item.useTime;
 
 
@@ -40,7 +40,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			Item.knockBack = 8f;
 			Item.damage = 100;
 			AuraRange = 480; // 30 * 16
-			StandardDuration = 1800; // 30 sec
+			StandardDuration = 3600; // 60 sec
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
@@ -142,10 +142,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			int tooltipSeconds = Math.DivRem((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer), 60, out int tooltipTicks);
 			index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "RuneDuration", tooltipSeconds + " seconds duration"));
-
-			tooltips.RemoveAll(x => x.Name == "Damage" && x.Mod == "Terraria");
-			tooltips.RemoveAll(x => x.Name == "Knockback" && x.Mod == "Terraria");
-			tooltips.RemoveAll(x => x.Name == "CritChance" && x.Mod == "Terraria");
 		}
 	}
 }
