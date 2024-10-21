@@ -465,11 +465,11 @@ namespace OrchidMod
 			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor)
 			{
 				if (GuardianSpikeDungeon)
-				{
-					int type = ModContent.ProjectileType<WaterSpikeProj>();
+				{ // For some god forsaken reason, any projectile spawned here is destroyed on frame 1
+					int type = ModContent.ProjectileType<WaterSpikeProjAlt>();
 					Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center) * 10f;
 					int damage = GetGuardianDamage(30); // Duplicate changes in the Dungeon Spike item
-					Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), anchor.Center, dir, type, damage, 1f, Player.whoAmI);
+					Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center, dir, type, damage, 1f, Player.whoAmI);
 					projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
 				}
 

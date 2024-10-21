@@ -3495,6 +3495,7 @@ Projectiles: {
 	WardenTortoiseProj.DisplayName: Warden Tortoise Proj
 	SageFoxProj.DisplayName: Sage Fox Proj
 	SageFoxProjAlt.DisplayName: Sage Fox Proj Alt
+	WaterSpikeProjAlt.DisplayName: Water Spike Proj Alt
 }
 
 Configs: {
