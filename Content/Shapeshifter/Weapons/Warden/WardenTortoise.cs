@@ -191,7 +191,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 
 			// Normal movement
-			if (player.controlLeft || player.controlRight && projectile.ai[0] > -270)
+			if ((anchor.IsInputLeft || anchor.IsInputRight) && projectile.ai[0] > -270)
 			{ // Player is inputting a movement key and didn't just start blocking
 				if (projectile.ai[0] < -5)
 				{ // Cancels the block if the player was blocking
@@ -207,7 +207,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						speedMult *= 1.75f;
 					}
 
-					if (player.controlLeft && !player.controlRight)
+					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
 						intendedVelocity.X -= 0.1f * speedMult;
 						if (intendedVelocity.X < -1.75f * speedMult) intendedVelocity.X = -1.75f * speedMult;
@@ -215,7 +215,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
-					else if (player.controlRight && !player.controlLeft)
+					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
 						intendedVelocity.X += 0.1f * speedMult;
 						if (intendedVelocity.X > 1.75f * speedMult) intendedVelocity.X = 1.75f * speedMult;

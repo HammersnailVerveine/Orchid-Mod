@@ -87,26 +87,28 @@ namespace OrchidMod
 				Player.height = Shapeshift.ShapeshiftHeight;
 
 				Projectile projectile = ShapeshiftAnchor.Projectile;
-				Shapeshift.ShapeshiftAnchorAI(projectile, ShapeshiftAnchor, Player, this);
 
 				if (Player.whoAmI == Main.myPlayer)
 				{ // Shapeshift inputs
+					ShapeshiftAnchor.CheckInputs(Player); // mostly used to sync inputs in mp
+
 					if (Shapeshift.ShapeshiftCanLeftClick(projectile, ShapeshiftAnchor, Player, this))
 					{
-						Shapeshift.ShapeshiftOnLeftClick(projectile, ShapeshiftAnchor, Player, this); 
+						Shapeshift.ShapeshiftOnLeftClick(projectile, ShapeshiftAnchor, Player, this);
 					}
 
 					if (Shapeshift.ShapeshiftCanRightClick(projectile, ShapeshiftAnchor, Player, this))
 					{
-						Shapeshift.ShapeshiftOnRightClick(projectile, ShapeshiftAnchor, Player, this); 
+						Shapeshift.ShapeshiftOnRightClick(projectile, ShapeshiftAnchor, Player, this);
 					}
 
 					if (Shapeshift.ShapeshiftCanJump(projectile, ShapeshiftAnchor, Player, this))
 					{
-						Shapeshift.ShapeshiftOnJump(projectile, ShapeshiftAnchor, Player, this); 
+						Shapeshift.ShapeshiftOnJump(projectile, ShapeshiftAnchor, Player, this);
 					}
 				}
 
+				Shapeshift.ShapeshiftAnchorAI(projectile, ShapeshiftAnchor, Player, this);
 				ShapeshiftAnchor.ExtraAI(Player, this);
 
 				Player.velocity = projectile.velocity;

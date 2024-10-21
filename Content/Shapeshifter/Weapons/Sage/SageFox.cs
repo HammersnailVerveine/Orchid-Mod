@@ -295,13 +295,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			// Normal movement
-			if (player.controlLeft || player.controlRight)
+			if (anchor.IsInputLeft || anchor.IsInputRight)
 			{ // Player is inputting a movement key
 				float speedMult = player.moveSpeed;
 				float acceleration = speedMult;
 				if (!grounded) acceleration *= 0.5f;
 
-				if (player.controlLeft && !player.controlRight)
+				if (anchor.IsInputLeft && !anchor.IsInputRight)
 				{ // Left movement
 					intendedVelocity.X -= 0.2f * acceleration;
 					if (intendedVelocity.X < -5f * speedMult) intendedVelocity.X = -5f * speedMult;
@@ -309,7 +309,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					projectile.spriteDirection = -1;
 					LateralMovement = true;
 				}
-				else if (player.controlRight && !player.controlLeft)
+				else if (anchor.IsInputRight && !anchor.IsInputLeft)
 				{ // Right movement
 					intendedVelocity.X += 0.2f * acceleration;
 					if (intendedVelocity.X > 5f * speedMult) intendedVelocity.X = 5f * speedMult;

@@ -30,8 +30,13 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool CanLeftClick => LeftCLickCooldown <= 0f;
 		public bool CanRightClick => RightCLickCooldown <= 0f;
 
-		public bool IsLeftClicking;
-		public bool IsRightClicking;
+		public bool IsLeftClick;
+		public bool IsRightClick;
+		public bool IsInputLeft;
+		public bool IsInputRight;
+		public bool IsInputDown;
+		public bool IsInputUp;
+		public bool IsInputJump;
 		public bool ControlJumpRelease;
 
 		public float LeftCLickCooldown
@@ -78,37 +83,51 @@ namespace OrchidMod.Content.Shapeshifter
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write(SelectedItem);
-			writer.Write(IsLeftClicking);
-			writer.Write(IsRightClicking);
+			writer.Write(IsLeftClick);
+			writer.Write(IsRightClick);
+			writer.Write(IsInputLeft);
+			writer.Write(IsInputRight);
+			writer.Write(IsInputUp);
+			writer.Write(IsInputDown);
+			writer.Write(IsInputJump);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			SelectedItem = reader.ReadInt32();
-			IsLeftClicking = reader.ReadBoolean();
-			IsRightClicking = reader.ReadBoolean();
+			int selectedItem = reader.ReadInt32();
+			IsLeftClick = reader.ReadBoolean();
+			IsRightClick = reader.ReadBoolean();
+			IsInputLeft = reader.ReadBoolean();
+			IsInputRight = reader.ReadBoolean();
+			IsInputUp = reader.ReadBoolean();
+			IsInputDown = reader.ReadBoolean();
+			IsInputJump = reader.ReadBoolean();
 
-			Player owner = Owner;
-			if (owner.inventory[owner.selectedItem].ModItem is OrchidModShapeshifterShapeshift shapeshiftItem)
+			if (SelectedItem == -1)
 			{
-				OrchidShapeshifter shapeshifter = owner.GetModPlayer<OrchidShapeshifter>();
-				shapeshifter.Shapeshift = shapeshiftItem;
-				shapeshifter.ShapeshiftAnchor = this;
-				Projectile.width = shapeshiftItem.ShapeshiftWidth;
-				Projectile.height = shapeshiftItem.ShapeshiftHeight;
-				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
-				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
-				Projectile.ai[0] = 0f;
-				Projectile.ai[1] = 0f;
-				Projectile.ai[2] = 0f;
-
-				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
-				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
-				TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture + "_Border", AssetRequestMode.ImmediateLoad).Value;
-				TextureShapeshiftGlow = null;
-				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
+				SelectedItem = selectedItem;
+				Player owner = Owner;
+				if (owner.inventory[owner.selectedItem].ModItem is OrchidModShapeshifterShapeshift shapeshiftItem)
 				{
-					TextureShapeshiftGlow = asset.Value;
+					OrchidShapeshifter shapeshifter = owner.GetModPlayer<OrchidShapeshifter>();
+					shapeshifter.Shapeshift = shapeshiftItem;
+					shapeshifter.ShapeshiftAnchor = this;
+					Projectile.width = shapeshiftItem.ShapeshiftWidth;
+					Projectile.height = shapeshiftItem.ShapeshiftHeight;
+					shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
+					SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
+					Projectile.ai[0] = 0f;
+					Projectile.ai[1] = 0f;
+					Projectile.ai[2] = 0f;
+
+					TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
+					TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
+					TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture + "_Border", AssetRequestMode.ImmediateLoad).Value;
+					TextureShapeshiftGlow = null;
+					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
+					{
+						TextureShapeshiftGlow = asset.Value;
+					}
 				}
 			}
 		}
@@ -188,28 +207,50 @@ namespace OrchidMod.Content.Shapeshifter
 					Projectile.velocity.Y = 0;
 				}
 			}
+		}
 
-			if (!IsLeftClicking && Main.mouseLeft)
+		public void CheckInputs(Player player)
+		{
+
+			if (!IsLeftClick != Main.mouseLeft)
 			{
-				IsLeftClicking = true;
+				IsLeftClick = Main.mouseLeft;
 				Projectile.netUpdate = true;
 			}
 
-			if (IsLeftClicking && !Main.mouseLeft)
+			if (IsRightClick != Main.mouseRight)
 			{
-				IsLeftClicking = false;
+				IsRightClick = Main.mouseRight;
 				Projectile.netUpdate = true;
 			}
 
-			if (!IsRightClicking && Main.mouseRight)
+			if (IsInputLeft != player.controlLeft)
 			{
-				IsRightClicking = false;
+				IsInputLeft = player.controlLeft;
 				Projectile.netUpdate = true;
 			}
 
-			if (IsRightClicking && !Main.mouseRight)
+			if (IsInputRight != player.controlRight)
 			{
-				IsRightClicking = true;
+				IsInputRight = player.controlRight;
+				Projectile.netUpdate = true;
+			}
+
+			if (IsInputUp != player.controlUp)
+			{
+				IsInputUp = player.controlUp;
+				Projectile.netUpdate = true;
+			}
+
+			if (IsInputDown != player.controlDown)
+			{
+				IsInputDown = player.controlDown;
+				Projectile.netUpdate = true;
+			}
+
+			if (IsInputJump != player.controlJump)
+			{
+				IsInputJump = player.controlJump;
 				Projectile.netUpdate = true;
 			}
 

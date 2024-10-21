@@ -188,7 +188,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 					}
 
-					if (player.controlDown)
+					if (anchor.IsInputDown)
 					{ // Control height a bit by pressing down
 						AscendTimer--;
 					}
@@ -263,10 +263,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 				else
 				{ // Normal movement
-					if ((player.controlDown || player.controlUp || player.controlJump) && !TouchedGround)
+					if ((anchor.IsInputDown || anchor.IsInputUp || anchor.IsInputJump) && !TouchedGround)
 					{ // Vertical movement (Deactivated if too close to the ground)
 						if (anchor.Frame < 0) anchor.Frame = 0;
-						if (player.controlJump || player.controlUp)
+						if (anchor.IsInputJump || anchor.IsInputUp)
 						{ // Slowly glides down
 							if (anchor.Frame == 4) anchor.Frame = 3;
 							intendedVelocity.Y = 0.8f;
@@ -290,7 +290,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						}
 						else if (grounded)
 						{ // Pushes the player up more if near the ground while moving (helps with navigation)
-							if (LateralMovement || anchor.Projectile.ai[0] > -30 || anchor.IsLeftClicking)
+							if (LateralMovement || anchor.Projectile.ai[0] > -30 || anchor.IsLeftClick)
 							{
 								intendedVelocity.Y -= 1f;
 								if (intendedVelocity.Y > -1f)
@@ -307,7 +307,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 					}
 
-					if (player.controlLeft || player.controlRight || anchor.Projectile.ai[0] > -30 || anchor.IsLeftClicking)
+					if (anchor.IsInputLeft || anchor.IsInputRight || anchor.Projectile.ai[0] > -30 || anchor.IsLeftClick)
 					{
 						if (Landed)
 						{ // Kickstart if the owl was landed
@@ -331,7 +331,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 						float speedMult = player.moveSpeed;
 
-						if (player.controlLeft && !player.controlRight)
+						if (anchor.IsInputLeft && !anchor.IsInputRight)
 						{ // Left movement
 							intendedVelocity.X -= 0.25f * speedMult;
 							if (intendedVelocity.X < -5f * speedMult) intendedVelocity.X = -5f * speedMult;
@@ -339,7 +339,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 							projectile.spriteDirection = -1;
 							LateralMovement = true;
 						}
-						else if (player.controlRight && !player.controlLeft)
+						else if (anchor.IsInputRight && !anchor.IsInputLeft)
 						{ // Right movement
 							intendedVelocity.X += 0.25f * speedMult;
 							if (intendedVelocity.X > 5f * speedMult) intendedVelocity.X = 5f * speedMult;
