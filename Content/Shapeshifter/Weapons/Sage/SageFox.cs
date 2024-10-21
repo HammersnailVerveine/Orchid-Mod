@@ -162,15 +162,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			projectile.velocity = offSet;
 			projectile.velocity.Y *= 0.5f;
 			anchor.NeedNetUpdate = true;
+			anchor.LeftCLickCooldown = Item.useTime;
+			projectile.ai[2] = 30;
+			SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
 
-			// Spawn 3 foxfire flames after the dash
+			// Spawn 3 foxfire flames after the dash and makes the old ones remain in place
 			int projectileType = ModContent.ProjectileType<SageFoxProj>();
 
 			foreach (Projectile proj in Main.projectile)
 			{
 				if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType)
 				{
-					proj.ai[1] = -1;
+					proj.ai[1] = -2f;
 				}
 			}
 
@@ -179,13 +182,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
 				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, 0f, j);
 				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-
-				projectile.ai[2] = 30;
-				anchor.LeftCLickCooldown = Item.useTime;
-				anchor.NeedNetUpdate = true;
 			}
-
-			SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
 
 			// Kill one of the dash indicators following the player
 			int projectileType2 = ModContent.ProjectileType<SageFoxProjAlt>();

@@ -215,43 +215,43 @@ namespace OrchidMod.Content.Shapeshifter
 			if (!IsLeftClick != Main.mouseLeft)
 			{
 				IsLeftClick = Main.mouseLeft;
-				Projectile.netUpdate = true;
+				NeedNetUpdate = true;
 			}
 
 			if (IsRightClick != Main.mouseRight)
 			{
 				IsRightClick = Main.mouseRight;
-				Projectile.netUpdate = true;
+				NeedNetUpdate = true;
 			}
 
 			if (IsInputLeft != player.controlLeft)
 			{
 				IsInputLeft = player.controlLeft;
-				Projectile.netUpdate = true;
+				NeedNetUpdate = true;
 			}
 
 			if (IsInputRight != player.controlRight)
 			{
 				IsInputRight = player.controlRight;
-				Projectile.netUpdate = true;
+				NeedNetUpdate = true;
 			}
 
 			if (IsInputUp != player.controlUp)
 			{
 				IsInputUp = player.controlUp;
-				Projectile.netUpdate = true;
+				NeedNetUpdate = true;
 			}
 
 			if (IsInputDown != player.controlDown)
 			{
 				IsInputDown = player.controlDown;
-				Projectile.netUpdate = true;
+				NeedNetUpdate = true;
 			}
 
 			if (IsInputJump != player.controlJump)
 			{
 				IsInputJump = player.controlJump;
-				Projectile.netUpdate = true;
+				NeedNetUpdate = true;
 			}
 
 			if (!ControlJumpRelease && !player.controlJump)

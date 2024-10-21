@@ -44,6 +44,12 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 				}
 				else
 				{
+					if (Projectile.ai[1] == -2f)
+					{
+						Projectile.ai[1] = -1f;
+						Projectile.netUpdate = true;
+					}
+
 					if (Projectile.timeLeft > 300)
 					{
 						Projectile.timeLeft = 300;
@@ -67,6 +73,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 					Projectile.timeLeft += 120;
 					target = closestTarget;
 					SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
+					Projectile.netUpdate = true;
 				}
 			}
 			else if (target.active)
@@ -99,6 +106,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 					Projectile.timeLeft += 120;
 					target = closestTarget;
 					SoundEngine.PlaySound(SoundID.Item7, Projectile.Center);
+					Projectile.netUpdate = true;
 				}
 			}
 
