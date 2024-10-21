@@ -3183,7 +3183,7 @@ Items: {
 		Tooltip: Transforms into a Snapjaw, gaining unique abilities
 	}
 
-	SageFox: {
+	PredatorIceFox: {
 		DisplayName: Ice Fox Statuette
 		LeftClick: Conjures up to 3 foxfire flames
 		RightClick: Become ethereal, damaging enemies you pass through
@@ -3493,8 +3493,8 @@ Projectiles: {
 	SageOwlProj.DisplayName: Sage Owl Proj
 	SageOwlProjAlt.DisplayName: Sage Owl Proj Alt
 	WardenTortoiseProj.DisplayName: Warden Tortoise Proj
-	SageFoxProj.DisplayName: Sage Fox Proj
-	SageFoxProjAlt.DisplayName: Sage Fox Proj Alt
+	PredatorIceFoxProj.DisplayName: Sage Fox Proj
+	PredatorIceFoxProjAlt.DisplayName: Sage Fox Proj Alt
 	WaterSpikeProjAlt.DisplayName: Water Spike Proj Alt
 }
 

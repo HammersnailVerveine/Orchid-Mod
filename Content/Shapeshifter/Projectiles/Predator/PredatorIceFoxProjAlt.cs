@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Shapeshifter.Weapons.Sage;
+using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -8,9 +8,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
+namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 {
-	public class SageFoxProjAlt : OrchidModShapeshifterProjectile
+	public class PredatorIceFoxProjAlt : OrchidModShapeshifterProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
@@ -36,7 +36,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Player owner = Owner;
 			OrchidShapeshifter shapeshifter = owner.GetModPlayer<OrchidShapeshifter>();
 
-			if (shapeshifter.Shapeshift != null && shapeshifter.Shapeshift is SageFox sageFoxItem)
+			if (shapeshifter.Shapeshift != null && shapeshifter.Shapeshift is PredatorIceFox sageFoxItem)
 			{
 				TimeSpent ++;
 				if (TimeSpent % 120 == 0)

@@ -7,9 +7,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
+namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 {
-	public class SageFoxProj : OrchidModShapeshifterProjectile
+	public class PredatorIceFoxProj : OrchidModShapeshifterProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;

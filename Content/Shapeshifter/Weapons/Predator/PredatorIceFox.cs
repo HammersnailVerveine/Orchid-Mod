@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
+using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
 using OrchidMod.Utilities;
 using System;
 using System.Linq;
@@ -9,9 +9,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
+namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 {
-	public class SageFox : OrchidModShapeshifterShapeshift
+	public class PredatorIceFox : OrchidModShapeshifterShapeshift
 	{
 		public bool LateralMovement = false;
 
@@ -28,7 +28,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.damage = 34;
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 24;
-			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
+			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
 			MeleeSpeedLeft = true;
 		}
 
@@ -75,7 +75,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			int projectileType = ModContent.ProjectileType<SageFoxProj>();
+			int projectileType = ModContent.ProjectileType<PredatorIceFoxProj>();
 			float ai1 = 0f;
 			float ai0 = 0f;
 			int count = 0;
@@ -167,7 +167,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
 
 			// Spawn 3 foxfire flames after the dash and makes the old ones remain in place
-			int projectileType = ModContent.ProjectileType<SageFoxProj>();
+			int projectileType = ModContent.ProjectileType<PredatorIceFoxProj>();
 
 			foreach (Projectile proj in Main.projectile)
 			{
@@ -185,7 +185,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			// Kill one of the dash indicators following the player
-			int projectileType2 = ModContent.ProjectileType<SageFoxProjAlt>();
+			int projectileType2 = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
 			Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType2).Kill();
 
 			for (int i = 0; i < 30; i++)
@@ -209,7 +209,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 				if ((int)projectile.ai[0] % 300 == 0)
 				{ // Spawns a projectile following the player when the dash is ready
-					int projectileType = ModContent.ProjectileType<SageFoxProjAlt>();
+					int projectileType = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
 					Vector2 offset = Vector2.UnitY.RotatedByRandom(3.14f) * 64f;
 					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + offset, Vector2.Zero, projectileType, 0, 0f, player.whoAmI, offset.X * 0.375f, offset.Y * 0.375f);
 					SoundEngine.PlaySound(SoundID.Item30, projectile.Center);
