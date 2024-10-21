@@ -34,6 +34,7 @@ using OrchidMineshaft.Tiles.Chests;
 using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
+using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -260,6 +261,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<IceChestCard>(), ChestType.Ice, 20));
 			// chestLoots.Add(new ChestLoot(ItemType<AvalancheScepter>(), ChestType.Ice, 20));
 			chestLoots.Add(new ChestLoot(ItemType<IceStandard>(), ChestType.Ice, 20));
+			chestLoots.Add(new ChestLoot(ItemType<PredatorIceFox>(), ChestType.Ice, 5, needToPlace: 0, ignoreChestLimit: true));
 
 			// Dungeon Chests (Locked)
 			chestLoots.Add(new ChestLoot(ItemType<TiamatRelic>(), ChestType.DungeonLocked, 50, 1, 3, true));

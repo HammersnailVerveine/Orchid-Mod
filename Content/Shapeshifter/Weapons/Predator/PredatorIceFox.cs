@@ -19,7 +19,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			Item.width = 30;
 			Item.height = 36;
-			Item.value = Item.sellPrice(0, 2, 25, 0);
+			Item.value = Item.sellPrice(0, 0, 40, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.NPCDeath4;
 			Item.useTime = 40;
