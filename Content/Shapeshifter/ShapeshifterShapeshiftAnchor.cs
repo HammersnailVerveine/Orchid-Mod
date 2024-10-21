@@ -63,8 +63,8 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public override void AltSetDefaults()
 		{
-			Projectile.width = 20;
-			Projectile.height = 20;
+			Projectile.width = 2;
+			Projectile.height = 2;
 			Projectile.friendly = false;
 			Projectile.tileCollide = false;
 			Projectile.aiStyle = 0;
@@ -114,6 +114,7 @@ namespace OrchidMod.Content.Shapeshifter
 					shapeshifter.ShapeshiftAnchor = this;
 					Projectile.width = shapeshiftItem.ShapeshiftWidth;
 					Projectile.height = shapeshiftItem.ShapeshiftHeight;
+					Projectile.position -= new Vector2(Projectile.width - 2, Projectile.height - 2) * 0.5f;
 					shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
 					SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
 					Projectile.ai[0] = 0f;
@@ -147,6 +148,7 @@ namespace OrchidMod.Content.Shapeshifter
 				shapeshifter.ShapeshiftAnchor = this;
 				Projectile.width = shapeshiftItem.ShapeshiftWidth;
 				Projectile.height = shapeshiftItem.ShapeshiftHeight;
+				Projectile.position -= new Vector2(Projectile.width - 2, Projectile.height - 2) * 0.5f;
 				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
 				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
 				LeftCLickCooldown = shapeshiftItem.Item.useTime;

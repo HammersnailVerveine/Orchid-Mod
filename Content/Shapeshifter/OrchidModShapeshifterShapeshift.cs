@@ -20,7 +20,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool AutoReuseRight; // Whether right ability click casts repeatedly hy holding the input
 		public bool MeleeSpeedLeft; // Whether melee speed makes left click recover faster
 		public bool MeleeSpeedRight; // Whether melee speed makes right click recover faster
-		public ShapeshifterShapeshiftType ShapeshiftType;
+		public ShapeshifterShapeshiftType ShapeshiftType; // Sage, Predator, Warden
 
 		public virtual string LeftClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterLeftClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".LeftClick"));
 		public virtual string RightClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterRightClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".RightClick"));
@@ -76,17 +76,20 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public sealed override void HoldItem(Player player)
 		{
-			var projectileType = ModContent.ProjectileType<ShapeshifterShapeshiftAnchor>();
-
-			if (player.ownedProjectileCounts[projectileType] != 0)
+			if (IsLocalPlayer(player))
 			{
-				Projectile proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-				if (proj != null && proj.ModProjectile is ShapeshifterShapeshiftAnchor anchor)
+				var projectileType = ModContent.ProjectileType<ShapeshifterShapeshiftAnchor>();
+
+				if (player.ownedProjectileCounts[projectileType] != 0)
 				{
-					if (anchor.ShapeshifterItem != Item)
+					Projectile proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+					if (proj != null && proj.ModProjectile is ShapeshifterShapeshiftAnchor anchor)
 					{
-						proj.Kill();
-						CreateNewAnchor(player);
+						if (anchor.ShapeshifterItem != Item)
+						{
+							proj.Kill();
+							CreateNewAnchor(player);
+						}
 					}
 				}
 			}
@@ -116,6 +119,8 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public void CreateNewAnchor(Player player)
 		{
+			player.itemTime = 60;
+			player.itemAnimation = 60;
 			int projectileType = ModContent.ProjectileType<ShapeshifterShapeshiftAnchor>();
 			var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
 
