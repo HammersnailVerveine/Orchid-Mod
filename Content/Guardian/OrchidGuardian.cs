@@ -5,6 +5,7 @@ using OrchidMod.Content.Guardian.Buffs;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Content.Guardian.Projectiles.Standards;
+using OrchidMod.Content.Guardian.Weapons.Misc;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -172,7 +173,7 @@ namespace OrchidMod
 
 			if (Player.HeldItem.ModItem is not OrchidModGuardianGauntlet) GuardianGauntletCharge = 0f;
 			if (Player.HeldItem.ModItem is not OrchidModGuardianHammer) GuardianHammerCharge = 0f;
-			if (Player.HeldItem.ModItem is not OrchidModGuardianStandard) GuardianStandardCharge = 0f;
+			if (Player.HeldItem.ModItem is not OrchidModGuardianStandard && Player.HeldItem.ModItem is not HorizonLance) GuardianStandardCharge = 0f;
 			if (Player.HeldItem.ModItem is not OrchidModGuardianRune) GuardianRuneCharge = 0f;
 
 			if (GuardianGauntletParry2) GuardianGauntletParry2 = false;

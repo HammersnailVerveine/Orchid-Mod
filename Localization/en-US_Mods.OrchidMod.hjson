@@ -3191,6 +3191,11 @@ Items: {
 		Passive: Shapeshifting in and out gives decaying movement speed
 		Tooltip: Transforms into a Foxfire spirit, gaining unique abilities
 	}
+
+	HorizonLance: {
+		DisplayName: Horizon Lance
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -3496,6 +3501,7 @@ Projectiles: {
 	PredatorIceFoxProj.DisplayName: Sage Fox Proj
 	PredatorIceFoxProjAlt.DisplayName: Sage Fox Proj Alt
 	WaterSpikeProjAlt.DisplayName: Water Spike Proj Alt
+	GuardianHorizonLanceAnchor.DisplayName: Guardian Horizon Lance Anchor
 }
 
 Configs: {

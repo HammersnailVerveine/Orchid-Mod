@@ -56,14 +56,6 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
-			for (int i = 0; i < OldPosition.Count; i++)
-			{
-				Vector2 pos = OldPosition[i];
-				pos.Y -= Main.rand.NextFloat(6.25f);
-				pos.X += Main.rand.NextFloat(4f) - 2f;
-				OldPosition[i] = pos;
-			}
-
 			if (OldPosition.Count > (Reinforced ? 20 : 15))
 			{
 				OldPosition.RemoveAt(0);
