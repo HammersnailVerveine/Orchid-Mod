@@ -278,30 +278,38 @@ namespace OrchidMod
 				Player.immuneTime = 40;
 				Player.immune = true;
 
-				int projectileType = ModContent.ProjectileType<GuardianGauntletAnchor>();
-				if (Player.ownedProjectileCounts[projectileType] > 0)
+				if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
 				{
-					var proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && i.type == projectileType);
-					if (proj != null && proj.ModProjectile is GuardianGauntletAnchor anchor)
-					{
-						if (anchor.GauntletItem.ModItem is OrchidModGuardianGauntlet gauntlet)
-						{
-							gauntlet.OnParry(Player, this, info);
-							info.DamageSource.TryGetCausingEntity(out Entity entity);
-							if (entity != null)
-							{
-								if (entity is NPC npc)
-								{
-									OnBlockNPC(proj, npc);
-									OnBlockNPCFirst(proj, npc);
-								} 
+					parryItem.OnParry(Player, this, info);
+					info.DamageSource.TryGetCausingEntity(out Entity entity);
 
-								if (entity is Projectile projectile)
-								{
-									OnBlockProjectile(proj, projectile);
-									OnBlockProjectileFirst(proj, projectile);
-								}
-							}
+					Projectile proj = null;
+					int projectileType = ModContent.ProjectileType<GuardianGauntletAnchor>();
+					if (Player.ownedProjectileCounts[projectileType] > 0)
+					{
+						proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && (i.type == projectileType));
+					}
+					else
+					{
+						projectileType = ModContent.ProjectileType<GuardianHorizonLanceAnchor>();
+						if (Player.ownedProjectileCounts[projectileType] > 0)
+						{
+							proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && i.type == projectileType);
+						}
+					}
+
+					if (entity != null && proj != null)
+					{
+						if (entity is NPC npc)
+						{
+							OnBlockNPC(proj, npc);
+							OnBlockNPCFirst(proj, npc);
+						}
+
+						if (entity is Projectile projectile)
+						{
+							OnBlockProjectile(proj, projectile);
+							OnBlockProjectileFirst(proj, projectile);
 						}
 					}
 				}

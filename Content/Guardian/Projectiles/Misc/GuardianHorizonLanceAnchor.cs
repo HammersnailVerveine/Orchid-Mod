@@ -141,7 +141,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 							if (!Blast)
 							{
 								Blast = true;
-								SoundEngine.PlaySound(SoundID.Item122, owner.Center);
+								SoundEngine.PlaySound(SoundID.Item105, owner.Center);
 								int projectileType = ModContent.ProjectileType<GuardianHorizonLanceProj>();
 
 								foreach (Projectile projectile in Main.projectile)
@@ -174,6 +174,30 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 							Projectile.ai[0] = 0f;
 							Projectile.ai[2] = 0f;
 						}
+					}
+					else if (Projectile.ai[0] > 1f)
+					{ // Blocking
+						guardian.GuardianGauntletParry = true;
+						guardian.GuardianGauntletParry2 = true;
+
+						Projectile.ai[0]--;
+						if (Projectile.ai[0] <= 1f || owner.immune)
+						{
+							Projectile.ai[0] = 0f;
+
+							Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
+							for (int i = 0; i < 3; i++)
+							{
+								Dust dust = Dust.NewDustDirect(pos, 20, 20, DustID.Smoke);
+								dust.scale *= 0.75f;
+								dust.velocity *= 0.25f;
+							}
+						}
+
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(8f * owner.direction, -15);
+						Projectile.rotation = MathHelper.PiOver4 * 0.15f * owner.direction - MathHelper.PiOver4;
+						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
+						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -(1f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
 					}
 					else if (Projectile.ai[0] == 1f)
 					{ // Being charged by the player

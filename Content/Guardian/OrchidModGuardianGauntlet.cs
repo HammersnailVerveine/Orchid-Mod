@@ -15,7 +15,7 @@ using static Terraria.NPC;
 
 namespace OrchidMod.Content.Guardian
 {
-	public abstract class OrchidModGuardianGauntlet : OrchidModGuardianItem
+	public abstract class OrchidModGuardianGauntlet : OrchidModGuardianParryItem
 	{
 		public bool hasArm = false;
 		public bool hasShoulder = false;
@@ -23,7 +23,6 @@ namespace OrchidMod.Content.Guardian
 		public virtual string GauntletTexture => Texture + "_Gauntlet";
 		public virtual string ArmTexture => Texture + "_Arm";
 		public virtual string ShoulderTexture => Texture + "_Shoulder";
-		public virtual void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info) { }
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage) => true; // Return false to prevent normal punch projectiles from spawning

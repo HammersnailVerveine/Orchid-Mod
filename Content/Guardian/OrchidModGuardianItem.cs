@@ -42,4 +42,9 @@ namespace OrchidMod.Content.Guardian
 			}
 		}
 	}
+
+	public abstract class OrchidModGuardianParryItem : OrchidModGuardianItem
+	{
+		public virtual void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info) { }
+	}
 }

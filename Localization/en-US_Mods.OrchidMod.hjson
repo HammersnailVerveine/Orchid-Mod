@@ -3507,6 +3507,7 @@ Projectiles: {
 	WaterSpikeProjAlt.DisplayName: Water Spike Proj Alt
 	GuardianHorizonLanceAnchor.DisplayName: Guardian Horizon Lance Anchor
 	GuardianHorizonLanceProj.DisplayName: Guardian Horizon Lance Proj
+	GuardianHorizonLanceProjAlt.DisplayName: Guardian Horizon Lance Proj Alt
 }
 
 Configs: {
