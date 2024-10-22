@@ -2,6 +2,7 @@
 using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
+using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
 using System;
 using System.Collections.Generic;
