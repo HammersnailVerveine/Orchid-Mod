@@ -35,6 +35,7 @@ using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Alchemist.Debuffs;
+using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -407,6 +408,7 @@ namespace OrchidMod.Common.Global.Items
 							},
 							chanceDenominator: 2
 						);
+						QuickSpawnItem<PredatorIceFox>(player, 1, 20);
 					}
 					break;
 				default:
