@@ -257,10 +257,9 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 					else if (Worn && !heldStandard)
 					{ // Display on player back
 						Projectile.Center = owner.MountedCenter.Floor();
-						//Projectile.rotation = MathHelper.PiOver4 * 0.5f * owner.direction - MathHelper.PiOver4;
 					}
 					else
-					{ // Idle - laxe is held lower
+					{ // Idle - Lance is held lower
 						Ding = false;
 
 						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(22f * owner.direction, 10f);

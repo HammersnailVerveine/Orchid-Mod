@@ -35,6 +35,7 @@ using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
+using OrchidMod.Content.Guardian.Misc;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -278,6 +279,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<ImpDiceCup>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<NightShield>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<HellRune>(), ChestType.Shadow, 30));
+			chestLoots.Add(new ChestLoot(ItemType<GuardianRunePotion>(), ChestType.Shadow, 50, needToPlace: 0, ignoreChestLimit: true));
 
 			// Jungle Chests
 			// chestLoots.Add(new ChestLoot(ItemType<DeepForestCharm>(), ChestType.Ivy, 20));
@@ -288,6 +290,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<SageOwl>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
 			chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
 			chestLoots.Add(new ChestLoot(ItemType<DeckJungle>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
+			chestLoots.Add(new ChestLoot(ItemType<GuardianHoneyPotion>(), ChestType.Ivy, 50, needToPlace: 0, ignoreChestLimit: true));
 
 			// Sky Island Chests
 			chestLoots.Add(new ChestLoot(ItemType<SunplateFlask>(), ChestType.SkyIsland, 30));

@@ -328,6 +328,7 @@ namespace OrchidMod.Common.Global.Items
 						);
 
 						QuickSpawnItem<JungleLily>(player, 1, 2);
+						QuickSpawnItem<GuardianHoneyPotion>(player, 1, 2);
 						QuickSpawnItem<DeckJungle>(player, 1, 20);
 						QuickSpawnItem<IvyChestCard>(player, 1, 5);
 						QuickSpawnItem<SageOwl>(player, 1, 20);
@@ -392,6 +393,7 @@ namespace OrchidMod.Common.Global.Items
 								(ModContent.ItemType<HellRune>(), 1),
 							}
 						);
+						QuickSpawnItem<GuardianRunePotion>(player, 1, 2);
 					}
 					break;
 
