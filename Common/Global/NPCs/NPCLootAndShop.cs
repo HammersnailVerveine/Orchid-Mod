@@ -733,7 +733,7 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				if (Main.rand.NextBool(5))
 				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<PiratesGlory>());
+					//Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<PiratesGlory>());
 				}
 				if (Main.rand.NextBool(10))
 				{

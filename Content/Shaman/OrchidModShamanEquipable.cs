@@ -31,6 +31,7 @@ namespace OrchidMod.Content.Shaman
 				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.ShamanDamageClass.DisplayName"));
 			}
 
+			/*
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
@@ -39,6 +40,7 @@ namespace OrchidMod.Content.Shaman
 					OverrideColor = new Color(0, 192, 255)
 				});
 			}
+			*/
 		}
 	}
 }

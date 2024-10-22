@@ -1527,9 +1527,8 @@ Items: {
 		DisplayName: Orchid Emblem
 		Tooltip:
 			'''
-			While the Shamans and Guardians can continue their playthrough, the journey for both Alchemists and Gamblers stops here
-			... For now !
-			Content up to Moon Lord for these classes will be added in the future
+			While the Guardians can continue their playthrough, the journey for both Alchemists and Gamblers stops here
+			A complete Shaman overhaul is on the way, and the class will come back soon!
 			Please, come and say hi on Discord if you want to support me ;)
 			'''
 	}
@@ -1686,7 +1685,7 @@ Items: {
 
 	ShamanEmblem: {
 		DisplayName: Shaman Emblem
-		Tooltip: ""
+		Tooltip: 15% increased opposing damage
 	}
 
 	SinisterPresent: {
@@ -3099,7 +3098,7 @@ Items: {
 	}
 
 	HorizonLance: {
-		DisplayName: Horizon Firnament
+		DisplayName: Horizon Firmament
 		Tooltip:
 			'''
 			Fully charging increases life regeneration
