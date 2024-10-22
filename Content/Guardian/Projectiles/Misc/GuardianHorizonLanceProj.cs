@@ -99,7 +99,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 			//Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 			//GameShaders.Misc["OrchidMod:HorizonGlow"].Apply();
 
-			if (!initialized) return false;
+			if (!Initialized) return false;
 
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 20) colorMult *= Projectile.timeLeft / 20f;
