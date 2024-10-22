@@ -15,6 +15,7 @@ using OrchidMod.Common.Attributes;
 using OrchidMod.Common.Global.NPCs;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
+using OrchidMod.Content.Guardian;
 
 namespace OrchidMod
 {
@@ -108,6 +109,7 @@ namespace OrchidMod
 
 			BossChecklistCalls();
 			CensusModCalls();
+			ColoredDamageTypeModCalls();
 		}
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)

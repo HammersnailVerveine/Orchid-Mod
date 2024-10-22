@@ -16,7 +16,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 		public List<float> OldRotation;
 		public float ToSpin = 0;
 
-		public override void SafeSetDefaults()
+		public override void RuneSetDefaults()
 		{
 			Projectile.width = 42;
 			Projectile.height = 42;

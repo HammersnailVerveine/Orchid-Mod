@@ -12,7 +12,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 		public int TimeSpent = 0;
 		private static Texture2D TextureMain;
 
-		public override void SafeSetDefaults()
+		public override void RuneSetDefaults()
 		{
 			Projectile.width = 20;
 			Projectile.height = 20;

@@ -5,7 +5,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 {
 	public class WaterSpikeProjAlt : OrchidModGuardianProjectile
 	{
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 2;
 			Projectile.height = 2;

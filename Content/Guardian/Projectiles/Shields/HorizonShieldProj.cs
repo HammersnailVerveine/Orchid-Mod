@@ -18,7 +18,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 
 		public bool Reinforced => Projectile.ai[0] == 1f;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 32;
 			Projectile.height = 32;

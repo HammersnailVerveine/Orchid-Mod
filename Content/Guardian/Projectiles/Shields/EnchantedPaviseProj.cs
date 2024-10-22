@@ -1,9 +1,5 @@
-using Terraria.GameContent;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Guardian;
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using OrchidMod.Common.ModObjects;
@@ -12,7 +8,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 {
 	public class EnchantedPaviseProj : OrchidModGuardianProjectile
 	{
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 16;
 			Projectile.height = 30;

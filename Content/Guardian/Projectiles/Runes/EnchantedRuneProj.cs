@@ -14,7 +14,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 		public List<float> OldRotation;
 		public Texture2D texture;
 
-		public override void SafeSetDefaults()
+		public override void RuneSetDefaults()
 		{
 			Projectile.width = 20;
 			Projectile.height = 20;

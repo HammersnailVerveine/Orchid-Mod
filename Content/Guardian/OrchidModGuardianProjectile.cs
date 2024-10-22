@@ -3,6 +3,7 @@ using OrchidMod.Common.Global.NPCs;
 using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
 {
@@ -10,6 +11,12 @@ namespace OrchidMod.Content.Guardian
 	{
 		public virtual void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian) { }
 		public virtual void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) { }
+
+		public sealed override void AltSetDefaults()
+		{
+			Projectile.DamageType = ModContent.GetInstance<GuardianDamageClass>();
+			SafeSetDefaults();
+		}
 
 		public sealed override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{

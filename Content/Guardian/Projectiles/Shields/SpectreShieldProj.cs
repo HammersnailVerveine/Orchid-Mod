@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 		public List<float> OldRotation;
 		public int Cooldown = 20;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 8;
 			Projectile.height = 8;

@@ -12,6 +12,7 @@ namespace OrchidMod.Content.Guardian
 
 		public virtual bool SafeAI() => true;
 		public virtual void FirstFrame() { }
+		public virtual void RuneSetDefaults() { }
 		public float Distance => Projectile.ai[0];
 		public float Angle => Projectile.ai[1];
 
@@ -27,11 +28,11 @@ namespace OrchidMod.Content.Guardian
 			Projectile.ai[0] = val;
 		}
 
-		public sealed override void AltSetDefaults()
+		public sealed override void SafeSetDefaults()
 		{
 			Projectile.timeLeft = 1500;
 			Projectile.tileCollide = false;
-			SafeSetDefaults();
+			RuneSetDefaults();
 		}
 
 		public sealed override void AI()

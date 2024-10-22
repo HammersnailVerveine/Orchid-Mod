@@ -23,7 +23,7 @@ namespace OrchidMod.Content.Guardian
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 		}
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 20;
 			Projectile.height = 20;

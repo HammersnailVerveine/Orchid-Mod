@@ -1,5 +1,7 @@
 ﻿using OrchidMod.Content.General.NPCs.Town;
+using OrchidMod.Content.Guardian;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace OrchidMod
@@ -399,6 +401,17 @@ namespace OrchidMod
 				ModContent.NPCType<Chemist>(),
 				"Find in the main mineshaft, in the center of your world"
 			);
+		}
+
+		private static void ColoredDamageTypeModCalls()
+		{
+			if (!Main.dedServ && ModLoader.TryGetMod("ColoredDamageTypes", out Mod coloreddamagetypes))
+			{
+				var tooltipColor = (165, 130, 100);
+				var damageColor = (198, 172, 146);
+				var critColor = (155, 109, 85);
+				coloreddamagetypes.Call("AddDamageType", ModContent.GetInstance<GuardianDamageClass>(), tooltipColor, damageColor, critColor);
+			}
 		}
 	}
 }

@@ -55,7 +55,7 @@ namespace OrchidMod.Content.Guardian
 			if (owner.HeldItem.ModItem is OrchidModGuardianStandard) overPlayers.Add(index); // Display the flag over the player if it is being held
 		}
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 20;
 			Projectile.height = 20;

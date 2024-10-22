@@ -42,7 +42,7 @@ namespace OrchidMod.Content.Guardian
 			overPlayers.Add(index); // Display the rune over the player if it is being held
 		}
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 20;
 			Projectile.height = 20;

@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.ModObjects;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +16,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 12;
 			Projectile.height = 12;

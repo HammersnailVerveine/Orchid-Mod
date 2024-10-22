@@ -12,7 +12,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 		public Color DrawColor;
 		private static Texture2D TextureMain;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 140;
 			Projectile.height = 140;

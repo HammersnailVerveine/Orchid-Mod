@@ -7,7 +7,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Standards
 {
 	public class DesertStandardProj : OrchidModGuardianProjectile
 	{
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 12;
 			Projectile.height = 12;

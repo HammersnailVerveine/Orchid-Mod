@@ -18,7 +18,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 		public List<Vector2> Positions;
 		public List<int> HitNPCs;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;
@@ -82,7 +82,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 							if (npc.Hitbox.Contains(new Point((int)pos.X, (int)pos.Y)))
 							{
 								HitNPCs.Add(npc.whoAmI);
-								Owner.ApplyDamageToNPC(npc, (int)(Projectile.damage * (1f - HitCount * 0.1f)), 0f, 1, Main.rand.Next(100) < Projectile.CritChance);
+								Owner.ApplyDamageToNPC(npc, (int)(Projectile.damage * (1f - HitCount * 0.1f)), 0f, 1, Main.rand.Next(100) < Projectile.CritChance, ModContent.GetInstance<GuardianDamageClass>());
 								break;
 							}
 						}

@@ -13,7 +13,7 @@ namespace OrchidMod.Content.Guardian
 		public OrchidModGuardianStandard StandardItem;
 		public bool Initialized = false;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 20;
 			Projectile.height = 20;

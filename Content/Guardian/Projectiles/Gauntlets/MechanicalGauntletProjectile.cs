@@ -11,7 +11,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 64;
 			Projectile.height = 64;
