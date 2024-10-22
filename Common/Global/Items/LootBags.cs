@@ -31,6 +31,10 @@ using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.General.Mounts;
 using OrchidMod.Content.General.Melee;
+using OrchidMod.Content.Shapeshifter.Weapons.Sage;
+using OrchidMod.Content.Shapeshifter.Weapons.Warden;
+using OrchidMod.Content.Guardian.Weapons.Gauntlets;
+using OrchidMod.Content.Alchemist.Debuffs;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -263,19 +267,35 @@ namespace OrchidMod.Common.Global.Items
 				case ItemID.WoodenCrate:
 				case ItemID.WoodenCrateHard:
 					{
-						QuickSpawnItem<AdornedBranch>(player, 1, 45);
-						QuickSpawnItem<EmberVial>(player, 1, 45);
-						QuickSpawnItem<EmbersCard>(player, 1, 45);
-						QuickSpawnItem<TsunamiInAVial>(player, 1, 45);
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
+								(ModContent.ItemType<AdornedBranch>(), 1),
+								(ModContent.ItemType<EmberVial>(), 1),
+								(ModContent.ItemType<EmbersCard>(), 1),
+								(ModContent.ItemType<TsunamiInAVial>(), 1),
+								(ModContent.ItemType<Warhammer>(), 1),
+								(ModContent.ItemType<GuideShield>(), 1),
+							}
+						);
 					}
 					break;
 				case ItemID.IronCrate:
 				case ItemID.IronCrateHard:
 					{
-						QuickSpawnItem<BubbleCard>(player, 1, 20);
-						QuickSpawnItem<SeafoamVial>(player, 1, 20);
-						QuickSpawnItem<TsunamiInAVial>(player, 1, 20);
-						QuickSpawnItem<DeckEnchanted>(player, 1, 20);
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
+								(ModContent.ItemType<AdornedBranch>(), 1),
+								(ModContent.ItemType<EmberVial>(), 1),
+								(ModContent.ItemType<EmbersCard>(), 1),
+								(ModContent.ItemType<TsunamiInAVial>(), 1),
+								(ModContent.ItemType<Warhammer>(), 1),
+								(ModContent.ItemType<GuideShield>(), 1),
+							}
+						);
 					}
 					break;
 				case ItemID.CorruptFishingCrate:
@@ -295,23 +315,22 @@ namespace OrchidMod.Common.Global.Items
 				case ItemID.JungleFishingCrate:
 				case ItemID.JungleFishingCrateHard:
 					{
-						if (Main.rand.Next(5) < 3) // 0.6
-						{
-							QuickSpawnRandomItemFromList(
-								player: player,
-								items: new()
-								{
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
 									(ModContent.ItemType<DeepForestCharm>(), 1),
 									(ModContent.ItemType<BloomingBud>(), 1),
 									(ModContent.ItemType<BundleOfClovers>(), 1),
-								},
-								chanceDenominator: 1
-							);
-						}
+									(ModContent.ItemType<JungleGauntlet>(), 1),
+							}
+						);
 
 						QuickSpawnItem<JungleLily>(player, 1, 2);
 						QuickSpawnItem<DeckJungle>(player, 1, 20);
 						QuickSpawnItem<IvyChestCard>(player, 1, 5);
+						QuickSpawnItem<SageOwl>(player, 1, 20);
+						QuickSpawnItem<WardenTortoise>(player, 1, 20);
 					}
 					break;
 				case ItemID.CrimsonFishingCrate:
@@ -331,23 +350,63 @@ namespace OrchidMod.Common.Global.Items
 				case ItemID.FloatingIslandFishingCrate:
 				case ItemID.FloatingIslandFishingCrateHard:
 					{
-						QuickSpawnItem<SunplateFlask>(player, 1, 4);
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
+								(ModContent.ItemType<SunplateFlask>(), 1),
+								(ModContent.ItemType<SkywareShield>(), 1)
+							},
+							chanceDenominator: 2
+						);
 					}
 					break;
 				case ItemID.OasisCrate:
 				case ItemID.OasisCrateHard:
 					{
-						QuickSpawnItem<RuneOfHorus>(player, 1, 8);
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
+								(ModContent.ItemType<RuneOfHorus>(), 1),
+								(ModContent.ItemType<DesertWarhammer>(), 1),
+								(ModContent.ItemType<DesertStandard>(), 1),
+							},
+							chanceDenominator: 2
+						);
 					}
 					break;
-
 				case ItemID.LavaCrate:
 				case ItemID.LavaCrateHard:
 					{
-						QuickSpawnItem<FireBatScepter>(player, 1, 8);
-						QuickSpawnItem<ShadowChestFlask>(player, 1, 8);
-						QuickSpawnItem<KeystoneOfTheConvent>(player, 1, 8);
-						QuickSpawnItem<ImpDiceCup>(player, 1, 8);
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
+								//(ModContent.ItemType<FireBatScepter>(), 1),
+								(ModContent.ItemType<ShadowChestFlask>(), 1),
+								(ModContent.ItemType<KeystoneOfTheConvent>(), 1),
+								(ModContent.ItemType<ImpDiceCup>(), 1),
+								(ModContent.ItemType<NightShield>(), 1),
+								(ModContent.ItemType<HellRune>(), 1),
+							}
+						);
+					}
+					break;
+
+				case ItemID.FrozenCrate:
+				case ItemID.FrozenCrateHard:
+					{
+						QuickSpawnRandomItemFromList(
+							player: player,
+							items: new()
+							{
+								(ModContent.ItemType<BlizzardInAVial>(), 1),
+								(ModContent.ItemType<IceChestFlask>(), 1),
+								(ModContent.ItemType<IceStandard>(), 1)
+							},
+							chanceDenominator: 2
+						);
 					}
 					break;
 				default:
