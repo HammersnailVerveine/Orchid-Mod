@@ -15,8 +15,8 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 38;
-			Item.height = 22;
+			Item.width = 34;
+			Item.height = 24;
 			Item.value = Item.sellPrice(0, 14, 0, 0);
 			Item.rare = ItemRarityID.Red;
 			Item.defense = 38;
