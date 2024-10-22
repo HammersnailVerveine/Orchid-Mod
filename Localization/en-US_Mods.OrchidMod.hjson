@@ -3097,6 +3097,15 @@ Items: {
 			'''
 	}
 
+	HorizonLance: {
+		DisplayName: Horizon Firnament
+		Tooltip:
+			'''
+			Fully charging increases life regeneration
+			Parrying grants 2 slam charges and restores health
+			'''
+	}
+
 	MoonLordShield: {
 		DisplayName: Sickflip
 		Tooltip:
@@ -3190,11 +3199,6 @@ Items: {
 		Jump: Blink towards your cursor, conjuring 3 foxfire flames
 		Passive: Shapeshifting in and out gives decaying movement speed
 		Tooltip: Transforms into a Foxfire spirit, gaining unique abilities
-	}
-
-	HorizonLance: {
-		DisplayName: Horizon Firnament
-		Tooltip: ""
 	}
 }
 
@@ -3502,6 +3506,7 @@ Projectiles: {
 	PredatorIceFoxProjAlt.DisplayName: Sage Fox Proj Alt
 	WaterSpikeProjAlt.DisplayName: Water Spike Proj Alt
 	GuardianHorizonLanceAnchor.DisplayName: Guardian Horizon Lance Anchor
+	GuardianHorizonLanceProj.DisplayName: Guardian Horizon Lance Proj
 }
 
 Configs: {

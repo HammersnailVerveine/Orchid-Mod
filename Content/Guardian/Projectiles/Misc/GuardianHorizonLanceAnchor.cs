@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.Player;
@@ -117,6 +116,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 				if (Worn)
 				{ // Handles buffs given to nearby players, npcs, etc
+					Projectile.ai[1]--; 
+					guardian.GuardianStandardStats.lifeRegen += 6;
 				}
 
 				if (HorizonLanceItem.ModItem is HorizonLance guardianItem)
@@ -128,21 +129,32 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 						else if (puchDir.X < 0 && owner.direction != -1) owner.ChangeDir(-1);
 
 						float addedDistance = 36f;
-						if (Projectile.ai[0] < -50)
+						if (Projectile.ai[0] < -40)
 						{
-							addedDistance = 36f * (50f / -Projectile.ai[0]);
+							addedDistance = 36f * (40f / -Projectile.ai[0]);
 						}
 
-						if (Projectile.ai[0] > -10)
+						if (Projectile.ai[0] > -30)
 						{
-							addedDistance -= 0.8f * (10 + Projectile.ai[0]);
+							addedDistance += 0.5f * (10 + Projectile.ai[0]);
 
 							if (!Blast)
 							{
 								Blast = true;
 								SoundEngine.PlaySound(SoundID.Item122, owner.Center);
+								int projectileType = ModContent.ProjectileType<GuardianHorizonLanceProj>();
 
-								// Fire projectile
+								foreach (Projectile projectile in Main.projectile)
+								{
+									if (projectile.type == projectileType && projectile.active && projectile.owner == owner.whoAmI)
+									{
+										projectile.ai[1] = 1f;
+									}
+								}
+
+								int damage = guardian.GetGuardianDamage(HorizonLanceItem.damage);
+								Projectile newProjectile = Projectile.NewProjectileDirect(HorizonLanceItem.GetSource_FromAI(), Projectile.Center + owner.velocity * 1.5f, Vector2.Zero, projectileType, damage, HorizonLanceItem.knockBack, owner.whoAmI, Projectile.ai[2]);
+								newProjectile.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + HorizonLanceItem.crit);
 							}
 						}
 
@@ -189,11 +201,11 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 								SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
 
 								Projectile.ai[1] = guardianItem.StandardDuration * guardian.GuardianStandardTimer;
-								guardian.AddGuard(2);
+								guardian.AddGuard(3);
 
 								// Stab starts
 								Projectile.ai[2] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
-								Projectile.ai[0] = -60f;
+								Projectile.ai[0] = -50f;
 							}
 							else
 							{ // Not enough charge = Reset to idle
