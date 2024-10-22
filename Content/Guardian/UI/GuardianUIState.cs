@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Common.UIs;
+using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Content.Guardian.Weapons.Misc;
 using OrchidMod.Utilities;
 using ReLogic.Content;
@@ -126,14 +127,14 @@ namespace OrchidMod.Content.Guardian.UI
 				if (modPlayer.RuneProjectiles.Count > 0)
 				{
 					float colorMult = modPlayer.RuneProjectiles[0].timeLeft > 275 ? 1f : (float)Math.Abs(Math.Sin((modPlayer.RuneProjectiles[0].timeLeft * 0.5f) / Math.PI / 4f));
-					offSet = (int)(offSet * (modPlayer.StandardAnchor == null ? 1f : 2f));
+					offSet = (int)(offSet * (modPlayer.GuardianCurrentStandardAnchor == null ? 1f : 2f));
 					spriteBatch.Draw(textureIconRune, new Vector2(position.X - offSet, position.Y + 36), Color.White * colorMult);
 					offSet -= textureIconRune.Width + 2;
 				}
 
-				if (modPlayer.StandardAnchor != null)
+				if (modPlayer.GuardianCurrentStandardAnchor != null)
 				{
-					float colorMult = modPlayer.StandardAnchor.ai[1] > 275 ? 1f : (float)Math.Abs(Math.Sin((modPlayer.StandardAnchor.ai[1] * 0.5f) / Math.PI / 4f));
+					float colorMult = modPlayer.GuardianCurrentStandardAnchor.ai[1] > 275 ? 1f : (float)Math.Abs(Math.Sin((modPlayer.GuardianCurrentStandardAnchor.ai[1] * 0.5f) / Math.PI / 4f));
 					spriteBatch.Draw(textureIconStandard, new Vector2(position.X - offSet, position.Y + 36), Color.White * colorMult);
 				}
 
@@ -275,10 +276,11 @@ namespace OrchidMod.Content.Guardian.UI
 					{
 						int projectileType = ModContent.ProjectileType<GuardianShieldAnchor>();
 						int projectileType2 = ModContent.ProjectileType<GuardianGauntletAnchor>();
+						int projectileType3 = ModContent.ProjectileType<GuardianHorizonLanceAnchor>();
 						for (int i = 0; i < Main.projectile.Length; i++)
 						{
 							Projectile proj = Main.projectile[i];
-							if (proj.active && proj.owner == player.whoAmI && (proj.type == projectileType || proj.type == projectileType2) && proj.ai[0] > 0f && proj.localAI[0] > 0f)
+							if (proj.active && proj.owner == player.whoAmI && (proj.type == projectileType || proj.type == projectileType2 || proj.type == projectileType3) && proj.ai[0] > 0f && proj.localAI[0] > 0f)
 							{
 								int val = 22;
 								float block = proj.ai[0];

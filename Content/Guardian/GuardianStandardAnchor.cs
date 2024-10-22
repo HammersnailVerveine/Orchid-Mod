@@ -191,7 +191,7 @@ namespace OrchidMod.Content.Guardian
 							if (Alpha < 0f) Alpha = 0f;
 						}
 
-						guardian.StandardAnchor = Projectile;
+						guardian.GuardianCurrentStandardAnchor = Projectile;
 						Projectile.ai[1]--;
 						if (Projectile.ai[1] <= 0)
 						{

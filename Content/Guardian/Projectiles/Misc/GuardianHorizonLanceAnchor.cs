@@ -118,10 +118,12 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 				{ // Handles buffs given to nearby players, npcs, etc
 					Projectile.ai[1]--; 
 					guardian.GuardianStandardStats.lifeRegen += 6;
+					guardian.GuardianCurrentStandardAnchor = Projectile;
 				}
 
 				if (HorizonLanceItem.ModItem is HorizonLance guardianItem)
-				{
+				{ 
+					Projectile.localAI[0] = 0f; // used for block UI display
 					if (Projectile.ai[0] < 0f)
 					{ // Stabbing
 						Vector2 puchDir = (Projectile.ai[2] + MathHelper.PiOver2).ToRotationVector2();
@@ -177,6 +179,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 					}
 					else if (Projectile.ai[0] > 1f)
 					{ // Blocking
+						Projectile.localAI[0] = 90f; // used for block UI display
 						guardian.GuardianGauntletParry = true;
 						guardian.GuardianGauntletParry2 = true;
 

@@ -64,7 +64,7 @@ namespace OrchidMod
 		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
-		public Projectile StandardAnchor;
+		public Projectile GuardianCurrentStandardAnchor;
 
 		public static int GuardianRechargeTime = 600;
 
@@ -184,7 +184,7 @@ namespace OrchidMod
 			if (GuardianGuard > GuardianGuardMax) GuardianGuard = GuardianGuardMax;
 			if (GuardianSlam > GuardianSlamMax) GuardianSlam = GuardianSlamMax;
 
-			StandardAnchor = null;
+			GuardianCurrentStandardAnchor = null;
 			RuneProjectiles.Clear();
 
 			// Resetting standards effects
@@ -249,17 +249,20 @@ namespace OrchidMod
 		{
 			if (proj.ModProjectile is OrchidModGuardianProjectile)
 			{
-				if (GuardianStandardDesert && StandardAnchor != null)
+				if (GuardianCurrentStandardAnchor != null)
 				{
-					int type = ModContent.ProjectileType<DesertStandardProj>();
-					float range = ((StandardAnchor.ModProjectile as GuardianStandardAnchor).BuffItem.ModItem as OrchidModGuardianStandard).AuraRange + target.width * 0.5f;
-					if (proj.type != type && target.Center.Distance(Player.Center) < range)
+					if (GuardianStandardDesert && GuardianCurrentStandardAnchor.ModProjectile is GuardianStandardAnchor standardAnchor)
 					{
-						SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, Player.Center);
-						float damage = (damageDone * 0.5f);
-						if (damage > 20) damage = 20;
-						Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), target.Center, Vector2.UnitY * -10f, type, (int)damage, 1f, Player.whoAmI, target.whoAmI); 
-						projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+						int type = ModContent.ProjectileType<DesertStandardProj>();
+						float range = (standardAnchor.BuffItem.ModItem as OrchidModGuardianStandard).AuraRange + target.width * 0.5f;
+						if (proj.type != type && target.Center.Distance(Player.Center) < range)
+						{
+							SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, Player.Center);
+							float damage = (damageDone * 0.5f);
+							if (damage > 20) damage = 20;
+							Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), target.Center, Vector2.UnitY * -10f, type, (int)damage, 1f, Player.whoAmI, target.whoAmI);
+							projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+						}
 					}
 				}
 
