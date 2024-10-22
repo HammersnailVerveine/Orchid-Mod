@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 
 		public NPC target;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 30;
 			Projectile.height = 30;

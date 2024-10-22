@@ -1,5 +1,6 @@
 ﻿using OrchidMod.Content.General.NPCs.Town;
 using OrchidMod.Content.Guardian;
+using OrchidMod.Content.Shapeshifter;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -407,10 +408,9 @@ namespace OrchidMod
 		{
 			if (!Main.dedServ && ModLoader.TryGetMod("ColoredDamageTypes", out Mod coloreddamagetypes))
 			{
-				var tooltipColor = (165, 130, 100);
-				var damageColor = (198, 172, 146);
-				var critColor = (155, 109, 85);
-				coloreddamagetypes.Call("AddDamageType", ModContent.GetInstance<GuardianDamageClass>(), tooltipColor, damageColor, critColor);
+				// Colors in order : Tooltip, Damage, Crit
+				coloreddamagetypes.Call("AddDamageType", ModContent.GetInstance<GuardianDamageClass>(), (165, 130, 100), (198, 172, 146), (155, 109, 85));
+				coloreddamagetypes.Call("AddDamageType", ModContent.GetInstance<ShapeshifterDamageClass>(), (100, 175, 150), (120, 195, 170), (43, 132, 101));
 			}
 		}
 	}

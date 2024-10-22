@@ -12,7 +12,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 	public class SageOwlProjAlt : OrchidModShapeshifterProjectile
 	{
 		private static Texture2D TextureMain;
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 12;
 			Projectile.height = 12;

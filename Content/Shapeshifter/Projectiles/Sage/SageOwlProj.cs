@@ -15,7 +15,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 12;
 			Projectile.height = 12;

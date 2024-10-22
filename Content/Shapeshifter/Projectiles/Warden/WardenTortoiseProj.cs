@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
@@ -15,7 +13,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 		public List<float> OldAI;
 		public Color drawColor;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 26;
 			Projectile.height = 26;

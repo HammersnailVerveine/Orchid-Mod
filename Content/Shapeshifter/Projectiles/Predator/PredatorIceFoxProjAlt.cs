@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 
 		public int TimeSpent;
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 5;
 			Projectile.height = 5;

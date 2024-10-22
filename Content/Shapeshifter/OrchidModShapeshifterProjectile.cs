@@ -1,8 +1,10 @@
 using OrchidMod.Common;
 using OrchidMod.Common.Global.NPCs;
 using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.Guardian;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter
 {
@@ -10,6 +12,12 @@ namespace OrchidMod.Content.Shapeshifter
 	{
 		public virtual void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter) { }
 		public virtual void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) { }
+
+		public sealed override void AltSetDefaults()
+		{
+			Projectile.DamageType = ModContent.GetInstance<ShapeshifterDamageClass>();
+			SafeSetDefaults();
+		}
 
 		public sealed override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 		{

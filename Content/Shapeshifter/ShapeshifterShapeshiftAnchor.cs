@@ -61,7 +61,7 @@ namespace OrchidMod.Content.Shapeshifter
 			return false;
 		}
 
-		public override void AltSetDefaults()
+		public override void SafeSetDefaults()
 		{
 			Projectile.width = 2;
 			Projectile.height = 2;
