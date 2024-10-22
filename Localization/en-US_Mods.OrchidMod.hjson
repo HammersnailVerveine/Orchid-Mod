@@ -3094,6 +3094,7 @@ Items: {
 			'''
 			Releases homing bolts of energy
 			Greatly reinforced after a successful block
+			'Protect anyone from the vastness beyond'
 			'''
 	}
 
@@ -3102,7 +3103,8 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging increases life regeneration
-			Parrying grants 2 slam charges and restores health
+			Retaliates and restores health on parry
+			'The fine line between the heavens and the world below'
 			'''
 	}
 
