@@ -67,7 +67,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 				if (entity is Projectile projectile)
 				{
-					offset = offset.RotatedBy((projectile.Center - player.Center).ToRotation() - MathHelper.PiOver2);
+					offset = offset.RotatedBy(-projectile.velocity.ToRotation() - MathHelper.PiOver2);
 				}
 			}
 			else 
