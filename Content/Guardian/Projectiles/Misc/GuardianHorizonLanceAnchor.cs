@@ -227,6 +227,15 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 								Projectile.ai[1] = guardianItem.StandardDuration * guardian.GuardianStandardTimer;
 								guardian.AddGuard(3);
 
+								foreach (Projectile proj in Main.projectile)
+								{
+									if (proj.type == ModContent.ProjectileType<GuardianStandardAnchor>() && proj.active && proj.owner == Projectile.owner)
+									{
+										proj.Kill();
+										break;
+									}
+								}
+
 								// Stab starts
 								Projectile.ai[2] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
 								Projectile.ai[0] = -50f;

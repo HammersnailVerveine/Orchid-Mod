@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -238,6 +239,15 @@ namespace OrchidMod.Content.Guardian
 
 								BuffItem = StandardItem;
 								Projectile.ai[1] = guardianItem.StandardDuration * guardian.GuardianStandardTimer;
+
+								foreach (Projectile proj in Main.projectile)
+								{
+									if (proj.type == ModContent.ProjectileType<GuardianHorizonLanceAnchor>() && proj.active && proj.owner == Projectile.owner)
+									{
+										proj.Kill();
+										break;
+									}
+								}
 
 								guardian.AddGuard(guardianItem.GuardStacks);
 								guardian.AddSlam(guardianItem.SlamStacks);
