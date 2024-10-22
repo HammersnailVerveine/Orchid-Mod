@@ -10,6 +10,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 {
 	public class GuardianHorizonLanceProj : OrchidModGuardianProjectile
 	{
+		public bool Initialized; // helps prevent mp desync
 		public int TimeSpent = 0;
 		public int HitCount = 0;
 		private static Texture2D TextureMain;
@@ -32,26 +33,36 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 			TextureBlur ??= ModContent.Request<Texture2D>(Texture + "_Blur", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			Positions = new List<Vector2>();
 			HitNPCs = new List<int>();
+			Initialized = false;
 		}
 
 		public override void AI()
 		{
-			Projectile.rotation = Projectile.ai[0];
-			TimeSpent++;
-
-			if (TimeSpent <= 30)
+			if (Projectile.velocity.Length() > 0)
 			{
-				Positions.Add(Projectile.Center + Vector2.UnitY.RotatedBy(Projectile.rotation) * 14f * Positions.Count);
-				Positions.Add(Projectile.Center + Vector2.UnitY.RotatedBy(Projectile.rotation) * 14f * Positions.Count);
+				Projectile.rotation = Projectile.velocity.ToRotation();
+				Projectile.velocity *= 0f;
+				Initialized = true;
 			}
 
-			if (TimeSpent % 30 == 0 && HitNPCs.Count > 0)
+			if (Initialized)
 			{
-				if (HitCount < 5)
+				TimeSpent++;
+
+				if (TimeSpent <= 30)
 				{
-					HitCount++;
+					Positions.Add(Projectile.Center + Vector2.UnitY.RotatedBy(Projectile.rotation) * 14f * Positions.Count);
+					Positions.Add(Projectile.Center + Vector2.UnitY.RotatedBy(Projectile.rotation) * 14f * Positions.Count);
 				}
-				HitNPCs.Clear();
+
+				if (TimeSpent % 30 == 0 && HitNPCs.Count > 0)
+				{
+					if (HitCount < 5)
+					{
+						HitCount++;
+					}
+					HitNPCs.Clear();
+				}
 			}
 
 			if (Projectile.ai[1] != 0 && Projectile.timeLeft > 120)
@@ -60,24 +71,20 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 				Projectile.netUpdate = true;
 			}
 
-			/*
-			if (Projectile.timeLeft < 15f)
+			if (IsLocalOwner)
 			{
-				Projectile.scale *= 0.85f;
-			}
-			*/
-
-			foreach (NPC npc in Main.npc)
-			{
-				if (IsValidTarget(npc) && !HitNPCs.Contains(npc.whoAmI))
+				foreach (NPC npc in Main.npc)
 				{
-					foreach (Vector2 pos in Positions)
+					if (IsValidTarget(npc) && !HitNPCs.Contains(npc.whoAmI))
 					{
-						if (npc.Hitbox.Contains(new Point((int)pos.X, (int)pos.Y)))
+						foreach (Vector2 pos in Positions)
 						{
-							HitNPCs.Add(npc.whoAmI);
-							Owner.ApplyDamageToNPC(npc, (int)(Projectile.damage * (1f - HitCount * 0.1f)), 0f, 1, Main.rand.Next(100) < Projectile.CritChance);
-							break;
+							if (npc.Hitbox.Contains(new Point((int)pos.X, (int)pos.Y)))
+							{
+								HitNPCs.Add(npc.whoAmI);
+								Owner.ApplyDamageToNPC(npc, (int)(Projectile.damage * (1f - HitCount * 0.1f)), 0f, 1, Main.rand.Next(100) < Projectile.CritChance);
+								break;
+							}
 						}
 					}
 				}
@@ -91,6 +98,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 			//Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 			//GameShaders.Misc["OrchidMod:HorizonGlow"].Apply();
+
+			if (!initialized) return false;
 
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 20) colorMult *= Projectile.timeLeft / 20f;

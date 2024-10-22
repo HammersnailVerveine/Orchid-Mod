@@ -146,17 +146,21 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 								SoundEngine.PlaySound(SoundID.Item105, owner.Center);
 								int projectileType = ModContent.ProjectileType<GuardianHorizonLanceProj>();
 
-								foreach (Projectile projectile in Main.projectile)
+								if (IsLocalOwner)
 								{
-									if (projectile.type == projectileType && projectile.active && projectile.owner == owner.whoAmI)
+									foreach (Projectile projectile in Main.projectile)
 									{
-										projectile.ai[1] = 1f;
+										if (projectile.type == projectileType && projectile.active && projectile.owner == owner.whoAmI)
+										{
+											projectile.ai[1] = 1f;
+										}
 									}
 								}
 
 								int damage = guardian.GetGuardianDamage(HorizonLanceItem.damage);
-								Projectile newProjectile = Projectile.NewProjectileDirect(HorizonLanceItem.GetSource_FromAI(), Projectile.Center + owner.velocity * 1.5f, Vector2.Zero, projectileType, damage, HorizonLanceItem.knockBack, owner.whoAmI, Projectile.ai[2]);
+								Projectile newProjectile = Projectile.NewProjectileDirect(HorizonLanceItem.GetSource_FromAI(), Projectile.Center + owner.velocity * 1.5f, Projectile.ai[2].ToRotationVector2(), projectileType, damage, HorizonLanceItem.knockBack, owner.whoAmI);
 								newProjectile.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + HorizonLanceItem.crit);
+								newProjectile.netUpdate = true;
 							}
 						}
 

@@ -99,16 +99,6 @@ namespace OrchidMod
 			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 		}
 
-		public override void PostUpdate()
-		{
-			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>()))
-			{
-				Player.GetCritChance<GuardianDamageClass>() += 15;
-			}
-
-			GuardianStandardStats.ApplyStats(Player); // Standards apply their stats here
-		}
-
 		public override void OnRespawn()
 		{
 			GuardianGuard = GuardianGuardMax;
@@ -122,6 +112,17 @@ namespace OrchidMod
 			GuardianStandardCharge = 0;
 			GuardianRuneCharge = 0;
 		}
+
+		public override void PostUpdateMiscEffects()
+		{
+			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>()))
+			{
+				Player.GetCritChance<GuardianDamageClass>() += 15;
+			}
+
+			GuardianStandardStats.ApplyStats(Player); // Standards apply their stats here
+		}
+
 		public override void UpdateLifeRegen()
 		{
 			GuardianStandardStats.ApplyLifeRegen(Player); // Standards apply their stats here
