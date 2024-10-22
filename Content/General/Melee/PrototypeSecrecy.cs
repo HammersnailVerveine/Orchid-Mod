@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Assets;
 using OrchidMod.Common;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -32,7 +33,7 @@ namespace OrchidMod.Content.General.Melee
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.shootSpeed = 8f;
 			Item.shoot = ModContent.ProjectileType<PrototypeSecrecyProjectile>();
-			Item.damage = 13;
+			Item.damage = 20;
 			Item.knockBack = 9f;
 			Item.width = 20;
 			Item.height = 40;
@@ -40,8 +41,8 @@ namespace OrchidMod.Content.General.Melee
 			Item.useAnimation = 15;
 			Item.useTime = 15;
 			Item.noUseGraphic = true;
-			Item.rare = ItemRarityID.Green;
-			Item.value = Item.sellPrice(0, 1, 20, 0);
+			Item.rare = ItemRarityID.Cyan;
+			Item.value = Item.sellPrice(0, 1, 0, 0);
 			Item.DamageType = DamageClass.Melee;
 		}
 
@@ -55,6 +56,7 @@ namespace OrchidMod.Content.General.Melee
 			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color.White * 0.7f, rotation, scale);
 		}
 
+		/* Made it a dev item for S-PLAD
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -64,12 +66,13 @@ namespace OrchidMod.Content.General.Melee
 			recipe.AddIngredient(ItemID.Silk, 2);
 			recipe.Register();
 		}
+		*/
 
 		public override bool CanUseItem(Player player)
 			=> player.ownedProjectileCounts[ModContent.ProjectileType<PrototypeSecrecyProjectile>()] <= 1; // We need exactly 2, not 1
 	}
 
-	public class PrototypeSecrecyProjectile : ModProjectile
+	public class PrototypeSecrecyProjectile : OrchidModProjectile
 	{
 		public static readonly SoundStyle MagicSound = new(OrchidAssets.SoundsPath + "Magic_0");
 		public static readonly Color EffectColor = new(224, 39, 83);
@@ -78,12 +81,7 @@ namespace OrchidMod.Content.General.Melee
 
 		public override string Texture => OrchidAssets.ItemsPath + nameof(PrototypeSecrecy);
 
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Prototype Secrecy");
-		}
-
-		public override void SetDefaults()
+		public override void AltSetDefaults()
 		{
 			Projectile.width = 22;
 			Projectile.height = 22;
@@ -105,7 +103,7 @@ namespace OrchidMod.Content.General.Melee
 			}
 		}
 
-		public override bool PreDraw(ref Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
 			var texture = TextureAssets.Projectile[Projectile.type].Value;
 			var position = Projectile.position + Projectile.Size * 0.5f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;
@@ -122,7 +120,7 @@ namespace OrchidMod.Content.General.Melee
 			flag |= target.direction > 0 && Projectile.Center.X < target.Center.X && Projectile.velocity.X > 0;
 			flag |= target.direction < 0 && Projectile.Center.X > target.Center.X && Projectile.velocity.X < 0;
 
-			if (flag)
+			if (Projectile.Center.Distance(Owner.Center) > (Projectile.Center + Projectile.velocity).Distance(Owner.Center))
 			{
 				modifiers.SetCrit();
 				SoundEngine.PlaySound(MagicSound, Projectile.Center);
@@ -130,24 +128,6 @@ namespace OrchidMod.Content.General.Melee
 
 			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PrototypeSecrecyHitProjectile>(), 0, 0f, Projectile.owner, flag.ToInt());
 		}
-
-		
-		/*
-		 * public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-		{
-			bool flag = false;
-			flag |= target.direction > 0 && Projectile.Center.X < target.Center.X && Projectile.velocity.X > 0;
-			flag |= target.direction < 0 && Projectile.Center.X > target.Center.X && Projectile.velocity.X < 0;
-
-			if (flag)
-			{
-				hit.Crit = true;
-				SoundEngine.PlaySound(MagicSound, Projectile.Center);
-			}
-
-			Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<PrototypeSecrecyHitProjectile>(), 0, 0f, Projectile.owner, flag.ToInt());
-		}
-		*/
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
@@ -158,7 +138,7 @@ namespace OrchidMod.Content.General.Melee
 		}
 	}
 
-	public class PrototypeSecrecyHitProjectile : ModProjectile
+	public class PrototypeSecrecyHitProjectile : OrchidModProjectile
 	{
 		public override string Texture => OrchidAssets.InvisiblePath;
 
@@ -167,7 +147,7 @@ namespace OrchidMod.Content.General.Melee
 			// DisplayName.SetDefault("");
 		}
 
-		public override void SetDefaults()
+		public override void AltSetDefaults()
 		{
 			Projectile.width = 16;
 			Projectile.height = 16;

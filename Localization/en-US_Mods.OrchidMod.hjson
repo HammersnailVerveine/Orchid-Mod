@@ -101,8 +101,8 @@ Buffs: {
 	}
 
 	SquareMinecartBuff: {
-		Description: Mods.OrchidMod.Buffs.SquareMinecartBuff.Description
-		DisplayName: Square Minecart Buff
+		Description: Riding in a minecart
+		DisplayName: Minecart
 	}
 
 	HarpyPotionBuff: {
@@ -1515,7 +1515,11 @@ Items: {
 
 	PrototypeSecrecy: {
 		DisplayName: Prototype Secrecy
-		Tooltip: Always critically strikes while returning
+		Tooltip:
+			'''
+			Always critically strikes while returning
+			'Great for impersonating Orchid Devs!'
+			'''
 	}
 
 	SquareMinecart: {
@@ -2984,7 +2988,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging continuously slows nearby enemies
-			When reinforced, your defense increases by 5
+			When reinforced, your defense increases by 10
 			'''
 	}
 

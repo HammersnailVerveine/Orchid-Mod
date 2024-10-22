@@ -29,6 +29,8 @@ using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Content.Guardian.Weapons.Standards;
 using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.General.Misc;
+using OrchidMod.Content.General.Mounts;
+using OrchidMod.Content.General.Melee;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -70,6 +72,11 @@ namespace OrchidMod.Common.Global.Items
 				case ItemID.EyeOfCthulhuBossBag:
 					{
 						QuickSpawnItem<EyeCard>(player, 1, 3);
+						if (Main.rand.NextBool(20))
+						{
+							QuickSpawnItem<SquareMinecart>(player);
+							QuickSpawnItem<PrototypeSecrecy>(player);
+						}
 					}
 					break;
 				case ItemID.EaterOfWorldsBossBag:
