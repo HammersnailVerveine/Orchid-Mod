@@ -244,7 +244,8 @@ namespace OrchidMod.Content.Guardian
 								{
 									if (proj.type == ModContent.ProjectileType<GuardianHorizonLanceAnchor>() && proj.active && proj.owner == Projectile.owner)
 									{
-										proj.Kill();
+										proj.ai[1] = 30f;
+										proj.netUpdate = true;
 										break;
 									}
 								}

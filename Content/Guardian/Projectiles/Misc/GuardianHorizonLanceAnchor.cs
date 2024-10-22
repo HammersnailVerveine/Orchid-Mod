@@ -231,7 +231,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 								{
 									if (proj.type == ModContent.ProjectileType<GuardianStandardAnchor>() && proj.active && proj.owner == Projectile.owner)
 									{
-										proj.Kill();
+										proj.ai[1] = 30f;
+										proj.netUpdate = true;
 										break;
 									}
 								}
@@ -285,7 +286,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 			var player = Main.player[Projectile.owner];
 			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
-			if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not HorizonLance) color *= Projectile.ai[1] / 30f;
+			float colorMult2 = 1f;
+			if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not HorizonLance) colorMult2 *= Projectile.ai[1] / 30f;
 
 			var texture = ModContent.Request<Texture2D>(guardianItem.LanceTexture).Value;
 
@@ -298,7 +300,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 				var textureGlow = ModContent.Request<Texture2D>(guardianItem.LanceTextureGlow).Value;
 				drawPosition += new Vector2(-8f * player.direction, -12);
 				drawRotation = MathHelper.PiOver4 * 0.5f * -player.direction - MathHelper.PiOver4;
-				spriteBatch.Draw(texture, drawPosition, null, color, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(texture, drawPosition, null, color * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 
 
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
@@ -306,14 +308,14 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 				float colorMult = (float)Math.Sin(TimeSpent * 0.075f) * 0.1f + 0.9f;
-				spriteBatch.Draw(textureGlow, drawPosition, null, Color.White * colorMult, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(textureGlow, drawPosition, null, Color.White * colorMult * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 
 				spriteBatch.End();
 				spriteBatch.Begin(spriteBatchSnapshot);
 			}
 			else
 			{
-				spriteBatch.Draw(texture, drawPosition, null, color, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(texture, drawPosition, null, color * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 
 
