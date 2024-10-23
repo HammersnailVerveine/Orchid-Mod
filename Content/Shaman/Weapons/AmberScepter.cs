@@ -129,7 +129,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 		{
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition, null, Color.White * 0.15f * (i + 1), OldRotation[i] + (float)Math.Pow(TimeSpent, 2.2) * 0.001f, TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * (0.2f + TimeSpent * 0.003f), SpriteEffects.None, 0f);
 			}
 
@@ -208,7 +208,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 			// Draw code here
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 5) colorMult *= Projectile.timeLeft / 5f;
-			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 			spriteBatch.Draw(TextureMain, drawPosition, null, DrawColor * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale * TimeSpent * 0.2f, SpriteEffects.None, 0f);
 			spriteBatch.Draw(TextureMain, drawPosition, null, DrawColor * colorMult * 0.5f, Projectile.rotation + MathHelper.PiOver2, TextureMain.Size() * 0.5f, Projectile.scale * TimeSpent * 0.1f, SpriteEffects.None, 0f);
 			spriteBatch.Draw(TextureAlt, drawPosition, null, DrawColor * colorMult * 0.8f, Projectile.ai[1], TextureMain.Size() * 0.5f, Projectile.scale * TimeSpent * 0.22f, SpriteEffects.None, 0f);

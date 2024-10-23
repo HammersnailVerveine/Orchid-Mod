@@ -90,6 +90,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
+			if (!Initialized) return false;
 
 			var owner = Main.player[Projectile.owner];
 			if (GauntletItem != null)
@@ -105,7 +106,7 @@ namespace OrchidMod.Content.Guardian
 				if (Projectile.velocity.X < 0f) effect = SpriteEffects.FlipVertically;
 
 				float scale = Projectile.scale * (ChargedHit ? 1.2f : 1f);
-				Vector2 drawPosition = Vector2.Transform(Projectile.Center - offsetVector - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = Projectile.Center - offsetVector - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition, null, GauntletItem.GetColor(OffHand) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, scale, effect, 0f);
 
 				// Draw code ends here

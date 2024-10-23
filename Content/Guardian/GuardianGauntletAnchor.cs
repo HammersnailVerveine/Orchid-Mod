@@ -141,7 +141,8 @@ namespace OrchidMod.Content.Guardian
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
 							float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance();
-							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2) * strikeVelocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
+							Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2) * strikeVelocity;
+							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
 							if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 							{
 								punch.GauntletItem = GauntletItem.ModItem as OrchidModGuardianGauntlet;
@@ -307,13 +308,6 @@ namespace OrchidMod.Content.Guardian
 				}
 
 				var texture = ModContent.Request<Texture2D>(guardianItem.GauntletTexture).Value;
-				Vector2 posproj = Projectile.Center;
-				if (player.gravDir == -1)
-				{
-					posproj.Y = (player.Bottom + player.position).Floor().Y - posproj.Y;
-				}
-				var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-				float rotation = Projectile.rotation;
 
 				var effect = SpriteEffects.None;
 				if (player.direction != 1)
@@ -322,7 +316,30 @@ namespace OrchidMod.Content.Guardian
 					else effect = SpriteEffects.FlipHorizontally;
 				}
 
-				spriteBatch.Draw(texture, drawPosition, null, color, rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				float drawRotation = Projectile.rotation;
+				Vector2 posproj = Projectile.Center;
+				if (player.gravDir == -1)
+				{
+					drawRotation = -drawRotation;
+					posproj.Y = (player.Bottom + player.position).Y - posproj.Y + (posproj.Y - player.Center.Y) * 2f;
+					if (effect == SpriteEffects.FlipVertically)
+					{
+						effect = SpriteEffects.None;
+					}
+					else if (effect == SpriteEffects.FlipHorizontally)
+					{
+						effect = SpriteEffects.None;
+						drawRotation += MathHelper.Pi;
+					}
+					else if (effect == SpriteEffects.None)
+					{
+						effect = SpriteEffects.FlipVertically;
+					}
+				}
+
+				var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+				float rotation = Projectile.rotation;
+				spriteBatch.Draw(texture, drawPosition, null, color, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawGauntlet(spriteBatch, Projectile, player, color);
 

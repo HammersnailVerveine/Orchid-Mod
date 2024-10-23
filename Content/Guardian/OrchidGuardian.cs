@@ -75,7 +75,8 @@ namespace OrchidMod
 			Item item = Player.HeldItem;
 			if (item.ModItem is OrchidModGuardianGauntlet gauntlet)
 			{
-				drawInfo.compBackArmFrame = Rectangle.Empty; // Makes the back arm disappear when holding a gauntlet
+				drawInfo.compBackArmFrame = new Rectangle(1, 1, 1, 1); // Makes the back arm disappear when holding a gauntlet
+
 				if (gauntlet.hasArm)
 				{ // Makes the front arm disappear if the gauntlet has its own arm texture.
 					drawInfo.compFrontArmFrame = new Rectangle(1, 1, 1 ,1); // An empty rectangle crashes the game
@@ -91,6 +92,18 @@ namespace OrchidMod
 			{
 				drawInfo.compShoulderOverFrontArm = true; // Why is this not on by default
 				drawInfo.hideCompositeShoulders = false;
+
+				if (Player.bodyFrame == new Rectangle(0, 56 * 5, 40, 56))
+				{
+					if (Player.Male)
+					{
+						drawInfo.compTorsoFrame = new(0, 0, 40, 56); //Jumping
+					}
+					else
+					{
+						drawInfo.compTorsoFrame = new(0, 112, 40, 56); //Jumping
+					}
+				}
 			}
 		}
 
