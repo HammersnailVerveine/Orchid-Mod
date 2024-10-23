@@ -242,27 +242,32 @@ namespace OrchidMod.Content.Guardian
 
 			if (guardianItem.PreDrawRune(spriteBatch, Projectile, player, ref color))
 			{
+				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 				Vector2 posproj = Projectile.Center;
+				float rotaproj = Projectile.rotation;
 				if (player.gravDir == -1)
 				{
-					posproj.Y = (player.Bottom + player.position).Floor().Y - posproj.Y;
+					posproj.Y = (player.Bottom.Floor() + player.position.Floor()).Y - posproj.Y;
+					rotaproj += MathHelper.Pi;
+					if (effect == SpriteEffects.None) effect = SpriteEffects.FlipHorizontally;
+					else effect = SpriteEffects.None;
 				}
+
 
 				var texture = TextureAssets.Item[RuneItem.type].Value;
 
-				var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+				var drawPosition = posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 
 				if (player.GetModPlayer<OrchidGuardian>().GuardianRuneCharge >= 120f) // max charge
 				{
 					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
-					spriteBatch.Draw(texture, drawPosition, null, guardianItem.GetGlowColor() * Projectile.localAI[0], Projectile.rotation, texture.Size() * 0.5f, Projectile.scale * 0.9f, effect, 0f);
+					spriteBatch.Draw(texture, drawPosition, null, guardianItem.GetGlowColor() * Projectile.localAI[0], rotaproj, texture.Size() * 0.5f, Projectile.scale * 0.9f, effect, 0f);
 					spriteBatch.End();
 					spriteBatch.Begin(spriteBatchSnapshot);
 				}
 
-				spriteBatch.Draw(texture, drawPosition, null, color, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale * 0.8f, effect, 0f);
+				spriteBatch.Draw(texture, drawPosition, null, color, rotaproj, texture.Size() * 0.5f, Projectile.scale * 0.8f, effect, 0f);
 
 			}
 			guardianItem.PostDrawRune(spriteBatch, Projectile, player, color);
