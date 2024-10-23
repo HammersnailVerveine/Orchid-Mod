@@ -62,6 +62,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 			Projectile.ai[0] = 0f;
+			Projectile.ai[1] = 0f;
 			guardian.GuardianRuneCharge = 0;
 			if (owner.inventory[owner.selectedItem].ModItem is OrchidModGuardianRune) SelectedItem = owner.selectedItem;
 			Projectile.netUpdate = true;
