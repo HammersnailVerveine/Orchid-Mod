@@ -297,9 +297,19 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 			var texture = ModContent.Request<Texture2D>(guardianItem.LanceTexture).Value;
 
-			var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+			SpriteEffects effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			Vector2 posproj = Projectile.Center;
 			float drawRotation = Projectile.rotation;
-			var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			if (player.gravDir == -1)
+			{
+				drawRotation = -drawRotation + MathHelper.Pi;
+				posproj.Y = (player.Bottom.Floor() + player.position.Floor()).Y - posproj.Y + (posproj.Y - player.Center.Floor().Y) * 2f;
+				if (effect == SpriteEffects.None) effect = SpriteEffects.FlipHorizontally;
+				else effect = SpriteEffects.None;
+			}
+
+
+			var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 
 			if (Worn && player.HeldItem.ModItem is not HorizonLance)
 			{
@@ -307,7 +317,6 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 				drawPosition += new Vector2(-8f * player.direction, -12);
 				drawRotation = MathHelper.PiOver4 * 0.5f * -player.direction - MathHelper.PiOver4;
 				spriteBatch.Draw(texture, drawPosition, null, color * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
-
 
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				//spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
