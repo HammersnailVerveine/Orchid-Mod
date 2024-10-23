@@ -101,9 +101,10 @@ namespace OrchidMod.Content.Guardian.UI
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
-				Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.gravDir > 0 ? player.height + player.gfxOffY + 12 : player.height + player.gfxOffY + 28)).Floor();
+				Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.height + player.gfxOffY + 12)).Floor();
+				if (player.gravDir < 0) position.Y -= 81;
 				Vector2 drawpos = position;
-				position = Vector2.Transform(position - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				position = position - Main.screenPosition;
 				SpriteEffects effect = player.gravDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
 
 				int offSet = (int)(modPlayer.GuardianGuardMax / 2f * (textureBlockOn.Width + 2));
