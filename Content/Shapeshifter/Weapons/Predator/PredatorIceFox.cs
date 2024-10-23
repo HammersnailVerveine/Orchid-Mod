@@ -129,11 +129,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			projectile.ai[1] = 90;
 			SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, projectile.Center);
 
-			for (int i = 0; i < 8; i++)
+			for (int i = 0; i < 20; i++)
 			{
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
 				dust.noGravity = true;
-				dust.noLight = true;
+				dust.velocity += projectile.velocity;
 			}
 		}
 
@@ -236,6 +236,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				if (projectile.ai[1] <= 0)
 				{
 					SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, projectile.Center);
+
+					for (int i = 0; i < 20; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
+						dust.noGravity = true;
+						dust.velocity += projectile.velocity;
+					}
 				}
 			}
 			else
