@@ -247,6 +247,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 								// Stab starts
 								Projectile.ai[2] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
 								Projectile.ai[0] = -50f;
+								owner.itemTime = 51;
+								owner.itemAnimation = 51;
 							}
 							else
 							{ // Not enough charge = Reset to idle
@@ -297,15 +299,14 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 			var texture = ModContent.Request<Texture2D>(guardianItem.LanceTexture).Value;
 
-			SpriteEffects effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			SpriteEffects effect = SpriteEffects.None;
 			Vector2 posproj = Projectile.Center;
 			float drawRotation = Projectile.rotation;
 			if (player.gravDir == -1)
 			{
 				drawRotation = -drawRotation + MathHelper.Pi;
 				posproj.Y = (player.Bottom.Floor() + player.position.Floor()).Y - posproj.Y + (posproj.Y - player.Center.Floor().Y) * 2f;
-				if (effect == SpriteEffects.None) effect = SpriteEffects.FlipHorizontally;
-				else effect = SpriteEffects.None;
+				effect = SpriteEffects.FlipHorizontally;
 			}
 
 
@@ -313,9 +314,19 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 			if (Worn && player.HeldItem.ModItem is not HorizonLance)
 			{
+				drawRotation = MathHelper.PiOver4 * 0.5f * -player.direction - MathHelper.PiOver4;
+				if (player.gravDir == -1)
+				{
+					drawPosition.Y += 24f;
+					drawRotation -= MathHelper.PiOver4 * player.direction;
+					if (player.direction == -1)
+					{
+						drawRotation += MathHelper.Pi;
+					}
+				}
+
 				var textureGlow = ModContent.Request<Texture2D>(guardianItem.LanceTextureGlow).Value;
 				drawPosition += new Vector2(-8f * player.direction, -12);
-				drawRotation = MathHelper.PiOver4 * 0.5f * -player.direction - MathHelper.PiOver4;
 				spriteBatch.Draw(texture, drawPosition, null, color * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
