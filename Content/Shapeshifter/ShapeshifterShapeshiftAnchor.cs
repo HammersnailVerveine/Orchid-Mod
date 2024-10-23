@@ -209,6 +209,14 @@ namespace OrchidMod.Content.Shapeshifter
 					Projectile.velocity.Y = 0;
 				}
 			}
+
+			if (IsLocalOwner)
+			{
+				if (player.gravDir != 1)
+				{ // Kill the projectile in reverse gravity
+					Projectile.Kill();
+				}
+			}
 		}
 
 		public void CheckInputs(Player player)
