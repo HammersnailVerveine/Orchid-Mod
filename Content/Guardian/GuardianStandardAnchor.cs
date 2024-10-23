@@ -320,7 +320,7 @@ namespace OrchidMod.Content.Guardian
 				if (player.gravDir == -1)
 				{
 					drawRotation = -drawRotation + MathHelper.PiOver2;
-					posproj.Y = (player.Bottom + player.position).Floor().Y - posproj.Y + (posproj.Y - player.Center.Floor().Y) * 2f;
+					posproj.Y = (player.Bottom.Floor() + player.position.Floor()).Y - posproj.Y + (posproj.Y - player.Center.Floor().Y) * 2f;
 				}
 
 				var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
