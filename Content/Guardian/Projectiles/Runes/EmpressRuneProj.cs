@@ -77,7 +77,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 					color.B += 1;
 				}
 
-				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.066f * (i + 1) * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.08f * colorMult, SpriteEffects.None, 0f);
 			}
 

@@ -153,7 +153,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 				color.R -= 18;
 				color.G -= 12;
 				color.B -= 2;
-				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.14f * (i + 1) * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.12f, SpriteEffects.None, 0f);
 			}
 

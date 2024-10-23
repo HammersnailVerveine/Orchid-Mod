@@ -95,14 +95,14 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition, rect, Color.White * 0.1f * (i + 1) * colorMult, OldRotation[i], rect.Size() * 0.5f, Projectile.scale * (i + 1) * 0.2f, SpriteEffects.None, 0f);
 			}
 
 			spriteBatch.End();
 			spriteBatch.Begin(spriteBatchSnapshot);
 
-			Vector2 drawPosition2 = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPosition2 = Projectile.Center - Main.screenPosition;
 			spriteBatch.Draw(TextureMain, drawPosition2, rect, Color.White * colorMult, Projectile.rotation, rect.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}

@@ -61,7 +61,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				Vector2 drawPosition2 = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition2 = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition2, null, lightColor * 0.05f * (i + 1) * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.08f, SpriteEffects.None, 0f);
 			}
 
@@ -69,7 +69,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			spriteBatch.Begin(spriteBatchSnapshot);
 
 
-			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 			spriteBatch.Draw(TextureMain, drawPosition, null, lightColor * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}

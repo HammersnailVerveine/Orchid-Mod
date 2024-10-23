@@ -45,7 +45,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 			if (Projectile.timeLeft < 10) colorMult *= Projectile.timeLeft / 10f;
 
 
-			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 			spriteBatch.Draw(TextureMain, drawPosition, null, Color.DarkGray.MultiplyRGB(DrawColor) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale * 1.8f, SpriteEffects.None, 0f);
 			spriteBatch.Draw(TextureMain, drawPosition, null, DrawColor * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale * 1.8f, SpriteEffects.None, 0f);
 

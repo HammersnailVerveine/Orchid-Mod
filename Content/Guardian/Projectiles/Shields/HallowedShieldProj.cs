@@ -82,7 +82,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 				if (Projectile.ai[1] == 0f) color.B += 5;
 				else color.G += 5;
 
-				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.15f * (i + 1) * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * 1.2f, SpriteEffects.None, 0f);
 			}
 

@@ -161,7 +161,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
 				Color color = new Color(125, 155, 255);
 				if (Projectile.ai[1] == 2) color = new Color(200, 66, 125);
 				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.1f * i * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * i * 0.175f, SpriteEffects.None, 0f);;

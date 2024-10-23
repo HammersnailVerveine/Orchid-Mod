@@ -48,7 +48,7 @@ namespace OrchidMod.Content.Shaman.Projectiles.Equipment
 			// Draw code here
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 8) colorMult *= Projectile.timeLeft / 8f;
-			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 			spriteBatch.Draw(TextureMain, drawPosition, null, new Color(255, 155, 55) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale * TimeSpent * 0.2f, SpriteEffects.None, 0f);
 			spriteBatch.Draw(TextureMain, drawPosition, null, new Color(153, 0, 2) * colorMult * 0.5f, Projectile.rotation + MathHelper.PiOver2, TextureMain.Size() * 0.5f, Projectile.scale * TimeSpent * 0.1f, SpriteEffects.None, 0f);
 			spriteBatch.Draw(TextureAlt, drawPosition, null, new Color(199, 17, 3) * colorMult * 0.8f, Projectile.ai[1], TextureMain.Size() * 0.5f, Projectile.scale * TimeSpent * 0.22f, SpriteEffects.None, 0f);

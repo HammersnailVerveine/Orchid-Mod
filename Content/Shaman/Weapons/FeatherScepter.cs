@@ -169,7 +169,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 			// Draw code here
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 5) colorMult *= Projectile.timeLeft / 5f;
-			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 			spriteBatch.Draw(TextureMain, drawPosition, null, Color.White * colorMult * 0.65f, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale * TimeSpent * 0.22f, SpriteEffects.None, 0f);
 
 			// Draw code ends here

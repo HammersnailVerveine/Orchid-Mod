@@ -86,11 +86,11 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 
 				for (int j = 0; j < OldAI.Count; j++)
 				{
-					Vector2 drawPosition2 = Vector2.Transform(Projectile.Center - new Vector2(0f, OldAI[j] * i).RotatedBy(Projectile.rotation) - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+					Vector2 drawPosition2 = Projectile.Center - new Vector2(0f, OldAI[j] * i).RotatedBy(Projectile.rotation) - Main.screenPosition;
 					spriteBatch.Draw(TextureMain, drawPosition2, null, lightColor * 0.075f * (j + 1) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
-				Vector2 drawPosition = Vector2.Transform(Projectile.Center - new Vector2(0f, Projectile.localAI[0] * i).RotatedBy(Projectile.rotation) - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = Projectile.Center - new Vector2(0f, Projectile.localAI[0] * i).RotatedBy(Projectile.rotation) - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition, null, lightColor.MultiplyRGBA(drawColor) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 

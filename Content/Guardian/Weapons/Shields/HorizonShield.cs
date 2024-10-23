@@ -132,7 +132,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 
 		public override void PostDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor)
 		{
-			var drawPosition = Vector2.Transform(projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+			var drawPosition = projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 			var effect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
@@ -147,11 +147,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				{
 					slamoffset.X += i * 0.2f;
 				}
-				Vector2 drawPositionGlow = Vector2.Transform(projectile.Center - (Vector2.UnitY * 6f + OldPosition[i] + slamoffset).RotatedBy(projectile.rotation) - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPositionGlow = projectile.Center - (Vector2.UnitY * 6f + OldPosition[i] + slamoffset).RotatedBy(projectile.rotation) - Main.screenPosition;
 				spriteBatch.Draw(TextureGlowAlt, drawPositionGlow, null, new Color(216, 61, 30), OldRotation[i], TextureGlowAlt.Size() * 0.5f, projectile.scale * (i + 1) * 0.08f, effect, 0f);
 
 				SpriteEffects effectFlip = projectile.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-				drawPositionGlow = Vector2.Transform(projectile.Center + (Vector2.UnitY * 6f + OldPosition[i] - slamoffset).RotatedBy(projectile.rotation) - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				drawPositionGlow = projectile.Center + (Vector2.UnitY * 6f + OldPosition[i] - slamoffset).RotatedBy(projectile.rotation) - Main.screenPosition;
 				spriteBatch.Draw(TextureGlowAlt, drawPositionGlow, null, new Color(59, 88, 204), OldRotation[i] + MathHelper.Pi, TextureGlowAlt.Size() * 0.5f, projectile.scale * (i + 1) * 0.08f, effectFlip, 0f);
 			}
 

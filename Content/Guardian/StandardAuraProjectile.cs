@@ -65,7 +65,7 @@ namespace OrchidMod.Content.Guardian
 				// Draw code here
 
 				Player owner = Main.player[Projectile.owner];
-				Vector2 drawPosition = Vector2.Transform(owner.Center.Floor() + new Vector2(0f, owner.gfxOffY) - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = owner.Center.Floor() + new Vector2(0f, owner.gfxOffY) - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition, null, standard.GetColor() * (Projectile.alpha / 255f), Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 
 				// Draw code ends here

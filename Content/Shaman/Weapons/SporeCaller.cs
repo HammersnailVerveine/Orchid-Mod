@@ -174,14 +174,14 @@ namespace OrchidMod.Content.Shaman.Projectiles
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(TextureAlt, drawPosition, null, Color.White * 0.15f * (i + 1) * colorMult, OldRotation[i] + TimeSpent * Projectile.ai[2], TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.2f, SpriteEffects.None, 0f);
 			}
 
 			spriteBatch.End();
 			spriteBatch.Begin(spriteBatchSnapshot);
 
-			Vector2 drawPositionMain = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPositionMain = Projectile.Center - Main.screenPosition;
 			spriteBatch.Draw(TextureMain, drawPositionMain, null, lightColor * 3f * colorMult, Projectile.rotation + TimeSpent * Projectile.ai[2], TextureMain.Size() * 0.5f, Projectile.scale * 1.1f, SpriteEffects.None, 0f);
 			return false;
 		}

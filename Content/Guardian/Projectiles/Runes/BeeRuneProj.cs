@@ -55,7 +55,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 		{
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 60) colorMult *= Projectile.timeLeft / 60f;
-			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 			spriteBatch.Draw(TextureMain, drawPosition, null, Color.White * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}

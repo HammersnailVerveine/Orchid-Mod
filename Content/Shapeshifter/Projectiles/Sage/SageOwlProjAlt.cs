@@ -38,7 +38,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			float scalemult = (float)Math.Sin(Projectile.timeLeft * 0.1046f) * 0.75f;
-			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + new Vector2(0f, (30 - Projectile.timeLeft) * 1.41667f), Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPosition = Projectile.Center - Main.screenPosition + new Vector2(0f, (30 - Projectile.timeLeft) * 1.41667f);
 			spriteBatch.Draw(TextureMain, drawPosition, null, Color.Aqua * scalemult, MathHelper.PiOver4, TextureMain.Size() * 0.5f, Projectile.scale * (1f + (30 - Projectile.timeLeft) * 0.02f), SpriteEffects.None, 0f);
 
 			spriteBatch.End();

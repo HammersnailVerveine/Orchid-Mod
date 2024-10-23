@@ -120,7 +120,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 		{
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				Vector2 drawPosition = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(TextureMain, drawPosition, null, Color.White * 0.15f * (i + 1), OldRotation[i] + (float)Math.Pow(TimeSpent, 2.2) * 0.001f, TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * (0.2f + TimeSpent * 0.003f), SpriteEffects.None, 0f);
 			}
 

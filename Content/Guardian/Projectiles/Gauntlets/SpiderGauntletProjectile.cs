@@ -64,7 +64,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				Vector2 drawPositionTrail = Vector2.Transform(OldPosition[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPositionTrail = OldPosition[i] - Main.screenPosition;
 				spriteBatch.Draw(texture, drawPositionTrail, null, lightColor * 0.2f * (i + 1) * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.20f, SpriteEffects.None, 0f);
 			}
 
@@ -73,7 +73,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			spriteBatch.End();
 			spriteBatch.Begin(spriteBatchSnapshot);
 
-			Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+			Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 			spriteBatch.Draw(texture, drawPosition, null, lightColor * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale + Projectile.ai[0] * 0.1f, SpriteEffects.None, 0f);
 			return false;
 		}

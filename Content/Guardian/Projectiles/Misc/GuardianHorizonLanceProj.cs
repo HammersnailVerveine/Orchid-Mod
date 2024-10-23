@@ -114,7 +114,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 				}
 
 				Rectangle rectangle = TextureMain.Bounds;
-				Vector2 drawPosition = Vector2.Transform(Positions[i] - Main.screenPosition, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = Positions[i] - Main.screenPosition;
 				Color drawcolor = (Color.White * ((float)Math.Sin((TimeSpent + i) * 0.33f) * 0.1f + 0.9f)).MultiplyRGB(color) * colorMult;
 
 				if (i < 9)
