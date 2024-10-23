@@ -307,7 +307,12 @@ namespace OrchidMod.Content.Guardian
 				}
 
 				var texture = ModContent.Request<Texture2D>(guardianItem.GauntletTexture).Value;
-				var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+				Vector2 posproj = Projectile.Center;
+				if (player.gravDir == -1)
+				{
+					posproj.Y = (player.Bottom + player.position).Floor().Y - posproj.Y;
+				}
+				var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				float rotation = Projectile.rotation;
 
 				var effect = SpriteEffects.None;

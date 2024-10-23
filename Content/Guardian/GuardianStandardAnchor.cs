@@ -314,20 +314,33 @@ namespace OrchidMod.Content.Guardian
 			{
 				var texture = ModContent.Request<Texture2D>(guardianItem.ShaftTexture).Value;
 
-				var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				float drawRotation = Projectile.rotation;
+				Vector2 posproj = Projectile.Center;
+
+				if (player.gravDir == -1)
+				{
+					drawRotation = -drawRotation + MathHelper.PiOver2;
+					posproj.Y = (player.Bottom + player.position).Floor().Y - posproj.Y + (posproj.Y - player.Center.Y) * 2f;
+				}
+
+				var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 
 				if (Worn && player.HeldItem.ModItem is not OrchidModGuardianStandard)
 				{
-					drawPosition += new Vector2(-8f * player.direction, -12);
+					drawPosition += new Vector2(-8f * player.direction, -12 * player.gravDir);
 					drawRotation = MathHelper.PiOver4 * 0.5f * -player.direction - MathHelper.PiOver4;
+
+					if (player.gravDir == -1)
+					{
+						drawRotation = -drawRotation + MathHelper.PiOver2;
+					}
 				}
 
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 				spriteBatch.Draw(texture, drawPosition, null, color, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 
 				float windSpeed = 0.25f * Main.windSpeedCurrent;
-				float flagRotation = MathHelper.PiOver4 * Projectile.localAI[1] * 0.5f + (float)Math.Sin(TimeSpent * (Math.Abs(windSpeed) > 0.05f ? windSpeed : 0.05f)) * 0.1f;
+				float flagRotation = MathHelper.PiOver4 * Projectile.localAI[1] * player.gravDir * 0.5f + (float)Math.Sin(TimeSpent * (Math.Abs(windSpeed) > 0.05f ? windSpeed : 0.05f)) * 0.1f;
 				Vector2 flagOffset = Vector2.UnitX.RotatedBy(drawRotation) * -1.5f * Projectile.localAI[1];
 
 				Texture2D textureEnd = ModContent.Request<Texture2D>(guardianItem.FlagEndTexture).Value;

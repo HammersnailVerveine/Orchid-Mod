@@ -242,9 +242,15 @@ namespace OrchidMod.Content.Guardian
 
 			if (guardianItem.PreDrawRune(spriteBatch, Projectile, player, ref color))
 			{
+				Vector2 posproj = Projectile.Center;
+				if (player.gravDir == -1)
+				{
+					posproj.Y = (player.Bottom + player.position).Floor().Y - posproj.Y;
+				}
+
 				var texture = TextureAssets.Item[RuneItem.type].Value;
 
-				var drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+				var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 				if (player.GetModPlayer<OrchidGuardian>().GuardianRuneCharge >= 120f) // max charge

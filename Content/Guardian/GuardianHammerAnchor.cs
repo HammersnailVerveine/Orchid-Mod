@@ -45,7 +45,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.penetrate = -1;
 			Projectile.scale = 1f;
 			Projectile.timeLeft = 600;
-			Projectile.alpha = 256;
+			Projectile.alpha = 255;
 			Projectile.tileCollide = false;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
@@ -340,57 +340,6 @@ namespace OrchidMod.Content.Guardian
 			return false;
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
-		{
-			if (HammerTexture == null) return false;
-
-			float rotationBonus = 0f;
-
-			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
-			var position = Projectile.Center - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
-			SpriteEffects effect;
-			if (Projectile.spriteDirection == 1)
-			{
-				effect = SpriteEffects.FlipHorizontally;
-				rotationBonus += MathHelper.PiOver2;
-			}
-			else
-			{
-				effect = SpriteEffects.None;
-				rotationBonus -= MathHelper.PiOver2;
-			}
-
-			if (Projectile.ai[1] == 0)
-			{
-				Player player = Main.player[Projectile.owner];
-				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-				rotationBonus += guardian.GuardianHammerCharge * 0.0065f * Projectile.spriteDirection;
-			}
-
-			if (Projectile.ai[1] < 0)
-			{
-				Player player = Main.player[Projectile.owner];
-				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-				float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
-				rotationBonus += (guardian.GuardianHammerCharge * 0.0065f + SwingOffset * (3.5f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection;
-			}
-
-			spriteBatch.Draw(HammerTexture, position, null, color, Projectile.rotation + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
-
-
-			if (Projectile.ai[1] != 0)
-			{
-				for (int i = 0; i < OldPosition.Count; i++)
-				{
-					color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * (((WeakThrow() ? 0.05f : 0.15f) * i));
-					position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
-					spriteBatch.Draw(HammerTexture, position, null, color, OldRotation[i] + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
-				}
-			}
-
-			return false;
-		}
-
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			if (Projectile.ai[1] > 0)
@@ -461,6 +410,61 @@ namespace OrchidMod.Content.Guardian
 					penetrate = HammerItem.Penetrate;
 				}
 			}
+		}
+
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			if (HammerTexture == null) return false;
+			Player player = Main.player[Projectile.owner];
+
+			float rotationBonus = 0f;
+			Vector2 posproj = Projectile.Center;
+			if (player.gravDir == -1)
+			{
+				posproj.Y = (player.Bottom + player.position).Floor().Y - posproj.Y;
+			}
+
+			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
+			var position = posproj - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+			SpriteEffects effect;
+			if (Projectile.spriteDirection == 1)
+			{
+				effect = SpriteEffects.FlipHorizontally;
+				rotationBonus += MathHelper.PiOver2;
+			}
+			else
+			{
+				effect = SpriteEffects.None;
+				rotationBonus -= MathHelper.PiOver2;
+			}
+
+			if (Projectile.ai[1] == 0)
+			{
+				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+				rotationBonus += guardian.GuardianHammerCharge * 0.0065f * Projectile.spriteDirection;
+			}
+
+			if (Projectile.ai[1] < 0)
+			{
+				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+				float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
+				rotationBonus += (guardian.GuardianHammerCharge * 0.0065f + SwingOffset * (3.5f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection;
+			}
+
+			spriteBatch.Draw(HammerTexture, position, null, color, Projectile.rotation + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+
+			if (Projectile.ai[1] != 0)
+			{
+				for (int i = 0; i < OldPosition.Count; i++)
+				{
+					color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * (((WeakThrow() ? 0.05f : 0.15f) * i));
+					position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+					spriteBatch.Draw(HammerTexture, position, null, color, OldRotation[i] + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				}
+			}
+
+			return false;
 		}
 	}
 }
