@@ -123,6 +123,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 							player.immuneTime = 0;
 							player.immune = false;
 							guardian.modPlayer.PlayerImmunity = 0;
+							guardian.GuardianStandardCharge = 0f;
 							guardian.UseGuard(1);
 							proj.ai[0] = ParryDuration + 1f;
 							anchor.NeedNetUpdate = true;
