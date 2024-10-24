@@ -119,4 +119,47 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 			*/
 		}
 	}
+
+	public class GuardianHorizonPonytailGlowmask : PlayerDrawLayer
+	{
+		public override Position GetDefaultPosition()
+		{
+			return new AfterParent(PlayerDrawLayers.Head);
+		}
+
+		protected override void Draw(ref PlayerDrawSet drawInfo)
+		{
+			/*
+			SpriteBatch spriteBatch = Main.spriteBatch;
+			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+			Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+			*/
+
+			Player drawPlayer = drawInfo.drawPlayer;
+			if (drawInfo.drawPlayer.dead)
+			{
+				return;
+			}
+
+			if (drawPlayer.armor[10].type == ItemType<GuardianHorizonHead>() || (drawPlayer.armor[10].type == ItemID.None && drawPlayer.armor[0].type == ItemType<GuardianHorizonHead>()))
+			{
+				Color color = drawPlayer.GetImmuneAlphaPure(Color.White, drawInfo.shadow);
+				color *= 0.5f;
+
+				Texture2D texture = Request<Texture2D>("OrchidMod/Content/Guardian/Armors/Horizon/GuardianHorizonHead_Head_Glow_Ponytail").Value;
+				Vector2 drawPos = drawInfo.Position - Main.screenPosition + new Vector2(drawPlayer.width / 2 - drawPlayer.bodyFrame.Width / 2, drawPlayer.height - drawPlayer.bodyFrame.Height + 4f) + drawPlayer.headPosition;
+				Vector2 headVect = drawInfo.headVect;
+				DrawData drawData = new DrawData(texture, drawPos.Floor() + headVect, drawPlayer.bodyFrame, color, drawPlayer.headRotation, headVect, 1f, drawInfo.playerEffect, 0)
+				{
+					shader = GameShaders.Armor.GetShaderIdFromItemId(ItemType<HorizonDye>())
+				};
+				//GameShaders.Misc["OrchidMod:HorizonGlow"].Apply(drawData);
+				drawInfo.DrawDataCache.Add(drawData);
+			}
+			/*
+			spriteBatch.End();
+			spriteBatch.Begin(spriteBatchSnapshot);
+			*/
+		}
+	}
 }
