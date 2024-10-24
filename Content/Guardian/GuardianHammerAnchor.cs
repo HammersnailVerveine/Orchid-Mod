@@ -416,16 +416,8 @@ namespace OrchidMod.Content.Guardian
 		{
 			if (HammerTexture == null) return false;
 			Player player = Main.player[Projectile.owner];
-
 			float rotationBonus = 0f;
-			Vector2 posproj = Projectile.Center;
-			if (player.gravDir == -1)
-			{
-				posproj.Y = (player.Bottom + player.position).Floor().Y - posproj.Y;
-			}
 
-			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
-			var position = posproj - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
 			SpriteEffects effect;
 			if (Projectile.spriteDirection == 1)
 			{
@@ -438,17 +430,33 @@ namespace OrchidMod.Content.Guardian
 				rotationBonus -= MathHelper.PiOver2;
 			}
 
+			Vector2 posproj = Projectile.Center;
+			//float rotaproj = Projectile.rotation;
+			if (player.gravDir == -1)
+			{
+				if (Projectile.ai[1] <= 0)
+				{
+					posproj.Y = (player.Bottom.Floor() + player.position.Floor()).Y - posproj.Y;
+				}
+				//rotaproj += MathHelper.Pi;
+				if (effect == SpriteEffects.None) effect = SpriteEffects.FlipHorizontally;
+				else effect = SpriteEffects.None;
+			}
+
+			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
+			var position = posproj - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+
 			if (Projectile.ai[1] == 0)
 			{
 				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-				rotationBonus += guardian.GuardianHammerCharge * 0.0065f * Projectile.spriteDirection;
+				rotationBonus += guardian.GuardianHammerCharge * 0.0065f * player.gravDir * Projectile.spriteDirection;
 			}
 
 			if (Projectile.ai[1] < 0)
 			{
 				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 				float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
-				rotationBonus += (guardian.GuardianHammerCharge * 0.0065f + SwingOffset * (3.5f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection;
+				rotationBonus += (guardian.GuardianHammerCharge * 0.0065f + SwingOffset * (3.5f + guardian.GuardianHammerCharge * 0.006f)) * player.gravDir * Projectile.spriteDirection;
 			}
 
 			spriteBatch.Draw(HammerTexture, position, null, color, Projectile.rotation + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
@@ -460,6 +468,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * (((WeakThrow() ? 0.05f : 0.15f) * i));
 					position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+
 					spriteBatch.Draw(HammerTexture, position, null, color, OldRotation[i] + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 			}
