@@ -300,6 +300,8 @@ namespace OrchidMod.Content.Guardian
 						}
 					}
 				}
+
+				HammerItem.ExtraAI(player, guardian, Projectile);
 			}
 		}
 

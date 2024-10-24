@@ -2610,7 +2610,7 @@ Items: {
 
 	DesertWarhammer: {
 		DisplayName: Stormbreaker
-		Tooltip: ""
+		Tooltip: Continuously zaps nearby enemies
 	}
 
 	CrimsonWarhammer: {

@@ -1,6 +1,10 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.Guardian.Projectiles.Standards;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
@@ -36,9 +40,30 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			return true;
 		}
 
+		public override void ExtraAI(Player player, OrchidGuardian guardian, Projectile projectile)
+		{
+			if (Main.rand.NextBool(60))
+			{
+				foreach (NPC npc in Main.npc)
+				{
+					if (OrchidModProjectile.IsValidTarget(npc) && npc.Center.Distance(projectile.Center) <= 160f + npc.width * 0.5f)
+					{
+						SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, projectile.Center);
+						int type = ModContent.ProjectileType<DesertStandardProj>();
+						Projectile newProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(Item), projectile.Center, Vector2.UnitY * -10f, type, (int)guardian.GetGuardianDamage(Item.damage * 0.35f), 1f, player.whoAmI);
+						newProj.CritChance = guardian.GetGuardianCrit();
+						break;
+					}
+				}
+			}
+		}
+
 		public override void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
 			SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, projectile.Center);
+			int type = ModContent.ProjectileType<DesertStandardProj>();
+			Projectile newProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(Item), target.Center, Vector2.UnitY * -10f, type, (int)guardian.GetGuardianDamage(Item.damage * 0.35f), 1f, player.whoAmI, target.whoAmI);
+			newProj.CritChance = guardian.GetGuardianCrit();
 		}
 	}
 }

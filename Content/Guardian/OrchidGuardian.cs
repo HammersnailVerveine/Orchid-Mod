@@ -69,6 +69,7 @@ namespace OrchidMod
 		public static int GuardianRechargeTime = 600;
 
 		public int GetGuardianDamage(float damage) => (int)(Player.GetDamage<GuardianDamageClass>().ApplyTo(damage) + Player.GetDamage(DamageClass.Generic).ApplyTo(damage) - damage);
+		public int GetGuardianCrit(int addedCrit = 0) => (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>() + addedCrit);
 
 		public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
 		{
@@ -275,7 +276,7 @@ namespace OrchidMod
 							float damage = (damageDone * 0.5f);
 							if (damage > 20) damage = 20;
 							Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), target.Center, Vector2.UnitY * -10f, type, (int)damage, 1f, Player.whoAmI, target.whoAmI);
-							projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+							projectile.CritChance = GetGuardianCrit();
 						}
 					}
 				}
