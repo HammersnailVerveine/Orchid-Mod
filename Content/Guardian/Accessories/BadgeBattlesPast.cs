@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Terraria;
 using Terraria.ID;
@@ -28,6 +29,12 @@ namespace OrchidMod.Content.Guardian.Accessories
 			{
 				var guardian = player.GetModPlayer<OrchidGuardian>();
 				Projectile proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+				if (proj.localAI[0] - proj.ai[0] < 2)
+				{
+					damageIncrease = 0f;
+					timer = 0;
+				}
+
 				if (proj.ai[0] > 0)
 				{
 					damageIncrease += 0.008f;
