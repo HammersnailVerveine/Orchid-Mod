@@ -3206,6 +3206,15 @@ Items: {
 		Tooltip: Transforms into a Foxfire spirit, gaining unique abilities
 	}
 
+	PredatorHarpy: {
+		DisplayName: Harpy Effigy
+		LeftClick: Shoots a sharp feather
+		RightClick: Dashes horizontally, releasing a barrage of feathers
+		Jump: Flaps your wings up to 3 times, gaining height
+		Passive: Every jump or dash improves your next attack
+		Tooltip: Transforms into a Harpy, gaining unique abilities
+	}
+
 	ShapeshifterShampoo: {
 		DisplayName: Premium Critter Shampoo
 		Tooltip:
