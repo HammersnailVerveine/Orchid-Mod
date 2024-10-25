@@ -28,6 +28,7 @@ using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Guardian.Weapons.Standards;
 using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.General.Armor.Vanity;
+using OrchidMod.Content.Shapeshifter.Accessories;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -73,6 +74,11 @@ namespace OrchidMod.Common.Global.NPCs
 						shop.Add(ItemType<EmpressPlateHead>(), [Condition.DownedEmpressOfLight, Condition.InHallow]);
 						shop.Add(ItemType<EmpressPlateChest>(), [Condition.DownedEmpressOfLight, Condition.InHallow]);
 						shop.Add(ItemType<EmpressPlateLegs>(), [Condition.DownedEmpressOfLight, Condition.InHallow]);
+					}
+					break;
+				case NPCID.BestiaryGirl:
+					{
+						shop.Add(ItemType<ShapeshifterShampoo>(), [Condition.BestiaryFilledPercent(30)]);
 					}
 					break;
 			}
