@@ -3513,6 +3513,7 @@ Projectiles: {
 	GuardianHorizonLanceAnchor.DisplayName: Guardian Horizon Lance Anchor
 	GuardianHorizonLanceProj.DisplayName: Guardian Horizon Lance Proj
 	GuardianHorizonLanceProjAlt.DisplayName: Guardian Horizon Lance Proj Alt
+	GuardianHorizonLanceCounter.DisplayName: Guardian Horizon Lance Counter
 }
 
 Configs: {

@@ -65,7 +65,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact, player.Center);
 			info.DamageSource.TryGetCausingEntity(out Entity entity);
 
-			Vector2 offset = Vector2.UnitY * 70f;
+			Vector2 offset = Vector2.UnitY;
 
 			if (entity != null)
 			{
@@ -76,7 +76,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 				if (entity is Projectile projectile)
 				{
-					offset = offset.RotatedBy((projectile.Center - player.Center).ToRotation() - MathHelper.PiOver2);
+					//offset = offset.RotatedBy((projectile.Center - player.Center).ToRotation() - MathHelper.PiOver2);
+					offset = Vector2.Normalize(-projectile.velocity);
 				}
 			}
 			else 
@@ -84,10 +85,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 				offset = offset.RotatedByRandom(MathHelper.Pi);
 			}
 
-			var projectileType = ModContent.ProjectileType<GuardianHorizonLanceProjAlt>();
+			var projectileType = ModContent.ProjectileType<GuardianHorizonLanceCounter>();
 			int damage = guardian.GetGuardianDamage(Item.damage);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center + offset, offset * 0.0001f, projectileType, damage, Item.knockBack, player.whoAmI, offset.ToRotation());
-			newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center + offset * 32f, offset, projectileType, damage, Item.knockBack, player.whoAmI);
+			newProjectile.CritChance = guardian.GetGuardianCrit(Item.crit);
 		}
 
 		public override bool WeaponPrefix() => true;
