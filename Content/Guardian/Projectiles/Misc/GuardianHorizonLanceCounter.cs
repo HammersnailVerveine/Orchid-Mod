@@ -6,18 +6,20 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 using Terraria.DataStructures;
 using OrchidMod.Content.Guardian.Misc;
+using System.Collections.Generic;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Misc
 {
     public class GuardianHorizonLanceCounter : OrchidModGuardianProjectile
     {
         const int maxTime = 30;
+		public List<int> HitNPCs;
 
-        public override void SafeSetDefaults()
+		public override void SafeSetDefaults()
         {
             Projectile.timeLeft = maxTime;
-            Projectile.damage = 10;
-        }
+			HitNPCs = new List<int>();
+		}
 
         ref float TargetRotation => ref Projectile.ai[0];
         ref float RotationSpeed => ref Projectile.ai[1];
@@ -68,10 +70,11 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
             {
                 foreach (NPC npc in Main.npc)
                 {
-                    if (IsValidTarget(npc) && Collision.CheckAABBvLineCollision(npc.position, new Vector2(npc.width, npc.height), Projectile.Center, tip))
+                    if (IsValidTarget(npc) && Collision.CheckAABBvLineCollision(npc.position, new Vector2(npc.width, npc.height), Projectile.Center, tip) && !HitNPCs.Contains(npc.whoAmI))
                     {
                         Main.player[Projectile.owner].ApplyDamageToNPC(npc, Projectile.damage, 0f, Projectile.direction, Main.rand.Next(100) < Projectile.CritChance, ModContent.GetInstance<GuardianDamageClass>());
-                    }
+						HitNPCs.Add(npc.whoAmI);
+					}
 				}
             }
         }

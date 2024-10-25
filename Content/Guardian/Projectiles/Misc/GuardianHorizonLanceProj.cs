@@ -26,7 +26,6 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 			Projectile.aiStyle = -1;
 			Projectile.timeLeft = 900;
 			Projectile.scale = 1f;
-			Projectile.alpha = 96;
 			Projectile.penetrate = 1;
 			Projectile.alpha = 255;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;

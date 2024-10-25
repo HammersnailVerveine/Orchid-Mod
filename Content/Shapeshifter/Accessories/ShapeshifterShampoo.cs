@@ -16,10 +16,12 @@ namespace OrchidMod.Content.Shapeshifter.Accessories
 			Item.vanity = true;
 		}
 
+		/*
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
 			shapeshifter.ShapeshifterShampoo = true;
 		}
+		*/
 	}
 }

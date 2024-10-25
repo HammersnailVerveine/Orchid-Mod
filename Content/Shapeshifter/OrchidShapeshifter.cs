@@ -25,7 +25,6 @@ namespace OrchidMod
 
 		public int ShapeshifterSageFoxSpeed = 0;
 
-
 		// Dynamic gameplay and UI fields
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)

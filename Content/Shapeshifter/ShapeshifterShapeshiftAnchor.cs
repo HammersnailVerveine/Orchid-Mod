@@ -350,9 +350,24 @@ namespace OrchidMod.Content.Shapeshifter
 					spriteBatch.Begin(spriteBatchSnapshot);
 				}
 
-				for (int i = 0; i < player.armor.Length; i ++)
+				/*
+				if (player.GetModPlayer<OrchidShapeshifter>().ShapeshifterShampoo)
 				{
 					Main.instance.PrepareDrawnEntityDrawing(Projectile, player.cMinion, null);
+				}
+				*/
+
+				for (int i = 0; i < player.armor.Length; i++)
+				{
+					if (player.armor[i].type == ModContent.ItemType<ShapeshifterShampoo>())
+					{
+						if (i > 9) i -= 10;
+						if (player.dye[i].type != ItemID.None)
+						{
+							Main.instance.PrepareDrawnEntityDrawing(Projectile, GameShaders.Armor.GetShaderIdFromItemId(player.dye[i].type), null);
+						}
+						break;
+					}
 				}
 
 				//Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
