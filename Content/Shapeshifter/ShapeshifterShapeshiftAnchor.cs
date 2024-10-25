@@ -1,11 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Utilities;
 using ReLogic.Content;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -348,15 +350,20 @@ namespace OrchidMod.Content.Shapeshifter
 					spriteBatch.Begin(spriteBatchSnapshot);
 				}
 
+				for (int i = 0; i < player.armor.Length; i ++)
+				{
+					Main.instance.PrepareDrawnEntityDrawing(Projectile, player.cMinion, null);
+				}
+
 				//Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
 				//GameShaders.Misc["OrchidMod:HorizonGlow"].Apply();
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
-				spriteBatch.Draw(TextureShapeshift, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+				Main.EntitySpriteDraw(TextureShapeshift, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 
 				if (TextureShapeshiftGlow != null)
 				{
-					spriteBatch.Draw(TextureShapeshiftGlow, drawPosition, drawRectangle, player.GetImmuneAlphaPure(Color.White, 0f), Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					Main.EntitySpriteDraw(TextureShapeshiftGlow, drawPosition, drawRectangle, player.GetImmuneAlphaPure(Color.White, 0f), Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
 

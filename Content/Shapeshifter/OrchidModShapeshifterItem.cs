@@ -25,12 +25,6 @@ namespace OrchidMod.Content.Shapeshifter
 
 		protected override bool CloneNewInstances => true;
 
-		public override bool CanUseItem(Player player)
-		{
-			//OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
-			return base.CanUseItem(player);
-		}
-
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");

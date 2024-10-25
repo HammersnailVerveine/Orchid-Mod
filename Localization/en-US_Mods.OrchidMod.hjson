@@ -3205,6 +3205,15 @@ Items: {
 		Passive: Shapeshifting in and out gives decaying movement speed
 		Tooltip: Transforms into a Foxfire spirit, gaining unique abilities
 	}
+
+	ShapeshifterShampoo: {
+		DisplayName: Premium Critter Shampoo
+		Tooltip:
+			'''
+			Applies dye to shapeshifts
+			'Such quality, you can't help but keep it for yourself'
+			'''
+	}
 }
 
 NPCs: {
