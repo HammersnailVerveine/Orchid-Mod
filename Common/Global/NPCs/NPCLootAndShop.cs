@@ -29,6 +29,7 @@ using OrchidMod.Content.Guardian.Weapons.Standards;
 using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.General.Armor.Vanity;
 using OrchidMod.Content.Shapeshifter.Accessories;
+using OrchidMod.Content.Shapeshifter.Misc;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -57,6 +58,7 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.Dryad:
 					{
 						// shop.Add(ItemType<DryadsGift>());
+						shop.Add(ItemType<ShapeshifterBlankEffigy>());
 					}
 					break;
 				case NPCID.Merchant:

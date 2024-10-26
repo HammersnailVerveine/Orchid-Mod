@@ -3185,7 +3185,7 @@ Items: {
 		RightClick: Marks enemies below you, they take increased damage
 		Jump: Quickly fly up before hovering for a short duration
 		Passive: Increases night vision
-		Tooltip: Transforms into a Peculiar Owl, gaining unique abilities
+		Tooltip: Transforms you into a Peculiar Owl, gaining unique abilities
 	}
 
 	WardenTortoise: {
@@ -3194,7 +3194,7 @@ Items: {
 		RightClick: Go into your shell, negating incoming damage
 		Jump: Increases movement speed, but prevents attacking
 		Passive: Damage taken reduced by 20%
-		Tooltip: Transforms into a Snapjaw, gaining unique abilities
+		Tooltip: Transforms you into a Snapjaw, gaining unique abilities
 	}
 
 	PredatorIceFox: {
@@ -3203,7 +3203,7 @@ Items: {
 		RightClick: Become ethereal, damaging enemies you pass through
 		Jump: Blink towards your cursor, conjuring 3 foxfire flames
 		Passive: Shapeshifting in and out gives decaying movement speed
-		Tooltip: Transforms into a Foxfire spirit, gaining unique abilities
+		Tooltip: Transforms you into a Fox spirit, gaining unique abilities
 	}
 
 	PredatorHarpy: {
@@ -3212,7 +3212,7 @@ Items: {
 		RightClick: Dashes horizontally, releasing a barrage of feathers
 		Jump: Flaps your wings up to 3 times, gaining height
 		Passive: Every jump or dash improves your next attack
-		Tooltip: Transforms into a Harpy, gaining unique abilities
+		Tooltip: Transforms you into a Harpy, gaining unique abilities
 	}
 
 	ShapeshifterShampoo: {
@@ -3222,6 +3222,11 @@ Items: {
 			Applies dye to shapeshifts
 			'Such quality, you can't help but keep it for yourself'
 			'''
+	}
+
+	ShapeshifterBlankEffigy: {
+		DisplayName: Humanoid Effigy
+		Tooltip: Transforms you into a Human ... supposedly
 	}
 }
 

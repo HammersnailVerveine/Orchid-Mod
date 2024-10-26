@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Shapeshifter.Dusts;
+using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
 using Terraria;
 using Terraria.Audio;
@@ -20,7 +22,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		public override void SafeSetDefaults()
 		{
 			Item.width = 32;
-			Item.height = 32;
+			Item.height = 30;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Critter;
@@ -345,6 +347,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				dust.velocity.Y = 2f;
 				dust.customData = Main.rand.Next(314);
 			}
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient<ShapeshifterBlankEffigy>();
+			recipe.AddIngredient(ItemID.Feather, 8);
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.Register();
 		}
 	}
 }
