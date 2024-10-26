@@ -23,7 +23,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.height = 32;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
-			Item.UseSound = SoundID.Zombie111;
+			Item.UseSound = SoundID.Critter;
 			Item.useTime = 30;
 			Item.shootSpeed = 17.5f;
 			Item.knockBack = 0.5f;
