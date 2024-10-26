@@ -167,13 +167,14 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public float GetSpeedMult(Player player)
 		{
-			if (player.moveSpeed > 0.5f)
+			if (player.moveSpeed > 0.75f)
 			{
-				return 1f + (float)Math.Log10(player.moveSpeed) * 2.5f;
+				//Main.NewText(1f + (float)Math.Log10(player.moveSpeed) * 2f + " --- " + player.moveSpeed);
+				return 1f + (float)Math.Log10(player.moveSpeed) * 2f;
 			}
 			else
 			{
-				return 0.25f;
+				return 0.75f;
 			}
 		} 
 
