@@ -123,9 +123,7 @@ namespace OrchidMod.Content.Shapeshifter
 			player.itemTime = 60;
 			player.itemAnimation = 60;
 			int projectileType = ModContent.ProjectileType<ShapeshifterShapeshiftAnchor>();
-			var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
-
-			var proj = Main.projectile[index];
+			Projectile proj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, player.velocity, projectileType, 0, 0f, player.whoAmI);
 			if (proj.ModProjectile is not ShapeshifterShapeshiftAnchor anchor)
 			{
 				proj.Kill();
