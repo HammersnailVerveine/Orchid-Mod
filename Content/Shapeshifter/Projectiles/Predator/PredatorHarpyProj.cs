@@ -59,7 +59,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			float colorMult = 1f;
-			if (Projectile.timeLeft < 5) colorMult *= Projectile.timeLeft / 5f;
+			if (Projectile.timeLeft < 7) colorMult *= Projectile.timeLeft / 7f;
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{

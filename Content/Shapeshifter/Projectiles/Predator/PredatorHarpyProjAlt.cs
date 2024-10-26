@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
 			Projectile.timeLeft = 40;
-			Projectile.scale = 1f;
+			Projectile.scale = 0.8f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = 3;
 			Projectile.alpha = 255;
@@ -91,7 +91,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 				Projectile.ai[2] = target.position.Y - Projectile.position.Y;
 			}
 			Projectile.damage = (int)(Projectile.damage * 0.7f);
-			Projectile.timeLeft = 65;
+			Projectile.timeLeft = 70;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -106,7 +106,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			float colorMult = 1f;
-			if (Projectile.timeLeft < 5) colorMult *= Projectile.timeLeft / 5f;
+			if (Projectile.timeLeft < 8) colorMult *= Projectile.timeLeft / 8f;
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
