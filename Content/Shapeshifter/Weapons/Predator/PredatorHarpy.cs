@@ -143,6 +143,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			// MISC EFFECTS
 
+			float speedMult = GetSpeedMult(player);
 			player.fallStart = (int)(player.position.Y / 16f);
 			player.fallStart2 = (int)(player.position.Y / 16f);
 			player.nightVision = true;
@@ -184,14 +185,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				}
 			}
 
-			float speedMult = player.moveSpeed;
-
 			if (anchor.Projectile.ai[0] < -30)
 			{ // Jump
 				Jumps--;
 				anchor.Frame = 3;
 				anchor.Projectile.ai[0] = -30;
-				intendedVelocity.Y = -8f;
+				intendedVelocity.Y = -7f * speedMult;
 				SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 
 				for (int i = 0; i < 2; i++)
@@ -271,8 +270,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				intendedVelocity.X *= 0.7f;
 			}
 
-			if (Collision.TileCollision(projectile.position, Vector2.UnitY * 8f, projectile.width, projectile.height, anchor.IsInputDown, anchor.IsInputDown, (int)player.gravDir) != Vector2.UnitY * 8f)
-			{ // Lands when near the ground
+			if (IsGrounded(projectile, player, 8f, anchor.IsInputDown, anchor.IsInputDown))
+			{ // Lands when near the groun
 				RightClickLanding = true;
 				Landed = true;
 				anchor.Timespent = 0;
@@ -284,7 +283,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 					{
 						anchor.Frame = 3;
 						anchor.Projectile.ai[0] = -30;
-						intendedVelocity.Y = -5f;
+						intendedVelocity.Y = -5f * speedMult;
 						anchor.NeedNetUpdate = true;
 						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 

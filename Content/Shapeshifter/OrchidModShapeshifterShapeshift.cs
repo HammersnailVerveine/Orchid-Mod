@@ -165,6 +165,18 @@ namespace OrchidMod.Content.Shapeshifter
 
 		// Custom methods
 
+		public float GetSpeedMult(Player player)
+		{
+			if (player.moveSpeed > 0.5f)
+			{
+				return 1f + (float)Math.Log10(player.moveSpeed) * 2.5f;
+			}
+			else
+			{
+				return 0.25f;
+			}
+		} 
+
 		public void FinalVelocityCalculations(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true, bool preventDownInput = false)
 		{ // Prevents the player from phashing through tiles after all othe velocity calculations
 			if (stepUpDown)
@@ -267,14 +279,14 @@ namespace OrchidMod.Content.Shapeshifter
 			return false;
 		}
 
-		public bool IsGrounded(Projectile projectile, Player player, float distanceToGround = 32f)
+		public bool IsGrounded(Projectile projectile, Player player, float distanceToGround = 32f, bool fall1 = false, bool fall2 = false)
 		{ // Returns true if the player is below "distanceToGround" from a solid tile
 			Vector2 intendedVelocity = Vector2.UnitY * distanceToGround * 0.1f;
 			Vector2 finalVelocity = Vector2.Zero;
 
 			for (int j = 0; j < 10; j++)
 			{
-				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, fall1, fall2, (int)player.gravDir);
 				if (Math.Abs(finalVelocity.Y - intendedVelocity.Y * (j + 1)) > 0.001f)
 				{ // A tile was hit on the Y axis
 					return true;
