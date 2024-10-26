@@ -3208,7 +3208,7 @@ Items: {
 
 	PredatorHarpy: {
 		DisplayName: Harpy Effigy
-		LeftClick: Shoots a sharp feather
+		LeftClick: Shoots razor sharp feathers
 		RightClick: Dashes horizontally, releasing a barrage of feathers
 		Jump: Flaps your wings up to 3 times, gaining height
 		Passive: Every jump or dash improves your next attack
@@ -3532,6 +3532,8 @@ Projectiles: {
 	GuardianHorizonLanceProj.DisplayName: Guardian Horizon Lance Proj
 	GuardianHorizonLanceProjAlt.DisplayName: Guardian Horizon Lance Proj Alt
 	GuardianHorizonLanceCounter.DisplayName: Guardian Horizon Lance Counter
+	PredatorHarpyProj.DisplayName: Predator Harpy Proj
+	PredatorHarpyProjAlt.DisplayName: Predator Harpy Proj Alt
 }
 
 Configs: {

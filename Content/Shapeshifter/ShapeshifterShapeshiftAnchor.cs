@@ -224,7 +224,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public void CheckInputs(Player player)
 		{
 
-			if (!IsLeftClick != Main.mouseLeft)
+			if (IsLeftClick != Main.mouseLeft)
 			{
 				IsLeftClick = Main.mouseLeft;
 				NeedNetUpdate = true;
@@ -378,7 +378,8 @@ namespace OrchidMod.Content.Shapeshifter
 
 				if (TextureShapeshiftGlow != null)
 				{
-					Main.EntitySpriteDraw(TextureShapeshiftGlow, drawPosition, drawRectangle, player.GetImmuneAlphaPure(Color.White, 0f), Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					color = shapeshifterItem.GetColorGlow(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
+					Main.EntitySpriteDraw(TextureShapeshiftGlow, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
 

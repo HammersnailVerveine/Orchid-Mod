@@ -7,9 +7,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
+namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 {
-	public class SageOwlProj : OrchidModShapeshifterProjectile
+	public class PredatorHarpyProj : OrchidModShapeshifterProjectile
 	{
 		private static Texture2D TextureMain;
 		public List<Vector2> OldPosition;
@@ -21,10 +21,10 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Projectile.height = 12;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 45;
+			Projectile.timeLeft = 30;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
-			Projectile.penetrate = 3;
+			Projectile.penetrate = 1;
 			Projectile.alpha = 255;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			OldPosition = new List<Vector2>();
@@ -33,16 +33,18 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 		public override void AI()
 		{
+			Projectile.rotation = Projectile.velocity.ToRotation();
+
 			OldPosition.Add(Projectile.Center);
 			OldRotation.Add(Projectile.rotation);
-
-			Projectile.rotation = Projectile.velocity.ToRotation();
 
 			if (OldPosition.Count > 10)
 			{
 				OldPosition.RemoveAt(0);
 				OldRotation.RemoveAt(0);
 			}
+
+			Projectile.velocity *= 0.95f;
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -57,7 +59,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			float colorMult = 1f;
-			if (Projectile.timeLeft < 7) colorMult *= Projectile.timeLeft / 7f;
+			if (Projectile.timeLeft < 5) colorMult *= Projectile.timeLeft / 5f;
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
