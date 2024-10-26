@@ -89,6 +89,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 				Projectile.ai[0] = target.whoAmI;
 				Projectile.ai[1] = target.position.X - Projectile.position.X;
 				Projectile.ai[2] = target.position.Y - Projectile.position.Y;
+				Projectile.tileCollide = false;
 			}
 			Projectile.damage = (int)(Projectile.damage * 0.7f);
 			Projectile.timeLeft = 70;
