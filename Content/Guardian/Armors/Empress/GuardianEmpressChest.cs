@@ -14,7 +14,7 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 			Item.height = 18;
 			Item.value = Item.sellPrice(0, 5, 10, 0);
 			Item.rare = ItemRarityID.Yellow;
-			Item.defense = 30;
+			Item.defense = 25;
 		}
 
 		public override void UpdateEquip(Player player)

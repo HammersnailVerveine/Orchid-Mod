@@ -15,7 +15,7 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 			Item.height = 22;
 			Item.value = Item.sellPrice(0, 4, 30, 0);
 			Item.rare = ItemRarityID.Yellow;
-			Item.defense = 25;
+			Item.defense = 24;
 			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
