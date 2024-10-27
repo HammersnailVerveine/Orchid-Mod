@@ -98,7 +98,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			anchor.LeftCLickCooldown = Item.useTime;
 			anchor.Projectile.ai[0] = 10;
-			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 			anchor.NeedNetUpdate = true;
 
 			FeatherDust(projectile, 2);
@@ -111,11 +110,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			// adjust shapeshift anchor fields
 			projectile.velocity.Y = 0f;
 			anchor.RightCLickCooldown = Item.useTime * 4;
-			anchor.Projectile.ai[2] = 30;
-			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+			projectile.ai[2] = 30;
 			anchor.NeedNetUpdate = true;
 			RightClickLanding = false;
 			Reinforced = true;
+			
+			if (anchor.LeftCLickCooldown < 10)
+			{
+				anchor.LeftCLickCooldown = 10;
+			}
 
 			if (anchor.IsInputLeft && !anchor.IsInputRight)
 			{ // Left movement
@@ -125,6 +128,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			{ // Right movement
 				projectile.direction = 1;
 			}
+
+			projectile.ai[1] = projectile.direction;
 
 			SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, projectile.Center);
 			for (int i = 0; i < 4; i++)
@@ -213,6 +218,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			// Normal movement
 			if (projectile.ai[2] > 0)
 			{ // Right click Dash
+				if (projectile.ai[2] > 27f && !IsLocalPlayer(player))
+				{
+					projectile.direction = (int)projectile.ai[1];
+				}
+
 				anchor.Frame = 1;
 				anchor.Timespent = 0;
 				intendedVelocity.X = 10f * speedMult * projectile.direction;
@@ -312,7 +322,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				else if (anchor.Projectile.ai[0] > 0)
 				{
 					anchor.Frame = 7;
-					projectile.direction = (int)anchor.Projectile.ai[1];
+					projectile.direction = (int)projectile.ai[1];
 					projectile.spriteDirection = projectile.direction;
 				}
 				else if (anchor.Projectile.ai[0] < -30)
