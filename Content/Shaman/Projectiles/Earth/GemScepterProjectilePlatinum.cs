@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Shaman;
 using OrchidMod.Content.Shaman.Projectiles;
 using System;
 using System.Collections.Generic;
@@ -9,40 +8,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Shaman.Weapons
+namespace OrchidMod.Content.Shaman.Projectiles.Earth
 {
-	public class GoldScepter : OrchidModShamanItem
-	{
-		public override void SafeSetDefaults()
-		{
-			Item.damage = 28;
-			Item.width = 36;
-			Item.height = 38;
-			Item.useTime = 50;
-			Item.useAnimation = 50;
-			Item.knockBack = 4.75f;
-			Item.rare = ItemRarityID.Blue;
-			Item.value = Item.sellPrice(0, 0, 40, 0);
-			Item.UseSound = SoundID.Item45;
-			Item.autoReuse = true;
-			Item.shootSpeed = 9f;
-			Item.shoot = ModContent.ProjectileType<GemScepterProjectileGold>();
-			this.Element = ShamanElement.EARTH;
-			CatalystMovement = ShamanSummonMovement.FLOATABOVE;
-		}
-		/*
-		public override void AddRecipes() => CreateRecipe()
-			.AddIngredient(ItemID.Ruby, 8)
-			.AddIngredient(ItemID.GoldBar, 10)
-			.AddTile(TileID.Anvils)
-			.Register();
-		*/
-	}
-}
-
-namespace OrchidMod.Content.Shaman.Projectiles
-{
-	public class GemScepterProjectileGold : OrchidModShamanProjectile
+	public class GemScepterProjectilePlatinum : OrchidModShamanProjectile
 	{
 		private static Texture2D TextureMain;
 
@@ -69,7 +37,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 
 			if (Main.rand.NextBool(5))
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WhiteTorch);
 				Main.dust[dust].velocity /= 3f;
 				Main.dust[dust].scale = 2f;
 				Main.dust[dust].noGravity = true;
@@ -106,7 +74,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
 			int type = ModContent.ProjectileType<GemScepterBreak>();
-			Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner, 6f);
+			Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner, 7f);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -128,4 +96,3 @@ namespace OrchidMod.Content.Shaman.Projectiles
 		}
 	}
 }
-

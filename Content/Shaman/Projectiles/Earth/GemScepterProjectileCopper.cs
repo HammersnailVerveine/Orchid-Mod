@@ -9,39 +9,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Shaman.Weapons
+namespace OrchidMod.Content.Shaman.Projectiles.Earth
 {
-	public class TinScepter : OrchidModShamanItem
-	{
-		public override void SafeSetDefaults()
-		{
-			Item.damage = 16;
-			Item.width = 36;
-			Item.height = 38;
-			Item.useTime = 70;
-			Item.useAnimation = 70;
-			Item.knockBack = 3f;
-			Item.rare = ItemRarityID.White;
-			Item.value = Item.sellPrice(0, 0, 6, 0);
-			Item.UseSound = SoundID.Item45;
-			Item.shootSpeed = 6.5f;
-			Item.shoot = ModContent.ProjectileType<GemScepterProjectileTin>();
-			this.Element = ShamanElement.EARTH;
-			CatalystMovement = ShamanSummonMovement.FLOATABOVE;
-		}
-		/*
-		public override void AddRecipes() => CreateRecipe()
-			.AddIngredient(ItemID.Topaz, 8)
-			.AddIngredient(ItemID.TinBar, 10)
-			.AddTile(TileID.Anvils)
-			.Register();
-		*/
-	}
-}
-
-namespace OrchidMod.Content.Shaman.Projectiles
-{
-	public class GemScepterProjectileTin : OrchidModShamanProjectile
+	public class GemScepterProjectileCopper : OrchidModShamanProjectile
 	{
 		private static Texture2D TextureMain;
 
@@ -68,7 +38,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 
 			if (Main.rand.NextBool(5))
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.YellowTorch);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.PurpleTorch);
 				Main.dust[dust].velocity /= 3f;
 				Main.dust[dust].scale = 2f;
 				Main.dust[dust].noGravity = true;
@@ -105,7 +75,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
 			int type = ModContent.ProjectileType<GemScepterBreak>();
-			Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner, 3f);
+			Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner, 2f);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

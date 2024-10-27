@@ -11,12 +11,7 @@ using OrchidMod.Content.Gambler.Weapons.Cards;
 using OrchidMod.Content.Gambler.Weapons.Chips;
 using OrchidMod.Content.Gambler.Weapons.Dice;
 using OrchidMod.Content.Shaman.Accessories;
-using OrchidMod.Content.Shaman.Misc.Thorium;
 using OrchidMod.Content.Shaman.Weapons;
-using OrchidMod.Content.Shaman.Weapons.Hardmode;
-using OrchidMod.Content.Shaman.Weapons.Thorium;
-using OrchidMod.Content.Shaman.Weapons.Thorium.Hardmode;
-using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -34,8 +29,8 @@ using OrchidMod.Content.General.Melee;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
-using OrchidMod.Content.Alchemist.Debuffs;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
+using OrchidMod.Content.Shaman.Weapons.Fire;
 
 namespace OrchidMod.Common.Global.Items
 {

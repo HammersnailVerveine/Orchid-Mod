@@ -25,7 +25,7 @@ namespace OrchidMod
 				{
 						ModContent.ItemType<Content.Gambler.Weapons.Cards.QueenBeeCard>(),
 						ModContent.ItemType<Content.Gambler.Weapons.Dice.HoneyDie>(),
-						ModContent.ItemType<Content.Shaman.Weapons.BeeSeeker>(),
+						ModContent.ItemType<Content.Shaman.Weapons.Water.BeeSeeker>(),
 						ModContent.ItemType<Content.Shaman.Accessories.WaxyVial>(),
 						ModContent.ItemType<Content.Alchemist.Weapons.Air.QueenBeeFlask>()
 				}

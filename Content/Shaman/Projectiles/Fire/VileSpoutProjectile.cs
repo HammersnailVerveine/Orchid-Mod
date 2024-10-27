@@ -9,68 +9,9 @@ using OrchidMod.Content.Shaman.Projectiles;
 using OrchidMod.Utilities;
 using OrchidMod.Common.ModObjects;
 
-namespace OrchidMod.Content.Shaman.Weapons
+namespace OrchidMod.Content.Shaman.Projectiles.Fire
 {
-	public class SpineScepter : OrchidModShamanItem
-	{
-		public override void SafeSetDefaults()
-		{
-			Item.damage = 20;
-			Item.width = 42;
-			Item.height = 42;
-			Item.useTime = 25;
-			Item.useAnimation = 25;
-			Item.knockBack = 3.15f;
-			Item.rare = ItemRarityID.Blue;
-			Item.value = Item.sellPrice(0, 0, 27, 0);
-			Item.UseSound = SoundID.Item43;
-			Item.autoReuse = true;
-			Item.shootSpeed = 7f;
-			Item.shoot = ModContent.ProjectileType<SpineScepterProjectile>();
-			Element = ShamanElement.FIRE;
-			CatalystMovement = ShamanSummonMovement.FLOATABOVE;
-		}
-
-		public override bool SafeShoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			OrchidShaman shaman = player.GetModPlayer<OrchidShaman>();
-			int bounces = 1;
-			if (shaman.CountShamanicBonds() > 0) bounces += 2;
-			if (shaman.CountShamanicBonds() > 1) bounces += 2;
-			NewShamanProjectile(player, source, position, velocity, type, damage, knockback, ai1 : bounces);
-			return false;
-		}
-
-		public override void CatalystSummonAI(Projectile projectile, int timeSpent)
-		{
-			if (timeSpent % (Item.useTime * 3) == 0)
-			{
-				Vector2 target = OrchidModProjectile.GetNearestTargetPosition(projectile);
-				if (target != Vector2.Zero)
-				{
-					Vector2 velocity = target - projectile.Center;
-					velocity.Normalize();
-					velocity *= Item.shootSpeed;
-					OrchidShaman shaman = Main.player[projectile.owner].GetModPlayer<OrchidShaman>();
-					int bounces = 1;
-					if (shaman.CountShamanicBonds() > 0) bounces += 2;
-					if (shaman.CountShamanicBonds() > 1) bounces += 2;
-					NewShamanProjectileFromProjectile(projectile, velocity, Item.shoot, projectile.damage, projectile.knockBack, ai1: bounces);
-				}
-			}
-		}
-		/*
-		public override void AddRecipes() => CreateRecipe()
-			.AddIngredient(ItemID.CrimtaneBar, 10)
-			.AddTile(TileID.Anvils)
-			.Register();
-		*/
-	}
-}
-
-namespace OrchidMod.Content.Shaman.Projectiles
-{
-	public class SpineScepterProjectile : OrchidModShamanProjectile
+	public class VileSpoutProjectile : OrchidModShamanProjectile
 	{
 		private static Texture2D TextureMain;
 
@@ -109,7 +50,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 
 			if (Main.rand.NextBool(10))
 			{
-				Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.CrimsonTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
+				Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.CorruptTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
 				dust.velocity = dust.velocity * 0.25f + Projectile.velocity * 0.2f;
 				dust.noGravity = true;
 			}
@@ -177,7 +118,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
 				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
-				Color color = new Color(255, 60, 0);
+				Color color = new Color(113, 48, 255);
 				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.1f * i * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * i * 0.175f, SpriteEffects.None, 0f); ;
 				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.05f * i * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * i * 0.12f, SpriteEffects.None, 0f);
 			}
@@ -190,4 +131,3 @@ namespace OrchidMod.Content.Shaman.Projectiles
 		}
 	}
 }
-

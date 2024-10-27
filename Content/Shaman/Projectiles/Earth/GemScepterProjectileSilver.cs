@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Content.Shaman;
 using OrchidMod.Content.Shaman.Projectiles;
 using System;
 using System.Collections.Generic;
@@ -8,40 +9,9 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Shaman.Weapons
+namespace OrchidMod.Content.Shaman.Projectiles.Earth
 {
-	public class PlatinumScepter : OrchidModShamanItem
-	{
-		public override void SafeSetDefaults()
-		{
-			Item.damage = 32;
-			Item.width = 36;
-			Item.height = 38;
-			Item.useTime = 46;
-			Item.useAnimation = 46;
-			Item.knockBack = 5.5f;
-			Item.rare = ItemRarityID.Green;
-			Item.value = Item.sellPrice(0, 0, 60, 0);
-			Item.UseSound = SoundID.Item45;
-			Item.autoReuse = true;
-			Item.shootSpeed = 9.5f;
-			Item.shoot = ModContent.ProjectileType<GemScepterProjectilePlatinum>();
-			this.Element = ShamanElement.EARTH;
-			CatalystMovement = ShamanSummonMovement.FLOATABOVE;
-		}
-		/*
-		public override void AddRecipes() => CreateRecipe()
-			.AddIngredient(ItemID.Diamond, 8)
-			.AddIngredient(ItemID.PlatinumBar, 10)
-			.AddTile(TileID.Anvils)
-			.Register();
-		*/
-	}
-}
-
-namespace OrchidMod.Content.Shaman.Projectiles
-{
-	public class GemScepterProjectilePlatinum : OrchidModShamanProjectile
+	public class GemScepterProjectileSilver : OrchidModShamanProjectile
 	{
 		private static Texture2D TextureMain;
 
@@ -68,7 +38,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 
 			if (Main.rand.NextBool(5))
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.WhiteTorch);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueTorch);
 				Main.dust[dust].velocity /= 3f;
 				Main.dust[dust].scale = 2f;
 				Main.dust[dust].noGravity = true;
@@ -105,7 +75,7 @@ namespace OrchidMod.Content.Shaman.Projectiles
 		{
 			SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
 			int type = ModContent.ProjectileType<GemScepterBreak>();
-			Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner, 7f);
+			Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, Projectile.damage, Projectile.knockBack, Projectile.owner, 4f);
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
