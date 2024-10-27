@@ -1,10 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Shaman.Projectiles;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shaman.Projectiles.Fire
@@ -19,8 +17,8 @@ namespace OrchidMod.Content.Shaman.Projectiles.Fire
 
 		public override void SafeSetDefaults()
 		{
-			Projectile.width = 4;
-			Projectile.height = 4;
+			Projectile.width = 8;
+			Projectile.height = 8;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
 			Projectile.timeLeft = 60;
@@ -78,7 +76,7 @@ namespace OrchidMod.Content.Shaman.Projectiles.Fire
 			else Projectile.rotation = Projectile.velocity.ToRotation();
 
 			OldPosition.Add(Projectile.Center);
-			OldRotation.Add(Projectile.rotation);
+			OldRotation.Add(MathHelper.Pi);
 
 			if (OldPosition.Count > 10)
 			{
@@ -86,16 +84,21 @@ namespace OrchidMod.Content.Shaman.Projectiles.Fire
 				OldRotation.RemoveAt(0);
 			}
 
-			if (Main.rand.NextBool(4))
+			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				int dustType = Main.rand.Next(3);
-				if (dustType == 0) dustType = 15;
-				if (dustType == 1) dustType = 57;
-				if (dustType == 2) dustType = 58;
-
-				Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dustType, Scale : Main.rand.NextFloat(1f, 1.4f));
-				dust.velocity = dust.velocity * 0.25f + Projectile.velocity * 0.2f;
+				Vector2 pos = OldPosition[i];
+				pos += Vector2.Normalize(Projectile.velocity).RotatedByRandom(1f);
+				OldPosition[i] = pos;
+				OldRotation[i] += Main.rand.NextFloat();
 			}
+
+			int dustType = Main.rand.Next(3);
+			if (dustType == 0) dustType = 15;
+			if (dustType == 1) dustType = 57;
+			if (dustType == 2) dustType = 58;
+
+			Dust dust = Dust.NewDustDirect(Projectile.position - new Vector2(4, 4f), Projectile.width * 2, Projectile.height * 2, dustType, Scale: Main.rand.NextFloat(0.5f, 0.8f));
+			dust.velocity = dust.velocity * 0.25f + Projectile.velocity * 0.2f;
 		}
 
 		public override bool? CanHitNPC(NPC target)
@@ -137,11 +140,11 @@ namespace OrchidMod.Content.Shaman.Projectiles.Fire
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
-				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
+				Vector2 drawPosition = OldPosition[i] - Main.screenPosition + Projectile.velocity * 2f;
 				Color color = new Color(125, 155, 255);
 				if (Projectile.ai[1] == 2) color = new Color(200, 66, 125);
-				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.1f * i * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * i * 0.175f, SpriteEffects.None, 0f);;
-				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.05f * i * colorMult, OldRotation[i] * 1.2f, TextureMain.Size() * 0.5f, Projectile.scale * i * 0.12f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.1f * (i + 1) * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.13f, SpriteEffects.None, 0f);;
+				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.05f * (i + 1) * colorMult, OldRotation[i] * 1.2f, TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.1f, SpriteEffects.None, 0f);
 			}
 
 			// Draw code ends here

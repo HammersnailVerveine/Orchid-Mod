@@ -1,13 +1,10 @@
-using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using OrchidMod.Content.Shaman.Projectiles;
 using OrchidMod.Utilities;
-using OrchidMod.Common.ModObjects;
 
 namespace OrchidMod.Content.Shaman.Projectiles.Fire
 {
@@ -119,8 +116,8 @@ namespace OrchidMod.Content.Shaman.Projectiles.Fire
 			{
 				Vector2 drawPosition = OldPosition[i] - Main.screenPosition;
 				Color color = new Color(113, 48, 255);
-				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.1f * i * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * i * 0.175f, SpriteEffects.None, 0f); ;
-				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.05f * i * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * i * 0.12f, SpriteEffects.None, 0f);
+				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.1f * (i + 1) * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.175f, SpriteEffects.None, 0f); ;
+				spriteBatch.Draw(TextureMain, drawPosition, null, color * 0.05f * (i + 1) * colorMult, OldRotation[i], TextureMain.Size() * 0.5f, Projectile.scale * (i + 1) * 0.12f, SpriteEffects.None, 0f);
 			}
 
 			// Draw code ends here
