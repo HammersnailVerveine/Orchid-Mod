@@ -29,7 +29,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.useTime = 30;
 			Item.shootSpeed = 17.5f;
 			Item.knockBack = 0.5f;
-			Item.damage = 24;
+			Item.damage = 22;
 			Item.crit = 6;
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 26;
@@ -76,7 +76,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				Reinforced = false;
 				int projectileType = ModContent.ProjectileType<PredatorHarpyProjAlt>();
 				Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed * 1.2f;
-				int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 3f);
+				int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 2.5f);
 				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack * 5f, player.whoAmI);
 				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 				newProjectile.netUpdate = true;
@@ -234,7 +234,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				{
 					int projectileType = ModContent.ProjectileType<PredatorHarpyProj>();
 					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f);
-					int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+					int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.75f);
 					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
 					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 					newProjectile.netUpdate = true;
