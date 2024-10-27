@@ -107,7 +107,7 @@ namespace OrchidMod
 				instance.PostSetupContent(this);
 			}
 
-			BossChecklistCalls();
+			//BossChecklistCalls();
 			CensusModCalls();
 			ColoredDamageTypeModCalls();
 		}
