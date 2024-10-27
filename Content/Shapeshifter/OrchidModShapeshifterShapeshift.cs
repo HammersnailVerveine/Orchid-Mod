@@ -20,6 +20,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool AutoReuseRight; // Whether right ability click casts repeatedly hy holding the input
 		public bool MeleeSpeedLeft; // Whether melee speed makes left click recover faster
 		public bool MeleeSpeedRight; // Whether melee speed makes right click recover faster
+		public float GravityMult; // Fall speed multiplier
 		public ShapeshifterShapeshiftType ShapeshiftType; // Sage, Predator, Warden
 
 		public virtual string LeftClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterLeftClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".LeftClick"));
@@ -69,6 +70,7 @@ namespace OrchidMod.Content.Shapeshifter
 			AutoReuseRight = false;
 			MeleeSpeedLeft = false;
 			MeleeSpeedRight = false;
+			GravityMult = 1f;
 
 			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;
@@ -165,6 +167,67 @@ namespace OrchidMod.Content.Shapeshifter
 		}
 
 		// Custom methods
+
+		public float GetFallSpeed(Player player)
+		{
+			return player.gravity * GravityMult;
+		}
+
+		public void GravityCalculations(ref Vector2 intendedVelocity, Player player, float maxFallSpeed = 10f)
+		{
+			if (intendedVelocity.Y < maxFallSpeed)
+			{ // gravity
+				intendedVelocity.Y += GetFallSpeed(player);
+				if (intendedVelocity.Y > maxFallSpeed)
+				{
+					intendedVelocity.Y = maxFallSpeed;
+				}
+			}
+		}
+
+		public void TryAccelerateX(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount, float acceleration = 0f)
+		{
+			float accelerationmult = speedmult;
+			if (acceleration != 0f)
+			{
+				accelerationmult = acceleration;
+			}
+
+			if (!DecelerateeX(ref intendedVelocity, maxSpeed, speedmult, amount * 0.5f))
+			{
+				intendedVelocity.X += amount * accelerationmult * Math.Sign(maxSpeed);
+			}
+		}
+
+		public bool DecelerateeX(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount = 0.5f)
+		{
+			if (maxSpeed > 0)
+			{
+				if (intendedVelocity.X > maxSpeed * speedmult)
+				{
+					intendedVelocity.X -= amount * speedmult;
+					if (intendedVelocity.X < maxSpeed * speedmult)
+					{
+						intendedVelocity.X = maxSpeed * speedmult;
+					}
+					return true;
+				}
+			}
+			else
+			{
+				if (intendedVelocity.X < maxSpeed * speedmult)
+				{
+					intendedVelocity.X += amount * speedmult;
+					if (intendedVelocity.X > maxSpeed * speedmult)
+					{
+						intendedVelocity.X = maxSpeed * speedmult;
+					}
+					return true;
+				}
+			}
+			return false;
+		}
+		
 
 		public float GetSpeedMult(Player player, OrchidShapeshifter shapeshifter)
 		{

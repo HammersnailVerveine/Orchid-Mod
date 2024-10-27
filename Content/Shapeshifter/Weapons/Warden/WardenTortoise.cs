@@ -182,14 +182,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
-			if (intendedVelocity.Y < 9.5f)
-			{ // gravity
-				intendedVelocity.Y += 0.2f;
-				if (intendedVelocity.Y > 9.5f)
-				{
-					intendedVelocity.Y = 9.5f;
-				}
-			}
+			GravityCalculations(ref intendedVelocity, player);
 
 			// Normal movement
 			if ((anchor.IsInputLeft || anchor.IsInputRight) && projectile.ai[0] > -270)
@@ -209,16 +202,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						intendedVelocity.X -= 0.1f * speedMult;
-						if (intendedVelocity.X < -1.75f * speedMult) intendedVelocity.X = -1.75f * speedMult;
+						TryAccelerateX(ref intendedVelocity, -1.75f, speedMult, 0.1f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						intendedVelocity.X += 0.1f * speedMult;
-						if (intendedVelocity.X > 1.75f * speedMult) intendedVelocity.X = 1.75f * speedMult;
+						TryAccelerateX(ref intendedVelocity, 1.75f, speedMult, 0.1f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 						LateralMovement = true;
