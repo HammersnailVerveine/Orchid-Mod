@@ -193,7 +193,7 @@ namespace OrchidMod.Content.Shapeshifter
 				accelerationmult = acceleration;
 			}
 
-			if (!DecelerateeX(ref intendedVelocity, maxSpeed, speedmult, amount * 0.5f))
+			if (!DecelerateeX(ref intendedVelocity, maxSpeed, speedmult, amount * 0.75f))
 			{
 				intendedVelocity.X += amount * accelerationmult * Math.Sign(maxSpeed);
 			}
