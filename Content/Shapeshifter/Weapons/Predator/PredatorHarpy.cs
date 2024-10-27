@@ -26,10 +26,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.value = Item.sellPrice(0, 2, 25, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Critter;
-			Item.useTime = 30;
+			Item.useTime = 35;
 			Item.shootSpeed = 17.5f;
 			Item.knockBack = 0.5f;
-			Item.damage = 22;
+			Item.damage = 19;
 			Item.crit = 6;
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 26;
@@ -234,7 +234,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				{
 					int projectileType = ModContent.ProjectileType<PredatorHarpyProj>();
 					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f);
-					int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.75f);
+					int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.6f);
 					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
 					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 					newProjectile.netUpdate = true;
