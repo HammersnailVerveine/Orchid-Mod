@@ -145,7 +145,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			// MISC EFFECTS
 
-			float speedMult = GetSpeedMult(player);
+			float speedMult = GetSpeedMult(player, shapeshifter);
 			player.fallStart = (int)(player.position.Y / 16f);
 			player.fallStart2 = (int)(player.position.Y / 16f);
 			player.nightVision = true;

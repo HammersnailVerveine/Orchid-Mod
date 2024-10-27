@@ -52,7 +52,6 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) => false;
 
-
 		public sealed override void SetDefaults()
 		{
 			Item.DamageType = ModContent.GetInstance<ShapeshifterDamageClass>();
@@ -74,6 +73,8 @@ namespace OrchidMod.Content.Shapeshifter
 			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;
 		}
+
+		public override bool WeaponPrefix() => true;
 
 		public sealed override void HoldItem(Player player)
 		{
@@ -165,12 +166,12 @@ namespace OrchidMod.Content.Shapeshifter
 
 		// Custom methods
 
-		public float GetSpeedMult(Player player)
+		public float GetSpeedMult(Player player, OrchidShapeshifter shapeshifter)
 		{
 			if (player.moveSpeed > 0.75f)
 			{
-				//Main.NewText(1f + (float)Math.Log10(player.moveSpeed) * 2f + " --- " + player.moveSpeed);
-				return 1f + (float)Math.Log10(player.moveSpeed) * 2f;
+				//Main.NewText(1f + (float)Math.Log10(player.moveSpeed + shapeshifter.ShapeshifterMoveSpeedBonus) * 2f + " --- " + (player.moveSpeed + shapeshifter.ShapeshifterMoveSpeedBonus));
+				return 1f + (float)Math.Log10(player.moveSpeed + shapeshifter.ShapeshifterMoveSpeedBonus) * 2f;
 			}
 			else
 			{

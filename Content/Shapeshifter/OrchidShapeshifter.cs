@@ -24,6 +24,8 @@ namespace OrchidMod
 		// Set effects, accessories, misc
 
 		public int ShapeshifterSageFoxSpeed = 0;
+		public float ShapeshifterMeleeSpeedBonus = 0f;
+		public float ShapeshifterMoveSpeedBonus = 0f;
 
 		// Dynamic gameplay and UI fields
 
@@ -52,6 +54,11 @@ namespace OrchidMod
 					ShapeshiftAnchor.Projectile.Kill();
 				}
 			}
+
+			// Reset gameplay fields
+
+			ShapeshifterMeleeSpeedBonus = 0f;
+			ShapeshifterMoveSpeedBonus = 0f;
 		}
 
 		public override void PostUpdateEquips()
@@ -67,7 +74,7 @@ namespace OrchidMod
 				Player.accRunSpeed = 3f;
 			}
 
-			// Misc Effects that should be called before Shapeshifter Core mechanics (eg : stat changes that should affec the shapeshifted player)
+			// Misc Effects that should be called before Shapeshifter Core mechanics (eg : stat changes that should affect the shapeshifted player)
 
 			if (ShapeshifterSageFoxSpeed > 0)
 			{

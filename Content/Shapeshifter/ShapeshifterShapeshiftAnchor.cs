@@ -43,13 +43,13 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public float LeftCLickCooldown
 		{
-			get => (int)Projectile.localAI[0];
+			get => Projectile.localAI[0];
 			set => Projectile.localAI[0] = value;
 		}
 
 		public float RightCLickCooldown
 		{
-			get => (int)Projectile.localAI[1];
+			get => Projectile.localAI[1];
 			set => Projectile.localAI[1] = value;
 		}
 
@@ -175,8 +175,8 @@ namespace OrchidMod.Content.Shapeshifter
 		{
 			Timespent++;
 
-			LeftCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedLeft ? player.GetAttackSpeed(DamageClass.Melee) : 1;
-			RightCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedRight ? player.GetAttackSpeed(DamageClass.Melee) : 1;
+			LeftCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedLeft ? player.GetAttackSpeed(DamageClass.Melee) + shapeshifter.ShapeshifterMeleeSpeedBonus : 1;
+			RightCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedRight ? player.GetAttackSpeed(DamageClass.Melee) + shapeshifter.ShapeshifterMeleeSpeedBonus : 1;
 
 			if (Projectile.position.X > Main.maxTilesX * 16 - (672 + Projectile.width))
 			{ // Prevents the player from leaving the map through the right

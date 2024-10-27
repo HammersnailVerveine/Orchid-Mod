@@ -149,7 +149,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			projectile.ai[0] -= 300;
 			Vector2 position = projectile.position;
-			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 8f * GetSpeedMult(player);
+			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 8f * GetSpeedMult(player, shapeshifter);
 
 			for (int i = 0; i < 32; i++)
 			{
@@ -201,7 +201,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			// MISC EFFECTS
 
-			float speedMult = GetSpeedMult(player);
+			float speedMult = GetSpeedMult(player, shapeshifter);
 			bool grounded = IsGrounded(projectile, player);
 
 			if ((int)projectile.ai[0] < 601)

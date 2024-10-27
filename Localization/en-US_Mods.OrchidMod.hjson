@@ -3315,6 +3315,18 @@ Prefixes: {
 	FlimsyPrefix.DisplayName: Flimsy
 	FeeblePrefix.DisplayName: Feeble
 	EmpyreanPrefix.DisplayName: Empyrean
+	BestialPrefix.DisplayName: Bestial
+	BoarishPrefix.DisplayName: Boarish
+	BullishPrefix.DisplayName: Bullish
+	DivinePrefix.DisplayName: Divine
+	EnragedPrefix.DisplayName: Enraged
+	FeralPrefix.DisplayName: Feral
+	FiercePrefix.DisplayName: Fierce
+	MonstrousPrefix.DisplayName: Monstrous
+	PrimalPrefix.DisplayName: Primal
+	TimidPrefix.DisplayName: Timid
+	UntamedPrefix.DisplayName: Untamed
+	VoraciousPrefix.DisplayName: Voracious
 }
 
 Projectiles: {

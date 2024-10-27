@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using OrchidMod.Content.Guardian;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -16,6 +14,7 @@ namespace OrchidMod.Common.ModObjects
 		public OrchidGambler modPlayerGambler;
 		public OrchidDancer modPlayerDancer;
 		public OrchidGuardian modPlayerGuardian;
+		public OrchidShapeshifter modPlayerShapeshifter;
 
 		public bool remoteCopterPet = false;
 		public int originalSelectedItem;
@@ -48,6 +47,7 @@ namespace OrchidMod.Common.ModObjects
 			modPlayerGambler = Player.GetModPlayer<OrchidGambler>();
 			modPlayerDancer = Player.GetModPlayer<OrchidDancer>();
 			modPlayerGuardian = Player.GetModPlayer<OrchidGuardian>();
+			modPlayerShapeshifter = Player.GetModPlayer<OrchidShapeshifter>();
 		}
 
 		public override void PreUpdate()

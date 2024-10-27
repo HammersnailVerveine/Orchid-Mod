@@ -135,7 +135,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		{
 			// MISC EFFECTS & ANIMATION
 
-			float speedMult = GetSpeedMult(player);
+			float speedMult = GetSpeedMult(player, shapeshifter);
 			if (anchor.Projectile.ai[2] > 0)
 			{
 				anchor.Projectile.ai[2]--;
