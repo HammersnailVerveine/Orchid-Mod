@@ -35,6 +35,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftHeight = 26;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
 			MeleeSpeedLeft = true;
+			GravityMult = 0.9f;
 		}
 
 		public override Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -156,6 +157,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			player.fallStart2 = (int)(player.position.Y / 16f);
 			player.nightVision = true;
 			player.noFallDmg = true;
+
+			GravityMult = 0.7f;
+			if (anchor.IsInputDown) GravityMult += 0.3f;
 
 			// ANIMATION
 
