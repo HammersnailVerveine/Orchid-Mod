@@ -59,6 +59,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				dust.noGravity = true;
 				dust.noLight = true;
 			}
+
+			int projectileType = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
+			foreach (Projectile proj in Main.projectile)
+			{ // Despawns dash indicators when shapeshifting from fox to fox
+				if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType)
+				{
+					proj.Kill();
+				}
+			}
 		}
 
 		public override void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
