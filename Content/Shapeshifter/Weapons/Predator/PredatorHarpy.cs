@@ -97,7 +97,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 
 			anchor.LeftCLickCooldown = Item.useTime;
-			anchor.Projectile.ai[0] = 10;
+			projectile.ai[0] = 10;
+			projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 			anchor.NeedNetUpdate = true;
 
 			FeatherDust(projectile, 2);
