@@ -287,7 +287,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 					{
 						anchor.Frame = 3;
 						anchor.Projectile.ai[0] = -30;
-						intendedVelocity.Y = -6f * speedMult;
+						intendedVelocity.Y = -7f * speedMult;
 						anchor.NeedNetUpdate = true;
 						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 
