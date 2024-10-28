@@ -3228,6 +3228,11 @@ Items: {
 		DisplayName: Humanoid Effigy
 		Tooltip: Transforms you into a Human ... supposedly
 	}
+
+	SageBee: {
+		DisplayName: Sage Bee
+		Tooltip: ""
+	}
 }
 
 NPCs: {
