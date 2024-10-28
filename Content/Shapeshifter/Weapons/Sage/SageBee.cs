@@ -128,8 +128,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			// adjust shapeshift anchor fields
-			anchor.LeftCLickCooldown = Item.useTime * 2;
-			anchor.RightCLickCooldown = Item.useTime * 2;
+			anchor.LeftCLickCooldown = Item.useTime;
+			anchor.RightCLickCooldown = Item.useTime;
 			anchor.NeedNetUpdate = true;
 			SoundEngine.PlaySound(SoundID.Item97, projectile.Center);
 
