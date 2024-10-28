@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using Terraria;
 using Terraria.Audio;
@@ -48,14 +49,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 4; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Honey)].noGravity = true;
+				Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Honey)].noGravity = true;
 			}
 
 			foreach (Player otherPlayer in Main.player)
 			{ // Covers nearby players in honey
-				if (otherPlayer.Center.Distance(player.Center) < 160f)
+				if (otherPlayer.Center.Distance(player.Center) < 160f && otherPlayer.active)
 				{
-					player.AddBuff(BuffID.Honey, 300);
+					otherPlayer.AddBuff(BuffID.Honey, 300);
 				}
 			}
 		}
@@ -69,14 +70,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 4; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Honey)].noGravity = true;
+				Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Honey)].noGravity = true;
 			}
 
 			foreach (Player otherPlayer in Main.player)
 			{ // Covers nearby players in honey
-				if (otherPlayer.Center.Distance(player.Center) < 160f)
+				if (otherPlayer.Center.Distance(player.Center) < 160f && otherPlayer.active)
 				{
-					player.AddBuff(BuffID.Honey, 300);
+					otherPlayer.AddBuff(BuffID.Honey, 300);
 				}
 			}
 		}
@@ -134,7 +135,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 8; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Honey)].noGravity = true;
+				Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Honey)].noGravity = true;
 			}
 		}
 
@@ -195,7 +196,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 4; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Honey)].noGravity = true;
+				Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.Honey)].noGravity = true;
 			}
 		}
 
@@ -323,6 +324,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					anchor.OldFrame.RemoveAt(0);
 				}
 			}
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient<ShapeshifterBlankEffigy>();
+			recipe.AddIngredient(ItemID.BeeWax, 14);
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.Register();
 		}
 	}
 }
