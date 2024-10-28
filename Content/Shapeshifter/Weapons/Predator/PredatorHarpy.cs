@@ -145,6 +145,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			anchor.Projectile.ai[0] = -31;
+			anchor.NeedNetUpdate = true;
 			Reinforced = true;
 		}
 

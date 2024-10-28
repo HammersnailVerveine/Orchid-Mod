@@ -3556,6 +3556,7 @@ Projectiles: {
 	GuardianHorizonLanceCounter.DisplayName: Guardian Horizon Lance Counter
 	PredatorHarpyProj.DisplayName: Predator Harpy Proj
 	PredatorHarpyProjAlt.DisplayName: Predator Harpy Proj Alt
+	SageBeeProj.DisplayName: Sage Bee Proj
 }
 
 Configs: {
