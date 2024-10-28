@@ -1,5 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.Guardian;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -21,21 +23,20 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Projectile.height = 8;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 120;
+			Projectile.timeLeft = 90;
 			Projectile.scale = 0.8f;
 			Projectile.alpha = 96;
-			Projectile.penetrate = 2;
+			Projectile.penetrate = 1;
+			Projectile.extraUpdates = 1;
 			Projectile.alpha = 255;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			OldPosition = new List<Vector2>();
 			OldRotation = new List<float>();
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 120;
 		}
 
 		public override bool? CanHitNPC(NPC target)
 		{
-			if ((int)Projectile.ai[0] == -1 || (int)Projectile.ai[0] == target.whoAmI)
+			if ((int)Projectile.ai[0] == -1)
 			{
 				return null;
 
@@ -45,20 +46,19 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 		public override void AI()
 		{
-			if (Projectile.penetrate == 2)
+			if (!initialized)
 			{
+				initialized = true;
 				Projectile.ai[0] = -1;
-				OldPosition.Add(Projectile.Center);
-				OldRotation.Add(Projectile.rotation);
-				Projectile.rotation = Projectile.velocity.ToRotation();
 			}
 
 			if (Projectile.ai[0] != -1)
 			{
+				Projectile.extraUpdates = 0;
 				NPC npc = Main.npc[(int)Projectile.ai[0]];
 				if (npc.active)
 				{
-					Projectile.velocity *= 0.5f;
+					Projectile.velocity *= 0.2f;
 					Projectile.ai[1] -= Projectile.velocity.X;
 					Projectile.ai[2] -= Projectile.velocity.Y;
 
@@ -69,12 +69,37 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 				{
 					Projectile.Kill();
 				}
-			}
 
-			if (OldPosition.Count > 10)
+				if (OldPosition.Count > 0)
+				{
+					OldPosition.RemoveAt(0);
+					OldRotation.RemoveAt(0);
+				}
+
+				if (Projectile.timeLeft % 60 == 0)
+				{
+					Main.player[Projectile.owner].ApplyDamageToNPC(npc, Projectile.damage, 0f, npc.direction, Main.rand.Next(100) < Projectile.CritChance, ModContent.GetInstance<ShapeshifterDamageClass>(), true);
+				}
+			}
+			else
 			{
-				OldPosition.RemoveAt(0);
-				OldRotation.RemoveAt(0);
+				OldPosition.Add(Projectile.Center);
+				OldRotation.Add(Projectile.rotation);
+				Projectile.rotation = Projectile.velocity.ToRotation();
+
+				ResetIFrames(Projectile); // Prevents darts from passing through enemies while bees are spawned
+
+				if (OldPosition.Count > 10)
+				{
+					OldPosition.RemoveAt(0);
+					OldRotation.RemoveAt(0);
+				}
+
+				if (Projectile.timeLeft < 20)
+				{
+					Projectile.extraUpdates = 0;
+					Projectile.velocity *= 0.9f;
+				}
 			}
 		}
 
@@ -89,6 +114,53 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 				Projectile.timeLeft = 1800; // 30 sec
 				Projectile.damage = (int)(Projectile.damage * 0.4f);
 				Projectile.penetrate = -1;
+				Projectile.knockBack = 0f;
+				Projectile.netUpdate = true;
+				Projectile.friendly = false;
+
+				// Clears existing darts. Up to 3 can exist on a given target, and up to 9 overall
+
+				Projectile lowestTimeLeft = null;
+				Projectile lowestTimeLeftOverall = null;
+				int count = 0;
+				int countOverall = 0;
+				foreach (Projectile proj in Main.projectile)
+				{
+					if (proj.active && proj.type == Type && proj.owner == Projectile.owner)
+					{
+						countOverall++;
+						if (lowestTimeLeftOverall == null)
+						{
+							lowestTimeLeftOverall = proj;
+						}
+						else if (lowestTimeLeftOverall.timeLeft > proj.timeLeft)
+						{
+							lowestTimeLeftOverall = proj;
+						}
+
+						if (Projectile.ai[0] == proj.ai[0])
+						{
+							count++;
+							if (lowestTimeLeft == null)
+							{
+								lowestTimeLeft = proj;
+							}
+							else if (lowestTimeLeft.timeLeft > proj.timeLeft)
+							{
+								lowestTimeLeft = proj;
+							}
+						}
+					} 
+				}
+
+				if (count > 3)
+				{
+					lowestTimeLeft.Kill();
+				}
+				else if (countOverall > 9)
+				{
+					lowestTimeLeftOverall.Kill();
+				}
 			}
 		}
 
@@ -104,7 +176,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			float colorMult = 1f;
-			if (Projectile.timeLeft < 8) colorMult *= Projectile.timeLeft / 8f;
+			if (Projectile.timeLeft < 10) colorMult *= Projectile.timeLeft / 10f;
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
