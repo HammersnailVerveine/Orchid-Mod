@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using OrchidMod.Content.Shapeshifter.Dusts;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
@@ -27,13 +26,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			Item.width = 32;
 			Item.height = 32;
-			Item.value = Item.sellPrice(0, 2, 25, 0);
-			Item.rare = ItemRarityID.Green;
+			Item.value = Item.sellPrice(0, 0, 23, 50);
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Zombie111;
-			Item.useTime = 30;
-			Item.shootSpeed = 10f;
+			Item.useTime = 35;
+			Item.shootSpeed = 8f;
 			Item.knockBack = 1f;
-			Item.damage = 19;
+			Item.damage = 9;
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 30;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
@@ -52,7 +51,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			TouchedGround = false;
 			LateralMovement = false;
 			CanAscend = false;
-			AscendTimer = 0;
+			AscendTimer = -60;
 
 			for (int i = 0; i < 8; i++)
 			{
@@ -72,17 +71,24 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+			int cooldown = Item.useTime;
+			if (AscendTimer > -60)
+			{ // More damage and attack speed while hovering
+				damage += 3;
+				cooldown -= 15;
+			}
+
 			int projectileType = ModContent.ProjectileType<SageOwlProj>();
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * (0.85f + i * 0.15f);
-				int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
 				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
 				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 				newProjectile.netUpdate = true;
 			}
 
-			anchor.LeftCLickCooldown = Item.useTime;
+			anchor.LeftCLickCooldown = cooldown;
 			anchor.Projectile.ai[0] = 10;
 			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 			anchor.NeedNetUpdate = true;
@@ -115,7 +121,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			// adjust shapeshift anchor fields
 			anchor.RightCLickCooldown = Item.useTime * 4;
-			anchor.Projectile.ai[2] = 30;
+			anchor.Projectile.ai[2] = 20;
 			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 			anchor.NeedNetUpdate = true;
 
@@ -163,9 +169,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
+			AscendTimer--;
 			if (AscendTimer > 0 || anchor.Projectile.ai[2] > 0)
 			{ // Player is ascending || right click animation, prevent normal movement for a duration
-				AscendTimer--;
 				WasGliding = false;
 				Landed = false;
 				TouchedGround = false;
@@ -205,7 +211,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					{ // Right click animation stuff
 						anchor.Projectile.ai[2]--;
 						anchor.Frame = 2;
-						Color color = Color.Aqua * (float)Math.Sin(projectile.ai[2] * 0.1046f) * 0.5f;
+						Color color = Color.Aqua * (float)Math.Sin(projectile.ai[2] * 0.157f) * 0.5f;
 						Lighting.AddLight(projectile.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 					}
 
@@ -270,7 +276,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						if (anchor.IsInputJump || anchor.IsInputUp)
 						{ // Slowly glides down
 							if (anchor.Frame == 4) anchor.Frame = 3;
-							intendedVelocity.Y = 0.8f;
+							intendedVelocity.Y = 1.4f;
 							WasGliding = true;
 						}
 						else
@@ -332,14 +338,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 						if (anchor.IsInputLeft && !anchor.IsInputRight)
 						{ // Left movement
-							TryAccelerateX(ref intendedVelocity, -5f, speedMult, 0.25f);
+							TryAccelerateX(ref intendedVelocity, -3f, speedMult, 0.25f);
 							projectile.direction = -1;
 							projectile.spriteDirection = -1;
 							LateralMovement = true;
 						}
 						else if (anchor.IsInputRight && !anchor.IsInputLeft)
 						{ // Right movement
-							TryAccelerateX(ref intendedVelocity, 5f, speedMult, 0.25f);
+							TryAccelerateX(ref intendedVelocity, 3f, speedMult, 0.25f);
 							projectile.direction = 1;
 							projectile.spriteDirection = 1;
 							LateralMovement = true;
@@ -411,7 +417,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
-				float scalemult = (float)Math.Sin(projectile.ai[2] * 0.1046f) * 0.25f + 1f;
+				float scalemult = (float)Math.Sin(projectile.ai[2] * 0.157f) * 0.25f + 1f;
 				spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, lightColor * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
 
 				spriteBatch.End();
@@ -428,6 +434,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				dust.velocity.Y = 2f;
 				dust.customData = Main.rand.Next(314);
 			}
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient(ItemID.Wood, 8);
+			recipe.AddIngredient(ItemID.FallenStar, 5);
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.Register();
 		}
 
 		/*

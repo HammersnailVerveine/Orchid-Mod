@@ -262,7 +262,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<IceChestCard>(), ChestType.Ice, 20));
 			// chestLoots.Add(new ChestLoot(ItemType<AvalancheScepter>(), ChestType.Ice, 20));
 			chestLoots.Add(new ChestLoot(ItemType<IceStandard>(), ChestType.Ice, 20));
-			chestLoots.Add(new ChestLoot(ItemType<PredatorIceFox>(), ChestType.Ice, 5, needToPlace: 0, ignoreChestLimit: true));
+			chestLoots.Add(new ChestLoot(ItemType<PredatorIceFox>(), ChestType.Ice, 20, needToPlace: 0, ignoreChestLimit: true));
 
 			// Dungeon Chests (Locked)
 			chestLoots.Add(new ChestLoot(ItemType<TiamatRelic>(), ChestType.DungeonLocked, 50, 1, 3, true));
@@ -287,8 +287,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<BloomingBud>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<BundleOfClovers>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<JungleGauntlet>(), ChestType.Ivy, 20));
-			chestLoots.Add(new ChestLoot(ItemType<SageOwl>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
-			chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
+			chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DeckJungle>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
 			chestLoots.Add(new ChestLoot(ItemType<GuardianHoneyPotion>(), ChestType.Ivy, 50, needToPlace: 0, ignoreChestLimit: true));
 

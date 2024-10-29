@@ -23,6 +23,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Projectile.alpha = 96;
 			Projectile.penetrate = 1;
 			Projectile.alpha = 255;
+			Projectile.tileCollide = false;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 		}
 

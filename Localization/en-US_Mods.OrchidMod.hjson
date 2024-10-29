@@ -3180,12 +3180,12 @@ Items: {
 	}
 
 	SageOwl: {
-		DisplayName: Peculiar Owl Idol
+		DisplayName: Starry Owl Idol
 		LeftClick: Shoots a barrage of feathers
-		RightClick: Marks enemies below you, they take increased damage
-		Jump: Quickly fly up before hovering for a short duration
+		RightClick: Marks enemies below you, increasing damage taken by 3
+		Jump: Fly up before hovering, increasing damage and attack speed
 		Passive: Increases night vision
-		Tooltip: Transforms you into a Peculiar Owl, gaining unique abilities
+		Tooltip: Transforms you into a Starry Owl, gaining unique abilities
 	}
 
 	WardenTortoise: {
