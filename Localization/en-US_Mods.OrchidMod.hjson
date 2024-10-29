@@ -256,7 +256,7 @@ Buffs: {
 	}
 
 	GuardianPaladinGauntletBuff: {
-		DisplayName: Guardian Paladin Gauntlet Buff
+		DisplayName: Crusader Strikes
 		Description: Releases sparks of light when punching
 	}
 
