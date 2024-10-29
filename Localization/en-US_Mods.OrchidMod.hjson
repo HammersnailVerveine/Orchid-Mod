@@ -3366,9 +3366,9 @@ Projectiles: {
 	PrototypeSecrecyHitProjectile.DisplayName: Prototype Secrecy Hit Projectile
 	MineshaftHookProjectile.DisplayName: Mineshaft Hook Projectile
 	EnchantedPaviseProj.DisplayName: Enchanted Pavise
-	LivingRuneProj.DisplayName: Living Rune Proj
-	EnchantedRuneProj.DisplayName: Enchanted Rune
-	GuardianShieldAnchor.DisplayName: Guardian Shield Anchor
+	LivingRuneProj.DisplayName: Sap Bubble
+	EnchantedRuneProj.DisplayName: Enchanted Spark
+	GuardianShieldAnchor.DisplayName: Pavise
 	SnowCardProjAlt.DisplayName: Snow Card Proj Alt
 	SnowCardProj.DisplayName: Snow Card Proj
 	SnowCardBase.DisplayName: Snow Card Base
@@ -3527,51 +3527,48 @@ Projectiles: {
 	FeatherScepterProjectile.DisplayName: Feather Scepter Projectile
 	FeatherScepterProjectileSplash.DisplayName: Feather Scepter Projectile Splash
 	DepthsWeaverBlast.DisplayName: Depths Weaver Blast
-	SkywareShieldProj.DisplayName: Skyware Shield Proj
-	NightShieldProj.DisplayName: Night Shield Proj
-	NightShieldProjAlt.DisplayName: Night Shield Proj Alt
-	BijouShieldProj.DisplayName: Bijou Shield Proj
-	HallowedShieldProj.DisplayName: Hallowed Shield Proj
-	SpectreShieldProj.DisplayName: Spectre Shield Proj
-	TempleWarhammerProj.DisplayName: Temple Warhammer Proj
-	BeeRuneProj.DisplayName: Bee Rune Proj
-	HellRuneProj.DisplayName: Hell Rune Proj
-	RuneRuneProj.DisplayName: Rune Rune Proj
-	FrostRuneProj.DisplayName: Frost Rune Proj
-	EmpressRuneProj.DisplayName: Empress Rune Proj
-	WaterSpikeProj.DisplayName: Water Spike Proj
-	GoblinRuneProj.DisplayName: Goblin Rune Proj
+	SkywareShieldProj.DisplayName: Skyware Bolt
+	NightShieldProj.DisplayName: Styx
+	NightShieldProjAlt.DisplayName: Styx
+	BijouShieldProj.DisplayName: Bijoungblast
+	HallowedShieldProj.DisplayName: Svalinn
+	SpectreShieldProj.DisplayName: Spectral Bolt
+	TempleWarhammerProj.DisplayName: Spark
+	BeeRuneProj.DisplayName: Bee
+	HellRuneProj.DisplayName: Sigil Fire
+	RuneRuneProj.DisplayName: Runefire
+	FrostRuneProj.DisplayName: Ornament
+	EmpressRuneProj.DisplayName: Constellation
+	WaterSpikeProj.DisplayName: Water Spike
+	WaterSpikeProjAlt.DisplayName: Water Spike
+	GoblinRuneProj.DisplayName: Chaos Fire
 	GuardianGauntletAnchor.DisplayName: Gauntlet
 	GauntletPunchProjectile.DisplayName: Gauntlet
-	SpiderGauntletProjectile.DisplayName: Spider Gauntlet Projectile
-	GuardianStandardAnchor.DisplayName: Guardian Standard Anchor
-	StandardAuraProjectile.DisplayName: Standard Aura Projectile
-	PaladinGauntletProjectile.DisplayName: Paladin Gauntlet Projectile
-	GuardianHammerAnchor.DisplayName: Guardian Hammer Anchor
-	GuardianRuneAnchor.DisplayName: Guardian Rune Anchor
-	MechanicalGauntletProjectile.DisplayName: Mechanical Gauntlet Projectile
-	MoonLordRuneProj.DisplayName: Moon Lord Rune Proj
-	MoonLordRuneProjAlt.DisplayName: Moon Lord Rune Proj Alt
-	HorizonShieldProjBlue.DisplayName: Horizon Shield Proj Blue
-	HorizonShieldProjOrange.DisplayName: Horizon Shield Proj Orange
-	HorizonShieldProj.DisplayName: Horizon Shield Proj
-	DesertStandardProj.DisplayName: Desert Standard Proj
-	SageOwl.DisplayName: Sage Owl
-	ShapeshifterShapeshiftAnchor.DisplayName: Shapeshifter Shapeshift Anchor
-	SageOwlProj.DisplayName: Sage Owl Proj
-	SageOwlProjAlt.DisplayName: Sage Owl Proj Alt
-	WardenTortoiseProj.DisplayName: Warden Tortoise Proj
-	PredatorIceFoxProj.DisplayName: Sage Fox Proj
-	PredatorIceFoxProjAlt.DisplayName: Sage Fox Proj Alt
-	WaterSpikeProjAlt.DisplayName: Water Spike Proj Alt
-	GuardianHorizonLanceAnchor.DisplayName: Guardian Horizon Lance Anchor
-	GuardianHorizonLanceProj.DisplayName: Guardian Horizon Lance Proj
-	GuardianHorizonLanceProjAlt.DisplayName: Guardian Horizon Lance Proj Alt
-	GuardianHorizonLanceCounter.DisplayName: Guardian Horizon Lance Counter
-	PredatorHarpyProj.DisplayName: Predator Harpy Proj
-	PredatorHarpyProjAlt.DisplayName: Predator Harpy Proj Alt
-	SageBeeProj.DisplayName: Sage Bee Proj
-	HorizonDrillProjectile.DisplayName: Horizon Drill Projectile
+	SpiderGauntletProjectile.DisplayName: Fang
+	GuardianStandardAnchor.DisplayName: Standard
+	StandardAuraProjectile.DisplayName: Standard
+	PaladinGauntletProjectile.DisplayName: Crusader Strike
+	GuardianHammerAnchor.DisplayName: Warhammer
+	GuardianRuneAnchor.DisplayName: Rune
+	MechanicalGauntletProjectile.DisplayName: Rocket Punch
+	MoonLordRuneProj.DisplayName: Moon Rune
+	MoonLordRuneProjAlt.DisplayName: Moon Rune
+	HorizonShieldProj.DisplayName: Terminus
+	DesertStandardProj.DisplayName: Standard Lightning
+	ShapeshifterShapeshiftAnchor.DisplayName: Shapeshift
+	SageOwlProj.DisplayName: Feather
+	SageOwlProjAlt.DisplayName: Feather
+	WardenTortoiseProj.DisplayName: Chomp
+	PredatorIceFoxProj.DisplayName: Foxfire
+	PredatorIceFoxProjAlt.DisplayName: Foxfire
+	GuardianHorizonLanceAnchor.DisplayName: Horizon Firmament
+	GuardianHorizonLanceProj.DisplayName: Horizon Firmament
+	GuardianHorizonLanceProjAlt.DisplayName: Horizon Firmament
+	GuardianHorizonLanceCounter.DisplayName: Horizon Firmament
+	PredatorHarpyProj.DisplayName: Feather
+	PredatorHarpyProjAlt.DisplayName: Feather
+	SageBeeProj.DisplayName: Stringer
+	HorizonDrillProjectile.DisplayName: Horizon Drill
 }
 
 Configs: {
