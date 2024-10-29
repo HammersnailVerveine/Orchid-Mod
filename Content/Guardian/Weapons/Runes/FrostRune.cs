@@ -10,8 +10,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Runes
 
 		public override void SafeSetDefaults()
 		{
-			Item.width = 28;
-			Item.height = 28;
+			Item.width = 30;
+			Item.height = 30;
 			Item.value = Item.sellPrice(0, 8, 50, 0);
 			Item.rare = ItemRarityID.Yellow;
 			Item.UseSound = SoundID.Item176;
