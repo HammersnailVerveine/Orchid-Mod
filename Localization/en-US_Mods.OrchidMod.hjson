@@ -3237,6 +3237,16 @@ Items: {
 		DisplayName: Humanoid Effigy
 		Tooltip: Transforms you into a Human ... supposedly
 	}
+
+	HorizonDrill: {
+		DisplayName: Horizon Drill
+		Tooltip: ""
+	}
+
+	HorizonPickaxe: {
+		DisplayName: Horizon Pickaxe
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -3561,6 +3571,7 @@ Projectiles: {
 	PredatorHarpyProj.DisplayName: Predator Harpy Proj
 	PredatorHarpyProjAlt.DisplayName: Predator Harpy Proj Alt
 	SageBeeProj.DisplayName: Sage Bee Proj
+	HorizonDrillProjectile.DisplayName: Horizon Drill Projectile
 }
 
 Configs: {

@@ -15,7 +15,9 @@ namespace OrchidMod.Content.General.Misc
 
 	public class AbyssHamaxe : LuminiteTool
 	{
-		public AbyssHamaxe() : base(name: "Abyss Hamaxe", lightColor: AbyssColor, itemCloneType: ItemID.LunarHamaxeSolar) { }
+		public override string Texture => OrchidAssets.ItemsPath + Name;
+
+		public AbyssHamaxe() : base(lightColor: new(69, 66, 237), itemCloneType: ItemID.LunarHamaxeSolar) { }
 
 		public override void AddRecipes()
 		{
@@ -29,7 +31,9 @@ namespace OrchidMod.Content.General.Misc
 
 	public class AbyssPickaxe : LuminiteTool
 	{
-		public AbyssPickaxe() : base(name: "Abyss Pickaxe", lightColor: AbyssColor, itemCloneType: ItemID.SolarFlarePickaxe) { }
+		public override string Texture => OrchidAssets.ItemsPath + Name;
+
+		public AbyssPickaxe() : base(lightColor: new(69, 66, 237), itemCloneType: ItemID.SolarFlarePickaxe) { }
 
 		public override void AddRecipes()
 		{
@@ -43,7 +47,9 @@ namespace OrchidMod.Content.General.Misc
 
 	public class AbyssDrill : LuminiteTool
 	{
-		public AbyssDrill() : base(name: "Abyss Drill", lightColor: AbyssColor, itemCloneType: ItemID.SolarFlareDrill) { }
+		public override string Texture => OrchidAssets.ItemsPath + Name;
+
+		public AbyssDrill() : base(lightColor: new(69, 66, 237), itemCloneType: ItemID.SolarFlareDrill) { }
 
 		public override int GetProjectileType()
 			=> ModContent.ProjectileType<AbyssDrillProjectile>();
@@ -61,7 +67,8 @@ namespace OrchidMod.Content.General.Misc
 
 		private class AbyssDrillProjectile : LuminiteToolProjectile
 		{
-			public AbyssDrillProjectile() : base(name: "Abyss Drill", projectileCloneType: ProjectileID.SolarFlareDrill) { }
+			public AbyssDrillProjectile() : base(ProjectileID.SolarFlareDrill) { }
+			public override string Texture => OrchidAssets.ItemsPath + Name.Replace("Projectile", "");
 		}
 	}
 
@@ -69,21 +76,16 @@ namespace OrchidMod.Content.General.Misc
 
 	public abstract class LuminiteTool : ModItem
 	{
-		public static readonly Color AbyssColor = new(69, 66, 237);
-
-		// ...
-
 		private readonly Color lightColor;
 		private readonly int itemCloneType;
 		private readonly string name;
 
 		// ...
 
-		public LuminiteTool(string name, Color lightColor, int itemCloneType)
+		public LuminiteTool(Color lightColor, int itemCloneType)
 		{
 			this.lightColor = lightColor;
 			this.itemCloneType = itemCloneType;
-			this.name = name;
 		}
 
 		// ...
@@ -91,8 +93,6 @@ namespace OrchidMod.Content.General.Misc
 		public virtual void SafeSetDefaults() { }
 		public virtual int GetProjectileType()
 			=> ProjectileID.None;
-
-		public override string Texture => OrchidAssets.ItemsPath + Name;
 
 		public sealed override void SetStaticDefaults()
 		{
@@ -141,15 +141,13 @@ namespace OrchidMod.Content.General.Misc
 
 		// ...
 
-		public LuminiteToolProjectile(string name, int projectileCloneType)
+		public LuminiteToolProjectile(int projectileCloneType)
 		{
-			this.name = name;
 			this.projectileCloneType = projectileCloneType;
 		}
 
 		// ...
 
-		public override string Texture => OrchidAssets.ItemsPath + Name.Replace("Projectile", "");
 		public override string GlowTexture => Texture + "_Glow";
 
 		public sealed override void SetStaticDefaults()
