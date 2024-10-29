@@ -2850,12 +2850,12 @@ Items: {
 	}
 
 	DemoniteShield: {
-		DisplayName: Demon Scale
+		DisplayName: Veil of Night
 		Tooltip: ""
 	}
 
 	CorruptionWarhammer: {
-		DisplayName: Famine
+		DisplayName: Soul Crusher
 		Tooltip: ""
 	}
 
