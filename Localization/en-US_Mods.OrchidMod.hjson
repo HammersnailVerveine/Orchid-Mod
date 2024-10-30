@@ -3192,7 +3192,7 @@ Items: {
 		DisplayName: Sturdy Snapjaw Idol
 		LeftClick: Snaps your jaws, reinforced after negating damage
 		RightClick: Go into your shell, negating incoming damage
-		Jump: Increases movement speed, but prevents attacking
+		Jump: Cannot jump, gains a burst of movement speed instead
 		Passive: Damage taken reduced by 20%
 		Tooltip: Transforms you into a Snapjaw, gaining unique abilities
 	}
@@ -3201,7 +3201,7 @@ Items: {
 		DisplayName: Ice Fox Statuette
 		LeftClick: Conjures up to 3 foxfire flames
 		RightClick: Become ethereal, damaging enemies you pass through
-		Jump: Blink towards your cursor, conjuring 3 foxfire flames
+		Jump: Can periodically blink, conjuring 3 foxfire flames
 		Passive: Shapeshifting in and out gives decaying movement speed
 		Tooltip: Transforms you into a Fox spirit, gaining unique abilities
 	}
@@ -3222,6 +3222,15 @@ Items: {
 		Jump: Dashes in the direction of your movement
 		Passive: Shapeshifting in and out covers nearby players in honey
 		Tooltip: Transforms you into a Bee, gaining unique abilities
+	}
+
+	WardenSpider: {
+		DisplayName: Shellweb Idol
+		LeftClick: A violent bite, heals off of webbed and cocooned enemies
+		RightClick: Fires a web, attemting to cocoon low health enemies
+		Jump: The web can be used to pull yourself towards tiles or cocoons
+		Passive: Executing a cocooned target grants 15 defense
+		Tooltip: Transforms you into a Shellweb Spider, gaining unique abilities
 	}
 
 	ShapeshifterShampoo: {
@@ -3246,11 +3255,6 @@ Items: {
 	HorizonPickaxe: {
 		DisplayName: Horizon Pickaxe
 		Tooltip: ""
-	}
-
-	WardenSpider: {
-		Tooltip: ""
-		DisplayName: Warden Spider
 	}
 }
 
@@ -3624,9 +3628,9 @@ Configs: {
 }
 
 Misc: {
-	ShapeshifterLeftClick: "[c/AFFFAF:Left click: ]"
-	ShapeshifterRightClick: "[c/AFFFAF:Right click: ]"
-	ShapeshifterJump: "[c/AFFFAF:Jump: ]"
+	ShapeshifterLeftClick: "[c/AFFFAF:Attack: ]"
+	ShapeshifterRightClick: "[c/AFFFAF:Skill: ]"
+	ShapeshifterJump: "[c/AFFFAF:Mobility: ]"
 	ShapeshifterPassive: "[c/AFFFAF:Passive: ]"
 	ShapeshifterNone: Other shape
 	ShapeshifterSage: Sage shape
