@@ -3226,10 +3226,10 @@ Items: {
 
 	WardenSpider: {
 		DisplayName: Shellweb Idol
-		LeftClick: A violent bite, heals off of webbed and cocooned enemies
-		RightClick: Fires a web, attemting to cocoon low health enemies
-		Jump: The web can be used to pull yourself towards tiles or cocoons
-		Passive: Executing a cocooned target grants 15 defense
+		LeftClick: A violent bite, healing off of webbed enemies
+		RightClick: Fires a tangling web, allowing to execute low health enemies
+		Jump: The web can be used to pull yourself towards tiles or webs
+		Passive: Executing enemies recover 20 health and grants 15 defense
 		Tooltip: Transforms you into a Shellweb Spider, gaining unique abilities
 	}
 
@@ -3578,6 +3578,7 @@ Projectiles: {
 	PredatorHarpyProjAlt.DisplayName: Feather
 	SageBeeProj.DisplayName: Stringer
 	HorizonDrillProjectile.DisplayName: Horizon Drill
+	WardenSpiderProj.DisplayName: Warden Spider Proj
 }
 
 Configs: {

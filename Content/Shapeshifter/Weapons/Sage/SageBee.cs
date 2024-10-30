@@ -254,14 +254,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				{ // Player is inputting a movement key
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerateX(ref intendedVelocity, -4f, speedMult, 0.2f);
+						TryAccelerate(ref intendedVelocity, -4f, speedMult, 0.2f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerateX(ref intendedVelocity, 4f, speedMult, 0.2f);
+						TryAccelerate(ref intendedVelocity, 4f, speedMult, 0.2f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 						LateralMovement = true;

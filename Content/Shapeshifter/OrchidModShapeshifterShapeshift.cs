@@ -185,7 +185,7 @@ namespace OrchidMod.Content.Shapeshifter
 			}
 		}
 
-		public void TryAccelerateX(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount, float acceleration = 0f)
+		public void TryAccelerate(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount, float acceleration = 0f, bool Yaxis = false)
 		{
 			float accelerationmult = speedmult;
 			if (acceleration != 0f)
@@ -193,35 +193,44 @@ namespace OrchidMod.Content.Shapeshifter
 				accelerationmult = acceleration;
 			}
 
-			if (!DecelerateeX(ref intendedVelocity, maxSpeed, speedmult, amount * 0.75f))
+			if (!Deceleratee(ref intendedVelocity, maxSpeed, speedmult, amount * 0.75f, Yaxis))
 			{
-				intendedVelocity.X += amount * accelerationmult * Math.Sign(maxSpeed);
+				if (Yaxis) intendedVelocity.Y += amount * accelerationmult * Math.Sign(maxSpeed);
+				else intendedVelocity.X += amount * accelerationmult * Math.Sign(maxSpeed);
 			}
 		}
 
-		public bool DecelerateeX(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount = 0.5f)
+		public bool Deceleratee(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount = 0.5f, bool Yaxis = false)
 		{
+			float axisVelocity = Yaxis ? intendedVelocity.Y : intendedVelocity.X;
+
 			if (maxSpeed > 0)
 			{
-				if (intendedVelocity.X > maxSpeed * speedmult)
+				if (axisVelocity > maxSpeed * speedmult)
 				{
-					intendedVelocity.X -= amount * speedmult;
-					if (intendedVelocity.X < maxSpeed * speedmult)
+					axisVelocity -= amount * speedmult;
+					if (axisVelocity < maxSpeed * speedmult)
 					{
-						intendedVelocity.X = maxSpeed * speedmult;
+						axisVelocity = maxSpeed * speedmult;
 					}
+
+					if (Yaxis) intendedVelocity.Y = axisVelocity;
+					else intendedVelocity.X = axisVelocity;
 					return true;
 				}
 			}
 			else
 			{
-				if (intendedVelocity.X < maxSpeed * speedmult)
+				if (axisVelocity < maxSpeed * speedmult)
 				{
-					intendedVelocity.X += amount * speedmult;
-					if (intendedVelocity.X > maxSpeed * speedmult)
+					axisVelocity += amount * speedmult;
+					if (axisVelocity > maxSpeed * speedmult)
 					{
-						intendedVelocity.X = maxSpeed * speedmult;
+						axisVelocity = maxSpeed * speedmult;
 					}
+					
+					if (Yaxis) intendedVelocity.Y = axisVelocity;
+					else intendedVelocity.X = axisVelocity;
 					return true;
 				}
 			}

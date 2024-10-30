@@ -202,14 +202,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerateX(ref intendedVelocity, -1.75f, speedMult, 0.1f);
+						TryAccelerate(ref intendedVelocity, -1.75f, speedMult, 0.1f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerateX(ref intendedVelocity, 1.75f, speedMult, 0.1f);
+						TryAccelerate(ref intendedVelocity, 1.75f, speedMult, 0.1f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 						LateralMovement = true;

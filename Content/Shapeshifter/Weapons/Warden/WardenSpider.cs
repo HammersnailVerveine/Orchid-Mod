@@ -12,6 +12,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 	public class WardenSpider : OrchidModShapeshifterShapeshift
 	{
 		public bool LateralMovement = false;
+		public bool JumpRelease = false;
 
 		public override void SafeSetDefaults()
 		{
@@ -19,7 +20,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			Item.height = 30;
 			Item.value = Item.sellPrice(0, 1, 0, 0);
 			Item.rare = ItemRarityID.Green;
-			Item.UseSound = SoundID.NPCHit24;
+			Item.UseSound = SoundID.NPCHit29;
 			Item.useTime = 30;
 			Item.shootSpeed = 48f;
 			Item.knockBack = 5f;
@@ -55,8 +56,34 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			Vector2 position = projectile.Center;
+			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f) / 15f;
+
+			for (int i = 0; i < 15; i++)
+			{
+				position += Collision.TileCollision(position, offSet, 2, 2, true, false, (int)player.gravDir);
+
+				foreach (NPC npc in Main.npc)
+				{
+					if (OrchidModProjectile.IsValidTarget(npc))
+					{
+						if (position.Distance(npc.Center) < npc.width + 32f) // if the NPC is close to the projectile path, snaps to it.
+						{
+							position = npc.Center;
+							break;
+						}
+					}
+				}
+			}
+
+			int projectileType = ModContent.ProjectileType<WardenSpiderProj>();
+			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack, player.whoAmI);
+			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+			SoundEngine.PlaySound(SoundID.Zombie33, projectile.Center);
+
 			anchor.LeftCLickCooldown = Item.useTime;
-			anchor.Projectile.ai[0] = 15;
+			anchor.Projectile.ai[0] = 10;
 			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 			anchor.NeedNetUpdate = true;
 
@@ -78,6 +105,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			// MISC EFFECTS & ANIMATION
 
 			float speedMult = GetSpeedMult(player, shapeshifter);
+			bool walled = Framing.GetTileSafely((int)(projectile.Center.X / 16f), (int)(projectile.Center.Y / 16f)).WallType != 0 && !anchor.IsInputJump;
 
 			if (anchor.Projectile.ai[0] != 0)
 			{ // Override animation during left and right click attack
@@ -87,8 +115,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				if (anchor.Projectile.ai[0] > 0)
 				{ // Left Click
 					anchor.Projectile.ai[0]--;
-					anchor.Projectile.ai[0]--;
-					anchor.Frame = (anchor.Projectile.ai[0] > 8 ? 4 : 5);
+					anchor.Frame = walled ? 10 : anchor.Projectile.ai[0] < 6 ? 5 : 4;
 
 					if (anchor.Projectile.ai[0] < 0)
 					{
@@ -98,72 +125,148 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 				if (anchor.Projectile.ai[0] == 0)
 				{ // Puts the animation back on track
-					anchor.Frame = 0;
+					anchor.Frame = walled ? 6 : 0;
 				}
 			}
-			else if (LateralMovement)
-			{ // Player is moving left or right, cycle through frames
-				if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
+			else if (walled)
+			{ // Attached to a wall
+				if (anchor.Frame < 6)
 				{
-					anchor.Frame++;
-					if (anchor.Frame == 4)
+					anchor.Frame = 6;
+				}
+
+				if (projectile.velocity.Length() > 1f)
+				{ // is moving
+					if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
 					{
-						anchor.Frame = 1;
+						anchor.Frame++;
+						if (anchor.Frame > 9)
+						{
+							anchor.Frame = 6;
+						}
 					}
+				}
+				else
+				{
+					anchor.Timespent = 0;
+					anchor.Frame = 6;
 				}
 			}
 			else
-			{
-				anchor.Timespent = 0;
-				anchor.Frame = 0;
+			{ // Grounded animations
+				if (anchor.Frame > 3)
+				{
+					anchor.Frame = 0;
+				}
+
+				if (LateralMovement)
+				{ // Player is moving left or right, cycle through frames
+					if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
+					{
+						anchor.Frame++;
+						if (anchor.Frame == 4)
+						{
+							anchor.Frame = 1;
+						}
+					}
+				}
+				else
+				{
+					anchor.Timespent = 0;
+					anchor.Frame = 0;
+				}
+
+				if (!IsGrounded(projectile, player, 8f))
+				{
+					anchor.Timespent = 0;
+					anchor.Frame = 5;
+				}
 			}
 
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
-			GravityCalculations(ref intendedVelocity, player);
+			bool horizontalMovement = false;
 
-			// Normal movement
-			if ((anchor.IsInputLeft || anchor.IsInputRight) && projectile.ai[0] > -270)
-			{ // Player is inputting a movement key and didn't just start blocking
-				if (projectile.ai[0] < -5)
-				{ // Cancels the block if the player was blocking
-					projectile.ai[0] = -5;
-					anchor.RightCLickCooldown = 60;
-					anchor.NeedNetUpdate = true;
-				}
-				else
-				{
-					if (anchor.Projectile.ai[2] > 0)
-					{
-						speedMult *= 1.75f;
+			if (walled)
+			{ // Can walk on walls
+				if ((anchor.IsInputUp || anchor.IsInputDown))
+				{ // Player is inputting a movement key and didn't just start blocking
+					if (anchor.IsInputUp && !anchor.IsInputDown)
+					{ // Up movement
+						TryAccelerate(ref intendedVelocity, LateralMovement ? -2.83f : -4f, speedMult, LateralMovement ? 0.283f : 0.4f, Yaxis: true);
+						horizontalMovement = true;
 					}
-
-					if (anchor.IsInputLeft && !anchor.IsInputRight)
-					{ // Left movement
-						TryAccelerateX(ref intendedVelocity, -4f, speedMult, 0.4f);
-						projectile.direction = -1;
-						projectile.spriteDirection = -1;
-						LateralMovement = true;
-					}
-					else if (anchor.IsInputRight && !anchor.IsInputLeft)
-					{ // Right movement
-						TryAccelerateX(ref intendedVelocity, 4f, speedMult, 0.4f);
-						projectile.direction = 1;
-						projectile.spriteDirection = 1;
-						LateralMovement = true;
+					else if (!anchor.IsInputUp && anchor.IsInputDown)
+					{ // Down movement
+						TryAccelerate(ref intendedVelocity, LateralMovement ? 2.83f : 4f, speedMult, LateralMovement ? 0.283f : 0.4f, Yaxis: true);
+						horizontalMovement = true;
 					}
 					else
 					{ // Both keys pressed = no movement
-						LateralMovement = false;
-						intendedVelocity.X *= 0.7f;
+						intendedVelocity.Y *= 0.7f;
 					}
+				}
+				else
+				{ // no movement input
+					intendedVelocity.Y *= 0.7f;
+				}
+			}
+			else
+			{ // Falling
+
+				if (anchor.IsInputJump)
+				{ // Jump while no charge ready
+					if (IsGrounded(projectile, player, 4f) && JumpRelease)
+					{
+						JumpRelease = false;
+						intendedVelocity.Y = -9.5f;
+					}
+				}
+				else
+				{
+					JumpRelease = true;
+				}
+
+				GravityCalculations(ref intendedVelocity, player);
+			}
+
+			// Normal movement
+			if ((anchor.IsInputLeft || anchor.IsInputRight))
+			{ // Player is inputting a movement key and didn't just start blocking
+				if (anchor.IsInputLeft && !anchor.IsInputRight)
+				{ // Left movement
+					TryAccelerate(ref intendedVelocity, horizontalMovement ? -2.83f : -4f, speedMult, horizontalMovement ? 0.283f : 0.4f);
+					projectile.direction = -1;
+					LateralMovement = true;
+				}
+				else if (anchor.IsInputRight && !anchor.IsInputLeft)
+				{ // Right movement
+					TryAccelerate(ref intendedVelocity, horizontalMovement ? 2.83f : 4f, speedMult, horizontalMovement ? 0.283f : 0.4f);
+					projectile.direction = 1;
+					LateralMovement = true;
+				}
+				else
+				{ // Both keys pressed = no movement
+					LateralMovement = false;
+					intendedVelocity.X *= 0.7f;
 				}
 			}
 			else
 			{ // no movement input
 				LateralMovement = false;
 				intendedVelocity.X *= 0.7f;
+			}
+
+			if (walled)
+			{
+				projectile.rotation = projectile.velocity.ToRotation();
+				projectile.spriteDirection = 1;
+			}
+			else
+			{
+				projectile.rotation = 0f;
+				projectile.spriteDirection = projectile.direction;
 			}
 
 			FinalVelocityCalculations(ref intendedVelocity, projectile, player, true);
@@ -176,7 +279,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 			for (int i = 0; i < 2; i++)
 			{
-				if (anchor.OldPosition.Count > 5)
+				if (anchor.OldPosition.Count > 4)
 				{
 					anchor.OldPosition.RemoveAt(0);
 					anchor.OldRotation.RemoveAt(0);
