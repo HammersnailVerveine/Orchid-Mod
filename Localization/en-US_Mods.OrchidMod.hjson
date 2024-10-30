@@ -3247,6 +3247,11 @@ Items: {
 		DisplayName: Horizon Pickaxe
 		Tooltip: ""
 	}
+
+	WardenSpider: {
+		Tooltip: ""
+		DisplayName: Warden Spider
+	}
 }
 
 NPCs: {
