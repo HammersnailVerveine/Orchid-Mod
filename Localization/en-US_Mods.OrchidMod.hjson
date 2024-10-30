@@ -3579,6 +3579,7 @@ Projectiles: {
 	SageBeeProj.DisplayName: Stringer
 	HorizonDrillProjectile.DisplayName: Horizon Drill
 	WardenSpiderProj.DisplayName: Warden Spider Proj
+	WardenSpiderWeb.DisplayName: Warden Spider Web
 }
 
 Configs: {

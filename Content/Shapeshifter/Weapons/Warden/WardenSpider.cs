@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Buffs;
+using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using Terraria;
 using Terraria.Audio;
@@ -80,7 +81,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
 			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack, player.whoAmI);
 			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-			SoundEngine.PlaySound(SoundID.Zombie33, projectile.Center);
+			SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, projectile.Center);
 
 			anchor.LeftCLickCooldown = Item.useTime;
 			anchor.Projectile.ai[0] = 10;
@@ -92,12 +93,19 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			int projectileType = ModContent.ProjectileType<WardenSpiderWeb>();
+			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 10f;
+			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
+			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+			newProjectile.netUpdate = true;
+
 			anchor.NeedNetUpdate = true;
-			anchor.RightCLickCooldown = 360;
-			//anchor.Projectile.ai[0] = -300;
-			anchor.Projectile.ai[1] = projectile.spriteDirection;
+			anchor.LeftCLickCooldown = Item.useTime * 2.5f;
+			anchor.Projectile.ai[0] = 15;
+			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 			projectile.velocity.X = 0f;
-			SoundEngine.PlaySound(SoundID.NPCHit24, projectile.Center);
+			SoundEngine.PlaySound(SoundID.Item17, projectile.Center);
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -105,7 +113,28 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			// MISC EFFECTS & ANIMATION
 
 			float speedMult = GetSpeedMult(player, shapeshifter);
-			bool walled = Framing.GetTileSafely((int)(projectile.Center.X / 16f), (int)(projectile.Center.Y / 16f)).WallType != 0 && !anchor.IsInputJump;
+			Tile tile = Framing.GetTileSafely((int)(projectile.Center.X / 16f), (int)(projectile.Center.Y / 16f));
+			bool walled = tile.WallType != 0;
+
+			foreach(Projectile webProjectile in Main.projectile)
+			{
+				if (webProjectile.ai[0] > 45 && webProjectile.active && projectile.Center.Distance(webProjectile.Center) < 48f)
+				{
+					walled = true;
+				} 
+			}
+
+			if (walled)
+			{ // Cancels fall damage when walled
+				player.fallStart = (int)(player.position.Y / 16f);
+				player.fallStart2 = (int)(player.position.Y / 16f);
+
+				if (anchor.IsInputJump)
+				{ // Prevents jumping immediately after detaching of a wall by pressing space
+					walled = false;
+					JumpRelease = false;
+				}
+			}
 
 			if (anchor.Projectile.ai[0] != 0)
 			{ // Override animation during left and right click attack
@@ -194,22 +223,22 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{ // Player is inputting a movement key and didn't just start blocking
 					if (anchor.IsInputUp && !anchor.IsInputDown)
 					{ // Up movement
-						TryAccelerate(ref intendedVelocity, LateralMovement ? -2.83f : -4f, speedMult, LateralMovement ? 0.283f : 0.4f, Yaxis: true);
+						TryAccelerate(ref intendedVelocity, LateralMovement ? -2.83f : -4f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
 						horizontalMovement = true;
 					}
 					else if (!anchor.IsInputUp && anchor.IsInputDown)
 					{ // Down movement
-						TryAccelerate(ref intendedVelocity, LateralMovement ? 2.83f : 4f, speedMult, LateralMovement ? 0.283f : 0.4f, Yaxis: true);
+						TryAccelerate(ref intendedVelocity, LateralMovement ? 2.83f : 4f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
 						horizontalMovement = true;
 					}
 					else
 					{ // Both keys pressed = no movement
-						intendedVelocity.Y *= 0.7f;
+						intendedVelocity.Y *= 0.5f;
 					}
 				}
 				else
 				{ // no movement input
-					intendedVelocity.Y *= 0.7f;
+					intendedVelocity.Y *= 0.5f;
 				}
 			}
 			else
@@ -236,31 +265,34 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{ // Player is inputting a movement key and didn't just start blocking
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
 				{ // Left movement
-					TryAccelerate(ref intendedVelocity, horizontalMovement ? -2.83f : -4f, speedMult, horizontalMovement ? 0.283f : 0.4f);
+					TryAccelerate(ref intendedVelocity, horizontalMovement ? -2.83f : -4f, speedMult, (horizontalMovement ? 0.283f : 0.4f) * (walled ? 1.5f : 1f));
 					projectile.direction = -1;
 					LateralMovement = true;
 				}
 				else if (anchor.IsInputRight && !anchor.IsInputLeft)
 				{ // Right movement
-					TryAccelerate(ref intendedVelocity, horizontalMovement ? 2.83f : 4f, speedMult, horizontalMovement ? 0.283f : 0.4f);
+					TryAccelerate(ref intendedVelocity, horizontalMovement ? 2.83f : 4f, speedMult, (horizontalMovement ? 0.283f : 0.4f) * (walled ? 1.5f : 1f));
 					projectile.direction = 1;
 					LateralMovement = true;
 				}
 				else
 				{ // Both keys pressed = no movement
 					LateralMovement = false;
-					intendedVelocity.X *= 0.7f;
+					intendedVelocity.X *= walled ? 0.5f : 0.7f;
 				}
 			}
 			else
 			{ // no movement input
 				LateralMovement = false;
-				intendedVelocity.X *= 0.7f;
+				intendedVelocity.X *= walled ? 0.5f : 0.7f;
 			}
 
 			if (walled)
 			{
-				projectile.rotation = projectile.velocity.ToRotation();
+				if (intendedVelocity.Length() > 0.1f)
+				{
+					projectile.rotation = projectile.velocity.ToRotation();
+				}
 				projectile.spriteDirection = 1;
 			}
 			else
