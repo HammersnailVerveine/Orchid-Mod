@@ -26,7 +26,10 @@ namespace OrchidMod.Content.Shapeshifter.Buffs.Debuffs
 		public override void Update(NPC npc, ref int buffIndex)
 		{
 			npc.GetGlobalNPC<ShapeshifterGlobalNPC>().WardenSpiderDebuff = true;
-			npc.velocity.X *= 0.9f;
+			if (npc.knockBackResist > 0f)
+			{
+				npc.velocity.X *= 0.9f;
+			}
 
 			if (Main.rand.NextBool(3))
 			{

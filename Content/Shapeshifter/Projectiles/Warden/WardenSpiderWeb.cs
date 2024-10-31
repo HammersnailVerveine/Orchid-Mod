@@ -82,8 +82,12 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 							SoundEngine.PlaySound(SoundID.Grass, npc.Center);
 						}
 						
-						npc.AddBuff(ModContent.BuffType<WardenSpiderDebuff>(), 600);
-						npc.velocity *= 0.9f;
+						npc.AddBuff(ModContent.BuffType<WardenSpiderDebuff>(), 300);
+
+						if (npc.knockBackResist > 0f)
+						{
+							npc.velocity *= 0.9f;
+						}
 					}
 				}
 			}
