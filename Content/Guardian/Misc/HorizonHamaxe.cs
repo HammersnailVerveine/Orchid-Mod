@@ -11,8 +11,8 @@ namespace OrchidMod.Content.Guardian.Misc
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.LunarBar, 10);
-			recipe.AddIngredient(ModContent.ItemType<HorizonFragment>(), 12);
+			recipe.AddIngredient(ItemID.LunarBar, 12);
+			recipe.AddIngredient(ModContent.ItemType<HorizonFragment>(), 14);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}
