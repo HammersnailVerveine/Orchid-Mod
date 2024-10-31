@@ -168,7 +168,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			{ // Animation frames
 				anchor.Frame++;
 
-				if (anchor.Frame == 7)
+				if (anchor.Frame >= 7)
 				{
 					anchor.Frame = 1;
 				}

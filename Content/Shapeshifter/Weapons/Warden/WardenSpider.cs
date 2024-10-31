@@ -100,9 +100,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			int projectileType = ModContent.ProjectileType<WardenSpiderWeb>();
-			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 10f;
+			Vector2 distance = Main.MouseWorld - projectile.Center;
+			float ai0 = distance.Length() > 300f ? 0f : (30f - distance.Length() / 10f);
+			Vector2 velocity = Vector2.Normalize(distance) * 10f;
 			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack * 3f, player.whoAmI);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack * 3f, player.whoAmI, ai0);
 			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 			newProjectile.netUpdate = true;
 

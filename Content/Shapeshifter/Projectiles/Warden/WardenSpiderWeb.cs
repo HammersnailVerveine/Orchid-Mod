@@ -59,7 +59,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 
 					if (!initialized)
 					{ // Kills all other webs
-						initialized = true;
 						foreach (Projectile projectile in Main.projectile)
 						{
 							if (projectile.type == Type && projectile != Projectile && projectile.active && Projectile.owner == projectile.owner)
@@ -69,6 +68,8 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 							}
 						}
 
+						initialized = true;
+						Projectile.netUpdate = true;
 						SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
 					}
 				}
