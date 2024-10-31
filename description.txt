@@ -1,10 +1,9 @@
 The Orchid Mod aims to add content to the game in polished and refreshing ways.
-You will not find the usual vanilla class items load here, most of Orchid content is, and will be based on
-new classes, with unique complex mechanics, and new interesting biomes/structures to explore.
+You will not find the usual vanilla class items here, as the content Orchid Mod provides 
+is based on new classes with unique and complex mechanics.
 
 Orchid's content is heavily inspired, and tries to respect vanilla guidelines as much as possible.
 Thus, the mod is balanced around the main game, nothing should overpower it, and the classes
 should blend in as much as possible with the main ones.
 
-Please, take a minute to report any oddities you may encounter :)
-This is especially important with the 1.4 update, and the changes that followed it.
+Please, take a minute to report any oddities you may encounter!
