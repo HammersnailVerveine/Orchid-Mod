@@ -3237,9 +3237,13 @@ Items: {
 	WardenSpider: {
 		DisplayName: Shellweb Idol
 		LeftClick: A violent bite, healing off of webbed enemies
-		RightClick: Fires a tangling web, allowing to execute low health enemies
+		RightClick: Fires a web, allowing to execute enemies below 100 health
 		Jump: The web can be used to pull yourself towards tiles or webs
-		Passive: Executing enemies recover 10 health and grants 15 defense
+		Passive:
+			'''
+			Executing enemies recover 10 health and grants 15 defense
+			The execute threshold and healing are reduced in other shapes
+			'''
 		Tooltip: Transforms you into a Shellweb Spider, gaining unique abilities
 	}
 
