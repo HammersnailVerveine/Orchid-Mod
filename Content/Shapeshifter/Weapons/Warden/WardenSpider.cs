@@ -60,20 +60,26 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			Vector2 position = projectile.Center;
 			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f) / 15f;
 
+			bool foundTarget = false;
 			for (int i = 0; i < 15; i++)
 			{
 				position += Collision.TileCollision(position, offSet, 2, 2, true, false, (int)player.gravDir);
-
 				foreach (NPC npc in Main.npc)
 				{
 					if (OrchidModProjectile.IsValidTarget(npc))
 					{
 						if (position.Distance(npc.Center) < npc.width + 32f) // if the NPC is close to the projectile path, snaps to it.
 						{
+							foundTarget = true;
 							position = npc.Center;
 							break;
 						}
 					}
+				}
+
+				if (foundTarget)
+				{
+					break;
 				}
 			}
 
@@ -96,12 +102,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			int projectileType = ModContent.ProjectileType<WardenSpiderWeb>();
 			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 10f;
 			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack * 3f, player.whoAmI);
 			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 			newProjectile.netUpdate = true;
 
 			anchor.NeedNetUpdate = true;
-			anchor.LeftCLickCooldown = Item.useTime * 2.5f;
+			anchor.RightCLickCooldown = Item.useTime * 2.5f;
 			anchor.Projectile.ai[0] = 15;
 			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 			projectile.velocity.X = 0f;

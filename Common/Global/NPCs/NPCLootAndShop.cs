@@ -30,6 +30,7 @@ using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.General.Armor.Vanity;
 using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Content.Shapeshifter.Misc;
+using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -318,6 +319,12 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.AngryBonesBigMuscle:
 					{
 						npcLoot.Add(ItemDropRule.Common(ItemType<BadgeBattlesPast>(), 20));
+					}
+					break;
+				case NPCID.WallCreeper:
+				case NPCID.WallCreeperWall:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<WardenSpider>(), 15));
 					}
 					break;
 				default:

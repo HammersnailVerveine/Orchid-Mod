@@ -308,7 +308,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public bool StepUpTiles(Vector2 intendedVelocity, Projectile projectile, Player player)
 		{
-			if (CanGoUp(intendedVelocity, projectile, player))
+			if (CanGoUp(intendedVelocity, projectile, player) && projectile.velocity.Y >= 0f)
 			{
 				Vector2 finalVelocity = Vector2.Zero;
 				intendedVelocity.Y = 0;

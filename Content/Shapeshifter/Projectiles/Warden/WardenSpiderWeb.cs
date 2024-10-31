@@ -1,6 +1,6 @@
-using Microsoft.Build.Tasks.Deployment.ManifestUtilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -35,36 +35,55 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 		public override void AI()
 		{
 			Projectile.ai[0]++;
-			if (Projectile.ai[0] > 50f)
+			if (Projectile.ai[0] > 30 && Projectile.ai[1] == 0 && Projectile.ai[2] == 0)
 			{
-				Projectile.friendly = false;
-				Projectile.velocity *= 0.8f;
-				Projectile.rotation += 0.005f + (float)Math.Sin(Projectile.ai[0] * 0.025f) * 0.01f;
-			}
-			else if (Projectile.ai[0] > 30 && Projectile.ai[1] == 0 && Projectile.ai[2] == 0)
-			{
-				Projectile.tileCollide = false;
-				Projectile.velocity *= 0.85f;
-				if (Projectile.scale < 1f) Projectile.scale *= 1.1f;
-				if (Projectile.scale > 1.4f) Projectile.scale *= 1f; // Needs 15 frames from 0.25f;
-				Projectile.rotation += 0.05f;
-
-				if (OldPosition.Count > 0)
+				if (Projectile.ai[0] > 50f)
 				{
-					OldPosition.RemoveAt(0);
-					OldRotation.RemoveAt(0);
+					Projectile.tileCollide = false;
+					Projectile.friendly = false;
+					Projectile.velocity *= 0.8f;
+					Projectile.rotation += (float)Math.Sin(Projectile.ai[0] * 0.025f) * 0.01f;
+				}
+				else
+				{
+					Projectile.velocity *= 0.85f;
+					if (Projectile.scale < 1f) Projectile.scale *= 1.1f;
+					if (Projectile.scale > 1.4f) Projectile.scale *= 1f; // Needs 15 frames from 0.25f;
+					Projectile.rotation += 0.05f;
+
+					if (OldPosition.Count > 0)
+					{
+						OldPosition.RemoveAt(0);
+						OldRotation.RemoveAt(0);
+					}
+
+					if (!initialized)
+					{ // Kills all other webs
+						initialized = true;
+						foreach (Projectile projectile in Main.projectile)
+						{
+							if (projectile.type == Type && projectile != Projectile && projectile.active && Projectile.owner == projectile.owner)
+							{
+								projectile.ai[1] = 1;
+								projectile.netUpdate = true;
+							}
+						}
+
+						SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
+					}
 				}
 
-				if (!initialized)
-				{ // Kills all other webs
-					initialized = true;
-					foreach (Projectile projectile in Main.projectile)
+				foreach (NPC npc in Main.npc)
+				{
+					if (IsValidTarget(npc) && npc.Center.Distance(Projectile.Center) < 48f)
 					{
-						if (projectile.type == Type && projectile != Projectile && projectile.active && Projectile.owner == projectile.owner)
+						if (!npc.HasBuff<WardenSpiderDebuff>())
 						{
-							projectile.ai[1] = 1;
-							projectile.netUpdate = true;
+							SoundEngine.PlaySound(SoundID.Grass, npc.Center);
 						}
+						
+						npc.AddBuff(ModContent.BuffType<WardenSpiderDebuff>(), 600);
+						npc.velocity *= 0.9f;
 					}
 				}
 			}
@@ -94,6 +113,12 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 					}
 				}
 
+				if (Projectile.ai[1] == 0 && Projectile.ai[2] == 0)
+				{
+					Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Web);
+					dust.velocity = (dust.velocity + Projectile.velocity * 0.25f) * 0.5f;
+				}
+
 				OldPosition.Add(Projectile.Center);
 				OldRotation.Add(Projectile.rotation);
 
@@ -121,7 +146,10 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				}
 
 				OrchidShapeshifter shapeshifter = Owner.GetModPlayer<OrchidShapeshifter>();
-				shapeshifter.ShapeshiftAnchor.Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 12.5f;
+				if (shapeshifter.IsShapeshifted)
+				{
+					shapeshifter.ShapeshiftAnchor.Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 12.5f;
+				}
 			}
 		}
 
@@ -130,11 +158,34 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			Projectile.friendly = false;
 			Projectile.ai[0] = 30;
 			Projectile.netUpdate = true;
+
+			target.AddBuff(ModContent.BuffType<WardenSpiderDebuff>(), 600);
+
+			for (int i = 0; i < 8; i ++)
+			{
+				Dust.NewDustDirect(target.position, target.width, target.height, DustID.Web);
+			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Projectile.ai[2] = 1;
+			if (Projectile.ai[0] > 30)
+			{
+				Projectile.velocity = -oldVelocity * 0.5f;
+			}
+			else
+			{
+				if (Projectile.Center.Distance(Owner.Center) < 48f)
+				{
+					Projectile.velocity = -oldVelocity * 0.5f;
+					Projectile.ai[0] = 30;
+				}
+				else
+				{
+					Projectile.ai[2] = 1;
+				}
+			}
+
 			Projectile.netUpdate = true;
 			SoundEngine.PlaySound(SoundID.Item17, Projectile.Center);
 			return false;

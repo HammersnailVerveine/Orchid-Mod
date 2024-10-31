@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
@@ -69,6 +71,16 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				{
 					OldAI.RemoveAt(0);
 				}
+			}
+		}
+
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)
+		{
+			target.AddBuff(BuffID.Poisoned, 300);
+
+			if (target.HasBuff<WardenSpiderDebuff>())
+			{
+				shapeshifter.modPlayer.TryHeal(1 + Main.rand.Next(2));
 			}
 		}
 
