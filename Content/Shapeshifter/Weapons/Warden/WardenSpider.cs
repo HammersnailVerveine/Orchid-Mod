@@ -309,7 +309,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				projectile.spriteDirection = projectile.direction;
 			}
 
-			FinalVelocityCalculations(ref intendedVelocity, projectile, player, true);
+			FinalVelocityCalculations(ref intendedVelocity, projectile, player, true, forceFallThrough: walled);
 
 			// POSITION AND ROTATION VISUALS
 
