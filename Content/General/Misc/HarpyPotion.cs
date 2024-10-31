@@ -26,6 +26,7 @@ namespace OrchidMod.Content.General.Misc
 			Item.buffTime = 60 * 180;
 		}
 
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -36,6 +37,7 @@ namespace OrchidMod.Content.General.Misc
 			recipe.AddIngredient(ItemID.Feather, 1);
 			recipe.Register();
 		}
+		*/
 	}
 
 	public class HarpyPotionBuff : ModBuff
