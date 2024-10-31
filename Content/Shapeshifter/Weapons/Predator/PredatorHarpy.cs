@@ -228,7 +228,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				if (intendedVelocity.Y > 0) intendedVelocity.Y = 0f;
 
 				projectile.ai[2]--;
-				if (projectile.ai[2] % 5 == 0)
+				if (projectile.ai[2] % 5 == 0 && IsLocalPlayer(player))
 				{
 					int projectileType = ModContent.ProjectileType<PredatorHarpyProj>();
 					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f);

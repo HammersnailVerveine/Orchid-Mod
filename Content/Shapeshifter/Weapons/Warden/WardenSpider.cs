@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Shapeshifter.Buffs;
-using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using Terraria;
 using Terraria.Audio;
@@ -63,7 +61,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			bool foundTarget = false;
 			for (int i = 0; i < 15; i++)
 			{
-				position += Collision.TileCollision(position, offSet, 2, 2, true, false, (int)player.gravDir);
+				position += Collision.TileCollision(position, offSet, 2, 2, true, true, (int)player.gravDir);
 				foreach (NPC npc in Main.npc)
 				{
 					if (OrchidModProjectile.IsValidTarget(npc))

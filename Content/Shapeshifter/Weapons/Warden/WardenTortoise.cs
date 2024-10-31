@@ -62,7 +62,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			bool foundTarget = false;
 			for (int i = 0; i < (player.HasBuff<WardenTortoiseBuff>() ? 45 : 15); i++)
 			{
-				position += Collision.TileCollision(position, offSet, 2, 2, true, false, (int)player.gravDir);
+				position += Collision.TileCollision(position, offSet, 2, 2, true, true, (int)player.gravDir);
 
 				foreach (NPC npc in Main.npc)
 				{
