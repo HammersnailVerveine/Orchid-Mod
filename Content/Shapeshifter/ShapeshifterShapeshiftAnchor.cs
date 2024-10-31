@@ -319,7 +319,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			if (SelectedItem == ItemID.None) return false;
+			if (SelectedItem < 0) return false;
 			if (ShapeshifterItem.ModItem is not OrchidModShapeshifterShapeshift shapeshifterItem || TextureShapeshift == null) return false;
 			var player = Main.player[Projectile.owner];
 
