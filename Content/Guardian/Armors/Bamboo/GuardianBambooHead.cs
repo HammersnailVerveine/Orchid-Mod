@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.setBonus = "Taking damage grants a block charge";
+			player.setBonus = "Taking damage grants a guard charge";
 			modPlayer.GuardianBamboo = true;
 		}
 
