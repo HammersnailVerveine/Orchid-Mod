@@ -1,16 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Assets;
+using OrchidMod.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
 	public class Skateboard : OrchidModGuardianShield
 	{
 		public static readonly SoundStyle SoundTrick = new(OrchidAssets.SoundsPath + "SkateTrick");
+		public Texture2D TextureWheels;
 		public float playerVelocity;
+		public int TimeSpent = 0;
 
 		public override void SafeSetDefaults()
 		{
@@ -25,6 +30,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			distance = 28f;
 			slamDistance = 50f;
 			blockDuration = 240;
+			TextureWheels ??= ModContent.Request<Texture2D>(Texture + "_Wheels", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 		}
 
 		public override void BlockStart(Player player, Projectile shield)
@@ -49,8 +55,19 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			}
 		}
 
+		public override void PostDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor)
+		{
+			var effect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+			for (int i = -1; i < 2; i+= 2)
+			{
+				Vector2 drawPosition = projectile.Center - new Vector2(4f, 8f * i).RotatedBy(projectile.rotation) - Main.screenPosition;
+				spriteBatch.Draw(TextureWheels, drawPosition, null, lightColor * (projectile.ai[0] > 0f ? 1f : 0.5f), projectile.rotation + TimeSpent * 0.05f, TextureWheels.Size() * 0.5f, projectile.scale, effect, 0f);
+			}
+		}
+
 		public override void ExtraAIShield(Projectile projectile)
 		{
+			TimeSpent++;
 			if (projectile.ai[0] > 0f && projectile.ModProjectile is GuardianShieldAnchor anchor) // is blocking
 			{
 				Player owner = Main.player[projectile.owner];
@@ -75,6 +92,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 						owner.position.Y += (collision.Y - 1.7f);
 						owner.velocity.X = playerVelocity;
 						owner.velocity.Y = 0.1f;
+
+						if (playerVelocity < 0)
+						{
+							TimeSpent -= 10;
+						}
+						else if (playerVelocity > 0)
+						{
+							TimeSpent += 9;
+						}
 
 						if (Main.rand.NextBool(4)) SoundEngine.PlaySound(SoundID.Item55, projectile.Center);
 					}
