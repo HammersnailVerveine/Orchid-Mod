@@ -108,7 +108,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 					{
 						if (playerVelocity == 0) SoundEngine.PlaySound(SoundID.Item53, projectile.Center);
 						playerVelocity = owner.velocity.X;
+						if (playerVelocity < 1f) playerVelocity = 8f * owner.direction;
 						if (Math.Abs(playerVelocity) < 8f) playerVelocity = 8f * Math.Sign(playerVelocity);
+						owner.velocity.X = playerVelocity;
 					}
 				}
 			}
