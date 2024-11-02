@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Assets;
-using OrchidMod.Utilities;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -26,7 +25,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.knockBack = 13f;
 			Item.damage = 93;
 			Item.rare = ItemRarityID.Green;
-			Item.useTime = 35;
+			Item.useTime = 24;
 			distance = 28f;
 			slamDistance = 50f;
 			blockDuration = 240;

@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using OrchidMod.Content.Guardian.Projectiles.Shields;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
@@ -18,7 +16,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.knockBack = 6f;
 			Item.damage = 258;
 			Item.rare = ItemRarityID.Lime;
-			Item.useTime = 60;
+			Item.useTime = 28;
 			distance = 60f;
 			slamDistance = 130f;
 			blockDuration = 220;

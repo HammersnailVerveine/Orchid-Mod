@@ -18,7 +18,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.knockBack = 6f;
 			Item.damage = 210;
 			Item.rare = ItemRarityID.Pink;
-			Item.useTime = 60;
+			Item.useTime = 29;
 			distance = 60f;
 			slamDistance = 125f;
 			blockDuration = 200;
