@@ -230,6 +230,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 			npcShop.Add<LuckySprout>([OrchidConditions.GamblerSetBiome]);
 			npcShop.Add<ConquerorsPennant>([OrchidConditions.GamblerSetBoss]);
 			npcShop.Add<ElementalLens>([OrchidConditions.GamblerSetElemental]);
+			npcShop.Add<SlimyLollipop>([OrchidConditions.GamblerSetSlime]);
 			npcShop.Register();
 		}
 
