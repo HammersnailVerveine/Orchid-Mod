@@ -35,6 +35,8 @@ namespace OrchidMod.Content.Guardian
 		public float distance = 100f;
 		public float slamDistance = 100f;
 		public int blockDuration = 60;
+		/// <summary>Causes the shield's held sprite to flip when facing right.</summary>
+		public bool shouldFlip = false;
 
 		public sealed override void SetDefaults()
 		{
