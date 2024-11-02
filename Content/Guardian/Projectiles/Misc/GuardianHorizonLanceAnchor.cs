@@ -19,6 +19,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 		public int TimeSpent = 0;
 		public bool Ding = false;
 		public bool Blast = false;
+		public bool Reinforced = false;
 		public bool NeedNetUpdate = false;
 		public int SelectedItem { get; set; } = -1;
 		public Item HorizonLanceItem => Main.player[Projectile.owner].inventory[SelectedItem];
@@ -27,11 +28,13 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write(SelectedItem);
+			writer.Write(Reinforced);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			SelectedItem = reader.ReadInt32();
+			Reinforced = reader.ReadBoolean();
 		}
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -116,9 +119,17 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 				if (Worn)
 				{ // Handles buffs given to nearby players, npcs, etc
-					Projectile.ai[1]--; 
-					guardian.GuardianStandardStats.lifeRegen += 6;
+					Projectile.ai[1]--;
 					guardian.GuardianCurrentStandardAnchor = Projectile;
+
+					if (Reinforced)
+					{
+						guardian.GuardianStandardStats.lifeRegen += 6;
+					}
+				}
+				else
+				{
+					Reinforced = false;
 				}
 
 				if (HorizonLanceItem.ModItem is HorizonLance guardianItem)
@@ -231,6 +242,12 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 							{ // Full charge
 								SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
 
+								if (Projectile.ai[1] > 0 && !Reinforced)
+								{
+									Reinforced = true;
+									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced");
+								}
+
 								Projectile.ai[1] = guardianItem.StandardDuration * guardian.GuardianStandardTimer;
 								guardian.AddGuard(3);
 
@@ -325,19 +342,21 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 					}
 				}
 
-				var textureGlow = ModContent.Request<Texture2D>(guardianItem.LanceTextureGlow).Value;
 				drawPosition += new Vector2(-8f * player.direction, -12);
 				spriteBatch.Draw(texture, drawPosition, null, color * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 
-				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
-				//spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+				if (Reinforced)
+				{
+					var textureGlow = ModContent.Request<Texture2D>(guardianItem.LanceTextureGlow).Value;
+					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
-				float colorMult = (float)Math.Sin(TimeSpent * 0.075f) * 0.1f + 0.9f;
-				spriteBatch.Draw(textureGlow, drawPosition, null, Color.White * colorMult * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+					float colorMult = (float)Math.Sin(TimeSpent * 0.075f) * 0.1f + 0.9f;
+					spriteBatch.Draw(textureGlow, drawPosition, null, Color.White * colorMult * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 
-				spriteBatch.End();
-				spriteBatch.Begin(spriteBatchSnapshot);
+					spriteBatch.End();
+					spriteBatch.Begin(spriteBatchSnapshot);
+				}
 			}
 			else
 			{

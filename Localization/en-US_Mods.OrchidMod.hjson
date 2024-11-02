@@ -3115,7 +3115,8 @@ Items: {
 		DisplayName: Horizon Firmament
 		Tooltip:
 			'''
-			Fully charging increases life regeneration
+			Fully charging releases a damaging aurora
+			When reinforced, increases life regeneration
 			Retaliates and restores health on parry
 			'The fine line between the heavens and the world below'
 			'''
