@@ -150,7 +150,7 @@ namespace OrchidMod.Content.Guardian.UI
 
 				if (player.HeldItem.ModItem is OrchidModGuardianItem)
 				{
-					if (modPlayer.GuardianHammerCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianHammer)
+					if (modPlayer.GuardianHammerCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianHammer)
 					{
 						if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
 						{
@@ -215,7 +215,7 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (modPlayer.GuardianStandardCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && (player.HeldItem.ModItem is OrchidModGuardianStandard || player.HeldItem.ModItem is HorizonLance))
+					if (modPlayer.GuardianStandardCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && (player.HeldItem.ModItem is OrchidModGuardianStandard || player.HeldItem.ModItem is HorizonLance))
 					{
 						int val = textureStandardOn.Height;
 						if (modPlayer.GuardianStandardCharge >= 180f)
@@ -244,7 +244,7 @@ namespace OrchidMod.Content.Guardian.UI
 						spriteBatch.Draw(textureStandardOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 					}
 
-					if (modPlayer.GuardianRuneCharge > (23 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianRune)
+					if (modPlayer.GuardianRuneCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianRune)
 					{
 						int val = textureRuneOn.Height;
 						if (modPlayer.GuardianRuneCharge >= 180f)
@@ -272,7 +272,7 @@ namespace OrchidMod.Content.Guardian.UI
 						spriteBatch.Draw(textureRuneOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 					}
 
-					if (modPlayer.GuardianGauntletCharge > (70 * player.GetAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+					if (modPlayer.GuardianGauntletCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
 					{
 						int val = textureGauntletOn.Height;
 						if (modPlayer.GuardianGauntletCharge >= 180f)

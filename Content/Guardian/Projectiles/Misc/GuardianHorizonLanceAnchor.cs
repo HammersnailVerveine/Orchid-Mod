@@ -225,7 +225,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 						if (guardian.GuardianStandardCharge < 180f)
 						{
-							guardian.GuardianStandardCharge += 30f / guardianItem.Item.useTime * owner.GetAttackSpeed(DamageClass.Melee);
+							guardian.GuardianStandardCharge += 30f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee);
 							if (guardian.GuardianStandardCharge > 180f) guardian.GuardianStandardCharge = 180f;
 						}
 

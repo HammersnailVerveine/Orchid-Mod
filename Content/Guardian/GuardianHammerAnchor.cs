@@ -144,12 +144,12 @@ namespace OrchidMod.Content.Guardian
 
 							if (guardian.GuardianHammerCharge < 210f)
 							{
-								guardian.GuardianHammerCharge += 30f / HammerItem.Item.useTime * player.GetAttackSpeed(DamageClass.Melee);
+								guardian.GuardianHammerCharge += 30f / HammerItem.Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
 
 								if (ChargeToAdd > 0)
 								{
 									ChargeToAdd--;
-									guardian.GuardianHammerCharge += 2f * player.GetAttackSpeed(DamageClass.Melee);
+									guardian.GuardianHammerCharge += 2f * player.GetTotalAttackSpeed(DamageClass.Melee);
 								}
 
 								if (guardian.GuardianHammerCharge > 210f) guardian.GuardianHammerCharge = 210f;
@@ -213,7 +213,7 @@ namespace OrchidMod.Content.Guardian
 							if (ChargeToAdd > 0 && Projectile.ai[1] > -30 && !WeakHit)
 							{
 								ChargeToAdd--;
-								guardian.GuardianHammerCharge += 2f * player.GetAttackSpeed(DamageClass.Melee);
+								guardian.GuardianHammerCharge += 2f * player.GetTotalAttackSpeed(DamageClass.Melee);
 								if (guardian.GuardianHammerCharge > 210f) guardian.GuardianHammerCharge = 210f;
 							}
 
@@ -225,7 +225,7 @@ namespace OrchidMod.Content.Guardian
 							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
 							Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f + (armPosition.X - arm.X) * (2.5f + Projectile.width * 0.035f), (armPosition.Y - arm.Y) * -(1.1f + Projectile.width * 0.015f) + (210f - guardian.GuardianHammerCharge) * 0.075f);
 
-							float toAdd = 30f / HammerItem.Item.useTime * player.GetAttackSpeed(DamageClass.Melee);
+							float toAdd = 30f / HammerItem.Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
 							if (Projectile.ai[1] < -40) Projectile.ai[1] += toAdd * 1.5f;
 							else
 							{

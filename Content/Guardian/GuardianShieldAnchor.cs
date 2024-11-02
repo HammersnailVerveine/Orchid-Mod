@@ -106,7 +106,6 @@ namespace OrchidMod.Content.Guardian
 				float addedDistance = 0f;
 				if (Projectile.ai[1] > 0f)
 				{ // Shield bash
-
 					if (isSlamming == 0)
 					{
 						isSlamming = 1;
@@ -117,7 +116,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.friendly = true;
 					}
 
-					float slamDistance = (int)(guardianItem.slamDistance * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetAttackSpeed(DamageClass.Melee));
+					float slamDistance = (int)(guardianItem.slamDistance * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetTotalAttackSpeed(DamageClass.Melee));
 					addedDistance = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]) * slamDistance;
 					Projectile.ai[1] -= 60f / guardianItem.Item.useTime;
 

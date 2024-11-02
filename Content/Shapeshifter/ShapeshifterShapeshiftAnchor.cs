@@ -175,8 +175,8 @@ namespace OrchidMod.Content.Shapeshifter
 		{
 			Timespent++;
 
-			LeftCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedLeft ? player.GetAttackSpeed(DamageClass.Melee) + shapeshifter.ShapeshifterMeleeSpeedBonus : 1;
-			RightCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedRight ? player.GetAttackSpeed(DamageClass.Melee) + shapeshifter.ShapeshifterMeleeSpeedBonus : 1;
+			LeftCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedLeft ? player.GetTotalAttackSpeed(DamageClass.Melee) + shapeshifter.ShapeshifterMeleeSpeedBonus : 1;
+			RightCLickCooldown -= shapeshifter.Shapeshift.MeleeSpeedRight ? player.GetTotalAttackSpeed(DamageClass.Melee) + shapeshifter.ShapeshifterMeleeSpeedBonus : 1;
 
 			if (Projectile.position.X > Main.maxTilesX * 16 - (672 + Projectile.width))
 			{ // Prevents the player from leaving the map through the right

@@ -110,7 +110,7 @@ namespace OrchidMod.Content.Guardian
 
 						if (guardian.GuardianRuneCharge <= 180f)
 						{
-							guardian.GuardianRuneCharge += 10f / guardianItem.Item.useTime * owner.GetAttackSpeed(DamageClass.Melee); // Very slow charge time compared to other items
+							guardian.GuardianRuneCharge += 10f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee); // Very slow charge time compared to other items
 							if (guardian.GuardianRuneCharge > 180f)
 							{
 								guardian.GuardianRuneCharge = 180f;

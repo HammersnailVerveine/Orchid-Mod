@@ -189,7 +189,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (Charging)
 					{
-						guardian.GuardianGauntletCharge += 30f / GauntletItem.useTime * (owner.GetAttackSpeed(DamageClass.Melee) * 2f - 1f);
+						guardian.GuardianGauntletCharge += 30f / GauntletItem.useTime * (owner.GetTotalAttackSpeed(DamageClass.Melee) * 2f - 1f);
 						if (guardian.GuardianGauntletCharge > 180f)
 						{
 							if (!Ding && IsLocalOwner)
@@ -200,7 +200,7 @@ namespace OrchidMod.Content.Guardian
 							}
 							guardian.GuardianGauntletCharge = 180f;
 						}
-						else if (guardian.GuardianGauntletCharge > (70 * owner.GetAttackSpeed(DamageClass.Melee) - owner.HeldItem.useTime) / 2.5f) guardian.SlamCostUI = 1;
+						else if (guardian.GuardianGauntletCharge > (70 * owner.GetTotalAttackSpeed(DamageClass.Melee) - owner.HeldItem.useTime) / 2.5f) guardian.SlamCostUI = 1;
 
 						if ((ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? !Main.mouseRight : !Main.mouseLeft) && owner.whoAmI == Main.myPlayer)
 						{
