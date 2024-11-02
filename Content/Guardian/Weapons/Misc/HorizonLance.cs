@@ -16,7 +16,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 {
 	public class HorizonLance : OrchidModGuardianParryItem
 	{
-		public float AuraRange; // Flag effect range in tiles
 		public int StandardDuration; // Effect duration in ticks
 		public int ParryDuration;
 		public virtual string LanceTexture => Texture;
@@ -43,7 +42,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			Item.useTime = 20;
 			Item.knockBack = 8f;
 			Item.damage = 618;
-			AuraRange = 480; // 30 * 16
 			StandardDuration = 1800; // 30 sec
 			ParryDuration = 90;
 

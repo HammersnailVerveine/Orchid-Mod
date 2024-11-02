@@ -46,8 +46,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				if (anchor.aimedLocation.Y > owner.Center.Y && (Math.Abs(anchor.aimedLocation.X - owner.Center.X) < 48f) && owner.grapCount == 0 && owner.mount.Type == MountID.None)
 				{
 					owner.velocity.Y -= 10f;
+					owner.jump = 0;
 					if (owner.velocity.Y > -5) owner.velocity.Y = -5f;
-					if (owner.velocity.Y < -14f && !player.controlJump)
+					if (owner.velocity.Y - Math.Abs(owner.velocity.X / 2f) < -15f)
 					{
 						SoundEngine.PlaySound(SoundTrick, shield.Center);
 					}
@@ -56,7 +57,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 		}
 
 		public override void PostDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor)
-		{
+		{ // Draw the wheels
 			var effect = projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 			for (int i = -1; i < 2; i+= 2)
 			{
