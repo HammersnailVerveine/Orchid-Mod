@@ -51,6 +51,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.ai[0] = 0f;
 			Projectile.ai[1] = 0f;
 			Projectile.netUpdate = true;
+			Projectile.spriteDirection = 1;
 		}
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
