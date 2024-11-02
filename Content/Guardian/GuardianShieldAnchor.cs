@@ -218,6 +218,15 @@ namespace OrchidMod.Content.Guardian
 						aimedLocation *= (guardianItem.distance + addedDistance) * -1f;
 
 						Projectile.rotation = aimedLocation.ToRotation();
+						if (guardianItem.shouldFlip)
+						{
+							if (aimedLocation.X < 0)
+							{
+								Projectile.spriteDirection = -1;
+								Projectile.rotation += MathHelper.Pi;
+							}
+							else Projectile.spriteDirection = 1;
+						}
 						Projectile.direction = Projectile.spriteDirection;
 
 						aimedLocation = owner.Center.Floor() - aimedLocation - new Vector2(Projectile.width / 2f, Projectile.height / 2f);
