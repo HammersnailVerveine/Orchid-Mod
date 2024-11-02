@@ -82,7 +82,7 @@ namespace OrchidMod.Content.Guardian
 								SoundEngine.PlaySound(Item.UseSound, player.Center);
 								guardian.UseSlam();
 								shield.shieldEffectReady = true;
-								proj.ai[1] = Item.useTime;
+								proj.ai[1] = 60f;
 								if (proj.ai[0] > 0f) 
 								{
 									shield.spawnDusts();

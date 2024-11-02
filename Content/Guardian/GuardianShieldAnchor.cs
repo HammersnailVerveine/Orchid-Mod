@@ -118,8 +118,8 @@ namespace OrchidMod.Content.Guardian
 					}
 
 					float slamDistance = (int)(guardianItem.slamDistance * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetAttackSpeed(DamageClass.Melee));
-					addedDistance = (float)Math.Sin(MathHelper.Pi / guardianItem.Item.useTime * Projectile.ai[1]) * slamDistance;
-					Projectile.ai[1] -= slamDistance / guardianItem.Item.useTime;
+					addedDistance = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]) * slamDistance;
+					Projectile.ai[1] -= 60f / guardianItem.Item.useTime;
 
 					if (Projectile.ai[1] <= 0f)
 					{

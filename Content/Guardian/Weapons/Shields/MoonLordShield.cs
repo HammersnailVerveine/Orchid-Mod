@@ -6,9 +6,6 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Utilities;
 using OrchidMod.Common.ModObjects;
-using System.IO;
-using Terraria.GameContent;
-using Terraria.GameContent.ItemDropRules;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
@@ -96,7 +93,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				}
 
 				// playing is aiming down has no hook or mount, and is falling. Place the shield down and allow skating
-				if (anchor.aimedLocation.Y > owner.Center.Y && (Math.Abs(anchor.aimedLocation.X - owner.Center.X) < 48f) && owner.grapCount == 0 && owner.mount.Type == MountID.None)
+				if ((anchor.aimedLocation.Y - 64) > owner.Center.Y && (Math.Abs(anchor.aimedLocation.X - owner.Center.X) < 168f) && owner.grapCount == 0 && owner.mount.Type == MountID.None)
 				{
 					TimeSpent++;
 
