@@ -93,7 +93,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				}
 
 				// playing is aiming down has no hook or mount, and is falling. Place the shield down and allow skating
-				if ((anchor.aimedLocation.Y - 64) > owner.Center.Y && (Math.Abs(anchor.aimedLocation.X - owner.Center.X) < 168f) && owner.grapCount == 0 && owner.mount.Type == MountID.None)
+				if ((anchor.aimedLocation.Y + 8f) > owner.Center.Y && (Math.Abs(anchor.aimedLocation.X - owner.Center.X) < 64f) && owner.grapCount == 0 && owner.mount.Type == MountID.None)
 				{
 					TimeSpent++;
 
