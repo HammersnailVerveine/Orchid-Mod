@@ -1699,7 +1699,7 @@ Items: {
 
 	ShamanEmblem: {
 		DisplayName: Shaman Emblem
-		Tooltip: 15% increased opposing damage
+		Tooltip: 15% increased shamanic damage
 	}
 
 	SinisterPresent: {
