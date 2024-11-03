@@ -107,7 +107,7 @@ namespace OrchidMod.Common.Global.Items
 							items: new()
 							{
 								//(ModContent.ItemType<BeeSeeker>(), 1),
-								(ModContent.ItemType<WaxyVial>(), 1),
+								// (ModContent.ItemType<WaxyVial>(), 1),
 								(ModContent.ItemType<QueenBeeFlask>(), 1)
 							},
 							chanceDenominator: 2
@@ -267,7 +267,7 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<AdornedBranch>(), 1),
+								//(ModContent.ItemType<AdornedBranch>(), 1),
 								(ModContent.ItemType<EmberVial>(), 1),
 								(ModContent.ItemType<EmbersCard>(), 1),
 								(ModContent.ItemType<TsunamiInAVial>(), 1),
@@ -284,7 +284,7 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<AdornedBranch>(), 1),
+								//(ModContent.ItemType<AdornedBranch>(), 1),
 								(ModContent.ItemType<EmberVial>(), 1),
 								(ModContent.ItemType<EmbersCard>(), 1),
 								(ModContent.ItemType<TsunamiInAVial>(), 1),
@@ -301,7 +301,7 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<ShadowWeaver>(), 1),
+								//(ModContent.ItemType<ShadowWeaver>(), 1),
 								(ModContent.ItemType<DemoniteCatalyst>(), 1),
 							},
 							chanceDenominator: 2
@@ -315,7 +315,7 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-									(ModContent.ItemType<DeepForestCharm>(), 1),
+									//(ModContent.ItemType<DeepForestCharm>(), 1),
 									(ModContent.ItemType<BloomingBud>(), 1),
 									(ModContent.ItemType<BundleOfClovers>(), 1),
 									(ModContent.ItemType<JungleGauntlet>(), 1),
@@ -326,8 +326,7 @@ namespace OrchidMod.Common.Global.Items
 						QuickSpawnItem<GuardianHoneyPotion>(player, 1, 2);
 						QuickSpawnItem<DeckJungle>(player, 1, 20);
 						QuickSpawnItem<IvyChestCard>(player, 1, 5);
-						QuickSpawnItem<SageOwl>(player, 1, 20);
-						QuickSpawnItem<WardenTortoise>(player, 1, 20);
+						QuickSpawnItem<WardenTortoise>(player, 1, 5);
 					}
 					break;
 				case ItemID.CrimsonFishingCrate:
@@ -337,7 +336,7 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<BloodCaller>(), 1),
+								//(ModContent.ItemType<BloodCaller>(), 1),
 								(ModContent.ItemType<CrimtaneCatalyst>(), 1),
 							},
 							chanceDenominator: 2
@@ -365,7 +364,7 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<RuneOfHorus>(), 1),
+								//(ModContent.ItemType<RuneOfHorus>(), 1),
 								(ModContent.ItemType<DesertWarhammer>(), 1),
 								(ModContent.ItemType<DesertStandard>(), 1),
 							},
@@ -405,7 +404,7 @@ namespace OrchidMod.Common.Global.Items
 							},
 							chanceDenominator: 2
 						);
-						QuickSpawnItem<PredatorIceFox>(player, 1, 20);
+						QuickSpawnItem<PredatorIceFox>(player, 1, 5);
 					}
 					break;
 				default:
