@@ -2,7 +2,7 @@
 
 The [b]Orchid Mod[/b] aims to add content to the game in polished and refreshing ways. You will not find the usual vanilla class items here, as the content Orchid Mod provides is based on new classes with unique and complex mechanics.
 
-[h1]Current Version : 1.5.0.0[/h1]
+[h1]Current Version : 1.5.0.2[/h1]
 - Port to 1.4.4 versions of Terraria 
 - Addition of the full Guardian class, with content for the entire progression
 
@@ -62,8 +62,7 @@ The more active [b]Elemental Bonds[/b] a shaman has, the more powerful a shaman 
 [list]
 [*] [b]Barometz[/b] for contributing various sprites and item ideas, as well as creating and maintaining the Orchid Mod wiki.
 [*] [b]IceBeam[/b] and [b]Feedza[/b] for maintaining sections of the Orchid Mod wiki.
-[*] [b]direwolf420[/b] for extensive coding help, and cross-mod compatibility.
-[*] [b]Amber[/b], [b]BluNinja[/b], [b]catsounds[/b], and [b]Draka[/b] for contributing sprites, artwork, and ideas.
+[*] [b]direwolf420[/b] and [b]S-Pladison[/b] for extensive coding help, and cross-mod compatibility.
+[*] [b]Amber[/b], [b]BluNinja[/b], [b]catsounds[/b], [b]multibanana[/b], and [b]Draka[/b] for contributing sprites, artwork, and ideas.
 [*] [b]A91[/b], [b]Circadian[/b], [b]Kyle[/b], [b]ChozoChorizo[/b], [b]TheLoneGamer[/b], and [b]Xrylene[/b] for considerable balance and design feedback.
 [*] [b]GitGudWO[/b] for the trailers and videos above.
-[/list]
