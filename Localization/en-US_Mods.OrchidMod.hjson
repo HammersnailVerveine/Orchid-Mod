@@ -3276,6 +3276,11 @@ Items: {
 		DisplayName: Horizon Hamaxe
 		Tooltip: ""
 	}
+
+	SageBat: {
+		DisplayName: Sage Bat
+		Tooltip: ""
+	}
 }
 
 NPCs: {
