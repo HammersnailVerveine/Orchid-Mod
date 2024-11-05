@@ -6,6 +6,8 @@ using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
@@ -25,7 +27,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Projectile.height = 12;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 180;
+			Projectile.timeLeft = 240;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = -1;
@@ -75,18 +77,51 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 						Projectile.ai[1]++;
 					}
 
-					if (Projectile.Center.Distance(Owner.Center) < 24f)
-					{
+					Player owner = Owner;
+					float distance = Projectile.Center.Distance(owner.Center);
+					if (distance < 80f && Projectile.timeLeft < 150)
+					{ // Homes towards owner to help pick up
+						Projectile.velocity += (Owner.Center - Projectile.Center) * 0.05f;
+						Projectile.velocity = Vector2.Normalize(Projectile.velocity) * BaseVelocity.Length();
+
+						if (Projectile.timeLeft < 10)
+						{
+							Projectile.timeLeft = 10;
+						}
+					}
+
+					if (distance < 24f && Projectile.timeLeft < 180)
+					{ // Kills the projectile if caught by the player, and applies the debuff to hit enemies
 						foreach(NPC target in HitNPCs)
 						{
 							if (target.active)
 							{
 								target.AddBuff(ModContent.BuffType<SageBatDebuff>(), 600);
+
+								for (int i = 0; i < 5; i++)
+								{
+									Dust dust = Dust.NewDustDirect(target.position, target.width, target.height, DustID.SandSpray);
+									dust.noGravity = true;
+									dust.scale = Main.rand.NextFloat(1.25f, 1.75f);
+								}
 							}
 						}
 
 						Projectile.Kill();
+						SoundEngine.PlaySound(SoundID.Item4, Projectile.Center);
+
+						for (int i = 0; i < 10; i++)
+						{
+							Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.SandSpray);
+							dust.noGravity = true;
+							dust.scale = Main.rand.NextFloat(1.25f, 1.75f);
+						}
 					}
+				}
+				else if (Projectile.timeLeft < 175 && Projectile.timeLeft > 7) 
+				{ // Reduced timeleft if not target was hit - 175 and 7 are here to accomodate the Sin() visuals in predraw
+					Projectile.timeLeft = 7;
+					Projectile.friendly = false;
 				}
 
 				if (BaseVelocity == Vector2.Zero)
@@ -94,7 +129,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 					BaseVelocity = Projectile.velocity;
 				}
 
-				if (Projectile.timeLeft <= 120 && Projectile.timeLeft > 90)
+				if (Projectile.timeLeft <= 180 && Projectile.timeLeft > 150)
 				{
 					Projectile.velocity -= BaseVelocity / 15f;
 					Projectile.tileCollide = false;
@@ -150,7 +185,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 			float colorMult = 1f;
 			float scaleMult = 1.25f + (float)Math.Sin(Projectile.timeLeft * 0.15f) * 0.25f;
-			if (Projectile.timeLeft < 7) colorMult *= Projectile.timeLeft / 7f;
+			if (Projectile.timeLeft < 10) colorMult *= Projectile.timeLeft / 10f;
 
 			for (int i = 0; i < OldPosition.Count; i++)
 			{

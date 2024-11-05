@@ -15,7 +15,7 @@ namespace OrchidMod.Content.Shapeshifter.Buffs.Debuffs
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
-			npc.GetGlobalNPC<ShapeshifterGlobalNPC>().SageOwlDebuff = true;
+			npc.GetGlobalNPC<ShapeshifterGlobalNPC>().SageBatDebuff = true;
 			Color color = new Color(255, 182, 0) * 0.3f;
 			Lighting.AddLight(npc.Center, color.R / 255f, color.G / 255f, color.B / 255f);
 		}

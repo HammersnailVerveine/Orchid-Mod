@@ -10,11 +10,13 @@ namespace OrchidMod.Content.Shapeshifter
 	internal class ShapeshifterGlobalNPC : GlobalNPC
 	{
 		public bool SageOwlDebuff;
+		public bool SageBatDebuff;
 		public bool WardenSpiderDebuff;
 		
 		public override bool InstancePerEntity => true;
 		public override void ResetEffects(NPC npc) {
 			SageOwlDebuff = false;
+			SageBatDebuff = false;
 			WardenSpiderDebuff = false;
 		}
 
@@ -47,6 +49,12 @@ namespace OrchidMod.Content.Shapeshifter
 		public override void DrawEffects(NPC npc, ref Color drawColor) {
 			if (SageOwlDebuff) {
 				drawColor.R = 0;
+			}
+
+			if (SageBatDebuff) {
+				drawColor.B = 0;
+				if (drawColor.R < 128) drawColor.R = 128;
+				if (drawColor.G < 128) drawColor.G = 128;
 			}
 
 			if (WardenSpiderDebuff)

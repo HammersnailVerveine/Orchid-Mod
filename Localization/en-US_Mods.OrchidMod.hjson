@@ -3255,7 +3255,7 @@ Items: {
 
 	SageBat: {
 		DisplayName: Sage Bat
-		LeftClick: Charges a sound blast, dealing massive damage to echolocated enemies
+		LeftClick: Charge a sound blast, dealing massive damage to echolocated enemies
 		RightClick: Emit a sound wave, echolocating hit enemies if caught on the way back
 		Jump: Can jump two additional times
 		Passive: Can hang from ceilings, regenerating life and reducing aggro
