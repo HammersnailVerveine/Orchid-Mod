@@ -78,7 +78,6 @@ namespace OrchidMod.Content.General.Misc
 	{
 		private readonly Color lightColor;
 		private readonly int itemCloneType;
-		private readonly string name;
 
 		// ...
 
@@ -136,7 +135,6 @@ namespace OrchidMod.Content.General.Misc
 
 	public abstract class LuminiteToolProjectile : ModProjectile
 	{
-		private readonly string name;
 		private readonly int projectileCloneType;
 
 		// ...
