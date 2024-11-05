@@ -284,6 +284,11 @@ Buffs: {
 		DisplayName: Shellweb Feast
 		Description: Increase defense by 15
 	}
+
+	SageBatDebuff: {
+		DisplayName: Sage Bat Debuff
+		Description: Mods.OrchidMod.Buffs.SageBatDebuff.Description
+	}
 }
 
 Items: {
