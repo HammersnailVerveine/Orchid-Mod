@@ -296,8 +296,7 @@ namespace OrchidMod.Content.Shapeshifter
 		}
 
 		public bool CanGoUp(Vector2 intendedVelocity, Projectile projectile, Player player)
-		{ // false if the player is unable to go upbecause of a tile above their hitbox
-			float velocityY = intendedVelocity.Y;
+		{ // false if the player is unable to go up because of a tile above their hitbox
 			if (intendedVelocity.Y > -1f)
 			{
 				intendedVelocity.Y = -1f;

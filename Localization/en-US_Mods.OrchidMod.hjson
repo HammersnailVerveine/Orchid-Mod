@@ -3248,6 +3248,15 @@ Items: {
 		Tooltip: Transforms you into a Shellweb Spider, gaining unique abilities
 	}
 
+	SageBat: {
+		DisplayName: Sage Bat
+		LeftClick: Charges a sound blast, dealing massive damage to echolocated enemies
+		RightClick: Emit a sound wave, echolocating hit enemies if caught on the way back
+		Jump: Can jump two additional times
+		Passive: Can hang from ceilings, regenerating life and reducing aggro
+		Tooltip: Transforms you into a Bat, gaining unique abilities
+	}
+
 	ShapeshifterShampoo: {
 		DisplayName: Premium Critter Shampoo
 		Tooltip:
@@ -3274,11 +3283,6 @@ Items: {
 
 	HorizonHamaxe: {
 		DisplayName: Horizon Hamaxe
-		Tooltip: ""
-	}
-
-	SageBat: {
-		DisplayName: Sage Bat
 		Tooltip: ""
 	}
 }
@@ -3605,6 +3609,7 @@ Projectiles: {
 	HorizonDrillProjectile.DisplayName: Horizon Drill
 	WardenSpiderProj.DisplayName: Warden Spider Proj
 	WardenSpiderWeb.DisplayName: Warden Spider Web
+	SageBatProj.DisplayName: Sage Bat Proj
 }
 
 Configs: {
