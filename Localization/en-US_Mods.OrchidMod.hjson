@@ -2569,7 +2569,7 @@ Items: {
 	}
 
 	CrimtaneShield: {
-		Tooltip: Restores 10 life on parry
+		Tooltip: Restores 10 life on block
 		DisplayName: Scapula
 	}
 
