@@ -3615,6 +3615,7 @@ Projectiles: {
 	WardenSpiderProj.DisplayName: Warden Spider Proj
 	WardenSpiderWeb.DisplayName: Warden Spider Web
 	SageBatProj.DisplayName: Sage Bat Proj
+	SageBatProjAlt.DisplayName: Sage Bat Proj Alt
 }
 
 Configs: {

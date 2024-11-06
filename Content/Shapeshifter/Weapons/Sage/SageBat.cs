@@ -8,16 +8,18 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 {
 	public class SageBat : OrchidModShapeshifterShapeshift
 	{
 		public int Jumps = 0;
-		public int AttackCharge = 0;
+		public float AttackCharge = 0;
 		public int BlinkEffect = 0;
 		public bool LateralMovement = false;
-		public bool Ceiling = false;
+		public bool ChargeCue = false; // Triggers a noise at full change
+		public bool ReleasedLMB = false; // used to the player doesn't start charging immediately after a shapeshift
 
 		public override void SafeSetDefaults()
 		{
@@ -29,7 +31,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.useTime = 40;
 			Item.shootSpeed = 8f;
 			Item.knockBack = 3f;
-			Item.damage = 19;
+			Item.damage = 48;
 			ShapeshiftWidth = 18;
 			ShapeshiftHeight = 22;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
@@ -49,7 +51,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Jumps = 0;
 			AttackCharge = 0;
 			LateralMovement = false;
-			Ceiling = false;
+			ChargeCue = false;
+			ReleasedLMB = false;
 
 			for (int i = 0; i < 8; i++)
 			{
@@ -96,11 +99,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			SoundEngine.PlaySound(SoundID.Item17, projectile.Center);
 		}
 		*/
-		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanRightClick(projectile, anchor, player, shapeshifter) && AttackCharge <= 0;
+		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanRightClick(projectile, anchor, player, shapeshifter) && AttackCharge <= 0 && projectile.ai[2] != -5;
 
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.25f);
 			int projectileType = ModContent.ProjectileType<SageBatProj>();
 			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
 			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
@@ -124,7 +127,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				projectile.ai[2] = 4;
 				anchor.NeedNetUpdate = true;
 				Jumps--;
-				SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, projectile.Center);
+				SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 
 				for (int i = 0; i < 5; i++)
 				{
@@ -158,7 +161,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			if (projectile.ai[2] > -4) projectile.ai[2]--;
 			BlinkEffect++;
 
-
 			GravityMult = 0.85f;
 			if (anchor.IsInputDown) GravityMult += 0.15f;
 
@@ -183,32 +185,49 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			// ATTACK
 
-			if (anchor.IsLeftClick)
+			if (anchor.IsLeftClick && projectile.ai[2] != -5)
 			{
-				AttackCharge++;
+				if (ReleasedLMB)
+				{
+					if (AttackCharge == 0)
+					{
+						SoundEngine.PlaySound(SoundID.Item65, projectile.Center);
+					}
 
-				if (AttackCharge < 7)
-				{
-					anchor.Frame = 4;
-					anchor.Timespent = 0;
-				}
-				else if (anchor.Frame < 5)
-				{
-					anchor.Frame = 5;
-					anchor.Timespent = 0;
-				}
+					AttackCharge += shapeshifter.GetShapeshifterMeleeSpeed();
 
-				if (AttackCharge == 60) 
-				{
-					SoundEngine.PlaySound(SoundID.MaxMana, projectile.Center);
-					BlinkEffect = 0;
+					if (AttackCharge < 7)
+					{
+						ChargeCue = false;
+						anchor.Frame = 4;
+						anchor.Timespent = 0;
+					}
+					else if (anchor.Frame < 5)
+					{
+						anchor.Frame = 5;
+						anchor.Timespent = 0;
+					}
+
+					if (AttackCharge == 60 && !ChargeCue)
+					{
+						ChargeCue = true;
+						SoundEngine.PlaySound(SoundID.MaxMana, projectile.Center);
+						BlinkEffect = 0;
+					}
 				}
 			}
 			else
 			{
+				ReleasedLMB = true;
 				if (AttackCharge >= 60 && IsLocalPlayer(player))
 				{
-					// Attack
+					int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+					int projectileType = ModContent.ProjectileType<SageBatProjAlt>();
+					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
+					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
+					SoundEngine.PlaySound(SoundID.Item131, projectile.Center);
+					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+					newProjectile.netUpdate = true;
 				}
 
 				if (anchor.Frame >= 4)

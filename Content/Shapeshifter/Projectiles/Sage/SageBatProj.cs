@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
-using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -184,7 +183,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 			float colorMult = 1f;
-			float scaleMult = 1.25f + (float)Math.Sin(Projectile.timeLeft * 0.15f) * 0.25f;
+			float scaleMult = 1.1f + (float)Math.Sin(Projectile.timeLeft * 0.15f) * 0.25f;
 			if (Projectile.timeLeft < 10) colorMult *= Projectile.timeLeft / 10f;
 
 			for (int i = 0; i < OldPosition.Count; i++)

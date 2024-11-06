@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Buffs.Debuffs
@@ -11,6 +12,7 @@ namespace OrchidMod.Content.Shapeshifter.Buffs.Debuffs
 			Main.buffNoTimeDisplay[Type] = false;
 			Main.debuff[Type] = true;
 			Main.buffNoSave[Type] = true;
+			BuffID.Sets.CanBeRemovedByNetMessage[Type] = true;
 		}
 
 		public override void Update(NPC npc, ref int buffIndex)
