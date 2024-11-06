@@ -13,11 +13,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.rare = ItemRarityID.White;
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 5f;
-			Item.shootSpeed = 8f;
+			Item.shootSpeed = 12f;
+			Item.useTime = 20;
 			Item.damage = 37;
-			Range = 18;
+			Range = 24;
 			BlockStacks = 1;
-			ReturnSpeed = 0.7f;
+			ReturnSpeed = 1.4f;
 		}
 
 		public override void AddRecipes()
