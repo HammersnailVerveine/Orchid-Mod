@@ -20,5 +20,14 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			BlockStacks = 1;
 			ReturnSpeed = 0.8f;
 		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(ItemID.StoneBlock, 25);
+			recipe.AddIngredient(RecipeGroupID.Wood, 3);
+			recipe.Register();
+		}
 	}
 }

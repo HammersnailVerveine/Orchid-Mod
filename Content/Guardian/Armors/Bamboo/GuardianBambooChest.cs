@@ -13,21 +13,21 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 0, 50);
 			Item.rare = ItemRarityID.White;
-			Item.defense = 3;
+			Item.defense = 5;
 		}
 
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianRecharge -= 0.1f;
-			player.aggro += 250; ;
+			modPlayer.GuardianGuardMax++;
+			modPlayer.GuardianRecharge -= 0.15f;
 		}
 
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.BambooBlock, 30);
-			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddTile(TileID.Sawmill);
 			recipe.Register();
 		}
 	}
