@@ -27,7 +27,7 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			modPlayer.GuardianSlamMax += 3;
 			player.GetAttackSpeed(DamageClass.Melee) += 0.25f;
-			player.endurance += 0.1f;
+			modPlayer.modPlayer.OrchidDamageReduction *= 0.85f;
 			player.aggro += 500;
 		}
 

@@ -16,21 +16,30 @@ namespace OrchidMod.Common.ModObjects
 		public OrchidGuardian modPlayerGuardian;
 		public OrchidShapeshifter modPlayerShapeshifter;
 
-		public bool remoteCopterPet = false;
-		public int originalSelectedItem;
-		public bool autoRevertSelectedItem = false;
-
-		public int PlayerImmunity = 0;
-		public int Timer120 = 0;
-		public int Timer = 0;
+		public int Timer120 = 0; // Used for various AIs. I'll eventually get rid of this
 		// public int doubleTap = 0;
 		// public int doubleTapCooldown = 0;
 		// public bool doubleTapLock = false;
-		public int keepSelected = -1;
 
+		// Gameplay Fields
+
+		public int Timer = 0; // Used for various AIs. Increased by 1 every frame
+		public int keepSelected = -1;
+		public int originalSelectedItem;
+		public bool autoRevertSelectedItem = false;
+		public int PlayerImmunity = 0; // Player is immune if this is >0
 		public Vector2 ForcedVelocityVector = Vector2.Zero; // vector the player will be moved every frame if ForcedVelocityTimer > 0, ignoring normal velocity
 		public float ForcedVelocityUpkeep = 0f; // Should the forced velocity be applied to the player velocity when it ends
 		public int ForcedVelocityTimer = 0; // How long should the forced velocity be kept
+
+		// Equipment Fields (General)
+
+
+		public float OrchidDamageReduction = 1f; // Multiplies all damage taken by the player. Should be modified by multiplicating it (eg : OrchidDamageReduction *= 0.7f)
+
+		// Equipment Fields (Individual Items)
+
+		public bool remoteCopterPet = false;
 
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
 		{
@@ -102,6 +111,18 @@ namespace OrchidMod.Common.ModObjects
 
 				ForcedVelocityTimer--;
 			}
+
+			OrchidDamageReduction = 1f;
+		}
+
+		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+		{
+			modifiers.FinalDamage *= OrchidDamageReduction;
+		}
+
+		public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
+		{
+			modifiers.FinalDamage *= OrchidDamageReduction;
 		}
 
 		public override bool FreeDodge(Player.HurtInfo info)

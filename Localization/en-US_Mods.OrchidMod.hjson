@@ -3168,7 +3168,7 @@ Items: {
 			'''
 			30% increased opposing damage
 			Increases max life by 100
-			Reduces damage taken by 10%
+			Reduces damage taken by 15%
 			Enemies are a lot more likely to target you
 			'''
 	}
@@ -3179,7 +3179,7 @@ Items: {
 			'''
 			25% increased opposing critical strike chance
 			+3 guard charges
-			Reduces damage taken by 10%
+			Reduces damage taken by 15%
 			Enemies are a lot more likely to target you
 			'''
 	}
@@ -3190,7 +3190,7 @@ Items: {
 			'''
 			25% increased melee speed
 			+3 slam charges
-			Reduces damage taken by 10%
+			Reduces damage taken by 15%
 			Enemies are a lot more likely to target you
 			'''
 	}

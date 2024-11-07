@@ -35,20 +35,21 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 
 		public override void UpdateArmorSet(Player player)
 		{
-			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 			//player.setBonus = "Guardian runes will summon additional projectiles";
 			if (player.armor[1].type == ItemType<GuardianEmpressChest>())
 			{
 				player.setBonus = "Greatly increases the amount of rune projectiles\nGuardian runes will last 50% longer";
-				modPlayer.GuardianBonusRune += 2;
-				modPlayer.GuardianRuneTimer += 0.5f;
+				guardian.GuardianBonusRune += 2;
+				guardian.GuardianRuneTimer += 0.5f;
 			}
 			else
 			{
-				player.setBonus = "Reduces damage taken by 30% while holding a pavise or gauntlets\nEnemies are drastically more likely to target you";
+				player.setBonus = "Reduces damage taken by 50% while holding a pavise or gauntlets\nEnemies are drastically more likely to target you";
 				if (player.HeldItem.ModItem is OrchidModGuardianShield || player.HeldItem.ModItem is OrchidModGuardianGauntlet)
 				{
 					player.endurance += 0.3f;
+					guardian.modPlayer.OrchidDamageReduction *= 0.5f;
 					player.aggro += 1000;
 				}
 			}
