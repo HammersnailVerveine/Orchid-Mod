@@ -48,7 +48,6 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 				player.setBonus = "Reduces damage taken by 50% while holding a pavise or gauntlets\nEnemies are drastically more likely to target you";
 				if (player.HeldItem.ModItem is OrchidModGuardianShield || player.HeldItem.ModItem is OrchidModGuardianGauntlet)
 				{
-					player.endurance += 0.3f;
 					guardian.modPlayer.OrchidDamageReduction *= 0.5f;
 					player.aggro += 1000;
 				}
