@@ -320,12 +320,14 @@ namespace OrchidMod
 					{
 						if (entity is NPC npc)
 						{
+							parryItem.OnParryNPC(Player, this, npc, info);
 							OnBlockNPC(proj, npc);
 							OnBlockNPCFirst(proj, npc);
 						}
 
 						if (entity is Projectile projectile)
 						{
+							parryItem.OnParryProjectile(Player, this, projectile, info);
 							OnBlockProjectile(proj, projectile);
 							OnBlockProjectileFirst(proj, projectile);
 						}

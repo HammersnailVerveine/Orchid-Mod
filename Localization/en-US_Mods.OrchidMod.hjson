@@ -3290,6 +3290,11 @@ Items: {
 		DisplayName: Horizon Hamaxe
 		Tooltip: ""
 	}
+
+	CactusGauntlet: {
+		DisplayName: Cactus Gauntlets
+		Tooltip: Attackers take damage on parry
+	}
 }
 
 NPCs: {
