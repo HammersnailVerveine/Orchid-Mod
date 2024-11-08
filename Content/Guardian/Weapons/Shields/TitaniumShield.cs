@@ -8,8 +8,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 		public override void SafeSetDefaults()
 		{
 			Item.value = Item.sellPrice(0, 2, 85, 0);
-			Item.width = 34;
-			Item.height = 44;
+			Item.width = 42;
+			Item.height = 48;
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item73;
 			Item.knockBack = 12f;
