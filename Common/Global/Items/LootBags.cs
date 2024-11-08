@@ -165,7 +165,7 @@ namespace OrchidMod.Common.Global.Items
 					break;
 				case ItemID.FairyQueenBossBag:
 					{
-						QuickSpawnItem<GuardianEmpressMaterial>(player, 17 + Main.rand.Next(13), 1);
+						QuickSpawnItem<GuardianEmpressMaterial>(player, 20 + Main.rand.Next(10), 1);
 					}
 					break;
 				case ItemID.MoonLordBossBag:
