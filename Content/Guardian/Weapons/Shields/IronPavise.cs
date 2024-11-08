@@ -10,16 +10,16 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 		{
 			Item.value = Item.sellPrice(0, 0, 3, 40);
 			Item.width = 28;
-			Item.height = 38;
+			Item.height = 34;
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item1;
-			Item.knockBack = 7f;
+			Item.knockBack = 9f;
 			Item.damage = 46;
 			Item.rare = ItemRarityID.White;
-			Item.useTime = 27;
-			distance = 35f;
-			slamDistance = 45f;
-			blockDuration = 80;
+			Item.useTime = 24;
+			distance = 30f;
+			slamDistance = 65f;
+			blockDuration = 90;
 		}
 
 		public override void AddRecipes()
