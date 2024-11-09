@@ -13,7 +13,7 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 			Item.height = 14;
 			Item.value = Item.sellPrice(0, 0, 0, 50);
 			Item.rare = ItemRarityID.White;
-			Item.defense = 2;
+			Item.defense = 4;
 		}
 
 		public override void UpdateEquip(Player player)
@@ -25,8 +25,8 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.BambooBlock, 30);
-			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(ItemID.BambooBlock, 25);
+			recipe.AddTile(TileID.Sawmill);
 			recipe.Register();
 		}
 	}

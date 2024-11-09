@@ -15,10 +15,19 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 5f;
 			Item.shootSpeed = 8f;
-			Item.damage = 43;
-			Range = 20;
+			Item.damage = 54;
+			Range = 26;
 			BlockStacks = 1;
-			ReturnSpeed = 0.75f;
+			ReturnSpeed = 0.8f;
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(ItemID.StoneBlock, 25);
+			recipe.AddIngredient(RecipeGroupID.Wood, 3);
+			recipe.Register();
 		}
 	}
 }

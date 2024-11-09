@@ -14,14 +14,14 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 			Item.height = 20;
 			Item.value = Item.sellPrice(0, 0, 0, 30);
 			Item.rare = ItemRarityID.White;
-			Item.defense = 2;
+			Item.defense = 3;
 		}
 
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianGuardMax++;
-			modPlayer.GuardianRecharge -= 0.15f;
+			modPlayer.GuardianRecharge -= 0.10f;
+			player.aggro += 250;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -40,7 +40,7 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.BambooBlock, 20);
-			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddTile(TileID.Sawmill);
 			recipe.Register();
 		}
 	}

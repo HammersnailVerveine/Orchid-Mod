@@ -107,7 +107,7 @@ namespace OrchidMod.Content.Guardian
 				});
 			}
 
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "Swing", "Charge and right click to swing")
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "Swing", "Charge to throw, right click to swing while charging")
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});

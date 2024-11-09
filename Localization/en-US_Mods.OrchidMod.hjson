@@ -2619,7 +2619,7 @@ Items: {
 	}
 
 	BambooWarhammer: {
-		DisplayName: Bamboo Warhammer
+		DisplayName: Bamboo Mallet
 		Tooltip: ""
 	}
 
@@ -2634,7 +2634,7 @@ Items: {
 	}
 
 	JungleWarhammer: {
-		DisplayName: Leaf Warhammer
+		DisplayName: Ivy Cudgel
 		Tooltip: Releases sharp leaves on impact
 	}
 
@@ -2685,15 +2685,19 @@ Items: {
 
 	GuardianBambooHead: {
 		DisplayName: Bamboo Helmet
-		Tooltip: +1 guard charge
+		Tooltip:
+			'''
+			Increases guardian charges generation by 10%
+			Enemies are more likely to target you
+			'''
 	}
 
 	GuardianBambooChest: {
 		DisplayName: Bamboo Chestplate
 		Tooltip:
 			'''
-			Increases guardian charges generation by 10%
-			Enemies are more likely to target you
+			Increases guardian charges generation by 15%
+			+1 guard charge
 			'''
 	}
 
