@@ -3295,6 +3295,11 @@ Items: {
 		DisplayName: Cactus Gauntlets
 		Tooltip: Attackers take damage on parry
 	}
+
+	Quarterstaff: {
+		DisplayName: Quarterstaff
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -3621,6 +3626,7 @@ Projectiles: {
 	WardenSpiderWeb.DisplayName: Warden Spider Web
 	SageBatProj.DisplayName: Sage Bat Proj
 	SageBatProjAlt.DisplayName: Sage Bat Proj Alt
+	GuardianQuarterstaffAnchor.DisplayName: Guardian Quarterstaff Anchor
 }
 
 Configs: {

@@ -1,0 +1,171 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
+using OrchidMod.Common.Global.Items;
+using OrchidMod.Content.General.Prefixes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using static Terraria.NPC;
+
+namespace OrchidMod.Content.Guardian
+{
+	public abstract class OrchidModGuardianQuarterstaff : OrchidModGuardianParryItem
+	{
+		public virtual string QuarterstaffTexture => Texture + "_Staff";
+		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool jabAttack, bool counterAttack) { } // Called when hitting a target during an attack
+		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool jabAttack, bool counterAttack) { } // Called when hitting the first target for the first time during an attack
+		public virtual void OnAttack(Player player, OrchidGuardian guardian, Projectile projectile, bool jabAttack, bool counterAttack) { } // Called on the first frame of an attack
+		public virtual void ExtraAIQuarterstaff(Projectile projectile) { } // Called at the end of the Anchor Projectile AI
+		public virtual void PostDrawQuarterstaff(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { } // Called after the item is done being drawn
+		public virtual bool PreDrawQuarterstaff(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; } // Return false to prevent normal draw code
+		public virtual Color GetColor(bool offHand) => Color.White;
+
+		public virtual void SafeHoldItem(Player player) { }
+
+		public int ParryDuration = 60; // Parry duration in ticks
+		public int SlamStacks; // Stam Stacks given by the item
+		public int GuardStacks; // Block Stacks given by the item
+
+		public sealed override void SetDefaults()
+		{
+			Item.DamageType = ModContent.GetInstance<GuardianDamageClass>();
+			Item.noMelee = true;
+			Item.autoReuse = true;
+			Item.maxStack = 1;
+			Item.noUseGraphic = true;
+			Item.UseSound = SoundID.Item1;
+			Item.useStyle = ItemUseStyleID.Thrust;
+			Item.useTime = 30;
+			Item.knockBack = 5f;
+
+			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
+			orchidItem.guardianWeapon = true;
+
+			SafeSetDefaults();
+			Item.useAnimation = Item.useTime;
+		}
+
+		public override bool AltFunctionUse(Player player)
+		{
+			return true;
+		}
+
+		public override bool WeaponPrefix() => true;
+
+		public override bool CanUseItem(Player player)
+		{
+			if (player.whoAmI == Main.myPlayer && !player.cursed)
+			{
+				var projectileType = ModContent.ProjectileType<GuardianQuarterstaffAnchor>();
+				if (player.ownedProjectileCounts[projectileType] > 0)
+				{
+
+					var guardian = player.GetModPlayer<OrchidGuardian>();
+					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+					if (proj != null && proj.ModProjectile is GuardianQuarterstaffAnchor anchor && proj.ai[0] >= 0f)
+					{
+						bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
+						bool shouldCharge = Main.mouseLeft && Main.mouseLeftRelease;
+
+						if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs)
+						{
+							shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
+							shouldCharge = Main.mouseRight && Main.mouseRightRelease;
+						}
+
+						if (shouldBlock && guardian.UseGuard(1, true) && proj.ai[0] == 0f)
+						{
+							player.immuneTime = 0;
+							player.immune = false;
+							guardian.modPlayer.PlayerImmunity = 0;
+							guardian.GuardianGauntletCharge = 0f;
+							guardian.UseGuard(1);
+							proj.ai[0] = ParryDuration + 1f;
+							anchor.NeedNetUpdate = true;
+							SoundEngine.PlaySound(SoundID.Item37, player.Center);
+						}
+
+						if (shouldCharge && guardian.GuardianGauntletCharge == 0f)
+						{
+							proj.ai[0] = 1f;
+							anchor.NeedNetUpdate = true;
+							guardian.GuardianGauntletCharge++;
+							SoundEngine.PlaySound(SoundID.Item7, player.Center);
+						}
+					}
+				}
+			}
+			return false;
+		}
+
+		public sealed override void HoldItem(Player player)
+		{
+			var projectileType = ModContent.ProjectileType<GuardianQuarterstaffAnchor>();
+			var guardian = player.GetModPlayer<OrchidGuardian>();
+			guardian.GuardianDisplayUI = 300;
+
+			if (player.ownedProjectileCounts[projectileType] != 1)
+			{
+				foreach (Projectile projectile in Main.projectile)
+				{
+					if (projectile.active && projectile.owner == player.whoAmI && projectile.type == projectileType)
+					{
+						projectile.Kill();
+					}
+				}
+
+				var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
+
+				var proj = Main.projectile[index];
+				if (proj.ModProjectile is not GuardianQuarterstaffAnchor quarterstaff)
+				{
+					proj.Kill();
+				}
+				else
+				{
+					quarterstaff.OnChangeSelectedItem(player);
+				}
+			}
+			else
+			{
+				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
+				if (proj != null && proj.ModProjectile is GuardianQuarterstaffAnchor quarterstaff)
+				{
+					if (quarterstaff.SelectedItem != player.selectedItem)
+					{
+						quarterstaff.OnChangeSelectedItem(player);
+					}
+				}
+			}
+			SafeHoldItem(player);
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
+			if (tt != null)
+			{
+				string[] splitText = tt.Text.Split(' ');
+				string damageValue = splitText.First();
+				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
+			}
+
+			int tooltipSeconds = Math.DivRem((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()), 60, out int tooltipTicks);
+
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", tooltipSeconds + "." + (int)(tooltipTicks * (100 / 60f)) + " parry duration"));
+
+			string click = ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? "Left" : "Right";
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", click + " click to parry")
+			{
+				OverrideColor = new Color(175, 255, 175)
+			});
+		}
+	}
+}

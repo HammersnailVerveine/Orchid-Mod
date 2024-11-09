@@ -186,7 +186,7 @@ namespace OrchidMod
 				}
 			}
 
-			if (Player.HeldItem.ModItem is not OrchidModGuardianGauntlet) GuardianGauntletCharge = 0f;
+			if (Player.HeldItem.ModItem is not OrchidModGuardianGauntlet && Player.HeldItem.ModItem is not OrchidModGuardianQuarterstaff) GuardianGauntletCharge = 0f;
 			if (Player.HeldItem.ModItem is not OrchidModGuardianHammer) GuardianHammerCharge = 0f;
 			if (Player.HeldItem.ModItem is not OrchidModGuardianStandard && Player.HeldItem.ModItem is not HorizonLance) GuardianStandardCharge = 0f;
 			if (Player.HeldItem.ModItem is not OrchidModGuardianRune) GuardianRuneCharge = 0f;
