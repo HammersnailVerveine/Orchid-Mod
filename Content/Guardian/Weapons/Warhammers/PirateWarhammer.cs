@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			ReturnSpeed = 1.3f;
 		}
 
-		public override void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
+		public override void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged)
 		{
 			target.AddBuff(BuffID.Midas, 300);
 		}

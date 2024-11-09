@@ -141,7 +141,6 @@ namespace OrchidMod.Content.Guardian
 							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection);
 							Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f, (Projectile.height - (Projectile.height * 0.007f) * guardian.GuardianHammerCharge) * 0.4f);
 
-
 							if (guardian.GuardianHammerCharge < 210f)
 							{
 								guardian.GuardianHammerCharge += 30f / HammerItem.Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
@@ -179,12 +178,10 @@ namespace OrchidMod.Content.Guardian
 										Projectile.direction = Projectile.spriteDirection;
 										Projectile.netUpdate = true;
 
-										SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
 										guardian.GuardianHammerCharge = 0;
 									}
 									else
 									{
-										SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
 										Projectile.ai[1] = -61f;
 										Projectile.friendly = true;
 										Projectile.netUpdate = true;
@@ -193,7 +190,6 @@ namespace OrchidMod.Content.Guardian
 								}
 								else if (Main.mouseRight)
 								{
-									SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
 									Projectile.ai[1] = -60f;
 									Projectile.friendly = true;
 									Projectile.netUpdate = true;
@@ -208,6 +204,12 @@ namespace OrchidMod.Content.Guardian
 								Projectile.ai[1] = -60f;
 								WeakHit = true;
 								guardian.GuardianHammerCharge = 0;
+							}
+
+							if (Projectile.ai[1] == -60f)
+							{ // First frame of the swing
+								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+								HammerItem.OnSwing(player, guardian, Projectile, guardian.GuardianHammerCharge >= 180f);
 							}
 
 							if (ChargeToAdd > 0 && Projectile.ai[1] > -30 && !WeakHit)
@@ -254,6 +256,12 @@ namespace OrchidMod.Content.Guardian
 							{
 								OnTileCollide(Projectile.velocity);
 							}
+						}
+
+						if (range == HammerItem.Range)
+						{ // First frame of the throw
+							SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
+							HammerItem.OnThrow(player, guardian, Projectile, WeakThrow());
 						}
 
 						if (WeakThrow())
@@ -367,13 +375,14 @@ namespace OrchidMod.Content.Guardian
 			}
 			else
 			{ // Melee Swing
+				bool fullyCharged = guardian.GuardianHammerCharge >= 180f;
 				if (!hitTarget)
 				{
 					hitTarget = true;
-					HammerItem.OnMeleeHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit);
+					HammerItem.OnMeleeHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit, fullyCharged);
 					ChargeToAdd += 30;
 				}
-				HammerItem.OnMeleeHit(player, guardian, target, Projectile, hit.Knockback, hit.Crit);
+				HammerItem.OnMeleeHit(player, guardian, target, Projectile, hit.Knockback, hit.Crit, fullyCharged);
 			}
 		}
 
