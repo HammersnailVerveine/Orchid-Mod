@@ -11,19 +11,20 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.height = 36;
 			Item.value = Item.sellPrice(0, 0, 0, 20);
 			Item.rare = ItemRarityID.White;
-			Item.UseSound = SoundID.Item1;
+			Item.UseSound = SoundID.Item65;
 			Item.knockBack = 5f;
-			Item.shootSpeed = 8f;
-			Item.damage = 37;
-			Range = 18;
+			Item.shootSpeed = 14f;
+			Item.useTime = 20;
+			Item.damage = 40;
+			Range = 20;
 			BlockStacks = 1;
-			ReturnSpeed = 0.7f;
+			ReturnSpeed = 1.5f;
 		}
 
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddTile(TileID.Sawmill);
 			recipe.AddIngredient(ItemID.BambooBlock, 20);
 			recipe.Register();
 		}
