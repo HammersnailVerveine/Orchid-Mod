@@ -39,7 +39,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			if (!Weak) guardian.modPlayer.TryHeal(5);
 		}
 
-		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit)
+		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged)
 		{
 			guardian.modPlayer.TryHeal(2);
 		}
