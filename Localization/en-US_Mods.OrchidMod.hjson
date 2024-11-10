@@ -3304,6 +3304,11 @@ Items: {
 		DisplayName: Quarterstaff
 		Tooltip: ""
 	}
+
+	HellboneMaterial: {
+		DisplayName: Cremains
+		Tooltip: Used to craft some spooky stuff (but not yet!)
+	}
 }
 
 NPCs: {
