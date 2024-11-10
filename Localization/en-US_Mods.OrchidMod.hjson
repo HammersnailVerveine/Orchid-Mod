@@ -3309,6 +3309,11 @@ Items: {
 		DisplayName: Cremains
 		Tooltip: Used to craft some spooky stuff (but not yet!)
 	}
+
+	ThoriumLeafShield: {
+		DisplayName: Ghillie Cover
+		Tooltip: Breaks into sharp leaves on contact
+	}
 }
 
 NPCs: {
@@ -3636,6 +3641,7 @@ Projectiles: {
 	SageBatProj.DisplayName: Sage Bat Proj
 	SageBatProjAlt.DisplayName: Sage Bat Proj Alt
 	GuardianQuarterstaffAnchor.DisplayName: Guardian Quarterstaff Anchor
+	ThoriumLeafShieldProj.DisplayName: Razor Leaves
 }
 
 Configs: {
