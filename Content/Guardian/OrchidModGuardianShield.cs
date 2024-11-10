@@ -37,6 +37,7 @@ namespace OrchidMod.Content.Guardian
 		public int blockDuration = 60;
 		/// <summary>Causes the shield's held sprite to flip when facing right.</summary>
 		public bool shouldFlip = false;
+		public bool slamAutoReuse = true;
 
 		public sealed override void SetDefaults()
 		{
@@ -73,8 +74,13 @@ namespace OrchidMod.Content.Guardian
 					var guardian = player.GetModPlayer<OrchidGuardian>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
 
-					bool shouldSlam = player.altFunctionUse != 2;
-					if (ModContent.GetInstance<OrchidClientConfig>().SwapPaviseImputs) shouldSlam = !shouldSlam;
+					bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
+					bool shouldSlam = Main.mouseLeft && (Main.mouseLeftRelease || slamAutoReuse);
+					if (ModContent.GetInstance<OrchidClientConfig>().SwapPaviseImputs)
+					{
+						shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
+						shouldSlam = Main.mouseRight && (Main.mouseRightRelease || slamAutoReuse);
+					}
 
 					if (proj != null && proj.ModProjectile is GuardianShieldAnchor shield)
 					{
@@ -93,7 +99,7 @@ namespace OrchidMod.Content.Guardian
 								}
 								shield.NeedNetUpdate = true;
 							}
-						} else { // Block
+						} else if (shouldBlock) { // Block
 							if (proj.ai[1] + proj.ai[0] == 0f && guardian.UseGuard(1, true)) 
 							{
 								shield.shieldEffectReady = true;
