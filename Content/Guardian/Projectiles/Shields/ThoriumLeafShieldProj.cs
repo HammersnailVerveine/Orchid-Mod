@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Shields
 {
-    public class ThoriumLeafShieldProj : ModProjectile
-    {
-        public override void SetDefaults()
+    public class ThoriumLeafShieldProj : OrchidModGuardianProjectile
+	{
+        public override void SafeSetDefaults()
         {
             Projectile.width = 10;
             Projectile.height = 10;
