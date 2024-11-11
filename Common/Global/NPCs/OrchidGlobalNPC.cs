@@ -101,17 +101,17 @@ namespace OrchidMod.Common.Global.NPCs
 
 		public override void OnKill(NPC npc)
 		{
-			if (AlchemistHit && Main.rand.NextBool(4))
+			if (AlchemistHit && Main.rand.NextBool(10))
 			{
 				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Potency>());
 			}
 
-			if (GamblerHit && Main.rand.NextBool(4))
+			if (GamblerHit && Main.rand.NextBool(10))
 			{
 				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Chip>());
 			}
 
-			if (GuardianHit && Main.rand.NextBool(4))
+			if (GuardianHit && Main.rand.NextBool(10))
 			{
 				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Guard>());
 			}
