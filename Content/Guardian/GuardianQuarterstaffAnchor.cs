@@ -24,7 +24,7 @@ namespace OrchidMod.Content.Guardian
 		public bool Ding = false;
 		public bool NeedNetUpdate = false;
 		public bool hitTarget = false;
-		public bool DamageReset = false;
+		public int DamageReset = 0;
 		public Rectangle HitBox;
 
 		public int SelectedItem { get; set; } = -1;
@@ -150,24 +150,29 @@ namespace OrchidMod.Content.Guardian
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
 						guardianItem.OnAttack(owner, guardian, Projectile, false, true);
-						DamageReset = true;
+						DamageReset = 0;
 						Projectile.scale *= 1.2f;
 						Projectile.width = (int)(Projectile.width * 1.2f);
 						Projectile.height = (int)(Projectile.height * 1.2f);
 						hitTarget = false;
 					}
 
-					if (Projectile.ai[2] >= - 13.3f && !DamageReset)
+					if (Projectile.ai[2] >= - 13.3f && DamageReset == 0)
 					{ // Reset damage twice while spinning
-						DamageReset = true;
+						DamageReset ++;
 						Projectile.ResetLocalNPCHitImmunity();
-						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
 					}
-					else if (Projectile.ai[2] < -13.3f && Projectile.ai[2] >= -26.6f && DamageReset)
-					{
-						DamageReset = false;
-						Projectile.ResetLocalNPCHitImmunity();
+
+					else if (Projectile.ai[2] >= -20f && DamageReset == 1)
+					{ // Reset sound mid spin
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+						DamageReset++;
+					}
+
+					else if (Projectile.ai[2] >= -26.6f && DamageReset == 2)
+					{ // Reset damage twice while spinning
+						DamageReset++;
+						Projectile.ResetLocalNPCHitImmunity();
 					}
 
 					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(-4 * owner.direction, 0f);
@@ -185,7 +190,7 @@ namespace OrchidMod.Content.Guardian
 						OldRotation.RemoveAt(0);
 					}
 
-					Projectile.ai[2] += owner.GetTotalAttackSpeed(DamageClass.Melee);
+					Projectile.ai[2] += guardianItem.CounterSpeed * owner.GetTotalAttackSpeed(DamageClass.Melee);
 
 					if (Projectile.ai[2] >= 0)
 					{
@@ -343,17 +348,18 @@ namespace OrchidMod.Content.Guardian
 						Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
 						Projectile.knockBack = QuarterstaffItem.knockBack * 1.5f;
 						Projectile.friendly = true;
-						DamageReset = false;
+						DamageReset = 0;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(QuarterstaffItem.UseSound, Projectile.Center);
 						guardianItem.OnAttack(owner, guardian, Projectile, false, false);
 						hitTarget = false;
 					}
 
-					if (Projectile.ai[0] < 20 && !DamageReset)
+					if (Projectile.ai[0] < 26 && DamageReset == 0)
 					{
-						DamageReset = true;
+						DamageReset++;
 						Projectile.ResetLocalNPCHitImmunity();
+						Projectile.ai[0] -= 3f;
 					}
 
 					if (Projectile.ai[1] > -3.14f && Projectile.ai[1] < 0f)
@@ -525,6 +531,14 @@ namespace OrchidMod.Content.Guardian
 			if (QuarterstaffItem.ModItem is not OrchidModGuardianQuarterstaff guardianItem) return false;
 
 			var player = Main.player[Projectile.owner];
+			SpriteEffects effect = SpriteEffects.None;
+			float rotationoffset = 0f;
+
+			if (player.direction == -1)
+			{
+				effect = SpriteEffects.FlipVertically;
+				rotationoffset = -MathHelper.PiOver2;
+			}
 
 			if (guardianItem.PreDrawQuarterstaff(spriteBatch, Projectile, player, ref lightColor))
 			{
@@ -536,7 +550,7 @@ namespace OrchidMod.Content.Guardian
 					for (int i = 0; i < OldPosition.Count; i++)
 					{
 						Vector2 drawPositionTrail = OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
-						spriteBatch.Draw(QuarterstaffTexture, drawPositionTrail, null, lightColor * 0.065f * (i + 1), OldRotation[i], QuarterstaffTexture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
+						spriteBatch.Draw(QuarterstaffTexture, drawPositionTrail, null, lightColor * 0.065f * (i + 1), OldRotation[i] + rotationoffset, QuarterstaffTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
 					}
 
 					spriteBatch.End();
@@ -544,7 +558,7 @@ namespace OrchidMod.Content.Guardian
 				}
 
 				Vector2 drawPosition = Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
-				spriteBatch.Draw(QuarterstaffTexture, drawPosition, null, lightColor, Projectile.rotation, QuarterstaffTexture.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(QuarterstaffTexture, drawPosition, null, lightColor, Projectile.rotation + rotationoffset, QuarterstaffTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawQuarterstaff(spriteBatch, Projectile, player, lightColor);
 

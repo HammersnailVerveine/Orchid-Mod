@@ -34,6 +34,7 @@ namespace OrchidMod.Content.Guardian
 		public int GuardStacks; // Block Stacks given by the item
 		public float JabSpeed = 1f; // Jab speed multiplier
 		public float SwingSpeed = 1f; // swing speed multiplier
+		public float CounterSpeed = 1f; // spin speed multiplier
 
 		public sealed override void SetDefaults()
 		{

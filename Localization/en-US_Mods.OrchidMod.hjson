@@ -3314,6 +3314,11 @@ Items: {
 		DisplayName: Ghillie Cover
 		Tooltip: Breaks into sharp leaves on contact
 	}
+
+	BambooQuarterstaff: {
+		DisplayName: Bamboo Quarterstaff
+		Tooltip: ""
+	}
 }
 
 NPCs: {
