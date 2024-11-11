@@ -66,7 +66,7 @@ namespace OrchidMod.Content.Guardian
 			OnParryQuarterstaff(player, guardian, info, anchor);
 		}
 
-		public override bool WeaponPrefix() => true;
+		public override bool MeleePrefix() => true;
 
 		public override bool CanUseItem(Player player)
 		{
@@ -177,6 +177,27 @@ namespace OrchidMod.Content.Guardian
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});
+
+			tooltips.Insert(index + 3, new TooltipLine(Mod, "Swing", "Charge to swing, right click to jab while charging")
+			{
+				OverrideColor = new Color(175, 255, 175)
+			});
+
+			if (GuardStacks > 0)
+			{
+				tooltips.Insert(index + 4, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.GuardStacks + " guard charge" + (this.GuardStacks > 1 ? "s" : ""))
+				{
+					OverrideColor = new Color(175, 255, 175)
+				});
+			}
+
+			if (SlamStacks > 0)
+			{
+				tooltips.Insert(index + 4, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.SlamStacks + " slam charge" + (this.SlamStacks > 1 ? "s" : ""))
+				{
+					OverrideColor = new Color(175, 255, 175)
+				});
+			}
 		}
 	}
 }

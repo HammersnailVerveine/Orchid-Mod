@@ -56,7 +56,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.localNPCHitCooldown = 60;
 			Projectile.netImportant = true;
 
-			HitBox = new Rectangle(0, 0, 40, 40);
+			HitBox = new Rectangle(0, 0, 44, 44);
 			OldPosition = new List<Vector2>();
 			OldRotation = new List<float>();
 		}
@@ -436,8 +436,8 @@ namespace OrchidMod.Content.Guardian
 
 				// Hitbox management for jabs and swings
 				Vector2 position = Projectile.Center - Vector2.UnitY.RotatedBy(Projectile.rotation + MathHelper.PiOver4) * (Projectile.width - 20) * 0.5f;
-				HitBox.X = (int)position.X - 20;
-				HitBox.Y = (int)position.Y - 20;
+				HitBox.X = (int)position.X - 22;
+				HitBox.Y = (int)position.Y - 22;
 
 				Projectile.velocity = Vector2.UnitX * 0.001f * owner.direction; // So enemies are KBd in the right direction
 
@@ -497,10 +497,10 @@ namespace OrchidMod.Content.Guardian
 
 		public void ResetSize()
 		{
-			int length = (int)Math.Sqrt(2 * (QuarterstaffTexture.Width * QuarterstaffTexture.Width));
-			Projectile.width = length;
-			Projectile.height = length;
-			Projectile.scale = 1f;
+			int length = (int)Math.Sqrt(2 * (QuarterstaffTexture.Width * QuarterstaffItem.scale * QuarterstaffTexture.Width * QuarterstaffItem.scale));
+			Projectile.width = length + 4;
+			Projectile.height = length + 4;
+			Projectile.scale = QuarterstaffItem.scale;
 		}
 
 		public override void OnKill(int timeLeft)
