@@ -16,11 +16,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.useTime = 20;
 			ParryDuration = 40;
 			Item.knockBack = 4f;
-			Item.damage = 21;
+			Item.damage = 29;
 			GuardStacks = 1;
-			SwingSpeed = 1.25f;
-			CounterSpeed = 1.25f;
-			JabSpeed = 1.25f;
+			SwingSpeed = 1.3f;
+			CounterSpeed = 1.3f;
+			JabSpeed = 1.3f;
 		}
 
 		public override void AddRecipes()
