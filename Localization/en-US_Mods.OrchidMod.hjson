@@ -3317,7 +3317,7 @@ Items: {
 
 	BambooQuarterstaff: {
 		DisplayName: Bamboo Quarterstaff
-		Tooltip: "30% increased action speed"
+		Tooltip: 30% increased action speed
 	}
 }
 

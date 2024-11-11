@@ -97,6 +97,7 @@ namespace OrchidMod.Content.Guardian
 									proj.ai[0] = 0f;
 									resetBlockedEnemiesDuration(guardian);
 								}
+								proj.ResetLocalNPCHitImmunity();
 								shield.NeedNetUpdate = true;
 							}
 						} else if (shouldBlock) { // Block
@@ -184,8 +185,11 @@ namespace OrchidMod.Content.Guardian
 				{
 					proj.Kill();
 				}
-				else 
+				else
 				{
+					proj.damage = guardian.GetGuardianDamage(Item.damage);
+					proj.CritChance = guardian.GetGuardianCrit(Item.crit);
+					proj.knockBack = Item.knockBack;
 					proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()); // Used for UI display
 					shield.OnChangeSelectedItem(player);
 				}
