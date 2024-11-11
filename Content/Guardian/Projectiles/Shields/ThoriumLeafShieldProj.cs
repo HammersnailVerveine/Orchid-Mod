@@ -28,9 +28,9 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 
         public override void AI()
         {
-            if (spin != 0)
+            if (spin > 0)
             {
-                if (spin > 0) spin--; else spin++;
+                spin--;
                 Projectile.rotation = dir + 1.571f + (float)Math.Pow(1 + spin * 0.25f, 2) * 0.2f;
                 Projectile.velocity *= 0.95f;
                 Projectile.velocity += new Vector2(1 / (1 + Math.Abs(spin)), 0).RotatedBy(dir);

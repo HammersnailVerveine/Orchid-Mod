@@ -43,7 +43,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				float side = (i - ((quantity - 1) / 2f)) * -shield.direction;
 				int leaf = Projectile.NewProjectile(Item.GetSource_FromThis(), shield.Center, spread.RotatedByRandom(Main.rand.NextFloat()) * side, ModContent.ProjectileType<ThoriumLeafShieldProj>(), (int)(shield.damage * 0.8f), Item.knockBack, player.whoAmI);
 				Main.projectile[leaf].ai[0] = dir + (side + Main.rand.NextFloat() - 0.5f) * 0.1f;
-				Main.projectile[leaf].ai[1] = spinTime * (Main.rand.NextBool() ? 1 : -1);
+				Main.projectile[leaf].ai[1] = spinTime;
 				Main.projectile[leaf].timeLeft = time;
                 int dust = Dust.NewDust(shield.Center - new Vector2(4, 4), 0, 0, DustID.Grass);
 			}
