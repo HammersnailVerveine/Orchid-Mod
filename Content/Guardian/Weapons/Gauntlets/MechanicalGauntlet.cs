@@ -53,7 +53,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			return true;
 		}
 
-		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info)
+		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info, Projectile anchor)
 		{
 			player.AddBuff(ModContent.BuffType<GuardianMechanicalGauntletBuff>(), 60);
 		}

@@ -57,7 +57,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			recipe.Register();
 		}
 
-		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info) 
+		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info, Projectile anchor) 
 		{
 			guardian.modPlayer.TryHeal(20);
 			SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact, player.Center);

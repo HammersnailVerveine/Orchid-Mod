@@ -49,7 +49,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			guardian.modPlayer.TryHeal(charged ? 10 : 5);
 		}
 
-		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info)
+		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info, Projectile anchor)
 		{
 			guardian.modPlayer.TryHeal(20);
 		}

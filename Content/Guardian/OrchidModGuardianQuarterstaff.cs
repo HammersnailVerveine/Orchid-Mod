@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool jabAttack, bool counterAttack) { } // Called when hitting a target during an attack
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool jabAttack, bool counterAttack) { } // Called when hitting the first target for the first time during an attack
 		public virtual void OnAttack(Player player, OrchidGuardian guardian, Projectile projectile, bool jabAttack, bool counterAttack) { } // Called on the first frame of an attack
+		public virtual void OnParryQuarterstaff(Player player, OrchidGuardian guardian, Player.HurtInfo info, Projectile anchor) { } // Called on parrying anything
 		public virtual void ExtraAIQuarterstaff(Projectile projectile) { } // Called at the end of the Anchor Projectile AI
 		public virtual void PostDrawQuarterstaff(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { } // Called after the item is done being drawn
 		public virtual bool PreDrawQuarterstaff(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; } // Return false to prevent normal draw code
@@ -31,6 +32,8 @@ namespace OrchidMod.Content.Guardian
 		public int ParryDuration = 60; // Parry duration in ticks
 		public int SlamStacks; // Stam Stacks given by the item
 		public int GuardStacks; // Block Stacks given by the item
+		public float JabSpeed = 1f; // Jab speed multiplier
+		public float SwingSpeed = 1f; // swing speed multiplier
 
 		public sealed override void SetDefaults()
 		{
@@ -39,7 +42,7 @@ namespace OrchidMod.Content.Guardian
 			Item.autoReuse = true;
 			Item.maxStack = 1;
 			Item.noUseGraphic = true;
-			Item.UseSound = SoundID.Item1;
+			Item.UseSound = SoundID.DD2_MonkStaffGroundMiss;
 			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.useTime = 30;
 			Item.knockBack = 5f;
@@ -54,6 +57,13 @@ namespace OrchidMod.Content.Guardian
 		public override bool AltFunctionUse(Player player)
 		{
 			return true;
+		}
+
+		public sealed override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info, Projectile anchor)
+		{
+			anchor.ai[2] = -40f;
+			(anchor.ModProjectile as GuardianQuarterstaffAnchor).NeedNetUpdate = true;
+			OnParryQuarterstaff(player, guardian, info, anchor);
 		}
 
 		public override bool WeaponPrefix() => true;
@@ -71,29 +81,30 @@ namespace OrchidMod.Content.Guardian
 					if (proj != null && proj.ModProjectile is GuardianQuarterstaffAnchor anchor && proj.ai[0] >= 0f)
 					{
 						bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
-						bool shouldCharge = Main.mouseLeft && Main.mouseLeftRelease;
+						bool shouldCharge = Main.mouseLeft;
 
 						if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs)
 						{
 							shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
-							shouldCharge = Main.mouseRight && Main.mouseRightRelease;
+							shouldCharge = Main.mouseRight;
 						}
 
-						if (shouldBlock && guardian.UseGuard(1, true) && proj.ai[0] == 0f)
+						if (shouldBlock && guardian.UseGuard(1, true) && proj.ai[0] == 0f && proj.ai[2] == 0f)
 						{
 							player.immuneTime = 0;
 							player.immune = false;
 							guardian.modPlayer.PlayerImmunity = 0;
 							guardian.GuardianGauntletCharge = 0f;
 							guardian.UseGuard(1);
-							proj.ai[0] = ParryDuration + 1f;
+							proj.ai[2] = ParryDuration;
 							anchor.NeedNetUpdate = true;
 							SoundEngine.PlaySound(SoundID.Item37, player.Center);
 						}
 
-						if (shouldCharge && guardian.GuardianGauntletCharge == 0f)
+						if (shouldCharge && guardian.GuardianGauntletCharge == 0f && proj.ai[0] == 0f && proj.ai[2] >= -10f)
 						{
 							proj.ai[0] = 1f;
+							proj.ai[2] = 0f;
 							anchor.NeedNetUpdate = true;
 							guardian.GuardianGauntletCharge++;
 							SoundEngine.PlaySound(SoundID.Item7, player.Center);

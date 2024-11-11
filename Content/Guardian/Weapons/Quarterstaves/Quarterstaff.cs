@@ -13,11 +13,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.height = 42;
 			Item.value = Item.sellPrice(0, 0, 3, 45);
 			Item.rare = ItemRarityID.White;
-			Item.useTime = 35;
-			Item.UseSound = SoundID.DD2_BetsyWindAttack;
+			Item.useTime = 30;
 			ParryDuration = 60;
 			Item.knockBack = 5f;
-			Item.damage = 20;
+			Item.damage = 37;
 			GuardStacks = 1;
 		}
 	}

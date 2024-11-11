@@ -42,6 +42,10 @@ namespace OrchidMod.Content.Guardian.UI
 		public static Texture2D textureRuneOff;
 		public static Texture2D textureRuneReady;
 
+		public static Texture2D textureQuarterstaffOn;
+		public static Texture2D textureQuarterstaffOff;
+		public static Texture2D textureQuarterstaffReady;
+
 		public static Texture2D blockOn;
 		public static Texture2D blockOff;
 
@@ -73,6 +77,10 @@ namespace OrchidMod.Content.Guardian.UI
 			textureRuneOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/RuneOn", AssetRequestMode.ImmediateLoad).Value;
 			textureRuneOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/RuneOff", AssetRequestMode.ImmediateLoad).Value;
 			textureRuneReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/RuneReady", AssetRequestMode.ImmediateLoad).Value;
+
+			textureQuarterstaffOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/QuarterstaffOn", AssetRequestMode.ImmediateLoad).Value;
+			textureQuarterstaffOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/QuarterstaffOff", AssetRequestMode.ImmediateLoad).Value;
+			textureQuarterstaffReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/QuarterstaffReady", AssetRequestMode.ImmediateLoad).Value;
 
 			textureHammerOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOn", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOff", AssetRequestMode.ImmediateLoad).Value;
@@ -270,6 +278,66 @@ namespace OrchidMod.Content.Guardian.UI
 						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + textureRuneOn.Height - val + 3f * (player.gravDir - 1));
 						if (player.gravDir < 0) drawpos.Y -= (textureRuneOn.Height - rectangle.Height);
 						spriteBatch.Draw(textureRuneOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+					}
+
+					if (player.HeldItem.ModItem is OrchidModGuardianQuarterstaff)
+					{
+						if (modPlayer.GuardianGauntletCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+						{
+							int val = textureQuarterstaffOn.Height;
+							if (modPlayer.GuardianGauntletCharge >= 180f)
+							{
+								drawpos = new Vector2(position.X - 10, position.Y - 96 * player.gravDir + 6f * (player.gravDir - 1));
+								spriteBatch.Draw(textureQuarterstaffReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
+							}
+							else
+							{
+								float charge = modPlayer.GuardianGauntletCharge;
+								while (charge < 180f)
+								{
+									charge += 7.5f;
+									val--;
+								}
+							}
+
+							Rectangle rectangle = textureQuarterstaffOn.Bounds;
+							rectangle.Height = val;
+							rectangle.Y = textureQuarterstaffOn.Height - val;
+							drawpos = new Vector2(position.X - 8, position.Y - 94 * player.gravDir + 4f * (player.gravDir - 1));
+							spriteBatch.Draw(textureQuarterstaffOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+							drawpos = new Vector2(position.X - 8, position.Y - 94 * player.gravDir + textureQuarterstaffOn.Height - val + 4f * (player.gravDir - 1));
+							if (player.gravDir < 0) drawpos.Y -= (textureQuarterstaffOn.Height - rectangle.Height);
+							spriteBatch.Draw(textureQuarterstaffOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+						}
+						else
+						{
+							int projectileType = ModContent.ProjectileType<GuardianQuarterstaffAnchor>();
+							for (int i = 0; i < Main.projectile.Length; i++)
+							{
+								Projectile proj = Main.projectile[i];
+								if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType && proj.ai[2] > 0f)
+								{
+									int val = 22;
+									float block = proj.ai[2];
+									float step = (player.HeldItem.ModItem as OrchidModGuardianQuarterstaff).ParryDuration;
+									while (block < step)
+									{
+										block += step / 20f;
+										val--;
+									}
+
+									Rectangle rectangle = blockOn.Bounds;
+									rectangle.Height = val;
+									rectangle.Y = blockOn.Height - val;
+									drawpos = new Vector2(position.X - 10, position.Y - 92 * player.gravDir + 3f * (player.gravDir - 1));
+									spriteBatch.Draw(blockOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+									drawpos = new Vector2(position.X - 10, position.Y - 92 * player.gravDir + blockOn.Height - val + 3f * (player.gravDir - 1));
+									if (player.gravDir < 0) drawpos.Y -= (blockOn.Height - rectangle.Height);
+									spriteBatch.Draw(blockOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+									return;
+								}
+							}
+						}
 					}
 
 					if (modPlayer.GuardianGauntletCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianGauntlet)

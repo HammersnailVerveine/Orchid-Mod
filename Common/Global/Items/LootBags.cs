@@ -31,6 +31,7 @@ using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Content.Shaman.Weapons.Fire;
+using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -271,7 +272,7 @@ namespace OrchidMod.Common.Global.Items
 								(ModContent.ItemType<EmberVial>(), 1),
 								(ModContent.ItemType<EmbersCard>(), 1),
 								(ModContent.ItemType<TsunamiInAVial>(), 1),
-								(ModContent.ItemType<Warhammer>(), 1),
+								(ModContent.ItemType<Quarterstaff>(), 1),
 								(ModContent.ItemType<GuideShield>(), 1),
 							}
 						);
@@ -288,7 +289,7 @@ namespace OrchidMod.Common.Global.Items
 								(ModContent.ItemType<EmberVial>(), 1),
 								(ModContent.ItemType<EmbersCard>(), 1),
 								(ModContent.ItemType<TsunamiInAVial>(), 1),
-								(ModContent.ItemType<Warhammer>(), 1),
+								(ModContent.ItemType<Quarterstaff>(), 1),
 								(ModContent.ItemType<GuideShield>(), 1),
 							}
 						);

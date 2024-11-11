@@ -36,6 +36,7 @@ using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Content.Guardian.Misc;
+using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -235,7 +236,7 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<EmbersCard>(), ChestType.SurfaceWooden, 20));
 			// chestLoots.Add(new ChestLoot(ItemType<AdornedBranch>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EmberVial>(), ChestType.SurfaceWooden, 20));
-			chestLoots.Add(new ChestLoot(ItemType<Warhammer>(), ChestType.SurfaceWooden, 20));
+			chestLoots.Add(new ChestLoot(ItemType<Quarterstaff>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<GuideShield>(), ChestType.SurfaceWooden, 20));
 
 			// Water Chests

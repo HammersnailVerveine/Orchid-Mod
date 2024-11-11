@@ -298,38 +298,38 @@ namespace OrchidMod
 
 				if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
 				{
-					parryItem.OnParry(Player, this, info);
-					info.DamageSource.TryGetCausingEntity(out Entity entity);
-
 					Projectile proj = null;
-					int projectileType = ModContent.ProjectileType<GuardianGauntletAnchor>();
-					if (Player.ownedProjectileCounts[projectileType] > 0)
+					int[] anchorTypes = [ModContent.ProjectileType<GuardianQuarterstaffAnchor>(), ModContent.ProjectileType<GuardianGauntletAnchor>(), ModContent.ProjectileType<GuardianHorizonLanceAnchor>()];
+
+					foreach (int type in anchorTypes)
 					{
-						proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && (i.type == projectileType));
-					}
-					else
-					{
-						projectileType = ModContent.ProjectileType<GuardianHorizonLanceAnchor>();
-						if (Player.ownedProjectileCounts[projectileType] > 0)
+						if (Player.ownedProjectileCounts[type] > 0)
 						{
-							proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && i.type == projectileType);
+							proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && (i.type == type));
+							break;
 						}
 					}
 
-					if (entity != null && proj != null)
+					if (proj != null)
 					{
-						if (entity is NPC npc)
-						{
-							parryItem.OnParryNPC(Player, this, npc, info);
-							OnBlockNPC(proj, npc);
-							OnBlockNPCFirst(proj, npc);
-						}
+						parryItem.OnParry(Player, this, info, proj);
 
-						if (entity is Projectile projectile)
+						info.DamageSource.TryGetCausingEntity(out Entity entity);
+						if (entity != null)
 						{
-							parryItem.OnParryProjectile(Player, this, projectile, info);
-							OnBlockProjectile(proj, projectile);
-							OnBlockProjectileFirst(proj, projectile);
+							if (entity is NPC npc)
+							{
+								parryItem.OnParryNPC(Player, this, npc, info, proj);
+								OnBlockNPC(proj, npc);
+								OnBlockNPCFirst(proj, npc);
+							}
+
+							if (entity is Projectile projectile)
+							{
+								parryItem.OnParryProjectile(Player, this, projectile, info, proj);
+								OnBlockProjectile(proj, projectile);
+								OnBlockProjectileFirst(proj, projectile);
+							}
 						}
 					}
 				}

@@ -20,7 +20,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			parryDuration = 50;
 		}
 
-		public override void OnParryNPC(Player player, OrchidGuardian guardian, NPC npc, Player.HurtInfo info)
+		public override void OnParryNPC(Player player, OrchidGuardian guardian, NPC npc, Player.HurtInfo info, Projectile anchor)
 		{
 			int damage = guardian.GetGuardianDamage(Item.damage);
 			int crit = guardian.GetGuardianCrit(Item.crit);
