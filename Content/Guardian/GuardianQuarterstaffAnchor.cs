@@ -157,7 +157,7 @@ namespace OrchidMod.Content.Guardian
 						hitTarget = false;
 					}
 
-					if (Projectile.ai[2] >= - 13.3f && DamageReset == 0)
+					if (Projectile.ai[2] >= - 13.3f && DamageReset == 2)
 					{ // Reset damage twice while spinning
 						DamageReset ++;
 						Projectile.ResetLocalNPCHitImmunity();
@@ -169,7 +169,7 @@ namespace OrchidMod.Content.Guardian
 						DamageReset++;
 					}
 
-					else if (Projectile.ai[2] >= -26.6f && DamageReset == 2)
+					else if (Projectile.ai[2] >= -26.6f && DamageReset == 0)
 					{ // Reset damage twice while spinning
 						DamageReset++;
 						Projectile.ResetLocalNPCHitImmunity();
