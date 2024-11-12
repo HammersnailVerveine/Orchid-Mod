@@ -9,7 +9,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			Item.width = 38;
 			Item.height = 36;
-			Item.value = Item.sellPrice(0, 0, 0, 20);
+			Item.value = Item.sellPrice(0, 0, 3, 50);
 			Item.rare = ItemRarityID.White;
 			Item.UseSound = SoundID.Item65;
 			Item.knockBack = 5f;
