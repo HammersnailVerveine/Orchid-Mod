@@ -149,7 +149,6 @@ namespace OrchidMod.Content.Guardian
 						Projectile.friendly = true;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-						guardianItem.OnAttack(owner, guardian, Projectile, false, true);
 						DamageReset = 0;
 						Projectile.scale *= 1.2f;
 						Projectile.width = (int)(Projectile.width * 1.2f);
@@ -190,6 +189,11 @@ namespace OrchidMod.Content.Guardian
 						OldRotation.RemoveAt(0);
 					}
 
+					if (Projectile.ai[2] == -40f)
+					{ // First frame of the counterattack
+						guardianItem.OnAttack(owner, guardian, Projectile, false, true);
+					}
+
 					Projectile.ai[2] += guardianItem.CounterSpeed * owner.GetTotalAttackSpeed(DamageClass.Melee);
 
 					if (Projectile.ai[2] >= 0)
@@ -199,6 +203,30 @@ namespace OrchidMod.Content.Guardian
 						Projectile.ai[2] = 0f;
 						ResetSize();
 						Projectile.friendly = false;
+
+						if (IsLocalOwner)
+						{
+							bool blockInput = Main.mouseRight;
+
+							if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs)
+							{
+								blockInput = Main.mouseRight;
+							}
+
+							if (blockInput && guardian.UseGuard(1, true))
+							{
+								owner.immuneTime = 0;
+								owner.immune = false;
+								guardian.modPlayer.PlayerImmunity = 0;
+								guardian.GuardianGauntletCharge = 0f;
+								guardian.UseGuard(1);
+								Projectile.ai[2] = guardianItem.ParryDuration;
+								Projectile.netUpdate = true;
+								SoundEngine.PlaySound(SoundID.Item37, owner.Center);
+								guardian.GuardianGauntletParry = true;
+								guardian.GuardianGauntletParry2 = true;
+							}
+						}
 					}
 				}
 				else if (Projectile.ai[0] == 1f)
@@ -276,7 +304,6 @@ namespace OrchidMod.Content.Guardian
 						Projectile.friendly = true;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-						guardianItem.OnAttack(owner, guardian, Projectile, true, false);
 						hitTarget = false;
 					}
 
@@ -322,6 +349,11 @@ namespace OrchidMod.Content.Guardian
 						OldRotation.RemoveAt(0);
 					}
 
+					if (Projectile.ai[0] == -40f)
+					{ // First frame of the jab
+						guardianItem.OnAttack(owner, guardian, Projectile, true, false);
+					}
+
 					// Animation progress
 					Projectile.ai[0] += guardianItem.JabSpeed * owner.GetTotalAttackSpeed(DamageClass.Melee);
 
@@ -338,6 +370,20 @@ namespace OrchidMod.Content.Guardian
 
 						Projectile.ai[1] = 0f;
 						Projectile.friendly = false;
+
+						bool jabInput = Main.mouseRight;
+
+						if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs)
+						{
+							jabInput = Main.mouseLeft;
+						}
+
+						if (jabInput)
+						{ // Perfect jab loop while holding the attack
+							Projectile.ai[0] = -40f;
+							Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
+							Projectile.netUpdate = true;
+						}
 					}
 				}
 				else if (Projectile.ai[0] > 1f)
@@ -351,13 +397,13 @@ namespace OrchidMod.Content.Guardian
 						DamageReset = 0;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(QuarterstaffItem.UseSound, Projectile.Center);
-						guardianItem.OnAttack(owner, guardian, Projectile, false, false);
 						hitTarget = false;
 					}
 
 					if (Projectile.ai[0] < 26 && DamageReset == 0)
 					{
 						DamageReset++;
+						SoundEngine.PlaySound(QuarterstaffItem.UseSound, Projectile.Center);
 						Projectile.ResetLocalNPCHitImmunity();
 						Projectile.ai[0] -= 3f;
 					}
@@ -413,6 +459,11 @@ namespace OrchidMod.Content.Guardian
 						OldRotation.RemoveAt(0);
 					}
 
+					if (Projectile.ai[0] == 41f)
+					{ // First frame of the swing
+						guardianItem.OnAttack(owner, guardian, Projectile, false, false);
+					}
+
 					// Animation progress
 					Projectile.ai[0] -= guardianItem.SwingSpeed * owner.GetTotalAttackSpeed(DamageClass.Melee);
 
@@ -455,7 +506,7 @@ namespace OrchidMod.Content.Guardian
 				*/
 
 				// Extra AI (can be overriden in item code)
-				guardianItem.ExtraAIQuarterstaff(Projectile);
+				guardianItem.ExtraAIQuarterstaff(owner, guardian, Projectile);
 			}
 		}
 

@@ -270,6 +270,7 @@ namespace OrchidMod.Common.ModSystems
 			// chestLoots.Add(new ChestLoot(ItemType<SpiritedWater>(), ChestType.DungeonLocked, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DungeonFlask>(), ChestType.DungeonLocked, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DungeonCatalyst>(), ChestType.DungeonLocked, 20));
+			chestLoots.Add(new ChestLoot(ItemType<DungeonQuarterstaff>(), ChestType.DungeonLocked, 20));
 			chestLoots.Add(new ChestLoot(ItemType<Rusalka>(), ChestType.DungeonLocked, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DeckBone>(), ChestType.DungeonLocked, 5, needToPlace: 0, ignoreChestLimit: true));
 

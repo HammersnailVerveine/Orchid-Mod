@@ -3319,6 +3319,11 @@ Items: {
 		DisplayName: Bamboo Quarterstaff
 		Tooltip: 30% increased action speed
 	}
+
+	DungeonQuarterstaff: {
+		DisplayName: Tenkei
+		Tooltip: Shoots bolts of water when swung
+	}
 }
 
 NPCs: {
@@ -3647,6 +3652,7 @@ Projectiles: {
 	SageBatProjAlt.DisplayName: Sage Bat Proj Alt
 	GuardianQuarterstaffAnchor.DisplayName: Guardian Quarterstaff Anchor
 	ThoriumLeafShieldProj.DisplayName: Razor Leaves
+	DungeonQuarterstaffProjectile.DisplayName: Dungeon Quarterstaff Projectile
 }
 
 Configs: {
