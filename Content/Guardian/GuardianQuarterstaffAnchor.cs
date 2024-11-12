@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Content.Shaman.Buffs.Debuffs;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -146,7 +147,7 @@ namespace OrchidMod.Content.Guardian
 				{ // Counterattacking
 					if (Projectile.ai[2] == -40f)
 					{ // First frame of the counterattack
-						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage);
+						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage * guardianItem.CounterDamage);
 						Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
 						Projectile.knockBack = QuarterstaffItem.knockBack * guardianItem.CounterKnockback;
 						Projectile.friendly = true;
@@ -297,7 +298,7 @@ namespace OrchidMod.Content.Guardian
 				{ // Jabbing
 					if (Projectile.ai[0] == -40f)
 					{ // First frame of the jab
-						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage * 0.5f);
+						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage * guardianItem.JabDamage);
 						Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
 						Projectile.knockBack = QuarterstaffItem.knockBack * guardianItem.JabKnockback;
 						Projectile.friendly = true;
@@ -389,7 +390,7 @@ namespace OrchidMod.Content.Guardian
 				{ // Swinging (charged attack)
 					if (Projectile.ai[0] == 41f)
 					{ // First frame of the swing
-						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage * 1.5f);
+						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage * guardianItem.SwingDamage);
 						Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
 						Projectile.knockBack = QuarterstaffItem.knockBack * guardianItem.SwingKnockback;
 						Projectile.friendly = true;
