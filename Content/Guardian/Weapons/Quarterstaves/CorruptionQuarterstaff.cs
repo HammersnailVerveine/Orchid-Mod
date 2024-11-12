@@ -20,7 +20,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			GuardStacks = 2;
 			CounterSpeed = 0.75f;
 			InvincibilityDuration = 60;
-			CounterDamage = 1.25f;
+			CounterHits = 4;
 		}
 	}
 }

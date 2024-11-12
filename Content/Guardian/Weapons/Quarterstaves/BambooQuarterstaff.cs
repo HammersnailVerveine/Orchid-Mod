@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
@@ -21,7 +19,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			SwingSpeed = 1.3f;
 			CounterSpeed = 1.3f;
 			JabSpeed = 1.3f;
-			CounterHits = 10;
 		}
 
 		public override void AddRecipes()
