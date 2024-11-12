@@ -38,6 +38,7 @@ namespace OrchidMod.Content.Guardian
 		public float JabDamage = 1f; // Jab damage multiplier
 		public float SwingDamage = 1.5f; // swing damage multiplier
 		public float CounterDamage = 1f; // spin damage multiplier
+		public float CounterHits = 3; // number of local iframe resets during a counterattack - use scarsely
 
 		public sealed override void SetDefaults()
 		{

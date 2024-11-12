@@ -152,29 +152,22 @@ namespace OrchidMod.Content.Guardian
 						Projectile.friendly = true;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-						DamageReset = 0;
+						DamageReset = 1;
 						Projectile.scale *= 1.2f;
 						Projectile.width = (int)(Projectile.width * 1.2f);
 						Projectile.height = (int)(Projectile.height * 1.2f);
 						hitTarget = false;
 					}
 
-					if (Projectile.ai[2] >= - 13.3f && DamageReset == 2)
+					if (Projectile.ai[2] >= (-40 / guardianItem.CounterHits) * (guardianItem.CounterHits - DamageReset))
 					{ // Reset damage twice while spinning
 						DamageReset ++;
 						Projectile.ResetLocalNPCHitImmunity();
-					}
 
-					else if (Projectile.ai[2] >= -20f && DamageReset == 1)
-					{ // Reset sound mid spin
-						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-						DamageReset++;
-					}
-
-					else if (Projectile.ai[2] >= -26.6f && DamageReset == 0)
-					{ // Reset damage twice while spinning
-						DamageReset++;
-						Projectile.ResetLocalNPCHitImmunity();
+						if ((int)(guardianItem.CounterHits * 0.5f) == DamageReset)
+						{
+							SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+						}
 					}
 
 					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(-4 * owner.direction, 0f);
