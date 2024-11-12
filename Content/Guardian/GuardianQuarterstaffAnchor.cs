@@ -273,8 +273,6 @@ namespace OrchidMod.Content.Guardian
 						{
 							if (guardian.GuardianGauntletCharge >= 180f)
 							{ // swing
-								guardian.AddGuard(guardianItem.GuardStacks);
-								guardian.AddSlam(guardianItem.SlamStacks);
 								Projectile.ai[0] = 41f;
 							}
 							else
@@ -519,6 +517,8 @@ namespace OrchidMod.Content.Guardian
 					if (!hitTarget)
 					{
 						hitTarget = true;
+						guardian.AddGuard(guardianItem.GuardStacks);
+						guardian.AddSlam(guardianItem.SlamStacks);
 						guardianItem.OnHitFirst(player, guardian, target, Projectile, hit, false, false);
 					}
 					guardianItem.OnHit(player, guardian, target, Projectile, hit, false, false);

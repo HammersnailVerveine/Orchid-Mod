@@ -11,7 +11,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 			Projectile.height = 6;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 30;
+			Projectile.timeLeft = 25;
 			Projectile.scale = 1f;
 			Projectile.penetrate = 5;
 			Projectile.alpha = 255;
@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 
 		public override void AI()
 		{
-			if (Projectile.timeLeft < 15)
+			if (Projectile.timeLeft < 10)
 			{
 				Projectile.velocity *= 0.85f;
 			}
