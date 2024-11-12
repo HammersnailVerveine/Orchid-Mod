@@ -46,7 +46,5 @@ namespace OrchidMod.Content.Guardian
 		}
 	}
 
-	public abstract class OrchidModGuardianAnchor : OrchidModGuardianProjectile
-	{
-	}
+	public abstract class OrchidModGuardianAnchor : OrchidModGuardianProjectile {} // Only used to "fake" true melee hits when hitting with those projectiles
 }

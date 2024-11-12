@@ -136,6 +136,11 @@ namespace OrchidMod.Content.Guardian
 					{
 						Projectile.ai[2] = 0f;
 					}
+
+					if (Projectile.scale > 1f)
+					{
+						ResetSize();
+					}
 				}
 				else if (Projectile.ai[2] < 0f)
 				{ // Counterattacking
@@ -288,6 +293,11 @@ namespace OrchidMod.Content.Guardian
 							Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
 							Projectile.netUpdate = true;
 						}
+					}
+
+					if (Projectile.scale > 1f)
+					{
+						ResetSize();
 					}
 				}
 				else if (Projectile.ai[0] < 0)
