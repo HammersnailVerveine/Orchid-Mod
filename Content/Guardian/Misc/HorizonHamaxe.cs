@@ -6,7 +6,7 @@ namespace OrchidMod.Content.Guardian.Misc
 {
 	public class HorizonHamaxe : LuminiteTool
 	{
-		public HorizonHamaxe() : base(lightColor: new(229, 181, 142), itemCloneType: ItemID.SolarFlareHammer) { }
+		public HorizonHamaxe() : base(lightColor: new(229, 181, 142), itemCloneType: ItemID.LunarHamaxeSolar) { }
 
 		public override void AddRecipes()
 		{
