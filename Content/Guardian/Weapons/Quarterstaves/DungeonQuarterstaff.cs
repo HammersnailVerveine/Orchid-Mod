@@ -68,7 +68,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 				{
 					boltCounter++;
 					Vector2 velocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * Item.shootSpeed;
-					Vector2 tipPosition = projectile.Center - Vector2.UnitY.RotatedBy(projectile.rotation + MathHelper.PiOver4) * projectile.width * 0.5f;
+					Vector2 tipPosition = projectile.Center - Vector2.UnitY.RotatedBy(projectile.rotation + MathHelper.PiOver4) * projectile.width * 0.1f;
 					SpawnProjectile(velocity, projectile, guardian, tipPosition);
 					SoundEngine.PlaySound(SoundID.Item21, player.Center);
 				}
@@ -80,8 +80,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 				{
 					boltCounter++;
 					Vector2 velocity = Vector2.UnitY.RotatedBy((player.Center - Main.MouseWorld).ToRotation() + MathHelper.PiOver2) * Item.shootSpeed;
-					Vector2 position = player.Center - Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(20f)) * projectile.width * -0.5f;
-					SpawnProjectile(velocity, projectile, guardian, position);
+					SpawnProjectile(velocity, projectile, guardian, player.Center);
 					SoundEngine.PlaySound(SoundID.Item21, player.Center);
 				}
 			}
