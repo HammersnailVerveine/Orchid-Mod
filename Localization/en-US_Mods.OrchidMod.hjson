@@ -3324,6 +3324,11 @@ Items: {
 		DisplayName: Parted Seas
 		Tooltip: Shoots bolts of water when swung
 	}
+
+	CorruptionQuarterstaff: {
+		DisplayName: Corruption Quarterstaff
+		Tooltip: ""
+	}
 }
 
 NPCs: {
