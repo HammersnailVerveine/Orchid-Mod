@@ -148,7 +148,7 @@ namespace OrchidMod.Content.Guardian
 					{ // First frame of the counterattack
 						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage);
 						Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
-						Projectile.knockBack = QuarterstaffItem.knockBack;
+						Projectile.knockBack = QuarterstaffItem.knockBack * guardianItem.CounterKnockback;
 						Projectile.friendly = true;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
@@ -299,7 +299,7 @@ namespace OrchidMod.Content.Guardian
 					{ // First frame of the jab
 						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage * 0.5f);
 						Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
-						Projectile.knockBack = QuarterstaffItem.knockBack;
+						Projectile.knockBack = QuarterstaffItem.knockBack * guardianItem.JabKnockback;
 						Projectile.friendly = true;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
@@ -391,20 +391,12 @@ namespace OrchidMod.Content.Guardian
 					{ // First frame of the swing
 						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage * 1.5f);
 						Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
-						Projectile.knockBack = QuarterstaffItem.knockBack * 1.5f;
+						Projectile.knockBack = QuarterstaffItem.knockBack * guardianItem.SwingKnockback;
 						Projectile.friendly = true;
 						DamageReset = 0;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(QuarterstaffItem.UseSound, Projectile.Center);
 						hitTarget = false;
-					}
-
-					if (Projectile.ai[0] < 26 && DamageReset == 0)
-					{
-						DamageReset++;
-						SoundEngine.PlaySound(QuarterstaffItem.UseSound, Projectile.Center);
-						Projectile.ResetLocalNPCHitImmunity();
-						Projectile.ai[0] -= 3f;
 					}
 
 					if (Projectile.ai[1] > -3.14f && Projectile.ai[1] < 0f)
@@ -422,31 +414,39 @@ namespace OrchidMod.Content.Guardian
 						}
 					}
 
-					if (Projectile.ai[0] > 15)
-					{ // Swinging
-						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 - (float)Math.Cos(0.209f * (Projectile.ai[0] - 10)) * 1.75f * -owner.direction + MathHelper.Pi;
-						Projectile.Center = owner.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] - (float)Math.Cos(0.209f * (Projectile.ai[0] - 10)) * 1.6f * -owner.direction) * 24f;
-						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver4 * owner.direction + Projectile.ai[1] + 0.1f + (float)Math.Cos(0.209f * (Projectile.ai[0] - 10)) * owner.direction);
-						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Full, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.209f * (Projectile.ai[0] - 10)) * 0.2f * owner.direction);
+					if (guardianItem.SingleSwing)
+					{
+						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + (float)Math.Cos(0.102f * (Projectile.ai[0] - 10)) * 1.9f * -owner.direction + MathHelper.Pi;
+						Projectile.Center = owner.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] + (float)Math.Cos(0.102f * (Projectile.ai[0] - 10)) * 1.8f * -owner.direction) * 24f;
+						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver4 * owner.direction + Projectile.ai[1] + 0.1f - (float)Math.Cos(0.102f * (Projectile.ai[0] - 10)) * owner.direction);
+						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Full, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.102f * (Projectile.ai[0] - 10)) * 0.2f * owner.direction);
 					}
 					else
-					{ // Returning
-						Projectile.friendly = false;
-						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + (-0.5f * 1.1f - (float)Math.Sin(0.12f * -Projectile.ai[0] + 3) + 0.8f) * -owner.direction + MathHelper.Pi;
-						Projectile.Center = owner.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] + (-0.5f - (float)Math.Sin(0.12f * -Projectile.ai[0] + 3) + 0.8f) * -owner.direction) * (Projectile.ai[0] * 0.75f + 9f);
-						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver4 * owner.direction + Projectile.ai[1] + 0.1f + (float)Math.Cos(0.145f * (Projectile.ai[0] - 10)) * owner.direction + (20 - Projectile.ai[0]) * 0.04f * owner.direction);
-						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.ThreeQuarters, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.145f * (Projectile.ai[0] - 5)) * 0.2f * owner.direction);
+					{
+						if (Projectile.ai[0] < 26 && DamageReset == 0)
+						{
+							DamageReset++;
+							SoundEngine.PlaySound(QuarterstaffItem.UseSound, Projectile.Center);
+							Projectile.ResetLocalNPCHitImmunity();
+							Projectile.ai[0] -= 3f;
+						}
+
+						if (Projectile.ai[0] > 15)
+						{ // Swinging
+							Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 - (float)Math.Cos(0.209f * (Projectile.ai[0] - 10)) * 1.75f * -owner.direction + MathHelper.Pi;
+							Projectile.Center = owner.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] - (float)Math.Cos(0.209f * (Projectile.ai[0] - 10)) * 1.6f * -owner.direction) * 24f;
+							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver4 * owner.direction + Projectile.ai[1] + 0.1f + (float)Math.Cos(0.209f * (Projectile.ai[0] - 10)) * owner.direction);
+							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Full, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.209f * (Projectile.ai[0] - 10)) * 0.2f * owner.direction);
+						}
+						else
+						{ // Returning
+							Projectile.friendly = false;
+							Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + (-0.5f * 1.1f - (float)Math.Sin(0.12f * -Projectile.ai[0] + 3) + 0.8f) * -owner.direction + MathHelper.Pi;
+							Projectile.Center = owner.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] + (-0.5f - (float)Math.Sin(0.12f * -Projectile.ai[0] + 3) + 0.8f) * -owner.direction) * (Projectile.ai[0] * 0.75f + 9f);
+							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver4 * owner.direction + Projectile.ai[1] + 0.1f + (float)Math.Cos(0.145f * (Projectile.ai[0] - 10)) * owner.direction + (20 - Projectile.ai[0]) * 0.04f * owner.direction);
+							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.ThreeQuarters, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.145f * (Projectile.ai[0] - 5)) * 0.2f * owner.direction);
+						}
 					}
-					/*
-					else
-					{ // Returning
-						Projectile.friendly = false;
-						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + (float)Math.Cos(0.145f * (Projectile.ai[0] - 5)) * 1.1f * -owner.direction + MathHelper.Pi;
-						Projectile.Center = owner.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] + (float)Math.Cos(0.145f * (Projectile.ai[0] - 5)) * -owner.direction) * (Projectile.ai[0] * 0.75f + 9f);
-						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver4 * owner.direction + Projectile.ai[1] + 0.1f + (float)Math.Cos(0.145f * (Projectile.ai[0] - 5)) * owner.direction + (20 - Projectile.ai[0]) * 0.02f * owner.direction);
-						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.ThreeQuarters, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.145f * (Projectile.ai[0] - 5)) * 0.2f * owner.direction);
-					}
-					*/
 
 					// Trail
 					OldPosition.Add(Projectile.Center);
@@ -497,10 +497,14 @@ namespace OrchidMod.Content.Guardian
 
 				Projectile.velocity = Vector2.UnitX * 0.001f * owner.direction; // So enemies are KBd in the right direction
 
+				// Hitbox display for testing
 				/*
-				for (int i = 0; i < 30; i ++)
+				if (Projectile.friendly)
 				{
-					Dust.NewDustDirect(HitBox.TopLeft(), HitBox.Width, HitBox.Height, 6).noGravity = true;
+					for (int i = 0; i < 30; i++)
+					{
+						Dust.NewDustDirect(HitBox.TopLeft(), HitBox.Width, HitBox.Height, 6).noGravity = true;
+					}
 				}
 				*/
 

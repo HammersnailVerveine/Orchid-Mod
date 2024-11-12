@@ -1,5 +1,6 @@
 ﻿using OrchidMod.Content.Alchemist.Weapons.Catalysts;
 using OrchidMod.Content.Gambler.Weapons.Cards;
+using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 using OrchidMod.Content.Shaman.Weapons;
 using System;
 using System.Collections.Generic;
@@ -31,8 +32,8 @@ namespace OrchidMod.Common.Global.Tiles
 					{
 						bool isShadowOrb = tile.TileFrameX == 0;
 
-						//DropTileBreakItem(isShadowOrb ? ModContent.ItemType<ShadowWeaver>() : ModContent.ItemType<BloodCaller>(), i, j, 1, 4);
-						//DropTileBreakItem(isShadowOrb ? ModContent.ItemType<DemoniteCatalyst>() : ModContent.ItemType<CrimtaneCatalyst>(), i, j, 1, 4);
+						DropTileBreakItem(isShadowOrb ? ModContent.ItemType<CorruptionQuarterstaff>() : ModContent.ItemType<CrimsonQuarterstaff>(), i, j, 1, 2);
+						DropTileBreakItem(isShadowOrb ? ModContent.ItemType<DemoniteCatalyst>() : ModContent.ItemType<CrimtaneCatalyst>(), i, j, 1, 2);
 					}
 					break;
 			}

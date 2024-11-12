@@ -3329,6 +3329,16 @@ Items: {
 		DisplayName: Wicked Fang
 		Tooltip: Greatly reinforced counterattacks
 	}
+
+	CrimsonQuarterstaff: {
+		DisplayName: Ricket
+		Tooltip: ""
+	}
+
+	ShardQuarterstaff: {
+		DisplayName: Balance
+		Tooltip: ""
+	}
 }
 
 NPCs: {
