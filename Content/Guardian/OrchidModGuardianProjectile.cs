@@ -45,4 +45,8 @@ namespace OrchidMod.Content.Guardian
 			}
 		}
 	}
+
+	public abstract class OrchidModGuardianAnchor : OrchidModGuardianProjectile
+	{
+	}
 }

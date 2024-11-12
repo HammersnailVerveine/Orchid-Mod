@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GuardianHammerAnchor : OrchidModGuardianProjectile
+	public class GuardianHammerAnchor : OrchidModGuardianAnchor
 	{
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;

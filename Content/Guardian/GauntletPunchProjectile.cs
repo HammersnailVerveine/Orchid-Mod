@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GauntletPunchProjectile : OrchidModGuardianProjectile
+	public class GauntletPunchProjectile : OrchidModGuardianAnchor
 	{
 		private static Texture2D TextureMain;
 		public OrchidModGuardianGauntlet GauntletItem;

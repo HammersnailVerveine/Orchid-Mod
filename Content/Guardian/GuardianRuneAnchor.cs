@@ -14,7 +14,7 @@ using static Terraria.Player;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GuardianRuneAnchor : OrchidModGuardianProjectile
+	public class GuardianRuneAnchor : OrchidModGuardianAnchor
 	{
 		public bool Ding = false;
 		public bool NeedNetUpdate = false;

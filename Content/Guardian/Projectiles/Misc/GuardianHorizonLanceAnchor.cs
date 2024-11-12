@@ -14,7 +14,7 @@ using static Terraria.Player;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Misc
 {
-	public class GuardianHorizonLanceAnchor : OrchidModGuardianProjectile
+	public class GuardianHorizonLanceAnchor : OrchidModGuardianAnchor
 	{
 		public int TimeSpent = 0;
 		public bool Ding = false;

@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GuardianShieldAnchor : OrchidModGuardianProjectile
+	public class GuardianShieldAnchor : OrchidModGuardianAnchor
 	{
 		public int SelectedItem { get; set; } = -1;
 		public Item ShieldItem => Main.player[Projectile.owner].inventory[this.SelectedItem];

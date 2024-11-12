@@ -14,7 +14,7 @@ using static Terraria.Player;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GuardianStandardAnchor : OrchidModGuardianProjectile
+	public class GuardianStandardAnchor : OrchidModGuardianAnchor
 	{
 		public static Texture2D TextureAura;
 		public int TimeSpent = 0;

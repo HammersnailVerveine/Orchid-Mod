@@ -14,7 +14,7 @@ using static Terraria.Player;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GuardianGauntletAnchor : OrchidModGuardianProjectile
+	public class GuardianGauntletAnchor : OrchidModGuardianAnchor
 	{
 		public int LockedOwnerDir = 0;
 		public bool OffHandGauntlet = false;

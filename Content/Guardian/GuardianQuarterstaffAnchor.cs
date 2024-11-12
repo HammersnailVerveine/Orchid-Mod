@@ -1,21 +1,19 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
-using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.Player;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GuardianQuarterstaffAnchor : OrchidModGuardianProjectile
+	public class GuardianQuarterstaffAnchor : OrchidModGuardianAnchor
 	{
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
