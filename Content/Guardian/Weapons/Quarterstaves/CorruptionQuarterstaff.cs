@@ -9,15 +9,18 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 42;
-			Item.height = 42;
-			Item.value = Item.sellPrice(0, 0, 3, 45);
+			Item.width = 46;
+			Item.height = 48;
+			Item.value = Item.sellPrice(0, 1, 40, 00);
 			Item.rare = ItemRarityID.Blue;
-			Item.useTime = 30;
-			ParryDuration = 60;
-			Item.knockBack = 5f;
-			Item.damage = 37;
-			GuardStacks = 1;
+			Item.useTime = 40;
+			ParryDuration = 90;
+			Item.knockBack = 8f;
+			Item.damage = 55;
+			GuardStacks = 2;
+			CounterSpeed = 0.75f;
+			InvincibilityDuration = 60;
+			CounterDamage = 1.25f;
 		}
 	}
 }

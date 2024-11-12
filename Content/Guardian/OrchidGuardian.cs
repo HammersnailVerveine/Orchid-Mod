@@ -292,12 +292,13 @@ namespace OrchidMod
 				SoundEngine.PlaySound(SoundID.Item37, Player.Center);
 				GuardianGauntletParry = false;
 				GuardianGauntletParry2 = false;
-				modPlayer.PlayerImmunity = 40;
-				Player.immuneTime = 40;
-				Player.immune = true;
 
 				if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
 				{
+					modPlayer.PlayerImmunity = parryItem.InvincibilityDuration;
+					Player.immuneTime = parryItem.InvincibilityDuration;
+					Player.immune = true;
+
 					Projectile proj = null;
 					int[] anchorTypes = [ModContent.ProjectileType<GuardianQuarterstaffAnchor>(), ModContent.ProjectileType<GuardianGauntletAnchor>(), ModContent.ProjectileType<GuardianHorizonLanceAnchor>()];
 

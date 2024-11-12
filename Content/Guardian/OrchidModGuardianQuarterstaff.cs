@@ -35,6 +35,9 @@ namespace OrchidMod.Content.Guardian
 		public float JabSpeed = 1f; // Jab speed multiplier
 		public float SwingSpeed = 1f; // swing speed multiplier
 		public float CounterSpeed = 1f; // spin speed multiplier
+		public float JabDamage = 1f; // Jab damage multiplier
+		public float SwingDamage = 1.5f; // swing damage multiplier
+		public float CounterDamage = 1f; // spin damage multiplier
 
 		public sealed override void SetDefaults()
 		{

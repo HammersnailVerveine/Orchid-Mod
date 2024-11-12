@@ -3316,7 +3316,7 @@ Items: {
 	}
 
 	BambooQuarterstaff: {
-		DisplayName: Bamboo Quarterstaff
+		DisplayName: Bamboo Pole
 		Tooltip: 30% increased action speed
 	}
 
@@ -3326,8 +3326,8 @@ Items: {
 	}
 
 	CorruptionQuarterstaff: {
-		DisplayName: Corruption Quarterstaff
-		Tooltip: ""
+		DisplayName: Wicked Fang
+		Tooltip: Greatly reinforced counterattacks
 	}
 }
 
