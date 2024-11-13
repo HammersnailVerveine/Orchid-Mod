@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using OrchidMod.Content.Guardian.Projectiles.Shields;
 using Terraria;
 using Terraria.ID;
@@ -33,7 +34,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			recipe.Register();
 		}
 
-		private void LeafBurst(Player player, Projectile shield, int time, int spinTime = 30, int quantity = 3)
+		void LeafBurst(Player player, Projectile shield, int time, int spinTime = 30, float baseSpeed = 0, int quantity = 3, bool fanOut = true)
 		{
             Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Grass, shield.position);
 			float dir = (Main.MouseWorld - player.Center).ToRotation();
@@ -41,22 +42,30 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			for (int i = 0; i < quantity; i++)
 			{
 				float side = (i - ((quantity - 1) / 2f)) * -shield.direction;
-				int leaf = Projectile.NewProjectile(Item.GetSource_FromThis(), shield.Center, spread.RotatedByRandom(Main.rand.NextFloat()) * side, ModContent.ProjectileType<ThoriumLeafShieldProj>(), (int)(shield.damage * 0.8f), Item.knockBack, player.whoAmI);
+				int leaf = Projectile.NewProjectile(Item.GetSource_FromThis(), shield.Center, new Vector2(baseSpeed, 0).RotatedBy(dir) + spread.RotatedByRandom(Main.rand.NextFloat()) * side, ModContent.ProjectileType<ThoriumLeafShieldProj>(), (int)(shield.damage * 0.8f), Item.knockBack, player.whoAmI);
+				if (!fanOut) side = 0;
+				Main.projectile[leaf].position += Main.projectile[leaf].velocity * 4;
 				Main.projectile[leaf].ai[0] = dir + (side + Main.rand.NextFloat() - 0.5f) * 0.1f;
-				Main.projectile[leaf].ai[1] = spinTime;
-				Main.projectile[leaf].timeLeft = time;
+				Main.projectile[leaf].ai[1] = spinTime + Math.Abs(side) * 4;
+				Main.projectile[leaf].timeLeft = time + (int)Math.Abs(side) * 2;
                 int dust = Dust.NewDust(shield.Center - new Vector2(4, 4), 0, 0, DustID.Grass);
 			}
+		}
+
+		static void ResetState(Projectile shield)
+		{
+			GuardianShieldAnchor anchor = shield.ModProjectile as GuardianShieldAnchor;
+			shield.friendly = false;
+			shield.ai[1] = shield.ai[0] = anchor.isSlamming = 0;
+			anchor.NeedNetUpdate = true;
 		}
 
 		public override void Protect(Player player, Projectile shield)
 		{
 			if (IsLocalPlayer(player))
 			{
-				LeafBurst(player, shield, 45, 51);
-				GuardianShieldAnchor anchor = shield.ModProjectile as GuardianShieldAnchor;
-				shield.ai[0] = 0;
-				anchor.NeedNetUpdate = true;
+				LeafBurst(player, shield, 45, 50, fanOut: false);
+				ResetState(shield);
 			}
 		}
 
@@ -64,12 +73,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 		{
 			if (IsLocalPlayer(player))
 			{
-				LeafBurst(player, shield, 62 - (int)((player.Center - shield.Center).Length() / 120), 30);
-				GuardianShieldAnchor anchor = shield.ModProjectile as GuardianShieldAnchor;
-				shield.friendly = false;
-				shield.ai[1] = 0;
-				anchor.isSlamming = 0;
-				anchor.NeedNetUpdate = true;
+				LeafBurst(player, shield, 62 - (int)((player.Center - shield.Center).Length() / 120), 25, (shield.ai[1] * 0.15f) - 4f);
+				ResetState(shield);
 			}
 		}
 	}

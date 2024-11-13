@@ -20,7 +20,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
             Projectile.frame = 0;
             Projectile.tileCollide = false;
             Projectile.friendly = true;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 3;
         }
 
         ref float dir => ref Projectile.ai[0];
@@ -41,10 +41,14 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
             }
             else
             {
-                Projectile.tileCollide = true;
+                if (Projectile.frame == 1)
+                {
+                    Projectile.penetrate = 1;
+                    Projectile.tileCollide = true;
+                    Projectile.rotation = dir + 1.571f;
+                }
                 Projectile.velocity *= 0.99f;
                 Projectile.velocity += new Vector2(0.5f, 0).RotatedBy(dir);
-                Projectile.rotation = dir + 1.571f;
                 switch(Projectile.frameCounter)
                 {
                     case 0:
