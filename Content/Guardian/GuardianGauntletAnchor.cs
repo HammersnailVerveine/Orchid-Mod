@@ -141,7 +141,7 @@ namespace OrchidMod.Content.Guardian
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
 							float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetTotalAttackSpeed(DamageClass.Melee);
-							Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2) * strikeVelocity;
+							Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2) * strikeVelocity * 0.25f;
 							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
 							if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 							{
@@ -149,7 +149,7 @@ namespace OrchidMod.Content.Guardian
 								punchProj.damage = damage;
 								punchProj.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 								punchProj.knockBack = guardianItem.Item.knockBack;
-								punchProj.position += punchProj.velocity * 0.5f;
+								//punchProj.position += punchProj.velocity * 0.5f;
 								punchProj.velocity += owner.velocity * 1.5f;
 
 								if (Projectile.ai[0] == -1f)

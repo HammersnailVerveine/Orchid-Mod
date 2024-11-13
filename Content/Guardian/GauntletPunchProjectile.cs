@@ -16,6 +16,7 @@ namespace OrchidMod.Content.Guardian
 		public bool OffHand => Projectile.ai[1] == 1f;
 
 		public bool FirstHit = false;
+		public bool FirstFrame = false;
 		public bool Initialized = false;
 
 		public override void Load()
@@ -25,16 +26,17 @@ namespace OrchidMod.Content.Guardian
 
 		public override void SafeSetDefaults()
 		{
-			Projectile.width = 20;
-			Projectile.height = 20;
+			Projectile.width = 30;
+			Projectile.height = 30;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 20;
+			Projectile.timeLeft = 81;
 			Projectile.tileCollide = false;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = -1;
 			Projectile.alpha = 255;
+			Projectile.extraUpdates = 3;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 60;
 		}
@@ -62,11 +64,22 @@ namespace OrchidMod.Content.Guardian
 					SoundEngine.PlaySound(ChargedHit ? SoundID.DD2_MonkStaffGroundMiss : SoundID.DD2_MonkStaffSwing, owner.Center);
 				}
 			}
-
-
-			if (GauntletItem.ProjectileAI(owner, Projectile, ChargedHit))
+			else
 			{
-				Projectile.velocity *= 0.8f;
+				if (!FirstFrame)
+				{
+					FirstFrame = true;
+					Projectile.position += Projectile.velocity * 0.5f;
+					Projectile.width = 20;
+					Projectile.height = 20;
+					Projectile.position.X += 5;
+					Projectile.position.Y += 5;
+				}
+
+				if (GauntletItem.ProjectileAI(owner, Projectile, ChargedHit))
+				{
+					Projectile.velocity *= 0.94574f;
+				}
 			}
 		}
 
@@ -90,7 +103,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			if (!Initialized) return false;
+			if (!FirstFrame) return false;
 
 			var owner = Main.player[Projectile.owner];
 			if (GauntletItem != null)
