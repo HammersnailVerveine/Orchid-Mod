@@ -3361,6 +3361,7 @@ Items: {
 			'''
 			Pucks hit enemies, dealing damage when they collide with something
 			Puck-able enemies will not be killed by a charged swing
+			'The high-accuracy stick of hockey champions'
 			'''
 	}
 }
