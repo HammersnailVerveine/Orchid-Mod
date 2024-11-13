@@ -617,7 +617,7 @@ namespace OrchidMod.Content.Guardian
 					for (int i = 0; i < OldPosition.Count; i++)
 					{
 						Vector2 drawPositionTrail = OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
-						spriteBatch.Draw(QuarterstaffTexture, drawPositionTrail, null, lightColor * 0.06f * (i + 1), OldRotation[i] + rotationoffset, QuarterstaffTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
+						spriteBatch.Draw(QuarterstaffTexture, drawPositionTrail, null, lightColor * 0.05f * (i + 1), OldRotation[i] + rotationoffset, QuarterstaffTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
 					}
 
 					spriteBatch.End();
