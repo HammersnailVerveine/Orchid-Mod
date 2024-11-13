@@ -286,8 +286,13 @@ Buffs: {
 	}
 
 	SageBatDebuff: {
-		DisplayName: Sage Bat Debuff
-		Description: Mods.OrchidMod.Buffs.SageBatDebuff.Description
+		DisplayName: Echolocated
+		Description: Takes massive damage from bat attacks
+	}
+
+	HockeyQuarterstaffDebuff: {
+		Description: Pucked Up
+		DisplayName: Wee!
 	}
 }
 
@@ -3347,6 +3352,15 @@ Items: {
 			Charge speed and punch velocity scales with defense
 			'A strong man once slaughtered Cthulhu with his fists'
 			'Legendary Big M.'
+			'''
+	}
+
+	HockeyQuarterstaff: {
+		DisplayName: Ultra Pro 9000X
+		Tooltip:
+			'''
+			Pucks hit enemies, dealing damage when they collide with something
+			Puck-able enemies will not be killed by a charged swing
 			'''
 	}
 }

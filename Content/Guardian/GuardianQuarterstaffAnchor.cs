@@ -558,6 +558,16 @@ namespace OrchidMod.Content.Guardian
 			}
 		}
 
+		public override void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			if (QuarterstaffItem.ModItem is OrchidModGuardianQuarterstaff guardianItem)
+			{
+				Player player = Owner;
+				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+				guardianItem.QuarterstaffModifyHitNPC(player, guardian, target, Projectile, ref modifiers, Projectile.ai[0] < 0f, Projectile.ai[2] < 0f, !hitTarget);
+			}
+		}
+
 		public void ResetSize()
 		{
 			int length = (int)Math.Sqrt(2 * (QuarterstaffTexture.Width * QuarterstaffItem.scale * QuarterstaffTexture.Width * QuarterstaffItem.scale));
