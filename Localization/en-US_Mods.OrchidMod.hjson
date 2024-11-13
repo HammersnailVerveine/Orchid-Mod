@@ -3339,6 +3339,16 @@ Items: {
 		DisplayName: Balance
 		Tooltip: ""
 	}
+
+	ThoriumDarksteelGauntlet: {
+		DisplayName: Hands of God
+		Tooltip:
+			'''
+			Charge speed and punch velocity scales with defense
+			'A strong man once slaughtered Cthulhu with his fists'
+			'Legendary Big M.'
+			'''
+	}
 }
 
 NPCs: {
