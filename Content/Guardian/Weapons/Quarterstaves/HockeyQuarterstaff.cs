@@ -28,8 +28,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		{
 			if (!jabAttack && !counterAttack && target.knockBackResist > 0f)
 			{
-				Vector2 velocity = Vector2.Normalize(target.Center - player.Center) * 20f;
-				velocity.Y -= 5f;
+				Vector2 velocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * 20f;
 				target.velocity = velocity;
 				target.AddBuff(ModContent.BuffType<HockeyQuarterstaffDebuff>(), 60);
 			}
