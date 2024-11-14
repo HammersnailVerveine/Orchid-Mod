@@ -24,6 +24,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			StandardDuration = 1800;
 			AffectNearbyPlayers = true;
 			AffectNearbyNPCs = true;
+			//BaseSyncedValue = -4f;
 		}
 
 		public override Color GetColor()
@@ -44,10 +45,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 
 		public override void ExtraAIStandardWorn(GuardianStandardAnchor anchor, Projectile projectile, Player player, OrchidGuardian guardian)
 		{
-			// Turns out this is actually
+			// Turns out this is actually works without manual sync. Leaving code commented just in case and as an example on how to use anchor.SyncedValue
 
 			/*
-			if (anchor.SyncedValue != -BaseSyncedValue)
+			if (anchor.SyncedValue != BaseSyncedValue)
 			{ // SyncedValue can be automatically synced to all other clients by calling anchor.UpdateAndSyncValue(float valueToSync) somewhere
 				if (!IsLocalPlayer(player) && false)
 				{ // This will sync the warp on other clients, the sync is called when "GuardianStandardStarScouterWarpCD == 20" in OrchidGuardian
