@@ -292,7 +292,6 @@ namespace OrchidMod
 						Player.position += warp;
 						Main.SetCameraLerp(0.1f, 10);
 						SoundEngine.PlaySound(SoundID.Item163.WithVolumeScale(0.3f).WithPitchOffset(1), Player.position);
-						AddSlam();
 						for (int i = 0; i < dist; i++)
 						{
 							float currPos = i * 1f / dist;
@@ -302,6 +301,7 @@ namespace OrchidMod
 							dust.velocity += Player.velocity * 2;
 						}
 					}
+					AddSlam();
 				}
 				else if (GuardianStandardStarScouterWarpCD > 0)
 				{

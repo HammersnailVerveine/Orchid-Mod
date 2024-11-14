@@ -3370,7 +3370,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging repels nearby enemies when they attack allies
-			When reinforced, double tap a direction to warp
+			When reinforced, double tap any direction to warp
 			Warping consumes a guard charge and grants a slam charge
 			'''
 	}

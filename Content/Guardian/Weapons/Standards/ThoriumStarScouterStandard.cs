@@ -13,20 +13,21 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 		{
 			Item.width = 42;
 			Item.height = 42;
-			Item.value = Item.sellPrice(0, 0, 2, 65);
+			Item.value = Item.sellPrice(0, 0, 54, 0);
 			Item.rare = ItemRarityID.Orange;
 			Item.useTime = 35;
 			Item.UseSound = SoundID.Item113;
 			GuardStacks = 2;
 			FlagOffset = 6;
-			AuraRange = 16;
+			AuraRange = 20;
 			StandardDuration = 1800;
 			AffectNearbyPlayers = true;
+			AffectNearbyNPCs = true;
 		}
 
 		public override Color GetColor()
 		{
-			return new Color(228, 219, 162);
+			return new Color(164, 46, 255);
 		}
 
 		public override bool NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
