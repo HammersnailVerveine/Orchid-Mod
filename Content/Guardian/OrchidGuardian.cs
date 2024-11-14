@@ -318,18 +318,20 @@ namespace OrchidMod
 						info.DamageSource.TryGetCausingEntity(out Entity entity);
 						if (entity != null)
 						{
+							int toAdd = (proj.type == anchorTypes[0]) ? 0 : 1; // Gives 0 slam for a quarterstaff parry, 1 for other items
+
 							if (entity is NPC npc)
 							{
 								parryItem.OnParryNPC(Player, this, npc, info, proj);
 								OnBlockNPC(proj, npc);
-								OnBlockNPCFirst(proj, npc);
+								OnBlockNPCFirst(proj, npc, toAdd);
 							}
 
 							if (entity is Projectile projectile)
 							{
 								parryItem.OnParryProjectile(Player, this, projectile, info, proj);
 								OnBlockProjectile(proj, projectile);
-								OnBlockProjectileFirst(proj, projectile);
+								OnBlockProjectileFirst(proj, projectile, toAdd);
 							}
 						}
 					}
@@ -445,9 +447,8 @@ namespace OrchidMod
 			}
 		}
 
-		public void OnBlockNPCFirst(Projectile anchor, NPC target)
+		public void OnBlockNPCFirst(Projectile anchor, NPC target, int toAdd = 1)
 		{ // Called anytime the player blocks/parries their first NPC
-			int toAdd = 1;
 			OnBlockAnyFirst(anchor, ref toAdd);
 
 			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor)
@@ -468,9 +469,8 @@ namespace OrchidMod
 			AddSlam(toAdd);
 		}
 
-		public void OnBlockProjectileFirst(Projectile anchor, Projectile blockedProjectile)
+		public void OnBlockProjectileFirst(Projectile anchor, Projectile blockedProjectil0e, int toAdd = 1)
 		{ // Called anytime the player blocks/parries their first projectile
-			int toAdd = 1;
 			OnBlockAnyFirst(anchor, ref toAdd);
 			AddSlam(toAdd);
 		}
