@@ -57,7 +57,7 @@ namespace OrchidMod.Common.Global.Items
 				AddClassTagToTooltips(item, tooltips);
 			}
 
-			if (ModContent.GetInstance<OrchidServerConfig>().LoadCrossmodContentWithoutRequiredMods)
+			if (ModContent.GetInstance<OrchidServerConfig>().LoadCrossmodContentWithoutRequiredMods && ModContent.GetInstance<OrchidClientConfig>().ShowModTags)
 			{
 				var atr = item.ModItem?.GetType().GetCustomAttribute<CrossmodContentAttribute>();
 

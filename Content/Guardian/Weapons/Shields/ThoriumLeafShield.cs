@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Content.Guardian.Projectiles.Shields;
 using Terraria;
 using Terraria.ID;
@@ -7,6 +8,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumLeafShield : OrchidModGuardianShield
 	{
 
@@ -24,14 +26,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			blockDuration = 80;
 			slamAutoReuse = false;
 			shouldFlip = true;
-		}
-
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.WorkBenches);
-			recipe.AddIngredient(ItemID.Wood, 10);
-			recipe.Register();
 		}
 
 		void LeafBurst(Player player, Projectile shield, int time, int spinTime = 30, float baseSpeed = 0, int quantity = 3, bool fanOut = true)
@@ -75,6 +69,19 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			{
 				LeafBurst(player, shield, 62 - (int)((player.Center - shield.Center).Length() / 120), 25, (shield.ai[1] * 0.15f) - 4f);
 				ResetState(shield);
+			}
+		}
+
+		public override void AddRecipes()
+		{
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				var recipe = CreateRecipe();
+				recipe.AddTile(TileID.WorkBenches);
+				recipe.AddIngredient(thoriumMod, "LivingLeaf", 10);
+				recipe.AddIngredient(ItemID.Wood, 10);
+				recipe.Register();
 			}
 		}
 	}

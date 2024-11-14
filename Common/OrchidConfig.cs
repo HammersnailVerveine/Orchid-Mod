@@ -15,6 +15,9 @@ namespace OrchidMod.Common
 		public bool ShowClassTags { get; set; }
 
 		[DefaultValue(false)]
+		public bool ShowModTags { get; set; }
+
+		[DefaultValue(false)]
 		[BackgroundColor(151, 120, 79)]
 		public bool UseOldGuardianHammerUi { get; set; }
 

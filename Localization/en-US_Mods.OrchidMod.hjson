@@ -3713,7 +3713,7 @@ Configs: {
 
 		ShowClassTags: {
 			Label: Show tags
-			Tooltip: "{$Enables/Disables the display class tags}"
+			Tooltip: "{$Enables/Disables the display of class tags}"
 		}
 
 		UseOldGuardianHammerUi: {
@@ -3739,6 +3739,11 @@ Configs: {
 		BlockCancelChain: {
 			Label: Pavise Block Cancel Auto-re-use
 			Tooltip: If possible, automatically starts blocking again when cancelling a block with right click
+		}
+
+		ShowModTags: {
+			Label: Show Mod Tags
+			Tooltip: "{$Enables/Disables the display of cross-content items tooltips (Load Crossmod-Content without required mods must be enabled in Orchid Server Config)}"
 		}
 	}
 

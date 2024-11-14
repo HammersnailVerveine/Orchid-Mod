@@ -1,13 +1,14 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Attributes;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Standards
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumStarScouterStandard : OrchidModGuardianStandard
 	{
 		public override void SafeSetDefaults()

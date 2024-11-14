@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Content.General.Prefixes;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumDarksteelGauntlet : OrchidModGuardianGauntlet
 	{
 		public override void SafeSetDefaults()
@@ -66,6 +68,17 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			damage = (int)Math.Max(1, damage * player.statDefense / 100f);
 			strikeVelocity = 15f * (1 + player.statDefense / 100f);
 			return true;
+		}
+		public override void AddRecipes()
+		{
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				var recipe = CreateRecipe();
+				recipe.AddTile(TileID.WorkBenches);
+				recipe.AddIngredient(thoriumMod, "aDarksteelAlloy", 10);
+				recipe.Register();
+			}
 		}
 	}
 }
