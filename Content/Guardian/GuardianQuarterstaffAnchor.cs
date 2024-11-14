@@ -371,14 +371,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.ai[1] = 0f;
 						Projectile.friendly = false;
 
-						bool jabInput = Main.mouseRight;
-
-						if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs)
-						{
-							jabInput = Main.mouseLeft;
-						}
-
-						if (jabInput)
+						if (Main.mouseLeft && Main.mouseRight)
 						{ // Perfect jab loop while holding the attack
 							Projectile.ai[0] = -40f;
 							Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
