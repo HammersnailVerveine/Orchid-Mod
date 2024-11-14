@@ -3693,6 +3693,7 @@ Projectiles: {
 	GuardianQuarterstaffAnchor.DisplayName: Guardian Quarterstaff Anchor
 	ThoriumLeafShieldProj.DisplayName: Razor Leaves
 	DungeonQuarterstaffProjectile.DisplayName: Dungeon Quarterstaff Projectile
+	ShardQuarterstaffProjectile.DisplayName: Shard Quarterstaff Projectile
 }
 
 Configs: {
