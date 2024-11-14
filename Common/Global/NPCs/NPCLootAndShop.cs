@@ -32,6 +32,7 @@ using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
+using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -336,6 +337,11 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.WallCreeperWall:
 					{
 						npcLoot.Add(ItemDropRule.Common(ItemType<WardenSpider>(), 15));
+					}
+					break;
+				case NPCID.CaveBat:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<SageBat>(), 50));
 					}
 					break;
 				default:
