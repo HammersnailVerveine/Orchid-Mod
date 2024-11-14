@@ -89,7 +89,7 @@ namespace OrchidMod.Content.Guardian
 
 					var guardian = player.GetModPlayer<OrchidGuardian>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-					if (proj != null && proj.ModProjectile is GuardianQuarterstaffAnchor anchor && proj.ai[0] >= 0f)
+					if (proj != null && proj.ModProjectile is GuardianQuarterstaffAnchor anchor)
 					{
 						bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
 						bool shouldCharge = Main.mouseLeft;
@@ -100,13 +100,14 @@ namespace OrchidMod.Content.Guardian
 							shouldCharge = Main.mouseRight;
 						}
 
-						if (shouldBlock && guardian.UseGuard(1, true) && proj.ai[0] == 0f && proj.ai[2] == 0f)
+						if (shouldBlock && !shouldCharge && guardian.UseGuard(1, true) && proj.ai[0] <= 0f && proj.ai[2] == 0f)
 						{
 							player.immuneTime = 0;
 							player.immune = false;
 							guardian.modPlayer.PlayerImmunity = 0;
 							guardian.GuardianGauntletCharge = 0f;
 							guardian.UseGuard(1);
+							proj.ai[0] = 0f;
 							proj.ai[2] = ParryDuration;
 							anchor.NeedNetUpdate = true;
 							SoundEngine.PlaySound(SoundID.Item37, player.Center);
