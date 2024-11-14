@@ -376,6 +376,11 @@ namespace OrchidMod.Content.Guardian
 							Projectile.ai[0] = -40f;
 							Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
 							Projectile.netUpdate = true;
+
+							if (guardian.GuardianGauntletCharge <= 0)
+							{ // Fix a rare occurence where jabs loop and the player doesn't have any charge
+								guardian.GuardianGauntletCharge = 1f;
+							}
 						}
 					}
 				}
