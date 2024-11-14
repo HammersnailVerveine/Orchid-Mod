@@ -3364,6 +3364,16 @@ Items: {
 			'The high-accuracy stick of hockey champions'
 			'''
 	}
+
+	ThoriumStarScouterStandard: {
+		DisplayName: Stellar Stela
+		Tooltip:
+			'''
+			Fully charging repels nearby enemies when they attack allies
+			When reinforced, double tap a direction to warp
+			Warping consumes a guard charge and grants a slam charge
+			'''
+	}
 }
 
 NPCs: {

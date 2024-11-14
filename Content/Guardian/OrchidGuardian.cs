@@ -44,6 +44,9 @@ namespace OrchidMod
 		public bool GuardianWormTooth = false;
 		public bool GuardianMonsterFang = false;
 		public bool GuardianStandardDesert = false; // Standards
+		public int GuardianStandardStarScouter = -1; //Points to current StarScouterStandard holder
+		public bool GuardianStandardStarScouterWarp = false;
+		public int GuardianStandardStarScouterWarpCD = 0; //Holds cooldown and animation for warp effect
 		public bool GuardianHoneyPotion = false; // Misc
 
 		// Dynamic gameplay and UI fields
@@ -211,6 +214,8 @@ namespace OrchidMod
 			else
 			{ // Reset standards here
 				GuardianStandardDesert = false;
+				GuardianStandardStarScouter = -1;
+				GuardianStandardStarScouterWarp = false;
 			}
 
 			// Resetting equipment variables
@@ -236,6 +241,78 @@ namespace OrchidMod
 			GuardianMonsterFang = false;
 		}
 
+		public override void PreUpdateMovement()
+		{
+			if (GuardianStandardStarScouterWarp)
+			{
+				OrchidPlayer input = Player.GetModPlayer<OrchidPlayer>();
+				if (GuardianStandardStarScouterWarpCD == 0)
+				{
+					if (input.DoubleTapAny && UseGuard())
+					{
+						GuardianStandardStarScouterWarpCD = 30;
+						SoundEngine.PlaySound(SoundID.Item162.WithVolumeScale(0.5f).WithPitchOffset(1.5f), Player.position);
+						Player.immune = true;
+						Player.immuneTime = 60;
+						Player.oldVelocity = Player.velocity;
+					}
+				}
+				else GuardianStandardStarScouterWarpCD--;
+				if (GuardianStandardStarScouterWarpCD > 20)
+				{
+					Player.velocity = Player.oldVelocity * (-2 + GuardianStandardStarScouterWarpCD * 0.1f);
+					for (int i = 0; i < 4; i++)
+					{
+						Dust dust = Dust.NewDustDirect(Player.Center - new Vector2(4, 4), 0, 0, DustID.ShadowbeamStaff);
+						dust.velocity.X *= 0.6f;
+						dust.position -= dust.velocity * 20f;
+						dust.velocity = dust.velocity.RotatedBy(Player.direction * 0.3f) * 6f;
+					}
+				}
+				else if (GuardianStandardStarScouterWarpCD == 20)
+				{
+					Vector2 warp = Vector2.Zero;
+					if (input.DoubleTappedUp > 0 || Player.controlUp) warp.Y -= 1;
+					if (input.DoubleTappedDown > 0 || Player.controlDown) warp.Y += 1;
+					if (input.DoubleTappedRight > 0 || Player.controlRight) warp.X += 1;
+					if (input.DoubleTappedLeft > 0 || Player.controlLeft) warp.X -= 1;
+					if (warp != Vector2.Zero)
+					{
+						warp.Normalize();
+						int clipPrevention = 3 + (warp.X != 0 ? 7 : 0) + (warp.Y != 0 ? 20 : 0);
+						int dist = clipPrevention;
+						for (int i = 160; i >= 1; i /= 2)
+						{
+							if (Collision.CanHit(Player.Center, 0, 0, Player.Center + warp * (dist + i), 0, 0))
+								dist += i;
+						}
+						Player.velocity = warp * 8f;
+						warp *= dist - clipPrevention;
+						dist = (dist - clipPrevention) / 4;
+						Player.position += warp;
+						Main.SetCameraLerp(0.1f, 10);
+						SoundEngine.PlaySound(SoundID.Item163.WithVolumeScale(0.3f).WithPitchOffset(1), Player.position);
+						AddSlam();
+						for (int i = 0; i < dist; i++)
+						{
+							float currPos = i * 1f / dist;
+							Dust dust = Dust.NewDustDirect(Player.position - warp * currPos - new Vector2(4, 4), Player.width, Player.height, DustID.ShadowbeamStaff);
+							dust.noGravity = true;
+							dust.scale *= 2.5f - 1 * currPos;
+							dust.velocity += Player.velocity * 2;
+						}
+					}
+				}
+				else if (GuardianStandardStarScouterWarpCD > 0)
+				{
+					Dust dust = Dust.NewDustDirect(Player.Center - new Vector2(4, 4), 0, 0, DustID.ShadowbeamStaff);
+					dust.velocity.X *= 0.6f;
+					dust.position += dust.velocity * 6f;
+					dust.velocity *= 3f;
+				}
+			}
+		}
+
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
 			if (!Player.HasBuff<BambooCooldown>() && GuardianBamboo && GuardianGuard < GuardianGuardMax)
@@ -244,6 +321,24 @@ namespace OrchidMod
 				SoundEngine.PlaySound(SoundID.Item37, Player.Center);
 				AddGuard(1);
 				if (GuardianDisplayUI < 0) GuardianDisplayUI = 0;
+			}
+			if (GuardianStandardStarScouter >= 0)
+			{
+				if (Main.player[GuardianStandardStarScouter].active && Player.whoAmI == Main.myPlayer)
+				{
+					Player standardHolder = Main.player[GuardianStandardStarScouter];
+					Vector2 offsFromGuardStandard = standardHolder.Center + new Vector2(-14 * standardHolder.direction * (standardHolder.HeldItem.ModItem is OrchidModGuardianStandard ? -1 : 1), -28 * standardHolder.gravDir) - npc.Center;
+					SoundEngine.PlaySound(SoundID.Item91.WithVolumeScale(0.5f), npc.position);
+					Player.ApplyDamageToNPC(npc, (int)(npc.damage * 0.33f), 10, offsFromGuardStandard.X < 0 ? 1 : -1, crit: false);
+					int dist = (int)offsFromGuardStandard.Length() / 4;
+					if (dist < 100)
+						for (int i = 0; i < dist; i++)
+						{
+							float currPos = i * 1f / dist;
+							Dust dust = Dust.NewDustDirect(npc.Center + offsFromGuardStandard * currPos - new Vector2(4, 4), 0, 0, DustID.ShadowbeamStaff);
+							dust.noGravity = true;
+						}
+				}
 			}
 		}
 

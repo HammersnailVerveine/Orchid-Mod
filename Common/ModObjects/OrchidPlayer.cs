@@ -31,6 +31,33 @@ namespace OrchidMod.Common.ModObjects
 		public Vector2 ForcedVelocityVector = Vector2.Zero; // vector the player will be moved every frame if ForcedVelocityTimer > 0, ignoring normal velocity
 		public float ForcedVelocityUpkeep = 0f; // Should the forced velocity be applied to the player velocity when it ends
 		public int ForcedVelocityTimer = 0; // How long should the forced velocity be kept
+		/// <summary> Set to 15 after a tap, decremented every frame. Registers a double tap and resets to 0 if another tap is input while above 0.</summary>
+		/// <remarks> Up = 0, Right = 1, Down = 2, Left = 3</remarks>
+		public int[] DoubleTapping = new int[4]; 
+		/// <summary> Set to 15 after a double tap, decremented every frame.</summary>
+		/// <remarks> Up = 0, Right = 1, Down = 2, Left = 3</remarks>
+		public int[] DoubleTapped = new int[4];
+		/// <summary> The player has double tapped Up on this frame.</summary>
+		public bool DoubleTapUp => DoubleTapped[0] == 15;
+		/// <summary> The player has double tapped Down on this frame.</summary>
+		public bool DoubleTapDown => DoubleTapped[1] == 15;
+		/// <summary> The player has double tapped Down on this frame.</summary>
+		public bool DoubleTapRight => DoubleTapped[2] == 15;
+		/// <summary> The player has double tapped Right on this frame.</summary>
+		public bool DoubleTapLeft => DoubleTapped[3] == 15;
+		/// <summary> The player has double tapped their Set Bonus key on this frame.</summary>
+		public bool DoubleTapSetBonus => (DoubleTapDown && !Main.ReversedUpDownArmorSetBonuses) || (DoubleTapUp && Main.ReversedUpDownArmorSetBonuses);
+		/// <summary> The player has double tapped a direction on this frame.</summary>
+		public bool DoubleTapAny => DoubleTapUp || DoubleTapDown || DoubleTapRight || DoubleTapLeft; 
+		/// <summary> Set to 15 after a double tap. Decremented every frame.</summary>
+		public ref int DoubleTappedUp => ref DoubleTapped[0];
+		/// <summary> Set to 15 after a double tap. Decremented every frame.</summary>
+		public ref int DoubleTappedDown => ref DoubleTapped[1];
+		/// <summary> Set to 15 after a double tap. Decremented every frame.</summary>
+		public ref int DoubleTappedRight => ref DoubleTapped[2];
+		/// <summary> Set to 15 after a double tap. Decremented every frame.</summary>
+		public ref int DoubleTappedLeft => ref DoubleTapped[3];
+
 
 		// Equipment Fields (General)
 
@@ -113,6 +140,37 @@ namespace OrchidMod.Common.ModObjects
 			}
 
 			OrchidDamageReduction = 1f;
+			
+			for (int i = 0; i < 4; i++)
+			{
+				bool tapKey = false;
+				switch(i)
+				{
+					case 0:
+						tapKey = Player.controlUp && Player.releaseUp;
+						break;
+					case 1:
+						tapKey = Player.controlDown && Player.releaseDown;
+						break;
+					case 2:
+						tapKey = Player.controlRight && Player.releaseRight;
+						break;
+					case 3:
+						tapKey = Player.controlLeft && Player.releaseLeft;
+						break;
+				}
+				if (DoubleTapped[i] > 0) DoubleTapped[i]--;
+				if (tapKey)
+				{
+					if (DoubleTapping[i] > 0)
+					{
+						DoubleTapping[i] = 0;
+						DoubleTapped[i] = 15;
+					}
+					else DoubleTapping[i] = 15;
+				}
+				else if (DoubleTapping[i] > 0) DoubleTapping[i]--;
+			}
 		}
 
 		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
