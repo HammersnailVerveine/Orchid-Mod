@@ -378,7 +378,7 @@ namespace OrchidMod.Content.Guardian
 							Projectile.netUpdate = true;
 
 							if (guardian.GuardianGauntletCharge <= 0)
-							{ // Fix a rare occurence where jabs loop and the player doesn't have any charge
+							{ // Fix an occurence where jabs loop and the player doesn't have any charge
 								guardian.GuardianGauntletCharge = 1f;
 							}
 						}
