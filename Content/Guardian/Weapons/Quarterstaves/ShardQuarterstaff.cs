@@ -28,7 +28,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			{
 				int damage = guardian.GetGuardianDamage(Item.damage * 0.5f);
 				int projectileType = ModContent.ProjectileType<ShardQuarterstaffProjectile>();
-				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center, Vector2.Zero, projectileType, damage, 0f, projectile.owner, 0.8f, Main.rand.NextFloat(3.14f));
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, projectile.owner, 0.8f, Main.rand.NextFloat(3.14f));
 				newProjectile.CritChance = guardian.GetGuardianCrit(Item.crit);
 			}
 		}
