@@ -24,7 +24,7 @@ namespace OrchidMod.Content.Guardian
 		public bool NeedNetUpdate = false;
 		public bool hitTarget = false;
 		public int DamageReset = 0;
-		public Rectangle HitBox;
+		public Rectangle[] HitBox;
 
 		public int SelectedItem { get; set; } = -1;
 		public Item QuarterstaffItem => Main.player[Projectile.owner].inventory[SelectedItem];
@@ -55,7 +55,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.localNPCHitCooldown = 60;
 			Projectile.netImportant = true;
 
-			HitBox = new Rectangle(0, 0, 44, 44);
+			HitBox = [new Rectangle(0, 0, 30, 30), new Rectangle(0, 0, 30, 30), new Rectangle(0, 0, 30, 30)];
 			OldPosition = new List<Vector2>();
 			OldRotation = new List<float>();
 		}
@@ -485,9 +485,13 @@ namespace OrchidMod.Content.Guardian
 				}
 
 				// Hitbox management for jabs and swings
-				Vector2 position = Projectile.Center - Vector2.UnitY.RotatedBy(Projectile.rotation + MathHelper.PiOver4) * (Projectile.width - 20) * 0.5f;
-				HitBox.X = (int)position.X - 22;
-				HitBox.Y = (int)position.Y - 22;
+				Vector2 position = Vector2.UnitY.RotatedBy(Projectile.rotation + MathHelper.PiOver4) * (Projectile.width - 15);
+				HitBox[0].X = (int)(Projectile.Center.X - position.X * 0.5f) - 15;
+				HitBox[0].Y = (int)(Projectile.Center.Y - position.Y * 0.5f) - 15;
+				HitBox[1].X = (int)(Projectile.Center.X - position.X * 0.2f) - 15;
+				HitBox[1].Y = (int)(Projectile.Center.Y - position.Y * 0.2f) - 15;
+				HitBox[2].X = (int)(Projectile.Center.X - position.X * -0.1f) - 15;
+				HitBox[2].Y = (int)(Projectile.Center.Y - position.Y * -0.1f) - 15;
 
 				Projectile.velocity = Vector2.UnitX * 0.001f * owner.direction; // So enemies are KBd in the right direction
 
@@ -497,7 +501,17 @@ namespace OrchidMod.Content.Guardian
 				{
 					for (int i = 0; i < 30; i++)
 					{
-						Dust.NewDustDirect(HitBox.TopLeft(), HitBox.Width, HitBox.Height, 6).noGravity = true;
+						Dust.NewDustDirect(HitBox[0].TopLeft(), HitBox[0].Width, HitBox[0].Height, DustID.RedTorch).noGravity = true;
+					}
+
+					for (int i = 0; i < 30; i++)
+					{
+						Dust.NewDustDirect(HitBox[1].TopLeft(), HitBox[1].Width, HitBox[1].Height, DustID.GreenTorch).noGravity = true;
+					}
+
+					for (int i = 0; i < 30; i++)
+					{
+						Dust.NewDustDirect(HitBox[2].TopLeft(), HitBox[2].Width, HitBox[2].Height, DustID.BlueTorch).noGravity = true;
 					}
 				}
 				*/
@@ -579,7 +593,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool? CanHitNPC(NPC target)
 		{ // hitting wiith the end of the staff or spinning
-			if (target.Hitbox.Intersects(HitBox) || Projectile.ai[2] < 0f) return base.CanHitNPC(target);
+			if (target.Hitbox.Intersects(HitBox[0]) || target.Hitbox.Intersects(HitBox[1]) || target.Hitbox.Intersects(HitBox[2]) || Projectile.ai[2] < 0f) return base.CanHitNPC(target);
 			return false;
 		}
 
