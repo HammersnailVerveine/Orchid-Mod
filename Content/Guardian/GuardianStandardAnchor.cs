@@ -20,6 +20,9 @@ namespace OrchidMod.Content.Guardian
 		public int TimeSpent = 0;
 		public bool Ding = false;
 		public bool NeedNetUpdate = false;
+		public float SyncedValue = -1f; // Used to sync some standard related behaviour in mp
+		public bool SyncValue = false; // If true, SyncedValue will be synced on the next netupdate
+
 		public bool Worn => Projectile.ai[1] > 0f; // Standard buff remaining duration
 		public bool Reinforced => Projectile.ai[2] == 1f && ((BuffItem == StandardItem) || (Main.player[Projectile.owner].HeldItem.ModItem is not OrchidModGuardianStandard && Worn)); // Has the item been used twice (stronger effects)
 		public Item BuffItem = null;
@@ -41,12 +44,19 @@ namespace OrchidMod.Content.Guardian
 		{
 			writer.Write(SelectedItem);
 			writer.Write(BuffItem != null && BuffItem == StandardItem);
+
+			writer.Write(SyncValue);
+			if (SyncValue)
+			{
+				writer.Write(SyncedValue);
+			}
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			SelectedItem = reader.ReadInt32();
 			if (reader.ReadBoolean()) BuffItem = StandardItem;
+			if (reader.ReadBoolean()) SyncedValue = reader.ReadSingle();
 		}
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
@@ -192,6 +202,7 @@ namespace OrchidMod.Content.Guardian
 						}
 
 						guardian.GuardianCurrentStandardAnchor = Projectile;
+						guardian.GuardianStandardBuffer = true;
 						Projectile.ai[1]--;
 						if (Projectile.ai[1] <= 0)
 						{
@@ -200,6 +211,8 @@ namespace OrchidMod.Content.Guardian
 							BuffItem = null;
 							if (!heldStandard && IsLocalOwner) Projectile.Kill();
 						}
+
+						buffItem.ExtraAIStandardWorn(this, Projectile, owner, guardian);
 					}
 				}
 
@@ -233,7 +246,12 @@ namespace OrchidMod.Content.Guardian
 								}
 								else
 								{
-									if (BuffItem != StandardItem) Projectile.ai[2] = 0f;
+									if (BuffItem != StandardItem)
+									{
+										Projectile.ai[2] = 0f;
+										SyncedValue = guardianItem.BaseSyncedValue;
+										SyncValue = true;
+									}
 									if (!Reinforced) CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Charged", false);
 								}
 
@@ -283,7 +301,7 @@ namespace OrchidMod.Content.Guardian
 						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -0.8f * owner.direction);
 						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -1.2f * owner.direction);
 					}
-					guardianItem.ExtraAIStandard(Projectile);
+					guardianItem.ExtraAIStandardHeld(this, Projectile, owner, guardian);
 				}
 			}
 		}
@@ -294,6 +312,13 @@ namespace OrchidMod.Content.Guardian
 			{
 				Main.dust[Dust.NewDust(Projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.25f;
 			}
+		}
+
+		public void UpdateAndSyncValue(float valueToSync)
+		{
+			SyncedValue = valueToSync;
+			SyncValue = true;
+			NeedNetUpdate = true;
 		}
 
 		public override bool? CanCutTiles() => false;

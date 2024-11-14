@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,13 +34,55 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 		public override bool NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
 		{
 			affectedPlayer.GetModPlayer<OrchidGuardian>().GuardianStandardStarScouter = guardian.Player.whoAmI;
-			affectedPlayer.GetModPlayer<OrchidGuardian>().GuardianStandardBuffer = true;
 			if (reinforced && isLocalPlayer)
 			{
 				guardian.GuardianStandardStarScouterWarp = true;
 			}
 			//Dust.NewDustPerfect(guardian.Player.Center + new Vector2(-14 * guardian.Player.direction, -28 * guardian.Player.gravDir) - new Vector2(4, 4), DustID.ShadowbeamStaff);
 			return true;
+		}
+
+		public override void ExtraAIStandardWorn(GuardianStandardAnchor anchor, Projectile projectile, Player player, OrchidGuardian guardian)
+		{
+			// Turns out this is actually
+
+			/*
+			if (anchor.SyncedValue != -BaseSyncedValue)
+			{ // SyncedValue can be automatically synced to all other clients by calling anchor.UpdateAndSyncValue(float valueToSync) somewhere
+				if (!IsLocalPlayer(player) && false)
+				{ // This will sync the warp on other clients, the sync is called when "GuardianStandardStarScouterWarpCD == 20" in OrchidGuardian
+					Vector2 warp = Vector2.Zero;
+					if (anchor.SyncedValue > BaseSyncedValue)
+					{
+						warp = anchor.SyncedValue.ToRotationVector2();
+						int clipPrevention = 3 + (warp.X != 0 ? 7 : 0) + (warp.Y != 0 ? 20 : 0);
+						int dist = clipPrevention;
+						for (int i = 160; i >= 1; i /= 2)
+						{
+							if (Collision.CanHit(player.Center, 0, 0, player.Center + warp * (dist + i), 0, 0))
+								dist += i;
+						}
+						player.velocity = warp * 8f;
+						warp *= dist - clipPrevention;
+						dist = (dist - clipPrevention) / 4;
+						player.position += warp;
+						SoundEngine.PlaySound(SoundID.Item163.WithVolumeScale(0.3f).WithPitchOffset(1), player.position);
+						for (int i = 0; i < dist; i++)
+						{
+							float currPos = i * 1f / dist;
+							Dust dust = Dust.NewDustDirect(player.position - warp * currPos - new Vector2(4, 4), player.width, player.height, DustID.ShadowbeamStaff);
+							dust.noGravity = true;
+							dust.scale *= 2.5f - 1 * currPos;
+							dust.velocity += player.velocity * 2;
+						}
+					}
+
+					Main.NewText("a");
+					//guardian.GuardianStandardStarScouterWarpCD = 19;
+				}
+				anchor.SyncedValue = BaseSyncedValue;
+			}
+			*/
 		}
 
 		public override bool DrawCustomFlag(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor, Vector2 drawPosition, float drawRotation)

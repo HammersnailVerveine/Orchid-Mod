@@ -202,7 +202,6 @@ namespace OrchidMod
 			if (GuardianGuard > GuardianGuardMax) GuardianGuard = GuardianGuardMax;
 			if (GuardianSlam > GuardianSlamMax) GuardianSlam = GuardianSlamMax;
 
-			GuardianCurrentStandardAnchor = null;
 			RuneProjectiles.Clear();
 
 			// Resetting standards effects
@@ -213,6 +212,7 @@ namespace OrchidMod
 			}
 			else
 			{ // Reset standards here
+				GuardianCurrentStandardAnchor = null;
 				GuardianStandardDesert = false;
 				GuardianStandardStarScouter = -1;
 				GuardianStandardStarScouterWarp = false;
@@ -276,6 +276,17 @@ namespace OrchidMod
 					if (input.DoubleTappedDown > 0 || Player.controlDown) warp.Y += 1;
 					if (input.DoubleTappedRight > 0 || Player.controlRight) warp.X += 1;
 					if (input.DoubleTappedLeft > 0 || Player.controlLeft) warp.X -= 1;
+
+					/*
+					if (GuardianCurrentStandardAnchor != null)
+					{
+						if (GuardianCurrentStandardAnchor.ModProjectile is GuardianStandardAnchor standardAnchor)
+						{
+							standardAnchor.UpdateAndSyncValue(warp.ToRotation());
+						}
+					}
+					*/
+
 					if (warp != Vector2.Zero)
 					{
 						warp.Normalize();
@@ -301,6 +312,7 @@ namespace OrchidMod
 							dust.velocity += Player.velocity * 2;
 						}
 					}
+
 					AddSlam();
 				}
 				else if (GuardianStandardStarScouterWarpCD > 0)

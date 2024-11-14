@@ -34,7 +34,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			if (reinforced && isLocalPlayer)
 			{
 				guardian.GuardianStandardDesert = true;
-				guardian.GuardianStandardBuffer = true;
 			}
 			return true;
 		}
