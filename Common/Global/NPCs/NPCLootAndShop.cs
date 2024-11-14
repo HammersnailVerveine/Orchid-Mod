@@ -31,6 +31,7 @@ using OrchidMod.Content.General.Armor.Vanity;
 using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
+using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -111,7 +112,17 @@ namespace OrchidMod.Common.Global.NPCs
 				OrchidUtils.AddItemToShop<PileOfChips>(shop, ref nextSlot);
 			}
 
-			if (Main.hardMode) OrchidUtils.AddItemToShop<BijouShield>(shop, ref nextSlot, 2);
+			if (Main.hardMode)
+			{
+				if (Main.rand.NextBool())
+				{
+					OrchidUtils.AddItemToShop<BijouShield>(shop, ref nextSlot);
+				}
+				else
+				{
+					OrchidUtils.AddItemToShop<HockeyQuarterstaff>(shop, ref nextSlot);
+				}
+			}
 		}
 
 		public override void ModifyGlobalLoot(GlobalLoot globalLoot)
