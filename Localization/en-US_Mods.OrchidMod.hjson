@@ -3342,7 +3342,7 @@ Items: {
 
 	ShardQuarterstaff: {
 		DisplayName: Balance
-		Tooltip: ""
+		Tooltip: "Has a chance to confuse"
 	}
 
 	ThoriumDarksteelGauntlet: {
