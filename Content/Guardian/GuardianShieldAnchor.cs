@@ -124,8 +124,6 @@ namespace OrchidMod.Content.Guardian
 							var texture = ModContent.Request<Texture2D>((ShieldItem.ModItem as OrchidModGuardianShield).ShieldTexture).Value;
 							Projectile.width = (int)(texture.Height * guardian.GuardianPaviseScale);
 							Projectile.height = (int)(texture.Height * guardian.GuardianPaviseScale);
-
-							Main.NewText(texture.Height * guardian.GuardianPaviseScale + " : " + guardian.GuardianPaviseScale);
 						}
 					}
 
