@@ -150,7 +150,7 @@ namespace OrchidMod.Content.Guardian
 								punchProj.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + guardianItem.Item.crit);
 								punchProj.knockBack = guardianItem.Item.knockBack;
 								//punchProj.position += punchProj.velocity * 0.5f;
-								punchProj.velocity += owner.velocity * 1.5f;
+								punchProj.velocity += owner.velocity * 0.375f;
 
 								if (Projectile.ai[0] == -1f)
 								{
