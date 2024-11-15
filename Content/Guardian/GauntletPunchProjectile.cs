@@ -38,7 +38,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.alpha = 255;
 			Projectile.extraUpdates = 3;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 60;
+			Projectile.localNPCHitCooldown = 90;
 		}
 
 		public override void AI()
@@ -48,7 +48,7 @@ namespace OrchidMod.Content.Guardian
 			if (!Initialized)
 			{
 				Initialized = true;
-				Projectile.rotation = (Projectile.velocity - owner.velocity * 1.5f).ToRotation();
+				Projectile.rotation = (Projectile.velocity - owner.velocity * 0.375f).ToRotation();
 
 				if (!IsLocalOwner)
 				{
