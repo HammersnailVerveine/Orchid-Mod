@@ -11,10 +11,19 @@ using Terraria.Utilities;
 
 namespace OrchidMod.Content.General.Prefixes
 {
+	public abstract class GuardianPrefixNoBlockDuration : GuardianPrefix
+	{
+		private static readonly List<GuardianPrefix> prefixes = new();
+		public static new IReadOnlyList<GuardianPrefix> GetPrefixes => prefixes;
+		public GuardianPrefixNoBlockDuration(float damage, float knockback, float blockDuration, int crit, float speed) : base(damage, knockback, blockDuration, crit, speed) { }
+		public override void Load() => prefixes.Add(this);
+	}
+
 	public abstract class GuardianPrefix : ModPrefix
 	{
 		private static readonly List<GuardianPrefix> prefixes = new();
 		public static IReadOnlyList<GuardianPrefix> GetPrefixes => prefixes;
+		public float GetSpeed => speed;
 
 		// ...
 
@@ -22,10 +31,9 @@ namespace OrchidMod.Content.General.Prefixes
 		private readonly float knockback;
 		private readonly float blockDuration;
 		private readonly int crit;
-		private readonly float slamDistance;
+		private readonly float speed;
 
-		public override void Unload()
-			=> prefixes.Clear();
+		public override void Unload() => prefixes.Clear();
 
 		public override float RollChance(Item item)
 			=> 500f;
@@ -36,24 +44,23 @@ namespace OrchidMod.Content.General.Prefixes
 		public override PrefixCategory Category
 			=> PrefixCategory.Custom;
 
-		public GuardianPrefix(float damage, float knockback, float blockDuration, int crit, float slamDistance)
+		public GuardianPrefix(float damage, float knockback, float blockDuration, int crit, float speed)
 		{
 			this.damage = damage;
 			this.knockback = knockback;
 			this.blockDuration = blockDuration;
 			this.crit = crit;
-			this.slamDistance = slamDistance;
+			this.speed = speed;
 		}
 
-		public override void Load()
-			=> prefixes.Add(this);
+		public override void Load() => prefixes.Add(this);
 
 		public override void Apply(Item item)
-			=> item.GetGlobalItem<GuardianPrefixItem>().SetPrefixVariables(damage, knockback, blockDuration, crit, slamDistance);
+			=> item.GetGlobalItem<GuardianPrefixItem>().SetPrefixVariables(damage, knockback, blockDuration, crit, speed);
 
 		public override void ModifyValue(ref float valueMult)
 		{
-			float multiplier = 1f + (damage - 1f) * 0.05f + (knockback - 1f) * 0.05f + (blockDuration - 1f) * 0.05f + (slamDistance - 1f) * 0.05f + crit * 0.0015f;
+			float multiplier = 1f + (damage - 1f) * 0.05f + (knockback - 1f) * 0.05f + (blockDuration - 1f) * 0.05f + (speed - 1f) * 0.05f + crit * 0.0015f;
 			valueMult *= multiplier;
 		}
 
@@ -63,6 +70,7 @@ namespace OrchidMod.Content.General.Prefixes
 			damageMult = damage;
 			critBonus = crit;
 			knockbackMult = knockback;
+			//useTimeMult = 1f + (speed - 1f) * -1f;
 		}
 	}
 
@@ -72,22 +80,22 @@ namespace OrchidMod.Content.General.Prefixes
 		private float knockback;
 		private float blockDuration;
 		private int crit;
-		private float slamDistance;
+		private float speed;
 
 		// ...
 
-		public void SetPrefixVariables(float damage, float knockback, float blockDuration, int crit, float slamDistance)
+		public void SetPrefixVariables(float damage, float knockback, float blockDuration, int crit, float speed)
 		{
 			this.damage = damage;
 			this.knockback = knockback;
 			this.blockDuration = blockDuration;
 			this.crit = crit;
-			this.slamDistance = slamDistance;
+			this.speed = speed;
 		}
 
 		// ...
 
-		public float GetSlamDistance() => slamDistance != 0f ? slamDistance : 1f;
+		public float GetSlamDistance() => speed != 0f ? speed : 1f;
 		public float GetBlockDuration() => blockDuration != 0f ? blockDuration : 1f;
 
 		public GuardianPrefixItem()
@@ -96,7 +104,7 @@ namespace OrchidMod.Content.General.Prefixes
 			knockback = 0;
 			blockDuration = 0;
 			crit = 0;
-			slamDistance = 0;
+			speed = 0;
 		}
 
 		public override bool InstancePerEntity
@@ -109,7 +117,7 @@ namespace OrchidMod.Content.General.Prefixes
 			myClone.knockback = knockback;
 			myClone.blockDuration = blockDuration;
 			myClone.crit = crit;
-			myClone.slamDistance = slamDistance;
+			myClone.speed = speed;
 			return myClone;
 		}
 
@@ -119,27 +127,35 @@ namespace OrchidMod.Content.General.Prefixes
 			knockback = 0;
 			blockDuration = 0;
 			crit = 0;
-			slamDistance = 0;
+			speed = 0;
 		}
 
 		public override void HoldItem(Item item, Player player)
 		{
 			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
-			if (slamDistance != 1f && slamDistance != 0f) modPlayer.modPlayerGuardian.GuardianSlamDistance += slamDistance;
 			if (blockDuration != 1f && blockDuration != 0f) modPlayer.modPlayerGuardian.GuardianBlockDuration += blockDuration;
+			if (speed != 1f && speed != 0f)
+			{
+				if (item.ModItem is OrchidModGuardianShield)
+				{
+					modPlayer.modPlayerGuardian.GuardianPaviseScale += speed - 1f;
+				}
+				else
+				{
+					modPlayer.modPlayerGuardian.GuardianMeleeSpeed += speed - 1f;
+				}
+			}
 		}
 
 		public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 		{
-			if (blockDuration != 1f && blockDuration != 0f || slamDistance != 1f && slamDistance != 0f)
+			if ((blockDuration != 1f && blockDuration != 0f) || (speed != 1f && speed != 0f))
 			{
-				string block = "block";
-				string slam = "slam";
+				string block = "parry";
 
-				if (item.ModItem is OrchidModGuardianGauntlet)
+				if (item.ModItem is OrchidModGuardianShield)
 				{
-					block = "parry";
-					slam = "punch";
+					block = "block";
 				}
 
 				// I have no clue how to do this in a clean way
@@ -175,12 +191,13 @@ namespace OrchidMod.Content.General.Prefixes
 					});
 				}
 
-				if (slamDistance != 1f && slamDistance != 0f)
+				if (speed != 1f && speed != 0f)
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "SlamDistancePrefix", (slamDistance > 1 ? "+" : "") + string.Format("{0:0}", (slamDistance - 1f) * 100f) + "% " + slam + " distance")
+					string statname = item.ModItem is OrchidModGuardianShield ? "size" : "speed";
+					tooltips.Insert(index, new TooltipLine(Mod, "SpeedPrefix", (speed > 1 ? "+" : "") + string.Format("{0:0}", (speed - 1f) * 100f) + "% " + statname)
 					{
 						IsModifier = true,
-						IsModifierBad = slamDistance < 1
+						IsModifierBad = speed < 1
 					});
 				}
 			}
@@ -189,12 +206,22 @@ namespace OrchidMod.Content.General.Prefixes
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
 			var globalItem = item.GetGlobalItem<OrchidGlobalItemPerEntity>();
-			if (item.ModItem is OrchidModGuardianShield || item.ModItem is OrchidModGuardianGauntlet)
+			if (item.ModItem is OrchidModGuardianItem)
 			{
 				List<int> UniversalPrefixesIDs = [36, 37, 38, 39, 40, 41, 53, 54, 55, 56, 57, 59, 60, 61]; // Has to be hardcoded
-				var prefixes = GuardianPrefix.GetPrefixes;
 
-				foreach (var prefix in prefixes) UniversalPrefixesIDs.Add(prefix.Type);
+				if (item.ModItem is not OrchidModGuardianHammer && item.ModItem is not OrchidModGuardianRune)
+				{
+					foreach (var prefix in GuardianPrefix.GetPrefixes)
+					{
+						if (prefix is not HaidexPrefix || Main.rand.NextBool(100))
+						{
+							UniversalPrefixesIDs.Add(prefix.Type);
+						}
+					}
+				}
+
+				foreach (var prefix in GuardianPrefixNoBlockDuration.GetPrefixes) UniversalPrefixesIDs.Add(prefix.Type);
 				return UniversalPrefixesIDs[Main.rand.Next(UniversalPrefixesIDs.Count)];
 			}
 
@@ -215,7 +242,7 @@ namespace OrchidMod.Content.General.Prefixes
 			writer.Write(knockback);
 			writer.Write(blockDuration);
 			writer.Write(crit);
-			writer.Write(slamDistance);
+			writer.Write(speed);
 		}
 
 		public override void NetReceive(Item item, BinaryReader reader)
@@ -224,7 +251,7 @@ namespace OrchidMod.Content.General.Prefixes
 			knockback = reader.ReadSingle();
 			blockDuration = reader.ReadSingle();
 			crit = reader.ReadInt32();
-			slamDistance = reader.ReadSingle();
+			speed = reader.ReadSingle();
 		}
 	}
 }

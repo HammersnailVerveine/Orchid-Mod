@@ -22,18 +22,21 @@
 	public class EffervescentPrefix : ShamanPrefix { public EffervescentPrefix() : base(1.10f, 1.00f, 2, 0, 1.00f) { } }
 	public class EtherealPrefix : ShamanPrefix { public EtherealPrefix() : base(1.15f, 1.10f, 2, 5, 1.10f) { } }
 
-	// Guardian - Damage, Knockback, Block Duration, Critical Strike Chance, Slam Distance
+	// Guardian - Damage, Knockback, Block Duration, Critical Strike Chance, Speed
 
+	public class HaidexPrefix : GuardianPrefix { public HaidexPrefix() : base(1.00f, 1.00f, 0.85f, 20, 0.85f) { } } // Easter Egg
 	public class FlimsyPrefix : GuardianPrefix { public FlimsyPrefix() : base(0.85f, 1.00f, 0.90f, 0, 0.90f) { } } // Bad
-	public class FeeblePrefix : GuardianPrefix { public FeeblePrefix() : base(1.00f, 0.85f, 1.00f, 0, 0.90f) { } }
+	public class FeeblePrefix : GuardianPrefixNoBlockDuration { public FeeblePrefix() : base(1.00f, 0.85f, 1.00f, 0, 0.90f) { } }
 	public class FragilePrefix : GuardianPrefix { public FragilePrefix() : base(1.00f, 0.90f, 0.85f, 0, 1.00f) { } }
-	public class ResolutePrefix : GuardianPrefix { public ResolutePrefix() : base(1.15f, 0.90f, 1f, 1, 1.00f) { } } // Mitigated
-	public class StoutPrefix : GuardianPrefix { public StoutPrefix() : base(0.85f, 1.15f, 1f, 0, 1.00f) { } }
-	public class UnyieldingPrefix : GuardianPrefix { public UnyieldingPrefix() : base(1.10f, 1.00f, 1f, 3, 1.00f) { } } // Good
-	public class SturdyPrefix : GuardianPrefix { public SturdyPrefix() : base(1.00f, 1.10f, 1f, 0, 1.15f) { } }
-	public class SteadfastPrefix : GuardianPrefix { public SteadfastPrefix() : base(1.00f, 1.15f, 1f, 0, 1.10f) { } }
+	public class ResolutePrefix : GuardianPrefixNoBlockDuration { public ResolutePrefix() : base(1.15f, 0.90f, 1.00f, 1, 1.00f) { } } // Mitigated
+	public class StoutPrefix : GuardianPrefixNoBlockDuration { public StoutPrefix() : base(0.85f, 1.15f, 1f, 0, 1.00f) { } }
+	public class UnyieldingPrefix : GuardianPrefixNoBlockDuration { public UnyieldingPrefix() : base(1.10f, 1.00f, 1.00f, 3, 1.00f) { } } // Good
+	public class SturdyPrefix : GuardianPrefix { public SturdyPrefix() : base(1.00f, 1.10f, 1.15f, 0, 1.00f) { } }
+	public class SteadfastPrefix : GuardianPrefixNoBlockDuration { public SteadfastPrefix() : base(1.00f, 1.15f, 1.00f, 0, 1.10f) { } }
+	public class ImpregnablePrefix : GuardianPrefix { public ImpregnablePrefix() : base(1.00f, 1.15f, 1.10f, 0, 1.00f) { } }
 	public class ToweringPrefix : GuardianPrefix { public ToweringPrefix() : base(1.00f, 1.00f, 1.15f, 0, 1.05f) { } }
 	public class SpartanPrefix : GuardianPrefix { public SpartanPrefix() : base(1.10f, 1.05f, 1.1f, 2, 1.05f) { } } // Very good
+	public class AngelicPrefix : GuardianPrefixNoBlockDuration { public AngelicPrefix() : base(1.15f, 1.00f, 1.00f, 5, 1.10f) { } }
 	public class HulkingPrefix : GuardianPrefix { public HulkingPrefix() : base(1.15f, 1.05f, 1.15f, 0, 1.00f) { } }
 	public class EmpyreanPrefix : GuardianPrefix { public EmpyreanPrefix() : base(1.15f, 1.10f, 1.15f, 5, 1.10f) { } }
 

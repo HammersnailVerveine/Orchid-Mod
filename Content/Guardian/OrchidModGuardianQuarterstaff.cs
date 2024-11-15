@@ -77,7 +77,7 @@ namespace OrchidMod.Content.Guardian
 			OnParryQuarterstaff(player, guardian, info, anchor);
 		}
 
-		public override bool MeleePrefix() => true;
+		public override bool WeaponPrefix() => true;
 
 		public override bool CanUseItem(Player player)
 		{

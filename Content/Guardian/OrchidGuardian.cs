@@ -30,6 +30,8 @@ namespace OrchidMod
 		public float GuardianStandardTimer = 1f; // Standard duration multiplier
 		public float GuardianSlamDistance = 1f; // Slam Distance multiplier
 		public float GuardianBlockDuration = 1f; // Block Duration multiplier
+		public float GuardianMeleeSpeed = 1f; // Edited via reforges. It multiplies the player MeleeSpeed in postupdate
+		public float GuardianPaviseScale = 1f; // Multiplies pavise scale
 
 		// Set effects, accessories, misc
 
@@ -130,6 +132,12 @@ namespace OrchidMod
 			GuardianRuneCharge = 0;
 		}
 
+		public override void PostUpdate()
+		{
+			// This should multiply the player melee speed AFTER all other modifications, making reforge melee speed multiplicative instead of additive
+			Player.GetAttackSpeed(DamageClass.Melee) *= GuardianMeleeSpeed;
+		}
+
 		public override void PostUpdateMiscEffects()
 		{
 			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>()))
@@ -227,6 +235,8 @@ namespace OrchidMod
 			GuardianRuneTimer = 1f;
 			GuardianSlamDistance = 1f;
 			GuardianBlockDuration = 1f;
+			GuardianMeleeSpeed = 1f;
+			GuardianPaviseScale = 1f;
 
 			GuardianMeteorite = false;
 			GuardianSpikeGoblin = false;

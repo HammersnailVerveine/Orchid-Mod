@@ -3473,6 +3473,9 @@ Prefixes: {
 	TimidPrefix.DisplayName: Timid
 	UntamedPrefix.DisplayName: Untamed
 	VoraciousPrefix.DisplayName: Voracious
+	AngelicPrefix.DisplayName: Angelic
+	ImpregnablePrefix.DisplayName: Impregnable
+	HaidexPrefix.DisplayName: Haidex
 }
 
 Projectiles: {

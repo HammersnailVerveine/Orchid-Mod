@@ -608,6 +608,18 @@ namespace OrchidMod.Common.Global.NPCs
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
+
+				if (thoriumMod.IsNPCTypeEquals("ThePrimeScouter", npc.type))
+				{
+					if (!Main.expertMode)
+					{
+						if (Main.rand.NextBool(7))
+						{
+							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<ThoriumStarScouterStandard>());
+						}
+					}
+				}
+
 				/*
 				if (thoriumMod.IsNPCTypeEquals("TheGrandThunderBirdv2", npc.type))
 				{

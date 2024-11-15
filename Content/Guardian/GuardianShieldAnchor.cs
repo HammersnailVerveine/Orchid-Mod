@@ -98,6 +98,9 @@ namespace OrchidMod.Content.Guardian
 
 			if (!death)
 			{
+				OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
+				Projectile.scale = guardian.GuardianPaviseScale;
+
 				if (NeedNetUpdate)
 				{
 					NeedNetUpdate = false;
@@ -115,6 +118,15 @@ namespace OrchidMod.Content.Guardian
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.ResetLocalNPCHitImmunity();
 						Projectile.friendly = true;
+
+						if (IsLocalOwner)
+						{
+							var texture = ModContent.Request<Texture2D>((ShieldItem.ModItem as OrchidModGuardianShield).ShieldTexture).Value;
+							Projectile.width = (int)(texture.Height * guardian.GuardianPaviseScale);
+							Projectile.height = (int)(texture.Height * guardian.GuardianPaviseScale);
+
+							Main.NewText(texture.Height * guardian.GuardianPaviseScale + " : " + guardian.GuardianPaviseScale);
+						}
 					}
 
 					float slamDistance = (int)(guardianItem.slamDistance * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetTotalAttackSpeed(DamageClass.Melee));
@@ -135,8 +147,7 @@ namespace OrchidMod.Content.Guardian
 					Point p1 = new Point((int)hitboxOrigin.X, (int)hitboxOrigin.Y);
 					Point p2 = new Point((int)(hitboxOrigin.X + hitbox.X), (int)(hitboxOrigin.Y + hitbox.Y));
 
-					OrchidGuardian modPlayer = owner.GetModPlayer<OrchidGuardian>();
-					modPlayer.GuardianSlamRecharge = (int)(OrchidGuardian.GuardianRechargeTime * modPlayer.GuardianRecharge);
+					guardian.GuardianSlamRecharge = (int)(OrchidGuardian.GuardianRechargeTime * guardian.GuardianRecharge);
 
 					for (int l = 0; l < Main.projectile.Length; l++)
 					{
@@ -146,10 +157,10 @@ namespace OrchidMod.Content.Guardian
 							if (LineIntersectsRect(p1, p2, proj.Hitbox) || proj.Hitbox.Intersects(Projectile.Hitbox))
 							{
 								guardianItem.Block(owner, Projectile, proj);
-								modPlayer.OnBlockProjectile(Projectile, proj);
+								guardian.OnBlockProjectile(Projectile, proj);
 								if (shieldEffectReady)
 								{
-									modPlayer.OnBlockProjectileFirst(Projectile, proj);
+									guardian.OnBlockProjectileFirst(Projectile, proj);
 									guardianItem.Protect(owner, Projectile);
 									shieldEffectReady = false;
 									SoundEngine.PlaySound(SoundID.Item37, owner.Center);
@@ -166,7 +177,7 @@ namespace OrchidMod.Content.Guardian
 						if (target.active && !target.dontTakeDamage && !target.friendly && this.LineIntersectsRect(p2, p1, target.Hitbox))
 						{
 							bool contained = false;
-							foreach(BlockedEnemy blockedEnemy in modPlayer.GuardianBlockedEnemies)
+							foreach(BlockedEnemy blockedEnemy in guardian.GuardianBlockedEnemies)
 							{
 								if (blockedEnemy.npc == target)
 								{ // Enemy already blocked, reset the timer
@@ -178,7 +189,7 @@ namespace OrchidMod.Content.Guardian
 
 							if (!contained)
 							{ // First time blocking an enemy
-								modPlayer.GuardianBlockedEnemies.Add(new BlockedEnemy(target, (int)Projectile.ai[0] + 60));
+								guardian.GuardianBlockedEnemies.Add(new BlockedEnemy(target, (int)Projectile.ai[0] + 60));
 								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
 							}
 
@@ -191,10 +202,10 @@ namespace OrchidMod.Content.Guardian
 							}
 
 							guardianItem.Push(owner, Projectile, target);
-							modPlayer.OnBlockNPC(Projectile, target);
+							guardian.OnBlockNPC(Projectile, target);
 							if (shieldEffectReady)
 							{ // First parry stuff
-								modPlayer.OnBlockNPCFirst(Projectile, target);
+								guardian.OnBlockNPCFirst(Projectile, target);
 								guardianItem.Protect(owner, Projectile);
 								shieldEffectReady = false;
 								SoundEngine.PlaySound(SoundID.Item37, owner.Center);
@@ -259,7 +270,7 @@ namespace OrchidMod.Content.Guardian
 				} 
 
 				UpdateHitbox();
-				//this.SeeHitbox();
+				//SeeHitbox();
 			}
 
 			oldOwnerPos = owner.Center;
@@ -303,10 +314,10 @@ namespace OrchidMod.Content.Guardian
 		public void UpdateHitbox()
 		{
 			this.hitboxOrigin = Projectile.Center + Vector2.UnitY * Projectile.gfxOffY;
-			this.hitboxOrigin -= new Vector2(0f, Projectile.height / 2f).RotatedBy(Projectile.rotation);
+			this.hitboxOrigin -= new Vector2(0f, (Projectile.height * Projectile.scale) / 2f).RotatedBy(Projectile.rotation);
 			hitboxOrigin -= new Vector2(4f, 4f);
 
-			this.hitbox = new Vector2(0f, Projectile.height).RotatedBy(Projectile.rotation);
+			this.hitbox = new Vector2(0f, Projectile.height * Projectile.scale).RotatedBy(Projectile.rotation);
 		}
 
 		public void SeeHitbox()
@@ -356,9 +367,6 @@ namespace OrchidMod.Content.Guardian
 				var texture = ModContent.Request<Texture2D>(guardianItem.ShieldTexture).Value;
 				var drawPosition = Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-				//Projectile.width = texture.Width;
-				Projectile.width = texture.Height;
-				Projectile.height = texture.Height;
 				float colorMult = (Projectile.ai[1] + Projectile.ai[0] > 0 ? 1f : (0.4f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 120f)));
 				spriteBatch.Draw(texture, drawPosition, null, color * colorMult, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}

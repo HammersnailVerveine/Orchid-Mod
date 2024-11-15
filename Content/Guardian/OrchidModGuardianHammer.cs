@@ -53,7 +53,7 @@ namespace OrchidMod.Content.Guardian
 			Item.useAnimation = Item.useTime;
 		}
 
-		public override bool MeleePrefix() => true;
+		public override bool WeaponPrefix() => true;
 
 		public sealed override void HoldItem(Player player)
 		{
