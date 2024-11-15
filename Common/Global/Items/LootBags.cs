@@ -32,6 +32,8 @@ using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Content.Shaman.Weapons.Fire;
 using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
+using OrchidMod.Content.Shaman.Weapons.Thorium;
+using OrchidMod.Utilities;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -196,6 +198,12 @@ namespace OrchidMod.Common.Global.Items
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod == null) goto SkipThorium;
 
+			if (thoriumMod.IsItemTypeEquals("ScouterBag", arg))
+			{
+				QuickSpawnItem<ThoriumStarScouterStandard>(player, 1, 7);
+				return;
+			}
+
 			/*
 			if (thoriumMod.IsItemTypeEquals("ThunderBirdBag", arg))
 			{
@@ -253,7 +261,7 @@ namespace OrchidMod.Common.Global.Items
 			}
 			*/
 
-		SkipThorium:
+			SkipThorium:
 			return;
 		}
 

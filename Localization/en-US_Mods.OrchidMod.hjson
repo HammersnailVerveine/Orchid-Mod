@@ -3341,7 +3341,7 @@ Items: {
 	}
 
 	ShardQuarterstaff: {
-		DisplayName: Balance
+		DisplayName: Harmony
 		Tooltip: Has a chance to confuse
 	}
 
