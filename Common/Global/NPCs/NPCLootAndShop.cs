@@ -341,7 +341,7 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.CaveBat:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<SageBat>(), 50));
+						npcLoot.Add(ItemDropRule.Common(ItemType<SageBat>(), 100));
 					}
 					break;
 				default:
