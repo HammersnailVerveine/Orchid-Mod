@@ -3263,7 +3263,7 @@ Items: {
 	}
 
 	SageBat: {
-		DisplayName: Sage Bat
+		DisplayName: Bat Idol
 		LeftClick: Charge a sound blast, dealing massive damage to echolocated enemies
 		RightClick: Emit a sound wave, echolocating hit enemies if caught on the way back
 		Jump: Can jump two additional times
