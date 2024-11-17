@@ -233,7 +233,6 @@ namespace OrchidMod.Content.Guardian
 							if (aimedLocation.X < 0)
 							{
 								Projectile.spriteDirection = -1;
-								Projectile.rotation += MathHelper.Pi;
 							}
 							else Projectile.spriteDirection = 1;
 						}
@@ -366,7 +365,8 @@ namespace OrchidMod.Content.Guardian
 				var drawPosition = Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 				float colorMult = (Projectile.ai[1] + Projectile.ai[0] > 0 ? 1f : (0.4f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 120f)));
-				spriteBatch.Draw(texture, drawPosition, null, color * colorMult, Projectile.rotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				float flippedRotation = Projectile.rotation += Projectile.spriteDirection == 1 ? 0 : MathHelper.Pi;
+				spriteBatch.Draw(texture, drawPosition, null, color * colorMult, flippedRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawShield(spriteBatch, Projectile, player, color);
 
