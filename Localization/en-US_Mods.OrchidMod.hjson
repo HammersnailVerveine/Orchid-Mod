@@ -3374,6 +3374,11 @@ Items: {
 			Warping consumes a guard charge and grants a slam charge
 			'''
 	}
+
+	MartianWarhammer: {
+		DisplayName: Kinetic Impact Driver
+		Tooltip: Instantly charges on hit
+	}
 }
 
 NPCs: {
