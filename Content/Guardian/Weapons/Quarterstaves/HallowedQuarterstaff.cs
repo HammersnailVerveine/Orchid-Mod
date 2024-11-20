@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			GuardStacks = 2;
 		}
 		
+		/*
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
@@ -28,5 +29,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			recipe.AddIngredient(ItemID.HallowedBar, 12);
 			recipe.Register();
 		}
+		*/
 	}
 }

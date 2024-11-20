@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.AddIngredient(ItemID.StoneBlock, 25);
-			recipe.AddIngredient(RecipeGroupID.Wood, 3);
+			recipe.AddRecipeGroup(RecipeGroupID.Wood, 3);
 			recipe.Register();
 		}
 	}
