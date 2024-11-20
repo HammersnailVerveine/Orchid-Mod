@@ -3379,6 +3379,11 @@ Items: {
 		DisplayName: Kinetic Impact Driver
 		Tooltip: Instantly charges on hit
 	}
+
+	HallowedQuarterstaff: {
+		DisplayName: Hallowed Quarterstaff
+		Tooltip: ""
+	}
 }
 
 NPCs: {
