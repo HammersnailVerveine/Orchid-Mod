@@ -3740,8 +3740,8 @@ Configs: {
 		}
 
 		SwapGauntletImputs: {
-			Label: Swap Gauntlets Imputs
-			Tooltip: Swap Left and Right click inputs for Guardian Gauntlets
+			Label: Swap Parry Items Imputs
+			Tooltip: Swap Left and Right click inputs for Guardian Parry Items (Gauntlets, Quarterstaves, ...)
 		}
 
 		AltGuardianChargeSounds: {
