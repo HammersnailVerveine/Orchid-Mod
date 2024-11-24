@@ -1,16 +1,18 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Weapons.Misc;
-using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using static Terraria.Player;
+using Terraria.DataStructures;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Misc
 {
@@ -24,6 +26,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 		public int SelectedItem { get; set; } = -1;
 		public Item HorizonLanceItem => Main.player[Projectile.owner].inventory[SelectedItem];
 		public bool Worn => Projectile.ai[1] > 0f; // Standard buff remaining duration
+		Vector2 visualSway = Vector2.Zero;
+		int flagLength = 0;
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
@@ -125,6 +129,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 					if (Reinforced)
 					{
 						guardian.GuardianStandardStats.lifeRegen += 6;
+						visualSway = visualSway * 0.95f - owner.velocity * 0.005f;
 					}
 				}
 				else
@@ -221,7 +226,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 					{ // Being charged by the player
 						Projectile.Center = owner.MountedCenter.Floor() + new Vector2((28f - guardian.GuardianStandardCharge * 0.03f) * owner.direction, 2f + guardian.GuardianStandardCharge * 0.045f);
 						Projectile.rotation = MathHelper.PiOver4 * (1.75f + guardian.GuardianStandardCharge * 0.0015f) * owner.direction - MathHelper.PiOver4;
-						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -(0.6f - guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
+						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.ThreeQuarters, MathHelper.PiOver2 * -(0.6f - guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
 
 						if (guardian.GuardianStandardCharge < 180f)
 						{
@@ -280,14 +285,16 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 					else if (Worn && !heldStandard)
 					{ // Display on player back
 						Projectile.Center = owner.MountedCenter.Floor();
+						if (flagLength > Projectile.ai[1]) flagLength--;
+						else if (flagLength < maxFlagLength)flagLength++;
 					}
 					else
 					{ // Idle - Lance is held lower
 						Ding = false;
-
-						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(22f * owner.direction, 10f);
+						flagLength = 0;
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(16f * owner.direction, 14f);
 						Projectile.rotation = MathHelper.PiOver4 * 2.2f * owner.direction - MathHelper.PiOver4;
-						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -0.15f * owner.direction);
+						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -0.05f * owner.direction);
 					}
 				}
 			}
@@ -314,8 +321,6 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 			float colorMult2 = 1f;
 			if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not HorizonLance) colorMult2 *= Projectile.ai[1] / 30f;
 
-			var texture = ModContent.Request<Texture2D>(guardianItem.LanceTexture).Value;
-
 			SpriteEffects effect = SpriteEffects.None;
 			Vector2 posproj = Projectile.Center;
 			float drawRotation = Projectile.rotation;
@@ -326,7 +331,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 				effect = SpriteEffects.FlipHorizontally;
 			}
 
-
+			var texture = ModContent.Request<Texture2D>(Texture).Value;
 			var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 
 			if (Worn && player.HeldItem.ModItem is not HorizonLance)
@@ -342,21 +347,12 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 					}
 				}
 
-				drawPosition += new Vector2(-8f * player.direction, -12);
+				drawPosition += new Vector2(-8f * player.direction, -12); 
+				float colorMult = (float)Math.Sin(TimeSpent * 0.075f) * 0.1f + 0.9f;
+				if (Reinforced) DrawHorizonFlag(drawPosition, drawRotation, player.direction == 1, visualSway);
 				spriteBatch.Draw(texture, drawPosition, null, color * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
-
-				if (Reinforced)
-				{
-					var textureGlow = ModContent.Request<Texture2D>(guardianItem.LanceTextureGlow).Value;
-					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
-					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
-
-					float colorMult = (float)Math.Sin(TimeSpent * 0.075f) * 0.1f + 0.9f;
-					spriteBatch.Draw(textureGlow, drawPosition, null, Color.White * colorMult * colorMult2, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
-
-					spriteBatch.End();
-					spriteBatch.Begin(spriteBatchSnapshot);
-				}
+				if (Reinforced) DrawHorizonFlag(drawPosition, drawRotation, player.direction != 1, visualSway);
+				
 			}
 			else
 			{
@@ -365,6 +361,96 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 
 			return false;
+		}
+
+		const int maxFlagLength = 24;
+
+		/// <summary> Mimics the <c>HorizonGlow</c> shader, returning a color modified by the given phase similar to what the shader would provide. </summary>
+		/// <remarks> Can take either a <c>float</c> or a <c>Color</c> as the input color. Will automatically cast <c>phase</c> to <c>float</c> if it is a <c>double</c>. <example>Example usage:
+		/// <code> GetHorizonGlowColor(Math.Sin(Projectile.timeLeft * 0.05), 0.5f) </code> </example> </remarks>
+		/// <param name="phase"> Color phase of the shader. 1 is orange, 0 is white, and -1 is blue. Will automatically cast to <c>float</c> if a <c>double</c> is passed, such as from <c>Math.Sin</c>.</param>
+		/// <param name="lumi"> Brightness of the default greyscale color. Defaults to fully bright.</param>
+		/// <param name="alpha"> Alpha of the default greyscale color.</param>
+		public static Color GetHorizonGlowColor(float phase, float lumi = 1, float alpha = 0)
+		{
+			float coPhase = 2 * (1 - phase * phase);
+			float red;
+			float green;
+			float blue;
+			if (phase > 0)
+			{
+				red = lumi * (3.4f * phase + coPhase);
+				blue = lumi * (((float)Math.Sqrt(lumi) * 0.67f + 0.04f) * phase + coPhase);
+			}
+			else
+			{
+				red = lumi * (0.82f * -phase + coPhase);
+				blue = lumi * (3.15f * -phase + coPhase);
+			}
+			green = 1.5f - 0.77f / (lumi + 0.375f) + lumi * coPhase;
+			return new (red, green, blue, alpha);
+		}
+		/// <param name = "color"> Specific color to be modified.</param>
+		/// <inheritdoc cref="GetHorizonGlowColor(float, float, float)"/>
+		public static Color GetHorizonGlowColor(float phase, Color color)
+		{
+			float coPhase = 2 * (1 - phase * phase);
+			//i really wish i could make these into a float3 or float4 like the shader, but unfortunately xna's vector3 and vector4 don't recognize the alias of rgb
+			//this is the more readable solution but it's kind of a mess, sorry
+			float red = color.R / 255f;
+			float green = color.G / 255f;
+			float blue = color.B / 255f;
+			float alpha = color.A / 255f;
+			float lumi = 0.3f * red * red + 0.4f * green * green + 0.2f * blue * blue;
+			float fade = red + green + blue + alpha;
+			red = (red / 1.5f + lumi) * (0.6f + 0.4f * alpha);
+			green = (red / 1.5f + lumi) * (0.6f + 0.4f * alpha);
+			blue = (red / 1.5f + lumi) * (0.6f + 0.4f * alpha);
+			if (phase > 0)
+			{
+				red *= 3.4f * phase + coPhase;
+				blue *= ((float)Math.Sqrt(blue) * 0.67f + 0.04f) * phase + coPhase;
+			}
+			else
+			{
+				red *= 0.82f * -phase + coPhase;
+				blue *= 3.15f * -phase + coPhase;
+			}
+			green = 1.5f - 0.77f / (green + 0.375f) + green * coPhase;
+			return new Color(red, green, blue, alpha) * Math.Min(1f, fade);
+		}
+		/// <inheritdoc cref="GetHorizonGlowColor(float, Color)"/>
+		public static Color GetHorizonGlowColor(double phase, float lumi = 1, float alpha = 0) => GetHorizonGlowColor((float)phase, lumi, alpha);
+		/// <inheritdoc cref="GetHorizonGlowColor(float, Color)"/>
+		public static Color GetHorizonGlowColor(double phase, Color color) => GetHorizonGlowColor((float)phase, color);
+
+		void DrawHorizonFlag(Vector2 drawPosition, float rot, bool flip, Vector2 vSway)
+		{
+			var flagTexture = ModContent.Request<Texture2D>(Texture + "_Flag").Value;
+			rot -= MathHelper.PiOver4;
+			Vector2 pos = drawPosition + new Vector2(28, flip ? 10 : -10).RotatedBy(rot);
+			rot += MathHelper.PiOver4 * Main.player[Projectile.owner].direction * 0.5f - vSway.X * 0.5f;
+			vSway = vSway.RotatedBy(vSway.X * 0.5f);
+			Rectangle rect = new (0, 20, 2, 10);
+			var effect = flip ? SpriteEffects.FlipVertically : SpriteEffects.None;
+			float swayMult = 0.5f;
+			for (int i = 0; i < flagLength; i++)
+			{
+				float sway = (float)Math.Sin(Projectile.ai[1] / 20 + i * 0.5f);
+				float length = 1 + vSway.Y * 0.5f * swayMult;
+				// incredibly small flat value is added to length to prevent draw issues with very scrunched flags 
+				Main.EntitySpriteDraw(flagTexture, pos, rect, GetHorizonGlowColor(Math.Sin(Projectile.ai[1] * 0.03f + i * 0.1f), 0.5f), rot, new Vector2(1, 5), new Vector2(length + 0.001f, 1), effect);
+				//for the first and last 7 pieces, move the texture coordinates
+				bool iLow = i < flagLength / 3;
+				bool iHigh = flagLength - i < flagLength / 3;
+				if (iLow) rect.X += 2;
+				if (iHigh) rect.X -= 2;
+				//the draw texture naturally faces rightwards, so:
+				//X: add the length of the previous piece to continue drawing out
+				//Y: add the current left/right sway values
+				pos -= new Vector2(2 * length, (-vSway.X + sway) * swayMult).RotatedBy(rot);
+				swayMult *= 1.05f;
+			}
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
@@ -32,14 +33,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.UseSound = SoundID.DD2_GhastlyGlaiveImpactGhost;
-			Item.useAnimation = Item.useTime;
 
 
 			Item.width = 46;
 			Item.height = 46;
 			Item.value = Item.sellPrice(0, 10, 0, 0);
 			Item.rare = ItemRarityID.Red;
-			Item.useTime = 20;
+			Item.useTime = Item.useAnimation = 40;
 			Item.knockBack = 8f;
 			Item.damage = 618;
 			StandardDuration = 1800; // 30 sec
@@ -85,7 +85,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 			var projectileType = ModContent.ProjectileType<GuardianHorizonLanceCounter>();
 			int damage = guardian.GetGuardianDamage(Item.damage);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center + offset * 32f, offset, projectileType, damage, Item.knockBack, player.whoAmI);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center, offset, projectileType, damage, Item.knockBack, player.whoAmI);
 			newProjectile.CritChance = guardian.GetGuardianCrit(Item.crit);
 		}
 
@@ -182,6 +182,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 				}
 			}
 			SafeHoldItem(player);
+		}
+
+		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			//Projectile proj = Main.player[Main.myPlayer].GetModPlayer<OrchidGuardian>().GuardianCurrentStandardAnchor;
+			//if (proj != null && proj.ModProjectile is GuardianHorizonLanceAnchor standard)
+			//{
+				spriteBatch.Draw(ModContent.Request<Texture2D>(LanceTextureGlow).Value, position, frame, Color.White, 0, origin, scale, SpriteEffects.None, 0);
+			//}
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

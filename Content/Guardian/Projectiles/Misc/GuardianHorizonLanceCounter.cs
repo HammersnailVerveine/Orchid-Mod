@@ -29,6 +29,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
         public override void AI()
         {
+            Player player = Main.player[Projectile.owner];
             if (Projectile.timeLeft == maxTime)
             {
                 Projectile.rotation = Projectile.velocity.ToRotation();
@@ -46,7 +47,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
                 }
                 if (closestTarget != null)
                 {
-                    TargetRotation = (closestTarget.Center - Projectile.Center + closestTarget.velocity * maxTime * 0.25f).ToRotation();
+                    TargetRotation = (closestTarget.Center - Projectile.Center + (closestTarget.velocity - player.velocity) * maxTime * 0.5f).ToRotation();
                     RotationSpeed = MathHelper.WrapAngle(TargetRotation - Projectile.rotation) / (maxTime * 0.5f);
                     if (Math.Abs(RotationSpeed) > 0.1f)
                     {
@@ -60,6 +61,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
                     Projectile.rotation -= RotationSpeed * maxTime * 0.3f;
                 }
             }
+            Projectile.Center = player.Center;
             sine = (float)Math.Sin(Projectile.timeLeft * MathHelper.Pi / maxTime);
             sineIn = (float)Math.Cos(Projectile.timeLeft * MathHelper.Pi / (maxTime * 2));
             sineOut = (float)Math.Sin(Projectile.timeLeft * MathHelper.Pi / (maxTime * 2));
@@ -72,7 +74,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
                 {
                     if (IsValidTarget(npc) && Collision.CheckAABBvLineCollision(npc.position, new Vector2(npc.width, npc.height), Projectile.Center, tip) && !HitNPCs.Contains(npc.whoAmI))
                     {
-                        Main.player[Projectile.owner].ApplyDamageToNPC(npc, Projectile.damage, 0f, Projectile.direction, Main.rand.Next(100) < Projectile.CritChance, ModContent.GetInstance<GuardianDamageClass>());
+                        player.ApplyDamageToNPC(npc, Projectile.damage, 0f, Projectile.direction, Main.rand.Next(100) < Projectile.CritChance, ModContent.GetInstance<GuardianDamageClass>());
 						HitNPCs.Add(npc.whoAmI);
 					}
 				}
