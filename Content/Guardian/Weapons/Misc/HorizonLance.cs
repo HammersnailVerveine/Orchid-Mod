@@ -59,8 +59,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info, Projectile anchor) 
 		{
-			guardian.modPlayer.TryHeal(20);
-			SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact, player.Center);
+			if (player.statDefense > 10) guardian.modPlayer.TryHeal((int)(player.statDefense * 0.1f));
+			SoundEngine.PlaySound(SoundID.Item68, player.Center);
 			info.DamageSource.TryGetCausingEntity(out Entity entity);
 
 			Vector2 offset = Vector2.UnitY;

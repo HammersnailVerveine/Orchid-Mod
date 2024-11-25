@@ -146,15 +146,16 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 						if (puchDir.X > 0 && owner.direction != 1) owner.ChangeDir(1);
 						else if (puchDir.X < 0 && owner.direction != -1) owner.ChangeDir(-1);
 
-						float addedDistance = 36f;
-						if (Projectile.ai[0] < -40)
+						float addedDistance = 28f;
+						//lunge forward
+						if (Projectile.ai[0] < -30)
 						{
-							addedDistance = 36f * (40f / -Projectile.ai[0]);
+							addedDistance = 28f * (40f / -Projectile.ai[0]);
 						}
-
+						//fire, recoil back
 						if (Projectile.ai[0] > -30)
 						{
-							addedDistance += 0.5f * (10 + Projectile.ai[0]);
+							addedDistance += 0.4f * Projectile.ai[0];
 
 							if (!Blast)
 							{
@@ -180,14 +181,15 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 							}
 						}
 
-						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(4 * owner.direction, 2f) + Vector2.UnitY.RotatedBy(Projectile.ai[2]) * addedDistance;
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(4f * owner.direction, 2f) + Vector2.UnitY.RotatedBy(Projectile.ai[2]) * addedDistance;
 						Projectile.rotation = Projectile.ai[2] - MathHelper.PiOver4 * 5f;
 						float addedRotation = 0f;
 						if (Projectile.ai[2] + MathHelper.PiOver2 > 0f)
 						{
-							addedRotation = (Projectile.ai[2] + owner.direction * MathHelper.PiOver2) * 0.65f;
+							addedRotation = (Projectile.ai[2] + owner.direction * MathHelper.PiOver2) * 0.5f;
 						}
-						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -owner.direction + addedRotation);
+						addedRotation += (addedDistance - 28) * (puchDir.Y > 0 ? 0.06f : 0.12f) * owner.direction * puchDir.Y;
+						owner.SetCompositeArmFront(true, addedDistance > 24 ? CompositeArmStretchAmount.Full : addedDistance > 18 ? CompositeArmStretchAmount.ThreeQuarters : CompositeArmStretchAmount.Quarter, MathHelper.PiOver4 * 2.2f * -owner.direction + addedRotation);
 
 						Projectile.ai[0]++;
 
@@ -224,7 +226,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 					}
 					else if (Projectile.ai[0] == 1f)
 					{ // Being charged by the player
-						Projectile.Center = owner.MountedCenter.Floor() + new Vector2((28f - guardian.GuardianStandardCharge * 0.03f) * owner.direction, 2f + guardian.GuardianStandardCharge * 0.045f);
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2((26f - guardian.GuardianStandardCharge * 0.03f) * owner.direction, guardian.GuardianStandardCharge * 0.045f);
 						Projectile.rotation = MathHelper.PiOver4 * (1.75f + guardian.GuardianStandardCharge * 0.0015f) * owner.direction - MathHelper.PiOver4;
 						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.ThreeQuarters, MathHelper.PiOver2 * -(0.6f - guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
 
@@ -292,7 +294,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 					{ // Idle - Lance is held lower
 						Ding = false;
 						flagLength = 0;
-						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(16f * owner.direction, 14f);
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(18f * owner.direction, 14f);
 						Projectile.rotation = MathHelper.PiOver4 * 2.2f * owner.direction - MathHelper.PiOver4;
 						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -0.05f * owner.direction);
 					}
@@ -441,10 +443,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 				// incredibly small flat value is added to length to prevent draw issues with very scrunched flags 
 				Main.EntitySpriteDraw(flagTexture, pos, rect, GetHorizonGlowColor(Math.Sin(Projectile.ai[1] * 0.03f + i * 0.1f), 0.5f), rot, new Vector2(1, 5), new Vector2(length + 0.001f, 1), effect);
 				//for the first and last 7 pieces, move the texture coordinates
-				bool iLow = i < flagLength / 3;
-				bool iHigh = flagLength - i < flagLength / 3;
-				if (iLow) rect.X += 2;
-				if (iHigh) rect.X -= 2;
+				if (i < flagLength / 3) rect.X += 2;
+				if (flagLength - i < flagLength / 3) rect.X -= 2;
 				//the draw texture naturally faces rightwards, so:
 				//X: add the length of the previous piece to continue drawing out
 				//Y: add the current left/right sway values
