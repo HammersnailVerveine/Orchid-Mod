@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -153,7 +154,7 @@ namespace OrchidMod.Content.Guardian
 
 			if (GuardStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.GuardStacks + " guard charge" + (this.GuardStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.GuardStacks + " guard" + (this.GuardStacks > 1 ? "s" : "") + " when fully charged")
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
@@ -161,15 +162,14 @@ namespace OrchidMod.Content.Guardian
 
 			if (SlamStacks > 0)
 			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.SlamStacks + " slam charge" + (this.SlamStacks > 1 ? "s" : ""))
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.SlamStacks + " slam" + (this.SlamStacks > 1 ? "s" : "") + " when fully charged")
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
 
-			int tooltipSeconds = Math.DivRem((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer), 60, out int tooltipTicks);
 			index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "RuneDuration", tooltipSeconds + " seconds duration"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "RuneDuration", OrchidUtils.FramesToSeconds((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer)) + " second buff duration"));
 
 			tooltips.RemoveAll(x => x.Name == "Damage" && x.Mod == "Terraria");
 			tooltips.RemoveAll(x => x.Name == "Knockback" && x.Mod == "Terraria");

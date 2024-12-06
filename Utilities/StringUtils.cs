@@ -14,5 +14,14 @@ namespace OrchidMod.Utilities
 				_ => string.Concat(str[0].ToString().ToUpper(), str.AsSpan(1))
 			};
 		}
+
+		public static string FramesToSeconds(int frames)
+		{
+			string seconds = Math.DivRem(frames, 60, out int centiseconds).ToString();
+			if (centiseconds == 0) return seconds;
+			centiseconds = (int)(centiseconds / 0.6f + 0.5f);
+			if (centiseconds % 10 == 0) centiseconds /= 10;
+			return seconds + "." + centiseconds;
+		}
 	}
 }

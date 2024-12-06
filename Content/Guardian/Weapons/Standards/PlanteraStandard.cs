@@ -12,7 +12,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			Item.height = 44;
 			Item.value = Item.sellPrice(0, 7, 50, 0);
 			Item.rare = ItemRarityID.Yellow;
-			Item.useTime = 30;
+			Item.useTime = 36;
 			Item.UseSound = SoundID.DD2_BetsyWindAttack;
 			SlamStacks = 2;
 			GuardStacks = 1;

@@ -61,8 +61,8 @@ namespace OrchidMod.Common.ModObjects
 
 		// Equipment Fields (General)
 
-
-		public float OrchidDamageReduction = 1f; // Multiplies all damage taken by the player. Should be modified by multiplicating it (eg : OrchidDamageReduction *= 0.7f)
+		/// <summary> Divides damage taken by the player by the sum of all damage resistance bonuses.</summary>
+		public float OrchidDamageResistance = 1f;
 
 		// Equipment Fields (Individual Items)
 
@@ -139,7 +139,7 @@ namespace OrchidMod.Common.ModObjects
 				ForcedVelocityTimer--;
 			}
 
-			OrchidDamageReduction = 1f;
+			OrchidDamageResistance = 1f;
 			
 			for (int i = 0; i < 4; i++)
 			{
@@ -175,12 +175,16 @@ namespace OrchidMod.Common.ModObjects
 
 		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
 		{
-			modifiers.FinalDamage *= OrchidDamageReduction;
+			if (OrchidDamageResistance > 0) modifiers.FinalDamage /= OrchidDamageResistance;
+			else modifiers.FinalDamage *= 9999;
+			//idk if we'd ever have a situation where it's possible to hit -100% damage resistance but this makes it kill the player instead of throwing an exception
+			//seems fitting anyway
 		}
 
 		public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
 		{
-			modifiers.FinalDamage *= OrchidDamageReduction;
+			if (OrchidDamageResistance > 0) modifiers.FinalDamage /= OrchidDamageResistance;
+			else modifiers.FinalDamage *= 9999;
 		}
 
 		public override bool FreeDodge(Player.HurtInfo info)

@@ -159,12 +159,13 @@ namespace OrchidMod.Content.Guardian
 					else
 					{
 						bool AnyNear = false; // Used for Alpha stuff
+						float range = buffItem.AuraRange * guardian.GuardianStandardRange;
 
 						if (buffItem.AffectNearbyPlayers)
 						{ // Called on every client to affect nearby players
 							foreach (Player player in Main.player)
 							{
-								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (buffItem.AuraRange + player.width * 0.5f))
+								if (player.active && !player.dead && player.Center.Distance(owner.Center) < (range + player.width * 0.5f))
 								{
 									if (buffItem.NearbyPlayerEffect(player.GetModPlayer<OrchidGuardian>().GuardianStandardStats, player, guardian, player == owner, Projectile.ai[2] == 1f))
 									{ // If the player is affected by the standard, checks the guardian's modplayer for bonus effects
@@ -179,7 +180,7 @@ namespace OrchidMod.Content.Guardian
 						{ // Called on every client to affect nearby NPCs
 							foreach (NPC npc in Main.npc)
 							{
-								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < (buffItem.AuraRange + npc.width * 0.5f))
+								if (npc.active && !npc.friendly && !npc.CountsAsACritter && npc.Center.Distance(owner.Center) < (range + npc.width * 0.5f))
 								{
 									if (buffItem.NearbyNPCEffect(owner, guardian, npc, IsLocalOwner, Projectile.ai[2] == 1f))
 									{ // If the npc is affected by the standard, checks the guardian's modplayer for bonus effects
@@ -386,7 +387,7 @@ namespace OrchidMod.Content.Guardian
 						if (lightalpha < 0.5f) lightalpha = 0.5f;
 						float alphamult = (float)(Math.Sin(TimeSpent * 0.075f) * 0.075f + 1f) * Alpha * lightalpha;
 						Vector2 drawPositionAura = Vector2.Transform(player.Center.Floor() - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-						spriteBatch.Draw(TextureAura, drawPositionAura, null, standard.GetColor() * alphamult, 0f, TextureAura.Size() * 0.5f, 0.00625f * standard.AuraRange, SpriteEffects.None, 0f); ;
+						spriteBatch.Draw(TextureAura, drawPositionAura, null, standard.GetColor() * alphamult, 0f, TextureAura.Size() * 0.5f, 0.00625f * standard.AuraRange * player.GetModPlayer<OrchidGuardian>().GuardianStandardRange, SpriteEffects.None, 0f); ;
 					}
 
 					if (drawFlag)

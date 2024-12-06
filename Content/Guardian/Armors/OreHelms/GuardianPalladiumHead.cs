@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
@@ -32,7 +33,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Greatly increases life regeneration after striking an enemy";
+			player.setBonus = Language.GetTextValue("ArmorSetBonus.Palladium");
 			player.onHitRegen = true;
 		}
 

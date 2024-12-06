@@ -1,13 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.ModSystems;
 using OrchidMod.Content.Guardian.Misc;
-using OrchidMod.Utilities;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -16,6 +14,13 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 	[AutoloadEquip(EquipType.Head)]
 	public class GuardianHorizonHead : OrchidModGuardianEquipable
 	{
+		public static LocalizedText SetBonusText { get; private set; }
+
+		public override void SetStaticDefaults()
+		{
+			SetBonusText = this.GetLocalization("SetBonus");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 26;
@@ -28,10 +33,10 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianGuardMax += 3;
-			player.GetCritChance<GuardianDamageClass>() += 25;
-			modPlayer.modPlayer.OrchidDamageReduction *= 0.85f;
-			player.aggro += 500;
+			modPlayer.modPlayer.OrchidDamageResistance += 0.15f;
+			player.GetDamage<GuardianDamageClass>() += 0.15f;
+			player.GetCritChance<GuardianDamageClass>() += 15;
+			player.aggro += 1500;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -42,7 +47,7 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.setBonus = "While above 50% life, consumes it instead of guardian charges";
+			player.setBonus = SetBonusText.Value;
 			modPlayer.GuardianHorizon = true;
 		}
 

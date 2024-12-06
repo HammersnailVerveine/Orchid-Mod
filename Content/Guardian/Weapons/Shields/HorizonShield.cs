@@ -52,7 +52,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				OldRotation = new List<float>();
 			}
 
-			Item.UseSound = StoredBlock ? SoundID.DD2_ExplosiveTrapExplode : SoundID.DD2_FlameburstTowerShot;
+			Item.UseSound = player.GetModPlayer<OrchidGuardian>().GuardianCounterTime > 0 ? SoundID.DD2_ExplosiveTrapExplode : SoundID.DD2_FlameburstTowerShot;
 		}
 
 		public override void HoldItemFrame(Player player)
@@ -67,7 +67,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				Projectile anchor = GetAnchor(player).Projectile;
 				int type = ModContent.ProjectileType<HorizonShieldProj>();
 				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * 15f;
-				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * (StoredBlock ? 3f : 1f)), Item.knockBack, player.whoAmI, StoredBlock ? 1f : 0f);
+				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * (player.GetModPlayer<OrchidGuardian>().GuardianCounterTime > 0 ? 3f : 1f)), Item.knockBack, player.whoAmI, StoredBlock ? 1f : 0f);
 				StoredBlock = false;
 			}
 		}

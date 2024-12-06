@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Armors.Misc
@@ -7,6 +8,13 @@ namespace OrchidMod.Content.Guardian.Armors.Misc
 	[AutoloadEquip(EquipType.Head)]
 	public class GuardianGitHelm: OrchidModGuardianEquipable
 	{
+		public static LocalizedText SetBonusText { get; private set; }
+
+		public override void SetStaticDefaults()
+		{
+			SetBonusText = this.GetLocalization("SetBonus");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 24;
@@ -39,7 +47,7 @@ namespace OrchidMod.Content.Guardian.Armors.Misc
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.setBonus = "Blocks or parries increases movement speed by 30%";
+			player.setBonus = SetBonusText.Value;
 			modPlayer.GuardianGit = true;
 		}
 	}

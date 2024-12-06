@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
@@ -7,6 +8,13 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 	[AutoloadEquip(EquipType.Head)]
 	public class GuardianCobaltHead : OrchidModGuardianEquipable
 	{
+		public static LocalizedText SetBonusText { get; private set; }
+
+		public override void SetStaticDefaults()
+		{
+			SetBonusText = this.GetLocalization("SetBonus");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 20;
@@ -19,10 +27,9 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.moveSpeed += 0.10f;
-			player.GetDamage<GuardianDamageClass>() += 0.10f;
-			modPlayer.GuardianSlamMax += 1;
-			modPlayer.GuardianGuardMax += 1;
+			player.moveSpeed += 0.15f;
+			player.GetAttackSpeed<MeleeDamageClass>() += 0.15f;
+			modPlayer.GuardianSlamMax += 2;
 			player.aggro += 500;
 		}
 
@@ -33,9 +40,9 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Increases guardian charges generation by 15%";
+			player.setBonus = SetBonusText.Value;
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianRecharge -= 0.15f;
+			modPlayer.GuardianSlamRecharge += 1.5f;
 		}
 
 		public override void ArmorSetShadows(Player player)

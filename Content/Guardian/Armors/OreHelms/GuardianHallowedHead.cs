@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
@@ -21,7 +22,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			player.GetCritChance<GuardianDamageClass>() += 12;
 			player.GetDamage<GuardianDamageClass>() += 0.12f;
-			modPlayer.GuardianSlamMax += 1;
+			modPlayer.GuardianSlamMax += 2;
 			modPlayer.GuardianGuardMax += 2;
 			player.aggro += 500;
 		}
@@ -33,7 +34,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Become immune after striking an enemy";
+			player.setBonus = Language.GetTextValue("ArmorSetBonus.Hallowed");
 			player.armorEffectDrawShadow = true;
 			player.onHitDodge = true;
 		}

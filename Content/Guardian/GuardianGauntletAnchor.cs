@@ -135,7 +135,6 @@ namespace OrchidMod.Content.Guardian
 					}
 					else if (Projectile.localAI[1] == slamTime)
 					{ // Slam just started, make projectile
-						Ding = false; // Also reset ding song for full charge
 						int damage = guardian.GetGuardianDamage(guardianItem.Item.damage);
 						if (guardianItem.OnPunch(owner, guardian, Projectile, Projectile.ai[0] == -2f, ref damage))
 						{
@@ -163,6 +162,7 @@ namespace OrchidMod.Content.Guardian
 							}
 							else punchProj.Kill();
 						}
+						Ding = false;
 					}
 
 					if (Projectile.ai[1] < 1f && Projectile.ai[1] > -1f)

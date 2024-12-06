@@ -28,10 +28,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 
 		public override bool NearbyPlayerEffect(GuardianStandardStats standardStats, Player affectedPlayer, OrchidGuardian guardian, bool isLocalPlayer, bool reinforced)
 		{
-			standardStats.defense += 3;
+			standardStats.defense += 4;
 			if (isLocalPlayer && reinforced)
 			{
-				standardStats.defense += 4;
+				guardian.GuardianGuardRecharge += 1f;
 			}
 			return true;
 		}

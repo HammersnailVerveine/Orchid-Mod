@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -162,12 +163,11 @@ namespace OrchidMod.Content.Guardian
 				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
 			}
 
-			int tooltipSeconds = Math.DivRem((int)(RuneDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer), 60, out int tooltipTicks);
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "RuneDuration", tooltipSeconds + " seconds duration"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "RuneDuration", OrchidUtils.FramesToSeconds((int)(RuneDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer)) + " second rune duration"));
 
 			index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "UseSlams", "Uses " + this.RuneCost + " shield slams"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "UseSlams", "Uses up to " + this.RuneCost + " slams"));
 		}
 
 		public Projectile NewRuneProjectile(Player player, OrchidGuardian guardian, int duration, int type, int damage, float knockback, int critChance, float distance = 0f, float angle = 0f, float ai2 = 0f)

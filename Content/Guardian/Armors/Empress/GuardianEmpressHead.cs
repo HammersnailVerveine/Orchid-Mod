@@ -28,32 +28,6 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 			player.GetDamage<GuardianDamageClass>() += 0.12f;
 		}
 
-		public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return (body.type == ItemType<GuardianEmpressChest>() || body.type == ItemType<GuardianEmpressChestAlt>()) && legs.type == ItemType<GuardianEmpressLegs>();
-		}
-
-		public override void UpdateArmorSet(Player player)
-		{
-			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-			//player.setBonus = "Guardian runes will summon additional projectiles";
-			if (player.armor[1].type == ItemType<GuardianEmpressChest>())
-			{
-				player.setBonus = "Greatly increases the amount of rune projectiles\nGuardian runes will last 50% longer";
-				guardian.GuardianBonusRune += 2;
-				guardian.GuardianRuneTimer += 0.5f;
-			}
-			else
-			{
-				player.setBonus = "Reduces damage taken by 50% while holding a pavise or gauntlets\nEnemies are drastically more likely to target you";
-				if (player.HeldItem.ModItem is OrchidModGuardianShield || player.HeldItem.ModItem is OrchidModGuardianGauntlet)
-				{
-					guardian.modPlayer.OrchidDamageReduction *= 0.5f;
-					player.aggro += 1000;
-				}
-			}
-		}
-
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();

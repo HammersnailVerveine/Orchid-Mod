@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
@@ -20,8 +21,9 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			player.GetDamage<GuardianDamageClass>() += 0.16f;
+			player.GetAttackSpeed<MeleeDamageClass>() += 0.16f;
 			modPlayer.GuardianSlamMax += 2;
-			modPlayer.GuardianGuardMax += 1;
+			modPlayer.GuardianGuardMax += 2;
 			player.aggro += 500;
 		}
 
@@ -32,7 +34,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Summons a powerful leaf crystal to shoot at nearby enemies";
+			player.setBonus = Language.GetTextValue("ArmorSetBonus.Chlorophyte");
 			player.AddBuff((60), 1);
 		}
 

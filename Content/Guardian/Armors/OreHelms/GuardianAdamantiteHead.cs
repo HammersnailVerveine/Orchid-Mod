@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
@@ -7,6 +8,13 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 	[AutoloadEquip(EquipType.Head)]
 	public class GuardianAdamantiteHead : OrchidModGuardianEquipable
 	{
+		public static LocalizedText SetBonusText { get; private set; }
+
+		public override void SetStaticDefaults()
+		{
+			SetBonusText = this.GetLocalization("SetBonus");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 26;
@@ -21,8 +29,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			player.GetCritChance<GuardianDamageClass>() += 12;
 			player.GetDamage<GuardianDamageClass>() += 0.12f;
-			modPlayer.GuardianSlamMax += 1;
-			modPlayer.GuardianGuardMax += 1;
+			modPlayer.GuardianGuardMax += 2;
 			player.aggro += 500;
 		}
 
@@ -33,9 +40,9 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Increases guardian charges generation by 20%";
+			player.setBonus = SetBonusText.Value;
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianRecharge -= 0.2f;
+			modPlayer.GuardianGuardRecharge += 1f;
 		}
 
 		public override void ArmorSetShadows(Player player)

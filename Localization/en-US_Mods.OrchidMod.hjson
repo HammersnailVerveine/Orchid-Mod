@@ -220,9 +220,9 @@ Buffs: {
 		Description: 15% increased opposing damage
 	}
 
-	BambooCooldown: {
-		DisplayName: Bamboo Cooldown
-		Description: Cannot generate guard charges by taking damage
+	BambooBuff: {
+		DisplayName: Bamboon
+		Description: 25% increased defense
 	}
 
 	GuardianGitBuff: {
@@ -262,7 +262,7 @@ Buffs: {
 
 	GuardianBuffStationBuff: {
 		DisplayName: Battle Ready
-		Description: +1 slam charge
+		Description: Increases maximum slams by 1
 	}
 
 	SageOwlDebuff: {
@@ -2692,23 +2692,28 @@ Items: {
 		DisplayName: Bamboo Helmet
 		Tooltip:
 			'''
-			Increases guardian charges generation by 10%
+			Slowly regenerates guards over time
 			Enemies are more likely to target you
 			'''
+		SetBonus: consuming guards or slams increases defense by 25%
 	}
 
 	GuardianBambooChest: {
 		DisplayName: Bamboo Chestplate
 		Tooltip:
 			'''
-			Increases guardian charges generation by 15%
-			+1 guard charge
+			Slowly regenerates guards and slams over time
+			Increases maximum guards by 1
 			'''
 	}
 
 	GuardianBambooLegs: {
 		DisplayName: Bamboo Legguards
-		Tooltip: Increases guardian charges generation by 10%
+		Tooltip:
+			'''
+			Slowly regenerates slams over time
+			Increases maximum slams by 1
+			'''
 	}
 
 	GuardianMeteoriteChest: {
@@ -2716,7 +2721,7 @@ Items: {
 		Tooltip:
 			'''
 			5% increased opposing damage
-			+1 slam charge
+			Increases maximum slams by 1
 			Enemies are more likely to target you
 			'''
 	}
@@ -2726,8 +2731,9 @@ Items: {
 		Tooltip:
 			'''
 			5% increased opposing damage
-			+1 guard charge
+			Increases maximum guards by 1
 			'''
+		SetBonus: 50% chance for blocks and parries to grant two slams
 	}
 
 	GuardianMeteoriteLegs: {
@@ -2740,38 +2746,45 @@ Items: {
 	}
 
 	GuardianEmpressChest: {
-		DisplayName: Empress Chestguard
+		DisplayName: Dawn Valkyrie Breastplate
 		Tooltip:
 			'''
-			13% increased opposing damage
-			Increases guardian charges generation by 15%
-			+2 slam charges
-			Enemies are more likely to target you
+			Increases maximum slams by 2 and regenerates slams over time
+			25% increased melee speed
+			'''
+		SetBonus:
+			'''
+			greatly increases rune projectile quantity and standard range
+			50% increased rune and standard duration
 			'''
 	}
 
 	GuardianEmpressChestAlt: {
-		DisplayName: Empress Chestplate
+		DisplayName: Dawn Warden Cuirass
 		Tooltip:
 			'''
-			8% increased opposing damage
-			+2 guard charges
+			Increases maximum guards by 2 and regenerates guards over time
 			Enemies are more likely to target you
+			'''
+		SetBonus:
+			'''
+			100% increased damage resistance while holding a pavise or gauntlets
+			Enemies are significantly more likely to target you
 			'''
 	}
 
 	GuardianEmpressHead: {
-		DisplayName: Empress Headguard
+		DisplayName: Dawnlight Circlet
 		Tooltip:
 			'''
 			12% increased opposing damage
-			+1 guard and slam charges
+			Increases maximum guards and slams by 1
 			Enemies are more likely to target you
 			'''
 	}
 
 	GuardianEmpressLegs: {
-		DisplayName: Empress Legguards
+		DisplayName: Dawnlight Talaria
 		Tooltip:
 			'''
 			10% increased opposing damage
@@ -2781,13 +2794,14 @@ Items: {
 	}
 
 	GuardianAdamantiteHead: {
-		DisplayName: Adamantite Greathelm
+		DisplayName: Adamantite Visor
 		Tooltip:
 			'''
 			12% increased opposing damage and critical strike chance
-			+1 guard and slam charges
-			Enemies are a lot more likely to target you
+			Increases maximum guards by 2
+			Enemies are more likely to target you
 			'''
+		SetBonus: Regenerates guards over time
 	}
 
 	GuardianTitaniumHead: {
@@ -2795,8 +2809,8 @@ Items: {
 		Tooltip:
 			'''
 			15% increased opposing damage and 8% increased opposing critical strike chance
-			+1 guard and slam charges
-			Enemies are a lot more likely to target you
+			Increases maximum guards and slams by 1
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -2805,8 +2819,8 @@ Items: {
 		Tooltip:
 			'''
 			12% increased opposing damage and critical strike chance
-			+2 guard charges and 1 slam charge
-			Enemies are a lot more likely to target you
+			Increases maximum guards and slams by 2
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -2814,9 +2828,9 @@ Items: {
 		DisplayName: Chlorophyte Greathelm
 		Tooltip:
 			'''
-			16% increased opposing damage
-			+1 guard charge and 2 slam charges
-			Enemies are a lot more likely to target you
+			16% increased opposing damage and melee speed
+			Increases maximum guards and slams by 2
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -2855,7 +2869,7 @@ Items: {
 	}
 
 	TempleSpike: {
-		DisplayName: Golem Shield Spike
+		DisplayName: Lihzahrd Shield Spike
 		Tooltip:
 			'''
 			Deals 300% of your defense as damage to blocked enemies
@@ -2894,32 +2908,34 @@ Items: {
 	}
 
 	GuardianCobaltHead: {
-		DisplayName: Cobalt Greathelm
+		DisplayName: Cobalt Kabuto
 		Tooltip:
 			'''
-			10% increased opposing damage and movement speed
-			+1 guard and slam charges
-			Enemies are a lot more likely to target you
+			15% increased movement and melee speed
+			Increases maximum slams by 2
+			Enemies are more likely to target you
 			'''
+		SetBonus: Quickly regenerates slams over time
 	}
 
 	GuardianMythrilHead: {
 		DisplayName: Mythril Greathelm
 		Tooltip:
 			'''
-			11% increased opposing damage and 10% increased opposing critical strike chance
-			+1 guard and slam charges
-			Enemies are a lot more likely to target you
+			10% increased opposing damage and critical strike chance
+			Increases maximum guards and slams by 1
+			Enemies are more likely to target you
 			'''
+		SetBonus: 10% increased opposing critical strike chance
 	}
 
 	GuardianOrichalcumHead: {
 		DisplayName: Orichalcum Greathelm
 		Tooltip:
 			'''
-			18% increased opposing damage and 7% increased movement speed
-			+1 guard and slam charges
-			Enemies are a lot more likely to target you
+			18% increased opposing critical strike chance and melee speed
+			Increases maximum guards and slams by 1
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -2928,8 +2944,8 @@ Items: {
 		Tooltip:
 			'''
 			16% increased opposing damage
-			+1 guard and slam charges
-			Enemies are a lot more likely to target you
+			Increases maximum guards and slams by 1
+			Enemies are more likely to target you
 			'''
 	}
 
@@ -2942,10 +2958,11 @@ Items: {
 		DisplayName: Gud Knight Helmet
 		Tooltip:
 			'''
-			+1 guard and slam charges
+			Increases maximum guards and slams by 1
 			Can be paired with ore armor
 			Enemies are more likely to target you
 			'''
+		SetBonus: Increases movement speed after blocking or parrying
 	}
 
 	GuardianRunePotion: {
@@ -2977,24 +2994,23 @@ Items: {
 		DisplayName: Grass Knuckles
 		Tooltip:
 			'''
-			Has a chance to poison enemies
-			Melee speed briefly increased after a parry
+			Charged punches poison enemies
+			Parrying massively increases melee speed for a short time
 			'''
 	}
 
 	SpiderGauntlet: {
 		DisplayName: Touch of Death
-		Tooltip: Punches launch fangs after a parry
+		Tooltip: Launches fangs after a parry
 	}
 
 	MechanicalGauntlet: {
 		DisplayName: Iron Fist
-		Tooltip: Punching after a parry propels forward, dealing double damage
-	}
-
-	Block: {
-		DisplayName: Block
-		Tooltip: ""
+		Tooltip:
+			'''
+			Press UP or DOWN to control descent while charging
+			Fully charge or counterattack to rocket punch
+			'''
 	}
 
 	NanitesGauntlet: {
@@ -3012,7 +3028,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging continuously slows nearby enemies
-			When reinforced, your defense increases by 10
+			When reinforced, grants 15% increased damage resistance
 			'''
 	}
 
@@ -3020,8 +3036,8 @@ Items: {
 		DisplayName: Copper Standard
 		Tooltip:
 			'''
-			Fully charging increases defense by 3
-			When reinforced, your defense further increases to 7
+			Fully charging increases defense by 4
+			When reinforced, regenerates guards over time
 			'''
 	}
 
@@ -3030,7 +3046,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging increases defense by 4
-			When reinforced, your defense further increases to 8
+			When reinforced, slowly regenerates guards and slams over time
 			'''
 	}
 
@@ -3053,11 +3069,11 @@ Items: {
 	}
 
 	DesertStandard: {
-		DisplayName: Stormwoven Crest
+		DisplayName: Blitz Banner
 		Tooltip:
 			'''
 			Fully charging increases movement speed by 10%
-			When reinforced, shocks another nearby enemy on hit
+			When reinforced, your opposing damage causes chain lightning
 			'''
 	}
 
@@ -3071,7 +3087,7 @@ Items: {
 	}
 
 	CobaltGauntlet: {
-		DisplayName: Cobalt Claws
+		DisplayName: Cobalt Tekko
 		Tooltip: ""
 	}
 
@@ -3120,8 +3136,8 @@ Items: {
 		Tooltip:
 			'''
 			Releases homing bolts of energy
-			Greatly reinforced after a successful block
-			'Protect everyone from the vastness beyond'
+			Counterattacking after a block launches an empowered bolt
+			'Your enemies' vanishing point'
 			'''
 	}
 
@@ -3129,9 +3145,9 @@ Items: {
 		DisplayName: Horizon Firmament
 		Tooltip:
 			'''
-			Fully charging releases a damaging aurora
-			When reinforced, increases life regeneration
-			Retaliates and restores health on parry
+			Fully charging unleashes a damaging aurora
+			When reinforced, greatly increases life regeneration
+			Parrying restores 10% of defense as life
 			'The fine line between the heavens and the world below'
 			'''
 	}
@@ -3140,30 +3156,29 @@ Items: {
 		DisplayName: Sickflip
 		Tooltip:
 			'''
-			Block downwards while falling to skate
-			Slam to launch yourself backwards
-			Recover guard and slam charges while skating
+			Block downwards in the air to skate
+			Slam to do cool tricks
 			'''
 	}
 
 	GuardianBuffStation: {
 		DisplayName: Spinning Dummy
-		Tooltip: Increases maximum slam charges
+		Tooltip: Increases maximum slams
 	}
 
 	EmpressPlateChest: {
-		DisplayName: Empress Plated Chestplate
-		Tooltip: Actually too bulky for the empress' taste
+		DisplayName: Ancient Dawnlight Chestplate
+		Tooltip: ""
 	}
 
 	EmpressPlateHead: {
-		DisplayName: Empress Plated Headgear
-		Tooltip: Actually too bulky for the empress' taste
+		DisplayName: Ancient Dawnlight Helmet
+		Tooltip: ""
 	}
 
 	EmpressPlateLegs: {
-		DisplayName: Empress Plated Legguards
-		Tooltip: Actually too bulky for the empress' taste
+		DisplayName: Ancient Dawnlight Leggings
+		Tooltip: ""
 	}
 
 	HorizonDye: {
@@ -3175,10 +3190,8 @@ Items: {
 		DisplayName: Horizon Breastplate
 		Tooltip:
 			'''
-			30% increased opposing damage
+			25% increased damage resistance, opposing damage and melee speed
 			Increases max life by 100
-			Reduces damage taken by 15%
-			Enemies are a lot more likely to target you
 			'''
 	}
 
@@ -3186,21 +3199,18 @@ Items: {
 		DisplayName: Horizon Greathelm
 		Tooltip:
 			'''
-			25% increased opposing critical strike chance
-			+3 guard charges
-			Reduces damage taken by 15%
-			Enemies are a lot more likely to target you
+			15% increased damage resistance, opposing damage and critical strike chance
+			Enemies are significantly more likely to target you
 			'''
+		SetBonus: while above 50% max life, consume life instead of guards or slams
 	}
 
 	GuardianHorizonLegs: {
 		DisplayName: Horizon Leggings
 		Tooltip:
 			'''
-			25% increased melee speed
-			+3 slam charges
-			Reduces damage taken by 15%
-			Enemies are a lot more likely to target you
+			20% increased damage resistance, movement and melee speed
+			Increases maximum guards and slams by 3
 			'''
 	}
 
@@ -3276,13 +3286,13 @@ Items: {
 		Tooltip:
 			'''
 			Applies dye to shapeshifts
-			'Such quality, you can't help but keep it for yourself'
+			'You can't help but keep it for yourself'
 			'''
 	}
 
 	ShapeshifterBlankEffigy: {
 		DisplayName: Humanoid Effigy
-		Tooltip: Transforms you into a Human ... supposedly
+		Tooltip: Transforms you into a Human... supposedly
 	}
 
 	HorizonDrill: {
@@ -3322,7 +3332,7 @@ Items: {
 
 	BambooQuarterstaff: {
 		DisplayName: Bamboo Pole
-		Tooltip: 30% increased action speed
+		Tooltip: ""
 	}
 
 	DungeonQuarterstaff: {
@@ -3332,7 +3342,7 @@ Items: {
 
 	CorruptionQuarterstaff: {
 		DisplayName: Wicked Fang
-		Tooltip: Greatly reinforced counterattacks
+		Tooltip: ""
 	}
 
 	CrimsonQuarterstaff: {
@@ -3349,9 +3359,8 @@ Items: {
 		DisplayName: Hands of God
 		Tooltip:
 			'''
-			Charge speed and punch velocity scales with defense
+			Charge speed and range scales with defense
 			'A strong man once slaughtered Cthulhu with his fists'
-			'Legendary Big M.'
 			'''
 	}
 
@@ -3359,19 +3368,18 @@ Items: {
 		DisplayName: Ultra Pro 9000X
 		Tooltip:
 			'''
-			Pucks hit enemies, dealing damage when they collide with something
-			Puck-able enemies will not be killed by a charged swing
+			Turns knockback vulnerable enemies into projectiles
 			'The high-accuracy stick of hockey champions'
 			'''
 	}
 
 	ThoriumStarScouterStandard: {
-		DisplayName: Stellar Stela
+		DisplayName: Stellar Stele
 		Tooltip:
 			'''
 			Fully charging repels nearby enemies when they attack allies
 			When reinforced, double tap any direction to warp
-			Warping consumes a guard charge and grants a slam charge
+			Warping consumes a guard and grants a slam
 			'''
 	}
 

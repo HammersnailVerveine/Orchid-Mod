@@ -32,9 +32,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			player.AddBuff(ModContent.BuffType<GuardianJungleGauntletBuff>(), 120);
 		}
 
-		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
+		public override void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
 		{
-			if (Main.rand.NextBool(5) || charged) target.AddBuff(BuffID.Poisoned, 240 + Main.rand.Next(120));
+			if (charged) target.AddBuff(BuffID.Poisoned, 420);
 		}
 	}
 }

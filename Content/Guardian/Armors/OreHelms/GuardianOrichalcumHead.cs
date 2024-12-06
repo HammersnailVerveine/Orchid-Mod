@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
@@ -19,8 +20,8 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.moveSpeed += 0.07f;
-			player.GetDamage<GuardianDamageClass>() += 0.18f;
+			player.GetCritChance<GuardianDamageClass>() += 12;
+			player.GetAttackSpeed<MeleeDamageClass>() += 0.12f;
 			modPlayer.GuardianSlamMax += 1;
 			modPlayer.GuardianGuardMax += 1;
 			player.aggro += 500;
@@ -33,7 +34,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Flower petals will fall on your target for extra damage";
+			player.setBonus = Language.GetTextValue("ArmorSetBonus.Orichalcum");
 			player.onHitPetal = true;
 		}
 

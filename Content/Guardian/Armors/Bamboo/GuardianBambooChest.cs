@@ -20,7 +20,8 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			modPlayer.GuardianGuardMax++;
-			modPlayer.GuardianRecharge -= 0.15f;
+			modPlayer.GuardianGuardRecharge += 0.5f;
+			modPlayer.GuardianSlamRecharge += 0.5f;
 		}
 
 		public override void AddRecipes()

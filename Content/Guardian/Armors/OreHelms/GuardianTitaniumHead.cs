@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
@@ -33,7 +34,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Attacking generates a defensive barrier of titanium shards";
+			Language.GetTextValue("ArmorSetBonus.Titanium");
 			player.armorEffectDrawShadow = true;
 			player.onHitTitaniumStorm = true;
 		}

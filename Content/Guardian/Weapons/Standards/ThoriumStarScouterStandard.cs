@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			Item.height = 42;
 			Item.value = Item.sellPrice(0, 0, 54, 0);
 			Item.rare = ItemRarityID.Orange;
-			Item.useTime = 35;
+			Item.useTime = 42;
 			Item.UseSound = SoundID.Item113;
 			GuardStacks = 2;
 			FlagOffset = 6;

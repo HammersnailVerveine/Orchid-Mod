@@ -22,12 +22,16 @@ namespace OrchidMod
 
 		// Can be edited by gear
 
-		public float GuardianRecharge = 1f; // Natural guardian slam/guard regeneration multiplier
+		/// <summary> Natural guard generation multiplier. The player will naturally generate this many guards every 10 seconds.</summary>
+		public float GuardianGuardRecharge = 1f;
+		/// <summary> Natural slam generation multiplier. The player will naturally generate this many slams every 10 seconds.</summary>
+		public float GuardianSlamRecharge = 1f;
 		public int GuardianGuardMax = 3; // Max guard charges
 		public int GuardianSlamMax = 3; // Max slam charges
 		public int GuardianBonusRune = 0; // Bonus projectiles spawned by runes
 		public float GuardianRuneTimer = 1f; // Rune duration multiplier
 		public float GuardianStandardTimer = 1f; // Standard duration multiplier
+		public float GuardianStandardRange = 1f;
 		public float GuardianSlamDistance = 1f; // Slam Distance multiplier
 		public float GuardianBlockDuration = 1f; // Block Duration multiplier
 		public float GuardianMeleeSpeed = 1f; // Edited via reforges. It multiplies the player MeleeSpeed in postupdate
@@ -56,8 +60,10 @@ namespace OrchidMod
 		public GuardianStandardStats GuardianStandardStats = new GuardianStandardStats(); // Used to receive stats from standards
 		public int GuardianGuard = 0; // Current Guard stacks
 		public int GuardianSlam = 0; // Current Slam Stacks
-		public int GuardianGuardRecharge = 0; // Current timer for guard stack recharge
-		public int GuardianSlamRecharge = 0; // Current timer for slam stack recharge
+		/// <summary> Current timer for guard stack regen or degen. Increments guards at 1 or higher, decrements at -1 or lower.</summary>
+		public float GuardianGuardRecharging = 0;
+		/// <summary> Current timer for slam stack regen or degen. Increments slams at 1 or higher, decrements at -1 or lower.</summary>
+		public float GuardianSlamRecharging = 0;
 		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
 		public float GuardianHammerCharge = 0f; // Player Warhammer Throw Charge, max is 180f
 		public float GuardianGauntletCharge = 0f; // Player Gauntlet Punch Charge, max is 180f
@@ -67,11 +73,12 @@ namespace OrchidMod
 		public bool GuardianGauntletParry2 = false; // Player is currently parrying with a gauntlet (1 frame buffer)
 		public bool GuardianStandardBuffer = false; // used to delay the deactivation of various standards effects by 1 frame
 		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
+		public int GuardianCounterTime = 0;
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
 		public Projectile GuardianCurrentStandardAnchor;
 
-		public static int GuardianRechargeTime = 600;
+		public const int GuardianRechargeTime = 600;
 
 		public int GetGuardianDamage(float damage) => (int)(Player.GetDamage<GuardianDamageClass>().ApplyTo(damage) + Player.GetDamage(DamageClass.Generic).ApplyTo(damage) - damage);
 		public int GetGuardianCrit(int addedCrit = 0) => (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>() + addedCrit);
@@ -155,36 +162,37 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
-			if (GuardianRecharge <= 0.005f) GuardianRecharge = 0.005f; // Failsafe in case of excessive recharge
-
-			if (GuardianGuard == GuardianGuardMax)
-			{
-				GuardianGuardRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
-			}
-
-			if (GuardianGuardRecharge == 0)
+			if (GuardianGuard + GuardianGuardRecharging <= GuardianGuardMax / 2f)
+				GuardianGuardRecharging += GuardianGuardRecharge / GuardianRechargeTime;
+			else GuardianGuardRecharging += (-2 + GuardianGuardRecharge) / GuardianRechargeTime;
+			
+			if (GuardianGuardRecharging >= 1f)
 			{
 				GuardianGuard++;
-				GuardianGuardRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
+				GuardianGuardRecharging--;
 			}
-
-			if (GuardianSlam > 0)
+			else if (GuardianGuardRecharging <= -1f)
 			{
-				if (GuardianDisplayUI < -300 && GuardianSlam > 1)
-				{
-					GuardianSlam = 1;
-				}
-				GuardianSlamRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
+				GuardianGuard--;
+				GuardianGuardRecharging++;
 			}
 
-			if (GuardianSlamRecharge == 0)
+			if (GuardianSlam + GuardianSlamRecharging <= GuardianSlamMax / 2f)
+				GuardianSlamRecharging += GuardianSlamRecharge / GuardianRechargeTime;
+			else GuardianSlamRecharging += (-2 + GuardianSlamRecharge) / GuardianRechargeTime;
+
+			if (GuardianSlamRecharging >= 1f)
 			{
 				GuardianSlam++;
-				GuardianSlamRecharge = (int)(GuardianRechargeTime * GuardianRecharge);
+				GuardianSlamRecharging--;
+			}
+			else if (GuardianSlamRecharging <= -1f)
+			{
+				GuardianSlam--;
+				GuardianSlamRecharging++;
 			}
 
-			GuardianGuardRecharge--;
-			GuardianSlamRecharge--;
+			if (GuardianCounterTime > 0) GuardianCounterTime--;
 			GuardianDisplayUI--;
 
 			for (int i = GuardianBlockedEnemies.Count - 1; i >= 0; i--)
@@ -228,11 +236,14 @@ namespace OrchidMod
 
 			// Resetting equipment variables
 
-			GuardianRecharge = 1f;
+			GuardianGuardRecharge = 1f;
+			GuardianSlamRecharge = 1f;
 			GuardianGuardMax = 3;
 			GuardianSlamMax = 3;
 			GuardianBonusRune = 0;
 			GuardianRuneTimer = 1f;
+			GuardianStandardTimer = 1f;
+			GuardianStandardRange = 1f;
 			GuardianSlamDistance = 1f;
 			GuardianBlockDuration = 1f;
 			GuardianMeleeSpeed = 1f;
@@ -337,13 +348,6 @@ namespace OrchidMod
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
-			if (!Player.HasBuff<BambooCooldown>() && GuardianBamboo && GuardianGuard < GuardianGuardMax)
-			{
-				Player.AddBuff(ModContent.BuffType<BambooCooldown>(), 600);
-				SoundEngine.PlaySound(SoundID.Item37, Player.Center);
-				AddGuard(1);
-				if (GuardianDisplayUI < 0) GuardianDisplayUI = 0;
-			}
 			if (GuardianStandardStarScouter >= 0)
 			{
 				if (Main.player[GuardianStandardStarScouter].active && Player.whoAmI == Main.myPlayer)
@@ -503,6 +507,8 @@ namespace OrchidMod
 				if (!checkOnly)
 				{
 					GuardianSlam -= nb;
+					if (GuardianBamboo) Player.AddBuff(ModContent.BuffType<BambooBuff>(), 300);
+					if (GuardianSlamRecharging < 0) GuardianSlamRecharging = 0;
 				}
 				return true;
 			}
@@ -527,6 +533,8 @@ namespace OrchidMod
 				if (!checkOnly)
 				{
 					GuardianGuard -= nb;
+					if (GuardianBamboo) Player.AddBuff(ModContent.BuffType<BambooBuff>(), 300);
+					if (GuardianGuardRecharging < 0) GuardianGuardRecharging = 0;
 				}
 				return true;
 			}
@@ -562,6 +570,14 @@ namespace OrchidMod
 			{ // Heal the player if they have the honey potion effect
 				modPlayer.TryHeal((int)(Player.statLifeMax2 * 0.01f));
 			}
+
+			//set counterattack time. unsure if this is the best place to put this?
+			if (anchor.ModProjectile is GuardianShieldAnchor)
+				GuardianCounterTime = (int)anchor.ai[0];
+			else if (anchor.ModProjectile is GuardianGauntletAnchor)
+				GuardianCounterTime = 60;
+			else if (anchor.ModProjectile is GuardianQuarterstaffAnchor && Player.inventory[Player.selectedItem].ModItem is OrchidModGuardianQuarterstaff qs)
+				GuardianCounterTime = (int)(40 / (qs.CounterSpeed * Player.GetTotalAttackSpeed<MeleeDamageClass>()));
 		}
 
 		public void OnBlockNPCFirst(Projectile anchor, NPC target, int toAdd = 1)

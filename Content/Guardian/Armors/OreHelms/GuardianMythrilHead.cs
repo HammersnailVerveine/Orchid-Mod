@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
@@ -7,6 +8,13 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 	[AutoloadEquip(EquipType.Head)]
 	public class GuardianMythrilHead : OrchidModGuardianEquipable
 	{
+		public static LocalizedText SetBonusText { get; private set; }
+
+		public override void SetStaticDefaults()
+		{
+			SetBonusText = this.GetLocalization("SetBonus");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 24;
@@ -20,7 +28,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			player.GetCritChance<GuardianDamageClass>() += 10;
-			player.GetDamage<GuardianDamageClass>() += 0.11f;
+			player.GetDamage<GuardianDamageClass>() += 0.10f;
 			modPlayer.GuardianSlamMax += 1;
 			modPlayer.GuardianGuardMax += 1;
 			player.aggro += 500;
@@ -33,7 +41,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "10% increased opposing critical strike chance";
+			player.setBonus = SetBonusText.Value;
 			player.GetCritChance<GuardianDamageClass>() += 10;
 		}
 

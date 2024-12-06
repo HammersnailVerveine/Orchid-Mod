@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -8,6 +9,13 @@ namespace OrchidMod.Content.Guardian.Armors.Meteorite
 	[AutoloadEquip(EquipType.Head)]
 	public class GuardianMeteoriteHead : OrchidModGuardianEquipable
 	{
+		public static LocalizedText SetBonusText { get; private set; }
+
+		public override void SetStaticDefaults()
+		{
+			SetBonusText = this.GetLocalization("SetBonus");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 26;
@@ -32,7 +40,7 @@ namespace OrchidMod.Content.Guardian.Armors.Meteorite
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.setBonus = "Blocks or parries have a 50% chance to give an additional slam charge";
+			player.setBonus = SetBonusText.Value;
 			modPlayer.GuardianMeteorite = true;
 		}
 

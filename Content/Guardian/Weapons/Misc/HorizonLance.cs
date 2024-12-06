@@ -5,6 +5,7 @@ using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -197,14 +198,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 		{
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 
-			int tooltipSeconds = Math.DivRem((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()), 60, out int tooltipTicks);
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", tooltipSeconds + "." + (int)(tooltipTicks * (100 / 60f)) + " parry duration"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration())) + " second parry duration"));
 
-			tooltipSeconds = Math.DivRem((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer), 60, out tooltipTicks);
-			index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 2, new TooltipLine(Mod, "RuneDuration", tooltipSeconds + " seconds duration"));
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "RuneDuration", OrchidUtils.FramesToSeconds((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer)) + " second buff duration"));
 
-			tooltips.Insert(index + 3, new TooltipLine(Mod, "ShieldStacks", "Grants 3 guard charges")
+			tooltips.Insert(index + 3, new TooltipLine(Mod, "ShieldStacks", "Grants 3 guards when fully charged")
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});

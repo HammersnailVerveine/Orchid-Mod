@@ -118,6 +118,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.ResetLocalNPCHitImmunity();
 						Projectile.friendly = true;
+						guardian.GuardianCounterTime = 0;
 
 						if (IsLocalOwner)
 						{
@@ -145,7 +146,7 @@ namespace OrchidMod.Content.Guardian
 					Point p1 = new Point((int)hitboxOrigin.X, (int)hitboxOrigin.Y);
 					Point p2 = new Point((int)(hitboxOrigin.X + hitbox.X), (int)(hitboxOrigin.Y + hitbox.Y));
 
-					guardian.GuardianSlamRecharge = (int)(OrchidGuardian.GuardianRechargeTime * guardian.GuardianRecharge);
+					//guardian.GuardianSlamRechargeTime = (int)(OrchidGuardian.GuardianRechargeTime * guardian.GuardianSlamRecharge);
 
 					for (int l = 0; l < Main.projectile.Length; l++)
 					{
@@ -324,7 +325,7 @@ namespace OrchidMod.Content.Guardian
 			for (int i = 0; i < this.hitbox.Length(); i++)
 			{
 				Vector2 pos = this.hitboxOrigin + vector * i;
-				Dust dust = Main.dust[Dust.NewDust(pos, 0, 0, 6)];
+				Dust dust = Main.dust[Dust.NewDust(pos, 0, 0, DustID.Torch)];
 				dust.velocity *= 0f;
 				dust.noGravity = true;
 			}

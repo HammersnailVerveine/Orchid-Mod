@@ -1,13 +1,22 @@
 using OrchidMod.Content.Guardian.Misc;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Content.Guardian.Armors.Empress
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class GuardianEmpressChestAlt : OrchidModGuardianEquipable
 	{
+		public static LocalizedText SetBonusText { get; private set; }
+
+		public override void SetStaticDefaults()
+		{
+			SetBonusText = this.GetLocalization("SetBonus");
+		}
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 30;
@@ -20,9 +29,25 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			player.GetDamage<GuardianDamageClass>() += 0.08f;
 			modPlayer.GuardianGuardMax += 2;
+			modPlayer.GuardianGuardRecharge += 1f;
 			player.aggro += 250;
+		}
+
+		public override bool IsArmorSet(Item head, Item body, Item legs)
+		{
+			return (head.type == ItemType<GuardianEmpressHead>()) && legs.type == ItemType<GuardianEmpressLegs>();
+		}
+
+		public override void UpdateArmorSet(Player player)
+		{
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+			player.setBonus = SetBonusText.Value;
+			if (player.HeldItem.ModItem is OrchidModGuardianShield || player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+			{
+				guardian.modPlayer.OrchidDamageResistance += 1f;
+				player.aggro += 1500;
+			}
 		}
 
 		public override void AddRecipes()

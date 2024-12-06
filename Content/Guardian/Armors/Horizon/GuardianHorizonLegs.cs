@@ -25,10 +25,11 @@ namespace OrchidMod.Content.Guardian.Armors.Horizon
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
+			modPlayer.modPlayer.OrchidDamageResistance += 0.2f;
+			player.moveSpeed += 0.2f;
+			player.GetAttackSpeed(DamageClass.Melee) += 0.2f;
+			modPlayer.GuardianGuardMax += 3;
 			modPlayer.GuardianSlamMax += 3;
-			player.GetAttackSpeed(DamageClass.Melee) += 0.25f;
-			modPlayer.modPlayer.OrchidDamageReduction *= 0.85f;
-			player.aggro += 500;
 		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)

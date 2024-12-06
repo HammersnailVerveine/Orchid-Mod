@@ -2,6 +2,7 @@
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Content.General.Prefixes;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,10 +44,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				tt.Text = "Deals " + damageValue + "% of defense as " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
 			}
 
-			int tooltipSeconds = Math.DivRem((int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()), 60, out int tooltipTicks);
-
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", tooltipSeconds + "." + (int)(tooltipTicks * (100 / 60f)) + " parry duration"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", OrchidUtils.FramesToSeconds((int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration())) + " second parry duration"));
 
 			string click = ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? "Left" : "Right";
 			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", click + " click to parry")
@@ -66,7 +65,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage)
 		{
 			damage = (int)Math.Max(1, damage * player.statDefense / 100f);
-			strikeVelocity = 15f * (1 + player.statDefense / 100f);
+			projectile.velocity *= 1 + player.statDefense / 100f;
 			return true;
 		}
 		public override void AddRecipes()
