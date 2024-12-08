@@ -29,6 +29,7 @@ namespace OrchidMod.Content.Guardian
 		public bool WeakHit = false;
 		public bool NeedNetUpdate = false;
 		public int dir;
+		public int hitboxOffset;
 
 		public bool Ding = false;
 
@@ -72,12 +73,15 @@ namespace OrchidMod.Content.Guardian
 			{
 				HammerItem = hammerItem;
 				HammerTexture = TextureAssets.Item[hammerItem.Item.type].Value;
-				Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
-				Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
+				//Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
+				//Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
+				hitboxOffset = (int)(HammerTexture.Width * hammerItem.Item.scale / 2f);
+				DrawOriginOffsetX = DrawOriginOffsetY = hitboxOffset;
+
 				Projectile.scale = hammerItem.Item.scale;
 
-				Projectile.position.X -= Projectile.width / 2;
-				Projectile.position.Y -= Projectile.height / 2;
+				//Projectile.position.X -= Projectile.width / 2;
+				//Projectile.position.Y -= Projectile.height / 2;
 
 				range = HammerItem.Range;
 				penetrate = HammerItem.Penetrate;
@@ -139,7 +143,7 @@ namespace OrchidMod.Content.Guardian
 
 							player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection); // set arm position (90 degree offset since arm starts lowered)
 							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection);
-							Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f, (Projectile.height - (Projectile.height * 0.007f) * guardian.GuardianHammerCharge) * 0.4f);
+							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f, (hitboxOffset * 2 - hitboxOffset * 0.014f * guardian.GuardianHammerCharge) * 0.4f);
 
 							if (guardian.GuardianHammerCharge < 210f)
 							{
@@ -225,7 +229,7 @@ namespace OrchidMod.Content.Guardian
 							Vector2 arm = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f) * Projectile.spriteDirection);
 							player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
 							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
-							Projectile.Center = armPosition - new Vector2((Projectile.width + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f + (armPosition.X - arm.X) * (2.5f + Projectile.width * 0.035f), (armPosition.Y - arm.Y) * -(1.1f + Projectile.width * 0.015f) + (210f - guardian.GuardianHammerCharge) * 0.075f);
+							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f + (armPosition.X - arm.X) * (2.5f + hitboxOffset * 0.07f), (armPosition.Y - arm.Y) * -(1.1f + hitboxOffset * 0.03f) + (210f - guardian.GuardianHammerCharge) * 0.075f);
 
 							float toAdd = 30f / HammerItem.Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
 							if (Projectile.ai[1] < -40) Projectile.ai[1] += toAdd * 1.5f;
@@ -249,14 +253,9 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (HammerItem.ThrowAI(player, guardian, Projectile, WeakThrow()))
 					{
-						if (Projectile.timeLeft < 598 && HammerItem.TileCollide && range > 0) // Delay helps preventing the hammer from instantly despawning if launched from inside a tile
-						{ // Hammer has a smaller hitbox for tilecollide stuff
-							Vector2 collideVelocity = Collision.TileCollision(Projectile.Center - Vector2.One * 10f, Projectile.velocity, 20, 20, true, true, (int)player.gravDir);
-							if (collideVelocity != Projectile.velocity)
-							{
-								OnTileCollide(Projectile.velocity);
-							}
-						}
+						if (Projectile.timeLeft < 598 && range > 0) // Delay helps preventing the hammer from instantly despawning if launched from inside a tile
+						Projectile.tileCollide = HammerItem.TileCollide;
+						else Projectile.tileCollide = false;
 
 						if (range == HammerItem.Range)
 						{ // First frame of the throw
@@ -311,6 +310,14 @@ namespace OrchidMod.Content.Guardian
 
 				HammerItem.ExtraAI(player, guardian, Projectile);
 			}
+		}
+
+		public override void ModifyDamageHitbox(ref Rectangle hitbox)
+		{
+			hitbox.X -= hitboxOffset;
+			hitbox.Y -= hitboxOffset;
+			hitbox.Width += hitboxOffset * 2;
+			hitbox.Height += hitboxOffset * 2;
 		}
 
 		public override void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -405,17 +412,17 @@ namespace OrchidMod.Content.Guardian
 				{
 					HammerItem = hammerItem;
 
-					if (Main.netMode != NetmodeID.Server)
+					/*if (Main.netMode != NetmodeID.Server)
 					{
 						HammerTexture = TextureAssets.Item[hammerItem.Item.type].Value;
 						Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
 						Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
-					}
+					}*/
 
 					Projectile.scale = hammerItem.Item.scale;
 
-					Projectile.position.X -= Projectile.width / 2;
-					Projectile.position.Y -= Projectile.height / 2;
+					//Projectile.position.X -= Projectile.width / 2;
+					//Projectile.position.Y -= Projectile.height / 2;
 
 					range = HammerItem.Range;
 					penetrate = HammerItem.Penetrate;
