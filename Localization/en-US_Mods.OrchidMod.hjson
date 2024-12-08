@@ -252,7 +252,7 @@ Buffs: {
 
 	GuardianHoneyPotionBuff: {
 		DisplayName: Sweetguard
-		Description: Recovers 1% health on block or parry
+		Description: Recovers 1% of max life on block or parry
 	}
 
 	GuardianPaladinGauntletBuff: {
@@ -2972,7 +2972,7 @@ Items: {
 
 	GuardianHoneyPotion: {
 		DisplayName: Sweetguard Potion
-		Tooltip: Recovers health on block or parry
+		Tooltip: Restores life on block or parry
 	}
 
 	Guard: {
@@ -3018,7 +3018,7 @@ Items: {
 		Tooltip:
 			'''
 			Drastically improves movement capabilities when held
-			Restores health on hit and parry
+			Restores life on hit and parry
 			'Nanomachines, Son!'
 			'''
 	}
@@ -3064,7 +3064,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging increases maximum life by 50
-			When reinforced, drastically increases life regeneration at low health
+			When reinforced, drastically increases life regeneration at low life
 			'''
 	}
 
@@ -3391,6 +3391,11 @@ Items: {
 	HallowedQuarterstaff: {
 		DisplayName: Hallowed Quarterstaff
 		Tooltip: ""
+	}
+
+	DancerHallowedHead: {
+		DisplayName: Hallowed Masque
+		Tooltip: To be continued..?
 	}
 }
 
