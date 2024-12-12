@@ -3397,6 +3397,15 @@ Items: {
 		DisplayName: Hallowed Masque
 		Tooltip: To be continued..?
 	}
+
+	NeoAncientHallowedPlateMail: {
+		DisplayName: Neo-Ancient Hallowed Plate Mail
+		Tooltip:
+			'''
+			'The future's past'
+			'Great for impersonating Orchid Devs!'
+			'''
+	}
 }
 
 NPCs: {
