@@ -64,6 +64,8 @@ namespace OrchidMod
 		public float GuardianGuardRecharging = 0;
 		/// <summary> Current timer for slam stack regen or degen. Increments slams at 1 or higher, decrements at -1 or lower.</summary>
 		public float GuardianSlamRecharging = 0;
+		public bool OverHalfGuards => GuardianGuard + GuardianGuardRecharging > GuardianGuardMax / 2f;
+		public bool OverHalfSlams => GuardianSlam + GuardianSlamRecharging > GuardianSlamMax / 2f;
 		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
 		public float GuardianHammerCharge = 0f; // Player Warhammer Throw Charge, max is 180f
 		public float GuardianGauntletCharge = 0f; // Player Gauntlet Punch Charge, max is 180f
@@ -162,7 +164,7 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
-			if (GuardianGuard + GuardianGuardRecharging <= GuardianGuardMax / 2f)
+			if (!OverHalfGuards)
 				GuardianGuardRecharging += GuardianGuardRecharge / GuardianRechargeTime;
 			else GuardianGuardRecharging += (-2 + GuardianGuardRecharge) / GuardianRechargeTime;
 			
@@ -177,7 +179,7 @@ namespace OrchidMod
 				GuardianGuardRecharging++;
 			}
 
-			if (GuardianSlam + GuardianSlamRecharging <= GuardianSlamMax / 2f)
+			if (!OverHalfSlams)
 				GuardianSlamRecharging += GuardianSlamRecharge / GuardianRechargeTime;
 			else GuardianSlamRecharging += (-2 + GuardianSlamRecharge) / GuardianRechargeTime;
 
@@ -467,6 +469,7 @@ namespace OrchidMod
 
 		public void AddSlam(int nb = 1)
 		{
+			if (nb > 0 && GuardianSlamRecharging < 0) GuardianSlamRecharging = 0;
 			if (GuardianSlam + nb > GuardianSlamMax) nb = GuardianSlamMax - GuardianSlam;
 			if (nb > 0)
 			{
@@ -479,6 +482,7 @@ namespace OrchidMod
 
 		public void AddGuard(int nb = 1)
 		{
+			if (nb > 0 && GuardianGuardRecharging < 0) GuardianGuardRecharging = 0;
 			if (GuardianGuard + nb > GuardianGuardMax) nb = GuardianGuardMax - GuardianGuard;
 			if (nb > 0)
 			{

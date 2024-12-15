@@ -122,6 +122,17 @@ namespace OrchidMod.Content.Guardian.UI
 					Texture2D texture = modPlayer.GuardianGuard > i ? textureBlockOn : textureBlockOff;
 					drawpos = new Vector2(position.X - offSet + (textureBlockOn.Width + 2) * i, position.Y);
 					spriteBatch.Draw(texture, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+					if (modPlayer.GuardianGuard - 1 == i && modPlayer.GuardianGuardRecharging < 0)
+					{
+						int chargingWidth = (int)(-modPlayer.GuardianGuardRecharging * textureBlockOn.Width + 0.5f);
+						float flash = 0.6f + (float)Math.Sin(player.miscCounterNormalized * 2 * MathHelper.TwoPi) * 0.2f;
+						spriteBatch.Draw(textureBlockOff, drawpos + Vector2.UnitX * (textureBlockOn.Width - chargingWidth), new Rectangle(textureBlockOn.Width - chargingWidth, 0, chargingWidth, textureBlockOn.Height), new Color(flash, flash, flash, 0.6f));
+					}
+					else if (modPlayer.GuardianGuard == i && modPlayer.GuardianGuardRecharging > 0)
+					{
+						float flash = 0.5f + (float)Math.Sin((player.miscCounterNormalized + modPlayer.GuardianGuardRecharging * 1.5f) * 2 * MathHelper.TwoPi) * 0.1f;
+						spriteBatch.Draw(textureBlockOn, drawpos, new Rectangle(0, 0, (int)(modPlayer.GuardianGuardRecharging * textureBlockOn.Width + 0.5f), textureBlockOn.Height), new Color(flash, flash, flash, 0.5f));
+					}
 				}
 
 				offSet = (int)(modPlayer.GuardianSlamMax / 2f * (textureSlamOn.Width + 2));
@@ -136,6 +147,17 @@ namespace OrchidMod.Content.Guardian.UI
 					{
 						drawpos = new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16 * player.gravDir + 2f * (player.gravDir - 1));
 						spriteBatch.Draw(textureSlamHighlight, drawpos, null, (check ? Color.White * 0.8f : Color.DarkGray) * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
+					}
+					if (modPlayer.GuardianSlam - 1 == i && modPlayer.GuardianSlamRecharging < 0)
+					{
+						int chargingWidth = (int)(-modPlayer.GuardianSlamRecharging * textureSlamOn.Width + 0.5f);
+						float flash = 0.6f + (float)Math.Sin(player.miscCounterNormalized * 2 * MathHelper.TwoPi) * 0.2f;
+						spriteBatch.Draw(textureSlamOff, drawpos + Vector2.UnitX * (textureSlamOn.Width - chargingWidth), new Rectangle(textureSlamOn.Width - chargingWidth, 0, chargingWidth, textureSlamOn.Height), new Color(flash, flash, flash, 0.6f));
+					}
+					else if (modPlayer.GuardianSlam == i && modPlayer.GuardianSlamRecharging > 0)
+					{
+						float flash = 0.5f + (float)Math.Sin((player.miscCounterNormalized + modPlayer.GuardianSlamRecharging * 1.5f) * 2 * MathHelper.TwoPi) * 0.1f;
+						spriteBatch.Draw(textureSlamOn, drawpos, new Rectangle(0, 0, (int)(modPlayer.GuardianSlamRecharging * textureSlamOn.Width + 0.5f), textureSlamOn.Height), new Color(flash, flash, flash, 0.5f));
 					}
 				}
 
