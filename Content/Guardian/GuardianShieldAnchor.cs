@@ -154,7 +154,7 @@ namespace OrchidMod.Content.Guardian
 						{
 							if (LineIntersectsRect(p1, p2, proj.Hitbox) || proj.Hitbox.Intersects(Projectile.Hitbox))
 							{
-								guardianItem.Block(owner, Projectile, proj);
+								bool killProj = guardianItem.Block(owner, Projectile, proj);
 								guardian.OnBlockProjectile(Projectile, proj);
 								if (shieldEffectReady)
 								{
@@ -163,7 +163,7 @@ namespace OrchidMod.Content.Guardian
 									shieldEffectReady = false;
 									SoundEngine.PlaySound(SoundID.Item37, owner.Center);
 								}
-								proj.Kill();
+								if (killProj) proj.Kill();
 								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
 							}
 						}

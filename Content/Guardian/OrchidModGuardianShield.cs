@@ -23,15 +23,21 @@ namespace OrchidMod.Content.Guardian
 		public virtual bool PreDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
 
 		public virtual void SafeHoldItem(Player player) { }
-		public virtual void SlamHitFirst(Player player, Projectile shield, NPC npc) { } // Called up to once upon hitting an enemy when slamming
-		public virtual void SlamHit(Player player, Projectile shield, NPC npc) { } // Called upon hitting an enemy when slamming
-		public virtual void Slam(Player player, Projectile shield) { } // Called upon slamming
-		public virtual void Push(Player player, Projectile shield, NPC npc) { } // Called upon pushing an enemy while blocking
-		public virtual void Protect(Player player, Projectile shield) { } // Called up to once when the first projectile is blocked or enemy pushed
-		public virtual void Block(Player player, Projectile shield, Projectile projectile) {  // Called when any projectile is blocked
-			projectile.Kill();
-		}
-		public virtual void BlockStart(Player player, Projectile shield) { }  // Called when the player starts blocking (as they press the left click)
+		/// <summary>Called once per slam, when the slam first hits an enemy.</summary>
+		public virtual void SlamHitFirst(Player player, Projectile shield, NPC npc) { }
+		/// <summary>Called when this shield's slam hits an enemy.</summary>
+		public virtual void SlamHit(Player player, Projectile shield, NPC npc) { }
+		/// <summary>Called on the first frame of a slam slam.</summary>
+		public virtual void Slam(Player player, Projectile shield) { }
+		/// <summary>Called when an enemy collides with the shield during a block. Will be called once per frame per enemy colliding with it.</summary>
+		public virtual void Push(Player player, Projectile shield, NPC npc) { }
+		/// <summary>Called once per block when the first enemy or projectile is blocked. This is called after <c>Push</c> or <c>Block</c>, but before <c>Block</c> destroys the projectile.</summary>
+		public virtual void Protect(Player player, Projectile shield) { }
+		/// <summary>Called when a projectile collides with the shield during a block. Return <c>true</c> to destroy the projectile. Defaults to <c>true</c>.</summary>
+		/// <returns>Whether to destroy the projectile.</returns>
+		public virtual bool Block(Player player, Projectile shield, Projectile projectile) { return true; }
+		/// <summary>Called on the first frame of a block.</summary>
+		public virtual void BlockStart(Player player, Projectile shield) { }
 
 		public float distance = 100f;
 		public float slamDistance = 100f;

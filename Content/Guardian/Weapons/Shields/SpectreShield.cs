@@ -39,7 +39,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			}
 		}
 
-		public override void Block(Player player, Projectile shield, Projectile projectile)
+		public override bool Block(Player player, Projectile shield, Projectile projectile)
 		{
 			if (IsLocalPlayer(player))
 			{
@@ -47,8 +47,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				int type = ModContent.ProjectileType<SpectreShieldProj>();
 				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(30f)) * Item.shootSpeed;
 				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center + Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f), dir, type, (int)(shield.damage * 0.4f), Item.knockBack, player.whoAmI);
-
 			}
+			return true;
 		}
 
 		public override void AddRecipes()
