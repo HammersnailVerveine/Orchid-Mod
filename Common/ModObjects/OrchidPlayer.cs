@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using OrchidMod.Content.General.Projectiles;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -57,7 +59,8 @@ namespace OrchidMod.Common.ModObjects
 		public ref int DoubleTappedRight => ref DoubleTapped[2];
 		/// <summary> Set to 15 after a double tap. Decremented every frame.</summary>
 		public ref int DoubleTappedLeft => ref DoubleTapped[3];
-
+		/// <summary>List of current Orchid Titanium Shards owned by this player.</summary>
+		public List<Projectile> TitaniumShards = new List<Projectile>();
 
 		// Equipment Fields (General)
 
@@ -171,6 +174,13 @@ namespace OrchidMod.Common.ModObjects
 				}
 				else if (DoubleTapping[i] > 0) DoubleTapping[i]--;
 			}
+			TitaniumShards.RemoveAll(p => !p.active || p.type != ModContent.ProjectileType<OrchidTitaniumShard>());
+			int index = 0;
+			foreach (Projectile shard in TitaniumShards)
+			{
+				shard.ai[0] = index / (float)TitaniumShards.Count;
+				index++;
+			}
 		}
 
 		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
@@ -212,6 +222,18 @@ namespace OrchidMod.Common.ModObjects
 					Player.HealEffect(amount, true);
 					Player.statLife += amount;
 				}
+			}
+		}
+
+		///<summary>Spawns custom Orchid Titanium Shards, and refreshes the player's Titanium Barrier buff.</summary>
+		public void SpawnTitaniumShards(IEntitySource source, int count = 1, int maxCount = 8)
+		{
+			Player.AddBuff(BuffID.TitaniumStorm, 600);
+			if (TitaniumShards.Count + count > maxCount) count = maxCount - TitaniumShards.Count;
+			if (count < 1) return;
+			for (int i = 0; i < count; i++)
+			{
+				Projectile.NewProjectileDirect(source, Player.Center, Vector2.Zero, ModContent.ProjectileType<OrchidTitaniumShard>(), 50, 15f, Player.whoAmI);
 			}
 		}
 	}

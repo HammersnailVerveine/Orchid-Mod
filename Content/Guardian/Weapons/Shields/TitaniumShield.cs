@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using OrchidMod.Common.ModObjects;
+using Terraria;
 using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
@@ -13,12 +14,34 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item73;
 			Item.knockBack = 12f;
-			Item.damage = 201;
+			Item.damage = 160;
 			Item.rare = ItemRarityID.LightRed;
 			Item.useTime = 30;
 			distance = 55f;
 			slamDistance = 120f;
-			blockDuration = 240;
+			blockDuration = 200;
+			shouldFlip = true;
+		}
+
+		public override void Protect(Player player, Projectile shield)
+		{
+			player.GetModPlayer<OrchidPlayer>().SpawnTitaniumShards(shield.GetSource_FromThis());
+			Terraria.Audio.SoundEngine.PlaySound(SoundID.Item20, player.Center);
+		}
+
+		public override bool Block(Player player, Projectile shield, Projectile projectile)
+		{
+			player.GetModPlayer<OrchidPlayer>().SpawnTitaniumShards(shield.GetSource_FromThis());
+			return true;
+		}
+
+		public override void Slam(Player player, Projectile shield)
+		{
+			if (player.GetModPlayer<OrchidGuardian>().GuardianCounterTime > 0)
+			{
+				player.GetModPlayer<OrchidPlayer>().SpawnTitaniumShards(shield.GetSource_FromThis(), 4);
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.Item82, player.Center);
+			}
 		}
 
 		public override void AddRecipes()

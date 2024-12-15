@@ -2609,8 +2609,8 @@ Items: {
 	}
 
 	TitaniumShield: {
-		DisplayName: Titanium Pavise
-		Tooltip: ""
+		DisplayName: Titanium Aegis
+		Tooltip: Blocking or counterattacking generates a barrier of titanium shards
 	}
 
 	ChlorophyteShield: {
@@ -3739,6 +3739,7 @@ Projectiles: {
 	ThoriumLeafShieldProj.DisplayName: Razor Leaves
 	DungeonQuarterstaffProjectile.DisplayName: Dungeon Quarterstaff Projectile
 	ShardQuarterstaffProjectile.DisplayName: Shard Quarterstaff Projectile
+	OrchidTitaniumShard.DisplayName: Titanium Shard
 }
 
 Configs: {
