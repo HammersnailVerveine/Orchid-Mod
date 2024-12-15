@@ -44,6 +44,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 		}
 
+		public override void ExtraAIGauntlet(Projectile projectile)
+		{
+			if (Main.player[projectile.owner].mount.Type == MountID.None) Main.player[projectile.owner].armorEffectDrawShadow = true;
+		}
+
 		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
 		{
 			guardian.modPlayer.TryHeal(charged ? 10 : 5);

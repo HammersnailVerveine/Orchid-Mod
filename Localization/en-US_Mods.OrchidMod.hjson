@@ -3368,7 +3368,7 @@ Items: {
 		DisplayName: Ultra Pro 9000X
 		Tooltip:
 			'''
-			Turns knockback vulnerable enemies into projectiles
+			Fully charging turns struck enemies into projectiles
 			'The high-accuracy stick of hockey champions'
 			'''
 	}

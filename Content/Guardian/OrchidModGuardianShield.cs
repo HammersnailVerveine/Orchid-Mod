@@ -27,7 +27,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void SlamHitFirst(Player player, Projectile shield, NPC npc) { }
 		/// <summary>Called when this shield's slam hits an enemy.</summary>
 		public virtual void SlamHit(Player player, Projectile shield, NPC npc) { }
-		/// <summary>Called on the first frame of a slam slam.</summary>
+		/// <summary>Called on the first frame of a slam.</summary>
 		public virtual void Slam(Player player, Projectile shield) { }
 		/// <summary>Called when an enemy collides with the shield during a block. Will be called once per frame per enemy colliding with it.</summary>
 		public virtual void Push(Player player, Projectile shield, NPC npc) { }

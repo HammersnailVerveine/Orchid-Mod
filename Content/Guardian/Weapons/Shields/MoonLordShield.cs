@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using System;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +16,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 		public float originalHeight;
 		public int TimeSpent;
 
-		public Color Color => new Color(Main.DiscoR / 2, (byte)(Main.DiscoG / 1.25f), (byte)(Main.DiscoB / 1.5f));
+		public Color Color => new Color((byte)(Main.DiscoR / 1.25f), (byte)(Main.DiscoG / 1.25f), (byte)(Main.DiscoB / 1.25f), 200);
 
 		public override void SafeSetDefaults()
 		{
@@ -24,7 +25,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.height = 52;
 			Item.UseSound = SoundID.Item115;
 			Item.knockBack = 6f;
-			Item.damage = 963;
+			Item.damage = 1337;
 			Item.rare = ItemRarityID.Red;
 			Item.useTime = 24;
 			distance = 26f;
@@ -64,11 +65,16 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			spriteBatch.DrawSimpleItemGlowmaskInWorld(Item, Color, rotation, scale);
 		}
 
+		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+		{
+			 Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture + "_Glow").Value, position, frame, Color, 0, new Vector2(frame.Width / 2, frame.Height / 2), scale, SpriteEffects.None);
+		}
+
 		public override void ExtraAIShield(Projectile projectile)
 		{
 			if (projectile.ai[1] > 0f) // is slamming
 			{
-
+				projectile.rotation += projectile.ai[1] * 0.20944f; //approximately 4pi / 60, so it rotates 2 times as it decreases from the base value of 60
 				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.RainbowMk2, newColor: Color);
 				dust.noGravity = true;
 				dust.velocity *= 0.5f;
@@ -121,7 +127,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 
 					owner.velocity.Y = -0.4f;
 					if (originalHeight != 0f) owner.position.Y = originalHeight;
-					if (TimeSpent % 21 == 0) SoundEngine.PlaySound(SoundID.Item24, projectile.Center);
+					if (TimeSpent % 40 == 1) SoundEngine.PlaySound(SoundID.DD2_DarkMageCastHeal, projectile.Center);
 
 					if (playerVelocity != 0)
 					{

@@ -16,11 +16,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.rare = ItemRarityID.Pink;
 			Item.useTime = 10;
 			ParryDuration = 60;
-			Item.knockBack = 10f;
+			Item.knockBack = 12f;
 			Item.damage = 114;
 			GuardStacks = 1;
 			SingleSwing = true;
 			SwingSpeed = 1.5f;
+			JabSpeed = 1.3f;
 			SwingDamage = 3f;
 		}
 
