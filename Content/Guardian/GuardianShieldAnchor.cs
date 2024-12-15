@@ -118,7 +118,6 @@ namespace OrchidMod.Content.Guardian
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.ResetLocalNPCHitImmunity();
 						Projectile.friendly = true;
-						guardian.GuardianCounterTime = 0;
 
 						if (IsLocalOwner)
 						{
@@ -265,6 +264,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					isSlamming = 2;
 					guardianItem.Slam(owner, Projectile);
+					guardian.GuardianCounterTime = 0;
 				} 
 
 				UpdateHitbox();
@@ -366,7 +366,7 @@ namespace OrchidMod.Content.Guardian
 				var drawPosition = Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 				float colorMult = (Projectile.ai[1] + Projectile.ai[0] > 0 ? 1f : (0.4f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 120f)));
-				float flippedRotation = Projectile.rotation += Projectile.spriteDirection == 1 ? 0 : MathHelper.Pi;
+				float flippedRotation = Projectile.rotation + (Projectile.spriteDirection == 1 ? 0 : MathHelper.Pi);
 				spriteBatch.Draw(texture, drawPosition, null, color * colorMult, flippedRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawShield(spriteBatch, Projectile, player, color);

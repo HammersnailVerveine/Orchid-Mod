@@ -34,7 +34,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 
 		public override void UpdateArmorSet(Player player)
 		{
-			Language.GetTextValue("ArmorSetBonus.Titanium");
+			player.setBonus = Language.GetTextValue("ArmorSetBonus.Titanium");
 			player.armorEffectDrawShadow = true;
 			player.onHitTitaniumStorm = true;
 		}
