@@ -1,5 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Microsoft.Xna.Framework;
+using System;
+using Terraria.ModLoader;
+using OrchidMod.Content.Guardian.Projectiles.Warhammers;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
@@ -13,13 +17,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.rare = ItemRarityID.LightRed;
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 12f;
-			Item.shootSpeed = 10f;
+			Item.shootSpeed = 8f;
 			Item.damage = 252;
-			Item.useTime = 35;
-			Range = 35;
-			BlockStacks = 2;
-			SlamStacks = 1;
-			ReturnSpeed = 1.25f;
+			Item.useTime = 38;
+			Range = 60;
+			GuardStacks = 1;
+			SlamStacks = 2;
+			Penetrate = true;
 		}
 
 		public override void AddRecipes()

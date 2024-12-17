@@ -14,7 +14,7 @@ namespace OrchidMod.Content.Guardian
 	{
 		public int Range;
 		public int SlamStacks;
-		public int BlockStacks;
+		public int GuardStacks;
 		public bool Penetrate;
 		public bool TileCollide;
 		public float ReturnSpeed;
@@ -92,20 +92,39 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			if (BlockStacks > 0) {
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.BlockStacks + " guard" + (this.BlockStacks > 1 ? "s" : "") + " when fully charged")
+			if (GuardStacks > 0 || SlamStacks > 0)
+			{
+				string TooltipToGet = GetInstance<OrchidMod>().GetLocalizationKey("Misc.GuardianGrants");
+				switch(GuardStacks)
+				{
+					case 1: TooltipToGet += "Guard"; break;
+					case >1: TooltipToGet += "Guards"; break;
+				}
+				switch (SlamStacks)
+				{
+					case 1: TooltipToGet += "Slam"; break;
+					case >1: TooltipToGet += "Slams"; break;
+				}
+				if (GuardStacks == SlamStacks) TooltipToGet += "Same";
+
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "GuardianGrants", Language.GetText(TooltipToGet).Format(GuardStacks, SlamStacks))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
 
-			if (SlamStacks > 0)
+				/*tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + (GuardStacks > 0 ? GuardStacks + " guard" + (GuardStacks > 1 ? "s" : "") + (SlamStacks > 0 ? " and " : "") : "") + (SlamStacks > 0 ? (GuardStacks != SlamStacks ? SlamStacks + " " : "") + "slam" + (SlamStacks > 1 ? "s" : "") : "") + " when fully charged")
+				{
+					OverrideColor = new Color(175, 255, 175)
+				});*/
+
+			/*if (SlamStacks > 0)
 			{
 				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.SlamStacks + " slam" + (this.SlamStacks > 1 ? "s" : "") + " when fully charged")
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
-			}
+			}*/
 
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "Swing", "Charge to throw, right click to swing while charging")
 			{

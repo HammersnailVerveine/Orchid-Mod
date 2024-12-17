@@ -367,7 +367,7 @@ namespace OrchidMod.Content.Guardian
 					if (!weak)
 					{
 						guardian.AddSlam(HammerItem.SlamStacks);
-						guardian.AddGuard(HammerItem.BlockStacks);
+						guardian.AddGuard(HammerItem.GuardStacks);
 					}
 					hitTarget = true;
 					HammerItem.OnThrowHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit, weak);

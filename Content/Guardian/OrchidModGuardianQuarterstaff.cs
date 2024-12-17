@@ -194,21 +194,34 @@ namespace OrchidMod.Content.Guardian
 				OverrideColor = new Color(175, 255, 175)
 			});
 
-			if (GuardStacks > 0)
+			if (GuardStacks > 0 || SlamStacks > 0)
 			{
-				tooltips.Insert(index + 4, new TooltipLine(Mod, "ShieldStacks", "Grants " + this.GuardStacks + " guard" + (this.GuardStacks > 1 ? "s" : "") + " when fully charged")
+				string TooltipToGet = ModContent.GetInstance<OrchidMod>().GetLocalizationKey("Misc.GuardianGrants");
+				switch(GuardStacks)
+				{
+					case 1: TooltipToGet += "Guard"; break;
+					case >1: TooltipToGet += "Guards"; break;
+				}
+				switch (SlamStacks)
+				{
+					case 1: TooltipToGet += "Slam"; break;
+					case >1: TooltipToGet += "Slams"; break;
+				}
+				if (GuardStacks == SlamStacks) TooltipToGet += "Same";
+
+				tooltips.Insert(index + 1, new TooltipLine(Mod, "GuardianGrants", Language.GetText(TooltipToGet).Format(GuardStacks, SlamStacks))
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
 
-			if (SlamStacks > 0)
+			/*if (SlamStacks > 0)
 			{
 				tooltips.Insert(index + 4, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.SlamStacks + " slam" + (this.SlamStacks > 1 ? "s" : "") + " when fully charged")
 				{
 					OverrideColor = new Color(175, 255, 175)
 				});
-			}
+			}*/
 		}
 	}
 }
