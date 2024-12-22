@@ -263,6 +263,7 @@ namespace OrchidMod
 			GuardianHoneyPotion = false;
 			GuardianWormTooth = false;
 			GuardianMonsterFang = false;
+			GuardianInfiniteResources = false;
 		}
 
 		public override void PreUpdateMovement()

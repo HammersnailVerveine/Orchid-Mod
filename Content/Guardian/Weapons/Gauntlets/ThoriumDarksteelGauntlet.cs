@@ -65,7 +65,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage)
 		{
 			damage = (int)Math.Max(1, damage * player.statDefense / 100f);
-			projectile.velocity *= 1 + player.statDefense / 100f;
+			//for some god forsaken reason this always gets rounded which leads to 150 defense being a massive breakpoint. needs to be looked into more
+			strikeVelocity = 15f * (1f + player.statDefense / 100f);
 			return true;
 		}
 		public override void AddRecipes()
