@@ -3407,6 +3407,11 @@ Items: {
 			'''
 	}
 
+	GuardianAncientHallowedHead: {
+		DisplayName: Ancient Hallowed Greathelm
+		Tooltip: ""
+	}
+
 	ThoriumGraniteGauntlet: {
 		DisplayName: Granite Feedbacker
 		Tooltip:

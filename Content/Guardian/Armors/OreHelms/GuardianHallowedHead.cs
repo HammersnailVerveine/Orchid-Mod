@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class GuardianHallowedHead : OrchidModGuardianEquipable
+	public class GuardianAncientHallowedHead : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{
@@ -48,7 +48,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.HallowedBar, 12);
-			recipe.AddTile(TileID.MythrilAnvil);
+			recipe.AddTile(TileID.DemonAltar);
 			recipe.Register();
 		}
 	}

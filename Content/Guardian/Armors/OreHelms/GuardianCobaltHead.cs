@@ -13,6 +13,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 		public override void SetStaticDefaults()
 		{
 			SetBonusText = this.GetLocalization("SetBonus");
+			ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 		}
 
 		public override void SafeSetDefaults()

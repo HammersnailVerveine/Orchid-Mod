@@ -6,47 +6,48 @@ using Terraria.ModLoader;
 namespace OrchidMod.Content.Guardian.Armors.OreHelms
 {
 	[AutoloadEquip(EquipType.Head)]
-	public class GuardianOrichalcumHead : OrchidModGuardianEquipable
+	public class GuardianHallowedHead : OrchidModGuardianEquipable
 	{
-		public override void SetStaticDefaults()
-		{
-			ArmorIDs.Head.Sets.DrawHead[Item.headSlot] = false;
-		}
-
 		public override void SafeSetDefaults()
 		{
-			Item.width = 28;
-			Item.height = 24;
-			Item.value = Item.sellPrice(0, 2, 25, 0);
-			Item.rare = ItemRarityID.LightRed;
-			Item.defense = 21;
+			Item.width = 22;
+			Item.height = 22;
+			Item.value = Item.sellPrice(0, 5, 0, 0);
+			Item.rare = ItemRarityID.Pink;
+			Item.defense = 26;
 		}
 
 		public override void UpdateEquip(Player player)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			player.GetCritChance<GuardianDamageClass>() += 12;
-			player.GetAttackSpeed<MeleeDamageClass>() += 0.12f;
-			modPlayer.GuardianSlamMax += 1;
-			modPlayer.GuardianGuardMax += 1;
+			player.GetDamage<GuardianDamageClass>() += 0.12f;
+			modPlayer.GuardianSlamMax += 2;
+			modPlayer.GuardianGuardMax += 2;
 			player.aggro += 500;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == ItemID.OrichalcumBreastplate && legs.type == ItemID.OrichalcumLeggings;
+			return body.type == ItemID.HallowedPlateMail && legs.type == ItemID.HallowedGreaves;
 		}
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = Language.GetTextValue("ArmorSetBonus.Orichalcum");
-			player.onHitPetal = true;
+			player.setBonus = Language.GetTextValue("ArmorSetBonus.Hallowed");
+			player.armorEffectDrawShadow = true;
+			player.onHitDodge = true;
+		}
+
+		public override void ArmorSetShadows(Player player)
+		{
+			player.armorEffectDrawOutlines = true;
 		}
 
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.OrichalcumBar, 12);
+			recipe.AddIngredient(ItemID.HallowedBar, 12);
 			recipe.AddTile(TileID.MythrilAnvil);
 			recipe.Register();
 		}

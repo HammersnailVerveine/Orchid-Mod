@@ -11,7 +11,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 		public override void SafeSetDefaults()
 		{
 			Item.width = 22;
-			Item.height = 22;
+			Item.height = 26;
 			Item.value = Item.sellPrice(0, 1, 50, 0);
 			Item.rare = ItemRarityID.LightRed;
 			Item.defense = 16;
