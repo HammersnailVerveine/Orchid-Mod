@@ -3406,6 +3406,15 @@ Items: {
 			'Great for impersonating Orchid Devs!'
 			'''
 	}
+
+	ThoriumGraniteGauntlet: {
+		DisplayName: Granite Feedbacker
+		Tooltip:
+			'''
+			Slam projectiles or rapidly approaching enemies to deflect them
+			Deflecting consumes a guard and grants a slam
+			'''
+	}
 }
 
 NPCs: {
@@ -3740,6 +3749,7 @@ Projectiles: {
 	DungeonQuarterstaffProjectile.DisplayName: Dungeon Quarterstaff Projectile
 	ShardQuarterstaffProjectile.DisplayName: Shard Quarterstaff Projectile
 	OrchidTitaniumShard.DisplayName: Titanium Shard
+	ThoriumGraniteGauntletProjectile.DisplayName: Chargeback
 }
 
 Configs: {

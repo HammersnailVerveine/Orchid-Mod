@@ -1,5 +1,5 @@
 author = Verveine, Amber
-version = 1.5.0.2
+version = 1.5.1
 displayName = Orchid Mod
 hideCode = true
 hideResources = true
