@@ -24,7 +24,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool jabAttack, bool counterAttack) { } // Called when hitting the first target for the first time during an attack
 		public virtual void QuarterstaffModifyHitNPC(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, ref NPC.HitModifiers modifiers, bool jabAttack, bool counterAttack, bool firstHit) { } // anchor's modifyhitNPC
 		public virtual void OnAttack(Player player, OrchidGuardian guardian, Projectile projectile, bool jabAttack, bool counterAttack) { } // Called on the first frame of an attack
-		public virtual void OnParryQuarterstaff(Player player, OrchidGuardian guardian, Player.HurtInfo info, Projectile anchor) { } // Called on parrying anything
+		public virtual void OnParryQuarterstaff(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) { } // Called on parrying anything
 		public virtual void ExtraAIQuarterstaff(Player player, OrchidGuardian guardian, Projectile projectile) { } // Called at the end of the Anchor Projectile AI
 		public virtual void PostDrawQuarterstaff(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { } // Called after the item is done being drawn
 		public virtual bool PreDrawQuarterstaff(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; } // Return false to prevent normal draw code
@@ -71,11 +71,11 @@ namespace OrchidMod.Content.Guardian
 			return true;
 		}
 
-		public sealed override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info, Projectile anchor)
+		public sealed override void OnParry(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor)
 		{
 			anchor.ai[2] = -40f;
 			(anchor.ModProjectile as GuardianQuarterstaffAnchor).NeedNetUpdate = true;
-			OnParryQuarterstaff(player, guardian, info, anchor);
+			OnParryQuarterstaff(player, guardian, aggressor, anchor);
 		}
 
 		public override bool WeaponPrefix() => true;

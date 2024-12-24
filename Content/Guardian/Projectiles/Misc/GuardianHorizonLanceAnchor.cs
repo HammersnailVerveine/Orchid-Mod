@@ -206,8 +206,19 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 						guardian.GuardianGauntletParry2 = true;
 
 						Projectile.ai[0]--;
-						if (Projectile.ai[0] <= 1f || owner.immune)
+						if (owner.immune)
 						{
+							if (owner.eocHit != -1)
+							{
+								guardian.DoParryItemParry(Main.npc[owner.eocHit]);
+							}
+							else
+							{
+								guardian.GuardianGuardRecharging += Projectile.ai[2] / guardianItem.ParryDuration;
+								Rectangle rect = owner.Hitbox;
+								rect.Y -= 64;
+								CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, "Interrupted", false, true);
+							}
 							Projectile.ai[0] = 0f;
 
 							Vector2 pos = new Vector2(Projectile.position.X, Projectile.position.Y);
@@ -217,6 +228,10 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 								dust.scale *= 0.75f;
 								dust.velocity *= 0.25f;
 							}
+						}
+						else if (Projectile.ai[0] <= 0f)
+						{
+							Projectile.ai[0] = 0f;
 						}
 
 						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(8f * owner.direction, -15);

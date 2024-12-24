@@ -131,11 +131,25 @@ namespace OrchidMod.Content.Guardian
 						OldRotation.RemoveAt(0);
 					}
 
-					Projectile.ai[2] --;
-
-					if (Projectile.ai[2] <= 0 || owner.immune)
+					Projectile.ai[2]--;
+					if (owner.immune)
 					{
-						Projectile.ai[2] = 0f;
+						if (owner.eocHit != -1)
+						{
+							guardian.DoParryItemParry(Main.npc[owner.eocHit]);
+						}
+						else
+						{
+							guardian.GuardianGuardRecharging += Projectile.ai[2] / guardianItem.ParryDuration;
+							Rectangle rect = owner.Hitbox;
+							rect.Y -= 64;
+							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, "Interrupted", false, true);
+						}
+						Projectile.ai[0] = 0f;
+					}
+					else if (Projectile.ai[0] <= 0f)
+					{
+						Projectile.ai[0] = 0f;
 					}
 
 					if (Projectile.scale > 1f)

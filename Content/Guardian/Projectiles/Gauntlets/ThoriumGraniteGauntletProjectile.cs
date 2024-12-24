@@ -6,6 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
+using System;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 {
@@ -104,10 +105,11 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			{
 				int flashTimeLeft = Projectile.timeLeft - 120;
 				Main.instance.LoadProjectile(79);
-				Main.EntitySpriteDraw(TextureAssets.Projectile[79].Value, Projectile.Center - Main.screenPosition, null, new Color(0.5f, 0.5f, 0.5f, 0f), Projectile.rotation, new Vector2(27), flashTimeLeft * 0.5f, SpriteEffects.None);
+				Main.EntitySpriteDraw(TextureAssets.Projectile[79].Value, Projectile.Center - Main.screenPosition, null, new Color(0.5f, 0.5f, 0.5f, 0f) * (flashTimeLeft * 0.2f), Projectile.rotation, new Vector2(27), flashTimeLeft * 0.5f, SpriteEffects.None);
+				Lighting.AddLight(Projectile.Center, new Vector3(flashTimeLeft * 0.5f));
 			}
 			if (Projectile.timeLeft > 20) return false;
-			Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture).Value, Projectile.Center - Main.screenPosition, null, new Color(0f, 0.5f, 1f, 0f) * (Projectile.timeLeft * 0.5f), 0, new Vector2(64), 2f - (Projectile.timeLeft * 0.1f), SpriteEffects.None);
+			Main.EntitySpriteDraw(ModContent.Request<Texture2D>(Texture).Value, Projectile.Center - Main.screenPosition, null, new Color(0.1f, 0.5f, 1f, 0f) * (Projectile.timeLeft * 0.1f), 0, new Vector2(64), 2f * (float)Math.Cos(Projectile.timeLeft * 0.075), SpriteEffects.None);
 			return false;
 		}
 

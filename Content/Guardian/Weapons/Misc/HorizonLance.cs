@@ -58,22 +58,21 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			recipe.Register();
 		}
 
-		public override void OnParry(Player player, OrchidGuardian guardian, Player.HurtInfo info, Projectile anchor) 
+		public override void OnParry(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) 
 		{
 			if (player.statDefense > 10) guardian.modPlayer.TryHeal((int)(player.statDefense * 0.1f));
 			SoundEngine.PlaySound(SoundID.Item68, player.Center);
-			info.DamageSource.TryGetCausingEntity(out Entity entity);
 
 			Vector2 offset = Vector2.UnitY;
 
-			if (entity != null)
+			if (aggressor != null)
 			{
-				if (entity is NPC npc)
+				if (aggressor is NPC npc)
 				{
 					offset = offset.RotatedBy((npc.Center - player.Center).ToRotation() - MathHelper.PiOver2);
 				}
 
-				if (entity is Projectile projectile)
+				if (aggressor is Projectile projectile)
 				{
 					//offset = offset.RotatedBy((projectile.Center - player.Center).ToRotation() - MathHelper.PiOver2);
 					offset = Vector2.Normalize(-projectile.velocity);

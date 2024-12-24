@@ -414,53 +414,8 @@ namespace OrchidMod
 		{
 			if (GuardianGauntletParry)
 			{
-				SoundEngine.PlaySound(SoundID.Item37, Player.Center);
-				GuardianGauntletParry = false;
-				GuardianGauntletParry2 = false;
-
-				if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
-				{
-					modPlayer.PlayerImmunity = parryItem.InvincibilityDuration;
-					Player.immuneTime = parryItem.InvincibilityDuration;
-					Player.immune = true;
-
-					Projectile proj = null;
-					int[] anchorTypes = [ModContent.ProjectileType<GuardianQuarterstaffAnchor>(), ModContent.ProjectileType<GuardianGauntletAnchor>(), ModContent.ProjectileType<GuardianHorizonLanceAnchor>()];
-
-					foreach (int type in anchorTypes)
-					{
-						if (Player.ownedProjectileCounts[type] > 0)
-						{
-							proj = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && (i.type == type));
-							break;
-						}
-					}
-
-					if (proj != null)
-					{
-						parryItem.OnParry(Player, this, info, proj);
-
-						info.DamageSource.TryGetCausingEntity(out Entity entity);
-						if (entity != null)
-						{
-							int toAdd = (proj.type == anchorTypes[0]) ? 0 : 1; // Gives 0 slam for a quarterstaff parry, 1 for other items
-
-							if (entity is NPC npc)
-							{
-								parryItem.OnParryNPC(Player, this, npc, info, proj);
-								OnBlockNPC(proj, npc);
-								OnBlockNPCFirst(proj, npc, toAdd);
-							}
-
-							if (entity is Projectile projectile)
-							{
-								parryItem.OnParryProjectile(Player, this, projectile, info, proj);
-								OnBlockProjectile(proj, projectile);
-								OnBlockProjectileFirst(proj, projectile, toAdd);
-							}
-						}
-					}
-				}
+				info.DamageSource.TryGetCausingEntity(out Entity entity);
+				DoParryItemParry(entity);
 				return true;
 			}
 
@@ -675,6 +630,61 @@ namespace OrchidMod
 				if (GuardianSpikeTemple || GuardianSpikeMechanical)
 				{
 					Player.AddBuff(ModContent.BuffType<GuardianSpikeBuff>(), 600);
+				}
+			}
+		}
+
+		public void DoParryItemParry(Entity aggressor)
+		{
+			SoundEngine.PlaySound(SoundID.Item37, Player.Center);
+			GuardianGauntletParry2 = false;
+
+			if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
+			{
+				modPlayer.PlayerImmunity = parryItem.InvincibilityDuration;
+				Player.immuneTime = parryItem.InvincibilityDuration;
+				Player.immune = true;
+
+				Projectile anchor = null;
+				int[] anchorTypes = [ModContent.ProjectileType<GuardianQuarterstaffAnchor>(), ModContent.ProjectileType<GuardianGauntletAnchor>(), ModContent.ProjectileType<GuardianHorizonLanceAnchor>()];
+
+				foreach (int type in anchorTypes)
+				{
+					if (Player.ownedProjectileCounts[type] > 0)
+					{
+						anchor = Main.projectile.First(i => i.active && i.owner == Player.whoAmI && (i.type == type));
+						break;
+					}
+				}
+
+				if (anchor != null)
+				{
+					parryItem.OnParry(Player, this, aggressor, anchor);
+
+					if (aggressor != null)
+					{
+						int toAdd = (anchor.type == anchorTypes[0]) ? 0 : 1; // Gives 0 slam for a quarterstaff parry, 1 for other items
+
+						if (aggressor is NPC npc)
+						{
+							parryItem.OnParryNPC(Player, this, npc, anchor);
+							OnBlockNPC(anchor, npc);
+							OnBlockNPCFirst(anchor, npc, toAdd);
+						}
+						else if (aggressor is Projectile projectile)
+						{
+							parryItem.OnParryProjectile(Player, this, projectile, anchor);
+							OnBlockProjectile(anchor, projectile);
+							OnBlockProjectileFirst(anchor, projectile, toAdd);
+						}
+						else
+						{
+							parryItem.OnParryOther(Player, this, anchor);
+							OnBlockAny(anchor);
+							OnBlockAnyFirst(anchor, ref toAdd);
+							AddSlam(toAdd);
+						}
+					}
 				}
 			}
 		}
