@@ -116,37 +116,37 @@ namespace OrchidMod.Content.Guardian
 					{
 						if (owner.eocHit != -1)
 						{
-							guardian.DoParryItemParry(Main.npc[owner.eocHit]);
+							guardian.DoParryItemParry(Main.npc[owner.eocHit]); //this resets both gauntlets' parry state
 						}
 						else
 						{
+							Projectile.ai[0] = 0f;
 							guardian.GuardianGuardRecharging += Projectile.ai[0] / guardianItem.parryDuration;
 							Rectangle rect = owner.Hitbox;
 							rect.Y -= 64;
 							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, "Interrupted", false, true);
-						}
-						Projectile.ai[0] = 0f;
-						if (OffHandGauntlet)
-						{
-							//Main.NewText("Starting sweep from offhand gauntlet projectile[" + Projectile.whoAmI + "] for mainhand gauntlet");
-							for (int i = Projectile.whoAmI + 1; i < Main.maxProjectiles; i++)
+							if (OffHandGauntlet)
 							{
-								if (Main.projectile[i].active && Main.projectile[i].owner == Projectile.owner && Main.projectile[i].ModProjectile is GuardianGauntletAnchor offhand)
+								//Main.NewText("Starting sweep from offhand gauntlet projectile[" + Projectile.whoAmI + "] for mainhand gauntlet");
+								for (int i = Projectile.whoAmI + 1; i < Main.maxProjectiles; i++)
 								{
-									//Main.NewText("Found at projectile[" + i + "]!");
-									if (offhand.Blocking)
+									if (Main.projectile[i].active && Main.projectile[i].owner == Projectile.owner && Main.projectile[i].ModProjectile is GuardianGauntletAnchor offhand)
 									{
-										Main.projectile[i].ai[0] = 0f;
-										//Main.NewText("Disabling mainhand gauntlet parry");
+										//Main.NewText("Found at projectile[" + i + "]!");
+										if (offhand.Blocking)
+										{
+											Main.projectile[i].ai[0] = 0f;
+											//Main.NewText("Disabling mainhand gauntlet parry");
+											break;
+										}
+										//Main.NewText("Mainhand gauntlet not parrying, exiting");
 										break;
 									}
-									//Main.NewText("Mainhand gauntlet not parrying, exiting");
-									break;
 								}
+								//Main.NewText("Sweep done");
 							}
-							//Main.NewText("Sweep done");
+							//else Main.NewText("Sweep initiated from mainhand gauntlet (projectile[" + Projectile.whoAmI + "]), ignoring");
 						}
-						//else Main.NewText("Sweep initiated from mainhand gauntlet (projectile[" + Projectile.whoAmI + "]), ignoring");
 					}
 					else if (Projectile.ai[0] <= 0f)
 					{

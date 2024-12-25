@@ -60,6 +60,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 		public override void OnParry(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) 
 		{
+			anchor.ai[0] = 0;
+
 			if (player.statDefense > 10) guardian.modPlayer.TryHeal((int)(player.statDefense * 0.1f));
 			SoundEngine.PlaySound(SoundID.Item68, player.Center);
 

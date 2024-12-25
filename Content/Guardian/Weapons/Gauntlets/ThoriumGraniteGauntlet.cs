@@ -88,8 +88,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 					SoundEngine.PlaySound(SoundID.Item37.WithPitchOffset(0.5f), player.Center);
 					//SoundEngine.PlaySound(SoundID.Item106.WithPitchOffset(0.2f), player.Center);
 					//SoundEngine.PlaySound(SoundID.Item72, player.Center);
-					player.GetModPlayer<OrchidPlayer>().PlayerImmunity = player.immuneTime = InvincibilityDuration;
-					player.immune = true;
+					//player.GetModPlayer<OrchidPlayer>().PlayerImmunity = player.immuneTime = InvincibilityDuration;
+					//player.immune = true;
+					guardian.DoParryItemParry(null);
 					Projectile counterProj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), projectile.Center + strikeVelocity * 4, Vector2.Zero, ModContent.ProjectileType<ThoriumGraniteGauntletProjectile>(), Math.Clamp(highestDeflectedDamage, punchDamage, 1000), Item.knockBack, projectile.owner, instantExplode ? 1 : 0);
 					counterProj.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 					return false;

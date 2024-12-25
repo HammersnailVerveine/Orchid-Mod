@@ -27,6 +27,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage) => true; // Return false to prevent normal punch projectiles from spawning
+		public virtual void OnParryGauntlet(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) { }
 		public virtual bool ProjectileAI(Player player, Projectile projectile, bool charged) => true;
 		public virtual void ExtraAIGauntlet(Projectile projectile) { }
 		public virtual void PostDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
@@ -60,6 +61,20 @@ namespace OrchidMod.Content.Guardian
 		public override bool AltFunctionUse(Player player)
 		{
 			return true;
+		}
+
+		public sealed override void OnParry(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor)
+		{
+			int[] anchors = GetAnchors(player);
+			for (int i = 0; i < 2; i++)
+			{
+				if (Main.projectile[anchors[i]].ai[0] > 0)
+				{
+					Main.projectile[anchors[i]].ai[0] = 0;
+					Main.projectile[anchors[i]].netUpdate = true;
+				}
+			}
+			OnParryGauntlet(player, guardian, aggressor, anchor);
 		}
 
 		public override bool WeaponPrefix() => true;

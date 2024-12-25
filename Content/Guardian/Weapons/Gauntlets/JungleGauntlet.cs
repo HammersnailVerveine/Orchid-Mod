@@ -27,7 +27,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			return new Color(143, 215, 29);
 		}
 
-		public override void OnParry(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor)
+		public override void OnParryGauntlet(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor)
 		{
 			player.AddBuff(ModContent.BuffType<GuardianJungleGauntletBuff>(), 120);
 		}

@@ -140,16 +140,16 @@ namespace OrchidMod.Content.Guardian
 						}
 						else
 						{
+							Projectile.ai[2] = 0f;
 							guardian.GuardianGuardRecharging += Projectile.ai[2] / guardianItem.ParryDuration;
 							Rectangle rect = owner.Hitbox;
 							rect.Y -= 64;
 							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, "Interrupted", false, true);
 						}
-						Projectile.ai[0] = 0f;
 					}
-					else if (Projectile.ai[0] <= 0f)
+					else if (Projectile.ai[2] <= 0f)
 					{
-						Projectile.ai[0] = 0f;
+						Projectile.ai[2] = 0f;
 					}
 
 					if (Projectile.scale > 1f)
