@@ -216,12 +216,12 @@ Buffs: {
 	}
 
 	GuardianSpikeBuff: {
-		DisplayName: Guardian Spike Buff
+		DisplayName: Sharp Rebuttal
 		Description: 15% increased opposing damage
 	}
 
 	BambooBuff: {
-		DisplayName: Bamboon
+		DisplayName: Bamboo Protection
 		Description: 25% increased defense
 	}
 
@@ -3037,7 +3037,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging increases defense by 4
-			When reinforced, regenerates guards over time
+			When reinforced, increases maximum guards by 1 and regenerates guards over time
 			'''
 	}
 
@@ -3046,7 +3046,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging increases defense by 4
-			When reinforced, slowly regenerates guards and slams over time
+			When reinforced, increases maximum guards and slams by 1 and slowly regenerates them
 			'''
 	}
 

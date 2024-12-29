@@ -33,6 +33,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			{
 				guardian.GuardianGuardRecharge += 0.5f;
 				guardian.GuardianSlamRecharge += 0.5f;
+				guardian.GuardianGuardMax++;
+				guardian.GuardianSlamMax++;
 			}
 			return true;
 		}
