@@ -3420,6 +3420,11 @@ Items: {
 			Deflecting consumes a guard and grants a slam
 			'''
 	}
+
+	ThoriumThorsHammerWarhammer: {
+		DisplayName: Thor's Hammer: Opposing
+		Tooltip: ""
+	}
 }
 
 NPCs: {
