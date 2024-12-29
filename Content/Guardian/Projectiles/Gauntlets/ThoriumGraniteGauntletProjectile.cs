@@ -19,7 +19,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			Projectile.width = 10;
 			Projectile.height = 10;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 130;
+			Projectile.timeLeft = 132;
 			Projectile.penetrate = -1;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
