@@ -31,7 +31,7 @@ namespace OrchidMod.Content.General.Projectiles
 			if (!player.active || player.dead || !player.hasTitaniumStormBuff) { Projectile.Kill(); return; }
 			if (Projectile.frameCounter == 0) //first frame after creation
 			{
-				orchidPlayer.TitaniumShards.Add(Projectile);
+				if (!orchidPlayer.TitaniumShards.Contains(Projectile)) orchidPlayer.TitaniumShards.Add(Projectile);
 				Projectile.frameCounter = 1;
 				Projectile.frame = Main.rand.Next(12);
 				Projectile.rotation = Main.rand.NextFloat() * ((float)Math.PI * 2f);

@@ -233,7 +233,7 @@ namespace OrchidMod.Common.ModObjects
 			if (count < 1) return;
 			for (int i = 0; i < count; i++)
 			{
-				Projectile.NewProjectileDirect(source, Player.Center, Vector2.Zero, ModContent.ProjectileType<OrchidTitaniumShard>(), 50, 15f, Player.whoAmI);
+				TitaniumShards.Add(Projectile.NewProjectileDirect(source, Player.Center, Vector2.Zero, ModContent.ProjectileType<OrchidTitaniumShard>(), 50, 15f, Player.whoAmI));
 			}
 		}
 	}
