@@ -9,7 +9,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 		{
 			Item.value = Item.sellPrice(0, 2, 76, 0);
 			Item.width = 34;
-			Item.height = 44;
+			Item.height = 50;
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item72.WithPitchOffset(-0.5f);
 			Item.knockBack = 12f;

@@ -36,8 +36,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			Item.UseSound = SoundID.DD2_GhastlyGlaiveImpactGhost;
 
 
-			Item.width = 46;
-			Item.height = 46;
+			Item.width = 52;
+			Item.height = 52;
 			Item.value = Item.sellPrice(0, 10, 0, 0);
 			Item.rare = ItemRarityID.Red;
 			Item.useTime = Item.useAnimation = 40;

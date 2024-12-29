@@ -18,8 +18,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 38;
-			Item.height = 42;
+			Item.width = 36;
+			Item.height = 40;
 			Item.knockBack = 7f;
 			Item.damage = 400;
 			Item.value = Item.sellPrice(0, 0, 34, 0);
