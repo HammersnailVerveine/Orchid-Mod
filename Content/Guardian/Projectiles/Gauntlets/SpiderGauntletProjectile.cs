@@ -38,6 +38,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 
 		public override void AI()
 		{
+			if (Projectile.timeLeft == 60 && Projectile.ai[0] == 1) Strong = true;
 			OldPosition.Add(Projectile.Center);
 			Projectile.rotation = Projectile.velocity.ToRotation();
 			if (OldPosition.Count > 5) OldPosition.RemoveAt(0);

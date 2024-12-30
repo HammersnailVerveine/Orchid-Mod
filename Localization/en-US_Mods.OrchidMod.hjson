@@ -3072,8 +3072,8 @@ Items: {
 		DisplayName: Blitz Banner
 		Tooltip:
 			'''
-			Fully charging increases movement speed by 10%
-			When reinforced, your opposing damage causes chain lightning
+			Fully charging increases movement speed by 15%
+			When reinforced, fully charged hits and slams cause chain lightning
 			'''
 	}
 

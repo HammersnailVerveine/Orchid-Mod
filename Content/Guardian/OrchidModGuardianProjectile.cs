@@ -11,10 +11,29 @@ namespace OrchidMod.Content.Guardian
 	{
 		public virtual void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian) { }
 		public virtual void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) { }
+		/// <summary>Set to false in ModifyHitNPC when this projectile or specific anchor attack hits an enemy a second time. Flagged before most hit functions.</summary>
+		/// <remarks>As the name suggests, this will be true on only the first time hit functions are called. Useful for effects that are only supposed to trigger once per projectile, such as resource generation.</remarks>
+		public bool FirstHit;
+		/// <summary>Set to false in ModifyHitNPC when this projectile or specific anchor attack hits an enemy for the first time. Flagged before most hit functions.</summary>
+		public bool NotHitYet;
+		/// <summary>Whether this projectile is the main attack from either a fully charged attack, slam, or a quarterstaff counterattack. Defaults to <c>false</c> and is set otherwise by Anchor AI or specific projectiles in their <c>SafeSetDefaults</c>.</summary>
+		/// <remarks>Used for limiting hit effects to only important attacks.
+		/// A charged attack or slam being consumed should generally only result in one <c>Strong</c> projectile hitting, including the anchor itself if it can hit.
+		/// Most anchors will flag themselves as <c>Strong</c> by default, but it should be set manually if overriding their normal functions.</remarks>
+		public bool Strong;
+
+		/// <summary>Resets <c>FirstHit</c> and <c>NotHitYet</c> to true, and sets <c>Strong</c> to the input bool.</summary>
+		/// <remarks>See also <see cref="Strong"/></remarks>
+		public void ResetHitStatus(bool isStrong)
+		{
+			FirstHit = NotHitYet = true;
+			Strong = isStrong;
+		}
 
 		public sealed override void AltSetDefaults()
 		{
 			Projectile.DamageType = ModContent.GetInstance<GuardianDamageClass>();
+			ResetHitStatus(false);
 			SafeSetDefaults();
 		}
 
@@ -28,6 +47,8 @@ namespace OrchidMod.Content.Guardian
 
 		public sealed override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
+			FirstHit = NotHitYet;
+			NotHitYet = false;
 			SafeModifyHitNPC(target, ref modifiers);
 			OrchidGlobalNPC modTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
 			if (!modTarget.GuardianHit)

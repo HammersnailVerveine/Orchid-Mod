@@ -65,10 +65,9 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			guardianItem.SlamHit(owner, Projectile, target);
-			if (shieldEffectReady)
+			if (FirstHit)
 			{
 				guardianItem.SlamHitFirst(owner, Projectile, target);
-				shieldEffectReady = false;
 			}
 		}
 
@@ -118,6 +117,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.knockBack = guardianItem.Item.knockBack;
 						Projectile.ResetLocalNPCHitImmunity();
 						Projectile.friendly = true;
+						ResetHitStatus(true);
 
 						if (IsLocalOwner)
 						{

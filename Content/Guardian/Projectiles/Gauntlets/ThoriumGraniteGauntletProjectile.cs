@@ -24,6 +24,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
 			Projectile.hide = true;
+			Strong = true;
 		}
 
 		public override void AI()

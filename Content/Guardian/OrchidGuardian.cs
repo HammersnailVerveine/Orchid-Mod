@@ -169,6 +169,8 @@ namespace OrchidMod
 				GuardianGuardRecharging += GuardianGuardRecharge / GuardianRechargeTime;
 			else GuardianGuardRecharging += (-2 + GuardianGuardRecharge) / GuardianRechargeTime;
 			
+			if (GuardianGuard == GuardianGuardMax && GuardianGuardRecharging > 0) GuardianGuardRecharging = 0;
+
 			if (GuardianGuardRecharging >= 1f)
 			{
 				GuardianGuard++;
@@ -183,6 +185,8 @@ namespace OrchidMod
 			if (!OverHalfSlams)
 				GuardianSlamRecharging += GuardianSlamRecharge / GuardianRechargeTime;
 			else GuardianSlamRecharging += (-2 + GuardianSlamRecharge) / GuardianRechargeTime;
+			
+			if (GuardianSlam == GuardianSlamMax && GuardianSlamRecharging > 0) GuardianSlamRecharging = 0;
 
 			if (GuardianSlamRecharging >= 1f)
 			{
@@ -387,20 +391,19 @@ namespace OrchidMod
 
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (proj.ModProjectile is OrchidModGuardianProjectile)
+			if (proj.ModProjectile is OrchidModGuardianProjectile orchidProj)
 			{
 				if (GuardianCurrentStandardAnchor != null)
 				{
-					if (GuardianStandardDesert && GuardianCurrentStandardAnchor.ModProjectile is GuardianStandardAnchor standardAnchor)
+					if (GuardianStandardDesert && GuardianCurrentStandardAnchor.ModProjectile is GuardianStandardAnchor standardAnchor && orchidProj.FirstHit && orchidProj.Strong)
 					{
 						int type = ModContent.ProjectileType<DesertStandardProj>();
-						float range = (standardAnchor.BuffItem.ModItem as OrchidModGuardianStandard).AuraRange + target.width * 0.5f;
+						float range = (standardAnchor.BuffItem.ModItem as OrchidModGuardianStandard).AuraRange * GuardianStandardRange + target.width * 0.5f;
 						if (proj.type != type && target.Center.Distance(Player.Center) < range)
 						{
-							SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, Player.Center);
-							float damage = (damageDone * 0.5f);
-							if (damage > 20) damage = 20;
-							Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), target.Center, Vector2.UnitY * -10f, type, (int)damage, 1f, Player.whoAmI, target.whoAmI);
+							float damage = damageDone;
+							if (hit.Crit) damage *= 0.5f;
+							Projectile projectile = Projectile.NewProjectileDirect(Player.GetSource_FromThis(), target.Center, Vector2.Zero, type, 0, 1f, Player.whoAmI, target.whoAmI, damage);
 							projectile.CritChance = GetGuardianCrit();
 						}
 					}

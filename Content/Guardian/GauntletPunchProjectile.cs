@@ -14,8 +14,6 @@ namespace OrchidMod.Content.Guardian
 		public OrchidModGuardianGauntlet GauntletItem;
 		public bool ChargedHit => Projectile.ai[0] == 1f;
 		public bool OffHand => Projectile.ai[1] == 1f;
-
-		public bool FirstHit = false;
 		public bool FirstFrame = false;
 		public bool Initialized = false;
 
@@ -49,7 +47,7 @@ namespace OrchidMod.Content.Guardian
 			{
 				Initialized = true;
 				Projectile.rotation = (Projectile.velocity - owner.velocity * 0.375f).ToRotation();
-
+				if (ChargedHit) Strong = true;
 				if (!IsLocalOwner)
 				{
 					foreach (Projectile projectile in Main.projectile)
@@ -92,9 +90,8 @@ namespace OrchidMod.Content.Guardian
 			}
 			else
 			{
-				if (!FirstHit)
+				if (FirstHit)
 				{
-					FirstHit = true;
 					GauntletItem.OnHitFirst(owner, guardian, target, Projectile, hit, ChargedHit);
 				}
 				GauntletItem.OnHit(owner, guardian, target, Projectile, hit, ChargedHit);

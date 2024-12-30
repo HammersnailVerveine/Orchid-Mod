@@ -22,7 +22,6 @@ namespace OrchidMod.Content.Guardian
 		public int TimeSpent = 0;
 		public bool Ding = false;
 		public bool NeedNetUpdate = false;
-		public bool hitTarget = false;
 		public int DamageReset = 0;
 		public Rectangle[] HitBox;
 
@@ -167,11 +166,11 @@ namespace OrchidMod.Content.Guardian
 						Projectile.friendly = true;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+						ResetHitStatus(true);
 						DamageReset = 1;
 						Projectile.scale *= 1.2f;
 						Projectile.width = (int)(Projectile.width * 1.2f);
 						Projectile.height = (int)(Projectile.height * 1.2f);
-						hitTarget = false;
 					}
 
 					if (Projectile.ai[2] >= (-40 / guardianItem.CounterHits) * (guardianItem.CounterHits - DamageReset))
@@ -318,7 +317,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.friendly = true;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-						hitTarget = false;
+						ResetHitStatus(false);
 					}
 
 					if (Projectile.ai[1] > -3.14f && Projectile.ai[1] < 0f)
@@ -409,7 +408,7 @@ namespace OrchidMod.Content.Guardian
 						DamageReset = 0;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(QuarterstaffItem.UseSound, Projectile.Center);
-						hitTarget = false;
+						ResetHitStatus(true);
 					}
 
 					if (Projectile.ai[1] > -3.14f && Projectile.ai[1] < 0f)
@@ -546,9 +545,8 @@ namespace OrchidMod.Content.Guardian
 			{
 				if (Projectile.ai[0] > 1f)
 				{ // Swing
-					if (!hitTarget)
+					if (FirstHit)
 					{
-						hitTarget = true;
 						guardian.AddGuard(guardianItem.GuardStacks);
 						guardian.AddSlam(guardianItem.SlamStacks);
 						guardianItem.OnHitFirst(player, guardian, target, Projectile, hit, false, false);
@@ -557,9 +555,8 @@ namespace OrchidMod.Content.Guardian
 				}
 				else if (Projectile.ai[0] < 0f)
 				{ // Jab
-					if (!hitTarget)
+					if (FirstHit)
 					{
-						hitTarget = true;
 						guardianItem.OnHitFirst(player, guardian, target, Projectile, hit, true, false);
 						if (guardian.GuardianGauntletCharge > 0f)
 						{
@@ -574,9 +571,8 @@ namespace OrchidMod.Content.Guardian
 				}
 				else
 				{ // Counterattack
-					if (!hitTarget)
+					if (FirstHit)
 					{
-						hitTarget = true;
 						guardianItem.OnHitFirst(player, guardian, target, Projectile, hit, false, true);
 					}
 					guardianItem.OnHit(player, guardian, target, Projectile, hit, false, true);
@@ -590,7 +586,7 @@ namespace OrchidMod.Content.Guardian
 			{
 				Player player = Owner;
 				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-				guardianItem.QuarterstaffModifyHitNPC(player, guardian, target, Projectile, ref modifiers, Projectile.ai[0] < 0f, Projectile.ai[2] < 0f, !hitTarget);
+				guardianItem.QuarterstaffModifyHitNPC(player, guardian, target, Projectile, ref modifiers, Projectile.ai[0] < 0f, Projectile.ai[2] < 0f, FirstHit);
 			}
 		}
 

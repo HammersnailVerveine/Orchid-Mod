@@ -50,8 +50,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			{
 				case 37:
 				{
+					anchor.ResetHitStatus(!weak);
 					if (weak) projectile.ai[1] = 13;
 					else SoundEngine.PlaySound(SoundID.Item93.WithPitchOffset(0.3f).WithVolumeScale(0.8f), projectile.Center);
+					projectile.friendly = true;
 					projectile.localNPCHitCooldown = 10;
 					projectile.ai[2] = -1;
 					anchor.range--;

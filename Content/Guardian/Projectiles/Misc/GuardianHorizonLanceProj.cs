@@ -33,6 +33,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 			Positions = new List<Vector2>();
 			HitNPCs = new List<int>();
 			Initialized = false;
+			Strong = true;
 		}
 
 		public override void AI()

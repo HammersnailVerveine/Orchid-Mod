@@ -38,7 +38,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void ExtraAIStandardWorn(GuardianStandardAnchor anchor, Projectile projectile, Player player, OrchidGuardian guardian) { }
 		public virtual void PostDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreDrawStandard(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
-		/// <summary>Overrides the default flag drawing, but still renders the shaft.</summary>
+		/// <summary>Overrides the default flag drawing, but still renders the shaft. Return true to prevent the default flag from being drawn.</summary>
 		public virtual bool DrawCustomFlag(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor, Vector2 drawPosition, float drawRotation) { return false; }
 		public virtual Color GetColor() => Color.White;
 		public virtual bool DrawAura(bool isPlayer, bool PlayerisOwner, bool isNPC, bool isOwner, bool isReinforced) => (isPlayer && !PlayerisOwner) || (isNPC && isOwner); // Whether or not the aura should be drawn. This should cover most cases.

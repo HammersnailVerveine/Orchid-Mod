@@ -25,7 +25,6 @@ namespace OrchidMod.Content.Guardian
 		public int range = 0;
 		public int ChargeToAdd = 0;
 		public bool penetrate;
-		public bool hitTarget = false;
 		public bool WeakHit = false;
 		public bool NeedNetUpdate = false;
 		public int dir;
@@ -33,7 +32,7 @@ namespace OrchidMod.Content.Guardian
 
 		public bool Ding = false;
 
-		public bool WeakThrow() => Projectile.ai[0] == 1;
+		public bool WeakThrow => Projectile.ai[0] == 1;
 
 		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI) => overPlayers.Add(index);
 
@@ -165,7 +164,6 @@ namespace OrchidMod.Content.Guardian
 									if (guardian.GuardianHammerCharge > 10f)
 									{
 										Projectile.ai[1] = 1;
-										Projectile.friendly = true;
 
 										Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * HammerItem.Item.shootSpeed;
 
@@ -187,9 +185,7 @@ namespace OrchidMod.Content.Guardian
 									else
 									{
 										Projectile.ai[1] = -61f;
-										Projectile.friendly = true;
 										Projectile.netUpdate = true;
-										hitTarget = false;
 									}
 								}
 								else if (Main.mouseRight)
@@ -197,7 +193,7 @@ namespace OrchidMod.Content.Guardian
 									Projectile.ai[1] = -60f;
 									Projectile.friendly = true;
 									Projectile.netUpdate = true;
-									hitTarget = false;
+									ResetHitStatus(false);
 								}
 							}
 						}
@@ -214,6 +210,7 @@ namespace OrchidMod.Content.Guardian
 							{ // First frame of the swing
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
 								HammerItem.OnSwing(player, guardian, Projectile, guardian.GuardianHammerCharge >= 180f);
+								ResetHitStatus(false);
 							}
 
 							if (ChargeToAdd > 0 && Projectile.ai[1] > -30 && !WeakHit)
@@ -243,7 +240,6 @@ namespace OrchidMod.Content.Guardian
 							{
 								Projectile.ai[1] = 0f;
 								Projectile.friendly = false;
-								hitTarget = false;
 							}
 						}
 
@@ -251,7 +247,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				else // Thrown
 				{
-					if (HammerItem.ThrowAI(player, guardian, Projectile, WeakThrow()))
+					if (HammerItem.ThrowAI(player, guardian, Projectile, WeakThrow))
 					{
 						if (Projectile.timeLeft < 598 && range > 0) // Delay helps preventing the hammer from instantly despawning if launched from inside a tile
 						Projectile.tileCollide = HammerItem.TileCollide;
@@ -260,10 +256,12 @@ namespace OrchidMod.Content.Guardian
 						if (range == HammerItem.Range)
 						{ // First frame of the throw
 							SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
-							HammerItem.OnThrow(player, guardian, Projectile, WeakThrow());
+							ResetHitStatus(!WeakThrow);
+							Projectile.friendly = true;
+							HammerItem.OnThrow(player, guardian, Projectile, WeakThrow);
 						}
 
-						if (WeakThrow())
+						if (WeakThrow)
 							Projectile.rotation += 0.25f * dir;
 						else
 							Projectile.rotation += Projectile.velocity.Length() / 30f * (Projectile.velocity.X > 0 ? 1f : -1f) * 1.2f;
@@ -361,15 +359,14 @@ namespace OrchidMod.Content.Guardian
 		{
 			if (Projectile.ai[1] > 0)
 			{ // Throw
-				bool weak = WeakThrow();
-				if (!hitTarget)
+				bool weak = WeakThrow;
+				if (FirstHit)
 				{
 					if (!weak)
 					{
 						guardian.AddSlam(HammerItem.SlamStacks);
 						guardian.AddGuard(HammerItem.GuardStacks);
 					}
-					hitTarget = true;
 					HammerItem.OnThrowHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit, weak);
 				}
 				HammerItem.OnThrowHit(player, guardian, target, Projectile, hit.Knockback, hit.Crit, weak);
@@ -383,9 +380,8 @@ namespace OrchidMod.Content.Guardian
 			else
 			{ // Melee Swing
 				bool fullyCharged = guardian.GuardianHammerCharge >= 180f;
-				if (!hitTarget)
+				if (FirstHit)
 				{
-					hitTarget = true;
 					HammerItem.OnMeleeHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit, fullyCharged);
 					ChargeToAdd += 30;
 				}
@@ -484,7 +480,7 @@ namespace OrchidMod.Content.Guardian
 			{
 				for (int i = 0; i < OldPosition.Count; i++)
 				{
-					color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * (((WeakThrow() ? 0.05f : 0.15f) * i));
+					color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * (((WeakThrow ? 0.05f : 0.15f) * i));
 					position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
 
 					spriteBatch.Draw(HammerTexture, position, null, color, OldRotation[i] + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
