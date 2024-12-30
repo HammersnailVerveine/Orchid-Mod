@@ -40,7 +40,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			return true;
 		}
 
-		public override void ExtraAI(Player player, OrchidGuardian guardian, Projectile projectile)
+		//TODO: fix this up...
+		/*public override void ExtraAI(Player player, OrchidGuardian guardian, Projectile projectile)
 		{
 			if (Main.rand.NextBool(60))
 			{
@@ -56,14 +57,14 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 					}
 				}
 			}
-		}
+		}*/
 
 		public override void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
 			SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, projectile.Center);
-			int type = ModContent.ProjectileType<DesertStandardProj>();
+			/*int type = ModContent.ProjectileType<DesertStandardProj>();
 			Projectile newProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(Item), target.Center, Vector2.UnitY * -10f, type, (int)guardian.GetGuardianDamage(Item.damage * 0.35f), 1f, player.whoAmI, target.whoAmI);
-			newProj.CritChance = guardian.GetGuardianCrit();
+			newProj.CritChance = guardian.GetGuardianCrit();*/
 		}
 	}
 }

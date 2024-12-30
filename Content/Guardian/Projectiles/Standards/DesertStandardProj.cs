@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Audio;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Standards
 {
@@ -25,6 +26,10 @@ namespace OrchidMod.Content.Guardian.Projectiles.Standards
 		public override bool? CanHitNPC(NPC target)
 		{
 			if (target.whoAmI == Projectile.ai[0]) return false;
+			Player player = Main.player[Projectile.owner];
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+			GuardianStandardAnchor standardAnchor = guardian.GuardianCurrentStandardAnchor.ModProjectile as GuardianStandardAnchor; 
+			if (target.Center.Distance(player.Center) > (standardAnchor.BuffItem.ModItem as OrchidModGuardianStandard).AuraRange * guardian.GuardianStandardRange + target.width * 0.5f) return false;
 			return base.CanHitNPC(target);
 		}
 
@@ -35,6 +40,9 @@ namespace OrchidMod.Content.Guardian.Projectiles.Standards
 				Projectile.friendly = true;
 				Projectile.damage = (int)(Projectile.ai[1] * Projectile.penetrate * 0.25f);
 			}
+			Dust dust = Dust.NewDustPerfect(Projectile.Center, DustID.Electric);
+			dust.velocity = new Vector2(0, -0.5f) + dust.velocity * Main.rand.NextFloat();
+			dust.scale *= 0.5f;
 			Projectile.localAI[0] = (12 - Projectile.timeLeft) * 32;
 		}
 

@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 		{
 			if (isLocalPlayer && reinforced)
 			{
-				guardian.modPlayer.OrchidDamageResistance += 0.15f;
+				guardian.modPlayer.OrchidDamageResistance += 0.2f;
 				return true;
 			}
 			return false;
@@ -42,7 +42,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 		{
 			if (npc.knockBackResist > 0f)
 			{
-				npc.velocity.X *= 0.85f;
+				npc.velocity *= 1f - 0.2f * npc.knockBackResist;
 			}
 			return true;
 		}

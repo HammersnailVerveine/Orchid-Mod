@@ -252,6 +252,7 @@ namespace OrchidMod.Content.Guardian
 										Projectile.ai[2] = 0f;
 										SyncedValue = guardianItem.BaseSyncedValue;
 										SyncValue = true;
+										guardian.ResetStandards(true);
 									}
 									if (!Reinforced) CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Charged", false);
 								}

@@ -18,7 +18,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			Item.UseSound = SoundID.DD2_BetsyWindAttack;
 			SlamStacks = 1;
 			FlagOffset = 8;
-			AuraRange = 15;
+			AuraRange = 18;
 			StandardDuration = 1200;
 			AffectNearbyPlayers = true;
 			AffectNearbyNPCs = true;
@@ -42,7 +42,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 
 		public override void ExtraAIStandardWorn(GuardianStandardAnchor anchor, Projectile projectile, Player player, OrchidGuardian guardian)
 		{
-			if (Main.rand.NextBool(Math.Max(10, (int)(70 - projectile.ai[1] / 10))))
+			if (projectile.ai[2] == 1 && Main.rand.NextBool(Math.Max(10, (int)(70 - projectile.ai[1] / 10))))
 			{
 				bool onBack = player.HeldItem.ModItem is not OrchidModGuardianStandard;
 				Vector2 dustPos = projectile.Center + new Vector2(0, onBack ? -30 : -18).RotatedBy(onBack ? MathHelper.PiOver4 * 0.5f * -player.oldDirection : MathHelper.PiOver4 + projectile.rotation);
@@ -54,7 +54,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 
 		public override bool DrawCustomFlag(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor, Vector2 drawPosition, float drawRotation)
 		{
-			float lightIntensity = Math.Min(0.33f, projectile.ai[1] / 1800f);
+			float lightIntensity = Math.Min(0.2f, projectile.ai[1] / 3000f);
+			if (projectile.ai[2] == 1) lightIntensity *= 2f;
 			Lighting.AddLight(projectile.Center, new Vector3(0, lightIntensity * 0.5f, lightIntensity));
 			return false;
 		}

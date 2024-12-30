@@ -3028,7 +3028,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging continuously slows nearby enemies
-			When reinforced, grants 15% increased damage resistance
+			When reinforced, grants 20% increased damage resistance
 			'''
 	}
 
@@ -3073,7 +3073,7 @@ Items: {
 		Tooltip:
 			'''
 			Fully charging increases movement speed by 15%
-			When reinforced, fully charged hits and slams cause chain lightning
+			When reinforced, charged hits and slams cause chain lightning between enemies in range
 			'''
 	}
 

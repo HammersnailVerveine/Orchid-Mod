@@ -46,7 +46,7 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 			player.setBonus = SetBonusText.Value;
 			guardian.GuardianBonusRune += 2;
 			guardian.GuardianRuneTimer += 0.5f;
-			guardian.GuardianStandardRange += 0.35f;
+			guardian.GuardianStandardRange += 0.5f;
 			guardian.GuardianStandardTimer += 0.5f;
 		}
 

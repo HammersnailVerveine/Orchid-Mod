@@ -229,17 +229,7 @@ namespace OrchidMod
 
 			// Resetting standards effects
 
-			if (GuardianStandardBuffer)
-			{
-				GuardianStandardBuffer = false;
-			}
-			else
-			{ // Reset standards here
-				GuardianCurrentStandardAnchor = null;
-				GuardianStandardDesert = false;
-				GuardianStandardStarScouter = -1;
-				GuardianStandardStarScouterWarp = false;
-			}
+			ResetStandards();
 
 			// Resetting equipment variables
 
@@ -358,20 +348,24 @@ namespace OrchidMod
 		{
 			if (GuardianStandardStarScouter >= 0)
 			{
-				if (Main.player[GuardianStandardStarScouter].active && Player.whoAmI == Main.myPlayer)
+				if (Player.whoAmI == Main.myPlayer)
 				{
 					Player standardHolder = Main.player[GuardianStandardStarScouter];
-					Vector2 offsFromGuardStandard = standardHolder.Center + new Vector2(-14 * standardHolder.direction * (standardHolder.HeldItem.ModItem is OrchidModGuardianStandard ? -1 : 1), -28 * standardHolder.gravDir) - npc.Center;
-					SoundEngine.PlaySound(SoundID.Item91.WithVolumeScale(0.5f), npc.position);
-					Player.ApplyDamageToNPC(npc, (int)(npc.damage * 0.33f), 10, offsFromGuardStandard.X < 0 ? 1 : -1, crit: false);
-					int dist = (int)offsFromGuardStandard.Length() / 4;
-					if (dist < 100)
-						for (int i = 0; i < dist; i++)
-						{
-							float currPos = i * 1f / dist;
-							Dust dust = Dust.NewDustDirect(npc.Center + offsFromGuardStandard * currPos - new Vector2(4, 4), 0, 0, DustID.ShadowbeamStaff);
-							dust.noGravity = true;
-						}
+					if (standardHolder.active && standardHolder.GetModPlayer<OrchidGuardian>().GuardianStandardStarScouter != -1)
+					{
+						Vector2 offsFromGuardStandard = standardHolder.Center + new Vector2(-14 * standardHolder.direction * (standardHolder.HeldItem.ModItem is OrchidModGuardianStandard ? -1 : 1), -28 * standardHolder.gravDir) - npc.Center;
+						SoundEngine.PlaySound(SoundID.Item91.WithVolumeScale(0.5f), npc.position);
+						Player.ApplyDamageToNPC(npc, (int)(npc.damage * 0.33f), 10, offsFromGuardStandard.X < 0 ? 1 : -1, crit: false);
+						int dist = (int)offsFromGuardStandard.Length() / 4;
+						if (dist < 100)
+							for (int i = 0; i < dist; i++)
+							{
+								float currPos = i * 1f / dist;
+								Dust dust = Dust.NewDustDirect(npc.Center + offsFromGuardStandard * currPos - new Vector2(4, 4), 0, 0, DustID.ShadowbeamStaff);
+								dust.noGravity = true;
+							}
+					}
+					else GuardianStandardStarScouter = -1; //reset in the event of a stale reference
 				}
 			}
 		}
@@ -551,6 +545,19 @@ namespace OrchidMod
 		public void StandardNearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced)
 		{ // isLocalPlayer is true when this is ran by the client holding the standard - Should return true if the npc was affected
 			// ..
+		}
+
+		/// <summary>Resets all boolean-controlled Standard effects. Called in OrchidGuardian.ResetEffects and GuardianStandardAnchor when a standard is switched. forceReset controls whether to respect OrchidGuardian.GuardianStandardBuffer to give one frame  of leeway.</summary>
+		public void ResetStandards(bool forceReset = false)
+		{
+			if (forceReset || !GuardianStandardBuffer)
+			{
+				GuardianCurrentStandardAnchor = null;
+				GuardianStandardDesert = false;
+				GuardianStandardStarScouter = -1;
+				GuardianStandardStarScouterWarp = false;
+			}
+			GuardianStandardBuffer = false;
 		}
 
 		public void OnBlockAnyFirst(Projectile anchor, ref int toAdd)
