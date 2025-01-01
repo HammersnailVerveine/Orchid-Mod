@@ -3839,7 +3839,16 @@ DamageClasses: {
 	DancerDamageClass.DisplayName: poise damage
 	GamblerChipDamageClass.DisplayName: gambling damage
 	GamblerDamageClass.DisplayName: gambling damage
-	GuardianDamageClass.DisplayName: opposing damage
+
+	GuardianDamageClass: {
+		DisplayName: opposing damage
+
+		ThoriumMod_TerrariumArmorAddClassFocus: {
+			Name: Opposing Focus
+			Description: Increases maximum guards and slams, life regen and defense by 3
+		}
+	}
+
 	ShamanDamageClass.DisplayName: shamanic damage
 	ShapeshifterDamageClass.DisplayName: feral damage
 }
