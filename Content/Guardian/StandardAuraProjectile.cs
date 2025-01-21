@@ -55,7 +55,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile.alpha -= 8;
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			if (StandardItem is OrchidModGuardianStandard standard)
 			{

@@ -51,7 +51,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			return true;
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });

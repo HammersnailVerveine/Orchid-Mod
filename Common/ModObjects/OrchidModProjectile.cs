@@ -52,10 +52,10 @@ namespace OrchidMod.Common.ModObjects
 			{
 				PreDrawTrail(Main.spriteBatch, lightColor);
 			}
-			return OrchidPreDraw(Main.spriteBatch, lightColor);
+			return OrchidPreDraw(Main.spriteBatch, ref lightColor);
 		}
 
-		public virtual bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor) { return true; }
+		public virtual bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor) { return true; }
 
 		public sealed override void PostAI()
 		{

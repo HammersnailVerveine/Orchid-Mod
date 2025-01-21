@@ -71,7 +71,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			return false;
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			outlineTexture ??= ModContent.Request<Texture2D>("OrchidMod/Content/Gambler/Projectiles/EaterCardProj2_Outline", AssetRequestMode.ImmediateLoad).Value;
 			DrawOutline(outlineTexture, spriteBatch, lightColor);

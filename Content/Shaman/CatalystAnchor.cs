@@ -161,7 +161,7 @@ namespace OrchidMod.Content.Shaman
 		public override bool? CanCutTiles() => false;
 		public override bool? CanDamage() => false;
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			if (!(this.CatalystItem.ModItem is OrchidModShamanItem shamanItem)) return false;
 			if (!ModContent.HasAsset(shamanItem.CatalystTexture)) return false;

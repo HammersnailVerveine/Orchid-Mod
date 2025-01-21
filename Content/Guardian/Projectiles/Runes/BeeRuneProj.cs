@@ -51,7 +51,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 			return true;
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			float colorMult = 1f;
 			if (Projectile.timeLeft < 60) colorMult *= Projectile.timeLeft / 60f;

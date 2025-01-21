@@ -94,7 +94,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			}
 		}
 		
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor) {
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor) {
 			Vector2 position = bushLeftPos - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
 			spriteBatch.Draw(bushTexture, position, null, lightColor, 0f, bushTexture.Size() * 0.5f, 1f, SpriteEffects.None, 0f);
 			position = bushRightPos - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;

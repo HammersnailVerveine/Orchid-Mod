@@ -426,7 +426,7 @@ namespace OrchidMod.Content.Guardian
 			}
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			if (HammerTexture == null) return false;
 			Player player = Main.player[Projectile.owner];

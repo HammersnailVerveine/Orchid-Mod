@@ -103,7 +103,7 @@ namespace OrchidMod.Content.General.Melee
 			}
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			var texture = TextureAssets.Projectile[Projectile.type].Value;
 			var position = Projectile.position + Projectile.Size * 0.5f + Vector2.UnitY * Projectile.gfxOffY - Main.screenPosition;

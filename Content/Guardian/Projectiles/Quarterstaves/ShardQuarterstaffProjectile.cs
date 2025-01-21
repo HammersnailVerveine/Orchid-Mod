@@ -53,7 +53,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 			}
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Microsoft.Xna.Framework.Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 		//	spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 		//  spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });

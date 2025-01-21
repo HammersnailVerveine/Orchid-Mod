@@ -614,7 +614,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool? CanCutTiles() => false; // TODO : can cut while attacking
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			if (SelectedItem < 0 || SelectedItem > 58 || QuarterstaffTexture == null) return false;
 			if (QuarterstaffItem.ModItem is not OrchidModGuardianQuarterstaff guardianItem) return false;

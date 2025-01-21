@@ -207,7 +207,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			SlimePostAITrail();
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			SlimePreDrawTrail(spriteBatch, lightColor);
 			return true;

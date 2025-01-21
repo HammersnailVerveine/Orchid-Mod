@@ -135,7 +135,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			}
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			SpriteEffects spriteEffects = SpriteEffects.None;
 			if (Projectile.spriteDirection == -1) spriteEffects = SpriteEffects.FlipHorizontally;

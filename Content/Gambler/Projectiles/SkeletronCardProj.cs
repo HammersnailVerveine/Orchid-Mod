@@ -146,7 +146,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			Projectile.oldPos[0] = Projectile.position;
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			if (Projectile.ai[1] == 1f && Projectile.rotation == 0f)
 			{

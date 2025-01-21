@@ -98,7 +98,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			Projectile.oldPos[0] = Projectile.position;
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			Texture2D flameTexture = ModContent.Request<Texture2D>("OrchidMod/Content/Gambler/Projectiles/DungeonCardProjAlt_Glow").Value;
 			Vector2 drawOrigin = new Vector2(TextureAssets.Projectile[Projectile.type].Value.Width * 1f, Projectile.height * 1f);

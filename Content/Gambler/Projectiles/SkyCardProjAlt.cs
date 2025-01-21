@@ -135,7 +135,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			}
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			arrowTexture ??= ModContent.Request<Texture2D>("OrchidMod/Content/Gambler/Projectiles/SkyCardProjAlt_Arrow", AssetRequestMode.ImmediateLoad).Value;
 			Vector2 position = Projectile.Center - Main.screenPosition;

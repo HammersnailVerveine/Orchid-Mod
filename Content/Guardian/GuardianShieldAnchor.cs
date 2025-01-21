@@ -351,7 +351,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool? CanCutTiles() => Projectile.ai[1] > 0f;
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			if (SelectedItem < 0 || SelectedItem > 58) return false;
 			if (!(ShieldItem.ModItem is OrchidModGuardianShield guardianItem)) return false;

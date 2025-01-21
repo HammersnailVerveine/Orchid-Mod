@@ -161,7 +161,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 		}
 
 		/*
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			var texture = TextureAssets.Npc[NPCID.DemonEye];
 			var height = texture.Height() / Main.projFrames[Type];

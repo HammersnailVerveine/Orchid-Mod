@@ -52,7 +52,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			if (Main.rand.NextBool(5) || Projectile.ai[0] == 1f) target.AddBuff(BuffID.Venom, 240 + Main.rand.Next(120));
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });

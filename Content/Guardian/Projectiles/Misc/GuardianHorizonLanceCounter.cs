@@ -81,7 +81,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
             }
         }
 
-        public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
         {
             Main.instance.PrepareDrawnEntityDrawing(Projectile, GameShaders.Armor.GetShaderIdFromItemId(ModContent.ItemType<HorizonDye>()), null);
             float angle = Projectile.rotation + MathHelper.PiOver2;

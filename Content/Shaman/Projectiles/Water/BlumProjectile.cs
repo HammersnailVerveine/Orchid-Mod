@@ -65,7 +65,7 @@ namespace OrchidMod.Content.Shaman.Projectiles.Water
 			Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, type, 0, 0f, Projectile.owner);
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
@@ -114,7 +114,7 @@ namespace OrchidMod.Content.Shaman.Projectiles.Water
 		}
 
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });

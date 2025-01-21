@@ -234,7 +234,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool? CanCutTiles() => false;
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			if (SelectedItem < 0 || SelectedItem > 58) return false;
 			if (RuneItem.ModItem is not OrchidModGuardianRune guardianItem) return false;

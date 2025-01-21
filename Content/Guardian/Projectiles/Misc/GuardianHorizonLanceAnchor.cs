@@ -327,7 +327,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 
 		public override bool? CanCutTiles() => false;
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			if (SelectedItem < 0 || SelectedItem > 58) return false;
 			if (HorizonLanceItem.ModItem is not HorizonLance guardianItem) return false;

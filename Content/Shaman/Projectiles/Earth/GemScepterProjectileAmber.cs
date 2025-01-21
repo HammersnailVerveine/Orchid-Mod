@@ -87,7 +87,7 @@ namespace OrchidMod.Content.Shaman.Projectiles.Earth
 			return false;
 		}
 
-		public override bool OrchidPreDraw(SpriteBatch spriteBatch, Color lightColor)
+		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			for (int i = 0; i < OldPosition.Count; i++)
 			{
