@@ -85,6 +85,7 @@ namespace OrchidMod.Content.Guardian
 				range = HammerItem.Range;
 				penetrate = HammerItem.Penetrate;
 				Projectile.netUpdate = true;
+				Projectile.localNPCHitCooldown = hammerItem.HitCooldown;
 			}
 
 			dir = (Projectile.velocity.X > 0 ? 1 : -1);
@@ -228,7 +229,7 @@ namespace OrchidMod.Content.Guardian
 							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
 							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f + (armPosition.X - arm.X) * (2.5f + hitboxOffset * 0.07f), (armPosition.Y - arm.Y) * -(1.1f + hitboxOffset * 0.03f) + (210f - guardian.GuardianHammerCharge) * 0.075f);
 
-							float toAdd = 30f / HammerItem.Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
+							float toAdd = 30f / HammerItem.Item.useTime * HammerItem.SwingSpeed * player.GetTotalAttackSpeed(DamageClass.Melee);
 							if (Projectile.ai[1] < -40) Projectile.ai[1] += toAdd * 1.5f;
 							else
 							{
@@ -351,7 +352,17 @@ namespace OrchidMod.Content.Guardian
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
-			range = -40;
+			if (HammerItem.TileBounce)
+			{
+				if (Projectile.velocity.X != oldVelocity.X)
+					Projectile.velocity.X = -oldVelocity.X;
+				if (Projectile.velocity.Y != oldVelocity.Y)
+					Projectile.velocity.Y = -oldVelocity.Y;
+			}
+			else range = -40;
+			Player player = Main.player[Projectile.owner];
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+			HammerItem.OnThrowTileCollide(player, guardian, Projectile, oldVelocity);
 			return false;
 		}
 

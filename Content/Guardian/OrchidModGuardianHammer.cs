@@ -17,11 +17,15 @@ namespace OrchidMod.Content.Guardian
 		public int GuardStacks;
 		public bool Penetrate;
 		public bool TileCollide;
+		public bool TileBounce;
 		public float ReturnSpeed;
+		public float SwingSpeed;
+		public int HitCooldown;
 		public virtual void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged) { } // Called upon landing any melee swing hit
 		public virtual void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged) { } // Called upon landing the first hit of a melee swing
 		public virtual void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { } // Called upon landing any throw hit
 		public virtual void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { } // Called upon landing the first hit of a throw
+		public virtual void OnThrowTileCollide(Player player, OrchidGuardian guardian, Projectile projectile, Vector2 oldVelocity) { }
 		public virtual void OnSwing(Player player, OrchidGuardian guardian, Projectile projectile, bool FullyCharged) { } // Called on the first frame of a throw, FullyCharged is true if the guardian's hammer charge is full
 		public virtual void OnThrow(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak) { } // Called on the first frame of a swing
 		public virtual void ExtraAI(Player player, OrchidGuardian guardian, Projectile projectile) { } // Called at the end of the anchors Projectile AI()
@@ -42,10 +46,13 @@ namespace OrchidMod.Content.Guardian
 			Item.knockBack = 10f;
 			Item.shootSpeed = 10f;
 			Range = 0;
+			HitCooldown = 30;
 			Penetrate = false;
+			TileBounce = false;
 			TileCollide = true;
 			SlamStacks = 0;
 			ReturnSpeed = 1f;
+			SwingSpeed = 1f;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;

@@ -2746,7 +2746,7 @@ Items: {
 	}
 
 	GuardianEmpressChest: {
-		DisplayName: Dawn Valkyrie Breastplate
+		DisplayName: Dawn Valkyrie Mail
 		Tooltip:
 			'''
 			Increases maximum slams by 2 and regenerates slams over time
@@ -2760,7 +2760,7 @@ Items: {
 	}
 
 	GuardianEmpressChestAlt: {
-		DisplayName: Dawn Warden Cuirass
+		DisplayName: Dawn Warden Plate
 		Tooltip:
 			'''
 			Increases maximum guards by 2 and regenerates guards over time
@@ -3103,7 +3103,7 @@ Items: {
 
 	OrichalcumWarhammer: {
 		DisplayName: Orichalcum Warhammer
-		Tooltip: ""
+		Tooltip: Light and bouncy
 	}
 
 	BadgeBattlesPast: {

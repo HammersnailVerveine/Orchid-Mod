@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Standards
 {
@@ -16,7 +18,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			Item.UseSound = SoundID.DD2_BetsyWindAttack;
 			GuardStacks = 1;
 			FlagOffset = 4;
-			AuraRange = 10;
+			AuraRange = 8;
 			StandardDuration = 1500;
 			AffectNearbyPlayers = true;
 			AffectNearbyNPCs = true;
@@ -40,7 +42,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 
 		public override bool NearbyNPCEffect(Player player, OrchidGuardian guardian, NPC npc, bool isLocalPlayer, bool reinforced)
 		{
-			if (npc.knockBackResist > 0f)
+			if (npc.knockBackResist > 0f && !npc.HasBuff<HockeyQuarterstaffDebuff>())
 			{
 				npc.velocity *= 1f - 0.2f * npc.knockBackResist;
 			}

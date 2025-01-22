@@ -16,14 +16,41 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.value = Item.sellPrice(0, 1, 65, 0);
 			Item.rare = ItemRarityID.LightRed;
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
-			Item.knockBack = 12f;
-			Item.shootSpeed = 8f;
-			Item.damage = 252;
+			Item.knockBack = 6f;
+			Item.shootSpeed = 22f;
+			Item.damage = 98;
 			Item.useTime = 38;
-			Range = 60;
+			Range = 50;
+			ReturnSpeed = 1.6f;
+			SwingSpeed = 2f;
 			GuardStacks = 1;
 			SlamStacks = 2;
+			HitCooldown = 20;
 			Penetrate = true;
+			TileBounce = true;
+		}
+
+		public override void OnSwing(Player player, OrchidGuardian guardian, Projectile projectile, bool FullyCharged)
+		{
+			base.OnSwing(player, guardian, projectile, FullyCharged);
+		}
+
+		public override bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak)
+		{
+			projectile.velocity *= 0.95f;
+			if (!Weak && projectile.velocity.Length() < 4)
+			{
+				float rotationSpeed = 0.2f - projectile.velocity.Length() * 0.05f;
+				projectile.rotation += projectile.velocity.X > 0 ? rotationSpeed : -rotationSpeed;
+			}
+			return true;
+		}
+
+		public override void OnThrowTileCollide(Player player, OrchidGuardian guardian, Projectile projectile, Vector2 oldVelocity)
+		{
+			float speed = projectile.velocity.Length();
+			if (speed > 2)
+				projectile.velocity /= speed / 2f;
 		}
 
 		public override void AddRecipes()
