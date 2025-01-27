@@ -3425,6 +3425,11 @@ Items: {
 		DisplayName: Thor's Hammer: Opposing
 		Tooltip: ""
 	}
+
+	ThoriumAquaiteQuarterstaff: {
+		DisplayName: Wave Breaker
+		Tooltip: Jab is replaced by a powerful sweep that instantly charges on hit
+	}
 }
 
 NPCs: {

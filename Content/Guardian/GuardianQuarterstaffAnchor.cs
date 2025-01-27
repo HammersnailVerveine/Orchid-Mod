@@ -315,6 +315,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
 						Projectile.knockBack = QuarterstaffItem.knockBack * guardianItem.JabKnockback;
 						Projectile.friendly = true;
+						DamageReset = 0;
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
 						ResetHitStatus(false);
@@ -335,7 +336,8 @@ namespace OrchidMod.Content.Guardian
 						}
 					}
 
-					if (Projectile.ai[0] >= -30)
+					if (guardianItem.PreJabAI(owner, guardian, Projectile)) DoAnimStyle(guardianItem.JabStyle, -Projectile.ai[0], SoundID.DD2_MonkStaffSwing);
+					/*if (Projectile.ai[0] >= -30)
 					{ // Returning
 						Projectile.friendly = false;
 						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + (float)Math.Sin(0.1046f * (30 + Projectile.ai[0])) * 0.4f * -owner.direction + MathHelper.Pi;
@@ -350,7 +352,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + MathHelper.Pi;
 						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.None, MathHelper.PiOver4 * owner.direction + Projectile.ai[1] + 0.1f);
 						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.ThreeQuarters, Projectile.ai[1] - 0.1f);
-					}
+					}*/
 
 					// Trail
 					OldPosition.Add(Projectile.Center);
@@ -426,7 +428,8 @@ namespace OrchidMod.Content.Guardian
 						}
 					}
 
-					if (guardianItem.SingleSwing)
+					if (guardianItem.PreSwingAI(owner, guardian, Projectile)) DoAnimStyle(guardianItem.SwingStyle, Projectile.ai[0] - 1, QuarterstaffItem.UseSound.Value);
+					/*if (guardianItem.SingleSwing)
 					{
 						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + (float)Math.Cos(0.102f * (Projectile.ai[0] - 10)) * 1.9f * -owner.direction + MathHelper.Pi;
 						Projectile.Center = owner.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] + (float)Math.Cos(0.102f * (Projectile.ai[0] - 10)) * 1.8f * -owner.direction) * 24f;
@@ -458,7 +461,7 @@ namespace OrchidMod.Content.Guardian
 							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver4 * owner.direction + Projectile.ai[1] + 0.1f + (float)Math.Cos(0.145f * (Projectile.ai[0] - 10)) * owner.direction + (20 - Projectile.ai[0]) * 0.04f * owner.direction);
 							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.ThreeQuarters, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.145f * (Projectile.ai[0] - 5)) * 0.2f * owner.direction);
 						}
-					}
+					}*/
 
 					// Trail
 					OldPosition.Add(Projectile.Center);
@@ -539,6 +542,68 @@ namespace OrchidMod.Content.Guardian
 			}
 		}
 
+		/// <summary>Executes the given animation style. <c>ai</c> should begin at 40 and decrement to 0 for the animation to play in correct order.</summary>
+		/// <remarks>Animation style IDs<br/>
+		/// 0: Jab (default jab)<br/>
+		/// 1: Double swing (default swing)<br/>
+		/// 2: Single swing<br/>
+		/// </remarks>
+		public void DoAnimStyle(int style, float ai, SoundStyle sound)
+		{
+			Player player = Main.player[Projectile.owner];
+			switch(style)
+			{
+				case 0:
+					if (ai <= 30)
+					{ // Returning
+						Projectile.friendly = false;
+						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + (float)Math.Sin(0.1046f * (30 - ai)) * 0.4f * -player.direction + MathHelper.Pi;
+						Projectile.Center = player.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1]) * (38f - (float)Math.Sin(0.0523f * (30 - ai)) * 24f);
+						Projectile.position.Y -= (float)Math.Sin(0.0523f * (30 - ai)) * 2f;
+						player.SetCompositeArmFront(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver4 * player.direction + Projectile.ai[1] + 0.1f + (float)Math.Sin(0.1046f * (30 - ai)) * 0.3f * player.direction);
+						player.SetCompositeArmBack(true, CompositeArmStretchAmount.Full, Projectile.ai[1] - 0.1f + (float)Math.Sin(0.1046f * (30 - ai)) * 0.2f * player.direction);
+					}
+					else
+					{ // Jabbing
+						Projectile.Center = player.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1]) * 3.8f * (40 - ai);
+						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + MathHelper.Pi;
+						player.SetCompositeArmFront(true, CompositeArmStretchAmount.None, MathHelper.PiOver4 * player.direction + Projectile.ai[1] + 0.1f);
+						player.SetCompositeArmBack(true, CompositeArmStretchAmount.ThreeQuarters, Projectile.ai[1] - 0.1f);
+					}
+				break;
+				case 1:
+					if (ai < 25 && DamageReset == 0)
+					{
+						DamageReset++;
+						SoundEngine.PlaySound(sound, Projectile.Center);
+						Projectile.ResetLocalNPCHitImmunity();
+						Projectile.ai[0] -= 3f;
+					}
+					if (ai > 14)
+					{ // Swinging
+						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 - (float)Math.Cos(0.209f * (ai - 9)) * 1.75f * -player.direction + MathHelper.Pi;
+						Projectile.Center = player.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] - (float)Math.Cos(0.209f * (ai - 9)) * 1.6f * -player.direction) * 24f;
+						player.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver4 * player.direction + Projectile.ai[1] + 0.1f + (float)Math.Cos(0.209f * (ai - 9)) * player.direction);
+						player.SetCompositeArmBack(true, CompositeArmStretchAmount.Full, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.209f * (ai - 9)) * 0.2f * player.direction);
+					}
+					else
+					{ // Returning
+						Projectile.friendly = false;
+						Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + (-0.5f * 1.1f - (float)Math.Sin(0.12f * -ai + 2.88f) + 0.8f) * -player.direction + MathHelper.Pi;
+						Projectile.Center = player.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] + (-0.5f - (float)Math.Sin(0.12f * -ai + 2.88f) + 0.8f) * -player.direction) * (ai * 0.75f + 9.75f);
+						player.SetCompositeArmFront(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver4 * player.direction + Projectile.ai[1] + 0.1f + (float)Math.Cos(0.145f * (ai - 9)) * player.direction + (19 - ai) * 0.04f * player.direction);
+						player.SetCompositeArmBack(true, CompositeArmStretchAmount.ThreeQuarters, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.145f * (ai - 4)) * 0.2f * player.direction);
+					}
+				break;
+				case 2:
+					Projectile.rotation = Projectile.ai[1] - MathHelper.PiOver4 + (float)Math.Cos(0.102f * (ai - 9)) * 1.9f * -player.direction + MathHelper.Pi;
+					Projectile.Center = player.MountedCenter.Floor() + Vector2.UnitY.RotatedBy(Projectile.ai[1] + (float)Math.Cos(0.102f * (ai - 9)) * 1.8f * -player.direction) * 24f;
+					player.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver4 * player.direction + Projectile.ai[1] + 0.1f - (float)Math.Cos(0.102f * (ai - 9)) * player.direction);
+					player.SetCompositeArmBack(true, CompositeArmStretchAmount.Full, Projectile.ai[1] - 0.1f + (float)Math.Cos(0.102f * (ai- 9)) * 0.2f * player.direction);
+				break;
+			}
+		}
+
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
 			if (QuarterstaffItem.ModItem is OrchidModGuardianQuarterstaff guardianItem)
@@ -560,7 +625,7 @@ namespace OrchidMod.Content.Guardian
 						guardianItem.OnHitFirst(player, guardian, target, Projectile, hit, true, false);
 						if (guardian.GuardianGauntletCharge > 0f)
 						{
-							guardian.GuardianGauntletCharge += 60f * player.GetTotalAttackSpeed(DamageClass.Melee);
+							guardian.GuardianGauntletCharge += 60f * guardianItem.JabChargeGain * player.GetTotalAttackSpeed(DamageClass.Melee);
 							if (guardian.GuardianGauntletCharge > 180f)
 							{
 								guardian.GuardianGauntletCharge = 180f;

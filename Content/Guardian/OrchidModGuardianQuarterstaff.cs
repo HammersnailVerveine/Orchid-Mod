@@ -24,6 +24,12 @@ namespace OrchidMod.Content.Guardian
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool jabAttack, bool counterAttack) { } // Called when hitting the first target for the first time during an attack
 		public virtual void QuarterstaffModifyHitNPC(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, ref NPC.HitModifiers modifiers, bool jabAttack, bool counterAttack, bool firstHit) { } // anchor's modifyhitNPC
 		public virtual void OnAttack(Player player, OrchidGuardian guardian, Projectile projectile, bool jabAttack, bool counterAttack) { } // Called on the first frame of an attack
+		/// <summary>Called before uncharged jab or mid-charging jab AI is executed, including repositioning the quarterstaff and the player's arms for its attack animation. Return false to prevent normal AI from running, effectively overriding <c>JabStyle</c>.</summary>
+		/// <remarks>During a jab, <c>Projectile.ai[0]</c> is set to -40 as an animation timer and incremented by <c>JabSpeed</c> every frame until it reaches 0. Use <c>Projectile.ResetLocalNPCHitImmunity()</c> for multi-swing animations to allow them to hit multiple times. See <c>GuardianQuarterstaffAnchor</c> for examples of default <c>JabStyle</c> behavior.</remarks>
+		public virtual bool PreJabAI(Player player, OrchidGuardian guardian, Projectile anchor) { return true; }
+		/// <summary>Called before fully charged swing AI is executed, including repositioning the quarterstaff and the player's arms for its attack animation. Return false to prevent normal AI from running, effectively overriding <c>SwingStyle</c>.</summary>
+		/// <remarks>During a swing, <c>Projectile.ai[0]</c> is set to 41 as an animation timer and decremented by <c>SwingSpeed</c> every frame until it reaches 1. Use <c>Projectile.ResetLocalNPCHitImmunity()</c> for multi-swing animations to allow them to hit multiple times. See <c>GuardianQuarterstaffAnchor</c> for examples of default <c>SwingStyle</c> behavior.</remarks>
+		public virtual bool PreSwingAI(Player player, OrchidGuardian guardian, Projectile anchor) { return true; }
 		public virtual void OnParryQuarterstaff(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) { } // Called on parrying anything
 		public virtual void ExtraAIQuarterstaff(Player player, OrchidGuardian guardian, Projectile projectile) { } // Called at the end of the Anchor Projectile AI
 		public virtual void PostDrawQuarterstaff(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { } // Called after the item is done being drawn
@@ -45,7 +51,15 @@ namespace OrchidMod.Content.Guardian
 		public float SwingKnockback = 1.5f; // swing knockback multiplier
 		public float JabKnockback = 1f; // spin knockback multiplier
 		public float CounterKnockback = 1f; // counter knockback multiplier
-		public bool SingleSwing = false; // allows a special swing behaviour
+		/// <summary>Indexes into <c>GuardianQuarterstaffAnchor.DoAnimStyle</c> to get jab animation AI.</summary>
+		/// <inheritdoc cref="GuardianQuarterstaffAnchor.DoAnimStyle(int, float)" select="remarks" />
+		public int JabStyle = 0;
+		/// <summary>Indexes into <c>GuardianQuarterstaffAnchor.DoAnimStyle</c> to get swing animation AI.</summary>
+		/// <inheritdoc cref="GuardianQuarterstaffAnchor.DoAnimStyle(int, float)" select="remarks" />
+		public int SwingStyle = 1;
+		//public bool SingleSwing = false; // allows a special swing behaviour
+		/// <summary>Multiplier for the amount of bonus charge gained from hitting with a jab.</summary>
+		public float JabChargeGain = 1;
 
 		public sealed override void SetDefaults()
 		{
