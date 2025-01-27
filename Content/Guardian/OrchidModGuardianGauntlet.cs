@@ -20,8 +20,10 @@ namespace OrchidMod.Content.Guardian
 	{
 		public bool hasArm = false;
 		public bool hasShoulder = false;
+		public bool hasBackGauntlet = false;
 
 		public virtual string GauntletTexture => Texture + "_Gauntlet";
+		public virtual string GauntletBackTexture => Texture + "_GauntletBack";
 		public virtual string ArmTexture => Texture + "_Arm";
 		public virtual string ShoulderTexture => Texture + "_Shoulder";
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }

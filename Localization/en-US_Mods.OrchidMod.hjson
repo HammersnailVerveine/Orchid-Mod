@@ -3430,6 +3430,11 @@ Items: {
 		DisplayName: Wave Breaker
 		Tooltip: Jab is replaced by a powerful sweep that instantly charges on hit
 	}
+
+	DukeGauntlet: {
+		DisplayName: Duke Gauntlet
+		Tooltip: ""
+	}
 }
 
 NPCs: {

@@ -345,7 +345,16 @@ namespace OrchidMod.Content.Guardian
 					spriteBatch.Draw(textureShoulder, shouldePosition, null, color, 0f, textureShoulder.Size() * 0.5f, Projectile.scale, effectShoulder, 0f);
 				}
 
-				var texture = ModContent.Request<Texture2D>(guardianItem.GauntletTexture).Value;
+				Texture2D texture;
+
+				if (guardianItem.hasBackGauntlet && OffHandGauntlet)
+				{
+					texture = ModContent.Request<Texture2D>(guardianItem.GauntletBackTexture).Value;
+				}
+				else
+				{
+					texture = ModContent.Request<Texture2D>(guardianItem.GauntletTexture).Value;
+				}
 
 				var effect = SpriteEffects.None;
 				if (player.direction != 1)
