@@ -2841,7 +2841,7 @@ Items: {
 
 	GoblinSpike: {
 		DisplayName: Goblin Shield Spike
-		Tooltip: Deals 100% of your defense as damage to blocked enemies
+		Tooltip: Deals 100% of your defense as opposing damage to blocked enemies
 	}
 
 	GuardianEmblem: {
@@ -2853,8 +2853,8 @@ Items: {
 		DisplayName: Spouting Shield Spike
 		Tooltip:
 			'''
-			Deals 150% of your defense as damage to blocked enemies
-			Releases a water bolt when blocking a projectile
+			Deals 150% of your defense as opposing damage to blocked enemies
+			Blocking projectiles releases a water bolt, dealing your shield spike damage
 			'''
 	}
 
@@ -2862,9 +2862,9 @@ Items: {
 		DisplayName: Mechanical Shield Spike
 		Tooltip:
 			'''
-			Deals 250% of your defense as damage to blocked enemies
-			Increases opposing damage by 15% after blocking a projectile
-			12% increased opposing damage
+			Deals 200% of your defense as opposing damage to blocked enemies
+			Blocking projectiles fires lasers at nearby enemies, dealing your shield spike damage
+			15% increased opposing damage for 10 seconds after a successful block
 			'''
 	}
 
@@ -2872,9 +2872,10 @@ Items: {
 		DisplayName: Lihzahrd Shield Spike
 		Tooltip:
 			'''
-			Deals 300% of your defense as damage to blocked enemies
-			Increases opposing damage and critical strike chance by 15% after blocking a projectile
-			10% increased opposing damage and critical strike chance 
+			Deals 200% of your defense as opposing damage to blocked enemies
+			Blocking projectiles unleashes a deadly sun laser, dealing your shield spike damage
+			15% increased opposing damage for 10 seconds after a successful block
+			10% increased opposing critical strike chance 
 			'''
 	}
 
@@ -3770,6 +3771,8 @@ Projectiles: {
 	ShardQuarterstaffProjectile.DisplayName: Shard Quarterstaff Projectile
 	OrchidTitaniumShard.DisplayName: Titanium Shard
 	ThoriumGraniteGauntletProjectile.DisplayName: Chargeback
+	TempleSpikeProj.DisplayName: Deadly Sun Laser
+	MechSpikeProj.DisplayName: Death Laser
 }
 
 Configs: {

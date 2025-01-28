@@ -18,9 +18,10 @@ namespace OrchidMod.Content.Guardian.Accessories
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianSpikeGoblin = true;
-			modPlayer.GuardianSpikeMechanical = true;
-			player.GetDamage<GuardianDamageClass>() += 0.12f;
+			if (modPlayer.GuardianSpikeDamage < 2f)
+				modPlayer.GuardianSpikeDamage = 2f;
+			modPlayer.GuardianSharpRebuttalBlock = true;
+			modPlayer.GuardianSpikeMech = true;
 		}
 
 		public override void AddRecipes()

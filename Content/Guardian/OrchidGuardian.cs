@@ -6,6 +6,7 @@ using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Content.Guardian.Projectiles.Standards;
 using OrchidMod.Content.Guardian.Weapons.Misc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -43,10 +44,12 @@ namespace OrchidMod
 		public bool GuardianBamboo = false;
 		public bool GuardianGit = false;
 		public bool GuardianHorizon = false;
-		public bool GuardianSpikeGoblin = false; // Accessories
+		public float GuardianSpikeDamage = 0; // Accessories
 		public bool GuardianSpikeDungeon = false;
-		public bool GuardianSpikeMechanical = false;
+		public bool GuardianSpikeMech = false;
 		public bool GuardianSpikeTemple = false;
+		public bool GuardianSharpRebuttalBlock = false;
+		public bool GuardianSharpRebuttalParry = false;
 		public bool GuardianWormTooth = false;
 		public bool GuardianMonsterFang = false;
 		public bool GuardianStandardDesert = false; // Standards
@@ -150,11 +153,6 @@ namespace OrchidMod
 
 		public override void PostUpdateMiscEffects()
 		{
-			if (GuardianSpikeTemple && Player.HasBuff(ModContent.BuffType<GuardianSpikeBuff>()))
-			{
-				Player.GetCritChance<GuardianDamageClass>() += 15;
-			}
-
 			GuardianStandardStats.ApplyStats(Player); // Standards apply their stats here
 		}
 
@@ -247,10 +245,12 @@ namespace OrchidMod
 			GuardianPaviseScale = 1f;
 
 			GuardianMeteorite = false;
-			GuardianSpikeGoblin = false;
+			GuardianSpikeDamage = 0;
 			GuardianSpikeDungeon = false;
-			GuardianSpikeMechanical = false;
+			GuardianSpikeMech = false;
 			GuardianSpikeTemple = false;
+			GuardianSharpRebuttalBlock = false;
+			GuardianSharpRebuttalParry = false;
 			GuardianBamboo = false;
 			GuardianGit = false;
 			GuardianHorizon = false;
@@ -560,7 +560,7 @@ namespace OrchidMod
 			GuardianStandardBuffer = false;
 		}
 
-		public void OnBlockAnyFirst(Projectile anchor, ref int toAdd)
+		public void OnBlockAnyFirst(Projectile anchor, ref int toAdd, bool parry)
 		{ // Called by both FirstBlockEffect methods to do universal on-first-block effect
 			if (GuardianMeteorite && Main.rand.NextBool(2))
 			{
@@ -581,18 +581,15 @@ namespace OrchidMod
 				GuardianCounterTime = (int)(40 / (qs.CounterSpeed * Player.GetTotalAttackSpeed<MeleeDamageClass>()));
 		}
 
-		public void OnBlockNPCFirst(Projectile anchor, NPC target, int toAdd = 1)
+		public void OnBlockNPCFirst(Projectile anchor, NPC target, int toAdd = 1, bool parry = false)
 		{ // Called anytime the player blocks/parries their first NPC
-			OnBlockAnyFirst(anchor, ref toAdd);
+			OnBlockAnyFirst(anchor, ref toAdd, parry);
 
 			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor)
 			{
-				if (GuardianSpikeGoblin)
+				if (GuardianSpikeDamage > 0)
 				{
-					float damage = Player.statDefense;
-					if (GuardianSpikeTemple) damage *= 3f;
-					else if (GuardianSpikeMechanical) damage *= 2.5f;
-					else if (GuardianSpikeDungeon) damage *= 1.5f;
+					float damage = Player.statDefense * GuardianSpikeDamage;
 
 					damage = GetGuardianDamage(damage);
 					bool crit = Main.rand.NextFloat(100) < anchor.CritChance;
@@ -603,43 +600,82 @@ namespace OrchidMod
 			AddSlam(toAdd);
 		}
 
-		public void OnBlockProjectileFirst(Projectile anchor, Projectile blockedProjectil0e, int toAdd = 1)
+		public void OnBlockProjectileFirst(Projectile anchor, Projectile blockedProjectil0e, int toAdd = 1, bool parry = false)
 		{ // Called anytime the player blocks/parries their first projectile
-			OnBlockAnyFirst(anchor, ref toAdd);
+			OnBlockAnyFirst(anchor, ref toAdd, parry);
 			AddSlam(toAdd);
 		}
 
-		public void OnBlockAny(Projectile anchor)
+		public void OnBlockAny(Projectile anchor, bool parry)
 		{ // Called by both BlockEffect methods to do universal block effects
 			if (GuardianGit)
 			{
 				Player.AddBuff(ModContent.BuffType<GuardianGitBuff>(), 600);
 			}
+			if ((GuardianSharpRebuttalBlock && !parry) || (GuardianSharpRebuttalParry && parry))
+			{
+				Player.AddBuff(ModContent.BuffType<GuardianSpikeBuff>(), 600);
+			}
 		}
 
-		public void OnBlockNPC(Projectile anchor, NPC target)
+		public void OnBlockNPC(Projectile anchor, NPC target, bool parry = false)
 		{ // Called anytime the player blocks/parries a NPC
-			OnBlockAny(anchor);
+			OnBlockAny(anchor, parry);
 		}
 
-		public void OnBlockProjectile(Projectile anchor, Projectile blockedProjectile)
+		public void OnBlockProjectile(Projectile anchor, Projectile blockedProjectile, bool parry = false)
 		{ // Called anytime the player blocks/parries a projectile
-			OnBlockAny(anchor);
+			OnBlockAny(anchor, parry);
 
 			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor)
 			{
-				if (GuardianSpikeDungeon)
-				{ // For some god forsaken reason, any projectile spawned here is destroyed on frame 1
-					int type = ModContent.ProjectileType<WaterSpikeProjAlt>();
-					Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center) * 10f;
-					int damage = GetGuardianDamage(30); // Duplicate changes in the Dungeon Spike item
-					Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center, dir, type, damage, 1f, Player.whoAmI);
-					projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
-				}
-
-				if (GuardianSpikeTemple || GuardianSpikeMechanical)
+				if (GuardianSpikeDamage > 0)
 				{
-					Player.AddBuff(ModContent.BuffType<GuardianSpikeBuff>(), 600);
+					int damage = Math.Max(GetGuardianDamage(Player.statDefense * GuardianSpikeDamage), 1);
+					if (GuardianSpikeTemple)
+					{
+						int type = ModContent.ProjectileType<TempleSpikeProj>();
+						Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center);
+						Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center + dir * 2f, dir, type, damage, 1f, Player.whoAmI);
+						projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+						SoundEngine.PlaySound(SoundID.Item91.WithPitchOffset(0.2f).WithVolumeScale(0.6f), anchor.Center);
+						SoundEngine.PlaySound(SoundID.Item68.WithPitchOffset(0.6f).WithVolumeScale(0.5f), anchor.Center);
+					}
+					else if (GuardianSpikeMech)
+					{
+						int type = ModContent.ProjectileType<MechSpikeProj>();
+						Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center);
+						NPC target = null;
+						float distanceClosest = 400f;
+						foreach (NPC npc in Main.npc)
+						{
+							float distance = npc.Center.Distance(anchor.Center);
+							if (OrchidModProjectile.IsValidTarget(npc) && distance < distanceClosest)
+							{
+								float targetRotOffs = (npc.Center - anchor.Center).ToRotation() - dir.ToRotation();
+								if (targetRotOffs > MathHelper.Pi) targetRotOffs -= MathHelper.TwoPi;
+								if (Math.Abs(targetRotOffs) < MathHelper.PiOver4)
+								{
+									target = npc;
+									distanceClosest = distance;
+								}
+							}
+						}
+						if (target != null) dir = new Vector2(1, 0).RotatedBy((target.Center - anchor.Center).ToRotation());
+						dir = dir.RotatedByRandom(0.1f);
+						Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center, dir * 12f, type, damage, 1f, Player.whoAmI);
+						projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+						projectile.rotation = dir.ToRotation() - MathHelper.PiOver2;
+						SoundEngine.PlaySound(SoundID.Item12.WithVolumeScale(0.6f), anchor.Center);
+					}
+					else if (GuardianSpikeDungeon)
+					{ // For some god forsaken reason, any projectile spawned here is destroyed on frame 1
+						int type = ModContent.ProjectileType<WaterSpikeProjAlt>();
+						Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center) * 10f;
+						Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center, dir, type, damage, 1f, Player.whoAmI);
+						projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+						SoundEngine.PlaySound(SoundID.Item21.WithPitchOffset(0.5f).WithVolumeScale(0.7f), anchor.Center);
+					}
 				}
 			}
 		}
@@ -678,20 +714,20 @@ namespace OrchidMod
 						if (aggressor is NPC npc)
 						{
 							parryItem.OnParryNPC(Player, this, npc, anchor);
-							OnBlockNPC(anchor, npc);
-							OnBlockNPCFirst(anchor, npc, toAdd);
+							OnBlockNPC(anchor, npc, true);
+							OnBlockNPCFirst(anchor, npc, toAdd, true);
 						}
 						else if (aggressor is Projectile projectile)
 						{
 							parryItem.OnParryProjectile(Player, this, projectile, anchor);
-							OnBlockProjectile(anchor, projectile);
-							OnBlockProjectileFirst(anchor, projectile, toAdd);
+							OnBlockProjectile(anchor, projectile, true);
+							OnBlockProjectileFirst(anchor, projectile, toAdd, true);
 						}
 						else
 						{
 							parryItem.OnParryOther(Player, this, anchor);
-							OnBlockAny(anchor);
-							OnBlockAnyFirst(anchor, ref toAdd);
+							OnBlockAny(anchor, true);
+							OnBlockAnyFirst(anchor, ref toAdd, true);
 							AddSlam(toAdd);
 						}
 					}
