@@ -115,6 +115,7 @@ namespace OrchidMod.Content.Guardian
 
 				if (Projectile.ai[2] > 0f)
 				{ // Blocking
+					Projectile.friendly = false;
 					guardian.GuardianGauntletParry = true;
 					guardian.GuardianGauntletParry2 = true;
 

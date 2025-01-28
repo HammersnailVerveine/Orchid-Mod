@@ -148,7 +148,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 			if (guardianBlock > 0)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "GuardianBlockPrefix", "+" + guardianBlock + " block charge")
+				tooltips.Insert(index, new TooltipLine(Mod, "GuardianBlockPrefix", "+" + guardianBlock + " guard")
 				{
 					IsModifier = true
 				});

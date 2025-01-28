@@ -19,6 +19,10 @@ namespace OrchidMod
 {
 	public class OrchidGuardian : ModPlayer
 	{
+		// Misc & Static fields
+
+		/// <summary> Current timer for slam stack regen or degen. Increments slams at 1 or higher, decrements at -1 or lower.</summary>
+		public static List<int> ProjectilesBlockBlacklist;
 		public OrchidPlayer modPlayer;
 
 		// Can be edited by gear
@@ -124,6 +128,22 @@ namespace OrchidMod
 					}
 				}
 			}
+		}
+
+		public override void SetStaticDefaults()
+		{
+			ProjectilesBlockBlacklist = new List<int>
+			{
+				ProjectileID.PhantasmalDeathray,
+				ProjectileID.FairyQueenSunDance,
+				ProjectileID.SandBallFalling,
+				ProjectileID.SiltBall,
+				ProjectileID.SlushBall,
+				ProjectileID.EbonsandBallFalling,
+				ProjectileID.CrimsandBallFalling,
+				ProjectileID.PearlSandBallFalling,
+				ProjectileID.AshBallFalling
+			};
 		}
 
 		public override void Initialize()

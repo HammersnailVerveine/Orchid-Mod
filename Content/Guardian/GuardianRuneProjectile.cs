@@ -70,6 +70,7 @@ namespace OrchidMod.Content.Guardian
 				Vector2 position = new Vector2(0f, Projectile.ai[0]);
 				position = position.RotatedBy(MathHelper.ToRadians(Projectile.ai[1]));
 				Projectile.position = Owner.Center + position - new Vector2(Projectile.width, Projectile.height) * 0.5f + Vector2.UnitY * Owner.gfxOffY;
+				Projectile.velocity = position * 0.00001f;
 			}
 		}
 	}

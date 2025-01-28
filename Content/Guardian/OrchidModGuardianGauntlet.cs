@@ -4,7 +4,6 @@ using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;

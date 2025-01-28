@@ -226,6 +226,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 			npcShop.Add<OceanCard>([Condition.InBeach]);
 			npcShop.Add<JungleCard>([Condition.InJungle]);
 			npcShop.Add<MushroomCard>([Condition.InGlowshroom]);
+			npcShop.Add<SkyCard>([Condition.InSkyHeight]);
 			npcShop.Add<SlimeRainCard>([OrchidConditions.SlimeRain]);
 			npcShop.Add<LuckySprout>([OrchidConditions.GamblerSetBiome]);
 			npcShop.Add<ConquerorsPennant>([OrchidConditions.GamblerSetBoss]);

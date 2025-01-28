@@ -152,7 +152,8 @@ namespace OrchidMod.Content.Guardian
 				{ // Handles buffs given to nearby players, npcs, etc
 					if (BuffItem == null || BuffItem.ModItem is not OrchidModGuardianStandard buffItem)
 					{
-						Main.NewText("Error with a Standard effect, please tell me how that happened!", Color.Red);
+						// This message was never useful anyways
+						//Main.NewText("Error with a Standard effect, please tell me how that happened!", Color.Red);
 						Projectile.Kill();
 						return;
 					}

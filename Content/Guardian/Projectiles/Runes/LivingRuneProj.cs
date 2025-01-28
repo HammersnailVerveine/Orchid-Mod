@@ -51,8 +51,6 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 					OldRotation.RemoveAt(0);
 			}
 
-			if (Projectile.velocity.Y < 0.5f) Projectile.velocity.Y += 0.02f;
-			Projectile.velocity.X *= 0.95f;
 			Projectile.rotation += (0.05f * (0.2f - Math.Abs(Projectile.rotation)) + 0.001f) * animDirection;
 			if (Math.Abs(Projectile.rotation) >= 0.2f)
 			{

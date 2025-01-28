@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.General.Prefixes;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -150,7 +151,7 @@ namespace OrchidMod.Content.Guardian
 					for (int l = 0; l < Main.projectile.Length; l++)
 					{
 						Projectile proj = Main.projectile[l];
-						if (proj.active && proj.hostile && proj.damage > 0)
+						if (proj.active && proj.hostile && proj.damage > 0 && !OrchidGuardian.ProjectilesBlockBlacklist.Contains(proj.type))
 						{
 							if (LineIntersectsRect(p1, p2, proj.Hitbox) || proj.Hitbox.Intersects(Projectile.Hitbox))
 							{
