@@ -68,6 +68,7 @@ namespace OrchidMod.Content.Guardian
 			guardian.GuardianGauntletCharge = 0;
 			SelectedItem = owner.selectedItem;
 			Projectile.netUpdate = true;
+			Projectile.friendly = false;
 
 			if (QuarterstaffItem.ModItem is OrchidModGuardianQuarterstaff guardianItem)
 			{
