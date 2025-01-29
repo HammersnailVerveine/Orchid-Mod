@@ -3436,6 +3436,11 @@ Items: {
 		DisplayName: Duke Gauntlet
 		Tooltip: ""
 	}
+
+	TrashPavise: {
+		DisplayName: Trash Lid
+		Tooltip: ""
+	}
 }
 
 NPCs: {

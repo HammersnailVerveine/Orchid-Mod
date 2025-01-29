@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Content.General.Projectiles;
+using OrchidMod.Content.Guardian.Weapons.Shields;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -73,9 +74,16 @@ namespace OrchidMod.Common.ModObjects
 
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
 		{
+			/*
 			if (Player.ZoneSkyHeight && !attempt.inLava && !attempt.inHoney && Main.rand.NextBool(10) && Main.hardMode && attempt.rare)
 			{
 				itemDrop = ModContent.ItemType<Content.Shaman.Weapons.Hardmode.WyvernMoray>();
+			}
+			*/
+
+			if (attempt.fishingLevel < 50 && Main.rand.NextBool(5 + (int)(attempt.fishingLevel / 2f))) 
+			{
+				itemDrop = ModContent.ItemType<TrashPavise>();
 			}
 		}
 
