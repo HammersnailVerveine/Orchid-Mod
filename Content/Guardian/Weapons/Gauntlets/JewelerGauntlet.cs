@@ -32,15 +32,27 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		{
 			Item.width = 32;
 			Item.height = 34;
-			Item.knockBack = 3f;
-			Item.damage = 53;
+			Item.knockBack = 4f;
+			Item.damage = 74;
 			Item.value = Item.sellPrice(0, 1, 15, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.useTime = 35;
-			strikeVelocity = 15f;
+			strikeVelocity = 16f;
 			parryDuration = 60;
 			GemType = 0;
 		}
+
+		/*
+		Amethyst : Attacks ignore a substantial amount of enemy defense
+		Topaz : Increases the length of invincibility after a parry (+1 sec)
+		Sapphire : Grants a double jump
+		Emerald : Grants a double tap dash
+		Ruby : Strongly increased life regeneration after a parry (+20 health over 5 sec)
+		Diamond : Enemies killed by this weapon drop 30% more gold
+		Amber : Charged punch hits restore half a guard
+		Aquamarine : Increases mobility in water when held
+		Opal : Increases nearby player resource generation
+		*/
 
 		public override Color GetColor(bool offHand)
 		{
