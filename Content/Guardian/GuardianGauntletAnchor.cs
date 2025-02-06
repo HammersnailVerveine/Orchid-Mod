@@ -334,7 +334,8 @@ namespace OrchidMod.Content.Guardian
 					float armRotation = player.compositeFrontArm.rotation + MathHelper.PiOver2 * (player.direction == -1 ? 1.5f : 0.5f);
 					if (Blocking) armRotation += MathHelper.PiOver4 * -0.5f * player.direction;
 					Vector2 armPosition = Vector2.Transform(player.Center.Floor() + new Vector2(6 * -player.direction, -2.5f) - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-					spriteBatch.Draw(textureArm, armPosition, drawRectangleArm, color, armRotation, textureArm.Size() * 0.5f, Projectile.scale, effectArm, 0f);
+					Vector2 originArm = drawRectangleArm == null ? textureArm.Size() * 0.5f : drawRectangleArm.GetValueOrDefault().Size() * 0.5f;
+					spriteBatch.Draw(textureArm, armPosition, drawRectangleArm, color, armRotation, originArm, Projectile.scale, effectArm, 0f);
 				}
 
 				if (guardianItem.hasShoulder)
@@ -342,7 +343,8 @@ namespace OrchidMod.Content.Guardian
 					var effectShoulder = player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 					Texture2D textureShoulder = guardianItem.GetShoulderTexture(out Rectangle? drawRectangleShoulder);
 					Vector2 shouldePosition = Vector2.Transform(player.Center.Floor() + new Vector2(6 * -player.direction, -3f) - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-					spriteBatch.Draw(textureShoulder, shouldePosition, drawRectangleShoulder, color, 0f, textureShoulder.Size() * 0.5f, Projectile.scale, effectShoulder, 0f);
+					Vector2 originShoulder = drawRectangleShoulder == null ? textureShoulder.Size() * 0.5f : drawRectangleShoulder.GetValueOrDefault().Size() * 0.5f;
+					spriteBatch.Draw(textureShoulder, shouldePosition, drawRectangleShoulder, color, 0f, originShoulder, Projectile.scale, effectShoulder, 0f);
 				}
 
 				Texture2D texture = guardianItem.GetGauntletTexture(OffHandGauntlet, out Rectangle? drawRectangle);
@@ -377,7 +379,9 @@ namespace OrchidMod.Content.Guardian
 
 				var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				float rotation = Projectile.rotation;
-				spriteBatch.Draw(texture, drawPosition, drawRectangle, color, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				Vector2 origin = drawRectangle == null ? texture.Size() * 0.5f : drawRectangle.GetValueOrDefault().Size() * 0.5f;
+				spriteBatch.Draw(texture, drawPosition, drawRectangle, color, drawRotation, origin, Projectile.scale, effect, 0f);
+
 			}
 			guardianItem.PostDrawGauntlet(spriteBatch, Projectile, player, color);
 

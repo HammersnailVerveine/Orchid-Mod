@@ -253,7 +253,7 @@ namespace OrchidMod.Content.Guardian
 			});
 		}
 
-		public Texture2D GetGauntletTexture(bool OffHandGauntlet, out Rectangle? drawRectangle)
+		public virtual Texture2D GetGauntletTexture(bool OffHandGauntlet, out Rectangle? drawRectangle)
 		{
 			drawRectangle = null;
 			if (hasBackGauntlet && OffHandGauntlet)
@@ -266,13 +266,13 @@ namespace OrchidMod.Content.Guardian
 			}
 		}
 
-		public Texture2D GetArmTexture(out Rectangle? drawRectangle)
+		public virtual Texture2D GetArmTexture(out Rectangle? drawRectangle)
 		{
 			drawRectangle = null;
 			return ModContent.Request<Texture2D>(ArmTexture).Value;
 		}
 
-		public Texture2D GetShoulderTexture(out Rectangle? drawRectangle)
+		public virtual Texture2D GetShoulderTexture(out Rectangle? drawRectangle)
 		{
 			drawRectangle = null;
 			return ModContent.Request<Texture2D>(ShoulderTexture).Value;

@@ -3441,6 +3441,11 @@ Items: {
 		DisplayName: Trash Lid
 		Tooltip: ""
 	}
+
+	JewelerGauntlet: {
+		DisplayName: Jeweler's Gauntlets
+		Tooltip: ""
+	}
 }
 
 NPCs: {
