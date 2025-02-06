@@ -330,31 +330,22 @@ namespace OrchidMod.Content.Guardian
 				if (guardianItem.hasArm)
 				{
 					var effectArm = player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-					var textureArm = ModContent.Request<Texture2D>(guardianItem.ArmTexture).Value;
+					Texture2D textureArm = guardianItem.GetArmTexture(out Rectangle? drawRectangleArm);
 					float armRotation = player.compositeFrontArm.rotation + MathHelper.PiOver2 * (player.direction == -1 ? 1.5f : 0.5f);
 					if (Blocking) armRotation += MathHelper.PiOver4 * -0.5f * player.direction;
 					Vector2 armPosition = Vector2.Transform(player.Center.Floor() + new Vector2(6 * -player.direction, -2.5f) - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-					spriteBatch.Draw(textureArm, armPosition, null, color, armRotation, textureArm.Size() * 0.5f, Projectile.scale, effectArm, 0f);
+					spriteBatch.Draw(textureArm, armPosition, drawRectangleArm, color, armRotation, textureArm.Size() * 0.5f, Projectile.scale, effectArm, 0f);
 				}
 
 				if (guardianItem.hasShoulder)
 				{
 					var effectShoulder = player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-					var textureShoulder = ModContent.Request<Texture2D>(guardianItem.ShoulderTexture).Value;
+					Texture2D textureShoulder = guardianItem.GetShoulderTexture(out Rectangle? drawRectangleShoulder);
 					Vector2 shouldePosition = Vector2.Transform(player.Center.Floor() + new Vector2(6 * -player.direction, -3f) - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-					spriteBatch.Draw(textureShoulder, shouldePosition, null, color, 0f, textureShoulder.Size() * 0.5f, Projectile.scale, effectShoulder, 0f);
+					spriteBatch.Draw(textureShoulder, shouldePosition, drawRectangleShoulder, color, 0f, textureShoulder.Size() * 0.5f, Projectile.scale, effectShoulder, 0f);
 				}
 
-				Texture2D texture;
-
-				if (guardianItem.hasBackGauntlet && OffHandGauntlet)
-				{
-					texture = ModContent.Request<Texture2D>(guardianItem.GauntletBackTexture).Value;
-				}
-				else
-				{
-					texture = ModContent.Request<Texture2D>(guardianItem.GauntletTexture).Value;
-				}
+				Texture2D texture = guardianItem.GetGauntletTexture(OffHandGauntlet, out Rectangle? drawRectangle);
 
 				var effect = SpriteEffects.None;
 				if (player.direction != 1)
@@ -386,7 +377,7 @@ namespace OrchidMod.Content.Guardian
 
 				var drawPosition = Vector2.Transform(posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
 				float rotation = Projectile.rotation;
-				spriteBatch.Draw(texture, drawPosition, null, color, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				spriteBatch.Draw(texture, drawPosition, drawRectangle, color, drawRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
 			}
 			guardianItem.PostDrawGauntlet(spriteBatch, Projectile, player, color);
 

@@ -33,6 +33,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void ExtraAIGauntlet(Projectile projectile) { }
 		public virtual void PostDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
+
 		public virtual Color GetColor(bool offHand) => Color.White;
 
 		public virtual void SafeHoldItem(Player player) { }
@@ -250,6 +251,31 @@ namespace OrchidMod.Content.Guardian
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});
+		}
+
+		public Texture2D GetGauntletTexture(bool OffHandGauntlet, out Rectangle? drawRectangle)
+		{
+			drawRectangle = null;
+			if (hasBackGauntlet && OffHandGauntlet)
+			{
+				return(ModContent.Request<Texture2D>(GauntletBackTexture).Value);
+			}
+			else
+			{
+				return (ModContent.Request<Texture2D>(GauntletTexture).Value);
+			}
+		}
+
+		public Texture2D GetArmTexture(out Rectangle? drawRectangle)
+		{
+			drawRectangle = null;
+			return ModContent.Request<Texture2D>(ArmTexture).Value;
+		}
+
+		public Texture2D GetShoulderTexture(out Rectangle? drawRectangle)
+		{
+			drawRectangle = null;
+			return ModContent.Request<Texture2D>(ShoulderTexture).Value;
 		}
 	}
 }
