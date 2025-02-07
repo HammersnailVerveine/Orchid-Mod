@@ -1,14 +1,17 @@
-﻿using Microsoft.Xna.Framework;
+﻿using log4net.Core;
+using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Guardian.Buffs;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Content.Guardian.Projectiles.Standards;
+using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Guardian.Weapons.Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -34,6 +37,7 @@ namespace OrchidMod
 		public int GuardianGuardMax = 3; // Max guard charges
 		public int GuardianSlamMax = 3; // Max slam charges
 		public int GuardianBonusRune = 0; // Bonus projectiles spawned by runes
+		public int ParryInvincibilityBonus = 0; // Bonus in frames added to the length of parry iframes
 		public float GuardianRuneTimer = 1f; // Rune duration multiplier
 		public float GuardianStandardTimer = 1f; // Standard duration multiplier
 		public float GuardianStandardRange = 1f;
@@ -62,6 +66,7 @@ namespace OrchidMod
 		public int GuardianStandardStarScouterWarpCD = 0; //Holds cooldown and animation for warp effect
 		public bool GuardianHoneyPotion = false; // Misc
 		public bool GuardianInfiniteResources = false;
+		public byte GuardianJewelerGauntlet = 0;
 
 		// Dynamic gameplay and UI fields
 
@@ -174,6 +179,15 @@ namespace OrchidMod
 		public override void PostUpdateMiscEffects()
 		{
 			GuardianStandardStats.ApplyStats(Player); // Standards apply their stats here
+
+			if (GuardianJewelerGauntlet != 0)
+			{ // Player.HoldItem being called too late in the frame, these fields need to be buffered and handled here
+				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.EMERALD) Player.trident = true;
+				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.SAPPHIRE) Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
+				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.AQUAMARINE) Player.trident = true;
+				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.TOPAZ) ParryInvincibilityBonus += 60;
+				GuardianJewelerGauntlet = 0;
+			}
 		}
 
 		public override void UpdateLifeRegen()
@@ -183,6 +197,8 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
+			// Resetting Core guardian fields
+
 			if (!OverHalfGuards)
 				GuardianGuardRecharging += GuardianGuardRecharge / GuardianRechargeTime;
 			else GuardianGuardRecharging += (-2 + GuardianGuardRecharge) / GuardianRechargeTime;
@@ -263,6 +279,7 @@ namespace OrchidMod
 			GuardianBlockDuration = 1f;
 			GuardianMeleeSpeed = 1f;
 			GuardianPaviseScale = 1f;
+			ParryInvincibilityBonus = 0;
 
 			GuardianMeteorite = false;
 			GuardianSpikeDamage = 0;
@@ -707,8 +724,8 @@ namespace OrchidMod
 
 			if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
 			{
-				modPlayer.PlayerImmunity = parryItem.InvincibilityDuration;
-				Player.immuneTime = parryItem.InvincibilityDuration;
+				modPlayer.PlayerImmunity = parryItem.InvincibilityDuration + ParryInvincibilityBonus;
+				Player.immuneTime = parryItem.InvincibilityDuration + ParryInvincibilityBonus;
 				Player.immune = true;
 
 				Projectile anchor = null;

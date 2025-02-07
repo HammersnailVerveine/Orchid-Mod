@@ -27,12 +27,14 @@ namespace OrchidMod.Content.Guardian
 		public virtual string ShoulderTexture => Texture + "_Shoulder";
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
+		public virtual void ModifyHitNPCGauntlet(Player player, NPC target, Projectile projectile, ref HitModifiers modifiers, bool charged) { }
 		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage) => true; // Return false to prevent normal punch projectiles from spawning
 		public virtual void OnParryGauntlet(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) { }
 		public virtual bool ProjectileAI(Player player, Projectile projectile, bool charged) => true;
 		public virtual void ExtraAIGauntlet(Projectile projectile) { }
 		public virtual void PostDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
 		public virtual bool PreDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
+		public virtual void SafeModifyTooltips(List<TooltipLine> tooltips) { } // Called at the end of ModifyTooltips
 
 		public virtual Color GetColor(bool offHand) => Color.White;
 
@@ -251,6 +253,8 @@ namespace OrchidMod.Content.Guardian
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});
+
+			SafeModifyTooltips(tooltips);
 		}
 
 		public virtual Texture2D GetGauntletTexture(bool OffHandGauntlet, out Rectangle? drawRectangle)

@@ -294,6 +294,16 @@ Buffs: {
 		Description: Pucked Up
 		DisplayName: Wee!
 	}
+
+	RubyHealing: {
+		DisplayName: Ruby Healing
+		Description: Life regeneration is greatly increased
+	}
+
+	OpalResources: {
+		DisplayName: Opal Resources
+		Description: 10% increased resource regeneration
+	}
 }
 
 Items: {
@@ -3444,7 +3454,17 @@ Items: {
 
 	JewelerGauntlet: {
 		DisplayName: Jeweler's Gauntlets
-		Tooltip: ""
+		Tooltip: Can be socketed by right clicking with a gem, providing various effects
+		Amethyst: Amethyst: attacks ignore a substantial amount of enemy defense
+		Topaz: Topaz: increases the length of invincibility after a parry
+		Sapphire: Sapphire: allows the player to double jump
+		Emerald: Emerald: allows the player to dash
+		Ruby: Ruby: greatly increases life regeneration after a parry
+		Diamond: Diamond: emits an aura of light
+		Amber: Amber: recovers 50% of a guard on charged attack hits
+		Aquamarine: Aquamarine: increases mobility in water when held
+		Opal: Opal: increases nearby players resource regeneration
+		None: No gem socketed
 	}
 }
 

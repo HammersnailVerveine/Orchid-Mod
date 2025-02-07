@@ -145,8 +145,8 @@ namespace OrchidMod.Content.Guardian.UI
 					spriteBatch.Draw(texture, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 					if (modPlayer.SlamCostUI > i)
 					{
-						drawpos = new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16 * player.gravDir + 2f * (player.gravDir - 1));
-						spriteBatch.Draw(textureSlamHighlight, drawpos, null, (check ? Color.White * 0.8f : Color.DarkGray) * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
+						Vector2 drawposCost = new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16 * player.gravDir + 2f * (player.gravDir - 1));
+						spriteBatch.Draw(textureSlamHighlight, drawposCost, null, (check ? Color.White * 0.8f : Color.DarkGray) * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
 					}
 					if (modPlayer.GuardianSlam - 1 == i && modPlayer.GuardianSlamRecharging < 0)
 					{

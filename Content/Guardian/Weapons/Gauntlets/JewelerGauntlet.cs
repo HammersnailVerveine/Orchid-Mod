@@ -1,12 +1,19 @@
-﻿using Microsoft.Xna.Framework;
+﻿using log4net.Core;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.Alchemist;
+using OrchidMod.Content.General.Prefixes;
+using OrchidMod.Content.Guardian.Buffs;
+using OrchidMod.Utilities;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.WorldBuilding;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
@@ -42,18 +49,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			GemType = 0;
 		}
 
-		/*
-		Amethyst : Attacks ignore a substantial amount of enemy defense
-		Topaz : Increases the length of invincibility after a parry (+1 sec)
-		Sapphire : Grants a double jump
-		Emerald : Grants a double tap dash
-		Ruby : Strongly increased life regeneration after a parry (+20 health over 5 sec)
-		Diamond : Enemies killed by this weapon drop 30% more gold
-		Amber : Charged punch hits restore half a guard
-		Aquamarine : Increases mobility in water when held
-		Opal : Increases nearby player resource generation
-		*/
-
 		public override Color GetColor(bool offHand)
 		{
 			switch(GemType)
@@ -78,6 +73,90 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 					return new Color(109, 255, 216);
 				case JewelerGauntletGem.OPAL:
 					return new Color(255, 146, 163);
+			}
+		}
+
+		public override void SafeModifyTooltips(List<TooltipLine> tooltips)
+		{
+			string tooltip;
+
+			switch (GemType)
+			{
+				default:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".None"));
+					break;
+				case JewelerGauntletGem.AMETHYST:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Amethyst"));
+					break;
+				case JewelerGauntletGem.TOPAZ:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Topaz"));
+					break;
+				case JewelerGauntletGem.SAPPHIRE:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Sapphire"));
+					break;
+				case JewelerGauntletGem.EMERALD:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Emerald"));
+					break;
+				case JewelerGauntletGem.RUBY:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Ruby"));
+					break;
+				case JewelerGauntletGem.DIAMOND:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Diamond"));
+					break;
+				case JewelerGauntletGem.AMBER:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Amber"));
+					break;
+				case JewelerGauntletGem.AQUAMARINE:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Aquamarine"));
+					break;
+				case JewelerGauntletGem.OPAL:
+					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Opal"));
+					break;
+			}
+
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "Tooltip", tooltip));
+		}
+
+		public override void SafeHoldItem(Player player)
+		{
+			if (GemType == JewelerGauntletGem.DIAMOND)
+			{
+				Lighting.AddLight(player.Center, new Color(218, 185, 210).ToVector3() * 1f * Main.essScale);
+			}
+
+			if (GemType == JewelerGauntletGem.SAPPHIRE || GemType == JewelerGauntletGem.EMERALD || GemType == JewelerGauntletGem.AQUAMARINE || GemType == JewelerGauntletGem.TOPAZ)
+			{ // Updated too late (after movement), needs a buffer
+				player.GetModPlayer<OrchidGuardian>().GuardianJewelerGauntlet = (byte)GemType;
+			}
+
+			if (GemType == JewelerGauntletGem.OPAL && player.Center.Distance(Main.LocalPlayer.Center) < 480f)
+			{
+				Main.LocalPlayer.AddBuff(ModContent.BuffType<OpalResources>(), 5);
+			}
+		}
+
+		public override void OnParryGauntlet(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor)
+		{
+			if (GemType == JewelerGauntletGem.RUBY)
+			{
+				player.AddBuff(ModContent.BuffType<RubyHealing>(), 300);
+			}
+		}
+
+		public override void ModifyHitNPCGauntlet(Player player, NPC target, Projectile projectile, ref NPC.HitModifiers modifiers, bool charged)
+		{
+			if (GemType == JewelerGauntletGem.AMETHYST)
+			{
+				modifiers.ArmorPenetration += 50;
+			}
+		}
+
+		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool charged)
+		{
+			if (GemType == JewelerGauntletGem.AMBER && charged)
+			{
+				guardian.GuardianGuardRecharging += 0.5f;
 			}
 		}
 
@@ -151,6 +230,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				if (Main.mouseItem.stack > 1) Main.mouseItem.stack--;
 				else Main.mouseItem.TurnToAir();
 			}
+
+			Item.NetStateChanged();
 			return;
 		}
 

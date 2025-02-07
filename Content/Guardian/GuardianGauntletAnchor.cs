@@ -221,6 +221,7 @@ namespace OrchidMod.Content.Guardian
 						Projectile.localAI[1] = 0f;
 						Projectile.ai[0] = 0;
 						Projectile.ai[1] = 0;
+						if (owner.direction == -1) Projectile.rotation += MathHelper.Pi; // weird issue fix, gauntlets flips for 1 frame at the end of a punch when facing left
 					}
 				}
 				else
