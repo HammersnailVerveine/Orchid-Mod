@@ -7,6 +7,7 @@ Tiles: {
 	JungleLilyTile.MapEntry: Jungle Lily
 	ShamanBiomeChestTile.MapEntry: Mushroom Chest
 	GuardianBuffStationTile.MapEntry: Spinning Dummy
+	VerveineQuarterstaffTile.MapEntry: Farting Plant
 }
 
 Buffs: {
@@ -3466,6 +3467,11 @@ Items: {
 		Opal: Opal: increases nearby players resource regeneration
 		None: No gem socketed
 	}
+
+	VerveineQuarterstaff: {
+		DisplayName: Verbena
+		Tooltip: Counterattacks release a noxious cloud
+	}
 }
 
 NPCs: {
@@ -3803,6 +3809,7 @@ Projectiles: {
 	ThoriumGraniteGauntletProjectile.DisplayName: Chargeback
 	TempleSpikeProj.DisplayName: Deadly Sun Laser
 	MechSpikeProj.DisplayName: Death Laser
+	VerveineFart.DisplayName: Fart
 }
 
 Configs: {

@@ -162,20 +162,23 @@ namespace OrchidMod.Content.Guardian
 				{ // Counterattacking
 					if (Projectile.ai[2] == -40f)
 					{ // First frame of the counterattack
-						Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage * guardianItem.CounterDamage);
-						Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
-						Projectile.knockBack = QuarterstaffItem.knockBack * guardianItem.CounterKnockback;
-						Projectile.friendly = true;
-						Projectile.ResetLocalNPCHitImmunity();
+						if (guardianItem.CounterHits > 0)
+						{
+							Projectile.damage = guardian.GetGuardianDamage(QuarterstaffItem.damage * guardianItem.CounterDamage);
+							Projectile.CritChance = guardian.GetGuardianCrit(QuarterstaffItem.crit);
+							Projectile.knockBack = QuarterstaffItem.knockBack * guardianItem.CounterKnockback;
+							Projectile.friendly = true;
+							Projectile.ResetLocalNPCHitImmunity();
+							ResetHitStatus(true);
+							DamageReset = 1;
+						}
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-						ResetHitStatus(true);
-						DamageReset = 1;
 						Projectile.scale *= 1.2f;
 						Projectile.width = (int)(Projectile.width * 1.2f);
 						Projectile.height = (int)(Projectile.height * 1.2f);
 					}
 
-					if (Projectile.ai[2] >= (-40 / guardianItem.CounterHits) * (guardianItem.CounterHits - DamageReset))
+					if (guardianItem.CounterHits > 1 && Projectile.ai[2] >= -40 / guardianItem.CounterHits * (guardianItem.CounterHits - DamageReset))
 					{ // Reset damage twice while spinning
 						DamageReset ++;
 						Projectile.ResetLocalNPCHitImmunity();
