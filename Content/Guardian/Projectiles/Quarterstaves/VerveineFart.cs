@@ -17,6 +17,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 			Projectile.timeLeft = 90;
 			Projectile.penetrate = -1;
 			Projectile.friendly = true;
+			Projectile.hide = true;
 			Projectile.tileCollide = false;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 15;
