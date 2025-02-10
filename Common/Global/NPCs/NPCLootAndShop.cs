@@ -91,13 +91,13 @@ namespace OrchidMod.Common.Global.NPCs
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod == null) goto SkipThorium;
 
-			if (thoriumMod.IsNPCTypeEquals("ConfusedZombie", shop.NpcType))
+			if (thoriumMod.IsNPCTypeEquals("Blacksmith", shop.NpcType))
 			{
-				// OrchidUtils.AddItemToShop<PatchWerkScepter>(shop);
+				OrchidUtils.AddItemToShop<JewelerGauntlet>(shop);
 				return;
 			}
 
-		SkipThorium:
+			SkipThorium:
 			return;
 		}
 

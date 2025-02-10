@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using OrchidMod.Common.ModObjects;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
@@ -22,6 +23,18 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			ReturnSpeed = 1.8f;
 			Penetrate = true;
 		}
+
+		public override bool CanRightClick() => true;
+
+		/*
+		public override void RightClick(Player player)
+		{
+			if (OrchidMod.ThoriumMod != null)
+			{
+				Item = new Item(OrchidMod.ThoriumMod.Find<ModItem>("MeleeThorHammer").Type);
+			}
+		}
+		*/
 
 		public override void AddRecipes()
 		{

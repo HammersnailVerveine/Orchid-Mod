@@ -126,6 +126,37 @@ namespace OrchidMod.Common.ModSystems
 			}
 		}
 
+		private void placeVerbena()
+		{
+			int amount = (int)(Main.maxTilesX * Main.maxTilesY * 0.0004f);
+			int failsafe = 0;
+			while(failsafe < 5000 && amount > 0)
+			{
+				failsafe++;
+				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
+				int y = WorldGen.genRand.Next((int)GenVars.rockLayer, Main.maxTilesY);
+
+				if (!Framing.GetTileSafely(x, y).HasTile && !Framing.GetTileSafely(x + 1, y).HasTile &&
+				!Framing.GetTileSafely(x, y - 1).HasTile && !Framing.GetTileSafely(x + 1, y - 1).HasTile)
+				{
+					if (Framing.GetTileSafely(x, y + 1).TileType == 60 && Framing.GetTileSafely(x + 1, y + 1).TileType == 60)
+					{
+
+						for (int w = 0; w < 2; w++)
+						{
+							for (int q = 0; q < 2; q++)
+							{
+								Tile tile = Framing.GetTileSafely(x + w, y - q);
+								tile.ClearTile();
+							}
+						}
+						WorldGen.PlaceTile(x, y, TileType<VerveineQuarterstaffTile>());
+						amount--;
+					}
+				}
+			}
+		}
+
 		public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
 		{
 			// int ShiniesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Shinies"));
@@ -140,6 +171,9 @@ namespace OrchidMod.Common.ModSystems
 				{
 					progress.Message = "Generating Jungle Lilies";
 					placeLilies();
+
+					progress.Message = "Generating Farterstaves";
+					placeVerbena();
 				}));
 			}
 
