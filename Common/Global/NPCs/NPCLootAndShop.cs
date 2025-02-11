@@ -3,11 +3,6 @@ using OrchidMod.Content.Alchemist.Weapons.Nature;
 using OrchidMod.Content.Alchemist.Weapons.Water;
 using OrchidMod.Content.Gambler.Accessories;
 using OrchidMod.Content.Gambler.Weapons.Cards;
-using OrchidMod.Content.Shaman.Accessories;
-using OrchidMod.Content.Shaman.Misc;
-using OrchidMod.Content.Shaman.Weapons;
-using OrchidMod.Content.Shaman.Weapons.Hardmode;
-using OrchidMod.Content.Shaman.Weapons.Thorium;
 using OrchidMod.Common.ItemDropRules.Conditions;
 using OrchidMod.Utilities;
 using System;
@@ -298,8 +293,6 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.LihzahrdCrawler:
 					{
 						// npcLoot.Add(ItemDropRule.Common(ItemType<LihzahrdSilk>(), 4));
-						npcLoot.Add(ItemDropRule.Common(ItemType<SunPriestTorch>(), 100));
-						npcLoot.Add(ItemDropRule.Common(ItemType<SunPriestBelt>(), 300));
 					}
 					break;
 				case NPCID.BlackRecluse:
@@ -415,7 +408,7 @@ namespace OrchidMod.Common.Global.NPCs
 					}
 					else if (rand == 1)
 					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<WaxyVial>());
+						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<WaxyVial>());
 					}
 					else
 					{
@@ -463,7 +456,7 @@ namespace OrchidMod.Common.Global.NPCs
 				{
 					if (Main.rand.NextBool())
 					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<ShamanEmblem>());
+						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<ShamanEmblem>());
 					}
 					else
 					{
@@ -749,14 +742,6 @@ namespace OrchidMod.Common.Global.NPCs
 			}
 			else
 			{
-				if (npc.type == NPCID.Mothron)
-				{
-					if (Main.rand.NextBool(4))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BrokenHeroScepter>());
-					}
-				}
-
 				if (npc.type == NPCID.Vulture)
 				{
 					int rand = Main.rand.Next(2) + 1;

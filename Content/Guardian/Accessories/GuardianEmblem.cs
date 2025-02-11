@@ -1,4 +1,3 @@
-using OrchidMod.Content.Shaman.Accessories;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ShamanEmblem>();
+			// ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ShamanEmblem>();
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)

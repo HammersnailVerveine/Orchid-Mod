@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
-using OrchidMod.Content.Shaman.Buffs.Debuffs;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;

@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Assets;
 using OrchidMod.Common.PlayerDrawLayers;
-using OrchidMod.Content.Shaman.Misc;
 using OrchidMod.Utilities;
 using Terraria;
 using Terraria.GameContent;
@@ -11,69 +10,6 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.General.Misc
 {
-	// Abyss Tools
-
-	public class AbyssHamaxe : LuminiteTool
-	{
-		public override string Texture => OrchidAssets.ItemsPath + Name;
-
-		public AbyssHamaxe() : base(lightColor: new(69, 66, 237), itemCloneType: ItemID.LunarHamaxeSolar) { }
-
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.LunarBar, 12);
-			recipe.AddIngredient(ModContent.ItemType<AbyssFragment>(), 14);
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.Register();
-		}
-	}
-
-	public class AbyssPickaxe : LuminiteTool
-	{
-		public override string Texture => OrchidAssets.ItemsPath + Name;
-
-		public AbyssPickaxe() : base(lightColor: new(69, 66, 237), itemCloneType: ItemID.SolarFlarePickaxe) { }
-
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.LunarBar, 10);
-			recipe.AddIngredient(ModContent.ItemType<AbyssFragment>(), 12);
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.Register();
-		}
-	}
-
-	public class AbyssDrill : LuminiteTool
-	{
-		public override string Texture => OrchidAssets.ItemsPath + Name;
-
-		public AbyssDrill() : base(lightColor: new(69, 66, 237), itemCloneType: ItemID.SolarFlareDrill) { }
-
-		public override int GetProjectileType()
-			=> ModContent.ProjectileType<AbyssDrillProjectile>();
-
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.LunarBar, 10);
-			recipe.AddIngredient(ModContent.ItemType<AbyssFragment>(), 12);
-			recipe.AddTile(TileID.LunarCraftingStation);
-			recipe.Register();
-		}
-
-		// ...
-
-		private class AbyssDrillProjectile : LuminiteToolProjectile
-		{
-			public AbyssDrillProjectile() : base(ProjectileID.SolarFlareDrill) { }
-			public override string Texture => OrchidAssets.ItemsPath + Name.Replace("Projectile", "");
-		}
-	}
-
-	// Abstract Classes
-
 	public abstract class LuminiteTool : ModItem
 	{
 		private readonly Color lightColor;

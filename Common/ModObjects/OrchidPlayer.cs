@@ -12,7 +12,6 @@ namespace OrchidMod.Common.ModObjects
 {
 	public class OrchidPlayer : ModPlayer
 	{
-		public OrchidShaman modPlayerShaman;
 		public OrchidAlchemist modPlayerAlchemist;
 		public OrchidGambler modPlayerGambler;
 		public OrchidDancer modPlayerDancer;
@@ -91,7 +90,6 @@ namespace OrchidMod.Common.ModObjects
 
 		public override void Initialize()
 		{
-			modPlayerShaman = Player.GetModPlayer<OrchidShaman>();
 			modPlayerAlchemist = Player.GetModPlayer<OrchidAlchemist>();
 			modPlayerGambler = Player.GetModPlayer<OrchidGambler>();
 			modPlayerDancer = Player.GetModPlayer<OrchidDancer>();

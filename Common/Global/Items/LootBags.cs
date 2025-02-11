@@ -10,8 +10,6 @@ using OrchidMod.Content.Gambler.Misc;
 using OrchidMod.Content.Gambler.Weapons.Cards;
 using OrchidMod.Content.Gambler.Weapons.Chips;
 using OrchidMod.Content.Gambler.Weapons.Dice;
-using OrchidMod.Content.Shaman.Accessories;
-using OrchidMod.Content.Shaman.Weapons;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -26,13 +24,10 @@ using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.General.Mounts;
 using OrchidMod.Content.General.Melee;
-using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
-using OrchidMod.Content.Shaman.Weapons.Fire;
 using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
-using OrchidMod.Content.Shaman.Weapons.Thorium;
 using OrchidMod.Utilities;
 
 namespace OrchidMod.Common.Global.Items
@@ -130,7 +125,7 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								(ModContent.ItemType<ShamanEmblem>(), 1),
+								//(ModContent.ItemType<ShamanEmblem>(), 1),
 								(ModContent.ItemType<GuardianEmblem>(), 1)
 							}
 						);
@@ -427,7 +422,6 @@ namespace OrchidMod.Common.Global.Items
 				player: player,
 				items: new()
 				{
-					(ModContent.ItemType<SpiritedWater>(), 1),
 					(ModContent.ItemType<DungeonFlask>(), 1),
 					(ModContent.ItemType<DungeonCatalyst>(), 1),
 					(ModContent.ItemType<Rusalka>(), 1)

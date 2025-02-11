@@ -1,5 +1,4 @@
 using OrchidMod.Content.Alchemist;
-using OrchidMod.Content.Shaman;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +14,6 @@ using OrchidMod.Common.Attributes;
 using OrchidMod.Common.Global.NPCs;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
-using OrchidMod.Content.Guardian;
 
 namespace OrchidMod
 {

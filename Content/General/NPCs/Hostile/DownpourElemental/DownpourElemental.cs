@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Content.Shaman.Misc;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -37,7 +36,7 @@ namespace OrchidMod.Content.General.NPCs.Hostile.DownpourElemental
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot)
 		{
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DownpourCrystal>()));
+			// npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DownpourCrystal>()));
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -59,7 +58,8 @@ namespace OrchidMod.Content.General.NPCs.Hostile.DownpourElemental
 
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
-			return Main.raining && spawnInfo.Player.ZoneSkyHeight && Main.hardMode ? .03f : 0f;
+			// return Main.raining && spawnInfo.Player.ZoneSkyHeight && Main.hardMode ? .03f : 0f;
+			return 0f;
 		}
 
 		private const int AI_State_Slot = 0;

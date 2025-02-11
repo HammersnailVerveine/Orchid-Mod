@@ -2,13 +2,13 @@
 {
 	// Accessory
 
-	public class SpiritualPrefix : AccessoryPrefix { public SpiritualPrefix() : base(2, 0, 0, 0) { } }
-	public class BrewingPrefix : AccessoryPrefix { public BrewingPrefix() : base(0, 1, 0, 0) { } }
-	public class LoadedPrefix : AccessoryPrefix { public LoadedPrefix() : base(0, 0, 2, 0) { } }
-	public class BlockingPrefix : AccessoryPrefix { public BlockingPrefix() : base(0, 0, 0, 1) { } }
+	public class BrewingPrefix : AccessoryPrefix { public BrewingPrefix() : base(1, 0, 0) { } }
+	public class LoadedPrefix : AccessoryPrefix { public LoadedPrefix() : base(0, 2, 0) { } }
+	public class BlockingPrefix : AccessoryPrefix { public BlockingPrefix() : base(0, 0, 1) { } }
 
 	// Shaman - Damage, Bond Loading, Bond Duration, Critical Strike Chance, Velocity
 
+	/*
 	public class CursedPrefix : ShamanPrefix { public CursedPrefix() : base(0.85f, 1.00f, -1, 0, 0.90f) { } }
 	public class PossessedPrefix : ShamanPrefix { public PossessedPrefix() : base(1.00f, 0.85f, 0, 0, 0.90f) { } }
 	public class JinxedPrefix : ShamanPrefix { public JinxedPrefix() : base(1.00f, 0.90f, -2, 0, 1.00f) { } }
@@ -21,6 +21,7 @@
 	public class SpiritedPrefix : ShamanPrefix { public SpiritedPrefix() : base(1.10f, 1.05f, 1, 2, 1.05f) { } }
 	public class EffervescentPrefix : ShamanPrefix { public EffervescentPrefix() : base(1.10f, 1.00f, 2, 0, 1.00f) { } }
 	public class EtherealPrefix : ShamanPrefix { public EtherealPrefix() : base(1.15f, 1.10f, 2, 5, 1.10f) { } }
+	*/
 
 	// Guardian - Damage, Knockback, Block Duration, Critical Strike Chance, Speed
 

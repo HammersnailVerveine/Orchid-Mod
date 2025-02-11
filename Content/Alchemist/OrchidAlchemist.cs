@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Alchemist;
-using OrchidMod.Content.Dancer;
-using OrchidMod.Content.Gambler;
-using OrchidMod.Content.Shaman;
-using OrchidMod.Content.Guardian;
 using System;
 using System.Collections.Generic;
 using System.Linq;

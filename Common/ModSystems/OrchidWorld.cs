@@ -9,14 +9,12 @@ using Terraria.ModLoader.IO;
 using static Terraria.ModLoader.ModContent;
 using Terraria.WorldBuilding;
 using Terraria.IO;
-using OrchidMod.Content.Shaman.Weapons;
 using OrchidMod.Content.Gambler.Weapons.Cards;
 using OrchidMod.Content.Alchemist.Weapons.Fire;
 using OrchidMod.Content.Alchemist.Weapons.Water;
 using OrchidMod.Content.Alchemist.Weapons.Nature;
 using OrchidMod.Content.Alchemist.Weapons.Air;
 using OrchidMod.Content.Gambler.Misc;
-using OrchidMod.Content.Shaman.Accessories;
 using OrchidMod.Content.Alchemist.Weapons.Catalysts;
 using OrchidMod.Content.Gambler.Weapons.Chips;
 using OrchidMod.Content.Alchemist.Accessories;
@@ -26,13 +24,11 @@ using OrchidMod.Utilities;
 using OrchidMod.Content.Guardian.Weapons.Warhammers;
 using OrchidMod.Content.Guardian.Weapons.Runes;
 using OrchidMod.Content.Guardian.Weapons.Shields;
-using OrchidMod.Content.Shaman.Weapons.Hardmode;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Guardian.Weapons.Standards;
 using OrchidMineshaft.Tiles.Chests;
 using OrchidMod.Content.General.Misc;
-using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Content.Guardian.Misc;
@@ -402,7 +398,7 @@ namespace OrchidMod.Common.ModSystems
 
 			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<ShamanBiomeChestTile>())
 			{
-				chest.item[0].SetDefaults(ItemType<ShroomiteScepter>());
+				//chest.item[0].SetDefaults(ItemType<ShroomiteScepter>());
 				chest.item[1].SetDefaults(183); // Glowing Mushroom
 				chest.item[1].stack = Main.rand.Next(10) + 20;
 				chest.item[2].SetDefaults(188); // Healing Potion

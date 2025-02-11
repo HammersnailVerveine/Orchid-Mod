@@ -1,22 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Alchemist;
 using OrchidMod.Content.Dancer;
-using OrchidMod.Content.Gambler;
-using OrchidMod.Content.Shaman;
-using OrchidMod.Content.Guardian;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static Terraria.ModLoader.ModContent;
-using OrchidMod.Common;
 
 namespace OrchidMod
 {
