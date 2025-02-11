@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 			Projectile.tileCollide = false;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 15;
+			Projectile.alpha = 255;
 		}
 
 		public override void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)

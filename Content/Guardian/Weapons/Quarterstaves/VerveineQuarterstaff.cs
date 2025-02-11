@@ -36,7 +36,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			{
 				//"fart"
 				//      -Verveine
-				Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<VerveineFart>(), (int)(Item.damage * 0.5f), Item.knockBack * 0.25f, projectile.owner);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center, Vector2.Zero, ModContent.ProjectileType<VerveineFart>(), (int)(Item.damage * 0.75f), Item.knockBack * 0.25f, projectile.owner);
+				newProjectile.CritChance = guardian.GetGuardianCrit(Item.crit);
 			}
 		}
 	}
