@@ -3910,4 +3910,5 @@ Conditions: {
 	GamblerSetBiome: Mods.OrchidMod.Conditions.GamblerSetBiome
 	GamblerSetElemental: Mods.OrchidMod.Conditions.GamblerSetElemental
 	AlchemistKnownReactions4: Mods.OrchidMod.Conditions.AlchemistKnownReactions4
+	DisabledThorium: Mods.OrchidMod.Conditions.DisabledThorium
 }

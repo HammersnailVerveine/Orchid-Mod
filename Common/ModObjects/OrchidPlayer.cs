@@ -34,6 +34,8 @@ namespace OrchidMod.Common.ModObjects
 		public Vector2 ForcedVelocityVector = Vector2.Zero; // vector the player will be moved every frame if ForcedVelocityTimer > 0, ignoring normal velocity
 		public float ForcedVelocityUpkeep = 0f; // Should the forced velocity be applied to the player velocity when it ends
 		public int ForcedVelocityTimer = 0; // How long should the forced velocity be kept
+		public bool OrchidDoubleDash = false;
+		public int OrchidDoubleDashCD = 0;
 		/// <summary> Set to 15 after a tap, decremented every frame. Registers a double tap and resets to 0 if another tap is input while above 0.</summary>
 		/// <remarks> Up = 0, Right = 1, Down = 2, Left = 3</remarks>
 		public int[] DoubleTapping = new int[4]; 
@@ -112,6 +114,17 @@ namespace OrchidMod.Common.ModObjects
 			}
 		}
 
+		public override void PreUpdateMovement()
+		{
+			if ((DoubleTapLeft || DoubleTapRight) && OrchidDoubleDashCD <= 0 && OrchidDoubleDash)
+			{
+				OrchidDoubleDashCD = 60;
+				Player.dashDelay = 60;
+				SoundEngine.PlaySound(SoundID.Item19, Player.Center);
+				Player.velocity.X = DoubleTapRight ? 15f : -15f;
+			}
+		}
+
 		public override void ResetEffects()
 		{
 			Timer++;
@@ -120,6 +133,16 @@ namespace OrchidMod.Common.ModObjects
 				Timer120 = 0;
 
 			remoteCopterPet = false;
+			OrchidDoubleDash = false;
+
+			if (OrchidDoubleDashCD > 0)
+			{
+				OrchidDoubleDashCD--;
+				if (OrchidDoubleDashCD > 30)
+				{
+					Player.velocity.X *= 0.95f;
+				}
+			}
 
 			if (keepSelected != -1)
 			{

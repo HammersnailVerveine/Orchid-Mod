@@ -6,6 +6,7 @@ namespace OrchidMod.Common
 {
 	public static class OrchidConditions
 	{
+		public static Condition DisabledThorium = new Condition("Mods.OrchidMod.Conditions.DisabledThorium", () => OrchidMod.ThoriumMod == null);
 		public static Condition SlimeRain = new Condition("Mods.OrchidMod.Conditions.SlimeRain", () => Main.slimeRain);
 		public static Condition GamblerSetSlime = new Condition("Mods.OrchidMod.Conditions.GamblerSetSlime", () => Main.LocalPlayer.GetModPlayer<OrchidGambler>().CheckSetCardsInDeck(GamblerCardSet.Slime) > 2);
 		public static Condition GamblerSetBoss = new Condition("Mods.OrchidMod.Conditions.GamblerSetBoss", () => Main.LocalPlayer.GetModPlayer<OrchidGambler>().CheckSetCardsInDeck(GamblerCardSet.Boss) > 2);

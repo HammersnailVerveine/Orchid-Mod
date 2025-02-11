@@ -67,6 +67,7 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.Merchant:
 					{
 						shop.Add(ItemType<GuardianBuffStation>(), [Condition.Hardmode]);
+						shop.Add(ItemType<JewelerGauntlet>(), [Condition.DownedEyeOfCthulhu, OrchidConditions.DisabledThorium]);
 					}
 					break;
 				case NPCID.SkeletonMerchant:

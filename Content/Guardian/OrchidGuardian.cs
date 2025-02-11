@@ -182,7 +182,7 @@ namespace OrchidMod
 
 			if (GuardianJewelerGauntlet != 0)
 			{ // Player.HoldItem being called too late in the frame, these fields need to be buffered and handled here
-				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.EMERALD) Player.trident = true;
+				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.EMERALD) modPlayer.OrchidDoubleDash = true;
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.SAPPHIRE) Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.AQUAMARINE) Player.trident = true;
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.TOPAZ) ParryInvincibilityBonus += 60;
