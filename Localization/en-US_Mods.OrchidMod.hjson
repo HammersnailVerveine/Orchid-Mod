@@ -3815,6 +3815,7 @@ Projectiles: {
 	TempleSpikeProj.DisplayName: Deadly Sun Laser
 	MechSpikeProj.DisplayName: Death Laser
 	VerveineFart.DisplayName: Fart
+	ThoriumAquaiteQuarterstaffProjectile.DisplayName: Wave Swirl
 }
 
 Configs: {
