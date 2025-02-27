@@ -3891,6 +3891,12 @@ Misc: {
 }
 
 DamageClasses: {
+	Alchemist: -Alchemist-
+	Dancer: -Dancer-
+	Gambler: -Gambler-
+	Guardian: -Guardian-
+	Shaman: -Shaman-
+	Shapeshifter: -Shapeshifter-
 	AlchemistDamageClass.DisplayName: chemical damage
 	DancerDamageClass.DisplayName: poise damage
 	GamblerChipDamageClass.DisplayName: gambling damage
