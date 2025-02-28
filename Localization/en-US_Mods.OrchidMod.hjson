@@ -3890,6 +3890,23 @@ Misc: {
 	ShapeshifterWarden: Warden wildshape
 }
 
+UI: {
+	PotionBag: {
+		ChangeState: Change state     – 'Interact' key ({0}) without item
+		PutInInventory: Put in inventory – 'Interact' key ({0}) with item
+		PullOutPotion: Pull out potion  – 'Hotbar #1-8' keys ({0}-{1})
+		PullOutPotions: Pull out potions – 'Hotbar #9' key ({0})
+		PullOutDye: Pull out dye     – 'Hotbar #10' key ({0})
+		Dye: Dye: «{0}»
+		MoreInformation: Hold 'Auto Select' key ({0}) to see more information
+		State: "State: "
+		Active: Active
+		ActiveTip: (Displayed in mixing UI)
+		NotActive: Not Active
+		NotActiveTip: (Will not be displayed in mixing UI)
+	}
+}
+
 DamageClasses: {
 	Alchemist: -Alchemist-
 	Dancer: -Dancer-
