@@ -3484,6 +3484,20 @@ NPCs: {
 
 	Chemist: {
 		DisplayName: Chemist
+		Bestiary: The Chemist loves to share her passion and supplies with anyone willing to give alchemy a try. Suprisingly, she never turned into a slime. Yet.
+
+		Names: {
+			1: Elodie
+			2: Annick
+			3: Samantha
+			4: Ambre
+			5: Maeva
+			6: Florianne
+			7: Juliette
+			8: Chloe
+			9: Amandine
+			10: Alicia
+		}
 
 		TownNPCMood: {
 			Content: This is a neat place to experiment in!
@@ -3502,6 +3516,44 @@ NPCs: {
 			HateNPC: "{NPCName} keeps pestering me about creating new weapons, can't he leave me alone?"
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
+		}
+
+		UI: {
+			RHint: Reaction Hint
+			SHint: Special Hint!
+		}
+
+		Dialogues: {
+			1: Thanks, you spared me a lot of troubles right there, or... Let's not talk about it.
+			2: Want your blood donated to science? No? Then leave.
+			3: Of course you can't use normal bottles for alchemy! Give me money!
+			4: Ugh, what, you want to blow yourself up or something?
+			5: DON'T get stains on anything! I don't care if I already did!
+			6: So you're interested in alchemy AND haven't exploded yet? Impressive.
+			7: Always wear your gloves! By the way, have you seen my gloves?
+			8: You know, you can use a centrifuge for stain removal! Kind of.
+			9: You can be a catalyst for science! Or a pile of ash. Try to keep priorities.
+			10: Alchemy makes the world go around... current scientific theories purport.
+			11: Safety warning: do not drink alchemical compounds. Unless I can take notes.
+			12: Some people call me a reactionary.
+			13: Alchemy is just sublime!
+			14: Life is just one big reaction!
+			15: Undeath is just one big reaction! I don't know why the moon does that.
+			16: Do you think the moon... is made of attractite?!
+			17: The scientific method is... try until it doesn't explode!
+			18: Here's your daily recipe... note that it itself is not an ingredient.
+			19: There you go, try not to lose a hand with this one.
+			20: I didn't take the time to try that one. If I don't see you tomorrow, I'll assume it doesn't work.
+			21: And one perfectly fine recipe, completely free of charge! Or is it?
+			22: That one should work. Maybe. Possibly. I wouldn't put you in danger, would I?
+			23: If it's free, you're probably the product, you say? Naaah... please, just don't try it in the vicinity.
+			24: I need time to think about more recipes. Maybe can you go and kill a few baddies, meanwhile?
+			25: Over-exposure to my brilliant ideas may be dangerous for a trainee.
+			26: I already gave you one today, why don't you try and come up with your own recipes?
+			27: There's nothing I need you to test for me right now. Wait, what did I just say?
+			28: Since this is your first time asking, here are three hints for the price of one, along with a little gift! I'd highly advise getting your hands on a hidden reactions codex, now...
+			29: I see you found some glowing mushrooms. Did you know that you can make a pretty good thread with them? Here's the recipe.
+			30: Jungle lilies, I love these flowers! I bet you're wondering how to make them bloom ain't you? Here's the solution.
 		}
 
 		Census.SpawnCondition: Find in the main mineshaft, in the center of your world
@@ -3892,12 +3944,12 @@ Misc: {
 
 UI: {
 	PotionBag: {
-		ChangeState: Change state     – 'Interact' key ({0}) without item
-		PutInInventory: Put in inventory – 'Interact' key ({0}) with item
-		PullOutPotion: Pull out potion  – 'Hotbar #1-8' keys ({0}-{1})
-		PullOutPotions: Pull out potions – 'Hotbar #9' key ({0})
-		PullOutDye: Pull out dye     – 'Hotbar #10' key ({0})
-		Dye: Dye: «{0}»
+		ChangeState: Change state     � 'Interact' key ({0}) without item
+		PutInInventory: Put in inventory � 'Interact' key ({0}) with item
+		PullOutPotion: Pull out potion  � 'Hotbar #1-8' keys ({0}-{1})
+		PullOutPotions: Pull out potions � 'Hotbar #9' key ({0})
+		PullOutDye: Pull out dye     � 'Hotbar #10' key ({0})
+		Dye: Dye: �{0}�
 		MoreInformation: Hold 'Auto Select' key ({0}) to see more information
 		State: "State: "
 		Active: Active
