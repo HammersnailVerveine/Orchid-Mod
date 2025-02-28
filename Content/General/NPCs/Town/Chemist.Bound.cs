@@ -64,7 +64,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 				OrchidWorld.foundChemist = true;
 			}
 
-			return Language.GetTextValue("Mods.OrchidMod.Dialogues.1");
+			return Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.1");
 		}
 
 		public override void AI()
