@@ -62,10 +62,24 @@ namespace OrchidMod.Content.Alchemist.Misc
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", Language.GetTextValue("Mods.OrchidMod.DamageClasses.Alchemist"))
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", Language.GetTextValue("Mods.OrchidMod.DamageClasses.AlchemistClassTag"))
 				{
 					OverrideColor = new Color(155, 255, 55)
 				});
+			}
+
+			//Maybe this code is complete shit, but it works
+			string reactionKey = OrchidKeybindLoader.AlchemistReaction.GetAssignedKeys().Count > 0
+				? OrchidKeybindLoader.AlchemistReaction.GetAssignedKeys()[0]
+				: "[NONE]";
+
+			foreach (TooltipLine line in tooltips)
+			{
+				if (line.Text.Contains("{0}"))
+				{
+					line.Text = string.Format(line.Text, reactionKey);
+					break;
+				}
 			}
 		}
 
