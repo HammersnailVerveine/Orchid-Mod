@@ -3964,6 +3964,17 @@ UI: {
 		NotActive: Not Active
 		NotActiveTip: (Will not be displayed in mixing UI)
 	}
+
+	AlchemistItem: {
+		Mix: Right click to mix
+		Cost: Uses {0} potency
+		Water: Water Element
+		Fire: Fire Element
+		Nature: Nature Element
+		Air: Air Element
+		Light: Light Element
+		Dark: Dark Element
+	}
 }
 
 DamageClasses: {
