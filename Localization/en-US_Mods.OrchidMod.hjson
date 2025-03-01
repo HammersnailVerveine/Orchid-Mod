@@ -1,6 +1,9 @@
+ReactionItemTooltip: Press {0} to trigger hidden reactions
+
 Keybinds: {
 	"Alchemist Hidden Reaction.DisplayName": Alchemist  Hidden  Reaction
 	"Alchemist Catalyst Tool Shortcut.DisplayName": Alchemist  Catalyst  Tool  Shortcut
+	"Hidden Reaction.DisplayName": Hidden  Reaction
 }
 
 Tiles: {
@@ -484,7 +487,7 @@ Items: {
 		Tooltip:
 			'''
 			Left click to trigger alchemist hidden reactions
-			The 'Hidden Reaction' key ({0}) can be used instead of this item
+			The 'Hidden Reaction' key can be used instead of this item
 			Right click to open the hidden reactions codex
 			'''
 	}
@@ -3940,6 +3943,10 @@ Misc: {
 	ShapeshifterSage: Sage wildshape
 	ShapeshifterPredator: Predator wildshape
 	ShapeshifterWarden: Warden wildshape
+	NewHiddenReac: New Hidden Reaction Hint
+	NoHintsLeft: No hints left for this tier
+	FailedReaction: Failed reaction
+	EntryAdded: Entry {0} added to the hidden reaction codex!
 }
 
 UI: {
@@ -3985,11 +3992,11 @@ DamageClasses: {
 }
 
 Conditions: {
-	SlimeRain: Mods.OrchidMod.Conditions.SlimeRain
-	GamblerSetSlime: Mods.OrchidMod.Conditions.GamblerSetSlime
-	GamblerSetBoss: Mods.OrchidMod.Conditions.GamblerSetBoss
-	GamblerSetBiome: Mods.OrchidMod.Conditions.GamblerSetBiome
-	GamblerSetElemental: Mods.OrchidMod.Conditions.GamblerSetElemental
-	AlchemistKnownReactions4: Mods.OrchidMod.Conditions.AlchemistKnownReactions4
-	DisabledThorium: Mods.OrchidMod.Conditions.DisabledThorium
+	SlimeRain: A slime rain is active
+	GamblerSetSlime: The player hs more than 2 "Slime" set cards in their deck
+	GamblerSetBoss: The player hs more than 2 "Boss" set cards in their deck
+	GamblerSetBiome: The player hs more than 2 "Biome" set cards in their deck
+	GamblerSetElemental: The player hs more than 2 "Elemental" set cards in their deck
+	AlchemistKnownReactions4: The player knows at least 4 hidden reactions
+	DisabledThorium: Thorium mod is disabled
 }
