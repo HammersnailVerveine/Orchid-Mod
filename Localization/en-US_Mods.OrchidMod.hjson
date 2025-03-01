@@ -484,7 +484,7 @@ Items: {
 		Tooltip:
 			'''
 			Left click to trigger alchemist hidden reactions
-			The 'Hidden Reaction' key can be used instead of this item
+			The 'Hidden Reaction' key ({0}) can be used instead of this item
 			Right click to open the hidden reactions codex
 			'''
 	}
