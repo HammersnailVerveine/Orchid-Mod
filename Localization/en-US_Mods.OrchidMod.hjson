@@ -398,6 +398,7 @@ Items: {
 			20% increased potency regeneration
 			Maximum number of simultaneous alchemical elements increased by 1
 			'''
+		SetBonus: Triggering enough catalytic reactions creates a catalytic flower bud
 	}
 
 	AlchemistJungleLegs: {
@@ -408,6 +409,7 @@ Items: {
 	MushroomBandana: {
 		DisplayName: Phosphorescent Bandana
 		Tooltip: 5% increased potency regeneration
+		SetBonus: Maximum number of simultaneous alchemical elements increased by 1
 	}
 
 	MushroomLeggings: {
