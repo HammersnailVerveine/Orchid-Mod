@@ -62,7 +62,7 @@ namespace OrchidMod.Content.Alchemist.Misc
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
-				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", Language.GetTextValue("Mods.OrchidMod.DamageClasses.AlchemistClassTag"))
+				tooltips.Insert(1, new TooltipLine(Mod, "ClassTag", Language.GetTextValue("Mods.OrchidMod.DamageClasses.Alchemist"))
 				{
 					OverrideColor = new Color(155, 255, 55)
 				});
