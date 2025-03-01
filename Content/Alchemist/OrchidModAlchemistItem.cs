@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using OrchidMod.Content.Alchemist.Projectiles;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
@@ -191,37 +191,37 @@ namespace OrchidMod.Content.Alchemist
 			switch (this.element)
 			{
 				case AlchemistElement.WATER:
-					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Water Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", Language.GetTextValue("Mods.OrchidMod.UI.AlchemistItem.Water"))
 					{
 						OverrideColor = new Color(0, 119, 190)
 					});
 					break;
 				case AlchemistElement.FIRE:
-					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Fire Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", Language.GetTextValue("Mods.OrchidMod.UI.AlchemistItem.Fire"))
 					{
 						OverrideColor = new Color(194, 38, 31)
 					});
 					break;
 				case AlchemistElement.NATURE:
-					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Nature Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", Language.GetTextValue("Mods.OrchidMod.UI.AlchemistItem.Nature"))
 					{
 						OverrideColor = new Color(75, 139, 59)
 					});
 					break;
 				case AlchemistElement.AIR:
-					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Air Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", Language.GetTextValue("Mods.OrchidMod.UI.AlchemistItem.Air"))
 					{
 						OverrideColor = new Color(166, 231, 255)
 					});
 					break;
 				case AlchemistElement.LIGHT:
-					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Light Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", Language.GetTextValue("Mods.OrchidMod.UI.AlchemistItem.Light"))
 					{
 						OverrideColor = new Color(255, 255, 102)
 					});
 					break;
 				case AlchemistElement.DARK:
-					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", "Dark Element")
+					tooltips.Insert(1, new TooltipLine(Mod, "ElementTag", Language.GetTextValue("Mods.OrchidMod.UI.AlchemistItem.Dark"))
 					{
 						OverrideColor = new Color(138, 43, 226)
 					});
@@ -230,7 +230,7 @@ namespace OrchidMod.Content.Alchemist
 					break;
 			}
 
-			tooltips.Insert(1, new TooltipLine(Mod, "Mix", "Right click to mix")
+			tooltips.Insert(1, new TooltipLine(Mod, "Mix", Language.GetTextValue("Mods.OrchidMod.UI.AlchemistItem.Mix"))
 			{
 				OverrideColor = new Color(155, 255, 155)
 			});
@@ -239,7 +239,7 @@ namespace OrchidMod.Content.Alchemist
 			// if (tt != null) tooltips.Remove(tt);
 
 			tt = tooltips.FirstOrDefault(x => x.Name == "Knockback" && x.Mod == "Terraria");
-			if (tt != null) tt.Text = "Uses " + this.potencyCost + " potency";
+			if (tt != null) tt.Text = Language.GetTextValue("Mods.OrchidMod.UI.AlchemistItem.Cost", this.potencyCost);
 
 			tt = tooltips.FirstOrDefault(x => x.Name == "Speed" && x.Mod == "Terraria");
 			if (tt != null) tooltips.Remove(tt);
