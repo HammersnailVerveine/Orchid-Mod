@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 3;
-			this.name = "Demon Reeks";
-			this.description = "Demon breath projectiles will replicate";
 			this.debuffDuration = 20;
 			this.sound = SoundID.Item85;
 			this.dust = 21;

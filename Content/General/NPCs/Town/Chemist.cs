@@ -11,6 +11,7 @@ using OrchidMod.Content.Alchemist.Weapons.Nature;
 using OrchidMod.Content.General.Materials;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Localization;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
@@ -79,7 +80,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Jungle,
 				// Sets your NPC's flavor text in the bestiary
-				new FlavorTextBestiaryInfoElement("The Chemist loves to share her passion and supplies with anyone willing to give alchemy a try. Suprisingly, she never turned into a slime. Yet.")
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Bestiary"))
 			});
 		}
 
@@ -93,16 +94,16 @@ namespace OrchidMod.Content.General.NPCs.Town
 		{
 			return new()
 			{
-				"Elodie",
-				"Annick",
-				"Samantha",
-				"Ambre",
-				"Maeva",
-				"Florianne",
-				"Juliette",
-				"Chloe",
-				"Amandine",
-				"Alicia"
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.1"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.2"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.3"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.4"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.5"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.6"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.7"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.8"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.9"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Names.10")
 			};
 		}
 
@@ -112,26 +113,26 @@ namespace OrchidMod.Content.General.NPCs.Town
 			{
 				return Main.rand.Next(4) switch
 				{
-					0 => "Want your blood donated to science? No? Then leave.",
-					1 => "Of course you can't use normal bottles for alchemy! Give me money!",
-					2 => "Ugh, what, you want to blow yourself up or something?",
-					_ => "DON'T get stains on anything! I don't care if I already did!",
+					0 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.2"),
+					1 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.3"),
+					2 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.4"),
+					_ => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.5"),
 				};
 			}
 
 			return Main.rand.Next(8 + (Main.dayTime ? 1 : 2)) switch
 			{
-				0 => "So you're interested in alchemy AND haven't exploded yet? Impressive.",
-				1 => "Always wear your gloves! By the way, have you seen my gloves?",
-				2 => "You know, you can use a centrifuge for stain removal! Kind of.",
-				3 => "You can be a catalyst for science! Or a pile of ash. Try to keep priorities.",
-				4 => "Alchemy makes the world go around... current scientific theories purport.",
-				5 => "Safety warning: do not drink alchemical compounds. Unless I can take notes.",
-				6 => "Some people call me a reactionary.",
-				7 => "Alchemy is just sublime!",
-				8 => Main.dayTime ? "Life is just one big reaction!" : "Undeath is just one big reaction! I don't know why the moon does that.",
-				9 => "Do you think the moon... is made of attractite?!",
-				_ => "The scientific method is... try until it doesn't explode!",
+				0 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.6"),
+				1 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.7"),
+				2 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.8"),
+				3 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.9"),
+				4 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.10"),
+				5 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.11"),
+				6 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.12"),
+				7 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.13"),
+				8 => Main.dayTime ? Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.14") : Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.15"),
+				9 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.16"),
+				_ => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.17"),
 			};
 		}
 
@@ -141,7 +142,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 			var modPlayer = player.GetModPlayer<OrchidAlchemist>();
 
 			button = Language.GetTextValue("LegacyInterface.28");
-			button2 = CheckUniqueHints(player, modPlayer, false) == "" ? "Reaction Hint" : "Special Hint!";
+			button2 = CheckUniqueHints(player, modPlayer, false) == "" ? Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.UI.RHint") : Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.UI.SHint");
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
@@ -151,7 +152,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 
 			if (firstButton)
 			{
-				shopName = "Shop";
+				shopName = Language.GetTextValue("LegacyInterface.28");
 			}
 			else
 			{
@@ -167,26 +168,26 @@ namespace OrchidMod.Content.General.NPCs.Town
 
 							Main.npcChatText = Main.rand.Next(6) switch
 							{
-								0 => $"Here's your daily recipe... note that it itself is not an ingredient.",
-								1 => $"There you go, try not to lose a hand with this one.",
-								2 => $"I didn't take the time to try that one. If I don't see you tomorrow, I'll assume it doesn't work.",
-								3 => $"And one perfectly fine recipe, completely free of charge! Or is it?",
-								4 => $"That one should work. Maybe. Possibly. I wouldn't put you in danger, would I?",
-								_ => $"If it's free, you're probably the product, you say? Naaah... please, just don't try it in the vicinity.",
+								0 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.18"),
+								1 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.19"),
+								2 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.20"),
+								3 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.21"),
+								4 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.22"),
+								_ => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.23"),
 							};
 						}
 						else
 						{
-							Main.npcChatText = $"I need time to think about more recipes. Maybe can you go and kill a few baddies, meanwhile?";
+							Main.npcChatText = Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.24");
 						}
 					}
 					else
 					{
 						Main.npcChatText = Main.rand.Next(3) switch
 						{
-							0 => $"Over-exposure to my brilliant ideas may be dangerous for a trainee.",
-							1 => $"I already gave you one today, why don't you try and come up with your own recipes?",
-							_ => $"There's nothing I need you to test for me right now. Wait, what did I just say?",
+							0 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.25"),
+							1 => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.26"),
+							_ => Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.27"),
 						};
 					}
 				}
@@ -215,7 +216,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 
 		public override void AddShops()
 		{
-			NPCShop npcShop = new NPCShop(Type, "Shop");
+			NPCShop npcShop = new NPCShop(Type, Language.GetTextValue("LegacyInterface.28"));
 			npcShop.Add<UIItem>();
 			npcShop.Add<UIItemKeys>();
 			npcShop.Add<ReactionItem>();
@@ -320,7 +321,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 					int flask = ModContent.ItemType<MushroomFlask>();
 					player.QuickSpawnItem(NPC.GetSource_FromThis(), flask, 1);
 				}
-				return "Since this is your first time asking, here are three hints for the price of one, along with a little gift! I'd highly advise getting your hands on a hidden reactions codex, now...";
+				return Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.28");
 			}
 
 			if (!reactions.Contains("RecipeMushroomThread")
@@ -330,7 +331,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 				{
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -2, false);
 				}
-				return "I see you found some glowing mushrooms. Did you know that you can make a pretty good thread with them? Here's the recipe.";
+				return Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.29");
 			}
 
 			if (!reactions.Contains("RecipeJungleLilyPurification")
@@ -340,7 +341,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 				{
 					AlchemistHiddenReactionHelper.addAlchemistHint(player, modPlayer, -4, false);
 				}
-				return "Jungle lilies, I love these flowers! I bet you're wondering how to make them bloom ain't you? Here's the solution.";
+				return Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.30");
 			}
 
 			return "";

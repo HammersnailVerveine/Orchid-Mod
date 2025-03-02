@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
+using Terraria.Localization;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -97,7 +98,7 @@ namespace OrchidMod.Common.Global.Items
 		// ...
 
 		private static string GetClassTagText(ClassTags tag)
-			=> $"-{tag} Class-";
+			=> Language.GetTextValue("Mods.OrchidMod.DamageClasses." + tag);
 
 		private static int GetAutoSacrificeCount(ModItem modItem)
 		{

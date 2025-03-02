@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 2;
-			this.name = "Oil Bubble";
-			this.description = "Creates a catalytic oil bubble";
 			this.debuffDuration = 20;
 			this.sound = SoundID.Item85;
 
