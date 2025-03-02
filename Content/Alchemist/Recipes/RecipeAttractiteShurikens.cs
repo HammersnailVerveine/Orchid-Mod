@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -12,8 +13,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 1;
-			this.name = "Attractite Shurikens";
-			this.description = "Creates a maximum of 5 attractite shuriken, inflicting attractite to hit enemies";
 			this.debuffDuration = 15;
 			this.sound = SoundID.Item25;
 

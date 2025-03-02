@@ -165,7 +165,7 @@ namespace OrchidMod.Content.Alchemist
 					if (goodIngredients)
 					{
 						hiddenReaction = recipe;
-						floatingTextStr = recipe.name;
+						floatingTextStr = recipe.name.Value;
 
 						int val = 0;
 						Item item = new Item();

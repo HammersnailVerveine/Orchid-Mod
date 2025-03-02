@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -12,8 +13,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 1;
-			this.name = "Sap Bubble";
-			this.description = "Creates a catalytic sap bubble";
 			this.debuffDuration = 20;
 			this.sound = SoundID.Item85;
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.CloudInAVial>());

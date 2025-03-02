@@ -7,8 +7,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 	{
 		public override void SetDefaults()
 		{
-			this.name = "blank";
-			this.description = "blank description";
 			this.level = 0;
 			this.debuffDuration = 0;
 			this.sound = SoundID.Item1;

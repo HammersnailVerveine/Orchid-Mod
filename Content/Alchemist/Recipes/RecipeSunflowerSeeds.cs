@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
@@ -10,8 +11,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = -1;
-			this.name = "Sunflower Seeds";
-			this.description = "Releases damaging sunflower seeds around the player";
 			this.debuffDuration = 15;
 			this.sound = SoundID.Item25;
 			this.ingredients.Add(ItemType<Weapons.Nature.SunflowerFlask>());

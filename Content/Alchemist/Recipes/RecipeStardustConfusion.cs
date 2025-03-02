@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
@@ -9,8 +10,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 1;
-			this.name = "Stardust Confusion";
-			this.description = "Forest Samples sunflowers inflict confusion on hit";
 			this.debuffDuration = 10;
 			this.sound = SoundID.Item25;
 			this.dust = 60;

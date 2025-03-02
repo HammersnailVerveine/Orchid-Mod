@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -12,8 +13,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = -2;
-			this.name = "Mushroom Thread";
-			this.description = "Creates a sample of Mushroom Thread, which can be used to create armor";
 			this.debuffDuration = 15;
 			this.sound = SoundID.Item25;
 			this.dust = 56;

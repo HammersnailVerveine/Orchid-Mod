@@ -2,6 +2,7 @@
 using OrchidMod.Common.ModObjects;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -13,8 +14,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = -4;
-			this.name = "Lily Purification";
-			this.description = "Cleanses most common early-game debuffs and blooms jungle lilies around the user";
 			this.debuffDuration = 10;
 			this.sound = SoundID.Item85;
 
