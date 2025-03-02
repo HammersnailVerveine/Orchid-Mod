@@ -308,6 +308,183 @@ Buffs: {
 	}
 }
 
+AlchemistRecipe: {
+	RecipeAirSpores: {
+		DisplayName: Air Spores
+		Tooltip: Releases a sizeable amount of air spores, which doesn't destroy existing ones
+	}
+
+	RecipeLesserAttractiteAura: {
+		DisplayName: Lesser Attractite Aura
+		Tooltip: Applies attractite to nearby enemies
+	}
+
+	RecipeAttractiteShurikens: {
+		DisplayName: Attractite Shurikens
+		Tooltip: Creates a maximum of 5 attractite shuriken, inflicting attractite to hit enemies
+	}
+
+	RecipeBeeSwarm: {
+		DisplayName: Bee Swarm
+		Tooltip: Releases a swarm of harmful bees around the player
+	}
+
+	RecipeOilBubble: {
+		DisplayName: Oil Bubble
+		Tooltip: Creates a catalytic oil bubble
+	}
+
+	RecipePoisonBubble: {
+		DisplayName: Poison Bubble
+		Tooltip: Creates a catalytic poison bubble
+	}
+
+	RecipeBubbles: {
+		DisplayName: Bubbles
+		Tooltip: Releases bubbles over a large area
+	}
+
+	RecipeSapBubble: {
+		DisplayName: Sap Bubble
+		Tooltip: Creates a catalytic sap bubble
+	}
+
+	RecipeSeafoamBubble: {
+		DisplayName: Seafoam Bubble
+		Tooltip: Creates a catalytic seafoam bubble
+	}
+
+	RecipeSlimeBubble: {
+		DisplayName: Slime Bubble
+		Tooltip: Creates a catalytic slime bubble
+	}
+
+	RecipeLavaSlimeBubble: {
+		DisplayName: Lava Slime Bubble
+		Tooltip: Creates a catalytic lava slime bubble
+	}
+
+	RecipeSpiritedBubble: {
+		DisplayName: Spirited Bubble
+		Tooltip: Creates a catalytic spirit bubble
+	}
+
+	RecipeBurningSamples: {
+		DisplayName: Burning Samples
+		Tooltip: Using slimy samples with a fire element will release damaging embers
+	}
+
+	RecipeDemonReeks: {
+		DisplayName: Burning Samples
+		Tooltip: Demon breath projectiles will replicate
+	}
+
+	RecipeFireSpores: {
+		DisplayName: Fire Spores
+		Tooltip: Releases a sizeable amount of fire spores, which doesn't destroy existing ones
+	}
+
+	RecipeGlowshroomHealing: {
+		DisplayName: Glowshroom Healing
+		Tooltip: Heals the player for 25 health
+	}
+
+	RecipeJungleLilyPurification: {
+		DisplayName: Lily Purification
+		Tooltip: Cleanses most common early-game debuffs and blooms jungle lilies around the user
+	}
+
+	RecipeLivingBeehive: {
+		DisplayName: Living Beehive
+		Tooltip: Every attack using 3 or more element will summon bees
+	}
+
+	RecipeMistySteps: {
+		DisplayName: Misty Steps
+		Tooltip: Releases harmful mist when moving
+	}
+
+	RecipeMushroomThread: {
+		DisplayName: Mushroom Thread
+		Tooltip: Creates a sample of Mushroom Thread, which can be used to create armor
+	}
+
+	RecipePermanentFreeze: {
+		DisplayName: Permanent Freeze
+		Tooltip: Constantly applies the flash freeze aura around the player
+	}
+
+	RecipePoisonousSlime: {
+		DisplayName: Poisonous Slime
+		Tooltip: Increases the likelyhood of spawning slime bubbles, creating spiked jungle slimes
+	}
+
+	RecipeBuilderPotion: {
+		DisplayName: Builder Potion
+		Tooltip: Gives 30 seconds of builder Potion effect
+	}
+
+	RecipeFeatherfallPotion: {
+		DisplayName: Featherfall Potion
+		Tooltip: Gives 30 seconds of featherfall Potion effect
+	}
+
+	RecipeFlipperPotion: {
+		DisplayName: FlipperPotion
+		Tooltip: Gives 30 seconds of flipper Potion effect
+	}
+
+	RecipeInvisibilityPotion: {
+		DisplayName: Invisibility Potion
+		Tooltip: Gives 30 seconds of invisibility Potion effect
+	}
+
+	RecipeNightOwlPotion: {
+		DisplayName: Night Owl Potion
+		Tooltip: Gives 30 seconds of night owl Potion effect
+	}
+
+	RecipeObsidianSkinPotion: {
+		DisplayName: Obsidian Skin Potion
+		Tooltip: Gives 30 seconds of obsidian skin Potion effect
+	}
+
+	RecipePropulsion: {
+		DisplayName: Propulsion
+		Tooltip: Vertically propels the player
+	}
+
+	RecipePurifyingLilies: {
+		DisplayName: Purifying Lilies
+		Tooltip: Each alchemical attack using two or more elements releases a purifying aura
+	}
+
+	RecipeSpiritedDroplets: {
+		DisplayName: Spirited Droplets
+		Tooltip: Chemical attacks will release spirited water flames
+	}
+
+	RecipeStardustConfusion: {
+		DisplayName: Stardust Confusion
+		Tooltip: Forest Samples sunflowers inflict confusion on hit
+	}
+
+	RecipeStellarTalcOrbit: {
+		DisplayName: Stellar Talc Orbit
+		Tooltip: Stellar Talc projectiles will orbit the user
+	}
+
+	RecipeSunflowerSeeds: {
+		DisplayName: Sunflower Seeds
+		Tooltip: Releases damaging sunflower seeds around the player
+	}
+
+	RecipeWaterSpores: {
+		DisplayName: Water Spores
+		Tooltip: Releases a sizeable amount of water spores, which doesn't destroy existing ones
+	}
+}
+
 Items: {
 	AlchemistEmblem: {
 		DisplayName: Alchemist Emblem
@@ -3505,7 +3682,7 @@ NPCs: {
 		TownNPCMood: {
 			Content: This is a neat place to experiment in!
 			NoHome: If only I could get a place to setup my lab...
-			FarFromHome: I hope my lab is alright at home..."
+			FarFromHome: I hope my lab is alright at home...
 			LoveSpace: Chemistry is amazing with this place! Got it?
 			DislikeCrowded: There are so many people around, it's distracting me.
 			HateCrowded: How am I supposed to experiment in such a crowded place?
@@ -3515,7 +3692,7 @@ NPCs: {
 			HateBiome: "{BiomeName} reminds me of when you found me. What a dreadful experience..."
 			LoveNPC: "{NPCName} knows so much reagents! She's been helping me a ton."
 			LikeNPC: "{NPCName} is a cool dude, I didn't expect him to like chemistry."
-			DislikeNPC: I sure hope {NPCName} doesn't blow my lab up again..."
+			DislikeNPC: I sure hope {NPCName} doesn't blow my lab up again...
 			HateNPC: "{NPCName} keeps pestering me about creating new weapons, can't he leave me alone?"
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
@@ -3974,6 +4151,21 @@ UI: {
 		Air: Air Element
 		Light: Light Element
 		Dark: Dark Element
+	}
+
+	GamblerItem: {
+		Requires: Requires {0} cards (Deck : {1})
+		InDeck: Currently in your deck
+		DeckIsFull: Your deck is full
+		RequiresMore: Requires more {0} cards
+		AddToDeck: Use to add to your deck
+		Sets: Sets
+		Set: Set
+	}
+
+	ReactionBook: {
+		UnknownReaction: Unknown Reaction
+		Page: Page {0}/{1}
 	}
 }
 
