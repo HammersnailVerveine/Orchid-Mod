@@ -4163,6 +4163,12 @@ UI: {
 		Set: Set
 	}
 
+	GuardianItem: {
+		LeftClick: Left
+		RightClick: Right
+		ChargeToSwing: Charge to swing {0} click to jab while charging
+	}
+
 	ReactionBook: {
 		UnknownReaction: Unknown Reaction
 		Page: Page {0}/{1}
