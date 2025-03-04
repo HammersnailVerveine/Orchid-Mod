@@ -164,7 +164,7 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "RuneDuration", OrchidUtils.FramesToSeconds((int)(RuneDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer)) + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RuneDuration")));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "RuneDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RuneDuration", OrchidUtils.FramesToSeconds((int)(RuneDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer)))));
 
 			index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "UseSlams", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.UsesUpTo", this.RuneCost)));
