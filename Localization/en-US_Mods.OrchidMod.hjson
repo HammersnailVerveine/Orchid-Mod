@@ -4177,7 +4177,7 @@ UI: {
 		Parry: "{0} click to parry"
 		ChargeToThrow: Charge to throw, right click to swing while charging
 		UsesUpTo: Uses up to {0} slams
-		RuneDuration: " second rune duration"
+		RuneDuration: "{0} second rune duration"
 		Block: "{0} click to block"
 		BuffDuration: "{0} second buff duration"
 		HorizonLaceShieldStacks: Grants 3 guards when fully charged
