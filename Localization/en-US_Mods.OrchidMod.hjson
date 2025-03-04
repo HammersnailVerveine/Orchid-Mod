@@ -4167,6 +4167,7 @@ UI: {
 		LeftClick: Left
 		RightClick: Right
 		ChargeToSwing: Charge to swing {0} click to jab while charging
+		ParryDuration: " second parry duration"
 	}
 
 	ReactionBook: {
