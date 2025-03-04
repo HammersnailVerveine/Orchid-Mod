@@ -4167,7 +4167,21 @@ UI: {
 		LeftClick: Left
 		RightClick: Right
 		ChargeToSwing: Charge to swing {0} click to jab while charging
-		ParryDuration: " second parry duration"
+		ParryDuration: "{0} second parry duration"
+		Interrupted: Interrupted
+		Charged: Charged
+		Reinforced: Reinforced
+		Failed: Failed
+		Guard: "{0} {^0:guard;guard}"
+		Slam: "{0} {^0:slam;slams}"
+		Parry: "{0} click to parry"
+		ChargeToThrow: Charge to throw, right click to swing while charging
+		UsesUpTo: Uses up to {0} slams
+		RuneDuration: " second rune duration"
+		Block: "{0} click to block"
+		BuffDuration: "{0} second buff duration"
+		HorizonLaceShieldStacks: Grants 3 guards when fully charged
+		DamageOfDefense: Deals {0}% of defense as opposing damage
 	}
 
 	ReactionBook: {
