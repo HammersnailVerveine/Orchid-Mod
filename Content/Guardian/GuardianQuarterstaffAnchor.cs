@@ -145,7 +145,7 @@ namespace OrchidMod.Content.Guardian
 							guardian.GuardianGuardRecharging += Projectile.ai[2] / guardianItem.ParryDuration;
 							Rectangle rect = owner.Hitbox;
 							rect.Y -= 64;
-							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, Language.GetTextValue("Mods.OrchidMod.GuardianItem.Interrupted"), false, true);
+							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Interrupted"), false, true);
 						}
 					}
 					else if (Projectile.ai[2] <= 0f)

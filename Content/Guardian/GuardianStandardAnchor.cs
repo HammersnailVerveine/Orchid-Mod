@@ -256,7 +256,7 @@ namespace OrchidMod.Content.Guardian
 										SyncValue = true;
 										guardian.ResetStandards(true);
 									}
-									if (!Reinforced) CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.Charged.Reinforced"), false);
+									if (!Reinforced) CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Reinforced"), false);
 								}
 
 								BuffItem = StandardItem;
