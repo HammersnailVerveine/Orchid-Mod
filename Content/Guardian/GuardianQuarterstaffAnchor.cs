@@ -8,6 +8,7 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.Player;
 
@@ -144,7 +145,7 @@ namespace OrchidMod.Content.Guardian
 							guardian.GuardianGuardRecharging += Projectile.ai[2] / guardianItem.ParryDuration;
 							Rectangle rect = owner.Hitbox;
 							rect.Y -= 64;
-							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, "Interrupted", false, true);
+							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, Language.GetTextValue("Mods.OrchidMod.GuardianItem.Interrupted"), false, true);
 						}
 					}
 					else if (Projectile.ai[2] <= 0f)
