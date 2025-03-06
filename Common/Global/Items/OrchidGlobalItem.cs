@@ -1,4 +1,4 @@
-﻿using OrchidMod.Common.Attributes;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Content.Guardian;
 using System;
 using System.Collections.Generic;
@@ -87,7 +87,7 @@ namespace OrchidMod.Common.Global.Items
 
 		private void AddCrossmodInfoToTooltips(Item item, List<TooltipLine> tooltips, string[] mods)
 		{
-			var text = "This is a crossmod item: " + String.Join(", ", mods);
+			var text = Language.GetTextValue("Mods.OrchidMod.Misc.Crossmod") + String.Join(", ", mods);
 
 			tooltips.Add(new TooltipLine(Mod, "CrossmodInfo", text)
 			{
