@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
@@ -7,6 +7,7 @@ using ReLogic.Content;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -95,15 +96,15 @@ namespace OrchidMod.Content.Gambler
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
 			if (index != -1)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "DiceDuration", this.diceDuration + " seconds duration"));
+				tooltips.Insert(index, new TooltipLine(Mod, "DiceDuration", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.DieDuration", this.diceDuration)));
 
 				if (this.diceCost < 2)
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "DiceCost", "Uses " + this.diceCost + " chip"));
+					tooltips.Insert(index, new TooltipLine(Mod, "DiceCost", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.UsesChips", this.diceCost)));
 				}
 				else
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "DiceCost", "Uses " + this.diceCost + " chips"));
+					tooltips.Insert(index, new TooltipLine(Mod, "DiceCost", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.UsesChips", this.diceCost)));
 				}
 			}
 		}
