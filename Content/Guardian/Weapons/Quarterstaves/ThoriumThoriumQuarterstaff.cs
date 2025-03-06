@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumThoriumQuarterstaff : OrchidModGuardianQuarterstaff
 	{
 		public override void SafeSetDefaults()
