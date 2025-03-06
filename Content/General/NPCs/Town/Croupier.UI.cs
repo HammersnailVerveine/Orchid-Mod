@@ -14,6 +14,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.UI;
 using Terraria.GameInput;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI.Chat;
 
@@ -243,7 +244,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 				scrollMax = 0;
 
 				tooltips = new();
-				tooltips.Add(new TooltipLine(OrchidMod.Instance, "Eula C6 WHEN???", "..."));
+				tooltips.Add(new TooltipLine(OrchidMod.Instance, Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.UI.FunnyDialogue"), "..."));
 			}
 			else
 			{
@@ -258,12 +259,12 @@ namespace OrchidMod.Content.General.NPCs.Town
 				tooltips = ItemLoader.ModifyTooltips(hoverItem, ref numLines, tooltipNames, ref toolTipLine, ref preFixLine, ref badPreFixLine, ref yoyoLogo, out _, 0);
 				tooltips = tooltips.Where(i => TooltipsWhitelist.Contains(i.Name) || i.Name.StartsWith("Tooltip") || i.Name.StartsWith("Prefix")).ToList();
 
-				tooltips.Insert(0, new TooltipLine(OrchidMod.Instance, "ItemName", hoverItem.HoverName.Replace("Playing Card : ", "")) { OverrideColor = ItemRarity.GetColor(hoverItem.rare) });
+				tooltips.Insert(0, new TooltipLine(OrchidMod.Instance, "ItemName", hoverItem.HoverName.Replace(Language.GetTextValue("Mods.OrchidMod.NPCs.Misc.PlayingСard"), "")) { OverrideColor = ItemRarity.GetColor(hoverItem.rare) });
 				tooltips.Insert(1, new TooltipLine(OrchidMod.Instance, "CanRemove",
 					canRemove ?
-					$"[c/{triangleHexColor}:‣] Can be removed" :
-					$"[c/{triangleHexColor}:‣] Cannot be removed\n" +
-					$"[c/{triangleHexColor}:‣] Most expensive card in deck: {maxReq}"
+					$"[c/{triangleHexColor}:‣] " + Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.UI.CanBeRemoved") :
+					$"[c/{triangleHexColor}:‣] " + Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.UI.CannotBeRemoved") + "\n" +
+					$"[c/{triangleHexColor}:‣] " + Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.UI.MostExpensiveCard") + maxReq
 				)
 				{ OverrideColor = new Color(250, 150, 100) });
 			}
