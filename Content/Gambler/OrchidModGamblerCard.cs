@@ -199,7 +199,7 @@ namespace OrchidMod.Content.Gambler
 			var hexColor = Colors.AlphaDarken(new Color(175, 255, 175)).Hex3();
 			var strCardSets = "";
 
-			foreach (GamblerCardSet cardSet in cardSets) strCardSets += ", " + cardSet.ToString();
+			foreach (GamblerCardSet cardSet in cardSets) strCardSets += ", " + Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.Set" + cardSet.ToString());
 			strCardSets = strCardSets.Remove(0, 2);
 
 			tooltips.Insert(index, new TooltipLine(Mod, "TagsTag", $"{(strCardSets.Split(", ").Length > 1 ? Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.Sets") : Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.Set"))}: [c/{hexColor}:{strCardSets}]"));
