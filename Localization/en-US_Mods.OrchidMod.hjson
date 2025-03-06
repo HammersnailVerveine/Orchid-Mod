@@ -3743,6 +3743,21 @@ NPCs: {
 
 	Croupier: {
 		DisplayName: Croupier
+		Bestiary: The Croupier helps gamblers sustaining their unique way of life. He is purported so lucky, he once won by rolling a 7 on a six-sided die.
+
+		Names: {
+			1: Capone
+			2: Cadillac
+			3: Tannenbaum
+			4: Alderman
+			5: Accardo
+			6: Angelini
+			7: Bonanno
+			8: Ambrosino
+			9: D'Amico
+			10: Attanasio
+			11: Manocchio
+		}
 
 		TownNPCMood: {
 			Content: Ey, that sure is a fine place to deal with.
@@ -3761,6 +3776,29 @@ NPCs: {
 			HateNPC: "{NPCName} keeps pestering me about gambling, and blah, blah. why is he so nosy?"
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
+		}
+
+		UI: {
+			DeckBuilding: Deck Building
+			NewDeck: Get a New Deck
+			FunnyDialogue: Eula C6 WHEN???
+			CanBeRemoved: Can be removed
+			CannotBeRemoved: Cannot be removed
+			MostExpensiveCard: "Most expensive card in deck: "
+			Return: Return
+		}
+
+		Dialogues: {
+			1: Cards turnin' your way?
+			2: I like them odds, chief. Always like them odds.
+			3: Got you covered on cards, chief. We got poker, solitaire... more poker...
+			4: Ey, chief, best bud! Since we're such great pals, could ya help with a little debt?
+			5: I'm your rear hand man.
+			6: Fate's face down. How do you wanna be dealt?
+			7: Pick a number between 1 and 86!
+			8: Not too fond of your odds, eh? Aight, go on.
+			9: You lost it already? Here chief, take your new deck.
+			10: My man, your pockets are full. You wouldn't let a brand new deck sitting on the ground, would ya?
 		}
 
 		Census.SpawnCondition: Have a gamber card ([i:8427][i:8409] etc.) in your deck
