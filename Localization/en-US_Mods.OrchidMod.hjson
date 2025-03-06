@@ -13,92 +13,92 @@ Tiles: {
 
 Buffs: {
 	TitanicBuff: {
-		Description: Mods.OrchidMod.Buffs.TitanicBuff.Description
+		Description: ""
 		DisplayName: Titanic Buff
 	}
 
 	LodestoneSlow: {
-		Description: Mods.OrchidMod.Buffs.LodestoneSlow.Description
+		Description: ""
 		DisplayName: Lodestone Slow
 	}
 
 	GraniteAura: {
-		Description: Mods.OrchidMod.Buffs.GraniteAura.Description
+		Description: ""
 		DisplayName: Granite Aura
 	}
 
 	AquaBump: {
-		Description: Mods.OrchidMod.Buffs.AquaBump.Description
+		Description: ""
 		DisplayName: Aqua Bump
 	}
 
 	ShroomHeal: {
-		Description: Mods.OrchidMod.Buffs.ShroomHeal.Description
+		Description: ""
 		DisplayName: Shroom Heal
 	}
 
 	ShamanicEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.ShamanicEmpowerment.Description
+		Description: ""
 		DisplayName: Shamanic Empowerment
 	}
 
 	MythrilDefense: {
-		Description: Mods.OrchidMod.Buffs.MythrilDefense.Description
+		Description: ""
 		DisplayName: Mythril Defense
 	}
 
 	DeepForestAura: {
-		Description: Mods.OrchidMod.Buffs.DeepForestAura.Description
+		Description: ""
 		DisplayName: Deep Forest Aura
 	}
 
 	WindStun: {
-		Description: Mods.OrchidMod.Buffs.WindStun.Description
+		Description: ""
 		DisplayName: Wind Stun
 	}
 
 	WindSlow: {
-		Description: Mods.OrchidMod.Buffs.WindSlow.Description
+		Description: ""
 		DisplayName: Wind Slow
 	}
 
 	WindDamage: {
-		Description: Mods.OrchidMod.Buffs.WindDamage.Description
+		Description: ""
 		DisplayName: Wind Damage
 	}
 
 	LeafSlow: {
-		Description: Mods.OrchidMod.Buffs.LeafSlow.Description
+		Description: ""
 		DisplayName: Leaf Slow
 	}
 
 	HellHit: {
-		Description: Mods.OrchidMod.Buffs.HellHit.Description
+		Description: ""
 		DisplayName: Hell Hit
 	}
 
 	EarthTotemRevive: {
-		Description: Mods.OrchidMod.Buffs.EarthTotemRevive.Description
+		Description: ""
 		DisplayName: Earth Totem Revive
 	}
 
 	DiabolistCauterizeCooldown: {
-		Description: Mods.OrchidMod.Buffs.DiabolistCauterizeCooldown.Description
+		Description: ""
 		DisplayName: Diabolist Cauterize Cooldown
 	}
 
 	BrokenPower: {
-		Description: Mods.OrchidMod.Buffs.BrokenPower.Description
+		Description: ""
 		DisplayName: Broken Power
 	}
 
 	AbyssEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.AbyssEmpowerment.Description
+		Description: ""
 		DisplayName: Abyss Empowerment
 	}
 
 	RCRemoteBuff: {
-		Description: Mods.OrchidMod.Buffs.RCRemoteBuff.Description
+		Description: ""
 		DisplayName: R C Remote Buff
 	}
 
@@ -1270,6 +1270,7 @@ Items: {
 	GamblerDungeonHead: {
 		DisplayName: Tyche Headgear
 		Tooltip: Maximum chips increased by 5
+		SetBonus: Drawing a card gives 1 to 2 chips
 	}
 
 	GamblerDungeonLegs: {
@@ -1280,6 +1281,7 @@ Items: {
 	OutlawHat: {
 		DisplayName: Outlaw Hat
 		Tooltip: Maximum chips increased by 3
+		SetBonus: Maximum redraws increased by 1
 	}
 
 	OutlawPants: {
@@ -4124,6 +4126,9 @@ Misc: {
 	NoHintsLeft: No hints left for this tier
 	FailedReaction: Failed reaction
 	EntryAdded: Entry {0} added to the hidden reaction codex!
+	CurrentСard: "Current card: "
+	PlayingСard: Playing Card :
+	Crossmod: "This is a crossmod item: "
 }
 
 UI: {
@@ -4161,6 +4166,12 @@ UI: {
 		AddToDeck: Use to add to your deck
 		Sets: Sets
 		Set: Set
+		UsesChips: Uses {0} chips
+		DieDuration: "{0} seconds duration"
+		SetBiome: Biome
+		SetBoss: Boss
+		SetElemental: Elemental
+		SetSlime: Slime
 	}
 
 	GuardianItem: {
@@ -4168,6 +4179,7 @@ UI: {
 		RightClick: Right
 		ChargeToSwing: Charge to swing {0} click to jab while charging
 		ParryDuration: "{0} second parry duration"
+		BlockDuration: "{0} second block duration"
 		Interrupted: Interrupted
 		Charged: Charged
 		Reinforced: Reinforced
@@ -4182,6 +4194,12 @@ UI: {
 		BuffDuration: "{0} second buff duration"
 		HorizonLaceShieldStacks: Grants 3 guards when fully charged
 		DamageOfDefense: Deals {0}% of defense as opposing damage
+	}
+
+	DanserItem: {
+		ImpactWeapon: -Impact Weapon-
+		PhaseWeapon: -Phase Weapon-
+		MomentumWeapon: -MomentumWeapon-
 	}
 
 	ReactionBook: {
