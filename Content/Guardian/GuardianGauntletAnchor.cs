@@ -116,12 +116,12 @@ namespace OrchidMod.Content.Guardian
 					{
 						if (owner.eocHit != -1)
 						{
-							guardian.DoParryItemParry(Main.npc[owner.eocHit]); //this resets both gauntlets' parry state
+							guardian.DoParryItemParry(Main.npc[owner.eocHit]); // this resets both gauntlets' parry state
 						}
 						else
 						{
 							Projectile.ai[0] = 0f;
-							guardian.GuardianGuardRecharging += Projectile.ai[0] / guardianItem.parryDuration;
+							guardian.GuardianGuardRecharging += Projectile.ai[0] / (guardianItem.parryDuration * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 							Rectangle rect = owner.Hitbox;
 							rect.Y -= 64;
 							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, "Interrupted", false, true);

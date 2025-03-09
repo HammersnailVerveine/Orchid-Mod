@@ -13,6 +13,7 @@ using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using static Terraria.Player;
 using Terraria.DataStructures;
+using OrchidMod.Content.General.Prefixes;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Misc
 {
@@ -214,7 +215,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 							}
 							else
 							{
-								guardian.GuardianGuardRecharging += Projectile.ai[2] / guardianItem.ParryDuration;
+								guardian.GuardianGuardRecharging += Projectile.ai[2] / (guardianItem.ParryDuration * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 								Rectangle rect = owner.Hitbox;
 								rect.Y -= 64;
 								CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, "Interrupted", false, true);

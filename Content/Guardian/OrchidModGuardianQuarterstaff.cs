@@ -123,7 +123,7 @@ namespace OrchidMod.Content.Guardian
 							guardian.GuardianGauntletCharge = 0f;
 							guardian.UseGuard(1);
 							proj.ai[0] = 0f;
-							proj.ai[2] = ParryDuration;
+							proj.ai[2] = ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration;
 							anchor.NeedNetUpdate = true;
 							SoundEngine.PlaySound(SoundID.Item37, player.Center);
 						}
@@ -186,6 +186,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var guardian = Main.LocalPlayer.GetModPlayer<OrchidGuardian>();
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
@@ -195,7 +196,7 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration())) + " second parry duration"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration)) + " second parry duration"));
 
 			string click = ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? "Left" : "Right";
 			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", click + " click to parry")

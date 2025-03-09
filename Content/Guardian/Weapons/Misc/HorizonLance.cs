@@ -126,7 +126,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 							guardian.modPlayer.PlayerImmunity = 0;
 							guardian.GuardianStandardCharge = 0f;
 							guardian.UseGuard(1);
-							proj.ai[0] = ParryDuration + 1f;
+							proj.ai[0] = ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration + 1f;
 							anchor.NeedNetUpdate = true;
 							SoundEngine.PlaySound(SoundID.Item37, player.Center);
 						}
@@ -197,9 +197,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var guardian = Main.LocalPlayer.GetModPlayer<OrchidGuardian>();
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration())) + " second parry duration"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration)) + " second parry duration"));
 
 			tooltips.Insert(index + 2, new TooltipLine(Mod, "RuneDuration", OrchidUtils.FramesToSeconds((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer)) + " second buff duration"));
 

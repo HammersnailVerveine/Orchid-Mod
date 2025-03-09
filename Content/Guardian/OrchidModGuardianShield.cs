@@ -112,7 +112,7 @@ namespace OrchidMod.Content.Guardian
 							{
 								shield.shieldEffectReady = true;
 								guardian.UseGuard();
-								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration());
+								proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration);
 								shield.NeedNetUpdate = true;
 								BlockStart(player, proj);
 								SoundEngine.PlaySound(SoundID.Item1, player.Center);
@@ -135,7 +135,7 @@ namespace OrchidMod.Content.Guardian
 
 									shield.shieldEffectReady = true;
 									guardian.UseGuard();
-									proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration());
+									proj.ai[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration);
 									shield.NeedNetUpdate = true;
 									BlockStart(player, proj);
 									SoundEngine.PlaySound(SoundID.Item1, player.Center);
@@ -197,7 +197,7 @@ namespace OrchidMod.Content.Guardian
 					proj.damage = guardian.GetGuardianDamage(Item.damage);
 					proj.CritChance = guardian.GetGuardianCrit(Item.crit);
 					proj.knockBack = Item.knockBack;
-					proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()); // Used for UI display
+					proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration); // Used for UI display
 					shield.OnChangeSelectedItem(player);
 				}
 			}
@@ -208,15 +208,17 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (shield.SelectedItem != player.selectedItem)
 					{
-						proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()); // Used for UI display
+						proj.localAI[0] = (int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration); // Used for UI display
 						shield.OnChangeSelectedItem(player);
 					}
 				}
 			}
 			this.SafeHoldItem(player);
 		}
+
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var guardian = Main.LocalPlayer.GetModPlayer<OrchidGuardian>();
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
@@ -226,7 +228,7 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "BlockDuration", OrchidUtils.FramesToSeconds((int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration())) + " second block duration"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "BlockDuration", OrchidUtils.FramesToSeconds((int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration)) + " second block duration"));
 
 			string click = ModContent.GetInstance<OrchidClientConfig>().SwapPaviseImputs ? "Left" : "Right";
 			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", click + " click to block")
