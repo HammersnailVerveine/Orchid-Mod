@@ -117,13 +117,13 @@ namespace OrchidMod.Content.Guardian
 								guardian.UseGuard(1);
 								if (projectileMain.ai[0] == 0)
 								{
-									projectileMain.ai[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration());
+									projectileMain.ai[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 									(projectileMain.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
 								}
 
 								if (projectileOff.ai[0] == 0)
 								{
-									projectileOff.ai[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration());
+									projectileOff.ai[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 									(projectileOff.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
 								}
 							}
@@ -204,7 +204,7 @@ namespace OrchidMod.Content.Guardian
 					{
 						indexes[i] = proj.whoAmI;
 						gauntlet.OffHandGauntlet = i == 0;
-						proj.localAI[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()); // for UI display
+						proj.localAI[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration); // for UI display
 						gauntlet.OnChangeSelectedItem(player);
 					}
 				}
@@ -226,7 +226,7 @@ namespace OrchidMod.Content.Guardian
 					{
 						if (gauntlet.SelectedItem != player.selectedItem)
 						{
-							projectile.localAI[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration()); // for UI display
+							projectile.localAI[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration); // for UI display
 							gauntlet.OnChangeSelectedItem(player);
 						}
 					}
@@ -237,6 +237,7 @@ namespace OrchidMod.Content.Guardian
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var guardian = Main.LocalPlayer.GetModPlayer<OrchidGuardian>();
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
@@ -246,7 +247,8 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ParryDuration", OrchidUtils.FramesToSeconds((int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration())))));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ParryDuration", OrchidUtils.FramesToSeconds((int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration))))));
+
 
 			string click = ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.LeftClick") : Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
 			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Parry", click))

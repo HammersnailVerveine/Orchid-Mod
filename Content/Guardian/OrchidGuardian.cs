@@ -43,7 +43,8 @@ namespace OrchidMod
 		public float GuardianStandardTimer = 1f; // Standard duration multiplier
 		public float GuardianStandardRange = 1f;
 		public float GuardianSlamDistance = 1f; // Slam Distance multiplier
-		public float GuardianBlockDuration = 1f; // Block Duration multiplier
+		public float GuardianBlockDuration = 1f; // Block Duration multiplier (pavises)
+		public float GuardianParryDuration = 1f; // Parry Duration multiplier (gauntlets, misc)
 		public float GuardianMeleeSpeed = 1f; // Edited via reforges. It multiplies the player MeleeSpeed in postupdate
 		public float GuardianPaviseScale = 1f; // Multiplies pavise scale
 
@@ -278,6 +279,7 @@ namespace OrchidMod
 			GuardianStandardRange = 1f;
 			GuardianSlamDistance = 1f;
 			GuardianBlockDuration = 1f;
+			GuardianParryDuration = 1f;
 			GuardianMeleeSpeed = 1f;
 			GuardianPaviseScale = 1f;
 			ParryInvincibilityBonus = 0;

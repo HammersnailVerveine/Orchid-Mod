@@ -12,7 +12,7 @@ using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 {
-	public class SageBat : OrchidModShapeshifterShapeshift
+	public class SageBatHell : OrchidModShapeshifterShapeshift
 	{
 		public int Jumps = 0;
 		public float AttackCharge = 0;
@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.width = 30;
 			Item.height = 30;
 			Item.value = Item.sellPrice(0, 2, 25, 0);
-			Item.rare = ItemRarityID.Green;
+			Item.rare = ItemRarityID.Orange;
 			Item.UseSound = SoundID.NPCDeath4;
 			Item.useTime = 40;
 			Item.shootSpeed = 8f;
@@ -56,7 +56,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 8; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Torch);
+					dust.velocity *= 0.5f;
+					dust.scale *= Main.rand.NextFloat(1f, 2f);
+					dust.noGravity = true;
+					dust.noLight = true;
 			}
 		}
 
@@ -64,7 +68,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Torch);
+				dust.velocity *= 0.5f;
+				dust.scale *= Main.rand.NextFloat(1f, 2f);
+				dust.noGravity = true;
+				dust.noLight = true;
 			}
 		}
 		
@@ -98,9 +106,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				Jumps--;
 				SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < 3; i++)
 				{
 					Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+				}
+
+				for (int i = 0; i < 3; i++)
+				{
+					Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Torch);
+					dust.velocity *= 0.5f;
+					dust.scale *= Main.rand.NextFloat(1f, 2f);
+					dust.noGravity = true;
+					dust.noLight = true;
 				}
 			}
 			else
@@ -150,6 +167,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					anchor.Frame = 5;
 					anchor.Timespent = -3;
 				}
+			}
+ 
+			if (Main.rand.NextBool(20))
+			{
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Torch);
+				dust.velocity *= 0.5f;
+				dust.scale *= Main.rand.NextFloat(1f, 2f);
+				dust.noGravity = true;
+				dust.noLight = true;
 			}
 
 			// ATTACK
@@ -226,7 +252,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				{
 					anchor.Frame = 10;
 					anchor.Timespent = 0;
-					Jumps = 3;
+					Jumps = 4;
 					intendedVelocity = Vector2.Zero;
 				}
 				else
@@ -253,14 +279,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				{ // Player is inputting a movement key
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerate(ref intendedVelocity, -4f, speedMult, 0.2f);
+						TryAccelerate(ref intendedVelocity, -5f, speedMult, 0.25f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerate(ref intendedVelocity, 4f, speedMult, 0.2f);
+						TryAccelerate(ref intendedVelocity, 5f, speedMult, 0.25f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 						LateralMovement = true;
@@ -293,7 +319,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
  
 					if (Main.rand.NextBool())
 					{
-						Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].noGravity = true;
+						Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Torch);
+						dust.velocity *= 0.5f;
+						dust.scale *= Main.rand.NextFloat(1f, 2f);
+						dust.noGravity = true;
+						dust.noLight = true;
 					}
 				}
 				else if (projectile.ai[2] <= 0 && !CanGoUp(intendedVelocity * 3f, projectile, player) && AttackCharge <= 0 && !LateralMovement)
@@ -309,7 +339,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					if (anchor.IsInputDown) intendedDistance -= 16f;
 					if (IsGrounded(projectile, player, intendedDistance, anchor.IsInputDown, anchor.IsInputDown))
 					{ // Pushes away from the ground
-						Jumps = 3;
+						Jumps = 4;
 						intendedVelocity.Y -= player.gravity * 1.4f;
 						if (intendedVelocity.Y < -2.5f)
 						{
@@ -318,7 +348,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					}
 					else if (IsGrounded(projectile, player, intendedDistance + 4f, anchor.IsInputDown, anchor.IsInputDown) && intendedVelocity.Y < 2f)
 					{ // Locks up so the screen doesn't shake constantly
-						Jumps = 3;
+						Jumps = 4;
 						intendedVelocity.Y *= 0f;
 					}
 					else if (!CanGoUp(intendedVelocity * 3f, projectile, player) && intendedVelocity.Y < 0f && AttackCharge <= 0 && !LateralMovement)

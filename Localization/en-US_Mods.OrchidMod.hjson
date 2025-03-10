@@ -3659,6 +3659,26 @@ Items: {
 		DisplayName: Thorium Quarterstaff
 		Tooltip: Releases sparks on hit
 	}
+
+	PredatorFossil: {
+		Tooltip: ""
+		DisplayName: Predator Fossil
+	}
+
+	SageBatHell: {
+		DisplayName: Sage Bat Hell
+		Tooltip: ""
+	}
+
+	SageImp: {
+		DisplayName: Sage Imp
+		Tooltip: ""
+	}
+
+	SageCorruption: {
+		DisplayName: Sage Corruption
+		Tooltip: ""
+	}
 }
 
 NPCs: {

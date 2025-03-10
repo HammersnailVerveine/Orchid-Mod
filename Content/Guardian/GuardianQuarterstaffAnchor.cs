@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -142,7 +143,7 @@ namespace OrchidMod.Content.Guardian
 						else
 						{
 							Projectile.ai[2] = 0f;
-							guardian.GuardianGuardRecharging += Projectile.ai[2] / guardianItem.ParryDuration;
+							guardian.GuardianGuardRecharging += Projectile.ai[2] / (guardianItem.ParryDuration * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 							Rectangle rect = owner.Hitbox;
 							rect.Y -= 64;
 							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Interrupted"), false, true);
@@ -235,7 +236,7 @@ namespace OrchidMod.Content.Guardian
 								guardian.modPlayer.PlayerImmunity = 0;
 								guardian.GuardianGauntletCharge = 0f;
 								guardian.UseGuard(1);
-								Projectile.ai[2] = guardianItem.ParryDuration;
+								Projectile.ai[2] = guardianItem.ParryDuration * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration;
 								Projectile.netUpdate = true;
 								SoundEngine.PlaySound(SoundID.Item37, owner.Center);
 								guardian.GuardianGauntletParry = true;
