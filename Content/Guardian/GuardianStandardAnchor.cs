@@ -9,6 +9,7 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.Player;
 
@@ -244,7 +245,7 @@ namespace OrchidMod.Content.Guardian
 								if (BuffItem == StandardItem && !Reinforced)
 								{
 									Projectile.ai[2] = 1f;
-									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced");
+									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Reinforced"));
 								}
 								else
 								{
@@ -255,7 +256,7 @@ namespace OrchidMod.Content.Guardian
 										SyncValue = true;
 										guardian.ResetStandards(true);
 									}
-									if (!Reinforced) CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Charged", false);
+									if (!Reinforced) CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Reinforced"), false);
 								}
 
 								BuffItem = StandardItem;

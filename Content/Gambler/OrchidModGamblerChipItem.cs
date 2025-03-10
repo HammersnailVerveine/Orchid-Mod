@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Localization;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ID;
@@ -80,11 +81,11 @@ namespace OrchidMod.Content.Gambler
 			{
 				if (this.chipCost < 2)
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "ChipCost", "Uses " + this.chipCost + " chip"));
+					tooltips.Insert(index, new TooltipLine(Mod, "ChipCost", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.UsesChips", this.chipCost)));
 				}
 				else
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "ChipCost", "Uses " + this.chipCost + " chips"));
+					tooltips.Insert(index, new TooltipLine(Mod, "ChipCost", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.UsesChips", this.chipCost)));
 				}
 			}
 		}

@@ -2,6 +2,7 @@
 using OrchidMod.Content.Guardian.Projectiles.Quarterstaves;
 using System;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -38,7 +39,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			{
 				if (guardian.GuardianGauntletCharge < 180)
 				{
-					CombatText.NewText(player.Hitbox, new Color(175, 255, 175), "Charged", false);
+					CombatText.NewText(player.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Charged"), false);
 					SoundEngine.PlaySound(SoundID.Item66, player.Center);
 				}
 			}

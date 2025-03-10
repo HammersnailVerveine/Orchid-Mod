@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 1;
-			this.name = "Propulsion";
-			this.description = "Vertically propels the player";
 			this.debuffDuration = 10;
 			this.sound = SoundID.Item14;
 			this.dust = 15;

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -143,7 +144,7 @@ namespace OrchidMod.Content.Guardian
 								PreviousruneCost = runeCost;
 								if (PreviousruneCost == 0)
 								{
-									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Charged", false);
+									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Charged"), false);
 									SoundEngine.PlaySound(SoundID.DD2_DarkMageHealImpact, owner.Center);
 								}
 								else
@@ -174,7 +175,7 @@ namespace OrchidMod.Content.Guardian
 								if (fullyCharged)
 								{
 									runeAmount += guardianItem.RuneAmountScaling;
-									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced", false);
+									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Reinforced"), false);
 								}
 
 								guardianItem.Activate(owner, guardian, RuneItem.shoot, RuneItem.damage, RuneItem.knockBack, RuneItem.crit, (int)(guardianItem.RuneDuration * guardian.GuardianRuneTimer), guardianItem.RuneDistance, runeAmount);
@@ -182,7 +183,7 @@ namespace OrchidMod.Content.Guardian
 							else
 							{
 								SoundEngine.PlaySound(SoundID.LiquidsWaterLava, owner.Center);
-								CombatText.NewText(owner.Hitbox, new Color(255, 125, 125), "Failed", false, true);
+								CombatText.NewText(owner.Hitbox, new Color(255, 125, 125), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Failed"), false, true);
 							}
 							guardian.GuardianRuneCharge = 0;
 							Projectile.ai[0] = 0f;

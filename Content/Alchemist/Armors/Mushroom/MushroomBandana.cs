@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModSystems;
 using OrchidMod.Utilities;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -43,7 +44,7 @@ namespace OrchidMod.Content.Alchemist.Armors.Mushroom
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
-			player.setBonus = "Maximum number of simultaneous alchemical elements increased by 1";
+			player.setBonus = Language.GetTextValue("Mods.OrchidMod.Items.MushroomBandana.SetBonus");
 			modPlayer.alchemistNbElementsMax += 1;
 		}
 

@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 3;
-			this.name = "Lava Slime Bubble";
-			this.description = "Creates a catalytic lava slime bubble";
 			this.debuffDuration = 20;
 			this.sound = SoundID.Item85;
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.CloudInAVial>());

@@ -78,7 +78,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 				// With Town NPCs, you usually set this to what biome it likes the most in regards to NPC happiness
 				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
 				// Sets your NPC's flavor text in the bestiary
-				new FlavorTextBestiaryInfoElement("The Croupier helps gamblers sustaining their unique way of life. He is purported so lucky, he once won by rolling a 7 on a six-sided die.")
+				new FlavorTextBestiaryInfoElement(Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Bestiary"))
 			});
 		}
 
@@ -115,17 +115,17 @@ namespace OrchidMod.Content.General.NPCs.Town
 		{
 			return new()
 			{
-				"Capone",
-				"Cadillac",
-				"Tannenbaum",
-				"Alderman",
-				"Accardo",
-				"Angelini",
-				"Bonanno",
-				"Ambrosino",
-				"D'Amico",
-				"Attanasio",
-				"Manocchio"
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.1"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.2"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.3"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.4"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.5"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.6"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.7"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.8"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.9"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.10"),
+				Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Names.11")
 			};
 		}
 
@@ -133,13 +133,13 @@ namespace OrchidMod.Content.General.NPCs.Town
 		{
 			return Main.rand.Next(7) switch
 			{
-				0 => "Cards turnin' your way?",
-				1 => "I like them odds, chief. Always like them odds.",
-				2 => "Got you covered on cards, chief. We got poker, solitaire... more poker...",
-				3 => "Ey, chief, best bud! Since we're such great pals, could ya help with a little debt?",
-				4 => "I'm your rear hand man.",
-				5 => "Fate's face down. How do you wanna be dealt?",
-				_ => "Pick a number between 1 and 86!",
+				0 => Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.1"),
+				1 => Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.2"),
+				2 => Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.3"),
+				3 => Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.4"),
+				4 => Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.5"),
+				5 => Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.6"),
+				_ => Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.7"),
 			};
 		}
 
@@ -151,9 +151,9 @@ namespace OrchidMod.Content.General.NPCs.Town
 
 			if (!ui.Visible)
 			{
-				string deckBuilding = $"[c/{Colors.AlphaDarken(new Color(255, 200, 0)).Hex3()}:Deck Building]";
+				string deckBuilding = $"[c/{Colors.AlphaDarken(new Color(255, 200, 0)).Hex3()}:" + Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.UI.DeckBuilding") + "]";
 
-				button2 = modPlayer.HasGamblerDeck() ? deckBuilding : "Get a New Deck";
+				button2 = modPlayer.HasGamblerDeck() ? deckBuilding : Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.UI.NewDeck");
 				button = Language.GetTextValue("LegacyInterface.28");
 			}
 			else
@@ -167,7 +167,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 			var ui = CroupierUI.Instance;
 
 			if (ui.Visible) ui.Deactivate(NPC.whoAmI);
-			else shop = "Shop";
+			else shop = Language.GetTextValue("LegacyInterface.28");
 		}
 
 		public void ClickSecondButton()
@@ -178,7 +178,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 
 			if (modPlayer.HasGamblerDeck())
 			{
-				Main.npcChatText = $"Not too fond of your odds, eh? Aight, go on.";
+				Main.npcChatText = Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.8");
 				Main.npcChatText += "\n\n\n\n\n\n\n";
 
 				ui.Activate();
@@ -191,7 +191,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 
 				if (item.type.Equals(ItemID.None))
 				{
-					Main.npcChatText = $"You lost it already? Here chief, take your new deck.";
+					Main.npcChatText = Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.9");
 					int gamblerDeck = ModContent.ItemType<GamblerAttack>();
 
 					player.QuickSpawnItem(NPC.GetSource_FromThis(), gamblerDeck, 1);
@@ -199,7 +199,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 				}
 			}
 
-			Main.npcChatText = $"My man, your pockets are full. You wouldn't let a brand new deck sitting on the ground, would ya?";
+			Main.npcChatText = Language.GetTextValue("Mods.OrchidMod.NPCs.Croupier.Dialogues.10");
 		}
 
 		public override void OnChatButtonClicked(bool firstButton, ref string shopName)
@@ -215,7 +215,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 
 		public override void AddShops()
 		{
-			var npcShop = new NPCShop(Type, "Shop");
+			var npcShop = new NPCShop(Type, Language.GetTextValue("LegacyInterface.28"));
 			npcShop.Add<GamblerDummy>();
 			npcShop.Add<GamblingChip>();
 			npcShop.Add<GamblingDie>();

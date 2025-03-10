@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 1;
-			this.name = "Flipper Potion";
-			this.description = "Gives 30 seconds of flipper Potion effect";
 			this.debuffDuration = 30;
 			this.sound = SoundID.Item25;
 			this.dust = 15;

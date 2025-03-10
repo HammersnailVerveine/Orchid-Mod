@@ -3,6 +3,7 @@ using System;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian.Projectiles.Warhammers;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -166,7 +167,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			if (!FullyCharged)
 			{
-				CombatText.NewText(player.Hitbox, new Color(175, 255, 175), "Charged", false);
+				CombatText.NewText(player.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Charged"), false);
 				SoundEngine.PlaySound(SoundID.Item92, player.Center);
 				guardian.GuardianHammerCharge = 210;
 			}

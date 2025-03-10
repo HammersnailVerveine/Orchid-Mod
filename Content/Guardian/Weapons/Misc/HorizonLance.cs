@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -200,17 +201,18 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			var guardian = Main.LocalPlayer.GetModPlayer<OrchidGuardian>();
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration)) + " second parry duration"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration)))));
 
-			tooltips.Insert(index + 2, new TooltipLine(Mod, "RuneDuration", OrchidUtils.FramesToSeconds((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer)) + " second buff duration"));
 
-			tooltips.Insert(index + 3, new TooltipLine(Mod, "ShieldStacks", "Grants 3 guards when fully charged")
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "RuneDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.BuffDuration", OrchidUtils.FramesToSeconds((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer)))));
+
+			tooltips.Insert(index + 3, new TooltipLine(Mod, "ShieldStacks", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.HorizonLaceShieldStacks"))
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});
 
-			string click = ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? "Left" : "Right";
-			tooltips.Insert(index + 4, new TooltipLine(Mod, "ClickInfo", click + " click to parry")
+			string click = ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.LeftClick") : Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
+			tooltips.Insert(index + 4, new TooltipLine(Mod, "ClickInfo", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Parry", click))
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});

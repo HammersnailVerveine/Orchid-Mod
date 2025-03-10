@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Common.Global.Items;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -111,7 +112,7 @@ namespace OrchidMod.Content.Gambler
 				if (index != -1)
 				{
 					Color textColor = new Color(255, 200, 0); // Rarity Color ???
-					string text = $"Current card: [c/{Terraria.ID.Colors.AlphaDarken(textColor).Hex3()}:{currentCard.HoverName.Replace("Playing Card : ", "")}]";
+					string text = Language.GetTextValue("Mods.OrchidMod.Misc.CurrentСard") + $"[c/{Terraria.ID.Colors.AlphaDarken(textColor).Hex3()}:{currentCard.HoverName.Replace(Language.GetTextValue("Mods.OrchidMod.Misc.PlayingСard"), "")}]";
 
 					tooltips.Insert(index, new TooltipLine(Mod, "CardType", text));
 				}
