@@ -3638,15 +3638,15 @@ Items: {
 	JewelerGauntlet: {
 		DisplayName: Jeweler's Gauntlets
 		Tooltip: Can be socketed by right clicking with a gem, providing various effects
-		Amethyst: Amethyst: attacks ignore a substantial amount of enemy defense
-		Topaz: Topaz: increases the length of invincibility after a parry
-		Sapphire: Sapphire: allows the player to double jump
-		Emerald: Emerald: allows the player to dash
-		Ruby: Ruby: greatly increases life regeneration after a parry
-		Diamond: Diamond: emits an aura of light
-		Amber: Amber: recovers 50% of a guard on charged attack hits
-		Aquamarine: Aquamarine: increases mobility in water when held
-		Opal: Opal: increases nearby players resource regeneration
+		Amethyst: "[i:Amethyst] [c/9C5ADC:Amethyst]: attacks ignore a substantial amount of enemy defense"
+		Topaz: "[i:Topaz] [c/FFBA00:Topaz]: increases the length of invincibility after a parry"
+		Sapphire: "[i:Sapphire] [c/2D6ACC:Sapphire]: allows the player to double jump"
+		Emerald: "[i:Emerald] [c/00A32E:Emerald]: allows the player to dash"
+		Ruby: "[i:Ruby] [c/D92B2B:Ruby]: greatly increases life regeneration after a parry"
+		Diamond: "[i:Diamond] [c/FFC4E1:Diamond]: emits an aura of light"
+		Amber: "[i:Amber] [c/FF8800:Amber]: recovers 50% of a guard on charged attack hits"
+		Aquamarine: "[i:ThoriumMod/Aquamarine] [c/6dffd8:Aquamarine]: increases mobility in water when held"
+		Opal: "[i:ThoriumMod/Opal] [c/ef659a:Opal]: increases nearby players resource regeneration"
 		None: No gem socketed
 	}
 
