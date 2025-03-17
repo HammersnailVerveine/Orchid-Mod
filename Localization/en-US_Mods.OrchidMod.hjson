@@ -3871,6 +3871,15 @@ Prefixes: {
 	AngelicPrefix.DisplayName: Angelic
 	ImpregnablePrefix.DisplayName: Impregnable
 	HaidexPrefix.DisplayName: Haidex
+	AddPotency: " potency"
+	AddMaximumChips: " maximum chips"
+	AddGuard: " guard"
+	AddAttackSpeed: % attack speed
+	AddDuration: "{0} duration"
+	AddSize: size
+	AddSpeed: speed
+	AddParry: parry
+	AddBlock: block
 }
 
 Projectiles: {
