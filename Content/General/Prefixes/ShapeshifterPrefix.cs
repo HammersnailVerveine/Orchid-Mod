@@ -4,6 +4,7 @@ using OrchidMod.Common.Global.Items;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
@@ -158,7 +159,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 				if (attackSpeed != 0f)
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "ShapeshifterAttackSpeedPrefix", (attackSpeed > 0 ? "+" : "") + string.Format("{0:0}", attackSpeed * 100f) + "% attack speed")
+					tooltips.Insert(index, new TooltipLine(Mod, "ShapeshifterAttackSpeedPrefix", (attackSpeed > 0 ? "+" : "") + string.Format("{0:0}", attackSpeed * 100f) + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddAttackSpeed"))
 					{
 						IsModifier = true,
 						IsModifierBad = attackSpeed < 0
@@ -167,7 +168,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 				if (moveSpeed != 0f)
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "ShapeshifterMoveSpeedPrefix", (moveSpeed > 0 ? "+" : "") + string.Format("{0:0}", moveSpeed * 100f) + "% movement speed")
+					tooltips.Insert(index, new TooltipLine(Mod, "ShapeshifterMoveSpeedPrefix", (moveSpeed > 0 ? "+" : "") + string.Format("{0:0}", moveSpeed * 100f) + Language.GetTextValue("LegacyTooltip.46"))
 					{
 						IsModifier = true,
 						IsModifierBad = moveSpeed < 0
