@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using static Terraria.Player;
+using Terraria.Localization;
 using Terraria.DataStructures;
 using OrchidMod.Content.General.Prefixes;
 
@@ -268,7 +269,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 								if (Projectile.ai[1] > 0 && !Reinforced)
 								{
 									Reinforced = true;
-									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), "Reinforced");
+									CombatText.NewText(owner.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Reinforced");
 								}
 
 								Projectile.ai[1] = guardianItem.StandardDuration * guardian.GuardianStandardTimer;
