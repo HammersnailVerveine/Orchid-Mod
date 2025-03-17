@@ -3866,6 +3866,15 @@ Prefixes: {
 	AngelicPrefix.DisplayName: Ангельский
 	ImpregnablePrefix.DisplayName: Неприступный
 	HaidexPrefix.DisplayName: Непонятный
+	AddPotency: " к концентрации"
+	AddMaximumChips: " к количеству фишек"
+	AddGuard: " оч. защиты"
+	AddAttackSpeed: % к скорости атаки
+	AddDuration: к длительности {0}
+	AddSize: к размеру
+	AddSpeed: к скорости
+	AddParry: парирования
+	AddBlock: блока
 }
 
 Projectiles: {
