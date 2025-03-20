@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 2;
-			this.name = "Stellar Talc Orbit";
-			this.description = "Stellar Talc projectiles will orbit the user";
 			this.debuffDuration = 20;
 			this.sound = SoundID.Item85;
 			this.dust = 16;

@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = -2;
-			this.name = "Mushroom Thread";
-			this.description = "Creates a sample of Mushroom Thread, which can be used to create armor";
 			this.debuffDuration = 15;
 			this.sound = SoundID.Item25;
 			this.dust = 56;

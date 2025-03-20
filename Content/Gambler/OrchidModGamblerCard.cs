@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using OrchidMod.Common;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Common.Global.Items;
@@ -147,35 +147,35 @@ namespace OrchidMod.Content.Gambler
 
 			AddCardSetsTooltipLine(tooltips);
 
-			tooltips.Insert(1, new TooltipLine(Mod, "CardsNeeded", "Requires " + this.cardRequirement + " cards (Deck : " + count + ")")
+			tooltips.Insert(1, new TooltipLine(Mod, "CardsNeeded", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.Requires", this.cardRequirement, count))
 			{
 				OverrideColor = new Color(255, 200, 100)
 			});
 
 			if (modPlayer.ContainsGamblerCard(Item))
 			{
-				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Currently in your deck")
+				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.InDeck"))
 				{
 					OverrideColor = new Color(255, 100, 100)
 				});
 			}
 			else if (count == 20)
 			{
-				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Your deck is full")
+				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.DeckIsFull"))
 				{
 					OverrideColor = new Color(255, 100, 100)
 				});
 			}
 			else if (count < this.cardRequirement)
 			{
-				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Requires " + diff + " more cards")
+				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.RequiresMore", diff))
 				{
 					OverrideColor = new Color(255, 100, 100)
 				});
 			}
 			else
 			{
-				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", "Use to add to your deck")
+				tooltips.Insert(1, new TooltipLine(Mod, "UseTag", Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.AddToDeck"))
 				{
 					OverrideColor = new Color(255, 200, 100)
 				});
@@ -199,10 +199,10 @@ namespace OrchidMod.Content.Gambler
 			var hexColor = Colors.AlphaDarken(new Color(175, 255, 175)).Hex3();
 			var strCardSets = "";
 
-			foreach (GamblerCardSet cardSet in cardSets) strCardSets += ", " + cardSet.ToString();
+			foreach (GamblerCardSet cardSet in cardSets) strCardSets += ", " + Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.Set" + cardSet.ToString());
 			strCardSets = strCardSets.Remove(0, 2);
 
-			tooltips.Insert(index, new TooltipLine(Mod, "TagsTag", $"{(strCardSets.Split(", ").Length > 1 ? "Sets" : "Set")}: [c/{hexColor}:{strCardSets}]"));
+			tooltips.Insert(index, new TooltipLine(Mod, "TagsTag", $"{(strCardSets.Split(", ").Length > 1 ? Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.Sets") : Language.GetTextValue("Mods.OrchidMod.UI.GamblerItem.Set"))}: [c/{hexColor}:{strCardSets}]"));
 		}
 
 		public int DummyProjectile(int proj, bool dummy) => OrchidGambler.DummyProjectile(proj, dummy);

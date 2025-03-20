@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
+using Terraria.Localization;
 
 namespace OrchidMod.Content.Alchemist.UI
 {
@@ -166,7 +167,7 @@ namespace OrchidMod.Content.Alchemist.UI
 						}
 						offSetX += 40;
 					}
-					msg = knownRecipe ? recipe.name : "Unknown Reaction";
+					msg = knownRecipe ? recipe.name.Value : Language.GetTextValue("Mods.OrchidMod.UI.ReactionBook.UnknownReaction");
 					Color textColor = knownRecipe ? backgroundColor : recipe.level < 1 ? new Color(200, 150, 100)  : new Color(175, 175, 175);
 					ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, new Vector2(point.X + offSetX, point.Y + offSetY + 7), textColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 					offSetX = baseOffSetX;
@@ -218,9 +219,9 @@ namespace OrchidMod.Content.Alchemist.UI
 					offSetX += 40;
 				}
 				Vector2 textPos = new Vector2(point.X + offSetPopupX + 25, point.Y + offSetPopupY + 70);
-				msg = this.bookPopupRecipe.name;
+				msg = this.bookPopupRecipe.name.Value;
 				ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, textPos, backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
-				msg = this.bookPopupRecipe.description;
+				msg = FontAssets.MouseText.Value.CreateWrappedText(this.bookPopupRecipe.description.Value, 300f);
 				textPos.Y += 40;
 				textPos.X -= 12;
 				ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, textPos, backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
@@ -233,8 +234,8 @@ namespace OrchidMod.Content.Alchemist.UI
 
 			this.drawpause = this.drawpause ? Main.mouseLeftRelease : false;
 
-			msg = "Page " + (this.bookPageIndex + 1) + "/" + (maxPages + 1);
-			ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, new Vector2(point.X + 282, point.Y + 508), backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
+			msg = Language.GetTextValue("Mods.OrchidMod.UI.ReactionBook.Page", (this.bookPageIndex + 1), (maxPages + 1));
+			ChatManager.DrawColorCodedStringWithShadow(Main.spriteBatch, FontAssets.MouseText.Value, msg, new Vector2(point.X + 275, point.Y + 508), backgroundColor, 0f, Vector2.Zero, Vector2.One, -1f, 2f);
 		}
 	}
 }

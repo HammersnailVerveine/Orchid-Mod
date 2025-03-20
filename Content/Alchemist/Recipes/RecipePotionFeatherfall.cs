@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 1;
-			this.name = "Featherfall Potion";
-			this.description = "Gives 30 seconds of featherfall Potion effect";
 			this.debuffDuration = 30;
 			this.sound = SoundID.Item85;
 			this.dust = 16;

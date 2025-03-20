@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 2;
-			this.name = "Poison Bubble";
-			this.description = "Creates a catalytic poison bubble";
 			this.debuffDuration = 20;
 			this.sound = SoundID.Item85;
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Air.CloudInAVial>());

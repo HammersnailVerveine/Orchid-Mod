@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 2;
-			this.name = "Bubbles";
-			this.description = "Releases bubbles over a large area";
 			this.debuffDuration = 15;
 			this.sound = SoundID.Item85;
 			this.ingredients.Add(ItemType<Alchemist.Weapons.Nature.PoisonVial>());

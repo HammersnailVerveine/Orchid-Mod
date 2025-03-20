@@ -6,6 +6,7 @@ using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
@@ -133,7 +134,7 @@ namespace OrchidMod.Content.General.Prefixes
 		public override void HoldItem(Item item, Player player)
 		{
 			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
-			//if (blockDuration != 1f && blockDuration != 0f) modPlayer.modPlayerGuardian.GuardianBlockDuration += blockDuration;
+			if (blockDuration != 1f && blockDuration != 0f) modPlayer.modPlayerGuardian.GuardianBlockDuration += blockDuration;
 			if (speed != 1f && speed != 0f)
 			{
 				if (item.ModItem is OrchidModGuardianShield)
@@ -151,11 +152,11 @@ namespace OrchidMod.Content.General.Prefixes
 		{
 			if ((blockDuration != 1f && blockDuration != 0f) || (speed != 1f && speed != 0f))
 			{
-				string block = "parry";
+				string block = Language.GetTextValue("Mods.OrchidMod.Prefixes.AddParry");
 
 				if (item.ModItem is OrchidModGuardianShield)
 				{
-					block = "block";
+					block = Language.GetTextValue("Mods.OrchidMod.Prefixes.AddBlock");
 				}
 
 				// I have no clue how to do this in a clean way
@@ -184,7 +185,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 				if (blockDuration != 1f && blockDuration != 0f)
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "BlockDurationPrefix", (blockDuration > 1 ? "+" : "") + string.Format("{0:0}", (blockDuration - 1f) * 100f) + "% " + block + " duration")
+					tooltips.Insert(index, new TooltipLine(Mod, "BlockDurationPrefix", (blockDuration > 1 ? "+" : "") + string.Format("{0:0}", (blockDuration - 1f) * 100f) + "% " + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddDuration", block))
 					{
 						IsModifier = true,
 						IsModifierBad = blockDuration < 1
@@ -193,7 +194,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 				if (speed != 1f && speed != 0f)
 				{
-					string statname = item.ModItem is OrchidModGuardianShield ? "size" : "speed";
+					string statname = item.ModItem is OrchidModGuardianShield ? Language.GetTextValue("Mods.OrchidMod.Prefixes.AddSize") : Language.GetTextValue("Mods.OrchidMod.Prefixes.AddSpeed");
 					tooltips.Insert(index, new TooltipLine(Mod, "SpeedPrefix", (speed > 1 ? "+" : "") + string.Format("{0:0}", (speed - 1f) * 100f) + "% " + statname)
 					{
 						IsModifier = true,

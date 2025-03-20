@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -38,7 +39,7 @@ namespace OrchidMod.Content.Gambler.Armors.Dungeon
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			player.setBonus = "Drawing a card gives 1 to 2 chips";
+			player.setBonus = Language.GetTextValue("Mods.OrchidMod.Items.GamblerDungeonHead.SetBonus");
 			modPlayer.gamblerDungeon = true;
 		}
 

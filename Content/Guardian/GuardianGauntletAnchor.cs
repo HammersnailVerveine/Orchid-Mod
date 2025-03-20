@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.ID;
@@ -124,7 +125,7 @@ namespace OrchidMod.Content.Guardian
 							guardian.GuardianGuardRecharging += Projectile.ai[0] / (guardianItem.parryDuration * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 							Rectangle rect = owner.Hitbox;
 							rect.Y -= 64;
-							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, "Interrupted", false, true);
+							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Interrupted"), false, true);
 							if (OffHandGauntlet)
 							{
 								//Main.NewText("Starting sweep from offhand gauntlet projectile[" + Projectile.whoAmI + "] for mainhand gauntlet");

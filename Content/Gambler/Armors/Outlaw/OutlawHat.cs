@@ -1,6 +1,7 @@
 using OrchidMod.Content.Gambler.Misc;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
@@ -40,7 +41,7 @@ namespace OrchidMod.Content.Gambler.Armors.Outlaw
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-			player.setBonus = "Maximum redraws increased by 1";
+			player.setBonus = Language.GetTextValue("Mods.OrchidMod.Items.OutlawHat.SetBonus");
 			modPlayer.gamblerRedrawsMax += 1;
 		}
 

@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -41,7 +42,7 @@ namespace OrchidMod.Content.Alchemist.Armors.Jungle
 		public override void UpdateArmorSet(Player player)
 		{
 			OrchidAlchemist modPlayer = player.GetModPlayer<OrchidAlchemist>();
-			player.setBonus = "Triggering enough catalytic reactions creates a catalytic flower bud";
+			player.setBonus = Language.GetTextValue("Mods.OrchidMod.Items.AlchemistJungleHead.SetBonus");
 			modPlayer.alchemistFlowerSet = true;
 		}
 

@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = -3;
-			this.name = "Air Spores";
-			this.description = "Releases a sizeable amount of air spores, which doesn't destroy existing ones";
 			this.debuffDuration = 20;
 			this.sound = SoundID.Item45;
 			this.dust = 16;

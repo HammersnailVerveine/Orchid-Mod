@@ -9,8 +9,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 1;
-			this.name = "Lesser Attractite Aura";
-			this.description = "Applies attractite to nearby enemies";
 			this.debuffDuration = 15;
 			this.sound = SoundID.Item25;
 			this.dust = 60;

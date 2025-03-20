@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Terraria;
+using Terraria.Localization;
 using Terraria.GameContent;
 using Terraria.GameInput;
 using Terraria.ID;
@@ -62,29 +63,29 @@ namespace OrchidMod.Content.Alchemist.Bag
 			{
 				var dyeName = dye.IsAir ? "None" : String.Join(" ", dye.HoverName.Split(" ").Where(i => !i.Equals("Dye")));
 
-				InsertInfoLine($"Change state     – 'Interact' key ({interactKey}) without item");
-				InsertInfoLine($"Put in inventory – 'Interact' key ({interactKey}) with item");
-				InsertInfoLine($"Pull out potion  – 'Hotbar #1-8' keys ({hotbar1Key}-{hotbar8Key})");
-				InsertInfoLine($"Pull out potions – 'Hotbar #9' key ({hotbar9Key})");
-				InsertInfoLine($"Pull out dye     – 'Hotbar #10' key ({hotbar10Key})");
-				InsertInfoLine($"Dye: «{dyeName}»");
+				InsertInfoLine(Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.ChangeState", interactKey));
+				InsertInfoLine(Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.PutInInventory", interactKey));
+				InsertInfoLine(Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.PullOutPotion", hotbar1Key, hotbar8Key));
+				InsertInfoLine(Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.PullOutPotions", hotbar9Key));
+				InsertInfoLine(Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.PullOutDye", hotbar10Key));
+				InsertInfoLine(Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.Dye", dyeName));
 			}
 			else
 			{
-				InsertInfoLine($"Hold 'Auto Select' key ({autoSelectKey}) to see more information");
+				InsertInfoLine(Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.MoreInformation", autoSelectKey));
 			}
 
-			var text = "State: ";
+			var text = Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.State");
 
 			if (IsActive)
 			{
-				text += $"[c/{Colors.AlphaDarken(new Color(150, 240, 100)).Hex3()}:Active] ";
-				text += $"[c/{Colors.AlphaDarken(Color.Gray).Hex3()}:(Displayed in mixing UI)]";
+				text += $"[c/{Colors.AlphaDarken(new Color(150, 240, 100)).Hex3()}:{Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.Active")}] ";
+				text += $"[c/{Colors.AlphaDarken(Color.Gray).Hex3()}:{Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.ActiveTip")}]";
 			}
 			else
 			{
-				text += $"[c/{Colors.AlphaDarken(new Color(240, 105, 100)).Hex3()}:Not active] ";
-				text += $"[c/{Colors.AlphaDarken(Color.Gray).Hex3()}:(Will not be displayed in mixing UI)]";
+				text += $"[c/{Colors.AlphaDarken(new Color(240, 105, 100)).Hex3()}:{Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.NotActive")}] ";
+				text += $"[c/{Colors.AlphaDarken(Color.Gray).Hex3()}:{Language.GetTextValue("Mods.OrchidMod.UI.PotionBag.NotActiveTip")}]";
 			}
 
 			var line = new TooltipLine(Mod, "PotionBagState", text);

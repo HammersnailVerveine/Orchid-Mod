@@ -6,6 +6,7 @@ using OrchidMod.Content.Alchemist.Weapons.Water;
 using OrchidMod.Content.Alchemist.Recipes;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -142,7 +143,7 @@ namespace OrchidMod.Content.Alchemist
 
 		public static void triggerAlchemistReaction(Mod mod, Player player, OrchidAlchemist modPlayer)
 		{
-			string floatingTextStr = "Failed reaction ...";
+			string floatingTextStr = Language.GetTextValue("Mods.OrchidMod.Misc.FailedReaction");
 			AlchemistHiddenReactionRecipe hiddenReaction = new RecipeBlank();
 
 			foreach (AlchemistHiddenReactionRecipe recipe in OrchidMod.AlchemistReactionRecipes)
@@ -164,7 +165,7 @@ namespace OrchidMod.Content.Alchemist
 					if (goodIngredients)
 					{
 						hiddenReaction = recipe;
-						floatingTextStr = recipe.name;
+						floatingTextStr = recipe.name.Value;
 
 						int val = 0;
 						Item item = new Item();
@@ -219,7 +220,7 @@ namespace OrchidMod.Content.Alchemist
 					Rectangle rect = player.Hitbox;
 					rect.Y -= 50;
 
-					Main.NewText($"Entry {HiddenReactionTagHandler.GenerateTag(hiddenReaction)} added to the hidden reaction codex!");
+					Main.NewText(Language.GetTextValue("Mods.OrchidMod.Misc.EntryAdded", HiddenReactionTagHandler.GenerateTag(hiddenReaction)));
 				}
 			}
 
@@ -298,7 +299,7 @@ namespace OrchidMod.Content.Alchemist
 				if (negativeMessage)
 				{
 					floatingTextColor = new Color(255, 92, 0);
-					floatingTextStr = "No hints left for this tier";
+					floatingTextStr = Language.GetTextValue("Mods.OrchidMod.Misc.NoHintsLeft");
 					CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
 				}
 			}
@@ -310,7 +311,7 @@ namespace OrchidMod.Content.Alchemist
 				if (!modPlayer.alchemistEntryTextCooldown)
 				{
 					floatingTextColor = new Color(255, 187, 0);
-					floatingTextStr = "New Hidden Reaction Hint";
+					floatingTextStr = Language.GetTextValue("Mods.OrchidMod.Misc.NewHiddenReac");
 					CombatText.NewText(player.Hitbox, floatingTextColor, floatingTextStr);
 					modPlayer.alchemistEntryTextCooldown = true;
 				}

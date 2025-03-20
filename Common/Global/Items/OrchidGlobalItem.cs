@@ -1,10 +1,11 @@
-﻿using OrchidMod.Common.Attributes;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Content.Guardian;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
+using Terraria.Localization;
 using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -86,7 +87,7 @@ namespace OrchidMod.Common.Global.Items
 
 		private void AddCrossmodInfoToTooltips(Item item, List<TooltipLine> tooltips, string[] mods)
 		{
-			var text = "This is a crossmod item: " + String.Join(", ", mods);
+			var text = Language.GetTextValue("Mods.OrchidMod.Misc.Crossmod") + String.Join(", ", mods);
 
 			tooltips.Add(new TooltipLine(Mod, "CrossmodInfo", text)
 			{
@@ -97,7 +98,7 @@ namespace OrchidMod.Common.Global.Items
 		// ...
 
 		private static string GetClassTagText(ClassTags tag)
-			=> $"-{tag} Class-";
+			=> Language.GetTextValue("Mods.OrchidMod.DamageClasses." + tag);
 
 		private static int GetAutoSacrificeCount(ModItem modItem)
 		{

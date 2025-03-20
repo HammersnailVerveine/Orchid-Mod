@@ -13,8 +13,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = -4;
-			this.name = "Lily Purification";
-			this.description = "Cleanses most common early-game debuffs and blooms jungle lilies around the user";
 			this.debuffDuration = 10;
 			this.sound = SoundID.Item85;
 

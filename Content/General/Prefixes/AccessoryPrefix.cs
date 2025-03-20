@@ -2,6 +2,7 @@
 using System.IO;
 using OrchidMod.Common.ModObjects;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
@@ -114,7 +115,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 			if (alchemistPotency > 0)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "AlchemistPotencyPrefix", "+" + alchemistPotency + " potency")
+				tooltips.Insert(index, new TooltipLine(Mod, "AlchemistPotencyPrefix", "+" + alchemistPotency + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddPotency"))
 				{
 					IsModifier = true
 				});
@@ -123,7 +124,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 			if (gamblerChip > 0)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "GamblerChipPrefix", "+" + gamblerChip + " maximum chips")
+				tooltips.Insert(index, new TooltipLine(Mod, "GamblerChipPrefix", "+" + gamblerChip + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddMaximumChips"))
 				{
 					IsModifier = true
 				});
@@ -132,7 +133,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 			if (guardianBlock > 0)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "GuardianBlockPrefix", "+" + guardianBlock + " guard")
+				tooltips.Insert(index, new TooltipLine(Mod, "GuardianBlockPrefix", "+" + guardianBlock + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddGuard"))
 				{
 					IsModifier = true
 				});

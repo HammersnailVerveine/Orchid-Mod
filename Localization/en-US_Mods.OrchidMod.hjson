@@ -1,6 +1,7 @@
 Keybinds: {
 	"Alchemist Hidden Reaction.DisplayName": Alchemist  Hidden  Reaction
 	"Alchemist Catalyst Tool Shortcut.DisplayName": Alchemist  Catalyst  Tool  Shortcut
+	"Hidden Reaction.DisplayName": Hidden  Reaction
 }
 
 Tiles: {
@@ -12,92 +13,92 @@ Tiles: {
 
 Buffs: {
 	TitanicBuff: {
-		Description: Mods.OrchidMod.Buffs.TitanicBuff.Description
+		Description: ""
 		DisplayName: Titanic Buff
 	}
 
 	LodestoneSlow: {
-		Description: Mods.OrchidMod.Buffs.LodestoneSlow.Description
+		Description: ""
 		DisplayName: Lodestone Slow
 	}
 
 	GraniteAura: {
-		Description: Mods.OrchidMod.Buffs.GraniteAura.Description
+		Description: ""
 		DisplayName: Granite Aura
 	}
 
 	AquaBump: {
-		Description: Mods.OrchidMod.Buffs.AquaBump.Description
+		Description: ""
 		DisplayName: Aqua Bump
 	}
 
 	ShroomHeal: {
-		Description: Mods.OrchidMod.Buffs.ShroomHeal.Description
+		Description: ""
 		DisplayName: Shroom Heal
 	}
 
 	ShamanicEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.ShamanicEmpowerment.Description
+		Description: ""
 		DisplayName: Shamanic Empowerment
 	}
 
 	MythrilDefense: {
-		Description: Mods.OrchidMod.Buffs.MythrilDefense.Description
+		Description: ""
 		DisplayName: Mythril Defense
 	}
 
 	DeepForestAura: {
-		Description: Mods.OrchidMod.Buffs.DeepForestAura.Description
+		Description: ""
 		DisplayName: Deep Forest Aura
 	}
 
 	WindStun: {
-		Description: Mods.OrchidMod.Buffs.WindStun.Description
+		Description: ""
 		DisplayName: Wind Stun
 	}
 
 	WindSlow: {
-		Description: Mods.OrchidMod.Buffs.WindSlow.Description
+		Description: ""
 		DisplayName: Wind Slow
 	}
 
 	WindDamage: {
-		Description: Mods.OrchidMod.Buffs.WindDamage.Description
+		Description: ""
 		DisplayName: Wind Damage
 	}
 
 	LeafSlow: {
-		Description: Mods.OrchidMod.Buffs.LeafSlow.Description
+		Description: ""
 		DisplayName: Leaf Slow
 	}
 
 	HellHit: {
-		Description: Mods.OrchidMod.Buffs.HellHit.Description
+		Description: ""
 		DisplayName: Hell Hit
 	}
 
 	EarthTotemRevive: {
-		Description: Mods.OrchidMod.Buffs.EarthTotemRevive.Description
+		Description: ""
 		DisplayName: Earth Totem Revive
 	}
 
 	DiabolistCauterizeCooldown: {
-		Description: Mods.OrchidMod.Buffs.DiabolistCauterizeCooldown.Description
+		Description: ""
 		DisplayName: Diabolist Cauterize Cooldown
 	}
 
 	BrokenPower: {
-		Description: Mods.OrchidMod.Buffs.BrokenPower.Description
+		Description: ""
 		DisplayName: Broken Power
 	}
 
 	AbyssEmpowerment: {
-		Description: Mods.OrchidMod.Buffs.AbyssEmpowerment.Description
+		Description: ""
 		DisplayName: Abyss Empowerment
 	}
 
 	RCRemoteBuff: {
-		Description: Mods.OrchidMod.Buffs.RCRemoteBuff.Description
+		Description: ""
 		DisplayName: R C Remote Buff
 	}
 
@@ -307,6 +308,183 @@ Buffs: {
 	}
 }
 
+AlchemistRecipe: {
+	RecipeAirSpores: {
+		DisplayName: Air Spores
+		Tooltip: Releases a sizeable amount of air spores, which doesn't destroy existing ones
+	}
+
+	RecipeLesserAttractiteAura: {
+		DisplayName: Lesser Attractite Aura
+		Tooltip: Applies attractite to nearby enemies
+	}
+
+	RecipeAttractiteShurikens: {
+		DisplayName: Attractite Shurikens
+		Tooltip: Creates a maximum of 5 attractite shuriken, inflicting attractite to hit enemies
+	}
+
+	RecipeBeeSwarm: {
+		DisplayName: Bee Swarm
+		Tooltip: Releases a swarm of harmful bees around the player
+	}
+
+	RecipeOilBubble: {
+		DisplayName: Oil Bubble
+		Tooltip: Creates a catalytic oil bubble
+	}
+
+	RecipePoisonBubble: {
+		DisplayName: Poison Bubble
+		Tooltip: Creates a catalytic poison bubble
+	}
+
+	RecipeBubbles: {
+		DisplayName: Bubbles
+		Tooltip: Releases bubbles over a large area
+	}
+
+	RecipeSapBubble: {
+		DisplayName: Sap Bubble
+		Tooltip: Creates a catalytic sap bubble
+	}
+
+	RecipeSeafoamBubble: {
+		DisplayName: Seafoam Bubble
+		Tooltip: Creates a catalytic seafoam bubble
+	}
+
+	RecipeSlimeBubble: {
+		DisplayName: Slime Bubble
+		Tooltip: Creates a catalytic slime bubble
+	}
+
+	RecipeLavaSlimeBubble: {
+		DisplayName: Lava Slime Bubble
+		Tooltip: Creates a catalytic lava slime bubble
+	}
+
+	RecipeSpiritedBubble: {
+		DisplayName: Spirited Bubble
+		Tooltip: Creates a catalytic spirit bubble
+	}
+
+	RecipeBurningSamples: {
+		DisplayName: Burning Samples
+		Tooltip: Using slimy samples with a fire element will release damaging embers
+	}
+
+	RecipeDemonReeks: {
+		DisplayName: Burning Samples
+		Tooltip: Demon breath projectiles will replicate
+	}
+
+	RecipeFireSpores: {
+		DisplayName: Fire Spores
+		Tooltip: Releases a sizeable amount of fire spores, which doesn't destroy existing ones
+	}
+
+	RecipeGlowshroomHealing: {
+		DisplayName: Glowshroom Healing
+		Tooltip: Heals the player for 25 health
+	}
+
+	RecipeJungleLilyPurification: {
+		DisplayName: Lily Purification
+		Tooltip: Cleanses most common early-game debuffs and blooms jungle lilies around the user
+	}
+
+	RecipeLivingBeehive: {
+		DisplayName: Living Beehive
+		Tooltip: Every attack using 3 or more element will summon bees
+	}
+
+	RecipeMistySteps: {
+		DisplayName: Misty Steps
+		Tooltip: Releases harmful mist when moving
+	}
+
+	RecipeMushroomThread: {
+		DisplayName: Mushroom Thread
+		Tooltip: Creates a sample of Mushroom Thread, which can be used to create armor
+	}
+
+	RecipePermanentFreeze: {
+		DisplayName: Permanent Freeze
+		Tooltip: Constantly applies the flash freeze aura around the player
+	}
+
+	RecipePoisonousSlime: {
+		DisplayName: Poisonous Slime
+		Tooltip: Increases the likelyhood of spawning slime bubbles, creating spiked jungle slimes
+	}
+
+	RecipeBuilderPotion: {
+		DisplayName: Builder Potion
+		Tooltip: Gives 30 seconds of builder Potion effect
+	}
+
+	RecipeFeatherfallPotion: {
+		DisplayName: Featherfall Potion
+		Tooltip: Gives 30 seconds of featherfall Potion effect
+	}
+
+	RecipeFlipperPotion: {
+		DisplayName: FlipperPotion
+		Tooltip: Gives 30 seconds of flipper Potion effect
+	}
+
+	RecipeInvisibilityPotion: {
+		DisplayName: Invisibility Potion
+		Tooltip: Gives 30 seconds of invisibility Potion effect
+	}
+
+	RecipeNightOwlPotion: {
+		DisplayName: Night Owl Potion
+		Tooltip: Gives 30 seconds of night owl Potion effect
+	}
+
+	RecipeObsidianSkinPotion: {
+		DisplayName: Obsidian Skin Potion
+		Tooltip: Gives 30 seconds of obsidian skin Potion effect
+	}
+
+	RecipePropulsion: {
+		DisplayName: Propulsion
+		Tooltip: Vertically propels the player
+	}
+
+	RecipePurifyingLilies: {
+		DisplayName: Purifying Lilies
+		Tooltip: Each alchemical attack using two or more elements releases a purifying aura
+	}
+
+	RecipeSpiritedDroplets: {
+		DisplayName: Spirited Droplets
+		Tooltip: Chemical attacks will release spirited water flames
+	}
+
+	RecipeStardustConfusion: {
+		DisplayName: Stardust Confusion
+		Tooltip: Forest Samples sunflowers inflict confusion on hit
+	}
+
+	RecipeStellarTalcOrbit: {
+		DisplayName: Stellar Talc Orbit
+		Tooltip: Stellar Talc projectiles will orbit the user
+	}
+
+	RecipeSunflowerSeeds: {
+		DisplayName: Sunflower Seeds
+		Tooltip: Releases damaging sunflower seeds around the player
+	}
+
+	RecipeWaterSpores: {
+		DisplayName: Water Spores
+		Tooltip: Releases a sizeable amount of water spores, which doesn't destroy existing ones
+	}
+}
+
 Items: {
 	AlchemistEmblem: {
 		DisplayName: Alchemist Emblem
@@ -397,6 +575,7 @@ Items: {
 			20% increased potency regeneration
 			Maximum number of simultaneous alchemical elements increased by 1
 			'''
+		SetBonus: Triggering enough catalytic reactions creates a catalytic flower bud
 	}
 
 	AlchemistJungleLegs: {
@@ -407,6 +586,7 @@ Items: {
 	MushroomBandana: {
 		DisplayName: Phosphorescent Bandana
 		Tooltip: 5% increased potency regeneration
+		SetBonus: Maximum number of simultaneous alchemical elements increased by 1
 	}
 
 	MushroomLeggings: {
@@ -484,7 +664,7 @@ Items: {
 		Tooltip:
 			'''
 			Left click to trigger alchemist hidden reactions
-			The 'Hidden Reaction' key can be used instead of this item
+			The 'Hidden Reaction' ({0}) key can be used instead of this item
 			Right click to open the hidden reactions codex
 			'''
 	}
@@ -1090,6 +1270,7 @@ Items: {
 	GamblerDungeonHead: {
 		DisplayName: Tyche Headgear
 		Tooltip: Maximum chips increased by 5
+		SetBonus: Drawing a card gives 1 to 2 chips
 	}
 
 	GamblerDungeonLegs: {
@@ -1100,6 +1281,7 @@ Items: {
 	OutlawHat: {
 		DisplayName: Outlaw Hat
 		Tooltip: Maximum chips increased by 3
+		SetBonus: Maximum redraws increased by 1
 	}
 
 	OutlawPants: {
@@ -3456,15 +3638,15 @@ Items: {
 	JewelerGauntlet: {
 		DisplayName: Jeweler's Gauntlets
 		Tooltip: Can be socketed by right clicking with a gem, providing various effects
-		Amethyst: Amethyst: attacks ignore a substantial amount of enemy defense
-		Topaz: Topaz: increases the length of invincibility after a parry
-		Sapphire: Sapphire: allows the player to double jump
-		Emerald: Emerald: allows the player to dash
-		Ruby: Ruby: greatly increases life regeneration after a parry
-		Diamond: Diamond: emits an aura of light
-		Amber: Amber: recovers 50% of a guard on charged attack hits
-		Aquamarine: Aquamarine: increases mobility in water when held
-		Opal: Opal: increases nearby players resource regeneration
+		Amethyst: "[i:Amethyst] [c/9C5ADC:Amethyst]: attacks ignore a substantial amount of enemy defense"
+		Topaz: "[i:Topaz] [c/FFBA00:Topaz]: increases the length of invincibility after a parry"
+		Sapphire: "[i:Sapphire] [c/2D6ACC:Sapphire]: allows the player to double jump"
+		Emerald: "[i:Emerald] [c/00A32E:Emerald]: allows the player to dash"
+		Ruby: "[i:Ruby] [c/D92B2B:Ruby]: greatly increases life regeneration after a parry"
+		Diamond: "[i:Diamond] [c/FFC4E1:Diamond]: emits an aura of light"
+		Amber: "[i:Amber] [c/FF8800:Amber]: recovers 50% of a guard on charged attack hits"
+		Aquamarine: "[i:ThoriumMod/Aquamarine] [c/6dffd8:Aquamarine]: increases mobility in water when held"
+		Opal: "[i:ThoriumMod/Opal] [c/ef659a:Opal]: increases nearby players resource regeneration"
 		None: No gem socketed
 	}
 
@@ -3504,11 +3686,25 @@ NPCs: {
 
 	Chemist: {
 		DisplayName: Chemist
+		Bestiary: The Chemist loves to share her passion and supplies with anyone willing to give alchemy a try. Suprisingly, she never turned into a slime. Yet.
+
+		Names: {
+			1: Elodie
+			2: Annick
+			3: Samantha
+			4: Ambre
+			5: Maeva
+			6: Florianne
+			7: Juliette
+			8: Chloe
+			9: Amandine
+			10: Alicia
+		}
 
 		TownNPCMood: {
 			Content: This is a neat place to experiment in!
 			NoHome: If only I could get a place to setup my lab...
-			FarFromHome: I hope my lab is alright at home..."
+			FarFromHome: I hope my lab is alright at home...
 			LoveSpace: Chemistry is amazing with this place! Got it?
 			DislikeCrowded: There are so many people around, it's distracting me.
 			HateCrowded: How am I supposed to experiment in such a crowded place?
@@ -3518,10 +3714,48 @@ NPCs: {
 			HateBiome: "{BiomeName} reminds me of when you found me. What a dreadful experience..."
 			LoveNPC: "{NPCName} knows so much reagents! She's been helping me a ton."
 			LikeNPC: "{NPCName} is a cool dude, I didn't expect him to like chemistry."
-			DislikeNPC: I sure hope {NPCName} doesn't blow my lab up again..."
+			DislikeNPC: I sure hope {NPCName} doesn't blow my lab up again...
 			HateNPC: "{NPCName} keeps pestering me about creating new weapons, can't he leave me alone?"
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
+		}
+
+		UI: {
+			RHint: Reaction Hint
+			SHint: Special Hint!
+		}
+
+		Dialogues: {
+			1: Thanks, you spared me a lot of troubles right there, or... Let's not talk about it.
+			2: Want your blood donated to science? No? Then leave.
+			3: Of course you can't use normal bottles for alchemy! Give me money!
+			4: Ugh, what, you want to blow yourself up or something?
+			5: DON'T get stains on anything! I don't care if I already did!
+			6: So you're interested in alchemy AND haven't exploded yet? Impressive.
+			7: Always wear your gloves! By the way, have you seen my gloves?
+			8: You know, you can use a centrifuge for stain removal! Kind of.
+			9: You can be a catalyst for science! Or a pile of ash. Try to keep priorities.
+			10: Alchemy makes the world go around... current scientific theories purport.
+			11: Safety warning: do not drink alchemical compounds. Unless I can take notes.
+			12: Some people call me a reactionary.
+			13: Alchemy is just sublime!
+			14: Life is just one big reaction!
+			15: Undeath is just one big reaction! I don't know why the moon does that.
+			16: Do you think the moon... is made of attractite?!
+			17: The scientific method is... try until it doesn't explode!
+			18: Here's your daily recipe... note that it itself is not an ingredient.
+			19: There you go, try not to lose a hand with this one.
+			20: I didn't take the time to try that one. If I don't see you tomorrow, I'll assume it doesn't work.
+			21: And one perfectly fine recipe, completely free of charge! Or is it?
+			22: That one should work. Maybe. Possibly. I wouldn't put you in danger, would I?
+			23: If it's free, you're probably the product, you say? Naaah... please, just don't try it in the vicinity.
+			24: I need time to think about more recipes. Maybe can you go and kill a few baddies, meanwhile?
+			25: Over-exposure to my brilliant ideas may be dangerous for a trainee.
+			26: I already gave you one today, why don't you try and come up with your own recipes?
+			27: There's nothing I need you to test for me right now. Wait, what did I just say?
+			28: Since this is your first time asking, here are three hints for the price of one, along with a little gift! I'd highly advise getting your hands on a hidden reactions codex, now...
+			29: I see you found some glowing mushrooms. Did you know that you can make a pretty good thread with them? Here's the recipe.
+			30: Jungle lilies, I love these flowers! I bet you're wondering how to make them bloom ain't you? Here's the solution.
 		}
 
 		Census.SpawnCondition: Find in the main mineshaft, in the center of your world
@@ -3529,6 +3763,21 @@ NPCs: {
 
 	Croupier: {
 		DisplayName: Croupier
+		Bestiary: The Croupier helps gamblers sustaining their unique way of life. He is purported so lucky, he once won by rolling a 7 on a six-sided die.
+
+		Names: {
+			1: Capone
+			2: Cadillac
+			3: Tannenbaum
+			4: Alderman
+			5: Accardo
+			6: Angelini
+			7: Bonanno
+			8: Ambrosino
+			9: D'Amico
+			10: Attanasio
+			11: Manocchio
+		}
 
 		TownNPCMood: {
 			Content: Ey, that sure is a fine place to deal with.
@@ -3547,6 +3796,29 @@ NPCs: {
 			HateNPC: "{NPCName} keeps pestering me about gambling, and blah, blah. why is he so nosy?"
 			LikeNPC_Princess: I like {NPCName}.
 			Princess_LovesNPC: I like {NPCName}.
+		}
+
+		UI: {
+			DeckBuilding: Deck Building
+			NewDeck: Get a New Deck
+			FunnyDialogue: Eula C6 WHEN???
+			CanBeRemoved: Can be removed
+			CannotBeRemoved: Cannot be removed
+			MostExpensiveCard: "Most expensive card in deck: "
+			Return: Return
+		}
+
+		Dialogues: {
+			1: Cards turnin' your way?
+			2: I like them odds, chief. Always like them odds.
+			3: Got you covered on cards, chief. We got poker, solitaire... more poker...
+			4: Ey, chief, best bud! Since we're such great pals, could ya help with a little debt?
+			5: I'm your rear hand man.
+			6: Fate's face down. How do you wanna be dealt?
+			7: Pick a number between 1 and 86!
+			8: Not too fond of your odds, eh? Aight, go on.
+			9: You lost it already? Here chief, take your new deck.
+			10: My man, your pockets are full. You wouldn't let a brand new deck sitting on the ground, would ya?
 		}
 
 		Census.SpawnCondition: Have a gamber card ([i:8427][i:8409] etc.) in your deck
@@ -3599,6 +3871,15 @@ Prefixes: {
 	AngelicPrefix.DisplayName: Angelic
 	ImpregnablePrefix.DisplayName: Impregnable
 	HaidexPrefix.DisplayName: Haidex
+	AddPotency: " potency"
+	AddMaximumChips: " maximum chips"
+	AddGuard: " guard"
+	AddAttackSpeed: % attack speed
+	AddDuration: "{0} duration"
+	AddSize: size
+	AddSpeed: speed
+	AddParry: parry
+	AddBlock: block
 }
 
 Projectiles: {
@@ -3908,9 +4189,99 @@ Misc: {
 	ShapeshifterSage: Sage wildshape
 	ShapeshifterPredator: Predator wildshape
 	ShapeshifterWarden: Warden wildshape
+	NewHiddenReac: New Hidden Reaction Hint
+	NoHintsLeft: No hints left for this tier
+	FailedReaction: Failed reaction
+	EntryAdded: Entry {0} added to the hidden reaction codex!
+	CurrentСard: "Current card: "
+	PlayingСard: Playing Card :
+	Crossmod: "This is a crossmod item: "
+}
+
+UI: {
+	PotionBag: {
+		ChangeState: Change state     – 'Interact' key ({0}) without item
+		PutInInventory: Put in inventory – 'Interact' key ({0}) with item
+		PullOutPotion: Pull out potion  – 'Hotbar #1-8' keys ({0}-{1})
+		PullOutPotions: Pull out potions – 'Hotbar #9' key ({0})
+		PullOutDye: Pull out dye     – 'Hotbar #10' key ({0})
+		Dye: Dye: «{0}»
+		MoreInformation: Hold 'Auto Select' key ({0}) to see more information
+		State: "State: "
+		Active: Active
+		ActiveTip: (Displayed in mixing UI)
+		NotActive: Not Active
+		NotActiveTip: (Will not be displayed in mixing UI)
+	}
+
+	AlchemistItem: {
+		Mix: Right click to mix
+		Cost: Uses {0} potency
+		Water: Water Element
+		Fire: Fire Element
+		Nature: Nature Element
+		Air: Air Element
+		Light: Light Element
+		Dark: Dark Element
+	}
+
+	GamblerItem: {
+		Requires: Requires {0} cards (Deck : {1})
+		InDeck: Currently in your deck
+		DeckIsFull: Your deck is full
+		RequiresMore: Requires more {0} cards
+		AddToDeck: Use to add to your deck
+		Sets: Sets
+		Set: Set
+		UsesChips: Uses {0} chips
+		DieDuration: "{0} seconds duration"
+		SetBiome: Biome
+		SetBoss: Boss
+		SetElemental: Elemental
+		SetSlime: Slime
+	}
+
+	GuardianItem: {
+		LeftClick: Left
+		RightClick: Right
+		ChargeToSwing: Charge to swing {0} click to jab while charging
+		ParryDuration: "{0} second parry duration"
+		BlockDuration: "{0} second block duration"
+		Interrupted: Interrupted
+		Charged: Charged
+		Reinforced: Reinforced
+		Failed: Failed
+		Guard: "{0} {^0:guard;guard}"
+		Slam: "{0} {^0:slam;slams}"
+		Parry: "{0} click to parry"
+		ChargeToThrow: Charge to throw, right click to swing while charging
+		UsesUpTo: Uses up to {0} slams
+		RuneDuration: "{0} second rune duration"
+		Block: "{0} click to block"
+		BuffDuration: "{0} second buff duration"
+		HorizonLaceShieldStacks: Grants 3 guards when fully charged
+		DamageOfDefense: Deals {0}% of defense as opposing damage
+	}
+
+	DanserItem: {
+		ImpactWeapon: -Impact Weapon-
+		PhaseWeapon: -Phase Weapon-
+		MomentumWeapon: -MomentumWeapon-
+	}
+
+	ReactionBook: {
+		UnknownReaction: Unknown Reaction
+		Page: Page {0}/{1}
+	}
 }
 
 DamageClasses: {
+	Alchemist: -Alchemist-
+	Dancer: -Dancer-
+	Gambler: -Gambler-
+	Guardian: -Guardian-
+	Shaman: -Shaman-
+	Shapeshifter: -Shapeshifter-
 	AlchemistDamageClass.DisplayName: chemical damage
 	DancerDamageClass.DisplayName: poise damage
 	GamblerChipDamageClass.DisplayName: gambling damage
@@ -3930,11 +4301,11 @@ DamageClasses: {
 }
 
 Conditions: {
-	SlimeRain: Mods.OrchidMod.Conditions.SlimeRain
-	GamblerSetSlime: Mods.OrchidMod.Conditions.GamblerSetSlime
-	GamblerSetBoss: Mods.OrchidMod.Conditions.GamblerSetBoss
-	GamblerSetBiome: Mods.OrchidMod.Conditions.GamblerSetBiome
-	GamblerSetElemental: Mods.OrchidMod.Conditions.GamblerSetElemental
-	AlchemistKnownReactions4: Mods.OrchidMod.Conditions.AlchemistKnownReactions4
-	DisabledThorium: Mods.OrchidMod.Conditions.DisabledThorium
+	SlimeRain: A slime rain is active
+	GamblerSetSlime: The player hs more than 2 "Slime" set cards in their deck
+	GamblerSetBoss: The player hs more than 2 "Boss" set cards in their deck
+	GamblerSetBiome: The player hs more than 2 "Biome" set cards in their deck
+	GamblerSetElemental: The player hs more than 2 "Elemental" set cards in their deck
+	AlchemistKnownReactions4: The player knows at least 4 hidden reactions
+	DisabledThorium: Thorium mod is disabled
 }

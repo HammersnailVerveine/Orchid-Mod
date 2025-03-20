@@ -12,8 +12,6 @@ namespace OrchidMod.Content.Alchemist.Recipes
 		public override void SetDefaults()
 		{
 			this.level = 2;
-			this.name = "Bee Swarm";
-			this.description = "Releases a swarm of harmful bees around the player";
 			this.debuffDuration = 25;
 			this.sound = SoundID.Item97;
 			this.dust = 16;

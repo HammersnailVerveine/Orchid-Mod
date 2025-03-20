@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.Assets;
 using OrchidMod.Common.ModSystems;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OrchidMineshaft.WorldgenArrays;
@@ -63,7 +64,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 				OrchidWorld.foundChemist = true;
 			}
 
-			return "Thanks, you spared me a lot of troubles right there, or... Let's not talk about it.";
+			return Language.GetTextValue("Mods.OrchidMod.NPCs.Chemist.Dialogues.1");
 		}
 
 		public override void AI()

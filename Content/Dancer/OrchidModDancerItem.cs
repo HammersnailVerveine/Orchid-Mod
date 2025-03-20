@@ -72,13 +72,13 @@ namespace OrchidMod.Content.Dancer
 			switch (this.dancerItemType)
 			{
 				case OrchidModDancerItemType.IMPACT:
-					str = "-Impact Weapon-";
+					str = Language.GetTextValue("Mods.OrchidMod.UI.DanserItem.ImpactWeapon");
 					break;
 				case OrchidModDancerItemType.PHASE:
-					str = "-Phase Weapon-";
+					str = Language.GetTextValue("Mods.OrchidMod.UI.DanserItem.PhaseWeapon");
 					break;
 				case OrchidModDancerItemType.MOMENTUM:
-					str = "-Momentum Weapon-";
+					str = Language.GetTextValue("Mods.OrchidMod.UI.DanserItem.MomentumWeapon");
 					break;
 				default:
 					break;

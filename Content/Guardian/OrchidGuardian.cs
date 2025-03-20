@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
+using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -468,7 +469,7 @@ namespace OrchidMod
 			{
 				Rectangle rect = Player.Hitbox;
 				rect.Y -= 64;
-				CombatText.NewText(rect, Color.LightCyan, "+" + nb + " slam" + (nb > 1 ? "s" : ""), false, true);
+				CombatText.NewText(rect, Color.LightCyan, "+" + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Slam", nb), false, true);
 				GuardianSlam += nb;
 			}
 		}
@@ -481,7 +482,7 @@ namespace OrchidMod
 			{
 				Rectangle rect = Player.Hitbox;
 				rect.Y -= 64;
-				CombatText.NewText(rect, Color.LightSkyBlue, "+" + nb + " guard" + (nb > 1 ? "s" : ""), false, true);
+				CombatText.NewText(rect, Color.LightSkyBlue, "+" + nb + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Guard", nb), false, true);
 				GuardianGuard += nb;
 			}
 		}
@@ -506,7 +507,7 @@ namespace OrchidMod
 					int nb2 = nb - GuardianSlam;
 					Rectangle rect = Player.Hitbox;
 					rect.Y -= 64;
-					CombatText.NewText(rect, new Color(1f, 0f, 1f), "+" + nb2 + " slam" + (nb2 > 1 ? "s" : ""), false, true);
+					CombatText.NewText(rect, new Color(1f, 0f, 1f), "+" + nb2 + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Slam", nb2), false, true);
 					GuardianSlam += nb2;
 					GuardianSlamRecharging = 0;
 					SoundEngine.PlaySound(SoundID.Item56, Player.Center);
@@ -547,7 +548,7 @@ namespace OrchidMod
 					int nb2 = nb - GuardianGuard;
 					Rectangle rect = Player.Hitbox;
 					rect.Y -= 64;
-					CombatText.NewText(rect, new Color(1f, 0f, 1f), "+" + nb2 + " guard" + (nb2 > 1 ? "s" : ""), false, true);
+					CombatText.NewText(rect, new Color(1f, 0f, 1f), "+" + nb2 + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Guard", nb2), false, true);
 					GuardianGuard += nb2;
 					GuardianGuardRecharging = 0;
 					SoundEngine.PlaySound(SoundID.Item56, Player.Center);

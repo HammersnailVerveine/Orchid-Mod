@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumGraniteGauntlet : OrchidModGuardianGauntlet
 	{
 		public override void SafeSetDefaults()
