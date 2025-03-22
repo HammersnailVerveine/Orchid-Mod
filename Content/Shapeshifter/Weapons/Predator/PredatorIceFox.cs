@@ -146,7 +146,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 		}
 
-		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 300 && !IsGrounded(projectile, player);
+		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 300 && !IsGrounded(projectile, player, 4f);
 
 		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
@@ -241,6 +241,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 					Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
 					dust.noGravity = true;
 					dust.noLight = true;
+
 				}
 
 				if (projectile.ai[1] <= 0)
@@ -301,7 +302,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Vector2 intendedVelocity = projectile.velocity;
 			GravityCalculations(ref intendedVelocity, player);
 
-			if (anchor.IsInputJump && projectile.ai[0] < 300)
+			if (anchor.IsInputJump)
 			{ // Jump while no charge ready
 				if (IsGrounded(projectile, player, 4f))
 				{
