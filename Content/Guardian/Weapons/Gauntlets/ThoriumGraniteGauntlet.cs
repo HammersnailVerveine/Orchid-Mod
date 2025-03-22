@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian.Projectiles.Gauntlets;
 using Terraria;

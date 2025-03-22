@@ -146,7 +146,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 		}
 
-		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 300;
+		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 300 && !IsGrounded(projectile, player);
 
 		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{

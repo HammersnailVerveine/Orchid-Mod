@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Content.Shapeshifter;
 using Terraria;
 using Terraria.ID;

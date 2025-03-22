@@ -8,7 +8,6 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using OrchidMod.Common.Attributes;
 using OrchidMod.Common;
-using Terraria.Localization;
 
 namespace OrchidMod.Content.Gambler
 {

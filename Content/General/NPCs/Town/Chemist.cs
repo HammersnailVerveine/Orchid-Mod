@@ -16,7 +16,6 @@ using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.General.NPCs.Town

@@ -6,6 +6,7 @@ using Terraria.Localization;
 using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
+using OrchidMod.Common.Attributes;
 
 namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 {
