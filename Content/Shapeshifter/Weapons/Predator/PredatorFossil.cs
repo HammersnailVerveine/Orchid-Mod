@@ -1,6 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
+using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using OrchidMod.Utilities;
 using System;
 using System.Linq;
@@ -29,7 +32,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 40;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
-			MeleeSpeedLeft = true;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -56,10 +58,55 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			Vector2 position = projectile.Center;
+			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f) / 15f;
+
+			bool foundTarget = false;
+			for (int i = 0; i < (player.HasBuff<WardenTortoiseBuff>() ? 45 : 15); i++)
+			{
+				position += Collision.TileCollision(position, offSet, 2, 2, true, true, (int)player.gravDir);
+
+				foreach (NPC npc in Main.npc)
+				{
+					if (OrchidModProjectile.IsValidTarget(npc))
+					{
+						if (position.Distance(npc.Center) < npc.width + 32f) // if the NPC is close to the projectile path, snaps to it.
+						{
+							foundTarget = true;
+							position = npc.Center;
+							break;
+						}
+					}
+				}
+
+				if (foundTarget)
+				{
+					break;
+				}
+			}
+
+			int projectileType = ModContent.ProjectileType<PredatorFossilProj>();
+			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack, player.whoAmI);
+			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+			SoundEngine.PlaySound(SoundID.Zombie33, projectile.Center);
+
+			anchor.LeftCLickCooldown = Item.useTime;
+			anchor.Projectile.ai[0] = 10;
+			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+			anchor.NeedNetUpdate = true;
+
+			anchor.Frame = 8;
 		}
 
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			anchor.LeftCLickCooldown = Item.useTime;
+			anchor.Projectile.ai[0] = 10;
+			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+			anchor.NeedNetUpdate = true;
+
+
 			anchor.RightCLickCooldown = 180;
 		}
 
@@ -74,7 +121,30 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			if (grounded)
 			{
-				if (LateralMovement)
+				if (anchor.Projectile.ai[0] != 0)
+				{ // Override animation during left and right click attack
+					projectile.direction = (int)anchor.Projectile.ai[1];
+					projectile.spriteDirection = projectile.direction;
+
+					if (anchor.Projectile.ai[0] > 0)
+					{ // Left Click
+						anchor.Projectile.ai[0]--;
+						anchor.Frame = (anchor.Projectile.ai[0] > 5 ? 8 : 9);
+					}
+					else
+					{ // Right Click
+						/*
+						anchor.Projectile.ai[0]++;
+						anchor.Frame = (anchor.Projectile.ai[0] < -5 && anchor.Projectile.ai[0] > -295 ? 6 : 5);
+						*/
+					}
+
+					if (anchor.Projectile.ai[0] == 0)
+					{ // Puts the animation back on track
+						anchor.Frame = 0;
+					}
+				}
+				else if (LateralMovement)
 				{ // Player is moving left or right, cycle through frames
 					if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
 					{

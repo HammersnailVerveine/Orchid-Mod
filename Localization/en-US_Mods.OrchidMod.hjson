@@ -4117,6 +4117,7 @@ Projectiles: {
 	MechSpikeProj.DisplayName: Death Laser
 	VerveineFart.DisplayName: Fart
 	ThoriumAquaiteQuarterstaffProjectile.DisplayName: Wave Swirl
+	PredatorFossilProj.DisplayName: Predator Fossil Proj
 }
 
 Configs: {

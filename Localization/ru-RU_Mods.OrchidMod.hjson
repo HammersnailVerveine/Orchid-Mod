@@ -4131,6 +4131,7 @@ Projectiles: {
 	MechSpikeProj.DisplayName: Смертельный лазер
 	VerveineFart.DisplayName: Пердёж
 	ThoriumAquaiteQuarterstaffProjectile.DisplayName: Вихревой взмах
+	// PredatorFossilProj.DisplayName: Predator Fossil Proj
 }
 
 Configs: {

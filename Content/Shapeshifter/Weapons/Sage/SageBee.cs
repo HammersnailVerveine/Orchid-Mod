@@ -27,7 +27,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 30;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
-			MeleeSpeedLeft = true;
 			MeleeSpeedRight = true;
 			AutoReuseRight = true;
 		}

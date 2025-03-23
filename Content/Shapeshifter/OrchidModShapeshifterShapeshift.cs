@@ -68,7 +68,7 @@ namespace OrchidMod.Content.Shapeshifter
 			ShapeshiftHeight = 10;
 			AutoReuseLeft = true;
 			AutoReuseRight = false;
-			MeleeSpeedLeft = false;
+			MeleeSpeedLeft = true;
 			MeleeSpeedRight = false;
 			GravityMult = 1f;
 

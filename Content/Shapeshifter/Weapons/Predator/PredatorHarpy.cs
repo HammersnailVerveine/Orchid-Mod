@@ -34,7 +34,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 26;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
-			MeleeSpeedLeft = true;
 			GravityMult = 0.9f;
 		}
 
