@@ -3679,6 +3679,50 @@ Items: {
 		DisplayName: Sage Corruption
 		Tooltip: ""
 	}
+
+	SturdySlab: {
+		DisplayName: Sturdy Slab
+		Tooltip: 25% increased block and parry duration
+	}
+
+	ParryingMailFeral: {
+		DisplayName: Feral Braces
+		Tooltip:
+			'''
+			25% increased block and parry duration
+			12% increased melee speed
+			'''
+	}
+
+	ParryingMailHoly: {
+		DisplayName: Cross Cuirass
+		Tooltip:
+			'''
+			25% increased block and parry duration
+			Increases length of invincibility after parrying or taking damage
+			'''
+	}
+
+	ParryingMailMech: {
+		DisplayName: Hallowed Hauberk
+		Tooltip:
+			'''
+			25% increased parry duration and 12% increased melee speed
+			15% increased opposing damage for 10 seconds after parrying
+			Increases length of invincibility after parrying or taking damage
+			'''
+	}
+
+	ParryingMailNinja: {
+		DisplayName: Assassin's Undercovers
+		Tooltip:
+			'''
+			25% increased parry duration, 12% increased melee speed and dodge chance
+			15% increased opposing damage for 10 seconds after parrying
+			Increases length of invincibility after parrying or taking damage
+			Allows the ability to climb walls and dash
+			'''
+	}
 }
 
 NPCs: {

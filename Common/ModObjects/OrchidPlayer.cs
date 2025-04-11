@@ -66,8 +66,10 @@ namespace OrchidMod.Common.ModObjects
 
 		// Equipment Fields (General)
 
-		/// <summary> Divides damage taken by the player by the sum of all damage resistance bonuses.</summary>
+		/// <summary>Divides damage taken by the player by the sum of all damage resistance bonuses.</summary>
 		public float OrchidDamageResistance = 1f;
+		/// <summary>Chance of taking damage. Defaults to 1. Multiply this value instead of reducing it! If this value is 0 or lower the player has a 100% chance of dodging damage. Displays Black Belt's dodge visual.</summary>
+		public float OrchidDodgeChance = 1;
 
 		// Equipment Fields (Individual Items)
 
@@ -132,6 +134,7 @@ namespace OrchidMod.Common.ModObjects
 
 			remoteCopterPet = false;
 			OrchidDoubleDash = false;
+			OrchidDodgeChance = 1f;
 
 			if (OrchidDoubleDashCD > 0)
 			{
@@ -231,6 +234,12 @@ namespace OrchidMod.Common.ModObjects
 			if (PlayerImmunity > 0)
 			{
 				SoundEngine.PlaySound(SoundID.Item1, Player.Center);
+				return true;
+			}
+
+			if (Main.rand.NextFloat() > OrchidDodgeChance)
+			{
+				Player.NinjaDodge();
 				return true;
 			}
 
