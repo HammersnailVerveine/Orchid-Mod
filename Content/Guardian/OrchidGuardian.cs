@@ -447,16 +447,14 @@ namespace OrchidMod
 			}
 		}
 
-		public override bool FreeDodge(Player.HurtInfo info)
+		public override void ModifyHurt(ref Player.HurtModifiers modifiers)
 		{
 			if (GuardianGauntletParry)
 			{
-				info.DamageSource.TryGetCausingEntity(out Entity entity);
+				modifiers.DamageSource.TryGetCausingEntity(out Entity entity);
 				DoParryItemParry(entity);
-				return true;
+				modifiers.Cancel();
 			}
-
-			return false;
 		}
 
 		// Below are custom Guardian Methods
@@ -482,7 +480,7 @@ namespace OrchidMod
 			{
 				Rectangle rect = Player.Hitbox;
 				rect.Y -= 64;
-				CombatText.NewText(rect, Color.LightSkyBlue, "+" + nb + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Guard", nb), false, true);
+				CombatText.NewText(rect, Color.LightSkyBlue, "+" + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Guard", nb), false, true);
 				GuardianGuard += nb;
 			}
 		}
@@ -507,7 +505,7 @@ namespace OrchidMod
 					int nb2 = nb - GuardianSlam;
 					Rectangle rect = Player.Hitbox;
 					rect.Y -= 64;
-					CombatText.NewText(rect, new Color(1f, 0f, 1f), "+" + nb2 + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Slam", nb2), false, true);
+					CombatText.NewText(rect, new Color(1f, 0f, 1f), "+" + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Slam", nb2), false, true);
 					GuardianSlam += nb2;
 					GuardianSlamRecharging = 0;
 					SoundEngine.PlaySound(SoundID.Item56, Player.Center);
@@ -548,7 +546,7 @@ namespace OrchidMod
 					int nb2 = nb - GuardianGuard;
 					Rectangle rect = Player.Hitbox;
 					rect.Y -= 64;
-					CombatText.NewText(rect, new Color(1f, 0f, 1f), "+" + nb2 + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Guard", nb2), false, true);
+					CombatText.NewText(rect, new Color(1f, 0f, 1f), "+" + Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Guard", nb2), false, true);
 					GuardianGuard += nb2;
 					GuardianGuardRecharging = 0;
 					SoundEngine.PlaySound(SoundID.Item56, Player.Center);
