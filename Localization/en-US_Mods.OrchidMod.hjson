@@ -3723,6 +3723,11 @@ Items: {
 			Allows the ability to climb walls and dash
 			'''
 	}
+
+	ThoriumFeatherWarhammer: {
+		DisplayName: Warpecker
+		Tooltip: Pecks three times
+	}
 }
 
 NPCs: {
