@@ -1,10 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
-using OrchidMod.Common.ModObjects;
+using OrchidMod.Common.Attributes;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumThorsHammerWarhammer : OrchidModGuardianHammer
 	{
 		public override void SafeSetDefaults()

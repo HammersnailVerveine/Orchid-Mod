@@ -14,7 +14,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		{
 			Item.width = 58;
 			Item.height = 58;
-			Item.value = Item.sellPrice(0, 0, 28, 00);
+			Item.value = Item.sellPrice(0, 0, 28, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.useTime = 30;
 			ParryDuration = 70;
@@ -29,7 +29,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			if (OrchidMod.ThoriumMod != null)
 			{
 				var recipe = CreateRecipe();
-				recipe.AddTile(TileID.WorkBenches);
+				recipe.AddTile(thoriumMod, "ThoriumAnvil");
 				recipe.AddIngredient(thoriumMod, "ThoriumBar", 8);
 				recipe.Register();
 			}

@@ -19,7 +19,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.height = 38;
 			Item.knockBack = 10f;
 			Item.damage = 100;
-			Item.value = Item.sellPrice(0, 7, 50, 0);
+			Item.value = Item.sellPrice(0, 0, 50, 0);
 			Item.rare = ItemRarityID.Orange;
 			Item.useTime = 20;
 			strikeVelocity = 12f;
@@ -117,7 +117,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			if (thoriumMod != null)
 			{
 				var recipe = CreateRecipe();
-				recipe.AddTile(TileID.WorkBenches);
+				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "GraniteEnergyCore", 8);
 				recipe.Register();
 			}

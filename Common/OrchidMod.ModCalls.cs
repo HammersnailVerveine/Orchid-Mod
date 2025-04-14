@@ -1,6 +1,7 @@
 ﻿using OrchidMod.Common;
 using OrchidMod.Content.General.NPCs.Town;
 using OrchidMod.Content.Guardian;
+using OrchidMod.Content.Guardian.Weapons.Warhammers;
 using OrchidMod.Content.Shapeshifter;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace OrchidMod
 		{
 			if (ThoriumMod == null || ThoriumMod.Version < new Version(1, 7, 2, 0)) return;
 			ThoriumMod.Call("TerrariumArmorAddClassFocus", ModContent.GetInstance<GuardianDamageClass>(), GuardianFocus, OrchidColors.GuardianTag);
+			ThoriumMod.Call("AddMartianItemID", ModContent.ItemType<MartianWarhammer>());
 		}
 
 		private void CensusModCalls()

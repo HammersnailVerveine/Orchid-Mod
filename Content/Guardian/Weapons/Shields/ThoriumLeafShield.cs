@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.width = 30;
 			Item.height = 34;
 			Item.rare = ItemRarityID.White;
-			Item.value = Item.sellPrice(0, 0, 0, 30);
+			Item.value = Item.sellPrice(0, 0, 5, 0);
 			Item.knockBack = 2.5f;
 			Item.damage = 22;
 			Item.useTime = 60;

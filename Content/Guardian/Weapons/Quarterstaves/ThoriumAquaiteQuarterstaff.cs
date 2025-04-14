@@ -60,5 +60,18 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 				Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center, vel, ModContent.ProjectileType<ThoriumAquaiteQuarterstaffProjectile>(), (int)(Item.damage * 2.5f), Item.knockBack * 2, projectile.owner);
 			}
 		}
+
+		public override void AddRecipes()
+		{
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				var recipe = CreateRecipe();
+				recipe.AddTile(TileID.Anvils);
+				recipe.AddIngredient(thoriumMod, "AquaiteBar", 12);
+				recipe.AddIngredient(thoriumMod, "DepthScale", 4);
+				recipe.Register();
+			}
+		}
 	}
 }

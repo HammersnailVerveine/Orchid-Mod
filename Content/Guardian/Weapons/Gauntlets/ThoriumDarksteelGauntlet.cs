@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.height = 40;
 			Item.knockBack = 7f;
 			Item.damage = 400;
-			Item.value = Item.sellPrice(0, 0, 34, 0);
+			Item.value = Item.sellPrice(0, 0, 35, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.useTime = 35;
 			strikeVelocity = 15f;
@@ -64,9 +64,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage)
 		{
-			damage = (int)Math.Max(1, damage * player.statDefense / 100f);
-			//for some god forsaken reason this always gets rounded which leads to 150 defense being a massive breakpoint. needs to be looked into more
-			strikeVelocity = 15f * (1f + player.statDefense / 100f);
+			damage = (int)Math.Max(1, damage * 0.01f * player.statDefense);
+			strikeVelocity = 15f + (0.15f * player.statDefense);
 			return true;
 		}
 		public override void AddRecipes()
@@ -75,7 +74,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			if (thoriumMod != null)
 			{
 				var recipe = CreateRecipe();
-				recipe.AddTile(TileID.WorkBenches);
+				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "aDarksteelAlloy", 10);
 				recipe.Register();
 			}

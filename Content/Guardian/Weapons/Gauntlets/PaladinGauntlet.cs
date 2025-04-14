@@ -76,5 +76,17 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 			return true;
 		}
+
+		public override void AddRecipes()
+		{
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				var recipe = CreateRecipe();
+				recipe.AddTile(TileID.MythrilAnvil);
+				recipe.AddIngredient(thoriumMod, "HolyKnightsAlloy", 8);
+				recipe.Register();
+			}
+		}
 	}
 }

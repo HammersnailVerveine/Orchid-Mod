@@ -4,7 +4,10 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
-	public class DukeGauntlet : OrchidModGuardianGauntlet
+	public class 
+	/*Zelda,*/DukeGauntlet/*is under attack by the evil forces of Ganon! I'm going to Gamelon to aid him.*/
+	/*But father, what if something happens to you?*/:
+	/*I'll take the*/OrchidModGuardianGauntlet/*to protect me. If you don't hear from me in a month, send Link.*/
 	{
 		public override void SafeSetDefaults()
 		{
