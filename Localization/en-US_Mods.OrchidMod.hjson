@@ -4316,7 +4316,7 @@ UI: {
 	DanserItem: {
 		ImpactWeapon: -Impact Weapon-
 		PhaseWeapon: -Phase Weapon-
-		MomentumWeapon: -MomentumWeapon-
+		MomentumWeapon: -Momentum Weapon-
 	}
 
 	ReactionBook: {
