@@ -4222,15 +4222,10 @@ Configs: {
 }
 
 Misc: {
-	GuardianGrantsGuard: Grants {0} guard when fully charged
-	GuardianGrantsGuards: Grants {0} guards when fully charged
-	GuardianGrantsSlam: Grants {1} slam when fully charged
-	GuardianGrantsSlams: Grants {1} slams when fully charged
-	GuardianGrantsGuardSlamSame: Grants {0} guard and slam when fully charged
-	GuardianGrantsGuardsSlamsSame: Grants {0} guards and slams when fully charged
-	GuardianGrantsGuardsSlam: Grants {0} guards and {1} slam when fully charged
-	GuardianGrantsGuardSlams: Grants {0} guard and {1} slams when fully charged
-	GuardianGrantsGuardsSlams: Grants {0} guards and {1} slams when fully charged
+	GuardianGrantsGuard: Grants {0} {^0:guard;guards} when fully charged
+	GuardianGrantsSlam: Grants {1} {^0:slam;slams} when fully charged
+	GuardianGrantsGuardSlamSame: Grants {0} {^0:guard;guards} and {^0:slam;slams} when fully charged
+	GuardianGrantsGuardSlam: Grants {0} {^0:guard;guards} and {1} {^1:slam;slams} when fully charged
 	ShapeshifterLeftClick: "[c/AFFFAF:Attack: ]"
 	ShapeshifterRightClick: "[c/AFFFAF:Skill: ]"
 	ShapeshifterJump: "[c/AFFFAF:Mobility: ]"
