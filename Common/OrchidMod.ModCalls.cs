@@ -36,7 +36,7 @@ namespace OrchidMod
 			(
 				"TownNPCCondition",
 				ModContent.NPCType<Croupier>(),
-				ModContent.GetInstance<Chemist>().GetLocalization("Census.SpawnCondition")
+				ModContent.GetInstance<Croupier>().GetLocalization("Census.SpawnCondition")
 			);
 
 			censusMod.Call
