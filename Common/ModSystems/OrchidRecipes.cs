@@ -1,6 +1,7 @@
 using OrchidMod.Content.Alchemist;
 using OrchidMod.Content.Gambler;
 using OrchidMod.Content.Shapeshifter;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -10,9 +11,9 @@ namespace OrchidMod.Common.ModSystems
 	{
 		public override void PostAddRecipes()
 		{
-			bool ContentAlchemist = !ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist;
-			bool ContentGambler = !ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler;
-			bool ContentShapeshifter = !ModContent.GetInstance<OrchidServerConfig>().EnableContentShapeshifter;
+			bool ContentAlchemist = ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist;
+			bool ContentGambler = ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler;
+			bool ContentShapeshifter = ModContent.GetInstance<OrchidServerConfig>().EnableContentShapeshifter;
 
 			if (!ContentAlchemist || !ContentGambler || !ContentShapeshifter)
 			{
