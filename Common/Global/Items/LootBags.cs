@@ -59,17 +59,21 @@ namespace OrchidMod.Common.Global.Items
 
 		private static void OpenBossBag(Player player, int arg)
 		{
+			bool EnableContentGambler = ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler;
+			bool EnableContentAlchemist = ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist;
+			bool EnableContentShapeshifter = ModContent.GetInstance<OrchidServerConfig>().EnableContentShapeshifter;
+
 			switch (arg)
 			{
 				case ItemID.KingSlimeBossBag:
 					{
-						QuickSpawnItem<KingSlimeFlask>(player, 1, 3);
-						QuickSpawnItem<KingSlimeCard>(player, 1, 3);
+						if (EnableContentAlchemist) QuickSpawnItem<KingSlimeFlask>(player, 1, 3);
+						if (EnableContentGambler) QuickSpawnItem<KingSlimeCard>(player, 1, 3);
 					}
 					break;
 				case ItemID.EyeOfCthulhuBossBag:
 					{
-						QuickSpawnItem<EyeCard>(player, 1, 3);
+						if (EnableContentGambler) QuickSpawnItem<EyeCard>(player, 1, 3);
 						if (Main.rand.NextBool(20))
 						{
 							QuickSpawnItem<SquareMinecart>(player);
@@ -79,44 +83,37 @@ namespace OrchidMod.Common.Global.Items
 					break;
 				case ItemID.EaterOfWorldsBossBag:
 					{
-						QuickSpawnItem<PreservedCorruption>(player, 1, 3);
-						QuickSpawnItem<EaterCard>(player, 1, 3);
+						if (EnableContentAlchemist) QuickSpawnItem<PreservedCorruption>(player, 1, 3);
+						if (EnableContentGambler) QuickSpawnItem<EaterCard>(player, 1, 3);
 					}
 					break;
 				case ItemID.BrainOfCthulhuBossBag:
 					{
-						QuickSpawnItem<PreservedCrimson>(player, 1, 3);
-						QuickSpawnItem<BrainCard>(player, 1, 3);
+						if (EnableContentAlchemist) QuickSpawnItem<PreservedCrimson>(player, 1, 3);
+						if (EnableContentGambler) QuickSpawnItem<BrainCard>(player, 1, 3);
 					}
 					break;
 				case ItemID.QueenBeeBossBag:
 					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
+						if (EnableContentGambler)
+						{
+							QuickSpawnRandomItemFromList(
+								player: player,
+								items: new()
+								{
 								(ModContent.ItemType<QueenBeeCard>(), 1),
 								(ModContent.ItemType<HoneyDie>(), 1)
-							},
-							chanceDenominator: 2
-						);
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								//(ModContent.ItemType<BeeSeeker>(), 1),
-								// (ModContent.ItemType<WaxyVial>(), 1),
-								(ModContent.ItemType<QueenBeeFlask>(), 1)
-							},
-							chanceDenominator: 2
-							//chanceDenominator: 3
-						);
-						QuickSpawnItem<BeeRune>(player, 1, 4);
+								},
+								chanceDenominator: 2
+							);
+						}
+						if (EnableContentAlchemist) QuickSpawnItem<QueenBeeFlask>(player, 1, 3);
+						QuickSpawnItem<BeeRune>(player, 1, 3);
 					}
 					break;
 				case ItemID.SkeletronBossBag:
 					{
-						QuickSpawnItem<SkeletronCard>(player, 1, 1);
+						if (EnableContentGambler) QuickSpawnItem<SkeletronCard>(player, 1, 1);
 					}
 					break;
 				case ItemID.WallOfFleshBossBag:
@@ -129,36 +126,17 @@ namespace OrchidMod.Common.Global.Items
 								(ModContent.ItemType<GuardianEmblem>(), 1)
 							}
 						);
-						QuickSpawnItem<OrchidEmblem>(player, 1, 1);
 					}
 					break;
 				case ItemID.PlanteraBossBag:
 					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								//(ModContent.ItemType<BulbScepter>(), 1),
-								//(ModContent.ItemType<FloralStinger>(), 1),
-								//(ModContent.ItemType<PlanteraStandard>(), 1),
-							}
-						);
 						QuickSpawnItem<OrnateOrchid>(player, 1, 20);
-						QuickSpawnItem<PlanteraStandard>(player, 1, 3); // Delete when shaman items are readded
+						QuickSpawnItem<PlanteraStandard>(player, 1, 3);
 					}
 					break;
 				case ItemID.GolemBossBag:
 					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								//(ModContent.ItemType<SunRay>(), 1),
-								(ModContent.ItemType<TempleWarhammer>(), 1)
-							},
-							//chanceDenominator: 2
-							chanceDenominator: 3
-						);
+						QuickSpawnItem<TempleWarhammer>(player, 1, 3);
 					}
 					break;
 				case ItemID.FairyQueenBossBag:
@@ -168,14 +146,6 @@ namespace OrchidMod.Common.Global.Items
 					break;
 				case ItemID.MoonLordBossBag:
 					{ // Vanilla is 2 random items from the loot pool
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								//(ModContent.ItemType<Nirvana>(), 1),
-								//(ModContent.ItemType<TheCore>(), 1)
-							}
-						);
 						QuickSpawnRandomItemFromList(
 							player: player,
 							items: new()
@@ -199,62 +169,7 @@ namespace OrchidMod.Common.Global.Items
 				return;
 			}
 
-			/*
-			if (thoriumMod.IsItemTypeEquals("ThunderBirdBag", arg))
-			{
-				QuickSpawnItem<ThunderScepter>(player, 1, 4);
-				return;
-			}
-
-			if (thoriumMod.IsItemTypeEquals("JellyFishBag", arg))
-			{
-				QuickSpawnItem<QueenJellyfishScepter>(player, 1, 5);
-				return;
-			}
-
-			if (thoriumMod.IsItemTypeEquals("GraniteBag", arg))
-			{
-				QuickSpawnItem<GraniteEnergyScepter>(player, 1, 5);
-				return;
-			}
-
-			if (thoriumMod.IsItemTypeEquals("CountBag", arg))
-			{
-				QuickSpawnItem<GraniteEnergyScepter>(player, 1, 7);
-				QuickSpawnItem<ViscountMaterial>(player, 30, 1);
-				return;
-			}
-
-			if (thoriumMod.IsItemTypeEquals("ScouterBag", arg))
-			{
-				QuickSpawnItem<StarScouterScepter>(player, 1, 6);
-				return;
-			}
-
-			if (thoriumMod.IsItemTypeEquals("BeholderBag", arg))
-			{
-				QuickSpawnItem<CoznixScepter>(player, 1, 5);
-				return;
-			}
-
-			if (thoriumMod.IsItemTypeEquals("BoreanBag", arg))
-			{
-				QuickSpawnItem<BoreanStriderScepter>(player, 1, 5);
-				return;
-			}
-
-			if (thoriumMod.IsItemTypeEquals("LichBag", arg))
-			{
-				QuickSpawnItem<LichScepter>(player, 1, 7);
-				return;
-			}
-
-			if (thoriumMod.IsItemTypeEquals("AbyssionBag", arg))
-			{
-				QuickSpawnItem<AbyssionScepter>(player, 1, 6);
-				return;
-			}
-			*/
+			// ThunderBirdBag JellyFishBag GraniteBag CountBag BeholderBag BoreanBag LichBag AbyssionBag
 
 			SkipThorium:
 			return;
@@ -262,104 +177,57 @@ namespace OrchidMod.Common.Global.Items
 
 		private static void OpenCrate(Player player, int arg)
 		{
+			bool EnableContentGambler = ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler;
+			bool EnableContentAlchemist = ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist;
+			bool EnableContentShapeshifter = ModContent.GetInstance<OrchidServerConfig>().EnableContentShapeshifter;
+
 			switch (arg)
 			{
 				case ItemID.WoodenCrate:
 				case ItemID.WoodenCrateHard:
 					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								//(ModContent.ItemType<AdornedBranch>(), 1),
-								(ModContent.ItemType<EmberVial>(), 1),
-								(ModContent.ItemType<EmbersCard>(), 1),
-								(ModContent.ItemType<TsunamiInAVial>(), 1),
-								(ModContent.ItemType<Quarterstaff>(), 1),
-								(ModContent.ItemType<GuideShield>(), 1),
-							}
-						);
+						if (EnableContentAlchemist) QuickSpawnItem<EmberVial>(player, 1, 20);
+						if (EnableContentAlchemist) QuickSpawnItem<TsunamiInAVial>(player, 1, 20);
+						if (EnableContentGambler) QuickSpawnItem<EmbersCard>(player, 1, 20);
+						QuickSpawnItem<Quarterstaff>(player, 1, 20);
+						QuickSpawnItem<GuideShield>(player, 1, 20);
 					}
 					break;
 				case ItemID.IronCrate:
 				case ItemID.IronCrateHard:
 					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								//(ModContent.ItemType<AdornedBranch>(), 1),
-								(ModContent.ItemType<EmberVial>(), 1),
-								(ModContent.ItemType<EmbersCard>(), 1),
-								(ModContent.ItemType<TsunamiInAVial>(), 1),
-								(ModContent.ItemType<Quarterstaff>(), 1),
-								(ModContent.ItemType<GuideShield>(), 1),
-							}
-						);
+						if (EnableContentAlchemist) QuickSpawnItem<EmberVial>(player, 1, 10);
+						if (EnableContentAlchemist) QuickSpawnItem<TsunamiInAVial>(player, 1, 10);
+						if (EnableContentGambler) QuickSpawnItem<EmbersCard>(player, 1, 10);
+						QuickSpawnItem<Quarterstaff>(player, 1, 10);
+						QuickSpawnItem<GuideShield>(player, 1, 10);
 					}
 					break;
 				case ItemID.CorruptFishingCrate:
 				case ItemID.CorruptFishingCrateHard:
-					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								//(ModContent.ItemType<ShadowWeaver>(), 1),
-								(ModContent.ItemType<DemoniteCatalyst>(), 1),
-							},
-							chanceDenominator: 2
-						);
-					}
+					if (EnableContentAlchemist) QuickSpawnItem<DemoniteCatalyst>(player, 1, 5);
+					break;
+				case ItemID.CrimsonFishingCrate:
+				case ItemID.CrimsonFishingCrateHard:
+					if (EnableContentAlchemist) QuickSpawnItem<CrimtaneCatalyst>(player, 1, 5);
 					break;
 				case ItemID.JungleFishingCrate:
 				case ItemID.JungleFishingCrateHard:
 					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-									//(ModContent.ItemType<DeepForestCharm>(), 1),
-									(ModContent.ItemType<BloomingBud>(), 1),
-									(ModContent.ItemType<BundleOfClovers>(), 1),
-									(ModContent.ItemType<JungleGauntlet>(), 1),
-							}
-						);
-
-						QuickSpawnItem<JungleLily>(player, 1, 2);
-						QuickSpawnItem<GuardianHoneyPotion>(player, 1, 2);
-						QuickSpawnItem<DeckJungle>(player, 1, 20);
-						QuickSpawnItem<IvyChestCard>(player, 1, 5);
-						QuickSpawnItem<WardenTortoise>(player, 1, 5);
-					}
-					break;
-				case ItemID.CrimsonFishingCrate:
-				case ItemID.CrimsonFishingCrateHard:
-					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								//(ModContent.ItemType<BloodCaller>(), 1),
-								(ModContent.ItemType<CrimtaneCatalyst>(), 1),
-							},
-							chanceDenominator: 2
-						);
+						if (EnableContentAlchemist) QuickSpawnItem<JungleLily>(player, 1, 2);
+						if (EnableContentAlchemist) QuickSpawnItem<GuardianHoneyPotion>(player, 1, 2);
+						if (EnableContentAlchemist) QuickSpawnItem<BloomingBud>(player, 1, 5);
+						if (EnableContentGambler) QuickSpawnItem<DeckJungle>(player, 1, 20);
+						if (EnableContentGambler) QuickSpawnItem<IvyChestCard>(player, 1, 5);
+						if (EnableContentGambler) QuickSpawnItem<BundleOfClovers>(player, 1, 5);
+						if (EnableContentShapeshifter) QuickSpawnItem<WardenTortoise>(player, 1, 5);
+						QuickSpawnItem<JungleGauntlet>(player, 1, 5);
 					}
 					break;
 				case ItemID.FloatingIslandFishingCrate:
 				case ItemID.FloatingIslandFishingCrateHard:
-					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								(ModContent.ItemType<SunplateFlask>(), 1),
-								(ModContent.ItemType<SkywareShield>(), 1)
-							},
-							chanceDenominator: 2
-						);
-					}
+					if (EnableContentAlchemist) QuickSpawnItem<SunplateFlask>(player, 1, 5);
+					QuickSpawnItem<SkywareShield>(player, 1, 5);
 					break;
 				case ItemID.OasisCrate:
 				case ItemID.OasisCrateHard:
@@ -367,8 +235,7 @@ namespace OrchidMod.Common.Global.Items
 						QuickSpawnRandomItemFromList(
 							player: player,
 							items: new()
-							{
-								//(ModContent.ItemType<RuneOfHorus>(), 1),
+							{ // Keeping this, mostly as an example for the future
 								(ModContent.ItemType<DesertWarhammer>(), 1),
 								(ModContent.ItemType<DesertStandard>(), 1),
 							},
@@ -379,18 +246,11 @@ namespace OrchidMod.Common.Global.Items
 				case ItemID.LavaCrate:
 				case ItemID.LavaCrateHard:
 					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								//(ModContent.ItemType<FireBatScepter>(), 1),
-								(ModContent.ItemType<ShadowChestFlask>(), 1),
-								(ModContent.ItemType<KeystoneOfTheConvent>(), 1),
-								(ModContent.ItemType<ImpDiceCup>(), 1),
-								(ModContent.ItemType<NightShield>(), 1),
-								(ModContent.ItemType<HellRune>(), 1),
-							}
-						);
+						if (EnableContentAlchemist) QuickSpawnItem<ShadowChestFlask>(player, 1, 5);
+						if (EnableContentAlchemist) QuickSpawnItem<KeystoneOfTheConvent>(player, 1, 5);
+						if (EnableContentGambler) QuickSpawnItem<ImpDiceCup>(player, 1, 5);
+						QuickSpawnItem<NightShield>(player, 1, 5);
+						QuickSpawnItem<HellRune>(player, 1, 5);
 						QuickSpawnItem<GuardianRunePotion>(player, 1, 2);
 					}
 					break;
@@ -398,17 +258,10 @@ namespace OrchidMod.Common.Global.Items
 				case ItemID.FrozenCrate:
 				case ItemID.FrozenCrateHard:
 					{
-						QuickSpawnRandomItemFromList(
-							player: player,
-							items: new()
-							{
-								(ModContent.ItemType<BlizzardInAVial>(), 1),
-								(ModContent.ItemType<IceChestFlask>(), 1),
-								(ModContent.ItemType<IceStandard>(), 1)
-							},
-							chanceDenominator: 2
-						);
-						QuickSpawnItem<PredatorIceFox>(player, 1, 5);
+						if (EnableContentAlchemist) QuickSpawnItem<BlizzardInAVial>(player, 1, 5);
+						if (EnableContentAlchemist) QuickSpawnItem<IceChestFlask>(player, 1, 5);
+						if (EnableContentShapeshifter) QuickSpawnItem<PredatorIceFox>(player, 1, 5);
+						QuickSpawnItem<IceStandard>(player, 1, 5);
 					}
 					break;
 				default:
@@ -418,18 +271,16 @@ namespace OrchidMod.Common.Global.Items
 
 		private static void OpenGoldenLockBox(Player player)
 		{
-			QuickSpawnRandomItemFromList(
-				player: player,
-				items: new()
-				{
-					(ModContent.ItemType<DungeonFlask>(), 1),
-					(ModContent.ItemType<DungeonCatalyst>(), 1),
-					(ModContent.ItemType<Rusalka>(), 1)
-				},
-				chanceDenominator: 2
-			);
-			QuickSpawnItem<TiamatRelic>(player, 1, 2);
-			QuickSpawnItem<DeckBone>(player, 1, 40);
+			bool EnableContentGambler = ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler;
+			bool EnableContentAlchemist = ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist;
+			bool EnableContentShapeshifter = ModContent.GetInstance<OrchidServerConfig>().EnableContentShapeshifter;
+
+			if (EnableContentAlchemist) QuickSpawnItem<DungeonFlask>(player, 1, 5);
+			if (EnableContentAlchemist) QuickSpawnItem<DungeonCatalyst>(player, 1, 5);
+			if (EnableContentGambler) QuickSpawnItem<Rusalka>(player, 1, 5);
+			if (EnableContentGambler) QuickSpawnItem<TiamatRelic>(player, 1, 2);
+			if (EnableContentGambler) QuickSpawnItem<DeckBone>(player, 1, 40);
+			QuickSpawnItem<DungeonQuarterstaff>(player, 1, 5);
 		}
 
 		/* // For some reason, opening an obsidian lockbox doesn't call this method.

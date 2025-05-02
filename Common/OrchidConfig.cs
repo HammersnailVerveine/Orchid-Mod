@@ -47,5 +47,20 @@ namespace OrchidMod.Common
 		[DefaultValue(true)]
 		[ReloadRequired]
 		public bool LoadCrossmodContentWithoutRequiredMods { get; set; }
+
+		[DefaultValue(false)]
+		[BackgroundColor(150, 0, 50)]
+		[ReloadRequired]
+		public bool EnableContentAlchemist { get; set; }
+
+		[DefaultValue(false)]
+		[BackgroundColor(150, 0, 50)]
+		[ReloadRequired]
+		public bool EnableContentGambler { get; set; }
+
+		[DefaultValue(true)]
+		[BackgroundColor(150, 0, 50)]
+		[ReloadRequired]
+		public bool EnableContentShapeshifter { get; set; }
 	}
 }

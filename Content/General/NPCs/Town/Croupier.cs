@@ -37,7 +37,6 @@ namespace OrchidMod.Content.General.NPCs.Town
 			NPCID.Sets.AttackAverageChance[NPC.type] = 30;
 			NPCID.Sets.HatOffsetY[NPC.type] = 4;
 
-			// They were chosen randomly, so it's better to choose them yourself
 			var happiness = NPC.Happiness;
 			happiness.SetBiomeAffection<ForestBiome>(AffectionLevel.Like);
 			happiness.SetBiomeAffection<DesertBiome>(AffectionLevel.Love);
@@ -87,26 +86,29 @@ namespace OrchidMod.Content.General.NPCs.Town
 
 		public override bool CanTownNPCSpawn(int numTownNPCs)
 		{
-			if (Main.netMode == NetmodeID.SinglePlayer)
+			if (ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler)
 			{
-				for (int k = 0; k < 255; k++)
+				if (Main.netMode == NetmodeID.SinglePlayer)
 				{
-					Player player = Main.player[k];
-					if (!player.active)
+					for (int k = 0; k < 255; k++)
 					{
-						continue;
-					}
+						Player player = Main.player[k];
+						if (!player.active)
+						{
+							continue;
+						}
 
-					OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
-					if (modPlayer.gamblerHasCardInDeck)
-					{
-						return true;
+						OrchidGambler modPlayer = player.GetModPlayer<OrchidGambler>();
+						if (modPlayer.gamblerHasCardInDeck)
+						{
+							return true;
+						}
 					}
 				}
-			}
-			else
-			{
-				return true;
+				else
+				{
+					return true;
+				}
 			}
 			return false;
 		}

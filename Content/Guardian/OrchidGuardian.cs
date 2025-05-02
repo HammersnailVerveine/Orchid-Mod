@@ -1,9 +1,7 @@
-﻿using log4net.Core;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Guardian.Buffs;
-using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Content.Guardian.Projectiles.Standards;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
@@ -11,7 +9,6 @@ using OrchidMod.Content.Guardian.Weapons.Misc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Terraria;
 using Terraria.Localization;
 using Terraria.Audio;
@@ -725,8 +722,10 @@ namespace OrchidMod
 
 			if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
 			{
-				modPlayer.PlayerImmunity = parryItem.InvincibilityDuration + ParryInvincibilityBonus;
-				Player.immuneTime = parryItem.InvincibilityDuration + ParryInvincibilityBonus;
+				int intendedImmunityLength = parryItem.InvincibilityDuration + ParryInvincibilityBonus;
+				if (Player.longInvince) intendedImmunityLength += 40;
+				modPlayer.PlayerImmunity = intendedImmunityLength;
+				Player.immuneTime = intendedImmunityLength;
 				Player.immune = true;
 
 				Projectile anchor = null;

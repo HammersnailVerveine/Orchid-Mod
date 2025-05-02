@@ -28,6 +28,13 @@ using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
+using OrchidMod.Content.Gambler.Weapons.Dice;
+using OrchidMod.Content.Alchemist.Weapons.Air;
+using static OrchidMod.Common.ItemDropRules.Conditions.OrchidDropConditions;
+using OrchidMod.Content.Alchemist.Misc.Scrolls;
+using OrchidMod.Content.Alchemist.Accessories;
+using OrchidMod.Content.Gambler.Misc;
+using OrchidMod.Content.Gambler.Decks;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -37,12 +44,6 @@ namespace OrchidMod.Common.Global.NPCs
 		{
 			switch (shop.NpcType)
 			{
-				case NPCID.WitchDoctor:
-					{
-						// shop.Add(ItemType<ShamanRod>());
-						// shop.Add(ItemType<RitualScepter>(), [Condition.Hardmode]);
-					}
-					break;
 				case NPCID.Demolitionist:
 					{
 						shop.Add(ItemType<GunpowderFlask>());
@@ -55,8 +56,7 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.Dryad:
 					{
-						// shop.Add(ItemType<DryadsGift>());
-						shop.Add(ItemType<ShapeshifterBlankEffigy>());
+						shop.Add(ItemType<ShapeshifterBlankEffigy>(), OrchidConditions.EnableContentShapeshifter);
 					}
 					break;
 				case NPCID.Merchant:
@@ -79,7 +79,7 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.BestiaryGirl:
 					{
-						shop.Add(ItemType<ShapeshifterShampoo>(), [Condition.BestiaryFilledPercent(30)]);
+						shop.Add(ItemType<ShapeshifterShampoo>(), [Condition.BestiaryFilledPercent(30), OrchidConditions.EnableContentShapeshifter]);
 					}
 					break;
 			}
@@ -124,61 +124,52 @@ namespace OrchidMod.Common.Global.NPCs
 
 		public override void ModifyGlobalLoot(GlobalLoot globalLoot)
 		{
-			globalLoot.Add(new ItemDropWithConditionRule(ItemType<ShroomKey>(), 2500, 1, 1, new OrchidDropConditions.ShroomKeyCondition(), 1));
+			// globalLoot.Add(new ItemDropWithConditionRule(ItemType<ShroomKey>(), 2500, 1, 1, new OrchidDropConditions.ShroomKeyCondition(), 1));
 		}
 
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
 		{
+			IItemDropRuleCondition EnableContentGambler = new OrchidDropConditions.EnableContentGambler();
+			IItemDropRuleCondition EnableContentAlchemist = new OrchidDropConditions.EnableContentAlchemist();
+			IItemDropRuleCondition EnableContentShapeshifter = new OrchidDropConditions.EnableContentShapeshifter();
+			IItemDropRuleCondition EnableContentGamblerNotExpert = new OrchidDropConditions.EnableContentGamblerNotExpert();
+			IItemDropRuleCondition EnableContentAlchemistNotExpert = new OrchidDropConditions.EnableContentAlchemistNotExpert();
+			IItemDropRuleCondition EnableContentShapeshifterNotExpert = new OrchidDropConditions.EnableContentShapeshifterNotExpert();
+			IItemDropRuleCondition EnableContentAlchemistHitAlchemist = new OrchidDropConditions.EnableContentAlchemistHitAlchemist();
+			IItemDropRuleCondition ThoriumDisabled = new OrchidDropConditions.ThoriumDisabled();
+			IItemDropRuleCondition NotExpert = new Conditions.NotExpert();
 
-			// Common drop
+			// GENERIC NPCs
+
 			switch (npc.type)
 			{
-				// Certain NPCs
+				case NPCID.Vulture:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(ThoriumDisabled, ItemType<VultureTalon>(), 1, 1, 2));
+					}
+					break;
 				case NPCID.SpikedJungleSlime:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<JungleSlimeCard>(), 25));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<JungleSlimeCard>(), 25));
 					}
 					break;
 				case NPCID.LavaSlime:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<LavaSlimeCard>(), 25));
-					}
-					break;
-				case NPCID.WyvernHead:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<WyvernTailFeather>(), 15));
-					}
-					break;
-				case NPCID.UndeadViking:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<FrostburnSigil>(), 30));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<LavaSlimeCard>(), 25));
 					}
 					break;
 				case NPCID.Demon:
 					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<FurnaceSigil>(), 30));
-						npcLoot.Add(ItemDropRule.Common(ItemType<DemonicPocketMirror>(), 20));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DemonicPocketMirror>(), 20));
 					}
 					break;
 				case NPCID.DarkCaster:
 					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<Blum>(), 15));
-						npcLoot.Add(ItemDropRule.Common(ItemType<DungeonCard>(), 25));
-					}
-					break;
-				case NPCID.FireImp:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<MeltedRing>(), 20));
-					}
-					break;
-				case NPCID.IceQueen:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<IceFlakeCone>(), 10));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DungeonCard>(), 25));
 					}
 					break;
 				case NPCID.RuneWizard:
 					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<RuneScepter>(), 2));
 						npcLoot.Add(ItemDropRule.Common(ItemType<RuneRune>(), 2));
 					}
 					break;
@@ -187,48 +178,11 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.Common(ItemType<FrostRune>(), 5));
 					}
 					break;
-				case NPCID.GoblinSummoner:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<GoblinStick>(), 3));
-					}
-					break;
-				case NPCID.MourningWood:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<MourningTorch>(), 10));
-					}
-					break;
-				case NPCID.SantaNK1:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<FragilePresent>(), 10));
-					}
-					break;
-				case NPCID.Mimic:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<HeavyBracer>(), 10));
-					}
-					break;
-				case NPCID.IceMimic:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<IceMimicScepter>(), 3));
-					}
-					break;
-				case NPCID.UndeadMiner:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<TreasuredBaubles>(), 5));
-					}
-					break;
-				case NPCID.Harpy:
-					{
-						// npcLoot.Add(ItemDropRule.ByCondition(new OrchidDropConditions.DownedEyeOfCthulhu(), ItemType<HarpyTalon>(), 5));
-					}
-					break;
 				case NPCID.ElfCopter:
 					{
 						npcLoot.Add(ItemDropRule.Common(ItemType<RCRemote>(), 50));
 					}
 					break;
-
-				// Multiple NPCs
 				case NPCID.Hornet:
 				case NPCID.HornetFatty:
 				case NPCID.HornetHoney:
@@ -236,34 +190,33 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.HornetSpikey:
 				case NPCID.HornetStingy:
 					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<PoisonSigil>(), 30));
-						npcLoot.Add(ItemDropRule.Common(ItemType<PoisonVial>(), 20));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemist, ItemType<PoisonVial>(), 20));
 					}
 					break;
 				case NPCID.GoblinWarrior:
 					{
 						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinSpike>(), 15));
-						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinArmyCard>(), 50));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<GoblinArmyCard>(), 50));
 					}
 					break;
 				case NPCID.GoblinPeon:
 				case NPCID.GoblinThief:
 				case NPCID.GoblinArcher:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinArmyFlask>(), 50));
-						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinArmyCard>(), 50));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemist, ItemType<GoblinArmyFlask>(), 50));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<GoblinArmyCard>(), 50));
 					}
 					break;
 				case NPCID.GoblinSorcerer:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinArmyCard>(), 50));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<GoblinArmyCard>(), 50));
 						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinRune>(), 10));
 					}
 					break;
 				case NPCID.Drippler:
 				case NPCID.BloodZombie:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<BloodMoonFlask>(), 40));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemist, ItemType<BloodMoonFlask>(), 40));
 					}
 					break;
 				case NPCID.PirateCorsair:
@@ -278,27 +231,9 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.Common(ItemType<PirateStandard>(), 10));
 					}
 					break;
-				case NPCID.DiabolistRed:
-				case NPCID.DiabolistWhite:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<DiabolistRune>(), 20));
-					}
-					break;
 				case NPCID.MartianSaucerCore:
 					{
 						npcLoot.Add(ItemDropRule.Common(ItemType<MartianWarhammer>(), 6));
-					}
-					break;
-				case NPCID.Lihzahrd:
-				case NPCID.LihzahrdCrawler:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<LihzahrdSilk>(), 4));
-					}
-					break;
-				case NPCID.BlackRecluse:
-				case NPCID.BlackRecluseWall:
-					{
-						// npcLoot.Add(ItemDropRule.Common(ItemType<VenomSigil>(), 40));
 					}
 					break;
 				case NPCID.Paladin:
@@ -329,36 +264,132 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.WallCreeper:
 				case NPCID.WallCreeperWall:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<WardenSpider>(), 15));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<WardenSpider>(), 15));
 					}
 					break;
 				case NPCID.CaveBat:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<SageBat>(), 100));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<SageBat>(), 100));
 					}
 					break;
 				default:
 					break;
 			}
 
-			var notExpertCondition = new Conditions.NotExpert();
-			var isExpertCondition = new Conditions.IsExpert();
+			// BOSSES & MINIBOSSES
 
-			// From bosses
 			switch (npc.type)
 			{
-				case NPCID.QueenBee:
+				case NPCID.KingSlime:
 					{
-
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGamblerNotExpert, ItemType<KingSlimeCard>(), 3));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemistNotExpert, ItemType<KingSlimeFlask>(), 3));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemistHitAlchemist, ItemType<ScrollTier1>()));
 					}
 					break;
-				case NPCID.CultistBoss:
+				case NPCID.EyeofCthulhu:
 					{
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGamblerNotExpert, ItemType<EyeCard>(), 3));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemistHitAlchemist, ItemType<ScrollTier2>()));
+					}
+					break;
+				case NPCID.BrainofCthulhu:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGamblerNotExpert, ItemType<BrainCard>(), 3));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemistNotExpert, ItemType<PreservedCrimson>(), 3));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemistHitAlchemist, ItemType<ScrollTier1>()));
+					}
+					break;
+				case NPCID.SkeletronHead:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGamblerNotExpert, ItemType<SkeletronCard>(), 3));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemistHitAlchemist, ItemType<ScrollTier3>()));
+					}
+					break;
+				case NPCID.QueenBee:
+					{
+						// 25% chance of obtaining either the card or die
+						LeadingConditionRule leadingConditionRule = new LeadingConditionRule(NotExpert);
+						leadingConditionRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(2, ItemType<QueenBeeCard>(), ItemType<HoneyDie>()));
+						npcLoot.Add(leadingConditionRule);
 
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemistNotExpert, ItemType<QueenBeeFlask>(), 3));
+						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<BeeRune>(), 3));
+					}
+					break;
+				case NPCID.MoonLordCore:
+					{
+						// 50% chance of obtaining either, one is guaranteed
+						LeadingConditionRule leadingConditionRule = new LeadingConditionRule(NotExpert);
+						leadingConditionRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemType<MoonLordRune>(), ItemType<MoonLordShield>()));
+						npcLoot.Add(leadingConditionRule);
+					}
+					break;
+				case NPCID.WallofFlesh:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<GuardianEmblem>(), 2));
+					}
+					break;
+				case NPCID.PirateShip:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DeckDog>(), 200).OnFailedRoll(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DeckPirate>(), 10)));
+					}
+					break;
+				case NPCID.Plantera:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<PlanteraStandard>(), 3));
+					}
+					break;
+				case NPCID.Golem:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<TempleWarhammer>(), 3));
+					}
+					break;
+				case NPCID.HallowBoss:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<GuardianEmpressMaterial>(), 1, 16, 27)); 
+					}
+					break;
+				case 94: // Celestial Pillar AI 
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<HorizonFragment>(), 1, 3, 15).OnFailedRoll(ItemDropRule.Common(ItemType<HorizonFragment>(), 1, 5, 23)));
 					}
 					break;
 				default:
 					break;
+			}
+
+			// SPECIAL CASES
+
+			if (System.Array.IndexOf(new int[] { NPCID.EaterofWorldsBody, NPCID.EaterofWorldsHead, NPCID.EaterofWorldsTail }, npc.type) > -1)
+			{ // Eater of worlds
+				LeadingConditionRule leadingConditionRule = new(new Conditions.LegacyHack_IsABoss());
+				leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(EnableContentGamblerNotExpert, ItemType<EaterCard>(), 3));
+				leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(EnableContentAlchemistNotExpert, ItemType<PreservedCorruption>(), 3));
+				leadingConditionRule.OnSuccess(ItemDropRule.ByCondition(EnableContentAlchemistHitAlchemist, ItemType<ScrollTier2>()));
+				npcLoot.Add(leadingConditionRule);
+			}
+
+			/*
+			if (npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism)
+			{ // The Twins
+				LeadingConditionRule leadingConditionRule = new LeadingConditionRule(new Conditions.MissingTwin());
+				leadingConditionRule.OnSuccess(XXX);
+				npcLoot.Add(leadingConditionRule);
+			}
+			*/
+
+			//THORIUM
+
+			Mod thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				if (thoriumMod.IsNPCTypeEquals("ThePrimeScouter", npc.type))
+				{
+					npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<ThoriumStarScouterStandard>(), 7)); // 1 in 7 is brutal damn
+				}
+
+				// TheGrandThunderBirdv2 QueenJelly GraniteEnergyStorm Viscount FallenDeathBeholder BoreanStriderPopped Lich Abyssion PatchWerk
 			}
 		}
 
@@ -366,414 +397,12 @@ namespace OrchidMod.Common.Global.NPCs
 		{
 			OrchidGlobalNPC globalNPC = npc.GetGlobalNPC<OrchidGlobalNPC>();
 
-			if (npc.type == NPCID.CultistBoss)
-			{
-				int rand;
-				if (Main.expertMode) rand = Main.rand.Next(73) + 18;
-				else rand = Main.rand.Next(49) + 12;
-				// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<AbyssFragment>(), rand, false, 0, false, false);
-			}
-
-			if (npc.aiStyle == 94) // Celestial Pillar AI 
-			{
-				int quantity = Main.rand.Next(3, 15);
-				if (Main.expertMode) quantity = (int)(quantity * 1.5f);
-				for (int i = 0; i < quantity; i++)
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<HorizonFragment>(), Main.rand.Next(1, 4), false, 0, false, false);
-				}
-			}
-
-			// BOSSES
-			if (npc.type == NPCID.QueenBee)
-			{
-				if (!Main.expertMode)
-				{
-					if (Main.rand.NextBool(2))
-					{
-						if (Main.rand.NextBool(2))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<QueenBeeCard>());
-						}
-						else
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Gambler.Weapons.Dice.HoneyDie>());
-						}
-					}
-
-					int rand = Main.rand.Next(3);
-					if (rand == 0)
-					{
-						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BeeSeeker>());
-					}
-					else if (rand == 1)
-					{
-						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<WaxyVial>());
-					}
-					else
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Weapons.Air.QueenBeeFlask>());
-					}
-
-					if (Main.rand.NextBool(3))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BeeRune>());
-					}
-				}
-				if (globalNPC.AlchemistHit)
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier2>());
-				}
-			}
-
-			if (npc.type == NPCID.MoonLordCore)
-			{
-				if (!Main.expertMode)
-				{ // Vanilla is 2 random items from the loot pool
-					if (Main.rand.NextBool())
-					{
-						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Nirvana>());
-					}
-					else
-					{
-						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<TheCore>());
-					}
-
-					if (Main.rand.NextBool())
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<MoonLordRune>());
-					}
-					else
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<MoonLordShield>());
-					}
-				}
-			}
-
-			if (npc.type == NPCID.WallofFlesh)
-			{
-				if (!Main.expertMode)
-				{
-					if (Main.rand.NextBool())
-					{
-						// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<ShamanEmblem>());
-					}
-					else
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<GuardianEmblem>());
-					}
-
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<OrchidEmblem>());
-				}
-			}
-
-			if (npc.type == NPCID.KingSlime) // King Slime
-			{
-				if (!Main.expertMode)
-				{
-					if (Main.rand.NextBool(3))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<KingSlimeFlask>());
-					}
-					if (Main.rand.NextBool(3))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<KingSlimeCard>());
-					}
-				}
-				if (globalNPC.AlchemistHit)
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier1>());
-				}
-			}
-
-			if (npc.type == NPCID.Plantera)
-			{
-				if (!Main.expertMode)
-				{
-					switch (Main.rand.Next(3))
-					{
-						default:
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<PlanteraStandard>());
-							break;
-						case 1:
-							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<FloralStinger>());
-							break;
-						case 2:
-							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BulbScepter>());
-							break;
-					}
-				}
-			}
-
-			if (npc.type == NPCID.HallowBoss)
-			{
-				if (!Main.expertMode)
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<GuardianEmpressMaterial>(), 16 + Main.rand.Next(11));
-				}
-			}
-
-			if (npc.type == NPCID.Golem)
-			{
-				if (!Main.expertMode)
-				{
-					switch (Main.rand.Next(3))
-					{
-						default:
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<TempleWarhammer>());
-							break;
-						case 1:
-							// Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<SunRay>());
-							break;
-						case 2:
-							break;
-					}
-				}
-			}
-
-			if (npc.type == NPCID.EyeofCthulhu)  // Eye of Chtulhu
-			{
-				if (!Main.expertMode)
-				{
-					if (Main.rand.NextBool(3))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<EyeCard>());
-					}
-				}
-				if (globalNPC.AlchemistHit)
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier1>());
-				}
-			}
-
-			if (npc.type == NPCID.SkeletronHead)  // Skeletron
-			{
-				if (!Main.expertMode)
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<SkeletronCard>());
-				}
-				if (globalNPC.AlchemistHit)
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier3>());
-				}
-			}
-
-			if (npc.type == NPCID.BrainofCthulhu)  // Brain of Chtulhu
-			{
-				if (!Main.expertMode)
-				{
-					if (Main.rand.NextBool(3))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Accessories.PreservedCrimson>());
-					}
-					if (Main.rand.NextBool(3))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BrainCard>());
-					}
-				}
-				if (globalNPC.AlchemistHit)
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier2>());
-				}
-			}
-
-			if (Array.IndexOf(new int[] { NPCID.EaterofWorldsBody, NPCID.EaterofWorldsHead, NPCID.EaterofWorldsTail }, npc.type) > -1 && npc.boss)
-			{
-				if (!Main.expertMode)
-				{
-					if (Main.rand.NextBool(3))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Accessories.PreservedCorruption>());
-					}
-					if (Main.rand.NextBool(3))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<EaterCard>());
-					}
-				}
-				if (globalNPC.AlchemistHit)
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier2>());
-				}
-			}
-
-			//THORIUM
-
-			Mod thoriumMod = OrchidMod.ThoriumMod;
-			if (thoriumMod != null)
-			{
-
-				if (thoriumMod.IsNPCTypeEquals("ThePrimeScouter", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(7))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<ThoriumStarScouterStandard>());
-						}
-					}
-				}
-
-				/*
-				if (thoriumMod.IsNPCTypeEquals("TheGrandThunderBirdv2", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(4))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<ThunderScepter>());
-						}
-					}
-					if (globalNPC.AlchemistHit)
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier1>());
-					}
-				}
-
-				if (thoriumMod.IsNPCTypeEquals("QueenJelly", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(5))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<QueenJellyfishScepter>());
-						}
-					}
-					if (globalNPC.AlchemistHit)
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier2>());
-					}
-				}
-
-				if (thoriumMod.IsNPCTypeEquals("GraniteEnergyStorm", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(5))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<GraniteEnergyScepter>());
-						}
-					}
-					if (globalNPC.AlchemistHit)
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier2>());
-					}
-				}
-
-				if (thoriumMod.IsNPCTypeEquals("Viscount", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(7))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<ViscountScepter>());
-						}
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X + Main.rand.Next(npc.width), (int)npc.position.Y + Main.rand.Next(npc.height), 2, 2, ItemType<Content.Shaman.Misc.Thorium.ViscountMaterial>(), 30, false, 0, false, false);
-					}
-					if (globalNPC.AlchemistHit)
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier2>());
-					}
-				}
-
-				if (thoriumMod.IsNPCTypeEquals("ThePrimeScouter", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(6))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<StarScouterScepter>());
-						}
-					}
-					if (globalNPC.AlchemistHit)
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Alchemist.Misc.Scrolls.ScrollTier2>());
-					}
-				}
-
-				if (thoriumMod.IsNPCTypeEquals("FallenDeathBeholder", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(5))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Shaman.Weapons.Thorium.Hardmode.CoznixScepter>());
-						}
-					}
-				}
-
-				if (thoriumMod.IsNPCTypeEquals("BoreanStriderPopped", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(5))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Shaman.Weapons.Thorium.Hardmode.BoreanStriderScepter>());
-						}
-					}
-				}
-
-				if (thoriumMod.IsNPCTypeEquals("Lich", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(7))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Shaman.Weapons.Thorium.Hardmode.LichScepter>());
-						}
-					}
-				}
-
-				if (thoriumMod.IsNPCTypeEquals("Abyssion", npc.type) || thoriumMod.IsNPCTypeEquals("AbyssionCracked", npc.type) || thoriumMod.IsNPCTypeEquals("AbyssionReleased", npc.type))
-				{
-					if (!Main.expertMode)
-					{
-						if (Main.rand.NextBool(6))
-						{
-							Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Shaman.Weapons.Thorium.Hardmode.AbyssionScepter>());
-						}
-					}
-				}
-
-				if (thoriumMod.IsNPCTypeEquals("PatchWerk", npc.type))
-				{
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<PatchWerkScepter>());
-				}
-				*/
-			}
-			else
-			{
-				if (npc.type == NPCID.Vulture)
-				{
-					int rand = Main.rand.Next(2) + 1;
-					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Gambler.Misc.VultureTalon>(), rand);
-				}
-			}
-
-			if (npc.type == NPCID.BlueSlime || npc.type == -3 || npc.type == -8 || npc.type == -9 || npc.type == -6 || npc.type == NPCID.IceSlime || npc.type == -10) // Most Surface Slimes
-			{
-				if (Main.rand.NextBool(!OrchidWorld.foundSlimeCard ? 5 : 1000))
+			if (npc.type == NPCID.BlueSlime || npc.type == -3 || npc.type == -8 || npc.type == -9 || npc.type == -6 || npc.type == NPCID.IceSlime || npc.type == -10)
+			{ // Most Surface Slimes
+				if (Main.rand.NextBool(!OrchidWorld.foundSlimeCard ? 5 : 1000) && ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler)
 				{
 					Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<SlimeCard>());
 					OrchidWorld.foundSlimeCard = true;
-				}
-			}
-
-			if (npc.type == NPCID.PirateShip)
-			{
-				if (Main.rand.NextBool(5))
-				{
-					//Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<PiratesGlory>());
-				}
-				if (Main.rand.NextBool(10))
-				{
-					if (Main.rand.NextBool(20))
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Gambler.Decks.DeckDog>());
-					}
-					else
-					{
-						Item.NewItem(npc.GetSource_Loot(), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<Content.Gambler.Decks.DeckPirate>());
-					}
 				}
 			}
 		}

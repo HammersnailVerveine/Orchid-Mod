@@ -1,6 +1,8 @@
+using OrchidMod.Common;
 using OrchidMod.Content.Gambler.Misc;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
@@ -26,11 +28,22 @@ namespace OrchidMod.Content.Guardian.Accessories
 
 		public override void AddRecipes()
 		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient<GoblinSpike>();
-			recipe.AddIngredient<TiamatRelic>();
-			recipe.AddTile(TileID.Anvils);
-			recipe.Register();
+			if (ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler)
+			{
+				var recipe = CreateRecipe();
+				recipe.AddIngredient<GoblinSpike>();
+				recipe.AddIngredient<TiamatRelic>();
+				recipe.AddTile(TileID.Anvils);
+				recipe.Register();
+			}
+			else
+			{
+				var recipe = CreateRecipe();
+				recipe.AddIngredient<GoblinSpike>();
+				recipe.AddIngredient(ItemID.Bone, 30);
+				recipe.AddTile(TileID.Anvils);
+				recipe.Register();
+			}
 		}
 	}
 }

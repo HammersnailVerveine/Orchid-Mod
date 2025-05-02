@@ -165,8 +165,11 @@ namespace OrchidMod.Common.ModSystems
 			{
 				tasks.Insert(LivingTreesIndex + 1, new PassLegacy("Post Terrain", delegate (GenerationProgress progress, GameConfiguration gameConfiguration)
 				{
-					progress.Message = "Generating Jungle Lilies";
-					placeLilies();
+					if (ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist)
+					{
+						progress.Message = "Generating Jungle Lilies";
+						placeLilies();
+					}
 
 					progress.Message = "Generating Farterstaves";
 					placeVerbena();
@@ -263,74 +266,80 @@ namespace OrchidMod.Common.ModSystems
 			List<Chest> usedChests = new List<Chest>();
 
 			// Surface Chests
-			chestLoots.Add(new ChestLoot(ItemType<EmbersCard>(), ChestType.SurfaceWooden, 20));
-			// chestLoots.Add(new ChestLoot(ItemType<AdornedBranch>(), ChestType.SurfaceWooden, 20));
-			chestLoots.Add(new ChestLoot(ItemType<EmberVial>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<Quarterstaff>(), ChestType.SurfaceWooden, 20));
 			chestLoots.Add(new ChestLoot(ItemType<GuideShield>(), ChestType.SurfaceWooden, 20));
 
 			// Water Chests
-			chestLoots.Add(new ChestLoot(ItemType<BubbleCard>(), ChestType.Water, 20));
-			chestLoots.Add(new ChestLoot(ItemType<SeafoamVial>(), ChestType.Water, 20));
+			// chestLoots.Add(new ChestLoot(ItemType<XXXXXXXXXX>(), ChestType.Water, 20));
 
 			// Living Tree Chests
-			chestLoots.Add(new ChestLoot(ItemType<SapCard>(), ChestType.LivingTree, 50));
-			chestLoots.Add(new ChestLoot(ItemType<LivingSapVial>(), ChestType.LivingTree, 50));
 			chestLoots.Add(new ChestLoot(ItemType<LivingRune>(), ChestType.LivingTree, 50));
 
 			// Gold Chests
-			chestLoots.Add(new ChestLoot(ItemType<GoldChestCard>(), ChestType.Gold, 20));
-			// chestLoots.Add(new ChestLoot(ItemType<EnchantedScepter>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EnchantedRune>(), ChestType.Gold, 20));
 			chestLoots.Add(new ChestLoot(ItemType<EnchantedPavise>(), ChestType.Gold, 20));
-			chestLoots.Add(new ChestLoot(ItemType<CloudInAVial>(), ChestType.Gold, 20));
-			chestLoots.Add(new ChestLoot(ItemType<FartInAVial>(), ChestType.Gold, 1, needToPlace: 0, ignoreChestLimit: true));
-			chestLoots.Add(new ChestLoot(ItemType<DeckEnchanted>(), ChestType.Gold, 5, needToPlace: 0, ignoreChestLimit: true));
 
 			// Ice Chests
-			chestLoots.Add(new ChestLoot(ItemType<BlizzardInAVial>(), ChestType.Ice, 20));
-			chestLoots.Add(new ChestLoot(ItemType<IceChestFlask>(), ChestType.Ice, 20));
-			chestLoots.Add(new ChestLoot(ItemType<IceChestCard>(), ChestType.Ice, 20));
-			// chestLoots.Add(new ChestLoot(ItemType<AvalancheScepter>(), ChestType.Ice, 20));
 			chestLoots.Add(new ChestLoot(ItemType<IceStandard>(), ChestType.Ice, 20));
-			chestLoots.Add(new ChestLoot(ItemType<PredatorIceFox>(), ChestType.Ice, 20, needToPlace: 0, ignoreChestLimit: true));
 
 			// Dungeon Chests (Locked)
-			chestLoots.Add(new ChestLoot(ItemType<TiamatRelic>(), ChestType.DungeonLocked, 50, 1, 3, true));
-			// chestLoots.Add(new ChestLoot(ItemType<SpiritedWater>(), ChestType.DungeonLocked, 20));
-			chestLoots.Add(new ChestLoot(ItemType<DungeonFlask>(), ChestType.DungeonLocked, 20));
-			chestLoots.Add(new ChestLoot(ItemType<DungeonCatalyst>(), ChestType.DungeonLocked, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DungeonQuarterstaff>(), ChestType.DungeonLocked, 20));
-			chestLoots.Add(new ChestLoot(ItemType<Rusalka>(), ChestType.DungeonLocked, 20));
-			chestLoots.Add(new ChestLoot(ItemType<DeckBone>(), ChestType.DungeonLocked, 5, needToPlace: 0, ignoreChestLimit: true));
 
 			// Shadow Chests
-			// chestLoots.Add(new ChestLoot(ItemType<FireBatScepter>(), ChestType.Shadow, 30));
-			chestLoots.Add(new ChestLoot(ItemType<ShadowChestFlask>(), ChestType.Shadow, 30));
-			chestLoots.Add(new ChestLoot(ItemType<KeystoneOfTheConvent>(), ChestType.Shadow, 30));
-			chestLoots.Add(new ChestLoot(ItemType<ImpDiceCup>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<NightShield>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<HellRune>(), ChestType.Shadow, 30));
 			chestLoots.Add(new ChestLoot(ItemType<GuardianRunePotion>(), ChestType.Shadow, 50, needToPlace: 0, ignoreChestLimit: true));
 
 			// Jungle Chests
-			// chestLoots.Add(new ChestLoot(ItemType<DeepForestCharm>(), ChestType.Ivy, 20));
-			chestLoots.Add(new ChestLoot(ItemType<IvyChestCard>(), ChestType.Ivy, 20));
-			chestLoots.Add(new ChestLoot(ItemType<BloomingBud>(), ChestType.Ivy, 20));
-			chestLoots.Add(new ChestLoot(ItemType<BundleOfClovers>(), ChestType.Ivy, 20));
 			chestLoots.Add(new ChestLoot(ItemType<JungleGauntlet>(), ChestType.Ivy, 20));
-			chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 20));
-			chestLoots.Add(new ChestLoot(ItemType<DeckJungle>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
 			chestLoots.Add(new ChestLoot(ItemType<GuardianHoneyPotion>(), ChestType.Ivy, 50, needToPlace: 0, ignoreChestLimit: true));
 
 			// Sky Island Chests
-			chestLoots.Add(new ChestLoot(ItemType<SunplateFlask>(), ChestType.SkyIsland, 30));
 			chestLoots.Add(new ChestLoot(ItemType<SkywareShield>(), ChestType.SkyIsland, 30));
 
 			// Underground Desert Chests
-			// chestLoots.Add(new ChestLoot(ItemType<RuneOfHorus>(), ChestType.Sandstone, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DesertWarhammer>(), ChestType.Sandstone, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DesertStandard>(), ChestType.Sandstone, 20));
+
+			if (ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist)
+			{
+				chestLoots.Add(new ChestLoot(ItemType<EmberVial>(), ChestType.SurfaceWooden, 20));
+				chestLoots.Add(new ChestLoot(ItemType<SeafoamVial>(), ChestType.Water, 20));
+				chestLoots.Add(new ChestLoot(ItemType<LivingSapVial>(), ChestType.LivingTree, 50));
+				chestLoots.Add(new ChestLoot(ItemType<CloudInAVial>(), ChestType.Gold, 20));
+				chestLoots.Add(new ChestLoot(ItemType<FartInAVial>(), ChestType.Gold, 1, needToPlace: 0, ignoreChestLimit: true));
+				chestLoots.Add(new ChestLoot(ItemType<BlizzardInAVial>(), ChestType.Ice, 20));
+				chestLoots.Add(new ChestLoot(ItemType<IceChestFlask>(), ChestType.Ice, 20));
+				chestLoots.Add(new ChestLoot(ItemType<DungeonFlask>(), ChestType.DungeonLocked, 20));
+				chestLoots.Add(new ChestLoot(ItemType<DungeonCatalyst>(), ChestType.DungeonLocked, 20));
+				chestLoots.Add(new ChestLoot(ItemType<ShadowChestFlask>(), ChestType.Shadow, 30));
+				chestLoots.Add(new ChestLoot(ItemType<KeystoneOfTheConvent>(), ChestType.Shadow, 30));
+				chestLoots.Add(new ChestLoot(ItemType<BloomingBud>(), ChestType.Ivy, 20));
+				chestLoots.Add(new ChestLoot(ItemType<SunplateFlask>(), ChestType.SkyIsland, 30));
+			}
+
+			if (ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler)
+			{
+				chestLoots.Add(new ChestLoot(ItemType<TiamatRelic>(), ChestType.DungeonLocked, 50, 1, 3, true));
+				chestLoots.Add(new ChestLoot(ItemType<EmbersCard>(), ChestType.SurfaceWooden, 20));
+				chestLoots.Add(new ChestLoot(ItemType<BubbleCard>(), ChestType.Water, 20));
+				chestLoots.Add(new ChestLoot(ItemType<SapCard>(), ChestType.LivingTree, 50));
+				chestLoots.Add(new ChestLoot(ItemType<GoldChestCard>(), ChestType.Gold, 20));
+				chestLoots.Add(new ChestLoot(ItemType<DeckEnchanted>(), ChestType.Gold, 5, needToPlace: 0, ignoreChestLimit: true));
+				chestLoots.Add(new ChestLoot(ItemType<IceChestCard>(), ChestType.Ice, 20));
+				chestLoots.Add(new ChestLoot(ItemType<Rusalka>(), ChestType.DungeonLocked, 20));
+				chestLoots.Add(new ChestLoot(ItemType<DeckBone>(), ChestType.DungeonLocked, 5, needToPlace: 0, ignoreChestLimit: true));
+				chestLoots.Add(new ChestLoot(ItemType<ImpDiceCup>(), ChestType.Shadow, 30));
+				chestLoots.Add(new ChestLoot(ItemType<DeckJungle>(), ChestType.Ivy, 5, needToPlace: 0, ignoreChestLimit: true));
+				chestLoots.Add(new ChestLoot(ItemType<IvyChestCard>(), ChestType.Ivy, 20));
+				chestLoots.Add(new ChestLoot(ItemType<BundleOfClovers>(), ChestType.Ivy, 20));
+			}
+
+			if (ModContent.GetInstance<OrchidServerConfig>().EnableContentShapeshifter)
+			{
+				chestLoots.Add(new ChestLoot(ItemType<PredatorIceFox>(), ChestType.Ice, 20, needToPlace: 0, ignoreChestLimit: true));
+				chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 20));
+			}
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{
@@ -390,9 +399,9 @@ namespace OrchidMod.Common.ModSystems
 		{
 			if (chest != null && Main.tile[chest.x, chest.y].TileType == (ushort)TileType<MinersLockboxTile>())
 			{
-				int[] specialItemPoll = {/*ItemType<EnchantedScepter>(), */ItemType<CloudInAVial>(), ItemType<GoldChestCard>(), ItemType<EnchantedRune>(), ItemType<EnchantedPavise>()};
+				int[] specialItemPoll = { ItemType<EnchantedRune>(), ItemType<EnchantedPavise>() };
 				int rand = Main.rand.Next(specialItemPoll);
-				placeInChest(chest, ItemType<DetonatorCard>(), 1);
+				if (ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler) placeInChest(chest, ItemType<DetonatorCard>(), 1);
 				placeInChest(chest, rand, 1);
 			}
 

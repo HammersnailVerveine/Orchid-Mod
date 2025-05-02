@@ -4216,7 +4216,22 @@ Configs: {
 
 		LoadCrossmodContentWithoutRequiredMods: {
 			Label: Load Crossmod-Content without required mods
-			Tooltip: "{$Enables/Disables loading Crossmod-Content without required mods}"
+			Tooltip: Enables/Disables loading Crossmod-Content without required mods
+		}
+
+		EnableContentAlchemist: {
+			Label: Enable Alchemist Content
+			Tooltip: Allows alchemist items to appear in chests, loot tables, and be crafted
+		}
+
+		EnableContentGambler: {
+			Label: Enable Gambler Content
+			Tooltip: Allows gambler items to appear in chests, loot tables, and be crafted
+		}
+
+		EnableContentShapeshifter: {
+			Label: Enable Shapeshifter Content
+			Tooltip: Allows shapeshifter items to appear in chests, loot tables, and be crafted
 		}
 	}
 }
@@ -4321,12 +4336,12 @@ UI: {
 }
 
 DamageClasses: {
-	Alchemist: -Alchemist-
-	Dancer: -Dancer-
-	Gambler: -Gambler-
-	Guardian: -Guardian-
-	Shaman: -Shaman-
-	Shapeshifter: -Shapeshifter-
+	Alchemist: -Alchemist Class-
+	Dancer: -Dancer Class-
+	Gambler: -Gambler Class-
+	Guardian: -Guardian Class-
+	Shaman: -Shaman CLass-
+	Shapeshifter: -Shapeshifter Class-
 	AlchemistDamageClass.DisplayName: chemical damage
 	DancerDamageClass.DisplayName: poise damage
 	GamblerChipDamageClass.DisplayName: gambling damage
@@ -4337,7 +4352,7 @@ DamageClasses: {
 
 		ThoriumMod_TerrariumArmorAddClassFocus: {
 			Name: Opposing Focus
-			Description: Increases maximum guards and slams, life regen and defense by 3
+			Description: Increases maximum guards, slams, life regen and defense by 3
 		}
 	}
 
@@ -4353,4 +4368,7 @@ Conditions: {
 	GamblerSetElemental: The player hs more than 2 "Elemental" set cards in their deck
 	AlchemistKnownReactions4: The player knows at least 4 hidden reactions
 	DisabledThorium: Thorium mod is disabled
+	EnabledContentAlchemist: Alchemist content is enabled
+	EnableContentGambler: Gambler content is enabled
+	EnableContentShapeshifter: Shapeshifter content is enabled
 }

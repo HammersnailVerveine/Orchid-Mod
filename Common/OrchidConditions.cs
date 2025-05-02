@@ -13,5 +13,8 @@ namespace OrchidMod.Common
 		public static Condition GamblerSetBiome = new Condition("Mods.OrchidMod.Conditions.GamblerSetBiome", () => Main.LocalPlayer.GetModPlayer<OrchidGambler>().CheckSetCardsInDeck(GamblerCardSet.Biome) > 2);
 		public static Condition GamblerSetElemental = new Condition("Mods.OrchidMod.Conditions.GamblerSetElemental", () => Main.LocalPlayer.GetModPlayer<OrchidGambler>().CheckSetCardsInDeck(GamblerCardSet.Elemental) > 2);
 		public static Condition AlchemistKnownReactions4 = new Condition("Mods.OrchidMod.Conditions.AlchemistKnownReactions4", () => Main.LocalPlayer.GetModPlayer<OrchidAlchemist>().alchemistKnownReactions.Count > 4);
+		public static Condition EnableContentAlchemist = new Condition("Mods.OrchidMod.Conditions.EnabledContentAlchemist", () => ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist);
+		public static Condition EnableContentGambler = new Condition("Mods.OrchidMod.Conditions.EnableContentGambler", () => ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler);
+		public static Condition EnableContentShapeshifter = new Condition("Mods.OrchidMod.Conditions.EnableContentShapeshifter", () => ModContent.GetInstance<OrchidServerConfig>().EnableContentShapeshifter);
 	}
 }

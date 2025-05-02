@@ -4232,6 +4232,21 @@ Configs: {
 			Label: Загружать кроссмод-контент без требуемых модов
 			Tooltip: Включает загрузку кроссмод-контента без загрузки требуемых модов
 		}
+
+		EnableContentAlchemist: {
+			// Label: Enable Alchemist Content
+			// Tooltip: Allows alchemist items to appear in chests, loot tables, and be crafted
+		}
+
+		EnableContentGambler: {
+			// Label: Enable Gambler Content
+			// Tooltip: Allows gambler items to appear in chests, loot tables, and be crafted
+		}
+
+		EnableContentShapeshifter: {
+			// Label: Enable Shapeshifter Content
+			// Tooltip: Allows shapeshifter items to appear in chests, loot tables, and be crafted
+		}
 	}
 }
 
@@ -4375,4 +4390,7 @@ Conditions: {
 	GamblerSetElemental: Игрок имеет как минимум 2 «элементальные» карты в колоде
 	AlchemistKnownReactions4: Игроком изучено как минимум 4 скрытые реакции
 	DisabledThorium: Thorium Mod отключён
+	// EnabledContentAlchemist: Alchemist content is enabled
+	// EnableContentGambler: Gambler content is enabled
+	// EnableContentShapeshifter: Shapeshifter content is enabled
 }

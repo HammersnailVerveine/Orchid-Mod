@@ -6,6 +6,7 @@ using Terraria.Localization;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OrchidMineshaft.WorldgenArrays;
+using OrchidMod.Common;
 
 namespace OrchidMod.Content.General.NPCs.Town
 {
@@ -103,7 +104,7 @@ namespace OrchidMod.Content.General.NPCs.Town
 				}
 			}
 
-			return !OrchidWorld.foundChemist && !foundNPC && inMineshaft ? 5f : 0f;
+			return !OrchidWorld.foundChemist && !foundNPC && inMineshaft && ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist ? 5f : 0f;
 		}
 	}
 }
