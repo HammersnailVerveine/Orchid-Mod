@@ -33,17 +33,17 @@ namespace OrchidMod
 			if (!ModLoader.TryGetMod("Census", out Mod censusMod)) return;
 
 			censusMod.Call
-				(
-					"TownNPCCondition",
-					ModContent.NPCType<Croupier>(),
-					$"Have a gamber card ([i:{ModContent.ItemType<Content.Gambler.Weapons.Cards.SlimeCard>()}][i:{ModContent.ItemType<Content.Gambler.Weapons.Cards.EmbersCard>()}] etc.) in your deck"
-				);
+			(
+				"TownNPCCondition",
+				ModContent.NPCType<Croupier>(),
+				ModContent.GetInstance<Croupier>().GetLocalization("Census.SpawnCondition")
+			);
 
 			censusMod.Call
 			(
 				"TownNPCCondition",
 				ModContent.NPCType<Chemist>(),
-				"Find in the main mineshaft, in the center of your world"
+				ModContent.GetInstance<Chemist>().GetLocalization("Census.SpawnCondition")
 			);
 		}
 
