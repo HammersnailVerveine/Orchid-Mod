@@ -73,6 +73,16 @@ namespace OrchidMod
 				Player.rocketBoots = 0;
 				Player.vanityRocketBoots = 0;
 				Player.accRunSpeed = 3f;
+				
+				if (Player.wingTime > 0)
+				{
+					Player.wingTime = 0;
+				}
+
+				if (Player.hasMagiluminescence)
+				{
+					Player.moveSpeed += 0.15f;
+				}
 			}
 
 			// Misc Effects that should be called before Shapeshifter Core mechanics (eg : stat changes that should affect the shapeshifted player)
