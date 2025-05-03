@@ -195,7 +195,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				Jumps--;
 				anchor.Frame = 3;
 				anchor.Projectile.ai[0] = -30;
-				intendedVelocity.Y = -8f * speedMult;
+				intendedVelocity.Y = - (7f + speedMult);
 				SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 
 				for (int i = 0; i < 2; i++)
@@ -205,11 +205,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
 				{ // Left dash
-					intendedVelocity.X = -4f * speedMult;
+					intendedVelocity.X = -3.5f * speedMult;
 				}
 				else if (anchor.IsInputRight && !anchor.IsInputLeft)
 				{ // Right dash
-					intendedVelocity.X = 4f * speedMult;
+					intendedVelocity.X = 3.5f * speedMult;
 				}
 			}
 
@@ -223,7 +223,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 				anchor.Frame = 1;
 				anchor.Timespent = 0;
-				intendedVelocity.X = 10f * speedMult * projectile.direction;
+				intendedVelocity.X = 7f * speedMult * projectile.direction;
 				if (intendedVelocity.Y > 0) intendedVelocity.Y = 0f;
 
 				projectile.ai[2]--;
@@ -254,14 +254,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			{ // Player is inputting a movement key
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
 				{ // Left movement
-					TryAccelerate(ref intendedVelocity, -4f, speedMult, 0.2f);
+					TryAccelerate(ref intendedVelocity, -3.5f, speedMult, 0.2f);
 					projectile.direction = -1;
 					projectile.spriteDirection = -1;
 					LateralMovement = true;
 				}
 				else if (anchor.IsInputRight && !anchor.IsInputLeft)
 				{ // Right movement
-					TryAccelerate(ref intendedVelocity, 4f, speedMult, 0.2f);
+					TryAccelerate(ref intendedVelocity, 3.5f, speedMult, 0.2f);
 					projectile.direction = 1;
 					projectile.spriteDirection = 1;
 					LateralMovement = true;

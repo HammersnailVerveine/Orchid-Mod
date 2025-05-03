@@ -266,14 +266,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerate(ref intendedVelocity, -5f, speedMult, 0.3f, acceleration);
+						TryAccelerate(ref intendedVelocity, -4f, speedMult, 0.3f, acceleration);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerate(ref intendedVelocity, 5f, speedMult, 0.3f, acceleration);
+						TryAccelerate(ref intendedVelocity, 4f, speedMult, 0.3f, acceleration);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 						LateralMovement = true;
@@ -301,7 +301,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 				if (projectile.ai[0] < 0)
 				{ // dashing
-					Vector2 intendedVelocity = projectile.ai[2].ToRotationVector2() * 11f;
+					Vector2 intendedVelocity = projectile.ai[2].ToRotationVector2() * 9f * speedMult;
 					FinalVelocityCalculations(ref intendedVelocity, projectile, player, false, true, false, true);
 
 					projectile.ai[0]++;

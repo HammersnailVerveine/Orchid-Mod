@@ -228,12 +228,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{ // Player is inputting a movement key and didn't just start blocking
 					if (anchor.IsInputUp && !anchor.IsInputDown)
 					{ // Up movement
-						TryAccelerate(ref intendedVelocity, LateralMovement ? -2.83f : -4f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
+						TryAccelerate(ref intendedVelocity, LateralMovement ? -2.25f : -3.2f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
 						horizontalMovement = true;
 					}
 					else if (!anchor.IsInputUp && anchor.IsInputDown)
 					{ // Down movement
-						TryAccelerate(ref intendedVelocity, LateralMovement ? 2.83f : 4f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
+						TryAccelerate(ref intendedVelocity, LateralMovement ? 2.25f : 3.2f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
 						horizontalMovement = true;
 					}
 					else
@@ -270,13 +270,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{ // Player is inputting a movement key and didn't just start blocking
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
 				{ // Left movement
-					TryAccelerate(ref intendedVelocity, horizontalMovement ? -2.83f : -4f, speedMult, (horizontalMovement ? 0.283f : 0.4f) * (walled ? 1.5f : 1f));
+					TryAccelerate(ref intendedVelocity, horizontalMovement ? -2.25f : -3.2f, speedMult, (horizontalMovement ? 0.25f : 0.4f) * (walled ? 1.5f : 1f));
 					projectile.direction = -1;
 					LateralMovement = true;
 				}
 				else if (anchor.IsInputRight && !anchor.IsInputLeft)
 				{ // Right movement
-					TryAccelerate(ref intendedVelocity, horizontalMovement ? 2.83f : 4f, speedMult, (horizontalMovement ? 0.283f : 0.4f) * (walled ? 1.5f : 1f));
+					TryAccelerate(ref intendedVelocity, horizontalMovement ? 2.25f : 3.2f, speedMult, (horizontalMovement ? 0.25f : 0.4f) * (walled ? 1.5f : 1f));
 					projectile.direction = 1;
 					LateralMovement = true;
 				}
