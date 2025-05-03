@@ -383,7 +383,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			if (ImprovedDash) return true;
 
 			info.DamageSource.TryGetCausingEntity(out var entity);
-			if (entity != null)
+			if (entity != null && projectile.ai[2] != 0)
 			{
 				if (entity is NPC targetNPC)
 				{
@@ -414,6 +414,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshifterGlobalNPC globalNPC = target.GetGlobalNPC<ShapeshifterGlobalNPC>();
 			if (globalNPC.PredatorFossilStack < 10) globalNPC.PredatorFossilStack ++ ;
 			globalNPC.PredatorFossilTimer = 900; // 15 sec
+		}
+
+		public override void ShapeshiftModifyHurt(ref Player.HurtModifiers modifiers, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (modifiers.DamageSource.SourceOtherIndex == 0)
+			{ // fall damage
+				modifiers.FinalDamage *= 0.75f;
+				modifiers.SetMaxDamage(50);
+			}
 		}
 	}
 }

@@ -3459,10 +3459,10 @@ Items: {
 
 	PredatorFossil: {
 		DisplayName: Окаменевший хищник
-		// LeftClick: A vicious bite
+		// LeftClick: A vicious bite, applying a stacking bleed
 		// RightClick: Dashes, latching onto hit targets for increased attack speed
 		// Jump: Can jump off of latched targets, gouging hit enemies
-		// Passive: Attacks apply a stacking bleed
+		// Passive: Reduced fall damage
 		Tooltip: ""
 	}
 
