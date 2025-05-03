@@ -60,6 +60,13 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			}
 		}
 
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)
+		{
+			ShapeshifterGlobalNPC globalNPC = target.GetGlobalNPC<ShapeshifterGlobalNPC>();
+			if (globalNPC.PredatorFossilStack < 10) globalNPC.PredatorFossilStack++;
+			globalNPC.PredatorFossilTimer = 900; // 15 sec
+		}
+
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);

@@ -45,6 +45,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public virtual bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.controlJump;
 		public virtual bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => false; // Called when the player takes damage, return true to not take the hit (used for some effects like the tortoise block)
 		public virtual void ShapeshiftModifyHurt(ref Player.HurtModifiers modifiers, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Allows modifying damage taken while shapeshifted
+		public virtual void ShapeshiftOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Called upon dealing "contact" damage to a NPC with the shapeshift anchor
 		public virtual void SafeHoldItem(Player player) { }
 		public virtual Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(lightColor, 0f); // used to draw the shapeshift anchor
 		public virtual Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(Color.White, 0f); // used to draw the shapeshift anchor glowmask
@@ -289,7 +290,7 @@ namespace OrchidMod.Content.Shapeshifter
 			intendedVelocity /= 10f;
 			for (int i = 0; i < 10; i++)
 			{
-				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, (goThroughPlatforms || forceFallThrough), false, (int)player.gravDir);
+				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
 			}
 
 			projectile.velocity = finalVelocity;

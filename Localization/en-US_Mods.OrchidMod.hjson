@@ -3444,6 +3444,15 @@ Items: {
 		Tooltip: Transforms you into a Harpy, gaining unique abilities
 	}
 
+	PredatorFossil: {
+		DisplayName: Raptor Statuette
+		LeftClick: A vicious bite
+		RightClick: Dashes, latching onto hit targets for increased attack speed
+		Jump: Can jump off of latched targets, gouging hit enemies
+		Passive: Attacks apply a stacking bleed
+		Tooltip: Transforms you into a Bone Raptor, gaining unique abilities
+	}
+
 	SageBee: {
 		DisplayName: Bee Effigy
 		LeftClick: Fires barbed stingers, continuously damaging hit enemies
@@ -3468,8 +3477,8 @@ Items: {
 
 	SageBat: {
 		DisplayName: Bat Idol
-		LeftClick: Charge a sound blast, dealing massive damage to echolocated enemies
-		RightClick: Emit a sound wave, echolocating hit enemies if caught on the way back
+		LeftClick: Charges a sound blast, dealing massive damage to echolocated enemies
+		RightClick: Emits a sound wave, echolocating hit enemies if caught on the way back
 		Jump: Can jump two additional times
 		Passive: Can hang from ceilings, regenerating life and reducing aggro
 		Tooltip: Transforms you into a Bat, gaining unique abilities
@@ -3658,11 +3667,6 @@ Items: {
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Thorium Quarterstaff
 		Tooltip: Releases sparks on hit
-	}
-
-	PredatorFossil: {
-		Tooltip: ""
-		DisplayName: Predator Fossil
 	}
 
 	SageBatHell: {

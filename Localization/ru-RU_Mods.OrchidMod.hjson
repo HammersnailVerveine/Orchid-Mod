@@ -3457,6 +3457,15 @@ Items: {
 		Tooltip: Обращает вас в гарпию, даруя уникальные навыки
 	}
 
+	PredatorFossil: {
+		DisplayName: Окаменевший хищник
+		// LeftClick: A vicious bite
+		// RightClick: Dashes, latching onto hit targets for increased attack speed
+		// Jump: Can jump off of latched targets, gouging hit enemies
+		// Passive: Attacks apply a stacking bleed
+		Tooltip: ""
+	}
+
 	SageBee: {
 		DisplayName: Чучело пчелы
 		LeftClick: Стреляет зазубренным жалом, застревающим во врагах
@@ -3672,11 +3681,6 @@ Items: {
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Ториевый боевой шест
 		Tooltip: Выпускает искры при попадании
-	}
-
-	PredatorFossil: {
-		Tooltip: ""
-		DisplayName: Окаменевший хищник
 	}
 
 	SageBatHell: {

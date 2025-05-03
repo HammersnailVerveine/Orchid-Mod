@@ -12,7 +12,10 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool SageOwlDebuff;
 		public bool SageBatDebuff;
 		public bool WardenSpiderDebuff;
-		
+
+		public int PredatorFossilStack = 0; // Used by the Predator Fossil for its bleeding effect on hit
+		public int PredatorFossilTimer = 0; // Used by the Predator Fossil for its bleeding effect on hit
+
 		public override bool InstancePerEntity => true;
 		public override void ResetEffects(NPC npc) {
 			SageOwlDebuff = false;
@@ -23,6 +26,35 @@ namespace OrchidMod.Content.Shapeshifter
 		public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers) {
 			if (SageOwlDebuff) {
 				modifiers.FlatBonusDamage += 3;
+			}
+		}
+
+		public override void UpdateLifeRegen(NPC npc, ref int damage)
+		{
+			if (PredatorFossilTimer > 0)
+			{ // Used by the Predator Fossil for its bleeding effect on hit
+				PredatorFossilTimer--;
+
+				if (PredatorFossilTimer <= 0)
+				{
+					PredatorFossilStack = 0;
+				}
+
+				if (npc.lifeRegen > 0)
+				{
+					npc.lifeRegen = 0;
+				}
+
+				npc.lifeRegen -= PredatorFossilStack * 2 * 3;
+				if (damage < PredatorFossilStack * 3)
+				{
+					damage = PredatorFossilStack * 3;
+				}
+
+				if (Main.rand.NextBool(66 - PredatorFossilStack * 6))
+				{
+					Main.dust[Dust.NewDust(npc.position, npc.width, npc.height, DustID.Blood)].velocity *= 0.75f;
+				}
 			}
 		}
 

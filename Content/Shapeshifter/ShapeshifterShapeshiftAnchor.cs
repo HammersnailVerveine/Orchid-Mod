@@ -315,6 +315,14 @@ namespace OrchidMod.Content.Shapeshifter
 			}
 		}
 
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (ShapeshifterItem.ModItem is OrchidModShapeshifterShapeshift shapeshifterItem)
+			{
+				shapeshifterItem.ShapeshiftOnHitNPC(target, hit, damageDone, Projectile, this, player, shapeshifter);
+			}
+		}
+
 		public override bool? CanCutTiles() => false;
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
