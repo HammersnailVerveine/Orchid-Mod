@@ -228,12 +228,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{ // Player is inputting a movement key and didn't just start blocking
 					if (anchor.IsInputUp && !anchor.IsInputDown)
 					{ // Up movement
-						TryAccelerate(ref intendedVelocity, LateralMovement ? -2.25f : -3.2f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
+						TryAccelerate(ref intendedVelocity, LateralMovement ? -2.264f : -3.2f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
 						horizontalMovement = true;
 					}
 					else if (!anchor.IsInputUp && anchor.IsInputDown)
 					{ // Down movement
-						TryAccelerate(ref intendedVelocity, LateralMovement ? 2.25f : 3.2f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
+						TryAccelerate(ref intendedVelocity, LateralMovement ? 2.264f : 3.2f, speedMult, LateralMovement ? 0.4245f : 0.6f, Yaxis: true);
 						horizontalMovement = true;
 					}
 					else
