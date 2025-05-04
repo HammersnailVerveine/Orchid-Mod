@@ -45,8 +45,14 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 		public override bool? CanHitNPC(NPC target)
 		{
-			if (target.whoAmI != (int)Projectile.ai[2]) return false;
+			if (target.whoAmI != (int)Projectile.ai[2] || Projectile.penetrate != 1) return false;
 			return base.CanHitNPC(target);
+		}
+
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)
+		{
+			Projectile.penetrate = -1;
+			Projectile.timeLeft = 10;
 		}
 
 		public override void AI()
@@ -57,7 +63,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
-			if (OldPosition.Count > 10)
+			if (OldPosition.Count > 10 || Projectile.penetrate != 1)
 			{
 				OldPosition.RemoveAt(0);
 				OldRotation.RemoveAt(0);
@@ -72,6 +78,8 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 					OldPosition2.RemoveAt(0);
 				}
 			}
+
+			if (Projectile.penetrate < 1) Projectile.velocity *= 0.75f;
 
 			NPC target = Main.npc[(int)Projectile.ai[2]];
 

@@ -228,7 +228,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						{
 							if (OrchidModProjectile.IsValidTarget(npc))
 							{
-								if (npc.HasBuff<SageBatDebuff>() && npc.Center.Distance(projectile.Center) < 320f)
+								if (npc.HasBuff<SageBatDebuff>() && npc.Center.Distance(projectile.Center) < 400f)
 								{
 									Vector2 velocity = Vector2.Normalize(projectile.Center - npc.Center).RotatedByRandom(1f) * Item.shootSpeed;
 									Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI, ai2: npc.whoAmI);
