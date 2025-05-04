@@ -13,9 +13,9 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool SageBatDebuff;
 		public bool WardenSpiderDebuff;
 
-		public int ShapeshifterBleed = 0; // Used by the Predator Fossil for its bleeding effect on hit
-		public int ShapeshifterBleedTimer = 0; // Used by the Predator Fossil for its bleeding effect on hit
-		public int ShapeshifterBleedPotency = 0; // Used by the Predator Fossil for its bleeding effect on hit
+		public int ShapeshifterBleed = 0; // Used by to count Shapshifter bleeds stacks. See PredatorFossil.ShapeshiftOnHitNPC() for sync Example
+		public int ShapeshifterBleedTimer = 0; // Used to time Shapshifter bleeds
+		public int ShapeshifterBleedPotency = 0; // Damage dealt by the active shapeshifter bleed
 
 		public override bool InstancePerEntity => true;
 		public override void ResetEffects(NPC npc) {
@@ -56,6 +56,11 @@ namespace OrchidMod.Content.Shapeshifter
 				{
 					Main.dust[Dust.NewDust(npc.position, npc.width, npc.height, DustID.Blood)].velocity *= 0.75f;
 				}
+			}
+			else
+			{
+				ShapeshifterBleedPotency = 0;
+				ShapeshifterBleed = 0;
 			}
 		}
 
