@@ -3463,12 +3463,12 @@ Items: {
 	}
 
 	PredatorFossil: {
-		DisplayName: Окаменевший хищник
-		// LeftClick: A vicious bite, applying a stacking bleed
-		// RightClick: Dashes, latching onto hit targets for increased attack speed
-		// Jump: Can jump off of latched targets, gouging hit enemies
-		// Passive: Reduced fall damage
-		Tooltip: ""
+		DisplayName: Статуэтка раптора
+		LeftClick: Совершает сильный укус, вызывающий кровотечение
+		RightClick: Совешает рывок, позволяющий захватиться за цель и кусать её с повышенной частотой
+		Jump: Прыжки с цели захвата наносят дополнительный урон
+		Passive: Урон от падения снижен
+		Tooltip: Обращает вас в костяного раптора, даруя уникальные навыки
 	}
 
 	SageBee: {
@@ -3493,18 +3493,18 @@ Items: {
 		DisplayName: Идол летучей мыши
 		LeftClick: Заряжает звуковой выстрел, ноносящий большой урон эхолоцированным врагам
 		RightClick: Выпускает звуковую волну, эхолоцирующую врагов на обратном пути
-		Jump: Позволяет совершать тройной прыжок
+		Jump: Позволяет совершать четверной прыжок
 		Passive: Позволяет висеть на потолке, что увеличивает скорость регенерации здоровья и снижает агрессию врагов
 		Tooltip: Обращает вас в летучую мышь, даруя уникальные навыки
 	}
 
 	SageBatHell: {
-		DisplayName: Мудрость адской летучей мыши
-		// LeftClick: Charges a sound blast, while continuously damaging echolocated enemies
-		// RightClick: Emits a sound wave, echolocating hit enemies if caught on the way back
-		// Jump: Can jump three additional times
-		// Passive: Can hang from ceilings, regenerating life and reducing aggro
-		Tooltip: ""
+		DisplayName: Идол адской летучей мыши
+		LeftClick: Заряжает звуковой выстрел, ноносящий большой урон эхолоцированным врагам
+		RightClick: Выпускает звуковую волну, эхолоцирующую врагов на обратном пути
+		Jump: Позволяет совершать четверной прыжок
+		Passive: Позволяет висеть на потолке, что увеличивает скорость регенерации здоровья и снижает агрессию врагов
+		Tooltip: Обращает вас в адскую летучую мышь, даруя уникальные навыки
 	}
 
 	ShapeshifterShampoo: {
@@ -3653,7 +3653,7 @@ Items: {
 	}
 
 	ThoriumThorsHammerWarhammer: {
-		DisplayName: Молот Тора: Охрана
+		DisplayName: Молот Тора: Противостояние
 		Tooltip: ""
 	}
 
@@ -4194,7 +4194,7 @@ Projectiles: {
 	VerveineFart.DisplayName: Пердёж
 	ThoriumAquaiteQuarterstaffProjectile.DisplayName: Вихревой взмах
 	PredatorFossilProj.DisplayName: Ископаемый хищник
-	// SageBatHellProj.DisplayName: Sage Bat Hell Proj
+	SageBatHellProj.DisplayName: Sage Bat Hell Proj
 }
 
 Configs: {
@@ -4248,18 +4248,18 @@ Configs: {
 		}
 
 		EnableContentAlchemist: {
-			// Label: Enable Alchemist Content
-			// Tooltip: Allows alchemist items to appear in chests, loot tables, and be crafted
+			Label: Доступность контента алхимика
+			Tooltip: Предметы, относящиеся к классу алхимика, будут появляться в сундуках, выпадать с врагов, иметь рецепт и т.п.
 		}
 
 		EnableContentGambler: {
-			// Label: Enable Gambler Content
-			// Tooltip: Allows gambler items to appear in chests, loot tables, and be crafted
+			Label: Доступность контента картёжника
+			Tooltip: Предметы, относящиеся к классу картёжника, будут появляться в сундуках, выпадать с врагов, иметь рецепт и т.п.
 		}
 
 		EnableContentShapeshifter: {
-			// Label: Enable Shapeshifter Content
-			// Tooltip: Allows shapeshifter items to appear in chests, loot tables, and be crafted
+			Label: Доступность контента оборотня
+			Tooltip: Предметы, относящиеся к классу оборотня, будут появляться в сундуках, выпадать с врагов, иметь рецепт и т.п.
 		}
 	}
 }
@@ -4404,7 +4404,7 @@ Conditions: {
 	GamblerSetElemental: Игрок имеет как минимум 2 «элементальные» карты в колоде
 	AlchemistKnownReactions4: Игроком изучено как минимум 4 скрытые реакции
 	DisabledThorium: Thorium Mod отключён
-	// EnabledContentAlchemist: Alchemist content is enabled
-	// EnableContentGambler: Gambler content is enabled
-	// EnableContentShapeshifter: Shapeshifter content is enabled
+	EnabledContentAlchemist: Контент алхимика включён
+	EnableContentGambler: Контент картёжника включён
+	EnableContentShapeshifter: Контент оборотня включён
 }
