@@ -4181,8 +4181,8 @@ Projectiles: {
 	HorizonDrillProjectile.DisplayName: Бур горизонта
 	WardenSpiderProj.DisplayName: Паутинопокрытый паук
 	WardenSpiderWeb.DisplayName: Паутина паутинопокрытого паука
-	SageBatProj.DisplayName: Летучая мышь
-	SageBatProjAlt.DisplayName: Летучая мышь
+	SageBatProj.DisplayName: Эхолоцирующий выстрел летучей мыши
+	SageBatProjAlt.DisplayName: Эхолокация
 	GuardianQuarterstaffAnchor.DisplayName: Боевой шест хранителя
 	ThoriumLeafShieldProj.DisplayName: Бритвенные листья
 	DungeonQuarterstaffProjectile.DisplayName: Раздвинутые моря
@@ -4193,8 +4193,8 @@ Projectiles: {
 	MechSpikeProj.DisplayName: Смертельный лазер
 	VerveineFart.DisplayName: Пердёж
 	ThoriumAquaiteQuarterstaffProjectile.DisplayName: Вихревой взмах
-	PredatorFossilProj.DisplayName: Ископаемый хищник
-	SageBatHellProj.DisplayName: Sage Bat Hell Proj
+	PredatorFossilProj.DisplayName: Укус раптора
+	SageBatHellProj.DisplayName: Эхолоцирующий выстрел адской летучей мыши
 }
 
 Configs: {
