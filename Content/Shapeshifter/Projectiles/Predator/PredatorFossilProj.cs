@@ -1,9 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 {
@@ -62,9 +65,28 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)
 		{
-			ShapeshifterGlobalNPC globalNPC = target.GetGlobalNPC<ShapeshifterGlobalNPC>();
-			if (globalNPC.PredatorFossilStack < 10) globalNPC.PredatorFossilStack++;
-			globalNPC.PredatorFossilTimer = 900; // 15 sec
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				ShapeshifterGlobalNPC globalNPC = target.GetGlobalNPC<ShapeshifterGlobalNPC>();
+				if (globalNPC.ShapeshifterBleedPotency != 3)
+				{
+					globalNPC.ShapeshifterBleedPotency = 3;
+					globalNPC.ShapeshifterBleed = 0;
+				}
+
+				if (globalNPC.ShapeshifterBleed < 10) globalNPC.ShapeshifterBleed++;
+				globalNPC.ShapeshifterBleedTimer = 900; // 15 sec
+			}
+			else
+			{
+				var packet = OrchidMod.Instance.GetPacket();
+				packet.Write((byte)OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC);
+				packet.Write(target.whoAmI);
+				packet.Write(3); // potency
+				packet.Write(10); // max stacks
+				packet.Write(900); // timer
+				packet.Send();
+			}
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)

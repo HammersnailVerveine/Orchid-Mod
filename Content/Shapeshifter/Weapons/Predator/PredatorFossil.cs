@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
@@ -13,7 +14,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 	public class PredatorFossil : OrchidModShapeshifterShapeshift
 	{
 		public bool LateralMovement = false;
-		public Vector2 OffsetToHookedTarget = Vector2.Zero;
 		public bool ImprovedDash = false;
 
 		public override void SafeSetDefaults()
@@ -325,8 +325,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 					{ // player is hooked to a NPC; follow its movement
 						projectile.gfxOffY = 0;
 						player.gfxOffY = 0;
-						projectile.position = npc.Center + OffsetToHookedTarget + new Vector2(0f, npc.gfxOffY);
-						projectile.rotation = OffsetToHookedTarget.ToRotation() + MathHelper.PiOver2;
+						projectile.position = npc.Center + new Vector2(anchor.ai[0], anchor.ai[1] + npc.gfxOffY);
+						projectile.rotation = new Vector2(anchor.ai[0], anchor.ai[1]).ToRotation() + MathHelper.PiOver2;
 
 						// makes it so the player lets go of the NPC if it (player) would go through tiles
 						Vector2 finalVelocity = Vector2.Zero;
@@ -394,10 +394,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 						projectile.ai[1] = targetNPC.whoAmI;
 						projectile.ai[2] = 180;
 						projectile.velocity = Vector2.Zero;
-						OffsetToHookedTarget = projectile.position - targetNPC.Center;
 						anchor.LeftCLickCooldown = 10;
 						anchor.RightCLickCooldown = 30;
 						anchor.NeedNetUpdate = true;
+						Vector2 offsetVector = projectile.position - targetNPC.Center;
+						anchor.ai[0] = offsetVector.X;
+						anchor.ai[1] = offsetVector.Y;
 						return true;
 					}
 					else if (targetNPC.whoAmI == projectile.ai[1])
@@ -412,9 +414,28 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 		public override void ShapeshiftOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			ShapeshifterGlobalNPC globalNPC = target.GetGlobalNPC<ShapeshifterGlobalNPC>();
-			if (globalNPC.PredatorFossilStack < 10) globalNPC.PredatorFossilStack ++ ;
-			globalNPC.PredatorFossilTimer = 900; // 15 sec
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				ShapeshifterGlobalNPC globalNPC = target.GetGlobalNPC<ShapeshifterGlobalNPC>();
+				if (globalNPC.ShapeshifterBleedPotency != 3)
+				{
+					globalNPC.ShapeshifterBleedPotency = 3;
+					globalNPC.ShapeshifterBleed = 0;
+				}
+
+				if (globalNPC.ShapeshifterBleed < 10) globalNPC.ShapeshifterBleed++;
+				globalNPC.ShapeshifterBleedTimer = 900; // 15 sec
+			}
+			else
+			{
+				var packet = OrchidMod.Instance.GetPacket();
+				packet.Write((byte)OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC);
+				packet.Write(target.whoAmI);
+				packet.Write(3); // potency
+				packet.Write(10); // max stacks
+				packet.Write(900); // timer
+				packet.Send();
+			}
 		}
 
 		public override void ShapeshiftModifyHurt(ref Player.HurtModifiers modifiers, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)

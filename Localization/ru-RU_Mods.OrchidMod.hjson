@@ -306,6 +306,11 @@ Buffs: {
 		DisplayName: Опаловые параметры
 		Description: Скорость восполнения параметров увеличена на 10%
 	}
+
+	PredatorFossilDebuff: {
+		// DisplayName: Predator Fossil Debuff
+		// Description: Mods.OrchidMod.Buffs.PredatorFossilDebuff.Description
+	}
 }
 
 AlchemistRecipe: {

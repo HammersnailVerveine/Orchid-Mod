@@ -13,8 +13,9 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool SageBatDebuff;
 		public bool WardenSpiderDebuff;
 
-		public int PredatorFossilStack = 0; // Used by the Predator Fossil for its bleeding effect on hit
-		public int PredatorFossilTimer = 0; // Used by the Predator Fossil for its bleeding effect on hit
+		public int ShapeshifterBleed = 0; // Used by the Predator Fossil for its bleeding effect on hit
+		public int ShapeshifterBleedTimer = 0; // Used by the Predator Fossil for its bleeding effect on hit
+		public int ShapeshifterBleedPotency = 0; // Used by the Predator Fossil for its bleeding effect on hit
 
 		public override bool InstancePerEntity => true;
 		public override void ResetEffects(NPC npc) {
@@ -31,13 +32,13 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
-			if (PredatorFossilTimer > 0)
+			if (ShapeshifterBleedTimer > 0)
 			{ // Used by the Predator Fossil for its bleeding effect on hit
-				PredatorFossilTimer--;
+				ShapeshifterBleedTimer--;
 
-				if (PredatorFossilTimer <= 0)
+				if (ShapeshifterBleedTimer <= 0)
 				{
-					PredatorFossilStack = 0;
+					ShapeshifterBleed = 0;
 				}
 
 				if (npc.lifeRegen > 0)
@@ -45,13 +46,13 @@ namespace OrchidMod.Content.Shapeshifter
 					npc.lifeRegen = 0;
 				}
 
-				npc.lifeRegen -= PredatorFossilStack * 2 * 3;
-				if (damage < PredatorFossilStack * 3)
+				npc.lifeRegen -= ShapeshifterBleed * 2 * ShapeshifterBleedPotency;
+				if (damage < ShapeshifterBleed * ShapeshifterBleedPotency)
 				{
-					damage = PredatorFossilStack * 3;
+					damage = ShapeshifterBleed * ShapeshifterBleedPotency;
 				}
 
-				if (Main.rand.NextBool(66 - PredatorFossilStack * 6))
+				if (Main.rand.NextBool(66 - ShapeshifterBleed * 6))
 				{
 					Main.dust[Dust.NewDust(npc.position, npc.width, npc.height, DustID.Blood)].velocity *= 0.75f;
 				}

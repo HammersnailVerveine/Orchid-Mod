@@ -28,6 +28,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public Texture2D TextureShapeshiftGlow;
 		public Texture2D TextureShapeshiftIcon;
 		public Texture2D TextureShapeshiftIconBorder;
+		public float[] ai;
 
 		public bool CanLeftClick => LeftCLickCooldown <= 0f;
 		public bool CanRightClick => RightCLickCooldown <= 0f;
@@ -80,6 +81,7 @@ namespace OrchidMod.Content.Shapeshifter
 			OldPosition = new List<Vector2>();
 			OldRotation = new List<float>();
 			OldFrame = new List<int>();
+			ai = [0f, 0f, 0f, 0f, 0f];
 		}
 
 		public override void SendExtraAI(BinaryWriter writer)
@@ -92,6 +94,11 @@ namespace OrchidMod.Content.Shapeshifter
 			writer.Write(IsInputUp);
 			writer.Write(IsInputDown);
 			writer.Write(IsInputJump);
+			writer.Write(ai[0]);
+			writer.Write(ai[1]);
+			writer.Write(ai[2]);
+			writer.Write(ai[3]);
+			writer.Write(ai[4]);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -104,6 +111,11 @@ namespace OrchidMod.Content.Shapeshifter
 			IsInputUp = reader.ReadBoolean();
 			IsInputDown = reader.ReadBoolean();
 			IsInputJump = reader.ReadBoolean();
+			ai[0] = reader.ReadSingle();
+			ai[1] = reader.ReadSingle();
+			ai[2] = reader.ReadSingle();
+			ai[3] = reader.ReadSingle();
+			ai[4] = reader.ReadSingle();
 
 			if (SelectedItem == -1)
 			{
@@ -122,6 +134,11 @@ namespace OrchidMod.Content.Shapeshifter
 					Projectile.ai[0] = 0f;
 					Projectile.ai[1] = 0f;
 					Projectile.ai[2] = 0f;
+					ai[0] = 0f;
+					ai[1] = 0f;
+					ai[2] = 0f;
+					ai[3] = 0f;
+					ai[4] = 0f;
 
 					TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
 					TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
@@ -158,6 +175,11 @@ namespace OrchidMod.Content.Shapeshifter
 				Projectile.ai[0] = 0f;
 				Projectile.ai[1] = 0f;
 				Projectile.ai[2] = 0f;
+				ai[0] = 0f;
+				ai[1] = 0f;
+				ai[2] = 0f;
+				ai[3] = 0f;
+				ai[4] = 0f;
 
 				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;

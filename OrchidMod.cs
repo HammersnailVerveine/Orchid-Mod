@@ -14,6 +14,8 @@ using OrchidMod.Common.Attributes;
 using OrchidMod.Common.Global.NPCs;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
+using OrchidMod.Content.Shapeshifter;
+using Terraria.ModLoader.IO;
 
 namespace OrchidMod
 {
@@ -137,6 +139,38 @@ namespace OrchidMod
 						packet.Write(modPlayerGambler.gamblerHasCardInDeck);
 						packet.Send(-1, playernumber);
 					}
+					break;
+
+				case OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC:
+					NPC npc = Main.npc[reader.ReadInt32()];
+					ShapeshifterGlobalNPC globalNPCShifter = npc.GetGlobalNPC<ShapeshifterGlobalNPC>();
+					int potency = reader.ReadInt32();
+					int maxStacks = reader.ReadInt32();
+					int timer = reader.ReadInt32();
+					if (potency != globalNPCShifter.ShapeshifterBleedPotency)
+					{
+						globalNPCShifter.ShapeshifterBleedPotency = potency;
+						globalNPCShifter.ShapeshifterBleed = 0;
+					}
+
+					if (globalNPCShifter.ShapeshifterBleed < maxStacks)
+					{
+						globalNPCShifter.ShapeshifterBleed++;
+					}
+
+					globalNPCShifter.ShapeshifterBleedTimer = timer;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						var packet = GetPacket();
+						packet.Write((byte)OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC);
+						packet.Write(npc.whoAmI);
+						packet.Write(potency);
+						packet.Write(maxStacks);
+						packet.Write(timer);
+						packet.Send();
+					}
+
 					break;
 
 				case OrchidModMessageType.NPCHITBYCLASS: // Received by the server when a player damages a NPC for the first time with a orchid damage class

@@ -306,6 +306,11 @@ Buffs: {
 		DisplayName: Opal Resources
 		Description: 10% increased resource regeneration
 	}
+
+	PredatorFossilDebuff: {
+		DisplayName: Predator Fossil Debuff
+		Description: Mods.OrchidMod.Buffs.PredatorFossilDebuff.Description
+	}
 }
 
 AlchemistRecipe: {
@@ -3490,7 +3495,7 @@ Items: {
 		RightClick: Emits a sound wave, echolocating hit enemies if caught on the way back
 		Jump: Can jump three additional times
 		Passive: Can hang from ceilings, regenerating life and reducing aggro
-		Tooltip: Transforms you into a Hellat, gaining unique abilities
+		Tooltip: Transforms you into a Hellbat, gaining unique abilities
 	}
 
 	ShapeshifterShampoo: {
