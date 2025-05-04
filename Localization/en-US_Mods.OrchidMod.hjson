@@ -3484,6 +3484,15 @@ Items: {
 		Tooltip: Transforms you into a Bat, gaining unique abilities
 	}
 
+	SageBatHell: {
+		DisplayName: Hellbat Idol
+		LeftClick: Charges a sound blast, while continuously damaging echolocated enemies
+		RightClick: Emits a sound wave, echolocating hit enemies if caught on the way back
+		Jump: Can jump three additional times
+		Passive: Can hang from ceilings, regenerating life and reducing aggro
+		Tooltip: Transforms you into a Hellat, gaining unique abilities
+	}
+
 	ShapeshifterShampoo: {
 		DisplayName: Premium Critter Shampoo
 		Tooltip:
@@ -3667,11 +3676,6 @@ Items: {
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Thorium Quarterstaff
 		Tooltip: Releases sparks on hit
-	}
-
-	SageBatHell: {
-		DisplayName: Sage Bat Hell
-		Tooltip: ""
 	}
 
 	SageImp: {

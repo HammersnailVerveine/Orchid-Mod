@@ -457,5 +457,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				spriteBatch.Begin(spriteBatchSnapshot);
 			}
 		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient(ItemID.HellstoneBar, 10);
+			recipe.AddIngredient<SageBat>();
+			recipe.AddTile(TileID.Anvils);
+			recipe.Register();
+		}
 	}
 }

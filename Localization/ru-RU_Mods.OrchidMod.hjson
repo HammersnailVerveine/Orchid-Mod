@@ -3493,6 +3493,15 @@ Items: {
 		Tooltip: Обращает вас в летучую мышь, даруя уникальные навыки
 	}
 
+	SageBatHell: {
+		DisplayName: Мудрость адской летучей мыши
+		// LeftClick: Charges a sound blast, while continuously damaging echolocated enemies
+		// RightClick: Emits a sound wave, echolocating hit enemies if caught on the way back
+		// Jump: Can jump three additional times
+		// Passive: Can hang from ceilings, regenerating life and reducing aggro
+		Tooltip: ""
+	}
+
 	ShapeshifterShampoo: {
 		DisplayName: Премиальный шампунь для животных
 		Tooltip:
@@ -3681,11 +3690,6 @@ Items: {
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Ториевый боевой шест
 		Tooltip: Выпускает искры при попадании
-	}
-
-	SageBatHell: {
-		DisplayName: Мудрость адской летучей мыши
-		Tooltip: ""
 	}
 
 	SageImp: {
