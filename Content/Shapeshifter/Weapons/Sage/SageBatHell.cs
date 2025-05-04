@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Shapeshifter.Misc;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Utilities;
 using System;
@@ -8,7 +9,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 {
@@ -16,9 +16,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 	{
 		public int Jumps = 0;
 		public float AttackCharge = 0;
+		public float AttackCharge2 = 0;
 		public int BlinkEffect = 0;
 		public bool LateralMovement = false;
 		public bool ChargeCue = false; // Triggers a noise at full change
+		public bool ChargeCue2 = false; // Triggers a noise when echolocations are going to expire
 		public bool ReleasedLMB = false; // used to the player doesn't start charging immediately after a shapeshift
 
 		public override void SafeSetDefaults()
@@ -31,7 +33,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.useTime = 40;
 			Item.shootSpeed = 8f;
 			Item.knockBack = 3f;
-			Item.damage = 48;
+			Item.damage = 149;
 			ShapeshiftWidth = 18;
 			ShapeshiftHeight = 22;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
@@ -49,8 +51,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			Jumps = 0;
 			AttackCharge = 0;
+			AttackCharge2 = 0;
 			LateralMovement = false;
 			ChargeCue = false;
+			ChargeCue2 = false;
 			ReleasedLMB = false;
 
 			for (int i = 0; i < 8; i++)
@@ -82,7 +86,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.25f);
 			int projectileType = ModContent.ProjectileType<SageBatProj>();
 			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI, ai2: 1f);
 			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 			newProjectile.netUpdate = true;
 
@@ -131,6 +135,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			if (projectile.ai[2] <= -5)
 			{ // Attached to a ceiling
 				AttackCharge = 0;
+				AttackCharge2 = 0;
 				player.aggro -= 500;
 				player.lifeRegen += 10;
 			}
@@ -138,7 +143,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			float speedMult = GetSpeedMult(player, shapeshifter);
+			float speedMult = GetSpeedMult(player, shapeshifter, anchor);
 			player.fallStart = (int)(player.position.Y / 16f);
 			player.fallStart2 = (int)(player.position.Y / 16f);
 			player.noFallDmg = true;
@@ -186,6 +191,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					if (AttackCharge == 0)
 					{
 						SoundEngine.PlaySound(SoundID.Item65, projectile.Center);
+						ChargeCue2 = false;
 					}
 
 					AttackCharge += shapeshifter.GetShapeshifterMeleeSpeed();
@@ -208,6 +214,43 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						SoundEngine.PlaySound(SoundID.MaxMana, projectile.Center);
 						BlinkEffect = 0;
 					}
+
+					AttackCharge2 ++;
+
+					if (AttackCharge2 >= 30)
+					{
+						AttackCharge2 = 0;
+						bool fired = false;
+						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.5f);
+						int projectileType = ModContent.ProjectileType<SageBatHellProj>();
+
+						foreach (NPC npc in Main.npc)
+						{
+							if (OrchidModProjectile.IsValidTarget(npc))
+							{
+								if (npc.HasBuff<SageBatDebuff>() && npc.Center.Distance(projectile.Center) < 320f)
+								{
+									Vector2 velocity = Vector2.Normalize(projectile.Center - npc.Center).RotatedByRandom(1f) * Item.shootSpeed;
+									Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI, ai2: npc.whoAmI);
+									newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+									newProjectile.netUpdate = true;
+									fired = true;
+
+									if (npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SageBatDebuff>())] < 120 && !ChargeCue2)
+									{
+										ChargeCue2 = true;
+										SoundEngine.PlaySound(SoundID.MaxMana, projectile.Center);
+										BlinkEffect = 0;
+									}
+								}
+							}
+						}
+
+						if (fired)
+						{
+							SoundEngine.PlaySound(SoundID.Item20, projectile.Center);
+						}
+					}
 				}
 			}
 			else
@@ -218,7 +261,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
 					int projectileType = ModContent.ProjectileType<SageBatProjAlt>();
 					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
-					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
+					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI, ai2: 1f);
 					SoundEngine.PlaySound(SoundID.Item131, projectile.Center);
 					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 					newProjectile.netUpdate = true;
@@ -231,6 +274,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 
 				AttackCharge = 0;
+				AttackCharge2 = 0;
 			}
 
 			// MOVEMENT
@@ -239,6 +283,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			if (projectile.ai[2] <= -5)
 			{ // Attached to a ceiling
 				AttackCharge = 0;
+				AttackCharge2 = 0;
 				player.aggro -= 500;
 				player.lifeRegen += 60000;
 
@@ -378,7 +423,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					}
 				}
 			}
-
 
 			FinalVelocityCalculations(ref intendedVelocity, projectile, player);
 

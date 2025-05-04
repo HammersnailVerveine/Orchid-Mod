@@ -4171,6 +4171,7 @@ Projectiles: {
 	VerveineFart.DisplayName: Fart
 	ThoriumAquaiteQuarterstaffProjectile.DisplayName: Wave Swirl
 	PredatorFossilProj.DisplayName: Predator Fossil Proj
+	SageBatHellProj.DisplayName: Sage Bat Hell Proj
 }
 
 Configs: {

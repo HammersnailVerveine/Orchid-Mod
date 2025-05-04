@@ -29,6 +29,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
 			MeleeSpeedRight = true;
 			AutoReuseRight = true;
+			Grounded = false;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -201,7 +202,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			float speedMult = GetSpeedMult(player, shapeshifter);
+			float speedMult = GetSpeedMult(player, shapeshifter, anchor);
 			player.fallStart = (int)(player.position.Y / 16f);
 			player.fallStart2 = (int)(player.position.Y / 16f);
 			player.noFallDmg = true;

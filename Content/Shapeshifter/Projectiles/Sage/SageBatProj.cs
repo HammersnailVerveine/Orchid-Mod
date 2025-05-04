@@ -35,13 +35,25 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			OldPosition = new List<Vector2>();
 			OldPosition2 = new List<Vector2>();
 			HitNPCs = new List<NPC>();
-			DrawColor = new Color(109, 248, 186);
+			DrawColor = Color.White;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
 		}
 
 		public override void AI()
 		{
+			if (DrawColor == Color.White) 
+			{
+				if (Projectile.ai[2] == 0f)
+				{ // normal bat
+					DrawColor = new Color(109, 248, 186);
+				}
+				else
+				{ // hell bat
+					DrawColor = new Color(255, 102, 20);
+				}
+			}
+
 
 			if (Projectile.ai[0] > 0)
 			{
@@ -66,14 +78,23 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			else
 			{
 				if (Projectile.ai[1] > 0)
-				{// Color shift from (109, 248, 186) to (255, 182, 0) over 20 steps
+				{
 					if (Projectile.ai[1] <= 20)
 					{
 						Projectile.tileCollide = false;
-						DrawColor.R += 7;
-						DrawColor.G -= 3;
-						DrawColor.B -= 9;
 						Projectile.ai[1]++;
+						if (Projectile.ai[2] == 0f)
+						{ // normal bat - Color shift from (109, 248, 186) to (255, 182, 0) over 20 steps
+							DrawColor.R += 7;
+							DrawColor.G -= 3;
+							DrawColor.B -= 9;
+						}
+						else
+						{ // hell bat - Color shift from (255, 102, 20) to (255, 182, 80) over 20 steps
+							Projectile.tileCollide = false;
+							DrawColor.G += 4;
+							DrawColor.B += 3;
+						}
 					}
 
 					Player owner = Owner;

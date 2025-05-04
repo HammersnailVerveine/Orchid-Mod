@@ -30,6 +30,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 40;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
+			Grounded = true;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -152,8 +153,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			// MISC EFFECTS
 
-			float speedMult = GetSpeedMult(player, shapeshifter);
 			bool grounded = IsGrounded(projectile, player, 4f);
+			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 
 			if (grounded && anchor.RightCLickCooldown > 60 && anchor.RightCLickCooldown < 540)
 			{ // Right click cd is set to 10 seconds when used, this makes it to touching the ground "resets" it
@@ -423,6 +424,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				modifiers.FinalDamage *= 0.75f;
 				modifiers.SetMaxDamage(50);
 			}
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient(ItemID.FossilOre, 15);
+			recipe.AddIngredient(ItemID.Amber, 8);
+			recipe.AddTile(TileID.Anvils);
+			recipe.Register();
 		}
 	}
 }

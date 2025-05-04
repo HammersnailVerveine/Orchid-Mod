@@ -20,6 +20,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool AutoReuseRight; // Whether right ability click casts repeatedly hy holding the input
 		public bool MeleeSpeedLeft; // Whether melee speed makes left click recover faster
 		public bool MeleeSpeedRight; // Whether melee speed makes right click recover faster
+		public bool Grounded; // Is the shapeshift supposedly a grounded creature?
 		public float GravityMult; // Fall speed multiplier
 		public ShapeshifterShapeshiftType ShapeshiftType; // Sage, Predator, Warden
 
@@ -72,6 +73,7 @@ namespace OrchidMod.Content.Shapeshifter
 			MeleeSpeedLeft = true;
 			MeleeSpeedRight = false;
 			GravityMult = 1f;
+			Grounded = false;
 
 			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;
@@ -239,17 +241,33 @@ namespace OrchidMod.Content.Shapeshifter
 		}
 		
 
-		public float GetSpeedMult(Player player, OrchidShapeshifter shapeshifter)
+		public float GetSpeedMult(Player player, OrchidShapeshifter shapeshifter, ShapeshifterShapeshiftAnchor anchor, bool GroundedSpeedBonus = false)
 		{
-			if (player.moveSpeed > 0.75f)
+			float speed = 1f;
+
+			if ((player.moveSpeed + shapeshifter.ShapeshifterMoveSpeedBonus) > 0.75f)
 			{
 				//Main.NewText(1f + (float)Math.Log10(player.moveSpeed + shapeshifter.ShapeshifterMoveSpeedBonus) * 2f + " --- " + (player.moveSpeed + shapeshifter.ShapeshifterMoveSpeedBonus));
-				return 1f + (float)Math.Log10(player.moveSpeed + shapeshifter.ShapeshifterMoveSpeedBonus) * 2f;
+				speed += (float)Math.Log10(player.moveSpeed + shapeshifter.ShapeshifterMoveSpeedBonus) * 2f;
 			}
 			else
 			{
-				return 0.75f;
+				speed = 0.75f;
 			}
+
+			if (anchor.ShapeshifterItem.ModItem is OrchidModShapeshifterShapeshift shapeshifterItem)
+			{
+				if (!shapeshifterItem.Grounded)
+				{ // Speed bonus for non-grounded shapeshifts applies at all times
+					speed *= shapeshifter.ShapeshifterMoveSpeedBonusNotGrounded;
+				}
+				else if (GroundedSpeedBonus)
+				{ // Speed bonus for grounded shapeshifts only applies when grounded, use GroundedSpeedBonus accordingly when calling the method
+					speed *= shapeshifter.ShapeshifterMoveSpeedBonusGrounded;
+				}
+			}
+
+			return speed;
 		} 
 
 		public void FinalVelocityCalculations(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true, bool preventDownInput = false, bool forceFallThrough = false)

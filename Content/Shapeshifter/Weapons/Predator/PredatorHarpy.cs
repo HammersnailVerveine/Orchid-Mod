@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Shapeshifter.Dusts;
 using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
@@ -35,6 +33,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftHeight = 26;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
 			GravityMult = 0.9f;
+			Grounded = false;
 		}
 
 		public override Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -152,7 +151,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			// MISC EFFECTS
 
-			float speedMult = GetSpeedMult(player, shapeshifter);
+			float speedMult = GetSpeedMult(player, shapeshifter, anchor);
 			player.fallStart = (int)(player.position.Y / 16f);
 			player.fallStart2 = (int)(player.position.Y / 16f);
 			player.nightVision = true;

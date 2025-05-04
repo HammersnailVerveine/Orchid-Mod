@@ -29,6 +29,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
+			Grounded = true;
 		}
 
 
@@ -157,7 +158,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			projectile.ai[0] -= 300;
 			Vector2 position = projectile.position;
-			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 8f * GetSpeedMult(player, shapeshifter);
+			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 8f * GetSpeedMult(player, shapeshifter, anchor);
 
 			for (int i = 0; i < 32; i++)
 			{
@@ -209,8 +210,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			// MISC EFFECTS
 
-			float speedMult = GetSpeedMult(player, shapeshifter);
-			bool grounded = IsGrounded(projectile, player);
+			bool grounded = IsGrounded(projectile, player, 4f);
+			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 
 			if ((int)projectile.ai[0] < 601)
 			{ // Increases the dash timer

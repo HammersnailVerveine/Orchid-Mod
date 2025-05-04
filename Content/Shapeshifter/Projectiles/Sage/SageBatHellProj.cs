@@ -1,17 +1,17 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 {
-	public class SageBatProjAlt : OrchidModShapeshifterProjectile
+	public class SageBatHellProj : OrchidModShapeshifterProjectile
 	{
 		private static Texture2D TextureAlt;
 		private static Texture2D TextureMain;
@@ -29,10 +29,10 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			Projectile.height = 12;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 90;
-			Projectile.scale = 1f;
+			Projectile.timeLeft = 60;
+			Projectile.scale = 0.5f;
 			Projectile.alpha = 96;
-			Projectile.penetrate = -1;
+			Projectile.penetrate = 1;
 			Projectile.alpha = 255;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			TextureAlt ??= ModContent.Request<Texture2D>(Texture.Replace("SageBatProjAlt", "SageBatProj"), ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
@@ -40,31 +40,17 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			OldPosition2 = new List<Vector2>();
 			OldRotation = new List<float>();
 			HitNPCs = new List<NPC>();
-			DrawColor = Color.White;
-			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 5;
+			DrawColor = new Color(255, 102, 20);
 		}
 
 		public override bool? CanHitNPC(NPC target)
 		{
-			if (HitNPCs.Contains(target)) return false;
+			if (target.whoAmI != (int)Projectile.ai[2]) return false;
 			return base.CanHitNPC(target);
 		}
 
 		public override void AI()
 		{
-			if (DrawColor == Color.White)
-			{
-				if (Projectile.ai[2] == 0f)
-				{ // normal bat
-					DrawColor = new Color(105, 248, 186);
-				}
-				else
-				{ // hell bat
-					DrawColor = new Color(255, 102, 20);
-				}
-			}
-
 			OldPosition.Add(Projectile.Center);
 			OldRotation.Add(Projectile.rotation);
 			Timespent++;
@@ -87,67 +73,31 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 				}
 			}
 
-			NPC closestTarget = null;
-			float distanceClosest = 160f;
-			foreach (NPC npc in Main.npc)
-			{
-				float distance = Projectile.Center.Distance(npc.Center);
-				if (IsValidTarget(npc) && distance < distanceClosest && npc.HasBuff<SageBatDebuff>() && !HitNPCs.Contains(npc))
-				{
-					closestTarget = npc;
-					distanceClosest = distance;
-				}
-			}
+			NPC target = Main.npc[(int)Projectile.ai[2]];
 
-			if (LastTarget != null)
+			if (IsValidTarget(target) && Projectile.timeLeft > 10 && Timespent < 200)
 			{
 				if (Projectile.ai[0] < 30)
 				{ // Changes color when it becomes homing
 					Projectile.tileCollide = false;
 					Projectile.ai[0]++;
-					Projectile.timeLeft++;
 					Projectile.scale += 0.01f;
-
-					if (Projectile.ai[2] == 0f)
-					{ // normal bat
-						DrawColor.R += 5;
-						DrawColor.G -= 2;
-						DrawColor.B -= 6;
-					}
-					else
-					{ // hell ba
-						DrawColor.G += 2;
-						DrawColor.B += 2;
-					}
+					DrawColor.G += 2;
+					DrawColor.B += 2;
 				}
 
-				if (closestTarget == null && LastTarget.HasBuff<SageBatDebuff>())
-				{
-					closestTarget = LastTarget;
-				}
-				else if (Projectile.timeLeft > 30)
-				{
-					Projectile.timeLeft = 30;
-				}
+				Projectile.velocity += (target.Center - Projectile.Center) * 0.025f;
+				Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 9f;
+				LastTarget = target;
+			}
+			else if (Projectile.timeLeft > 10)
+			{
+				Projectile.timeLeft = 10;
 			}
 
-			if (closestTarget != null && Projectile.timeLeft > 10 && Timespent < 200)
+			if (Main.rand.NextBool(4))
 			{
-				Projectile.timeLeft++;
-				Projectile.velocity += (closestTarget.Center - Projectile.Center) * 0.015f;
-				Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 8f;
-				LastTarget = closestTarget;
-			}
-		}
-
-		public override void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-		{
-			HitNPCs.Add(target);
-			if (target.HasBuff<SageBatDebuff>())
-			{
-				modifiers.FinalDamage *= 3f;
-				target.RequestBuffRemoval(ModContent.BuffType<SageBatDebuff>());
-				SoundEngine.PlaySound(SoundID.Item70, target.Center);
+				Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch).velocity *= 0.25f;
 			}
 		}
 

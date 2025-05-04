@@ -27,6 +27,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			ShapeshiftWidth = 26;
 			ShapeshiftHeight = 28;
 			ShapeshiftType = ShapeshifterShapeshiftType.Warden;
+			Grounded = true;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -141,7 +142,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		{
 			// MISC EFFECTS & ANIMATION
 
-			float speedMult = GetSpeedMult(player, shapeshifter);
+			bool grounded = IsGrounded(projectile, player, 4f);
+			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 			if (anchor.Projectile.ai[2] > 0)
 			{
 				anchor.Projectile.ai[2]--;

@@ -27,6 +27,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Warden;
+			Grounded = true;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -117,11 +118,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		{
 			// MISC EFFECTS & ANIMATION
 
-			float speedMult = GetSpeedMult(player, shapeshifter);
 			Tile tile = Framing.GetTileSafely((int)(projectile.Center.X / 16f), (int)(projectile.Center.Y / 16f));
 			bool walled = tile.WallType != 0;
 
-			foreach(Projectile webProjectile in Main.projectile)
+			bool grounded = IsGrounded(projectile, player, 4f);
+			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded || walled);
+
+			foreach (Projectile webProjectile in Main.projectile)
 			{
 				if (webProjectile.ai[0] > 45 && webProjectile.active && projectile.Center.Distance(webProjectile.Center) < 48f)
 				{
@@ -251,7 +254,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 				if (anchor.IsInputJump)
 				{ // Jump while no charge ready
-					if (IsGrounded(projectile, player, 4f) && JumpRelease)
+					if (grounded && JumpRelease)
 					{
 						JumpRelease = false;
 						intendedVelocity.Y = -9.5f;
