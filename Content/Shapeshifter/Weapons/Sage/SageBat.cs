@@ -161,13 +161,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					if (AttackCharge == 0)
 					{
 						SoundEngine.PlaySound(SoundID.Item65, projectile.Center);
+						ChargeCue = false;
 					}
 
 					AttackCharge += shapeshifter.GetShapeshifterMeleeSpeed();
 
 					if (AttackCharge < 7)
 					{
-						ChargeCue = false;
 						anchor.Frame = 4;
 						anchor.Timespent = 0;
 					}
@@ -177,7 +177,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						anchor.Timespent = 0;
 					}
 
-					if (AttackCharge == 60 && !ChargeCue)
+					if (AttackCharge >= 60 && !ChargeCue)
 					{
 						ChargeCue = true;
 						SoundEngine.PlaySound(SoundID.MaxMana, projectile.Center);

@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		{
 			Item.width = 30;
 			Item.height = 30;
-			Item.value = Item.sellPrice(0, 1, 0, 0);
+			Item.value = Item.sellPrice(0, 0, 55, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.NPCHit29;
 			Item.useTime = 30;

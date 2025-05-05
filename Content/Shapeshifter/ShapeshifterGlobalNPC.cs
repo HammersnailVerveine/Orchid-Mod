@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
+using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -79,6 +80,27 @@ namespace OrchidMod.Content.Shapeshifter
 
 						shapeshifter.modPlayer.TryHeal(spiderMelee ? 10 : 5);
 						shapeshifter.Player.AddBuff(ModContent.BuffType<WardenSpiderBuff>(), 1800);
+					}
+				}
+			}
+		}
+
+		public override void OnKill(NPC npc)
+		{
+			if (!npc.friendly && !npc.CountsAsACritter && !Main.dedServ)
+			{
+				OrchidShapeshifter shapeshifter = Main.LocalPlayer.GetModPlayer<OrchidShapeshifter>();
+
+				if (shapeshifter.IsShapeshifted)
+				{
+					if (shapeshifter.Shapeshift is SageImp impItem && npc.Center.Distance(shapeshifter.Player.Center) < 800f)
+					{ // Imp attack speed buff quen a nearby enemy dies
+						impItem.FastAttackTimer = 300;
+						impItem.FastAttack += 3;
+						if (impItem.FastAttack > 9)
+						{
+							impItem.FastAttack = 9;
+						}
 					}
 				}
 			}

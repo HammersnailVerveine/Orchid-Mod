@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -19,9 +17,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 		public List<Vector2> OldPosition2;
 		public List<float> OldRotation;
 		public Color DrawColor;
-		public NPC LastTarget;
 		public int Timespent = 0;
-		public List<NPC> HitNPCs;
 
 		public override void SafeSetDefaults()
 		{
@@ -39,7 +35,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			OldPosition = new List<Vector2>();
 			OldPosition2 = new List<Vector2>();
 			OldRotation = new List<float>();
-			HitNPCs = new List<NPC>();
 			DrawColor = new Color(255, 102, 20);
 		}
 
@@ -63,7 +58,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
-			if (OldPosition.Count > 10 || Projectile.penetrate != 1)
+			if (OldPosition.Count > 10)
 			{
 				OldPosition.RemoveAt(0);
 				OldRotation.RemoveAt(0);
@@ -96,7 +91,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				Projectile.velocity += (target.Center - Projectile.Center) * 0.025f;
 				Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 9f;
-				LastTarget = target;
 			}
 			else if (Projectile.timeLeft > 10)
 			{

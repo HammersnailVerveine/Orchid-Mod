@@ -1,14 +1,10 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
-using OrchidMod.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 {
@@ -16,18 +12,20 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 	{
 		public bool LateralMovement = false;
 		public bool CanDash = false;
+		public int FastAttack = 0;
+		public int FastAttackTimer = 0;
 
 		public override void SafeSetDefaults()
 		{
-			Item.width = 30;
-			Item.height = 30;
-			Item.value = Item.sellPrice(0, 2, 25, 0);
+			Item.width = 34;
+			Item.height = 34;
+			Item.value = Item.sellPrice(0, 1, 55, 0);
 			Item.rare = ItemRarityID.Orange;
 			Item.UseSound = SoundID.Zombie29;
-			Item.useTime = 40;
-			Item.shootSpeed = 8f;
+			Item.useTime = 35;
+			Item.shootSpeed = 2f;
 			Item.knockBack = 3f;
-			Item.damage = 48;
+			Item.damage = 61;
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 26;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
@@ -44,9 +42,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			LateralMovement = false;
 
-			for (int i = 0; i < 8; i++)
+			for (int i = 0; i < 5; i++)
 			{
 				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+			}
+
+			for (int i = 0; i < 10; i++)
+			{
+				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Torch)].velocity *= 0.75f;
 			}
 		}
 
@@ -56,16 +59,196 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			{
 				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
 			}
+
+			for (int i = 0; i < 8; i++)
+			{
+				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Torch)].velocity *= 0.75f;
+			}
+		}
+
+		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			int projectileType = ModContent.ProjectileType<SageImpProj>();
+			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(FastAttack > 0 ? 0.2f : 0f) * Item.shootSpeed;
+			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + new Vector2(0f, 2f), velocity, projectileType, damage, Item.knockBack, player.whoAmI);
+			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+			newProjectile.netUpdate = true;
+
+			SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, projectile.Center);
+
+			anchor.LeftCLickCooldown = Item.useTime;
+			projectile.ai[0] = 15;
+
+			if (FastAttack > 0)
+			{
+				FastAttack--;
+				anchor.LeftCLickCooldown /= 3f;
+				projectile.ai[0] /= 3f;
+			}
+
+			projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+			anchor.NeedNetUpdate = true;
+
+			for (int i = 0; i < 15; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Torch);
+				dust.scale = Main.rand.NextFloat(1.5f, 2f);
+				dust.noGravity = true;
+				dust.velocity *= 0.5f;
+				dust.velocity += Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(30f)) * Main.rand.NextFloat(5f, 8f);
+			}
+
+			for (int i = 0; i < 5; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Torch);
+				dust.scale = Main.rand.NextFloat(1.5f, 2f);
+				dust.noGravity = true;
+				dust.velocity *= 0.5f;
+				dust.velocity += Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(20f)) * Main.rand.NextFloat(10f, 15f);
+			}
+		}
+
+		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			Vector2 position = projectile.Center;
+			Vector2 offSet = Main.MouseWorld - projectile.Center;
+
+			// Spawn the wall at the correct position, on the ground below the player cursor, up to 10 tiles away
+			if (offSet.Length() > 160f)
+			{
+				offSet = Vector2.Normalize(offSet) * 160f;
+			}
+
+			for (int i = 0; i < 10; i++)
+			{
+				position += Collision.TileCollision(position, offSet * 0.1f, 2, 2, true, true, (int)player.gravDir);
+			}
+			
+			for (int i = 0; i < 75; i++)
+			{
+				position += Collision.TileCollision(position, Vector2.UnitY * 15f, 18, 2, false, false, (int)player.gravDir);
+			}
+
+			position.Y -= 78; // half the wall height
+
+			// Delete existing walls
+			int projectileType = ModContent.ProjectileType<SageImpProjAlt>();
+			foreach (Projectile proj in Main.projectile)
+			{
+				if (proj.type == projectileType && proj.owner == player.whoAmI)
+				{
+					proj.Kill();
+				}
+			}
+
+			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 2f);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, Vector2.Zero, projectileType, damage, Item.knockBack, player.whoAmI);
+			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+			newProjectile.netUpdate = true;
+
+			SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, projectile.Center);
+
+			anchor.RightCLickCooldown = 60;
+			projectile.ai[0] = 15;
+			projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+			anchor.NeedNetUpdate = true;
+		}
+
+		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.controlJump && CanDash && projectile.ai[2] <= 0;
+
+		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			float rotation = MathHelper.Pi * (1f + projectile.direction * 0.5f);
+
+			// 8 dir input
+			if (anchor.IsInputLeft && !anchor.IsInputRight)
+			{
+				rotation = MathHelper.Pi * 1.5f; // Left
+				if (anchor.IsInputUp && !anchor.IsInputDown)
+				{
+					rotation += MathHelper.Pi * 0.25f; // Top Left
+				}
+				else if (!anchor.IsInputUp && anchor.IsInputDown)
+				{
+					rotation -= MathHelper.Pi * 0.25f; // Bottom Left
+				}
+			}
+			else if (!anchor.IsInputLeft && anchor.IsInputRight)
+			{
+				rotation = MathHelper.Pi * 0.5f; // Right
+				if (anchor.IsInputUp && !anchor.IsInputDown)
+				{
+					rotation -= MathHelper.Pi * 0.25f; // Top Right
+				}
+				else if (!anchor.IsInputUp && anchor.IsInputDown)
+				{
+					rotation += MathHelper.Pi * 0.25f; // Bottom Right
+				}
+			}
+			else if (anchor.IsInputUp && !anchor.IsInputDown)
+			{
+				rotation = 0f; // Up
+			}
+			else if (!anchor.IsInputUp && anchor.IsInputDown)
+			{
+				rotation = MathHelper.Pi; // Down
+			}
+
+			projectile.ai[2] = 45;
+			anchor.LeftCLickCooldown = Item.useTime * 2f;
+			anchor.RightCLickCooldown = Item.useTime * 2f;
+			anchor.NeedNetUpdate = true;
+			CanDash = false;
+			SoundEngine.PlaySound(SoundID.Item20, projectile.Center);
+
+			for (int i = 0; i < 10; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Torch, Scale: Main.rand.NextFloat(1.2f, 1.2f));
+				dust.noLight = true;
+				dust.velocity.Y -= 1f;
+			}
+
+			Vector2 position = projectile.position;
+			Vector2 offSet = Vector2.UnitY.RotatedBy(rotation) * -6f * GetSpeedMult(player, shapeshifter, anchor);
+
+			for (int i = 0; i < 32; i++)
+			{
+				position += Collision.TileCollision(position, offSet, projectile.width, projectile.height, true, true, (int)player.gravDir);
+				Dust dust = Dust.NewDustDirect(position + new Vector2(projectile.width / 2f - 4, projectile.height / 2f - 4), 8, 8, DustID.Torch, Scale: Main.rand.NextFloat(1f, 1.3f));
+				dust.noGravity = true;
+			}
+
+			projectile.position = position;
+			projectile.velocity = offSet;
+			projectile.velocity *= 0.75f;
+			anchor.NeedNetUpdate = true;
+			anchor.LeftCLickCooldown = Item.useTime;
+			projectile.ai[2] = 30;
+			Main.SetCameraLerp(0.1f, 5);
+
+			for (int i = 0; i < 10; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Torch, Scale: Main.rand.NextFloat(1.2f, 1.5f));
+				dust.noLight = true;
+				dust.velocity.Y -= 1f;
+			}
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			// ai[0] is used as a timer for attack animations
+			// ai[1] is used to flip the sprite in the correct direction while attacking
+			// ai[2] is used as a cooldown for the dash (jump)
+
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor);
 			player.fallStart = (int)(player.position.Y / 16f);
 			player.fallStart2 = (int)(player.position.Y / 16f);
 			player.noFallDmg = true;
 
-			if (projectile.ai[2] > -4) projectile.ai[2]--;
+			projectile.ai[2]--;
+			projectile.ai[0]--;
+			FastAttackTimer--;
 
 			GravityMult = 0.85f;
 			if (anchor.IsInputDown) GravityMult += 0.15f;
@@ -94,6 +277,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			// ATTACK
 
+			if (anchor.Projectile.ai[0] >= 0f)
+			{ // Override animation during attack
+				if (anchor.Projectile.ai[0] == 0)
+				{
+					anchor.Frame = 1;
+				}
+				else if (anchor.Projectile.ai[0] > 0)
+				{
+					anchor.Frame = 6;
+				}
+			}
+
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
@@ -108,74 +303,55 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 			}
 
-			if (projectile.ai[2] > 0)
-			{ // Dashing
-				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * -10f * speedMult;
-				projectile.direction = intendedVelocity.X > 0 ? 1 : -1;
-				projectile.spriteDirection = projectile.direction;
-
-				if (Main.rand.NextBool())
-				{
-					Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Honey)].noGravity = true;
+			if (anchor.IsInputLeft || anchor.IsInputRight)
+			{ // Player is inputting a movement key
+				if (anchor.IsInputLeft && !anchor.IsInputRight)
+				{ // Left movement
+					TryAccelerate(ref intendedVelocity, -3.2f, speedMult, 0.2f);
+					projectile.direction = -1;
+					projectile.spriteDirection = -1;
+					LateralMovement = true;
 				}
-			}
-			else
-			{
-				if (anchor.IsInputLeft || anchor.IsInputRight)
-				{ // Player is inputting a movement key
-					if (anchor.IsInputLeft && !anchor.IsInputRight)
-					{ // Left movement
-						TryAccelerate(ref intendedVelocity, -3.2f, speedMult, 0.2f);
-						projectile.direction = -1;
-						projectile.spriteDirection = -1;
-						LateralMovement = true;
-					}
-					else if (anchor.IsInputRight && !anchor.IsInputLeft)
-					{ // Right movement
-						TryAccelerate(ref intendedVelocity, 3.2f, speedMult, 0.2f);
-						projectile.direction = 1;
-						projectile.spriteDirection = 1;
-						LateralMovement = true;
-					}
-					else
-					{ // Both keys pressed = no movement
-						LateralMovement = false;
-						intendedVelocity.X *= 0.7f;
-					}
+				else if (anchor.IsInputRight && !anchor.IsInputLeft)
+				{ // Right movement
+					TryAccelerate(ref intendedVelocity, 3.2f, speedMult, 0.2f);
+					projectile.direction = 1;
+					projectile.spriteDirection = 1;
+					LateralMovement = true;
 				}
 				else
-				{ // no movement input
+				{ // Both keys pressed = no movement
 					LateralMovement = false;
 					intendedVelocity.X *= 0.7f;
 				}
+			}
+			else
+			{ // no movement input
+				LateralMovement = false;
+				intendedVelocity.X *= 0.7f;
+			}
 
-				float intendedDistance = 32f;
-				if (anchor.IsInputDown) intendedDistance -= 16f;
-				if (IsGrounded(projectile, player, intendedDistance, anchor.IsInputDown, anchor.IsInputDown))
-				{ // Pushes away from the ground
-					CanDash = true;
-					intendedVelocity.Y -= player.gravity * 1.4f;
-					if (intendedVelocity.Y < -2.5f)
-					{
-						intendedVelocity.Y = -2.5f;
-					}
+			float intendedDistance = 32f;
+			if (anchor.IsInputDown) intendedDistance -= 16f;
+			if (IsGrounded(projectile, player, intendedDistance, anchor.IsInputDown, anchor.IsInputDown))
+			{ // Pushes away from the ground
+				CanDash = true;
+				intendedVelocity.Y -= player.gravity * 1.4f;
+				if (intendedVelocity.Y < -2.5f)
+				{
+					intendedVelocity.Y = -2.5f;
 				}
-				else if (IsGrounded(projectile, player, intendedDistance + 2f, anchor.IsInputDown, anchor.IsInputDown) && intendedVelocity.Y < 1f)
-				{ // Locks up so the screen doesn't shake constantly
-					CanDash = true;
-					intendedVelocity.Y *= 0f;
-				}
+			}
+			else if (IsGrounded(projectile, player, intendedDistance + 2f, anchor.IsInputDown, anchor.IsInputDown) && intendedVelocity.Y < 1f)
+			{ // Locks up so the screen doesn't shake constantly
+				CanDash = true;
+				intendedVelocity.Y *= 0f;
+			}
 
-
-				if (projectile.ai[0] > 0)
-				{ // Override animation during attack
-					projectile.ai[0]--;
-					if (projectile.ai[2] < -45)
-					{
-						projectile.direction = (int)projectile.ai[1];
-						projectile.spriteDirection = projectile.direction;
-					}
-				}
+			if (projectile.ai[0] >= 0)
+			{ // Override direction during attack
+				projectile.direction = (int)projectile.ai[1];
+				projectile.spriteDirection = projectile.direction;
 			}
 
 			FinalVelocityCalculations(ref intendedVelocity, projectile, player);
@@ -195,6 +371,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					anchor.OldFrame.RemoveAt(0);
 				}
 			}
+		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient<ShapeshifterBlankEffigy>();
+			recipe.AddIngredient(ItemID.HellstoneBar, 12);
+			recipe.AddTile(TileID.WorkBenches);
+			recipe.Register();
 		}
 	}
 }
