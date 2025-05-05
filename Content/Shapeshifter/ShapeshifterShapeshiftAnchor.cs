@@ -26,6 +26,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public int Timespent = 0;
 		public Texture2D TextureShapeshift;
 		public Texture2D TextureShapeshiftGlow;
+		public Texture2D TextureShapeshiftTransparent;
 		public Texture2D TextureShapeshiftIcon;
 		public Texture2D TextureShapeshiftIconBorder;
 		public float[] ai;
@@ -144,9 +145,16 @@ namespace OrchidMod.Content.Shapeshifter
 					TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
 					TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture + "_Border", AssetRequestMode.ImmediateLoad).Value;
 					TextureShapeshiftGlow = null;
-					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
+					TextureShapeshiftTransparent = null;
+
+					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
 					{
-						TextureShapeshiftGlow = asset.Value;
+						TextureShapeshiftGlow = assetglow.Value;
+					}
+
+					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Transparent", out Asset<Texture2D> assetTransparent, AssetRequestMode.ImmediateLoad))
+					{
+						TextureShapeshiftTransparent = assetTransparent.Value;
 					}
 				}
 			}
@@ -185,9 +193,16 @@ namespace OrchidMod.Content.Shapeshifter
 				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture + "_Border", AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftGlow = null;
-				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> asset, AssetRequestMode.ImmediateLoad))
+				TextureShapeshiftTransparent = null;
+
+				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
 				{
-					TextureShapeshiftGlow = asset.Value;
+					TextureShapeshiftGlow = assetglow.Value;
+				}
+
+				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Transparent", out Asset<Texture2D> assetTransparent, AssetRequestMode.ImmediateLoad))
+				{
+					TextureShapeshiftTransparent = assetTransparent.Value;
 				}
 			}
 			Projectile.netUpdate = true;
@@ -407,12 +422,17 @@ namespace OrchidMod.Content.Shapeshifter
 				drawRectangle.Y = drawRectangle.Height * Frame;
 				Main.EntitySpriteDraw(TextureShapeshift, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 
+				if (TextureShapeshiftTransparent != null)
+				{
+					color = shapeshifterItem.GetColorTransparent(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
+					Main.EntitySpriteDraw(TextureShapeshiftTransparent, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+				}
+
 				if (TextureShapeshiftGlow != null)
 				{
 					color = shapeshifterItem.GetColorGlow(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
 					Main.EntitySpriteDraw(TextureShapeshiftGlow, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
-
 
 				if (drawAsAdditive)
 				{

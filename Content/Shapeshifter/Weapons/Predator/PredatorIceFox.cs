@@ -377,11 +377,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 		}
 
-		public override bool ShouldDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor)
-		{
-			return base.ShouldDrawShapeshift(spriteBatch, projectile, player, ref lightColor);
-		}
-
 		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			if (projectile.ai[1] > 0)

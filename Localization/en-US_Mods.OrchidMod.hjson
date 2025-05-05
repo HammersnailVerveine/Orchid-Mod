@@ -3745,6 +3745,11 @@ Items: {
 		DisplayName: Warpecker
 		Tooltip: Pecks three times
 	}
+
+	WardenSlime: {
+		DisplayName: Warden Slime
+		Tooltip: ""
+	}
 }
 
 NPCs: {

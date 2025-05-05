@@ -3759,6 +3759,11 @@ Items: {
 		DisplayName: Боеклюй
 		Tooltip: Делает три клёва
 	}
+
+	WardenSlime: {
+		// DisplayName: Warden Slime
+		// Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -4201,7 +4206,6 @@ Projectiles: {
 	SageBatHellProj.DisplayName: Эхолоцирующий выстрел адской летучей мыши
 	// SageImpProj.DisplayName: Fireball
 	// SageImpProjAlt.DisplayName: Firewall
-
 }
 
 Configs: {

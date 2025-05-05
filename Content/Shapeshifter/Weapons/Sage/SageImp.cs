@@ -250,6 +250,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			projectile.ai[0]--;
 			FastAttackTimer--;
 
+			if (FastAttackTimer <= 0)
+			{
+				FastAttack = 0;
+			}
+
 			GravityMult = 0.85f;
 			if (anchor.IsInputDown) GravityMult += 0.15f;
 

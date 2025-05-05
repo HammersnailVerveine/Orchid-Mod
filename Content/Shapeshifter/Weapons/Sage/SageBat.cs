@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Utilities;
 using System;
@@ -8,7 +7,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 {
