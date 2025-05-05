@@ -143,7 +143,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 2f);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, Vector2.Zero, projectileType, damage, Item.knockBack, player.whoAmI);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, Vector2.Zero, projectileType, damage, 0f, player.whoAmI);
 			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 			newProjectile.netUpdate = true;
 
