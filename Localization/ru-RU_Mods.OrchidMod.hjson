@@ -3480,6 +3480,15 @@ Items: {
 		Tooltip: Обращает вас в пчелу, даруя уникальные навыки
 	}
 
+	SageImp: {
+		DisplayName: Мудрость беса
+		// LeftClick: Shoots fireballs, reinforced when crossing a wall of fire
+		// RightClick: Creates a wall of fire, damaging enemies that cross it
+		// Jump: Rapidly blinks in the direction of your movement
+		// Passive: Nearby enemy deaths increase your next 3 attacks speed
+		Tooltip: ""
+	}
+
 	WardenSpider: {
 		DisplayName: Идол паутинопокрытого
 		LeftClick: Совершает сильный укус, который исцеляет вас, если был поражён покрытый паутиной враг
@@ -3695,11 +3704,6 @@ Items: {
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Ториевый боевой шест
 		Tooltip: Выпускает искры при попадании
-	}
-
-	SageImp: {
-		DisplayName: Мудрость беса
-		Tooltip: ""
 	}
 
 	SageCorruption: {
@@ -4195,6 +4199,9 @@ Projectiles: {
 	ThoriumAquaiteQuarterstaffProjectile.DisplayName: Вихревой взмах
 	PredatorFossilProj.DisplayName: Укус раптора
 	SageBatHellProj.DisplayName: Эхолоцирующий выстрел адской летучей мыши
+	// SageImpProj.DisplayName: Fireball
+	// SageImpProjAlt.DisplayName: Firewall
+
 }
 
 Configs: {

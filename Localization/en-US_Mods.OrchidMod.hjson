@@ -3467,6 +3467,15 @@ Items: {
 		Tooltip: Transforms you into a Bee, gaining unique abilities
 	}
 
+	SageImp: {
+		DisplayName: Imp Effigy
+		LeftClick: Shoots fireballs, reinforced when crossing a wall of fire
+		RightClick: Creates a wall of fire, damaging enemies that cross it
+		Jump: Rapidly blinks in the direction of your movement
+		Passive: Nearby enemy deaths increase your next 3 attacks speed
+		Tooltip: Transforms you into an Imp, gaining unique abilities
+	}
+
 	WardenSpider: {
 		DisplayName: Shellweb Idol
 		LeftClick: A violent bite, healing off of webbed enemies
@@ -3681,11 +3690,6 @@ Items: {
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Thorium Quarterstaff
 		Tooltip: Releases sparks on hit
-	}
-
-	SageImp: {
-		DisplayName: Sage Imp
-		Tooltip: ""
 	}
 
 	SageCorruption: {
@@ -4163,24 +4167,26 @@ Projectiles: {
 	GuardianHorizonLanceCounter.DisplayName: Horizon Firmament
 	PredatorHarpyProj.DisplayName: Feather
 	PredatorHarpyProjAlt.DisplayName: Feather
-	SageBeeProj.DisplayName: Stringer
+	SageBeeProj.DisplayName: Stinger
 	HorizonDrillProjectile.DisplayName: Horizon Drill
-	WardenSpiderProj.DisplayName: Warden Spider Proj
-	WardenSpiderWeb.DisplayName: Warden Spider Web
-	SageBatProj.DisplayName: Sage Bat Proj
-	SageBatProjAlt.DisplayName: Sage Bat Proj Alt
-	GuardianQuarterstaffAnchor.DisplayName: Guardian Quarterstaff Anchor
+	WardenSpiderProj.DisplayName: Spider Bite
+	WardenSpiderWeb.DisplayName: Web
+	SageBatProj.DisplayName: Sound Blast
+	SageBatProjAlt.DisplayName: Sound
+	GuardianQuarterstaffAnchor.DisplayName: Quarterstaff
 	ThoriumLeafShieldProj.DisplayName: Razor Leaves
-	DungeonQuarterstaffProjectile.DisplayName: Dungeon Quarterstaff Projectile
-	ShardQuarterstaffProjectile.DisplayName: Shard Quarterstaff Projectile
+	DungeonQuarterstaffProjectile.DisplayName: Quarterstaff
+	ShardQuarterstaffProjectile.DisplayName: Quarterstaff
 	OrchidTitaniumShard.DisplayName: Titanium Shard
 	ThoriumGraniteGauntletProjectile.DisplayName: Chargeback
 	TempleSpikeProj.DisplayName: Deadly Sun Laser
 	MechSpikeProj.DisplayName: Death Laser
 	VerveineFart.DisplayName: Fart
 	ThoriumAquaiteQuarterstaffProjectile.DisplayName: Wave Swirl
-	PredatorFossilProj.DisplayName: Predator Fossil Proj
-	SageBatHellProj.DisplayName: Sage Bat Hell Proj
+	PredatorFossilProj.DisplayName: Vicious Bite
+	SageBatHellProj.DisplayName: Hellbat Fire
+	SageImpProj.DisplayName: Fireball
+	SageImpProjAlt.DisplayName: Firewall
 }
 
 Configs: {

@@ -27,13 +27,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			Item.width = 30;
 			Item.height = 30;
-			Item.value = Item.sellPrice(0, 2, 25, 0);
+			Item.value = Item.sellPrice(0, 1, 75, 0);
 			Item.rare = ItemRarityID.Orange;
 			Item.UseSound = SoundID.NPCDeath4;
 			Item.useTime = 40;
 			Item.shootSpeed = 8f;
 			Item.knockBack = 3f;
-			Item.damage = 149;
+			Item.damage = 76;
 			ShapeshiftWidth = 18;
 			ShapeshiftHeight = 22;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
@@ -192,13 +192,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					{
 						SoundEngine.PlaySound(SoundID.Item65, projectile.Center);
 						ChargeCue2 = false;
+						ChargeCue = false;
 					}
 
 					AttackCharge += shapeshifter.GetShapeshifterMeleeSpeed();
 
 					if (AttackCharge < 7)
 					{
-						ChargeCue = false;
 						anchor.Frame = 4;
 						anchor.Timespent = 0;
 					}
@@ -208,7 +208,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						anchor.Timespent = 0;
 					}
 
-					if (AttackCharge == 60 && !ChargeCue)
+					if (AttackCharge >= 60 && !ChargeCue)
 					{
 						ChargeCue = true;
 						SoundEngine.PlaySound(SoundID.MaxMana, projectile.Center);
@@ -221,7 +221,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					{
 						AttackCharge2 = 0;
 						bool fired = false;
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.5f);
+						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.8f);
 						int projectileType = ModContent.ProjectileType<SageBatHellProj>();
 
 						foreach (NPC npc in Main.npc)
