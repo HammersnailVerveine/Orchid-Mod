@@ -32,8 +32,11 @@ namespace OrchidMod.Content.Dancer.Armors.OreHelms
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == ItemID.HallowedPlateMail && legs.type == ItemID.HallowedGreaves;
+			bool validBody = body.type == ItemID.HallowedPlateMail || body.type == ItemID.AncientHallowedPlateMail;
+			bool validLegs = legs.type == ItemID.HallowedGreaves || legs.type == ItemID.AncientHallowedGreaves;
+			return validBody && validLegs;
 		}
+
 
 		public override void UpdateArmorSet(Player player)
 		{
