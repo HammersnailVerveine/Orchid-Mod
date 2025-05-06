@@ -3498,6 +3498,15 @@ Items: {
 		Tooltip: Обращает вас в паутинопокрытого паука, даруя уникальные навыки
 	}
 
+	WardenSlime: {
+		// DisplayName: Gelatinous Idol
+		// LeftClick: Slams downward, efficiency increases with fall distance
+		// RightClick: Charges a piercing slime spike
+		// Jump: Left clicking while grounded charges a powerful jump
+		// Passive: Receiving or inflicting damage releases chunks of healing goo
+		// Tooltip: Transforms you into a Slime, gaining unique abilities
+	}
+
 	SageBat: {
 		DisplayName: Идол летучей мыши
 		LeftClick: Заряжает звуковой выстрел, ноносящий большой урон эхолоцированным врагам
@@ -3758,11 +3767,6 @@ Items: {
 	ThoriumFeatherWarhammer: {
 		DisplayName: Боеклюй
 		Tooltip: Делает три клёва
-	}
-
-	WardenSlime: {
-		// DisplayName: Warden Slime
-		// Tooltip: ""
 	}
 }
 
@@ -4206,6 +4210,7 @@ Projectiles: {
 	SageBatHellProj.DisplayName: Эхолоцирующий выстрел адской летучей мыши
 	// SageImpProj.DisplayName: Fireball
 	// SageImpProjAlt.DisplayName: Firewall
+	// WardenSlimeProj.DisplayName: Slime Slam
 }
 
 Configs: {

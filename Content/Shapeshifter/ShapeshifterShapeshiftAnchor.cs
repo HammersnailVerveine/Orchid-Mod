@@ -37,7 +37,9 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool CanRightClick => RightCLickCooldown <= 0f;
 
 		public bool IsLeftClick;
+		public bool IsLeftClickRelease;
 		public bool IsRightClick;
+		public bool IsRightClickRelease;
 		public bool IsInputLeft;
 		public bool IsInputRight;
 		public bool IsInputDown;
@@ -91,7 +93,9 @@ namespace OrchidMod.Content.Shapeshifter
 		{
 			writer.Write(SelectedItem);
 			writer.Write(IsLeftClick);
+			writer.Write(IsLeftClickRelease);
 			writer.Write(IsRightClick);
+			writer.Write(IsRightClickRelease);
 			writer.Write(IsInputLeft);
 			writer.Write(IsInputRight);
 			writer.Write(IsInputUp);
@@ -108,7 +112,9 @@ namespace OrchidMod.Content.Shapeshifter
 		{
 			int selectedItem = reader.ReadInt32();
 			IsLeftClick = reader.ReadBoolean();
+			IsLeftClickRelease = reader.ReadBoolean();
 			IsRightClick = reader.ReadBoolean();
+			IsRightClickRelease = reader.ReadBoolean();
 			IsInputLeft = reader.ReadBoolean();
 			IsInputRight = reader.ReadBoolean();
 			IsInputUp = reader.ReadBoolean();
@@ -278,16 +284,27 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public void CheckInputs(Player player)
 		{
-
 			if (IsLeftClick != Main.mouseLeft)
 			{
 				IsLeftClick = Main.mouseLeft && !player.mouseInterface;
 				NeedNetUpdate = true;
 			}
 
+			if (IsLeftClickRelease != Main.mouseLeftRelease)
+			{
+				IsLeftClickRelease = Main.mouseLeftRelease;
+				NeedNetUpdate = true;
+			}
+
 			if (IsRightClick != Main.mouseRight)
 			{
 				IsRightClick = Main.mouseRight && !player.mouseInterface;
+				NeedNetUpdate = true;
+			}
+
+			if (IsRightClickRelease != Main.mouseRightRelease)
+			{
+				IsRightClickRelease = Main.mouseRightRelease;
 				NeedNetUpdate = true;
 			}
 

@@ -1,8 +1,5 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
-using OrchidMod.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -23,7 +20,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.width = 30;
 			Item.height = 30;
 			Item.value = Item.sellPrice(0, 0, 25, 0);
-			Item.rare = ItemRarityID.Green;
+			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.NPCDeath4;
 			Item.useTime = 40;
 			Item.shootSpeed = 8f;

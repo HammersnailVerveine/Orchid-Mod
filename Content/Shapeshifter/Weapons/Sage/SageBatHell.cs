@@ -1,10 +1,7 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
-using OrchidMod.Utilities;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -235,7 +232,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 									if (npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SageBatDebuff>())] < 120 && !ChargeCue2)
 									{
 										ChargeCue2 = true;
-										SoundEngine.PlaySound(SoundID.MaxMana, projectile.Center);
+										anchor.Blink(true);
 									}
 								}
 							}

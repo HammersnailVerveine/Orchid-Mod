@@ -196,8 +196,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			projectile.ai[2] = 45;
-			anchor.LeftCLickCooldown = Item.useTime * 2f;
-			anchor.RightCLickCooldown = Item.useTime * 2f;
+			anchor.LeftCLickCooldown = Item.useTime * 4f;
 			anchor.NeedNetUpdate = true;
 			CanDash = false;
 			SoundEngine.PlaySound(SoundID.Item20, projectile.Center);

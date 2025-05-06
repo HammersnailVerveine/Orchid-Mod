@@ -72,16 +72,19 @@ namespace OrchidMod
 			{
 				Shapeshift.ShapeshiftBuffs(ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
 
-				// Cancels some accessories to prevent visual issues
+				// Cancels some equipment effects to prevent visual & audio issues
 
 				Player.rocketBoots = 0;
 				Player.vanityRocketBoots = 0;
 				Player.accRunSpeed = 3f;
+				Player.ExtraJumps.Clear();
 				
 				if (Player.wingTime > 0)
 				{
 					Player.wingTime = 0;
 				}
+
+				// Grants stats to make some equipment compatible with shapeshifter
 
 				if (Player.hasMagiluminescence)
 				{

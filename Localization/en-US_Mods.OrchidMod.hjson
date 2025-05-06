@@ -3489,6 +3489,15 @@ Items: {
 		Tooltip: Transforms you into a Shellweb Spider, gaining unique abilities
 	}
 
+	WardenSlime: {
+		DisplayName: Gelatinous Idol
+		LeftClick: Slams downward, efficiency increases with fall distance
+		RightClick: Charges a piercing slime spike
+		Jump: Left clicking while grounded charges a powerful jump
+		Passive: Receiving or inflicting damage releases chunks of healing goo
+		Tooltip: Transforms you into a Slime, gaining unique abilities
+	}
+
 	SageBat: {
 		DisplayName: Bat Idol
 		LeftClick: Charges a sound blast, dealing massive damage to echolocated enemies
@@ -3744,11 +3753,6 @@ Items: {
 	ThoriumFeatherWarhammer: {
 		DisplayName: Warpecker
 		Tooltip: Pecks three times
-	}
-
-	WardenSlime: {
-		DisplayName: Warden Slime
-		Tooltip: ""
 	}
 }
 
@@ -4192,6 +4196,7 @@ Projectiles: {
 	SageBatHellProj.DisplayName: Hellbat Fire
 	SageImpProj.DisplayName: Fireball
 	SageImpProjAlt.DisplayName: Firewall
+	WardenSlimeProj.DisplayName: Slime Slam
 }
 
 Configs: {
