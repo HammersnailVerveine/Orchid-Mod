@@ -29,9 +29,9 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 
 		public override void AI()
 		{
-			if (!initialized)
+			if (!Initialized)
 			{
-				initialized = true;
+				Initialized = true;
 				Projectile.rotation = Projectile.ai[1];
 			}
 

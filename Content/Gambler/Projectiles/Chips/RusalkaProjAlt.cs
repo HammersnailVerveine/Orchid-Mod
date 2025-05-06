@@ -38,9 +38,9 @@ namespace OrchidMod.Content.Gambler.Projectiles.Chips
 				Main.dust[dust].velocity *= moreDust ? 2.5f : 1f;
 			}
 
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
-				this.initialized = true;
+				this.Initialized = true;
 				this.initialVelocity = new Vector2(Projectile.velocity.X, Projectile.velocity.Y);
 				Projectile.velocity *= 0f;
 			}

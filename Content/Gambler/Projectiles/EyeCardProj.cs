@@ -59,7 +59,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			Projectile.direction = Projectile.spriteDirection;
 
 			cooldownCounter -= cooldownCounter > 0 ? 1 : 0;
-			Projectile.friendly = cooldownCounter <= 0 && this.initialized && Projectile.velocity.Length() > 1f;
+			Projectile.friendly = cooldownCounter <= 0 && this.Initialized && Projectile.velocity.Length() > 1f;
 
 			if (Projectile.ai[1] == 1)
 			{
@@ -77,7 +77,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				{
 					Projectile.ai[1] = 0;
 					cooldownCounter = Cooldown;
-					this.initialized = true;
+					this.Initialized = true;
 				}
 			}
 

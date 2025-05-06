@@ -55,7 +55,7 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				Main.dust[dust].noLight = true;
 			}
 
-			if (Main.myPlayer == Projectile.owner && !this.initialized)
+			if (Main.myPlayer == Projectile.owner && !this.Initialized)
 			{
 				if (Main.mouseLeft && cardType == ItemType<Gambler.Weapons.Cards.SlimeRainCard>() && modPlayer.GamblerDeckInHand)
 				{
@@ -87,8 +87,8 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				else
 				{
 					Projectile.velocity *= 0f;
-					Projectile.timeLeft = this.initialized ? Projectile.timeLeft : 600;
-					this.initialized = true;
+					Projectile.timeLeft = this.Initialized ? Projectile.timeLeft : 600;
+					this.Initialized = true;
 				}
 			}
 		}

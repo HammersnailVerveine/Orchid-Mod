@@ -94,6 +94,29 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			OldRotation.Add(Projectile.rotation);
 			Timespent++;
 
+			if (!Initialized)
+			{
+				Initialized = true;
+
+				for (int i = 0; i < 15; i++)
+				{
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Torch);
+					dust.scale = Main.rand.NextFloat(1.5f, 2f);
+					dust.noGravity = true;
+					dust.velocity *= 0.5f;
+					dust.velocity += Vector2.Normalize(Projectile.velocity).RotatedByRandom(MathHelper.ToRadians(30f)) * Main.rand.NextFloat(5f, 8f);
+				}
+
+				for (int i = 0; i < 5; i++)
+				{
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Torch);
+					dust.scale = Main.rand.NextFloat(1.5f, 2f);
+					dust.noGravity = true;
+					dust.velocity *= 0.5f;
+					dust.velocity += Vector2.Normalize(Projectile.velocity).RotatedByRandom(MathHelper.ToRadians(20f)) * Main.rand.NextFloat(10f, 15f);
+				}
+			}
+
 			if (Timespent < 30 && Timespent > 10)
 			{
 				Projectile.velocity *= 1.1f;

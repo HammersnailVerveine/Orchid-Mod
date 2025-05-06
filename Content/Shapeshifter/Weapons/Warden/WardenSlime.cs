@@ -16,6 +16,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		public float JumpCharge = 0f;
 		public float SpikeCharge = 0f;
 		public bool ChargeCue = false;
+		public bool ResetNPCs = false;
 		public List<int> HitNPCs;
 
 		public override void SafeSetDefaults()
@@ -47,6 +48,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			JumpCharge = 0f;
 			SpikeCharge = 0f;
 			ChargeCue = false;
+			ResetNPCs = false;
 			projectile.ai[0] = 2.5f;
 
 			for (int i = 0; i < 10; i++)
@@ -67,6 +69,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{ // slam start
+			ResetNPCs = false;
 			HitNPCs.Clear();
 			projectile.ai[0] = 0f;
 			projectile.ai[1] = 1f;
@@ -118,6 +121,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{
 					projectile.ai[1] = 2f;
 					projectile.damage = shapeshifter.GetShapeshifterDamage(Item.damage * 5f);
+
+					if (!ResetNPCs)
+					{
+						ResetNPCs = true;
+						HitNPCs.Clear();
+					}
 				}
 				else
 				{
@@ -334,11 +343,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 				// spawns the projectile & resets values
 
-				int projectileType = ModContent.ProjectileType<WardenSlimeProj>();
-				int damage = shapeshifter.GetShapeshifterDamage(Item.damage * (projectile.ai[1] >= 2f ? 5f : 1f));
-				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, projectile.ai[1]);
-				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-				newProjectile.netUpdate = true;
+				if (IsLocalPlayer(player))
+				{
+					int projectileType = ModContent.ProjectileType<WardenSlimeProj>();
+					int damage = shapeshifter.GetShapeshifterDamage(Item.damage * (projectile.ai[1] >= 2f ? 5f : 1f));
+					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, projectile.ai[1]);
+					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+					newProjectile.netUpdate = true;
+				}
 
 				shapeshifter.modPlayer.PlayerImmunity = 30;
 				player.immuneTime = 30;
@@ -372,29 +384,17 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{
 				if (SpikeCharge >= 60)
 				{ // Fire spike
-					int projectileType = ModContent.ProjectileType<WardenSlimeProjAlt>();
-					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
-					int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 3);
-					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + new Vector2(0f, 2f), velocity, projectileType, damage, Item.knockBack, player.whoAmI);
-					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-					newProjectile.netUpdate = true;
+					if (IsLocalPlayer(player))
+					{
+						int projectileType = ModContent.ProjectileType<WardenSlimeProjAlt>();
+						Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
+						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 3);
+						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + new Vector2(0f, 2f), velocity, projectileType, damage, Item.knockBack, player.whoAmI);
+						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+						newProjectile.netUpdate = true;
+					}
+
 					SoundEngine.PlaySound(SoundID.Item17, projectile.Center);
-
-					for (int i = 0; i < 15; i++)
-					{
-						Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Smoke);
-						dust.scale = Main.rand.NextFloat(0.6f, 0.8f);
-						dust.velocity *= 0.5f;
-						dust.velocity += Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(30f)) * Main.rand.NextFloat(0.5f, 1f);
-					}
-
-					for (int i = 0; i < 5; i++)
-					{
-						Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Smoke);
-						dust.scale = Main.rand.NextFloat(0.6f, 0.8f);
-						dust.velocity *= 0.5f;
-						dust.velocity += Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(20f)) * Main.rand.NextFloat(1, 1.5f);
-					}
 				}
 
 				SpikeCharge = 0;

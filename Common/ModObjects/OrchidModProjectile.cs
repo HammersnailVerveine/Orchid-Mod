@@ -15,7 +15,7 @@ namespace OrchidMod.Common.ModObjects
 	{
 		public bool projectileTrail = false; // Will the projectile leave a trail of afterimages ?
 		public float projectileTrailOffset = 0f; // Offcenters the afterimages a bit. useless without projectileTrail activated. Looks terrible on most projectiles.
-		public bool initialized; // Used in various AI.
+		public bool Initialized; // Used in various AI.
 		public bool projOwner = false;
 
 		public bool IsLocalOwner => Projectile.owner == Main.myPlayer;

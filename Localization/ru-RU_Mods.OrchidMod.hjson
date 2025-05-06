@@ -4213,6 +4213,7 @@ Projectiles: {
 	// WardenSlimeProj.DisplayName: Slime Slam
 	// WardenSlimeProjAlt.DisplayName: Slime Spike
 	// WardenSlimeProjPassive.DisplayName: Slime Goo
+	// SageImpDash.DisplayName: Sage Imp Dash
 }
 
 Configs: {

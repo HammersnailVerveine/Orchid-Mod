@@ -31,10 +31,10 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Air
 
 		public override void AI()
 		{
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
 				this.orbitPoint = Projectile.Center;
-				this.initialized = true;
+				this.Initialized = true;
 			}
 
 			Projectile.ai[1] = Projectile.ai[1] + 1f + Projectile.ai[0] >= 360f ? 0f : Projectile.ai[1] + 1 + Projectile.ai[0];

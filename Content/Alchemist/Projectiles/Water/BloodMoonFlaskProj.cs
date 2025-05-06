@@ -27,10 +27,10 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Water
 
 		public override void AI()
 		{
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
 				Projectile.frame = Main.rand.Next(2);
-				this.initialized = true;
+				this.Initialized = true;
 				Projectile.rotation += Main.rand.NextFloat();
 				this.rotationSpeed = (0.01f + Main.rand.NextFloat() * 0.03f) * (Main.rand.NextBool(2)? 1f : -1f);
 			}

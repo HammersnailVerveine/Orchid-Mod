@@ -78,10 +78,10 @@ namespace OrchidMod.Content.Alchemist.Projectiles
 				Projectile.Center = oldCenter;
 			}
 
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
 				this.initializeAlchemistProjectile();
-				this.initialized = true;
+				this.Initialized = true;
 			}
 
 			if (!this.hitNPC) OrchidModProjectile.ResetIFrames(Projectile);

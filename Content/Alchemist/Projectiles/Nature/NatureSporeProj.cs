@@ -33,12 +33,12 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Nature
 		{
 			Projectile.velocity.Y += Projectile.velocity.Y < 3f ? 0.1f : 0f;
 
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
 				Projectile.ai[1] = Main.rand.Next(2) == 0 ? -1 : 1;
 				Projectile.timeLeft -= Main.rand.Next(15);
 				Projectile.netUpdate = true;
-				this.initialized = true;
+				this.Initialized = true;
 			}
 
 			if (Projectile.timeLeft <= 550)

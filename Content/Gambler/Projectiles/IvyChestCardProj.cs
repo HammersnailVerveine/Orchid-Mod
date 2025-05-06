@@ -30,9 +30,9 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 		public override void SafeAI()
 		{
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
-				this.initialized = true;
+				this.Initialized = true;
 				this.rotation = 0.03f * (Main.rand.NextBool(2) ? -1 : 1);
 				Projectile.frame = Main.rand.Next(4);
 			}

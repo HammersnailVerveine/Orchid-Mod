@@ -57,7 +57,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 						OldRotation.RemoveAt(0);
 					}
 
-					if (!initialized)
+					if (!Initialized)
 					{ // Kills all other webs
 						foreach (Projectile projectile in Main.projectile)
 						{
@@ -68,7 +68,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 							}
 						}
 
-						initialized = true;
+						Initialized = true;
 						Projectile.netUpdate = true;
 						SoundEngine.PlaySound(SoundID.Grass, Projectile.Center);
 					}

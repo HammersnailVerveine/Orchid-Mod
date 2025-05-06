@@ -80,6 +80,27 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 
 			Projectile.rotation = Projectile.velocity.ToRotation();
 
+			if (!Initialized)
+			{
+				Initialized = true;
+
+				for (int i = 0; i < 15; i++)
+				{
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Smoke);
+					dust.scale = Main.rand.NextFloat(0.6f, 0.8f);
+					dust.velocity *= 0.5f;
+					dust.velocity += Vector2.Normalize(Projectile.velocity).RotatedByRandom(MathHelper.ToRadians(30f)) * Main.rand.NextFloat(0.5f, 1f);
+				}
+
+				for (int i = 0; i < 5; i++)
+				{
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Smoke);
+					dust.scale = Main.rand.NextFloat(0.6f, 0.8f);
+					dust.velocity *= 0.5f;
+					dust.velocity += Vector2.Normalize(Projectile.velocity).RotatedByRandom(MathHelper.ToRadians(20f)) * Main.rand.NextFloat(1, 1.5f);
+				}
+			}
+
 			if (OldPosition.Count > 15)
 			{
 				OldPosition.RemoveAt(0);

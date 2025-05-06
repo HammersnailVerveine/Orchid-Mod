@@ -126,6 +126,8 @@ namespace OrchidMod.Content.Shapeshifter
 			ai[3] = reader.ReadSingle();
 			ai[4] = reader.ReadSingle();
 
+			Main.NewText(ai[0]);
+
 			if (SelectedItem == -1)
 			{
 				SelectedItem = selectedItem;

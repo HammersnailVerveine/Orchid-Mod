@@ -119,8 +119,8 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				else
 				{
 					Projectile.velocity *= 0f;
-					Projectile.timeLeft = this.initialized ? Projectile.timeLeft : 600;
-					this.initialized = true;
+					Projectile.timeLeft = this.Initialized ? Projectile.timeLeft : 600;
+					this.Initialized = true;
 				}
 			}
 		}

@@ -38,10 +38,10 @@ namespace OrchidMod.Content.Gambler.Projectiles
 		public override void SafeAI()
 		{
 
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
 				this.baseDamage = Projectile.damage;
-				this.initialized = true;
+				this.Initialized = true;
 				Projectile.ai[1] = 1f;
 			}
 

@@ -25,10 +25,10 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Nature
 
 		public override void AI()
 		{
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
 				this.rotationDirection = Main.rand.NextBool(2)? 1 : -1;
-				this.initialized = true;
+				this.Initialized = true;
 			}
 
 			Projectile.rotation += 0.04f * this.rotationDirection;

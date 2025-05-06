@@ -33,12 +33,12 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Fire
 
 		public override void AI()
 		{
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
 				Projectile.ai[1] = Main.rand.Next(2) == 0 ? -1 : 1;
 				Projectile.timeLeft -= Main.rand.Next(15);
 				Projectile.netUpdate = true;
-				this.initialized = true;
+				this.Initialized = true;
 			}
 
 			if (Projectile.timeLeft <= 550)

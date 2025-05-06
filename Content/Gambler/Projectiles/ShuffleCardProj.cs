@@ -178,9 +178,9 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			}
 
 
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
-				this.initialized = true;
+				this.Initialized = true;
 				int dustType = Projectile.frame < 2 ? 63 : 60;
 				OrchidModProjectile.spawnDustCircle(Projectile.Center, dustType, 5, 5, true, 1.5f, 1f, 3f, true, true, false, 0, 0, true);
 			}

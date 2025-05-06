@@ -46,9 +46,9 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 		public override void AI()
 		{
-			if (!initialized)
+			if (!Initialized)
 			{
-				initialized = true;
+				Initialized = true;
 				Projectile.ai[0] = -1;
 			}
 

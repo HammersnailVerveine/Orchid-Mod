@@ -34,9 +34,9 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 		public override void SafeAI()
 		{
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
-				this.initialized = true;
+				this.Initialized = true;
 				this.baseVelocity = Projectile.velocity;
 			}
 

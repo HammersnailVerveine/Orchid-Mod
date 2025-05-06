@@ -37,9 +37,9 @@ namespace OrchidMod.Content.Gambler.Projectiles
 			Projectile.velocity.Y += 0.15f;
 			Projectile.velocity.X *= 0.98f;
 
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
-				this.initialized = true;
+				this.Initialized = true;
 				Projectile.frame = Main.rand.Next(3);
 			}
 

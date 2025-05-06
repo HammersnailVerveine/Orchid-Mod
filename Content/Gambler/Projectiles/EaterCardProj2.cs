@@ -30,11 +30,11 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				Projectile.active = false;
 			}
 
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
 				if (Projectile.timeLeft < 1440)
 				{
-					this.initialized = true;
+					this.Initialized = true;
 					Projectile.velocity *= 0f;
 					Projectile.alpha = 0;
 					Projectile.damage = 1;

@@ -64,10 +64,10 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				Projectile.velocity.X = -4f;
 			}
 
-			if (!this.initialized)
+			if (!this.Initialized)
 			{
 				this.baseDamage = Projectile.damage;
-				this.initialized = true;
+				this.Initialized = true;
 			}
 
 			if (Main.myPlayer == Projectile.owner)

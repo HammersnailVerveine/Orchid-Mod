@@ -36,7 +36,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Air
 		{
 			Player player = Main.player[Main.myPlayer];
 			OrchidPlayer modPlayer = player.GetModPlayer<OrchidPlayer>();
-			this.initialized = true;
+			this.Initialized = true;
 
 			if (Projectile.velocity.Y > 0) Projectile.timeLeft++;
 			Projectile.velocity.Y += 0.05f;
@@ -134,7 +134,7 @@ namespace OrchidMod.Content.Alchemist.Projectiles.Air
 
 		public override void Catalyze(Player player, Projectile projectile, OrchidGlobalProjectile modProjectile)
 		{
-			if (this.initialized) projectile.Kill();
+			if (this.Initialized) projectile.Kill();
 		}
 
 		public override void OnKill(int timeLeft)

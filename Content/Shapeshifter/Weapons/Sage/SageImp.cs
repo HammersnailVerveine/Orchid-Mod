@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 {
@@ -89,24 +90,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 			anchor.NeedNetUpdate = true;
-
-			for (int i = 0; i < 15; i++)
-			{
-				Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Torch);
-				dust.scale = Main.rand.NextFloat(1.5f, 2f);
-				dust.noGravity = true;
-				dust.velocity *= 0.5f;
-				dust.velocity += Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(30f)) * Main.rand.NextFloat(5f, 8f);
-			}
-
-			for (int i = 0; i < 5; i++)
-			{
-				Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Torch);
-				dust.scale = Main.rand.NextFloat(1.5f, 2f);
-				dust.noGravity = true;
-				dust.velocity *= 0.5f;
-				dust.velocity += Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(20f)) * Main.rand.NextFloat(10f, 15f);
-			}
 		}
 
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -199,23 +182,16 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			anchor.LeftCLickCooldown = Item.useTime * 4f;
 			anchor.NeedNetUpdate = true;
 			CanDash = false;
-			SoundEngine.PlaySound(SoundID.Item20, projectile.Center);
-
-			for (int i = 0; i < 10; i++)
-			{
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Torch, Scale: Main.rand.NextFloat(1.2f, 1.2f));
-				dust.noLight = true;
-				dust.velocity.Y -= 1f;
-			}
 
 			Vector2 position = projectile.position;
 			Vector2 offSet = Vector2.UnitY.RotatedBy(rotation) * -6f * GetSpeedMult(player, shapeshifter, anchor);
 
+			// helps with dush spawn sync in mp
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, offSet, ModContent.ProjectileType<SageImpDash>(), 0, 0, player.whoAmI);
+
 			for (int i = 0; i < 32; i++)
 			{
 				position += Collision.TileCollision(position, offSet, projectile.width, projectile.height, true, true, (int)player.gravDir);
-				Dust dust = Dust.NewDustDirect(position + new Vector2(projectile.width / 2f - 4, projectile.height / 2f - 4), 8, 8, DustID.Torch, Scale: Main.rand.NextFloat(1f, 1.3f));
-				dust.noGravity = true;
 			}
 
 			projectile.position = position;
@@ -225,13 +201,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			anchor.LeftCLickCooldown = Item.useTime;
 			projectile.ai[2] = 30;
 			Main.SetCameraLerp(0.1f, 5);
-
-			for (int i = 0; i < 10; i++)
-			{
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Torch, Scale: Main.rand.NextFloat(1.2f, 1.5f));
-				dust.noLight = true;
-				dust.velocity.Y -= 1f;
-			}
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)

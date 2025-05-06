@@ -32,9 +32,9 @@ namespace OrchidMod.Content.Gambler.Projectiles
 				this.greenSlime = Main.rand.Next(2) == 0;
 			}
 
-			Projectile.aiStyle = this.initialized ? 63 : 0;
+			Projectile.aiStyle = this.Initialized ? 63 : 0;
 
-			if (Projectile.timeLeft % 10 == 0 && !this.initialized)
+			if (Projectile.timeLeft % 10 == 0 && !this.Initialized)
 			{
 				Projectile.damage++;
 			}
@@ -47,8 +47,8 @@ namespace OrchidMod.Content.Gambler.Projectiles
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			Projectile.timeLeft = this.initialized ? Projectile.timeLeft : 90;
-			this.initialized = true;
+			Projectile.timeLeft = this.Initialized ? Projectile.timeLeft : 90;
+			this.Initialized = true;
 			Projectile.velocity.Y = -3;
 			return false;
 		}
