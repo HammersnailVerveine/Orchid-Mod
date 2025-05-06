@@ -281,13 +281,13 @@ namespace OrchidMod.Content.Shapeshifter
 
 			if (IsLeftClick != Main.mouseLeft)
 			{
-				IsLeftClick = Main.mouseLeft;
+				IsLeftClick = Main.mouseLeft && !player.mouseInterface;
 				NeedNetUpdate = true;
 			}
 
 			if (IsRightClick != Main.mouseRight)
 			{
-				IsRightClick = Main.mouseRight;
+				IsRightClick = Main.mouseRight && !player.mouseInterface;
 				NeedNetUpdate = true;
 			}
 
