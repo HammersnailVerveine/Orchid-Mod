@@ -1,7 +1,11 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Buffs;
+using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
+using OrchidMod.Utilities;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -13,6 +17,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 	{
 		public bool LateralMovement = false;
 		public int jumpCooldown = 0;
+		public float JumpCharge = 0f;
+		public bool ChargeCue = false;
 
 		public override void SafeSetDefaults()
 		{
@@ -37,6 +43,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			anchor.Timespent = 0;
 			projectile.direction = player.direction;
 			projectile.spriteDirection = player.direction;
+			jumpCooldown = 0;
+			JumpCharge = 0f;
+			ChargeCue = false;
 
 			for (int i = 0; i < 10; i++)
 			{
@@ -54,16 +63,34 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			// MISC EFFECTS & ANIMATION
+			// ai[0] stores the lateral movement speed cap (increased after a jump, defaults to 2.5f)
 
 			bool grounded = IsGrounded(projectile, player, 4f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
-			projectile.ai[0]--;
 			jumpCooldown--;
 
-			if (projectile.velocity.Y < 0f)
+			projectile.ai[0] -= 0.1f;
+			if (projectile.ai[0] < 2.5f)
+			{
+				projectile.ai[0] = 2.5f;
+			}
+
+			// MISC EFFECTS & ANIMATION
+
+			if (JumpCharge > 0f)
+			{ // charging
+				if (JumpCharge > 20f)
+				{
+					anchor.Frame = 2;
+				}
+				else
+				{
+					anchor.Frame = 1;
+				}
+			}
+			else if (projectile.velocity.Y < 0f)
 			{ // ascending
-				if (projectile.ai[0] > 0f)
+				if (anchor.Timespent < 0)
 				{
 					anchor.Frame = 6;
 				}
@@ -77,7 +104,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				anchor.Frame = 0;
 			}
 			else
-			{
+			{ // descending
 				if (projectile.velocity.Y < 4f)
 				{
 					anchor.Frame = 3;
@@ -88,24 +115,97 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				}
 			}
 
-			// MOVEMENT
+			// ATTACK & MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
 			GravityCalculations(ref intendedVelocity, player);
 
+			// Jump Attack Charge
+			if (anchor.IsLeftClick && grounded)
+			{ // Charges the jump while left clicking & grounded. This also prevents normal movement
+				if (JumpCharge == 0f)
+				{
+					SoundEngine.PlaySound(SoundID.Item65, projectile.Center);
+					ChargeCue = false;
+				}
+
+				JumpCharge += shapeshifter.GetShapeshifterMeleeSpeed();
+
+				if (JumpCharge >= 60 && !ChargeCue)
+				{
+					ChargeCue = true;
+					anchor.Blink(true);
+				}
+			}
+			else
+			{
+				if (JumpCharge >= 60)
+				{ // Full charge jump
+					anchor.Timespent = -15;
+					intendedVelocity.Y = -15f;
+					jumpCooldown = 10;
+					projectile.ai[0] = 5.5f;
+
+					if (anchor.IsInputLeft && !anchor.IsInputRight)
+					{ // Left movement
+						TryAccelerate(ref intendedVelocity, -projectile.ai[0], speedMult, 5.5f);
+						projectile.direction = -1;
+						projectile.spriteDirection = -1;
+						LateralMovement = true;
+					}
+					else if (anchor.IsInputRight && !anchor.IsInputLeft)
+					{ // Right movement
+						TryAccelerate(ref intendedVelocity, projectile.ai[0], speedMult, 5.5f);
+						projectile.direction = 1;
+						projectile.spriteDirection = 1;
+						LateralMovement = true;
+					}
+
+					for (int i = 0; i < 15; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.position + new Vector2(0f, projectile.height), projectile.width, 0, DustID.Smoke);
+						dust.scale *= Main.rand.NextFloat(0.6f, 0.8f);
+						dust.velocity *= 0.25f;
+						dust.velocity.Y -= 0.65f;
+					}
+
+					SoundStyle sound = SoundID.Item154;
+					sound.Pitch += Main.rand.NextFloat(0.2f, 0.3f);
+					sound.Volume *= 1.2f;
+					SoundEngine.PlaySound(sound, projectile.Center);
+				}
+				else if (JumpCharge > 0)
+				{ // Jump not fully charged, do a normal one
+					anchor.Timespent = -12;
+					intendedVelocity.Y = -10f;
+
+					for (int i = 0; i < 8; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.position + new Vector2(0f, projectile.height), projectile.width, 0, DustID.Smoke);
+						dust.scale *= Main.rand.NextFloat(0.6f, 0.8f);
+						dust.velocity *= 0.25f;
+						dust.velocity.Y -= 0.75f;
+					}
+
+					SoundEngine.PlaySound(SoundID.Item154, projectile.Center);
+				}
+
+				JumpCharge = 0;
+			}
+
 			// Normal movement
-			if (anchor.IsInputLeft || anchor.IsInputRight || player.controlJump)
+			if ((anchor.IsInputLeft || anchor.IsInputRight || player.controlJump) && JumpCharge <= 0f)
 			{ // Player is inputting a movement key
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
 				{ // Left movement
-					TryAccelerate(ref intendedVelocity, -2.5f, speedMult, 0.1f);
+					TryAccelerate(ref intendedVelocity, -projectile.ai[0], speedMult, 0.1f);
 					projectile.direction = -1;
 					projectile.spriteDirection = -1;
 					LateralMovement = true;
 				}
 				else if (anchor.IsInputRight && !anchor.IsInputLeft)
 				{ // Right movement
-					TryAccelerate(ref intendedVelocity, 2.5f, speedMult, 0.1f);
+					TryAccelerate(ref intendedVelocity, projectile.ai[0], speedMult, 0.1f);
 					projectile.direction = 1;
 					projectile.spriteDirection = 1;
 					LateralMovement = true;
@@ -122,7 +222,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 					if (player.controlJump)
 					{
-						projectile.ai[0] = 12;
+						anchor.Timespent = -12;
 						intendedVelocity.Y = -10f;
 
 						for (int i = 0; i < 8; i++)
@@ -131,13 +231,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 							dust.scale *= Main.rand.NextFloat(0.6f, 0.8f);
 							dust.velocity *= 0.25f;
 							dust.velocity.Y -= 0.75f;
-
-							SoundEngine.PlaySound(SoundID.Item154, projectile.Center);
 						}
+
+						SoundEngine.PlaySound(SoundID.Item154, projectile.Center);
 					}
 					else
 					{
-						projectile.ai[0] = 10;
+						anchor.Timespent = -10;
 						intendedVelocity.Y = -6f;
 
 						for (int i = 0; i < 5; i++)
@@ -146,12 +246,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 							dust.scale *= Main.rand.NextFloat(0.6f, 0.8f);
 							dust.velocity *= 0.25f;
 							dust.velocity.Y -= 0.5f;
-
-							SoundStyle sound = SoundID.Item154;
-							sound.Pitch -= Main.rand.NextFloat(0.2f, 0.3f);
-							sound.Volume *= 0.5f;
-							SoundEngine.PlaySound(sound, projectile.Center);
 						}
+
+						SoundStyle sound = SoundID.Item154;
+						sound.Pitch -= Main.rand.NextFloat(0.2f, 0.3f);
+						sound.Volume *= 0.5f;
+						SoundEngine.PlaySound(sound, projectile.Center);
 					}
 				}
 			}
@@ -171,7 +271,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 			for (int i = 0; i < 2; i++)
 			{
-				if (anchor.OldPosition.Count > 4)
+				if (anchor.OldPosition.Count > (projectile.ai[0] > 2.5f ? 6 : 4))
 				{
 					anchor.OldPosition.RemoveAt(0);
 					anchor.OldRotation.RemoveAt(0);

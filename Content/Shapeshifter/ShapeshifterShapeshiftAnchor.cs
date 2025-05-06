@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Utilities;
 using ReLogic.Content;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -24,6 +25,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public List<int> OldFrame;
 		public int Frame = 0;
 		public int Timespent = 0;
+		public int BlinkEffect = 20; // used to make the wildshape blink when Blink() is called
 		public Texture2D TextureShapeshift;
 		public Texture2D TextureShapeshiftGlow;
 		public Texture2D TextureShapeshiftTransparent;
@@ -140,6 +142,9 @@ namespace OrchidMod.Content.Shapeshifter
 					ai[2] = 0f;
 					ai[3] = 0f;
 					ai[4] = 0f;
+					BlinkEffect = 20;
+					Frame = 0;
+					Timespent = 0;
 
 					TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
 					TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
@@ -188,6 +193,9 @@ namespace OrchidMod.Content.Shapeshifter
 				ai[2] = 0f;
 				ai[3] = 0f;
 				ai[4] = 0f;
+				BlinkEffect = 20;
+				Frame = 0;
+				Timespent = 0;
 
 				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
@@ -256,6 +264,16 @@ namespace OrchidMod.Content.Shapeshifter
 					Projectile.Kill();
 				}
 			}
+		}
+
+		public void Blink(bool playSound)
+		{
+			if (playSound)
+			{
+				SoundEngine.PlaySound(SoundID.MaxMana, Projectile.Center);
+			}
+			
+			BlinkEffect = 0;
 		}
 
 		public void CheckInputs(Player player)
@@ -328,6 +346,11 @@ namespace OrchidMod.Content.Shapeshifter
 				}
 
 				Projectile.timeLeft = 5;
+
+				if (BlinkEffect < 20)
+				{
+					BlinkEffect++;
+				}
 			}
 		}
 
@@ -382,6 +405,12 @@ namespace OrchidMod.Content.Shapeshifter
 
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+
+				if (BlinkEffect < 20)
+				{ // blink animation
+					float scalemult = (float)Math.Sin(BlinkEffect * 0.157f) * 0.2f + 1f;
+					spriteBatch.Draw(TextureShapeshift, drawPosition, drawRectangle, Color.White.MultiplyRGBA(lightColor) * 1.5f, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale * scalemult, effect, 0f);
+				}
 
 				for (int i = 0; i < OldPosition.Count; i++)
 				{

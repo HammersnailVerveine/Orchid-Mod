@@ -14,7 +14,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 	{
 		public int Jumps = 0;
 		public float AttackCharge = 0;
-		public int BlinkEffect = 0;
 		public bool LateralMovement = false;
 		public bool ChargeCue = false; // Triggers a noise at full change
 		public bool ReleasedLMB = false; // used to the player doesn't start charging immediately after a shapeshift
@@ -42,7 +41,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			anchor.Frame = 2;
 			anchor.Timespent = 0;
-			BlinkEffect = 20;
 			projectile.direction = player.direction;
 			projectile.spriteDirection = player.direction;
 
@@ -126,7 +124,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			player.noFallDmg = true;
 
 			if (projectile.ai[2] > -4) projectile.ai[2]--;
-			BlinkEffect++;
 
 			GravityMult = 0.85f;
 			if (anchor.IsInputDown) GravityMult += 0.15f;
@@ -178,8 +175,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					if (AttackCharge >= 60 && !ChargeCue)
 					{
 						ChargeCue = true;
-						SoundEngine.PlaySound(SoundID.MaxMana, projectile.Center);
-						BlinkEffect = 0;
+						anchor.Blink(true);
 					}
 				}
 			}
@@ -365,21 +361,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					anchor.OldRotation.RemoveAt(0);
 					anchor.OldFrame.RemoveAt(0);
 				}
-			}
-		}
-
-		public override void PreDrawShapeshift(SpriteBatch spriteBatch, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Vector2 drawPosition, Rectangle drawRectangle, SpriteEffects effect, Player player, Color lightColor)
-		{
-			if (BlinkEffect < 20)
-			{ // bling animation at full charge
-				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
-				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
-
-				float scalemult = (float)Math.Sin(BlinkEffect * 0.157f) * 0.2f + 1f;
-				spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, Color.White.MultiplyRGBA(lightColor) * 1.5f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
-
-				spriteBatch.End();
-				spriteBatch.Begin(spriteBatchSnapshot);
 			}
 		}
 	}
