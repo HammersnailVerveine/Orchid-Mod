@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using System.Collections.Generic;
 using Terraria;
@@ -13,6 +14,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		public bool LateralMovement = false;
 		public int jumpCooldown = 0;
 		public float JumpCharge = 0f;
+		public float SpikeCharge = 0f;
 		public bool ChargeCue = false;
 		public List<int> HitNPCs;
 
@@ -43,6 +45,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			projectile.spriteDirection = player.direction;
 			jumpCooldown = 0;
 			JumpCharge = 0f;
+			SpikeCharge = 0f;
 			ChargeCue = false;
 			projectile.ai[0] = 2.5f;
 
@@ -60,7 +63,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 		}
 
-		public override bool ShapeshiftCanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanLeftClick(projectile, anchor, player, shapeshifter) && !IsGrounded(projectile, player, 64f);
+		public override bool ShapeshiftCanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanLeftClick(projectile, anchor, player, shapeshifter) && !IsGrounded(projectile, player, 64f) && projectile.ai[1] == 0f;
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{ // slam start
@@ -82,6 +85,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			sound.Pitch += Main.rand.NextFloat(0.2f, 0.3f);
 			SoundEngine.PlaySound(sound, projectile.Center);
 		}
+
+		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.IsRightClick && Main.mouseRightRelease && anchor.CanLeftClick && !IsGrounded(projectile, player, 64f) && projectile.ai[1] == 0f;
+		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => ShapeshiftOnLeftClick(projectile, anchor, player, shapeshifter);
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
@@ -158,6 +164,17 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			else if (JumpCharge > 0f)
 			{ // charging
 				if (JumpCharge > 20f)
+				{
+					anchor.Frame = 2;
+				}
+				else
+				{
+					anchor.Frame = 1;
+				}
+			}
+			else if (SpikeCharge > 0f)
+			{ // charging (2)
+				if (SpikeCharge > 20f)
 				{
 					anchor.Frame = 2;
 				}
@@ -333,8 +350,57 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			Vector2 intendedVelocity = projectile.velocity;
 			GravityCalculations(ref intendedVelocity, player, projectile.ai[1] >= 1f ? 15f : 10f);
 
-			// Jump Attack Charge
-			if (anchor.IsLeftClick && grounded && (JumpCharge > 0f || intendedVelocity.Y >= 0f) && projectile.ai[1] >= 0f)
+			// Attack Charges
+
+			if (anchor.IsRightClick && grounded && (SpikeCharge == 0f || intendedVelocity.Y >= 0f) && projectile.ai[1] >= 0f && JumpCharge == 0f)
+			{ // Charges the spike while left clicking & grounded. This also prevents normal movement
+				if (SpikeCharge == 0f)
+				{
+					SoundEngine.PlaySound(SoundID.Item65, projectile.Center);
+					ChargeCue = false;
+				}
+
+				SpikeCharge += shapeshifter.GetShapeshifterMeleeSpeed();
+
+				if (SpikeCharge >= 60 && !ChargeCue)
+				{
+					ChargeCue = true;
+					anchor.Blink(true);
+				}
+			}
+			else
+			{
+				if (SpikeCharge >= 60)
+				{ // Fire spike
+					int projectileType = ModContent.ProjectileType<WardenSlimeProjAlt>();
+					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
+					int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 3);
+					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + new Vector2(0f, 2f), velocity, projectileType, damage, Item.knockBack, player.whoAmI);
+					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+					newProjectile.netUpdate = true;
+					SoundEngine.PlaySound(SoundID.Item17, projectile.Center);
+
+					for (int i = 0; i < 15; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Smoke);
+						dust.scale = Main.rand.NextFloat(0.6f, 0.8f);
+						dust.velocity *= 0.5f;
+						dust.velocity += Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(30f)) * Main.rand.NextFloat(0.5f, 1f);
+					}
+
+					for (int i = 0; i < 5; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Smoke);
+						dust.scale = Main.rand.NextFloat(0.6f, 0.8f);
+						dust.velocity *= 0.5f;
+						dust.velocity += Vector2.Normalize(velocity).RotatedByRandom(MathHelper.ToRadians(20f)) * Main.rand.NextFloat(1, 1.5f);
+					}
+				}
+
+				SpikeCharge = 0;
+			}
+
+			if (anchor.IsLeftClick && grounded && (JumpCharge > 0f || intendedVelocity.Y >= 0f) && projectile.ai[1] >= 0f && SpikeCharge == 0f)
 			{ // Charges the jump while left clicking & grounded. This also prevents normal movement
 				if (JumpCharge == 0f)
 				{
@@ -407,7 +473,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 
 			// Normal movement
-			if ((anchor.IsInputLeft || anchor.IsInputRight || player.controlJump) && JumpCharge <= 0f && projectile.ai[1] >= 0f)
+			if ((anchor.IsInputLeft || anchor.IsInputRight || player.controlJump) && JumpCharge <= 0f && SpikeCharge <= 0f && projectile.ai[1] >= 0f)
 			{ // Player is inputting a movement key
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
 				{ // Left movement
@@ -496,16 +562,49 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override void ShapeshiftOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			if (IsLocalPlayer(player))
-			{ // so a target hit by the slam can't be hit by the landing projectile
-				HitNPCs.Add(target.whoAmI);
-			}
+			HitNPCs.Add(target.whoAmI);
+			TrySpawnHealingGoo(projectile, player);
 		}
 
 		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			if (projectile.ai[1] != 0f) return true;
 			return base.ShapeshiftFreeDodge(info, projectile, anchor, player, shapeshifter);
+		}
+
+		public override void ShapeshiftOnHitByAnything(Player.HurtInfo hurtInfo, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			TrySpawnHealingGoo(projectile, player);
+
+			if (projectile.ai[1] != 0f || JumpCharge > 0 || SpikeCharge > 0 || projectile.ai[0] > 2.5f)
+			{ // kb immunity while charging & big jump
+				player.noKnockback = true;
+			}
+		}
+
+		public void TrySpawnHealingGoo(Projectile projectile, Player player)
+		{
+			int chance = 10;
+			int projectileType = ModContent.ProjectileType<WardenSlimeProjPassive>();
+
+			foreach(Projectile proj in Main.projectile)
+			{ // each existing projectile makes it less likely for a new one to spawn
+				if (proj.type == projectileType && proj.owner == player.whoAmI && proj.active)
+				{
+					chance--;
+				}
+			}
+
+			if (chance > 0)
+			{
+				if (Main.rand.NextBool(12 -  chance))
+				{
+					int damage = 10; // healing
+					Vector2 velocity = new Vector2(Main.rand.NextFloat(3f, 7f) * (Main.rand.NextBool() ? 1f : -1f), Main.rand.NextFloat(-5f, -7f));
+					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, 0f, player.whoAmI);
+					newProjectile.netUpdate = true;
+				}
+			}
 		}
 	}
 }

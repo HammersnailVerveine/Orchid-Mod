@@ -167,16 +167,28 @@ namespace OrchidMod
 		public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
 		{
 			if (IsShapeshifted && !Player.noKnockback)
-			{ // Player knockback on hit
-				ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
+			{
+				Shapeshift.ShapeshiftOnHitByAnything(hurtInfo, ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
+				Shapeshift.ShapeshiftOnHitByProjectile(proj, hurtInfo, ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
+
+				if (!Player.noKnockback)
+				{ // Player knockback on hit
+					ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
+				}
 			}
 		}
 
 		public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
 		{
-			if (IsShapeshifted && !Player.noKnockback)
-			{ // Player knockback on hit
-				ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
+			if (IsShapeshifted)
+			{
+				Shapeshift.ShapeshiftOnHitByAnything(hurtInfo, ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
+				Shapeshift.ShapeshiftOnHitByNPC(npc, hurtInfo, ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
+
+				if (!Player.noKnockback)
+				{ // Player knockback on hit
+					ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
+				}
 			}
 		}
 

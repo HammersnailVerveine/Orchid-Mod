@@ -1,17 +1,11 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
-using System.Collections.Generic;
 using Terraria;
 
 namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 {
 	public class WardenSlimeProj : OrchidModShapeshifterProjectile
 	{
-		private static Texture2D TextureMain;
-		public List<float> OldAI;
-		public Color drawColor;
-
 		public override void SafeSetDefaults()
 		{
 			Projectile.width = 2;
@@ -47,6 +41,17 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			}
 
 			return base.CanHitNPC(target);
+		}
+
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (shapeshifter.IsShapeshifted)
+			{
+				if (shapeshifter.ShapeshiftAnchor.ShapeshifterItem.ModItem is WardenSlime slime)
+				{
+					slime.TrySpawnHealingGoo(shapeshifter.ShapeshiftAnchor.Projectile, player);
+				}
+			}
 		}
 
 		public override void AI()
