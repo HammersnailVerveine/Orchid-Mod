@@ -32,7 +32,7 @@ namespace OrchidMod.Common.Global.Tiles
 						bool isShadowOrb = tile.TileFrameX == 0;
 
 						DropTileBreakItem(isShadowOrb ? ModContent.ItemType<CorruptionQuarterstaff>() : ModContent.ItemType<CrimsonQuarterstaff>(), i, j, 1, 2);
-						DropTileBreakItem(isShadowOrb ? ModContent.ItemType<DemoniteCatalyst>() : ModContent.ItemType<CrimtaneCatalyst>(), i, j, 1, 2);
+						if (ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist) DropTileBreakItem(isShadowOrb ? ModContent.ItemType<DemoniteCatalyst>() : ModContent.ItemType<CrimtaneCatalyst>(), i, j, 1, 2);
 					}
 					break;
 			}
