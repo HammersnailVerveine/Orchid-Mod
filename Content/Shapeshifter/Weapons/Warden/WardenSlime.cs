@@ -118,7 +118,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					projectile.damage = shapeshifter.GetShapeshifterDamage(Item.damage);
 				}
 
-				Dust dust = Dust.NewDustDirect(projectile.position + new Vector2(4, 0), projectile.width - 8, 0, DustID.Smoke);
+				Dust dust = Dust.NewDustDirect(projectile.position + new Vector2(6, 0), projectile.width - 12, 0, DustID.Smoke);
 				dust.scale *= Main.rand.NextFloat(0.6f, 0.8f);
 				dust.velocity *= 0.25f;
 
@@ -323,8 +323,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 				newProjectile.netUpdate = true;
 
-				shapeshifter.modPlayer.PlayerImmunity = 40;
-				player.immuneTime = 40;
+				shapeshifter.modPlayer.PlayerImmunity = 30;
+				player.immuneTime = 30;
 				player.immune = true;
 
 				projectile.ai[1] = -20f;

@@ -3495,7 +3495,7 @@ Items: {
 		RightClick: Charges a piercing slime spike
 		Jump: Left clicking while grounded charges a powerful jump
 		Passive: Receiving or inflicting damage releases chunks of healing goo
-		Tooltip: Transforms you into a Slime, gaining unique abilities
+		Tooltip: Transforms you into a Regal Slime, gaining unique abilities
 	}
 
 	SageBat: {
