@@ -3,6 +3,7 @@ using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
 

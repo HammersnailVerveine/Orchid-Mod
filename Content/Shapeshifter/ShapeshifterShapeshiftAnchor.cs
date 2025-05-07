@@ -126,8 +126,6 @@ namespace OrchidMod.Content.Shapeshifter
 			ai[3] = reader.ReadSingle();
 			ai[4] = reader.ReadSingle();
 
-			Main.NewText(ai[0]);
-
 			if (SelectedItem == -1)
 			{
 				SelectedItem = selectedItem;
@@ -140,7 +138,6 @@ namespace OrchidMod.Content.Shapeshifter
 					Projectile.width = shapeshiftItem.ShapeshiftWidth;
 					Projectile.height = shapeshiftItem.ShapeshiftHeight;
 					Projectile.position -= new Vector2(Projectile.width - 2, Projectile.height - 2) * 0.5f;
-					shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
 					SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
 					Projectile.ai[0] = 0f;
 					Projectile.ai[1] = 0f;
@@ -169,6 +166,8 @@ namespace OrchidMod.Content.Shapeshifter
 					{
 						TextureShapeshiftTransparent = assetTransparent.Value;
 					}
+
+					shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
 				}
 			}
 		}
@@ -189,7 +188,6 @@ namespace OrchidMod.Content.Shapeshifter
 				Projectile.width = shapeshiftItem.ShapeshiftWidth;
 				Projectile.height = shapeshiftItem.ShapeshiftHeight;
 				Projectile.position -= new Vector2(Projectile.width - 2, Projectile.height - 2) * 0.5f;
-				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
 				SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
 				LeftCLickCooldown = shapeshiftItem.Item.useTime;
 				RightCLickCooldown = shapeshiftItem.Item.useTime;
@@ -220,6 +218,8 @@ namespace OrchidMod.Content.Shapeshifter
 				{
 					TextureShapeshiftTransparent = assetTransparent.Value;
 				}
+
+				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
 			}
 			Projectile.netUpdate = true;
 		}

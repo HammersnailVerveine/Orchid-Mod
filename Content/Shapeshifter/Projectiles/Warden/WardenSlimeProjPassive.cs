@@ -20,7 +20,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			Projectile.penetrate = -1;
 			Projectile.tileCollide = true;
 			Projectile.friendly = false;
-			Main.projFrames[Projectile.type] = 5;
+			Main.projFrames[Projectile.type] = 7;
 			Projectile.frame = 0;
 		}
 
@@ -34,7 +34,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 		{
 			if (Projectile.frame == 0 && (Projectile.velocity.Y > 0f || Projectile.timeLeft < 540))
 			{
-				Projectile.frame = 1 + Main.rand.Next(4);
+				Projectile.frame = 1 + Main.rand.Next(6);
 				SoundEngine.PlaySound(SoundID.NPCHit1);
 			}
 
@@ -72,6 +72,11 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 							{
 								shapeshifter.modPlayer.TryHeal(Projectile.damage);
 								Projectile.Kill();
+
+								SoundStyle sound = SoundID.Item3;
+								sound.Volume *= 0.7f;
+								sound.Pitch -= 0.2f;
+								SoundEngine.PlaySound(sound, Projectile.Center);
 							}
 						}
 					}

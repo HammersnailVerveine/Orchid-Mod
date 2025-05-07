@@ -3768,6 +3768,11 @@ Items: {
 		DisplayName: Боеклюй
 		Tooltip: Делает три клёва
 	}
+
+	WardenEater: {
+		// DisplayName: Warden Eater
+		// Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -4214,6 +4219,7 @@ Projectiles: {
 	// WardenSlimeProjAlt.DisplayName: Slime Spike
 	// WardenSlimeProjPassive.DisplayName: Slime Goo
 	// SageImpDash.DisplayName: Sage Imp Dash
+	// WardenEaterStem.DisplayName: Warden Eater Stem
 }
 
 Configs: {
