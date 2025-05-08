@@ -1,10 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
-using OrchidMod.Utilities;
 using System;
-using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
@@ -14,7 +14,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 		private int Timespent = 0;
 		private static Texture2D TextureMain;
 		private static Texture2D TextureLeaves;
-		private static Texture2D TextureRange;
 
 		public override void SafeSetDefaults()
 		{
@@ -30,7 +29,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			Projectile.netImportant = true;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			TextureLeaves ??= ModContent.Request<Texture2D>(Texture + "_Leaves", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-			TextureRange ??= ModContent.Request<Texture2D>(Texture + "_Range", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			Timespent = 0;
 		}
 
@@ -65,11 +63,36 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				}
 			}
 
+
+			if (Timespent < 60)
+			{ // spawn animation sounds
+				Rectangle drawRectangle = TextureMain.Bounds;
+				drawRectangle.Height /= 11; // there are 11 textures for the stem, including the basis in first position
+
+				Vector2 segment = Projectile.Center - owner.Center;
+				segment = Vector2.Normalize(segment) * drawRectangle.Height;
+
+				int amountSegments = 0;
+				while ((Projectile.Center - segment * amountSegments).Distance(owner.Center) > drawRectangle.Height && amountSegments < 100)
+				{ // counts the number of total segments for the stem, used for the spawn animation
+					amountSegments++;
+				}
+
+				if (Timespent == amountSegments)
+				{
+					SoundEngine.PlaySound(SoundID.Dig);
+				}
+				else if (Timespent % 2 == 0 && Timespent <= amountSegments)
+				{
+					SoundEngine.PlaySound(SoundID.Grass);
+				}
+			}
+
 			Projectile.timeLeft ++;
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
-		{
+		{ // Stem drawing activity
 			Player owner = Owner;
 			if (owner.active && !owner.dead)
 			{
@@ -86,42 +109,79 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 
 				float distToMaxRange = Projectile.ai[1] - Projectile.Center.Distance(owner.Center);
-				if (distToMaxRange < 96f)
-				{
-					Color boderColor = new Color(162, 22, 15);
-					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
-					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
-					spriteBatch.Draw(TextureRange, drawPosition, null, boderColor * 0.8f * ((96f - distToMaxRange) / 96f), 0f, TextureRange.Size() * 0.5f, 1.8f * (Projectile.ai[1] / 296f), SpriteEffects.None, 0f);
-
-					spriteBatch.End();
-					spriteBatch.Begin(spriteBatchSnapshot);
+				int amountSegments = 0;
+				while ((Projectile.Center - segment * amountSegments).Distance(owner.Center) > drawRectangle.Height && amountSegments < 100)
+				{ // counts the number of total segments for the stem, used for the spawn animation
+					amountSegments++;
 				}
 
-				spriteBatch.Draw(TextureMain, drawPosition, drawRectangle, lightColor, rotation, drawRectangle.Size() * 0.5f, Projectile.scale * 1.2f, SpriteEffects.None, 0f);
+				if (Timespent >= amountSegments)
+				{
+					spriteBatch.Draw(TextureMain, drawPosition, drawRectangle, lightColor, rotation, drawRectangle.Size() * 0.5f, Projectile.scale * 1.2f, SpriteEffects.None, 0f);
+				}
 
 				Random random = new Random((int)Projectile.ai[0]); // generates the random from the "seed" contained in ai[0], in order to pcik the random stem textures
-				int count = 0;
 
-				while ((Projectile.Center - segment * count).Distance(owner.Center) > drawRectangle.Height && count < 100)
+				float sineMult = 4f * ((distToMaxRange > 0 ? distToMaxRange : 0)  / Projectile.ai[1]); // less wavy stem if the player is further away
+
+				Vector2 scaleSquish = new Vector2(Projectile.scale, Projectile.scale);
+				if (distToMaxRange < 16f)
+				{
+					scaleSquish.X += 0.015f * (distToMaxRange - 16f);
+					if (scaleSquish.X < 0.5f)
+					{
+						scaleSquish.X = 0.5f;
+					}
+				}
+
+				int count = 0;
+				while (count < amountSegments)
 				{
 					count++;
-					drawRectangle.Y = (random.Next(10) + 1) * drawRectangle.Height;
-					drawPosition = Projectile.Center - segment * count - Main.screenPosition;
-					drawPosition += Vector2.UnitY.RotatedBy(rotation - MathHelper.PiOver2) * (float)Math.Sin((Timespent + count * 5) * 0.1f);
+					if (Timespent >= (amountSegments - count))
+					{
+						if (Timespent == amountSegments - count)
+						{ // Spawn animation : the end of the stem is always the first frame
+							drawRectangle.Y = 0;
+						}
+						else
+						{
+							drawRectangle.Y = (random.Next(10) + 1) * drawRectangle.Height;
+						}
 
-					spriteBatch.Draw(TextureMain, drawPosition, drawRectangle, lightColor, rotation, drawRectangle.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
+						drawPosition = Projectile.Center - segment * count;
+						Color color = Lighting.GetColor((int)(drawPosition.X / 16f), (int)(drawPosition.Y / 16f));
+						drawPosition -= Main.screenPosition;
+						if (count < 4) sineMult *= count / 3f; // less wavy towards the base of the stem
+						drawPosition += Vector2.UnitY.RotatedBy(rotation - MathHelper.PiOver2) * (float)Math.Sin((Timespent + count * 5) * 0.1f) * sineMult; // wave offset
 
-					if (random.Next(5) > 2)
-					{ // leaves & thorns
-						int randHeight = random.Next(9);
-						drawRectangleLeaves.Y = randHeight * drawRectangleLeaves.Height;
-						int side = random.Next(2) == 0 ? 1 : -1;
-						drawPosition += Vector2.UnitY.RotatedBy(rotation - MathHelper.PiOver2) * (drawRectangleLeaves.Height * 0.5f + 1) * side;
-						float rotationRand = (float)Math.Sin((random.Next(6) + Timespent + count * 5) * 0.133f) * 0.075f;
-						if (randHeight < 5) rotationRand *= 2f; // leaves wiggle more
-						SpriteEffects effect = side == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-						spriteBatch.Draw(TextureLeaves, drawPosition, drawRectangleLeaves, lightColor, rotation + rotationRand, drawRectangleLeaves.Size() * 0.5f, Projectile.scale, effect, 0f);
+						spriteBatch.Draw(TextureMain, drawPosition, drawRectangle, color, rotation, drawRectangle.Size() * 0.5f, scaleSquish, SpriteEffects.None, 0f);
+
+						if (random.Next(5) > 2)
+						{ // leaves & thorns
+							int randHeight = random.Next(9);
+							drawRectangleLeaves.Y = randHeight * drawRectangleLeaves.Height;
+							float side = random.Next(2) == 0 ? 1f : -1f;
+							SpriteEffects effect = side == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+							if (distToMaxRange < 16f)
+							{ // moves leaves & thorns closer to the stem when it retracts
+								float buffer = side * 0.66f;
+								side *= 0.33f * distToMaxRange / 16f;
+								side += buffer;
+
+								if ((buffer > 0 && side < 0) || (buffer < 0 && side > 0))
+								{
+									side = 0;
+								}
+							}
+
+							drawPosition += Vector2.UnitY.RotatedBy(rotation - MathHelper.PiOver2) * (drawRectangleLeaves.Height * 0.5f + 1) * side;
+							float rotationRand = (float)Math.Sin((random.Next(6) + Timespent + count * 5) * 0.133f) * 0.075f;
+							if (randHeight < 5) rotationRand *= 2f; // leaves wiggle more
+							spriteBatch.Draw(TextureLeaves, drawPosition, drawRectangleLeaves, color, rotation + rotationRand, drawRectangleLeaves.Size() * 0.5f, scaleSquish, effect, 0f);
+						}
 					}
 				}
 			}

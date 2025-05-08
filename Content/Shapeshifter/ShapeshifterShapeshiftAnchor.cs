@@ -45,7 +45,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool IsInputDown;
 		public bool IsInputUp;
 		public bool IsInputJump;
-		public bool ControlJumpRelease;
+		public bool IsInputJumpRelease;
 
 		public float LeftCLickCooldown
 		{
@@ -61,9 +61,9 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public bool JumpWithControlRelease(Player player)
 		{
-			if (ControlJumpRelease && player.controlJump)
+			if (IsInputJumpRelease && player.controlJump)
 			{
-				ControlJumpRelease = false;
+				IsInputJumpRelease = false;
 				return true;
 			}
 			return false;
@@ -340,9 +340,9 @@ namespace OrchidMod.Content.Shapeshifter
 				NeedNetUpdate = true;
 			}
 
-			if (!ControlJumpRelease && !player.controlJump)
+			if (!IsInputJumpRelease && !player.controlJump)
 			{
-				ControlJumpRelease = true;
+				IsInputJumpRelease = true;
 			}
 		}
 
@@ -410,7 +410,7 @@ namespace OrchidMod.Content.Shapeshifter
 			if (ShapeshifterItem.ModItem is not OrchidModShapeshifterShapeshift shapeshifterItem || TextureShapeshift == null) return false;
 			var player = Main.player[Projectile.owner];
 
-			if (shapeshifterItem.ShouldDrawShapeshift(spriteBatch, Projectile, player, ref lightColor))
+			if (shapeshifterItem.ShapeshiftShouldDraw(spriteBatch, Projectile, player, ref lightColor))
 			{
 				bool drawAsAdditive = false;
 				Color color = shapeshifterItem.GetColor(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
@@ -420,7 +420,7 @@ namespace OrchidMod.Content.Shapeshifter
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
-				shapeshifterItem.PreDrawShapeshift(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, color);
+				shapeshifterItem.ShapeshiftPreDraw(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, color);
 
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
@@ -490,7 +490,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 				//spriteBatch.End();
 				//spriteBatch.Begin(spriteBatchSnapshot);
-				shapeshifterItem.PostDrawShapeshift(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, color);
+				shapeshifterItem.ShapeshiftPostDraw(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, color);
 			}
 
 			return false;

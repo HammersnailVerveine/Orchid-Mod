@@ -282,6 +282,7 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				case NPCID.KingSlime:
 					{
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifterNotExpert, ItemType<WardenSlime>(), 3));
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGamblerNotExpert, ItemType<KingSlimeCard>(), 3));
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemistNotExpert, ItemType<KingSlimeFlask>(), 3));
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemistHitAlchemist, ItemType<ScrollTier1>()));

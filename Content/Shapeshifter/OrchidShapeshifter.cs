@@ -3,7 +3,6 @@ using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,9 +26,11 @@ namespace OrchidMod
 
 		public int ShapeshifterSageFoxSpeed = 0;
 		public float ShapeshifterMeleeSpeedBonus = 0f;
-		public float ShapeshifterMoveSpeedBonus = 0f; // Scales logarithmically, can be used as shapeshifter-only alternative to player.movespeed
-		public float ShapeshifterMoveSpeedBonusGrounded = 1f; // Multiplicative
-		public float ShapeshifterMoveSpeedBonusNotGrounded = 1f; // Multiplicative
+		public float ShapeshifterMoveSpeedBonus = 0f; // Additive, Scales logarithmically, can be used as shapeshifter-only alternative to player.movespeed, should be preferred
+		public float ShapeshifterMoveSpeedBonusFlat = 0f; // Additive, added to the final movespeed
+		public float ShapeshifterMoveSpeedBonusFinal = 0f; // Multiplicative, used before adding ShapeshifterMoveSpeedBonusFlat
+		public float ShapeshifterMoveSpeedBonusGrounded = 1f; // Multiplicative, used for effects that increase grounded speed like magiluminescence
+		public float ShapeshifterMoveSpeedBonusNotGrounded = 1f; // Multiplicative, used for effects that increase the movespeed of "flying" wildshapes, at all times
 
 		// Dynamic gameplay and UI fields
 
@@ -63,6 +64,8 @@ namespace OrchidMod
 
 			ShapeshifterMeleeSpeedBonus = 0f;
 			ShapeshifterMoveSpeedBonus = 0f;
+			ShapeshifterMoveSpeedBonusFlat = 0f;
+			ShapeshifterMoveSpeedBonusFinal = 1f;
 			ShapeshifterMoveSpeedBonusGrounded = 1f;
 			ShapeshifterMoveSpeedBonusNotGrounded = 1f;
 		}

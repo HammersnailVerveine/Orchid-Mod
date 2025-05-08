@@ -2,9 +2,11 @@
 using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
+using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OrchidMod.Content.Shapeshifter
 {
@@ -94,12 +96,33 @@ namespace OrchidMod.Content.Shapeshifter
 				if (shapeshifter.IsShapeshifted)
 				{
 					if (shapeshifter.Shapeshift is SageImp impItem && npc.Center.Distance(shapeshifter.Player.Center) < 800f)
-					{ // Imp attack speed buff quen a nearby enemy dies
+					{ // Imp attack speed buff when a nearby enemy dies
 						impItem.FastAttackTimer = 300;
 						impItem.FastAttack += 3;
 						if (impItem.FastAttack > 9)
 						{
 							impItem.FastAttack = 9;
+						}
+					}
+
+					if (shapeshifter.Shapeshift is WardenEater eaterItem)
+					{ // Eater spawning a projectile going towards its closest fruit when a nearby enemy dies
+						float distanceMax = 400f;
+						int target = -1;
+						foreach (Projectile projectile in Main.projectile)
+						{
+							float distance = npc.Center.Distance(projectile.Center);
+							if (projectile.type == ModContent.ProjectileType<WardenEaterProjAlt>() && projectile.owner == shapeshifter.Player.whoAmI && distance < distanceMax && projectile.frame == 0)
+							{
+								distanceMax = distance;
+								target = projectile.whoAmI;
+							}
+						}
+
+						if (target >= 0)
+						{
+							int projectileType = ModContent.ProjectileType<WardenEaterProjAltDeath>();
+							Projectile newProjectile = Projectile.NewProjectileDirect(shapeshifter.Player.GetSource_ItemUse(shapeshifter.Shapeshift.Item), npc.Center, Vector2.Zero, projectileType, 0, 0f, shapeshifter.Player.whoAmI, ai0: target);
 						}
 					}
 				}

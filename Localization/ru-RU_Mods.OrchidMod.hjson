@@ -3507,6 +3507,15 @@ Items: {
 		// Tooltip: Transforms you into a Regal Slime, gaining unique abilities
 	}
 
+	WardenEater: {
+		// DisplayName: Man Eater Effigy
+		// LeftClick: Charges a powerful bite, reinforced after consuming a fruit
+		// RightClick: Shoots up to 3 fruits, ripening over time and with nearby deaths
+		// Jump: Bashes forward, pushing enemies away and consuming ripe fruits
+		// Passive: Roots to the ground, favoring plant tiles for a movement speed bonus
+		// Tooltip: Transforms you into a Carnivorous Plant, gaining unique abilities
+	}
+
 	SageBat: {
 		DisplayName: Идол летучей мыши
 		LeftClick: Заряжает звуковой выстрел, ноносящий большой урон эхолоцированным врагам
@@ -3767,11 +3776,6 @@ Items: {
 	ThoriumFeatherWarhammer: {
 		DisplayName: Боеклюй
 		Tooltip: Делает три клёва
-	}
-
-	WardenEater: {
-		// DisplayName: Warden Eater
-		// Tooltip: ""
 	}
 }
 
@@ -4219,7 +4223,9 @@ Projectiles: {
 	// WardenSlimeProjAlt.DisplayName: Slime Spike
 	// WardenSlimeProjPassive.DisplayName: Slime Goo
 	// SageImpDash.DisplayName: Sage Imp Dash
-	// WardenEaterStem.DisplayName: Warden Eater Stem
+	// WardenEaterStem.DisplayName: Stem
+	// WardenEaterProjAlt.DisplayName: Eater Bud
+	// WardenEaterProjAltDeath.DisplayName: Eater Light
 }
 
 Configs: {

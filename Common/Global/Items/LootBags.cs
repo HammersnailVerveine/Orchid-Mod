@@ -67,6 +67,7 @@ namespace OrchidMod.Common.Global.Items
 			{
 				case ItemID.KingSlimeBossBag:
 					{
+						if (EnableContentShapeshifter) QuickSpawnItem<WardenSlime>(player, 1, 3);
 						if (EnableContentAlchemist) QuickSpawnItem<KingSlimeFlask>(player, 1, 3);
 						if (EnableContentGambler) QuickSpawnItem<KingSlimeCard>(player, 1, 3);
 					}
