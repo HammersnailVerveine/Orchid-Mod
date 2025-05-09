@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
@@ -14,6 +16,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		private static List<int> VegetalTileTypes;
 		private bool BackwardsAnimation = false;
 		private bool MaxRangeSoundCue = false;
+		public bool ChargeCue = false;
+		public float AttackCharge = 0f;
+		public float LastSyncedRotation = 0f;
 
 		public override void SetStaticDefaults()
 		{
@@ -28,9 +33,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			Item.rare = ItemRarityID.Orange;
 			Item.UseSound = SoundID.Grass;
 			Item.useTime = 30;
-			Item.shootSpeed = 10f;
+			Item.shootSpeed = 75f;
 			Item.knockBack = 15f;
-			Item.damage = 50;
+			Item.damage = 37;
 			ShapeshiftWidth = 22;
 			ShapeshiftHeight = 22;
 			ShapeshiftType = ShapeshifterShapeshiftType.Warden;
@@ -56,7 +61,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{ // creates a fruit
 			int projectileType = ModContent.ProjectileType<WardenEaterProjAlt>();
-			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * 0.25f;
+			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * 2.5f;
 			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
 			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack * 0.33f, player.whoAmI);
 			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
@@ -68,7 +73,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			anchor.LeftCLickCooldown = Item.useTime;
 		}
 
-		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.IsInputJump && anchor.CanLeftClick;
+		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.IsInputJump && anchor.CanLeftClick && anchor.ai[4] <= 0f;
 
 		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{ // dash
@@ -76,7 +81,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			projectile.ai[2] = offSet.ToRotation() - MathHelper.PiOver2;
 			projectile.velocity *= 0f;
 			anchor.ai[0] = 30;
-			anchor.LeftCLickCooldown = Item.useTime * 2f;
+			anchor.ai[4] = Item.useTime * 2f;
+			//anchor.LeftCLickCooldown = Item.useTime * 2f;
 			anchor.NeedNetUpdate = true;
 
 			projectile.knockBack = 0f;
@@ -95,13 +101,16 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			projectile.spriteDirection = 1;
 			BackwardsAnimation = false;
 			MaxRangeSoundCue = false;
+			ChargeCue = false;
+			AttackCharge = 0f;
+			LastSyncedRotation = 0f;
 
 			if (IsLocalPlayer(player))
 			{
 				int projectileType = ModContent.ProjectileType<WardenEaterStem>();
 				foreach (Projectile proj in Main.projectile)
 				{ // Kills existing stems, redundant but fixes a case where there could be two
-					if (proj.type == projectileType && proj.owner == player.whoAmI)
+					if (proj.type == projectileType && proj.owner == player.whoAmI && proj.active)
 					{
 						proj.Kill();
 						break;
@@ -161,6 +170,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				else
 				{
 					SoundEngine.PlaySound(SoundID.Item16, projectile.Center);
+					anchor.NeedKill = true;
 				}
 			}
 
@@ -200,18 +210,38 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			// ai[2] holds the angle of head during the various attacks
 			// anchor.ai[0] holds the duration of the "jump" dash
 			// anchor.ai[1] holds the animation duration of the right click attack
+			// anchor.ai[2] holds the duration of the "bite" dash
+			// anchor.ai[3] holds number of "fruit" stacks - improving left click attacks (max 3)
+			// anchor.ai[4] holds the "jump" dash cooldown
 
 			anchor.ai[1]--;
+			anchor.ai[4]--;
 
 			// MISC EFFECTS & ANIMATION
 
-			if (anchor.ai[0] > 0f)
+			if (AttackCharge > 0f)
+			{ // attack charge
+				if (AttackCharge > 20f)
+				{
+					anchor.Frame = 4;
+				}
+				else
+				{
+					anchor.Frame = 3;
+				}
+			}
+			else if (anchor.ai[0] > 0f)
 			{ // shoot animation
 				anchor.Frame = 4;
 			}
 			else if (anchor.ai[1] > 0f)
 			{ // "jump" dash animation
 				anchor.Frame = 4;
+			}
+			else if (anchor.ai[2] > 0f)
+			{ // "bite" dash animation
+				anchor.Frame = 0;
+				BackwardsAnimation = false;
 			}
 			else if (anchor.Timespent % 5 == 0)
 			{ // Animation frames
@@ -270,12 +300,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 			if (stem == null)
 			{ // unshift if there is a problem with the stem
-				projectile.Kill();
+				anchor.NeedKill= true;
 				return;
 			}
 			else
 			{ // else handle the projectile rotation
-				if (anchor.ai[0] > 0f || anchor.ai[1] > 0f)
+				if (anchor.ai[0] > 0f || anchor.ai[1] > 0f || anchor.ai[2] > 0f || AttackCharge > 0f)
 				{ // dash
 					projectile.rotation = projectile.ai[2] + MathHelper.Pi;
 				}
@@ -283,6 +313,109 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{ // normal rotation, relative to stem
 					projectile.rotation = (stem.Center - projectile.Center).ToRotation() - MathHelper.PiOver2;
 				}
+			}
+
+			// ATTACK 
+
+			if ((anchor.IsLeftClick || anchor.ai[0] > 0f) && anchor.LeftCLickCooldown <= 0f && anchor.ai[1] <= 0f && anchor.ai[2] <= 0f)
+			{
+				if (AttackCharge == 0)
+				{
+					SoundEngine.PlaySound(SoundID.Item65, projectile.Center);
+					ChargeCue = false;
+				}
+
+				AttackCharge += shapeshifter.GetShapeshifterMeleeSpeed();
+
+				if (anchor.ai[0] <= 0f && IsLocalPlayer(player))
+				{ // not dashing = rotate the camera towards the cursor
+					projectile.ai[2] = (Main.MouseWorld - projectile.Center).ToRotation() - MathHelper.PiOver2;
+
+					if (Math.Abs(projectile.ai[2] - LastSyncedRotation) > 0.05f)
+					{
+						LastSyncedRotation = projectile.ai[2];
+						anchor.NeedNetUpdate = true;
+					}
+				}
+
+				if (AttackCharge >= 60 && !ChargeCue)
+				{
+					ChargeCue = true;
+					anchor.Blink(true);
+				}
+			}
+			else
+			{
+				if (AttackCharge >= 60 && anchor.LeftCLickCooldown <= 0f)
+				{
+					if (anchor.ai[3] > 0)
+					{ // reinforced = different sound
+						SoundEngine.PlaySound(SoundID.Item108, projectile.Center);
+					}
+					else
+					{
+						SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, projectile.Center);
+					}
+
+					if (IsLocalPlayer(player))
+					{ 
+						// spawn projectile
+						Vector2 position = projectile.Center;
+						Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * Item.shootSpeed;
+
+						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 2f);
+						float knockBack = Item.knockBack * 0.33f;
+						if (anchor.ai[3] > 0)
+						{ // reinforced if a fruit was consumed for more range & damage
+							anchor.ai[3]--;
+							damage *= 3;
+							offSet *= 1.5f;
+							knockBack *= 1.5f;
+						}
+
+						// projectile snaps to nearby NPCs
+						bool foundTarget = false;
+						offSet /= 15f;
+						for (int i = 0; i < 15; i++)
+						{
+							position += Collision.TileCollision(position, offSet, 2, 2, true, true, (int)player.gravDir);
+							foreach (NPC npc in Main.npc)
+							{
+								if (OrchidModProjectile.IsValidTarget(npc))
+								{
+									if (position.Distance(npc.Center) < npc.width + 32f) // if the NPC is close to the projectile path, snaps to it.
+									{
+										foundTarget = true;
+										position = npc.Center;
+										break;
+									}
+								}
+							}
+
+							if (foundTarget)
+							{
+								break;
+							}
+						}
+
+						int projectileType = ModContent.ProjectileType<WardenEaterProj>();
+
+						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, knockBack, player.whoAmI);
+						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+
+						// mini dash
+
+						Vector2 offSetDash = Vector2.Normalize(Main.MouseWorld - projectile.Center);
+						projectile.ai[2] = offSetDash.ToRotation() - MathHelper.PiOver2;
+						projectile.velocity *= 0f;
+						anchor.ai[2] = 15;
+
+						anchor.LeftCLickCooldown = Item.useTime * 0.25f;
+						anchor.NeedNetUpdate = true;
+					}
+				}
+
+				AttackCharge = 0;
 			}
 
 			// MOVEMENT
@@ -300,15 +433,29 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[2]) * speedMult * 8f * dashmult;
 				anchor.ai[0]--;
+				anchor.ai[2]--; // redundant, just in case both dashes happen at once (?)
 
 				int projType = ModContent.ProjectileType<WardenEaterProjAlt>();
 				foreach(Projectile proj in Main.projectile)
 				{
-					if (projectile.Hitbox.Intersects(proj.Hitbox) && proj.type == projType && proj.frame == 1 && IsLocalPlayer(player) && proj.ai[0] == 0f)
+					if (projectile.Hitbox.Intersects(proj.Hitbox) && proj.type == projType && proj.frame == 1 && proj.ai[0] == 0f)
 					{
+						anchor.ai[3]++;
+						if (anchor.ai[3] > 3f)
+						{
+							anchor.ai[3] = 3f;
+						}
+
+						if (IsLocalPlayer(player))
+						{
+							shapeshifter.modPlayer.TryHeal(15);
+						}
+
 						proj.ai[0] = 1f;
-						proj.netUpdate = true;
-						shapeshifter.modPlayer.TryHeal(15);
+						if (Main.LocalPlayer.whoAmI == proj.owner)
+						{ // proj sync has to be done by its owner
+							proj.netUpdate = true;
+						}
 						break;
 					}
 				}
@@ -317,6 +464,23 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{ // dash end
 					anchor.ai[0] = 0f;
 					projectile.friendly = false;
+				}
+			}
+			else if (anchor.ai[2] > 0f)
+			{ // bite dash
+				float dashmult = 1f;
+
+				if (anchor.ai[2] < 6f)
+				{
+					dashmult = anchor.ai[2] / 6f;
+				}
+
+				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[2]) * speedMult * 1.5f * dashmult;
+				anchor.ai[2]--;
+
+				if (anchor.ai[2] <= 0f)
+				{ // dash end
+					anchor.ai[2] = 0f;
 				}
 			}
 			else
@@ -359,12 +523,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 				if (velocityX != 0f)
 				{
-					TryAccelerate(ref intendedVelocity, velocityX, speedMult, 0.6f);
+					TryAccelerate(ref intendedVelocity, velocityX, speedMult, 0.35f);
 				}
 
 				if (velocityY != 0f)
 				{
-					TryAccelerate(ref intendedVelocity, velocityY, speedMult, 0.6f, Yaxis: true);
+					TryAccelerate(ref intendedVelocity, velocityY, speedMult, 0.35f, Yaxis: true);
 				}
 			}
 
@@ -391,6 +555,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				}
 				else
 				{
+					if (intendedVelocity.Length() > 5f * speedMult)
+					{ // helps descelerate the player after being yoinked back
+						intendedVelocity = intendedVelocity * 0.8f;
+						if (intendedVelocity.Length() < 5f * speedMult)
+						{
+							intendedVelocity = Vector2.Normalize(intendedVelocity) * 5f * speedMult;
+						}
+					}
+
 					MaxRangeSoundCue = false;
 				}
 			}
@@ -483,12 +656,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				TileID.LivingMahogany
 			};
 
-			/*
 			if (OrchidMod.ThoriumMod != null)
 			{
-				VegetalTypes.Add();
+				VegetalTypes.Add(OrchidMod.ThoriumMod.Find<ModTile>("MossyMarineBlock").Type);
+				VegetalTypes.Add(OrchidMod.ThoriumMod.Find<ModTile>("LeakyMossyMarineBlock").Type);
+				VegetalTypes.Add(OrchidMod.ThoriumMod.Find<ModTile>("SynthGold").Type);
+				VegetalTypes.Add(OrchidMod.ThoriumMod.Find<ModTile>("SynthPlatinum").Type);
+				VegetalTypes.Add(OrchidMod.ThoriumMod.Find<ModTile>("CherryAstroturf").Type);
+				VegetalTypes.Add(OrchidMod.ThoriumMod.Find<ModTile>("GrimAstroturf").Type);
+				VegetalTypes.Add(OrchidMod.ThoriumMod.Find<ModTile>("MarshyAstroturf").Type);
+				VegetalTypes.Add(OrchidMod.ThoriumMod.Find<ModTile>("SpookyAstroturf").Type);
+				VegetalTypes.Add(OrchidMod.ThoriumMod.Find<ModTile>("SnowyAstroturf").Type);
 			}
-			*/
 
 			return VegetalTypes;
 		}

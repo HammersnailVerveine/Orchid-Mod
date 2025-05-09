@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
@@ -6,6 +7,7 @@ using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace OrchidMod.Content.Shapeshifter
@@ -89,7 +91,22 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public override void OnKill(NPC npc)
 		{
-			if (!npc.friendly && !npc.CountsAsACritter && !Main.dedServ)
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				OnKillShapeshifterGlobalNPC(npc);
+			}
+			else
+			{ // Sending a packet for effects that require the player to be aware of the NPC death
+				var packet = OrchidMod.Instance.GetPacket();
+				packet.Write((byte)OrchidModMessageType.SYNCONKILLNPC);
+				packet.Write(npc.whoAmI);
+				packet.Send();
+			}
+		}
+
+		public void OnKillShapeshifterGlobalNPC(NPC npc)
+		{
+			if (!npc.friendly && !npc.CountsAsACritter && npc.aiStyle != NPCAIStyleID.Spell)
 			{
 				OrchidShapeshifter shapeshifter = Main.LocalPlayer.GetModPlayer<OrchidShapeshifter>();
 

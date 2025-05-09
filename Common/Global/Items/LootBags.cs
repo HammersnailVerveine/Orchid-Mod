@@ -21,7 +21,6 @@ using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Content.Guardian.Weapons.Standards;
 using OrchidMod.Content.Guardian.Weapons.Shields;
-using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.General.Mounts;
 using OrchidMod.Content.General.Melee;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;

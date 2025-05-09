@@ -58,6 +58,14 @@ namespace OrchidMod
 				{ // Disable the shapeshift if the player is mounted or uses a hook
 					ShapeshiftAnchor.Projectile.Kill();
 				}
+
+				/*
+				if (ShapeshiftAnchor.NeedKill && Player.whoAmI == Main.myPlayer)
+				{ // Kills the anchor properly if NeedKill was set to true, avoiding issues caused by killing it randomly
+					ShapeshiftAnchor.NeedKill = false;
+					ShapeshiftAnchor.Projectile.Kill();
+				}
+				*/
 			}
 
 			// Reset gameplay fields

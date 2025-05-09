@@ -91,7 +91,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				return;
 			}
 
-			if (Projectile.Center.Distance(target.Center) < 8f)
+			if (Projectile.Center.Distance(target.Center) < 8f || Projectile.timeLeft == 11)
 			{
 				Projectile.timeLeft = 10;
 				SoundStyle soundStyle = SoundID.Item4;

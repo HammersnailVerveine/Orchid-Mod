@@ -4212,6 +4212,7 @@ Projectiles: {
 	WardenEaterStem.DisplayName: Stem
 	WardenEaterProjAlt.DisplayName: Eater Bud
 	WardenEaterProjAltDeath.DisplayName: Eater Light
+	WardenEaterProj.DisplayName: Warden Eater Proj
 }
 
 Configs: {

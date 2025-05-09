@@ -141,6 +141,11 @@ namespace OrchidMod
 					}
 					break;
 
+				case OrchidModMessageType.SYNCONKILLNPC:
+					NPC npcKilled = Main.npc[reader.ReadInt32()];
+					npcKilled.GetGlobalNPC<ShapeshifterGlobalNPC>().OnKillShapeshifterGlobalNPC(npcKilled);
+					break;
+
 				case OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC:
 					NPC npc = Main.npc[reader.ReadInt32()];
 					ShapeshifterGlobalNPC globalNPCShifter = npc.GetGlobalNPC<ShapeshifterGlobalNPC>();

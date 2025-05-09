@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using OrchidMod.Utilities;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -15,6 +16,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 		private static Texture2D TextureMain;
 		private static Texture2D TextureOutline;
 		private static Texture2D TextureGlow;
+		private bool SyncRipe = false;
 
 		public override void SafeSetDefaults()
 		{
@@ -31,7 +33,18 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			TextureOutline ??= ModContent.Request<Texture2D>(Texture + "_Outline", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
+			Projectile.netImportant = true;
 			Main.projFrames[Projectile.type] = 2;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(SyncRipe);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			SyncRipe = reader.ReadBoolean();
 		}
 
 		public override void AI()
@@ -84,10 +97,15 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				Projectile.Kill();
 			}
 
-			if (Projectile.ai[2] > 0)
+			if (Projectile.ai[2] > 0 && Projectile.frame == 0)
 			{
-				Projectile.ai[2]--;
-				Projectile.timeLeft -= 300;
+				Projectile.timeLeft -= 300 * (int)Projectile.ai[2];
+				Projectile.ai[2] = 0f;
+
+				if (Projectile.timeLeft < 1800)
+				{
+					Projectile.timeLeft = 1800;
+				}
 			}
 
 			if (Projectile.scale < 1f)
@@ -127,10 +145,13 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				Lighting.AddLight(Projectile.position, 0.23f, 0.33f, 0f);
 			}
 
-			if (Projectile.timeLeft <= 1800 && Projectile.frame == 0)
+			if ((Projectile.timeLeft <= 1800 || SyncRipe) && Projectile.frame == 0)
 			{
 				Projectile.timeLeft = 1800;
 				Projectile.frame = 1;
+				Projectile.velocity *= 0f;
+				SyncRipe = true;
+				Projectile.netUpdate = true;
 				SoundEngine.PlaySound(SoundID.Item50, Projectile.Center);
 
 				for (int i = 0; i < 5; i++)
