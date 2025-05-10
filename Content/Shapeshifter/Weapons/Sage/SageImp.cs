@@ -178,7 +178,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				rotation = MathHelper.Pi; // Down
 			}
 
-			projectile.ai[2] = 45;
 			anchor.LeftCLickCooldown = Item.useTime * 4f;
 			anchor.NeedNetUpdate = true;
 			CanDash = false;
@@ -194,6 +193,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				position += Collision.TileCollision(position, offSet, projectile.width, projectile.height, true, true, (int)player.gravDir);
 			}
 
+			anchor.Teleport(position);
 			projectile.position = position;
 			projectile.velocity = offSet;
 			projectile.velocity *= 0.75f;

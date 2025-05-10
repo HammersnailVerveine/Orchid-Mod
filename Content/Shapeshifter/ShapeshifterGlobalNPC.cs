@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common;
 using OrchidMod.Content.Shapeshifter.Buffs;
+using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
@@ -139,8 +140,17 @@ namespace OrchidMod.Content.Shapeshifter
 						if (target >= 0)
 						{
 							int projectileType = ModContent.ProjectileType<WardenEaterProjAltDeath>();
-							Projectile newProjectile = Projectile.NewProjectileDirect(shapeshifter.Player.GetSource_ItemUse(shapeshifter.Shapeshift.Item), npc.Center, Vector2.Zero, projectileType, 0, 0f, shapeshifter.Player.whoAmI, ai0: target);
+							Projectile newProjectile = Projectile.NewProjectileDirect(shapeshifter.Player.GetSource_ItemUse(eaterItem.Item), npc.Center, Vector2.Zero, projectileType, 0, 0f, shapeshifter.Player.whoAmI, ai0: target);
 						}
+					}
+
+					if (shapeshifter.Shapeshift is SageCorruption corruptionItem && npc.Center.Distance(shapeshifter.Player.Center) < 560f)
+					{ // enemy "explodes" - 35 tiles range = 5 more than the wildshape max range on left click
+						int projectileType = ModContent.ProjectileType<SageCorruptionProjAlt>();
+						int damage = shapeshifter.GetShapeshifterDamage(corruptionItem.Item.damage);
+						Projectile newProjectile = Projectile.NewProjectileDirect(shapeshifter.Player.GetSource_ItemUse(corruptionItem.Item), npc.Center, Vector2.Zero, projectileType, damage, 0f, shapeshifter.Player.whoAmI, 1f);
+						newProjectile.CritChance = shapeshifter.ShapeshiftAnchor.Projectile.CritChance;
+						newProjectile.netUpdate = true;
 					}
 				}
 			}

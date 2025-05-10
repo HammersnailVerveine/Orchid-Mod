@@ -173,6 +173,15 @@ namespace OrchidMod.Content.Shapeshifter
 			tooltips.Insert(index + 5, new TooltipLine(Mod, "ToolTipPassive", PassiveTooltip));
 		}
 
+		// Virtual Methods
+
+		public virtual void ShapeshiftTeleport(Vector2 position, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{ // Call this to teleport a wildshape, should be overriden on wildshapes that "do not like" being teleported, like the man eater
+			player.Center = position;
+			projectile.Center = position;
+			anchor.NeedNetUpdate = true;
+		}
+
 		// Custom methods
 
 		public float GetFallSpeed(Player player)

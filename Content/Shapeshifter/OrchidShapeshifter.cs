@@ -59,13 +59,11 @@ namespace OrchidMod
 					ShapeshiftAnchor.Projectile.Kill();
 				}
 
-				/*
 				if (ShapeshiftAnchor.NeedKill && Player.whoAmI == Main.myPlayer)
 				{ // Kills the anchor properly if NeedKill was set to true, avoiding issues caused by killing it randomly
 					ShapeshiftAnchor.NeedKill = false;
 					ShapeshiftAnchor.Projectile.Kill();
 				}
-				*/
 			}
 
 			// Reset gameplay fields
@@ -146,6 +144,11 @@ namespace OrchidMod
 					if (Shapeshift.ShapeshiftCanJump(projectile, ShapeshiftAnchor, Player, this))
 					{
 						Shapeshift.ShapeshiftOnJump(projectile, ShapeshiftAnchor, Player, this);
+					}
+
+					if (Player.Center.Distance(projectile.Center) > 64f && projectile.velocity.Length() < 32f)
+					{ // the player is far away from the projectile center, which is abnormal -> they likely teleported
+						Shapeshift.ShapeshiftTeleport(Player.Center, projectile, ShapeshiftAnchor, Player, this);
 					}
 				}
 

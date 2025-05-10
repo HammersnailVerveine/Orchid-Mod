@@ -460,6 +460,16 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					}
 				}
 
+				foreach (NPC npc in Main.npc)
+				{
+					if (npc.knockBackResist > 0f && OrchidModProjectile.IsValidTarget(npc) && npc.Hitbox.Intersects(projectile.Hitbox))
+					{
+						npc.velocity = Vector2.Normalize(projectile.velocity) * 20f * npc.knockBackResist;
+						npc.velocity.Y -= 3f;
+						npc.netUpdate = true;
+					}
+				}
+
 				if (anchor.ai[0] <= 0f)
 				{ // dash end
 					anchor.ai[0] = 0f;
@@ -587,8 +597,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 		}
 
+		/* Doesn't work in mp without manual sync, moved to the dash code
 		public override void ShapeshiftOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
-		{
+		{ 
 			if (target.knockBackResist > 0f)
 			{
 				target.velocity = Vector2.Normalize(projectile.velocity) * 20f * target.knockBackResist;
@@ -596,11 +607,32 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				target.netUpdate = true;
 			}
 		}
+		*/
 
 		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			if (anchor.ai[0] > 0) return true;
 			return base.ShapeshiftFreeDodge(info, projectile, anchor, player, shapeshifter);
+		}
+
+		public override void ShapeshiftTeleport(Vector2 position, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (position.Distance(projectile.Center) > projectile.ai[0])
+			{ // player is teleporting too far from the stem, kill the anchor
+				int projectileType = ModContent.ProjectileType<WardenEaterStem>();
+				foreach (Projectile proj in Main.projectile)
+				{ // Kills existing stems
+					if (proj.type == projectileType && proj.owner == player.whoAmI && proj.active)
+					{
+						proj.Kill();
+						break;
+					}
+				}
+
+				anchor.NeedKill = true;
+			}
+
+			base.ShapeshiftTeleport(position, projectile, anchor, player, shapeshifter);
 		}
 
 		public override void AddRecipes()

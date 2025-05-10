@@ -167,7 +167,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				dust.noGravity = true;
 			}
 
-			projectile.position = position;
+			anchor.Teleport(position);
 			projectile.velocity = offSet;
 			projectile.velocity.Y *= 0.5f;
 			anchor.NeedNetUpdate = true;

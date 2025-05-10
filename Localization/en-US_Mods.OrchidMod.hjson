@@ -3417,7 +3417,7 @@ Items: {
 		DisplayName: Starry Owl Idol
 		LeftClick: Shoots a barrage of feathers
 		RightClick: Marks enemies below you, increasing damage taken by 3
-		Jump: Fly up before hovering, increasing damage and attack speed
+		Jump: Jump to ascend and hover, increasing damage and attack speed
 		Passive: Increases night vision
 		Tooltip: Transforms you into a Starry Owl, gaining unique abilities
 	}
@@ -3435,7 +3435,7 @@ Items: {
 		DisplayName: Ice Fox Statuette
 		LeftClick: Conjures up to 3 foxfire flames
 		RightClick: Become ethereal, damaging enemies you pass through
-		Jump: Can periodically blink, conjuring 3 foxfire flames
+		Jump: Can periodically blink by double-jumping, conjuring 3 foxfire flames
 		Passive: Shapeshifting in and out gives decaying movement speed
 		Tooltip: Transforms you into a Fox spirit, gaining unique abilities
 	}
@@ -3444,7 +3444,7 @@ Items: {
 		DisplayName: Harpy Effigy
 		LeftClick: Shoots razor sharp feathers
 		RightClick: Dashes horizontally, releasing a barrage of feathers
-		Jump: Flaps your wings up to 3 times, gaining height
+		Jump: Can jump three additional times
 		Passive: Every jump or dash improves your next attack
 		Tooltip: Transforms you into a Harpy, gaining unique abilities
 	}
@@ -3462,7 +3462,7 @@ Items: {
 		DisplayName: Bee Effigy
 		LeftClick: Fires barbed stingers, continuously damaging hit enemies
 		RightClick: Releases a swarm of bees, made larger by the amount of stingers
-		Jump: Dashes in the direction of your movement
+		Jump: Jump to dash in the direction of your movement
 		Passive: Shapeshifting in and out covers nearby players in honey
 		Tooltip: Transforms you into a Bee, gaining unique abilities
 	}
@@ -3471,9 +3471,18 @@ Items: {
 		DisplayName: Imp Effigy
 		LeftClick: Shoots fireballs, reinforced when crossing a wall of fire
 		RightClick: Creates a wall of fire, damaging enemies that cross it
-		Jump: Rapidly blinks in the direction of your movement
+		Jump: Jump to rapidly blink in the direction of your movement
 		Passive: Nearby enemy deaths increase your next 3 attacks speed
 		Tooltip: Transforms you into an Imp, gaining unique abilities
+	}
+
+	SageCorruption: {
+		DisplayName: Corruptor Effigy
+		LeftClick: Rains vile bolts, charging to gain in fire rate over time
+		RightClick: Blasts enemies and yourself away, stronger based on attack charge
+		Jump: Jump to dash, before being able to float for a few seconds
+		Passive: Nearby enemies explode on death, dealing damage in an area
+		Tooltip: Transforms you into an Corruptor, gaining unique abilities
 	}
 
 	WardenSpider: {
@@ -3502,7 +3511,7 @@ Items: {
 		DisplayName: Man Eater Effigy
 		LeftClick: Charges a powerful bite, reinforced after consuming a fruit
 		RightClick: Shoots up to 3 fruits, ripening over time and with nearby deaths
-		Jump: Bashes forward, pushing enemies away and consuming ripe fruits
+		Jump: Jump to bash forward, pushing enemies away and consuming ripe fruits
 		Passive: Roots to the ground, favoring plant tiles for a movement speed bonus
 		Tooltip: Transforms you into a Carnivorous Plant, gaining unique abilities
 	}
@@ -3529,7 +3538,7 @@ Items: {
 		DisplayName: Premium Critter Shampoo
 		Tooltip:
 			'''
-			Applies dye to shapeshifts
+			Applies dye to wildshapes
 			'You can't help but keep it for yourself'
 			'''
 	}
@@ -3708,11 +3717,6 @@ Items: {
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Thorium Quarterstaff
 		Tooltip: Releases sparks on hit
-	}
-
-	SageCorruption: {
-		DisplayName: Sage Corruption
-		Tooltip: ""
 	}
 
 	SturdySlab: {
@@ -4208,11 +4212,14 @@ Projectiles: {
 	WardenSlimeProj.DisplayName: Slime Slam
 	WardenSlimeProjAlt.DisplayName: Slime Spike
 	WardenSlimeProjPassive.DisplayName: Slime Goo
-	SageImpDash.DisplayName: Sage Imp Dash
+	SageImpDash.DisplayName: Dash
 	WardenEaterStem.DisplayName: Stem
 	WardenEaterProjAlt.DisplayName: Eater Bud
 	WardenEaterProjAltDeath.DisplayName: Eater Light
-	WardenEaterProj.DisplayName: Warden Eater Proj
+	WardenEaterProj.DisplayName: Eater Bite
+	SageCorruptionProj.DisplayName: Corruption Bolt
+	SageCorruptionProjAlt.DisplayName: Corruption Bolt
+	SageCorruptionProjBlast.DisplayName: Corruption Blast
 }
 
 Configs: {

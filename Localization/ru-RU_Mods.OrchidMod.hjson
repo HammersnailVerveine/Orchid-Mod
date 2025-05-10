@@ -3484,8 +3484,17 @@ Items: {
 		DisplayName: Мудрость беса
 		// LeftClick: Shoots fireballs, reinforced when crossing a wall of fire
 		// RightClick: Creates a wall of fire, damaging enemies that cross it
-		// Jump: Rapidly blinks in the direction of your movement
+		// Jump: Jump to rapidly blink in the direction of your movement
 		// Passive: Nearby enemy deaths increase your next 3 attacks speed
+		Tooltip: ""
+	}
+
+	SageCorruption: {
+		DisplayName: Мудрость искажения
+		// LeftClick: Rains vile bolts, charging to gain in fire rate over time
+		// RightClick: Blasts enemies and yourself away, stronger based on attack charge
+		// Jump: Jump to dash, before being able to float for a few seconds
+		// Passive: Nearby enemies explode on death, dealing damage in an area
 		Tooltip: ""
 	}
 
@@ -3511,7 +3520,7 @@ Items: {
 		// DisplayName: Man Eater Effigy
 		// LeftClick: Charges a powerful bite, reinforced after consuming a fruit
 		// RightClick: Shoots up to 3 fruits, ripening over time and with nearby deaths
-		// Jump: Bashes forward, pushing enemies away and consuming ripe fruits
+		// Jump: Jump to bash forward, pushing enemies away and consuming ripe fruits
 		// Passive: Roots to the ground, favoring plant tiles for a movement speed bonus
 		// Tooltip: Transforms you into a Carnivorous Plant, gaining unique abilities
 	}
@@ -3722,11 +3731,6 @@ Items: {
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Ториевый боевой шест
 		Tooltip: Выпускает искры при попадании
-	}
-
-	SageCorruption: {
-		DisplayName: Мудрость искажения
-		Tooltip: ""
 	}
 
 	SturdySlab: {
@@ -4222,11 +4226,14 @@ Projectiles: {
 	// WardenSlimeProj.DisplayName: Slime Slam
 	// WardenSlimeProjAlt.DisplayName: Slime Spike
 	// WardenSlimeProjPassive.DisplayName: Slime Goo
-	// SageImpDash.DisplayName: Sage Imp Dash
+	// SageImpDash.DisplayName: Dash
 	// WardenEaterStem.DisplayName: Stem
 	// WardenEaterProjAlt.DisplayName: Eater Bud
 	// WardenEaterProjAltDeath.DisplayName: Eater Light
-	// WardenEaterProj.DisplayName: Warden Eater Proj
+	// WardenEaterProj.DisplayName: Eater Bite
+	// SageCorruptionProj.DisplayName: Corruption Bolt
+	// SageCorruptionProjAlt.DisplayName: Corruption Bolt
+	// SageCorruptionProjBlast.DisplayName: Corruption Blast
 }
 
 Configs: {

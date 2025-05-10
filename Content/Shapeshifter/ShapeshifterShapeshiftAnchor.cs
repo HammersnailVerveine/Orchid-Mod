@@ -298,6 +298,16 @@ namespace OrchidMod.Content.Shapeshifter
 			BlinkEffect = 0;
 		}
 
+		public void Teleport(Vector2 position)
+		{
+			Player player = Main.player[Projectile.owner];
+			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
+			if (shapeshifter.IsShapeshifted)
+			{
+				shapeshifter.Shapeshift.ShapeshiftTeleport(position, Projectile, this, player, shapeshifter);
+			}
+		}
+
 		public void CheckInputs(Player player)
 		{
 			if (IsLeftClick != Main.mouseLeft)

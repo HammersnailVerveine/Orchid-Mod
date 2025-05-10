@@ -27,7 +27,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.useTime = 35;
 			Item.shootSpeed = 17.5f;
 			Item.knockBack = 0.5f;
-			Item.damage = 21;
+			Item.damage = 25;
 			Item.crit = 6;
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 26;
