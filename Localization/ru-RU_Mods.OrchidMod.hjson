@@ -3494,8 +3494,17 @@ Items: {
 		// LeftClick: Rains vile bolts, charging to gain in fire rate over time
 		// RightClick: Blasts enemies and yourself away, stronger based on attack charge
 		// Jump: Jump to dash, before being able to float for a few seconds
-		// Passive: Nearby enemies explode on death, dealing damage in an area
+		// Passive: Nearby enemies splatter on death, dealing damage in an area
 		Tooltip: ""
+	}
+
+	SageCrimson: {
+		// DisplayName: Crimera Effigy
+		// LeftClick: Rains crimson bolts, charging to gain in fire rate over time
+		// RightClick: Blasts enemies and yourself away, stronger based on attack charge
+		// Jump: Jump to dash, before being able to float for a few seconds
+		// Passive: Nearby enemies splatter on death, dealing damage in an area
+		// Tooltip: Transforms you into a Crimera, gaining unique abilities
 	}
 
 	WardenSpider: {
@@ -4231,9 +4240,9 @@ Projectiles: {
 	// WardenEaterProjAlt.DisplayName: Eater Bud
 	// WardenEaterProjAltDeath.DisplayName: Eater Light
 	// WardenEaterProj.DisplayName: Eater Bite
-	// SageCorruptionProj.DisplayName: Corruption Bolt
-	// SageCorruptionProjAlt.DisplayName: Corruption Bolt
-	// SageCorruptionProjBlast.DisplayName: Corruption Blast
+	// SageCorruptionProj.DisplayName: Spit
+	// SageCorruptionProjAlt.DisplayName: Spit
+	// SageCorruptionProjBlast.DisplayName: Blast
 }
 
 Configs: {

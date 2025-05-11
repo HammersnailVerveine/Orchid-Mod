@@ -14,7 +14,6 @@ namespace OrchidMod
 		public ShapeshifterShapeshiftAnchor ShapeshiftAnchor;
 		public OrchidModShapeshifterShapeshift Shapeshift;
 		public bool IsShapeshifted => ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active;
-
 		public int GetShapeshifterDamage(float damage) => (int)(Player.GetDamage<ShapeshifterDamageClass>().ApplyTo(damage) + Player.GetDamage(DamageClass.Generic).ApplyTo(damage) - damage);
 		public int GetShapeshifterCrit(int additionalCritChance = 0) => (int)(Player.GetCritChance<ShapeshifterDamageClass>() + Player.GetCritChance<GenericDamageClass>() + additionalCritChance);
 		public float GetShapeshifterMeleeSpeed(float additionalCritChanceMeleeSpeed = 0) => Player.GetTotalAttackSpeed(DamageClass.Melee) + ShapeshifterMeleeSpeedBonus + additionalCritChanceMeleeSpeed;

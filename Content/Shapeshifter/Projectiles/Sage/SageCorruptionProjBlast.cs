@@ -29,6 +29,16 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			{
 				Initialized = true;
 
+				int dustType1 = DustID.ToxicBubble;
+				int dustType2 = DustID.CorruptGibs;
+				int dustType3 = DustID.CorruptGibs;
+				if (Projectile.ai[2] != 0)
+				{ // crimson version
+					dustType1 = DustID.Crimson;
+					dustType2 = DustID.CrimsonPlants;
+					dustType3 = 120;
+				}
+
 				for (int i = 0; i < 15; i++)
 				{
 					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Smoke);
@@ -40,7 +50,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				for (int i = 0; i < 10; i++)
 				{
-					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Mud);
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, dustType3);
 					dust.scale = Main.rand.NextFloat(1.5f, 2f);
 					dust.noGravity = true;
 					dust.velocity *= 0.5f;
@@ -49,7 +59,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				for (int i = 0; i < 10; i++)
 				{
-					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.CorruptGibs);
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, dustType2);
 					dust.scale = Main.rand.NextFloat(1.5f, 2f);
 					dust.noGravity = true;
 					dust.velocity *= 0.5f;
@@ -58,7 +68,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				for (int i = 0; i < 15; i++)
 				{
-					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.ToxicBubble);
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, dustType1);
 					dust.scale = Main.rand.NextFloat(1.5f, 2f);
 					dust.noGravity = true;
 					dust.velocity *= 0.5f;
@@ -67,7 +77,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				for (int i = 0; i < 10; i++)
 				{
-					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.ToxicBubble);
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, dustType1);
 					dust.scale = Main.rand.NextFloat(0.5f, 0.75f);
 					dust.velocity *= 0.5f;
 					dust.velocity += Vector2.Normalize(Projectile.velocity).RotatedByRandom(MathHelper.ToRadians(30f)) * Main.rand.NextFloat(5f, 8f);
@@ -75,7 +85,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				for (int i = 0; i < 5; i++)
 				{
-					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.Mud);
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, dustType3);
 					dust.scale = Main.rand.NextFloat(1.5f, 2f);
 					dust.noGravity = true;
 					dust.velocity *= 0.5f;
@@ -84,7 +94,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				for (int i = 0; i < 5; i++)
 				{
-					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.ToxicBubble);
+					Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, dustType1);
 					dust.scale = Main.rand.NextFloat(1.5f, 2f);
 					dust.noGravity = true;
 					dust.velocity *= 0.5f;

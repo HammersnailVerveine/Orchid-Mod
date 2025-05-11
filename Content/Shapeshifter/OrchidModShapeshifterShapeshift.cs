@@ -24,7 +24,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool MeleeSpeedRight; // Whether melee speed makes right click recover faster
 		public bool Grounded; // Is the shapeshift supposedly a grounded creature? (affects the movement speed given by some items like magiluminescense)
 		public float GravityMult; // Fall speed multiplier
-		public ShapeshifterShapeshiftType ShapeshiftType; // Sage, Predator, Warden
+		public ShapeshifterShapeshiftType ShapeshiftType; // Sage, Predator, Warden, Symbiote
 
 		public virtual string LeftClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterLeftClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".LeftClick"));
 		public virtual string RightClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterRightClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".RightClick"));

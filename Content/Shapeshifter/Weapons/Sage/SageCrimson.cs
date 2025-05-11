@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 {
-	public class SageCorruption : OrchidModShapeshifterShapeshift
+	public class SageCrimson : OrchidModShapeshifterShapeshift
 	{
 		public bool LateralMovement = false;
 		public bool CanDash = false;
@@ -54,7 +54,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 10; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.CorruptGibs)].velocity.Y -= 1.25f;
+				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.CrimsonPlants)].velocity.Y -= 1.25f;
 			}
 		}
 
@@ -67,7 +67,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 8; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.CorruptGibs)].velocity.Y -= 1.25f;
+				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.CrimsonPlants)].velocity.Y -= 1.25f;
 			}
 		}
 
@@ -81,7 +81,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Vector2 velocity = Main.MouseWorld.X < projectile.Center.X ? -Vector2.UnitX : Vector2.UnitX;
 			float chargeMult = (RightClickChargeBuffer / 300f);
 			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 2f + Item.damage * chargeMult * 8f); // damage increased up to 500% based on the left click hold duration
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, 0f, player.whoAmI, chargeMult);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, 0f, player.whoAmI, chargeMult, ai2:1);
 			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 			newProjectile.netUpdate = true;
 
@@ -154,7 +154,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 4; i++)
 			{
-				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.CorruptGibs)].velocity.Y -= 1.25f;
+				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.CrimsonPlants)].velocity.Y -= 1.25f;
 			}
 		}
 
@@ -197,6 +197,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			// ANIMATION
+			
 			if (anchor.ai[2] > 0f)
 			{ // attacking (right click)
 				projectile.direction = (int)anchor.ai[3];
@@ -308,7 +309,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						int projectileType = ModContent.ProjectileType<SageCorruptionProj>();
 						Vector2 offSetSpawn = Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f, 64f);
 						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 1.5f);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + offSetSpawn, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y);
+						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + offSetSpawn, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y, ai2: 1);
 						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 						newProjectile.netUpdate = true;
 
@@ -348,7 +349,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					intendedVelocity.Y *= 0.8f;
 					if (Main.rand.NextBool(12))
 					{
-						Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CorruptGibs)].velocity *= 0.1f;
+						Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CrimsonPlants)].velocity *= 0.1f;
 					}
 				}
 				else
@@ -447,7 +448,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				{
 					pos.X -= 14;
 				}
-				Dust dust = Dust.NewDustDirect(pos, 12, 8, DustID.CorruptGibs);
+				Dust dust = Dust.NewDustDirect(pos, 12, 8, DustID.CrimsonPlants);
 				dust.velocity *= 0.1f;
 				dust.scale = Main.rand.NextFloat(0.4f, 0.7f);
 			}
@@ -473,8 +474,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient<ShapeshifterBlankEffigy>();
-			recipe.AddIngredient(ItemID.RottenChunk, 8);
-			recipe.AddIngredient(ItemID.VilePowder, 20);
+			recipe.AddIngredient(ItemID.Vertebrae, 8);
+			recipe.AddIngredient(ItemID.ViciousPowder, 20);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 		}

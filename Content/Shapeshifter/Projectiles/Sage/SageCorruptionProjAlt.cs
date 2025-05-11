@@ -30,9 +30,17 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 			{
 				Initialized = true;
 
+				int dustType1 = DustID.ToxicBubble;
+				int dustType2 = DustID.CorruptGibs;
+				if (Projectile.ai[2] != 0)
+				{ // crimson version
+					dustType1 = DustID.Crimson;
+					dustType2 = DustID.CrimsonPlants;
+				}
+
 				for (int i = 0; i < 20; i ++)
 				{
-					Dust dust2 = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.ToxicBubble);
+					Dust dust2 = Dust.NewDustDirect(Projectile.Center, 0, 0, dustType1);
 					dust2.scale = Main.rand.NextFloat(1.2f, 1.5f);
 					dust2.velocity *= Main.rand.NextFloat(1.5f, 2f);
 					dust2.noGravity = true;
@@ -40,7 +48,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				for (int i = 0; i < 6; i ++)
 				{
-					Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.CorruptGibs);
+					Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dustType2);
 					dust2.scale = Main.rand.NextFloat(0.6f, 0.8f);
 					dust2.velocity.Y -= 1.5f;
 				}
@@ -50,7 +58,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 					for (int i = 0; i < 8; i++)
 					{
-						Dust dust2 = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.ToxicBubble);
+						Dust dust2 = Dust.NewDustDirect(Projectile.Center, 0, 0, dustType1);
 						dust2.scale = Main.rand.NextFloat(1.2f, 1.5f);
 						dust2.velocity *= Main.rand.NextFloat(2f, 2.5f);
 						dust2.noGravity = true;

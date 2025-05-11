@@ -8,8 +8,6 @@ using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace OrchidMod.Content.Shapeshifter
 {
@@ -149,6 +147,15 @@ namespace OrchidMod.Content.Shapeshifter
 						int projectileType = ModContent.ProjectileType<SageCorruptionProjAlt>();
 						int damage = shapeshifter.GetShapeshifterDamage(corruptionItem.Item.damage);
 						Projectile newProjectile = Projectile.NewProjectileDirect(shapeshifter.Player.GetSource_ItemUse(corruptionItem.Item), npc.Center, Vector2.Zero, projectileType, damage, 0f, shapeshifter.Player.whoAmI, 1f);
+						newProjectile.CritChance = shapeshifter.ShapeshiftAnchor.Projectile.CritChance;
+						newProjectile.netUpdate = true;
+					}
+
+					if (shapeshifter.Shapeshift is SageCrimson crimsonItem && npc.Center.Distance(shapeshifter.Player.Center) < 560f)
+					{ // enemy "explodes" - 35 tiles range = 5 more than the wildshape max range on left click
+						int projectileType = ModContent.ProjectileType<SageCorruptionProjAlt>();
+						int damage = shapeshifter.GetShapeshifterDamage(crimsonItem.Item.damage);
+						Projectile newProjectile = Projectile.NewProjectileDirect(shapeshifter.Player.GetSource_ItemUse(crimsonItem.Item), npc.Center, Vector2.Zero, projectileType, damage, 0f, shapeshifter.Player.whoAmI, 1f, ai2:1f);
 						newProjectile.CritChance = shapeshifter.ShapeshiftAnchor.Projectile.CritChance;
 						newProjectile.netUpdate = true;
 					}
