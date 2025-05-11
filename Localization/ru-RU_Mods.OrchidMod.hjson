@@ -3790,6 +3790,11 @@ Items: {
 		DisplayName: Боеклюй
 		Tooltip: Делает три клёва
 	}
+
+	SymbioteToad: {
+		// DisplayName: Symbiote Toad
+		// Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -4322,6 +4327,7 @@ Misc: {
 	ShapeshifterJump: "[c/AFFFAF:Передвижение: ]"
 	ShapeshifterPassive: "[c/AFFFAF:Пассивный навык: ]"
 	ShapeshifterNone: Другая дикая форма
+	// ShapeshifterSymbiote: Symbiote wildshape
 	ShapeshifterSage: Дикая форма мудрости
 	ShapeshifterPredator: Дикая форма охотника
 	ShapeshifterWarden: Дикая форма стража

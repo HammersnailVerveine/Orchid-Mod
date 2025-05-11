@@ -3776,6 +3776,11 @@ Items: {
 		DisplayName: Warpecker
 		Tooltip: Pecks three times
 	}
+
+	SymbioteToad: {
+		DisplayName: Symbiote Toad
+		Tooltip: ""
+	}
 }
 
 NPCs: {
