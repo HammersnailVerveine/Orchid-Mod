@@ -127,7 +127,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 				if (count < 5)
 				{
 					Vector2 targetLocation = Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(24f, 64f);
-					int damage = shapeshifter.GetShapeshifterDamage(Projectile.damage * 0.75f);
+					int damage = shapeshifter.GetShapeshifterDamage(Projectile.damage * 0.67f);
 					Vector2 spawnPosition = Projectile.Center + targetLocation;
 					Projectile newProjectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), spawnPosition, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, player.whoAmI, targetLocation.X, targetLocation.Y);
 					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Projectile.CritChance);
