@@ -11,7 +11,6 @@ namespace OrchidMod.Content.Guardian
 	{
 		private static Texture2D TextureMain;
 		public OrchidModGuardianStandard StandardItem;
-		public bool Initialized = false;
 
 		public override void SafeSetDefaults()
 		{

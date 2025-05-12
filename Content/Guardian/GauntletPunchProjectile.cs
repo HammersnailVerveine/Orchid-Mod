@@ -15,7 +15,6 @@ namespace OrchidMod.Content.Guardian
 		public bool ChargedHit => Projectile.ai[0] == 1f;
 		public bool OffHand => Projectile.ai[1] == 1f;
 		public bool FirstFrame = false;
-		public bool Initialized = false;
 
 		public override void Load()
 		{

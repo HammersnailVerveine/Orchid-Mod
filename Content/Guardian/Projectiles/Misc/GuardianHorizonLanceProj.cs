@@ -10,7 +10,6 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 {
 	public class GuardianHorizonLanceProj : OrchidModGuardianProjectile
 	{
-		public bool Initialized; // helps prevent mp desync
 		public int TimeSpent = 0;
 		public int HitCount = 0;
 		private static Texture2D TextureMain;
