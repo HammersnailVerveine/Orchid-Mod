@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool AutoReuseRight; // Whether right ability click casts repeatedly hy holding the input
 		public bool MeleeSpeedLeft; // Whether melee speed makes left click recover faster
 		public bool MeleeSpeedRight; // Whether melee speed makes right click recover faster
-		public bool Grounded; // Is the shapeshift supposedly a grounded creature? (affects the movement speed given by some items like magiluminescense)
+		public bool GroundedWildshape; // Is the shapeshift supposedly a grounded creature? (affects the movement speed given by some items like magiluminescense)
 		public float GravityMult; // Fall speed multiplier
 		public ShapeshifterShapeshiftType ShapeshiftType; // Sage, Predator, Warden, Symbiote
 
@@ -77,7 +77,7 @@ namespace OrchidMod.Content.Shapeshifter
 			MeleeSpeedLeft = true;
 			MeleeSpeedRight = false;
 			GravityMult = 1f;
-			Grounded = false;
+			GroundedWildshape = false;
 
 			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;
@@ -175,11 +175,17 @@ namespace OrchidMod.Content.Shapeshifter
 
 		// Virtual Methods
 
-		public virtual void ShapeshiftTeleport(Vector2 position, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		public virtual void ShapeshiftTeleport(Vector2 position, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, bool updateFallStart = true)
 		{ // Call this to teleport a wildshape, should be overriden on wildshapes that "do not like" being teleported, like the man eater
 			player.Center = position;
 			projectile.Center = position;
 			anchor.NeedNetUpdate = true;
+
+			if (updateFallStart)
+			{
+				player.fallStart = (int)(player.position.Y / 16f);
+				player.fallStart2 = (int)(player.position.Y / 16f);
+			}
 		}
 
 		// Custom methods
@@ -189,8 +195,16 @@ namespace OrchidMod.Content.Shapeshifter
 			return player.gravity * GravityMult;
 		}
 
-		public void GravityCalculations(ref Vector2 intendedVelocity, Player player, float maxFallSpeed = 10f)
+		public void GravityCalculations(ref Vector2 intendedVelocity, Player player, float maxFallSpeed = 10f, bool updateFallStart = true)
 		{
+			if (intendedVelocity.Y < 0f && GroundedWildshape && updateFallStart)
+			{
+				player.fallStart = (int)(player.position.Y / 16f);
+				player.fallStart2 = (int)(player.position.Y / 16f);
+
+				Main.NewText("a");
+			}
+
 			if (intendedVelocity.Y < maxFallSpeed)
 			{ // gravity
 				intendedVelocity.Y += GetFallSpeed(player);
@@ -270,7 +284,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 			if (anchor.ShapeshifterItem.ModItem is OrchidModShapeshifterShapeshift shapeshifterItem)
 			{
-				if (!shapeshifterItem.Grounded)
+				if (!shapeshifterItem.GroundedWildshape)
 				{ // Speed bonus for non-grounded shapeshifts applies at all times
 					speed *= shapeshifter.ShapeshifterMoveSpeedBonusNotGrounded;
 				}

@@ -32,7 +32,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			ShapeshiftWidth = 26;
 			ShapeshiftHeight = 28;
 			ShapeshiftType = ShapeshifterShapeshiftType.Warden;
-			Grounded = true;
+			GroundedWildshape = true;
 			AutoReuseLeft = false;
 			HitNPCs = new List<int>();
 		}

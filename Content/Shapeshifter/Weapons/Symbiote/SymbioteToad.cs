@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 			ShapeshiftWidth = 26;
 			ShapeshiftHeight = 20;
 			ShapeshiftType = ShapeshifterShapeshiftType.Symbiote;
-			Grounded = true;
+			GroundedWildshape = true;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -242,6 +242,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 							{
 								intendedVelocity.Y *= 0.5f;
 							}
+							else if (anchor.IsInputUp)
+							{
+								intendedVelocity.Y *= 1.25f;
+							}
 						}
 						else
 						{
@@ -352,6 +356,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 					anchor.OldRotation.RemoveAt(0);
 					anchor.OldFrame.RemoveAt(0);
 				}
+			}
+		}
+
+		public override void ShapeshiftModifyHurt(ref Player.HurtModifiers modifiers, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (modifiers.DamageSource.SourceOtherIndex == 0)
+			{ // fall damage
+				modifiers.FinalDamage *= 0.75f;
+				modifiers.SetMaxDamage(50);
 			}
 		}
 

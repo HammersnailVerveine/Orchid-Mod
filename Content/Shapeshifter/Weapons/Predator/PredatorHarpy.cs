@@ -33,7 +33,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftHeight = 26;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
 			GravityMult = 0.9f;
-			Grounded = false;
+			GroundedWildshape = false;
 		}
 
 		public override Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)

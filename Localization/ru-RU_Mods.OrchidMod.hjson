@@ -3556,7 +3556,7 @@ Items: {
 		// DisplayName: Saptoad Statuette
 		// LeftClick: Slaps enemies with your tongue, spawning up to 10 sapflies on hit
 		// RightClick: Order sapflies to protect an ally, up to 5 can follow a given player
-		// Jump: Horizontal mobility increased while jumping
+		// Jump: Press UP to jump higher, reduced fall damage
 		// Passive: Sapflies sacrifice themselves to provide healing after taking damage
 		// Tooltip: Transforms you into a Saptoad, gaining unique abilities
 	}

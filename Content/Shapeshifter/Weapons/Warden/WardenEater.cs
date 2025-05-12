@@ -39,7 +39,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			ShapeshiftWidth = 22;
 			ShapeshiftHeight = 22;
 			ShapeshiftType = ShapeshifterShapeshiftType.Warden;
-			Grounded = false;
+			GroundedWildshape = false;
 			MeleeSpeedLeft = false;
 		}
 
@@ -615,7 +615,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			return base.ShapeshiftFreeDodge(info, projectile, anchor, player, shapeshifter);
 		}
 
-		public override void ShapeshiftTeleport(Vector2 position, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		public override void ShapeshiftTeleport(Vector2 position, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, bool updateFallStart = true)
 		{
 			if (position.Distance(projectile.Center) > projectile.ai[0])
 			{ // player is teleporting too far from the stem, kill the anchor

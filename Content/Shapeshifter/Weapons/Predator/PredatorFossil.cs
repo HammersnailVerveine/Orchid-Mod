@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 40;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
-			Grounded = true;
+			GroundedWildshape = true;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)

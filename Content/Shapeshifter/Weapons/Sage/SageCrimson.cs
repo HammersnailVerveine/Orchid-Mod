@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			ShapeshiftWidth = 28;
 			ShapeshiftHeight = 20;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
-			Grounded = false;
+			GroundedWildshape = false;
 			AutoReuseLeft = true;
 		}
 
