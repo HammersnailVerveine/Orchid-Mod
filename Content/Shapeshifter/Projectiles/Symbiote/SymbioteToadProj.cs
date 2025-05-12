@@ -116,15 +116,21 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 				Projectile.localAI[0]++;
 				int projectileType = ModContent.ProjectileType<SymbioteToadProjAlt>();
 				int count = 0; // can't have more than 5 flies on a player
+				int countTotal = 0; // can't have more than 10 flies total
 				foreach (Projectile projectile in Main.projectile)
 				{
-					if (projectile.type == projectileType && (int)projectile.ai[0] == player.whoAmI && projectile.active)
+					if (projectile.type == projectileType && projectile.active && projectile.owner == player.whoAmI)
 					{
-						count++;
+						countTotal++;
+
+						if ((int)projectile.ai[0] == player.whoAmI)
+						{
+							count++;
+						}
 					}
 				}
 
-				if (count < 5)
+				if (count < 5 && countTotal < 10)
 				{
 					Vector2 targetLocation = Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(24f, 64f);
 					int damage = shapeshifter.GetShapeshifterDamage(Projectile.damage * 0.67f);

@@ -1,7 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Shapeshifter.Buffs;
-using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Symbiote;
 using Terraria;
 using Terraria.Audio;
@@ -65,6 +62,105 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 			anchor.LeftCLickCooldown = Item.useTime;
 			anchor.RightCLickCooldown = Item.useTime;
 			anchor.NeedNetUpdate = true;
+		}
+
+		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			SoundEngine.PlaySound(SoundID.Item8, projectile.Center);
+			anchor.RightCLickCooldown = Item.useTime;
+			anchor.LeftCLickCooldown = Item.useTime;
+			anchor.NeedNetUpdate = true;
+			Player validTarget = player;
+
+			float minDistance = 160f; // 10 tiles range
+			foreach (Player otherPlayer in Main.player)
+			{
+				float distance = otherPlayer.Center.Distance(Main.MouseWorld);
+				if (!player.dead && player.active && distance <= minDistance && player.whoAmI != otherPlayer.whoAmI)
+				{
+					validTarget = otherPlayer;
+					minDistance = distance;
+				}
+			}
+
+			int projectileType = ModContent.ProjectileType<SymbioteToadProjAlt>();
+			int count = 0; // can't have more than 5 flies on a player
+			foreach (Projectile projectileFly in Main.projectile)
+			{
+				if (projectileFly.type == projectileType && (int)projectileFly.ai[0] == validTarget.whoAmI && projectileFly.active && projectileFly.owner == player.whoAmI)
+				{
+					count++;
+				}
+			}
+
+			if (validTarget.whoAmI == player.whoAmI && count < 5)
+			{ // recall flies
+				foreach (Projectile projectileFly in Main.projectile)
+				{
+					if (projectileFly.type == projectileType && (int)projectileFly.ai[0] != validTarget.whoAmI && projectileFly.active && projectileFly.owner == player.whoAmI)
+					{
+						count++;
+						projectileFly.ai[0] = validTarget.whoAmI;
+						projectileFly.netUpdate = true;
+
+						if (projectileFly.ModProjectile is SymbioteToadProjAlt fly)
+						{
+							fly.LastTargetHealth = 0;
+						}
+
+						for (int i = 0; i < 3; i++)
+						{
+							Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.Smoke);
+							dust2.noGravity = true;
+						}
+
+						for (int i = 0; i < 3; i++)
+						{
+							Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.YellowTorch);
+							dust2.noGravity = true;
+						}
+
+						if (count >= 5)
+						{
+							break;
+						}
+					}
+				}
+			}
+			else
+			{ // send flies to the targeted ally
+				foreach (Projectile projectileFly in Main.projectile)
+				{
+					if (projectileFly.type == projectileType && (int)projectileFly.ai[0] == player.whoAmI && projectileFly.active && projectileFly.owner == player.whoAmI)
+					{
+						count++;
+						projectileFly.ai[0] = validTarget.whoAmI;
+						projectileFly.netUpdate = true;
+
+						if (projectileFly.ModProjectile is SymbioteToadProjAlt fly)
+						{
+							fly.LastTargetHealth = 0;
+						}
+
+						for (int i = 0; i < 3; i++)
+						{
+							Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.Smoke);
+							dust2.noGravity = true;
+						}
+
+						for (int i = 0; i < 3; i++)
+						{
+							Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.YellowTorch);
+							dust2.noGravity = true;
+						}
+
+						if (count >= 5)
+						{
+							break;
+						}
+					}
+				}
+			}
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)

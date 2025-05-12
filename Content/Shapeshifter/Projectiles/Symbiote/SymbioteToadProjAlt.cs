@@ -1,11 +1,9 @@
-using Microsoft.Build.Evaluation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Weapons.Symbiote;
 using OrchidMod.Utilities;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -20,7 +18,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 		private int Timespent = 0;
 		private int Frame = 0;
 		private int NPCTarget = 0;
-		private int LastTargetHealth = 0;
+		public int LastTargetHealth = 0;
 		private static Texture2D TextureMain;
 		private static Texture2D TextureGlow;
 
@@ -144,17 +142,17 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 
 			Player targetedPlayer = Main.player[(int)Projectile.ai[0]];
 
-			if (!targetedPlayer.dead)
+			if (!targetedPlayer.dead && targetedPlayer.active)
 			{
 				if (IsLocalOwner)
 				{ // the projectile owner keeps traps of other players health, and kills the flies accordingly when they take damage
 					if (LastTargetHealth > targetedPlayer.statLife + 10)
-					{ // the targetedPlayer took at least 10 damager since last frame, kill two flies
+					{ // the targetedPlayer took at least 10 damage since last frame, kill two flies
 						int count = 0;
 
 						foreach (Projectile projectile in Main.projectile)
 						{
-							if (projectile.type == Projectile.type && (int)projectile.ai[0] == player.whoAmI && projectile.active && projectile.localAI[0] != 0 && projectile.localAI[0] < 12f)
+							if (projectile.type == Projectile.type && (int)projectile.ai[0] == targetedPlayer.whoAmI && projectile.active && projectile.localAI[0] != 0 && projectile.localAI[0] < 12f && projectile.owner == player.whoAmI)
 							{
 								count++;
 								if (count >= 2)
@@ -176,7 +174,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 
 				if (Timespent % 40 == 0 && IsLocalOwner)
 				{// Flies target locations based on their targeted player position
-						float minDistance = 192f; // 12 tiles range
+					float minDistance = 192f; // 12 tiles range
 					NPC validTarget = null;
 
 					if (Timespent >= 120)
@@ -214,12 +212,12 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 				Vector2 toTarget = targetLocation - Projectile.Center;
 				Projectile.velocity = Projectile.velocity * 0.9f + toTarget * 0.01f;
 			}
-			else if (!player.dead)
+			else if (!player.dead && player.active)
 			{ // Projectiles go back to their owner (shapeshifter) if possible
 				int count = 0; // can't have more than 5 flies on a player
 				foreach(Projectile projectile in Main.projectile)
 				{
-					if (projectile.type == Projectile.type && (int)projectile.ai[0] == player.whoAmI && projectile.active)
+					if (projectile.type == Projectile.type && (int)projectile.ai[0] == player.whoAmI && projectile.active && projectile.owner == player.whoAmI)
 					{
 						count++;
 						if (count >= 5)
