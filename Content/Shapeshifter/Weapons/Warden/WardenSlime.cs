@@ -11,7 +11,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 {
 	public class WardenSlime : OrchidModShapeshifterShapeshift
 	{
-		public bool LateralMovement = false;
 		public int jumpCooldown = 0;
 		public float JumpCharge = 0f;
 		public float SpikeCharge = 0f;
@@ -430,14 +429,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						TryAccelerate(ref intendedVelocity, -projectile.ai[0], speedMult, 5.5f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
-						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
 						TryAccelerate(ref intendedVelocity, projectile.ai[0], speedMult, 5.5f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
-						LateralMovement = true;
 					}
 
 					for (int i = 0; i < 15; i++)
@@ -480,18 +477,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					TryAccelerate(ref intendedVelocity, -projectile.ai[0], speedMult, 0.1f);
 					projectile.direction = -1;
 					projectile.spriteDirection = -1;
-					LateralMovement = true;
 				}
 				else if (anchor.IsInputRight && !anchor.IsInputLeft)
 				{ // Right movement
 					TryAccelerate(ref intendedVelocity, projectile.ai[0], speedMult, 0.1f);
 					projectile.direction = 1;
 					projectile.spriteDirection = 1;
-					LateralMovement = true;
 				}
 				else
 				{ // Both keys pressed = no movement
-					LateralMovement = false;
 					intendedVelocity.X *= 0.7f;
 				}
 
@@ -536,7 +530,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 			else
 			{ // no movement input
-				LateralMovement = false;
 				intendedVelocity.X *= 0.7f;
 			}
 

@@ -4,7 +4,6 @@ using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -30,6 +29,8 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			OldPosition = new List<Vector2>();
 		}
+
+		public override bool? CanCutTiles() => false;
 
 		public override void AI()
 		{

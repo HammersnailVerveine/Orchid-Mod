@@ -3543,6 +3543,15 @@ Items: {
 		Tooltip: Transforms you into a Hellbat, gaining unique abilities
 	}
 
+	SymbioteToad: {
+		DisplayName: Saptoad Statuette
+		LeftClick: Slaps enemies with your tongue, spawning up to 10 sapflies on hit
+		RightClick: Order sapflies to protect an ally, up to 5 can follow a given player
+		Jump: Horizontal mobility increased while jumping
+		Passive: Sapflies sacrifice themselves to provide healing after taking damage
+		Tooltip: Transforms you into a Saptoad, gaining unique abilities
+	}
+
 	ShapeshifterShampoo: {
 		DisplayName: Premium Critter Shampoo
 		Tooltip:
@@ -3775,11 +3784,6 @@ Items: {
 	ThoriumFeatherWarhammer: {
 		DisplayName: Warpecker
 		Tooltip: Pecks three times
-	}
-
-	SymbioteToad: {
-		DisplayName: Symbiote Toad
-		Tooltip: ""
 	}
 }
 
@@ -4234,6 +4238,8 @@ Projectiles: {
 	SageCorruptionProj.DisplayName: Spit
 	SageCorruptionProjAlt.DisplayName: Spit
 	SageCorruptionProjBlast.DisplayName: Blast
+	SymbioteToadProj.DisplayName: Symbiote Toad Proj
+	SymbioteToadProjAlt.DisplayName: Symbiote Toad Proj Alt
 }
 
 Configs: {

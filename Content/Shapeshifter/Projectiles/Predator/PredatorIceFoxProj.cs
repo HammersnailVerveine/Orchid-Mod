@@ -32,6 +32,8 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			OldRotation = new List<float>();
 		}
 
+		public override bool? CanCutTiles() => false;
+
 		public override void AI()
 		{
 			if (target == null)
