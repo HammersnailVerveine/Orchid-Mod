@@ -201,8 +201,6 @@ namespace OrchidMod.Content.Shapeshifter
 			{
 				player.fallStart = (int)(player.position.Y / 16f);
 				player.fallStart2 = (int)(player.position.Y / 16f);
-
-				Main.NewText("a");
 			}
 
 			if (intendedVelocity.Y < maxFallSpeed)
