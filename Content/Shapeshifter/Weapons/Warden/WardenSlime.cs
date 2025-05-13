@@ -345,10 +345,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				if (IsLocalPlayer(player))
 				{
 					int projectileType = ModContent.ProjectileType<WardenSlimeProj>();
-					int damage = shapeshifter.GetShapeshifterDamage(Item.damage * (projectile.ai[1] >= 2f ? 5f : 1f));
-					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, projectile.ai[1]);
-					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-					newProjectile.netUpdate = true;
+					float damage = Item.damage * (projectile.ai[1] >= 2f ? 5f : 1f);
+					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, Item.crit, 0f, player.whoAmI, projectile.ai[1]); 
 				}
 
 				shapeshifter.modPlayer.PlayerImmunity = 30;
@@ -387,10 +385,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					{
 						int projectileType = ModContent.ProjectileType<WardenSlimeProjAlt>();
 						Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 3);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + new Vector2(0f, 2f), velocity, projectileType, damage, Item.knockBack, player.whoAmI);
-						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-						newProjectile.netUpdate = true;
+						int damage = Item.damage * 3;
+						ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center + new Vector2(0f, 2f), velocity, projectileType, damage, Item.crit, Item.knockBack, player.whoAmI);
 					}
 
 					SoundEngine.PlaySound(SoundID.Item17, projectile.Center);
@@ -556,7 +552,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		public override void ShapeshiftOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			HitNPCs.Add(target.whoAmI);
-			TrySpawnHealingGoo(projectile, player);
+			TrySpawnHealingGoo(projectile, player, shapeshifter);
 		}
 
 		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -567,7 +563,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override void ShapeshiftOnHitByAnything(Player.HurtInfo hurtInfo, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			TrySpawnHealingGoo(projectile, player);
+			TrySpawnHealingGoo(projectile, player, shapeshifter);
 
 			if (projectile.ai[1] != 0f || JumpCharge > 0 || SpikeCharge > 0 || projectile.ai[0] > 2.5f)
 			{ // kb immunity while charging & big jump
@@ -575,7 +571,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 		}
 
-		public void TrySpawnHealingGoo(Projectile projectile, Player player)
+		public void TrySpawnHealingGoo(Projectile projectile, Player player, OrchidShapeshifter shapeshifter)
 		{
 			int chance = 10;
 			int projectileType = ModContent.ProjectileType<WardenSlimeProjPassive>();
@@ -594,8 +590,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{
 					int damage = 10; // healing
 					Vector2 velocity = new Vector2(Main.rand.NextFloat(3f, 7f) * (Main.rand.NextBool() ? 1f : -1f), Main.rand.NextFloat(-5f, -7f));
-					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, 0f, player.whoAmI);
-					newProjectile.netUpdate = true;
+					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, 0, 0f, player.whoAmI);
 				}
 			}
 		}

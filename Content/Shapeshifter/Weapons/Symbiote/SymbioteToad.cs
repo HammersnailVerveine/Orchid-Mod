@@ -418,11 +418,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 						finalTargetLocation -= projectile.Center;
 
 						int projectileType = ModContent.ProjectileType<SymbioteToadProj>();
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
 						Vector2 spawnPosition = projectile.Center + new Vector2(6f * projectile.ai[1], -2f);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), spawnPosition, Vector2.UnitX * 10f * projectile.ai[1], projectileType, damage, Item.knockBack, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y);
-						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-						newProjectile.netUpdate = true;
+						ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), spawnPosition, Vector2.UnitX * 10f * projectile.ai[1], projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y);
 					}
 				}
 			}

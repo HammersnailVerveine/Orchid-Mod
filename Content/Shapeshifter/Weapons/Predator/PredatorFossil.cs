@@ -87,9 +87,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 
 			int projectileType = ModContent.ProjectileType<PredatorFossilProj>();
-			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack, player.whoAmI);
-			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
 			SoundEngine.PlaySound(SoundID.Zombie33, projectile.Center);
 
 			anchor.LeftCLickCooldown = Item.useTime;

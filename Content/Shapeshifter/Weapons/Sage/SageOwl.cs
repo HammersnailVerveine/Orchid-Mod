@@ -71,7 +71,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
+			int damage = Item.damage;
 			int cooldown = Item.useTime;
 			if (AscendTimer > -60)
 			{ // More damage and attack speed while hovering
@@ -83,9 +83,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			for (int i = 0; i < 2; i++)
 			{
 				Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * (0.85f + i * 0.15f);
-				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI);
-				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-				newProjectile.netUpdate = true;
+				ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.crit, Item.knockBack, player.whoAmI);
 			}
 
 			anchor.LeftCLickCooldown = cooldown;

@@ -62,10 +62,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		{ // creates a fruit
 			int projectileType = ModContent.ProjectileType<WardenEaterProjAlt>();
 			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * 2.5f;
-			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack * 0.33f, player.whoAmI);
-			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-			newProjectile.netUpdate = true;
+			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack * 0.33f, player.whoAmI);
 
 			anchor.ai[1] = 20f;
 			projectile.ai[2] = velocity.ToRotation() - MathHelper.PiOver2;
@@ -163,7 +160,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					latchPosition.Y += 16f; // idk why it's offset by 1 tile upwards
 
 					float maxRange = 240f * GetSpeedMult(player, shapeshifter, anchor); // 15 tiles * movespeed
-					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), latchPosition, Vector2.Zero, projectileType, 0, 0f, player.whoAmI, Main.rand.Next(1000), maxRange + 8f);
+					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), latchPosition, Vector2.Zero, projectileType, 0, 0, 0f, player.whoAmI, Main.rand.Next(1000), maxRange + 8f);
 					projectile.ai[0] = maxRange;
 					anchor.NeedNetUpdate = true;
 				}
@@ -317,7 +314,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 			// ATTACK 
 
-			if ((anchor.IsLeftClick || anchor.ai[0] > 0f) && anchor.LeftCLickCooldown <= 0f && anchor.ai[1] <= 0f && anchor.ai[2] <= 0f)
+			if ((anchor.IsLeftClick || (anchor.ai[0] > 0f && AttackCharge > 0)) && anchor.LeftCLickCooldown <= 0f && anchor.ai[1] <= 0f && anchor.ai[2] <= 0f)
 			{
 				if (AttackCharge == 0)
 				{
@@ -363,7 +360,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						Vector2 position = projectile.Center;
 						Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * Item.shootSpeed;
 
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 2f);
+						float damage = Item.damage * 2f;
 						float knockBack = Item.knockBack * 0.33f;
 						if (anchor.ai[3] > 0)
 						{ // reinforced if a fruit was consumed for more range & damage
@@ -399,9 +396,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						}
 
 						int projectileType = ModContent.ProjectileType<WardenEaterProj>();
-
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, knockBack, player.whoAmI);
-						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+						ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.crit, knockBack, player.whoAmI);
 
 						// mini dash
 

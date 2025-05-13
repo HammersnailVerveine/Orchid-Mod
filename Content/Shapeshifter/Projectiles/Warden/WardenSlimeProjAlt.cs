@@ -54,7 +54,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			{
 				if (shapeshifter.ShapeshiftAnchor.ShapeshifterItem.ModItem is WardenSlime slime)
 				{
-					slime.TrySpawnHealingGoo(shapeshifter.ShapeshiftAnchor.Projectile, player);
+					slime.TrySpawnHealingGoo(shapeshifter.ShapeshiftAnchor.Projectile, player, shapeshifter);
 				}
 			}
 		}

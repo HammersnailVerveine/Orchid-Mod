@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 {
@@ -71,10 +70,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			int projectileType = ModContent.ProjectileType<SageImpProj>();
 			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(FastAttack > 0 ? 0.2f : 0f) * Item.shootSpeed;
-			int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + new Vector2(0f, 2f), velocity, projectileType, damage, Item.knockBack, player.whoAmI);
-			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-			newProjectile.netUpdate = true;
+			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center + new Vector2(0f, 2f), velocity, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
 
 			SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, projectile.Center);
 
@@ -125,10 +121,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 			}
 
-			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 2f);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, Vector2.Zero, projectileType, damage, 0f, player.whoAmI);
-			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-			newProjectile.netUpdate = true;
+			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), position, Vector2.Zero, projectileType, Item.damage * 2f, Item.crit, 0f, player.whoAmI);
 
 			SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, projectile.Center);
 
@@ -186,7 +179,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Vector2 offSet = Vector2.UnitY.RotatedBy(rotation) * -6f * GetSpeedMult(player, shapeshifter, anchor);
 
 			// helps with dush spawn sync in mp
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, offSet, ModContent.ProjectileType<SageImpDash>(), 0, 0, player.whoAmI);
+			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, offSet, ModContent.ProjectileType<SageImpDash>(), 0, 0, 0, player.whoAmI);
 
 			for (int i = 0; i < 32; i++)
 			{

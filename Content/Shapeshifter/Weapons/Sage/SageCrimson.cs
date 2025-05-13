@@ -80,10 +80,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			int projectileType = ModContent.ProjectileType<SageCorruptionProjBlast>();
 			Vector2 velocity = Main.MouseWorld.X < projectile.Center.X ? -Vector2.UnitX : Vector2.UnitX;
 			float chargeMult = (RightClickChargeBuffer / 300f);
-			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 2f + Item.damage * chargeMult * 8f); // damage increased up to 500% based on the left click hold duration
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, 0f, player.whoAmI, chargeMult, ai2:1);
-			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-			newProjectile.netUpdate = true;
+			float damage = Item.damage * 2f + Item.damage * chargeMult * 8f; // damage increased up to 500% based on the left click hold duration
+			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.crit, 0f, player.whoAmI, chargeMult, ai2:1);
 
 			projectile.velocity = -velocity * (6f + 4f * (anchor.ai[0] / 300f)) * shapeshifter.GetShapeshifterMeleeSpeed(); // dash duration reduced by attack speed, therefore it multiplies the velocity
 			projectile.velocity.Y = -2f - 2f * chargeMult;
@@ -308,10 +306,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 						int projectileType = ModContent.ProjectileType<SageCorruptionProj>();
 						Vector2 offSetSpawn = Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f, 64f);
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 1.5f);
-						Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center + offSetSpawn, Vector2.Zero, projectileType, damage, 0f, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y, ai2: 1);
-						newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-						newProjectile.netUpdate = true;
+						ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center + offSetSpawn, Vector2.Zero, projectileType, Item.damage * 1.5f, Item.crit, 0f, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y, ai2:1);
 
 						anchor.ai[3] = targetLocation.X > projectile.Center.X ? 1f : -1f;
 						anchor.NeedNetUpdate = true;

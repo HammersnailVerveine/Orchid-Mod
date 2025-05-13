@@ -87,17 +87,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{
 				player.ClearBuff(ModContent.BuffType<WardenTortoiseBuff>());
 				int projectileType = ModContent.ProjectileType<WardenTortoiseProj>();
-				int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 5f);
-				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack * 2f, player.whoAmI, 1f);
-				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+				ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, Item.damage * 5f, Item.crit, Item.knockBack * 2f, player.whoAmI, 1f);
 				SoundEngine.PlaySound(SoundID.Item108, projectile.Center);
 			}
 			else
 			{
 				int projectileType = ModContent.ProjectileType<WardenTortoiseProj>();
-				int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
-				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.knockBack, player.whoAmI);
-				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
+				ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
 				SoundEngine.PlaySound(SoundID.Zombie33, projectile.Center);
 			}
 

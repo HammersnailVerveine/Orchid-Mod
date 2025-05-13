@@ -201,6 +201,14 @@ namespace OrchidMod.Content.Shapeshifter
 			player.fallStart2 = (int)(player.position.Y / 16f);
 		}
 
+		public Projectile ShapeshifterNewProjectile(OrchidShapeshifter shapeshifter, IEntitySource spawnSource, Vector2 position, Vector2 velocity, int type, float damage, int critChance, float knockback, int owner = -1, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f)
+		{
+			if (damage > 0) damage = shapeshifter.GetShapeshifterDamage(damage);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, velocity, type, (int)damage, Item.knockBack * 0.33f, owner, ai0, ai1, ai2);
+			if (critChance > 0) newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(critChance);
+			return newProjectile;
+		}
+
 		public void GravityCalculations(ref Vector2 intendedVelocity, Player player, float maxFallSpeed = 10f, bool updateFallStart = true)
 		{
 			if ((intendedVelocity.Y < 0f && GroundedWildshape) || !GroundedWildshape && updateFallStart)

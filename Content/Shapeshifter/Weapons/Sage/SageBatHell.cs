@@ -78,12 +78,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.25f);
 			int projectileType = ModContent.ProjectileType<SageBatProj>();
 			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI, ai2: 1f);
-			newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-			newProjectile.netUpdate = true;
+			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage * 0.25f, Item.crit, Item.knockBack, player.whoAmI, ai2:1f);
 
 			anchor.RightCLickCooldown = Item.useTime * 3f;
 			anchor.Projectile.ai[0] = 10;
@@ -214,7 +211,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					{
 						AttackCharge2 = 0;
 						bool fired = false;
-						int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.8f);
 						int projectileType = ModContent.ProjectileType<SageBatHellProj>();
 
 						foreach (NPC npc in Main.npc)
@@ -224,9 +220,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 								if (npc.HasBuff<SageBatDebuff>() && npc.Center.Distance(projectile.Center) < 400f)
 								{
 									Vector2 velocity = Vector2.Normalize(projectile.Center - npc.Center).RotatedByRandom(1f) * Item.shootSpeed;
-									Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI, ai2: npc.whoAmI);
-									newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-									newProjectile.netUpdate = true;
+									ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage * 0.8f, Item.crit, Item.knockBack, player.whoAmI, ai2: npc.whoAmI);
 									fired = true;
 
 									if (npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SageBatDebuff>())] < 120 && !ChargeCue2)
@@ -250,13 +244,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				ReleasedLMB = true;
 				if (AttackCharge >= 60 && IsLocalPlayer(player))
 				{
-					int damage = shapeshifter.GetShapeshifterDamage(Item.damage);
 					int projectileType = ModContent.ProjectileType<SageBatProjAlt>();
 					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
-					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.knockBack, player.whoAmI, ai2: 1f);
+					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI, ai2: 1f);
 					SoundEngine.PlaySound(SoundID.Item131, projectile.Center);
-					newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
-					newProjectile.netUpdate = true;
 				}
 
 				if (anchor.Frame >= 4)
