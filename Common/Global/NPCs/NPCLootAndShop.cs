@@ -268,6 +268,10 @@ namespace OrchidMod.Common.Global.NPCs
 					}
 					break;
 				case NPCID.CaveBat:
+				case NPCID.IceBat:
+				case NPCID.JungleBat:
+				case NPCID.Hellbat:
+				case NPCID.SporeBat:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<SageBat>(), 100));
 					}

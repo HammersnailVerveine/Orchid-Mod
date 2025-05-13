@@ -195,12 +195,17 @@ namespace OrchidMod.Content.Shapeshifter
 			return player.gravity * GravityMult;
 		}
 
+		public void ResetFallHeight(Player player)
+		{
+			player.fallStart = (int)(player.position.Y / 16f);
+			player.fallStart2 = (int)(player.position.Y / 16f);
+		}
+
 		public void GravityCalculations(ref Vector2 intendedVelocity, Player player, float maxFallSpeed = 10f, bool updateFallStart = true)
 		{
-			if (intendedVelocity.Y < 0f && GroundedWildshape && updateFallStart)
+			if ((intendedVelocity.Y < 0f && GroundedWildshape) || !GroundedWildshape && updateFallStart)
 			{
-				player.fallStart = (int)(player.position.Y / 16f);
-				player.fallStart2 = (int)(player.position.Y / 16f);
+				ResetFallHeight(player);
 			}
 
 			if (intendedVelocity.Y < maxFallSpeed)

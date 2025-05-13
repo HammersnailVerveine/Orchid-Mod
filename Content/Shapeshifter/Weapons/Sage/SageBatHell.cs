@@ -440,7 +440,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.HellstoneBar, 10);
 			recipe.AddIngredient<SageBat>();
-			recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 		}
 	}

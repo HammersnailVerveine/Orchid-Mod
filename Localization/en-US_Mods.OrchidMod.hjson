@@ -3423,7 +3423,7 @@ Items: {
 	}
 
 	WardenTortoise: {
-		DisplayName: Sturdy Snapjaw Idol
+		DisplayName: Snapjaw Idol
 		LeftClick: Snaps your jaws, reinforced after negating damage
 		RightClick: Go into your shell, negating incoming damage
 		Jump: Cannot jump, gains a burst of movement speed instead

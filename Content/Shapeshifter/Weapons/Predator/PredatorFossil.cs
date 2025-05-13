@@ -452,7 +452,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.FossilOre, 15);
 			recipe.AddIngredient(ItemID.Amber, 8);
-			recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 		}
 	}
