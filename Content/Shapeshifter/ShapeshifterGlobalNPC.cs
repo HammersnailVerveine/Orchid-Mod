@@ -17,9 +17,13 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool SageBatDebuff;
 		public bool WardenSpiderDebuff;
 
-		public int ShapeshifterBleed = 0; // Used by to count Shapshifter bleeds stacks. See PredatorFossil.ShapeshiftOnHitNPC() for sync Example
-		public int ShapeshifterBleedTimer = 0; // Used to time Shapshifter bleeds
-		public int ShapeshifterBleedPotency = 0; // Damage dealt by the active shapeshifter bleed
+		public int ShapeshifterBleedWildshape = 0; // Used by to count Shapshifter wildshape-specific bleeds stacks. See PredatorFossil.ShapeshiftOnHitNPC() for sync Example
+		public int ShapeshifterBleedTimerWildshape = 0; // Used to time Shapshifter bleeds
+		public int ShapeshifterBleedPotencyWildshape = 0; // Damage dealt by the active shapeshifter bleed
+
+		public int ShapeshifterBleed = 0; // Used by to count Shapshifter general bleeds stacks (inflicted by equipment)
+		public int ShapeshifterBleedTimer = 0; // Used to time Shapshifter general bleeds
+		public int ShapeshifterBleedPotency = 0;// Damage dealt by the active general shapeshifter bleed
 
 		public override bool InstancePerEntity => true;
 		public override void ResetEffects(NPC npc) {
@@ -37,7 +41,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
 			if (ShapeshifterBleedTimer > 0)
-			{ // Used by the Predator Fossil for its bleeding effect on hit
+			{
 				ShapeshifterBleedTimer--;
 
 				if (ShapeshifterBleedTimer <= 0)
@@ -55,16 +59,42 @@ namespace OrchidMod.Content.Shapeshifter
 				{
 					damage = ShapeshifterBleed * ShapeshifterBleedPotency;
 				}
+			}
+			else
+			{
+				ShapeshifterBleedPotency = 0;
+				ShapeshifterBleed = 0;
+			}
 
-				if (Main.rand.NextBool(66 - ShapeshifterBleed * 6))
+			if (ShapeshifterBleedTimerWildshape > 0)
+			{
+				ShapeshifterBleedTimerWildshape--;
+
+				if (ShapeshifterBleedTimerWildshape <= 0)
+				{
+					ShapeshifterBleedWildshape = 0;
+				}
+
+				if (npc.lifeRegen > 0)
+				{
+					npc.lifeRegen = 0;
+				}
+
+				npc.lifeRegen -= ShapeshifterBleedWildshape * 2 * ShapeshifterBleedPotencyWildshape;
+				if (damage < ShapeshifterBleedWildshape * ShapeshifterBleedPotencyWildshape)
+				{
+					damage = ShapeshifterBleedWildshape * ShapeshifterBleedPotencyWildshape;
+				}
+
+				if (Main.rand.NextBool(66 - ShapeshifterBleedWildshape * 6))
 				{
 					Main.dust[Dust.NewDust(npc.position, npc.width, npc.height, DustID.Blood)].velocity *= 0.75f;
 				}
 			}
 			else
 			{
-				ShapeshifterBleedPotency = 0;
-				ShapeshifterBleed = 0;
+				ShapeshifterBleedPotencyWildshape = 0;
+				ShapeshifterBleedWildshape = 0;
 			}
 		}
 

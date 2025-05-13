@@ -432,6 +432,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				packet.Write(3); // potency
 				packet.Write(10); // max stacks
 				packet.Write(900); // timer
+				packet.Write(false); // This is not a general bleed (it is wildshape-specific)
 				packet.Send();
 			}
 		}

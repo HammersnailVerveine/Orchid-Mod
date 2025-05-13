@@ -152,18 +152,37 @@ namespace OrchidMod
 					int potency = reader.ReadInt32();
 					int maxStacks = reader.ReadInt32();
 					int timer = reader.ReadInt32();
-					if (potency != globalNPCShifter.ShapeshifterBleedPotency)
-					{
-						globalNPCShifter.ShapeshifterBleedPotency = potency;
-						globalNPCShifter.ShapeshifterBleed = 0;
-					}
+					bool generalBleed = reader.ReadBoolean();
+					if (generalBleed)
+					{ // a genered shapeshifter bleed. Only overriden by a more powerful bleed (from better equipment)
+						if (potency > globalNPCShifter.ShapeshifterBleedPotency)
+						{
+							globalNPCShifter.ShapeshifterBleedPotency = potency;
+							globalNPCShifter.ShapeshifterBleed = 0;
+						}
 
-					if (globalNPCShifter.ShapeshifterBleed < maxStacks)
-					{
-						globalNPCShifter.ShapeshifterBleed++;
-					}
+						if (globalNPCShifter.ShapeshifterBleed < maxStacks)
+						{
+							globalNPCShifter.ShapeshifterBleed++;
+						}
 
-					globalNPCShifter.ShapeshifterBleedTimer = timer;
+						globalNPCShifter.ShapeshifterBleedTimer = timer;
+					}
+					else
+					{ // a wildshape-specific bleed. Overriden by any different wildshape specific bleed.
+						if (potency != globalNPCShifter.ShapeshifterBleedPotencyWildshape)
+						{
+							globalNPCShifter.ShapeshifterBleedPotencyWildshape = potency;
+							globalNPCShifter.ShapeshifterBleedWildshape = 0;
+						}
+
+						if (globalNPCShifter.ShapeshifterBleedWildshape < maxStacks)
+						{
+							globalNPCShifter.ShapeshifterBleedWildshape++;
+						}
+
+						globalNPCShifter.ShapeshifterBleedTimerWildshape = timer;
+					}
 
 					if (Main.netMode == NetmodeID.Server)
 					{
@@ -173,6 +192,7 @@ namespace OrchidMod
 						packet.Write(potency);
 						packet.Write(maxStacks);
 						packet.Write(timer);
+						packet.Write(generalBleed);
 						packet.Send();
 					}
 
