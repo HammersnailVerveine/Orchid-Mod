@@ -75,7 +75,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				Reinforced = false;
 				int projectileType = ModContent.ProjectileType<PredatorHarpyProjAlt>();
 				Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed * 1.2f;
-				ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage * 2.5f, Item.crit, Item.knockBack * 5f, player.whoAmI);
+				ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage * 2.5f, Item.crit, Item.knockBack * 5f, player.whoAmI);
 				SoundEngine.PlaySound(SoundID.Item65, projectile.Center);
 			}
 			else
@@ -84,7 +84,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				{
 					int projectileType = ModContent.ProjectileType<PredatorHarpyProj>();
 					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f + 10 * i)) * (Item.shootSpeed - 5 * i);
-					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
+					ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
 				}
 				SoundEngine.PlaySound(SoundID.Item64, projectile.Center);
 			}
@@ -224,7 +224,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				{
 					int projectileType = ModContent.ProjectileType<PredatorHarpyProj>();
 					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f);
-					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage * 0.6f, Item.crit, Item.knockBack, player.whoAmI);
+					ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage * 0.6f, Item.crit, Item.knockBack, player.whoAmI);
 					SoundEngine.PlaySound(SoundID.Item63, projectile.Center);
 				}
 

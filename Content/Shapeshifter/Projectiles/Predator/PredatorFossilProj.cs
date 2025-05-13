@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
@@ -65,28 +66,12 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)
 		{
-			if (Main.netMode == NetmodeID.SinglePlayer)
+			if (shapeshifter.IsShapeshifted)
 			{
-				ShapeshifterGlobalNPC globalNPC = target.GetGlobalNPC<ShapeshifterGlobalNPC>();
-				if (globalNPC.ShapeshifterBleedPotency != 3)
+				if (shapeshifter.Shapeshift is PredatorFossil raptor)
 				{
-					globalNPC.ShapeshifterBleedPotency = 3;
-					globalNPC.ShapeshifterBleed = 0;
+					raptor.ShapeshiftApplyBleed(target, shapeshifter.ShapeshiftAnchor.Projectile, shapeshifter.ShapeshiftAnchor, player, shapeshifter, 900, 3, 10, false);
 				}
-
-				if (globalNPC.ShapeshifterBleed < 10) globalNPC.ShapeshifterBleed++;
-				globalNPC.ShapeshifterBleedTimer = 900; // 15 sec
-			}
-			else
-			{
-				var packet = OrchidMod.Instance.GetPacket();
-				packet.Write((byte)OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC);
-				packet.Write(target.whoAmI);
-				packet.Write(3); // potency
-				packet.Write(10); // max stacks
-				packet.Write(900); // timer
-				packet.Write(false); // This is not a general bleed (it is wildshape-specific)
-				packet.Send();
 			}
 		}
 

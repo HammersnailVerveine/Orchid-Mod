@@ -3799,6 +3799,11 @@ Items: {
 		DisplayName: Боеклюй
 		Tooltip: Делает три клёва
 	}
+
+	GoblinDagger: {
+		// Tooltip: Predator attacks apply a stacking bleed
+		// DisplayName: Goblin Backup Dagger
+	}
 }
 
 NPCs: {

@@ -149,46 +149,20 @@ namespace OrchidMod
 				case OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC:
 					NPC npc = Main.npc[reader.ReadInt32()];
 					ShapeshifterGlobalNPC globalNPCShifter = npc.GetGlobalNPC<ShapeshifterGlobalNPC>();
+					int bleedowner = reader.ReadInt32();
 					int potency = reader.ReadInt32();
 					int maxStacks = reader.ReadInt32();
 					int timer = reader.ReadInt32();
 					bool generalBleed = reader.ReadBoolean();
-					if (generalBleed)
-					{ // a genered shapeshifter bleed. Only overriden by a more powerful bleed (from better equipment)
-						if (potency > globalNPCShifter.ShapeshifterBleedPotency)
-						{
-							globalNPCShifter.ShapeshifterBleedPotency = potency;
-							globalNPCShifter.ShapeshifterBleed = 0;
-						}
 
-						if (globalNPCShifter.ShapeshifterBleed < maxStacks)
-						{
-							globalNPCShifter.ShapeshifterBleed++;
-						}
-
-						globalNPCShifter.ShapeshifterBleedTimer = timer;
-					}
-					else
-					{ // a wildshape-specific bleed. Overriden by any different wildshape specific bleed.
-						if (potency != globalNPCShifter.ShapeshifterBleedPotencyWildshape)
-						{
-							globalNPCShifter.ShapeshifterBleedPotencyWildshape = potency;
-							globalNPCShifter.ShapeshifterBleedWildshape = 0;
-						}
-
-						if (globalNPCShifter.ShapeshifterBleedWildshape < maxStacks)
-						{
-							globalNPCShifter.ShapeshifterBleedWildshape++;
-						}
-
-						globalNPCShifter.ShapeshifterBleedTimerWildshape = timer;
-					}
+					globalNPCShifter.ApplyBleed(bleedowner, timer, potency, maxStacks, generalBleed);
 
 					if (Main.netMode == NetmodeID.Server)
 					{
 						var packet = GetPacket();
 						packet.Write((byte)OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC);
 						packet.Write(npc.whoAmI);
+						packet.Write(bleedowner);
 						packet.Write(potency);
 						packet.Write(maxStacks);
 						packet.Write(timer);

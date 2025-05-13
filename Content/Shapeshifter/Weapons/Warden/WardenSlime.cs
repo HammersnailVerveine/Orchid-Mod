@@ -346,7 +346,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{
 					int projectileType = ModContent.ProjectileType<WardenSlimeProj>();
 					float damage = Item.damage * (projectile.ai[1] >= 2f ? 5f : 1f);
-					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, Item.crit, 0f, player.whoAmI, projectile.ai[1]); 
+					ShapeshifterNewProjectile(shapeshifter, projectile.Center, Vector2.Zero, projectileType, damage, Item.crit, 0f, player.whoAmI, projectile.ai[1]); 
 				}
 
 				shapeshifter.modPlayer.PlayerImmunity = 30;
@@ -386,7 +386,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						int projectileType = ModContent.ProjectileType<WardenSlimeProjAlt>();
 						Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
 						int damage = Item.damage * 3;
-						ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center + new Vector2(0f, 2f), velocity, projectileType, damage, Item.crit, Item.knockBack, player.whoAmI);
+						ShapeshifterNewProjectile(shapeshifter, projectile.Center + new Vector2(0f, 2f), velocity, projectileType, damage, Item.crit, Item.knockBack, player.whoAmI);
 					}
 
 					SoundEngine.PlaySound(SoundID.Item17, projectile.Center);
@@ -590,7 +590,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{
 					int damage = 10; // healing
 					Vector2 velocity = new Vector2(Main.rand.NextFloat(3f, 7f) * (Main.rand.NextBool() ? 1f : -1f), Main.rand.NextFloat(-5f, -7f));
-					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, 0, 0f, player.whoAmI);
+					ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, damage, 0, 0f, player.whoAmI);
 				}
 			}
 		}

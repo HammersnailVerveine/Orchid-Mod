@@ -67,7 +67,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			int projectileType = ModContent.ProjectileType<SageBatProj>();
 			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
-			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage * 0.25f, Item.crit, Item.knockBack, player.whoAmI);
+			ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage * 0.25f, Item.crit, Item.knockBack, player.whoAmI);
 
 			anchor.RightCLickCooldown = Item.useTime * 3f;
 			anchor.Projectile.ai[0] = 10;
@@ -180,7 +180,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				{
 					int projectileType = ModContent.ProjectileType<SageBatProjAlt>();
 					Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
-					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
+					ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
 					SoundEngine.PlaySound(SoundID.Item131, projectile.Center);
 
 				}

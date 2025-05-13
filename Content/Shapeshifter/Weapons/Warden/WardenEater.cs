@@ -62,7 +62,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		{ // creates a fruit
 			int projectileType = ModContent.ProjectileType<WardenEaterProjAlt>();
 			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * 2.5f;
-			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack * 0.33f, player.whoAmI);
+			ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack * 0.33f, player.whoAmI);
 
 			anchor.ai[1] = 20f;
 			projectile.ai[2] = velocity.ToRotation() - MathHelper.PiOver2;
@@ -160,7 +160,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					latchPosition.Y += 16f; // idk why it's offset by 1 tile upwards
 
 					float maxRange = 240f * GetSpeedMult(player, shapeshifter, anchor); // 15 tiles * movespeed
-					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), latchPosition, Vector2.Zero, projectileType, 0, 0, 0f, player.whoAmI, Main.rand.Next(1000), maxRange + 8f);
+					ShapeshifterNewProjectile(shapeshifter, latchPosition, Vector2.Zero, projectileType, 0, 0, 0f, player.whoAmI, Main.rand.Next(1000), maxRange + 8f);
 					projectile.ai[0] = maxRange;
 					anchor.NeedNetUpdate = true;
 				}
@@ -396,7 +396,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						}
 
 						int projectileType = ModContent.ProjectileType<WardenEaterProj>();
-						ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, damage, Item.crit, knockBack, player.whoAmI);
+						ShapeshifterNewProjectile(shapeshifter, position, offSet * 0.001f, projectileType, damage, Item.crit, knockBack, player.whoAmI);
 
 						// mini dash
 

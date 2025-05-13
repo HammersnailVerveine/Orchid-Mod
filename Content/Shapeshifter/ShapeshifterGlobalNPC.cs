@@ -5,6 +5,8 @@ using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,15 +19,21 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool SageBatDebuff;
 		public bool WardenSpiderDebuff;
 
+		public List<ShapeshifterBleed> BleedSpecific; // List of bleeds applied by specific wildshapes (such as the Fossil Raptor)
+		public List<ShapeshifterBleed> BleedGeneral; // List of generic shapeshifter bleeds applied by equipment (such as the Goblin Dagger)
+
 		public int ShapeshifterBleedWildshape = 0; // Used by to count Shapshifter wildshape-specific bleeds stacks. See PredatorFossil.ShapeshiftOnHitNPC() for sync Example
 		public int ShapeshifterBleedTimerWildshape = 0; // Used to time Shapshifter bleeds
 		public int ShapeshifterBleedPotencyWildshape = 0; // Damage dealt by the active shapeshifter bleed
 
-		public int ShapeshifterBleed = 0; // Used by to count Shapshifter general bleeds stacks (inflicted by equipment)
-		public int ShapeshifterBleedTimer = 0; // Used to time Shapshifter general bleeds
-		public int ShapeshifterBleedPotency = 0;// Damage dealt by the active general shapeshifter bleed
-
 		public override bool InstancePerEntity => true;
+
+		public override void SetDefaults(NPC entity)
+		{
+			BleedSpecific = new List<ShapeshifterBleed>();
+			BleedGeneral = new List<ShapeshifterBleed>();
+		}
+
 		public override void ResetEffects(NPC npc) {
 			SageOwlDebuff = false;
 			SageBatDebuff = false;
@@ -40,61 +48,44 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public override void UpdateLifeRegen(NPC npc, ref int damage)
 		{
-			if (ShapeshifterBleedTimer > 0)
+			int totalDamage = 0;
+
+			for (int i = BleedSpecific.Count - 1; i >= 0; i--)
 			{
-				ShapeshifterBleedTimer--;
-
-				if (ShapeshifterBleedTimer <= 0)
+				ShapeshifterBleed bleed = BleedSpecific[i];
+				totalDamage += bleed.BleedCount * bleed.BleedPotency;
+				bleed.BleedTimer--;
+				if (bleed.BleedTimer <= 0)
 				{
-					ShapeshifterBleed = 0;
+					BleedSpecific.RemoveAt(i);
 				}
+			}
 
+			for (int i = BleedGeneral.Count - 1; i >= 0; i--)
+			{
+				ShapeshifterBleed bleed = BleedGeneral[i];
+				totalDamage += bleed.BleedCount * bleed.BleedPotency;
+				bleed.BleedTimer--;
+				if (bleed.BleedTimer <= 0)
+				{
+					BleedGeneral.RemoveAt(i);
+				}
+			}
+
+			if (totalDamage > 0)
+			{
 				if (npc.lifeRegen > 0)
 				{
 					npc.lifeRegen = 0;
 				}
 
-				npc.lifeRegen -= ShapeshifterBleed * 2 * ShapeshifterBleedPotency;
-				if (damage < ShapeshifterBleed * ShapeshifterBleedPotency)
+				if (damage < 0)
 				{
-					damage = ShapeshifterBleed * ShapeshifterBleedPotency;
-				}
-			}
-			else
-			{
-				ShapeshifterBleedPotency = 0;
-				ShapeshifterBleed = 0;
-			}
-
-			if (ShapeshifterBleedTimerWildshape > 0)
-			{
-				ShapeshifterBleedTimerWildshape--;
-
-				if (ShapeshifterBleedTimerWildshape <= 0)
-				{
-					ShapeshifterBleedWildshape = 0;
+					damage = 0;
 				}
 
-				if (npc.lifeRegen > 0)
-				{
-					npc.lifeRegen = 0;
-				}
-
-				npc.lifeRegen -= ShapeshifterBleedWildshape * 2 * ShapeshifterBleedPotencyWildshape;
-				if (damage < ShapeshifterBleedWildshape * ShapeshifterBleedPotencyWildshape)
-				{
-					damage = ShapeshifterBleedWildshape * ShapeshifterBleedPotencyWildshape;
-				}
-
-				if (Main.rand.NextBool(66 - ShapeshifterBleedWildshape * 6))
-				{
-					Main.dust[Dust.NewDust(npc.position, npc.width, npc.height, DustID.Blood)].velocity *= 0.75f;
-				}
-			}
-			else
-			{
-				ShapeshifterBleedPotencyWildshape = 0;
-				ShapeshifterBleedWildshape = 0;
+				damage += totalDamage;
+				npc.lifeRegen -= totalDamage * 2;
 			}
 		}
 
@@ -208,6 +199,55 @@ namespace OrchidMod.Content.Shapeshifter
 			{
 				drawColor = Color.Gray.MultiplyRGBA(drawColor);
 			}
+		}
+
+		public ShapeshifterBleed ApplyBleed(int owner, int timer, int potency, int maxCount, bool isGeneral = false)
+		{ // returns true if the bleed was successfully updated, false if a new one was created
+			List<ShapeshifterBleed> bleedList = isGeneral ? BleedGeneral : BleedSpecific;
+			foreach (ShapeshifterBleed bleed in bleedList)
+			{
+				if (bleed.Owner == owner)
+				{ // found an existing bleed for that player, update it
+					bleed.NewBleed = false;
+					bleed.BleedTimer = timer;
+
+					if (bleed.BleedPotency < potency)
+					{ // current bleed is weaker than the new one, set the new potency and reset the bleed count
+						bleed.BleedPotency = potency;
+						bleed.BleedCount++;
+					}
+
+					if (bleed.BleedCount < maxCount)
+					{
+						bleed.BleedCount++;
+					}
+
+					return bleed;
+				}
+			}
+
+			// no bleed found for that player, create one
+			ShapeshifterBleed newBleed = new ShapeshifterBleed(1, potency, timer, owner);
+			bleedList.Add(newBleed);
+			return newBleed;
+		}
+	}
+
+	public class ShapeshifterBleed
+	{
+		public bool NewBleed = true; // whether the bleed has only been applied once
+		public int Owner = -1; // WhoAmI of the bleed owner
+		public int BleedCount = 0; // Used by to count Shapshifter general bleeds stacks (inflicted by equipment)
+		public int BleedTimer = 0; // Used to time Shapshifter general bleeds
+		public int BleedPotency = 0;// Damage dealt by the active general shapeshifter bleed
+
+		public ShapeshifterBleed(int count, int potency, int timer, int whoami)
+		{
+			BleedCount = count;
+			BleedPotency = potency;
+			BleedTimer = timer;
+			Owner = whoami;
+			NewBleed = true;
 		}
 	}
 }

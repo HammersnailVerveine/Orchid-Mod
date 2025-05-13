@@ -3785,6 +3785,11 @@ Items: {
 		DisplayName: Warpecker
 		Tooltip: Pecks three times
 	}
+
+	GoblinDagger: {
+		Tooltip: Predator attacks apply a stacking bleed
+		DisplayName: Goblin Backup Dagger
+	}
 }
 
 NPCs: {

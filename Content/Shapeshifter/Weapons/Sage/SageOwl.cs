@@ -83,7 +83,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			for (int i = 0; i < 2; i++)
 			{
 				Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(7.5f)) * Item.shootSpeed * (0.85f + i * 0.15f);
-				ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.crit, Item.knockBack, player.whoAmI);
+				ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, damage, Item.crit, Item.knockBack, player.whoAmI);
 			}
 
 			anchor.LeftCLickCooldown = cooldown;

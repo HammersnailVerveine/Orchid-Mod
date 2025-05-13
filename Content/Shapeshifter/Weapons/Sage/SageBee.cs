@@ -88,7 +88,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			int projectileType = ModContent.ProjectileType<SageBeeProj>();
 			Vector2 offset = new Vector2(Main.rand.NextFloat(-4f, 4f), 14f + Main.rand.NextFloat(-4f, 4f));
 			Vector2 velocity = Vector2.Normalize(Main.MouseWorld - (projectile.Center + offset)).RotatedByRandom(MathHelper.ToRadians(3f)) * Item.shootSpeed;
-			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center + offset, velocity, projectileType, Item.damage * 2.5f, Item.crit, Item.knockBack, player.whoAmI);
+			ShapeshifterNewProjectile(shapeshifter, projectile.Center + offset, velocity, projectileType, Item.damage * 2.5f, Item.crit, Item.knockBack, player.whoAmI);
 
 			anchor.LeftCLickCooldown = Item.useTime;
 			anchor.RightCLickCooldown = Item.useTime;
@@ -116,9 +116,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			{
 				Projectile newProjectile;
 				if (player.strongBees && Main.rand.NextBool())
-					newProjectile = ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(6f), ProjectileID.GiantBee, Item.damage * 0.575f, Item.crit, 0f, player.whoAmI);
+					newProjectile = ShapeshifterNewProjectile(shapeshifter, projectile.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(6f), ProjectileID.GiantBee, Item.damage * 0.575f, Item.crit, 0f, player.whoAmI);
 				else
-					newProjectile = ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(6f), ProjectileID.Bee, Item.damage * 0.5f, Item.crit, 0f, player.whoAmI);
+					newProjectile = ShapeshifterNewProjectile(shapeshifter, projectile.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(6f), ProjectileID.Bee, Item.damage * 0.5f, Item.crit, 0f, player.whoAmI);
 
 				newProjectile.DamageType = ModContent.GetInstance<ShapeshifterDamageClass>();
 			}

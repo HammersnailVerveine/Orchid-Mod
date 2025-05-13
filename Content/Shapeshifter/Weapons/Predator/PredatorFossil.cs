@@ -87,7 +87,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 
 			int projectileType = ModContent.ProjectileType<PredatorFossilProj>();
-			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
+			ShapeshifterNewProjectile(shapeshifter, position, offSet * 0.001f, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
 			SoundEngine.PlaySound(SoundID.Zombie33, projectile.Center);
 
 			anchor.LeftCLickCooldown = Item.useTime;
@@ -412,29 +412,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 		public override void ShapeshiftOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			if (Main.netMode == NetmodeID.SinglePlayer)
-			{
-				ShapeshifterGlobalNPC globalNPC = target.GetGlobalNPC<ShapeshifterGlobalNPC>();
-				if (globalNPC.ShapeshifterBleedPotency != 3)
-				{
-					globalNPC.ShapeshifterBleedPotency = 3;
-					globalNPC.ShapeshifterBleed = 0;
-				}
-
-				if (globalNPC.ShapeshifterBleed < 10) globalNPC.ShapeshifterBleed++;
-				globalNPC.ShapeshifterBleedTimer = 900; // 15 sec
-			}
-			else
-			{
-				var packet = OrchidMod.Instance.GetPacket();
-				packet.Write((byte)OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC);
-				packet.Write(target.whoAmI);
-				packet.Write(3); // potency
-				packet.Write(10); // max stacks
-				packet.Write(900); // timer
-				packet.Write(false); // This is not a general bleed (it is wildshape-specific)
-				packet.Send();
-			}
+			ShapeshiftApplyBleed(target, projectile, anchor, player, shapeshifter, 900, 3, 10);
 		}
 
 		public override void ShapeshiftModifyHurt(ref Player.HurtModifiers modifiers, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)

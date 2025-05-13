@@ -52,6 +52,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public virtual void ShapeshiftOnHitByNPC(NPC damagingNPC, Player.HurtInfo hurtInfo, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Called after taking a hit from a NPC
 		public virtual void ShapeshiftOnHitByAnything(Player.HurtInfo hurtInfo, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Called after taking a hit from a Anything
 		public virtual void ShapeshiftOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Called upon dealing "contact" damage to a NPC with the shapeshift anchor
+		public virtual void ShapeshiftOnApplyBleed(NPC target, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, ShapeshifterBleed bleed) { } // Called after a bleed has been applied to a NPC
 		public virtual void SafeHoldItem(Player player) { } // ModItem.HoldItem(Player player)
 		public virtual Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(lightColor, 0f); // used to draw the shapeshift anchor
 		public virtual Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(Color.White, 0f); // used to draw the shapeshift anchor glowmask
@@ -148,6 +149,7 @@ namespace OrchidMod.Content.Shapeshifter
 				player.RemoveAllGrapplingHooks();
 				anchor.OnChangeSelectedItem(player);
 				anchor.NeedNetUpdate = true;
+				anchor.ShapeshifterShapeshiftType = ShapeshiftType;
 			}
 		}
 
@@ -190,6 +192,28 @@ namespace OrchidMod.Content.Shapeshifter
 
 		// Custom methods
 
+		public void ShapeshiftApplyBleed(NPC target, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, int timer, int potency, int maxCount, bool isGeneral = false)
+		{ // Applies the bleed while in singleplayer, sends a packet for it while on a server
+			if (Main.netMode == NetmodeID.SinglePlayer)
+			{
+				ShapeshifterGlobalNPC globalNPC = target.GetGlobalNPC<ShapeshifterGlobalNPC>();
+				ShapeshifterBleed bleed = globalNPC.ApplyBleed(player.whoAmI, timer, potency, maxCount, isGeneral);
+				ShapeshiftOnApplyBleed(target, projectile, anchor, player, shapeshifter, bleed);
+			}
+			else
+			{
+				var packet = OrchidMod.Instance.GetPacket();
+				packet.Write((byte)OrchidModMessageType.SHAPESHIFTERAPPLYBLEEDTONPC);
+				packet.Write(target.whoAmI);
+				packet.Write(player.whoAmI);
+				packet.Write(potency);
+				packet.Write(maxCount);
+				packet.Write(timer);
+				packet.Write(isGeneral);
+				packet.Send();
+			}
+		}
+
 		public float GetFallSpeed(Player player)
 		{
 			return player.gravity * GravityMult;
@@ -201,11 +225,30 @@ namespace OrchidMod.Content.Shapeshifter
 			player.fallStart2 = (int)(player.position.Y / 16f);
 		}
 
-		public Projectile ShapeshifterNewProjectile(OrchidShapeshifter shapeshifter, IEntitySource spawnSource, Vector2 position, Vector2 velocity, int type, float damage, int critChance, float knockback, int owner = -1, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f)
+		public Projectile ShapeshifterNewProjectile(OrchidShapeshifter shapeshifter, Vector2 position, Vector2 velocity, int type, float damage, int critChance, float knockback, int owner = -1, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f, IEntitySource spawnSource = null)
 		{
-			if (damage > 0) damage = shapeshifter.GetShapeshifterDamage(damage);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, velocity, type, (int)damage, Item.knockBack * 0.33f, owner, ai0, ai1, ai2);
-			if (critChance > 0) newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(critChance);
+			if (damage > 0)
+			{
+				damage = shapeshifter.GetShapeshifterDamage(damage);
+			}
+
+			if (spawnSource == null)
+			{
+				spawnSource = Item.GetSource_FromAI();
+			}
+
+			Projectile newProjectile = Projectile.NewProjectileDirect(spawnSource, position, velocity, type, (int)damage, knockback, owner, ai0, ai1, ai2);
+
+			if (critChance > 0)
+			{
+				newProjectile.CritChance = shapeshifter.GetShapeshifterCrit(critChance);
+			}
+
+			if (newProjectile.ModProjectile is OrchidModShapeshifterProjectile shapeshifterProjectile)
+			{
+				shapeshifterProjectile.ShapeshifterShapeshiftType = ShapeshiftType;
+			}
+
 			return newProjectile;
 		}
 
@@ -234,14 +277,14 @@ namespace OrchidMod.Content.Shapeshifter
 				accelerationmult = acceleration;
 			}
 
-			if (!Deceleratee(ref intendedVelocity, maxSpeed, speedmult, amount * 0.75f, Yaxis))
+			if (!Decelerate(ref intendedVelocity, maxSpeed, speedmult, amount * 0.75f, Yaxis))
 			{
 				if (Yaxis) intendedVelocity.Y += amount * accelerationmult * Math.Sign(maxSpeed);
 				else intendedVelocity.X += amount * accelerationmult * Math.Sign(maxSpeed);
 			}
 		}
 
-		public bool Deceleratee(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount = 0.5f, bool Yaxis = false)
+		public bool Decelerate(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount = 0.5f, bool Yaxis = false)
 		{
 			float axisVelocity = Yaxis ? intendedVelocity.Y : intendedVelocity.X;
 

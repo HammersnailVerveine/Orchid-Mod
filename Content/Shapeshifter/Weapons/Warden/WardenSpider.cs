@@ -82,7 +82,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 
 			int projectileType = ModContent.ProjectileType<WardenSpiderProj>();
-			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), position, offSet * 0.001f, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
+			ShapeshifterNewProjectile(shapeshifter, position, offSet * 0.001f, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
 
 			SoundEngine.PlaySound(SoundID.DD2_JavelinThrowersAttack, projectile.Center);
 
@@ -100,7 +100,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			Vector2 distance = Main.MouseWorld - projectile.Center;
 			float ai0 = distance.Length() > 300f ? 0f : (30f - distance.Length() / 10f);
 			Vector2 velocity = Vector2.Normalize(distance) * 10f;
-			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack * 3f, player.whoAmI, ai0);
+			ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack * 3f, player.whoAmI, ai0);
 
 			anchor.NeedNetUpdate = true;
 			anchor.RightCLickCooldown = Item.useTime * 2.5f;

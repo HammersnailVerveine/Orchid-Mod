@@ -18,12 +18,10 @@ namespace OrchidMod
 		public int GetShapeshifterCrit(int additionalCritChance = 0) => (int)(Player.GetCritChance<ShapeshifterDamageClass>() + Player.GetCritChance<GenericDamageClass>() + additionalCritChance);
 		public float GetShapeshifterMeleeSpeed(float additionalCritChanceMeleeSpeed = 0) => Player.GetTotalAttackSpeed(DamageClass.Melee) + ShapeshifterMeleeSpeedBonus + additionalCritChanceMeleeSpeed;
 
-		// Can be edited by gear
+		// Can be edited by gear (Set effects, accessories, misc)
 
-
-		// Set effects, accessories, misc
-
-		public int ShapeshifterSageFoxSpeed = 0;
+		public int ShapeshifterPredatorBleedPotency = 0; // Damage per stack of the predator attack bleed
+		public int ShapeshifterPredatorBleedMaxStacks = 0; // Maximum stacks of the predator attack bleed 
 		public float ShapeshifterMeleeSpeedBonus = 0f;
 		public float ShapeshifterMoveSpeedBonus = 0f; // Additive, Scales logarithmically, can be used as shapeshifter-only alternative to player.movespeed, should be preferred
 		public float ShapeshifterMoveSpeedBonusFlat = 0f; // Additive, added to the final movespeed
@@ -32,6 +30,8 @@ namespace OrchidMod
 		public float ShapeshifterMoveSpeedBonusNotGrounded = 1f; // Multiplicative, used for effects that increase the movespeed of "flying" wildshapes, at all times
 
 		// Dynamic gameplay and UI fields
+
+		public int ShapeshifterSageFoxSpeed = 0;
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
@@ -67,6 +67,8 @@ namespace OrchidMod
 
 			// Reset gameplay fields
 
+			ShapeshifterPredatorBleedPotency = 0;
+			ShapeshifterPredatorBleedMaxStacks = 0;
 			ShapeshifterMeleeSpeedBonus = 0f;
 			ShapeshifterMoveSpeedBonus = 0f;
 			ShapeshifterMoveSpeedBonusFlat = 0f;

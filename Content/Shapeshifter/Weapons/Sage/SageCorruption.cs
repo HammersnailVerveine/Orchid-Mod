@@ -81,7 +81,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Vector2 velocity = Main.MouseWorld.X < projectile.Center.X ? -Vector2.UnitX : Vector2.UnitX;
 			float chargeMult = (RightClickChargeBuffer / 300f);
 			float damage = Item.damage * 2f + Item.damage * chargeMult * 8f; // damage increased up to 500% based on the left click hold duration
-			ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, velocity, projectileType, damage, Item.crit, 0f, player.whoAmI, chargeMult);
+			ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, damage, Item.crit, 0f, player.whoAmI, chargeMult);
 
 			projectile.velocity = -velocity * (6f + 4f * (anchor.ai[0] / 300f)) * shapeshifter.GetShapeshifterMeleeSpeed(); // dash duration reduced by attack speed, therefore it multiplies the velocity
 			projectile.velocity.Y = -2f - 2f * chargeMult;
@@ -305,7 +305,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 						int projectileType = ModContent.ProjectileType<SageCorruptionProj>();
 						Vector2 offSetSpawn = Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f, 64f);
-						ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center + offSetSpawn, Vector2.Zero, projectileType, Item.damage * 1.5f, Item.crit, 0f, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y);
+						ShapeshifterNewProjectile(shapeshifter, projectile.Center + offSetSpawn, Vector2.Zero, projectileType, Item.damage * 1.5f, Item.crit, 0f, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y);
 
 						anchor.ai[3] = targetLocation.X > projectile.Center.X ? 1f : -1f;
 						anchor.NeedNetUpdate = true;

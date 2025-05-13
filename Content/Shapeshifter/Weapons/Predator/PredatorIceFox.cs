@@ -110,7 +110,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			if (count < 3)
 			{ // Spawn a flame if less than 3 currently exist
-				ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, Item.damage, Item.crit, 0f, player.whoAmI, ai0, ai1);
+				ShapeshifterNewProjectile(shapeshifter, projectile.Center, Vector2.Zero, projectileType, Item.damage, Item.crit, 0f, player.whoAmI, ai0, ai1);
 
 				projectile.ai[2] = 30;
 				anchor.LeftCLickCooldown = Item.useTime;
@@ -187,7 +187,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			for (int j = 0; j < 3; j++)
 			{
-				ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, Item.damage, Item.crit, 0f, player.whoAmI, 0f, j);
+				ShapeshifterNewProjectile(shapeshifter, projectile.Center, Vector2.Zero, projectileType, Item.damage, Item.crit, 0f, player.whoAmI, 0f, j);
 			}
 
 			// Kill one of the dash indicators following the player
@@ -218,7 +218,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				{ // Spawns a projectile following the player when the dash is ready
 					int projectileType = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
 					Vector2 offset = Vector2.UnitY.RotatedByRandom(3.14f) * 64f;
-					ShapeshifterNewProjectile(shapeshifter, Item.GetSource_FromAI(), projectile.Center + offset, Vector2.Zero, projectileType, 0, 0, 0f, player.whoAmI, offset.X * 0.375f, offset.Y * 0.375f);
+					ShapeshifterNewProjectile(shapeshifter, projectile.Center + offset, Vector2.Zero, projectileType, 0, 0, 0f, player.whoAmI, offset.X * 0.375f, offset.Y * 0.375f);
 					SoundEngine.PlaySound(SoundID.Item30, projectile.Center);
 				}
 			}
