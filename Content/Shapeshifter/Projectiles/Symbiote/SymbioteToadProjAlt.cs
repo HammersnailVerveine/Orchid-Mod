@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 		public int LastTargetHealth = 0;
 		private static Texture2D TextureMain;
 		private static Texture2D TextureGlow;
+		private static Texture2D TextureGlow2;
 
 		public override void SafeSetDefaults()
 		{
@@ -35,6 +36,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 			Projectile.alpha = 255;
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			TextureGlow ??= ModContent.Request<Texture2D>(Texture + "_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+			TextureGlow2 ??= ModContent.Request<Texture2D>(Texture + "_Glow2", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 30;
 			Projectile.netImportant = true;
@@ -292,6 +294,14 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 			spriteBatch.Begin(spriteBatchSnapshot);
 
 			spriteBatch.Draw(TextureMain, drawPosition, rectangle, lightColor, Projectile.rotation, rectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+			spriteBatch.End();
+			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+
+			spriteBatch.Draw(TextureGlow2, drawPosition, rectangle, Color.White * 0.75f, Projectile.rotation, rectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+			spriteBatch.End();
+			spriteBatch.Begin(spriteBatchSnapshot);
 
 			return false;
 		}
