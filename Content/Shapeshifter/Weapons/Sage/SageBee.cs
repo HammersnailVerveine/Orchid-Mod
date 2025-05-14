@@ -111,6 +111,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 			}
 
+			if (player.strongBees)
+			{
+				count += Main.rand.Next(2);
+			}
+
 			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.5f);
 			for (int i = 0; i < 2 + count; i++)
 			{

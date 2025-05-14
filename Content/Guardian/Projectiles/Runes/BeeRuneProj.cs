@@ -32,8 +32,15 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 		{
 			TimeSpent++;
 			Projectile.rotation = (float)Math.Sin(TimeSpent * (MathHelper.Pi / 120f)) * 0.4f;
+			Player player = Owner;
 
-			if (Main.rand.NextBool(90))
+			int rand = 90;
+			if (player.strongBees)
+			{ // more bees with hive pack
+				rand -= 18;
+			}
+
+			if (Main.rand.NextBool(rand))
 			{
 				foreach (NPC npc in Main.npc)
 				{

@@ -32,7 +32,8 @@ namespace OrchidMod
 		public float ShapeshifterMoveSpeedBonusNotGrounded = 1f; // Multiplicative, used for effects that increase the movespeed of "flying" wildshapes, at all times
 		public float ShapeshifterHealingBonus = 1f; // Multiplicative, affects the direct healing provided by shapeshifter effects
 
-		public bool ShapeshifterSageDamageOnHit = false;
+		public bool ShapeshifterSetHarpy = false; // Harpy armor set bonus (causes feathers to fall when attacking from above)
+		public bool ShapeshifterSageDamageOnHit = false; // if true, hitting new targets increase feral damage
 
 		// Dynamic gameplay and UI fields
 
@@ -86,6 +87,7 @@ namespace OrchidMod
 			ShapeshifterMoveSpeedBonusNotGrounded = 1f;
 			ShapeshifterHealingBonus = 1f;
 
+			ShapeshifterSetHarpy = false;
 			ShapeshifterSageDamageOnHit = false;
 		}
 

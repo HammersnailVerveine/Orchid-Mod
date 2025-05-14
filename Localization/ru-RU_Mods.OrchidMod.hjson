@@ -3823,6 +3823,22 @@ Items: {
 		// DisplayName: Shapeshifter Emblem
 		// Tooltip: 15% increased feral damage
 	}
+
+	ShapeshifterHarpyHead: {
+		// DisplayName: Harpy Ceremonial Headband
+		// Tooltip: 8% increased feral critical strike chance
+		// SetBonus: Sharp feathers will fall on your target when hit from above
+	}
+
+	ShapeshifterHarpyChest: {
+		// DisplayName: Harpy Ceremonial Chestpiece
+		// Tooltip: 10% increased melee speed
+	}
+
+	ShapeshifterHarpyLegs: {
+		// DisplayName: Harpy Ceremonial Robes
+		// Tooltip: 10% increased movement speed
+	}
 }
 
 NPCs: {
