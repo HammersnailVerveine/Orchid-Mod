@@ -588,7 +588,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{
 				if (Main.rand.NextBool(12 -  chance))
 				{
-					int damage = 10; // healing
+					int damage = shapeshifter.GetShapeshifterHealing(10); // healing
 					Vector2 velocity = new Vector2(Main.rand.NextFloat(3f, 7f) * (Main.rand.NextBool() ? 1f : -1f), Main.rand.NextFloat(-5f, -7f));
 					ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, damage, 0, 0f, player.whoAmI);
 				}

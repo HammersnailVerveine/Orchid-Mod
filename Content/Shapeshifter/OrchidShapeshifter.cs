@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -16,7 +17,8 @@ namespace OrchidMod
 		public bool IsShapeshifted => ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active;
 		public int GetShapeshifterDamage(float damage) => (int)(Player.GetDamage<ShapeshifterDamageClass>().ApplyTo(damage) + Player.GetDamage(DamageClass.Generic).ApplyTo(damage) - damage);
 		public int GetShapeshifterCrit(int additionalCritChance = 0) => (int)(Player.GetCritChance<ShapeshifterDamageClass>() + Player.GetCritChance<GenericDamageClass>() + additionalCritChance);
-		public float GetShapeshifterMeleeSpeed(float additionalCritChanceMeleeSpeed = 0) => Player.GetTotalAttackSpeed(DamageClass.Melee) + ShapeshifterMeleeSpeedBonus + additionalCritChanceMeleeSpeed;
+		public float GetShapeshifterMeleeSpeed(float additionalMeleeSpeed = 0) => Player.GetTotalAttackSpeed(DamageClass.Melee) + ShapeshifterMeleeSpeedBonus + additionalMeleeSpeed;
+		public int GetShapeshifterHealing(float healing) => (int)Math.Ceiling(healing * ShapeshifterHealingBonus);
 
 		// Can be edited by gear (Set effects, accessories, misc)
 
@@ -28,6 +30,7 @@ namespace OrchidMod
 		public float ShapeshifterMoveSpeedBonusFinal = 0f; // Multiplicative, used before adding ShapeshifterMoveSpeedBonusFlat
 		public float ShapeshifterMoveSpeedBonusGrounded = 1f; // Multiplicative, used for effects that increase grounded speed like magiluminescence
 		public float ShapeshifterMoveSpeedBonusNotGrounded = 1f; // Multiplicative, used for effects that increase the movespeed of "flying" wildshapes, at all times
+		public float ShapeshifterHealingBonus = 1f; // Multiplicative, affects the direct healing provided by shapeshifter effects
 
 		// Dynamic gameplay and UI fields
 
@@ -75,6 +78,7 @@ namespace OrchidMod
 			ShapeshifterMoveSpeedBonusFinal = 1f;
 			ShapeshifterMoveSpeedBonusGrounded = 1f;
 			ShapeshifterMoveSpeedBonusNotGrounded = 1f;
+			ShapeshifterHealingBonus = 1f;
 		}
 
 		public override void PostUpdateEquips()

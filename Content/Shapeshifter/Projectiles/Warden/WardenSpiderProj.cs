@@ -80,7 +80,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 
 			if (target.HasBuff<WardenSpiderDebuff>())
 			{
-				shapeshifter.modPlayer.TryHeal(1 + Main.rand.Next(2));
+				shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(1 + Main.rand.Next(2)));
 			}
 		}
 

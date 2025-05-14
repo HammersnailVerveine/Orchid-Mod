@@ -443,7 +443,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 						if (IsLocalPlayer(player))
 						{
-							shapeshifter.modPlayer.TryHeal(15);
+							shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(15));
 						}
 
 						proj.ai[0] = 1f;

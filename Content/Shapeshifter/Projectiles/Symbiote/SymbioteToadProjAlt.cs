@@ -269,7 +269,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 
 			if ((int)Projectile.ai[0] == Main.myPlayer && !Main.LocalPlayer.dead && ShouldHeal)
 			{ // give some health back
-				Main.LocalPlayer.GetModPlayer<OrchidPlayer>().TryHeal(3);
+				Main.LocalPlayer.GetModPlayer<OrchidPlayer>().TryHeal(Owner.GetModPlayer<OrchidShapeshifter>().GetShapeshifterHealing(3));
 			}
 		}
 

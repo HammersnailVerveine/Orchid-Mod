@@ -3804,6 +3804,15 @@ Items: {
 		// Tooltip: Predator attacks apply a stacking bleed
 		// DisplayName: Goblin Backup Dagger
 	}
+
+	PlantEnzymes: {
+		// DisplayName: Plant Enzymes
+		/* Tooltip:
+			'''
+			50% increased shapeshifter healing effects
+			Enemies are more likely to target you
+			''' */
+	}
 }
 
 NPCs: {
