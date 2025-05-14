@@ -1,11 +1,11 @@
-using OrchidMod.Content.Shapeshifter.Accessories;
+using OrchidMod.Content.Guardian.Accessories;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OrchidMod.Content.Guardian.Accessories
+namespace OrchidMod.Content.Shapeshifter.Accessories
 {
-	public class GuardianEmblem : OrchidModGuardianItem
+	public class ShapeshifterEmblem : OrchidModShapeshifterItem
 	{
 		public override void SafeSetDefaults()
 		{
@@ -18,12 +18,12 @@ namespace OrchidMod.Content.Guardian.Accessories
 
 		public override void SetStaticDefaults()
 		{
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<ShapeshifterEmblem>();
+			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GuardianEmblem>();
 		}
 
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
-			player.GetDamage<GuardianDamageClass>() += 0.15f;
+			player.GetDamage<ShapeshifterDamageClass>() += 0.15f;
 		}
 
 		public override void AddRecipes()

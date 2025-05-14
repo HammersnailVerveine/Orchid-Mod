@@ -3799,6 +3799,16 @@ Items: {
 			Enemies are more likely to target you
 			'''
 	}
+
+	DeepwaterLocket: {
+		DisplayName: Deepwater Locket
+		Tooltip: Sage attacks increase feral damage by 2% for each unique enemy hit
+	}
+
+	ShapeshifterEmblem: {
+		DisplayName: Shapeshifter Emblem
+		Tooltip: 15% increased feral damage
+	}
 }
 
 NPCs: {

@@ -166,6 +166,7 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.DarkCaster:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DungeonCard>(), 25));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<DeepwaterLocket>(), 20));
 					}
 					break;
 				case NPCID.RuneWizard:
@@ -199,8 +200,13 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<GoblinArmyCard>(), 50));
 					}
 					break;
-				case NPCID.GoblinPeon:
 				case NPCID.GoblinThief:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<GoblinDagger>(), 15));
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemist, ItemType<GoblinArmyFlask>(), 50));
+						break;
+					}
+				case NPCID.GoblinPeon:
 				case NPCID.GoblinArcher:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentAlchemist, ItemType<GoblinArmyFlask>(), 50));
@@ -276,6 +282,12 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<SageBat>(), 100));
 					}
 					break;
+				case NPCID.ManEater:
+				case NPCID.Snatcher:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<PlantEnzymes>(), 20));
+						break;
+					}
 				default:
 					break;
 			}
@@ -332,7 +344,9 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.WallofFlesh:
 					{
-						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<GuardianEmblem>(), 2));
+						LeadingConditionRule leadingConditionRule = new LeadingConditionRule(NotExpert);
+						leadingConditionRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemType<GuardianEmblem>(), ItemType<ShapeshifterEmblem>()));
+						npcLoot.Add(leadingConditionRule);
 					}
 					break;
 				case NPCID.PirateShip:

@@ -32,9 +32,14 @@ namespace OrchidMod
 		public float ShapeshifterMoveSpeedBonusNotGrounded = 1f; // Multiplicative, used for effects that increase the movespeed of "flying" wildshapes, at all times
 		public float ShapeshifterHealingBonus = 1f; // Multiplicative, affects the direct healing provided by shapeshifter effects
 
+		public bool ShapeshifterSageDamageOnHit = false;
+
 		// Dynamic gameplay and UI fields
 
 		public int ShapeshifterSageFoxSpeed = 0;
+		public int ShapeshifterSageDamageOnHitCount = 0;
+		public int ShapeshifterSageDamageOnHitTimer = 0;
+		public int[] ShapeshifterSageDamageOnHitTargets;
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
@@ -50,6 +55,7 @@ namespace OrchidMod
 		public override void Initialize()
 		{
 			modPlayer = Player.GetModPlayer<OrchidPlayer>();
+			ShapeshifterSageDamageOnHitTargets = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
 		}
 
 		public override void ResetEffects()
@@ -79,6 +85,8 @@ namespace OrchidMod
 			ShapeshifterMoveSpeedBonusGrounded = 1f;
 			ShapeshifterMoveSpeedBonusNotGrounded = 1f;
 			ShapeshifterHealingBonus = 1f;
+
+			ShapeshifterSageDamageOnHit = false;
 		}
 
 		public override void PostUpdateEquips()
@@ -118,6 +126,17 @@ namespace OrchidMod
 			{
 				ShapeshifterSageFoxSpeed--;
 				Player.moveSpeed += ShapeshifterSageFoxSpeed * 0.003f;
+			}
+
+			if (ShapeshifterSageDamageOnHitTimer > 0)
+			{
+				ShapeshifterSageDamageOnHitTimer--;
+
+				if (ShapeshifterSageDamageOnHitTimer <= 0)
+				{
+					ShapeshifterSageDamageOnHitCount = 0;
+					ShapeshifterSageDamageOnHitTargets = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
+				}
 			}
 		}
 
@@ -181,6 +200,11 @@ namespace OrchidMod
 					dust.noGravity = true;
 					dust.noLight = true;
 				}
+			}
+
+			if (ShapeshifterSageDamageOnHitCount > 0)
+			{ // increases damage for each individual enemy hit by a sage attack
+				Player.GetDamage<ShapeshifterDamageClass>() += ShapeshifterSageDamageOnHitCount * 0.02f;
 			}
 		}
 

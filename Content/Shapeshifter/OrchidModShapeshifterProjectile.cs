@@ -1,8 +1,11 @@
+using Microsoft.Xna.Framework;
 using OrchidMod.Common;
 using OrchidMod.Common.Global.NPCs;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
+using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -55,14 +58,38 @@ namespace OrchidMod.Content.Shapeshifter
 
 			if (ShapeshifterShapeshiftType == ShapeshifterShapeshiftType.Predator)
 			{
-
-				if (shapeshifter.IsShapeshifted)
-				{
+				if (shapeshifter.IsShapeshifted && shapeshifter.ShapeshifterPredatorBleedPotency > 0)
+				{ // Applies bleeds on hit from predator attacks
 					ShapeshifterShapeshiftAnchor anchor = shapeshifter.ShapeshiftAnchor;
-					int timer = 900; // 15 sec
 					int potency = shapeshifter.ShapeshifterPredatorBleedPotency;
 					int maxStacks = shapeshifter.ShapeshifterPredatorBleedMaxStacks;
 					shapeshifter.Shapeshift.ShapeshiftApplyBleed(target, anchor.Projectile, anchor, player, shapeshifter, 900, potency, maxStacks, true);
+				}
+			}
+
+			if (ShapeshifterShapeshiftType == ShapeshifterShapeshiftType.Sage)
+			{
+				if (shapeshifter.ShapeshifterSageDamageOnHit && IsValidTarget(target))
+				{ // applies stacks increasing shapeshifter damage% for each unique enemy hit
+					if (shapeshifter.ShapeshifterSageDamageOnHitCount < 10 && !shapeshifter.ShapeshifterSageDamageOnHitTargets.Contains(target.whoAmI))
+					{
+						shapeshifter.ShapeshifterSageDamageOnHitTargets[shapeshifter.ShapeshifterSageDamageOnHitCount] = target.whoAmI;
+						shapeshifter.ShapeshifterSageDamageOnHitCount++;
+
+						Rectangle hitbox = player.Hitbox;
+						hitbox.Y -= 16;
+						bool dramatic = false;
+
+						if (shapeshifter.ShapeshifterSageDamageOnHitCount == 10)
+						{
+							dramatic = true;
+							SoundEngine.PlaySound(SoundID.Item35, player.Center);
+						}
+
+						CombatText.NewText(hitbox, new Color(28, 216, 109), shapeshifter.ShapeshifterSageDamageOnHitCount, dramatic, true);
+					}
+
+					shapeshifter.ShapeshifterSageDamageOnHitTimer = 600;
 				}
 			}
 

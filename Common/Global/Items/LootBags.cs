@@ -28,6 +28,7 @@ using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 using OrchidMod.Utilities;
+using OrchidMod.Content.Shapeshifter.Accessories;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -122,7 +123,7 @@ namespace OrchidMod.Common.Global.Items
 							player: player,
 							items: new()
 							{
-								//(ModContent.ItemType<ShamanEmblem>(), 1),
+								(ModContent.ItemType<ShapeshifterEmblem>(), 1),
 								(ModContent.ItemType<GuardianEmblem>(), 1)
 							}
 						);
