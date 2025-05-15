@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
+using OrchidMod.Content.Shapeshifter.Projectiles.Misc;
+using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -41,6 +43,8 @@ namespace OrchidMod
 		public int ShapeshifterSageDamageOnHitCount = 0;
 		public int ShapeshifterSageDamageOnHitTimer = 0;
 		public int[] ShapeshifterSageDamageOnHitTargets;
+		public int ShapeshifterSetHarpyDamagePool = 0;
+		public int ShapeshifterSetHarpyTimer = 0;
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
@@ -207,6 +211,39 @@ namespace OrchidMod
 			if (ShapeshifterSageDamageOnHitCount > 0)
 			{ // increases damage for each individual enemy hit by a sage attack
 				Player.GetDamage<ShapeshifterDamageClass>() += ShapeshifterSageDamageOnHitCount * 0.02f;
+			}
+
+			if (ShapeshifterSetHarpyDamagePool > 0)
+			{ // if ShapeshifterSetHarpyDamagePool is above 20, empty it gradually, spawning damaging feathers
+				ShapeshifterSetHarpyTimer--;
+				if (ShapeshifterSetHarpyDamagePool >= 20 && ShapeshifterSetHarpyTimer <= 0 && modPlayer.LastHitNPC != null)
+				{
+					ShapeshifterSetHarpyDamagePool -= 20;
+					ShapeshifterSetHarpyTimer = 10;
+					int projectileType = ModContent.ProjectileType<ShapeshifterHarpyProj>();
+					NPC target = modPlayer.LastHitNPC;
+					int damage = GetShapeshifterDamage(20);
+					Vector2 velocity = Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(20)) * 8f;
+					Vector2 position = target.Center + target.velocity * 20f - velocity * 90f;
+					Projectile newProjectile = Projectile.NewProjectileDirect(Player.GetSource_FromAI(), position, velocity, projectileType, damage, 0f, Player.whoAmI, ai2: target.Center.Y);
+					newProjectile.CritChance = GetShapeshifterCrit();
+				}
+			}
+		}
+
+		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			if (ShapeshifterSetHarpy && OrchidModProjectile.IsValidTarget(target) && Player.whoAmI == Main.myPlayer && IsShapeshifted)
+			{
+				int projectileType = ModContent.ProjectileType<ShapeshifterHarpyProj>();
+				if (target.Center.Y /* - target.width * 0.5f */ > Player.Center.Y + Player.height * 0.5f && proj.type != projectileType)
+				{ // attacks from above store 50% of the damage dealt in ShapeshifterSetHarpyDamagePool
+					ShapeshifterSetHarpyDamagePool += (int)(damageDone * 0.5f);
+					if (ShapeshifterSetHarpyDamagePool > 100)
+					{
+						ShapeshifterSetHarpyDamagePool = 100;
+					}
+				}
 			}
 		}
 

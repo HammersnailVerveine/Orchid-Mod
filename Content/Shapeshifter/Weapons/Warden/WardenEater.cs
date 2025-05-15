@@ -19,6 +19,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		public bool ChargeCue = false;
 		public float AttackCharge = 0f;
 		public float LastSyncedRotation = 0f;
+		public int KeepAttackAngle = 0;
 
 		public override void SetStaticDefaults()
 		{
@@ -101,6 +102,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			ChargeCue = false;
 			AttackCharge = 0f;
 			LastSyncedRotation = 0f;
+			KeepAttackAngle = 0;
 
 			if (IsLocalPlayer(player))
 			{
@@ -213,6 +215,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 			anchor.ai[1]--;
 			anchor.ai[4]--;
+			KeepAttackAngle--;
 
 			// MISC EFFECTS & ANIMATION
 
@@ -302,7 +305,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 			else
 			{ // else handle the projectile rotation
-				if (anchor.ai[0] > 0f || anchor.ai[1] > 0f || anchor.ai[2] > 0f || AttackCharge > 0f)
+				if (anchor.ai[0] > 0f || anchor.ai[1] > 0f || anchor.ai[2] > 0f || AttackCharge > 0f || KeepAttackAngle > 0f)
 				{ // dash
 					projectile.rotation = projectile.ai[2] + MathHelper.Pi;
 				}
@@ -345,6 +348,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{
 				if (AttackCharge >= 60 && anchor.LeftCLickCooldown <= 0f)
 				{
+					KeepAttackAngle = 20;
 					if (anchor.ai[3] > 0)
 					{ // reinforced = different sound
 						SoundEngine.PlaySound(SoundID.Item108, projectile.Center);

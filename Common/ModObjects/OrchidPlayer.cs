@@ -19,9 +19,6 @@ namespace OrchidMod.Common.ModObjects
 		public OrchidShapeshifter modPlayerShapeshifter;
 
 		public int Timer120 = 0; // Used for various AIs. I'll eventually get rid of this
-		// public int doubleTap = 0;
-		// public int doubleTapCooldown = 0;
-		// public bool doubleTapLock = false;
 
 		// Gameplay Fields
 
@@ -35,6 +32,8 @@ namespace OrchidMod.Common.ModObjects
 		public int ForcedVelocityTimer = 0; // How long should the forced velocity be kept
 		public bool OrchidDoubleDash = false;
 		public int OrchidDoubleDashCD = 0;
+		/// <summary> The last NPC referenced in OnHitNPC() for this player</summary>
+		public NPC LastHitNPC = null;
 		/// <summary> Set to 15 after a tap, decremented every frame. Registers a double tap and resets to 0 if another tap is input while above 0.</summary>
 		/// <remarks> Up = 0, Right = 1, Down = 2, Left = 3</remarks>
 		public int[] DoubleTapping = new int[4]; 
@@ -213,6 +212,11 @@ namespace OrchidMod.Common.ModObjects
 				shard.ai[0] = index / (float)TitaniumShards.Count;
 				index++;
 			}
+		}
+
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+		{
+			LastHitNPC = target;
 		}
 
 		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)

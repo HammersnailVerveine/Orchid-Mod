@@ -3825,18 +3825,18 @@ Items: {
 	}
 
 	ShapeshifterHarpyHead: {
-		// DisplayName: Harpy Ceremonial Headband
+		// DisplayName: Soaring Headband
 		// Tooltip: 8% increased feral critical strike chance
 		// SetBonus: Sharp feathers will fall on your target when hit from above
 	}
 
 	ShapeshifterHarpyChest: {
-		// DisplayName: Harpy Ceremonial Chestpiece
+		// DisplayName: Soaring Chestpiece
 		// Tooltip: 10% increased melee speed
 	}
 
 	ShapeshifterHarpyLegs: {
-		// DisplayName: Harpy Ceremonial Robes
+		// DisplayName: Soaring Robes
 		// Tooltip: 10% increased movement speed
 	}
 }
@@ -4294,6 +4294,7 @@ Projectiles: {
 	// SageCorruptionProjBlast.DisplayName: Blast
 	// SymbioteToadProj.DisplayName: Symbiote Toad Proj
 	// SymbioteToadProjAlt.DisplayName: Symbiote Toad Proj Alt
+	// ShapeshifterHarpyProj.DisplayName: Shapeshifter Harpy Proj
 }
 
 Configs: {
