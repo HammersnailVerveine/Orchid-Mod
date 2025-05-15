@@ -222,7 +222,7 @@ namespace OrchidMod
 					ShapeshifterSetHarpyTimer = 10;
 					int projectileType = ModContent.ProjectileType<ShapeshifterHarpyProj>();
 					NPC target = modPlayer.LastHitNPC;
-					int damage = GetShapeshifterDamage(20);
+					int damage = GetShapeshifterDamage(15);
 					Vector2 velocity = Vector2.UnitY.RotatedByRandom(MathHelper.ToRadians(20)) * 8f;
 					Vector2 position = target.Center + target.velocity * 20f - velocity * 90f;
 					Projectile newProjectile = Projectile.NewProjectileDirect(Player.GetSource_FromAI(), position, velocity, projectileType, damage, 0f, Player.whoAmI, ai2: target.Center.Y);

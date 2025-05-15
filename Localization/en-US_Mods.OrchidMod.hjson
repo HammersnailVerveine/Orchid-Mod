@@ -4278,9 +4278,9 @@ Projectiles: {
 	SageCorruptionProj.DisplayName: Spit
 	SageCorruptionProjAlt.DisplayName: Spit
 	SageCorruptionProjBlast.DisplayName: Blast
-	SymbioteToadProj.DisplayName: Symbiote Toad Proj
-	SymbioteToadProjAlt.DisplayName: Symbiote Toad Proj Alt
-	ShapeshifterHarpyProj.DisplayName: Shapeshifter Harpy Proj
+	SymbioteToadProj.DisplayName: Saptongue
+	SymbioteToadProjAlt.DisplayName: Sapfly
+	ShapeshifterHarpyProj.DisplayName: Soaring Feather
 }
 
 Configs: {
