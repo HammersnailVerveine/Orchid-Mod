@@ -385,6 +385,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 			{
 				projectile.ai[2] -= shapeshifter.GetShapeshifterMeleeSpeed();
 				projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+				TongueOutBuffer = 5;
 
 				if (projectile.ai[2] <= 0)
 				{

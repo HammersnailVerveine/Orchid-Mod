@@ -18,7 +18,7 @@ namespace OrchidMod.Content.Shapeshifter.Armors.Harpy
 
 		public override void UpdateEquip(Player player)
 		{
-			player.GetAttackSpeed(DamageClass.Melee) += 0.1f;
+			player.GetAttackSpeed(DamageClass.Melee) += 0.08f;
 		}
 
 		public override void AddRecipes()
