@@ -13,208 +13,208 @@ Tiles: {
 
 Buffs: {
 	TitanicBuff: {
-		Description: ""
 		DisplayName: Titanic Buff
+		Description: ""
 	}
 
 	LodestoneSlow: {
-		Description: ""
 		DisplayName: Lodestone Slow
+		Description: ""
 	}
 
 	GraniteAura: {
-		Description: ""
 		DisplayName: Granite Aura
+		Description: ""
 	}
 
 	AquaBump: {
-		Description: ""
 		DisplayName: Aqua Bump
+		Description: ""
 	}
 
 	ShroomHeal: {
-		Description: ""
 		DisplayName: Shroom Heal
+		Description: ""
 	}
 
 	ShamanicEmpowerment: {
-		Description: ""
 		DisplayName: Shamanic Empowerment
+		Description: ""
 	}
 
 	MythrilDefense: {
-		Description: ""
 		DisplayName: Mythril Defense
+		Description: ""
 	}
 
 	DeepForestAura: {
-		Description: ""
 		DisplayName: Deep Forest Aura
+		Description: ""
 	}
 
 	WindStun: {
-		Description: ""
 		DisplayName: Wind Stun
+		Description: ""
 	}
 
 	WindSlow: {
-		Description: ""
 		DisplayName: Wind Slow
+		Description: ""
 	}
 
 	WindDamage: {
-		Description: ""
 		DisplayName: Wind Damage
+		Description: ""
 	}
 
 	LeafSlow: {
-		Description: ""
 		DisplayName: Leaf Slow
+		Description: ""
 	}
 
 	HellHit: {
-		Description: ""
 		DisplayName: Hell Hit
+		Description: ""
 	}
 
 	EarthTotemRevive: {
-		Description: ""
 		DisplayName: Earth Totem Revive
+		Description: ""
 	}
 
 	DiabolistCauterizeCooldown: {
-		Description: ""
 		DisplayName: Diabolist Cauterize Cooldown
+		Description: ""
 	}
 
 	BrokenPower: {
-		Description: ""
 		DisplayName: Broken Power
+		Description: ""
 	}
 
 	AbyssEmpowerment: {
-		Description: ""
 		DisplayName: Abyss Empowerment
+		Description: ""
 	}
 
 	RCRemoteBuff: {
-		Description: Вжжжжжжж
 		DisplayName: Радиоуправляемый вертолётик
+		Description: Вжжжжжжж
 	}
 
 	SquareMinecartBuff: {
-		Description: Вы катитесь в вагонетке
 		DisplayName: Вагонетка
+		Description: Вы катитесь в вагонетке
 	}
 
 	HarpyPotionBuff: {
-		Description: Бонусный прыжок, вызывающий шквал из перьев
 		DisplayName: Ловкость гарпии
+		Description: Бонусный прыжок, вызывающий шквал из перьев
 	}
 
 	VulturePotionBuff: {
-		Description: Скорость появления фишек увеличена на 20%
 		DisplayName: Стервятник
+		Description: Скорость появления фишек увеличена на 20%
 	}
 
 	ConquerorsPennantBuff: {
-		Description: Шанс картёжного критического удара и скорость передвижения увеличены на 10%
 		DisplayName: Трепет завоевателя
+		Description: Шанс картёжного критического удара и скорость передвижения увеличены на 10%
 	}
 
 	SlimeSlow: {
-		Description: Скорость передвижения снижена
 		DisplayName: Слизневое замедление
+		Description: Скорость передвижения снижена
 	}
 
 	ReactionCooldown: {
-		Description: Вы не можете использовать скрытые реакции
 		DisplayName: Помехи в эксперементе
+		Description: Вы не можете использовать скрытые реакции
 	}
 
 	FlashFreeze: {
-		Description: Скорость передвижения снижена
 		DisplayName: Мгновенная заморозка
+		Description: Скорость передвижения снижена
 	}
 
 	Catalyzed: {
-		Description: Активизирует различные алхимические свойства
 		DisplayName: Катализирован
+		Description: Активизирует различные алхимические свойства
 	}
 
 	Attraction: {
-		Description: Аттарактирует ближайшие алхимические снаряды
 		DisplayName: Аттаракция
+		Description: Аттарактирует ближайшие алхимические снаряды
 	}
 
 	StellarTalcBuff: {
-		Description: Снаряды звёздного талька летают вокруг вас
 		DisplayName: Звёздная орбита
+		Description: Снаряды звёздного талька летают вокруг вас
 	}
 
 	StardustSamplesBuff: {
-		Description: Подсолнухи пробы леса запутывают поражённых врагов
 		DisplayName: Запутанность звёздной пыли
+		Description: Подсолнухи пробы леса запутывают поражённых врагов
 	}
 
 	SpiritedWaterBuff: {
-		Description: Алхимические атаки выпускают горячие водяные огни
 		DisplayName: Горячие капли
+		Description: Алхимические атаки выпускают горячие водяные огни
 	}
 
 	SlimeFlaskBuff: {
-		Description: Использование слизистых образцов с огненным элементом выпустит наносящие урон тлеющие огни
 		DisplayName: Горящий образец
+		Description: Использование слизистых образцов с огненным элементом выпустит наносящие урон тлеющие огни
 	}
 
 	ReactiveVialsBuff: {
-		Description: Урон вашей следующей химической смеси увеличен на 10%
 		DisplayName: Реактивные элементы
+		Description: Урон вашей следующей химической смеси увеличен на 10%
 	}
 
 	QueenBeeFlaskBuff: {
-		Description: Атака с тремя и более элементами призовёт пчёл
 		DisplayName: Человеческий улей
+		Description: Атака с тремя и более элементами призовёт пчёл
 	}
 
 	MushroomHeal: {
-		Description: Алхимические атаки создадут больше спор
 		DisplayName: Грибные споры
+		Description: Алхимические атаки создадут больше спор
 	}
 
 	MeteorSpeed: {
-		Description: Невосприимчивость к отбрасыванию и увеличение скорости передвижения на 20%
 		DisplayName: Метеорная манёвренность
+		Description: Невосприимчивость к отбрасыванию и увеличение скорости передвижения на 20%
 	}
 
 	KingSlimeFlaskBuff: {
-		Description: Шанс появления слизневых пузырей, призывающих шипастых слизней джунглей, увеличен
 		DisplayName: Отравленный слизень
+		Description: Шанс появления слизневых пузырей, призывающих шипастых слизней джунглей, увеличен
 	}
 
 	JungleLilyExtractBuff: {
-		Description: Каждая алхимическая атака, использующая 2 или более элемента, выпустит очищающую ауру
 		DisplayName: Очищающие лилии
+		Description: Каждая алхимическая атака, использующая 2 или более элемента, выпустит очищающую ауру
 	}
 
 	IceChestFlaskBuff: {
-		Description: Замораживает алхимические снаряды вокруг вас и замедляет ближайших врагов
 		DisplayName: Постоянная заморозка
+		Description: Замораживает алхимические снаряды вокруг вас и замедляет ближайших врагов
 	}
 
 	DemonBreathFlaskBuff: {
-		Description: Дыхание демона будет создавать больше снарядов
 		DisplayName: Демоническая вонь
+		Description: Дыхание демона будет создавать больше снарядов
 	}
 
 	BloodMistFlaskBuff: {
-		Description: Во время движения вы выпускаете кровавые облака
 		DisplayName: Шаги в тумане
+		Description: Во время движения вы выпускаете кровавые облака
 	}
 
 	AttractiteAuraSmall: {
-		Description: Накладывает аттракцию на ближайших врагов
 		DisplayName: Малая аттрактивная аура
+		Description: Накладывает аттракцию на ближайших врагов
 	}
 
 	GuardianSpikeBuff: {
@@ -305,11 +305,6 @@ Buffs: {
 	OpalResources: {
 		DisplayName: Опаловые параметры
 		Description: Скорость восполнения параметров увеличена на 10%
-	}
-
-	PredatorFossilDebuff: {
-		// DisplayName: Predator Fossil Debuff
-		// Description: Mods.OrchidMod.Buffs.PredatorFossilDebuff.Description
 	}
 }
 
@@ -1411,7 +1406,7 @@ Items: {
 	}
 
 	VultureTalon: {
-		DisplayName: Коготь стервятника
+		DisplayName: Когти стервятника
 		Tooltip: ""
 	}
 
@@ -3430,34 +3425,34 @@ Items: {
 		DisplayName: Идол звёздной совы
 		LeftClick: Стреляет шквалом перьев
 		RightClick: Отмечает врагов под вами, увеличивая наносимый урон на 3 ед.
-		Jump: Взлетает, перед тем как начать парить, увеличивая урон и скорость атаки
-		Passive: Улучшает ночное зрение
+		Jump: Прыгните, чтобы подлететь и начать парить, увеличивая урон и скорость атаки
+		Passive: Улучшенное ночное зрение
 		Tooltip: Обращает вас в звёздную сову, даруя уникальные навыки
 	}
 
 	WardenTortoise: {
-		DisplayName: Идол крепкого щёлкозуба
+		DisplayName: Идол щёлкозуба
 		LeftClick: Захлопывает челюсти, усиливающиеся после блокирования урона
-		RightClick: Прячетесь в панцире, блокируя входящий урон
+		RightClick: Прячет вас в панцире, блокируя входящий урон
 		Jump: Ускоряет передвижение вместо прыжка
 		Passive: Получаемый урон снижен на 20%
-		Tooltip: Обращает вас в щёлказуба, даруя уникальные навыки
+		Tooltip: Обращает вас в щёлкозуба, даруя уникальные навыки
 	}
 
 	PredatorIceFox: {
 		DisplayName: Статуэтка ледяной лесы
 		LeftClick: Призывает 3 лисиных огонька
 		RightClick: Переводит вас в призрачную форму. Вы будете наносить урон врагам, через которых проходите.
-		Jump: Периодически совершает телепортирующий рывок, вызывая 3 лисиных огонька
+		Jump: При двойном прыжке может совершить телепортирующий рывок, вызывающий 3 лисиных огонька
 		Passive: Обращение в человека и обратно снижает скорость передвижения
 		Tooltip: Обращает вас в лесу-духа, даруя уникальные навыки
 	}
 
 	PredatorHarpy: {
 		DisplayName: Чучело гарпии
-		LeftClick: Стреляет бритвенно остромы перьями
+		LeftClick: Стреляет бритвенно острыми перьями
 		RightClick: Совершает горизонтальный рывок, выпуская шквал перьев
-		Jump: Взмахните крыльями 3 раза, чтобы набрать высоту
+		Jump: Может совершать четверной прыжок
 		Passive: Каждый прыжок и рывок усиливает вашу следующую атаку
 		Tooltip: Обращает вас в гарпию, даруя уникальные навыки
 	}
@@ -3475,36 +3470,36 @@ Items: {
 		DisplayName: Чучело пчелы
 		LeftClick: Стреляет зазубренным жалом, застревающим во врагах
 		RightClick: Выпускает пчелиный рой, становящийся больше в зависимости от запаса жал
-		Jump: Совершает рывок по направлению вашего движения
+		Jump: При прыжке совершается рывок по направлению вашего движения
 		Passive: Обращение в человека и обратно покрывает мёдом ближайших союзников
 		Tooltip: Обращает вас в пчелу, даруя уникальные навыки
 	}
 
 	SageImp: {
-		DisplayName: Мудрость беса
-		// LeftClick: Shoots fireballs, reinforced when crossing a wall of fire
-		// RightClick: Creates a wall of fire, damaging enemies that cross it
-		// Jump: Jump to rapidly blink in the direction of your movement
-		// Passive: Nearby enemy deaths increase your next 3 attacks speed
-		Tooltip: ""
+		DisplayName: Чучело беса
+		LeftClick: Стреляет огненными шарами, усиливающими при прохождении через огненную стену
+		RightClick: Создаёт огненную стену, наносящую урон врагам при контакте
+		Jump: При прыжке вы телепортируетесь по направлению вашего движения
+		Passive: Смерть врага по близости увеличивает скорость ваших следующих трёх атак
+		Tooltip: Обращает вас в беса, даруя уникальные навыки
 	}
 
 	SageCorruption: {
-		DisplayName: Мудрость искажения
-		// LeftClick: Rains vile bolts, charging to gain in fire rate over time
-		// RightClick: Blasts enemies and yourself away, stronger based on attack charge
-		// Jump: Jump to dash, before being able to float for a few seconds
-		// Passive: Nearby enemies splatter on death, dealing damage in an area
-		Tooltip: ""
+		DisplayName: Чучело искажателя
+		LeftClick: Выпускает шквал мерзких выстрелов, скорость которых увеличивается по мере использования атаки
+		RightClick: Создаёт отбрасывающий вас взрыв, сила которого зависит от уровня заряда обычной атаки
+		Jump: При прыжке совершается рывок, после которого можно будет парить в течении нескольких секунд
+		Passive: Убитые враги взрываются, нанося дополнительный урон ближайшим целям
+		Tooltip: Обращает вас в искажателя, даруя уникальные навыки
 	}
 
 	SageCrimson: {
-		// DisplayName: Crimera Effigy
-		// LeftClick: Rains crimson bolts, charging to gain in fire rate over time
-		// RightClick: Blasts enemies and yourself away, stronger based on attack charge
-		// Jump: Jump to dash, before being able to float for a few seconds
-		// Passive: Nearby enemies splatter on death, dealing damage in an area
-		// Tooltip: Transforms you into a Crimera, gaining unique abilities
+		DisplayName: Чучело кримеры
+		LeftClick: Выпускает шквал базровых выстрелов, скорость которых увеличивается по мере использования атаки
+		RightClick: Создаёт отбрасывающий вас взрыв, сила которого зависит от уровня заряда обычной атаки
+		Jump: При прыжке совершается рывок, после которого можно будет парить в течении нескольких секунд
+		Passive: Убитые враги взрываются, нанося дополнительный урон ближайшим целям
+		Tooltip: Обращает вас в кримеру, даруя уникальные навыки
 	}
 
 	WardenSpider: {
@@ -3512,26 +3507,26 @@ Items: {
 		LeftClick: Совершает сильный укус, который исцеляет вас, если был поражён покрытый паутиной враг
 		RightClick: Выстреливает паутиной, уничтожающей врагов, у которых менее 100 ед. здоровья
 		Jump: Позволяет использвать паутину, чтобы притягиваться к блокам или другим паутинам
-		Passive: Убийства врагов восстанавливают вам 10 ед. здоровья и дарают 15 ед. защиты. Порог усиления и исцеления снижен в других формах.
+		Passive: Убийства врагов восстанавливают вам 10 ед. здоровья и дарают 15 ед. защиты. Порог усиления и исцеления снижен в других формах
 		Tooltip: Обращает вас в паутинопокрытого паука, даруя уникальные навыки
 	}
 
 	WardenSlime: {
-		// DisplayName: Gelatinous Idol
-		// LeftClick: Slams downward, efficiency increases with fall distance
-		// RightClick: Charges a piercing slime spike
-		// Jump: Left clicking while grounded charges a powerful jump
-		// Passive: Receiving or inflicting damage releases chunks of healing goo
-		// Tooltip: Transforms you into a Regal Slime, gaining unique abilities
+		DisplayName: Идол желатинового
+		LeftClick: Совершает удар в падении, сила которого зависит от высоты падения
+		RightClick: Заряжает выстрел пробивающим слизневым шипом
+		Jump: Нажатие ЛКМ по время прыжка в падении совершит усиленный удар
+		Passive: При получении и нанесении урона из вас могут вылететь комки исцеляющей слизи
+		Tooltip: Обращает вас в королевского слизня, даруя уникальные навыки
 	}
 
 	WardenEater: {
-		// DisplayName: Man Eater Effigy
-		// LeftClick: Charges a powerful bite, reinforced after consuming a fruit
-		// RightClick: Shoots up to 3 fruits, ripening over time and with nearby deaths
-		// Jump: Jump to bash forward, pushing enemies away and consuming ripe fruits
-		// Passive: Roots to the ground, favoring plant tiles for a movement speed bonus
-		// Tooltip: Transforms you into a Carnivorous Plant, gaining unique abilities
+		DisplayName: Чучело людоеда
+		LeftClick: Заряжает сильный укус, который усиливается при съедении плодов
+		RightClick: Выпускает до 3 плодов, которые созревает со временем. Скорость созревания увеличивается при смерти врагов по близости
+		Jump: При прыжке совершает рывок в сторону курсора, наносящий урон врагам и позволяющий съедать спелые фрукты
+		Passive: Скорость передвижения увеличивается, если основание стебля находится на блоке какой-либо травы
+		Tooltip: Обращает вас в платоядное растение, даруя уникальные навыки
 	}
 
 	SageBat: {
@@ -3553,12 +3548,12 @@ Items: {
 	}
 
 	SymbioteToad: {
-		// DisplayName: Saptoad Statuette
-		// LeftClick: Slaps enemies with your tongue, spawning up to 10 sapflies on hit
-		// RightClick: Orders sapflies to protect an ally, up to 5 can follow a given player
-		// Jump: Press UP to jump higher, reduced fall damage
-		// Passive: Sapflies sacrifice themselves to provide healing after taking damage
-		// Tooltip: Transforms you into a Saptoad, gaining unique abilities
+		DisplayName: Статуэтка сокожабы
+		LeftClick: Высовывает длинный язык, поподания которым призывают соковых мух, до 10 штух
+		RightClick: Перенаправляет соковых мух защищать вашего союзника, до 5 мух за каждым игроком
+		Jump: Зажмите ВВЕРХ при прыжке, чтоб увеличить его высоту и снизить урон от падения
+		Passive: Соковые мухи жертвуют собой, чтобы восстановить потерянное от удара здоровье игрока
+		Tooltip: Обращает вас в адскую сокожабу, даруя уникальные навыки
 	}
 
 	ShapeshifterShampoo: {
@@ -3801,43 +3796,43 @@ Items: {
 	}
 
 	GoblinDagger: {
-		// Tooltip: Predator attacks apply a stacking bleed
-		// DisplayName: Goblin Backup Dagger
+		DisplayName: Запасной кинжал гоблина
+		Tooltip: Атаки обращений охотника будут накладывать складывающееся кровотечение
 	}
 
 	PlantEnzymes: {
-		// DisplayName: Plant Enzymes
-		/* Tooltip:
+		DisplayName: Растительные ферменты
+		Tooltip:
 			'''
-			50% increased shapeshifter healing effects
-			Enemies are more likely to target you
-			''' */
+			Увеличивает эффекты лечения оборотня на 50%
+			Враги будут чаще выбирать вас в качестве цели
+			'''
 	}
 
 	DeepwaterLocket: {
-		// DisplayName: Deepwater Locket
-		// Tooltip: Sage attacks increase feral damage by 2% for each unique enemy hit
+		DisplayName: Глубоководный медальон
+		Tooltip: Атаки обращений мудрости увеличивают звериный урон на 2% за удар по каждому отдельному врагу
 	}
 
 	ShapeshifterEmblem: {
-		// DisplayName: Shapeshifter Emblem
-		// Tooltip: 15% increased feral damage
+		DisplayName: Эмблема оборотня
+		Tooltip: Увеличивает звериный урон на 15%
 	}
 
 	ShapeshifterHarpyHead: {
-		// DisplayName: Soaring Headband
-		// Tooltip: 8% increased feral critical strike chance
-		// SetBonus: Sharp feathers will fall on your target when hit from above
+		DisplayName: Повязка парителя
+		Tooltip: Увеличивает шанс звериного критического удара на 8%
+		SetBonus: Попадания по врагам обрушивают на них остре перья
 	}
 
 	ShapeshifterHarpyChest: {
-		// DisplayName: Soaring Chestpiece
-		// Tooltip: 10% increased melee speed
+		DisplayName: Нагрудник парителя
+		Tooltip: Увеличивает скорость ближнего боя на 10%
 	}
 
 	ShapeshifterHarpyLegs: {
-		// DisplayName: Soaring Robes
-		// Tooltip: 10% increased movement speed
+		DisplayName: Мантия парителя
+		Tooltip: Увелиивает скорость передвижения 10%
 	}
 }
 
@@ -4036,10 +4031,10 @@ Prefixes: {
 	AddGuard: " оч. обороны"
 	AddAttackSpeed: % к скорости атаки
 	AddDuration: к длительности {0}
-	AddSize: к размеру
-	AddSpeed: к скорости
 	AddParry: парирования
 	AddBlock: блока
+	AddSize: к размеру
+	AddSpeed: к скорости
 }
 
 Projectiles: {
@@ -4263,11 +4258,11 @@ Projectiles: {
 	PredatorHarpyProjAlt.DisplayName: Перо
 	SageBeeProj.DisplayName: Жало
 	HorizonDrillProjectile.DisplayName: Бур горизонта
-	WardenSpiderProj.DisplayName: Паутинопокрытый паук
-	WardenSpiderWeb.DisplayName: Паутина паутинопокрытого паука
-	SageBatProj.DisplayName: Эхолоцирующий выстрел летучей мыши
+	WardenSpiderProj.DisplayName: Укус паука
+	WardenSpiderWeb.DisplayName: Паутина
+	SageBatProj.DisplayName: Эхолоцирующий выстрел
 	SageBatProjAlt.DisplayName: Эхолокация
-	GuardianQuarterstaffAnchor.DisplayName: Боевой шест хранителя
+	GuardianQuarterstaffAnchor.DisplayName: Боевой шест
 	ThoriumLeafShieldProj.DisplayName: Бритвенные листья
 	DungeonQuarterstaffProjectile.DisplayName: Раздвинутые моря
 	ShardQuarterstaffProjectile.DisplayName: Гармония
@@ -4278,23 +4273,23 @@ Projectiles: {
 	VerveineFart.DisplayName: Пердёж
 	ThoriumAquaiteQuarterstaffProjectile.DisplayName: Вихревой взмах
 	PredatorFossilProj.DisplayName: Укус раптора
-	SageBatHellProj.DisplayName: Эхолоцирующий выстрел адской летучей мыши
-	// SageImpProj.DisplayName: Fireball
-	// SageImpProjAlt.DisplayName: Firewall
-	// WardenSlimeProj.DisplayName: Slime Slam
-	// WardenSlimeProjAlt.DisplayName: Slime Spike
-	// WardenSlimeProjPassive.DisplayName: Slime Goo
-	// SageImpDash.DisplayName: Dash
-	// WardenEaterStem.DisplayName: Stem
-	// WardenEaterProjAlt.DisplayName: Eater Bud
-	// WardenEaterProjAltDeath.DisplayName: Eater Light
-	// WardenEaterProj.DisplayName: Eater Bite
-	// SageCorruptionProj.DisplayName: Spit
-	// SageCorruptionProjAlt.DisplayName: Spit
-	// SageCorruptionProjBlast.DisplayName: Blast
-	// SymbioteToadProj.DisplayName: Symbiote Toad Proj
-	// SymbioteToadProjAlt.DisplayName: Symbiote Toad Proj Alt
-	// ShapeshifterHarpyProj.DisplayName: Shapeshifter Harpy Proj
+	SageBatHellProj.DisplayName: Эхолоцирующий выстрел
+	SageImpProj.DisplayName: Огненный шар
+	SageImpProjAlt.DisplayName: Огненная стена
+	WardenSlimeProj.DisplayName: Слизневый удар
+	WardenSlimeProjAlt.DisplayName: Слизневый шир
+	WardenSlimeProjPassive.DisplayName: Слизневая слизь
+	SageImpDash.DisplayName: Рывок
+	WardenEaterStem.DisplayName: Стебель людоеда
+	WardenEaterProjAlt.DisplayName: Бутон людоеда
+	WardenEaterProjAltDeath.DisplayName: Свет людоеда
+	WardenEaterProj.DisplayName: Укус едока
+	SageCorruptionProj.DisplayName: Плевок
+	SageCorruptionProjAlt.DisplayName: Плевок
+	SageCorruptionProjBlast.DisplayName: Взрыв
+	SymbioteToadProj.DisplayName: Соковый язык
+	SymbioteToadProjAlt.DisplayName: Соковая муха
+	ShapeshifterHarpyProj.DisplayName: Перо парителя
 }
 
 Configs: {
@@ -4373,11 +4368,11 @@ Misc: {
 	ShapeshifterRightClick: "[c/AFFFAF:Навык: ]"
 	ShapeshifterJump: "[c/AFFFAF:Передвижение: ]"
 	ShapeshifterPassive: "[c/AFFFAF:Пассивный навык: ]"
-	ShapeshifterNone: Другая дикая форма
-	// ShapeshifterSymbiote: Symbiote wildshape
-	ShapeshifterSage: Дикая форма мудрости
-	ShapeshifterPredator: Дикая форма охотника
-	ShapeshifterWarden: Дикая форма стража
+	ShapeshifterNone: Нестандартное обращение
+	ShapeshifterSymbiote: Форма обращения симбиота
+	ShapeshifterSage: Форма обращения мудреца
+	ShapeshifterPredator: Форма обращения охотника
+	ShapeshifterWarden: Форма обращения стража
 	NewHiddenReac: Найдена подсказка к новой скрытой реакции!
 	NoHintsLeft: На этом уровне не осталось подсказок
 	FailedReaction: Неудачная реакция
@@ -4463,7 +4458,7 @@ UI: {
 	DanserItem: {
 		ImpactWeapon: -Ударное оружие-
 		PhaseWeapon: -Фазовое оружие-
-		MomentumWeapon: Momentum Weapon
+		MomentumWeapon: -Momentum Weapon-
 	}
 
 	ReactionBook: {
@@ -4494,7 +4489,7 @@ DamageClasses: {
 	}
 
 	ShamanDamageClass.DisplayName: shamanic damage
-	ShapeshifterDamageClass.DisplayName: ед. дикого урона
+	ShapeshifterDamageClass.DisplayName: ед. звериного урона
 }
 
 Conditions: {
