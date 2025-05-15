@@ -48,13 +48,13 @@ namespace OrchidMod.Content.Shapeshifter.Armors.Harpy
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Feather, 4);
 			recipe.AddIngredient(ItemID.ShadowScale, 10);
-			recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 			
 			recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Feather, 4);
 			recipe.AddIngredient(ItemID.TissueSample, 10);
-			recipe.AddTile(TileID.Anvils);
+			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 		}
 	}
