@@ -175,7 +175,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
-			GravityCalculations(ref intendedVelocity, player);
+			GravityCalculations(ref intendedVelocity, player, shapeshifter);
 
 			if (anchor.IsInputJump && intendedVelocity.Y >= 0.8f)
 			{ // Gliding
@@ -188,7 +188,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				Jumps--;
 				anchor.Frame = 3;
 				anchor.Projectile.ai[0] = -30;
-				intendedVelocity.Y = - (7f + speedMult);
+				TryJump(ref intendedVelocity, 7f, player, shapeshifter, anchor);
 				SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 
 				for (int i = 0; i < 2; i++)
@@ -216,7 +216,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 				anchor.Frame = 1;
 				anchor.Timespent = 0;
-				intendedVelocity.X = 7f * speedMult * projectile.direction;
+				intendedVelocity.X = 7f * speedMult * projectile.direction * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 				if (intendedVelocity.Y > 0) intendedVelocity.Y = 0f;
 
 				projectile.ai[2]--;
@@ -281,7 +281,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 					{
 						anchor.Frame = 3;
 						anchor.Projectile.ai[0] = -30;
-						intendedVelocity.Y = -7f * speedMult;
+						TryJump(ref intendedVelocity, 7f, player, shapeshifter, anchor);
 						anchor.NeedNetUpdate = true;
 						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 

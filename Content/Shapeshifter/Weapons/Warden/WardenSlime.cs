@@ -72,7 +72,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			HitNPCs.Clear();
 			projectile.ai[0] = 0f;
 			projectile.ai[1] = 1f;
-			projectile.velocity.Y = 15f;
+			projectile.velocity.Y = 15f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 			projectile.velocity.X = 0f;
 
 			for (int i = 0; i < 15; i++)
@@ -115,7 +115,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 			if (projectile.ai[1] >= 1f)
 			{ // Slam charges up within the first 0.25 sec of free fall
-				projectile.ai[1] += 0.07f;
+				projectile.ai[1] += 0.07f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 				if (projectile.ai[1] >= 2f)
 				{
 					projectile.ai[1] = 2f;
@@ -357,7 +357,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 
 			Vector2 intendedVelocity = projectile.velocity;
-			GravityCalculations(ref intendedVelocity, player, projectile.ai[1] >= 1f ? 15f : 10f);
+			GravityCalculations(ref intendedVelocity, player, shapeshifter, projectile.ai[1] >= 1f ? 15f : 10f);
 
 			// Attack Charges
 
@@ -416,7 +416,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				if (JumpCharge >= 60)
 				{ // Full charge jump
 					anchor.Timespent = -15;
-					intendedVelocity.Y = -15f;
+					TryJump(ref intendedVelocity, 15f, player, shapeshifter, anchor);
 					jumpCooldown = 10;
 					projectile.ai[0] = 5.5f;
 
@@ -449,7 +449,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				else if (JumpCharge > 0)
 				{ // Jump not fully charged, do a normal one
 					anchor.Timespent = -12;
-					intendedVelocity.Y = -10f;
+					TryJump(ref intendedVelocity, 10f, player, shapeshifter, anchor);
 
 					for (int i = 0; i < 8; i++)
 					{
@@ -492,7 +492,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					if (player.controlJump)
 					{
 						anchor.Timespent = -12;
-						intendedVelocity.Y = -10f;
+						TryJump(ref intendedVelocity, 10f, player, shapeshifter, anchor);
 
 						for (int i = 0; i < 8; i++)
 						{
@@ -507,7 +507,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					else
 					{
 						anchor.Timespent = -10;
-						intendedVelocity.Y = -6f;
+						TryJump(ref intendedVelocity, 6f, player, shapeshifter, anchor);
 
 						for (int i = 0; i < 5; i++)
 						{

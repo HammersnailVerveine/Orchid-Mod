@@ -258,7 +258,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
-			GravityCalculations(ref intendedVelocity, player);
+			GravityCalculations(ref intendedVelocity, player, shapeshifter);
 
 			if (anchor.IsInputJump && intendedVelocity.Y >= 1.2f)
 			{ // Gliding

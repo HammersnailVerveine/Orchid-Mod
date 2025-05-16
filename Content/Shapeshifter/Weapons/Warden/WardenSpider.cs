@@ -253,7 +253,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					if (grounded && JumpRelease)
 					{
 						JumpRelease = false;
-						intendedVelocity.Y = -9.5f;
+						TryJump(ref intendedVelocity, 9.5f, player, shapeshifter, anchor, true);
 					}
 				}
 				else
@@ -261,7 +261,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					JumpRelease = true;
 				}
 
-				GravityCalculations(ref intendedVelocity, player);
+				GravityCalculations(ref intendedVelocity, player, shapeshifter);
 			}
 
 			// Normal movement

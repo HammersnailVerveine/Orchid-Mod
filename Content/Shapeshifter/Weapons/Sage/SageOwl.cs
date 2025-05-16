@@ -185,8 +185,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				{ // Ascend quickly
 					if (anchor.Frame == 3)
 					{
-						intendedVelocity.Y -= 1f;
-						if (intendedVelocity.Y > -1f)
+						intendedVelocity.Y -= 1f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
+						if (intendedVelocity.Y > -1f * shapeshifter.ShapeshifterMoveSpeedMiscOverride)
 						{
 							intendedVelocity.Y = -1f;
 						}
@@ -255,7 +255,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					AscendTimer = 120;
 					anchor.Timespent = 0;
 					anchor.Frame = 2;
-					intendedVelocity.Y = -2f;
+					intendedVelocity.Y = -2f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 					intendedVelocity.X = 0f;
 					CanAscend = false;
 					SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, projectile.Center);
@@ -274,7 +274,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						if (anchor.IsInputJump || anchor.IsInputUp)
 						{ // Slowly glides down
 							if (anchor.Frame == 4) anchor.Frame = 3;
-							intendedVelocity.Y = 1.4f;
+							intendedVelocity.Y = 1.4f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 							WasGliding = true;
 						}
 						else
@@ -283,7 +283,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 							{
 								anchor.Frame = 2;
 							}
-							intendedVelocity.Y += 0.05f;
+							intendedVelocity.Y += 0.05f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 						}
 					}
 					else if (anchor.Frame == 3 || WasGliding)
@@ -297,17 +297,17 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						{ // Pushes the player up more if near the ground while moving (helps with navigation)
 							if (LateralMovement || anchor.Projectile.ai[0] > -30 || anchor.IsLeftClick)
 							{
-								intendedVelocity.Y -= 1f;
-								if (intendedVelocity.Y > -1f)
+								intendedVelocity.Y -= 1f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
+								if (intendedVelocity.Y > -1f * shapeshifter.ShapeshifterMoveSpeedMiscOverride)
 								{
-									intendedVelocity.Y = -1f;
+									intendedVelocity.Y = -1f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 								}
 
 							}
 						}
 						else
 						{ // Else slowly flaps down
-							intendedVelocity.Y = -1f;
+							intendedVelocity.Y = -1f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 						}
 						SoundEngine.PlaySound(SoundID.Item32, projectile.Center);
 					}
@@ -317,7 +317,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						if (Landed)
 						{ // Kickstart if the owl was landed
 							Landed = false;
-							intendedVelocity.Y = -2f;
+							intendedVelocity.Y = -2f * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 						}
 
 						if (grounded)

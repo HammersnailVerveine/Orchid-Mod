@@ -131,8 +131,8 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public void CreateNewAnchor(Player player)
 		{
-			player.itemTime = 60;
-			player.itemAnimation = 60;
+			player.itemTime = 30;
+			player.itemAnimation = 30;
 			int projectileType = ModContent.ProjectileType<ShapeshifterShapeshiftAnchor>();
 			Projectile proj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, player.velocity, projectileType, 0, 0f, player.whoAmI);
 			if (proj.ModProjectile is not ShapeshifterShapeshiftAnchor anchor)
@@ -214,9 +214,9 @@ namespace OrchidMod.Content.Shapeshifter
 			}
 		}
 
-		public float GetFallSpeed(Player player)
+		public float GetFallSpeed(Player player, OrchidShapeshifter shapeshifter)
 		{
-			return player.gravity * GravityMult;
+			return player.gravity * GravityMult * shapeshifter.ShapeshifterGravity;
 		}
 
 		public void ResetFallHeight(Player player)
@@ -252,17 +252,27 @@ namespace OrchidMod.Content.Shapeshifter
 			return newProjectile;
 		}
 
-		public void GravityCalculations(ref Vector2 intendedVelocity, Player player, float maxFallSpeed = 10f, bool updateFallStart = true)
+		public void GravityCalculations(ref Vector2 intendedVelocity, Player player, OrchidShapeshifter shapeshifter, float maxFallSpeed = 10f, bool updateFallStart = true)
 		{
 			if ((intendedVelocity.Y < 0f && GroundedWildshape) || !GroundedWildshape && updateFallStart)
 			{
 				ResetFallHeight(player);
 			}
 
-			if (intendedVelocity.Y < maxFallSpeed)
+			maxFallSpeed *= shapeshifter.ShapeshifterMaxFallSpeed;
+
+			if (intendedVelocity.Y <= maxFallSpeed)
 			{ // gravity
-				intendedVelocity.Y += GetFallSpeed(player);
+				intendedVelocity.Y += GetFallSpeed(player, shapeshifter);
 				if (intendedVelocity.Y > maxFallSpeed)
+				{
+					intendedVelocity.Y = maxFallSpeed;
+				}
+			}
+			else
+			{ // slow down players if they are going too fast (eg: entering water)
+				intendedVelocity.Y *= 0.9f;
+				if (intendedVelocity.Y < maxFallSpeed)
 				{
 					intendedVelocity.Y = maxFallSpeed;
 				}
@@ -320,9 +330,37 @@ namespace OrchidMod.Content.Shapeshifter
 			}
 			return false;
 		}
-		
 
-		public float GetSpeedMult(Player player, OrchidShapeshifter shapeshifter, ShapeshifterShapeshiftAnchor anchor, bool GroundedSpeedBonus = false)
+		public void TryJump(ref Vector2 intendedVelocity, float intendedJumpSpeed, Player player, OrchidShapeshifter shapeshifter, ShapeshifterShapeshiftAnchor anchor, bool mustBeGrounded = false, float speedEfficiency = 0.33f)
+		{ // set groundedCheck to a value above 0 to make sure the player is touching the ground
+			if (mustBeGrounded)
+			{
+				if(IsGrounded(anchor.Projectile, player, 2f) && anchor.Projectile.velocity.Y == 0f)
+				{
+					intendedVelocity.Y = -intendedJumpSpeed * GetJumpMult(player, shapeshifter, anchor, speedEfficiency);
+					anchor.NeedNetUpdate = true;
+				}
+			}
+			else 
+			{
+				intendedVelocity.Y = -intendedJumpSpeed * GetJumpMult(player, shapeshifter, anchor, speedEfficiency);
+				anchor.NeedNetUpdate = true;
+			}
+		}
+
+		public float GetJumpMult(Player player, OrchidShapeshifter shapeshifter, ShapeshifterShapeshiftAnchor anchor, float speedEfficiency)
+		{ // When jumping, a wildshape benefits from 100% of its jump speed mult, and 33% of its movement speed mult
+			float jumpSpeed = shapeshifter.ShapeshifterJumpSpeed + (GetSpeedMult(player, shapeshifter, anchor) - 1f) * speedEfficiency;
+
+			if (jumpSpeed < 0.75f)
+			{ // Lower jump speeds make shapeshifter unplayable
+				jumpSpeed = 0.75f;
+			}
+
+			return jumpSpeed;
+		}
+
+		public float GetSpeedMult(Player player, OrchidShapeshifter shapeshifter, ShapeshifterShapeshiftAnchor anchor, bool GroundedSpeedBonus = false, bool ignoreBonuses = false)
 		{
 			float speed = 1f;
 
@@ -336,20 +374,23 @@ namespace OrchidMod.Content.Shapeshifter
 				speed = 0.75f;
 			}
 
-			if (anchor.ShapeshifterItem.ModItem is OrchidModShapeshifterShapeshift shapeshifterItem)
+			if (!ignoreBonuses)
 			{
-				if (!shapeshifterItem.GroundedWildshape)
-				{ // Speed bonus for non-grounded shapeshifts applies at all times
-					speed *= shapeshifter.ShapeshifterMoveSpeedBonusNotGrounded;
+				if (anchor.ShapeshifterItem.ModItem is OrchidModShapeshifterShapeshift shapeshifterItem)
+				{
+					if (!shapeshifterItem.GroundedWildshape)
+					{ // Speed bonus for non-grounded shapeshifts applies at all times
+						speed *= shapeshifter.ShapeshifterMoveSpeedBonusNotGrounded;
+					}
+					else if (GroundedSpeedBonus)
+					{ // Speed bonus for grounded shapeshifts only applies when grounded, use GroundedSpeedBonus accordingly when calling the method
+						speed *= shapeshifter.ShapeshifterMoveSpeedBonusGrounded;
+					}
 				}
-				else if (GroundedSpeedBonus)
-				{ // Speed bonus for grounded shapeshifts only applies when grounded, use GroundedSpeedBonus accordingly when calling the method
-					speed *= shapeshifter.ShapeshifterMoveSpeedBonusGrounded;
-				}
-			}
 
-			speed *= shapeshifter.ShapeshifterMoveSpeedBonusFinal;
-			speed += shapeshifter.ShapeshifterMoveSpeedBonusFlat;
+				speed *= shapeshifter.ShapeshifterMoveSpeedBonusFinal;
+				speed += shapeshifter.ShapeshifterMoveSpeedBonusFlat;
+			}
 
 			return speed;
 		} 

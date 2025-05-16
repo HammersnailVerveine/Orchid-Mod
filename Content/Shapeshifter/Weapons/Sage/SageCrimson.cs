@@ -349,7 +349,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 				else
 				{
-					GravityCalculations(ref intendedVelocity, player);
+					GravityCalculations(ref intendedVelocity, player, shapeshifter);
 				}
 
 				projectile.ai[2]++;
@@ -360,12 +360,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 			else
 			{
-				GravityCalculations(ref intendedVelocity, player);
+				GravityCalculations(ref intendedVelocity, player, shapeshifter);
 			}
 
 			if (projectile.ai[2] > 0)
 			{ // Dashing
-				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * -8f * speedMult;
+				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * -8f * speedMult * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 				projectile.direction = intendedVelocity.X > 0 ? 1 : -1;
 				projectile.spriteDirection = projectile.direction;
 

@@ -256,7 +256,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
-			GravityCalculations(ref intendedVelocity, player);
+			GravityCalculations(ref intendedVelocity, player, shapeshifter);
 
 			// Normal movement
 			if (anchor.IsInputLeft || anchor.IsInputRight || anchor.IsInputJump || jumpDelay > 0)
@@ -319,7 +319,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 						if (!anchor.IsInputDown)
 						{
 							projectile.ai[0] = 6f;
-							intendedVelocity.Y = -5f - (10f * speedMult * 0.5f);
+							// Unusual jump speed, the frog benefits from movement speed differently compared to other wildshapes when jumping
+							TryJump(ref intendedVelocity, 5f + (10f * speedMult * 0.5f), player, shapeshifter, anchor, true, 0f);
 
 							for (int i = 0; i < 8; i++)
 							{

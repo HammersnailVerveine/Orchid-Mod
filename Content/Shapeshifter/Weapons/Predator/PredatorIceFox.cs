@@ -297,14 +297,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
-			GravityCalculations(ref intendedVelocity, player);
+			GravityCalculations(ref intendedVelocity, player, shapeshifter);
 
 			if (anchor.IsInputJump)
 			{ // Jump while no charge ready
-				if (IsGrounded(projectile, player, 4f))
-				{
-					intendedVelocity.Y = -9.5f;
-				}
+				TryJump(ref intendedVelocity, 9.5f, player, shapeshifter, anchor, true);
 			}
 
 			// Normal movement

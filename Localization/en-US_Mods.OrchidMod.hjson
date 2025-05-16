@@ -3820,6 +3820,11 @@ Items: {
 		DisplayName: Soaring Robes
 		Tooltip: 10% increased movement speed
 	}
+
+	PredatorUndine: {
+		DisplayName: Predator Undine
+		Tooltip: ""
+	}
 }
 
 NPCs: {

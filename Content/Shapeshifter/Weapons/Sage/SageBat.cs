@@ -224,7 +224,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 			else
 			{
-				GravityCalculations(ref intendedVelocity, player);
+				GravityCalculations(ref intendedVelocity, player, shapeshifter);
 
 				if (anchor.IsInputJump && intendedVelocity.Y >= 1.2f)
 				{ // Gliding
@@ -266,7 +266,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 				if (projectile.ai[2] > 0)
 				{ // Dashing
-					intendedVelocity.Y = -8f * speedMult;
+					TryJump(ref intendedVelocity, 8f, player, shapeshifter, anchor);
 					projectile.direction = intendedVelocity.X > 0 ? 1 : -1;
 					projectile.spriteDirection = projectile.direction;
 

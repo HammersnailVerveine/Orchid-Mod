@@ -3834,6 +3834,11 @@ Items: {
 		DisplayName: Мантия парителя
 		Tooltip: Увелиивает скорость передвижения 10%
 	}
+
+	PredatorUndine: {
+		// DisplayName: Predator Undine
+		// Tooltip: ""
+	}
 }
 
 NPCs: {

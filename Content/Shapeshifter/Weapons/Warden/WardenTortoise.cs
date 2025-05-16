@@ -186,7 +186,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
-			GravityCalculations(ref intendedVelocity, player);
+			GravityCalculations(ref intendedVelocity, player, shapeshifter);
 
 			// Normal movement
 			if ((anchor.IsInputLeft || anchor.IsInputRight) && projectile.ai[0] > -270)

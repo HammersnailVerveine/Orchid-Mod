@@ -51,7 +51,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{
 				if (proj.type == ModContent.ProjectileType<WardenEaterProjAlt>() && projectile.owner == proj.owner && proj.active && proj.frame == 0)
 				{
-					count++; 
+					count++;
 				}
 			}
 
@@ -138,14 +138,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 									if (TileID.Sets.Platforms[tile.TileType])
 									{ // slight offset when hooked to a platform
-										validTileCoordinates.Y -= 4f; 
+										validTileCoordinates.Y -= 4f;
 									}
 								}
 							}
-							
+
 							if (VegetalTileTypes.Contains(tile.TileType) && projectile.Center.Distance(tileCoordinates) < projectile.Center.Distance(validTileCoordinatesVegetal)) {
 								validTileCoordinatesVegetal = tileCoordinates;
-							} 
+							}
 						}
 					}
 				}
@@ -285,7 +285,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{
 					stem = proj;
 
-					float maxRange = 240f * GetSpeedMult(player, shapeshifter, anchor); // 15 tiles * movespeed
+					float maxRange = 240f * GetSpeedMult(player, shapeshifter, anchor, ignoreBonuses:true); // 15 tiles * movespeed
+
+					if (projectile.ai[1] == 1f)
+					{ // set here, the wildshape ignore bonuses for stem range calculation to avoid weird behaviour when touching liquids
+						maxRange *= 1.2f;
+					}
+
 					if (projectile.ai[0] != maxRange)
 					{ // Dynamically adapts the stem range to the player movespeed
 						projectile.ai[0] = maxRange;
@@ -430,7 +436,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					dashmult = anchor.ai[0] / 10f;
 				}
 
-				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[2]) * speedMult * 8f * dashmult;
+				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[2]) * speedMult * 8f * dashmult * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 				anchor.ai[0]--;
 				anchor.ai[2]--; // redundant, just in case both dashes happen at once (?)
 

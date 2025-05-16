@@ -247,14 +247,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			if (anchor.Projectile.ai[2] == 0)
 			{ // Normal movement, not dashing or hooked
 				Vector2 intendedVelocity = projectile.velocity;
-				GravityCalculations(ref intendedVelocity, player);
+				GravityCalculations(ref intendedVelocity, player, shapeshifter);
 
 				if (anchor.IsInputJump)
 				{ // Jump
-					if (grounded)
-					{
-						intendedVelocity.Y = -9.35f;
-					}
+					TryJump(ref intendedVelocity, 9.35f, player, shapeshifter, anchor, true);
 				}
 
 				// Normal movement
@@ -300,7 +297,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 				if (projectile.ai[0] < 0)
 				{ // dashing
-					Vector2 intendedVelocity = projectile.ai[2].ToRotationVector2() * 9f * speedMult;
+					Vector2 intendedVelocity = projectile.ai[2].ToRotationVector2() * 9f * speedMult * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 					FinalVelocityCalculations(ref intendedVelocity, projectile, player, false, true, false, true);
 
 					projectile.ai[0]++;

@@ -32,7 +32,11 @@ namespace OrchidMod
 		public float ShapeshifterMoveSpeedBonusFinal = 0f; // Multiplicative, used before adding ShapeshifterMoveSpeedBonusFlat
 		public float ShapeshifterMoveSpeedBonusGrounded = 1f; // Multiplicative, used for effects that increase grounded speed like magiluminescence
 		public float ShapeshifterMoveSpeedBonusNotGrounded = 1f; // Multiplicative, used for effects that increase the movespeed of "flying" wildshapes, at all times
+		public float ShapeshifterMoveSpeedMiscOverride = 1f; // Multiplies other means of movement, like dashes. Should generally not be edited as dashes that should be affected by movespeed already are.
 		public float ShapeshifterHealingBonus = 1f; // Multiplicative, affects the direct healing provided by shapeshifter effects
+		public float ShapeshifterJumpSpeed = 1f; // Multiplicative, affects most jumps for various wildshapes
+		public float ShapeshifterGravity = 1f; // Multiplicative, mostly used for movement in liquids
+		public float ShapeshifterMaxFallSpeed = 1f; // Multiplicative, mostly used for movement in liquids
 
 		public bool ShapeshifterSetHarpy = false; // Harpy armor set bonus (causes feathers to fall when attacking from above)
 		public bool ShapeshifterSageDamageOnHit = false; // if true, hitting new targets increase feral damage
@@ -67,8 +71,8 @@ namespace OrchidMod
 		{
 			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
 			{
-				if (Player.mount.Active || Player.grappling[0] >= 0)
-				{ // Disable the shapeshift if the player is mounted or uses a hook
+				if (Player.mount.Active || Player.grappling[0] >= 0 || Player.timeShimmering > 0)
+				{ // Disable the shapeshift if the player is mounted, shimmered or uses a hook
 					ShapeshiftAnchor.Projectile.Kill();
 				}
 
@@ -89,7 +93,11 @@ namespace OrchidMod
 			ShapeshifterMoveSpeedBonusFinal = 1f;
 			ShapeshifterMoveSpeedBonusGrounded = 1f;
 			ShapeshifterMoveSpeedBonusNotGrounded = 1f;
+			ShapeshifterMoveSpeedMiscOverride = 1f;
 			ShapeshifterHealingBonus = 1f;
+			ShapeshifterJumpSpeed = 1f;
+			ShapeshifterGravity = 1f;
+			ShapeshifterMaxFallSpeed = 1f;
 
 			ShapeshifterSetHarpy = false;
 			ShapeshifterSageDamageOnHit = false;
@@ -151,7 +159,62 @@ namespace OrchidMod
 			// Shapeshifter core stuff
 
 			if (IsShapeshifted)
-			{ // Runs the shapeshift AI and adjust player position accordingly
+			{
+				// Environmental movement speed changes (honey, liquids, etc)
+
+				if (Player.sticky)
+				{ // honey
+					ShapeshifterMoveSpeedBonusFinal *= 0.3f;
+					ShapeshifterMoveSpeedBonusFlat *= 0.3f;
+				}
+
+				if ((Player.wet && !Player.ignoreWater) || Player.lavaWet)
+				{ // in lava on water
+					ShapeshifterMaxFallSpeed *= 0.2f;
+					ShapeshifterGravity *= 0.5f;
+					ShapeshifterJumpSpeed *= 0.5f;
+					ShapeshifterMoveSpeedBonusFinal *= 0.5f;
+					ShapeshifterMoveSpeedBonusFlat *= 0.5f;
+					ShapeshifterMoveSpeedMiscOverride *= 0.5f;
+				}
+				
+				if (Player.wet && Player.ignoreWater)
+				{ // I don't know why either, but this is needed to replicate normal movement
+					ShapeshifterGravity *= 2f;
+				}
+
+				if (Player.honeyWet)
+				{ // in honey (not vanilla accurate but good enough)
+					ShapeshifterMaxFallSpeed *= 0.2f;
+					ShapeshifterGravity *= 5f;
+					//ShapeshifterJumpSpeed *= 0.1f;
+					ShapeshifterMoveSpeedBonusFinal *= 0.25f;
+					ShapeshifterMoveSpeedBonusFlat *= 0.25f;
+					ShapeshifterMoveSpeedMiscOverride *= 0.25f;
+				}
+
+				if (Player.shimmerWet)
+				{ // in shimmer
+					ShapeshifterMaxFallSpeed *= 0.2f;
+					ShapeshifterGravity *= 0.375f;
+					ShapeshifterJumpSpeed *= 0.375f;
+					ShapeshifterMoveSpeedBonusFinal *= 0.375f;
+					ShapeshifterMoveSpeedBonusFlat *= 0.375f;
+					ShapeshifterMoveSpeedMiscOverride *= 0.375f;
+				}
+
+				if (Player.powerrun && Shapeshift.GroundedWildshape)
+				{ // asphalt
+					ShapeshifterMoveSpeedBonusGrounded *= 3f;
+				}
+
+				// Jump speed has to be edited here, because its fields are updated after PostUpdateEquips(). it also appears that vanilla does this after environment checks
+				// This makes it so a wildshape gets slightly worse benefits as a normal player from the Shiny Red Balloon and Frog Leg accessories
+				// However, because wildshapes jumps are also enhanced by their movement speed, this is fine, it simply avoids movement getting out of hand
+				ShapeshifterJumpSpeed += (Player.jumpHeight - 15f) * 0.025f; // the base Player.jumpHeight value is 15
+				ShapeshifterJumpSpeed += (Player.jumpSpeed - 5.01f) * 0.1f; // the base Player.jumpSpeed value is 5.01
+
+				// Runs the shapeshift AI and adjust player position accordingly
 				Player.width = Shapeshift.ShapeshiftWidth;
 				Player.height = Shapeshift.ShapeshiftHeight;
 
