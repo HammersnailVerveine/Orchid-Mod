@@ -13,208 +13,208 @@ Tiles: {
 
 Buffs: {
 	TitanicBuff: {
-		Description: ""
 		DisplayName: Titanic Buff
+		Description: ""
 	}
 
 	LodestoneSlow: {
-		Description: ""
 		DisplayName: Lodestone Slow
+		Description: ""
 	}
 
 	GraniteAura: {
-		Description: ""
 		DisplayName: Granite Aura
+		Description: ""
 	}
 
 	AquaBump: {
-		Description: ""
 		DisplayName: Aqua Bump
+		Description: ""
 	}
 
 	ShroomHeal: {
-		Description: ""
 		DisplayName: Shroom Heal
+		Description: ""
 	}
 
 	ShamanicEmpowerment: {
-		Description: ""
 		DisplayName: Shamanic Empowerment
+		Description: ""
 	}
 
 	MythrilDefense: {
-		Description: ""
 		DisplayName: Mythril Defense
+		Description: ""
 	}
 
 	DeepForestAura: {
-		Description: ""
 		DisplayName: Deep Forest Aura
+		Description: ""
 	}
 
 	WindStun: {
-		Description: ""
 		DisplayName: Wind Stun
+		Description: ""
 	}
 
 	WindSlow: {
-		Description: ""
 		DisplayName: Wind Slow
+		Description: ""
 	}
 
 	WindDamage: {
-		Description: ""
 		DisplayName: Wind Damage
+		Description: ""
 	}
 
 	LeafSlow: {
-		Description: ""
 		DisplayName: Leaf Slow
+		Description: ""
 	}
 
 	HellHit: {
-		Description: ""
 		DisplayName: Hell Hit
+		Description: ""
 	}
 
 	EarthTotemRevive: {
-		Description: ""
 		DisplayName: Earth Totem Revive
+		Description: ""
 	}
 
 	DiabolistCauterizeCooldown: {
-		Description: ""
 		DisplayName: Diabolist Cauterize Cooldown
+		Description: ""
 	}
 
 	BrokenPower: {
-		Description: ""
 		DisplayName: Broken Power
+		Description: ""
 	}
 
 	AbyssEmpowerment: {
-		Description: ""
 		DisplayName: Abyss Empowerment
+		Description: ""
 	}
 
 	RCRemoteBuff: {
-		Description: ""
 		DisplayName: R C Remote Buff
+		Description: Brrrrr
 	}
 
 	SquareMinecartBuff: {
-		Description: Riding in a minecart
 		DisplayName: Minecart
+		Description: Riding in a minecart
 	}
 
 	HarpyPotionBuff: {
-		Description: Ability to double jump, your fist bonus jump will release damaging feathers around you
 		DisplayName: Harpy Agility
+		Description: Ability to double jump, your fist bonus jump will release damaging feathers around you
 	}
 
 	VulturePotionBuff: {
-		Description: 20% increased chip generation
 		DisplayName: Scavenger
+		Description: 20% increased chip generation
 	}
 
 	ConquerorsPennantBuff: {
-		Description: 10% increased gambling critical strike chance and movement speed
 		DisplayName: Conqueror's Thrill
+		Description: 10% increased gambling critical strike chance and movement speed
 	}
 
 	SlimeSlow: {
-		Description: Reduced Movement Speed
 		DisplayName: Slime Slow
+		Description: Reduced Movement Speed
 	}
 
 	ReactionCooldown: {
-		Description: You cannot use alchemist hidden reactions
 		DisplayName: Experimental Drawback
+		Description: You cannot use alchemist hidden reactions
 	}
 
 	FlashFreeze: {
-		Description: Reduced Movement Speed
 		DisplayName: Flash Freeze
+		Description: Reduced Movement Speed
 	}
 
 	Catalyzed: {
-		Description: Triggers various alchemical properties
 		DisplayName: Catalyzed
+		Description: Triggers various alchemical properties
 	}
 
 	Attraction: {
-		Description: Attracts nearby alchemist projectiles
 		DisplayName: Attraction
+		Description: Attracts nearby alchemist projectiles
 	}
 
 	StellarTalcBuff: {
-		Description: Stellar Talc projectiles will orbit around you
 		DisplayName: Stellar Orbit
+		Description: Stellar Talc projectiles will orbit around you
 	}
 
 	StardustSamplesBuff: {
-		Description: Sunflowers created by Forest Samples apply confusion
 		DisplayName: Stardust Confusion
+		Description: Sunflowers created by Forest Samples apply confusion
 	}
 
 	SpiritedWaterBuff: {
-		Description: Chemical attacks will release spirited water flames
 		DisplayName: Spirited Droplets
+		Description: Chemical attacks will release spirited water flames
 	}
 
 	SlimeFlaskBuff: {
-		Description: Using slimy samples with a fire element will release damaging embers
 		DisplayName: Burning Samples
+		Description: Using slimy samples with a fire element will release damaging embers
 	}
 
 	ReactiveVialsBuff: {
-		Description: 10% increased chemical damage for your next chemical mixture
 		DisplayName: Reactive Elements
+		Description: 10% increased chemical damage for your next chemical mixture
 	}
 
 	QueenBeeFlaskBuff: {
-		Description: Attacking with 3 or more element will summon bees
 		DisplayName: Human Beehive
+		Description: Attacking with 3 or more element will summon bees
 	}
 
 	MushroomHeal: {
-		Description: Alchemist attacks will create more spores
 		DisplayName: Mushroom Spores
+		Description: Alchemist attacks will create more spores
 	}
 
 	MeteorSpeed: {
-		Description: Immune to knockback, 20% increased movement speed
 		DisplayName: Meteor Agility
+		Description: Immune to knockback, 20% increased movement speed
 	}
 
 	KingSlimeFlaskBuff: {
-		Description: Increases the likelyhood of spawning slime bubbles, creating spiked jungle slimes
 		DisplayName: Poisonous Slime
+		Description: Increases the likelyhood of spawning slime bubbles, creating spiked jungle slimes
 	}
 
 	JungleLilyExtractBuff: {
-		Description: Each alchemical attack using two or more elements releases a purifying aura
 		DisplayName: Purifying Lilies
+		Description: Each alchemical attack using two or more elements releases a purifying aura
 	}
 
 	IceChestFlaskBuff: {
-		Description: Constantly freezes various alchemical projectiles and slows enemies around you
 		DisplayName: Permanent Freeze
+		Description: Constantly freezes various alchemical projectiles and slows enemies around you
 	}
 
 	DemonBreathFlaskBuff: {
-		Description: Demon breath will create more projectiles
 		DisplayName: Demon Reek
+		Description: Demon breath will create more projectiles
 	}
 
 	BloodMistFlaskBuff: {
-		Description: Periodically releases blood mist while moving
 		DisplayName: Misty Steps
+		Description: Periodically releases blood mist while moving
 	}
 
 	AttractiteAuraSmall: {
-		Description: Applies attractite to nearby enemies
 		DisplayName: Lesser Attractite Aura
+		Description: Applies attractite to nearby enemies
 	}
 
 	GuardianSpikeBuff: {
@@ -305,11 +305,6 @@ Buffs: {
 	OpalResources: {
 		DisplayName: Opal Resources
 		Description: 10% increased resource regeneration
-	}
-
-	PredatorFossilDebuff: {
-		DisplayName: Predator Fossil Debuff
-		Description: Mods.OrchidMod.Buffs.PredatorFossilDebuff.Description
 	}
 }
 
@@ -3787,8 +3782,8 @@ Items: {
 	}
 
 	GoblinDagger: {
-		Tooltip: Predator attacks apply a stacking bleed
 		DisplayName: Goblin Backup Dagger
+		Tooltip: Predator attacks apply a stacking bleed
 	}
 
 	PlantEnzymes: {
@@ -4022,10 +4017,10 @@ Prefixes: {
 	AddGuard: " guard"
 	AddAttackSpeed: % attack speed
 	AddDuration: "{0} duration"
-	AddSize: size
-	AddSpeed: speed
 	AddParry: parry
 	AddBlock: block
+	AddSize: size
+	AddSpeed: speed
 }
 
 Projectiles: {
