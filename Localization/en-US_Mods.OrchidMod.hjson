@@ -3807,13 +3807,13 @@ Items: {
 
 	ShapeshifterHarpyHead: {
 		DisplayName: Soaring Headband
-		Tooltip: 8% increased feral critical strike chance
+		Tooltip: 5% increased feral critical strike chance
 		SetBonus: Sharp feathers will fall on your target when hit from above
 	}
 
 	ShapeshifterHarpyChest: {
 		DisplayName: Soaring Chestpiece
-		Tooltip: 10% increased melee speed
+		Tooltip: 8% increased melee speed
 	}
 
 	ShapeshifterHarpyLegs: {

@@ -28,7 +28,7 @@ namespace OrchidMod.Content.Shapeshifter.Armors.Harpy
 
 		public override void UpdateEquip(Player player)
 		{
-			player.GetCritChance<ShapeshifterDamageClass>() += 8;
+			player.GetCritChance<ShapeshifterDamageClass>() += 5;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

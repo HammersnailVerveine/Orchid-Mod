@@ -3821,13 +3821,13 @@ Items: {
 
 	ShapeshifterHarpyHead: {
 		DisplayName: Повязка парителя
-		Tooltip: Увеличивает шанс звериного критического удара на 8%
+		Tooltip: Увеличивает шанс звериного критического удара на 5%
 		SetBonus: Попадания по врагам обрушивают на них остре перья
 	}
 
 	ShapeshifterHarpyChest: {
 		DisplayName: Нагрудник парителя
-		Tooltip: Увеличивает скорость ближнего боя на 10%
+		Tooltip: Увеличивает скорость ближнего боя на 8%
 	}
 
 	ShapeshifterHarpyLegs: {
