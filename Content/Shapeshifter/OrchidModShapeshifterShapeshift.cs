@@ -352,9 +352,9 @@ namespace OrchidMod.Content.Shapeshifter
 		{ // When jumping, a wildshape benefits from 100% of its jump speed mult, and 33% of its movement speed mult
 			float jumpSpeed = shapeshifter.ShapeshifterJumpSpeed + (GetSpeedMult(player, shapeshifter, anchor) - 1f) * speedEfficiency;
 
-			if (jumpSpeed < 0.75f)
+			if (jumpSpeed < 0.5f)
 			{ // Lower jump speeds make shapeshifter unplayable
-				jumpSpeed = 0.75f;
+				jumpSpeed = 0.5f;
 			}
 
 			return jumpSpeed;

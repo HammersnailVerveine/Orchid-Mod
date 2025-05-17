@@ -306,6 +306,11 @@ Buffs: {
 		DisplayName: Опаловые параметры
 		Description: Скорость восполнения параметров увеличена на 10%
 	}
+
+	ShapeshifterSurvivalPotionBuff: {
+		// DisplayName: Shapeshifter Survival Potion Buff
+		// Description: Mods.OrchidMod.Buffs.ShapeshifterSurvivalPotionBuff.Description
+	}
 }
 
 AlchemistRecipe: {
@@ -3837,6 +3842,11 @@ Items: {
 
 	PredatorUndine: {
 		// DisplayName: Predator Undine
+		// Tooltip: ""
+	}
+
+	ShapeshifterSurvivalPotion: {
+		// DisplayName: Shapeshifter Survival Potion
 		// Tooltip: ""
 	}
 }

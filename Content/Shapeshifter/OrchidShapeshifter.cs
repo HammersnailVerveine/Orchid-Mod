@@ -40,6 +40,7 @@ namespace OrchidMod
 
 		public bool ShapeshifterSetHarpy = false; // Harpy armor set bonus (causes feathers to fall when attacking from above)
 		public bool ShapeshifterSageDamageOnHit = false; // if true, hitting new targets increase feral damage
+		public bool ShapeshifterSurvival = false; // survival potion bool
 
 		// Dynamic gameplay and UI fields
 
@@ -101,6 +102,7 @@ namespace OrchidMod
 
 			ShapeshifterSetHarpy = false;
 			ShapeshifterSageDamageOnHit = false;
+			ShapeshifterSurvival = false;
 		}
 
 		public override void PostUpdateEquips()
@@ -132,6 +134,31 @@ namespace OrchidMod
 				{
 					ShapeshifterMoveSpeedBonusGrounded += 0.15f;
 				}
+
+				// misc stat changes
+
+				if (ShapeshifterSurvival)
+				{
+					float damageBoost = 0f;
+					int regenBoost = 5;
+
+					int count = 0;
+					float segment = Player.statLifeMax2 * 0.167f;
+
+					while (Player.statLife - count * segment > segment)
+					{
+						damageBoost += 0.03f;
+						regenBoost--;
+						count++;
+					}
+
+					if (!Player.bleed)
+					{
+						Player.lifeRegen += regenBoost;
+					}
+
+					Player.GetDamage<ShapeshifterDamageClass>() += damageBoost;
+				}
 			}
 
 			// Misc Effects that should be called before Shapeshifter Core mechanics (eg : stat changes that should affect the shapeshifted player)
@@ -156,10 +183,18 @@ namespace OrchidMod
 
 		public override void PostUpdate()
 		{
-			// Shapeshifter core stuff
-
 			if (IsShapeshifted)
 			{
+				// SHAPESHIFTER GENERAL STATS CHANGES
+
+				// SHAPESHIFTER MOVEMENT STATS CHANGES
+
+				// Jump speed has to be edited here, because its fields are updated after PostUpdateEquips()
+				// This makes it so a wildshape gets slightly worse benefits as a normal player from the Shiny Red Balloon and Frog Leg accessories
+				// However, because wildshapes jumps are also enhanced by their movement speed, this is fine, it simply avoids movement getting out of hand
+				ShapeshifterJumpSpeed += (Player.jumpHeight - 15f) * 0.025f; // the base Player.jumpHeight value is 15
+				ShapeshifterJumpSpeed += (Player.jumpSpeed - 5.01f) * 0.1f; // the base Player.jumpSpeed value is 5.01
+
 				// Environmental movement speed changes (honey, liquids, etc)
 
 				if (Player.sticky)
@@ -187,7 +222,7 @@ namespace OrchidMod
 				{ // in honey (not vanilla accurate but good enough)
 					ShapeshifterMaxFallSpeed *= 0.2f;
 					ShapeshifterGravity *= 5f;
-					//ShapeshifterJumpSpeed *= 0.1f;
+					ShapeshifterJumpSpeed *= 0.5f;
 					ShapeshifterMoveSpeedBonusFinal *= 0.25f;
 					ShapeshifterMoveSpeedBonusFlat *= 0.25f;
 					ShapeshifterMoveSpeedMiscOverride *= 0.25f;
@@ -208,11 +243,7 @@ namespace OrchidMod
 					ShapeshifterMoveSpeedBonusGrounded *= 3f;
 				}
 
-				// Jump speed has to be edited here, because its fields are updated after PostUpdateEquips(). it also appears that vanilla does this after environment checks
-				// This makes it so a wildshape gets slightly worse benefits as a normal player from the Shiny Red Balloon and Frog Leg accessories
-				// However, because wildshapes jumps are also enhanced by their movement speed, this is fine, it simply avoids movement getting out of hand
-				ShapeshifterJumpSpeed += (Player.jumpHeight - 15f) * 0.025f; // the base Player.jumpHeight value is 15
-				ShapeshifterJumpSpeed += (Player.jumpSpeed - 5.01f) * 0.1f; // the base Player.jumpSpeed value is 5.01
+				// SHAPESHIFTER CORE BEHAVIOUR
 
 				// Runs the shapeshift AI and adjust player position accordingly
 				Player.width = Shapeshift.ShapeshiftWidth;

@@ -306,6 +306,11 @@ Buffs: {
 		DisplayName: Opal Resources
 		Description: 10% increased resource regeneration
 	}
+
+	ShapeshifterSurvivalPotionBuff: {
+		DisplayName: Shapeshifter Survival Potion Buff
+		Description: Mods.OrchidMod.Buffs.ShapeshifterSurvivalPotionBuff.Description
+	}
 }
 
 AlchemistRecipe: {
@@ -3823,6 +3828,11 @@ Items: {
 
 	PredatorUndine: {
 		DisplayName: Predator Undine
+		Tooltip: ""
+	}
+
+	ShapeshifterSurvivalPotion: {
+		DisplayName: Shapeshifter Survival Potion
 		Tooltip: ""
 	}
 }
