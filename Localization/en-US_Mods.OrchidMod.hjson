@@ -308,8 +308,8 @@ Buffs: {
 	}
 
 	ShapeshifterSurvivalPotionBuff: {
-		DisplayName: Shapeshifter Survival Potion Buff
-		Description: Mods.OrchidMod.Buffs.ShapeshifterSurvivalPotionBuff.Description
+		DisplayName: Survival Instincts
+		Description: Life regeneration and feral damage increased based on current health
 	}
 }
 
@@ -3832,8 +3832,12 @@ Items: {
 	}
 
 	ShapeshifterSurvivalPotion: {
-		DisplayName: Shapeshifter Survival Potion
-		Tooltip: ""
+		DisplayName: Survival Instincts Potion
+		Tooltip:
+			'''
+			Feral damage increased up to 15% based on remaining health
+			Life regeneration increased with missing health
+			'''
 	}
 }
 
