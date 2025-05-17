@@ -149,8 +149,6 @@ namespace OrchidMod
 
 					modPlayer.OrchidDamageResistance += 0.15f - count * 0.03f;
 					Player.GetDamage<ShapeshifterDamageClass>() += count * 0.03f;
-
-					Main.NewText(modPlayer.OrchidDamageResistance + "  " + Player.GetDamage<ShapeshifterDamageClass>().ApplyTo(1f));
 				}
 			}
 
