@@ -309,7 +309,7 @@ Buffs: {
 
 	ShapeshifterSurvivalPotionBuff: {
 		DisplayName: Survival Instincts
-		Description: Life regeneration and feral damage increased based on current health
+		Description: Damage resistance and feral damage increased based on current health
 	}
 }
 
@@ -3835,8 +3835,8 @@ Items: {
 		DisplayName: Survival Instincts Potion
 		Tooltip:
 			'''
-			Feral damage increased up to 15% based on remaining health
-			Life regeneration increased with missing health
+			Feral damage or damage resistance increased up to 15% based on missing health
+			Only works while shapeshifter
 			'''
 	}
 }

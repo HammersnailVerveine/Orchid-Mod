@@ -139,25 +139,18 @@ namespace OrchidMod
 
 				if (ShapeshifterSurvival)
 				{
-					float damageBoost = 0f;
-					int regenBoost = 5;
-
 					int count = 0;
 					float segment = Player.statLifeMax2 * 0.167f;
 
 					while (Player.statLife - count * segment > segment)
 					{
-						damageBoost += 0.03f;
-						regenBoost--;
 						count++;
 					}
 
-					if (!Player.bleed)
-					{
-						Player.lifeRegen += regenBoost;
-					}
+					modPlayer.OrchidDamageResistance += 0.15f - count * 0.03f;
+					Player.GetDamage<ShapeshifterDamageClass>() += count * 0.03f;
 
-					Player.GetDamage<ShapeshifterDamageClass>() += damageBoost;
+					Main.NewText(modPlayer.OrchidDamageResistance + "  " + Player.GetDamage<ShapeshifterDamageClass>().ApplyTo(1f));
 				}
 			}
 
