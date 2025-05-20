@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Content.Shapeshifter.Misc;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -23,7 +24,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.useTime = 40;
 			Item.shootSpeed = 7.5f;
 			Item.knockBack = 3f;
-			Item.damage = 19;
+			Item.damage = 25;
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 30;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
@@ -102,7 +103,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			int projectileType = ModContent.ProjectileType<SageBeeProj>();
-			int count = 0;
+			int count = 2;
 			foreach (Projectile proj in Main.projectile)
 			{ // Counts active stingers to increase the amount of bees
 				if (proj.active && proj.type == projectileType && proj.owner == Main.myPlayer && proj.ai[0] != -1)
@@ -111,13 +112,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 			}
 
+			count = (int)Math.Floor(count * 0.66f);
+
 			if (player.strongBees)
 			{
 				count += Main.rand.Next(2);
 			}
 
 			int damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.5f);
-			for (int i = 0; i < 2 + count; i++)
+			for (int i = 0; i < count; i++)
 			{
 				Projectile newProjectile;
 				if (player.strongBees && Main.rand.NextBool())

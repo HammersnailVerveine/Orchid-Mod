@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Common;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
@@ -26,7 +25,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.useTime = 40;
 			Item.shootSpeed = 48f;
 			Item.knockBack = 5f;
-			Item.damage = 28;
+			Item.damage = 14;
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 40;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;

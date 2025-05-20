@@ -3849,8 +3849,8 @@ Items: {
 		// DisplayName: Survival Instincts Potion
 		/* Tooltip:
 			'''
-			Feral damage or damage resistance increased up to 15% based on missing health
-			Only works while shapeshifter
+			Damage resistance or feral damage increased up to 15% based on missing health
+			Only works while shapeshifted
 			''' */
 	}
 }

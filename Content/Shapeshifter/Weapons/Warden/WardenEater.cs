@@ -36,7 +36,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			Item.useTime = 30;
 			Item.shootSpeed = 75f;
 			Item.knockBack = 15f;
-			Item.damage = 37;
+			Item.damage = 59;
 			ShapeshiftWidth = 22;
 			ShapeshiftHeight = 22;
 			ShapeshiftType = ShapeshifterShapeshiftType.Warden;
@@ -375,7 +375,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						if (anchor.ai[3] > 0)
 						{ // reinforced if a fruit was consumed for more range & damage
 							anchor.ai[3]--;
-							damage *= 3;
+							damage *= 5;
 							offSet *= 1.5f;
 							knockBack *= 1.5f;
 						}

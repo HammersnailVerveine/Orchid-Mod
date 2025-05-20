@@ -25,7 +25,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.useTime = 35;
 			Item.shootSpeed = 2f;
 			Item.knockBack = 3f;
-			Item.damage = 61;
+			Item.damage = 47;
 			ShapeshiftWidth = 24;
 			ShapeshiftHeight = 26;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;

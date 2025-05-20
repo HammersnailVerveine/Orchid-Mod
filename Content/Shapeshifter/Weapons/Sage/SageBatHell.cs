@@ -29,7 +29,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			Item.useTime = 40;
 			Item.shootSpeed = 8f;
 			Item.knockBack = 3f;
-			Item.damage = 76;
+			Item.damage = 84;
 			ShapeshiftWidth = 18;
 			ShapeshiftHeight = 22;
 			ShapeshiftType = ShapeshifterShapeshiftType.Sage;
@@ -220,7 +220,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 								if (npc.HasBuff<SageBatDebuff>() && npc.Center.Distance(projectile.Center) < 400f)
 								{
 									Vector2 velocity = Vector2.Normalize(projectile.Center - npc.Center).RotatedByRandom(1f) * Item.shootSpeed;
-									ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage * 0.8f, Item.crit, Item.knockBack, player.whoAmI, ai2: npc.whoAmI);
+									ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage * 0.9f, Item.crit, Item.knockBack, player.whoAmI, ai2: npc.whoAmI);
 									fired = true;
 
 									if (npc.buffTime[npc.FindBuffIndex(ModContent.BuffType<SageBatDebuff>())] < 120 && !ChargeCue2)
