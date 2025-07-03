@@ -37,6 +37,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			AutoReuseRight = true;
 		}
 
+		public override void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			Jumps = 1;
+		}
+
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			anchor.Frame = 2;

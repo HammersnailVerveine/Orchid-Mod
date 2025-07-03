@@ -53,6 +53,11 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			return true;
 		}
 
+		public override void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+		{
+			modifiers.Defense.Flat -= 10;
+		}
+
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
 			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);

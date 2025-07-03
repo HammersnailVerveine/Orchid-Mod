@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities.Terraria.Utilities;
 
 namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 {
@@ -99,7 +100,8 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 					Player owner = Owner;
 					float distance = Projectile.Center.Distance(owner.Center);
-					if (distance < 80f && Projectile.timeLeft < 150)
+					float homingDistance = Projectile.ai[2] == 0f ? 80f : 120f;
+					if (distance < homingDistance && Projectile.timeLeft < 150)
 					{ // Homes towards owner to help pick up
 						Projectile.velocity += (Owner.Center - Projectile.Center) * 0.05f;
 						Projectile.velocity = Vector2.Normalize(Projectile.velocity) * BaseVelocity.Length();
@@ -151,7 +153,18 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 				if (Projectile.timeLeft <= 180 && Projectile.timeLeft > 150)
 				{
-					Projectile.velocity -= BaseVelocity / 15f;
+					if (Projectile.velocity.Length() < 1f)
+					{ // rotates towards the player when turning back
+						BaseVelocity = Vector2.Normalize(Projectile.Center - Owner.Center) * BaseVelocity.Length();
+					}
+
+					float returnSpeedMult = 1f;
+					if (Projectile.ai[2] != 0f)
+					{
+						returnSpeedMult = 1.25f;
+					}
+
+					Projectile.velocity -= BaseVelocity / 15f * returnSpeedMult;
 					Projectile.tileCollide = false;
 				}
 

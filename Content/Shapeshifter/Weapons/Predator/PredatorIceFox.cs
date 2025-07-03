@@ -25,7 +25,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.useTime = 40;
 			Item.shootSpeed = 48f;
 			Item.knockBack = 5f;
-			Item.damage = 23;
+			Item.damage = 21;
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
@@ -41,6 +41,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				return new Color(54, 150, 248) * 0.75f;
 			}
 			return base.GetColor(ref drawPlayerAsAdditive, lightColor, projectile, anchor, player, shapeshifter);
+		}
+
+		public override void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			projectile.ai[0] = 120f; //first projectile spawns after 1 second
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -127,10 +132,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 		}
 
-		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => Main.mouseRight && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick;
+		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => Main.mouseRight && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick && projectile.ai[0] >= 180;
 
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			projectile.ai[0] -= 200;
+
 			anchor.RightCLickCooldown = 180;
 			anchor.NeedNetUpdate = true;
 			projectile.ai[1] = 90;
@@ -142,9 +149,19 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				dust.noGravity = true;
 				dust.velocity += projectile.velocity;
 			}
+
+			// Kill one of the dash indicators following the player
+			int projectileType2 = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
+			Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType2).Kill();
+
+			for (int i = 0; i < 30; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
+				dust.noGravity = true;
+			}
 		}
 
-		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 300 && !IsGrounded(projectile, player, 4f);
+		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 180 && !IsGrounded(projectile, player, 4f);
 
 		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
@@ -154,11 +171,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				dust.noGravity = true;
 			}
 
-			projectile.ai[0] -= 300;
+			projectile.ai[0] -= 200;
 			Vector2 position = projectile.position;
 			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 8f * GetSpeedMult(player, shapeshifter, anchor);
 
-			for (int i = 0; i < 32; i++)
+			for (int i = 0; i < 24; i++)
 			{
 				position += Collision.TileCollision(position, offSet, projectile.width, projectile.height, true, true, (int)player.gravDir);
 				Dust dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
@@ -210,11 +227,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			bool grounded = IsGrounded(projectile, player, 4f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 
-			if ((int)projectile.ai[0] < 601)
+			if ((int)projectile.ai[0] < 541)
 			{ // Increases the dash timer
 				projectile.ai[0]++;
 
-				if ((int)projectile.ai[0] % 300 == 0)
+				if ((int)projectile.ai[0] % 180 == 0)
 				{ // Spawns a projectile following the player when the dash is ready
 					int projectileType = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
 					Vector2 offset = Vector2.UnitY.RotatedByRandom(3.14f) * 64f;

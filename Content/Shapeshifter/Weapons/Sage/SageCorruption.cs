@@ -176,7 +176,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			if (anchor.ai[0] > 0 && projectile.ai[2] <= 0)
 			{
-				speedMult -= speedMult * 0.66f * (anchor.ai[0] / 300);
+				speedMult -= speedMult * 0.33f * (anchor.ai[0] / 300);
 			}
 
 			if (anchor.IsRightClickRelease)
@@ -313,7 +313,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 
 				// The attack speed gets gradually faster over time
-				anchor.ai[0] += 1f * shapeshifter.GetShapeshifterMeleeSpeed();
+				anchor.ai[0] += 1.2f * shapeshifter.GetShapeshifterMeleeSpeed();
 				if (anchor.ai[0] > 300)
 				{
 					anchor.ai[0] = 300;
@@ -330,6 +330,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
+			bool isHovering = false;
 
 			if (projectile.ai[2] < 0f)
 			{
@@ -341,6 +342,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				if (anchor.IsInputJump && projectile.ai[2] >= -300)
 				{ // Gliding
 					intendedVelocity.Y *= 0.8f;
+					isHovering = true;
 					if (Main.rand.NextBool(12))
 					{
 						Main.dust[Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.CorruptGibs)].velocity *= 0.1f;
@@ -382,14 +384,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				{ // Player is inputting a movement key
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerate(ref intendedVelocity, -3.2f, speedMult, 0.2f);
+						TryAccelerate(ref intendedVelocity, (isHovering ? -4f : -3.2f), speedMult, 0.2f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerate(ref intendedVelocity, 3.2f, speedMult, 0.2f);
+						TryAccelerate(ref intendedVelocity, (isHovering ? 4f : 3.2f), speedMult, 0.2f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 						LateralMovement = true;
@@ -406,12 +408,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					intendedVelocity.X *= 0.7f;
 				}
 
-				if (Math.Abs(intendedVelocity.X) > 4f && LateralMovement)
+				float maxSpeed = (isHovering ? 5f : 4f); 
+				if (Math.Abs(intendedVelocity.X) > maxSpeed && LateralMovement)
 				{ // helps descelerate after a blast
 					intendedVelocity.X *= 0.7f;
-					if (Math.Abs(intendedVelocity.X) < 4f)
+					if (Math.Abs(intendedVelocity.X) < maxSpeed)
 					{
-						intendedVelocity.X = 4f * Math.Sign(intendedVelocity.X);
+						intendedVelocity.X = maxSpeed * Math.Sign(intendedVelocity.X);
 					}
 				}
 

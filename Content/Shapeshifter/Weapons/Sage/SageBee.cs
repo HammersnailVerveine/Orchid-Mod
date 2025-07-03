@@ -13,6 +13,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 	{
 		public bool CanDash = false;
 		public bool LateralMovement = false;
+		public int DashCooldown = 0;
 
 		public override void SafeSetDefaults()
 		{
@@ -33,12 +34,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			GroundedWildshape = false;
 		}
 
+		public override void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			DashCooldown = 5;
+		}
+
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			anchor.Frame = 2;
 			anchor.Timespent = 0;
 			projectile.direction = player.direction;
 			projectile.spriteDirection = player.direction;
+			DashCooldown = 30;
 
 			CanDash = false;
 			LateralMovement = false;
@@ -143,7 +150,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 		}
 
-		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && CanDash && projectile.ai[0] <= 0;
+		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && CanDash && projectile.ai[0] <= 0 && DashCooldown <= 0;
 
 		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
@@ -185,10 +192,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				anchor.Projectile.ai[1] = MathHelper.Pi * (1f +  projectile.direction * 0.5f);
 			}
 
-			projectile.ai[2] = 8;
-			projectile.ai[0] = 45;
-			anchor.LeftCLickCooldown = Item.useTime * 2f;
-			anchor.RightCLickCooldown = Item.useTime * 2f;
+			projectile.ai[2] = 4;
+			projectile.ai[0] = 10;
+			DashCooldown = 30;
+			anchor.LeftCLickCooldown = Item.useTime;
+			anchor.RightCLickCooldown = Item.useTime;
 			anchor.NeedNetUpdate = true;
 			CanDash = false;
 			SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, projectile.Center);
@@ -211,6 +219,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			player.fallStart2 = (int)(player.position.Y / 16f);
 			player.noFallDmg = true;
 			projectile.ai[2]--;
+			DashCooldown--;
 
 			GravityMult = 0.7f;
 			if (anchor.IsInputDown) GravityMult += 0.3f;
@@ -258,14 +267,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				{ // Player is inputting a movement key
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerate(ref intendedVelocity, -3.2f, speedMult, 0.2f);
+						TryAccelerate(ref intendedVelocity, -3.5f, speedMult, 0.2f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerate(ref intendedVelocity, 3.2f, speedMult, 0.2f);
+						TryAccelerate(ref intendedVelocity, 3.5f, speedMult, 0.2f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 						LateralMovement = true;

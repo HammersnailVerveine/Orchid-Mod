@@ -44,6 +44,7 @@ namespace OrchidMod
 
 		// Dynamic gameplay and UI fields
 
+		public int ShapeshifterFastShapeshiftTimer = 300; // Shapeshifting sets this to 0. If >300, then transforming becomes "fast", reducing cooldowns to make gameplay more fluid
 		public int ShapeshifterSageFoxSpeed = 0;
 		public int ShapeshifterSageDamageOnHitCount = 0;
 		public int ShapeshifterSageDamageOnHitTimer = 0;
@@ -83,6 +84,8 @@ namespace OrchidMod
 					ShapeshiftAnchor.Projectile.Kill();
 				}
 			}
+
+			ShapeshifterFastShapeshiftTimer++;
 
 			// Reset gameplay fields
 

@@ -3442,7 +3442,7 @@ Items: {
 
 	PredatorHarpy: {
 		DisplayName: Harpy Effigy
-		LeftClick: Shoots razor sharp feathers
+		LeftClick: Shoots razor sharp feathers, ignoring some enemy defense
 		RightClick: Dashes horizontally, releasing a barrage of feathers
 		Jump: Can jump three additional times
 		Passive: Every jump or dash improves your next attack

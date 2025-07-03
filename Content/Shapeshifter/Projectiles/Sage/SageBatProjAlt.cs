@@ -115,7 +115,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 						DrawColor.B -= 6;
 					}
 					else
-					{ // hell ba
+					{ // hell bat
 						DrawColor.G += 2;
 						DrawColor.B += 2;
 					}

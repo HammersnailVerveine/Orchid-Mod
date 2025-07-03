@@ -261,14 +261,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerate(ref intendedVelocity, -4f, speedMult, 0.3f, acceleration);
+						TryAccelerate(ref intendedVelocity, -4.2f, speedMult, 0.3f, acceleration);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerate(ref intendedVelocity, 4f, speedMult, 0.3f, acceleration);
+						TryAccelerate(ref intendedVelocity, 4.2f, speedMult, 0.3f, acceleration);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 						LateralMovement = true;

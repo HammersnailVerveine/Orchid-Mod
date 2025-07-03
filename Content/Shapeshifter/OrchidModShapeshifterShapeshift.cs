@@ -42,6 +42,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public virtual void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // What happens after a successful right click input (only called on the shifter client)
 		public virtual void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // What happens after a successful jump input (only called on the shifter client)
 		public virtual void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Makes stuff happen when the player just transformed
+		public virtual void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Called when the player "fast transforms", which happens if they haven't changed shapes in a few seconds. Override fields here for faster gameplay
 		public virtual void OnKillAnchor(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Makes stuff happen when the anchor disappears (player leaves shapeshift form)
 		public virtual bool ShapeshiftCanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.IsLeftClick && (Main.mouseLeftRelease || AutoReuseLeft) && anchor.CanLeftClick; // left click has priority over right click
 		public virtual bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.IsRightClick && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick && anchor.CanLeftClick && !Main.mouseLeft;
@@ -131,8 +132,18 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public void CreateNewAnchor(Player player)
 		{
-			player.itemTime = 30;
-			player.itemAnimation = 30;
+			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
+			if (shapeshifter.ShapeshifterFastShapeshiftTimer >= 300)
+			{
+				player.itemTime = 10;
+				player.itemAnimation = 10;
+			}
+			else
+			{
+				player.itemTime = 30;
+				player.itemAnimation = 30;
+			}
+
 			int projectileType = ModContent.ProjectileType<ShapeshifterShapeshiftAnchor>();
 			Projectile proj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, player.velocity, projectileType, 0, 0f, player.whoAmI);
 			if (proj.ModProjectile is not ShapeshifterShapeshiftAnchor anchor)
