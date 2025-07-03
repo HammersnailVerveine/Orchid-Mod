@@ -5,6 +5,7 @@ using OrchidMod.Content.Shapeshifter.Weapons.Symbiote;
 using OrchidMod.Utilities;
 using System;
 using System.IO;
+using System.Runtime.Intrinsics.X86;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -184,7 +185,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 						foreach (NPC npc in Main.npc)
 						{
 							float distance = npc.Center.Distance(targetedPlayer.Center);
-							if (IsValidTarget(npc) && distance < minDistance + npc.width)
+							if (IsValidTarget(npc) && distance < minDistance + npc.width && Collision.CanHitLine(targetedPlayer.Center, 2, 2, npc.position, npc.width, npc.height))
 							{
 								validTarget = npc;
 								minDistance = distance;

@@ -149,16 +149,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				dust.noGravity = true;
 				dust.velocity += projectile.velocity;
 			}
-
-			// Kill one of the dash indicators following the player
-			int projectileType2 = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
-			Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType2).Kill();
-
-			for (int i = 0; i < 30; i++)
-			{
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
-				dust.noGravity = true;
-			}
 		}
 
 		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && projectile.ai[0] >= 180 && !IsGrounded(projectile, player, 4f);
@@ -207,22 +197,40 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				ShapeshifterNewProjectile(shapeshifter, projectile.Center, Vector2.Zero, projectileType, Item.damage, Item.crit, 0f, player.whoAmI, 0f, j);
 			}
 
-			// Kill one of the dash indicators following the player
-			int projectileType2 = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
-			Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType2).Kill();
-
-			for (int i = 0; i < 30; i++)
-			{
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
-				dust.noGravity = true;
-			}
-
 			SoundEngine.PlaySound(SoundID.Item28, projectile.Center);
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			// MISC EFFECTS
+
+			int projectileTypeFlame = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
+
+			// counts the max amount of dash indicators following the player
+			int maxCount = 0;
+			int temp = 0;
+			while (temp < projectile.ai[0])
+			{
+				temp += 180;
+				if (temp <= projectile.ai[0])
+				{
+					maxCount++;
+				}
+			}
+
+			// kills excess indicators
+			int count = 0;
+			foreach (Projectile proj in Main.projectile)
+			{
+				if (proj.active && proj.owner == player.whoAmI && proj.type == projectileTypeFlame)
+				{
+					count++;
+					if (count > maxCount)
+					{
+						proj.Kill();
+					}
+				}
+			}
 
 			bool grounded = IsGrounded(projectile, player, 4f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);

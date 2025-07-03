@@ -97,7 +97,16 @@ namespace OrchidMod.Content.Shapeshifter
 				if (projectile.type != ModContent.ProjectileType<WardenSpiderWeb>() && projectile.DamageType == ModContent.GetInstance<ShapeshifterDamageClass>() && shapeshifter.IsShapeshifted)
 				{ // Higher threshold for the spider attacks
 					bool spiderMelee = projectile.type == ModContent.ProjectileType<WardenSpiderProj>();
-					if (npc.life - (projectile.damage - npc.defense * 0.5f) < (spiderMelee ? 100 : 75))
+					int threshold = (spiderMelee ? 100 : 75); // 100 dmg threshold as a spider, 75 else
+
+					float percentThreshold = 0.66f; // enemies can't be executed above 66% health
+					if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail || npc.boss);
+					{ // bosses and EoW segments can't be executed above 33% health
+						percentThreshold = 0.33f;
+					}
+
+					float remainingLife = npc.life - (projectile.damage - npc.defense * 0.5f);
+					if (remainingLife < threshold && remainingLife / npc.lifeMax <= percentThreshold)
 					{ // 999 damage
 						modifiers.FlatBonusDamage += 100;
 						modifiers.SetCrit();

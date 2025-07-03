@@ -3434,7 +3434,7 @@ Items: {
 	PredatorIceFox: {
 		DisplayName: Ice Fox Statuette
 		LeftClick: Conjures up to 3 foxfire flames
-		RightClick: Become ethereal, damaging enemies you pass through
+		RightClick: Can periodically become ethereal, damaging enemies you pass through
 		Jump: Can periodically blink by double-jumping, conjuring 3 foxfire flames
 		Passive: Shapeshifting in and out gives decaying movement speed
 		Tooltip: Transforms you into a Fox spirit, gaining unique abilities

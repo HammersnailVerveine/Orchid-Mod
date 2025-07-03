@@ -34,6 +34,18 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 
 		public override bool? CanCutTiles() => false;
 
+		public override bool? CanHitNPC(NPC target2)
+		{
+			if (target != null)
+			{
+				if (target.whoAmI == target2.whoAmI)
+				{
+					return base.CanHitNPC(target2);
+				}
+			}
+			return false;
+		}
+
 		public override void AI()
 		{
 			if (target == null)
@@ -63,7 +75,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 				foreach (NPC npc in Main.npc)
 				{
 					float distance = Projectile.Center.Distance(npc.Center);
-					if (IsValidTarget(npc) && distance < distanceClosest)
+					if (IsValidTarget(npc) && distance < distanceClosest && Collision.CanHitLine(Owner.Center, 4, 4, npc.position, npc.width, npc.height))
 					{
 						closestTarget = npc;
 						distanceClosest = distance;
