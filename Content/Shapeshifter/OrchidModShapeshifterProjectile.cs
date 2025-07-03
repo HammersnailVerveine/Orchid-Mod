@@ -83,7 +83,17 @@ namespace OrchidMod.Content.Shapeshifter
 						if (shapeshifter.ShapeshifterSageDamageOnHitCount == 10)
 						{
 							dramatic = true;
-							SoundEngine.PlaySound(SoundID.Item35, player.Center);
+							SoundStyle soundStyle = SoundID.Item35;
+							soundStyle.Pitch += 1f;
+							soundStyle.Volume *= 1.25f;
+							SoundEngine.PlaySound(soundStyle, player.Center);
+						}
+						else
+						{
+							SoundStyle soundStyle = SoundID.Item35;
+							soundStyle.Volume *= 0.5f;
+							soundStyle.Pitch -= 1f - shapeshifter.ShapeshifterSageDamageOnHitCount * 0.2f;
+							SoundEngine.PlaySound(soundStyle, player.Center);
 						}
 
 						CombatText.NewText(hitbox, new Color(28, 216, 109), shapeshifter.ShapeshifterSageDamageOnHitCount, dramatic, true);
