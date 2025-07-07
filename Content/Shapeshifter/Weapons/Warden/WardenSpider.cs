@@ -122,7 +122,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 			foreach (Projectile webProjectile in Main.projectile)
 			{
-				if (webProjectile.ai[0] > 45 && webProjectile.active && projectile.Center.Distance(webProjectile.Center) < 48f)
+				if (webProjectile.ai[0] > 45 && webProjectile.active && projectile.Center.Distance(webProjectile.Center) < 48f && webProjectile.ModProjectile is WardenSpiderWeb)
 				{
 					walled = true;
 				} 

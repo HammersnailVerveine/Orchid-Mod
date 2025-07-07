@@ -35,6 +35,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Symbiote
 			Projectile.localNPCHitCooldown = -1;
 			Count = 0;
 			TongueProgress = 0f;
+			MeleeHit = true;
 		}
 
 		public override void AI()

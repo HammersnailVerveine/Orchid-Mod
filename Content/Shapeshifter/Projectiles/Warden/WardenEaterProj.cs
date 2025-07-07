@@ -29,6 +29,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 60;
 			OldAI = new List<float>();
+			MeleeHit = true;
 		}
 
 		public override void AI()

@@ -20,6 +20,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		public float AttackCharge = 0f;
 		public float LastSyncedRotation = 0f;
 		public int KeepAttackAngle = 0;
+		public int BackwardRotation = 0;
 
 		public override void SetStaticDefaults()
 		{
@@ -103,6 +104,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			AttackCharge = 0f;
 			LastSyncedRotation = 0f;
 			KeepAttackAngle = 0;
+			BackwardRotation = 0;
 
 			if (IsLocalPlayer(player))
 			{
@@ -314,6 +316,17 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				if (anchor.ai[0] > 0f || anchor.ai[1] > 0f || anchor.ai[2] > 0f || AttackCharge > 0f || KeepAttackAngle > 0f)
 				{ // dash
 					projectile.rotation = projectile.ai[2] + MathHelper.Pi;
+					BackwardRotation--;
+
+					if (BackwardRotation > 0 || anchor.ai[2] > 0f)
+					{ // bite dash should (not) face backwards
+						if (anchor.ai[2] > 0f)
+						{
+							BackwardRotation = 6;
+						}
+
+						projectile.rotation += MathHelper.Pi;
+					}
 				}
 				else
 				{ // normal rotation, relative to stem
@@ -411,7 +424,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						// mini dash
 
 						Vector2 offSetDash = Vector2.Normalize(Main.MouseWorld - projectile.Center);
-						projectile.ai[2] = offSetDash.ToRotation() - MathHelper.PiOver2;
+						projectile.ai[2] = offSetDash.ToRotation() + MathHelper.PiOver2;
 						projectile.velocity *= 0f;
 						anchor.ai[2] = 15;
 
@@ -616,7 +629,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			if (anchor.ai[0] > 0) return true;
+			if (anchor.ai[0] > 0)
+			{
+				shapeshifter.modPlayer.SetDodgeImmuneTime();
+				return true;
+			}
 			return base.ShapeshiftFreeDodge(info, projectile, anchor, player, shapeshifter);
 		}
 

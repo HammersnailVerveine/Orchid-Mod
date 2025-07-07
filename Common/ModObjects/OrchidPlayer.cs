@@ -237,6 +237,7 @@ namespace OrchidMod.Common.ModObjects
 		{
 			if (PlayerImmunity > 0)
 			{
+				Player.SetImmuneTimeForAllTypes(PlayerImmunity > 40 ? PlayerImmunity : 40);
 				SoundEngine.PlaySound(SoundID.Item1, Player.Center);
 				return true;
 			}
@@ -248,6 +249,16 @@ namespace OrchidMod.Common.ModObjects
 			}
 
 			return false;
+		}
+
+		public void SetDodgeImmuneTime(int time = 40, bool ignoreOrchidPlayerImmunity = false)
+		{
+			if (!ignoreOrchidPlayerImmunity)
+			{
+				PlayerImmunity = time;
+			}
+
+			Player.SetImmuneTimeForAllTypes(time);
 		}
 
 		public void TryHeal(int amount)

@@ -265,9 +265,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				}
 
 				SoundEngine.PlaySound(SoundID.Item37, player.Center);
-				shapeshifter.modPlayer.PlayerImmunity = 40;
-				player.immuneTime = 60;
-				player.immune = true;
+				shapeshifter.modPlayer.SetDodgeImmuneTime();
 				anchor.RightCLickCooldown = 60;
 
 				player.AddBuff(ModContent.BuffType<WardenTortoiseBuff>(), 600);

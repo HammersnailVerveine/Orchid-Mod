@@ -1,13 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Utilities;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 {
@@ -33,6 +30,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 60;
 			OldAI = new List<float>();
+			MeleeHit = true;
 		}
 
 		public override void AI()

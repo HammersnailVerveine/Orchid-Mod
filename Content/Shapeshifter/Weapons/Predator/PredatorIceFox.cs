@@ -399,6 +399,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			if (projectile.ai[1] > 0)
 			{
+				shapeshifter.modPlayer.SetDodgeImmuneTime();
 				return true;
 			}
 

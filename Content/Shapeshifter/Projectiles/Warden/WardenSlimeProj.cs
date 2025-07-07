@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 60;
 			Projectile.friendly = false;
+			MeleeHit = true;
 		}
 
 		public override bool? CanHitNPC(NPC target)

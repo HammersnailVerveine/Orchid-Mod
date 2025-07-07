@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common;
+using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
@@ -100,7 +101,7 @@ namespace OrchidMod.Content.Shapeshifter
 					int threshold = (spiderMelee ? 100 : 75); // 100 dmg threshold as a spider, 75 else
 
 					float percentThreshold = 0.66f; // enemies can't be executed above 66% health
-					if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail || npc.boss);
+					if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail || npc.boss)
 					{ // bosses and EoW segments can't be executed above 33% health
 						percentThreshold = 0.33f;
 					}
@@ -114,6 +115,17 @@ namespace OrchidMod.Content.Shapeshifter
 						shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(spiderMelee ? 10 : 5));
 						shapeshifter.Player.AddBuff(ModContent.BuffType<WardenSpiderBuff>(), 1800);
 					}
+				}
+			}
+		}
+
+		public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
+		{
+			if (projectile.ModProjectile is OrchidModShapeshifterProjectile modProjectile && npc.ModNPC != null)
+			{ // "Fakes" melee hits with some projectile for thorium compatibility
+				if (modProjectile.MeleeHit)
+				{
+					npc.ModNPC.OnHitByItem(modProjectile.Owner, modProjectile.Owner.HeldItem, hit, damageDone);
 				}
 			}
 		}

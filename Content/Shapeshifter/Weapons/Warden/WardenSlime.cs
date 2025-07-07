@@ -557,7 +557,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			if (projectile.ai[1] != 0f) return true;
+			if (projectile.ai[1] != 0f)
+			{
+				shapeshifter.modPlayer.SetDodgeImmuneTime();
+				return true;
+			}
 			return base.ShapeshiftFreeDodge(info, projectile, anchor, player, shapeshifter);
 		}
 
