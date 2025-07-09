@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using OrchidMod.Common;
 using OrchidMod.Common.ModObjects;
 using Terraria;
 using Terraria.Localization;
@@ -26,7 +28,21 @@ namespace OrchidMod.Content.General.Prefixes
 			=> 1f;
 
 		public override bool CanRoll(Item item)
-			=> true;
+		{
+			Main.NewText(this);
+
+			if (!ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist && this is BrewingPrefix)
+			{ // Disable Brewing prefix rolls if alchemist content is disabled
+				return false;
+			}
+
+			if (!ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler && this is LoadedPrefix)
+			{ // Disable Loaded prefix rolls if gambler content is disabled
+				return false;
+			}
+
+			return true;
+		}
 
 		public override PrefixCategory Category
 			=> PrefixCategory.Accessory;
@@ -38,8 +54,7 @@ namespace OrchidMod.Content.General.Prefixes
 			this.guardianBlock = guardianBlock;
 		}
 
-		public override void Load()
-			=> prefixes.Add(this);
+		public override void Load() => prefixes.Add(this);
 
 		public override void Apply(Item item)
 			=> item.GetGlobalItem<AccessoryPrefixItem>().SetPrefixVariables(alchemistPotency, gamblerChip, guardianBlock);
@@ -88,11 +103,13 @@ namespace OrchidMod.Content.General.Prefixes
 
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
+			/*
 			if (item.accessory && rand.NextBool(20))
 			{
 				var prefixes = AccessoryPrefix.GetPrefixes;
 				return prefixes[Main.rand.Next(prefixes.Count)].Type;
 			}
+			*/
 
 			return -1;
 		}
