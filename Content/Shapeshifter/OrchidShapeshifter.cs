@@ -6,6 +6,7 @@ using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
 using System;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -106,6 +107,16 @@ namespace OrchidMod
 			ShapeshifterSetHarpy = false;
 			ShapeshifterSageDamageOnHit = false;
 			ShapeshifterSurvival = false;
+		}
+
+		public override void ModifyScreenPosition()
+		{
+			if (IsShapeshifted)
+			{
+				//Player.gfxOffY = 0;
+				Main.screenPosition = ShapeshiftAnchor.Projectile.Center - (new Vector2(Main.screenWidth, Main.screenHeight) / 2);
+				Main.screenPosition.Y += Player.gfxOffY;
+			}
 		}
 
 		public override void PostUpdateEquips()
@@ -272,6 +283,17 @@ namespace OrchidMod
 
 				Shapeshift.ShapeshiftAnchorAI(projectile, ShapeshiftAnchor, Player, this);
 				ShapeshiftAnchor.ExtraAI(Player, this);
+
+				// Rounds up the player X and Y velocity to 0 when they are neglibily small
+				if (Math.Abs(projectile.velocity.X) < 0.001f)
+				{
+					projectile.velocity.X = 0f;
+				}
+
+				if (Math.Abs(projectile.velocity.Y) < 0.001f)
+				{
+					projectile.velocity.Y = 0f;
+				}
 
 				Player.velocity = projectile.velocity;
 				Player.Center = projectile.Center + projectile.velocity;

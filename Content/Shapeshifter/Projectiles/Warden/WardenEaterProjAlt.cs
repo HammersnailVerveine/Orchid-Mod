@@ -222,7 +222,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				spriteBatch.Begin(spriteBatchSnapshot);
 			}
 
-			return true;
+			return false;
 		}
 	}
 }
