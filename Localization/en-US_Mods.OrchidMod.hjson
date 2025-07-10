@@ -311,6 +311,11 @@ Buffs: {
 		DisplayName: Survival Instincts
 		Description: Damage resistance and feral damage increased based on current health
 	}
+
+	ShapeshifterShapeshiftingCooldownDebuff: {
+		DisplayName: Shapeshifting Sickness
+		Description: Increased cooldowns after shapeshifting again & will not benefit from on-shapeshift effects
+	}
 }
 
 AlchemistRecipe: {
@@ -3808,6 +3813,20 @@ Items: {
 	ShapeshifterEmblem: {
 		DisplayName: Shapeshifter Emblem
 		Tooltip: 15% increased feral damage
+	}
+
+	ShawlOfTheWind: {
+		DisplayName: Shawl Of The Wind
+		Tooltip:
+			'''
+			12% increased movement speed
+			Dashes towards the cursor when shapeshifting while moving
+			'''
+	}
+
+	ShawlFeather: {
+		DisplayName: Feather Shawl
+		Tooltip: Dashes towards the cursor when shapeshifting while moving
 	}
 
 	ShapeshifterHarpyHead: {

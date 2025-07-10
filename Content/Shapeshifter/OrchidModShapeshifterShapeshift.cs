@@ -444,8 +444,9 @@ namespace OrchidMod.Content.Shapeshifter
 			intendedVelocity /= 10f;
 			for (int i = 0; i < 10; i++)
 			{
-				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
-				//finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
+				//finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
+				bool isSlope = false;
+				finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, ref isSlope, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
 			}
 
 			projectile.velocity = finalVelocity;
@@ -458,21 +459,25 @@ namespace OrchidMod.Content.Shapeshifter
 				intendedVelocity.Y = -1f;
 			}
 
-			return (Collision.TileCollision(projectile.position, Vector2.UnitY * intendedVelocity.Y, projectile.width, projectile.height, false, false, (int)player.gravDir) == Vector2.UnitY * intendedVelocity.Y);
-			//return (TileCollideShapeshifter(projectile.position, Vector2.UnitY * intendedVelocity.Y, projectile.width, projectile.height, false, false, (int)player.gravDir) == Vector2.UnitY * intendedVelocity.Y);
+			//return (Collision.TileCollision(projectile.position, Vector2.UnitY * intendedVelocity.Y, projectile.width, projectile.height, false, false, (int)player.gravDir) == Vector2.UnitY * intendedVelocity.Y);
+			bool isSlope = false;
+			return (TileCollideShapeshifter(projectile.position, Vector2.UnitY * intendedVelocity.Y, projectile.width, projectile.height, ref isSlope, false, false, (int)player.gravDir) == Vector2.UnitY * intendedVelocity.Y);
 		}
 
 		public bool StepUpTiles(Vector2 intendedVelocity, Projectile projectile, Player player)
 		{
 			if (CanGoUp(intendedVelocity, projectile, player) && projectile.velocity.Y >= 0f)
 			{
+				bool isSlope = false;
+				bool anySlope = false;
 				Vector2 finalVelocity = Vector2.Zero;
 				intendedVelocity.Y = 0;
 				intendedVelocity /= 10f;
 				for (int i = 0; i < 10; i++)
 				{
-					finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
-					//finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+					//finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+					finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, ref isSlope, false, false, (int)player.gravDir);
+
 					if (Math.Abs(finalVelocity.X - intendedVelocity.X * (i + 1)) > 0.001f)
 					{ // A tile was hit on the X axis
 						Vector2 newPosition = projectile.position;
@@ -481,16 +486,16 @@ namespace OrchidMod.Content.Shapeshifter
 						float offY;
 						for (int j = 0; j < 10; j++)
 						{
-							finalVelocity2 += Collision.TileCollision(newPosition + finalVelocity2, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
-							//finalVelocity2 += TileCollideShapeshifter(newPosition + finalVelocity2, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+							//finalVelocity2 += Collision.TileCollision(newPosition + finalVelocity2, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
+							finalVelocity2 += TileCollideShapeshifter(newPosition + finalVelocity2, intendedVelocity, projectile.width, projectile.height, ref isSlope, false, false, (int)player.gravDir);
 							if (Math.Abs(finalVelocity2.X - intendedVelocity.X * (j + 1)) > 0.001f)
 							{ // A tile was hit on the X axis above the first tested tile
 								if (finalVelocity2.X > finalVelocity.X)
 								{ // Player will hit a tile from the new position, but could go further on the X axis than previously. Go up a tile
 									newPosition = projectile.position + finalVelocity2;
 									newPosition.Y -= 16f;
-									offY = 16f - Collision.TileCollision(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
-									//offY = 16f - TileCollideShapeshifter(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
+									//offY = 16f - Collision.TileCollision(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
+									offY = 16f - TileCollideShapeshifter(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, ref isSlope, false, false, (int)player.gravDir).Y;
 									projectile.position.Y -= offY;
 									AllowGFXOffY = 5;
 									return true;
@@ -502,9 +507,10 @@ namespace OrchidMod.Content.Shapeshifter
 						// The tile above is empty and the player can go up the tile
 						newPosition = projectile.position + finalVelocity2;
 						newPosition.Y -= 16f;
-						offY = 16f - Collision.TileCollision(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
-						//offY = 16f - TileCollideShapeshifter(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
+						//offY = 16f - Collision.TileCollision(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, false, false, (int)player.gravDir).Y;
+						offY = 16f - TileCollideShapeshifter(newPosition, Vector2.UnitY * 16f, projectile.width, projectile.height, ref isSlope, false, false, (int)player.gravDir).Y;
 						projectile.position.Y -= offY;
+						player.gfxOffY = offY;
 						AllowGFXOffY = 5;
 						return true;
 					}
@@ -520,8 +526,9 @@ namespace OrchidMod.Content.Shapeshifter
 
 			for (int j = 0; j < 10; j++)
 			{
-				finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, fall1, fall2, (int)player.gravDir);
-				//finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, fall1, fall2, (int)player.gravDir);
+				//finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, fall1, fall2, (int)player.gravDir);
+				bool isSlope = false;
+				finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, ref isSlope, fall1, fall2, (int)player.gravDir);
 				if (Math.Abs(finalVelocity.Y - intendedVelocity.Y * (j + 1)) > 0.001f)
 				{ // A tile was hit on the Y axis
 					return true;
@@ -531,8 +538,9 @@ namespace OrchidMod.Content.Shapeshifter
 			return false;
 		}
 
-		public static Vector2 TileCollideShapeshifter(Vector2 Position, Vector2 Velocity, int Width, int Height, bool fallThrough = false, bool fall2 = false, int gravDir = 1)
+		public static Vector2 TileCollideShapeshifter(Vector2 Position, Vector2 Velocity, int Width, int Height, ref bool isSlope, bool fallThrough = false, bool fall2 = false, int gravDir = 1)
 		{ // Custom copy of Collision.TileCollide that considers slopes as full tiles
+			isSlope = false;
 			Collision.up = false;
 			Collision.down = false;
 			Vector2 result = Velocity;
@@ -573,29 +581,16 @@ namespace OrchidMod.Content.Shapeshifter
 						continue;
 
 					bool flag = false;
-					/*
-					bool flag2 = false;
-					if (Main.tile[i, j].Slope > (SlopeType)2)
+					
+					// player is standing on a slope
+					if (Main.tile[i, j].Slope > (SlopeType)0 && Main.tile[i, j].Slope < (SlopeType)3)
 					{
-						if (Main.tile[i, j].Slope == (SlopeType)3 && vector3.Y + Math.Abs(Velocity.X) >= vector4.Y && vector3.X >= vector4.X)
-							flag2 = true;
-
-						if (Main.tile[i, j].Slope == (SlopeType)4 && vector3.Y + Math.Abs(Velocity.X) >= vector4.Y && vector3.X + (float)Width <= vector4.X + 16f)
-							flag2 = true;
-					}
-					else if (Main.tile[i, j].Slope > (SlopeType)0)
-					{
-						flag = true;
 						if (Main.tile[i, j].Slope == (SlopeType)1 && vector3.Y + (float)Height - Math.Abs(Velocity.X) <= vector4.Y + (float)num7 && vector3.X >= vector4.X)
-							flag2 = true;
+							isSlope = true;
 
 						if (Main.tile[i, j].Slope == (SlopeType)2 && vector3.Y + (float)Height - Math.Abs(Velocity.X) <= vector4.Y + (float)num7 && vector3.X + (float)Width <= vector4.X + 16f)
-							flag2 = true;
+							isSlope = true;
 					}
-
-					if (flag2)
-						continue;
-					*/
 
 					if (vector3.Y + (float)Height <= vector4.Y)
 					{

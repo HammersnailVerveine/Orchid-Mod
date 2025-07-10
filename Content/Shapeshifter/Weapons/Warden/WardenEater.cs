@@ -215,6 +215,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			// anchor.ai[3] holds number of "fruit" stacks - improving left click attacks (max 3)
 			// anchor.ai[4] holds the "jump" dash cooldown
 
+			ResetFallHeight(player);
 			anchor.ai[1]--;
 			anchor.ai[4]--;
 			KeepAttackAngle--;

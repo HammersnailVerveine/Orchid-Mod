@@ -6,6 +6,7 @@ using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -125,6 +126,25 @@ namespace OrchidMod.Content.Shapeshifter
 					packet.Send();
 				}
 			}
+		}
+
+
+		public Projectile ShapeshifterNewProjectile(Vector2 position, Vector2 velocity, int type, float damage, int critChance, float knockback, int owner = -1, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f, IEntitySource spawnSource = null)
+		{
+			if (spawnSource == null)
+			{
+				spawnSource = Projectile.GetSource_FromAI();
+			}
+
+			Projectile newProjectile = Projectile.NewProjectileDirect(spawnSource, position, velocity, type, (int)damage, knockback, owner, ai0, ai1, ai2);
+			newProjectile.CritChance = critChance;
+
+			if (newProjectile.ModProjectile is OrchidModShapeshifterProjectile shapeshifterProjectile)
+			{
+				shapeshifterProjectile.ShapeshifterShapeshiftType = ShapeshifterShapeshiftType;
+			}
+
+			return newProjectile;
 		}
 	}
 }

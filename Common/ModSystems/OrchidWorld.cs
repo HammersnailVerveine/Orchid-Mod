@@ -34,6 +34,7 @@ using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 using OrchidMod.Content.Shapeshifter.Weapons.Symbiote;
+using OrchidMod.Content.Shapeshifter.Accessories;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -341,6 +342,7 @@ namespace OrchidMod.Common.ModSystems
 				chestLoots.Add(new ChestLoot(ItemType<SymbioteToad>(), ChestType.LivingTree, 50));
 				chestLoots.Add(new ChestLoot(ItemType<PredatorIceFox>(), ChestType.Ice, 20));
 				chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 20));
+				chestLoots.Add(new ChestLoot(ItemType<ShawlFeather>(), ChestType.SkyIsland, 30));
 			}
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)

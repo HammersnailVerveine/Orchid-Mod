@@ -72,9 +72,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 					Projectile.Kill();
 
 					int projectileType = ModContent.ProjectileType<SageCorruptionProjAlt>();
-					Projectile newProjectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), targetLocation, Vector2.Zero, projectileType, Projectile.damage, 0f, Projectile.owner, ai2: Projectile.ai[2]);
-					newProjectile.CritChance = Projectile.CritChance;
-					newProjectile.netUpdate = true;
+					ShapeshifterNewProjectile(targetLocation, Vector2.Zero, projectileType, Projectile.damage, Projectile.CritChance, 0f, Projectile.owner, ai2: Projectile.ai[2]);
 				}
 			}
 		}

@@ -177,10 +177,12 @@ namespace OrchidMod.Content.Shapeshifter
 					}
 
 					shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
+					shapeshifter.OnShapeshift(Projectile, this, owner, shapeshifter);
 
 					if (shapeshifter.ShapeshifterFastShapeshiftTimer >= 300)
 					{
 						shapeshiftItem.ShapeshiftAnchorOnShapeshiftFast(Projectile, this, owner, shapeshifter);
+						shapeshifter.OnShapeshiftFast(Projectile, this, owner, shapeshifter);
 					}
 
 					shapeshifter.ShapeshifterFastShapeshiftTimer = 0;
@@ -241,12 +243,14 @@ namespace OrchidMod.Content.Shapeshifter
 				}
 
 				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
+				shapeshifter.OnShapeshift(Projectile, this, owner, shapeshifter);
 
 				if (shapeshifter.ShapeshifterFastShapeshiftTimer >= 300)
 				{
 					LeftCLickCooldown = 5;
 					RightCLickCooldown = 5;
 					shapeshiftItem.ShapeshiftAnchorOnShapeshiftFast(Projectile, this, owner, shapeshifter);
+					shapeshifter.OnShapeshiftFast(Projectile, this, owner, shapeshifter);
 				}
 
 				shapeshifter.ShapeshifterFastShapeshiftTimer = 0;

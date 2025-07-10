@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
+using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
+using OrchidMod.Content.Shapeshifter.Dusts;
 using OrchidMod.Content.Shapeshifter.Projectiles.Misc;
-using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -42,6 +43,11 @@ namespace OrchidMod
 		public bool ShapeshifterSetHarpy = false; // Harpy armor set bonus (causes feathers to fall when attacking from above)
 		public bool ShapeshifterSageDamageOnHit = false; // if true, hitting new targets increase feral damage
 		public bool ShapeshifterSurvival = false; // survival potion bool
+
+		public bool ShapeshifterShawlFeather = false; // Used only for dash visuals
+		public bool ShapeshifterShawlWind = false; // Used only for dash visuals
+
+		public float ShapeshifterTransformationDash = 0f; // Shawl accessories tree effect : provides a burst of velocity speed when shapeshifting
 
 		// Dynamic gameplay and UI fields
 
@@ -104,9 +110,12 @@ namespace OrchidMod
 			ShapeshifterGravity = 1f;
 			ShapeshifterMaxFallSpeed = 1f;
 
+			ShapeshifterTransformationDash = 0f;
 			ShapeshifterSetHarpy = false;
 			ShapeshifterSageDamageOnHit = false;
 			ShapeshifterSurvival = false;
+			ShapeshifterShawlFeather = false;
+			ShapeshifterShawlWind = false;
 		}
 
 		public override void ModifyScreenPosition()
@@ -275,7 +284,7 @@ namespace OrchidMod
 						Shapeshift.ShapeshiftOnJump(projectile, ShapeshiftAnchor, Player, this);
 					}
 
-					if (Player.Center.Distance(projectile.Center) > 64f && projectile.velocity.Length() < 32f)
+					if (Player.Center.Distance(projectile.Center) > 96f && projectile.velocity.Length() < 32f)
 					{ // the player is far away from the projectile center, which is abnormal -> they likely teleported
 						Shapeshift.ShapeshiftTeleport(Player.Center, projectile, ShapeshiftAnchor, Player, this);
 					}
@@ -400,6 +409,46 @@ namespace OrchidMod
 				return Shapeshift.ShapeshiftFreeDodge(info, ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
 			}
 			return false;
+		}
+
+		public void OnShapeshift(Projectile anchorProjectile, ShapeshifterShapeshiftAnchor anchor, Player owner, OrchidShapeshifter shapeshifter)
+		{
+			owner.AddBuff(ModContent.BuffType<ShapeshifterShapeshiftingCooldownDebuff>(), 300); // Does not actually do anything, only a cue for the player
+		}
+
+		public void OnShapeshiftFast(Projectile anchorProjectile, ShapeshifterShapeshiftAnchor anchor, Player owner, OrchidShapeshifter shapeshifter)
+		{
+			if (ShapeshifterTransformationDash > 0f && (owner.velocity.Length() > 1f || owner.controlLeft || owner.controlRight || owner.controlUp || owner.controlDown))
+			{ // Shawl of the Wind dash when transforming
+
+				if (ShapeshifterShawlWind)
+				{
+					SoundEngine.PlaySound(SoundID.Grass, anchorProjectile.Center);
+					for (int i = 0; i < 5; i++)
+					{
+						Gore.NewGoreDirect(owner.GetSource_ItemUse(Shapeshift.Item), anchorProjectile.Center + new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f)), Vector2.UnitY.RotatedByRandom(MathHelper.Pi), GoreID.TreeLeaf_Jungle);
+					}
+				}
+				else if (ShapeshifterShawlFeather)
+				{ // dash visuals for the feather shawl
+					SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFurySwing, anchorProjectile.Center);
+					for (int i = 0; i < 5; i++)
+					{
+						Dust dust = Dust.NewDustDirect(anchorProjectile.position, anchorProjectile.width, anchorProjectile.height, ModContent.DustType<PredatorHarpyDust>(), Scale: Main.rand.NextFloat(1.2f, 1.4f));
+						dust.velocity *= 0.5f;
+						dust.velocity.Y = 2f;
+						dust.customData = Main.rand.Next(314);
+					}
+				}
+
+				if (owner.whoAmI == Main.myPlayer)
+				{
+					Vector2 offSet = Vector2.Normalize(Main.MouseWorld - anchorProjectile.Center) * ShapeshifterTransformationDash * Shapeshift.GetSpeedMult(owner, shapeshifter, anchor);
+					Shapeshift.ResetFallHeight(owner);
+					anchorProjectile.velocity = offSet;
+					anchorProjectile.netUpdate = true;
+				}
+			}
 		}
 	}
 }
