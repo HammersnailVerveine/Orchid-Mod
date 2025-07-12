@@ -3530,6 +3530,15 @@ Items: {
 		Tooltip: Обращает вас в королевского слизня, даруя уникальные навыки
 	}
 
+	WardenSalamortar: {
+		// DisplayName: Salamortar Idol
+		// LeftClick: Continuously shoots explosive mortar in an arc
+		// RightClick: Fires a massive bomb, healing on hit, and powering up with heat
+		// Jump: Builds up heat while running in a straight line, granting speed
+		// Passive: Jumping into lava launches you back and grants maximum heat
+		// Tooltip: Transforms you into a Salamortar, gaining unique abilities
+	}
+
 	WardenEater: {
 		DisplayName: Чучело людоеда
 		LeftClick: Заряжает сильный укус, который усиливается при съедении плодов
@@ -4328,6 +4337,10 @@ Projectiles: {
 	SymbioteToadProj.DisplayName: Соковый язык
 	SymbioteToadProjAlt.DisplayName: Соковая муха
 	ShapeshifterHarpyProj.DisplayName: Перо парителя
+	// WardenSalamortarProj.DisplayName: Warden Salamortar Proj
+	// WardenSalamortarProjAlt.DisplayName: Warden Salamortar Proj Alt
+	// WardenSalamortarProjBig.DisplayName: Warden Salamortar Proj Big
+	// WardenSalamortarProjBigAlt.DisplayName: Warden Salamortar Proj Big Alt
 }
 
 Configs: {

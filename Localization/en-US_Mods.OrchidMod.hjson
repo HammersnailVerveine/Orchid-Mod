@@ -3521,6 +3521,15 @@ Items: {
 		Tooltip: Transforms you into a Regal Slime, gaining unique abilities
 	}
 
+	WardenSalamortar: {
+		DisplayName: Salamortar Idol
+		LeftClick: Continuously shoots explosive mortar in an arc
+		RightClick: Fires a massive bomb, healing on hit, and powering up with heat
+		Jump: Builds up heat while running in a straight line, granting speed
+		Passive: Jumping into lava launches you back and grants maximum heat
+		Tooltip: Transforms you into a Salamortar, gaining unique abilities
+	}
+
 	WardenEater: {
 		DisplayName: Man Eater Effigy
 		LeftClick: Charges a powerful bite, reinforced after consuming a fruit
@@ -4314,6 +4323,10 @@ Projectiles: {
 	SymbioteToadProj.DisplayName: Saptongue
 	SymbioteToadProjAlt.DisplayName: Sapfly
 	ShapeshifterHarpyProj.DisplayName: Soaring Feather
+	WardenSalamortarProj.DisplayName: Warden Salamortar Proj
+	WardenSalamortarProjAlt.DisplayName: Warden Salamortar Proj Alt
+	WardenSalamortarProjBig.DisplayName: Warden Salamortar Proj Big
+	WardenSalamortarProjBigAlt.DisplayName: Warden Salamortar Proj Big Alt
 }
 
 Configs: {

@@ -1,13 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using OrchidMod.Common;
-using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

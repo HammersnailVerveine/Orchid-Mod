@@ -342,6 +342,7 @@ namespace OrchidMod.Common.ModSystems
 				chestLoots.Add(new ChestLoot(ItemType<SymbioteToad>(), ChestType.LivingTree, 50));
 				chestLoots.Add(new ChestLoot(ItemType<PredatorIceFox>(), ChestType.Ice, 20));
 				chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 20));
+				chestLoots.Add(new ChestLoot(ItemType<WardenSalamortar>(), ChestType.Shadow, 30));
 				chestLoots.Add(new ChestLoot(ItemType<ShawlFeather>(), ChestType.SkyIsland, 30));
 			}
 
