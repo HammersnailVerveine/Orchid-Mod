@@ -324,7 +324,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				intendedVelocity.Y -= 0.35f;
 				anchor.ai[0] = 1f;
 				anchor.RightCLickCooldown = 120;
-				anchor.LeftCLickCooldown = 90;
+				anchor.LeftCLickCooldown = 30;
 			}
 
 			if (!player.lavaWet && anchor.ai[0] == 1f)
