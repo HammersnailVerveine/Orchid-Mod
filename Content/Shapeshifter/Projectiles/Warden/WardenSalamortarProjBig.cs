@@ -83,7 +83,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			}
 
 			int projType = ModContent.ProjectileType<WardenSalamortarProjBigAlt>();
-			ShapeshifterNewProjectile(Projectile.Center, Projectile.velocity * 0.01f, projType, Projectile.damage * 10f, Projectile.CritChance, 8f, Projectile.owner);
+			ShapeshifterNewProjectile(Projectile.Center, Projectile.velocity * 0.01f, projType, Projectile.damage * 10f, Projectile.CritChance, 8f, Projectile.owner, Projectile.ai[2]);
 
 			for (int i = 0; i < (Projectile.ai[2] - 1) * 2 * 5; i ++)
 			{

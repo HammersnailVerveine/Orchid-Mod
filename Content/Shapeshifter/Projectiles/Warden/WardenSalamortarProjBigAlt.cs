@@ -4,6 +4,8 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 {
 	public class WardenSalamortarProjBigAlt : OrchidModShapeshifterProjectile
 	{
+		bool Healed = false;
+
 		public override void SafeSetDefaults()
 		{
 			Projectile.width = 200;
@@ -23,7 +25,11 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)
 		{
-			base.SafeOnHitNPC(target, hit, damageDone, player, shapeshifter);
+			if (!Healed)
+			{
+				Healed = true;
+				shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(Projectile.ai[0] * 5));
+			}
 		}
 	}
 }

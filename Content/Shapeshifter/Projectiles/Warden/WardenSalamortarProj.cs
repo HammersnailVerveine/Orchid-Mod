@@ -77,7 +77,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 
 			if (Projectile.ai[2] != 0)
 			{ // spawned by a right click
-				Projectile.friendly = TimeSpent >= 30;
+				Projectile.friendly = TimeSpent >= 20;
 			}
 
 			if (Main.rand.NextBool(5))
@@ -100,7 +100,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				Projectile.scale -= Main.rand.NextFloat(0.25f);
 				Projectile.timeLeft += (int)Projectile.ai[1];
 
-				if (Projectile.ai[2] != 0)
+				if (Projectile.ai[2] == 0)
 				{
 					for (int i = 0; i < 10; i++)
 					{
