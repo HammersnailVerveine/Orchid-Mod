@@ -3885,7 +3885,11 @@ Items: {
 	ShapeshifterAshwoodHead: {
 		// DisplayName: Pyre Hood
 		// Tooltip: 7% increased feral damage
-		// SetBonus: Mods.OrchidMod.Items.ShapeshifterAshwoodHead.SetBonus
+		/* SetBonus:
+			'''
+			Dealing damage fuels a pyre, increasing feral damage by up to 10%
+			Taking damage consumes the pyre, damaging nearby enemies
+			''' */
 	}
 
 	ShapeshifterAshwoodChest: {
@@ -4357,6 +4361,8 @@ Projectiles: {
 	// WardenSalamortarProjAlt.DisplayName: Warden Salamortar Proj Alt
 	// WardenSalamortarProjBig.DisplayName: Warden Salamortar Proj Big
 	// WardenSalamortarProjBigAlt.DisplayName: Warden Salamortar Proj Big Alt
+	// ShapeshifterAshwoodFlame.DisplayName: Shapeshifter Ashwood Flame
+	// ShapeshifterAshwoodProj.DisplayName: Shapeshifter Ashwood Proj
 }
 
 Configs: {

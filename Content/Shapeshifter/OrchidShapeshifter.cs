@@ -41,6 +41,7 @@ namespace OrchidMod
 		public float ShapeshifterMaxFallSpeed = 1f; // Multiplicative, mostly used for movement in liquids
 
 		public bool ShapeshifterSetHarpy = false; // Harpy armor set bonus (causes feathers to fall when attacking from above)
+		public bool ShapeshifterSetPyre = false; // Pyre  armor set bonus (creates flames around thep layer when dealing damage)
 		public bool ShapeshifterSageDamageOnHit = false; // if true, hitting new targets increase feral damage
 		public bool ShapeshifterSurvival = false; // survival potion bool
 
@@ -57,7 +58,8 @@ namespace OrchidMod
 		public int ShapeshifterSageDamageOnHitTimer = 0;
 		public int[] ShapeshifterSageDamageOnHitTargets;
 		public int ShapeshifterSetHarpyDamagePool = 0;
-		public int ShapeshifterSetHarpyTimer = 0;
+		public int ShapeshifterSetTimer = 0;
+		public int ShapeshifterSetPyreDamagePool = 0;
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
@@ -93,6 +95,17 @@ namespace OrchidMod
 			}
 
 			ShapeshifterFastShapeshiftTimer++;
+			ShapeshifterSetTimer--;
+
+			if (!ShapeshifterSetHarpy)
+			{
+				ShapeshifterSetHarpyDamagePool = 0;
+			}
+
+			if (!ShapeshifterSetPyre)
+			{
+				ShapeshifterSetPyreDamagePool = 0;
+			}
 
 			// Reset gameplay fields
 
@@ -112,6 +125,7 @@ namespace OrchidMod
 
 			ShapeshifterTransformationDash = 0f;
 			ShapeshifterSetHarpy = false;
+			ShapeshifterSetPyre = false;
 			ShapeshifterSageDamageOnHit = false;
 			ShapeshifterSurvival = false;
 			ShapeshifterShawlFeather = false;
@@ -193,6 +207,18 @@ namespace OrchidMod
 					ShapeshifterSageDamageOnHitTargets = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
 				}
 			}
+
+			if (ShapeshifterSetPyre)
+			{
+				int projectileType = ModContent.ProjectileType<ShapeshifterAshwoodFlame>();
+				foreach (Projectile projectile in Main.projectile)
+				{
+					if (projectile.active && projectile.type == projectileType && Player.whoAmI == projectile.ai[0])
+					{
+						Player.GetDamage<ShapeshifterDamageClass>() += 0.02f;
+					}
+				}
+			}
 		}
 
 		public override void PostUpdate()
@@ -226,7 +252,7 @@ namespace OrchidMod
 					ShapeshifterMoveSpeedBonusFlat *= 0.5f;
 					ShapeshifterMoveSpeedMiscOverride *= 0.5f;
 				}
-				
+
 				if (Player.wet && Player.ignoreWater)
 				{ // I don't know why either, but this is needed to replicate normal movement
 					ShapeshifterGravity *= 2f;
@@ -334,11 +360,10 @@ namespace OrchidMod
 
 			if (ShapeshifterSetHarpyDamagePool > 0)
 			{ // if ShapeshifterSetHarpyDamagePool is above 20, empty it gradually, spawning damaging feathers
-				ShapeshifterSetHarpyTimer--;
-				if (ShapeshifterSetHarpyDamagePool >= 20 && ShapeshifterSetHarpyTimer <= 0 && modPlayer.LastHitNPC != null)
+				if (ShapeshifterSetHarpyDamagePool >= 20 && ShapeshifterSetTimer <= 0 && modPlayer.LastHitNPC != null)
 				{
 					ShapeshifterSetHarpyDamagePool -= 20;
-					ShapeshifterSetHarpyTimer = 10;
+					ShapeshifterSetTimer = 10;
 					int projectileType = ModContent.ProjectileType<ShapeshifterHarpyProj>();
 					NPC target = modPlayer.LastHitNPC;
 					int damage = GetShapeshifterDamage(15);
@@ -348,19 +373,67 @@ namespace OrchidMod
 					newProjectile.CritChance = GetShapeshifterCrit();
 				}
 			}
+
+			if (ShapeshifterSetPyre)
+			{ // if ShapeshifterSetPyreDamagePool is above 1000, empty it gradually, spawning pyre flames
+				int projectileType = ModContent.ProjectileType<ShapeshifterAshwoodFlame>();
+				int count = 0;
+				foreach (Projectile projectile in Main.projectile)
+				{
+					if (projectile.active && projectile.type == projectileType && Player.whoAmI == projectile.ai[0])
+					{
+						count++;
+
+						if (ShapeshifterSetTimer <= -600)
+						{
+							projectile.ai[0] = 1f; // kill
+							projectile.netUpdate = true;
+						}
+					}
+				}
+
+				if (ShapeshifterSetPyreDamagePool >= 1000 && ShapeshifterSetTimer <= 0 && modPlayer.LastHitNPC != null)
+				{
+					ShapeshifterSetPyreDamagePool -= 1000;
+					ShapeshifterSetTimer = 30;
+
+					if (count < 5)
+					{
+						int damage = GetShapeshifterDamage(100);
+						Projectile newProjectile = Projectile.NewProjectileDirect(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, projectileType, damage, 0f, Player.whoAmI, Player.whoAmI);
+						newProjectile.CritChance = GetShapeshifterCrit();
+					}
+				}
+			}
 		}
 
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (ShapeshifterSetHarpy && OrchidModProjectile.IsValidTarget(target) && Player.whoAmI == Main.myPlayer && IsShapeshifted)
+			if (OrchidModProjectile.IsValidTarget(target) && Player.whoAmI == Main.myPlayer && IsShapeshifted)
 			{
-				int projectileType = ModContent.ProjectileType<ShapeshifterHarpyProj>();
-				if (target.Center.Y /* - target.width * 0.5f */ > Player.Center.Y + Player.height * 0.5f && proj.type != projectileType)
-				{ // attacks from above store 50% of the damage dealt in ShapeshifterSetHarpyDamagePool
-					ShapeshifterSetHarpyDamagePool += (int)(damageDone * 0.5f);
-					if (ShapeshifterSetHarpyDamagePool > 100)
+				if (ShapeshifterSetHarpy)
+				{
+					int projectileType = ModContent.ProjectileType<ShapeshifterHarpyProj>();
+					if (target.Center.Y /* - target.width * 0.5f */ > Player.Center.Y + Player.height * 0.5f && proj.type != projectileType)
+					{ // attacks from above store 50% of the damage dealt in ShapeshifterSetHarpyDamagePool
+						ShapeshifterSetHarpyDamagePool += (int)(damageDone * 0.5f);
+						if (ShapeshifterSetHarpyDamagePool > 100)
+						{
+							ShapeshifterSetHarpyDamagePool = 100;
+						}
+					}
+				}
+
+				if (ShapeshifterSetPyre)
+				{
+					int projectileType = ModContent.ProjectileType<ShapeshifterAshwoodProj>();
+					if (proj.type != projectileType)
 					{
-						ShapeshifterSetHarpyDamagePool = 100;
+						ShapeshifterSetPyreDamagePool += (int)(damageDone);
+						if (ShapeshifterSetPyreDamagePool > 1500)
+						{
+							ShapeshifterSetPyreDamagePool = 1500;
+						}
 					}
 				}
 			}
@@ -390,6 +463,24 @@ namespace OrchidMod
 				if (!Player.noKnockback)
 				{ // Player knockback on hit
 					ShapeshiftAnchor.Projectile.velocity = new Vector2(3f * hurtInfo.HitDirection, -3f);
+				}
+			}
+		}
+
+		public override void OnHurt(Player.HurtInfo info)
+		{
+			if (ShapeshifterSetPyre)
+			{
+				int projectileType = ModContent.ProjectileType<ShapeshifterAshwoodFlame>();
+				int count = 0;
+				foreach (Projectile projectile in Main.projectile)
+				{
+					if (projectile.active && projectile.type == projectileType && Player.whoAmI == projectile.ai[0])
+					{
+						count++;
+						projectile.ai[1] = count * 5f; // kill (explode)
+						projectile.netUpdate = true;
+					}
 				}
 			}
 		}
