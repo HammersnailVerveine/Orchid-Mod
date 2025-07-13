@@ -3524,7 +3524,7 @@ Items: {
 	WardenSalamortar: {
 		DisplayName: Salamortar Idol
 		LeftClick: Continuously shoots explosive mortar in an arc
-		RightClick: Fires a massive bomb, healing on hit, and powering up with heat
+		RightClick: Consumes all heat to shoot a massive bomb, healing on hit
 		Jump: Builds up heat while running in a straight line, granting speed
 		Passive: Jumping into lava launches you back and grants maximum heat
 		Tooltip: Transforms you into a Salamortar, gaining unique abilities
@@ -3866,6 +3866,22 @@ Items: {
 			Damage resistance or feral damage increased up to 15% based on missing health
 			Only works while shapeshifted
 			'''
+	}
+
+	ShapeshifterAshwoodHead: {
+		DisplayName: Pyre Hood
+		Tooltip: 7% increased feral damage
+		SetBonus: Mods.OrchidMod.Items.ShapeshifterAshwoodHead.SetBonus
+	}
+
+	ShapeshifterAshwoodChest: {
+		DisplayName: Pyre Mantle
+		Tooltip: 7% increased feral damage
+	}
+
+	ShapeshifterAshwoodLegs: {
+		DisplayName: Pyre Skirt
+		Tooltip: 10% increased movement speed
 	}
 }
 

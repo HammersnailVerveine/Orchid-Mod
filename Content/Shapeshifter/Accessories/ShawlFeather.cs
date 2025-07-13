@@ -23,14 +23,5 @@ namespace OrchidMod.Content.Shapeshifter.Accessories
 				shapeshifter.ShapeshifterTransformationDash = 9f;
 			}
 		}
-
-		public override void AddRecipes()
-		{
-			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.AnkletoftheWind);
-			// .. ???
-			recipe.AddTile(TileID.TinkerersWorkbench);
-			recipe.Register();
-		}
 	}
 }

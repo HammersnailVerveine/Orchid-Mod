@@ -29,8 +29,6 @@ namespace OrchidMod.Content.General.Prefixes
 
 		public override bool CanRoll(Item item)
 		{
-			Main.NewText(this);
-
 			if (!ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist && this is BrewingPrefix)
 			{ // Disable Brewing prefix rolls if alchemist content is disabled
 				return false;

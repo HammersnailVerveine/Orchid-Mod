@@ -18,7 +18,6 @@ namespace OrchidMod.Content.Shapeshifter.Armors.Harpy
 
 		public override void UpdateEquip(Player player)
 		{
-			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
 			player.moveSpeed += 0.1f;
 		}
 
