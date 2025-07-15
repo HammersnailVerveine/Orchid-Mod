@@ -23,7 +23,6 @@ namespace OrchidMod.Content.Guardian
 		public Texture2D HammerTexture;
 
 		public int range = 0;
-		public int ChargeToAdd = 0;
 		public bool penetrate;
 		public bool WeakHit = false;
 		public bool NeedNetUpdate = false;
@@ -149,12 +148,6 @@ namespace OrchidMod.Content.Guardian
 							{
 								guardian.GuardianHammerCharge += 30f / HammerItem.Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
 
-								if (ChargeToAdd > 0)
-								{
-									ChargeToAdd--;
-									guardian.GuardianHammerCharge += 2f * player.GetTotalAttackSpeed(DamageClass.Melee);
-								}
-
 								if (guardian.GuardianHammerCharge > 210f) guardian.GuardianHammerCharge = 210f;
 							}
 
@@ -212,13 +205,6 @@ namespace OrchidMod.Content.Guardian
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
 								HammerItem.OnSwing(player, guardian, Projectile, guardian.GuardianHammerCharge >= 180f);
 								ResetHitStatus(false);
-							}
-
-							if (ChargeToAdd > 0 && Projectile.ai[1] > -30 && !WeakHit)
-							{
-								ChargeToAdd--;
-								guardian.GuardianHammerCharge += 2f * player.GetTotalAttackSpeed(DamageClass.Melee);
-								if (guardian.GuardianHammerCharge > 210f) guardian.GuardianHammerCharge = 210f;
 							}
 
 							Projectile.velocity = Vector2.UnitX * 0.001f * player.direction; // So enemies are KBd in the right direction
@@ -394,7 +380,14 @@ namespace OrchidMod.Content.Guardian
 				if (FirstHit)
 				{
 					HammerItem.OnMeleeHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit, fullyCharged);
-					ChargeToAdd += 30;
+					if (guardian.GuardianHammerCharge > 0f)
+					{
+						guardian.GuardianHammerCharge += 60f * HammerItem.SwingChargeGain * player.GetTotalAttackSpeed(DamageClass.Melee);
+						if (guardian.GuardianHammerCharge > 210f)
+						{
+							guardian.GuardianHammerCharge = 210f;
+						}
+					}
 				}
 				HammerItem.OnMeleeHit(player, guardian, target, Projectile, hit.Knockback, hit.Crit, fullyCharged);
 			}

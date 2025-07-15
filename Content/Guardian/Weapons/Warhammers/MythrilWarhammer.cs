@@ -20,6 +20,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			GuardStacks = 2;
 			SlamStacks = 1;
 			ReturnSpeed = 1.25f;
+			SwingChargeGain = 1.5f;
 		}
 
 		public override void AddRecipes()

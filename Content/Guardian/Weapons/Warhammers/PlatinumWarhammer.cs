@@ -20,6 +20,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Range = 25;
 			GuardStacks = 1;
 			ReturnSpeed = 0.8f;
+			SwingChargeGain = 1.5f;
 		}
 
 		public override void SetStaticDefaults()

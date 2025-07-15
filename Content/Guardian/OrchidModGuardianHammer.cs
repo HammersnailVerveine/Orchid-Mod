@@ -20,6 +20,8 @@ namespace OrchidMod.Content.Guardian
 		public bool TileBounce;
 		public float ReturnSpeed;
 		public float SwingSpeed;
+		/// <summary>Multiplier for the amount of bonus charge gained from hitting with a melee swing.</summary>
+		public float SwingChargeGain;
 		public int HitCooldown;
 		public virtual void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged) { } // Called upon landing any melee swing hit
 		public virtual void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged) { } // Called upon landing the first hit of a melee swing
@@ -53,6 +55,7 @@ namespace OrchidMod.Content.Guardian
 			SlamStacks = 0;
 			ReturnSpeed = 1f;
 			SwingSpeed = 1f;
+			SwingChargeGain = 1f;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
