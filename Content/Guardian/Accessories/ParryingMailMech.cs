@@ -24,5 +24,21 @@ namespace OrchidMod.Content.Guardian.Accessories
 			player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
 			player.longInvince = true;
 		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient<ParryingMailFeral>();
+			recipe.AddIngredient(ItemID.CrossNecklace);
+			recipe.AddIngredient(ItemID.AvengerEmblem);
+			recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.Register();
+			recipe = CreateRecipe();
+			recipe.AddIngredient<ParryingMailHoly>();
+			recipe.AddIngredient(ItemID.FeralClaws);
+			recipe.AddIngredient(ItemID.AvengerEmblem);
+			recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.Register();
+		}
 	}
 }

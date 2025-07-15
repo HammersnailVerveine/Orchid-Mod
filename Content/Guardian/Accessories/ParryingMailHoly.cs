@@ -23,5 +23,14 @@ namespace OrchidMod.Content.Guardian.Accessories
 			modPlayer.GuardianParryDuration += 0.25f;
 			player.longInvince = true;
 		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient<SturdySlab>();
+			recipe.AddIngredient(ItemID.CrossNecklace);
+			recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.Register();
+		}
 	}
 }

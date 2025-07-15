@@ -23,5 +23,14 @@ namespace OrchidMod.Content.Guardian.Accessories
 			modPlayer.GuardianParryDuration += 0.25f;
 			player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
 		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient<SturdySlab>();
+			recipe.AddIngredient(ItemID.FeralClaws);
+			recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.Register();
+		}
 	}
 }

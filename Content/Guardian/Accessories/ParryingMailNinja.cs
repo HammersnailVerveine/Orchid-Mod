@@ -27,5 +27,14 @@ namespace OrchidMod.Content.Guardian.Accessories
 			player.dashType = 1;
 			player.spikedBoots = 2;
 		}
+
+		public override void AddRecipes()
+		{
+			var recipe = CreateRecipe();
+			recipe.AddIngredient<ParryingMailMech>();
+			recipe.AddIngredient(ItemID.MasterNinjaGear);
+			recipe.AddTile(TileID.TinkerersWorkbench);
+			recipe.Register();
+		}
 	}
 }
