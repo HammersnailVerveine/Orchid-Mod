@@ -193,7 +193,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			anchor.NeedNetUpdate = true;
 			anchor.LeftCLickCooldown = Item.useTime;
 			projectile.ai[2] = 30;
-			SetCameraLerp(player, 0.1f, 3);
+			SetCameraLerp(player, 0.1f, 5);
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)

@@ -179,7 +179,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			anchor.LeftCLickCooldown = Item.useTime;
 			projectile.ai[2] = 30;
 			SoundEngine.PlaySound(SoundID.DD2_DarkMageAttack, projectile.Center);
-			SetCameraLerp(player, 0.1f, 4);
+			SetCameraLerp(player, 0.1f, 8);
 
 			// Spawn 3 foxfire flames after the dash and makes the old ones remain in place
 			int projectileType = ModContent.ProjectileType<PredatorIceFoxProj>();
