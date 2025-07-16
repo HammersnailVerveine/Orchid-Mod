@@ -29,9 +29,24 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
+			ShapeshiftTypeUI = ShapeshifterShapeshiftTypeUI.List;
 			GroundedWildshape = true;
 		}
 
+		public override void ShapeshiftGetUIInfo(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, ref int uiCount, ref int uiCountMax)
+		{
+			uiCount = 0;
+			uiCountMax = 3;
+			int temp = 0;
+			while (temp < projectile.ai[0])
+			{
+				temp += 240;
+				if (temp <= projectile.ai[0])
+				{
+					uiCount++;
+				}
+			}
+		}
 
 		public override Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
@@ -45,7 +60,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 		public override void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			projectile.ai[0] = 120f; //first projectile spawns after 1 second
+			projectile.ai[0] = 180f; //first dash charge after 1 second
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -63,15 +78,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1f, 1.4f));
 				dust.noGravity = true;
 				dust.noLight = true;
-			}
-
-			int projectileType = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
-			foreach (Projectile proj in Main.projectile)
-			{ // Despawns dash indicators when shapeshifting from fox to fox
-				if (proj.active && proj.owner == player.whoAmI && proj.type == projectileType)
-				{
-					proj.Kill();
-				}
 			}
 		}
 
@@ -132,11 +138,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 		}
 
-		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => Main.mouseRight && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick && projectile.ai[0] >= 180;
+		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => Main.mouseRight && (Main.mouseRightRelease || AutoReuseRight) && anchor.CanRightClick && projectile.ai[0] >= 240;
 
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			projectile.ai[0] -= 200;
+			projectile.ai[0] -= 240;
 
 			anchor.RightCLickCooldown = 180;
 			anchor.NeedNetUpdate = true;
@@ -161,7 +167,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				dust.noGravity = true;
 			}
 
-			projectile.ai[0] -= 200;
+			projectile.ai[0] -= 240;
 			Vector2 position = projectile.position;
 			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * 8f * GetSpeedMult(player, shapeshifter, anchor);
 
@@ -204,47 +210,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			// MISC EFFECTS
 
-			int projectileTypeFlame = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
-
-			// counts the max amount of dash indicators following the player
-			int maxCount = 0;
-			int temp = 0;
-			while (temp < projectile.ai[0])
-			{
-				temp += 180;
-				if (temp <= projectile.ai[0])
-				{
-					maxCount++;
-				}
-			}
-
-			// kills excess indicators
-			int count = 0;
-			foreach (Projectile proj in Main.projectile)
-			{
-				if (proj.active && proj.owner == player.whoAmI && proj.type == projectileTypeFlame)
-				{
-					count++;
-					if (count > maxCount)
-					{
-						proj.Kill();
-					}
-				}
-			}
-
 			bool grounded = IsGrounded(projectile, player, 4f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 
-			if ((int)projectile.ai[0] < 541)
+			if ((int)projectile.ai[0] < 721)
 			{ // Increases the dash timer
 				projectile.ai[0]++;
 
-				if ((int)projectile.ai[0] % 180 == 0)
+				if ((int)projectile.ai[0] % 240 == 0)
 				{ // Spawns a projectile following the player when the dash is ready
-					int projectileType = ModContent.ProjectileType<PredatorIceFoxProjAlt>();
-					Vector2 offset = Vector2.UnitY.RotatedByRandom(3.14f) * 64f;
-					ShapeshifterNewProjectile(shapeshifter, projectile.Center + offset, Vector2.Zero, projectileType, 0, 0, 0f, player.whoAmI, offset.X * 0.375f, offset.Y * 0.375f);
-					SoundEngine.PlaySound(SoundID.Item30, projectile.Center);
+					SoundStyle soundStyle = SoundID.Item30;
+					soundStyle.Volume *= 0.5f;
+					SoundEngine.PlaySound(soundStyle, projectile.Center);
 				}
 			}
 

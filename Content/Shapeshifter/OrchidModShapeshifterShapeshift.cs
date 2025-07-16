@@ -25,14 +25,17 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool GroundedWildshape; // Is the shapeshift supposedly a grounded creature? (affects the movement speed given by some items like magiluminescense)
 		public float GravityMult; // Fall speed multiplier
 		public ShapeshifterShapeshiftType ShapeshiftType; // Sage, Predator, Warden, Symbiote
+		public ShapeshifterShapeshiftTypeUI ShapeshiftTypeUI; // None, Count, Fill. Will attempt to draw an UI if this is != none
 
 		public virtual string LeftClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterLeftClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".LeftClick"));
 		public virtual string RightClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterRightClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".RightClick"));
 		public virtual string JumpTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterJump")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Jump"));
 		public virtual string PassiveTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterPassive")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Passive"));
 		public virtual string TypeTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.Shapeshifter" + ShapeshiftType.ToString()));
-		public virtual string ShapeshiftTexture => Texture + "_Shapeshift";
-		public virtual string IconTexture => Texture + "_Icon";
+		public virtual string TextureShapeshift => Texture + "_Shapeshift";
+		public virtual string TextureIcon => Texture + "_Icon";
+		public virtual string TextureUI => Texture + "_UI";
+		public virtual string TextureUIBack => Texture + "_UI_Back";
 		public virtual void ShapeshiftPreDraw(SpriteBatch spriteBatch, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Vector2 drawPosition, Rectangle drawRectangle, SpriteEffects effect, Player player, Color lightColor) { } // Called before drawing the shapeshift anchor if it is going to be drawn
 		public virtual void ShapeshiftPostDraw(SpriteBatch spriteBatch, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Vector2 drawPosition, Rectangle drawRectangle, SpriteEffects effect, Player player, Color lightColor) { } // Called after drawing the shapeshift anchor
 		public virtual bool ShapeshiftShouldDraw(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; } // Called before drawing the shapeshift anchor, return false to prevent it
@@ -54,6 +57,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public virtual void ShapeshiftOnHitByAnything(Player.HurtInfo hurtInfo, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Called after taking a hit from a Anything
 		public virtual void ShapeshiftOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) { } // Called upon dealing "contact" damage to a NPC with the shapeshift anchor
 		public virtual void ShapeshiftOnApplyBleed(NPC target, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, ShapeshifterBleed bleed) { } // Called after a bleed has been applied to a NPC
+		public virtual void ShapeshiftGetUIInfo(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, ref int uiCount, ref int uiCountMax) { } // Called locally when drawing the UI. Will draw nbSymbols "clear" symbols on top of "nbSymbolsBack"
 		public virtual void SafeHoldItem(Player player) { } // ModItem.HoldItem(Player player)
 		public virtual Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(lightColor, 0f); // used to draw the shapeshift anchor
 		public virtual Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(Color.White, 0f); // used to draw the shapeshift anchor glowmask
@@ -80,6 +84,8 @@ namespace OrchidMod.Content.Shapeshifter
 			MeleeSpeedRight = false;
 			GravityMult = 1f;
 			GroundedWildshape = false;
+			ShapeshiftType = ShapeshifterShapeshiftType.None;
+			ShapeshiftTypeUI = ShapeshifterShapeshiftTypeUI.None;
 
 			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;

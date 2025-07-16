@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Content.Guardian.UI;
 using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Utilities;
 using ReLogic.Content;
@@ -160,18 +161,18 @@ namespace OrchidMod.Content.Shapeshifter
 					IsRightClickRelease = false;
 					IsInputJumpRelease = false;
 
-					TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
-					TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
-					TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture + "_Border", AssetRequestMode.ImmediateLoad).Value;
+					TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.TextureShapeshift, AssetRequestMode.ImmediateLoad).Value;
+					TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.TextureIcon, AssetRequestMode.ImmediateLoad).Value;
+					TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.TextureIcon + "_Border", AssetRequestMode.ImmediateLoad).Value;
 					TextureShapeshiftGlow = null;
 					TextureShapeshiftTransparent = null;
 
-					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
+					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
 					{
 						TextureShapeshiftGlow = assetglow.Value;
 					}
 
-					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Transparent", out Asset<Texture2D> assetTransparent, AssetRequestMode.ImmediateLoad))
+					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Transparent", out Asset<Texture2D> assetTransparent, AssetRequestMode.ImmediateLoad))
 					{
 						TextureShapeshiftTransparent = assetTransparent.Value;
 					}
@@ -226,20 +227,33 @@ namespace OrchidMod.Content.Shapeshifter
 				IsRightClickRelease = false;
 				IsInputJumpRelease = false;
 
-				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.ShapeshiftTexture, AssetRequestMode.ImmediateLoad).Value;
-				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture, AssetRequestMode.ImmediateLoad).Value;
-				TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.IconTexture + "_Border", AssetRequestMode.ImmediateLoad).Value;
+				TextureShapeshift = ModContent.Request<Texture2D>(shapeshiftItem.TextureShapeshift, AssetRequestMode.ImmediateLoad).Value;
+				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.TextureIcon, AssetRequestMode.ImmediateLoad).Value;
+				TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.TextureIcon + "_Border", AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftGlow = null;
 				TextureShapeshiftTransparent = null;
 
-				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
+				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
 				{
 					TextureShapeshiftGlow = assetglow.Value;
 				}
 
-				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.ShapeshiftTexture + "_Transparent", out Asset<Texture2D> assetTransparent, AssetRequestMode.ImmediateLoad))
+				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Transparent", out Asset<Texture2D> assetTransparent, AssetRequestMode.ImmediateLoad))
 				{
 					TextureShapeshiftTransparent = assetTransparent.Value;
+				}
+
+				if (IsLocalOwner)
+				{
+					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureUI, out Asset<Texture2D> assetUI, AssetRequestMode.ImmediateLoad))
+					{
+						ShapeshifterUIState.TextureUI = assetUI.Value;
+					}
+
+					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureUIBack, out Asset<Texture2D> assetUIBack, AssetRequestMode.ImmediateLoad))
+					{
+						ShapeshifterUIState.TextureUIBack = assetUIBack.Value;
+					}
 				}
 
 				shapeshiftItem.ShapeshiftAnchorOnShapeshift(Projectile, this, owner, shapeshifter);
@@ -458,7 +472,7 @@ namespace OrchidMod.Content.Shapeshifter
 			{
 				bool drawAsAdditive = false;
 				Color color = shapeshifterItem.GetColor(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
-				Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+				Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix).Floor();
 				Rectangle drawRectangle = TextureShapeshift.Bounds;
 				drawRectangle.Height = drawRectangle.Width;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
