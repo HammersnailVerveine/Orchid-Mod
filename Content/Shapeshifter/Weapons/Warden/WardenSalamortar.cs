@@ -118,6 +118,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		public override void ShapeshiftBuffs(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			player.lavaImmune = true;
+			player.fireWalk = true;
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
