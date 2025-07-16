@@ -38,6 +38,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			GroundedWildshape = false;
 		}
 
+		public override void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			DashCooldown = 30;
+		}
+
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			anchor.Frame = 2;
@@ -170,7 +175,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			projectile.ai[2] = 12;
-			DashCooldown = 30;
+			DashCooldown = 120;
 			anchor.LeftCLickCooldown = 15;
 			anchor.RightCLickCooldown = 15;
 			anchor.NeedNetUpdate = true;
