@@ -268,7 +268,7 @@ Buffs: {
 	}
 
 	SageOwlDebuff: {
-		DisplayName: Sage Owl Debuff
+		DisplayName: Owled
 		Description: Reduced defense
 	}
 
@@ -3422,7 +3422,7 @@ Items: {
 		DisplayName: Starry Owl Idol
 		LeftClick: Shoots a barrage of feathers
 		RightClick: Marks enemies below you, increasing damage taken by 3
-		Jump: Jump to ascend and hover, increasing damage and attack speed
+		Jump: Dash up to twice and hover, increasing attack speed
 		Passive: Increases night vision
 		Tooltip: Transforms you into a Starry Owl, gaining unique abilities
 	}

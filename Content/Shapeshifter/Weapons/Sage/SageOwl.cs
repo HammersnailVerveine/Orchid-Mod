@@ -17,8 +17,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 	{
 		public bool Landed = false;
 		public bool LateralMovement = false;
-		public bool CanDash = false;
+		public int DashCharges = 0;
 		public int DashCooldown = 0;
+		public float LandingOffset = 0f;
 
 		public override void SafeSetDefaults()
 		{
@@ -46,12 +47,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			DashCooldown = 30;
 
 			Landed = false;
-			CanDash = false;
+			DashCharges = 0;
+			LandingOffset = 0f;
 			LateralMovement = false;
 
 			for (int i = 0; i < 8; i++)
 			{
-				FeatherDust(projectile, 1);
+				FeatherDust(projectile);
 			}
 		}
 
@@ -59,24 +61,20 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				FeatherDust(projectile, 1);
+				FeatherDust(projectile);
 			}
 		}
-
-		public override bool ShapeshiftCanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanLeftClick(projectile, anchor, player, shapeshifter) && !Landed;
 
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			int damage = Item.damage;
 			int cooldown = Item.useTime;
 
-			/*
-			if (AscendTimer > -60)
+			if (anchor.ai[0] > 0f)
 			{ // More damage and attack speed while hovering
 				damage += 3;
 				cooldown -= 15;
 			}
-			*/
 
 			int projectileType = ModContent.ProjectileType<SageOwlProj>();
 			for (int i = 0; i < 2; i++)
@@ -118,7 +116,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			// adjust shapeshift anchor fields
 			anchor.RightCLickCooldown = Item.useTime * 4;
-			anchor.Projectile.ai[2] = 20;
+			anchor.ai[0] = 20;
 			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
 			anchor.NeedNetUpdate = true;
 
@@ -129,32 +127,133 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 		}
 
-		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && CanDash && projectile.ai[0] <= 0 && DashCooldown <= 0;
+		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && DashCharges > 0 && projectile.ai[0] <= 0 && (DashCooldown <= 0 || anchor.ai[0] >= 0);
 
+		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			// 8 dir input
+			if (anchor.IsInputLeft && !anchor.IsInputRight)
+			{
+				anchor.Projectile.ai[1] = MathHelper.Pi * 1.5f; // Left
+				if (anchor.IsInputUp && !anchor.IsInputDown)
+				{
+					anchor.Projectile.ai[1] += MathHelper.Pi * 0.25f; // Top Left
+				}
+				else if (!anchor.IsInputUp && anchor.IsInputDown)
+				{
+					anchor.Projectile.ai[1] -= MathHelper.Pi * 0.25f; // Bottom Left
+				}
+			}
+			else if (!anchor.IsInputLeft && anchor.IsInputRight)
+			{
+				anchor.Projectile.ai[1] = MathHelper.Pi * 0.5f; // Right
+				if (anchor.IsInputUp && !anchor.IsInputDown)
+				{
+					anchor.Projectile.ai[1] -= MathHelper.Pi * 0.25f; // Top Right
+				}
+				else if (!anchor.IsInputUp && anchor.IsInputDown)
+				{
+					anchor.Projectile.ai[1] += MathHelper.Pi * 0.25f; // Bottom Right
+				}
+			}
+			else if (anchor.IsInputUp && !anchor.IsInputDown)
+			{
+				anchor.Projectile.ai[1] = 0f; // Up
+			}
+			else if (!anchor.IsInputUp && anchor.IsInputDown)
+			{
+				anchor.Projectile.ai[1] = MathHelper.Pi; // Down
+			}
+			else
+			{ // Projectile Direction (no input)
+				anchor.Projectile.ai[1] = MathHelper.Pi * (1f + projectile.direction * 0.5f);
+			}
+
+			projectile.ai[2] = 12;
+			DashCooldown = 30;
+			anchor.LeftCLickCooldown = 15;
+			anchor.RightCLickCooldown = 15;
+			anchor.NeedNetUpdate = true;
+			DashCharges --;
+			SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, projectile.Center);
+
+			for (int i = 0; i < 5; i++)
+			{
+				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+			}
+
+			for (int i = 0; i < 4; i++)
+			{
+				FeatherDust(projectile);
+			}
+		}
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			// ai[0] holds the attack animation duration
+			// ai[1] holds the dash or attack direction
+			// ai[2] holds the dash duration
+			// anchor.ai[0] holds the hover duration
+			// anchor.ai[1] holds the remaining possible hover time (holding space convers it to anchor.ai[0])
+
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor);
-			player.fallStart = (int)(player.position.Y / 16f);
-			player.fallStart2 = (int)(player.position.Y / 16f);
-			player.noFallDmg = true;
+			player.nightVision = true;
 			projectile.ai[2]--;
+			projectile.ai[0]--;
 			DashCooldown--;
+
+			if (DashCharges > 0) 
+			{
+				anchor.ai[1] = 0f;
+			}
+
+			if (Math.Abs(projectile.velocity.X) < 0.25f && projectile.ai[0] <= 0)
+			{ // eases towards the ground when not moving
+				LandingOffset += 0.5f;
+			}
+			else
+			{
+				LandingOffset = 0f;
+			}
 
 			GravityMult = 0.7f;
 			if (anchor.IsInputDown) GravityMult += 0.3f;
 
-			if (!Landed)
-			{ // Drops feathers while flying
-			}
-
 			// ANIMATION
 
-			if (Landed)
-			{
+			if (projectile.ai[0] > 0)
+			{ // attack
+				Landed = false;
+				LandingOffset = 0f;
+				anchor.Frame = 7;
+			}
+			else if (Landed)
+			{ // grounded
 				anchor.Frame = 0;
 			}
+			else if (anchor.ai[0] > 0f)
+			{ // hovering (fast anim)
+				if (anchor.Frame < 1 || anchor.Frame > 6)
+				{
+					anchor.Frame = 1;
+				}
+
+				if (anchor.Timespent % 3 == 0)
+				{
+					anchor.Frame++;
+
+					if (anchor.Frame <= 1)
+					{
+						anchor.Frame = 1;
+					}
+
+					if (anchor.Frame == 7)
+					{
+						anchor.Frame = 1;
+					}
+				}
+			}
 			else
-			{ // Animation frames
+			{ // movement
 				FeatherDust(projectile, 120);
 
 				if (anchor.Frame < 1 || anchor.Frame > 6)
@@ -188,7 +287,22 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			// MOVEMENT
 
 			Vector2 intendedVelocity = projectile.velocity;
-			GravityCalculations(ref intendedVelocity, player, shapeshifter);
+
+			if (anchor.IsInputJump && anchor.ai[1] > 0f)
+			{ // space hold hover
+				anchor.ai[0] = 2;
+				anchor.ai[1]--;
+			}
+
+			if (anchor.ai[0] > 0f)
+			{ // hovering
+				anchor.ai[0] --;
+				intendedVelocity *= 0.8f;
+			}
+			else
+			{ // normal gravity
+				GravityCalculations(ref intendedVelocity, player, shapeshifter);
+			}
 
 			if (anchor.IsInputJump && intendedVelocity.Y >= 1.2f)
 			{ // Gliding
@@ -201,9 +315,20 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			if (projectile.ai[2] > 0)
 			{ // Dashing
-				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * -10f * speedMult * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
+				Landed = false;
+				LandingOffset = 0f;
+				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * -7f * speedMult * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 				projectile.direction = intendedVelocity.X > 0 ? 1 : -1;
 				projectile.spriteDirection = projectile.direction;
+
+				if (projectile.ai[2] <= 1)
+				{
+					anchor.ai[0] = 30f;
+					if (DashCharges == 0)
+					{
+						anchor.ai[1] = 180f;
+					}
+				}
 			}
 			else
 			{
@@ -235,30 +360,49 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					intendedVelocity.X *= 0.7f;
 				}
 
-				float intendedDistance = 32f;
-				if (anchor.IsInputDown) intendedDistance -= 16f;
-				if (IsGrounded(projectile, player, intendedDistance, anchor.IsInputDown, anchor.IsInputDown))
-				{ // Pushes away from the ground
-					CanDash = true;
-					intendedVelocity.Y -= player.gravity * 2f;
-					if (intendedVelocity.Y < -2f)
+				if (anchor.ai[0] <= 0f)
+				{ // push away from ground (if not hovering)
+					float intendedDistance = 32f;
+					if (anchor.IsInputDown)
 					{
-						intendedVelocity.Y = -2f;
+						intendedDistance -= 16f;
 					}
-				}
-				else if (IsGrounded(projectile, player, intendedDistance + 2f, anchor.IsInputDown, anchor.IsInputDown) && intendedVelocity.Y < 1f)
-				{ // Locks up so the screen doesn't shake constantly
-					CanDash = true;
-					intendedVelocity.Y *= 0f;
-				}
 
-				if (projectile.ai[0] > 0)
-				{ // Override animation during attack
-					projectile.ai[0]--;
-					if (projectile.ai[2] < -45)
+					if (LandingOffset > 30f)
 					{
-						projectile.direction = (int)projectile.ai[1];
-						projectile.spriteDirection = projectile.direction;
+						intendedDistance -= LandingOffset;
+					}
+
+					if (intendedDistance <= 2)
+					{
+						intendedDistance = 2;
+						if (IsGrounded(projectile, player, intendedDistance, anchor.IsInputDown, anchor.IsInputDown))
+						{ // Pushes away from the ground
+							DashCharges = 2;
+							Landed = true;
+						}
+						else
+						{
+							Landed = false;
+						}
+					}
+					else
+					{
+						Landed = false;
+						if (IsGrounded(projectile, player, intendedDistance, anchor.IsInputDown, anchor.IsInputDown))
+						{ // Pushes away from the ground
+							DashCharges = 2;
+							intendedVelocity.Y -= player.gravity * 2f;
+							if (intendedVelocity.Y < -2f)
+							{
+								intendedVelocity.Y = -2f;
+							}
+						}
+						else if (IsGrounded(projectile, player, intendedDistance + 2f, anchor.IsInputDown, anchor.IsInputDown) && intendedVelocity.Y < 1f)
+						{ // Locks up so the screen doesn't shake constantly
+							DashCharges = 2;
+							intendedVelocity.Y *= 0f;
+						}
 					}
 				}
 			}
