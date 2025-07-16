@@ -372,10 +372,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					if (IsGrounded(projectile, player, intendedDistance, anchor.IsInputDown, anchor.IsInputDown))
 					{ // Pushes away from the ground
 						Jumps = 4;
-						intendedVelocity.Y -= player.gravity * 1.4f;
-						if (intendedVelocity.Y < -2.5f)
+						intendedVelocity.Y -= player.gravity * 2f;
+						if (intendedVelocity.Y < -2f)
 						{
-							intendedVelocity.Y = -2.5f;
+							intendedVelocity.Y = -2f;
 						}
 					}
 					else if (IsGrounded(projectile, player, intendedDistance + 4f, anchor.IsInputDown, anchor.IsInputDown) && intendedVelocity.Y < 2f)

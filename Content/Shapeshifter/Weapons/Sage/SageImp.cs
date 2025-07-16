@@ -193,7 +193,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			anchor.NeedNetUpdate = true;
 			anchor.LeftCLickCooldown = Item.useTime;
 			projectile.ai[2] = 30;
-			Main.SetCameraLerp(0.1f, 5);
+			SetCameraLerp(player, 0.1f, 5);
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -221,23 +221,23 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			// ANIMATION
 
-			if (anchor.Timespent % 5 == 0 && anchor.Timespent > 0)
+			if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
 			{ // Animation frames
 				anchor.Frame++;
 
 				if (anchor.Frame == 0)
 				{
-					anchor.Timespent = -5;
+					anchor.Timespent = -3;
 				}
 
 				if (anchor.Frame == 1)
 				{
-					anchor.Timespent = -3;
+					anchor.Timespent = -2;
 				}
 
 				if (anchor.Frame == 6)
 				{
-					anchor.Frame = 1;
+					anchor.Frame = 0;
 				}
 			}
 
@@ -302,10 +302,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			if (IsGrounded(projectile, player, intendedDistance, anchor.IsInputDown, anchor.IsInputDown))
 			{ // Pushes away from the ground
 				CanDash = true;
-				intendedVelocity.Y -= player.gravity * 1.4f;
-				if (intendedVelocity.Y < -2.5f)
+				intendedVelocity.Y -= player.gravity * 2f;
+				if (intendedVelocity.Y < -2f)
 				{
-					intendedVelocity.Y = -2.5f;
+					intendedVelocity.Y = -2f;
 				}
 			}
 			else if (IsGrounded(projectile, player, intendedDistance + 2f, anchor.IsInputDown, anchor.IsInputDown) && intendedVelocity.Y < 1f)

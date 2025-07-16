@@ -236,6 +236,17 @@ namespace OrchidMod.Content.Shapeshifter
 			player.fallStart2 = (int)(player.position.Y / 16f);
 		}
 
+		public void SetCameraLerp(Player player, float lerp, int time)
+		{
+			if (IsLocalPlayer(player))
+			{
+				Main.SetCameraLerp(lerp, time);
+				OrchidShapeshifter.ShapeshifterCameraLerp = lerp;
+				OrchidShapeshifter.ShapeshifterCameraLerpTimer = 0;
+				OrchidShapeshifter.ShapeshifterCameraLerpTimeToggle = time;
+			}
+		}
+
 		public Projectile ShapeshifterNewProjectile(OrchidShapeshifter shapeshifter, Vector2 position, Vector2 velocity, int type, float damage, int critChance, float knockback, int owner = -1, float ai0 = 0f, float ai1 = 0f, float ai2 = 0f, IEntitySource spawnSource = null)
 		{
 			if (damage > 0)
