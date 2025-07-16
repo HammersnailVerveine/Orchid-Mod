@@ -55,11 +55,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			{
 				return true;
 			}
-			if (anchor.range > 0)
+			if (anchor.range == 40) anchor.range = 1;
+			else if (anchor.range > 0 && anchor.range < 40)
 			{
 				projectile.velocity += new Vector2(-1.5f, 0).RotatedBy(projectile.ai[1]);
 				if (projectile.velocity.Length() > Item.shootSpeed) projectile.velocity *= Item.shootSpeed / projectile.velocity.Length();
-				if (anchor.range == 20 || anchor.range == 40) anchor.range = 1;
+				if (anchor.range == 20) anchor.range = 1;
 			}
 			return true;
 		}
@@ -86,11 +87,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		public override void OnThrowTileCollide(Player player, OrchidGuardian guardian, Projectile projectile, Vector2 oldVelocity)
 		{
 			GuardianHammerAnchor anchor = projectile.ModProjectile as GuardianHammerAnchor;
-			if (projectile.ai[0] != 1 && anchor.range >= 20)
+			if (projectile.ai[0] != 1)
 			{
-				if (anchor.range >= 40) anchor.range = 39;
-				else anchor.range = 19;
-			}
+				if (anchor.range >= 20)
+				{
+					if (anchor.range >= 40) anchor.range = 39;
+					else anchor.range = 19;
+				}
+				else anchor.range = -40;
+			} 
 			projectile.velocity = -oldVelocity;
 			projectile.rotation = projectile.ai[1] - MathHelper.PiOver2;
 			SoundEngine.PlaySound(SoundID.NPCHit46.WithPitchOffset(0.1f).WithVolumeScale(0.5f), projectile.Center);
