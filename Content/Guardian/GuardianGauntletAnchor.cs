@@ -9,10 +9,8 @@ using System.IO;
 using Terraria;
 using Terraria.Localization;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.UI.Chat;
 using static Terraria.Player;
 
 namespace OrchidMod.Content.Guardian

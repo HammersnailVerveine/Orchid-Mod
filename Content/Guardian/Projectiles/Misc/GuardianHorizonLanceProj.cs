@@ -22,6 +22,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 			Projectile.width = 16;
 			Projectile.height = 16;
 			Projectile.friendly = false;
+			Projectile.tileCollide = false;
 			Projectile.aiStyle = -1;
 			Projectile.timeLeft = 900;
 			Projectile.scale = 1f;

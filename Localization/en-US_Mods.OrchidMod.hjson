@@ -2936,7 +2936,7 @@ Items: {
 			5% increased opposing damage
 			Increases maximum guards by 1
 			'''
-		SetBonus: 50% chance for blocks and parries to grant two slams
+		SetBonus: 50% chance for blocks and parries to grant an additional slam
 	}
 
 	GuardianMeteoriteLegs: {
@@ -3713,7 +3713,7 @@ Items: {
 
 	ThoriumAquaiteQuarterstaff: {
 		DisplayName: Wave Breaker
-		Tooltip: Jab is replaced by a powerful sweep that instantly charges on hit
+		Tooltip: Jab is replaced by a powerful sweep
 	}
 
 	DukeGauntlet: {
@@ -4487,7 +4487,7 @@ UI: {
 	GuardianItem: {
 		LeftClick: Left
 		RightClick: Right
-		ChargeToSwing: Charge to swing {0} click to jab while charging
+		ChargeToSwing: Charge to swing, {0} click to jab while charging
 		ParryDuration: "{0} second parry duration"
 		BlockDuration: "{0} second block duration"
 		Interrupted: Interrupted

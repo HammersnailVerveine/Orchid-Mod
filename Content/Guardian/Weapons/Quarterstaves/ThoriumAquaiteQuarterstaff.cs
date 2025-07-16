@@ -13,6 +13,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 	[CrossmodContent("ThoriumMod")]
 	public class ThoriumAquaiteQuarterstaff : OrchidModGuardianQuarterstaff
 	{
+		public bool bonusChargeHit;
+		
 		public override void SafeSetDefaults()
 		{
 			Item.width = 42;
@@ -20,16 +22,17 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.value = Item.sellPrice(0, 0, 1, 75);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item71.WithPitchOffset(0.5f).WithVolumeScale(0.5f);
-			Item.useTime = 18;
+			Item.useTime = 20;
 			ParryDuration = 45;
 			Item.knockBack = 5f;
-			Item.damage = 46;
-			Item.shootSpeed = 18f;
+			Item.damage = 44;
+			Item.shootSpeed = 26f;
 			JabStyle = 1;
+			JabSpeed = 0.9f;
 			JabDamage = 0.75f;
-			JabChargeGain = 4;
+			JabChargeGain = 1.5f;
 			SwingStyle = 0;
-			SwingSpeed = 1.5f;
+			SwingSpeed = 1.4f;
 			CounterSpeed = 1.5f;
 			GuardStacks = 1;
 			SlamStacks = 1;
@@ -39,10 +42,10 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		{
 			if (jabAttack)
 			{
-				if (guardian.GuardianGauntletCharge < 180)
+				GuardianQuarterstaffAnchor anchor = projectile.ModProjectile as GuardianQuarterstaffAnchor;
+				if (anchor.DamageReset == 0)
 				{
-					CombatText.NewText(player.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Charged"), false);
-					SoundEngine.PlaySound(SoundID.Item66, player.Center);
+					bonusChargeHit = true;
 				}
 			}
 			else if (!counterAttack)
@@ -51,9 +54,26 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			}
 		}
 
+		public override void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool jabAttack, bool counterAttack)
+		{
+			if (jabAttack && bonusChargeHit && guardian.GuardianGauntletCharge < 180 && guardian.GuardianGauntletCharge > 0)
+			{
+				GuardianQuarterstaffAnchor anchor = projectile.ModProjectile as GuardianQuarterstaffAnchor;
+				if (anchor.DamageReset == 1)
+				{
+					guardian.GuardianGauntletCharge += 90 * player.GetTotalAttackSpeed(DamageClass.Melee);
+					if (guardian.GuardianGauntletCharge > 180) guardian.GuardianGauntletCharge = 180;
+				}	
+			}
+		}
+
 		public override void OnAttack(Player player, OrchidGuardian guardian, Projectile projectile, bool jabAttack, bool counterAttack)
 		{
-			if (!jabAttack && !counterAttack)
+			if (jabAttack)
+			{
+				bonusChargeHit = false;
+			}
+			else if (!counterAttack)
 			{
 				SoundEngine.PlaySound(SoundID.Item66, player.Center);
 				Vector2 vel = -Vector2.UnitX.RotatedBy((player.Center - Main.MouseWorld).ToRotation()) * Item.shootSpeed;
