@@ -44,7 +44,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			anchor.Timespent = 0;
 			projectile.direction = player.direction;
 			projectile.spriteDirection = player.direction;
-			DashCooldown = 30;
+			DashCooldown = 120;
 
 			Landed = false;
 			DashCharges = 0;
