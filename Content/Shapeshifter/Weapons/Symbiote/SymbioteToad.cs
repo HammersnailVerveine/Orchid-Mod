@@ -414,7 +414,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 						Vector2 finalTargetLocation = projectile.Center;
 						for (int i = 0; i < 60; i++)
 						{
-							finalTargetLocation += Collision.TileCollision(finalTargetLocation, offSet, 8, 8, true, true, (int)player.gravDir);
+							finalTargetLocation += TileCollideShapeshifter(finalTargetLocation, offSet, 8, 8, true, true, (int)player.gravDir);
 						}
 
 						finalTargetLocation -= projectile.Center;

@@ -5,6 +5,7 @@ using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
 using OrchidMod.Content.Shapeshifter.Dusts;
 using OrchidMod.Content.Shapeshifter.Projectiles.Misc;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -23,6 +24,7 @@ namespace OrchidMod
 		public int GetShapeshifterCrit(int additionalCritChance = 0) => (int)(Player.GetCritChance<ShapeshifterDamageClass>() + Player.GetCritChance<GenericDamageClass>() + additionalCritChance);
 		public float GetShapeshifterMeleeSpeed(float additionalMeleeSpeed = 0) => Player.GetTotalAttackSpeed(DamageClass.Melee) + ShapeshifterMeleeSpeedBonus + additionalMeleeSpeed;
 		public int GetShapeshifterHealing(float healing) => (int)Math.Ceiling(healing * ShapeshifterHealingBonus);
+		public static List<int> ShapeshifterIncompatibleProjectiles; // These projectile IDs will will the wildshape anchor if they are owned by the local player 
 
 		// Can be edited by gear (Set effects, accessories, misc)
 
@@ -80,6 +82,14 @@ namespace OrchidMod
 		{
 			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 			ShapeshifterSageDamageOnHitTargets = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
+			ShapeshifterIncompatibleProjectiles = new List<int>();
+
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				ShapeshifterIncompatibleProjectiles.Add(thoriumMod.Find<ModProjectile>("AmmutsebaSashPro").Type);
+				ShapeshifterIncompatibleProjectiles.Add(thoriumMod.Find<ModProjectile>("ZephyrsGripPro").Type);
+			}
 		}
 
 		public override void ResetEffects()
@@ -100,15 +110,29 @@ namespace OrchidMod
 
 			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
 			{
-				if (Player.mount.Active || Player.grappling[0] >= 0 || Player.timeShimmering > 0)
-				{ // Disable the shapeshift if the player is mounted, shimmered or uses a hook
-					ShapeshiftAnchor.Projectile.Kill();
-				}
-
 				if (ShapeshiftAnchor.NeedKill && Player.whoAmI == Main.myPlayer)
 				{ // Kills the anchor properly if NeedKill was set to true, avoiding issues caused by killing it randomly
 					ShapeshiftAnchor.NeedKill = false;
 					ShapeshiftAnchor.Projectile.Kill();
+					ShapeshiftAnchor = null;
+					Shapeshift = null;
+				}
+
+				if (Player.mount.Active || Player.grappling[0] >= 0 || Player.timeShimmering > 0 && ShapeshiftAnchor != null)
+				{ // Disable the shapeshift if the player is mounted, shimmered or uses a hook
+					ShapeshiftAnchor.Projectile.Kill();
+					ShapeshiftAnchor = null;
+					Shapeshift = null;
+				}
+
+				foreach (Projectile projectile in Main.projectile)
+				{// Disable the shapeshift if the player owns an incompatible projectile (special thorium mod hooks for example)
+					if (ShapeshifterIncompatibleProjectiles.Contains(projectile.type) && projectile.owner == Player.whoAmI && projectile.active && ShapeshiftAnchor != null)
+					{
+						ShapeshiftAnchor.Projectile.Kill();
+						ShapeshiftAnchor = null;
+						Shapeshift = null;
+					}
 				}
 			}
 

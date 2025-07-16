@@ -101,12 +101,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 10; i++)
 			{
-				position += Collision.TileCollision(position, offSet * 0.1f, 2, 2, true, true, (int)player.gravDir);
+				position += TileCollideShapeshifter(position, offSet * 0.1f, 2, 2, true, true, (int)player.gravDir);
 			}
 			
 			for (int i = 0; i < 75; i++)
 			{
-				position += Collision.TileCollision(position, Vector2.UnitY * 15f, 18, 2, false, false, (int)player.gravDir);
+				position += TileCollideShapeshifter(position, Vector2.UnitY * 15f, 18, 2, false, false, (int)player.gravDir);
 			}
 
 			position.Y -= 78; // half the wall height
@@ -183,10 +183,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			for (int i = 0; i < 32; i++)
 			{
-				position += Collision.TileCollision(position, offSet, projectile.width, projectile.height, true, true, (int)player.gravDir);
+				position += TileCollideShapeshifter(position, offSet, projectile.width, projectile.height, true, true, (int)player.gravDir);
 			}
 
-			anchor.Teleport(position);
+			anchor.Teleport(position + new Vector2(projectile.width, projectile.height) * 0.5f);
 			projectile.position = position;
 			projectile.velocity = offSet;
 			projectile.velocity *= 0.75f;

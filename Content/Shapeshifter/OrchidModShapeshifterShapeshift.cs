@@ -554,6 +554,36 @@ namespace OrchidMod.Content.Shapeshifter
 			return false;
 		}
 
+		public bool AnyTileCollideShapeshifter(Vector2 Position, Vector2 Velocity, int Width, int Height, bool fallThrough = false, bool fall2 = false, int gravDir = 1)
+		{
+			int count = 1;
+			while ((Velocity.Length() / count) > 0.5f)
+			{
+				count++;
+			}
+
+			Vector2 segment = Velocity / count;
+
+			for (int i = 0; i < count; i++)
+			{
+				Vector2 oldPosition = Position;
+				Position += TileCollideShapeshifter(Position, segment, Width, Height, fallThrough, fall2, gravDir);
+
+				if ((oldPosition + segment).Distance(Position) > 0.01f)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		public Vector2 TileCollideShapeshifter(Vector2 Position, Vector2 Velocity, int Width, int Height, bool fallThrough = false, bool fall2 = false, int gravDir = 1)
+		{
+			bool isSlope = false;
+			return TileCollideShapeshifter(Position, Velocity, Width, Height, ref isSlope, fallThrough, fall2, gravDir);
+		}
+
 		public static Vector2 TileCollideShapeshifter(Vector2 Position, Vector2 Velocity, int Width, int Height, ref bool isSlope, bool fallThrough = false, bool fall2 = false, int gravDir = 1)
 		{ // Custom copy of Collision.TileCollide that considers slopes as full tiles
 			isSlope = false;

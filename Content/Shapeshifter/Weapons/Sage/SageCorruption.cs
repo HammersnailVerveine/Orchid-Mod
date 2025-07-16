@@ -300,7 +300,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 						Vector2 finalTargetLocation = projectile.Center;
 						for (int i = 0; i < 60; i++)
 						{
-							finalTargetLocation += Collision.TileCollision(finalTargetLocation, offSet, 16, 16, true, true, (int)player.gravDir);
+							finalTargetLocation += TileCollideShapeshifter(finalTargetLocation, offSet, 16, 16, true, true, (int)player.gravDir);
 						}
 
 						int projectileType = ModContent.ProjectileType<SageCorruptionProj>();

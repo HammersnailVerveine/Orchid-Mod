@@ -64,7 +64,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			bool foundTarget = false;
 			for (int i = 0; i < (player.HasBuff<WardenTortoiseBuff>() ? 45 : 15); i++)
 			{
-				position += Collision.TileCollision(position, offSet, 2, 2, true, true, (int)player.gravDir);
+				position += TileCollideShapeshifter(position, offSet, 2, 2, true, true, (int)player.gravDir);
 
 				foreach (NPC npc in Main.npc)
 				{
@@ -327,7 +327,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 						Vector2 intendedVelocity = npc.velocity / 10f;
 						for (int i = 0; i < 10; i++)
 						{
-							finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, true, false, (int)player.gravDir);
+							finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, true, false, (int)player.gravDir);
 						}
 						bool throughTiles = Math.Abs((finalVelocity - npc.velocity).Length()) > 0.1f;
 

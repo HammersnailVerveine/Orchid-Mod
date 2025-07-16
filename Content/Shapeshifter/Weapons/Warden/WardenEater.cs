@@ -399,7 +399,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 						offSet /= 15f;
 						for (int i = 0; i < 15; i++)
 						{
-							position += Collision.TileCollision(position, offSet, 2, 2, true, true, (int)player.gravDir);
+							position += TileCollideShapeshifter(position, offSet, 2, 2, true, true, (int)player.gravDir);
 							foreach (NPC npc in Main.npc)
 							{
 								if (OrchidModProjectile.IsValidTarget(npc))

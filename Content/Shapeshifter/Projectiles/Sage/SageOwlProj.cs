@@ -47,7 +47,9 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
-			SoundEngine.PlaySound(SoundID.Item64, Projectile.Center);
+			SoundStyle soundStyle = SoundID.Item64;
+			soundStyle.Volume *= 0.33f;
+			SoundEngine.PlaySound(soundStyle, Projectile.Center);
 			return true;
 		}
 

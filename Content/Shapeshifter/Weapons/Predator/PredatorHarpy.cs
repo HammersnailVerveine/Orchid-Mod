@@ -230,7 +230,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 				FeatherDust(projectile, 8);
 
-				if (Collision.TileCollision(projectile.position, Vector2.UnitX * 10f * speedMult * projectile.direction, projectile.width, projectile.height, true, true, (int)player.gravDir) != Vector2.UnitX * 10f * speedMult * projectile.direction)
+				if (TileCollideShapeshifter(projectile.position, Vector2.UnitX * 10f * speedMult * projectile.direction, projectile.width, projectile.height, true, true, (int)player.gravDir) != Vector2.UnitX * 10f * speedMult * projectile.direction)
 				{
 					projectile.ai[2] = 0;
 

@@ -173,12 +173,19 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			for (int i = 0; i < 24; i++)
 			{
-				position += Collision.TileCollision(position, offSet, projectile.width, projectile.height, true, true, (int)player.gravDir);
-				Dust dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
-				dust.noGravity = true;
+				if (AnyTileCollideShapeshifter(position, offSet, projectile.width, projectile.height, true, true, (int)player.gravDir))
+				{
+					break;
+				}
+				else
+				{
+					position += offSet;
+					Dust dust = Dust.NewDustDirect(position, projectile.width, projectile.height, DustID.IceTorch, Scale: Main.rand.NextFloat(1.4f, 2f));
+					dust.noGravity = true;
+				}
 			}
 
-			anchor.Teleport(position);
+			anchor.Teleport(position + new Vector2(projectile.width, projectile.height) * 0.5f);
 			projectile.velocity = offSet;
 			projectile.velocity.Y *= 0.5f;
 			anchor.NeedNetUpdate = true;
