@@ -40,7 +40,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			DashCooldown = 30;
+			DashCooldown = 20;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -49,7 +49,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			anchor.Timespent = 0;
 			projectile.direction = player.direction;
 			projectile.spriteDirection = player.direction;
-			DashCooldown = 120;
+			DashCooldown = 60;
 
 			Landed = false;
 			DashCharges = 0;
@@ -175,7 +175,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 
 			projectile.ai[2] = 12;
-			DashCooldown = 120;
+			DashCooldown = 60;
 			anchor.LeftCLickCooldown = 15;
 			anchor.RightCLickCooldown = 15;
 			anchor.NeedNetUpdate = true;
