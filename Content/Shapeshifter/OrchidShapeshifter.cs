@@ -301,6 +301,14 @@ namespace OrchidMod
 					ShapeshifterMoveSpeedBonusFlat *= 0.3f;
 				}
 
+				/*
+				if (Player.stickyBreak > 0)
+				{ // cobwebs
+					ShapeshifterMoveSpeedBonusFinal *= 0.1f;
+					ShapeshifterMoveSpeedBonusFlat *= 0.1f;
+				}
+				*/
+
 				if ((Player.wet && !Player.ignoreWater) || Player.lavaWet)
 				{ // in lava on water
 					ShapeshifterMaxFallSpeed *= 0.2f;

@@ -466,6 +466,11 @@ namespace OrchidMod.Content.Shapeshifter
 				finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, ref isSlope, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
 			}
 
+			if (player.stickyBreak > 0)
+			{ // cobwebs
+				finalVelocity *= 0.5f;
+			}
+
 			projectile.velocity = finalVelocity;
 		}
 
