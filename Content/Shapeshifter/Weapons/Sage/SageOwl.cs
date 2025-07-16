@@ -206,7 +206,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			projectile.ai[0]--;
 			DashCooldown--;
 
-			if (DashCharges > 0) 
+			if (DashCharges == 2) 
 			{
 				anchor.ai[1] = 0f;
 			}
@@ -293,7 +293,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			Vector2 intendedVelocity = projectile.velocity;
 
-			if (anchor.IsInputJump && anchor.ai[1] > 0f)
+			if (anchor.IsInputJump && anchor.ai[1] > 0f && anchor.ai[0] <= 1f && projectile.ai[2] <= 0)
 			{ // space hold hover
 				anchor.ai[0] = 2;
 				anchor.ai[1]--;
@@ -329,7 +329,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				if (projectile.ai[2] <= 1)
 				{
 					anchor.ai[0] = 30f;
-					if (DashCharges == 0)
+					if (DashCharges == 1)
 					{
 						anchor.ai[1] = 180f;
 					}
