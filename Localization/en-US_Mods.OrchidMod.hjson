@@ -4434,17 +4434,17 @@ Configs: {
 
 		EnableContentAlchemist: {
 			Label: Enable Alchemist Content
-			Tooltip: Allows alchemist items to appear in chests, loot tables, and be crafted
+			Tooltip: Allows alchemist items to be obtainable
 		}
 
 		EnableContentGambler: {
 			Label: Enable Gambler Content
-			Tooltip: Allows gambler items to appear in chests, loot tables, and be crafted
+			Tooltip: Allows gambler items to be obtainable
 		}
 
 		EnableContentShapeshifter: {
 			Label: Enable Shapeshifter Content
-			Tooltip: Allows shapeshifter items to appear in chests, loot tables, and be crafted
+			Tooltip: Allows shapeshifter items to be obtainable
 		}
 	}
 }
