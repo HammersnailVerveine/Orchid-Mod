@@ -83,6 +83,11 @@ namespace OrchidMod.Common.Global.NPCs
 						shop.Add(ItemType<ShapeshifterShampoo>(), [Condition.BestiaryFilledPercent(30), OrchidConditions.EnableContentShapeshifter]);
 					}
 					break;
+				case NPCID.Stylist:
+					{
+						shop.Add(ItemType<ShapeshifterHairpin>(), OrchidConditions.EnableContentShapeshifter);
+					}
+					break;
 			}
 
 			var thoriumMod = OrchidMod.ThoriumMod;

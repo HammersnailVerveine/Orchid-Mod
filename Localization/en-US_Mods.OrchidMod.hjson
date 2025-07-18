@@ -3575,6 +3575,11 @@ Items: {
 			'''
 	}
 
+	ShapeshifterHairpin: {
+		DisplayName: Peculiar Hairpin
+		Tooltip: Applies your hair color to wildshapes
+	}
+
 	ShapeshifterBlankEffigy: {
 		DisplayName: Humanoid Effigy
 		Tooltip: Transforms you into a Human... supposedly

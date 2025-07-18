@@ -46,6 +46,7 @@ namespace OrchidMod
 		public bool ShapeshifterSetPyre = false; // Pyre  armor set bonus (creates flames around thep layer when dealing damage)
 		public bool ShapeshifterSageDamageOnHit = false; // if true, hitting new targets increase feral damage
 		public bool ShapeshifterSurvival = false; // survival potion bool
+		public bool ShapeshifterHairpin = false; // if true, uses the player hair color on some wildshapes
 
 		public bool ShapeshifterShawlFeather = false; // Used only for dash visuals
 		public bool ShapeshifterShawlWind = false; // Used only for dash visuals
@@ -64,7 +65,7 @@ namespace OrchidMod
 		public int ShapeshifterSetTimer = 0;
 		public int ShapeshifterSetPyreDamagePool = 0;
 
-		public static float ShapeshifterCameraLerp = 0f; // Because for some reason camera lerp fiels in Main are all private ...
+		public static float ShapeshifterCameraLerp = 0f; // Because for some reason camera lerp fields in Main are all private ...
 		public static int ShapeshifterCameraLerpTimer = 0;
 		public static int ShapeshifterCameraLerpTimeToggle = 0;
 
@@ -179,6 +180,7 @@ namespace OrchidMod
 			ShapeshifterSetPyre = false;
 			ShapeshifterSageDamageOnHit = false;
 			ShapeshifterSurvival = false;
+			ShapeshifterHairpin = false;
 			ShapeshifterShawlFeather = false;
 			ShapeshifterShawlWind = false;
 		}

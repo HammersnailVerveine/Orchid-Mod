@@ -3584,6 +3584,11 @@ Items: {
 			'''
 	}
 
+	ShapeshifterHairpin: {
+		// DisplayName: Peculiar Hairpin
+		// Tooltip: Applies your hair color to wildshapes
+	}
+
 	ShapeshifterBlankEffigy: {
 		DisplayName: Гуманоидное чучело
 		Tooltip: Превращает вас обратно в человека... наверное

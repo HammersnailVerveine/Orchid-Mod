@@ -30,6 +30,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public int BlinkEffect = 20; // used to make the wildshape blink when Blink() is called
 		public Texture2D TextureShapeshift;
 		public Texture2D TextureShapeshiftGlow;
+		public Texture2D TextureShapeshiftHair;
 		public Texture2D TextureShapeshiftTransparent;
 		public Texture2D TextureShapeshiftIcon;
 		public Texture2D TextureShapeshiftIconBorder;
@@ -165,11 +166,17 @@ namespace OrchidMod.Content.Shapeshifter
 					TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.TextureIcon, AssetRequestMode.ImmediateLoad).Value;
 					TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.TextureIcon + "_Border", AssetRequestMode.ImmediateLoad).Value;
 					TextureShapeshiftGlow = null;
+					TextureShapeshiftHair = null;
 					TextureShapeshiftTransparent = null;
 
 					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
 					{
 						TextureShapeshiftGlow = assetglow.Value;
+					}
+
+					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Hair", out Asset<Texture2D> assethair, AssetRequestMode.ImmediateLoad))
+					{
+						TextureShapeshiftHair = assethair.Value;
 					}
 
 					if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Transparent", out Asset<Texture2D> assetTransparent, AssetRequestMode.ImmediateLoad))
@@ -231,11 +238,17 @@ namespace OrchidMod.Content.Shapeshifter
 				TextureShapeshiftIcon = ModContent.Request<Texture2D>(shapeshiftItem.TextureIcon, AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftIconBorder = ModContent.Request<Texture2D>(shapeshiftItem.TextureIcon + "_Border", AssetRequestMode.ImmediateLoad).Value;
 				TextureShapeshiftGlow = null;
+				TextureShapeshiftHair = null;
 				TextureShapeshiftTransparent = null;
 
 				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
 				{
 					TextureShapeshiftGlow = assetglow.Value;
+				}
+
+				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Hair", out Asset<Texture2D> assethair, AssetRequestMode.ImmediateLoad))
+				{
+					TextureShapeshiftHair = assethair.Value;
 				}
 
 				if (ModContent.RequestIfExists<Texture2D>(shapeshiftItem.TextureShapeshift + "_Transparent", out Asset<Texture2D> assetTransparent, AssetRequestMode.ImmediateLoad))
@@ -470,8 +483,9 @@ namespace OrchidMod.Content.Shapeshifter
 
 			if (shapeshifterItem.ShapeshiftShouldDraw(spriteBatch, Projectile, player, ref lightColor))
 			{
+				OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
 				bool drawAsAdditive = false;
-				Color color = shapeshifterItem.GetColor(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
+				Color color = shapeshifterItem.GetColor(ref drawAsAdditive, lightColor, Projectile, this, player, shapeshifter);
 				Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix).Floor();
 				Rectangle drawRectangle = TextureShapeshift.Bounds;
 				drawRectangle.Height = drawRectangle.Width;
@@ -489,11 +503,17 @@ namespace OrchidMod.Content.Shapeshifter
 					spriteBatch.Draw(TextureShapeshift, drawPosition, drawRectangle, Color.White.MultiplyRGBA(lightColor) * 1.5f, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale * scalemult, effect, 0f);
 				}
 
+				Color colorTrail = color;
+				if (TextureShapeshiftHair != null && shapeshifter.ShapeshifterHairpin)
+				{
+					colorTrail = player.GetImmuneAlphaPure(lightColor.MultiplyRGBA(player.hairColor), 0f);
+				}
+
 				for (int i = 0; i < OldPosition.Count; i++)
 				{
 					drawRectangle.Y = drawRectangle.Height * OldFrame[i];
 					Vector2 drawPosition2 = Vector2.Transform(OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-					spriteBatch.Draw(TextureShapeshift, drawPosition2, drawRectangle, color * 0.075f * (i + 1), OldRotation[i], drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					spriteBatch.Draw(TextureShapeshift, drawPosition2, drawRectangle, colorTrail * 0.075f * (i + 1), OldRotation[i], drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
 				if (!drawAsAdditive)
@@ -527,6 +547,13 @@ namespace OrchidMod.Content.Shapeshifter
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
 				Main.EntitySpriteDraw(TextureShapeshift, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				if (TextureShapeshiftHair != null && shapeshifter.ShapeshifterHairpin)
+				{
+					//color = player.GetImmuneAlphaPure(player.hairDye != -1 ? player.hairDyeColor : player.hairColor, 0f);
+					color = player.GetImmuneAlphaPure(lightColor.MultiplyRGBA(player.hairColor), 0f);
+					Main.EntitySpriteDraw(TextureShapeshiftHair, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+				}
 
 				if (TextureShapeshiftTransparent != null)
 				{
