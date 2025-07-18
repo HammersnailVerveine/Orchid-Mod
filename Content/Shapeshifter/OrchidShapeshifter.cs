@@ -626,8 +626,8 @@ namespace OrchidMod
 			}
 
 			if (ShapeshifterHarness > 0)
-			{
-				int nbDaggers = 200;
+			{ // Youxia Harness daggers
+				int nbDaggers = 5; // maybe this could be edited with gear by upgrading the harness
 				int[] shotenemies = new int[nbDaggers];
 
 				for (int j = 0; j < shotenemies.Length; j++)
@@ -638,7 +638,7 @@ namespace OrchidMod
 				for (int i = 0; i < nbDaggers; i++)
 				{
 					int hitCountMaximum = 0;
-					float closestDistance = 320f; // 20 tiles
+					float closestDistance = 400f; // 25 tiles
 					float closestDistanceBase = closestDistance;
 					NPC closestTarget = null;
 					foreach (NPC npc in Main.npc)
@@ -690,7 +690,9 @@ namespace OrchidMod
 					}
 					else
 					{
-						velocity = Vector2.Normalize(Main.MouseWorld - anchorProjectile.Center).RotatedBy(MathHelper.ToRadians((-10f + 10f * i) * - owner.direction)) * 8f;
+						float logDaggers = (float)Math.Log10(nbDaggers) * 20f;
+						float angle = (-logDaggers * nbDaggers * 0.5f + (nbDaggers % 2 == 0 ? 0f : logDaggers * 0.5f) + logDaggers * i) * -owner.direction;
+						velocity = Vector2.Normalize(Main.MouseWorld - anchorProjectile.Center).RotatedBy(MathHelper.ToRadians(angle)) * 8f;
 					}
 
 					Projectile newProjectile = Projectile.NewProjectileDirect(Player.GetSource_FromAI(), position, velocity, projectileType, damage, 0f, Player.whoAmI, ai0: i * 20);
