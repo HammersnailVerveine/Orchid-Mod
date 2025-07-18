@@ -3849,7 +3849,7 @@ Items: {
 
 	HarnessYouxia: {
 		// DisplayName: Youxia Harness
-		// Tooltip: Launches 3 daggers towards enemies when shapeshifting
+		// Tooltip: Launches 5 daggers towards enemies when shapeshifting
 	}
 
 	ShawlFeather: {

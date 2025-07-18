@@ -627,10 +627,17 @@ namespace OrchidMod
 
 			if (ShapeshifterHarness > 0)
 			{
-				int shoot1 = -1; // so the projectiles attempt to target 3 different enemies
-				int shoot2 = -1;
-				for (int i = 0; i < 3; i++)
+				int nbDaggers = 200;
+				int[] shotenemies = new int[nbDaggers];
+
+				for (int j = 0; j < shotenemies.Length; j++)
 				{
+					shotenemies[j] = -1;
+				}
+
+				for (int i = 0; i < nbDaggers; i++)
+				{
+					int hitCountMaximum = 0;
 					float closestDistance = 320f; // 20 tiles
 					float closestDistanceBase = closestDistance;
 					NPC closestTarget = null;
@@ -639,10 +646,25 @@ namespace OrchidMod
 						if (OrchidModProjectile.IsValidTarget(npc))
 						{
 							float distance = anchorProjectile.Center.Distance(npc.Center);
-							if (distance < closestDistanceBase && (closestDistance == closestDistanceBase || (npc.whoAmI != shoot1 && npc.whoAmI != shoot2)))
+							int hitCount = 0;
+
+							for (int j = 0; j < shotenemies.Length; j ++)
+							{
+								if (shotenemies[j] == npc.whoAmI)
+								{
+									hitCount++;
+								}
+							}
+
+							if (distance < closestDistanceBase && (closestDistance == closestDistanceBase || hitCount < hitCountMaximum))
 							{
 								closestTarget = npc;
 								closestDistance = distance;
+
+								if (hitCountMaximum < hitCount)
+								{
+									hitCountMaximum = hitCount;
+								}
 							}
 						}
 					}
@@ -654,13 +676,14 @@ namespace OrchidMod
 
 					if (closestTarget != null)
 					{
-						if (shoot1 == -1)
+
+						for (int j = 0; j < shotenemies.Length; j++)
 						{
-							shoot1 = closestTarget.whoAmI;
-						}
-						else
-						{
-							shoot2 = closestTarget.whoAmI;
+							if (shotenemies[j] == -1)
+							{
+								shotenemies[j] = closestTarget.whoAmI;
+								break;
+							}
 						}
 
 						velocity = Vector2.Normalize(closestTarget.Center + closestTarget.velocity * 20f - anchorProjectile.Center).RotatedByRandom(MathHelper.ToRadians(2f)) * 8f;
