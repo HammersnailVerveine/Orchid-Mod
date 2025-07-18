@@ -121,8 +121,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			// adjust shapeshift anchor fields
 			anchor.RightCLickCooldown = Item.useTime * 4;
-			anchor.ai[0] = 20;
-			anchor.Projectile.ai[1] = (Main.MouseWorld.X < projectile.Center.X ? -1f : 1f);
+			anchor.ai[2] = 20;
 			anchor.NeedNetUpdate = true;
 
 			SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, projectile.Center);
@@ -199,9 +198,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			// ai[2] holds the dash duration
 			// anchor.ai[0] holds the hover duration
 			// anchor.ai[1] holds the remaining possible hover time (holding space convers it to anchor.ai[0])
+			// anchor.ai[2] holds the right click animation
 
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor);
 			player.nightVision = true;
+			anchor.ai[2]--;
 			projectile.ai[2]--;
 			projectile.ai[0]--;
 			DashCooldown--;
@@ -433,12 +434,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 		public override void ShapeshiftPreDraw(SpriteBatch spriteBatch, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Vector2 drawPosition, Rectangle drawRectangle, SpriteEffects effect, Player player, Color lightColor)
 		{
-			if (projectile.ai[2] > 0)
+			if (anchor.ai[2] > 0)
 			{
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
-				float scalemult = (float)Math.Sin(projectile.ai[2] * 0.157f) * 0.25f + 1f;
+				float scalemult = (float)Math.Sin(anchor.ai[2] * 0.157f) * 0.25f + 1f;
 				spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, lightColor * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
 
 				spriteBatch.End();
