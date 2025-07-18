@@ -29,6 +29,7 @@ using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 using OrchidMod.Utilities;
 using OrchidMod.Content.Shapeshifter.Accessories;
+using OrchidMod.Content.Shapeshifter.Misc;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -216,18 +217,20 @@ namespace OrchidMod.Common.Global.Items
 				case ItemID.JungleFishingCrateHard:
 					{
 						if (EnableContentAlchemist) QuickSpawnItem<JungleLily>(player, 1, 2);
-						if (EnableContentAlchemist) QuickSpawnItem<GuardianHoneyPotion>(player, 1, 2);
 						if (EnableContentAlchemist) QuickSpawnItem<BloomingBud>(player, 1, 5);
 						if (EnableContentGambler) QuickSpawnItem<DeckJungle>(player, 1, 20);
 						if (EnableContentGambler) QuickSpawnItem<IvyChestCard>(player, 1, 5);
 						if (EnableContentGambler) QuickSpawnItem<BundleOfClovers>(player, 1, 5);
 						if (EnableContentShapeshifter) QuickSpawnItem<WardenTortoise>(player, 1, 5);
+						QuickSpawnItem<GuardianHoneyPotion>(player, 1, 2);
 						QuickSpawnItem<JungleGauntlet>(player, 1, 5);
 					}
 					break;
 				case ItemID.FloatingIslandFishingCrate:
 				case ItemID.FloatingIslandFishingCrateHard:
 					if (EnableContentAlchemist) QuickSpawnItem<SunplateFlask>(player, 1, 5);
+					if (EnableContentShapeshifter) QuickSpawnItem<ShawlFeather>(player, 1, 5);
+					if (EnableContentShapeshifter) QuickSpawnItem<ShapeshifterSurvivalPotion>(player, 1, 2);
 					QuickSpawnItem<SkywareShield>(player, 1, 5);
 					break;
 				case ItemID.OasisCrate:
@@ -250,6 +253,7 @@ namespace OrchidMod.Common.Global.Items
 						if (EnableContentAlchemist) QuickSpawnItem<ShadowChestFlask>(player, 1, 5);
 						if (EnableContentAlchemist) QuickSpawnItem<KeystoneOfTheConvent>(player, 1, 5);
 						if (EnableContentGambler) QuickSpawnItem<ImpDiceCup>(player, 1, 5);
+						if (EnableContentShapeshifter) QuickSpawnItem<WardenSalamortar>(player, 1, 5);
 						QuickSpawnItem<NightShield>(player, 1, 5);
 						QuickSpawnItem<HellRune>(player, 1, 5);
 						QuickSpawnItem<GuardianRunePotion>(player, 1, 2);
