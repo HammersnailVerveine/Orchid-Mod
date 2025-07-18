@@ -367,7 +367,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				}
 				else if (projectile.ai[2] < -3)
 				{ // Normal Y movement
-					float intendedDistance = 22f;
+					float intendedDistance = 24f;
 					if (anchor.IsInputDown) intendedDistance -= 16f;
 					if (IsGrounded(projectile, player, intendedDistance, anchor.IsInputDown, anchor.IsInputDown))
 					{ // Pushes away from the ground

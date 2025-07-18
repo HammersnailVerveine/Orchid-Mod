@@ -77,8 +77,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)
 		{
-			target.AddBuff(BuffID.Poisoned, 300);
-
 			if (target.HasBuff<WardenSpiderDebuff>())
 			{
 				shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(1 + Main.rand.Next(2)));

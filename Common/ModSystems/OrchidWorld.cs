@@ -35,6 +35,7 @@ using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 using OrchidMod.Content.Shapeshifter.Weapons.Symbiote;
 using OrchidMod.Content.Shapeshifter.Accessories;
+using OrchidMod.Content.Shapeshifter.Misc;
 
 namespace OrchidMod.Common.ModSystems
 {
@@ -344,6 +345,7 @@ namespace OrchidMod.Common.ModSystems
 				chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 20));
 				chestLoots.Add(new ChestLoot(ItemType<WardenSalamortar>(), ChestType.Shadow, 30));
 				chestLoots.Add(new ChestLoot(ItemType<ShawlFeather>(), ChestType.SkyIsland, 30));
+				chestLoots.Add(new ChestLoot(ItemType<ShapeshifterSurvivalPotion>(), ChestType.SkyIsland, 50, needToPlace: 0, ignoreChestLimit: true));
 			}
 
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)

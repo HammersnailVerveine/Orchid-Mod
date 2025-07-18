@@ -22,7 +22,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 			Item.UseSound = SoundID.Zombie13;
 			Item.useTime = 20;
 			Item.shootSpeed = 10f;
-			Item.knockBack = 6f;
+			Item.knockBack = 9f;
 			Item.damage = 14;
 			ShapeshiftWidth = 26;
 			ShapeshiftHeight = 20;

@@ -153,7 +153,8 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 				OrchidShapeshifter shapeshifter = Owner.GetModPlayer<OrchidShapeshifter>();
 				if (shapeshifter.IsShapeshifted && Projectile.velocity.Length() > 0f)
 				{
-					shapeshifter.ShapeshiftAnchor.Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 12.5f;
+					Vector2 newVelocity = Vector2.Normalize(Projectile.velocity) * 12.5f;
+					shapeshifter.Shapeshift.FinalVelocityCalculations(ref newVelocity, shapeshifter.ShapeshiftAnchor.Projectile, Owner, forceFallThrough: true);
 				}
 			}
 		}

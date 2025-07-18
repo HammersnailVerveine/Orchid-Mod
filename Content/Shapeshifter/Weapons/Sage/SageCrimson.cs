@@ -306,7 +306,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 						int projectileType = ModContent.ProjectileType<SageCorruptionProj>();
 						Vector2 offSetSpawn = Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * Main.rand.NextFloat(16f, 64f);
-						ShapeshifterNewProjectile(shapeshifter, projectile.Center + offSetSpawn, Vector2.Zero, projectileType, Item.damage * 1.5f, Item.crit, 0f, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y, ai2:1);
+						ShapeshifterNewProjectile(shapeshifter, projectile.Center + offSetSpawn, Vector2.Zero, projectileType, Item.damage * 0.3f, Item.crit, 0f, player.whoAmI, finalTargetLocation.X, finalTargetLocation.Y, ai2:1);
 
 						anchor.ai[3] = targetLocation.X > projectile.Center.X ? 1f : -1f;
 						anchor.NeedNetUpdate = true;

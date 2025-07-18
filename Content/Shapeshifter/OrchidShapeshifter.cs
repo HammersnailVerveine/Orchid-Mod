@@ -51,6 +51,7 @@ namespace OrchidMod
 		public bool ShapeshifterShawlWind = false; // Used only for dash visuals
 
 		public float ShapeshifterTransformationDash = 0f; // Shawl accessories tree effect : provides a burst of velocity speed when shapeshifting
+		public int ShapeshifterHarness = 0; // Youxia Harness effect, this is the base damage of the projectile fired
 
 		// Dynamic gameplay and UI fields
 
@@ -94,6 +95,13 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
+			if (IsShapeshifted)
+			{
+				Player.width = Shapeshift.ShapeshiftWidth;
+				Player.height = Shapeshift.ShapeshiftHeight;
+				Player.Center = ShapeshiftAnchor.Projectile.Center;
+			}
+
 			if (ShapeshifterCameraLerp > 0f)
 			{
 				ShapeshifterCameraLerpTimer++;
@@ -166,6 +174,7 @@ namespace OrchidMod
 			ShapeshifterMaxFallSpeed = 1f;
 
 			ShapeshifterTransformationDash = 0f;
+			ShapeshifterHarness = 0;
 			ShapeshifterSetHarpy = false;
 			ShapeshifterSetPyre = false;
 			ShapeshifterSageDamageOnHit = false;
@@ -210,9 +219,10 @@ namespace OrchidMod
 
 				Player.rocketBoots = 0;
 				Player.vanityRocketBoots = 0;
-				Player.accRunSpeed = 3f;
-				Player.ExtraJumps.Clear();
-				
+				Player.accRunSpeed = 3f; // clears hermes boots smoke
+				Player.ExtraJumps.Clear(); // clears double jump visuals
+				Player.dashDelay = 30; // clears dash visuals
+
 				if (Player.wingTime > 0)
 				{
 					Player.wingTime = 0;
@@ -227,7 +237,7 @@ namespace OrchidMod
 
 				if (Player.shadowArmor)
 				{
-					ShapeshifterMoveSpeedBonusGrounded += 0.15f;
+					ShapeshifterMoveSpeedBonusFinal += 0.15f;
 				}
 
 				// misc stat changes
@@ -364,6 +374,14 @@ namespace OrchidMod
 					if (Shapeshift.ShapeshiftCanLeftClick(projectile, ShapeshiftAnchor, Player, this))
 					{
 						Shapeshift.ShapeshiftOnLeftClick(projectile, ShapeshiftAnchor, Player, this);
+
+						if (Player.boneGloveItem != null && !Player.boneGloveItem.IsAir && Player.boneGloveTimer == 0)
+						{ // Bone glove compatibility, from vanilla code
+							Player.boneGloveTimer = 60;
+							Vector2 center = Player.Center;
+							Vector2 vector = Player.DirectionTo(Player.ApplyRangeCompensation(0.2f, center, Main.MouseWorld)) * 10f;
+							Projectile.NewProjectile(Player.GetSource_ItemUse(Player.boneGloveItem), center.X, center.Y, vector.X, vector.Y, 532, 25, 5f, Player.whoAmI);
+						}
 					}
 
 					if (Shapeshift.ShapeshiftCanRightClick(projectile, ShapeshiftAnchor, Player, this))
@@ -441,7 +459,7 @@ namespace OrchidMod
 			}
 
 			if (ShapeshifterSetPyre)
-			{ // if ShapeshifterSetPyreDamagePool is above 1000, empty it gradually, spawning pyre flames
+			{ // if ShapeshifterSetPyreDamagePool is above 300, empty it gradually, spawning pyre flames
 				int projectileType = ModContent.ProjectileType<ShapeshifterAshwoodFlame>();
 				int count = 0;
 				foreach (Projectile projectile in Main.projectile)
@@ -458,14 +476,14 @@ namespace OrchidMod
 					}
 				}
 
-				if (ShapeshifterSetPyreDamagePool >= 1000 && ShapeshifterSetTimer <= 0 && modPlayer.LastHitNPC != null)
+				if (ShapeshifterSetPyreDamagePool >= 300 && ShapeshifterSetTimer <= 0 && modPlayer.LastHitNPC != null)
 				{
-					ShapeshifterSetPyreDamagePool -= 1000;
+					ShapeshifterSetPyreDamagePool -= 300;
 					ShapeshifterSetTimer = 30;
 
 					if (count < 5)
 					{
-						int damage = GetShapeshifterDamage(100);
+						int damage = GetShapeshifterDamage(45);
 						Projectile newProjectile = Projectile.NewProjectileDirect(Player.GetSource_FromAI(), Player.Center, Vector2.Zero, projectileType, damage, 0f, Player.whoAmI, Player.whoAmI);
 						newProjectile.CritChance = GetShapeshifterCrit();
 					}
@@ -475,7 +493,7 @@ namespace OrchidMod
 
 		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
 		{
-			if (OrchidModProjectile.IsValidTarget(target) && Player.whoAmI == Main.myPlayer && IsShapeshifted)
+			if (!target.CountsAsACritter && !target.friendly && Player.whoAmI == Main.myPlayer && IsShapeshifted)
 			{
 				if (ShapeshifterSetHarpy)
 				{
@@ -496,9 +514,9 @@ namespace OrchidMod
 					if (proj.type != projectileType)
 					{
 						ShapeshifterSetPyreDamagePool += (int)(damageDone);
-						if (ShapeshifterSetPyreDamagePool > 1500)
+						if (ShapeshifterSetPyreDamagePool > 1000)
 						{
-							ShapeshifterSetPyreDamagePool = 1500;
+							ShapeshifterSetPyreDamagePool = 1000;
 						}
 					}
 				}
@@ -604,6 +622,56 @@ namespace OrchidMod
 					Shapeshift.ResetFallHeight(owner);
 					anchorProjectile.velocity = offSet;
 					anchorProjectile.netUpdate = true;
+				}
+			}
+
+			if (ShapeshifterHarness > 0)
+			{
+				int shoot1 = -1; // so the projectiles attempt to target 3 different enemies
+				int shoot2 = -1;
+				for (int i = 0; i < 3; i++)
+				{
+					float closestDistance = 320f; // 20 tiles
+					float closestDistanceBase = closestDistance;
+					NPC closestTarget = null;
+					foreach (NPC npc in Main.npc)
+					{
+						if (OrchidModProjectile.IsValidTarget(npc))
+						{
+							float distance = anchorProjectile.Center.Distance(npc.Center);
+							if (distance < closestDistanceBase && (closestDistance == closestDistanceBase || (npc.whoAmI != shoot1 && npc.whoAmI != shoot2)))
+							{
+								closestTarget = npc;
+								closestDistance = distance;
+							}
+						}
+					}
+
+					int projectileType = ModContent.ProjectileType<ShapeshifterHarnessProj>();
+					int damage = GetShapeshifterDamage(ShapeshifterHarness);
+					Vector2 position = anchorProjectile.Center;
+					Vector2 velocity;
+
+					if (closestTarget != null)
+					{
+						if (shoot1 == -1)
+						{
+							shoot1 = closestTarget.whoAmI;
+						}
+						else
+						{
+							shoot2 = closestTarget.whoAmI;
+						}
+
+						velocity = Vector2.Normalize(closestTarget.Center + closestTarget.velocity * 20f - anchorProjectile.Center).RotatedByRandom(MathHelper.ToRadians(2f)) * 8f;
+					}
+					else
+					{
+						velocity = Vector2.Normalize(Main.MouseWorld - anchorProjectile.Center).RotatedBy(MathHelper.ToRadians((-10f + 10f * i) * - owner.direction)) * 8f;
+					}
+
+					Projectile newProjectile = Projectile.NewProjectileDirect(Player.GetSource_FromAI(), position, velocity, projectileType, damage, 0f, Player.whoAmI, ai0: i * 20);
+					newProjectile.CritChance = GetShapeshifterCrit();
 				}
 			}
 		}

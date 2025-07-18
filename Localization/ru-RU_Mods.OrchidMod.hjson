@@ -3847,6 +3847,11 @@ Items: {
 			''' */
 	}
 
+	HarnessYouxia: {
+		// DisplayName: Youxia Harness
+		// Tooltip: Launches 3 daggers towards enemies when shapeshifting
+	}
+
 	ShawlFeather: {
 		// DisplayName: Feather Shawl
 		// Tooltip: Dashes towards the cursor when shapeshifting while moving
@@ -3900,6 +3905,26 @@ Items: {
 	ShapeshifterAshwoodLegs: {
 		// DisplayName: Pyre Skirt
 		// Tooltip: 10% increased movement speed
+	}
+
+	GuideTorches: {
+		// DisplayName: Guide to Handless Torch Handling
+		/* Tooltip:
+			'''
+			Allows you to place torches while shapeshifted
+			Press 'Middle Mouse' to place a torch
+			Right click to deactivate effects
+			''' */
+	}
+
+	GuideTorchesInactive: {
+		// DisplayName: Guide to Handless Torch Handling (Inactive)
+		/* Tooltip:
+			'''
+			Allows you to place torches while shapeshifted
+			Press 'Middle Mouse' to place a torch
+			Effects are currently inactive, Right click to reactivate
+			''' */
 	}
 }
 
@@ -4357,12 +4382,13 @@ Projectiles: {
 	SymbioteToadProj.DisplayName: Соковый язык
 	SymbioteToadProjAlt.DisplayName: Соковая муха
 	ShapeshifterHarpyProj.DisplayName: Перо парителя
-	// WardenSalamortarProj.DisplayName: Warden Salamortar Proj
-	// WardenSalamortarProjAlt.DisplayName: Warden Salamortar Proj Alt
-	// WardenSalamortarProjBig.DisplayName: Warden Salamortar Proj Big
-	// WardenSalamortarProjBigAlt.DisplayName: Warden Salamortar Proj Big Alt
-	// ShapeshifterAshwoodFlame.DisplayName: Shapeshifter Ashwood Flame
-	// ShapeshifterAshwoodProj.DisplayName: Shapeshifter Ashwood Proj
+	// WardenSalamortarProj.DisplayName: Mortar
+	// WardenSalamortarProjAlt.DisplayName: Mortar
+	// WardenSalamortarProjBig.DisplayName: Massive Mortar
+	// WardenSalamortarProjBigAlt.DisplayName: Massive Mortar
+	// ShapeshifterAshwoodFlame.DisplayName: Ashwood Flame
+	// ShapeshifterAshwoodProj.DisplayName: Ashwood Flame
+	// ShapeshifterHarnessProj.DisplayName: Dagger
 }
 
 Configs: {

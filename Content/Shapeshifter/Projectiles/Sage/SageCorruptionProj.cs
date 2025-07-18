@@ -13,14 +13,23 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 		{
 			Projectile.width = 2;
 			Projectile.height = 2;
-			Projectile.friendly = false;
+			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
 			Projectile.timeLeft = 900;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
-			Projectile.penetrate = -1;
+			Projectile.penetrate = 1;
 			Projectile.alpha = 255;
 			Projectile.tileCollide = false;
+		}
+
+		public override void OnKill(int timeLeft)
+		{
+			if (IsLocalOwner)
+			{
+				int projectileType = ModContent.ProjectileType<SageCorruptionProjAlt>();
+				ShapeshifterNewProjectile(Projectile.Center, Vector2.Zero, projectileType, Projectile.damage * 5f, Projectile.CritChance, 0f, Projectile.owner, ai2: Projectile.ai[2]);
+			}
 		}
 
 		public override void AI()
@@ -70,9 +79,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Sage
 				if (Projectile.Center.Distance(targetLocation) < 16f)
 				{
 					Projectile.Kill();
-
-					int projectileType = ModContent.ProjectileType<SageCorruptionProjAlt>();
-					ShapeshifterNewProjectile(targetLocation, Vector2.Zero, projectileType, Projectile.damage, Projectile.CritChance, 0f, Projectile.owner, ai2: Projectile.ai[2]);
 				}
 			}
 		}

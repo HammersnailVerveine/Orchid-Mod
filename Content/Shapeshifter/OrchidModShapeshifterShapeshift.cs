@@ -23,6 +23,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public bool MeleeSpeedLeft; // Whether melee speed makes left click recover faster
 		public bool MeleeSpeedRight; // Whether melee speed makes right click recover faster
 		public bool GroundedWildshape; // Is the shapeshift supposedly a grounded creature? (affects the movement speed given by some items like magiluminescense)
+		public bool WebImmunity; // Movement is not affected by webs
 		public float GravityMult; // Fall speed multiplier
 		public ShapeshifterShapeshiftType ShapeshiftType; // Sage, Predator, Warden, Symbiote
 		public ShapeshifterShapeshiftTypeUI ShapeshiftTypeUI; // None, Count, Fill. Will attempt to draw an UI if this is != none
@@ -466,7 +467,7 @@ namespace OrchidMod.Content.Shapeshifter
 				finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, ref isSlope, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
 			}
 
-			if (player.stickyBreak > 0)
+			if (player.stickyBreak > 0 && !WebImmunity)
 			{ // cobwebs
 				finalVelocity *= 0.5f;
 			}

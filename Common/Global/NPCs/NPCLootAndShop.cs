@@ -68,6 +68,7 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.SkeletonMerchant:
 					{
 						shop.Add(ItemType<GuardianGitHelm>());
+						shop.Add(ItemType<GuideTorches>(), OrchidConditions.EnableContentShapeshifter);
 					}
 					break;
 				case NPCID.Clothier:
@@ -100,11 +101,16 @@ namespace OrchidMod.Common.Global.NPCs
 
 		public override void SetupTravelShop(int[] shop, ref int nextSlot)
 		{
+			if (Main.rand.NextBool() && WorldGen.shadowOrbSmashed && ModContent.GetInstance<OrchidServerConfig>().EnableContentShapeshifter)
+			{
+				OrchidUtils.AddItemToShop<HarnessYouxia>(shop, ref nextSlot);
+			}
+
 			if (Main.rand.NextBool())
 			{
 				if (WorldGen.shadowOrbSmashed) OrchidUtils.AddItemToShop<Skateboard>(shop, ref nextSlot);
 			}
-			else
+			else if (ModContent.GetInstance<OrchidServerConfig>().EnableContentGambler)
 			{
 				OrchidUtils.AddItemToShop<PileOfChips>(shop, ref nextSlot);
 			}
