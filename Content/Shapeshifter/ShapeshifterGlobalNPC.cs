@@ -110,8 +110,7 @@ namespace OrchidMod.Content.Shapeshifter
 						modifiers.FlatBonusDamage += 100;
 						modifiers.SetCrit();
 
-						shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(spiderMelee ? 10 : 5));
-						shapeshifter.Player.AddBuff(ModContent.BuffType<WardenSpiderBuff>(), 1800);
+						shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(spiderMelee ? 15 : 5));
 					}
 				}
 			}

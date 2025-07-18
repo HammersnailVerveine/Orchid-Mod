@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using OrchidMod.Common.Global.Items;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
 using Terraria;

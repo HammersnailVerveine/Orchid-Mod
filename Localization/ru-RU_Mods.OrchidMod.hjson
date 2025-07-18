@@ -4110,7 +4110,7 @@ Prefixes: {
 	EmpyreanPrefix.DisplayName: Небесный
 	BestialPrefix.DisplayName: Звериный
 	BoarishPrefix.DisplayName: Кабанский
-	BullishPrefix.DisplayName: Бычий
+	// MisshapenPrefix.DisplayName: Misshapen
 	DivinePrefix.DisplayName: Божественный
 	EnragedPrefix.DisplayName: Разъярённый
 	FeralPrefix.DisplayName: Дикий

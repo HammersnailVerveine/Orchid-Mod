@@ -44,7 +44,7 @@
 	// Shapeshifter - Damage, Knockback, Attack Speed, Critical Strike Chance, Move Speed
 	public class TimidPrefix : ShapeshifterPrefix { public TimidPrefix() : base(0.85f, 1.00f, -0.15f, 0, -0.05f) { } } // Bad
 	public class BoarishPrefix : ShapeshifterPrefix { public BoarishPrefix() : base(1.00f, 0.85f, -0.10f, 0, -0f) { } }
-	public class BullishPrefix : ShapeshifterPrefix { public BullishPrefix() : base(1.00f, 0.90f, -0.15f, 0, 0f) { } }
+	public class MisshapenPrefix : ShapeshifterPrefix { public MisshapenPrefix() : base(1.00f, 0.90f, -0.15f, 0, 0f) { } }
 	public class EnragedPrefix : ShapeshifterPrefix { public EnragedPrefix() : base(1.15f, 0.90f, 0f, 1, 0f) { } } // Mitigated
 	public class BestialPrefix : ShapeshifterPrefix { public BestialPrefix() : base(0.85f, 1.15f, 0f, 0, 0f) { } }
 	public class VoraciousPrefix : ShapeshifterPrefix { public VoraciousPrefix() : base(1.10f, 1.00f, 0f, 3, 0f) { } } // Good
