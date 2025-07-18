@@ -17,7 +17,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		public bool LateralMovement = false;
 		public bool ChargeCue = false; // Triggers a noise at full change
 		public bool ChargeCue2 = false; // Triggers a noise when echolocations are going to expire
-		public bool ReleasedLMB = false; // used to the player doesn't start charging immediately after a shapeshift
 
 		public override void SafeSetDefaults()
 		{
@@ -40,6 +39,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		public override void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			Jumps = 1;
+			anchor.ai[0] = 20;
+			anchor.ai[1] = 1;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -55,7 +56,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			LateralMovement = false;
 			ChargeCue = false;
 			ChargeCue2 = false;
-			ReleasedLMB = false;
 
 			for (int i = 0; i < 8; i++)
 			{
@@ -144,6 +144,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			player.fallStart = (int)(player.position.Y / 16f);
 			player.fallStart2 = (int)(player.position.Y / 16f);
 			player.noFallDmg = true;
+			anchor.ai[0]++;
 
 			if (projectile.ai[2] > -4) projectile.ai[2]--;
 
@@ -182,13 +183,18 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			if (anchor.IsLeftClick && projectile.ai[2] != -5)
 			{
-				if (ReleasedLMB)
+				if (anchor.ai[0] >= 30)
 				{
 					if (AttackCharge == 0)
 					{
 						SoundEngine.PlaySound(SoundID.Item65, projectile.Center);
 						ChargeCue2 = false;
 						ChargeCue = false;
+
+						if (anchor.ai[0] == 30 && anchor.ai[0] == 1)
+						{
+							AttackCharge = 10;
+						}
 					}
 
 					AttackCharge += shapeshifter.GetShapeshifterMeleeSpeed();
@@ -246,7 +252,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			}
 			else
 			{
-				ReleasedLMB = true;
+				if (anchor.ai[0] == 1)
+				{
+					anchor.ai[0] = 30;
+				}
+
 				if (AttackCharge >= 60 && IsLocalPlayer(player))
 				{
 					int projectileType = ModContent.ProjectileType<SageBatProjAlt>();
