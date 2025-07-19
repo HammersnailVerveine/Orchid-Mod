@@ -4456,7 +4456,7 @@ Configs: {
 
 Misc: {
 	GuardianGrantsGuard: Grants {0} {^0:guard;guards} when fully charged
-	GuardianGrantsSlam: Grants {1} {^0:slam;slams} when fully charged
+	GuardianGrantsSlam: Grants {1} {^1:slam;slams} when fully charged
 	GuardianGrantsGuardSlamSame: Grants {0} {^0:guard;guards} and {^0:slam;slams} when fully charged
 	GuardianGrantsGuardSlam: Grants {0} {^0:guard;guards} and {1} {^1:slam;slams} when fully charged
 	ShapeshifterLeftClick: "[c/AFFFAF:Attack: ]"
@@ -4530,7 +4530,7 @@ UI: {
 		Charged: Charged
 		Reinforced: Reinforced
 		Failed: Failed
-		Guard: "{0} {^0:guard;guard}"
+		Guard: "{0} {^0:guard;guards}"
 		Slam: "{0} {^0:slam;slams}"
 		Parry: "{0} click to parry"
 		ChargeToThrow: Charge to throw, right click to swing while charging
