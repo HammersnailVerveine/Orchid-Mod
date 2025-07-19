@@ -184,7 +184,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				{
 					ShellStartEffect = true;
 					anchor.LeftCLickCooldown = 60;
-					anchor.RightCLickCooldown = 60;
+					anchor.RightCLickCooldown = 10;
 					SoundStyle soundStyle = SoundID.NPCHit9;
 					soundStyle.Volume *= 0.5f;
 					SoundEngine.PlaySound(soundStyle, projectile.Center);
