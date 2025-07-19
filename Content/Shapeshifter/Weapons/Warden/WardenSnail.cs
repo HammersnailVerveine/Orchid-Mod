@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 {
@@ -10,6 +12,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 	{
 		public bool LateralMovement = false;
 		public bool ShellStartEffect = false;
+		public bool WasSlug = false;
+		public bool BonusJump = false;
 
 		public override void SafeSetDefaults()
 		{
@@ -34,8 +38,25 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			uiCount = 0;
 			uiCountMax = 3;
 			if (anchor.ai[1] > 0)
-			{
+			{ // shell
 				uiCount = (int)anchor.ai[1];
+			}
+			else
+			{ // slug
+				int i = 0;
+				while (i < anchor.ai[2])
+				{
+					i += 300;
+					if (i < anchor.ai[2])
+					{
+						uiCount++;
+					}
+				}
+
+				if (uiCount > uiCountMax)
+				{
+					uiCount = uiCountMax;
+				}
 			}
 		}
 
@@ -53,6 +74,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			projectile.spriteDirection = player.direction;
 			LateralMovement = false;
 			ShellStartEffect = false;
+			WasSlug = false;
+			BonusJump = false;
 			projectile.ai[0] = 1;
 			anchor.ai[1] = -1;
 			anchor.LeftCLickCooldown = 60;
@@ -76,16 +99,46 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 		}
 
+		public override bool ShapeshiftCanLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanLeftClick(projectile, anchor, player, shapeshifter) && (anchor.ai[1] < 0 && anchor.ai[2] > 300);
+
 		public override void ShapeshiftOnLeftClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
+			ShapeshiftOnRightClick(projectile, anchor, player, shapeshifter);
 		}
+
+		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => base.ShapeshiftCanRightClick(projectile, anchor, player, shapeshifter) && (anchor.ai[1] > 0 || anchor.ai[2] > 300);
 
 		public override void ShapeshiftOnRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-		}
+			if (anchor.ai[1] == -1)
+			{
+				int i = 0;
+				while (i < anchor.ai[2])
+				{
+					i += 300;
+					if (i < anchor.ai[2])
+					{
+						anchor.ai[1] ++;
+					}
+				}
 
-		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
-		{
+				anchor.ai[1]++;
+
+				if (anchor.ai[1] > 3)
+				{
+					anchor.ai[1] = 3;
+				}
+			}
+			else
+			{
+				int projectileType = ModContent.ProjectileType<WardenSnailProj>();
+				Vector2 velocity = Vector2.Normalize(Main.MouseWorld - projectile.Center) * Item.shootSpeed;
+				ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI, ai1: anchor.ai[1]);
+				anchor.ai[1] = -1;
+			}
+
+			anchor.RightCLickCooldown = Item.useTime;
+			anchor.NeedNetUpdate = true;
 		}
 
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -95,14 +148,17 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			// ai[2] holds the last movement direction while rolling
 			// anchor.ai[0] == 1 if the snail is rolling on the previous frame
 			// anchor.ai[1] holds the shell durability (3 -> 0). Is -1 if the player is a slug.
+			// anchor.ai[2] holds the time spent as a slug
 
 			// MISC EFFECTS
 
 			bool grounded = IsGrounded(projectile, player, 4f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 
-			if (anchor.ai[1] == 0)
+			if (anchor.ai[1] == 0 || anchor.ai[1] > 3)
 			{
+				SoundEngine.PlaySound(anchor.ai[1] == 0 ? SoundID.Item89 : Item.UseSound, projectile.Center);
+
 				for (int i = 0; i < 5; i++)
 				{
 					Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Smoke);
@@ -117,11 +173,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					gore.velocity += projectile.velocity * Main.rand.NextFloat(0.5f, 1f);
 				}
 
-				SoundEngine.PlaySound(SoundID.Item89, projectile.Center);
 				anchor.ai[1]--;
 			}
 
-			if (anchor.IsLeftClick && anchor.ai[1] > 0 && ((anchor.LeftCLickCooldown <= 0 && anchor.RightCLickCooldown <= 0) || anchor.ai[0] == 1f))
+			if (anchor.IsLeftClick && anchor.ai[1] > 0 && ((anchor.LeftCLickCooldown <= 0) || anchor.ai[0] == 1f))
 			{ // shell roll input
 				anchor.ai[0] = 1f;
 
@@ -160,12 +215,51 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{ // is slug
 				speedMult *= 1.5f;
 				shapeshifter.ShapeshifterJumpSpeed *= 1.2f;
+				anchor.ai[2]++;
+				WasSlug = true;
+
+				if (grounded)
+				{
+					BonusJump = true;
+				}
+			}
+			else
+			{
+				if (WasSlug)
+				{ // shell pickup sound & effects
+					SoundEngine.PlaySound(SoundID.Grab, projectile.Center);
+					WasSlug = false;
+
+					for (int i = 0; i < 5; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Smoke);
+						dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+						dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+					}
+
+					for (int i = 0; i < 2; i++)
+					{
+						Gore gore = Gore.NewGoreDirect(projectile.GetSource_FromAI(), projectile.Center + new Vector2(Main.rand.NextFloat(-24f, 0f), Main.rand.NextFloat(-24f, 0f)), Vector2.UnitY.RotatedByRandom(MathHelper.Pi), 61 + Main.rand.Next(3));
+						gore.rotation = Main.rand.NextFloat(MathHelper.Pi);
+					}
+				}
+
+				foreach (Projectile proj in Main.projectile)
+				{
+					if (proj.type == ModContent.ProjectileType<WardenSnailProj>() && proj.active && proj.owner == player.whoAmI)
+					{
+						proj.Kill();
+					}
+				}
+
+				BonusJump = false;
+				anchor.ai[2] = 0;
 			}
 
 
 			if (anchor.ai[0] == 1)
 			{
-				if (projectile.ai[1] > 0.8f || projectile.velocity.Y > 5f)
+				if (projectile.ai[1] > 0.5f || projectile.velocity.Y > 5f)
 				{
 					projectile.knockBack = Item.knockBack * Math.Max(projectile.ai[1], Math.Abs(projectile.velocity.Y * 0.1f));
 					projectile.damage = shapeshifter.GetShapeshifterDamage(Item.damage * Math.Max(projectile.ai[1], Math.Abs(projectile.velocity.Y * 0.1f)));
@@ -177,7 +271,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					projectile.friendly = false;
 				}
 
-				projectile.ai[1] += 0.018f;
+				projectile.ai[1] += 0.022f * speedMult;
 
 				if (projectile.ai[1] > 2f)
 				{
@@ -261,7 +355,29 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 			if (anchor.IsInputJump)
 			{ // Jump while no charge ready
-				TryJump(ref intendedVelocity, 8f, player, shapeshifter, anchor, true);
+				if (!grounded && BonusJump && anchor.JumpWithControlRelease(player))
+				{
+					BonusJump = false;
+					TryJump(ref intendedVelocity, 8f, player, shapeshifter, anchor);
+					SoundEngine.PlaySound(SoundID.DoubleJump, projectile.Center);
+
+					for (int i = 0; i < 5; i++)
+					{
+						Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+					}
+
+					for (int i = 0; i < 3; i++)
+					{
+						Gore gore = Gore.NewGoreDirect(projectile.GetSource_FromAI(), projectile.Center + new Vector2(Main.rand.NextFloat(-24f, 0f), Main.rand.NextFloat(-24f, 0f)), Vector2.UnitY.RotatedByRandom(MathHelper.Pi), 61 + Main.rand.Next(3));
+						gore.rotation = Main.rand.NextFloat(MathHelper.Pi);
+						gore.velocity.Y += Main.rand.NextFloat(0.25f, 0.5f);
+					}
+				}
+				else
+				{
+					anchor.JumpWithControlRelease(player);
+					TryJump(ref intendedVelocity, 8f, player, shapeshifter, anchor, true);
+				}
 			}
 
 			// Normal movement
@@ -322,9 +438,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			if (anchor.ai[0] == 1 && (projectile.ai[1] > 0.8f || projectile.velocity.Y > 5f))
+			if (anchor.ai[0] == 1)
 			{
-				shapeshifter.modPlayer.SetDodgeImmuneTime((int)(40 * projectile.ai[1]));
+				int immunityTime = (int)(40 * projectile.ai[1]);
+				if (immunityTime < 40) immunityTime = 40;
+				shapeshifter.modPlayer.SetDodgeImmuneTime(immunityTime);
 				SoundEngine.PlaySound(SoundID.Item50, projectile.Center);
 				anchor.ai[1]--;
 				anchor.NeedNetUpdate = true;

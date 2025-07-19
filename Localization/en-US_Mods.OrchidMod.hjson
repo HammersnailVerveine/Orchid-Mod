@@ -3530,6 +3530,15 @@ Items: {
 		Tooltip: Transforms you into a Salamortar, gaining unique abilities
 	}
 
+	WardenSnail: {
+		DisplayName: Shell Idol
+		LeftClick: Enters your shell, bowling through enemies at the cost of durability
+		RightClick: Throws your shell, restoring durability on hit and life on pickup
+		Jump: Increased mobility and can jump an aditional time as a slug
+		Passive: Shell durability regenerates as a slug
+		Tooltip: Transforms you into a Snail, gaining unique abilities
+	}
+
 	WardenEater: {
 		DisplayName: Man Eater Effigy
 		LeftClick: Charges a powerful bite, reinforced after consuming a fruit
@@ -3916,11 +3925,6 @@ Items: {
 			Press 'Middle Mouse' to place a torch
 			Effects are currently inactive, Right click to reactivate
 			'''
-	}
-
-	WardenSnail: {
-		DisplayName: Warden Snail
-		Tooltip: ""
 	}
 }
 
@@ -4385,6 +4389,7 @@ Projectiles: {
 	ShapeshifterAshwoodFlame.DisplayName: Ashwood Flame
 	ShapeshifterAshwoodProj.DisplayName: Ashwood Flame
 	ShapeshifterHarnessProj.DisplayName: Dagger
+	WardenSnailProj.DisplayName: Snail Shell
 }
 
 Configs: {

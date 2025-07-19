@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
 using OrchidMod.Utilities;
 using System;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

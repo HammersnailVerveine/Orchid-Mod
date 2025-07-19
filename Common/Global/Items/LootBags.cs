@@ -191,6 +191,7 @@ namespace OrchidMod.Common.Global.Items
 						if (EnableContentAlchemist) QuickSpawnItem<EmberVial>(player, 1, 20);
 						if (EnableContentAlchemist) QuickSpawnItem<TsunamiInAVial>(player, 1, 20);
 						if (EnableContentGambler) QuickSpawnItem<EmbersCard>(player, 1, 20);
+						if (EnableContentShapeshifter) QuickSpawnItem<WardenSnail>(player, 1, 20);
 						QuickSpawnItem<Quarterstaff>(player, 1, 20);
 						QuickSpawnItem<GuideShield>(player, 1, 20);
 					}

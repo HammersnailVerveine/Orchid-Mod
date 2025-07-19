@@ -340,6 +340,7 @@ namespace OrchidMod.Common.ModSystems
 
 			if (ModContent.GetInstance<OrchidServerConfig>().EnableContentShapeshifter)
 			{
+				chestLoots.Add(new ChestLoot(ItemType<WardenSnail>(), ChestType.SurfaceWooden, 20));
 				chestLoots.Add(new ChestLoot(ItemType<SymbioteToad>(), ChestType.LivingTree, 50));
 				chestLoots.Add(new ChestLoot(ItemType<PredatorIceFox>(), ChestType.Ice, 20));
 				chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 20));
