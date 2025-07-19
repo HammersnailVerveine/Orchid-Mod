@@ -98,6 +98,11 @@ namespace OrchidMod
 		{
 			if (IsShapeshifted)
 			{
+				if (Player.Center.Distance(ShapeshiftAnchor.Projectile.Center) > 96f && ShapeshiftAnchor.Projectile.velocity.Length() < 32f)
+				{ // the player is far away from the projectile center, which is abnormal -> they likely teleported
+					Shapeshift.ShapeshiftTeleport(Player.Center, ShapeshiftAnchor.Projectile, ShapeshiftAnchor, Player, this);
+				}
+
 				Player.width = Shapeshift.ShapeshiftWidth;
 				Player.height = Shapeshift.ShapeshiftHeight;
 				Player.Center = ShapeshiftAnchor.Projectile.Center;

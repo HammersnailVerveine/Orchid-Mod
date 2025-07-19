@@ -3931,6 +3931,11 @@ Items: {
 			Effects are currently inactive, Right click to reactivate
 			''' */
 	}
+
+	WardenSnail: {
+		// DisplayName: Warden Snail
+		// Tooltip: ""
+	}
 }
 
 NPCs: {
