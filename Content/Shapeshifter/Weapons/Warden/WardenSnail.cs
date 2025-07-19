@@ -31,6 +31,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			ShapeshiftType = ShapeshifterShapeshiftType.Warden;
 			ShapeshiftTypeUI = ShapeshifterShapeshiftTypeUI.List;
 			GroundedWildshape = true;
+			AutoReuseRight = true;
 		}
 
 		public override void ShapeshiftGetUIInfo(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, ref int uiCount, ref int uiCountMax)
