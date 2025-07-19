@@ -183,7 +183,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				if (!ShellStartEffect)
 				{
 					ShellStartEffect = true;
-					anchor.LeftCLickCooldown = 60;
+					anchor.LeftCLickCooldown = 30;
 					anchor.RightCLickCooldown = 10;
 					SoundStyle soundStyle = SoundID.NPCHit9;
 					soundStyle.Volume *= 0.5f;
