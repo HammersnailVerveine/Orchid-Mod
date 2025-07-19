@@ -23,6 +23,7 @@ namespace OrchidMod
 	{
 		public static OrchidMod Instance { get; private set; }
 		public static Mod ThoriumMod { get; private set; }
+		public static Mod BetterCaves { get; private set; }
 
 		public static List<AlchemistHiddenReactionRecipe> AlchemistReactionRecipes;
 
@@ -85,6 +86,7 @@ namespace OrchidMod
 			LoadShaders();
 
 			ThoriumMod = OrchidUtils.GetModWithPossibleNull("ThoriumMod");
+			BetterCaves = OrchidUtils.GetModWithPossibleNull("VervCaves");
 
 			AlchemistReactionRecipes = AlchemistHiddenReactionHelper.ListReactions();
 		}
@@ -94,6 +96,7 @@ namespace OrchidMod
 			AlchemistReactionRecipes = null;
 
 			ThoriumMod = null;
+			BetterCaves = null;
 			Instance = null;
 		}
 

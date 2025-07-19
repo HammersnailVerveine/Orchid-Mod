@@ -425,7 +425,7 @@ namespace OrchidMod.Content.Shapeshifter
 		} 
 
 		public void FinalVelocityCalculations(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true, bool preventDownInput = false, bool forceFallThrough = false)
-		{ // Prevents the player from phashing through tiles after all othe velocity calculations
+		{ // Prevents the player from phashing through tiles after all other velocity calculations
 			if (stepUpDown)
 			{ // Allows the projectiles to "step" up and down tiles like a walking player would
 				if (StepUpTiles(intendedVelocity, projectile, player))
@@ -456,6 +456,8 @@ namespace OrchidMod.Content.Shapeshifter
 					AllowGFXOffY--;
 				}
 			}
+
+			HandleCrossContentInteractions(ref intendedVelocity, projectile, player, stepUpDown, cancelSlopeOffet, preventDownInput, forceFallThrough);
 
 			bool goThroughPlatforms = player.controlDown && !preventDownInput && intendedVelocity.Y < 0.5f;
 			Vector2 finalVelocity = Vector2.Zero;
@@ -710,6 +712,43 @@ namespace OrchidMod.Content.Shapeshifter
 			}
 
 			return result;
+		}
+
+		public void HandleCrossContentInteractions(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true, bool preventDownInput = false, bool forceFallThrough = false)
+		{ // Cross mod interactions, coded on a case-by-case basis
+			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
+			if (OrchidMod.BetterCaves != null)
+			{ // Better caves gravity and pressure traps
+				foreach (Projectile crossProjectile in Main.projectile)
+				{
+					if (crossProjectile.type == OrchidMod.BetterCaves.Find<ModProjectile>("Pressure").Type)
+					{
+						if (crossProjectile.timeLeft == 180 && projectile.Hitbox.Intersects(crossProjectile.Hitbox) && player.active)
+						{
+							switch (crossProjectile.ai[0])
+							{
+								case 1:
+									intendedVelocity.X = 22.5f;
+									break;
+								case 2:
+									intendedVelocity.X = -22.5f;
+									break;
+								case 3:
+									intendedVelocity.Y = 22.5f;
+									break;
+								default:
+									intendedVelocity.Y = -22.5f;
+									break;
+							}
+						}
+					}
+				}
+
+				if (player.HasBuff(OrchidMod.BetterCaves.Find<ModBuff>("GravityBuff").Type) && shapeshifter.IsShapeshifted)
+				{
+					shapeshifter.ShapeshiftAnchor.NeedKill = true;
+				}
+			}
 		}
 
 		/*

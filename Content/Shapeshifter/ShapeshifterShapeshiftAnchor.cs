@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Content.Guardian.UI;
 using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Utilities;
 using ReLogic.Content;
