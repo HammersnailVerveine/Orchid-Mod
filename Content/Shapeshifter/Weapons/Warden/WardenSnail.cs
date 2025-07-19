@@ -63,8 +63,8 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		public override void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			anchor.ai[1] = 1;
-			anchor.LeftCLickCooldown = 30;
-			anchor.RightCLickCooldown = 30;
+			anchor.LeftCLickCooldown = 20;
+			anchor.RightCLickCooldown = 10;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
