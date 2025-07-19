@@ -1,10 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Content.Shapeshifter.Weapons.Warden;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -211,13 +213,27 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 			}
 			Vector2 drawPosition = Projectile.Center - Main.screenPosition;
 
+			Player player = Owner;
+			for (int i = 0; i < player.armor.Length; i++)
+			{
+				if (player.armor[i].type == ModContent.ItemType<ShapeshifterShampoo>())
+				{
+					if (i > 9) i -= 10;
+					if (player.dye[i].type != ItemID.None)
+					{
+						Main.instance.PrepareDrawnEntityDrawing(Projectile, GameShaders.Armor.GetShaderIdFromItemId(player.dye[i].type), null);
+					}
+					break;
+				}
+			}
+
 			if ((Projectile.localAI[2] > 0 || Projectile.localAI[1] < Projectile.ai[1]) && Projectile.velocity.Length() < 5f && IsLocalOwner)
 			{
 				float colorMult2 = (5f - Projectile.velocity.Length()) * 0.2f + (float)Math.Sin(Projectile.localAI[0] * 0.075f) * 0.5f;
-				spriteBatch.Draw(TextureGlow, drawPosition, null, Color.White * 0.35f * colorMult * colorMult2, Projectile.rotation, TextureGlow.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
+				Main.EntitySpriteDraw(TextureGlow, drawPosition, null, Color.White * 0.35f * colorMult * colorMult2, Projectile.rotation, TextureGlow.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			}
 
-			spriteBatch.Draw(TextureMain, drawPosition, null, lightColor * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
+			Main.EntitySpriteDraw(TextureMain, drawPosition, null, lightColor * colorMult, Projectile.rotation, TextureMain.Size() * 0.5f, Projectile.scale, SpriteEffects.None, 0f);
 			return false;
 		}
 	}
