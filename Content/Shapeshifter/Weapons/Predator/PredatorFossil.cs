@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Shapeshifter.Buffs;
 using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
 using System;
 using Terraria;
@@ -62,7 +61,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * Item.shootSpeed * Main.rand.NextFloat(0.8f, 1.2f) / 15f;
 
 			bool foundTarget = false;
-			for (int i = 0; i < (player.HasBuff<WardenTortoiseBuff>() ? 45 : 15); i++)
+			for (int i = 0; i < 15; i++)
 			{
 				position += TileCollideShapeshifter(position, offSet, 2, 2, true, true, (int)player.gravDir);
 

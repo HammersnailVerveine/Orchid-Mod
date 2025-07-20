@@ -3476,6 +3476,15 @@ Items: {
 		Tooltip: Обращает вас в костяного раптора, даруя уникальные навыки
 	}
 
+	PredatorUndine: {
+		// DisplayName: Predator Undine
+		// LeftClick: Slashes, increasing critical strike chance by up to 100% on hit
+		// RightClick: Releases seeking bolts, 200% of excess critical strike chance becomes damage
+		// Jump: xxx
+		// Passive: Skill critical strikes briefly grant up to 50% melee and movement speed
+		// Tooltip: Transforms you into an Undine, gaining unique abilities
+	}
+
 	SageBee: {
 		DisplayName: Чучело пчелы
 		LeftClick: Стреляет зазубренным жалом, застревающим во врагах
@@ -3885,11 +3894,6 @@ Items: {
 	ShapeshifterHarpyLegs: {
 		DisplayName: Мантия парителя
 		Tooltip: Увелиивает скорость передвижения 10%
-	}
-
-	PredatorUndine: {
-		// DisplayName: Predator Undine
-		// Tooltip: ""
 	}
 
 	ShapeshifterSurvivalPotion: {
@@ -4404,6 +4408,8 @@ Projectiles: {
 	// ShapeshifterAshwoodProj.DisplayName: Ashwood Flame
 	// ShapeshifterHarnessProj.DisplayName: Dagger
 	// WardenSnailProj.DisplayName: Snail Shell
+	// PredatorUndineProj.DisplayName: Undine Slash
+	// PredatorUndineProjAlt.DisplayName: Undine Bolt
 }
 
 Configs: {

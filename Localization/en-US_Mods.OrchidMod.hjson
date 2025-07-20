@@ -3463,6 +3463,15 @@ Items: {
 		Tooltip: Transforms you into a Bone Raptor, gaining unique abilities
 	}
 
+	PredatorUndine: {
+		DisplayName: Predator Undine
+		LeftClick: Slashes, increasing critical strike chance by up to 100% on hit
+		RightClick: Releases seeking bolts, 200% of excess critical strike chance becomes damage
+		Jump: xxx
+		Passive: Skill critical strikes briefly grant up to 50% melee and movement speed
+		Tooltip: Transforms you into an Undine, gaining unique abilities
+	}
+
 	SageBee: {
 		DisplayName: Bee Effigy
 		LeftClick: Fires barbed stingers, continuously damaging hit enemies
@@ -3871,11 +3880,6 @@ Items: {
 	ShapeshifterHarpyLegs: {
 		DisplayName: Soaring Robes
 		Tooltip: 10% increased movement speed
-	}
-
-	PredatorUndine: {
-		DisplayName: Predator Undine
-		Tooltip: ""
 	}
 
 	ShapeshifterSurvivalPotion: {
@@ -4390,6 +4394,8 @@ Projectiles: {
 	ShapeshifterAshwoodProj.DisplayName: Ashwood Flame
 	ShapeshifterHarnessProj.DisplayName: Dagger
 	WardenSnailProj.DisplayName: Snail Shell
+	PredatorUndineProj.DisplayName: Undine Slash
+	PredatorUndineProjAlt.DisplayName: Undine Bolt
 }
 
 Configs: {
