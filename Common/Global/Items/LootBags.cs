@@ -286,6 +286,7 @@ namespace OrchidMod.Common.Global.Items
 			if (EnableContentGambler) QuickSpawnItem<Rusalka>(player, 1, 5);
 			if (EnableContentGambler) QuickSpawnItem<TiamatRelic>(player, 1, 2);
 			if (EnableContentGambler) QuickSpawnItem<DeckBone>(player, 1, 40);
+			if (EnableContentShapeshifter) QuickSpawnItem<PredatorUndine>(player, 1, 5);
 			QuickSpawnItem<DungeonQuarterstaff>(player, 1, 5);
 		}
 

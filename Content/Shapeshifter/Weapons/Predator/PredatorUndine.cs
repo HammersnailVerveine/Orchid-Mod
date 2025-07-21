@@ -1,8 +1,11 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter.Projectiles.Predator;
+using OrchidMod.Utilities;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,7 +25,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.useTime = 15;
 			Item.shootSpeed = 150f;
 			Item.knockBack = 5f;
-			Item.damage = 27;
+			Item.damage = 22;
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
@@ -52,9 +55,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			for (int i = 0; i < 5; i++)
 			{
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.WaterCandle, Scale: Main.rand.NextFloat(1.5f, 2f));
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.WaterCandle);
+				dust.scale *= Main.rand.NextFloat(2f, 2.5f);
+				dust.velocity *= Main.rand.NextFloat(0.25f, 0.5f);
 				dust.noGravity = true;
-				dust.noLightEmittence = true;
 			}
 
 			for (int i = 0; i < 8; i++)
@@ -67,9 +71,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			for (int i = 0; i < 5; i++)
 			{
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.WaterCandle, Scale: Main.rand.NextFloat(1.5f, 2f));
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.WaterCandle);
+				dust.scale *= Main.rand.NextFloat(2f, 2.5f);
+				dust.velocity *= Main.rand.NextFloat(0.25f, 0.5f);
 				dust.noGravity = true;
-				dust.noLightEmittence = true;
 			}
 
 			for (int i = 0; i < 8; i++)
@@ -111,7 +116,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			int projectileType = ModContent.ProjectileType<PredatorUndineProj>();
 			ShapeshifterNewProjectile(shapeshifter, position, offSet * 0.001f, projectileType, Item.damage, Item.crit, Item.knockBack, player.whoAmI);
-			anchor.LeftCLickCooldown = Item.useTime;
+			anchor.LeftCLickCooldown = Item.useTime - projectile.ai[1] * 0.5f;
 		}
 
 		public override bool ShapeshiftCanRightClick(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.IsRightClick && anchor.CanRightClick;
@@ -129,7 +134,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			damage = damage * Item.damage;
 
 			float closestDistance = 80f;
-			NPC closestTarget = shapeshifter.modPlayer.LastHitNPC;
+			NPC closestTarget = null;
+
+			if (shapeshifter.modPlayer.LastHitNPC != null)
+			{
+				if (OrchidModProjectile.IsValidTarget(shapeshifter.modPlayer.LastHitNPC))
+				{
+					closestTarget = shapeshifter.modPlayer.LastHitNPC;
+				}
+			}
 
 			foreach (NPC npc in Main.npc)
 			{
@@ -170,8 +183,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		public override void ShapeshiftBuffs(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			Item.crit = (int)(projectile.ai[0] * 10f);
-			player.GetAttackSpeed(DamageClass.Melee) += 0.05f * projectile.ai[1];
-			shapeshifter.ShapeshifterMoveSpeedBonus += 0.05f * projectile.ai[1];
+			shapeshifter.ShapeshifterMoveSpeedBonus += 0.05f * projectile.ai[1] + anchor.ai[1] * 0.033f;
 		}
 
 		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
@@ -200,8 +212,38 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			// ai[0] holds passive stacks
 			// ai[1] holds the number of recent crits
 			// ai[2] holds the timer before crits reset
+			// anchor.ai[0] holds the auto attack blink animation
+			// anchor.ai[1] holds the movement passive bonus movement speed
 
 			// MISC EFFECTS
+
+			int velocityRef = (int)projectile.velocity.Length();
+			if (velocityRef > 10) velocityRef = 10;
+			if (Main.rand.NextBool(15 - velocityRef))
+			{ // spawns dust, more while running
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Water);
+				dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+				dust.velocity.Y = Main.rand.NextFloat(-0.5f, -2f);
+			}
+
+			if (Main.rand.NextBool(25 - velocityRef) && projectile.ai[1] > 5)
+			{ // spawns dust, more while running
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.WaterCandle);
+				dust.scale *= Main.rand.NextFloat(2f, 2.5f);
+				dust.velocity *= Main.rand.NextFloat(0.25f, 0.5f);
+				dust.noGravity = true;
+			}
+
+			if (anchor.ai[1] > 0)
+			{
+				anchor.ai[1]--;
+				if (anchor.ai[1] < 0)
+				{
+					anchor.ai[1] = 0;
+				}
+			}
+
+			anchor.ai[0] -= 1f * shapeshifter.GetShapeshifterMeleeSpeed() * (1f + 0.05f * projectile.ai[1]);
 
 			if (projectile.ai[2] <= 0f)
 			{
@@ -294,13 +336,110 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			for (int i = 0; i < 2; i++)
 			{
-				if (anchor.OldPosition.Count > (projectile.ai[1] > 5 ? 8 : 5))
+				if (anchor.OldPosition.Count > (projectile.ai[1] > 5 ? 7 : 5))
 				{
 					anchor.OldPosition.RemoveAt(0);
 					anchor.OldRotation.RemoveAt(0);
 					anchor.OldFrame.RemoveAt(0);
 				}
 			}
+		}
+
+		public override void ShapeshiftPreDraw(SpriteBatch spriteBatch, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Vector2 drawPosition, Rectangle drawRectangle, SpriteEffects effect, Player player, Color lightColor)
+		{
+			if (anchor.ai[0] > 0)
+			{
+				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+
+				OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
+
+				float scalemult = (float)Math.Sin(anchor.ai[0] * 0.2092f) * 0.125f + 1f;
+
+				if (shapeshifter.ShapeshifterHairpin)
+				{
+					spriteBatch.Draw(anchor.TextureShapeshiftHair, drawPosition, drawRectangle, player.hairColor * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+				}
+				else
+				{
+					spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, new Color(54, 150, 248) * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+				}
+
+				spriteBatch.End();
+				spriteBatch.Begin(spriteBatchSnapshot);
+			}
+		}
+
+		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (projectile.ai[0] >= 4f)
+			{
+				shapeshifter.modPlayer.SetDodgeImmuneTime(40);
+				SoundEngine.PlaySound(SoundID.Splash, projectile.Center);
+				projectile.ai[0] -= 4f;
+				anchor.ai[1] = 30;
+				anchor.NeedNetUpdate = true;
+
+				for (int i = 0; i < 5; i++)
+				{
+					Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Smoke);
+					dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+					dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+				}
+
+				for (int i = 0; i < 20; i++)
+				{
+					Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Water);
+					dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+					dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+					dust.velocity.Y = Main.rand.NextFloat(-1f, -5f);
+				}
+
+				for (int i = 0; i < 10; i++)
+				{
+					Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.WaterCandle);
+					dust.scale *= Main.rand.NextFloat(2f, 2.5f);
+					dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+					dust.velocity += projectile.velocity * 0.25f;
+					dust.noGravity = true;
+				}
+
+				int projectileType = ModContent.ProjectileType<PredatorUndineProjAlt>();
+
+				float damage = 1f;
+				int crit = shapeshifter.GetShapeshifterCrit(Item.crit);
+				if (crit > 100)
+				{ // damage increased by 200% of excess crit
+					damage += (crit - 100) * 0.02f;
+				}
+				damage = damage * Item.damage;
+
+				float closestDistance = 160f;
+				NPC closestTarget = null;
+
+				foreach (NPC npc in Main.npc)
+				{
+					float distance = projectile.Center.Distance(npc.Center);
+					if (OrchidModProjectile.IsValidTarget(npc) && distance < closestDistance)
+					{
+						closestTarget = npc;
+						closestDistance = distance;
+					}
+				}
+
+				if (closestTarget != null)
+				{
+					for (int i = 0; i < 4; i++)
+					{
+						Vector2 velocity = Vector2.Normalize(projectile.Center - closestTarget.Center).RotatedByRandom(1f) * 3.8f; // 3.8f is a magic number that makes the trail look good ...
+						ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, damage, Item.crit, Item.knockBack, player.whoAmI, ai0: i * 15f, ai2: closestTarget.whoAmI);
+					}
+				}
+
+				return true;
+			}
+
+			return false;
 		}
 	}
 }

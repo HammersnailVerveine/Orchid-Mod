@@ -65,7 +65,6 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 
 			if (!Initialized)
 			{ // random texture
-				Projectile.friendly = true;
 				Initialized = true;
 				SoundStyle soundStyle = SoundID.Item21;
 				soundStyle.Volume *= 0.33f;
@@ -81,6 +80,10 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			{
 				Projectile.ai[1] = 1f;
 				Projectile.friendly = false;
+			}
+			else if (Projectile.timeLeft <= 290)
+			{
+				Projectile.friendly = true;
 			}
 
 			if (Projectile.ai[1] == 1f)

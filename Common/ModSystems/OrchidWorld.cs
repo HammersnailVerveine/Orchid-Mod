@@ -346,6 +346,7 @@ namespace OrchidMod.Common.ModSystems
 				chestLoots.Add(new ChestLoot(ItemType<WardenTortoise>(), ChestType.Ivy, 20));
 				chestLoots.Add(new ChestLoot(ItemType<WardenSalamortar>(), ChestType.Shadow, 30));
 				chestLoots.Add(new ChestLoot(ItemType<ShawlFeather>(), ChestType.SkyIsland, 30));
+				chestLoots.Add(new ChestLoot(ItemType<PredatorUndine>(), ChestType.DungeonLocked, 20));
 				chestLoots.Add(new ChestLoot(ItemType<ShapeshifterSurvivalPotion>(), ChestType.SkyIsland, 50, needToPlace: 0, ignoreChestLimit: true));
 			}
 

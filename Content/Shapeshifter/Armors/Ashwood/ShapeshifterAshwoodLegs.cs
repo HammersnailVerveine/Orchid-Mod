@@ -5,7 +5,6 @@ using ReLogic.Content;
 using System;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -23,7 +22,7 @@ namespace OrchidMod.Content.Shapeshifter.Armors.Ashwood
 			Item.height = 16;
 			Item.value = Item.sellPrice(0, 0, 55, 0);
 			Item.rare = ItemRarityID.Orange;
-			Item.defense = 6;
+			Item.defense = 7;
 			TextureGlow ??= ModContent.Request<Texture2D>(Item.ModItem.Texture + "_Legs_Glow", AssetRequestMode.ImmediateLoad).Value;
 		}
 

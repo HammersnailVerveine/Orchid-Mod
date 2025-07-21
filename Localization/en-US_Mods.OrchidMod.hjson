@@ -3464,10 +3464,10 @@ Items: {
 	}
 
 	PredatorUndine: {
-		DisplayName: Predator Undine
-		LeftClick: Slashes, increasing critical strike chance by up to 100% on hit
-		RightClick: Releases seeking bolts, 200% of excess critical strike chance becomes damage
-		Jump: xxx
+		DisplayName: Undine Statuette
+		LeftClick: Slashes, granting tide charges for up to 100% bonus critical strike chance
+		RightClick: Releases all tide charges, 200% of excess critical strike chance becomes damage
+		Jump: Can jump two additional times, uses 2 tide charges instead of taking damage
 		Passive: Skill critical strikes briefly grant up to 50% melee and movement speed
 		Tooltip: Transforms you into an Undine, gaining unique abilities
 	}
@@ -3893,7 +3893,7 @@ Items: {
 
 	ShapeshifterAshwoodHead: {
 		DisplayName: Pyre Hood
-		Tooltip: 7% increased feral damage
+		Tooltip: 10% increased feral critical strike chance
 		SetBonus:
 			'''
 			Dealing damage fuels a pyre, increasing feral damage by up to 10%
@@ -3903,7 +3903,7 @@ Items: {
 
 	ShapeshifterAshwoodChest: {
 		DisplayName: Pyre Mantle
-		Tooltip: 7% increased feral damage
+		Tooltip: 5% increased feral damage
 	}
 
 	ShapeshifterAshwoodLegs: {

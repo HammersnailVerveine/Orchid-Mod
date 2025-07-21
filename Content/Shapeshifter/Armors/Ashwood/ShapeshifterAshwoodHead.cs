@@ -35,7 +35,7 @@ namespace OrchidMod.Content.Shapeshifter.Armors.Ashwood
 
 		public override void UpdateEquip(Player player)
 		{
-			player.GetDamage<ShapeshifterDamageClass>() += 0.07f;
+			player.GetCritChance<ShapeshifterDamageClass>() += 10;
 		}
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)

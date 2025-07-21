@@ -28,7 +28,7 @@ namespace OrchidMod.Content.Shapeshifter.Armors.Ashwood
 
 		public override void UpdateEquip(Player player)
 		{
-			player.GetDamage<ShapeshifterDamageClass>() += 0.07f;
+			player.GetDamage<ShapeshifterDamageClass>() += 0.05f;
 		}
 
 		public override void AddRecipes()

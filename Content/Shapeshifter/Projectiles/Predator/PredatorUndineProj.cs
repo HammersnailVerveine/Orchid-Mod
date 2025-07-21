@@ -27,6 +27,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			TextureMain ??= ModContent.Request<Texture2D>(Texture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = -1;
+			MeleeHit = true;
 		}
 
 		public override void AI()
@@ -36,6 +37,15 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 				Initialized = true;
 				Projectile.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 				SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
+
+				OrchidShapeshifter shapeshifter = Owner.GetModPlayer<OrchidShapeshifter>();
+				if (shapeshifter.IsShapeshifted)
+				{
+					if (shapeshifter.Shapeshift is PredatorUndine)
+					{
+						shapeshifter.ShapeshiftAnchor.ai[0] = 15;
+					}
+				}
 			}
 
 			if (Projectile.timeLeft % 3 == 0 && Projectile.frame < 4)
