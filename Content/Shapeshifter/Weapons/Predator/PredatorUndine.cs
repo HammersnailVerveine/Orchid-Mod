@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.shootSpeed = 150f;
 			Item.knockBack = 5f;
 			Item.damage = 19;
-			ShapeshiftWidth = 30;
+			ShapeshiftWidth = 28;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
 			ShapeshiftTypeUI = ShapeshifterShapeshiftTypeUI.List;
@@ -184,11 +184,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			Item.crit = (int)(projectile.ai[0] * 10f);
 			shapeshifter.ShapeshifterMoveSpeedBonus += 0.05f * projectile.ai[1] + anchor.ai[1] * 0.033f;
-		}
-
-		public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-		{
-			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
 		}
 
 		public override void UpdateInventory(Player player)

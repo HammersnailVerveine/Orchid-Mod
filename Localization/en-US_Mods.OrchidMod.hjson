@@ -3930,6 +3930,11 @@ Items: {
 			Effects are currently inactive, Right click to reactivate
 			'''
 	}
+
+	PredatorGoblin: {
+		DisplayName: Predator Goblin
+		Tooltip: ""
+	}
 }
 
 NPCs: {
