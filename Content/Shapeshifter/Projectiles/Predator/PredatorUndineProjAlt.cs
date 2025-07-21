@@ -55,6 +55,12 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 				Projectile.localAI[0]++;
 			}
 
+			if (Projectile.ai[0] < 0)
+			{ // used as a flag to sync projectiles created by a passive hit without syncing one more variable
+				Projectile.ai[0] *= -1f;
+				Projectile.localAI[1] = 1f;
+			}
+
 			if (Projectile.ai[0] > 0)
 			{
 				Projectile.ai[0]--;
@@ -128,7 +134,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			Projectile.friendly = false;
 			Projectile.tileCollide = false;
 
-			if (shapeshifter.IsShapeshifted && hit.Crit)
+			if (shapeshifter.IsShapeshifted && hit.Crit && Projectile.localAI[1] == 0f && IsLocalOwner)
 			{
 				if (shapeshifter.Shapeshift is PredatorUndine undine)
 				{

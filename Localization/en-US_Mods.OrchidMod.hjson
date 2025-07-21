@@ -3465,9 +3465,9 @@ Items: {
 
 	PredatorUndine: {
 		DisplayName: Undine Statuette
-		LeftClick: Slashes, granting tide charges for up to 100% bonus critical strike chance
-		RightClick: Releases all tide charges, 200% of excess critical strike chance becomes damage
-		Jump: Can jump two additional times, uses 2 tide charges instead of taking damage
+		LeftClick: Slashes, granting 'tide' for up to 100% bonus critical strike chance
+		RightClick: Releases all 'tide', 200% of excess critical strike chance increases damage
+		Jump: Can jump two additional times, uses 5 'tide' instead of taking damage
 		Passive: Skill critical strikes briefly grant up to 50% melee and movement speed
 		Tooltip: Transforms you into an Undine, gaining unique abilities
 	}

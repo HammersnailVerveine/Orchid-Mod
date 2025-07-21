@@ -248,9 +248,6 @@ namespace OrchidMod.Content.Shapeshifter
 			if (IsLocalPlayer(player))
 			{
 				Main.SetCameraLerp(lerp, time);
-				OrchidShapeshifter.ShapeshifterCameraLerp = lerp;
-				OrchidShapeshifter.ShapeshifterCameraLerpTimer = 0;
-				OrchidShapeshifter.ShapeshifterCameraLerpTimeToggle = time;
 			}
 		}
 

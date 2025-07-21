@@ -65,10 +65,6 @@ namespace OrchidMod
 		public int ShapeshifterSetTimer = 0;
 		public int ShapeshifterSetPyreDamagePool = 0;
 
-		public static float ShapeshifterCameraLerp = 0f; // Because for some reason camera lerp fields in Main are all private ...
-		public static int ShapeshifterCameraLerpTimer = 0;
-		public static int ShapeshifterCameraLerpTimeToggle = 0;
-
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
 			if (ShapeshiftAnchor != null)
@@ -106,20 +102,6 @@ namespace OrchidMod
 				Player.width = Shapeshift.ShapeshiftWidth;
 				Player.height = Shapeshift.ShapeshiftHeight;
 				Player.Center = ShapeshiftAnchor.Projectile.Center;
-			}
-
-			if (ShapeshifterCameraLerp > 0f)
-			{
-				ShapeshifterCameraLerpTimer++;
-				if (ShapeshifterCameraLerpTimer >= ShapeshifterCameraLerpTimeToggle)
-					ShapeshifterCameraLerp += (float)((ShapeshifterCameraLerpTimer - ShapeshifterCameraLerpTimeToggle) / 3 + 1) * 0.001f;
-
-				if (ShapeshifterCameraLerp > 1f)
-				{
-					ShapeshifterCameraLerp = 0f;
-					ShapeshifterCameraLerpTimer = 0;
-					ShapeshifterCameraLerpTimeToggle = 0;
-				}
 			}
 
 			if (ShapeshiftAnchor != null && ShapeshiftAnchor.Projectile.active)
@@ -188,32 +170,6 @@ namespace OrchidMod
 			ShapeshifterHairpin = false;
 			ShapeshifterShawlFeather = false;
 			ShapeshifterShawlWind = false;
-		}
-
-		public override void ModifyScreenPosition()
-		{
-			if (IsShapeshifted)
-			{
-				Vector2 value = ShapeshiftAnchor.Projectile.Center - (new Vector2(Main.screenWidth, Main.screenHeight) / 2);
-				if (ShapeshifterCameraLerp > 0f)
-				{
-					if (Vector2.Distance(Main.screenPosition, value) < 0.25f)
-					{
-						ShapeshifterCameraLerp = 0f;
-						Main.screenPosition = value;
-						Main.screenPosition.Y += Player.gfxOffY;
-					}
-					else
-					{
-						Main.screenPosition = Vector2.Lerp(Main.screenPosition, value, ShapeshifterCameraLerp);
-					}
-				}
-				else
-				{
-					Main.screenPosition = value;
-					Main.screenPosition.Y += Player.gfxOffY;
-				}
-			}
 		}
 
 		public override void PostUpdateEquips()

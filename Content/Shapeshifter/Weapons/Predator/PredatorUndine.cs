@@ -25,7 +25,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.useTime = 15;
 			Item.shootSpeed = 150f;
 			Item.knockBack = 5f;
-			Item.damage = 22;
+			Item.damage = 19;
 			ShapeshiftWidth = 30;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
@@ -214,6 +214,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			// ai[2] holds the timer before crits reset
 			// anchor.ai[0] holds the auto attack blink animation
 			// anchor.ai[1] holds the movement passive bonus movement speed
+			// anchor.ai[2] holds bonus jumps
 
 			// MISC EFFECTS
 
@@ -257,6 +258,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			bool grounded = IsGrounded(projectile, player, 4f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 
+
+			if (grounded)
+			{
+				anchor.ai[2] = 2;
+			}
+
 			// ANIMATION
 
 			if (grounded)
@@ -290,8 +297,62 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			GravityCalculations(ref intendedVelocity, player, shapeshifter);
 
 			if (anchor.IsInputJump)
-			{ // Jump while no charge ready
-				TryJump(ref intendedVelocity, 9.5f, player, shapeshifter, anchor, true);
+			{
+				if (!grounded && anchor.ai[2] > 0 && anchor.JumpWithControlRelease(player))
+				{ // double jump
+					anchor.ai[2]--;
+
+					if (anchor.IsInputLeft && !anchor.IsInputRight)
+					{ // right directon jump
+						TryJump(ref intendedVelocity, 9f, player, shapeshifter, anchor, speedEfficiency: 0f);
+						intendedVelocity.X = -10f * speedMult * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
+					}
+					else if (!anchor.IsInputLeft && anchor.IsInputRight)
+					{ // right directon jump
+						TryJump(ref intendedVelocity, 9f, player, shapeshifter, anchor, speedEfficiency : 0f);
+						intendedVelocity.X = 10f * speedMult * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
+					}
+					else
+					{
+						TryJump(ref intendedVelocity, 11f, player, shapeshifter, anchor);
+					}
+
+					SoundEngine.PlaySound(SoundID.DoubleJump, projectile.Center);
+
+					for (int i = 0; i < 5; i++)
+					{
+						Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Smoke)].velocity *= 0.5f;
+					}
+
+					for (int i = 0; i < 3; i++)
+					{
+						Gore gore = Gore.NewGoreDirect(projectile.GetSource_FromAI(), projectile.Center + new Vector2(Main.rand.NextFloat(-24f, 0f), Main.rand.NextFloat(-24f, 0f)), Vector2.UnitY.RotatedByRandom(MathHelper.Pi), 61 + Main.rand.Next(3));
+						gore.rotation = Main.rand.NextFloat(MathHelper.Pi);
+						gore.velocity.Y += Main.rand.NextFloat(0.25f, 0.5f);
+					}
+
+					for (int i = 0; i < 20; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Water);
+						dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+						dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+						dust.velocity.Y = Main.rand.NextFloat(-1f, -5f);
+					}
+
+					for (int i = 0; i < 10; i++)
+					{
+						Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.WaterCandle);
+						dust.scale *= Main.rand.NextFloat(2f, 2.5f);
+						dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+						dust.velocity += projectile.velocity * 0.25f;
+						dust.noGravity = true;
+					}
+				}
+				else
+				{ // grounded jump
+					anchor.JumpWithControlRelease(player);
+					TryJump(ref intendedVelocity, 9.5f, player, shapeshifter, anchor, true);
+				}
 			}
 
 			// Normal movement
@@ -372,7 +433,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 		public override bool ShapeshiftFreeDodge(Player.HurtInfo info, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			if (projectile.ai[0] >= 4f)
+			if (projectile.ai[0] >= 10f)
 			{
 				shapeshifter.modPlayer.SetDodgeImmuneTime(40);
 				SoundEngine.PlaySound(SoundID.Splash, projectile.Center);
@@ -429,10 +490,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 				if (closestTarget != null)
 				{
-					for (int i = 0; i < 4; i++)
+					for (int i = 0; i < 6; i++)
 					{
 						Vector2 velocity = Vector2.Normalize(projectile.Center - closestTarget.Center).RotatedByRandom(1f) * 3.8f; // 3.8f is a magic number that makes the trail look good ...
-						ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, damage, Item.crit, Item.knockBack, player.whoAmI, ai0: i * 15f, ai2: closestTarget.whoAmI);
+						Projectile newProjectile = ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, damage, Item.crit, Item.knockBack, player.whoAmI, ai0: (i * -15f) - 1f, ai2: closestTarget.whoAmI);
 					}
 				}
 
