@@ -432,7 +432,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			{
 				shapeshifter.modPlayer.SetDodgeImmuneTime(40);
 				SoundEngine.PlaySound(SoundID.Splash, projectile.Center);
-				projectile.ai[0] -= 4f;
+				projectile.ai[0] = 0f;
 				anchor.ai[1] = 30;
 				anchor.NeedNetUpdate = true;
 
