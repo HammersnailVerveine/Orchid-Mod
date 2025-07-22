@@ -60,9 +60,8 @@ namespace OrchidMod.Content.Shapeshifter
 		public virtual void ShapeshiftOnApplyBleed(NPC target, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, ShapeshifterBleed bleed) { } // Called after a bleed has been applied to a NPC
 		public virtual void ShapeshiftGetUIInfo(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, ref int uiCount, ref int uiCountMax) { } // Called locally when drawing the UI. Will draw nbSymbols "clear" symbols on top of "nbSymbolsBack"
 		public virtual void SafeHoldItem(Player player) { } // ModItem.HoldItem(Player player)
-		public virtual Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(lightColor, 0f); // used to draw the shapeshift anchor
+		public virtual Color GetColor(ref bool drawPlayerAsAdditive, Color inputColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, bool isHairColor = false) => player.GetImmuneAlphaPure(inputColor, 0f); // used to draw the shapeshift anchor
 		public virtual Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(Color.White, 0f); // used to draw the shapeshift anchor glowmask
-		public virtual Color GetColorTransparent(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(lightColor, 0f) * 0.5f; // used to draw the shapeshift anchor transparent layer
 
 		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) => false;
 

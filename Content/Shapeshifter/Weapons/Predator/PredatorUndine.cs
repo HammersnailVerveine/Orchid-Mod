@@ -414,11 +414,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 				if (shapeshifter.ShapeshifterHairpin)
 				{
-					spriteBatch.Draw(anchor.TextureShapeshiftHair, drawPosition, drawRectangle, player.hairColor * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+					spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, Color.White * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+					spriteBatch.Draw(anchor.TextureShapeshiftHairGray, drawPosition, drawRectangle, player.hairColor * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
 				}
 				else
 				{
-					spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, new Color(54, 150, 248) * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+					spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, Color.White * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+					spriteBatch.Draw(anchor.TextureShapeshiftHair, drawPosition, drawRectangle, Color.White * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
 				}
 
 				spriteBatch.End();

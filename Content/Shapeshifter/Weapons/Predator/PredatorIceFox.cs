@@ -47,14 +47,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 		}
 
-		public override Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		public override Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, bool isHairColor)
 		{
 			if (projectile.ai[1] > 0)
 			{ // Right click phaseshift is active
 				drawPlayerAsAdditive = true;
 				return new Color(54, 150, 248) * 0.75f;
 			}
-			return base.GetColor(ref drawPlayerAsAdditive, lightColor, projectile, anchor, player, shapeshifter);
+			return base.GetColor(ref drawPlayerAsAdditive, lightColor, projectile, anchor, player, shapeshifter, isHairColor);
 		}
 
 		public override void ShapeshiftAnchorOnShapeshiftFast(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -372,6 +372,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 				float scalemult = (float)Math.Sin(projectile.ai[2] * 0.1046f) * 0.125f + 1f;
 				spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, new Color(54, 150, 248) * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+				spriteBatch.Draw(anchor.TextureShapeshiftHair, drawPosition, drawRectangle, new Color(54, 150, 248) * 0.75f, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
 
 				spriteBatch.End();
 				spriteBatch.Begin(spriteBatchSnapshot);
