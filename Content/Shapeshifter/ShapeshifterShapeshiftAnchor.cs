@@ -518,8 +518,22 @@ namespace OrchidMod.Content.Shapeshifter
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
 				if (shapeshifter.ShapeshifterHairpin)
-				{ // draws hair before the shaders if the player uses the hairpin
+				{ // draws hair before the shampoo shaders if the player uses the hairpin
+					for (int i = 0; i < player.armor.Length; i++)
+					{
+						if (player.armor[i].type == ModContent.ItemType<ShapeshifterHairpin>())
+						{
+							if (i > 9) i -= 10;
+							if (player.dye[i].type != ItemID.None)
+							{
+								Main.instance.PrepareDrawnEntityDrawing(Projectile, GameShaders.Armor.GetShaderIdFromItemId(player.dye[i].type), null);
+							}
+							break;
+						}
+					}
+
 					Main.EntitySpriteDraw(hairTexture, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					Main.instance.PrepareDrawnEntityDrawing(Projectile, 0, null);
 				}
 
 				for (int i = 0; i < player.armor.Length; i++)
