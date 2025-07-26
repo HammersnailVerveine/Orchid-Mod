@@ -668,10 +668,13 @@ namespace OrchidMod
 			}
 
 			// base dash behaviour
-			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * ShapeshifterHookDash * Shapeshift.GetSpeedMult(Player, this, ShapeshiftAnchor);
+			if (Player.whoAmI == Main.myPlayer)
+			{
+				Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * ShapeshifterHookDash * Shapeshift.GetSpeedMult(Player, this, ShapeshiftAnchor);
+				projectile.velocity = offSet;
+				ShapeshiftAnchor.NeedNetUpdate = true;
+			}
 			Shapeshift.ResetFallHeight(Player);
-			projectile.velocity = offSet;
-			ShapeshiftAnchor.NeedNetUpdate = true;
 			ShapeshifterMoveSpeedDecelerate = 0;
 			ShapeshifterHookDashTimer = 10;
 			ShapeshifterShawlCooldown = 300;
