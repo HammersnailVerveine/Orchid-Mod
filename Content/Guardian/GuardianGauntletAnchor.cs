@@ -232,7 +232,7 @@ namespace OrchidMod.Content.Guardian
 						{
 							if (!Ding && IsLocalOwner)
 							{
-								if (ModContent.GetInstance<OrchidClientConfig>().AltGuardianChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
+								if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
 								else SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 								Ding = true;
 							}
@@ -240,7 +240,7 @@ namespace OrchidMod.Content.Guardian
 						}
 						else if (guardian.GuardianGauntletCharge > (70 * owner.GetTotalAttackSpeed(DamageClass.Melee) - owner.HeldItem.useTime) / 2.5f) guardian.SlamCostUI = 1;
 
-						if ((ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs ? !Main.mouseRight : !Main.mouseLeft) && owner.whoAmI == Main.myPlayer)
+						if ((ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs ? !Main.mouseRight : !Main.mouseLeft) && owner.whoAmI == Main.myPlayer)
 						{
 							if (guardian.GuardianGauntletCharge < 180f && guardian.UseSlam(1, true))
 							{ // Consume a slam to fully charge if the player has one

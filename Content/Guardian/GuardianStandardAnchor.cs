@@ -232,7 +232,7 @@ namespace OrchidMod.Content.Guardian
 						if (guardian.GuardianStandardCharge >= 180f && !Ding && IsLocalOwner)
 						{
 							Ding = true;
-							if (ModContent.GetInstance<OrchidClientConfig>().AltGuardianChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
+							if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
 							else SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 						}
 

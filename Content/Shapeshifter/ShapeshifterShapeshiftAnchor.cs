@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
 using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Utilities;
 using ReLogic.Content;
@@ -18,6 +19,8 @@ namespace OrchidMod.Content.Shapeshifter
 	{
 		public bool NeedNetUpdate = false;
 		public bool NeedKill = false;
+		public bool SwapHairColorTrigger = false;
+
 		public int SelectedItem { get; set; } = -1;
 		public Item ShapeshifterItem => Main.player[Projectile.owner].inventory[SelectedItem];
 
@@ -105,6 +108,7 @@ namespace OrchidMod.Content.Shapeshifter
 			writer.Write(IsInputDown);
 			writer.Write(IsInputJump);
 			writer.Write(IsInputJumpRelease);
+			writer.Write(SwapHairColorTrigger);
 			writer.Write(ai[0]);
 			writer.Write(ai[1]);
 			writer.Write(ai[2]);
@@ -125,6 +129,7 @@ namespace OrchidMod.Content.Shapeshifter
 			IsInputDown = reader.ReadBoolean();
 			IsInputJump = reader.ReadBoolean();
 			IsInputJumpRelease = reader.ReadBoolean();
+			SwapHairColorTrigger = reader.ReadBoolean();
 			ai[0] = reader.ReadSingle();
 			ai[1] = reader.ReadSingle();
 			ai[2] = reader.ReadSingle();
@@ -223,6 +228,8 @@ namespace OrchidMod.Content.Shapeshifter
 				Frame = 0;
 				Timespent = 0;
 				NeedKill = false;
+
+				SwapHairColorTrigger = ModContent.GetInstance<OrchidClientConfig>().ShapeshifterUseHairColor;
 
 				IsLeftClickRelease = false;
 				IsRightClickRelease = false;
@@ -473,8 +480,9 @@ namespace OrchidMod.Content.Shapeshifter
 			if (shapeshifterItem.ShapeshiftShouldDraw(spriteBatch, Projectile, player, ref lightColor))
 			{
 				OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
+				bool drawHairColor = (shapeshifter.ShapeshifterHairpin && !SwapHairColorTrigger) || (SwapHairColorTrigger && !shapeshifter.ShapeshifterHairpin);
 				bool drawAsAdditive = false;
-				Texture2D hairTexture = (TextureShapeshiftHairGray != null && shapeshifter.ShapeshifterHairpin) ? TextureShapeshiftHairGray : TextureShapeshiftHair;
+				Texture2D hairTexture = (TextureShapeshiftHairGray != null && drawHairColor) ? TextureShapeshiftHairGray : TextureShapeshiftHair;
 				Color color = shapeshifterItem.GetColor(ref drawAsAdditive, shapeshifter.ShapeshifterHairpin ? lightColor.MultiplyRGBA(player.hairColor) : lightColor, Projectile, this, player, shapeshifter, true);
 				Color colorLight = shapeshifterItem.GetColor(ref drawAsAdditive, lightColor, Projectile, this, player, shapeshifter);
 				Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix).Floor();
@@ -517,18 +525,23 @@ namespace OrchidMod.Content.Shapeshifter
 				*/
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
-				if (shapeshifter.ShapeshifterHairpin)
+
+				if (shapeshifter.ShapeshifterHairpin || drawHairColor)
 				{ // draws hair before the shampoo shaders if the player uses the hairpin
-					for (int i = 0; i < player.armor.Length; i++)
-					{
-						if (player.armor[i].type == ModContent.ItemType<ShapeshifterHairpin>())
+
+					if (shapeshifter.ShapeshifterHairpin)
+					{ // remove the hair layer shader
+						for (int i = 0; i < player.armor.Length; i++)
 						{
-							if (i > 9) i -= 10;
-							if (player.dye[i].type != ItemID.None)
+							if (player.armor[i].type == ModContent.ItemType<ShapeshifterHairpin>())
 							{
-								Main.instance.PrepareDrawnEntityDrawing(Projectile, GameShaders.Armor.GetShaderIdFromItemId(player.dye[i].type), null);
+								if (i > 9) i -= 10;
+								if (player.dye[i].type != ItemID.None)
+								{
+									Main.instance.PrepareDrawnEntityDrawing(Projectile, GameShaders.Armor.GetShaderIdFromItemId(player.dye[i].type), null);
+								}
+								break;
 							}
-							break;
 						}
 					}
 
@@ -549,8 +562,8 @@ namespace OrchidMod.Content.Shapeshifter
 					}
 				}
 
-				if (!shapeshifter.ShapeshifterHairpin)
-				{ // draws hair before the shaders if the player uses the hairpin
+				if (!drawHairColor && !shapeshifter.ShapeshifterHairpin)
+				{ // draws hair after the shader if the player doesn't use the hairpin
 					Main.EntitySpriteDraw(hairTexture, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 

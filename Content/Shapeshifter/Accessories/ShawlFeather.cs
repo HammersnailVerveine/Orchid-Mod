@@ -18,9 +18,9 @@ namespace OrchidMod.Content.Shapeshifter.Accessories
 		{
 			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
 			shapeshifter.ShapeshifterShawlFeather = true;
-			if (shapeshifter.ShapeshifterTransformationDash < 9f)
+			if (shapeshifter.ShapeshifterHookDash < 10f)
 			{
-				shapeshifter.ShapeshifterTransformationDash = 9f;
+				shapeshifter.ShapeshifterHookDash = 10f;
 			}
 		}
 	}

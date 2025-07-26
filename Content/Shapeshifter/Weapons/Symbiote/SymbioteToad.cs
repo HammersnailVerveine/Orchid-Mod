@@ -265,19 +265,19 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 				{ // airborne movement
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerate(ref intendedVelocity, -projectile.ai[0], speedMult, 0.1f);
+						TryAccelerate(ref intendedVelocity, shapeshifter, -projectile.ai[0], speedMult, 0.1f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerate(ref intendedVelocity, projectile.ai[0], speedMult, 0.1f);
+						TryAccelerate(ref intendedVelocity, shapeshifter, projectile.ai[0], speedMult, 0.1f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 					}
 					else
 					{ // Both keys pressed = no movement
-						intendedVelocity.X *= 0.7f;
+						TrySlowDown(ref intendedVelocity, 0.7f, player, shapeshifter, projectile, true);
 
 						if (anchor.ai[0] != 0f && intendedVelocity.Y < 0f)
 						{ // jump was done while pressing a lateral key, cancel vertical movement if the player released movement keys
@@ -287,7 +287,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 				}
 				else
 				{
-					intendedVelocity.X *= 0.7f;
+					TrySlowDown(ref intendedVelocity, 0.7f, player, shapeshifter, projectile, true);
 
 					if (jumpDelay <= 0 && jumpCooldown <= 0)
 					{
@@ -370,7 +370,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 			}
 			else
 			{ // no movement input
-				intendedVelocity.X *= 0.7f;
+				TrySlowDown(ref intendedVelocity, 0.7f, player, shapeshifter, projectile, true);
 
 				if (anchor.ai[0] != 0f && intendedVelocity.Y < 0f)
 				{ // jump was done while pressing a lateral key, cancel vertical movement if the player released movement keys

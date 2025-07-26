@@ -321,14 +321,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 				{ // Player is inputting a movement key
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerate(ref intendedVelocity, -4f, speedMult, 0.25f);
+						TryAccelerate(ref intendedVelocity, shapeshifter, -4f, speedMult, 0.25f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 						LateralMovement = true;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerate(ref intendedVelocity, 4f, speedMult, 0.25f);
+						TryAccelerate(ref intendedVelocity, shapeshifter, 4f, speedMult, 0.25f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 						LateralMovement = true;
@@ -336,13 +336,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 					else
 					{ // Both keys pressed = no movement
 						LateralMovement = false;
-						intendedVelocity.X *= 0.7f;
+						TrySlowDown(ref intendedVelocity, 0.7f, player, shapeshifter, projectile);
 					}
 				}
 				else
 				{ // no movement input
 					LateralMovement = false;
-					intendedVelocity.X *= 0.7f;
+					TrySlowDown(ref intendedVelocity, 0.7f, player, shapeshifter, projectile);
 				}
 
 

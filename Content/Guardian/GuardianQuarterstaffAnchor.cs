@@ -224,7 +224,7 @@ namespace OrchidMod.Content.Guardian
 						{
 							bool blockInput = Main.mouseRight;
 
-							if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs)
+							if (ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs)
 							{
 								blockInput = Main.mouseRight;
 							}
@@ -272,14 +272,14 @@ namespace OrchidMod.Content.Guardian
 						if (guardian.GuardianGauntletCharge >= 180f && !Ding)
 						{ // Sound cue when fully charged
 							Ding = true;
-							if (ModContent.GetInstance<OrchidClientConfig>().AltGuardianChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
+							if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
 							else SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 						}
 
 						bool jabInput = Main.mouseRight;
 						bool chargeInput = Main.mouseLeft;
 
-						if (ModContent.GetInstance<OrchidClientConfig>().SwapGauntletImputs)
+						if (ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs)
 						{
 							jabInput = Main.mouseLeft;
 							chargeInput = Main.mouseRight;

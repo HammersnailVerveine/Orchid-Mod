@@ -175,6 +175,20 @@ namespace OrchidMod
 
 					break;
 
+				case OrchidModMessageType.SHAPESHIFTERHOOKDASH:
+					byte whoamI = reader.ReadByte();
+					Main.player[whoamI].GetModPlayer<OrchidShapeshifter>().ShapeshifterHookDashSync = true;
+
+					if (Main.netMode == NetmodeID.Server)
+					{
+						var packet = GetPacket();
+						packet.Write((byte)OrchidModMessageType.SHAPESHIFTERHOOKDASH);
+						packet.Write(whoamI);
+						packet.Send(ignoreClient: whoAmI);
+					}
+
+					break;
+
 				case OrchidModMessageType.NPCHITBYCLASS: // Received by the server when a player damages a NPC for the first time with a orchid damage class
 					OrchidGlobalNPC globalNPC = Main.npc[reader.ReadByte()].GetGlobalNPC<OrchidGlobalNPC>();
 					switch (reader.ReadByte())

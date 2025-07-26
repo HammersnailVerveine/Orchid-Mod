@@ -83,7 +83,7 @@ namespace OrchidMod.Content.Guardian
 
 					bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
 					bool shouldSlam = Main.mouseLeft && (Main.mouseLeftRelease || slamAutoReuse);
-					if (ModContent.GetInstance<OrchidClientConfig>().SwapPaviseImputs)
+					if (ModContent.GetInstance<OrchidClientConfig>().GuardianSwapPaviseImputs)
 					{
 						shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
 						shouldSlam = Main.mouseRight && (Main.mouseRightRelease || slamAutoReuse);
@@ -119,7 +119,7 @@ namespace OrchidMod.Content.Guardian
 							}
 							else if (proj.ai[0] > 0f && Main.mouseLeftRelease) // Remove block stance if click again
 							{
-								if (ModContent.GetInstance<OrchidClientConfig>().BlockCancelChain && guardian.UseGuard(1, true))
+								if (ModContent.GetInstance<OrchidClientConfig>().GuardianBlockCancelChain && guardian.UseGuard(1, true))
 								{
 									// Taken from the shield anchor code
 									Vector2 aimedLocation = Main.MouseWorld - player.Center.Floor();
@@ -230,7 +230,7 @@ namespace OrchidMod.Content.Guardian
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "BlockDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.BlockDuration", OrchidUtils.FramesToSeconds((int)(blockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration)))));
 
-			string click = ModContent.GetInstance<OrchidClientConfig>().SwapPaviseImputs ? Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.LeftClick") : Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
+			string click = ModContent.GetInstance<OrchidClientConfig>().GuardianSwapPaviseImputs ? Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.LeftClick") : Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
 			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Block", click))
 			{
 				OverrideColor = new Color(175, 255, 175)

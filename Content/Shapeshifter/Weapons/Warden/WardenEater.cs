@@ -528,7 +528,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				}
 				else
 				{ // Both keys pressed or no key pressed = no Y movement
-					intendedVelocity.Y *= 0.85f;
+					intendedVelocity.Y *= 0.85f * shapeshifter.ShapeshifterMoveSpeedDecelerate;
 				}
 
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
@@ -541,7 +541,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				}
 				else
 				{ // Both keys pressed or no key pressed = no X movement
-					intendedVelocity.X *= 0.85f;
+					intendedVelocity.X *= 0.85f * shapeshifter.ShapeshifterMoveSpeedDecelerate;
 				}
 
 				if (velocityX != 0f && velocityY != 0f)
@@ -552,12 +552,12 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 				if (velocityX != 0f)
 				{
-					TryAccelerate(ref intendedVelocity, velocityX, speedMult, 0.35f);
+					TryAccelerate(ref intendedVelocity, shapeshifter, velocityX, speedMult, 0.35f);
 				}
 
 				if (velocityY != 0f)
 				{
-					TryAccelerate(ref intendedVelocity, velocityY, speedMult, 0.35f, Yaxis: true);
+					TryAccelerate(ref intendedVelocity, shapeshifter, velocityY, speedMult, 0.35f, Yaxis: true);
 				}
 			}
 

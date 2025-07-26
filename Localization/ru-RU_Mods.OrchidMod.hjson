@@ -4420,41 +4420,61 @@ Projectiles: {
 Configs: {
 	OrchidClientConfig: {
 		DisplayName: Клиентская конфигурация
-		Headers.General: Основной раздел
+
+		Headers: {
+			General: Основной раздел
+			// Guardian: Guardian
+			// Shapeshifter: Shapeshifter
+		}
 
 		ShowClassTags: {
 			Label: Показывать метки классов
 			Tooltip: Включает метки классов в подсказках предметов
 		}
 
-		UseOldGuardianHammerUi: {
-			Label: Старый интерфейс молота хранителя
-			Tooltip: Использовать старый интерфейс молота хранителя (в стиле Paper Mario)
-		}
-
-		SwapPaviseImputs: {
-			Label: Поменять клавишу павезы
-			Tooltip: Меняет местами ЛКМ и ПКМ для павезы хранителя
-		}
-
-		SwapGauntletImputs: {
-			Label: Поменять клавишу предметов парирования
-			Tooltip: Меняет местами ЛКМ и ПКМ для предметов парирования хранителя (перчатки, боевые шесты и т.д.)
-		}
-
-		AltGuardianChargeSounds: {
-			Label: Использовать альтернативный звук заряда хранителя
-			Tooltip: Заменяет звук, проигрываемый при полном заряде предмета хранителя на альтернативный
-		}
-
-		BlockCancelChain: {
-			Label: Автоматически использовать пассивный блок после отмены
-			Tooltip: По возможности, блокирование будет автоматически повторяться после отмены с помощью ПКМ
-		}
-
 		ShowModTags: {
 			Label: Показать метки кроссмод-контента
 			Tooltip: Включает метки в подсказках кроссмод-предметов (загрузка кроссмод-контента без требуемых модов должна быть включена в серверной конфигурации Orchid)
+		}
+
+		GuardianUseOldHammerUi: {
+			// Label: Old Guardian Hammer UI
+			// Tooltip: Use the old Guardian Hammer UI (Paper Mario style)
+		}
+
+		GuardianSwapPaviseImputs: {
+			// Label: Swap Pavise Imputs
+			// Tooltip: Swap Left and Right click inputs for Guardian Pavises
+		}
+
+		GuardianSwapGauntletImputs: {
+			// Label: Swap Parry Items Imputs
+			// Tooltip: Swap Left and Right click inputs for Guardian Parry Items (Gauntlets, Quarterstaves, ...)
+		}
+
+		GuardianAltChargeSounds: {
+			// Label: Alternative Guardian Charge Sounds
+			// Tooltip: Replaces the Sound played when fully charging a guardian item
+		}
+
+		GuardianBlockCancelChain: {
+			// Label: Pavise Block Cancel Auto-re-use
+			// Tooltip: If possible, automatically starts blocking again when cancelling a block with right click
+		}
+
+		ShapeshifterUseHairColor: {
+			// Label: Use Hair Color for Wildshapes
+			// Tooltip: Applies the 'Peculiar Hairpin' accessory effect at all times, and has it apply the default wildshape color instead. The hairpin can still be used to apply dye to wildshape hair.
+		}
+
+		ShapeshifterHookDelay: {
+			// Label: Shawl Dash Hook Delay
+			// Tooltip: While a 'Shawl' accessory is equipped, how long should the hook key be held (in frames) before the hook is fired.
+		}
+
+		ShapeshifterHookDashRelease: {
+			// Label: Shawl Dash on release
+			// Tooltip: Triggers 'Shawl' accessory dashes when releasing the hook key instead of pressing it (allowing to launch a hook without dashing)
 		}
 	}
 

@@ -9,33 +9,47 @@ namespace OrchidMod.Common
 		public override bool Autoload(ref string name) => true;
 
 		[Header("General")]
-		[BackgroundColor(128, 255, 128)]
-
 		[DefaultValue(true)]
 		public bool ShowClassTags { get; set; }
 
 		[DefaultValue(false)]
 		public bool ShowModTags { get; set; }
 
+		[Header("Guardian")]
 		[DefaultValue(false)]
 		[BackgroundColor(151, 120, 79)]
-		public bool UseOldGuardianHammerUi { get; set; }
+		public bool GuardianUseOldHammerUi { get; set; }
 
 		[DefaultValue(false)]
 		[BackgroundColor(151, 120, 79)]
-		public bool AltGuardianChargeSounds { get; set; }
+		public bool GuardianAltChargeSounds { get; set; }
 
 		[DefaultValue(false)]
 		[BackgroundColor(151, 120, 79)]
-		public bool BlockCancelChain { get; set; }
+		public bool GuardianBlockCancelChain { get; set; }
 
 		[DefaultValue(false)]
 		[BackgroundColor(151, 120, 79)]
-		public bool SwapPaviseImputs { get; set; }
+		public bool GuardianSwapPaviseImputs { get; set; }
 
 		[DefaultValue(false)]
 		[BackgroundColor(151, 120, 79)]
-		public bool SwapGauntletImputs { get; set; }
+		public bool GuardianSwapGauntletImputs { get; set; }
+
+		[Header("Shapeshifter")]
+		[DefaultValue(false)]
+		[BackgroundColor(100, 175, 150)]
+		public bool ShapeshifterUseHairColor { get; set; }
+
+		[Increment(1)]
+		[Range(0, 60)]
+		[DefaultValue(10)]
+		[BackgroundColor(100, 175, 150)]
+		public int ShapeshifterHookDelay { get; set; }
+
+		[DefaultValue(false)]
+		[BackgroundColor(100, 175, 150)]
+		public bool ShapeshifterHookDashRelease { get; set; }
 	}
 
 	public class OrchidServerConfig : ModConfig

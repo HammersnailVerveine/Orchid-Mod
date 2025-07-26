@@ -432,13 +432,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 					if (anchor.IsInputLeft && !anchor.IsInputRight)
 					{ // Left movement
-						TryAccelerate(ref intendedVelocity, -projectile.ai[0], speedMult, 5.5f);
+						TryAccelerate(ref intendedVelocity, shapeshifter, -projectile.ai[0], speedMult, 5.5f);
 						projectile.direction = -1;
 						projectile.spriteDirection = -1;
 					}
 					else if (anchor.IsInputRight && !anchor.IsInputLeft)
 					{ // Right movement
-						TryAccelerate(ref intendedVelocity, projectile.ai[0], speedMult, 5.5f);
+						TryAccelerate(ref intendedVelocity, shapeshifter, projectile.ai[0], speedMult, 5.5f);
 						projectile.direction = 1;
 						projectile.spriteDirection = 1;
 					}
@@ -480,19 +480,19 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{ // Player is inputting a movement key
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
 				{ // Left movement
-					TryAccelerate(ref intendedVelocity, -projectile.ai[0], speedMult, 0.1f);
+					TryAccelerate(ref intendedVelocity, shapeshifter, -projectile.ai[0], speedMult, 0.1f);
 					projectile.direction = -1;
 					projectile.spriteDirection = -1;
 				}
 				else if (anchor.IsInputRight && !anchor.IsInputLeft)
 				{ // Right movement
-					TryAccelerate(ref intendedVelocity, projectile.ai[0], speedMult, 0.1f);
+					TryAccelerate(ref intendedVelocity, shapeshifter, projectile.ai[0], speedMult, 0.1f);
 					projectile.direction = 1;
 					projectile.spriteDirection = 1;
 				}
 				else
 				{ // Both keys pressed = no movement
-					intendedVelocity.X *= 0.7f;
+					TrySlowDown(ref intendedVelocity, 0.7f, player, shapeshifter, projectile);
 				}
 
 				if (grounded && intendedVelocity.Y > 0f && jumpCooldown <= 0)
@@ -536,7 +536,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 			else
 			{ // no movement input
-				intendedVelocity.X *= 0.7f;
+				TrySlowDown(ref intendedVelocity, 0.7f, player, shapeshifter, projectile);
 			}
 
 			FinalVelocityCalculations(ref intendedVelocity, projectile, player, true);

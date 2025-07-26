@@ -304,7 +304,7 @@ namespace OrchidMod.Content.Shapeshifter
 			}
 		}
 
-		public void TryAccelerate(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount, float acceleration = 0f, bool Yaxis = false)
+		public void TryAccelerate(ref Vector2 intendedVelocity, OrchidShapeshifter shapeshifter, float maxSpeed, float speedmult, float amount, float acceleration = 0f, bool Yaxis = false)
 		{
 			float accelerationmult = speedmult;
 			if (acceleration != 0f)
@@ -312,11 +312,24 @@ namespace OrchidMod.Content.Shapeshifter
 				accelerationmult = acceleration;
 			}
 
+			accelerationmult *= shapeshifter.ShapeshifterMoveSpeedAccelerate;
+
 			if (!Decelerate(ref intendedVelocity, maxSpeed, speedmult, amount * 0.75f, Yaxis))
 			{
 				if (Yaxis) intendedVelocity.Y += amount * accelerationmult * Math.Sign(maxSpeed);
 				else intendedVelocity.X += amount * accelerationmult * Math.Sign(maxSpeed);
 			}
+		}
+
+		public void TrySlowDown(ref Vector2 intendedVelocity, float factor, Player player, OrchidShapeshifter shapeshifter, Projectile anchor, bool ignoreWildshapeBehaviour = false)
+		{
+			factor = 1f - (1f - factor) * shapeshifter.ShapeshifterMoveSpeedDecelerate;
+			if (!IsGrounded(anchor, player, 2f) && intendedVelocity.Y > 0f && !ignoreWildshapeBehaviour && shapeshifter.Shapeshift.GroundedWildshape)
+			{ // grounded wildshapes slow down less while airborne
+				factor = 1f - (1f - factor) * 0.5f;
+			}
+
+			intendedVelocity.X *= factor;
 		}
 
 		public bool Decelerate(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount = 0.5f, bool Yaxis = false)

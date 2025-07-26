@@ -128,7 +128,7 @@ namespace OrchidMod.Content.Guardian
 						if (guardian.GuardianHammerCharge >= 180f && !Ding)
 						{
 							Ding = true;
-							if (ModContent.GetInstance<OrchidClientConfig>().AltGuardianChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, player.Center);
+							if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, player.Center);
 							else SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
 						}
 

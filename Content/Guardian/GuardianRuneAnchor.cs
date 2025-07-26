@@ -128,7 +128,7 @@ namespace OrchidMod.Content.Guardian
 						if (guardian.GuardianRuneCharge >= 180f && !Ding && IsLocalOwner)
 						{ // Ding sound on full charge
 							Ding = true;
-							if (ModContent.GetInstance<OrchidClientConfig>().AltGuardianChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
+							if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
 							else SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 						}
 

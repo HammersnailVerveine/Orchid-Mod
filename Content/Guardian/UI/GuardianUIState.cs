@@ -182,7 +182,7 @@ namespace OrchidMod.Content.Guardian.UI
 				{
 					if (modPlayer.GuardianHammerCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianHammer)
 					{
-						if (ModContent.GetInstance<OrchidClientConfig>().UseOldGuardianHammerUi)
+						if (ModContent.GetInstance<OrchidClientConfig>().GuardianUseOldHammerUi)
 						{
 							Vector2 hammerPosition = new Vector2(position.X - textureHammerMain.Width / 2, position.Y - 100 * player.gravDir);
 							spriteBatch.Draw(textureHammerMain, hammerPosition, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);

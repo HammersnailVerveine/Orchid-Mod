@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
 using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
@@ -37,6 +38,8 @@ namespace OrchidMod
 		public float ShapeshifterMoveSpeedBonusGrounded = 1f; // Multiplicative, used for effects that increase grounded speed like magiluminescence
 		public float ShapeshifterMoveSpeedBonusNotGrounded = 1f; // Multiplicative, used for effects that increase the movespeed of "flying" wildshapes, at all times
 		public float ShapeshifterMoveSpeedMiscOverride = 1f; // Multiplies other means of movement, like dashes. Should generally not be edited as dashes that should be affected by movespeed already are.
+		public float ShapeshifterMoveSpeedDecelerate = 1f; // Deceleration multiplier for shapeshifter movement. Allows making slippery surfaces, or dashes
+		public float ShapeshifterMoveSpeedAccelerate = 1f; // Acceleration multiplier for shapeshifter movement, does not modify top speed and should be used for stuff like slippery surfaces
 		public float ShapeshifterHealingBonus = 1f; // Multiplicative, affects the direct healing provided by shapeshifter effects
 		public float ShapeshifterJumpSpeed = 1f; // Multiplicative, affects most jumps for various wildshapes
 		public float ShapeshifterGravity = 1f; // Multiplicative, mostly used for movement in liquids
@@ -51,7 +54,7 @@ namespace OrchidMod
 		public bool ShapeshifterShawlFeather = false; // Used only for dash visuals
 		public bool ShapeshifterShawlWind = false; // Used only for dash visuals
 
-		public float ShapeshifterTransformationDash = 0f; // Shawl accessories tree effect : provides a burst of velocity speed when shapeshifting
+		public float ShapeshifterHookDash = 0f; // Shawl accessories tree effect : provides a burst of velocity speed when shapeshifting
 		public int ShapeshifterHarness = 0; // Youxia Harness effect, this is the base damage of the projectile fired
 
 		// Dynamic gameplay and UI fields
@@ -64,6 +67,10 @@ namespace OrchidMod
 		public int ShapeshifterSetHarpyDamagePool = 0;
 		public int ShapeshifterSetTimer = 0;
 		public int ShapeshifterSetPyreDamagePool = 0;
+		public int ShapeshifterShawlCooldown = 0; // cooldown for the shawl accessory dashes
+		public int ShapeshifterHookInputTimer = 0; // how long has the player been holding the dash key?
+		public int ShapeshifterHookDashTimer = 0; // lowers deceleration while >0
+		public bool ShapeshifterHookDashSync = false; // synced so other clients can display what happens at the start of a hook dash
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
@@ -145,6 +152,11 @@ namespace OrchidMod
 				ShapeshifterSetPyreDamagePool = 0;
 			}
 
+			if (ShapeshifterShawlCooldown > 0)
+			{
+				ShapeshifterShawlCooldown--;
+			}
+
 			// Reset gameplay fields
 
 			ShapeshifterPredatorBleedPotency = 0;
@@ -156,12 +168,14 @@ namespace OrchidMod
 			ShapeshifterMoveSpeedBonusGrounded = 1f;
 			ShapeshifterMoveSpeedBonusNotGrounded = 1f;
 			ShapeshifterMoveSpeedMiscOverride = 1f;
+			ShapeshifterMoveSpeedDecelerate = 1f;
+			ShapeshifterMoveSpeedAccelerate = 1f;
 			ShapeshifterHealingBonus = 1f;
 			ShapeshifterJumpSpeed = 1f;
 			ShapeshifterGravity = 1f;
 			ShapeshifterMaxFallSpeed = 1f;
 
-			ShapeshifterTransformationDash = 0f;
+			ShapeshifterHookDash = 0f;
 			ShapeshifterHarness = 0;
 			ShapeshifterSetHarpy = false;
 			ShapeshifterSetPyre = false;
@@ -322,6 +336,32 @@ namespace OrchidMod
 					ShapeshifterMoveSpeedBonusGrounded *= 3f;
 				}
 
+				if (Player.slippy)
+				{ // Ice
+					if (Player.iceSkate)
+					{
+						ShapeshifterMoveSpeedDecelerate *= 0.25f;
+						ShapeshifterMoveSpeedBonusGrounded += 0.15f;
+					}
+					else
+					{
+						ShapeshifterMoveSpeedDecelerate *= 0.05f;
+						ShapeshifterMoveSpeedAccelerate *= 0.25f;
+					}
+				}
+				
+				if (Player.slippy2)
+				{ // Frozen Slime (no deceleration)
+					ShapeshifterMoveSpeedDecelerate *= 0f;
+					ShapeshifterMoveSpeedAccelerate *= 0.1f;
+				}
+
+				if (ShapeshifterHookDashTimer > 0)
+				{
+					ShapeshifterHookDashTimer--;
+					ShapeshifterMoveSpeedDecelerate *= 0f;
+				}
+
 				// SHAPESHIFTER CORE BEHAVIOUR
 
 				// Runs the shapeshift AI and adjust player position accordingly
@@ -361,6 +401,55 @@ namespace OrchidMod
 					{ // the player is far away from the projectile center, which is abnormal -> they likely teleported
 						Shapeshift.ShapeshiftTeleport(Player.Center, projectile, ShapeshiftAnchor, Player, this);
 					}
+
+					if (Player.controlHook && ShapeshifterHookDash > 0f)
+					{
+						ShapeshifterHookInputTimer++;
+
+						if (!ModContent.GetInstance<OrchidClientConfig>().ShapeshifterHookDashRelease && ShapeshifterHookInputTimer == 1 && ShapeshifterShawlCooldown <= 0)
+						{
+							ShapeshifterHookDashSync = true;
+
+							if (Main.netMode == NetmodeID.MultiplayerClient)
+							{
+								var packet = OrchidMod.Instance.GetPacket();
+								packet.Write((byte)OrchidModMessageType.SHAPESHIFTERHOOKDASH);
+								packet.Write(Player.whoAmI);
+								packet.Send();
+							}
+						}
+
+						if (ShapeshifterHookInputTimer == ModContent.GetInstance<OrchidClientConfig>().ShapeshifterHookDelay + 1 && Player.miscEquips[4].type != ItemID.None)
+						{ // uses the player hook
+							Item item = Player.miscEquips[4];
+							Vector2 velocity = Vector2.Normalize(Main.MouseWorld - Player.Center) * item.shootSpeed;
+							Projectile.NewProjectile(Player.GetSource_ItemUse(item), Player.Center + velocity * 3, velocity, item.shoot, 0, 0, Player.whoAmI);
+							SoundEngine.PlaySound(item.UseSound, Player.Center);
+						}
+					}
+					else
+					{
+						if (ShapeshifterHookDash > 0f && ShapeshifterHookInputTimer <= ModContent.GetInstance<OrchidClientConfig>().ShapeshifterHookDelay && ShapeshifterHookInputTimer > 0 && ModContent.GetInstance<OrchidClientConfig>().ShapeshifterHookDashRelease && ShapeshifterShawlCooldown <= 0)
+						{
+							ShapeshifterHookDashSync = true;
+
+							if (Main.netMode == NetmodeID.MultiplayerClient)
+							{
+								var packet = OrchidMod.Instance.GetPacket();
+								packet.Write((byte)OrchidModMessageType.SHAPESHIFTERHOOKDASH);
+								packet.Write(Player.whoAmI);
+								packet.Send();
+							}
+						}
+
+						ShapeshifterHookInputTimer = 0;
+					}
+				}
+
+				if (ShapeshifterHookDashSync)
+				{
+					ShapeshifterHookDashSync = false;
+					OnShapeshiftHookDash();
 				}
 
 				Shapeshift.ShapeshiftAnchorAI(projectile, ShapeshiftAnchor, Player, this);
@@ -554,40 +643,42 @@ namespace OrchidMod
 			owner.AddBuff(ModContent.BuffType<ShapeshifterShapeshiftingCooldownDebuff>(), 300); // Does not actually do anything, only a cue for the player
 		}
 
-		public void OnShapeshiftFast(Projectile anchorProjectile, ShapeshifterShapeshiftAnchor anchor, Player owner, OrchidShapeshifter shapeshifter)
+		public void OnShapeshiftHookDash()
 		{
-			if (ShapeshifterTransformationDash > 0f && (owner.velocity.Length() > 1f || owner.controlLeft || owner.controlRight || owner.controlUp || owner.controlDown))
-			{ // Shawl of the Wind dash when transforming
+			Projectile projectile = ShapeshiftAnchor.Projectile;
 
-				if (ShapeshifterShawlWind)
+			if (ShapeshifterShawlWind)
+			{
+				SoundEngine.PlaySound(SoundID.Grass, projectile.Center);
+				for (int i = 0; i < 5; i++)
 				{
-					SoundEngine.PlaySound(SoundID.Grass, anchorProjectile.Center);
-					for (int i = 0; i < 5; i++)
-					{
-						Gore.NewGoreDirect(owner.GetSource_ItemUse(Shapeshift.Item), anchorProjectile.Center + new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f)), Vector2.UnitY.RotatedByRandom(MathHelper.Pi), GoreID.TreeLeaf_Jungle);
-					}
+					Gore.NewGoreDirect(Player.GetSource_ItemUse(Shapeshift.Item), projectile.Center + new Vector2(Main.rand.NextFloat(-8f, 8f), Main.rand.NextFloat(-8f, 8f)), Vector2.UnitY.RotatedByRandom(MathHelper.Pi), GoreID.TreeLeaf_Jungle);
 				}
-				else if (ShapeshifterShawlFeather)
-				{ // dash visuals for the feather shawl
-					SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFurySwing, anchorProjectile.Center);
-					for (int i = 0; i < 5; i++)
-					{
-						Dust dust = Dust.NewDustDirect(anchorProjectile.position, anchorProjectile.width, anchorProjectile.height, ModContent.DustType<PredatorHarpyDust>(), Scale: Main.rand.NextFloat(1.2f, 1.4f));
-						dust.velocity *= 0.5f;
-						dust.velocity.Y = 2f;
-						dust.customData = Main.rand.Next(314);
-					}
-				}
-
-				if (owner.whoAmI == Main.myPlayer)
+			}
+			else if (ShapeshifterShawlFeather)
+			{ // dash visuals for the feather shawl
+				SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFurySwing, projectile.Center);
+				for (int i = 0; i < 5; i++)
 				{
-					Vector2 offSet = Vector2.Normalize(Main.MouseWorld - anchorProjectile.Center) * ShapeshifterTransformationDash * Shapeshift.GetSpeedMult(owner, shapeshifter, anchor);
-					Shapeshift.ResetFallHeight(owner);
-					anchorProjectile.velocity = offSet;
-					anchorProjectile.netUpdate = true;
+					Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, ModContent.DustType<PredatorHarpyDust>(), Scale: Main.rand.NextFloat(1.2f, 1.4f));
+					dust.velocity *= 0.5f;
+					dust.velocity.Y = 2f;
+					dust.customData = Main.rand.Next(314);
 				}
 			}
 
+			// base dash behaviour
+			Vector2 offSet = Vector2.Normalize(Main.MouseWorld - projectile.Center) * ShapeshifterHookDash * Shapeshift.GetSpeedMult(Player, this, ShapeshiftAnchor);
+			Shapeshift.ResetFallHeight(Player);
+			projectile.velocity = offSet;
+			ShapeshiftAnchor.NeedNetUpdate = true;
+			ShapeshifterMoveSpeedDecelerate = 0;
+			ShapeshifterHookDashTimer = 10;
+			ShapeshifterShawlCooldown = 300;
+		}
+
+		public void OnShapeshiftFast(Projectile anchorProjectile, ShapeshifterShapeshiftAnchor anchor, Player owner, OrchidShapeshifter shapeshifter)
+		{
 			if (ShapeshifterHarness > 0)
 			{ // Youxia Harness daggers
 				int nbDaggers = 5; // maybe this could be edited with gear by upgrading the harness

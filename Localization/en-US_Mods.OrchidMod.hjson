@@ -4406,41 +4406,61 @@ Projectiles: {
 Configs: {
 	OrchidClientConfig: {
 		DisplayName: Orchid Client Config
-		Headers.General: General Header
+
+		Headers: {
+			General: General
+			Guardian: Guardian
+			Shapeshifter: Shapeshifter
+		}
 
 		ShowClassTags: {
-			Label: Show tags
-			Tooltip: "{$Enables/Disables the display of class tags}"
-		}
-
-		UseOldGuardianHammerUi: {
-			Label: Old Guardian Hammer UI
-			Tooltip: Use the old Guardian Hammer UI (Paper Mario style)
-		}
-
-		SwapPaviseImputs: {
-			Label: Swap Pavise Imputs
-			Tooltip: Swap Left and Right click inputs for Guardian Pavises
-		}
-
-		SwapGauntletImputs: {
-			Label: Swap Parry Items Imputs
-			Tooltip: Swap Left and Right click inputs for Guardian Parry Items (Gauntlets, Quarterstaves, ...)
-		}
-
-		AltGuardianChargeSounds: {
-			Label: Alternative Guardian Charge Sounds
-			Tooltip: Replaces the Sound played when fully charging a guardian item
-		}
-
-		BlockCancelChain: {
-			Label: Pavise Block Cancel Auto-re-use
-			Tooltip: If possible, automatically starts blocking again when cancelling a block with right click
+			Label: Show Class Tags
+			Tooltip: Enables/Disables the display of class tags
 		}
 
 		ShowModTags: {
 			Label: Show Mod Tags
-			Tooltip: "{$Enables/Disables the display of cross-content items tooltips (Load Crossmod-Content without required mods must be enabled in Orchid Server Config)}"
+			Tooltip: Enables/Disables the display of cross-content items tooltips (Load Crossmod-Content without required mods must be enabled in Orchid Server Config)
+		}
+
+		GuardianUseOldHammerUi: {
+			Label: Old Guardian Hammer UI
+			Tooltip: Use the old Guardian Hammer UI (Paper Mario style)
+		}
+
+		GuardianSwapPaviseImputs: {
+			Label: Swap Pavise Imputs
+			Tooltip: Swap Left and Right click inputs for Guardian Pavises
+		}
+
+		GuardianSwapGauntletImputs: {
+			Label: Swap Parry Items Imputs
+			Tooltip: Swap Left and Right click inputs for Guardian Parry Items (Gauntlets, Quarterstaves, ...)
+		}
+
+		GuardianAltChargeSounds: {
+			Label: Alternative Guardian Charge Sounds
+			Tooltip: Replaces the Sound played when fully charging a guardian item
+		}
+
+		GuardianBlockCancelChain: {
+			Label: Pavise Block Cancel Auto-re-use
+			Tooltip: If possible, automatically starts blocking again when cancelling a block with right click
+		}
+
+		ShapeshifterUseHairColor: {
+			Label: Use Hair Color for Wildshapes
+			Tooltip: Applies the 'Peculiar Hairpin' accessory effect at all times, and has it apply the default wildshape color instead. The hairpin can still be used to apply dye to wildshape hair.
+		}
+
+		ShapeshifterHookDelay: {
+			Label: Shawl Dash Hook Delay
+			Tooltip: While a 'Shawl' accessory is equipped, how long should the hook key be held (in frames) before the hook is fired.
+		}
+
+		ShapeshifterHookDashRelease: {
+			Label: Shawl Dash on release
+			Tooltip: Triggers 'Shawl' accessory dashes when releasing the hook key instead of pressing it (allowing to launch a hook without dashing)
 		}
 	}
 

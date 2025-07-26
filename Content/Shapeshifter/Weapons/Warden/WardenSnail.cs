@@ -389,14 +389,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
 				{ // Left movement
-					TryAccelerate(ref intendedVelocity, -2f, speedMult, 0.3f, acceleration);
+					TryAccelerate(ref intendedVelocity, shapeshifter, -2f, speedMult, 0.3f, acceleration);
 					projectile.direction = anchor.ai[0] == 1f ? (int)projectile.ai[0] : -1;
 					projectile.spriteDirection = projectile.direction;
 					LateralMovement = true;
 				}
 				else if (anchor.IsInputRight && !anchor.IsInputLeft)
 				{ // Right movement
-					TryAccelerate(ref intendedVelocity, 2f, speedMult, 0.3f, acceleration);
+					TryAccelerate(ref intendedVelocity, shapeshifter, 2f, speedMult, 0.3f, acceleration);
 					projectile.direction = anchor.ai[0] == 1f ? (int)projectile.ai[0] : 1;
 					projectile.spriteDirection = projectile.direction;
 					LateralMovement = true;
@@ -404,13 +404,13 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				else
 				{ // Both keys pressed = no movement
 					LateralMovement = false;
-					intendedVelocity.X *= anchor.ai[0] == 1f ? 0.95f : 0.7f;
+					TrySlowDown(ref intendedVelocity, anchor.ai[0] == 1f ? 0.95f : 0.7f, player, shapeshifter, projectile);
 				}
 			}
 			else
 			{ // no movement input
 				LateralMovement = false;
-				intendedVelocity.X *= anchor.ai[0] == 1f ? 0.95f : 0.7f;
+				TrySlowDown(ref intendedVelocity, anchor.ai[0] == 1f ? 0.95f : 0.7f, player, shapeshifter, projectile);
 			}
 			
 			if (anchor.ai[0] == 0f)

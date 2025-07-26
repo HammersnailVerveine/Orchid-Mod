@@ -19,9 +19,9 @@ namespace OrchidMod.Content.Shapeshifter.Accessories
 			player.moveSpeed += 0.12f;
 			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
 			shapeshifter.ShapeshifterShawlWind = true;
-			if (shapeshifter.ShapeshifterTransformationDash < 10f)
+			if (shapeshifter.ShapeshifterHookDash < 11f)
 			{
-				shapeshifter.ShapeshifterTransformationDash = 10f;
+				shapeshifter.ShapeshifterHookDash = 11f;
 			}
 		}
 
