@@ -3861,15 +3861,6 @@ Items: {
 		Tooltip: Увеличивает звериный урон на 15%
 	}
 
-	ShawlOfTheWind: {
-		// DisplayName: Shawl Of The Wind
-		/* Tooltip:
-			'''
-			12% increased movement speed
-			Dashes towards the cursor when shapeshifting while moving
-			''' */
-	}
-
 	HarnessYouxia: {
 		// DisplayName: Youxia Harness
 		// Tooltip: Launches 5 daggers towards enemies when shapeshifting
@@ -3877,7 +3868,21 @@ Items: {
 
 	ShawlFeather: {
 		// DisplayName: Feather Shawl
-		// Tooltip: Dashes towards the cursor when shapeshifting while moving
+		/* Tooltip:
+			'''
+			Use the 'Grapple' key to dash while shapeshifted
+			Hold the 'Grapple' key to use a hook normally
+			''' */
+	}
+
+	ShawlOfTheWind: {
+		// DisplayName: Shawl Of The Wind
+		/* Tooltip:
+			'''
+			12% increased movement speed
+			Use the 'Grapple' key to dash while shapeshifted
+			Hold the 'Grapple' key to use a hook normally
+			''' */
 	}
 
 	ShapeshifterHarpyHead: {
@@ -4475,6 +4480,11 @@ Configs: {
 		ShapeshifterHookDashRelease: {
 			// Label: Shawl Dash on release
 			// Tooltip: Triggers 'Shawl' accessory dashes when releasing the hook key instead of pressing it (allowing to launch a hook without dashing)
+		}
+
+		ShapeshifterScrollDelay: {
+			// Label: Shapeshifter Scroll Delay
+			// Tooltip: Delay (in frames) before the player transforms in the newly selected wildshape in the hotbar while scrolling
 		}
 	}
 

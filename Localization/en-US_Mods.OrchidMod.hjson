@@ -3854,7 +3854,7 @@ Items: {
 
 	ShawlFeather: {
 		DisplayName: Feather Shawl
-		Tooltip: 
+		Tooltip:
 			'''
 			Use the 'Grapple' key to dash while shapeshifted
 			Hold the 'Grapple' key to use a hook normally
@@ -4466,6 +4466,11 @@ Configs: {
 		ShapeshifterHookDashRelease: {
 			Label: Shawl Dash on release
 			Tooltip: Triggers 'Shawl' accessory dashes when releasing the hook key instead of pressing it (allowing to launch a hook without dashing)
+		}
+
+		ShapeshifterScrollDelay: {
+			Label: Shapeshifter Scroll Delay
+			Tooltip: Delay (in frames) before the player transforms in the newly selected wildshape in the hotbar while scrolling
 		}
 	}
 

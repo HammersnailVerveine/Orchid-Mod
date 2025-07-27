@@ -73,6 +73,7 @@ namespace OrchidMod
 		public bool ShapeshifterHookDashSync = false; // synced so other clients can display what happens at the start of a hook dash
 		public int ShapeshifterUIDashTimer = 0; // should be set to 30, used to display an arrow when the dash is available
 		public int ShapeshifterUITransformationTimer = 0; // should be set to 30, used to display a fox icon when a transformation is ready or the player transforms too much
+		public int ShapeshifterScrollTransformationBuffer = 0; // prevents transforming while the player is scrolling
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
@@ -101,6 +102,8 @@ namespace OrchidMod
 
 		public override void ResetEffects()
 		{
+			ShapeshifterScrollTransformationBuffer--;
+
 			if (IsShapeshifted)
 			{
 				if (Player.Center.Distance(ShapeshiftAnchor.Projectile.Center) > 96f && ShapeshiftAnchor.Projectile.velocity.Length() < 32f)

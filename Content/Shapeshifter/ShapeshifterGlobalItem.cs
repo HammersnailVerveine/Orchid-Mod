@@ -12,6 +12,7 @@ namespace OrchidMod.Common.Global.Items
 			{ // blocks hooks if the player has a shawl
 				return false;
 			}
+
 			return base.CanUseItem(item, player);
 		}
 	}

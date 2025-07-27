@@ -42,6 +42,12 @@ namespace OrchidMod.Common
 		public bool ShapeshifterUseHairColor { get; set; }
 
 		[Increment(1)]
+		[Range(0, 30)]
+		[DefaultValue(10)]
+		[BackgroundColor(100, 175, 150)]
+		public int ShapeshifterScrollDelay { get; set; }
+
+		[Increment(1)]
 		[Range(0, 60)]
 		[DefaultValue(10)]
 		[BackgroundColor(100, 175, 150)]

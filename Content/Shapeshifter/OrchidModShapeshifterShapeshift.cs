@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -95,7 +96,13 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public sealed override void HoldItem(Player player)
 		{
-			if (IsLocalPlayer(player))
+			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
+			if (PlayerInput.ScrollWheelDelta != 0)
+			{
+				shapeshifter.ShapeshifterScrollTransformationBuffer = ModContent.GetInstance<OrchidClientConfig>().ShapeshifterScrollDelay;
+			}
+
+			if (IsLocalPlayer(player) && shapeshifter.ShapeshifterScrollTransformationBuffer <= 0)
 			{
 				var projectileType = ModContent.ProjectileType<ShapeshifterShapeshiftAnchor>();
 
@@ -130,6 +137,7 @@ namespace OrchidMod.Content.Shapeshifter
 						}
 					}
 
+					player.GetModPlayer<OrchidShapeshifter>().ShapeshifterScrollTransformationBuffer = 0;
 					CreateNewAnchor(player);
 				}
 			}
