@@ -314,7 +314,7 @@ Buffs: {
 
 	ShapeshifterShapeshiftingCooldownDebuff: {
 		// DisplayName: Shapeshifting Sickness
-		// Description: Increased cooldowns after shapeshifting again & will not benefit from on-shapeshift effects
+		// Description: Reduced stats and cancels on-shapeshift effects
 	}
 }
 

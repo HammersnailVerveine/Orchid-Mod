@@ -266,11 +266,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 				if (Heat > projectile.ai[1])
 				{
-					SoundEngine.PlaySound(SoundID.LiquidsWaterLava);
+					SoundEngine.PlaySound(SoundID.LiquidsWaterLava, projectile.Center);
 				}
 				else
 				{
-					SoundEngine.PlaySound(SoundID.LiquidsHoneyLava);
+					SoundEngine.PlaySound(SoundID.LiquidsHoneyLava, projectile.Center);
 					for (int i = 0; i < 8; i++)
 					{
 						Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.Torch)].noGravity = true;

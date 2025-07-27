@@ -34,7 +34,7 @@ namespace OrchidMod
 		public float ShapeshifterMeleeSpeedBonus = 0f;
 		public float ShapeshifterMoveSpeedBonus = 0f; // Additive, Scales logarithmically, can be used as shapeshifter-only alternative to player.movespeed, should be preferred
 		public float ShapeshifterMoveSpeedBonusFlat = 0f; // Additive, added to the final movespeed
-		public float ShapeshifterMoveSpeedBonusFinal = 0f; // Multiplicative, used before adding ShapeshifterMoveSpeedBonusFlat
+		public float ShapeshifterMoveSpeedBonusFinal = 1f; // Multiplicative, used before adding ShapeshifterMoveSpeedBonusFlat
 		public float ShapeshifterMoveSpeedBonusGrounded = 1f; // Multiplicative, used for effects that increase grounded speed like magiluminescence
 		public float ShapeshifterMoveSpeedBonusNotGrounded = 1f; // Multiplicative, used for effects that increase the movespeed of "flying" wildshapes, at all times
 		public float ShapeshifterMoveSpeedMiscOverride = 1f; // Multiplies other means of movement, like dashes. Should generally not be edited as dashes that should be affected by movespeed already are.
@@ -71,6 +71,8 @@ namespace OrchidMod
 		public int ShapeshifterHookInputTimer = 0; // how long has the player been holding the dash key?
 		public int ShapeshifterHookDashTimer = 0; // lowers deceleration while >0
 		public bool ShapeshifterHookDashSync = false; // synced so other clients can display what happens at the start of a hook dash
+		public int ShapeshifterUIDashTimer = 0; // should be set to 30, used to display an arrow when the dash is available
+		public int ShapeshifterUITransformationTimer = 0; // should be set to 30, used to display a fox icon when a transformation is ready or the player transforms too much
 
 		public override void HideDrawLayers(PlayerDrawSet drawInfo)
 		{
@@ -139,7 +141,6 @@ namespace OrchidMod
 				}
 			}
 
-			ShapeshifterFastShapeshiftTimer++;
 			ShapeshifterSetTimer--;
 
 			if (!ShapeshifterSetHarpy)
@@ -152,9 +153,40 @@ namespace OrchidMod
 				ShapeshifterSetPyreDamagePool = 0;
 			}
 
-			if (ShapeshifterShawlCooldown > 0)
+			if (ShapeshifterUIDashTimer > 0)
+			{
+				ShapeshifterUIDashTimer--;
+			}
+
+			if (ShapeshifterUITransformationTimer > 0)
+			{
+				ShapeshifterUITransformationTimer--;
+			}
+
+			if (ShapeshifterFastShapeshiftTimer < 300f)
+			{
+				ShapeshifterFastShapeshiftTimer++;
+				if (ShapeshifterFastShapeshiftTimer >= 300f && Player.whoAmI == Main.myPlayer)
+				{
+					ShapeshifterUITransformationTimer = 30;
+					SoundStyle soundStyle = SoundID.Item35;
+					soundStyle.Volume -= 0.5f;
+					soundStyle.Pitch -= 1f;
+					SoundEngine.PlaySound(soundStyle, Player.Center);
+				}
+			}
+
+			if (ShapeshifterShawlCooldown > 0f)
 			{
 				ShapeshifterShawlCooldown--;
+				if (ShapeshifterShawlCooldown <= 0f && Player.whoAmI == Main.myPlayer)
+				{
+					ShapeshifterUIDashTimer = 30;
+					SoundStyle soundStyle = SoundID.Grass;
+					soundStyle.Volume -= 0.5f;
+					soundStyle.Pitch += 1f;
+					SoundEngine.PlaySound(soundStyle, Player.Center);
+				}
 			}
 
 			// Reset gameplay fields
@@ -640,7 +672,6 @@ namespace OrchidMod
 
 		public void OnShapeshift(Projectile anchorProjectile, ShapeshifterShapeshiftAnchor anchor, Player owner, OrchidShapeshifter shapeshifter)
 		{
-			owner.AddBuff(ModContent.BuffType<ShapeshifterShapeshiftingCooldownDebuff>(), 300); // Does not actually do anything, only a cue for the player
 		}
 
 		public void OnShapeshiftHookDash()

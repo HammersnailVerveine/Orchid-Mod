@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Content.Shapeshifter.Accessories;
+using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
+using OrchidMod.Content.Shapeshifter.UI;
 using OrchidMod.Utilities;
 using ReLogic.Content;
 using System;
@@ -148,7 +150,6 @@ namespace OrchidMod.Content.Shapeshifter
 					Projectile.width = shapeshiftItem.ShapeshiftWidth;
 					Projectile.height = shapeshiftItem.ShapeshiftHeight;
 					Projectile.position -= new Vector2(Projectile.width - 2, Projectile.height - 2) * 0.5f;
-					SoundEngine.PlaySound(shapeshiftItem.Item.UseSound, owner.Center);
 					Projectile.ai[0] = 0f;
 					Projectile.ai[1] = 0f;
 					Projectile.ai[2] = 0f;
@@ -190,9 +191,18 @@ namespace OrchidMod.Content.Shapeshifter
 					{
 						shapeshiftItem.ShapeshiftAnchorOnShapeshiftFast(Projectile, this, owner, shapeshifter);
 						shapeshifter.OnShapeshiftFast(Projectile, this, owner, shapeshifter);
+						shapeshifter.ShapeshifterFastShapeshiftTimer = 300;
 					}
 
-					shapeshifter.ShapeshifterFastShapeshiftTimer = 0;
+					shapeshifter.ShapeshifterFastShapeshiftTimer -= 300;
+
+					SoundStyle soundStyle = (SoundStyle)shapeshiftItem.Item.UseSound;
+					if (shapeshifter.ShapeshifterFastShapeshiftTimer < 0)
+					{
+						soundStyle.Volume *= 0.75f;
+						soundStyle.Pitch -= 1f;
+					}
+					SoundEngine.PlaySound(soundStyle, owner.Center);
 				}
 			}
 		}
@@ -274,9 +284,27 @@ namespace OrchidMod.Content.Shapeshifter
 					RightCLickCooldown = 5;
 					shapeshiftItem.ShapeshiftAnchorOnShapeshiftFast(Projectile, this, owner, shapeshifter);
 					shapeshifter.OnShapeshiftFast(Projectile, this, owner, shapeshifter);
+					shapeshifter.ShapeshifterFastShapeshiftTimer = 300;
 				}
 
-				shapeshifter.ShapeshifterFastShapeshiftTimer = 0;
+				shapeshifter.ShapeshifterFastShapeshiftTimer -= 300;
+
+				SoundStyle soundStyle = (SoundStyle)shapeshiftItem.Item.UseSound;
+				if (shapeshifter.ShapeshifterFastShapeshiftTimer < 0)
+				{
+					if (shapeshifter.ShapeshifterFastShapeshiftTimer < -300)
+					{
+						shapeshifter.ShapeshifterFastShapeshiftTimer = -300;
+					}
+
+					int debuffTime = -shapeshifter.ShapeshifterFastShapeshiftTimer > 180 ? 180 : -shapeshifter.ShapeshifterFastShapeshiftTimer;
+					owner.AddBuff(ModContent.BuffType<ShapeshifterShapeshiftingCooldownDebuff>(), debuffTime); // Debuffs the player if shiting too often
+					shapeshifter.ShapeshifterUITransformationTimer = 30;
+					soundStyle.Volume *= 0.75f;
+					soundStyle.Pitch -= 1f;
+				}
+
+				SoundEngine.PlaySound(soundStyle, owner.Center);
 			}
 			Projectile.netUpdate = true;
 		}
@@ -484,11 +512,19 @@ namespace OrchidMod.Content.Shapeshifter
 				bool drawAsAdditive = false;
 				Texture2D hairTexture = (TextureShapeshiftHairGray != null && drawHairColor) ? TextureShapeshiftHairGray : TextureShapeshiftHair;
 				Color color = shapeshifterItem.GetColor(ref drawAsAdditive, shapeshifter.ShapeshifterHairpin ? lightColor.MultiplyRGBA(player.hairColor) : lightColor, Projectile, this, player, shapeshifter, true);
+				Color colorGlow = shapeshifterItem.GetColorGlow(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
 				Color colorLight = shapeshifterItem.GetColor(ref drawAsAdditive, lightColor, Projectile, this, player, shapeshifter);
 				Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix).Floor();
 				Rectangle drawRectangle = TextureShapeshift.Bounds;
 				drawRectangle.Height = drawRectangle.Width;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+				if (player.HasBuff<ShapeshifterShapeshiftingCooldownDebuff>())
+				{
+					color = Color.Gray.MultiplyRGB(color);
+					colorGlow = Color.Gray.MultiplyRGB(colorGlow);
+					colorLight = Color.Gray.MultiplyRGB(colorLight);
+				}
 
 				drawRectangle.Y = drawRectangle.Height * Frame;
 				shapeshifterItem.ShapeshiftPreDraw(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, color);
@@ -571,8 +607,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 				if (TextureShapeshiftGlow != null)
 				{
-					color = shapeshifterItem.GetColorGlow(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
-					Main.EntitySpriteDraw(TextureShapeshiftGlow, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					Main.EntitySpriteDraw(TextureShapeshiftGlow, drawPosition, drawRectangle, colorGlow, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
 				if (drawAsAdditive)
