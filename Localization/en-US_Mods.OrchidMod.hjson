@@ -3847,15 +3847,6 @@ Items: {
 		Tooltip: 15% increased feral damage
 	}
 
-	ShawlOfTheWind: {
-		DisplayName: Shawl Of The Wind
-		Tooltip:
-			'''
-			12% increased movement speed
-			Dashes towards the cursor when shapeshifting while moving
-			'''
-	}
-
 	HarnessYouxia: {
 		DisplayName: Youxia Harness
 		Tooltip: Launches 5 daggers towards enemies when shapeshifting
@@ -3863,7 +3854,21 @@ Items: {
 
 	ShawlFeather: {
 		DisplayName: Feather Shawl
-		Tooltip: Dashes towards the cursor when shapeshifting while moving
+		Tooltip: 
+			'''
+			Use the 'Grapple' key to dash while shapeshifted
+			Hold the 'Grapple' key to use a hook normally
+			'''
+	}
+
+	ShawlOfTheWind: {
+		DisplayName: Shawl Of The Wind
+		Tooltip:
+			'''
+			12% increased movement speed
+			Use the 'Grapple' key to dash while shapeshifted
+			Hold the 'Grapple' key to use a hook normally
+			'''
 	}
 
 	ShapeshifterHarpyHead: {
