@@ -35,6 +35,7 @@ using OrchidMod.Content.Alchemist.Misc.Scrolls;
 using OrchidMod.Content.Alchemist.Accessories;
 using OrchidMod.Content.Gambler.Misc;
 using OrchidMod.Content.Gambler.Decks;
+using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -226,6 +227,7 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.GoblinSorcerer:
 					{
+						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<PredatorGoblin>(), 15));
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<GoblinArmyCard>(), 50));
 						npcLoot.Add(ItemDropRule.Common(ItemType<GoblinRune>(), 10));
 					}

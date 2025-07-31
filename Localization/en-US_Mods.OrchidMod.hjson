@@ -3472,6 +3472,15 @@ Items: {
 		Tooltip: Transforms you into an Undine, gaining unique abilities
 	}
 
+	PredatorGoblin: {
+		DisplayName: Barghest Idol
+		LeftClick: A ferocious bite, generating energy on hit and kill
+		RightClick: Unleashes a series of shadowflame slashes, only usable at full energy
+		Jump: Can jump an additional time, leaping forwards
+		Passive: Stay immobile to enter stealth, reducing aggro and insantly filling energy
+		Tooltip: Transforms you into a Barghest, gaining unique abilities
+	}
+
 	SageBee: {
 		DisplayName: Bee Effigy
 		LeftClick: Fires barbed stingers, continuously damaging hit enemies
@@ -3934,11 +3943,6 @@ Items: {
 			Press 'Middle Mouse' to place a torch
 			Effects are currently inactive, Right click to reactivate
 			'''
-	}
-
-	PredatorGoblin: {
-		DisplayName: Predator Goblin
-		Tooltip: ""
 	}
 }
 
@@ -4406,6 +4410,10 @@ Projectiles: {
 	WardenSnailProj.DisplayName: Snail Shell
 	PredatorUndineProj.DisplayName: Undine Slash
 	PredatorUndineProjAlt.DisplayName: Undine Bolt
+	PredatorGoblinProj.DisplayName: Barghest Bite
+	PredatorGoblinProjAlt.DisplayName: Barghest Slash
+	PredatorGoblinProjSlash.DisplayName: Barghest Slash
+	PredatorGoblinProjResource.DisplayName: Shadowflame Energy
 }
 
 Configs: {

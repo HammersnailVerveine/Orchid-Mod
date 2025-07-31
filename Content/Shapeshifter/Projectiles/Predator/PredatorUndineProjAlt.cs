@@ -66,6 +66,11 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 				Projectile.ai[0]--;
 				Projectile.position = Owner.Center;
 				Projectile.timeLeft++;
+
+				if (Projectile.ai[0] < 0)
+				{
+					Projectile.ai[0] = 0;
+				}
 				return;
 			}
 

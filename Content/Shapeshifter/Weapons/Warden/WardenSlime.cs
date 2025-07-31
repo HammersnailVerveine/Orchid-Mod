@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using OrchidMod.Content.Shapeshifter.Projectiles.Sage;
 using OrchidMod.Content.Shapeshifter.Projectiles.Warden;
 using System.Collections.Generic;
 using Terraria;

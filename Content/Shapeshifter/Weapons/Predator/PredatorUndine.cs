@@ -155,7 +155,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 					}
 				}
 
-				if (OrchidModProjectile.IsValidTarget(npc))
+				if (OrchidModProjectile.IsValidTarget(npc) && Collision.CanHitLine(projectile.position + new Vector2(projectile.width * 0.5f, 0f), 2, 2, npc.position, npc.width, npc.height))
 				{
 					float distance = Main.MouseWorld.Distance(npc.Center);
 					Point point = new Point((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y);
