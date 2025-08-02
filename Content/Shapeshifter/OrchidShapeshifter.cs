@@ -25,7 +25,8 @@ namespace OrchidMod
 		public int GetShapeshifterCrit(int additionalCritChance = 0) => (int)(Player.GetCritChance<ShapeshifterDamageClass>() + Player.GetCritChance<GenericDamageClass>() + additionalCritChance);
 		public float GetShapeshifterMeleeSpeed(float additionalMeleeSpeed = 0) => Player.GetTotalAttackSpeed(DamageClass.Melee) + ShapeshifterMeleeSpeedBonus + additionalMeleeSpeed;
 		public int GetShapeshifterHealing(float healing) => (int)Math.Ceiling(healing * ShapeshifterHealingBonus);
-		public static List<int> ShapeshifterIncompatibleProjectiles; // These projectile IDs will will the wildshape anchor if they are owned by the local player 
+		public static List<int> ShapeshifterIncompatibleProjectiles; // These projectile IDs will kill the wildshape anchor if they are owned by the local player 
+		public static List<int> ShapeshifterIncompatibleBuffs; // These buff IDs will kill the wildshape anchor if they affect the local player 
 
 		// Can be edited by gear (Set effects, accessories, misc)
 
@@ -91,6 +92,7 @@ namespace OrchidMod
 			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 			ShapeshifterSageDamageOnHitTargets = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
 			ShapeshifterIncompatibleProjectiles = new List<int>();
+			ShapeshifterIncompatibleBuffs = [BuffID.Stoned, BuffID.Cursed];
 
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
@@ -136,6 +138,16 @@ namespace OrchidMod
 				foreach (Projectile projectile in Main.projectile)
 				{// Disable the shapeshift if the player owns an incompatible projectile (special thorium mod hooks for example)
 					if (ShapeshifterIncompatibleProjectiles.Contains(projectile.type) && projectile.owner == Player.whoAmI && projectile.active && ShapeshiftAnchor != null)
+					{
+						ShapeshiftAnchor.Projectile.Kill();
+						ShapeshiftAnchor = null;
+						Shapeshift = null;
+					}
+				}
+
+				foreach (int buffType in ShapeshifterIncompatibleBuffs)
+				{ // Disable the shapeshift if the player has an incompatible buff
+					if (Player.HasBuff(buffType) && ShapeshiftAnchor != null)
 					{
 						ShapeshiftAnchor.Projectile.Kill();
 						ShapeshiftAnchor = null;
@@ -314,6 +326,16 @@ namespace OrchidMod
 				// However, because wildshapes jumps are also enhanced by their movement speed, this is fine, it simply avoids movement getting out of hand
 				ShapeshifterJumpSpeed += (Player.jumpHeight - 15f) * 0.025f; // the base Player.jumpHeight value is 15
 				ShapeshifterJumpSpeed += (Player.jumpSpeed - 5.01f) * 0.1f; // the base Player.jumpSpeed value is 5.01
+
+				if (Player.gravity > Player.defaultGravity)
+				{ // compensates gravity efects to "buff" jump height in low gravity
+					ShapeshifterJumpSpeed += (Player.gravity - Player.defaultGravity) * 1.5f;
+				}
+
+				if (Player.gravity < Player.defaultGravity)
+				{ // compensates gravity efects to "nerf" jump height in high gravity
+					ShapeshifterJumpSpeed -= (Player.defaultGravity - Player.gravity) * 1.5f;
+				}
 
 				// Environmental movement speed changes (honey, liquids, etc)
 
@@ -710,7 +732,7 @@ namespace OrchidMod
 			}
 			Shapeshift.ResetFallHeight(Player);
 			ShapeshifterMoveSpeedDecelerate = 0;
-			ShapeshifterHookDashTimer = 10;
+			ShapeshifterHookDashTimer = 13;
 			ShapeshifterShawlCooldown = 300;
 		}
 

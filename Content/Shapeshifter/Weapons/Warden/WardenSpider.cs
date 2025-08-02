@@ -28,6 +28,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Warden;
 			GroundedWildshape = true;
+			WebImmunity = true;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)

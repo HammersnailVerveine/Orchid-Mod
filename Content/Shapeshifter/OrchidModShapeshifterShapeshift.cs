@@ -285,29 +285,36 @@ namespace OrchidMod.Content.Shapeshifter
 			return newProjectile;
 		}
 
-		public void GravityCalculations(ref Vector2 intendedVelocity, Player player, OrchidShapeshifter shapeshifter, float maxFallSpeed = 10f, bool updateFallStart = true)
+		public void GravityCalculations(ref Vector2 intendedVelocity, Player player, OrchidShapeshifter shapeshifter, float maxFallSpeedOverride = 0f, bool updateFallStart = true)
 		{
+			if (maxFallSpeedOverride == 0f)
+			{
+				maxFallSpeedOverride = player.maxFallSpeed;
+			}
+
+			maxFallSpeedOverride *= player.gravity * GravityMult * shapeshifter.ShapeshifterGravity / Player.defaultGravity;
+
 			if ((intendedVelocity.Y < 0f && GroundedWildshape) || !GroundedWildshape && updateFallStart)
 			{
 				ResetFallHeight(player);
 			}
 
-			maxFallSpeed *= shapeshifter.ShapeshifterMaxFallSpeed;
+			maxFallSpeedOverride *= shapeshifter.ShapeshifterMaxFallSpeed;
 
-			if (intendedVelocity.Y <= maxFallSpeed)
+			if (intendedVelocity.Y <= maxFallSpeedOverride)
 			{ // gravity
 				intendedVelocity.Y += GetFallSpeed(player, shapeshifter);
-				if (intendedVelocity.Y > maxFallSpeed)
+				if (intendedVelocity.Y > maxFallSpeedOverride)
 				{
-					intendedVelocity.Y = maxFallSpeed;
+					intendedVelocity.Y = maxFallSpeedOverride;
 				}
 			}
 			else
 			{ // slow down players if they are going too fast (eg: entering water)
 				intendedVelocity.Y *= 0.9f;
-				if (intendedVelocity.Y < maxFallSpeed)
+				if (intendedVelocity.Y < maxFallSpeedOverride)
 				{
-					intendedVelocity.Y = maxFallSpeed;
+					intendedVelocity.Y = maxFallSpeedOverride;
 				}
 			}
 		}
@@ -322,22 +329,85 @@ namespace OrchidMod.Content.Shapeshifter
 
 			accelerationmult *= shapeshifter.ShapeshifterMoveSpeedAccelerate;
 
+			if (shapeshifter.Player.windPushed)
+			{ // mighty winds (sandstorm)
+				ShapeshifterShapeshiftAnchor anchor = shapeshifter.ShapeshiftAnchor;
+
+				float windSpeed = Main.windSpeedCurrent * 0.5f;
+				if (Math.Abs(Main.windSpeedCurrent) < 0.5f)
+				{
+					windSpeed = Math.Sign(Main.windSpeedCurrent) * 0.0125f;
+				}
+
+				if (Math.Abs(Main.windSpeedCurrent) > 0.5)
+				{
+					windSpeed *= 1.37f;
+				}
+
+				if (!IsGrounded(anchor.Projectile, shapeshifter.Player, 2f))
+				{
+					windSpeed *= 1.5f;
+				}
+
+				if (anchor.IsInputLeft || anchor.IsInputRight)
+				{
+					windSpeed *= 0.8f;
+				}
+
+				if (anchor.Projectile.direction != Math.Sign(Main.windSpeedCurrent))
+				{
+					windSpeed *= -1f;
+				}
+
+				if (Main.windSpeedCurrent < 0f)
+				{
+					windSpeed *= -1f;
+				}
+
+				maxSpeed *= 1f + (windSpeed / 1f) * 0.2f;
+				accelerationmult *= 1f + (windSpeed / 1f);
+
+				Main.NewText((anchor.Projectile.direction != Math.Sign(Main.windSpeedCurrent)) + " : " + maxSpeed + " : " + Main.windSpeedCurrent);
+			}
+
 			if (!Decelerate(ref intendedVelocity, maxSpeed, speedmult, amount * 0.75f, Yaxis))
 			{
-				if (Yaxis) intendedVelocity.Y += amount * accelerationmult * Math.Sign(maxSpeed);
-				else intendedVelocity.X += amount * accelerationmult * Math.Sign(maxSpeed);
+				if (Yaxis)
+				{
+					if (Math.Sign(intendedVelocity.Y) != 0 && Math.Sign(intendedVelocity.Y) != amount)
+					{
+						amount *= 2f;
+					}
+
+					intendedVelocity.Y += amount * accelerationmult * Math.Sign(maxSpeed);
+				}
+				else
+				{
+					if (Math.Sign(intendedVelocity.X) != 0 && Math.Sign(intendedVelocity.X) != amount)
+					{
+						amount *= 2f;
+					}
+
+					intendedVelocity.X += amount * accelerationmult * Math.Sign(maxSpeed);
+				}
+
 			}
 		}
 
 		public void TrySlowDown(ref Vector2 intendedVelocity, float factor, Player player, OrchidShapeshifter shapeshifter, Projectile anchor, bool ignoreWildshapeBehaviour = false)
 		{
-			factor = 1f - (1f - factor) * shapeshifter.ShapeshifterMoveSpeedDecelerate;
+			factor = GetSlowDownFactor(factor, shapeshifter);
 			if (!IsGrounded(anchor, player, 2f) && intendedVelocity.Y > 0f && !ignoreWildshapeBehaviour && shapeshifter.Shapeshift.GroundedWildshape)
 			{ // grounded wildshapes slow down less while airborne
 				factor = 1f - (1f - factor) * 0.5f;
 			}
 
 			intendedVelocity.X *= factor;
+		}
+
+		public float GetSlowDownFactor(float factor, OrchidShapeshifter shapeshifter)
+		{
+			return 1f - (1f - factor) * shapeshifter.ShapeshifterMoveSpeedDecelerate;
 		}
 
 		public bool Decelerate(ref Vector2 intendedVelocity, float maxSpeed, float speedmult, float amount = 0.5f, bool Yaxis = false)
@@ -474,6 +544,32 @@ namespace OrchidMod.Content.Shapeshifter
 				}
 			}
 
+			if (player.windPushed && projectile.ModProjectile is ShapeshifterShapeshiftAnchor anchor)
+			{ // mighty winds (sandstorm)
+				float windSpeed = Main.windSpeedCurrent * 0.025f;
+				if (Math.Abs(Main.windSpeedCurrent) < 0.5f)
+				{
+					windSpeed = Math.Sign(Main.windSpeedCurrent) * 0.0125f;
+				}
+
+				if (Math.Abs(Main.windSpeedCurrent) > 0.5)
+				{
+					windSpeed *= 1.37f;
+				}
+
+				if (!IsGrounded(projectile, player, 2f))
+				{
+					windSpeed *= 1.5f;
+				}
+
+				if (anchor.IsInputLeft || anchor.IsInputRight)
+				{
+					windSpeed *= 0.8f;
+				}
+
+				intendedVelocity.X += windSpeed;
+			}
+
 			HandleCrossContentInteractions(ref intendedVelocity, projectile, player, stepUpDown, cancelSlopeOffet, preventDownInput, forceFallThrough);
 
 			bool goThroughPlatforms = player.controlDown && !preventDownInput && intendedVelocity.Y < 0.5f;
@@ -489,6 +585,11 @@ namespace OrchidMod.Content.Shapeshifter
 			if (player.stickyBreak > 0 && !WebImmunity)
 			{ // cobwebs
 				finalVelocity *= 0.5f;
+			}
+
+			if (player.HasBuff(BuffID.Webbed))
+			{ // webbed stun
+				finalVelocity *= 0f;
 			}
 
 			projectile.velocity = finalVelocity;

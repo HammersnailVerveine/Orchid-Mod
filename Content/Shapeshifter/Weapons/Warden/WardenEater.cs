@@ -517,6 +517,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				// 8 direction movement
 				float velocityX = 0f;
 				float velocityY = 0f;
+				float factorDecelerate = GetSlowDownFactor(0.85f, shapeshifter);
 
 				if (anchor.IsInputUp && !anchor.IsInputDown)
 				{ // Top movement
@@ -528,7 +529,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				}
 				else
 				{ // Both keys pressed or no key pressed = no Y movement
-					intendedVelocity.Y *= 0.85f * shapeshifter.ShapeshifterMoveSpeedDecelerate;
+					intendedVelocity.Y *= factorDecelerate;
 				}
 
 				if (anchor.IsInputLeft && !anchor.IsInputRight)
@@ -541,7 +542,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				}
 				else
 				{ // Both keys pressed or no key pressed = no X movement
-					intendedVelocity.X *= 0.85f * shapeshifter.ShapeshifterMoveSpeedDecelerate;
+					intendedVelocity.X *= factorDecelerate;
 				}
 
 				if (velocityX != 0f && velocityY != 0f)
