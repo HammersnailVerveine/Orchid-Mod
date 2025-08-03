@@ -125,12 +125,12 @@ namespace OrchidMod.Content.Shapeshifter
 								}
 							}
 
-							if (lifeMax > 15)
+							if (healValue > 15)
 							{
-								lifeMax = 15;
+								healValue = 15;
 							}
 
-							shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(lifeMax));
+							shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(healValue));
 						}
 					}
 				}
