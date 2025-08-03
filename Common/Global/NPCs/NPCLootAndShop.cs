@@ -149,6 +149,7 @@ namespace OrchidMod.Common.Global.NPCs
 			IItemDropRuleCondition EnableContentShapeshifterNotExpert = new OrchidDropConditions.EnableContentShapeshifterNotExpert();
 			IItemDropRuleCondition EnableContentAlchemistHitAlchemist = new OrchidDropConditions.EnableContentAlchemistHitAlchemist();
 			IItemDropRuleCondition ThoriumDisabled = new OrchidDropConditions.ThoriumDisabled();
+			IItemDropRuleCondition ThoriumDisabledGambler = new	OrchidDropConditions.ThoriumDisabledEnableContentGambler();
 			IItemDropRuleCondition NotExpert = new Conditions.NotExpert();
 
 			// GENERIC NPCs
@@ -157,7 +158,7 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				case NPCID.Vulture:
 					{
-						npcLoot.Add(ItemDropRule.ByCondition(ThoriumDisabled, ItemType<VultureTalon>(), 1, 1, 2));
+						npcLoot.Add(ItemDropRule.ByCondition(ThoriumDisabledGambler, ItemType<VultureTalon>(), 1, 1, 2));
 					}
 					break;
 				case NPCID.SpikedJungleSlime:
