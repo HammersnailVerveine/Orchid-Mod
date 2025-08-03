@@ -119,7 +119,7 @@ namespace OrchidMod.Content.Shapeshifter
 								healValue++;
 								lifeMax -= 25;
 
-								if (spiderMelee)
+								if (!spiderMelee)
 								{
 									lifeMax -= 25;
 								}
