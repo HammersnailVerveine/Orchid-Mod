@@ -3848,7 +3848,11 @@ Items: {
 
 	DeepwaterLocket: {
 		DisplayName: Deepwater Locket
-		Tooltip: Sage attacks increase feral damage by 2% for each unique enemy hit
+		Tooltip:
+			'''
+			Sage attacks increase feral damage by 2%, up to 20% for each unique enemy hit
+			Stacks last 10 seconds, and their duration resets on hit
+			'''
 	}
 
 	ShapeshifterEmblem: {

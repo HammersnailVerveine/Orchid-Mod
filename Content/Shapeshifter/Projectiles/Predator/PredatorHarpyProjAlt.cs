@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			Projectile.height = 16;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 40;
+			Projectile.timeLeft = 45;
 			Projectile.scale = 0.8f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = 3;
@@ -45,7 +45,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 
 		public override void AI()
 		{
-			if (Projectile.timeLeft == 40 && Projectile.penetrate == 3)
+			if (Projectile.timeLeft == 45 && Projectile.penetrate == 3)
 			{
 				Projectile.ai[0] = -1;
 			}
@@ -79,7 +79,10 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 				OldRotation.RemoveAt(0);
 			}
 
-			Projectile.velocity *= 0.95f;
+			if (Projectile.timeLeft <= 40)
+			{
+				Projectile.velocity *= 0.95f;
+			}
 		}
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidShapeshifter shapeshifter)

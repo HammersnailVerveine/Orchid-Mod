@@ -21,7 +21,7 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 			Projectile.height = 12;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 30;
+			Projectile.timeLeft = 35;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = 1;
@@ -44,7 +44,10 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Predator
 				OldRotation.RemoveAt(0);
 			}
 
-			Projectile.velocity *= 0.95f;
+			if (Projectile.timeLeft <= 30)
+			{
+				Projectile.velocity *= 0.95f;
+			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)

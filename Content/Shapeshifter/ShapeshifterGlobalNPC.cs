@@ -90,7 +90,7 @@ namespace OrchidMod.Content.Shapeshifter
 
 		public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
 		{
-			if (WardenSpiderDebuff && !npc.SpawnedFromStatue && npc.type != NPCID.Bee)
+			if (WardenSpiderDebuff && !npc.SpawnedFromStatue)
 			{ // Executes low health enemies
 				OrchidShapeshifter shapeshifter = Main.player[projectile.owner].GetModPlayer<OrchidShapeshifter>();
 				if (projectile.type != ModContent.ProjectileType<WardenSpiderWeb>() && projectile.DamageType == ModContent.GetInstance<ShapeshifterDamageClass>() && shapeshifter.IsShapeshifted)
@@ -110,7 +110,28 @@ namespace OrchidMod.Content.Shapeshifter
 						modifiers.FlatBonusDamage += 100;
 						modifiers.SetCrit();
 
-						shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(spiderMelee ? 15 : 5));
+						if (!npc.SpawnedFromStatue)
+						{
+							int healValue = 0;
+							int lifeMax = npc.lifeMax;
+							while (lifeMax > 0)
+							{
+								healValue++;
+								lifeMax -= 25;
+
+								if (spiderMelee)
+								{
+									lifeMax -= 25;
+								}
+							}
+
+							if (lifeMax > 15)
+							{
+								lifeMax = 15;
+							}
+
+							shapeshifter.modPlayer.TryHeal(shapeshifter.GetShapeshifterHealing(lifeMax));
+						}
 					}
 				}
 			}

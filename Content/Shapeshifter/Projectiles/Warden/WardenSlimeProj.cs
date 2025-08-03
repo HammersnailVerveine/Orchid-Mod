@@ -39,6 +39,11 @@ namespace OrchidMod.Content.Shapeshifter.Projectiles.Warden
 						}
 					}
 				}
+
+				if (!Collision.CanHitLine(Projectile.Center, 2, 2, target.position, target.width, target.height))
+				{
+					return false;
+				}
 			}
 
 			return base.CanHitNPC(target);
