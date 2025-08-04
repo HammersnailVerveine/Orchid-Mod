@@ -92,7 +92,7 @@ namespace OrchidMod
 			modPlayer = Player.GetModPlayer<OrchidPlayer>();
 			ShapeshifterSageDamageOnHitTargets = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
 			ShapeshifterIncompatibleProjectiles = new List<int>();
-			ShapeshifterIncompatibleBuffs = [BuffID.Stoned, BuffID.Cursed];
+			ShapeshifterIncompatibleBuffs = [BuffID.Stoned];
 
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
@@ -264,6 +264,11 @@ namespace OrchidMod
 					ShapeshifterMoveSpeedBonusFinal += 0.15f;
 				}
 
+				foreach (int buffType in Shapeshift.ShapeshiftImmunities)
+				{
+					Player.buffImmune[buffType] = true;
+				}
+
 				// misc stat changes
 
 				if (ShapeshifterSurvival)
@@ -355,7 +360,7 @@ namespace OrchidMod
 
 				if ((Player.wet && !Player.ignoreWater) || Player.lavaWet)
 				{ // in lava on water
-					ShapeshifterMaxFallSpeed *= 0.2f;
+					//ShapeshifterMaxFallSpeed *= 0.4f;
 					ShapeshifterGravity *= 0.5f;
 					ShapeshifterJumpSpeed *= 0.5f;
 					ShapeshifterMoveSpeedBonusFinal *= 0.5f;
@@ -370,7 +375,7 @@ namespace OrchidMod
 
 				if (Player.honeyWet)
 				{ // in honey (not vanilla accurate but good enough)
-					ShapeshifterMaxFallSpeed *= 0.2f;
+					//ShapeshifterMaxFallSpeed *= 0.4f;
 					ShapeshifterGravity *= 5f;
 					ShapeshifterJumpSpeed *= 0.5f;
 					ShapeshifterMoveSpeedBonusFinal *= 0.25f;
@@ -380,7 +385,7 @@ namespace OrchidMod
 
 				if (Player.shimmerWet)
 				{ // in shimmer
-					ShapeshifterMaxFallSpeed *= 0.2f;
+					//ShapeshifterMaxFallSpeed *= 0.4f;
 					ShapeshifterGravity *= 0.375f;
 					ShapeshifterJumpSpeed *= 0.375f;
 					ShapeshifterMoveSpeedBonusFinal *= 0.375f;
@@ -431,7 +436,7 @@ namespace OrchidMod
 				{ // Shapeshift inputs
 					ShapeshiftAnchor.CheckInputs(Player); // mostly used to sync inputs in mp
 
-					if (Shapeshift.ShapeshiftCanLeftClick(projectile, ShapeshiftAnchor, Player, this))
+					if (Shapeshift.ShapeshiftCanLeftClick(projectile, ShapeshiftAnchor, Player, this) && !Player.cursed)
 					{
 						Shapeshift.ShapeshiftOnLeftClick(projectile, ShapeshiftAnchor, Player, this);
 
@@ -444,7 +449,7 @@ namespace OrchidMod
 						}
 					}
 
-					if (Shapeshift.ShapeshiftCanRightClick(projectile, ShapeshiftAnchor, Player, this))
+					if (Shapeshift.ShapeshiftCanRightClick(projectile, ShapeshiftAnchor, Player, this) && !Player.cursed)
 					{
 						Shapeshift.ShapeshiftOnRightClick(projectile, ShapeshiftAnchor, Player, this);
 					}

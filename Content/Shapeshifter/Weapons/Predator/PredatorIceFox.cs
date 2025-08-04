@@ -30,6 +30,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
 			ShapeshiftTypeUI = ShapeshifterShapeshiftTypeUI.List;
 			GroundedWildshape = true;
+			ShapeshiftImmunities.Add(BuffID.Chilled);
 		}
 
 		public override void ShapeshiftGetUIInfo(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, ref int uiCount, ref int uiCountMax)

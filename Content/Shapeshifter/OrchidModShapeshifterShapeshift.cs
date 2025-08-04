@@ -28,6 +28,7 @@ namespace OrchidMod.Content.Shapeshifter
 		public float GravityMult; // Fall speed multiplier
 		public ShapeshifterShapeshiftType ShapeshiftType; // Sage, Predator, Warden, Symbiote
 		public ShapeshifterShapeshiftTypeUI ShapeshiftTypeUI; // None, Count, Fill. Will attempt to draw an UI if this is != none
+		public List<int> ShapeshiftImmunities; // List of Buff IDs this specific wildshape is immune to
 
 		public virtual string LeftClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterLeftClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".LeftClick"));
 		public virtual string RightClickTooltip => Language.GetTextValue(Mod.GetLocalizationKey("Misc.ShapeshifterRightClick")) + Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".RightClick"));
@@ -87,7 +88,7 @@ namespace OrchidMod.Content.Shapeshifter
 			GroundedWildshape = false;
 			ShapeshiftType = ShapeshifterShapeshiftType.None;
 			ShapeshiftTypeUI = ShapeshifterShapeshiftTypeUI.None;
-
+			ShapeshiftImmunities = new List<int>();
 			SafeSetDefaults();
 			Item.useAnimation = Item.useTime;
 		}
