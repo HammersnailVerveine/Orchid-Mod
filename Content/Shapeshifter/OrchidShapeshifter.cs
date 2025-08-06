@@ -98,8 +98,9 @@ namespace OrchidMod
 			ShapeshifterIncompatibleProjectiles = new List<int>();
 			ShapeshifterIncompatibleBuffs = [BuffID.Stoned];
 			ShapeshifterAuthorizedDrawLayers = new List<string>() { 
-				"SolarShield", "FrozenOrWebbedDebuff", "ElectrifiedDebuffBack", "IceBarrier", "CaptureTheGem", 
-				"BeetleBuff", "EyebrellaCloud", "ElectrifiedDebuffBack", "ForbiddenSetRing", "SafemanSun", "WebbedDebuffBack",
+				"SolarShield", "FrozenOrWebbedDebuff", "ElectrifiedDebuffBack", "IceBarrier", "CaptureTheGem", // vanilla
+				"BeetleBuff", "EyebrellaCloud", "ElectrifiedDebuffFront", "ForbiddenSetRing", "SafemanSun", "WebbedDebuffBack", // vanilla
+				"OrbitalLayerBack", "OrbitalLayerFront" // thorium
 			};
 
 			var thoriumMod = OrchidMod.ThoriumMod;
