@@ -70,7 +70,7 @@ namespace OrchidMod
 		public int ShapeshifterSetPyreDamagePool = 0;
 		public int ShapeshifterShawlCooldown = 0; // cooldown for the shawl accessory dashes
 		public int ShapeshifterHookInputTimer = 0; // how long has the player been holding the dash key?
-		public int ShapeshifterHookDashTimer = 0; // lowers deceleration while >0
+		public int ShapeshifterNoDecelerationTimer = 0; // lowers deceleration while >0
 		public bool ShapeshifterHookDashSync = false; // synced so other clients can display what happens at the start of a hook dash
 		public int ShapeshifterUIDashTimer = 0; // should be set to 30, used to display an arrow when the dash is available
 		public int ShapeshifterUITransformationTimer = 0; // should be set to 30, used to display a fox icon when a transformation is ready or the player transforms too much
@@ -350,14 +350,6 @@ namespace OrchidMod
 					ShapeshifterMoveSpeedBonusFlat *= 0.3f;
 				}
 
-				/*
-				if (Player.stickyBreak > 0)
-				{ // cobwebs
-					ShapeshifterMoveSpeedBonusFinal *= 0.1f;
-					ShapeshifterMoveSpeedBonusFlat *= 0.1f;
-				}
-				*/
-
 				if ((Player.wet && !Player.ignoreWater) || Player.lavaWet)
 				{ // in lava on water
 					//ShapeshifterMaxFallSpeed *= 0.4f;
@@ -418,11 +410,13 @@ namespace OrchidMod
 					ShapeshifterMoveSpeedAccelerate *= 0.1f;
 				}
 
-				if (ShapeshifterHookDashTimer > 0)
+				if (ShapeshifterNoDecelerationTimer > 0)
 				{
-					ShapeshifterHookDashTimer--;
+					ShapeshifterNoDecelerationTimer--;
 					ShapeshifterMoveSpeedDecelerate *= 0f;
 				}
+
+				Shapeshift.HandleSpecificInteractionsPostUpdate(ShapeshiftAnchor.Projectile, Player);
 
 				// SHAPESHIFTER CORE BEHAVIOUR
 
@@ -737,7 +731,7 @@ namespace OrchidMod
 			}
 			Shapeshift.ResetFallHeight(Player);
 			ShapeshifterMoveSpeedDecelerate = 0;
-			ShapeshifterHookDashTimer = 13;
+			ShapeshifterNoDecelerationTimer = 13;
 			ShapeshifterShawlCooldown = 300;
 		}
 

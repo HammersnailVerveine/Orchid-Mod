@@ -4,7 +4,9 @@ using OrchidMod.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.ID;
@@ -330,47 +332,6 @@ namespace OrchidMod.Content.Shapeshifter
 
 			accelerationmult *= shapeshifter.ShapeshifterMoveSpeedAccelerate;
 
-			if (shapeshifter.Player.windPushed)
-			{ // mighty winds (sandstorm)
-				ShapeshifterShapeshiftAnchor anchor = shapeshifter.ShapeshiftAnchor;
-
-				float windSpeed = Main.windSpeedCurrent * 0.5f;
-				if (Math.Abs(Main.windSpeedCurrent) < 0.5f)
-				{
-					windSpeed = Math.Sign(Main.windSpeedCurrent) * 0.0125f;
-				}
-
-				if (Math.Abs(Main.windSpeedCurrent) > 0.5)
-				{
-					windSpeed *= 1.37f;
-				}
-
-				if (!IsGrounded(anchor.Projectile, shapeshifter.Player, 2f))
-				{
-					windSpeed *= 1.5f;
-				}
-
-				if (anchor.IsInputLeft || anchor.IsInputRight)
-				{
-					windSpeed *= 0.8f;
-				}
-
-				if (anchor.Projectile.direction != Math.Sign(Main.windSpeedCurrent))
-				{
-					windSpeed *= -1f;
-				}
-
-				if (Main.windSpeedCurrent < 0f)
-				{
-					windSpeed *= -1f;
-				}
-
-				maxSpeed *= 1f + (windSpeed / 1f) * 0.2f;
-				accelerationmult *= 1f + (windSpeed / 1f);
-
-				Main.NewText((anchor.Projectile.direction != Math.Sign(Main.windSpeedCurrent)) + " : " + maxSpeed + " : " + Main.windSpeedCurrent);
-			}
-
 			if (!Decelerate(ref intendedVelocity, maxSpeed, speedmult, amount * 0.75f, Yaxis))
 			{
 				if (Yaxis)
@@ -545,33 +506,7 @@ namespace OrchidMod.Content.Shapeshifter
 				}
 			}
 
-			if (player.windPushed && projectile.ModProjectile is ShapeshifterShapeshiftAnchor anchor)
-			{ // mighty winds (sandstorm)
-				float windSpeed = Main.windSpeedCurrent * 0.025f;
-				if (Math.Abs(Main.windSpeedCurrent) < 0.5f)
-				{
-					windSpeed = Math.Sign(Main.windSpeedCurrent) * 0.0125f;
-				}
-
-				if (Math.Abs(Main.windSpeedCurrent) > 0.5)
-				{
-					windSpeed *= 1.37f;
-				}
-
-				if (!IsGrounded(projectile, player, 2f))
-				{
-					windSpeed *= 1.5f;
-				}
-
-				if (anchor.IsInputLeft || anchor.IsInputRight)
-				{
-					windSpeed *= 0.8f;
-				}
-
-				intendedVelocity.X += windSpeed;
-			}
-
-			HandleCrossContentInteractions(ref intendedVelocity, projectile, player, stepUpDown, cancelSlopeOffet, preventDownInput, forceFallThrough);
+			HandleSpecificInteractionsFinalVelocity(ref intendedVelocity, projectile, player, stepUpDown, cancelSlopeOffet, preventDownInput, forceFallThrough);
 
 			bool goThroughPlatforms = player.controlDown && !preventDownInput && intendedVelocity.Y < 0.5f;
 			Vector2 finalVelocity = Vector2.Zero;
@@ -833,14 +768,162 @@ namespace OrchidMod.Content.Shapeshifter
 			return result;
 		}
 
-		public void HandleCrossContentInteractions(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true, bool preventDownInput = false, bool forceFallThrough = false)
-		{ // Cross mod interactions, coded on a case-by-case basis
+		public void HandleSpecificInteractionsPostUpdate(Projectile projectile, Player player)
+		{ // Cross mod interactions, or buff specific interactions. Handled on a case-by-case basis
 			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
+			if (shapeshifter.Player.windPushed)
+			{ // mighty winds (sandstorm)
+				ShapeshifterShapeshiftAnchor anchor = shapeshifter.ShapeshiftAnchor;
+
+				float windSpeed = Main.windSpeedCurrent * 0.5f;
+				if (Math.Abs(Main.windSpeedCurrent) < 0.5f)
+				{
+					windSpeed = Math.Sign(Main.windSpeedCurrent) * 0.0125f;
+				}
+
+				if (Math.Abs(Main.windSpeedCurrent) > 0.5)
+				{
+					windSpeed *= 1.37f;
+				}
+
+				if (!IsGrounded(anchor.Projectile, shapeshifter.Player, 2f))
+				{
+					windSpeed *= 1.5f;
+				}
+
+				if (anchor.IsInputLeft || anchor.IsInputRight)
+				{
+					windSpeed *= 0.8f;
+				}
+
+				if (anchor.Projectile.direction != Math.Sign(Main.windSpeedCurrent))
+				{
+					windSpeed *= -1f;
+				}
+
+				if (Main.windSpeedCurrent < 0f)
+				{
+					windSpeed *= -1f;
+				}
+
+				shapeshifter.ShapeshifterMoveSpeedBonusFinal *= 1f + (windSpeed / 1f) * 0.2f;
+				shapeshifter.ShapeshifterMoveSpeedAccelerate *= 1f + (windSpeed / 1f);
+			}
+
+			if (OrchidMod.ThoriumMod != null)
+			{
+				foreach (Projectile crossProjectile in Main.projectile)
+				{
+					if (crossProjectile.type == OrchidMod.ThoriumMod.Find<ModProjectile>("QueenTorrent").Type && crossProjectile.active)
+					{ // queen jellyfish whirlpool
+						float distance = crossProjectile.DistanceSQ(player.Center);
+						if (distance < 250000)
+						{
+							shapeshifter.ShapeshifterMoveSpeedBonusFinal *= 0.9f;
+						}
+					}
+				}
+			}
+		}
+
+		public void HandleSpecificInteractionsFinalVelocity(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true, bool preventDownInput = false, bool forceFallThrough = false)
+		{ // Cross mod interactions, or buff specific interactions. Handled on a case-by-case basis
+			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
+			if (player.windPushed && projectile.ModProjectile is ShapeshifterShapeshiftAnchor anchor)
+			{ // mighty winds (sandstorm)
+				float windSpeed = Main.windSpeedCurrent * 0.025f;
+				if (Math.Abs(Main.windSpeedCurrent) < 0.5f)
+				{
+					windSpeed = Math.Sign(Main.windSpeedCurrent) * 0.0125f;
+				}
+
+				if (Math.Abs(Main.windSpeedCurrent) > 0.5)
+				{
+					windSpeed *= 1.37f;
+				}
+
+				if (!IsGrounded(projectile, player, 2f))
+				{
+					windSpeed *= 1.5f;
+				}
+
+				if (anchor.IsInputLeft || anchor.IsInputRight)
+				{
+					windSpeed *= 0.8f;
+				}
+
+				intendedVelocity.X += windSpeed;
+			}
+
+			if (OrchidMod.ThoriumMod != null)
+			{
+				if (player.HasBuff(OrchidMod.ThoriumMod.Find<ModBuff>("Bubbled").Type))
+				{ // Quenn jellyfish bubble buff
+					intendedVelocity.Y -= 0.8f;
+				}
+
+				foreach (Projectile crossProjectile in Main.projectile)
+				{
+					if (crossProjectile.active)
+					{
+						if (crossProjectile.type == OrchidMod.ThoriumMod.Find<ModProjectile>("QueenTorrent").Type)
+						{ // queen jellyfish whirlpool
+							float distance = crossProjectile.DistanceSQ(player.Center);
+							if (distance < 250000)
+							{
+								float pull = 0.02f;
+								if (distance < 40000)
+									pull = 0.03f;
+								if (distance < 2500)
+									pull = 0.04f;
+								if (player.Center.X > crossProjectile.Center.X)
+								{
+									if (intendedVelocity.X > -3.0)
+										intendedVelocity.X -= pull;
+								}
+								else if (intendedVelocity.X < 3.0)
+								{
+									intendedVelocity.X += pull;
+								}
+							}
+						}
+
+						if (crossProjectile.type == OrchidMod.ThoriumMod.Find<ModProjectile>("CursedHammerPro1").Type)
+						{ // cursed hammer
+							if (player.whoAmI != crossProjectile.owner && projectile.DistanceSQ(player.Center) < 900.0) // && !player2.GetThoriumPlayer().accOvercomingGrief)
+							{ // waiting fo a mod call to get the accOvercomingGrief value
+								intendedVelocity = crossProjectile.velocity * 1.25f;
+								shapeshifter.ShapeshifterNoDecelerationTimer = 10;
+							}
+						}
+
+						if (crossProjectile.type == OrchidMod.ThoriumMod.Find<ModProjectile>("DrumMalletPro").Type)
+						{ // drum mallet bounce
+							if (crossProjectile.timeLeft < 1190 && crossProjectile.velocity.X < 1.0 && crossProjectile.velocity.X > -1.0)
+							{
+								if (intendedVelocity.Y > 3.0 && player.DistanceSQ(crossProjectile.Center) < 784.0)// && (!player.GetThoriumPlayer().accOvercomingGrief || this.Projectile.owner == ((Entity)player).whoAmI))
+								{ // waiting fo a mod call to get the accOvercomingGrief value
+									if (intendedVelocity.Y < 15.0)
+										intendedVelocity.Y *= 1.5f;
+									intendedVelocity.Y = -intendedVelocity.Y;
+									player.fallStart = (int)(player.position.Y / 16f);
+									crossProjectile.frameCounter = 0;
+									crossProjectile.frame = 0;
+									crossProjectile.ai[0] = 1f;
+									crossProjectile.ai[1] = 0.0f;
+									SoundEngine.PlaySound(SoundID.Item56, crossProjectile.position);
+								}
+							}
+						}
+					}
+				}
+			}
+
 			if (OrchidMod.BetterCaves != null)
 			{ // Better caves gravity and pressure traps
 				foreach (Projectile crossProjectile in Main.projectile)
 				{
-					if (crossProjectile.type == OrchidMod.BetterCaves.Find<ModProjectile>("Pressure").Type)
+					if (crossProjectile.type == OrchidMod.BetterCaves.Find<ModProjectile>("Pressure").Type && crossProjectile.active)
 					{
 						if (crossProjectile.timeLeft == 180 && projectile.Hitbox.Intersects(crossProjectile.Hitbox) && player.active)
 						{
@@ -869,40 +952,5 @@ namespace OrchidMod.Content.Shapeshifter
 				}
 			}
 		}
-
-		/*
-		public bool CanGoDown(Vector2 intendedVelocity, Projectile projectile, Player player)
-		{ // false if the player is unable to go upbecause of a tile above their hitbox
-			float velocityY = intendedVelocity.Y;
-			if (intendedVelocity.Y < 8f)
-			{
-				intendedVelocity.Y = 8f;
-			}
-
-			return (Collision.TileCollision(projectile.position, Vector2.UnitY * intendedVelocity.Y, projectile.width, projectile.height, false, false, (int)player.gravDir) == Vector2.UnitY * intendedVelocity.Y);
-		}
-
-
-		public void StepDownTiles(Vector2 intendedVelocity, Projectile projectile, Player player)
-		{
-			if (CanGoDown(intendedVelocity, projectile, player))
-			{
-				Vector2 finalVelocity = Vector2.Zero;
-				intendedVelocity.Y = 1.6f;
-				for (int i = 0; i < 11; i++)
-				{
-					finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, false, false, (int)player.gravDir);
-					if (Math.Abs(finalVelocity.Y - intendedVelocity.Y * (i + 1)) > 0.001f)
-					{ // A tile was hit on the Y axis, warp the player down
-						Main.NewText("Down");
-						Vector2 newPosition = projectile.position;
-						projectile.position.Y += finalVelocity.Y;
-						player.gfxOffY = finalVelocity.Y;
-						return;
-					}
-				}
-			}
-		}
-		*/
 	}
 }
