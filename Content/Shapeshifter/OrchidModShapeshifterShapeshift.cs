@@ -506,16 +506,24 @@ namespace OrchidMod.Content.Shapeshifter
 				}
 			}
 
-			HandleSpecificInteractionsFinalVelocity(ref intendedVelocity, projectile, player, stepUpDown, cancelSlopeOffet, preventDownInput, forceFallThrough);
-
-			bool goThroughPlatforms = player.controlDown && !preventDownInput && intendedVelocity.Y < 0.5f;
+			bool phaseThroughTiles = false;
+			HandleSpecificInteractionsFinalVelocity(ref intendedVelocity, ref phaseThroughTiles, projectile, player, stepUpDown, cancelSlopeOffet, preventDownInput, forceFallThrough);
 			Vector2 finalVelocity = Vector2.Zero;
-			intendedVelocity /= 10f;
-			for (int i = 0; i < 10; i++)
+
+			if (!phaseThroughTiles)
 			{
-				//finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
-				bool isSlope = false;
-				finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, ref isSlope, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
+				bool goThroughPlatforms = player.controlDown && !preventDownInput && intendedVelocity.Y < 0.5f;
+				intendedVelocity /= 10f;
+				for (int i = 0; i < 10; i++)
+				{
+					//finalVelocity += Collision.TileCollision(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
+					bool isSlope = false;
+					finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, ref isSlope, (goThroughPlatforms || forceFallThrough), forceFallThrough, (int)player.gravDir);
+				}
+			}
+			else
+			{
+				finalVelocity += intendedVelocity;
 			}
 
 			if (player.stickyBreak > 0 && !WebImmunity)
@@ -826,7 +834,7 @@ namespace OrchidMod.Content.Shapeshifter
 			}
 		}
 
-		public void HandleSpecificInteractionsFinalVelocity(ref Vector2 intendedVelocity, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true, bool preventDownInput = false, bool forceFallThrough = false)
+		public void HandleSpecificInteractionsFinalVelocity(ref Vector2 intendedVelocity, ref bool phaseThroughTiles, Projectile projectile, Player player, bool stepUpDown = false, bool cancelSlopeOffet = true, bool preventDownInput = false, bool forceFallThrough = false)
 		{ // Cross mod interactions, or buff specific interactions. Handled on a case-by-case basis
 			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
 			if (player.windPushed && projectile.ModProjectile is ShapeshifterShapeshiftAnchor anchor)
@@ -853,6 +861,26 @@ namespace OrchidMod.Content.Shapeshifter
 				}
 
 				intendedVelocity.X += windSpeed;
+			}
+
+			if (player.tongued)
+			{
+				foreach(NPC npc in Main.npc)
+				{
+					if (npc.type == NPCID.WallofFlesh)
+					{
+						float pull = 11f;
+						if (Main.expertMode)
+						{
+							pull = MathHelper.Lerp(11, 22, Math.Min(1f, npc.velocity.Length()) / 5f);
+						}
+
+						Vector2 targetPosition = npc.Center + Vector2.UnitX * 200 * npc.direction;
+						intendedVelocity = Vector2.Normalize(targetPosition - projectile.Center) * pull;
+						phaseThroughTiles = true;
+						break;
+					}
+				}
 			}
 
 			if (OrchidMod.ThoriumMod != null)

@@ -132,15 +132,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 		}
 
-		public override bool ShapeshiftCanJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => anchor.JumpWithControlRelease(player) && Jumps > 0;
-
-		public override void ShapeshiftOnJump(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
-		{
-			anchor.Projectile.ai[0] = -31;
-			anchor.NeedNetUpdate = true;
-			Reinforced = true;
-		}
-
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			// MISC EFFECTS
@@ -166,7 +157,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				}
 			}
 
-			if (Landed)
+			if (Landed && projectile.velocity.Y >= 0)
 			{
 				anchor.Timespent = 0;
 				anchor.Frame = 0;
@@ -183,8 +174,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				anchor.Frame = 3;
 			}
 
-			if (anchor.Projectile.ai[0] < -30)
+			if (anchor.JumpWithControlRelease(player) && Jumps > 0)
 			{ // Jump
+				Landed = false;
+				Reinforced = true;
 				Jumps--;
 				anchor.Frame = 3;
 				anchor.Projectile.ai[0] = -30;
@@ -273,10 +266,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				RightClickLanding = true;
 				Landed = true;
 				anchor.Timespent = 0;
+				Jumps = 3;
 				if (LateralMovement || anchor.IsLeftClick)
 				{ // Jumps when a movement input is done while landed
 					Landed = false;
-					Jumps = 3;
 					if (intendedVelocity.Y > 0)
 					{
 						anchor.Frame = 3;

@@ -27,6 +27,7 @@ namespace OrchidMod
 		public int GetShapeshifterHealing(float healing) => (int)Math.Ceiling(healing * ShapeshifterHealingBonus);
 		public static List<int> ShapeshifterIncompatibleProjectiles; // These projectile IDs will kill the wildshape anchor if they are owned by the local player 
 		public static List<int> ShapeshifterIncompatibleBuffs; // These buff IDs will kill the wildshape anchor if they affect the local player 
+		public static List<string> ShapeshifterAuthorizedDrawLayers; // Internal Names of DrawLayers that remain visibled when shapeshifted
 
 		// Can be edited by gear (Set effects, accessories, misc)
 
@@ -82,7 +83,10 @@ namespace OrchidMod
 			{
 				foreach (var layer in PlayerDrawLayerLoader.DrawOrder)
 				{
-					layer.Hide();
+					if (!ShapeshifterAuthorizedDrawLayers.Contains(layer.Name))
+					{
+						layer.Hide();
+					}
 				}
 			}
 		}
@@ -93,6 +97,10 @@ namespace OrchidMod
 			ShapeshifterSageDamageOnHitTargets = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
 			ShapeshifterIncompatibleProjectiles = new List<int>();
 			ShapeshifterIncompatibleBuffs = [BuffID.Stoned];
+			ShapeshifterAuthorizedDrawLayers = new List<string>() { 
+				"SolarShield", "FrozenOrWebbedDebuff", "ElectrifiedDebuffBack", "IceBarrier", "CaptureTheGem", 
+				"BeetleBuff", "EyebrellaCloud", "ElectrifiedDebuffBack", "ForbiddenSetRing", "SafemanSun", "WebbedDebuffBack",
+			};
 
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
