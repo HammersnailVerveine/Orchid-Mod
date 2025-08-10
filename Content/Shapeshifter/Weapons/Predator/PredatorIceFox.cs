@@ -293,7 +293,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			// ANIMATION
 
-			if (grounded)
+			if (grounded && projectile.velocity.Y >= 0)
 			{
 				if (LateralMovement)
 				{ // Player is moving left or right, cycle through frames

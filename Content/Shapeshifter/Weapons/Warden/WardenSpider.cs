@@ -11,7 +11,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 	public class WardenSpider : OrchidModShapeshifterShapeshift
 	{
 		public bool LateralMovement = false;
-		public bool JumpRelease = false;
 
 		public override void SafeSetDefaults()
 		{
@@ -137,7 +136,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				if (anchor.IsInputJump)
 				{ // Prevents jumping immediately after detaching of a wall by pressing space
 					walled = false;
-					JumpRelease = false;
 				}
 			}
 
@@ -188,29 +186,30 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 			else
 			{ // Grounded animations
-				if (anchor.Frame > 3)
+				if (IsGrounded(projectile, player, 2f) && projectile.velocity.Y >= 0f)
 				{
-					anchor.Frame = 0;
-				}
-
-				if (LateralMovement)
-				{ // Player is moving left or right, cycle through frames
-					if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
+					if (anchor.Frame > 3)
 					{
-						anchor.Frame++;
-						if (anchor.Frame == 4)
+						anchor.Frame = 0;
+					}
+					if (LateralMovement)
+					{ // Player is moving left or right, cycle through frames
+						if (anchor.Timespent % 4 == 0 && anchor.Timespent > 0)
 						{
-							anchor.Frame = 1;
+							anchor.Frame++;
+							if (anchor.Frame == 4)
+							{
+								anchor.Frame = 1;
+							}
 						}
+					}
+					else
+					{
+						anchor.Timespent = 0;
+						anchor.Frame = 0;
 					}
 				}
 				else
-				{
-					anchor.Timespent = 0;
-					anchor.Frame = 0;
-				}
-
-				if (!IsGrounded(projectile, player, 8f))
 				{
 					anchor.Timespent = 0;
 					anchor.Frame = 5;
@@ -251,15 +250,10 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 
 				if (anchor.IsInputJump)
 				{ // Jump while no charge ready
-					if (grounded && JumpRelease)
+					if (grounded)
 					{
-						JumpRelease = false;
 						TryJump(ref intendedVelocity, 9.5f, player, shapeshifter, anchor, true);
 					}
-				}
-				else
-				{
-					JumpRelease = true;
 				}
 
 				GravityCalculations(ref intendedVelocity, player, shapeshifter);
@@ -296,7 +290,29 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			{
 				if (intendedVelocity.Length() > 0.1f)
 				{
-					projectile.rotation = projectile.velocity.ToRotation();
+					float target = projectile.velocity.ToRotation();
+					
+					if (projectile.rotation > MathHelper.PiOver2 && target < -MathHelper.PiOver2)
+					{
+						target += MathHelper.TwoPi;
+					}
+
+					if (projectile.rotation < -MathHelper.PiOver2 && target > MathHelper.PiOver2)
+					{
+						target -= MathHelper.TwoPi;
+					}
+
+					projectile.rotation -= (projectile.rotation - target) * 0.15f;
+
+					if (projectile.rotation > MathHelper.Pi)
+					{
+						projectile.rotation -= MathHelper.TwoPi;
+					}
+
+					if (projectile.rotation < -MathHelper.Pi)
+					{
+						projectile.rotation += MathHelper.TwoPi;
+					}
 				}
 				projectile.spriteDirection = 1;
 			}

@@ -80,7 +80,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			int projectileType = ModContent.ProjectileType<SageCorruptionProjBlast>();
 			Vector2 velocity = Main.MouseWorld.X < projectile.Center.X ? -Vector2.UnitX : Vector2.UnitX;
 			float chargeMult = (RightClickChargeBuffer / 300f);
-			float damage = Item.damage * 3f + Item.damage * chargeMult * 12f; // damage increased based on the left click hold duration
+			float damage = Item.damage * 3f + Item.damage * chargeMult * 8f; // damage increased based on the left click hold duration
 			ShapeshifterNewProjectile(shapeshifter, projectile.Center, velocity, projectileType, damage, Item.crit, 0f, player.whoAmI, chargeMult);
 
 			projectile.velocity = -velocity * (6f + 4f * (anchor.ai[0] / 300f)) * shapeshifter.GetShapeshifterMeleeSpeed(); // dash duration reduced by attack speed, therefore it multiplies the velocity
