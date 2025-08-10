@@ -399,7 +399,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			}
 		}
 
-		public override Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		public override Color GetColorGlow(Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			return player.GetImmuneAlphaPure(Color.White, 0f) * (0.5f + (float)(Math.Sin(anchor.Timespent * 0.04851f) * 0.1f) + (float)(Math.Sin(anchor.Timespent * 0.123f) * 0.05f) + (float)(Math.Sin(anchor.Timespent * 0.31461f) * 0.02f) + (float)(Math.Sin(anchor.Timespent * 0.07124f) * 0.03f));
 		}

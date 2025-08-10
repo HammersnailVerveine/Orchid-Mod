@@ -505,119 +505,21 @@ namespace OrchidMod.Content.Shapeshifter
 			if (ShapeshifterItem.ModItem is not OrchidModShapeshifterShapeshift shapeshifterItem || TextureShapeshift == null) return false;
 			var player = Main.player[Projectile.owner];
 
-			if (shapeshifterItem.ShapeshiftShouldDraw(spriteBatch, Projectile, player, ref lightColor))
+			if (shapeshifterItem.ShapeshiftShouldDraw(Projectile, player, ref lightColor))
 			{
 				OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
-				bool drawHairColor = (shapeshifter.ShapeshifterHairpin && !SwapHairColorTrigger) || (SwapHairColorTrigger && !shapeshifter.ShapeshifterHairpin);
-				bool drawAsAdditive = false;
-				Texture2D hairTexture = (TextureShapeshiftHairGray != null && drawHairColor) ? TextureShapeshiftHairGray : TextureShapeshiftHair;
-				Color color = shapeshifterItem.GetColor(ref drawAsAdditive, shapeshifter.ShapeshifterHairpin ? lightColor.MultiplyRGBA(player.hairColor) : lightColor, Projectile, this, player, shapeshifter, true);
-				Color colorGlow = shapeshifterItem.GetColorGlow(ref drawAsAdditive, lightColor, Projectile, this, player, player.GetModPlayer<OrchidShapeshifter>());
-				Color colorLight = shapeshifterItem.GetColor(ref drawAsAdditive, lightColor, Projectile, this, player, shapeshifter);
+				Color color = shapeshifterItem.GetColor(shapeshifter.ShapeshifterHairpin ? lightColor.MultiplyRGBA(player.hairColor) : lightColor, Projectile, this, player, shapeshifter, true);
 				Vector2 drawPosition = Vector2.Transform(Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix).Floor();
 				Rectangle drawRectangle = TextureShapeshift.Bounds;
 				drawRectangle.Height = drawRectangle.Width;
+				drawRectangle.Y = drawRectangle.Height * Frame;
 				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
 				if (player.HasBuff<ShapeshifterShapeshiftingCooldownDebuff>())
 				{
 					color = Color.Gray.MultiplyRGB(color);
-					colorGlow = Color.Gray.MultiplyRGB(colorGlow);
-					colorLight = Color.Gray.MultiplyRGB(colorLight);
 				}
 
-				drawRectangle.Y = drawRectangle.Height * Frame;
-				shapeshifterItem.ShapeshiftPreDraw(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, color);
-
-				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
-				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
-
-				if (BlinkEffect < 20)
-				{ // blink animation
-					float scalemult = (float)Math.Sin(BlinkEffect * 0.157f) * 0.2f + 1f;
-					spriteBatch.Draw(TextureShapeshift, drawPosition, drawRectangle, colorLight * 1.5f, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale * scalemult, effect, 0f);
-					spriteBatch.Draw(hairTexture, drawPosition, drawRectangle, color * 1.5f, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale * scalemult, effect, 0f);
-				}
-
-				for (int i = 0; i < OldPosition.Count; i++)
-				{
-					drawRectangle.Y = drawRectangle.Height * OldFrame[i];
-					Vector2 drawPosition2 = Vector2.Transform(OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
-					spriteBatch.Draw(TextureShapeshift, drawPosition2, drawRectangle, colorLight * 0.075f * (i + 1), OldRotation[i], drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
-					spriteBatch.Draw(hairTexture, drawPosition2, drawRectangle, color * 0.075f * (i + 1), OldRotation[i], drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
-				}
-
-				if (!drawAsAdditive)
-				{
-					spriteBatch.End();
-					spriteBatch.Begin(spriteBatchSnapshot);
-				}
-
-				/*
-				if (player.GetModPlayer<OrchidShapeshifter>().ShapeshifterShampoo)
-				{
-					Main.instance.PrepareDrawnEntityDrawing(Projectile, player.cMinion, null);
-				}
-				*/
-
-				drawRectangle.Y = drawRectangle.Height * Frame;
-
-				if (shapeshifter.ShapeshifterHairpin || drawHairColor)
-				{ // draws hair before the shampoo shaders if the player uses the hairpin
-
-					if (shapeshifter.ShapeshifterHairpin)
-					{ // remove the hair layer shader
-						for (int i = 0; i < player.armor.Length; i++)
-						{
-							if (player.armor[i].type == ModContent.ItemType<ShapeshifterHairpin>())
-							{
-								if (i > 9) i -= 10;
-								if (player.dye[i].type != ItemID.None)
-								{
-									Main.instance.PrepareDrawnEntityDrawing(Projectile, GameShaders.Armor.GetShaderIdFromItemId(player.dye[i].type), null);
-								}
-								break;
-							}
-						}
-					}
-
-					Main.EntitySpriteDraw(hairTexture, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
-					Main.instance.PrepareDrawnEntityDrawing(Projectile, 0, null);
-				}
-
-				for (int i = 0; i < player.armor.Length; i++)
-				{
-					if (player.armor[i].type == ModContent.ItemType<ShapeshifterShampoo>())
-					{
-						if (i > 9) i -= 10;
-						if (player.dye[i].type != ItemID.None)
-						{
-							Main.instance.PrepareDrawnEntityDrawing(Projectile, GameShaders.Armor.GetShaderIdFromItemId(player.dye[i].type), null);
-						}
-						break;
-					}
-				}
-
-				if (!drawHairColor && !shapeshifter.ShapeshifterHairpin)
-				{ // draws hair after the shader if the player doesn't use the hairpin
-					Main.EntitySpriteDraw(hairTexture, drawPosition, drawRectangle, color, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
-				}
-
-				Main.EntitySpriteDraw(TextureShapeshift, drawPosition, drawRectangle, colorLight, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
-
-				if (TextureShapeshiftGlow != null)
-				{
-					Main.EntitySpriteDraw(TextureShapeshiftGlow, drawPosition, drawRectangle, colorGlow, Projectile.rotation, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
-				}
-
-				if (drawAsAdditive)
-				{
-					spriteBatch.End();
-					spriteBatch.Begin(spriteBatchSnapshot);
-				}
-
-				//spriteBatch.End();
-				//spriteBatch.Begin(spriteBatchSnapshot);
 				shapeshifterItem.ShapeshiftPostDraw(spriteBatch, Projectile, this, drawPosition, drawRectangle, effect, player, color);
 			}
 

@@ -463,6 +463,6 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 			}
 		}
 
-		public override Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(Color.White, 0f) * 0.5f;
+		public override Color GetColorGlow(Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(Color.White, 0f) * 0.5f;
 	}
 }

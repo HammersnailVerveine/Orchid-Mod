@@ -3,6 +3,7 @@ using OrchidMod.Common;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
 using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
+using OrchidMod.Content.Shapeshifter.DrawLayers;
 using OrchidMod.Content.Shapeshifter.Dusts;
 using OrchidMod.Content.Shapeshifter.Projectiles.Misc;
 using System;
@@ -12,6 +13,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace OrchidMod
 {
@@ -81,7 +83,7 @@ namespace OrchidMod
 		{
 			if (ShapeshiftAnchor != null)
 			{
-				foreach (var layer in PlayerDrawLayerLoader.DrawOrder)
+				foreach (PlayerDrawLayer layer in PlayerDrawLayerLoader.DrawOrder)
 				{
 					if (!ShapeshifterAuthorizedDrawLayers.Contains(layer.Name))
 					{
@@ -90,6 +92,34 @@ namespace OrchidMod
 				}
 			}
 		}
+
+		/*
+		public override void ModifyDrawLayerOrdering(IDictionary<PlayerDrawLayer, Position> positions)
+		{
+			if (OrchidMod.ThoriumMod != null)
+			{ // places the shifter drawlayer between thorium orbitals if thorium is enabled
+				PlayerDrawLayer thoriumOrbitalsLayer = null;
+				foreach (PlayerDrawLayer layer in PlayerDrawLayerLoader.DrawOrder)
+				{
+					if (layer.Name == "OrbitalLayerFront")
+					{
+						thoriumOrbitalsLayer = layer;
+						break;
+					}
+				}
+
+				foreach (var position in positions)
+				{
+					if (position.Key is ShapeshifterHairDrawLayer)
+					{
+						positions.Add(position.Key, new BeforeParent(thoriumOrbitalsLayer));
+						positions.Remove(position);
+						break;
+					}
+				}
+			}
+		}
+		*/
 
 		public override void Initialize()
 		{
@@ -100,7 +130,8 @@ namespace OrchidMod
 			ShapeshifterAuthorizedDrawLayers = new List<string>() { 
 				"SolarShield", "FrozenOrWebbedDebuff", "ElectrifiedDebuffBack", "IceBarrier", "CaptureTheGem", // vanilla
 				"BeetleBuff", "EyebrellaCloud", "ElectrifiedDebuffFront", "ForbiddenSetRing", "SafemanSun", "WebbedDebuffBack", // vanilla
-				"OrbitalLayerBack", "OrbitalLayerFront" // thorium
+				"OrbitalLayerBack", "OrbitalLayerFront", // thorium
+				"ShapeshifterDrawLayer" // ...
 			};
 
 			var thoriumMod = OrchidMod.ThoriumMod;

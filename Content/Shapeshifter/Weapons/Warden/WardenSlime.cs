@@ -36,14 +36,14 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			HitNPCs = new List<int>();
 		}
 
-		public override Color GetColor(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, bool isHairColor)
+		public override Color GetColor(Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, bool isHairColor)
 		{
 			if (!isHairColor)
 			{
-				return base.GetColor(ref drawPlayerAsAdditive, lightColor, projectile, anchor, player, shapeshifter, isHairColor) * 0.5f;
+				return base.GetColor(lightColor, projectile, anchor, player, shapeshifter, isHairColor) * 0.5f;
 			}
 
-			return base.GetColor(ref drawPlayerAsAdditive, lightColor, projectile, anchor, player, shapeshifter, isHairColor);
+			return base.GetColor(lightColor, projectile, anchor, player, shapeshifter, isHairColor);
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
@@ -556,7 +556,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 				}
 			}
 		}
-		public override Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(lightColor * 2.5f, 0f);
+		public override Color GetColorGlow(Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter) => player.GetImmuneAlphaPure(lightColor * 2.5f, 0f);
 
 		public override void ShapeshiftOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{

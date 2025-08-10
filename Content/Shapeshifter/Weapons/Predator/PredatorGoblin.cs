@@ -236,7 +236,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 					anchor.Frame = 10;
 				}
 			}
-			else if (grounded)
+			else if (grounded && projectile.velocity.Y >= 0)
 			{
 				if (LateralMovement)
 				{ // Player is moving left or right, cycle through frames
@@ -354,9 +354,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			}
 		}
 
-		public override Color GetColor(ref bool drawPlayerAsAdditive, Color inputColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, bool isHairColor = false)
+		public override Color GetColor(Color inputColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter, bool isHairColor = false)
 		{
-			Color color = base.GetColor(ref drawPlayerAsAdditive, inputColor, projectile, anchor, player, shapeshifter, isHairColor);
+			Color color = base.GetColor(inputColor, projectile, anchor, player, shapeshifter, isHairColor);
 			if (anchor.ai[0] > 180)
 			{
 				float colormult = 1f - (anchor.ai[0] - 180f) * 0.02f;

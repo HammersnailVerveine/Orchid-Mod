@@ -36,9 +36,9 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			GroundedWildshape = false;
 		}
 
-		public override Color GetColorGlow(ref bool drawPlayerAsAdditive, Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		public override Color GetColorGlow(Color lightColor, Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
-			return base.GetColorGlow(ref drawPlayerAsAdditive, lightColor, projectile, anchor, player, shapeshifter) * 0.5f;
+			return base.GetColorGlow(lightColor, projectile, anchor, player, shapeshifter) * 0.5f;
 		}
 
 		public override void ShapeshiftAnchorOnShapeshift(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
