@@ -138,7 +138,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 		{
 			// MISC EFFECTS & ANIMATION
 
-			bool grounded = IsGrounded(projectile, player, 4f);
+			bool grounded = IsGrounded(projectile, player, 8f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 			if (anchor.Projectile.ai[2] > 0)
 			{

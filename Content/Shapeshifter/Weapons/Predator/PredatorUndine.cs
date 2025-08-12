@@ -250,7 +250,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				projectile.ai[2] --;
 			}
 
-			bool grounded = IsGrounded(projectile, player, 4f);
+			bool grounded = IsGrounded(projectile, player, 8f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 
 

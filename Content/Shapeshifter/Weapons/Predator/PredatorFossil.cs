@@ -149,7 +149,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			// MISC EFFECTS
 
-			bool grounded = IsGrounded(projectile, player, 4f);
+			bool grounded = IsGrounded(projectile, player, 8f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded);
 
 			if (grounded && anchor.RightCLickCooldown > 60 && anchor.RightCLickCooldown < 540)

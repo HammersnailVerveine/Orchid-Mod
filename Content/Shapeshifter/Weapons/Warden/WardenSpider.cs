@@ -117,7 +117,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			Tile tile = Framing.GetTileSafely((int)(projectile.Center.X / 16f), (int)(projectile.Center.Y / 16f));
 			bool walled = tile.WallType != 0;
 
-			bool grounded = IsGrounded(projectile, player, 4f);
+			bool grounded = IsGrounded(projectile, player, 8f);
 			float speedMult = GetSpeedMult(player, shapeshifter, anchor, grounded || walled);
 
 			foreach (Projectile webProjectile in Main.projectile)

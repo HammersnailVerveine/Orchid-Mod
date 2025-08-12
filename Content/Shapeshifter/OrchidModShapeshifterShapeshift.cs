@@ -413,7 +413,7 @@ namespace OrchidMod.Content.Shapeshifter
 		{ // set groundedCheck to a value above 0 to make sure the player is touching the ground
 			if (mustBeGrounded)
 			{
-				if(IsGrounded(anchor.Projectile, player, 2f) && anchor.Projectile.velocity.Y == 0f)
+				if(IsGrounded(anchor.Projectile, player, 8f) && anchor.Projectile.velocity.Y == 0f)
 				{
 					intendedVelocity.Y = -intendedJumpSpeed * GetJumpMult(player, shapeshifter, anchor, speedEfficiency);
 					anchor.NeedNetUpdate = true;

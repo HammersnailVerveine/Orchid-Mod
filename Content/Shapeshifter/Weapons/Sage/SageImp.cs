@@ -196,6 +196,11 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			SetCameraLerp(player, 0.1f, 5);
 		}
 
+		public override void ShapeshiftBuffs(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			player.fireWalk = true;
+		}
+
 		public override void ShapeshiftAnchorAI(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
 		{
 			// ai[0] is used as a timer for attack animations

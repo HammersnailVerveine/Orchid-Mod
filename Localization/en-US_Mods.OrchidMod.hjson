@@ -282,11 +282,6 @@ Buffs: {
 		Description: Decreased movement speed
 	}
 
-	WardenSpiderBuff: {
-		DisplayName: Shellweb Feast
-		Description: Increase defense by 15
-	}
-
 	SageBatDebuff: {
 		DisplayName: Echolocated
 		Description: Takes massive damage from bat attacks
@@ -3520,11 +3515,11 @@ Items: {
 	WardenSpider: {
 		DisplayName: Shellweb Idol
 		LeftClick: A violent bite, healing off of webbed enemies
-		RightClick: Fires a web, allowing to execute enemies below 100 health
+		RightClick: Fires a web, slowing, and allowing to execute low health enemies
 		Jump: The web can be used to pull yourself towards tiles or webs
 		Passive:
 			'''
-			Executing enemies recover 10 health and grants 15 defense
+			Executing enemies recover health
 			The execute threshold and healing are reduced in other shapes
 			'''
 		Tooltip: Transforms you into a Shellweb Spider, gaining unique abilities

@@ -282,11 +282,6 @@ Buffs: {
 		Description: Скорость передвижения снижена
 	}
 
-	WardenSpiderBuff: {
-		DisplayName: Празднество паутинной оболочки
-		Description: Защита увеличена на 15 ед.
-	}
-
 	SageBatDebuff: {
 		DisplayName: Эхолокация
 		Description: Урон от атак летучих мышей значительно увеличен
