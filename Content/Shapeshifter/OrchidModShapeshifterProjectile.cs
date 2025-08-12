@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using OrchidMod.Common;
 using OrchidMod.Common.Global.NPCs;
 using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Shapeshifter.Weapons.Predator;
 using System.Linq;
 using Terraria;
 using Terraria.Audio;
