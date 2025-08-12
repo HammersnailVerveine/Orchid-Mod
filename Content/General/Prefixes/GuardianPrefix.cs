@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian;
 using Terraria;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class GuardianEmblem : OrchidModGuardianItem
+	public class GuardianEmblem : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

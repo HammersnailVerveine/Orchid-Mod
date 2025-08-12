@@ -3,7 +3,7 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class TerrifyingMonsterFang : OrchidModGuardianItem
+	public class TerrifyingMonsterFang : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

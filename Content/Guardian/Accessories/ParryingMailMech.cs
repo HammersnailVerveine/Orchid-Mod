@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class ParryingMailMech : OrchidModGuardianItem
+	public class ParryingMailMech : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

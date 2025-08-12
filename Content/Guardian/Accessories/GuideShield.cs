@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class GuideShield : OrchidModGuardianItem
+	public class GuideShield : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

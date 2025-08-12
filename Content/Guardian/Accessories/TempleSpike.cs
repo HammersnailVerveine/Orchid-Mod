@@ -3,7 +3,7 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class TempleSpike : OrchidModGuardianItem
+	public class TempleSpike : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

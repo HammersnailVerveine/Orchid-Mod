@@ -1,11 +1,10 @@
-using OrchidMod.Content.Gambler.Misc;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class ParryingMailFeral : OrchidModGuardianItem
+	public class ParryingMailFeral : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

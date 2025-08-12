@@ -3,11 +3,10 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class GuideShieldBounce : OrchidModGuardianItem
+	public class GuideShieldBounce : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

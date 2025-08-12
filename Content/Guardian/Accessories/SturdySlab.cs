@@ -4,7 +4,7 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class SturdySlab : OrchidModGuardianItem
+	public class SturdySlab : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

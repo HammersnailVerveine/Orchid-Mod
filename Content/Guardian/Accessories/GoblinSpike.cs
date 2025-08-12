@@ -3,7 +3,7 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class GoblinSpike : OrchidModGuardianItem
+	public class GoblinSpike : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

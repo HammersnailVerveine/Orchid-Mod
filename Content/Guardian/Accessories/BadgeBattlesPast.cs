@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class BadgeBattlesPast : OrchidModGuardianItem
+	public class BadgeBattlesPast : OrchidModGuardianEquipable
 	{
 		float damageIncrease = 0f;
 		int timer = 0;

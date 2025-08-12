@@ -1,10 +1,9 @@
-using OrchidMod.Content.Gambler.Misc;
 using Terraria;
 using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class MechanicalSpike : OrchidModGuardianItem
+	public class MechanicalSpike : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

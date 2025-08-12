@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class DungeonSpike : OrchidModGuardianItem
+	public class DungeonSpike : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

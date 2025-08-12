@@ -3,7 +3,7 @@ using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class ColossalWormTooth : OrchidModGuardianItem
+	public class ColossalWormTooth : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{

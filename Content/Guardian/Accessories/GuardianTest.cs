@@ -2,7 +2,7 @@ using Terraria;
 
 namespace OrchidMod.Content.Guardian.Accessories
 {
-	public class GuardianTest : OrchidModGuardianItem
+	public class GuardianTest : OrchidModGuardianEquipable
 	{
 		public override void SafeSetDefaults()
 		{
