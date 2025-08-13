@@ -17,11 +17,6 @@ namespace OrchidMod.Content.Shapeshifter.Accessories
 			Item.damage = 35;
 		}
 
-		public override void SetStaticDefaults()
-		{
-			ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<GuardianEmblem>();
-		}
-
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidShapeshifter shapeshifter = player.GetModPlayer<OrchidShapeshifter>();
