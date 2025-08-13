@@ -397,7 +397,7 @@ namespace OrchidMod
 					ShapeshifterJumpSpeed *= 0.5f;
 					ShapeshifterMoveSpeedBonusFinal *= 0.5f;
 					ShapeshifterMoveSpeedBonusFlat *= 0.5f;
-					ShapeshifterMoveSpeedMiscOverride *= 0.5f;
+					//ShapeshifterMoveSpeedMiscOverride *= 0.5f;
 				}
 
 				if (Player.wet && Player.ignoreWater)
@@ -412,7 +412,7 @@ namespace OrchidMod
 					ShapeshifterJumpSpeed *= 0.5f;
 					ShapeshifterMoveSpeedBonusFinal *= 0.25f;
 					ShapeshifterMoveSpeedBonusFlat *= 0.25f;
-					ShapeshifterMoveSpeedMiscOverride *= 0.25f;
+					ShapeshifterMoveSpeedMiscOverride *= 0.5f;
 				}
 
 				if (Player.shimmerWet)
