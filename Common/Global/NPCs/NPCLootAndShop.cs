@@ -47,7 +47,7 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				case NPCID.Demolitionist:
 					{
-						shop.Add(ItemType<GunpowderFlask>());
+						shop.Add(ItemType<GunpowderFlask>(), OrchidConditions.EnableContentAlchemist);
 					}
 					break;
 				case NPCID.Cyborg:

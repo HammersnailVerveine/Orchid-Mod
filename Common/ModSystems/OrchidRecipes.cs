@@ -27,7 +27,7 @@ namespace OrchidMod.Common.ModSystems
 						recipe.DisableRecipe();
 					}
 
-					if (!ContentGambler && (recipe.createItem.ModItem is OrchidModGamblerEquipable || recipe.createItem.ModItem is OrchidModGamblerDie || recipe.createItem.ModItem is OrchidModGamblerChipItem))
+					if (!ContentGambler && (recipe.createItem.ModItem is OrchidModGamblerEquipable || recipe.createItem.ModItem is OrchidModGamblerDie || recipe.createItem.ModItem is OrchidModGamblerChipItem || recipe.createItem.ModItem is GamblerDeck))
 					{
 						recipe.DisableRecipe();
 					}

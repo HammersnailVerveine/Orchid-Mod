@@ -317,7 +317,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 							intendedVelocity.Y = -2f;
 						}
 					}
-					else if (IsGrounded(projectile, player, intendedDistance + 4f, anchor.IsInputDown, anchor.IsInputDown) && intendedVelocity.Y < 2f)
+					else if (IsGrounded(projectile, player, intendedDistance + 4f, anchor.IsInputDown, anchor.IsInputDown) && intendedVelocity.Y < 2f && shapeshifter.ShapeshifterMoveSpeedDecelerate != 0f)
 					{ // Locks up so the screen doesn't shake constantly
 						Jumps = 3;
 						intendedVelocity.Y *= 0f;
