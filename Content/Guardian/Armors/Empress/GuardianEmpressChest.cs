@@ -31,7 +31,7 @@ namespace OrchidMod.Content.Guardian.Armors.Empress
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			player.GetAttackSpeed(DamageClass.Melee) += 0.25f;
 			modPlayer.GuardianSlamMax += 2;
-			modPlayer.GuardianSlamRecharge += 1f;
+			modPlayer.GuardianSlamRecharge += 0.8f;
 			player.aggro += 250;
 		}
 

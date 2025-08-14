@@ -31,7 +31,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Standards
 			standardStats.defense += 4;
 			if (isLocalPlayer && reinforced)
 			{
-				guardian.GuardianGuardRecharge += 1f;
+				guardian.GuardianGuardRecharge += 0.8f;
 				guardian.GuardianGuardMax++;
 			}
 			return true;

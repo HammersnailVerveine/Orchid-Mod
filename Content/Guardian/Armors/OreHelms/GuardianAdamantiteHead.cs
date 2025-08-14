@@ -42,7 +42,7 @@ namespace OrchidMod.Content.Guardian.Armors.OreHelms
 		{
 			player.setBonus = SetBonusText.Value;
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
-			modPlayer.GuardianGuardRecharge += 1f;
+			modPlayer.GuardianGuardRecharge += 0.8f;
 		}
 
 		public override void ArmorSetShadows(Player player)
