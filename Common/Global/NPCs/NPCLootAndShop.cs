@@ -100,6 +100,12 @@ namespace OrchidMod.Common.Global.NPCs
 				return;
 			}
 
+			if (thoriumMod.IsNPCTypeEquals("Cook", shop.NpcType))
+			{
+				shop.Add(ItemType<ThoriumCookWarhammer>(), [Condition.DownedEyeOfCthulhu]);
+				return;
+			}
+
 			SkipThorium:
 			return;
 		}
