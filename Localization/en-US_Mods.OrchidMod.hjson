@@ -2893,7 +2893,7 @@ Items: {
 			Slowly regenerates guards over time
 			Enemies are more likely to target you
 			'''
-		SetBonus: consuming guards or slams increases defense by 25%
+		SetBonus: Consuming guards or slams increases defense by 25%
 	}
 
 	GuardianBambooChest: {
@@ -2952,7 +2952,7 @@ Items: {
 			'''
 		SetBonus:
 			'''
-			greatly increases rune projectile quantity and standard range
+			Greatly increases rune projectile quantity and standard range
 			50% increased rune and standard duration
 			'''
 	}
@@ -3401,7 +3401,7 @@ Items: {
 			15% increased damage resistance, opposing damage and critical strike chance
 			Enemies are significantly more likely to target you
 			'''
-		SetBonus: while above 50% max life, consume life instead of guards or slams
+		SetBonus: While above 50% max life, consume life instead of guards or slams
 	}
 
 	GuardianHorizonLegs: {
