@@ -23,6 +23,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			distance = 40f;
 			slamDistance = 55f;
 			blockDuration = 100;
+			shouldFlip = true;
 		}
 
 		public override void Slam(Player player, Projectile shield)

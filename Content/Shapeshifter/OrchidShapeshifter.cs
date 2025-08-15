@@ -392,12 +392,10 @@ namespace OrchidMod
 
 				if ((Player.wet && !Player.ignoreWater) || Player.lavaWet)
 				{ // in lava on water
-					//ShapeshifterMaxFallSpeed *= 0.4f;
 					ShapeshifterGravity *= 0.5f;
 					ShapeshifterJumpSpeed *= 0.5f;
 					ShapeshifterMoveSpeedBonusFinal *= 0.5f;
 					ShapeshifterMoveSpeedBonusFlat *= 0.5f;
-					//ShapeshifterMoveSpeedMiscOverride *= 0.5f;
 				}
 
 				if (Player.wet && Player.ignoreWater)
@@ -407,7 +405,6 @@ namespace OrchidMod
 
 				if (Player.honeyWet)
 				{ // in honey (not vanilla accurate but good enough)
-					//ShapeshifterMaxFallSpeed *= 0.4f;
 					ShapeshifterGravity *= 5f;
 					ShapeshifterJumpSpeed *= 0.5f;
 					ShapeshifterMoveSpeedBonusFinal *= 0.25f;
@@ -417,7 +414,6 @@ namespace OrchidMod
 
 				if (Player.shimmerWet)
 				{ // in shimmer
-					//ShapeshifterMaxFallSpeed *= 0.4f;
 					ShapeshifterGravity *= 0.375f;
 					ShapeshifterJumpSpeed *= 0.375f;
 					ShapeshifterMoveSpeedBonusFinal *= 0.375f;
