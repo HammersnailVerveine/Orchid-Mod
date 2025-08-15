@@ -3943,6 +3943,11 @@ Items: {
 			Effects are currently inactive, Right click to reactivate
 			'''
 	}
+
+	ThoriumCookWarhammer: {
+		DisplayName: Meat Tenderizer
+		Tooltip: Fully charged strikes drop 'meat slabs' which grant Well Fed
+	}
 }
 
 NPCs: {
