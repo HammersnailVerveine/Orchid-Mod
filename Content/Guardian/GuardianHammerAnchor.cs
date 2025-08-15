@@ -318,6 +318,11 @@ namespace OrchidMod.Content.Guardian
 					modifiers.FinalDamage *= 0.75f;
 				}
 			}
+
+			if (Projectile.ai[1] > 0 && !WeakHit)
+			{
+				modifiers.FinalDamage *= 1.5f;
+			}
 		}
 
 		public override void ModifyHitPlayer(Player target, ref Player.HurtModifiers modifiers)
@@ -332,6 +337,11 @@ namespace OrchidMod.Content.Guardian
 				{
 					modifiers.FinalDamage *= 0.75f;
 				}
+			}
+
+			if (Projectile.ai[1] > 0 && !WeakHit)
+			{
+				modifiers.FinalDamage *= 1.5f;
 			}
 		}
 
