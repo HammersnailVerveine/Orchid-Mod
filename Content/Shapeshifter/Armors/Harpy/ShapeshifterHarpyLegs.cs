@@ -24,14 +24,14 @@ namespace OrchidMod.Content.Shapeshifter.Armors.Harpy
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.Feather, 6);
-			recipe.AddIngredient(ItemID.ShadowScale, 15);
+			recipe.AddIngredient(ItemID.Feather, 5);
+			recipe.AddIngredient(ItemID.DemoniteBar, 9);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 			
 			recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.Feather, 6);
-			recipe.AddIngredient(ItemID.TissueSample, 15);
+			recipe.AddIngredient(ItemID.Feather, 5);
+			recipe.AddIngredient(ItemID.DemoniteBar, 9);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 		}

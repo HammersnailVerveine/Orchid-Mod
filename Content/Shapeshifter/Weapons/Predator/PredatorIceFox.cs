@@ -249,7 +249,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 
 			if (projectile.ai[1] > 0)
 			{ // Right click shift lighting and damage
-				projectile.damage = shapeshifter.GetShapeshifterDamage(Item.damage * 1.5f);
+				projectile.damage = shapeshifter.GetShapeshifterDamage(Item.damage * 0.5f);
 				projectile.CritChance = shapeshifter.GetShapeshifterCrit(Item.crit);
 				projectile.friendly = true;
 

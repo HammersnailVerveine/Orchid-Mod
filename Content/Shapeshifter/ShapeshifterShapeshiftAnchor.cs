@@ -490,7 +490,7 @@ namespace OrchidMod.Content.Shapeshifter
 			if (ShapeshifterItem.ModItem is OrchidModShapeshifterShapeshift shapeshifterItem)
 			{
 				shapeshifterItem.ShapeshiftOnHitNPC(target, hit, damageDone, Projectile, this, player, shapeshifter);
-				target.ModNPC.OnHitByItem(player, shapeshifterItem.Item, hit, damageDone);
+				//target.ModNPC.OnHitByItem(player, shapeshifterItem.Item, hit, damageDone);
 			}
 		}
 
