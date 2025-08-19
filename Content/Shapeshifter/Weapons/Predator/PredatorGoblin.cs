@@ -215,12 +215,32 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 				anchor.ai[0] = 0f;
 			}
 
-			if (projectile.ai[2] >= 100 && Main.rand.NextBool(10))
+			if (projectile.ai[2] >= 100)
 			{
-				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Shadowflame);
-				dust.scale *= Main.rand.NextFloat(0.5f, 1f);
-				dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
-				dust.noLightEmittence = true;
+				if (Main.rand.NextBool(10))
+				{
+					Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Shadowflame);
+					dust.scale *= Main.rand.NextFloat(0.5f, 1f);
+					dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+					dust.noLightEmittence = true;
+				}
+
+				if (Main.rand.NextBool(3))
+				{
+					Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Shadowflame);
+					dust.scale *= Main.rand.NextFloat(0.5f, 1f);
+					dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+					dust.noGravity = true;
+				}
+
+				if (Main.rand.NextBool(6))
+				{
+					Dust dust = Dust.NewDustDirect(projectile.position - new Vector2(4, 0), projectile.width + 8, 8, DustID.Shadowflame);
+					dust.scale *= Main.rand.NextFloat(0.5f, 1f);
+					dust.velocity.Y = Main.rand.NextFloat(-1f, -0.5f);
+					dust.velocity.X *= 0.2f;
+					dust.noLightEmittence = true;
+				}
 			}
 
 			// ANIMATION
@@ -372,22 +392,22 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 		{
 			if (projectile.ai[2] >= 100f)
 			{
-				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
-				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+				//spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+				//spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
 				float colormult = 1f - (anchor.ai[0] - 180f) * 0.02f;
 				colormult = colormult > 1f ? 1f : colormult < 0.2f ? 0.2f : colormult;
-				Color color = new Color(122, 40, 255).MultiplyRGBA(lightColor * 2f);
+				Color color = new Color(153, 118, 255).MultiplyRGBA(lightColor * 2f);
 				if (color.R < 64) color.R = 61;
 				if (color.G < 64) color.G = 20;
 				if (color.B < 64) color.B = 128;
 
 				float scalemult = (float)Math.Sin(anchor.Timespent * 0.1f) * 0.03f + 1.125f;
-				spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, color * 0.75f * colormult, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
-				spriteBatch.Draw(anchor.TextureShapeshiftHair, drawPosition, drawRectangle, color * 0.75f * colormult, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+				spriteBatch.Draw(anchor.TextureShapeshift, drawPosition, drawRectangle, color * 0.6f * colormult, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
+				spriteBatch.Draw(anchor.TextureShapeshiftHairGray, drawPosition, drawRectangle, color * 0.6f * colormult, projectile.rotation, drawRectangle.Size() * 0.5f, projectile.scale * scalemult, effect, 0f);
 
-				spriteBatch.End();
-				spriteBatch.Begin(spriteBatchSnapshot);
+				//spriteBatch.End();
+				//spriteBatch.Begin(spriteBatchSnapshot);
 			}
 		}
 	}
