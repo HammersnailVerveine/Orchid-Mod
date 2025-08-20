@@ -374,6 +374,11 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DeckDog>(), 200).OnFailedRoll(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DeckPirate>(), 10)));
 					}
 					break;
+				case NPCID.QueenSlimeBoss:
+					{
+						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<GuardianCrystalNinjaHelm>(), 2));
+					}
+					break;
 				case NPCID.Plantera:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<PlanteraStandard>(), 3));

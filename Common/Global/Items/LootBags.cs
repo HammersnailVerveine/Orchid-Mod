@@ -30,6 +30,7 @@ using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 using OrchidMod.Utilities;
 using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Content.Shapeshifter.Misc;
+using OrchidMod.Content.Guardian.Armors.Misc;
 
 namespace OrchidMod.Common.Global.Items
 {
@@ -128,6 +129,11 @@ namespace OrchidMod.Common.Global.Items
 								(ModContent.ItemType<GuardianEmblem>(), 1)
 							}
 						);
+					}
+					break;
+				case ItemID.QueenSlimeBossBag:
+					{
+						QuickSpawnItem<GuardianCrystalNinjaHelm>(player, 1);
 					}
 					break;
 				case ItemID.PlanteraBossBag:

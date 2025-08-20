@@ -3948,6 +3948,16 @@ Items: {
 		DisplayName: Meat Tenderizer
 		Tooltip: Fully charged strikes drop 'meat slabs' which grant Well Fed
 	}
+
+	GuardianCrystalNinjaHelm: {
+		DisplayName: Crystal Assassin Mask
+		Tooltip:
+			'''
+			Increases maximum guards and slams by 1
+			Dashing triggers your active parry
+			'''
+	}
+
 }
 
 NPCs: {

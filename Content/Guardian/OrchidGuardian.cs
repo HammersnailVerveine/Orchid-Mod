@@ -51,6 +51,7 @@ namespace OrchidMod
 		public bool GuardianBamboo = false;
 		public bool GuardianGit = false;
 		public bool GuardianHorizon = false;
+		public bool GuardianCrystalNinja = false;
 		public float GuardianSpikeDamage = 0; // Accessories
 		public bool GuardianSpikeDungeon = false;
 		public bool GuardianSpikeMech = false;
@@ -186,6 +187,11 @@ namespace OrchidMod
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.AQUAMARINE) Player.trident = true;
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.TOPAZ) ParryInvincibilityBonus += 60;
 				GuardianJewelerGauntlet = 0;
+			}
+			
+			if (GuardianCrystalNinja && GuardianGauntletParry && Player.dashDelay < 0)
+			{
+				DoParryItemParry(null);
 			}
 		}
 
@@ -743,30 +749,26 @@ namespace OrchidMod
 				if (anchor != null)
 				{
 					parryItem.OnParry(Player, this, aggressor, anchor);
+					int toAdd = (anchor.type == anchorTypes[0]) ? 0 : 1; // Gives 0 slam for a quarterstaff parry, 1 for other items
 
-					if (aggressor != null)
+					if (aggressor is NPC npc)
 					{
-						int toAdd = (anchor.type == anchorTypes[0]) ? 0 : 1; // Gives 0 slam for a quarterstaff parry, 1 for other items
-
-						if (aggressor is NPC npc)
-						{
-							parryItem.OnParryNPC(Player, this, npc, anchor);
-							OnBlockNPC(anchor, npc, true);
-							OnBlockNPCFirst(anchor, npc, toAdd, true);
-						}
-						else if (aggressor is Projectile projectile)
-						{
-							parryItem.OnParryProjectile(Player, this, projectile, anchor);
-							OnBlockProjectile(anchor, projectile, true);
-							OnBlockProjectileFirst(anchor, projectile, toAdd, true);
-						}
-						else
-						{
-							parryItem.OnParryOther(Player, this, anchor);
-							OnBlockAny(anchor, true);
-							OnBlockAnyFirst(anchor, ref toAdd, true);
-							AddSlam(toAdd);
-						}
+						parryItem.OnParryNPC(Player, this, npc, anchor);
+						OnBlockNPC(anchor, npc, true);
+						OnBlockNPCFirst(anchor, npc, toAdd, true);
+					}
+					else if (aggressor is Projectile projectile)
+					{
+						parryItem.OnParryProjectile(Player, this, projectile, anchor);
+						OnBlockProjectile(anchor, projectile, true);
+						OnBlockProjectileFirst(anchor, projectile, toAdd, true);
+					}
+					else
+					{
+						parryItem.OnParryOther(Player, this, anchor);
+						OnBlockAny(anchor, true);
+						OnBlockAnyFirst(anchor, ref toAdd, true);
+						AddSlam(toAdd);
 					}
 				}
 			}
