@@ -31,7 +31,7 @@ namespace OrchidMod.Content.Shapeshifter.Armors.Harpy
 
 			recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Feather, 6);
-			recipe.AddIngredient(ItemID.DemoniteBar, 12);
+			recipe.AddIngredient(ItemID.CrimtaneBar, 12);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 		}
