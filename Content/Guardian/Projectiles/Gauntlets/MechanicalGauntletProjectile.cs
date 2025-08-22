@@ -31,7 +31,14 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 		{
 			Player owner = Owner;
 			Projectile.Center = owner.Center;
-			Dust.NewDust(owner.position, owner.width, owner.height, DustID.Torch);
+			Dust dust = Dust.NewDustPerfect(owner.Center - new Vector2(4, -4), DustID.Torch);
+			dust.scale = Main.rand.NextFloat(0.5f, 1.2f);
+			dust.velocity = Projectile.velocity * Main.rand.NextFloat(0.2f) + Main.rand.NextVector2Circular(1, 1);
+			if (Main.rand.NextBool())
+			{
+				dust.noGravity = true;
+				dust.scale += 2 + Main.rand.NextFloat(2f);
+			}
 
 			if (!IsLocalOwner && Projectile.timeLeft == 22)
 			{ // Lazy way of syncing the dash without making my own packet

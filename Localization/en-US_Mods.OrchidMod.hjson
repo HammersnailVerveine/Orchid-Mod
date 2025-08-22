@@ -4428,6 +4428,7 @@ Projectiles: {
 	PredatorGoblinProjAlt.DisplayName: Barghest Slash
 	PredatorGoblinProjSlash.DisplayName: Barghest Slash
 	PredatorGoblinProjResource.DisplayName: Shadowflame Energy
+	DesertWarhammerProjectile.DisplayName: Bone Fragments
 }
 
 Configs: {
