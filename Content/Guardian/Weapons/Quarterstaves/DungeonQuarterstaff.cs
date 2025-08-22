@@ -20,7 +20,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.rare = ItemRarityID.Green;
 			Item.useTime = 30;
 			ParryDuration = 75;
-			Item.shootSpeed = 12f;
+			Item.shootSpeed = 8f;
 			Item.knockBack = 6.5f;
 			Item.damage = 73;
 			GuardStacks = 2;
@@ -70,7 +70,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 					Vector2 velocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * Item.shootSpeed;
 					Vector2 tipPosition = projectile.Center - Vector2.UnitY.RotatedBy(projectile.rotation + MathHelper.PiOver4) * projectile.width * 0.1f;
 					SpawnProjectile(velocity, projectile, guardian, tipPosition);
-					SoundEngine.PlaySound(SoundID.Item21, player.Center);
+					SoundEngine.PlaySound(SoundID.Item21.WithPitchOffset(boltCounter == 1 ? -0.1f : 0.3f), player.Center);
 				}
 			}
 
@@ -81,7 +81,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 					boltCounter++;
 					Vector2 velocity = Vector2.UnitY.RotatedBy((player.Center - Main.MouseWorld).ToRotation() + MathHelper.PiOver2) * Item.shootSpeed;
 					SpawnProjectile(velocity, projectile, guardian, player.Center);
-					SoundEngine.PlaySound(SoundID.Item21, player.Center);
+					SoundEngine.PlaySound(SoundID.Item21.WithPitchOffset(boltCounter * 0.4f - 0.5f), player.Center);
 				}
 			}
 		}
