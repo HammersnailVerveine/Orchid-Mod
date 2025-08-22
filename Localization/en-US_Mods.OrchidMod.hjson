@@ -2827,8 +2827,8 @@ Items: {
 	}
 
 	DesertWarhammer: {
-		DisplayName: Stormbreaker
-		Tooltip: Continuously zaps nearby enemies
+		DisplayName: Fossil Warhammer
+		Tooltip: Scatters bone fragments on impact
 	}
 
 	CrimsonWarhammer: {
