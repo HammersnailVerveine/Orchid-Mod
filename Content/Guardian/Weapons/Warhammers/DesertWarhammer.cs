@@ -56,6 +56,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 					Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? DustID.Gold : DustID.Dirt, hitVelocity.X * 0.5f, -1);
 				}
 			}
+			SoundEngine.PlaySound(SoundID.DD2_SkeletonHurt.WithPitchOffset(-0.2f), projectile.Center);
 		}
 
 		public override void AddRecipes()

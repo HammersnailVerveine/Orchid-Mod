@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -52,18 +52,25 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 
 		public override void OnKill(int timeLeft)
 		{
+			
 			if (Projectile.frame != 5)
+			{
+				SoundEngine.PlaySound(SoundID.DD2_SkeletonHurt.WithPitchOffset(0.4f + Main.rand.NextFloat(0.6f)).WithVolumeScale(0.3f), Projectile.Center);
 				for (int i = 0; i < 4; i++)
 				{
 					Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, Main.rand.NextBool() ? DustID.Gold : DustID.Dirt, Projectile.velocity.X, -1);
 					dust.velocity *= 0.5f;
 				}
+			}
 			else
+			{
+				SoundEngine.PlaySound(SoundID.Item27.WithPitchOffset(0.1f).WithVolumeScale(0.3f), Projectile.Center);
 				for (int i = 0; i < 6; i++)
 				{
 					Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.GemAmber, Projectile.velocity.X, -1, 100, Scale:0.5f);
 					dust.velocity *= 0.8f;
 				}
+			}
 		}
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
@@ -74,6 +81,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 				Projectile.velocity.X *= -oldVelocity.X;
 			if (Projectile.velocity.Y != oldVelocity.Y)
 				Projectile.velocity.Y = Math.Max(-oldVelocity.Y,-5);
+			SoundEngine.PlaySound(Projectile.frame != 5 ? SoundID.DD2_SkeletonHurt.WithPitchOffset(Main.rand.NextFloat(0.6f)).WithVolumeScale(0.2f) : SoundID.Item106.WithPitchOffset(1f).WithVolumeScale(0.2f), Projectile.Center);
 			return false;
 		}
 
