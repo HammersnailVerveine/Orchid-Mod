@@ -311,6 +311,11 @@ Buffs: {
 		DisplayName: Shapeshifting Sickness
 		Description: Reduced stats and cancels on-shapeshift effects
 	}
+
+	ThoriumGrandThunderBirdWarhammerDebuff: {
+		DisplayName: Conductive
+		Description: You're like a lightning rod!
+	}
 }
 
 AlchemistRecipe: {
@@ -3958,6 +3963,14 @@ Items: {
 			'''
 	}
 
+	ThoriumGrandThunderBirdWarhammer: {
+		DisplayName: Stormbreaker
+		Tooltip:
+			'''
+			Conducts electricity to nearby enemies, charging faster with each connection
+			Struck enemies become more conductive
+			'''
+	}
 }
 
 NPCs: {
