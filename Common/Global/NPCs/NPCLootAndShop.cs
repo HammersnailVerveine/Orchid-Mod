@@ -428,9 +428,14 @@ namespace OrchidMod.Common.Global.NPCs
 			Mod thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
+				if (thoriumMod.IsNPCTypeEquals("TheGrandThunderBirdv2", npc.type))
+				{
+					npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<ThoriumGrandThunderBirdWarhammer>(), 4));
+				}
+
 				if (thoriumMod.IsNPCTypeEquals("ThePrimeScouter", npc.type))
 				{
-					npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<ThoriumStarScouterStandard>(), 7)); // 1 in 7 is brutal damn
+					npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<ThoriumStarScouterStandard>(), 6)); // 1 in 7 is brutal damn
 				}
 
 				// TheGrandThunderBirdv2 QueenJelly GraniteEnergyStorm Viscount FallenDeathBeholder BoreanStriderPopped Lich Abyssion PatchWerk

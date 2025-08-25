@@ -171,9 +171,15 @@ namespace OrchidMod.Common.Global.Items
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod == null) goto SkipThorium;
 
+			if (thoriumMod.IsItemTypeEquals("ThunderBirdBag", arg))
+			{
+				QuickSpawnItem<ThoriumGrandThunderBirdWarhammer>(player, 1, 2);
+				return;
+			}
+
 			if (thoriumMod.IsItemTypeEquals("ScouterBag", arg))
 			{
-				QuickSpawnItem<ThoriumStarScouterStandard>(player, 1, 7);
+				QuickSpawnItem<ThoriumStarScouterStandard>(player, 1, 3);
 				return;
 			}
 
