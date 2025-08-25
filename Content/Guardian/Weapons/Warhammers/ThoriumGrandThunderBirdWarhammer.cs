@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using OrchidMod.Content.Guardian.Projectiles.Warhammers;
+using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Chat;
@@ -20,7 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			Item.width = 36;
 			Item.height = 36;
-			Item.value = Item.sellPrice(0, 0, 30, 0);
+			Item.value = Item.sellPrice(0, 0, 20, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 6f;
@@ -34,11 +35,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			SwingChargeGain = 0.75f;
 		}
 
-		public static readonly SoundStyle ThoriumCloudSpawn = new("ThoriumMod/Sounds/Custom/GrandCloudSpawn");  
+		public static readonly SoundStyle ThoriumCloudSpawn = new("ThoriumMod/Sounds/Custom/GrandCloudSpawn");
 		public static readonly SoundStyle ThoriumZapNoise = new("ThoriumMod/Sounds/Custom/GrandZapNoise");
-		public static readonly SoundStyle ThoriumThunderTalon = new("ThoriumMod/Sounds/Custom/ThunderTalon"); //thank you jopo for modder's toolkit
+		public static readonly SoundStyle ThoriumThunderTalon = new("ThoriumMod/Sounds/Custom/ThunderTalon");
+		public static readonly SoundStyle ThoriumParalyzeSound = new("ThoriumMod/Sounds/Custom/ParalyzeSound"); //thank you jopo for modder's toolkit
 
 		List<int> Targets;
+		SlotId soundSlot;
 
 		public override void ExtraAI(Player player, OrchidGuardian guardian, Projectile projectile)
 		{
@@ -70,57 +73,80 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 					}
 				}
 			}
-			
-			if (Targets.Count > 0)
+
+			GuardianHammerAnchor guardProj = projectile.ModProjectile as GuardianHammerAnchor;
+			bool canTether = !guardProj.WeakHit && (projectile.ai[1] <= 0 || (guardProj.Strong && guardProj.NotHitYet));
+			if (canTether)
 			{
-				if (projectile.ai[1] == 0 && guardian.GuardianHammerCharge < 210f)
+				SoundEngine.TryGetActiveSound(soundSlot, out ActiveSound activeSound);
+				if (activeSound == null)
 				{
-					guardian.GuardianHammerCharge += 7.5f * Targets.Count / Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
-					if (guardian.GuardianHammerCharge > 210f)
-						guardian.GuardianHammerCharge = 210f;
-				}
-
-				if (projectile.ai[1] >= 0 && Main.rand.NextBool(60 - Targets.Count * 10)) SoundEngine.PlaySound(SoundID.Item93.WithPitchOffset(0.7f - 0.1f * Targets.Count).WithVolumeScale(0.06f + 0.03f  * Targets.Count), projectile.Center);
-
-				Vector2 gemPos = projectile.Center + new Vector2(8 * projectile.spriteDirection, -8).RotatedBy(projectile.ai[1] > 0 ? projectile.rotation : guardian.GuardianHammerCharge * 0.0065f * player.gravDir * projectile.spriteDirection);
-				OrchidModGuardianProjectile guardProj = projectile.ModProjectile as OrchidModGuardianProjectile;
-				if ((projectile.ai[1] == 0 || (projectile.ai[1] > 0 && guardProj.Strong && guardProj.NotHitYet)) && Main.rand.Next(6) < Targets.Count)
-				{
-					if (Main.rand.NextBool(3))
+					var tracker = new ProjectileAudioTracker(projectile);
+					soundSlot = SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryCircle, projectile.Center, sound =>
 					{
-						Dust zapDust = Dust.NewDustDirect(gemPos - new Vector2(4), 0, 0, DustID.Teleporter, Scale: Main.rand.NextFloat(0.4f) + Targets.Count * 0.1f);
-						if (Main.rand.NextBool())
+						if (guardProj.WeakHit || (projectile.ai[1] > 0 && (!guardProj.Strong || !guardProj.NotHitYet)))
 						{
-							zapDust.noGravity = true;
-							zapDust.scale *= 4f;
+							sound.Stop();
+							return false;
 						}
-					}
-					else
-					{
-						Dust zapDust = Dust.NewDustDirect(gemPos - new Vector2(4), 0, 0, DustID.Electric, Scale: Main.rand.NextFloat(0.4f) + Targets.Count * 0.075f);
-						zapDust.velocity *= 0.2f;
-						if (Main.rand.NextBool())
-						{
-							zapDust.noGravity = true;
-							zapDust.scale *= 1.5f;
-						}
-					}
+						sound.Position = projectile.position;
+						sound.Pitch = -0.8f + 0.2f * Targets.Count;
+						sound.Volume = 0.15f * Targets.Count * (projectile.ai[1] < -1 ? 1 / -projectile.ai[1] : 1);
+						return tracker.IsActiveAndInGame();
+					});
 				}
-				foreach (int target in Targets)
+			
+				if (Targets.Count > 0)
 				{
-					bool conductive = Main.npc[target].HasBuff<ThoriumGrandThunderBirdWarhammerDebuff>();
-					if ((projectile.ai[1] <= 0 || (projectile.ai[1] > 0 && guardProj.Strong && guardProj.NotHitYet)) && Main.rand.Next(conductive ? 200 : 400) * (projectile.ai[1] < 0 ? -projectile.ai[1] : 1) < Main.npc[target].Center.Distance(gemPos))
+					if (projectile.ai[1] == 0 && guardian.GuardianHammerCharge < 210f)
 					{
-						Vector2 toTarget = Main.npc[target].Center - gemPos;
-						if (conductive)
+						guardian.GuardianHammerCharge += 7.5f * Targets.Count / Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
+						if (guardian.GuardianHammerCharge > 210f)
+							guardian.GuardianHammerCharge = 210f;
+					}
+
+					//if (projectile.ai[1] >= 0 && Main.rand.NextBool(60 - Targets.Count * 10)) SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryCircle.WithPitchOffset(0.2f * Targets.Count).WithVolumeScale(0.1f + 0.05f  * Targets.Count), projectile.Center);
+
+					Vector2 gemPos = projectile.Center + new Vector2(8 * projectile.spriteDirection, -8).RotatedBy(projectile.ai[1] > 0 ? projectile.rotation : guardian.GuardianHammerCharge * 0.0065f * player.gravDir * projectile.spriteDirection);
+
+					if (projectile.ai[1] >= 0 && canTether && Main.rand.Next(6) < Targets.Count)
+					{
+						if (Main.rand.NextBool(3))
 						{
-							Dust.NewDustDirect(gemPos - new Vector2(4) + toTarget * Main.rand.NextFloat(), 0, 0, DustID.Teleporter, Scale: 1f).noGravity = true;
+							Dust zapDust = Dust.NewDustDirect(gemPos - new Vector2(4), 0, 0, DustID.Teleporter, Scale: Main.rand.NextFloat(0.4f) + Targets.Count * 0.1f);
+							if (Main.rand.NextBool())
+							{
+								zapDust.noGravity = true;
+								zapDust.scale *= 4f;
+							}
 						}
 						else
 						{
-							Dust zapDust = Dust.NewDustDirect(gemPos - new Vector2(4) + toTarget * Main.rand.NextFloat(), 0, 0, DustID.Electric, Scale: 0.5f);
-							zapDust.noGravity = true;
-							zapDust.velocity *= 0.25f;
+							Dust zapDust = Dust.NewDustDirect(gemPos - new Vector2(4), 0, 0, DustID.Electric, Scale: Main.rand.NextFloat(0.4f) + Targets.Count * 0.075f);
+							zapDust.velocity *= 0.2f;
+							if (Main.rand.NextBool())
+							{
+								zapDust.noGravity = true;
+								zapDust.scale *= 1.5f;
+							}
+						}
+					}
+					foreach (int target in Targets)
+					{
+						bool conductive = Main.npc[target].HasBuff<ThoriumGrandThunderBirdWarhammerDebuff>();
+						if (canTether && Main.rand.Next(conductive ? 200 : 400) * (projectile.ai[1] < 0 ? -projectile.ai[1] : 1) < Main.npc[target].Center.Distance(gemPos))
+						{
+							Vector2 toTarget = Main.npc[target].Center - gemPos;
+							if (conductive)
+							{
+								Dust.NewDustDirect(gemPos - new Vector2(4) + toTarget * Main.rand.NextFloat(), 0, 0, DustID.Teleporter, Scale: 1f).noGravity = true;
+							}
+							else
+							{
+								Dust zapDust = Dust.NewDustDirect(gemPos - new Vector2(4) + toTarget * Main.rand.NextFloat(), 0, 0, DustID.Electric, Scale: 0.5f);
+								zapDust.noGravity = true;
+								zapDust.velocity *= 0.25f;
+							}
 						}
 					}
 				}
@@ -132,12 +158,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			if (Targets.Count > 0)
 			{
 				ShockTargets(projectile, player);
-				SoundEngine.PlaySound(ThoriumCloudSpawn.WithVolumeScale(0.015f + 0.05f * Targets.Count), projectile.Center);
-				if (guardian.GuardianHammerCharge < 210f)
+				SoundEngine.PlaySound(ThoriumCloudSpawn.WithPitchOffset(0.4f - 0.1f  * Targets.Count).WithVolumeScale(0.15f + 0.05f * Targets.Count), projectile.Center);
+				if (!((GuardianHammerAnchor)projectile.ModProjectile).WeakHit)
 				{
-					guardian.GuardianHammerCharge += 15f * Targets.Count * player.GetTotalAttackSpeed(DamageClass.Melee);
-					if (guardian.GuardianHammerCharge > 210f)
-						guardian.GuardianHammerCharge = 210f;
+					if (guardian.GuardianHammerCharge < 210f)
+					{
+						guardian.GuardianHammerCharge += 15f * Targets.Count * player.GetTotalAttackSpeed(DamageClass.Melee);
+						if (guardian.GuardianHammerCharge > 210f)
+							guardian.GuardianHammerCharge = 210f;
+					}
 				}
 			}
 		}
@@ -175,7 +204,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
 			target.AddBuff(ModContent.BuffType<ThoriumGrandThunderBirdWarhammerDebuff>(), Weak ? 300 : 600);
-			ShockTargets(projectile, player);
+			if (!Weak) ShockTargets(projectile, player);
 			SoundEngine.PlaySound(ThoriumThunderTalon.WithPitchOffset(-0.3f - 0.1f  * Targets.Count).WithVolumeScale(0.5f + 0.05f  * Targets.Count), projectile.Center);
 		}
 
@@ -189,6 +218,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			target.AddBuff(ModContent.BuffType<ThoriumGrandThunderBirdWarhammerDebuff>(), 300);
 			SoundEngine.PlaySound(ThoriumZapNoise.WithPitchOffset(-0.1f).WithVolumeScale(0.25f), projectile.Center);
+		}
+
+		public override void OnThrow(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak)
+		{
+			if (Weak) SoundEngine.PlaySound(ThoriumParalyzeSound.WithPitchOffset(-0.6f).WithVolumeScale(0.1f * Targets.Count), projectile.Center);
 		}
 	}
 }
