@@ -46,6 +46,10 @@ namespace OrchidMod.Content.Guardian.UI
 		public static Texture2D textureQuarterstaffOff;
 		public static Texture2D textureQuarterstaffReady;
 
+		public static Texture2D textureHorizonLanceOn;
+		public static Texture2D textureHorizonLanceOff;
+		public static Texture2D textureHorizonLanceReady;
+
 		public static Texture2D blockOn;
 		public static Texture2D blockOff;
 
@@ -85,6 +89,10 @@ namespace OrchidMod.Content.Guardian.UI
 			textureHammerOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOn", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerOff", AssetRequestMode.ImmediateLoad).Value;
 			textureHammerReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HammerReady", AssetRequestMode.ImmediateLoad).Value;
+
+			textureHorizonLanceOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HorizonLanceOn", AssetRequestMode.ImmediateLoad).Value;
+			textureHorizonLanceOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HorizonLanceOff", AssetRequestMode.ImmediateLoad).Value;
+			textureHorizonLanceReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HorizonLanceReady", AssetRequestMode.ImmediateLoad).Value;
 
 			blockOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOn", AssetRequestMode.ImmediateLoad).Value;
 			blockOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOff", AssetRequestMode.ImmediateLoad).Value;
@@ -245,7 +253,7 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (modPlayer.GuardianStandardCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && (player.HeldItem.ModItem is OrchidModGuardianStandard || player.HeldItem.ModItem is HorizonLance))
+					if (modPlayer.GuardianStandardCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianStandard)
 					{
 						int val = textureStandardOn.Height;
 						if (modPlayer.GuardianStandardCharge >= 180f)
@@ -272,6 +280,35 @@ namespace OrchidMod.Content.Guardian.UI
 						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + textureStandardOn.Height - val + 3f * (player.gravDir - 1));
 						if (player.gravDir < 0) drawpos.Y -= (textureStandardOn.Height - rectangle.Height);
 						spriteBatch.Draw(textureStandardOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+					}
+
+					if (modPlayer.GuardianStandardCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is HorizonLance)
+					{
+						int val = textureHorizonLanceOn.Height;
+						if (modPlayer.GuardianStandardCharge >= 180f)
+						{
+							drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
+							spriteBatch.Draw(textureHorizonLanceReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
+						}
+						else
+						{
+							float charge = modPlayer.GuardianStandardCharge;
+							while (charge < 180f)
+							{
+								charge += 7.5f;
+								val--;
+							}
+						}
+
+						Rectangle rectangle = textureHorizonLanceOn.Bounds;
+						rectangle.Height = val;
+						rectangle.Y = textureHorizonLanceOn.Height - val;
+
+						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + 3f * (player.gravDir - 1));
+						spriteBatch.Draw(textureHorizonLanceOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + textureHorizonLanceOn.Height - val + 3f * (player.gravDir - 1));
+						if (player.gravDir < 0) drawpos.Y -= (textureHorizonLanceOn.Height - rectangle.Height);
+						spriteBatch.Draw(textureHorizonLanceOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 					}
 
 					if (modPlayer.GuardianRuneCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianRune)
