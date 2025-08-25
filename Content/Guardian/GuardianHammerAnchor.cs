@@ -185,9 +185,7 @@ namespace OrchidMod.Content.Guardian
 								else if (Main.mouseRight)
 								{
 									Projectile.ai[1] = -60f;
-									Projectile.friendly = true;
 									Projectile.netUpdate = true;
-									ResetHitStatus(false);
 								}
 							}
 						}
@@ -203,8 +201,9 @@ namespace OrchidMod.Content.Guardian
 							if (Projectile.ai[1] == -60f)
 							{ // First frame of the swing
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
-								HammerItem.OnSwing(player, guardian, Projectile, guardian.GuardianHammerCharge >= 180f);
+								Projectile.friendly = true;
 								ResetHitStatus(false);
+								HammerItem.OnSwing(player, guardian, Projectile, guardian.GuardianHammerCharge >= 180f);
 							}
 
 							Projectile.velocity = Vector2.UnitX * 0.001f * player.direction; // So enemies are KBd in the right direction
