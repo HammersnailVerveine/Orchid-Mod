@@ -27,7 +27,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Penetrate = true;
 		}
 
-		public override bool CanRightClick() => true;
+		//public override bool CanRightClick() => true;
 
 		/*
 		public override void RightClick(Player player)
@@ -41,10 +41,24 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 		public override void AddRecipes()
 		{
-			var recipe = CreateRecipe();
-			recipe.AddTile(TileID.Anvils);
-			recipe.AddIngredient(ItemID.HellstoneBar, 20);
-			recipe.Register();
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				var recipe = CreateRecipe();
+				recipe.AddTile(thoriumMod, "ThoriumAnvil");
+				recipe.AddIngredient(thoriumMod, "ThoriumBar", 20);
+				recipe.AddIngredient(ItemID.HellstoneBar, 4);
+				recipe.Register();
+
+				recipe = CreateRecipe();
+				recipe.AddRecipeGroup("ThorsHammers", 1);
+				recipe.Register();
+
+				recipe = CreateRecipe();
+				recipe.AddIngredient(Item.type, 1);
+				recipe.ReplaceResult(thoriumMod, "MeleeThorHammer", 1);
+				recipe.Register();
+			}
 		}
 	}
 }

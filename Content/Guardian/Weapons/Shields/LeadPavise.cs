@@ -28,7 +28,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.LeadBar, 8);
-			recipe.AddIngredient(RecipeGroupID.Wood, 6);
+			recipe.AddRecipeGroup(RecipeGroupID.Wood, 6);
 			recipe.Register();
 		}
 	}

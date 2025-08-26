@@ -3,12 +3,30 @@ using OrchidMod.Content.Gambler;
 using OrchidMod.Content.Shapeshifter;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Localization;
+using System.Linq;
+using System;
 
 namespace OrchidMod.Common.ModSystems
 {
 	public class OrchidRecipes : ModSystem
 	{
+		public override void AddRecipeGroups()
+		{
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (OrchidMod.ThoriumMod != null)
+			{
+				thoriumMod.TryFind<ModItem>("MeleeThorHammer", out ModItem thorsHammerMelee);
+				thoriumMod.TryFind<ModItem>("RangedThorHammer", out ModItem thorsHammerRanged);
+				thoriumMod.TryFind<ModItem>("MagicThorHammer", out ModItem thorsHammerMagic);
+				
+				RecipeGroup group = new RecipeGroup(() => $"{Language.GetTextValue("LegacyMisc.37")} " + thorsHammerMelee.DisplayName.ToString().Split(':').First(), thorsHammerMelee.Type, thorsHammerRanged.Type, thorsHammerMagic.Type);
+				RecipeGroup.RegisterGroup("ThorsHammers", group);
+			}
+		}
+
 		public override void PostAddRecipes()
 		{
 			bool ContentAlchemist = ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist;
