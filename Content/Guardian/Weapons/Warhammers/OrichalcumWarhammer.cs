@@ -23,6 +23,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Range = 50;
 			ReturnSpeed = 1.6f;
 			SwingSpeed = 2f;
+			SwingChargeGain = 0.75f;
 			GuardStacks = 1;
 			SlamStacks = 2;
 			HitCooldown = 20;

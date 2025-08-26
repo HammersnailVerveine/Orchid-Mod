@@ -28,6 +28,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			GuardStacks = 1;
 			ReturnSpeed = 2f;
 			SwingSpeed = 2f;
+			SwingChargeGain = 0.75f;
 			HitCooldown = 10;
 			Penetrate = true;
 			TileBounce = true;
