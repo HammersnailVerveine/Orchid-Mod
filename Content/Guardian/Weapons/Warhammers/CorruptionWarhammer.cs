@@ -39,7 +39,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Anvils);
 			recipe.AddIngredient(ItemID.DemoniteBar, 10);
-			recipe.AddIngredient(ItemID.ShadowScale, 5);
 			recipe.Register();
 		}
 	}
