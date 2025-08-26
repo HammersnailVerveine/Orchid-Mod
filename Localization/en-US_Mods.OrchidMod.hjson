@@ -3971,6 +3971,15 @@ Items: {
 			Struck enemies become more conductive
 			'''
 	}
+
+	ThoriumBronzeShield: {
+		DisplayName: Bronze Scutum (unfinished)
+		Tooltip:
+			'''
+			Reduced mobility and guard regeneration is nullified while blocking
+			TODO: add damage rampup like Badge of Battles Past and implement multiplayer mechanics
+			'''
+	}
 }
 
 NPCs: {

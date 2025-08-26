@@ -311,6 +311,11 @@ Buffs: {
 		// DisplayName: Shapeshifting Sickness
 		// Description: Reduced stats and cancels on-shapeshift effects
 	}
+
+	ThoriumGrandThunderBirdWarhammerDebuff: {
+		// DisplayName: Conductive
+		// Description: You're like a lightning rod!
+	}
 }
 
 AlchemistRecipe: {
@@ -3958,6 +3963,33 @@ Items: {
 		// DisplayName: Meat Tenderizer
 		// Tooltip: Fully charged strikes drop 'meat slabs' which grant Well Fed
 	}
+
+	GuardianCrystalNinjaHelm: {
+		// DisplayName: Crystal Assassin Mask
+		/* Tooltip:
+			'''
+			Increases maximum guards and slams by 1
+			Dashing triggers your active parry
+			''' */
+	}
+
+	ThoriumGrandThunderBirdWarhammer: {
+		// DisplayName: Stormbreaker
+		/* Tooltip:
+			'''
+			Conducts electricity to nearby enemies, charging faster with each connection
+			Struck enemies become more conductive
+			''' */
+	}
+
+	ThoriumBronzeShield: {
+		// DisplayName: Bronze Scutum (unfinished)
+		/* Tooltip:
+			'''
+			Reduced mobility and guard regeneration is nullified while blocking
+			TODO: add damage rampup like Badge of Battles Past and implement multiplayer mechanics
+			''' */
+	}
 }
 
 NPCs: {
@@ -4428,6 +4460,7 @@ Projectiles: {
 	// PredatorGoblinProjAlt.DisplayName: Barghest Slash
 	// PredatorGoblinProjSlash.DisplayName: Barghest Slash
 	// PredatorGoblinProjResource.DisplayName: Shadowflame Energy
+	// DesertWarhammerProjectile.DisplayName: Bone Fragments
 }
 
 Configs: {
