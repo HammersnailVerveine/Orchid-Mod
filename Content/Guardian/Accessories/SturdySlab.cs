@@ -1,4 +1,3 @@
-using OrchidMod.Content.Gambler.Misc;
 using Terraria;
 using Terraria.ID;
 
@@ -20,6 +19,18 @@ namespace OrchidMod.Content.Guardian.Accessories
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			modPlayer.GuardianBlockDuration += 0.25f;
 			modPlayer.GuardianParryDuration += 0.25f;
+		}
+
+		public override void AddRecipes()
+		{
+			var thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				var recipe = CreateRecipe();
+				recipe.AddTile(TileID.Anvils);
+				recipe.AddIngredient(thoriumMod, "GraniteEnergyCore", 10);
+				recipe.Register();
+			}
 		}
 	}
 }

@@ -301,8 +301,10 @@ namespace OrchidMod.Common.ModSystems
 			chestLoots.Add(new ChestLoot(ItemType<SkywareShield>(), ChestType.SkyIsland, 30));
 
 			// Underground Desert Chests
-			chestLoots.Add(new ChestLoot(ItemType<DesertWarhammer>(), ChestType.Sandstone, 20));
 			chestLoots.Add(new ChestLoot(ItemType<DesertStandard>(), ChestType.Sandstone, 20));
+
+			// Granite Chests
+			chestLoots.Add(new ChestLoot(ItemType<SturdySlab>(), ChestType.Granite, 50));
 
 			if (ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist)
 			{
@@ -484,6 +486,10 @@ namespace OrchidMod.Common.ModSystems
 					return tile.TileType == TileID.Containers && tile.TileFrameX == 10 * 36;
 				case ChestType.Sandstone:
 					return tile.TileType == TileID.Containers2 && tile.TileFrameX == 10 * 36;
+				case ChestType.Granite:
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 50 * 36;
+					//Containers: Mahogany 8, Webbed 15, Lihzard 16, Mushroom 32, Marble 51
+					//Containers2: Dead Man's 4
 				default:
 					return false;
 			}
@@ -501,6 +507,7 @@ namespace OrchidMod.Common.ModSystems
 		Water,
 		LivingTree,
 		SkyIsland,
-		Ice
+		Ice,
+		Granite
 	}
 }

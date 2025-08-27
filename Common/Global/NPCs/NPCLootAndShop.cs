@@ -308,6 +308,16 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<PlantEnzymes>(), 20));
 						break;
 					}
+				case NPCID.GraniteFlyer:
+					{
+						npcLoot.Add(new DropBasedOnExpertMode(ItemDropRule.DropNothing(), ItemDropRule.Common(ItemType<SturdySlab>(), 40)));
+						break;
+					}
+				case NPCID.GraniteGolem:
+					{
+						npcLoot.Add(ItemDropRule.NormalvsExpert(ItemType<SturdySlab>(), 40, 20));
+						break;
+					}
 				default:
 					break;
 			}
