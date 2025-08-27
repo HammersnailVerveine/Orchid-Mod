@@ -81,6 +81,7 @@ namespace OrchidMod.Content.Guardian
 				Projectile.Kill();
 			}
 		}
+		public override bool? CanCutTiles() => Projectile.friendly = true;
 
 		public override void AI()
 		{
