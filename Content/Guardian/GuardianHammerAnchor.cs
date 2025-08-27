@@ -318,7 +318,7 @@ namespace OrchidMod.Content.Guardian
 				}
 			}
 
-			if (Projectile.ai[1] > 0 && !WeakHit)
+			if (Projectile.ai[1] > 0 && !WeakHit && !WeakThrow && FirstHit)
 			{
 				modifiers.FinalDamage *= 1.5f;
 			}
