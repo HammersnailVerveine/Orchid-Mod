@@ -249,7 +249,8 @@ namespace OrchidMod.Common.Global.Items
 				case ItemID.OasisCrate:
 				case ItemID.OasisCrateHard:
 					{
-						QuickSpawnRandomItemFromList(
+						QuickSpawnItem<DesertStandard>(player, 1, 4);
+						/*QuickSpawnRandomItemFromList(
 							player: player,
 							items: new()
 							{ // Keeping this, mostly as an example for the future
@@ -257,7 +258,7 @@ namespace OrchidMod.Common.Global.Items
 								(ModContent.ItemType<DesertStandard>(), 1),
 							},
 							chanceDenominator: 2
-						);
+						);*/
 					}
 					break;
 				case ItemID.LavaCrate:
