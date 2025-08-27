@@ -462,7 +462,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		{
 			var recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.Wood, 8);
-			recipe.AddIngredient(ItemID.FallenStar, 5);
+			recipe.AddIngredient(ItemID.FallenStar, 3);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.Register();
 		}
