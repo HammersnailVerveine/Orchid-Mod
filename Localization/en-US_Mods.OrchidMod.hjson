@@ -224,7 +224,7 @@ Buffs: {
 
 	BambooBuff: {
 		DisplayName: Bamboo Protection
-		Description: 25% increased defense
+		Description: Defense increased by 3, then 50%
 	}
 
 	GuardianGitBuff: {
@@ -2898,7 +2898,7 @@ Items: {
 			Slowly regenerates guards over time
 			Enemies are more likely to target you
 			'''
-		SetBonus: Consuming guards or slams increases defense by 25%
+		SetBonus: Consuming guards or slams increases defense
 	}
 
 	GuardianBambooChest: {

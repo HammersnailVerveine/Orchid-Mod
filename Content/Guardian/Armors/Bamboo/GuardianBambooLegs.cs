@@ -13,7 +13,7 @@ namespace OrchidMod.Content.Guardian.Armors.Bamboo
 			Item.height = 14;
 			Item.value = Item.sellPrice(0, 0, 0, 50);
 			Item.rare = ItemRarityID.White;
-			Item.defense = 4;
+			Item.defense = 2;
 		}
 
 		public override void UpdateEquip(Player player)
