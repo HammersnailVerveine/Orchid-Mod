@@ -50,7 +50,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 					* new Vector2(1, projectile.velocity.Y < 0 ? 1 : 0.5f)
 					+ Main.rand.NextVector2Circular(1, 1)
 					- new Vector2(0, 0.2f * (Main.rand.NextFloat(2, 4) - i));
-				Projectile.NewProjectile(player.GetSource_ItemUse(Item), projectile.Center, velocity, type, guardian.GetGuardianDamage(Item.damage * 0.35f), 1f, player.whoAmI);
+				
+				if (IsLocalPlayer(player))
+					Projectile.NewProjectile(player.GetSource_ItemUse(Item), projectile.Center, velocity, type, guardian.GetGuardianDamage(Item.damage * 0.35f), 1f, player.whoAmI);
 				for (int j = 0; j < 2; j++)
 				{
 					Dust.NewDust(projectile.position, projectile.width, projectile.height, Main.rand.NextBool() ? DustID.Gold : DustID.Dirt, hitVelocity.X * 0.5f, -1);
