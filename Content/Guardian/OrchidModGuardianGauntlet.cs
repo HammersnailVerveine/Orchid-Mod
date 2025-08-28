@@ -206,6 +206,7 @@ namespace OrchidMod.Content.Guardian
 						gauntlet.OffHandGauntlet = i == 0;
 						proj.localAI[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration); // for UI display
 						gauntlet.OnChangeSelectedItem(player);
+						gauntlet.NeedNetUpdate = true;
 					}
 				}
 
