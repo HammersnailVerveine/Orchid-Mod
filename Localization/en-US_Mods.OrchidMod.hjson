@@ -224,7 +224,7 @@ Buffs: {
 
 	BambooBuff: {
 		DisplayName: Bamboo Protection
-		Description: 25% increased defense
+		Description: Defense increased by 3, then 50%
 	}
 
 	GuardianGitBuff: {
@@ -2898,7 +2898,7 @@ Items: {
 			Slowly regenerates guards over time
 			Enemies are more likely to target you
 			'''
-		SetBonus: Consuming guards or slams increases defense by 25%
+		SetBonus: Consuming guards or slams increases defense
 	}
 
 	GuardianBambooChest: {
@@ -3587,7 +3587,7 @@ Items: {
 	SymbioteToad: {
 		DisplayName: Saptoad Statuette
 		LeftClick: Slaps enemies with your tongue, spawning up to 10 sapflies on hit
-		RightClick: Orders sapflies to protect an ally, up to 5 can follow a given player
+		RightClick: Sapflies protect target player, up to 5 can follow you or an ally at once
 		Jump: Press UP to jump higher, reduced fall damage
 		Passive: Sapflies sacrifice themselves to provide healing after taking damage
 		Tooltip: Transforms you into a Saptoad, gaining unique abilities

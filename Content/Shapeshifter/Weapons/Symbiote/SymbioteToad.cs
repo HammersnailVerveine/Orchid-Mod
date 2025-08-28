@@ -93,70 +93,73 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 				}
 			}
 
-			if (validTarget.whoAmI == player.whoAmI && count < 5)
-			{ // recall flies
-				foreach (Projectile projectileFly in Main.projectile)
-				{
-					if (projectileFly.type == projectileType && (int)projectileFly.ai[0] != validTarget.whoAmI && projectileFly.active && projectileFly.owner == player.whoAmI)
+			if (count < 5)
+			{
+				if (validTarget.whoAmI == player.whoAmI)
+				{ // recall flies
+					foreach (Projectile projectileFly in Main.projectile)
 					{
-						count++;
-						projectileFly.ai[0] = validTarget.whoAmI;
-						projectileFly.netUpdate = true;
-
-						if (projectileFly.ModProjectile is SymbioteToadProjAlt fly)
+						if (projectileFly.type == projectileType && (int)projectileFly.ai[0] != validTarget.whoAmI && projectileFly.active && projectileFly.owner == player.whoAmI)
 						{
-							fly.LastTargetHealth = 0;
-						}
+							count++;
+							projectileFly.ai[0] = validTarget.whoAmI;
+							projectileFly.netUpdate = true;
 
-						for (int i = 0; i < 3; i++)
-						{
-							Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.Smoke);
-							dust2.noGravity = true;
-						}
+							if (projectileFly.ModProjectile is SymbioteToadProjAlt fly)
+							{
+								fly.LastTargetHealth = 0;
+							}
 
-						for (int i = 0; i < 3; i++)
-						{
-							Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.YellowTorch);
-							dust2.noGravity = true;
-						}
+							for (int i = 0; i < 3; i++)
+							{
+								Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.Smoke);
+								dust2.noGravity = true;
+							}
 
-						if (count >= 5)
-						{
-							break;
+							for (int i = 0; i < 3; i++)
+							{
+								Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.YellowTorch);
+								dust2.noGravity = true;
+							}
+
+							if (count >= 5)
+							{
+								break;
+							}
 						}
 					}
 				}
-			}
-			else
-			{ // send flies to the targeted ally
-				foreach (Projectile projectileFly in Main.projectile)
-				{
-					if (projectileFly.type == projectileType && (int)projectileFly.ai[0] == player.whoAmI && projectileFly.active && projectileFly.owner == player.whoAmI)
+				else
+				{ // send flies to the targeted ally
+					foreach (Projectile projectileFly in Main.projectile)
 					{
-						count++;
-						projectileFly.ai[0] = validTarget.whoAmI;
-						projectileFly.netUpdate = true;
-
-						if (projectileFly.ModProjectile is SymbioteToadProjAlt fly)
+						if (projectileFly.type == projectileType && (int)projectileFly.ai[0] == player.whoAmI && projectileFly.active && projectileFly.owner == player.whoAmI)
 						{
-							fly.LastTargetHealth = 0;
-						}
+							count++;
+							projectileFly.ai[0] = validTarget.whoAmI;
+							projectileFly.netUpdate = true;
 
-						for (int i = 0; i < 3; i++)
-						{
-							Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.Smoke);
-							dust2.noGravity = true;
-						}
+							if (projectileFly.ModProjectile is SymbioteToadProjAlt fly)
+							{
+								fly.LastTargetHealth = 0;
+							}
 
-						for (int i = 0; i < 3; i++)
-						{
-							Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.YellowTorch);
-							dust2.noGravity = true;
-						}
+							for (int i = 0; i < 3; i++)
+							{
+								Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.Smoke);
+								dust2.noGravity = true;
+							}
 
-						if (count >= 5)
-						{
-							break;
+							for (int i = 0; i < 3; i++)
+							{
+								Dust dust2 = Dust.NewDustDirect(projectileFly.position, projectileFly.width, projectileFly.height, DustID.YellowTorch);
+								dust2.noGravity = true;
+							}
+
+							if (count >= 5)
+							{
+								break;
+							}
 						}
 					}
 				}

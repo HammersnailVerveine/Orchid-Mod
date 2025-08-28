@@ -1,7 +1,5 @@
-using OrchidMod.Content.Guardian.Accessories;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Accessories
 {

@@ -683,7 +683,7 @@ namespace OrchidMod.Content.Guardian
 			return false;
 		}
 
-		public override bool? CanCutTiles() => false; // TODO : can cut while attacking
+		public override bool? CanCutTiles() => Projectile.friendly = true;
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{

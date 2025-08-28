@@ -15,6 +15,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 		public bool CanDash = false;
 		public float RightClickChargeBuffer = 0; // used to keep the left click charge damage multiplier on the right click ability active for 1 second after releasing the button
 		public int RightClickChargeBufferTimer = 0;
+		public int kbImmune = 0;
 
 		public override void SafeSetDefaults()
 		{
@@ -39,6 +40,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			CanDash = false;
 			RightClickChargeBuffer = 0f;
 			RightClickChargeBufferTimer = 0;
+			kbImmune = 0;
 			anchor.Frame = 1;
 			anchor.Timespent = 0;
 			projectile.direction = player.direction;
@@ -89,6 +91,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			anchor.LeftCLickCooldown = Item.useTime;
 			anchor.RightCLickCooldown = Item.useTime * 5f;
 			RightClickChargeBuffer = 0f;
+			RightClickChargeBufferTimer = 0; 
 			RightClickChargeBufferTimer = 0; 
 			anchor.ai[0] = 0f;
 			anchor.ai[2] = anchor.LeftCLickCooldown;
@@ -153,6 +156,15 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 			for (int i = 0; i < 4; i++)
 			{
 				Main.dust[Dust.NewDust(projectile.Center, 0, 0, DustID.CrimsonPlants)].velocity.Y -= 1.25f;
+			}
+		}
+
+		public override void ShapeshiftBuffs(Projectile projectile, ShapeshifterShapeshiftAnchor anchor, Player player, OrchidShapeshifter shapeshifter)
+		{
+			if (kbImmune > 0)
+			{
+				kbImmune--;
+				player.noKnockback = true;
 			}
 		}
 
@@ -367,6 +379,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Sage
 
 			if (projectile.ai[2] > 0)
 			{ // Dashing
+				kbImmune = 10;
 				intendedVelocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * -8f * speedMult * shapeshifter.ShapeshifterMoveSpeedMiscOverride;
 				projectile.direction = intendedVelocity.X > 0 ? 1 : -1;
 				projectile.spriteDirection = projectile.direction;
