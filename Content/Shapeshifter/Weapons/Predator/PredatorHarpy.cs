@@ -29,7 +29,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Predator
 			Item.knockBack = 0.5f;
 			Item.damage = 19;
 			Item.crit = 6;
-			ShapeshiftWidth = 24;
+			ShapeshiftWidth = 20;
 			ShapeshiftHeight = 26;
 			ShapeshiftType = ShapeshifterShapeshiftType.Predator;
 			GravityMult = 0.9f;

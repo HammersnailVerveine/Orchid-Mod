@@ -23,7 +23,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 			Item.shootSpeed = 48f;
 			Item.knockBack = 5f;
 			Item.damage = 26;
-			ShapeshiftWidth = 24;
+			ShapeshiftWidth = 20;
 			ShapeshiftHeight = 24;
 			ShapeshiftType = ShapeshifterShapeshiftType.Warden;
 			GroundedWildshape = true;

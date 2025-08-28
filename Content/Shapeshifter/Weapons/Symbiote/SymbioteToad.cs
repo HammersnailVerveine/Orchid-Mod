@@ -24,7 +24,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Symbiote
 			Item.shootSpeed = 10f;
 			Item.knockBack = 9f;
 			Item.damage = 14;
-			ShapeshiftWidth = 26;
+			ShapeshiftWidth = 20;
 			ShapeshiftHeight = 20;
 			ShapeshiftType = ShapeshifterShapeshiftType.Symbiote;
 			GroundedWildshape = true;
