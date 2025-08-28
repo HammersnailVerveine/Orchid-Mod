@@ -4461,6 +4461,7 @@ Projectiles: {
 	// PredatorGoblinProjSlash.DisplayName: Barghest Slash
 	// PredatorGoblinProjResource.DisplayName: Shadowflame Energy
 	// DesertWarhammerProjectile.DisplayName: Bone Fragments
+	// DemoniteShieldProjectile.DisplayName: Veil of Night
 }
 
 Configs: {
