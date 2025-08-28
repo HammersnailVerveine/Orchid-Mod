@@ -295,7 +295,7 @@ namespace OrchidMod.Content.Shapeshifter.Weapons.Warden
 					anchor.Frame = 2 + Heat * 8;
 				}
 			}
-			else if (!grounded)
+			else if (!grounded || projectile.velocity.Y < 0f)
 			{ // falling frame
 				anchor.Frame = 1 + Heat * 8;
 			}
