@@ -53,8 +53,10 @@ namespace OrchidMod.Content.Guardian.UI
 		public static Texture2D blockOn;
 		public static Texture2D blockOff;
 
-		public static Texture2D textureIconStandard;
-		public static Texture2D textureIconRune;
+		public static Texture2D textureIconStandardOn;
+		public static Texture2D textureIconStandardOff;
+		public static Texture2D textureIconRuneOn;
+		public static Texture2D textureIconRuneOff;
 
 		public override int InsertionIndex(List<GameInterfaceLayer> layers)
 			=> layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
@@ -97,8 +99,10 @@ namespace OrchidMod.Content.Guardian.UI
 			blockOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOn", AssetRequestMode.ImmediateLoad).Value;
 			blockOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOff", AssetRequestMode.ImmediateLoad).Value;
 
-			textureIconStandard ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconStandard", AssetRequestMode.ImmediateLoad).Value;
-			textureIconRune ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconRune", AssetRequestMode.ImmediateLoad).Value;
+			textureIconStandardOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconStandardOn", AssetRequestMode.ImmediateLoad).Value;
+			textureIconStandardOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconStandardOff", AssetRequestMode.ImmediateLoad).Value;
+			textureIconRuneOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconRuneOn", AssetRequestMode.ImmediateLoad).Value;
+			textureIconRuneOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconRuneOff", AssetRequestMode.ImmediateLoad).Value;
 
 			Width.Set(0f, 0f);
 			Height.Set(0f, 0f);
@@ -169,21 +173,26 @@ namespace OrchidMod.Content.Guardian.UI
 					}
 				}
 
-				offSet = (int)((textureIconRune.Width + 2) * 0.5f);
+				offSet = (int)((textureIconRuneOn.Width + 2) * 0.5f);
 				if (modPlayer.RuneProjectiles.Count > 0)
 				{
 					float colorMult = modPlayer.RuneProjectiles[0].timeLeft > 275 ? 1f : (float)Math.Abs(Math.Sin((modPlayer.RuneProjectiles[0].timeLeft * 0.5f) / Math.PI / 4f));
 					offSet = (int)(offSet * (modPlayer.GuardianCurrentStandardAnchor == null ? 1f : 2f));
 					drawpos = new Vector2(position.X - offSet, position.Y + 36 * player.gravDir + (player.gravDir - 1));
-					spriteBatch.Draw(textureIconRune, drawpos, null, Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
-					offSet -= textureIconRune.Width + 2;
+					spriteBatch.Draw(textureIconRuneOff, drawpos, null, Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
+					spriteBatch.Draw(textureIconRuneOn, drawpos, null, Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
+					offSet -= textureIconRuneOn.Width + 2;
 				}
 
-				if (modPlayer.GuardianCurrentStandardAnchor != null)
+				if (modPlayer.GuardianCurrentStandardAnchor != null && modPlayer.GuardianCurrentStandardAnchor.ModProjectile is GuardianStandardAnchor anchor)
 				{
 					float colorMult = modPlayer.GuardianCurrentStandardAnchor.ai[1] > 275 ? 1f : (float)Math.Abs(Math.Sin((modPlayer.GuardianCurrentStandardAnchor.ai[1] * 0.5f) / Math.PI / 4f));
+					int remainingDurationOffset = textureIconStandardOn.Height;
+					if (anchor.BuffItem != null && anchor.BuffItem.ModItem is OrchidModGuardianStandard standardItem)
+						remainingDurationOffset = (int)(textureIconStandardOn.Height * (1 - modPlayer.GuardianCurrentStandardAnchor.ai[1] / standardItem.StandardDuration));
 					drawpos = new Vector2(position.X - offSet, position.Y + 36 * player.gravDir + (player.gravDir - 1));
-					spriteBatch.Draw(textureIconStandard, drawpos, null, Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
+					spriteBatch.Draw(textureIconStandardOff, drawpos, null, Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
+					spriteBatch.Draw(textureIconStandardOn, drawpos + new Vector2(0, remainingDurationOffset), new Rectangle(0, remainingDurationOffset, textureIconRuneOn.Width, textureIconStandardOn.Height - remainingDurationOffset), Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
 				}
 
 				if (player.HeldItem.ModItem is OrchidModGuardianItem)
