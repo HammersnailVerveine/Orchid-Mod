@@ -14,7 +14,6 @@ namespace OrchidMod.Content.Guardian.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.statDefense += 3;
 			player.statDefense *= 1.5f;
 		}
 	}
