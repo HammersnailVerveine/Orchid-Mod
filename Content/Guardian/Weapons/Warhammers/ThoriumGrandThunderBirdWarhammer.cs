@@ -205,24 +205,34 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			target.AddBuff(ModContent.BuffType<ThoriumGrandThunderBirdWarhammerDebuff>(), Weak ? 300 : 600);
 			if (!Weak) ShockTargets(projectile, player);
-			SoundEngine.PlaySound(ThoriumThunderTalon.WithPitchOffset(-0.3f - 0.1f  * Targets.Count).WithVolumeScale(0.5f + 0.05f  * Targets.Count), projectile.Center);
+
+			if (OrchidMod.ThoriumMod != null)
+			{
+				SoundEngine.PlaySound(ThoriumThunderTalon.WithPitchOffset(-0.3f - 0.1f * Targets.Count).WithVolumeScale(0.5f + 0.05f * Targets.Count), projectile.Center);
+			}
 		}
 
 		public override void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)
 		{
 			target.AddBuff(ModContent.BuffType<ThoriumGrandThunderBirdWarhammerDebuff>(), 300);
-			SoundEngine.PlaySound(ThoriumZapNoise.WithPitchOffset(-0.1f).WithVolumeScale(0.25f), projectile.Center);
+			if (OrchidMod.ThoriumMod != null)
+			{
+				SoundEngine.PlaySound(ThoriumZapNoise.WithPitchOffset(-0.1f).WithVolumeScale(0.25f), projectile.Center);
+			}
 		}
 
 		public override void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged)
 		{
 			target.AddBuff(ModContent.BuffType<ThoriumGrandThunderBirdWarhammerDebuff>(), 300);
-			SoundEngine.PlaySound(ThoriumZapNoise.WithPitchOffset(-0.1f).WithVolumeScale(0.25f), projectile.Center);
+			if (OrchidMod.ThoriumMod != null)
+			{
+				SoundEngine.PlaySound(ThoriumZapNoise.WithPitchOffset(-0.1f).WithVolumeScale(0.25f), projectile.Center);
+			}
 		}
 
 		public override void OnThrow(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak)
 		{
-			if (Weak) SoundEngine.PlaySound(ThoriumParalyzeSound.WithPitchOffset(-0.6f).WithVolumeScale(0.1f * Targets.Count), projectile.Center);
+			if (Weak && OrchidMod.ThoriumMod != null) SoundEngine.PlaySound(ThoriumParalyzeSound.WithPitchOffset(-0.6f).WithVolumeScale(0.1f * Targets.Count), projectile.Center);
 		}
 	}
 }
