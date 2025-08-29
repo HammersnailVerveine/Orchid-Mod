@@ -13,17 +13,17 @@ namespace OrchidMod.Content.Guardian.Accessories
 			Item.accessory = true;
 		}
 
-		public override void UpdateEquip(Player player)
+		public override void UpdateAccessory(Player player, bool hideVisual)
 		{
 			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
 			modPlayer.GuardianInfiniteResources = true;
+			if (!hideVisual) modPlayer.GuardianShowDebugVisuals = true;
 		}
 
-		public override void SetStaticDefaults()
+		public override void UpdateVanity(Player player)
 		{
-			// DisplayName.SetDefault("Guardian Test Accessory");
-			/* Tooltip.SetDefault("Does nothing"
-							+ "\n[c/FF0000:Test Item]"); */
+			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
+			modPlayer.GuardianShowDebugVisuals = true;
 		}
 	}
 }

@@ -66,6 +66,7 @@ namespace OrchidMod
 		public int GuardianStandardStarScouterWarpCD = 0; //Holds cooldown and animation for warp effect
 		public bool GuardianHoneyPotion = false; // Misc
 		public bool GuardianInfiniteResources = false;
+		public bool GuardianShowDebugVisuals = false;
 		public byte GuardianJewelerGauntlet = 0;
 
 		// Dynamic gameplay and UI fields
@@ -301,6 +302,7 @@ namespace OrchidMod
 			GuardianWormTooth = false;
 			GuardianMonsterFang = false;
 			GuardianInfiniteResources = false;
+			GuardianShowDebugVisuals = false;
 		}
 
 		public override void PreUpdateMovement()

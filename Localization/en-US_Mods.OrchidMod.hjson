@@ -2727,6 +2727,7 @@ Items: {
 		Tooltip:
 			'''
 			Grants infinite guardian resources
+			Shows debug visuals when visible
 			[c/FF0000:Test Item]
 			'''
 	}

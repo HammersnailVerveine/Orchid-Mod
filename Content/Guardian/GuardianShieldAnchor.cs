@@ -269,7 +269,7 @@ namespace OrchidMod.Content.Guardian
 				} 
 
 				UpdateHitbox();
-				//SeeHitbox();
+				if (guardian.GuardianShowDebugVisuals) SeeHitbox();
 			}
 
 			oldOwnerPos = owner.Center;
