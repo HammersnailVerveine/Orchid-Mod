@@ -122,11 +122,9 @@ namespace OrchidMod.Content.Guardian
 
 						if (IsLocalOwner)
 						{
-							Vector2 center = Projectile.Center;
 							var texture = ModContent.Request<Texture2D>((ShieldItem.ModItem as OrchidModGuardianShield).ShieldTexture).Value;
 							Projectile.width = (int)(texture.Height * guardian.GuardianPaviseScale);
 							Projectile.height = (int)(texture.Height * guardian.GuardianPaviseScale);
-							Projectile.Center = center;
 						}
 					}
 
