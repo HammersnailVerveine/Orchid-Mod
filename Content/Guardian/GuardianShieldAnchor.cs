@@ -122,9 +122,11 @@ namespace OrchidMod.Content.Guardian
 
 						if (IsLocalOwner)
 						{
+							Vector2 center = Projectile.Center;
 							var texture = ModContent.Request<Texture2D>((ShieldItem.ModItem as OrchidModGuardianShield).ShieldTexture).Value;
 							Projectile.width = (int)(texture.Height * guardian.GuardianPaviseScale);
 							Projectile.height = (int)(texture.Height * guardian.GuardianPaviseScale);
+							Projectile.Center = center;
 						}
 					}
 
@@ -142,6 +144,15 @@ namespace OrchidMod.Content.Guardian
 
 				if (Projectile.ai[0] > 0f)
 				{
+					if (Projectile.ai[0] >= (int)(guardianItem.blockDuration * item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration))
+					{
+						Vector2 oldDimensions = new Vector2(Projectile.width, Projectile.height);
+						var texture = ModContent.Request<Texture2D>(guardianItem.ShieldTexture).Value;
+						Projectile.width = (int)(texture.Height * guardian.GuardianPaviseScale);
+						Projectile.height = (int)(texture.Height * guardian.GuardianPaviseScale);
+						aimedLocation += (oldDimensions * 0.5f - new Vector2(texture.Height * guardian.GuardianPaviseScale, texture.Height * guardian.GuardianPaviseScale) * 0.5f).Floor();
+					}
+
 					aimedLocation += owner.Center.Floor() - oldOwnerPos.Floor();
 					Point p1 = new Point((int)hitboxOrigin.X, (int)hitboxOrigin.Y);
 					Point p2 = new Point((int)(hitboxOrigin.X + hitbox.X), (int)(hitboxOrigin.Y + hitbox.Y));
@@ -313,10 +324,10 @@ namespace OrchidMod.Content.Guardian
 		public void UpdateHitbox()
 		{
 			this.hitboxOrigin = Projectile.Center + Vector2.UnitY * Projectile.gfxOffY;
-			this.hitboxOrigin -= new Vector2(0f, (Projectile.height * Projectile.scale) / 2f).RotatedBy(Projectile.rotation);
+			this.hitboxOrigin -= new Vector2(0f, (Projectile.height) / 2f).RotatedBy(Projectile.rotation);
 			hitboxOrigin -= new Vector2(4f, 4f);
 
-			this.hitbox = new Vector2(0f, Projectile.height * Projectile.scale).RotatedBy(Projectile.rotation);
+			this.hitbox = new Vector2(0f, Projectile.height).RotatedBy(Projectile.rotation);
 		}
 
 		public void SeeHitbox()

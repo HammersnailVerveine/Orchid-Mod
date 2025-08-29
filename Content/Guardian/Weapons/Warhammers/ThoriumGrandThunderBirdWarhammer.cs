@@ -4,11 +4,9 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
-using OrchidMod.Content.Guardian.Projectiles.Warhammers;
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
 
