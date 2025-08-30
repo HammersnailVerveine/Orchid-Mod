@@ -10,6 +10,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace OrchidMod.Content.Guardian
 {
@@ -75,16 +76,7 @@ namespace OrchidMod.Content.Guardian
 			Item.useAnimation = Item.useTime;
 		}
 
-		// public override bool WeaponPrefix() => true;
-
-		/*
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-
-		public override bool WeaponPrefix() => true;
-		*/
+		public override bool? PrefixChance(int pre, UnifiedRandom rand) => false;
 
 		public override bool CanUseItem(Player player)
 		{
