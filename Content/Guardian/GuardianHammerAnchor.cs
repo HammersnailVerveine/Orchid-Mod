@@ -141,7 +141,7 @@ namespace OrchidMod.Content.Guardian
 							}
 
 							player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection); // set arm position (90 degree offset since arm starts lowered)
-							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection);
+							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianHammerCharge * 0.006f * Projectile.spriteDirection) - (new Vector2(player.Center.X, player.Center.Y) - new Vector2(player.Center.X, player.Center.Y).Floor());
 							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f, (hitboxOffset * 2 - hitboxOffset * 0.014f * guardian.GuardianHammerCharge) * 0.4f);
 
 							if (guardian.GuardianHammerCharge < 210f)
@@ -211,7 +211,7 @@ namespace OrchidMod.Content.Guardian
 							float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
 							Vector2 arm = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f) * Projectile.spriteDirection);
 							player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
-							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection);
+							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianHammerCharge * 0.006f + SwingOffset * (3f + guardian.GuardianHammerCharge * 0.006f)) * Projectile.spriteDirection) - (new Vector2(player.Center.X, player.Center.Y) - new Vector2(player.Center.X, player.Center.Y).Floor());
 							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianHammerCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianHammerCharge) * 10f) * player.direction * 0.4f + (armPosition.X - arm.X) * (2.5f + hitboxOffset * 0.07f), (armPosition.Y - arm.Y) * -(1.1f + hitboxOffset * 0.03f) + (210f - guardian.GuardianHammerCharge) * 0.075f);
 
 							float toAdd = 30f / HammerItem.Item.useTime * HammerItem.SwingSpeed * player.GetTotalAttackSpeed(DamageClass.Melee);
@@ -471,7 +471,7 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
-			var position = posproj - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+			var position = posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 
 			if (Projectile.ai[1] == 0)
 			{
@@ -494,7 +494,7 @@ namespace OrchidMod.Content.Guardian
 				for (int i = 0; i < OldPosition.Count; i++)
 				{
 					color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * (((WeakThrow ? 0.05f : 0.15f) * i));
-					position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * Projectile.gfxOffY;
+					position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 
 					spriteBatch.Draw(HammerTexture, position, null, color, OldRotation[i] + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}

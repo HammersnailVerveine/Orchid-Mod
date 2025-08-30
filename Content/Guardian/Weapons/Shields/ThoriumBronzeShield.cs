@@ -67,7 +67,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 			if (projectile.ai[0] > 0)
 			{
-				oldVelX = player.velocity.X = MathHelper.Lerp(player.velocity.X, oldVelX, 0.85f);
+				oldVelX = player.velocity.X = MathHelper.Lerp(player.velocity.X, oldVelX, 0.6f);
 				if (Math.Abs(oldVelX) > 10) oldVelX *= 0.9f;
 				if (player.velocity.Y != 0)
 				{
@@ -86,7 +86,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 					if (ally.whoAmI == player.whoAmI) continue;
 					if (ally.Center.Distance(player.Center) < distance * guardian.GuardianStandardRange)
 					{
-						player.AddBuff(ModContent.BuffType<ThoriumBronzeShieldProtection>(), 60);
+						ally.AddBuff(ModContent.BuffType<ThoriumBronzeShieldProtection>(), 60);
 					}
 				}
 			}
