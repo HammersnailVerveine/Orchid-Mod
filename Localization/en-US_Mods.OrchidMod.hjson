@@ -2853,18 +2853,18 @@ Items: {
 	}
 
 	PirateWarhammer: {
-		Tooltip: Swing hits make enemies drop more gold
-		DisplayName: Pirate Warhammer
+		DisplayName: Gangway Gavel
+		Tooltip: Instantly charges on hit
 	}
 
 	ChlorophyteWarhammer: {
-		Tooltip: Shoots spore clouds
 		DisplayName: Chlorophyte Gavel
+		Tooltip: Shoots spore clouds
 	}
 
 	TempleWarhammer: {
+		DisplayName: Warrh'Amahr
 		Tooltip: Releases homing sparks
-		DisplayName: Temple Warhammer
 	}
 
 	BeeRune: {

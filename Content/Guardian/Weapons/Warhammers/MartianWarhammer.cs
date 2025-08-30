@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using OrchidMod.Common.ModObjects;
-using OrchidMod.Content.Guardian.Projectiles.Warhammers;
 using Terraria;
 using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
@@ -166,7 +164,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged)
 		{
-			if (!FullyCharged)
+
+			if (!((GuardianHammerAnchor)projectile.ModProjectile).WeakHit && !FullyCharged)
 			{
 				CombatText.NewText(player.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Charged"), false);
 				SoundEngine.PlaySound(SoundID.Item92, player.Center);

@@ -7,6 +7,7 @@ using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,10 +25,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 6f;
 			Item.shootSpeed = 10f;
-			Item.damage = 60;
+			Item.damage = 56;
 			Item.useTime = 48;
 			Range = 30;
 			GuardStacks = 1;
+			SlamStacks = 1;
 			ReturnSpeed = 1f;
 			SwingSpeed = 1.33f;
 			SwingChargeGain = 0.75f;
@@ -155,7 +157,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			if (Targets.Count > 0)
 			{
-				ShockTargets(projectile, player);
+				int kills = ShockTargets(projectile, player);
 
 				if (OrchidMod.ThoriumMod != null)
 				{
@@ -166,7 +168,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 				{
 					if (guardian.GuardianHammerCharge < 210f)
 					{
-						guardian.GuardianHammerCharge += 15f * Targets.Count * player.GetTotalAttackSpeed(DamageClass.Melee);
+						guardian.GuardianHammerCharge += 15f * (Targets.Count + kills / 2f) * player.GetTotalAttackSpeed(DamageClass.Melee);
 						if (guardian.GuardianHammerCharge > 210f)
 							guardian.GuardianHammerCharge = 210f;
 					}
@@ -174,15 +176,20 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			}
 		}
 
-		void ShockTargets(Projectile projectile, Player player)
+		int ShockTargets(Projectile projectile, Player player)
 		{
+			int killedTargets = 0;
 			foreach (int target in Targets)
 			{
 				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 				NPC npc = Main.npc[target];
 				bool conducted = npc.HasBuff<ThoriumGrandThunderBirdWarhammerDebuff>();
 				if (player.whoAmI == Main.myPlayer)
+				{
+					NPCKillAttempt isKill = new(npc);
 					player.ApplyDamageToNPC(npc, guardian.GetGuardianDamage(Item.damage * (conducted ? 0.75f : 0.5f)), Item.knockBack / 12f, npc.Center.X > player.Center.X ? 1 : -1, Main.rand.Next(100) < guardian.GetGuardianCrit(), ModContent.GetInstance<GuardianDamageClass>(), true);
+					if (isKill.DidNPCDie()) killedTargets++;
+				}
 				Vector2 gemPos = projectile.Center + new Vector2(8 * projectile.spriteDirection, -8).RotatedBy(projectile.ai[1] > 0 ? projectile.rotation : guardian.GuardianHammerCharge * 0.0065f * player.gravDir * projectile.spriteDirection);
 				Vector2 currPoint = gemPos;
 				Vector2 nextPoint;
@@ -202,6 +209,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 					currPoint = nextPoint;
 				}
 			}
+			return killedTargets;
 		}
 
 		public override void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak)

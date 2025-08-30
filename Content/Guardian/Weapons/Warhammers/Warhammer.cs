@@ -18,6 +18,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.damage = 54;
 			Range = 26;
 			GuardStacks = 1;
+			SwingSpeed = 1.5f;
 			ReturnSpeed = 0.8f;
 		}
 

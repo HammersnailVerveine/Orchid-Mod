@@ -2865,18 +2865,18 @@ Items: {
 	}
 
 	PirateWarhammer: {
-		Tooltip: С врагов, поражённых взмахом, выпадает больше золота
 		DisplayName: Пиратский боевой молот
+		Tooltip: С врагов, поражённых взмахом, выпадает больше золота
 	}
 
 	ChlorophyteWarhammer: {
-		Tooltip: Выпускает облако спор
 		DisplayName: Хлорофитовый отбойник
+		Tooltip: Выпускает облако спор
 	}
 
 	TempleWarhammer: {
-		Tooltip: Выпускает самонаводящиеся искры
 		DisplayName: Боевой молот храма
+		Tooltip: Выпускает самонаводящиеся искры
 	}
 
 	BeeRune: {
