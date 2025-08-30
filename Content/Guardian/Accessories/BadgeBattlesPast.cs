@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using OrchidMod.Content.Guardian.Weapons.Shields;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -49,7 +50,7 @@ namespace OrchidMod.Content.Guardian.Accessories
 						timer = 0;
 					}
 				}
-				player.GetDamage<GuardianDamageClass>() += damageIncrease;
+				player.GetDamage<GuardianDamageClass>() += damageIncrease / (1 + guardian.GuardianBronzeShieldDamage);
 			}
 			else
 			{

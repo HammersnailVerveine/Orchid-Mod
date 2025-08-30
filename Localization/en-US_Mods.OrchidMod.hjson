@@ -316,6 +316,21 @@ Buffs: {
 		DisplayName: Conductive
 		Description: You're like a lightning rod!
 	}
+
+	GuardianThoriumBronzeShieldBuff: {
+		DisplayName: Testudo
+		Description: Protecting nearby allies, the next slam's damage will be increased by {0}%
+		AltDescription:
+			'''
+			 and rising!
+			Guard regeneration is being consumed to increase damage further
+			'''
+	}
+
+	ThoriumBronzeShieldProtection: {
+		DisplayName: Testudo Formation
+		Description: Being protected by an ally's shield
+	}
 }
 
 AlchemistRecipe: {
@@ -3974,11 +3989,11 @@ Items: {
 	}
 
 	ThoriumBronzeShield: {
-		DisplayName: Bronze Scutum (unfinished)
+		DisplayName: Bronze Scutum
 		Tooltip:
 			'''
-			Reduced mobility and guard regeneration is nullified while blocking
-			TODO: add damage rampup like Badge of Battles Past and implement multiplayer mechanics
+			Sacrifice acceleration and nullify guard regeneration while blocking to protect nearby allies
+			Nullified guard regeneration is converted into a damage bonus on the next slam
 			'''
 	}
 }

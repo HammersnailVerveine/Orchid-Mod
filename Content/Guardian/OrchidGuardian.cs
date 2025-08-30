@@ -68,6 +68,9 @@ namespace OrchidMod
 		public bool GuardianInfiniteResources = false;
 		public bool GuardianShowDebugVisuals = false;
 		public byte GuardianJewelerGauntlet = 0;
+		public bool GuardianBronzeShieldBuff = false;
+		public float GuardianBronzeShieldDamage = 0;
+		public bool GuardianBronzeShieldProtection = false;
 
 		// Dynamic gameplay and UI fields
 
@@ -287,6 +290,7 @@ namespace OrchidMod
 			GuardianMeleeSpeed = 1f;
 			GuardianPaviseScale = 1f;
 			ParryInvincibilityBonus = 0;
+			if (!GuardianBronzeShieldBuff) GuardianBronzeShieldDamage = 0;
 
 			GuardianMeteorite = false;
 			GuardianSpikeDamage = 0;
@@ -303,6 +307,8 @@ namespace OrchidMod
 			GuardianMonsterFang = false;
 			GuardianInfiniteResources = false;
 			GuardianShowDebugVisuals = false;
+			GuardianBronzeShieldBuff = false;
+			GuardianBronzeShieldProtection = false;
 		}
 
 		public override void PreUpdateMovement()
@@ -422,6 +428,19 @@ namespace OrchidMod
 				if (blockedEnemy.npc.whoAmI == npc.whoAmI)
 				{
 					return false;
+				}
+			}
+			if (GuardianBronzeShieldProtection)
+			{
+				foreach (Player ally in Main.player)
+				{
+					if (ally.GetModPlayer<OrchidGuardian>().GuardianBronzeShieldBuff)
+					{
+						foreach (BlockedEnemy blockedEnemy in ally.GetModPlayer<OrchidGuardian>().GuardianBlockedEnemies)
+						{
+							if (blockedEnemy.npc.whoAmI == npc.whoAmI) return false;
+						}
+					}
 				}
 			}
 

@@ -1,5 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.ModObjects;
+using OrchidMod.Content.Guardian.Buffs;
+using OrchidMod.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,6 +12,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
 	public class ThoriumBronzeShield : OrchidModGuardianShield
 	{
+		public static Texture2D TextureAura;
+		public override void SetStaticDefaults()
+		{
+			TextureAura ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/StandardAuraProjectile", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+		}
+
 		public override void SafeSetDefaults()
 		{
 			Item.value = Item.sellPrice(0, 0, 50, 0);
@@ -16,33 +26,39 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			Item.noUseGraphic = true;
 			Item.UseSound = SoundID.Item71.WithPitchOffset(-1f);
 			Item.knockBack = 20f;
-			Item.damage = 120;
+			Item.damage = 160;
 			Item.rare = ItemRarityID.Orange;
 			Item.useTime = 46;
-			distance = 60f;
-			slamDistance = 80f;
-			blockDuration = 300;
+			distance = 64f;
+			slamDistance = 96f;
+			blockDuration = 360;
 		}
 
-		/*public override void SlamHit(Player player, Projectile shield, NPC npc)
+		public override void SlamHit(Player player, Projectile shield, NPC npc)
 		{
-			var thoriumMod = OrchidMod.ThoriumMod;
+			int buff = player.FindBuffIndex(ModContent.BuffType<GuardianThoriumBronzeShieldBuff>());
+			if (buff != -1) player.DelBuff(buff);
+
+			/*var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null)
 			{
 				int buff = npc.FindBuffIndex(thoriumMod.Find<ModBuff>("Petrify").Type);
 				if (buff != -1) npc.DelBuff(buff);
-			}
-		}*/
+			}*/
+		}
 
 		float oldVelX;
 		float oldVelY;
-		float damageBonus;
 
 		public override void BlockStart(Player player, Projectile shield)
 		{
 			oldVelX = player.velocity.X;
 			oldVelY = player.velocity.Y;
-			damageBonus = 0;
+			//redundant behavior to counteract the first two frames not counting
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+			if (IsLocalPlayer(player)) Main.buffNoTimeDisplay[ModContent.BuffType<GuardianThoriumBronzeShieldBuff>()] = true;
+			guardian.GuardianBronzeShieldBuff = true;
+			guardian.GuardianBronzeShieldDamage = guardian.GuardianGuardRecharge / 100f;
 		}
 
 		public override void ExtraAIShield(Projectile projectile)
@@ -59,10 +75,35 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				}
 				oldVelY = player.velocity.Y;
 				if (player.jump > 0) player.jump--;
-				//damageBonus += 0.005f * guardian.GuardianGuardRecharge;
+				if (guardian.GuardianBronzeShieldDamage < 9.99f)
+				{
+					guardian.GuardianBronzeShieldDamage = Math.Min(9.99f, guardian.GuardianBronzeShieldDamage + guardian.GuardianGuardRecharge / 200f);
+				}
 				guardian.GuardianGuardRecharge = 0;
-				//player.GetDamage<GuardianDamageClass>() += damageBonus;
+				player.AddBuff(ModContent.BuffType<GuardianThoriumBronzeShieldBuff>(), 60);
+				foreach (Player ally in Main.player)
+				{
+					if (ally.whoAmI == player.whoAmI) continue;
+					if (ally.Center.Distance(player.Center) < distance * guardian.GuardianStandardRange)
+					{
+						player.AddBuff(ModContent.BuffType<ThoriumBronzeShieldProtection>(), 60);
+					}
+				}
 			}
+		}
+
+		public override bool PreDrawShield(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor)
+		{
+			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+			float alphamult = projectile.ai[0] > 0
+				? (float)(Math.Sin(projectile.ai[0] * 0.075f) * 0.075f + 1f)
+				: 0.2f + Math.Abs((Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 240f);
+			Vector2 drawPositionAura = Vector2.Transform(player.Center.Floor() - Main.screenPosition + Vector2.UnitY * player.gfxOffY, Main.GameViewMatrix.EffectMatrix);
+			spriteBatch.Draw(TextureAura, drawPositionAura, null, new Color(181, 46, 47) * alphamult, 0f, TextureAura.Size() * 0.5f, 0.007f * distance * player.GetModPlayer<OrchidGuardian>().GuardianStandardRange, SpriteEffects.None, 0f);
+			spriteBatch.End();
+			spriteBatch.Begin(spriteBatchSnapshot);
+			return true;
 		}
 
 		public override void AddRecipes()
@@ -71,9 +112,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			if (thoriumMod != null)
 			{
 				var recipe = CreateRecipe();
-				recipe.AddTile(TileID.WorkBenches);
+				recipe.AddTile(TileID.Anvils);
 				recipe.AddIngredient(thoriumMod, "BronzeAlloyFragments", 10);
-				recipe.AddIngredient(ItemID.Wood, 10);
 				recipe.Register();
 			}
 		}
