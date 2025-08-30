@@ -156,7 +156,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			if (Targets.Count > 0)
 			{
 				ShockTargets(projectile, player);
-				SoundEngine.PlaySound(ThoriumCloudSpawn.WithPitchOffset(0.4f - 0.1f  * Targets.Count).WithVolumeScale(0.15f + 0.05f * Targets.Count), projectile.Center);
+
+				if (OrchidMod.ThoriumMod != null)
+				{
+					SoundEngine.PlaySound(ThoriumCloudSpawn.WithPitchOffset(0.4f - 0.1f * Targets.Count).WithVolumeScale(0.15f + 0.05f * Targets.Count), projectile.Center);
+				}
+
 				if (!((GuardianHammerAnchor)projectile.ModProjectile).WeakHit)
 				{
 					if (guardian.GuardianHammerCharge < 210f)
