@@ -3998,8 +3998,13 @@ Items: {
 	}
 
 	SpectreQuarterstaff: {
-		DisplayName: Spectre Quarterstaff
-		Tooltip: ""
+		DisplayName: Ghostly Glaive
+		Tooltip:
+			'''
+			Spawns wisps over time and when dealing damage
+			Counterattacks order all wisps to home into nearby enemies
+			'not to be confused with its ghastly counterpart'
+			'''
 	}
 }
 

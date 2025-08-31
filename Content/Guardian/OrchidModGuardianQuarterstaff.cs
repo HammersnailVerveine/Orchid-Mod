@@ -4,7 +4,6 @@ using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -12,7 +11,6 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
 using static Terraria.NPC;
 
 namespace OrchidMod.Content.Guardian
