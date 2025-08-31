@@ -40,9 +40,9 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 				Projectile.ai[0] += Main.rand.NextFloat(1f, 2f);
 				Projectile.ai[2] = -1f;
 
-				SoundStyle soundStyle = Main.rand.NextBool() ? SoundID.Zombie83 : SoundID.Zombie82;
-				soundStyle.Pitch = Main.rand.NextFloat(1.5f, 2f);
-				soundStyle.Volume *= 0.6f;
+				SoundStyle soundStyle = Main.rand.NextBool(3) ? SoundID.Zombie83 : Main.rand.NextBool() ? SoundID.Zombie81 : SoundID.Zombie82;
+				soundStyle.Pitch = Main.rand.NextFloat(1.4f, 1.8f);
+				soundStyle.Volume *= 0.1f;
 				SoundEngine.PlaySound(soundStyle, Projectile.Center);
 			}
 
