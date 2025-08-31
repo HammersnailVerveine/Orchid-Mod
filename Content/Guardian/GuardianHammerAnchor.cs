@@ -321,7 +321,7 @@ namespace OrchidMod.Content.Guardian
 
 			if (HammerItem != null && Projectile.ai[1] > 0)
 			{
-				if (!HammerItem.Penetrate)
+				if (!HammerItem.Penetrate && target.lifeMax > 5)
 				{
 					modifiers.FinalDamage *= 1f - 0.25f * HitCount;
 					HitCount++;
@@ -394,7 +394,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				HammerItem.OnThrowHit(player, guardian, target, Projectile, hit.Knockback, hit.Crit, weak);
 
-				if (!penetrate)
+				if (!penetrate && target.lifeMax > 5)
 				{
 					range = -40;
 					Projectile.netUpdate = true;
