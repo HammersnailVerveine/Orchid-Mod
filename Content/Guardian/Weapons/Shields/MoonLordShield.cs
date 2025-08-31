@@ -103,7 +103,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				{
 					TimeSpent++;
 
-					if (TimeSpent % 60 == 0)
+					/*if (TimeSpent % 60 == 0)
 					{
 						OrchidGuardian guardian = Main.player[projectile.owner].GetModPlayer<OrchidGuardian>();
 						if (TimeSpent % 120 == 0)
@@ -114,7 +114,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 						{
 							guardian.AddSlam(1);
 						}
-					}
+					}*/
+					OrchidGuardian guardian = Main.player[projectile.owner].GetModPlayer<OrchidGuardian>();
+					//lol 360% increased regeneration
+					guardian.GuardianGuardRecharge += 3.6f;
+					guardian.GuardianSlamRecharge += 3.6f;
 
 					if (projectile.ai[2] != -MathHelper.PiOver2)
 					{
