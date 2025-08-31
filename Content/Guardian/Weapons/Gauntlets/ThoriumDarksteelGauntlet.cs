@@ -75,7 +75,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			{
 				var recipe = CreateRecipe();
 				recipe.AddTile(TileID.Anvils);
-				recipe.AddIngredient(thoriumMod, "aDarksteelAlloy", 10);
+				recipe.AddIngredient(thoriumMod, "DarksteelAlloy", 10);
 				recipe.Register();
 			}
 		}
