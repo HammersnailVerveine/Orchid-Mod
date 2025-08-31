@@ -16,7 +16,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.useTime = 30;
 			ParryDuration = 60;
 			Item.knockBack = 5f;
-			Item.damage = 37;
+			Item.damage = 32;
 			GuardStacks = 1;
 		}
 	}
