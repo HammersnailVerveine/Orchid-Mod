@@ -69,7 +69,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 			if (Projectile.timeLeft > 20)
 			{
 				Projectile.velocity = Dir * (Projectile.timeLeft - 20) / 40;
-				if (Projectile.timeLeft == 30) SoundEngine.PlaySound(SoundID.DD2_LightningBugDeath.WithPitchOffset(0.4f).WithVolumeScale(0.2f), Projectile.Center);
+				if (Projectile.timeLeft == 35) SoundEngine.PlaySound(SoundID.DD2_LightningBugDeath.WithPitchOffset(0.25f).WithVolumeScale(0.3f), Projectile.Center);
 			}
 			else
 			{
