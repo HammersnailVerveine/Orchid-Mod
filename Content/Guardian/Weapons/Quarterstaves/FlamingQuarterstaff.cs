@@ -36,7 +36,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		public override void ExtraAIQuarterstaff(Player player, OrchidGuardian guardian, Projectile projectile)
 		{
 			Vector2 pos = projectile.Center - Vector2.UnitX.RotatedBy(projectile.rotation + MathHelper.Pi * 0.75f) * 32;
-			if (!player.wet || Main.tile[(int)pos.X / 16, (int)pos.Y / 16].LiquidAmount < (pos.Y + player.gfxOffY) % 16 * 16)
+			if (!player.wet || Main.tile[(int)pos.X / 16, (int)pos.Y / 16].LiquidAmount < (pos.Y + player.gfxOffY) % 16 * 16 && !Main.tile[(int)pos.X / 16, (int)pos.Y / 16].HasUnactuatedTile)
 			{
 				bool bigAttack = projectile.ai[0] > 14 || projectile.ai[2] < 0;
 				for (int i = 0; i < (!bigAttack ? 2 : 3); i++)
