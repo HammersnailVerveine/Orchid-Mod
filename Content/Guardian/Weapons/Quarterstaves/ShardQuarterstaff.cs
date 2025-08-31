@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.useTime = 30;
 			ParryDuration = 90;
 			Item.knockBack = 8f;
-			Item.damage = 172;
+			Item.damage = 192;
 			GuardStacks = 2;
 			SlamStacks = 1;
 		}
@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		{
 			if (counterAttack && IsLocalPlayer(player))
 			{
-				int damage = guardian.GetGuardianDamage(Item.damage * 0.5f);
+				int damage = guardian.GetGuardianDamage(Item.damage * 0.66f);
 				int projectileType = ModContent.ProjectileType<ShardQuarterstaffProjectile>();
 				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, Vector2.Zero, projectileType, damage, 0f, projectile.owner, 0.5f, Main.rand.NextFloat(3.14f));
 				newProjectile.CritChance = guardian.GetGuardianCrit(Item.crit);
