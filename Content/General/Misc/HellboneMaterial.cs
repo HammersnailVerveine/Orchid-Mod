@@ -16,13 +16,13 @@ namespace OrchidMod.Content.General.Misc
 			Item.value = Item.sellPrice(0, 1, 50, 0);
 		}
 
-		public override void AddRecipes()
+		/*public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();
 			recipe.AddTile(TileID.Hellforge);
 			recipe.AddIngredient(ItemID.HellstoneBar, 3);
-            recipe.AddIngredient(ItemID.Bone, 10);
+			 recipe.AddIngredient(ItemID.Bone, 10);
 			recipe.Register();
-		}
+		}*/
 	}
 }
