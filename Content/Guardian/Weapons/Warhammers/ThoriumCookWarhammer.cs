@@ -1,11 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.Audio;
 using Terraria.ModLoader;
 using OrchidMod.Common.Attributes;
-using System;
-
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
@@ -22,7 +18,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 10f;
 			Item.shootSpeed = 10f;
-			Item.damage = 80;
+			Item.damage = 120;
 			Item.useTime = 22;
 			Range = 25;
 			GuardStacks = 1;

@@ -4010,9 +4010,8 @@ Items: {
 		// DisplayName: Ghostly Glaive
 		/* Tooltip:
 			'''
-			Spawns wisps over time and when dealing damage
-			Counterattacks order all wisps to home into nearby enemies
-			'not to be confused with its ghastly counterpart'
+			Gradually summons wisps that will be unleashed on a counterattack
+			'Not to be confused with its ghastly counterpart'
 			''' */
 	}
 }

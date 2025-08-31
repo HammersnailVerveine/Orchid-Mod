@@ -4,7 +4,6 @@ using Terraria.ID;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using OrchidMod.Common.Attributes;
-using System;
 
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
@@ -22,7 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.Zombie78.WithPitchOffset(0.1f).WithVolumeScale(0.5f);
 			Item.knockBack = 4f;
 			Item.shootSpeed = 12f;
-			Item.damage = 45;
+			Item.damage = 68;
 			Item.useTime = 20;
 			Range = 70;
 			GuardStacks = 1;

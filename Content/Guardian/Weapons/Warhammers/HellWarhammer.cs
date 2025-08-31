@@ -15,7 +15,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 10f;
 			Item.shootSpeed = 10f;
-			Item.damage = 95;
+			Item.damage = 142;
 			Range = 33;
 			GuardStacks = 2;
 			SwingChargeGain = 1.5f;

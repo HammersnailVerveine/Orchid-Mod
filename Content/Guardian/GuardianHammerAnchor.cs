@@ -23,6 +23,7 @@ namespace OrchidMod.Content.Guardian
 		public Texture2D HammerTexture;
 
 		public int range = 0;
+		public int HitCount = 0;
 		public bool penetrate;
 		public bool WeakHit = false;
 		public bool NeedNetUpdate = false;
@@ -318,9 +319,17 @@ namespace OrchidMod.Content.Guardian
 				}
 			}
 
-			if (Projectile.ai[1] > 0 && !WeakHit && !WeakThrow && FirstHit)
+			if (HammerItem != null && Projectile.ai[1] > 0)
 			{
-				modifiers.FinalDamage *= 1.5f;
+				if (!HammerItem.Penetrate)
+				{
+					modifiers.FinalDamage *= 1f - 0.25f * HitCount;
+					HitCount++;
+					if (HitCount > 3)
+					{
+						HitCount = 3;
+					}
+				}
 			}
 		}
 
@@ -338,9 +347,17 @@ namespace OrchidMod.Content.Guardian
 				}
 			}
 
-			if (Projectile.ai[1] > 0 && !WeakHit)
+			if (HammerItem != null && Projectile.ai[1] > 0)
 			{
-				modifiers.FinalDamage *= 1.5f;
+				if (!HammerItem.Penetrate)
+				{
+					modifiers.FinalDamage *= 1f - 0.25f * HitCount;
+					HitCount++;
+					if (HitCount > 3)
+					{
+						HitCount = 3;
+					}
+				}
 			}
 		}
 

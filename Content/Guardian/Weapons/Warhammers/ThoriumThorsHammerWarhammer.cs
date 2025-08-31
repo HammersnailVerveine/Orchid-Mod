@@ -1,7 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
 using OrchidMod.Common.Attributes;
-using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
@@ -18,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.knockBack = 5.5f;
 			Item.useTime = 18;
 			Item.shootSpeed = 16f;
-			Item.damage = 76;
+			Item.damage = 142;
 			Range = 18;
 			GuardStacks = 1;
 			ReturnSpeed = 1.8f;

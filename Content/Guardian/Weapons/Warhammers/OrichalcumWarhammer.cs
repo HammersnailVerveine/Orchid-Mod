@@ -1,9 +1,6 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using System;
-using Terraria.ModLoader;
-using OrchidMod.Content.Guardian.Projectiles.Warhammers;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
@@ -18,7 +15,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 6f;
 			Item.shootSpeed = 22f;
-			Item.damage = 98;
+			Item.damage = 123;
 			Item.useTime = 32;
 			Range = 50;
 			ReturnSpeed = 1.6f;

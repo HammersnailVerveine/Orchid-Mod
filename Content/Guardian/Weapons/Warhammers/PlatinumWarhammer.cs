@@ -15,18 +15,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.UseSound = SoundID.Item1;
 			Item.knockBack = 8f;
 			Item.shootSpeed = 9f;
-			Item.damage = 90;
+			Item.damage = 135;
 			Item.useTime = 35;
 			Range = 25;
 			GuardStacks = 1;
 			ReturnSpeed = 0.8f;
 			SwingChargeGain = 1.5f;
-		}
-
-		public override void SetStaticDefaults()
-		{
-			// DisplayName.SetDefault("Platinum Warhammer");
-			// Tooltip.SetDefault("Hurls a heavy hammer");
 		}
 
 		public override void AddRecipes()
