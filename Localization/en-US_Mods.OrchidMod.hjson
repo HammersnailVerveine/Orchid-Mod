@@ -3996,6 +3996,11 @@ Items: {
 			Nullified guard regeneration is converted into a damage bonus on the next slam
 			'''
 	}
+
+	SpectreQuarterstaff: {
+		DisplayName: Spectre Quarterstaff
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -4468,6 +4473,7 @@ Projectiles: {
 	PredatorGoblinProjResource.DisplayName: Shadowflame Energy
 	DesertWarhammerProjectile.DisplayName: Bone Fragments
 	DemoniteShieldProjectile.DisplayName: Veil of Night
+	SpectreQuarterstaffProj.DisplayName: Spectre Quarterstaff Proj
 }
 
 Configs: {
