@@ -2,12 +2,14 @@
 
 The [b]Orchid Mod[/b] aims to add content to the game in polished and refreshing ways. You will not find the usual vanilla class items here, as the content Orchid Mod provides is based on new classes with unique and complex mechanics.
 
-[h1]Current Version : 1.5.0.2[/h1]
-- Port to 1.4.4 versions of Terraria 
-- Addition of the full Guardian class, with content for the entire progression
+[h1]Current Version : 1.5.1[/h1]
+- A new weapon subclass for guardians : Quarterstaves, with content spread thorough the game
+- A lot of reworks, changes, and polishing to existing Guardian content
+- Thorium Pre-Hardmode Cross-content for Guardian
+- Pre-Hardmode content for a new class : the Shapeshifter
 
 [img]https://i.imgur.com/kcLoweG.png[/img]
-The Orchid Mod currently adds four new classes: the [b]Shaman[/b], the [b]Alchemist[/b], the [b]Gambler[/b], and the [b]Guardian[/b].
+The Orchid Mod currently adds one (and a half) new classes: the [b]Guardian[/b] and the [b]Shapeshifter[/b].
 
 These new classes are aimed at experienced players, looking for a refreshing way of playing the game. They can be considerably harder to play than vanilla classes, and might require some dedication to achieve a desirable damage output.
 
@@ -21,36 +23,11 @@ Weapons are tied to unique [b]Slam[/b] and [b]Block[/b] resources that should be
 
 [b]The Guardian class has content spread thourough the entire game, and allows comfortably beating it[/b]
 
-[h1]Alchemist - up to Wall of Flesh[/h1] 
-The [b]Alchemist[/b] is a slow, but powerful fighter, carefully mixing deadly chemicals to create powerful [b]Combos[/b] and [b]Reactions[/b].
+[h1]Shapeshifter[/h1]
 
-Weapons do very little by themselves, and have to be mixed with others in order to be effective. Unique [b]Hidden Reactions[/b] can also be discovered to help one along the way!
+Description in progress!
 
-[i]Experimentation and patience are the key to mastering the Alchemist class, as its high damage potential is hidden behind various combos for the player to discover.[/i]
-
-[b]The Alchemist class currently has content up to the Wall of Flesh. It is dated, but playable[/b]
-
-[h1]Gambler - up to Wall of Flesh[/h1]
-The [b]Gambler[/b] uses a [b]Deck[/b] filled with unique [b]Cards[/b] to overcome their opponents.
-
-Each card has a very unique attack pattern that the player must master in order to fight effectively, as they [b]cannot choose which one to draw[/b].
-
-[b]Chips[/b] and [b]Dice[/b] will help with gaps in the player's offensives by providing unique timing-based attack patterns and buffs.
-
-[i]By breaking the conventional way of dealing damage, the Gambler class provides a unique take on fights. Some good advice would be to collect various cards, and always adapt one’s deck to the situations to come.[/i]
-
-[b]The Gambler class currently has content up to the Wall of Flesh. It is dated, but playable[/b]
-
-[h1]Shaman - unavailable[/h1]
-[strike]The [b]Shaman[/b] is a master of the elements, and uses the power of [b]Fire[/b], [b]Water[/b], [b]Air[/b], [b]Earth[/b] and [b]Spirit[/b] to damage their enemies.
-
-Each weapon is tied to an element, and attacking with it will charge a corresponding elemental bond. Once fully charged, bonds can be released, and will aid the shaman as they swap to their next weapon.
-
-The more active [b]Elemental Bonds[/b] a shaman has, the more powerful a shaman becomes.
-
-[i]The Shaman class requires the use of multiple weapons, attaining its true potential by maintaining as many active bonds as possible.[/i][/strike]
-
-[b]The Shaman class is currently being reworked from the ground up, and its items are currently not available[/b]
+[b]The Shapeshifterclass has content up to the Wall of Flesh[/b]
 
 [img]https://i.imgur.com/hbZMoD5.png[/img]
 [list]
@@ -65,4 +42,5 @@ The more active [b]Elemental Bonds[/b] a shaman has, the more powerful a shaman 
 [*] [b]direwolf420[/b] and [b]S-Pladison[/b] for extensive coding help, and cross-mod compatibility.
 [*] [b]Amber[/b], [b]BluNinja[/b], [b]catsounds[/b], [b]multibanana[/b], and [b]Draka[/b] for contributing sprites, artwork, and ideas.
 [*] [b]A91[/b], [b]Circadian[/b], [b]Kyle[/b], [b]ChozoChorizo[/b], [b]TheLoneGamer[/b], and [b]Xrylene[/b] for considerable balance and design feedback.
-[*] [b]GitGudWO[/b] for the trailers and videos above.
+[*] [b]GitGudWO[/b] for the trailers and videos above.[quote=tModLoader OrchidMod]
+Developed By Verveine, Amber[/quote]
