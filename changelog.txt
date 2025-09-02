@@ -1,1 +1,1 @@
-- Fixed an issue with shaepshifter items having invisible textures while in slot 1
+- Fixed Horizon Fragments not dropping from Celestial Pillars
