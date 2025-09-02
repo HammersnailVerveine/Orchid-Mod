@@ -19,6 +19,7 @@ using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Common.ModSystems;
 using OrchidMod.Content.Guardian.Armors.Misc;
+using OrchidMod.Content.Guardian.Armors.Misc;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Guardian.Weapons.Standards;
 using OrchidMod.Content.General.Misc;
@@ -404,7 +405,10 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<GuardianEmpressMaterial>(), 1, 16, 27)); 
 					}
 					break;
-				case 94: // Celestial Pillar AI 
+				case NPCID.LunarTowerSolar:
+				case NPCID.LunarTowerStardust:
+				case NPCID.LunarTowerNebula:
+				case NPCID.LunarTowerVortex:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<HorizonFragment>(), 1, 3, 15).OnFailedRoll(ItemDropRule.Common(ItemType<HorizonFragment>(), 1, 5, 23)));
 					}

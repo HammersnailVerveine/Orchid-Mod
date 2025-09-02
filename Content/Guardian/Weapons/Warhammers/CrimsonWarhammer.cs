@@ -16,6 +16,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Item.knockBack = 9f;
 			Item.shootSpeed = 10f;
 			Item.damage = 124;
+			Item.useTime = 28;
 			Range = 28;
 			GuardStacks = 1;
 			SwingSpeed = 1.5f;
