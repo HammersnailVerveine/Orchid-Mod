@@ -43,4 +43,3 @@ Description in progress!
 [*] [b]Amber[/b], [b]BluNinja[/b], [b]catsounds[/b], [b]multibanana[/b], and [b]Draka[/b] for contributing sprites, artwork, and ideas.
 [*] [b]A91[/b], [b]Circadian[/b], [b]Kyle[/b], [b]ChozoChorizo[/b], [b]TheLoneGamer[/b], and [b]Xrylene[/b] for considerable balance and design feedback.
 [*] [b]GitGudWO[/b] for the trailers and videos above.[quote=tModLoader OrchidMod]
-Developed By Verveine, Amber[/quote]
