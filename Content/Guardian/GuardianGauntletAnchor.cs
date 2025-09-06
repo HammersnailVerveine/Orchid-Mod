@@ -21,6 +21,8 @@ namespace OrchidMod.Content.Guardian
 		public bool OffHandGauntlet = false;
 		public bool Ding = false;
 		public bool NeedNetUpdate = false;
+		public float GauntletDashAngle = 0f;
+		public int GauntletDashTimer = 0;
 
 		public int SelectedItem { get; set; } = -1;
 		public Item GauntletItem => Main.player[Projectile.owner].inventory[SelectedItem];
@@ -49,17 +51,23 @@ namespace OrchidMod.Content.Guardian
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 20;
 			Projectile.netImportant = true;
+			GauntletDashAngle = 0f;
+			GauntletDashTimer = 0;
 		}
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
 			writer.Write(SelectedItem);
 			writer.Write(OffHandGauntlet);
+			writer.Write(GauntletDashAngle);
+			writer.Write(GauntletDashTimer);
 		}
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
 			SelectedItem = reader.ReadInt32();
 			OffHandGauntlet = reader.ReadBoolean();
+			GauntletDashAngle = reader.ReadSingle();
+			GauntletDashTimer = reader.ReadInt32();
 		}
 
 		public void OnChangeSelectedItem(Player owner)
@@ -69,6 +77,8 @@ namespace OrchidMod.Content.Guardian
 			Projectile.ai[1] = 0f;
 			Projectile.ai[2] = 0f;
 			Projectile.netUpdate = true;
+			GauntletDashAngle = 0f;
+			GauntletDashTimer = 0;
 		}
 
 		public override void AI()
@@ -101,6 +111,19 @@ namespace OrchidMod.Content.Guardian
 					else owner.direction = LockedOwnerDir;
 				}
 
+				if (GauntletDashTimer > 0)
+				{ // handles the player dash (after a parry)
+					GauntletDashTimer--;
+					Vector2 intendedVelocity = Vector2.UnitY.RotatedBy(GauntletDashAngle) * -guardianItem.ParryDashSpeed;
+					owner.velocity = intendedVelocity;
+
+					if (Main.rand.NextBool())
+					{
+						Dust dust = Dust.NewDustDirect(owner.position, owner.width, owner.height, DustID.Smoke);
+						dust.noGravity = true;
+					}
+				}
+
 				if (Blocking)
 				{
 					guardian.GuardianGauntletParry = true;
@@ -120,7 +143,7 @@ namespace OrchidMod.Content.Guardian
 						else
 						{
 							Projectile.ai[0] = 0f;
-							guardian.GuardianGuardRecharging += Projectile.ai[0] / (guardianItem.parryDuration * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
+							guardian.GuardianGuardRecharging += Projectile.ai[0] / (guardianItem.ParryDuration * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 							Rectangle rect = owner.Hitbox;
 							rect.Y -= 64;
 							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Interrupted"), false, true);
@@ -176,7 +199,7 @@ namespace OrchidMod.Content.Guardian
 						if (guardianItem.OnPunch(owner, guardian, Projectile, Projectile.ai[0] == -2f, ref damage))
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
-							float strikeVelocity = guardianItem.strikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetTotalAttackSpeed(DamageClass.Melee);
+							float strikeVelocity = guardianItem.StrikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetTotalAttackSpeed(DamageClass.Melee);
 							Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2) * strikeVelocity * 0.25f;
 							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
 							if (punchProj.ModProjectile is GauntletPunchProjectile punch)

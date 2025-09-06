@@ -44,8 +44,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.value = Item.sellPrice(0, 1, 15, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.useTime = 35;
-			strikeVelocity = 16f;
-			parryDuration = 60;
+			StrikeVelocity = 16f;
+			ParryDuration = 60;
 			GemType = 0;
 		}
 
@@ -156,7 +156,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		{
 			if (GemType == JewelerGauntletGem.AMBER && charged)
 			{
-				guardian.GuardianGuardRecharging += 0.5f;
+				//guardian.GuardianGuardRecharging += 0.25f;
 			}
 		}
 

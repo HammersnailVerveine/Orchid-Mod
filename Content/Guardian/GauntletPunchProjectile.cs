@@ -97,6 +97,7 @@ namespace OrchidMod.Content.Guardian
 			{
 				if (FirstHit)
 				{
+					guardian.GuardianGuardRecharging += ChargedHit? 0.5f : 0.25f;
 					GauntletItem.OnHitFirst(owner, guardian, target, Projectile, hit, ChargedHit);
 				}
 				GauntletItem.OnHit(owner, guardian, target, Projectile, hit, ChargedHit);

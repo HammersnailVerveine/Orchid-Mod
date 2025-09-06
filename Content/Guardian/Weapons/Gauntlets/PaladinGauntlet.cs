@@ -20,8 +20,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.value = Item.sellPrice(0, 10, 0, 0);
 			Item.rare = ItemRarityID.Yellow;
 			Item.useTime = 30;
-			strikeVelocity = 25f;
-			parryDuration = 120;
+			StrikeVelocity = 25f;
+			ParryDuration = 120;
 		}
 
 		public override Color GetColor(bool offHand)
@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				int projectileType = ModContent.ProjectileType<PaladinGauntletProjectile>();
 				for (int i = 0; i < 10 + Main.rand.Next(4); i++)
 				{
-					float speed = strikeVelocity * Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.55f, 0.8f);
+					float speed = StrikeVelocity * Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.55f, 0.8f);
 					Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2).RotatedByRandom(MathHelper.ToRadians(40));
 					int shardDamage = guardian.GetGuardianDamage(Item.damage * 0.35f);
 					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, shardDamage, Item.knockBack, player.whoAmI, 1f);
@@ -60,7 +60,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				int projectileType = ModContent.ProjectileType<PaladinGauntletProjectile>();
 				for (int i = 0; i < 2 + Main.rand.Next(2); i ++)
 				{
-					float speed = strikeVelocity * Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.5f, 0.65f);
+					float speed = StrikeVelocity * Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.5f, 0.65f);
 					Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2).RotatedByRandom(MathHelper.ToRadians(5));
 					int shardDamage = guardian.GetGuardianDamage(Item.damage * 0.35f);
 					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, shardDamage, Item.knockBack, player.whoAmI);

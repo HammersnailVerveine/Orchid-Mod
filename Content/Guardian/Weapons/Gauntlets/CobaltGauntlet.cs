@@ -15,8 +15,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.value = Item.sellPrice(0, 0, 90, 0);
 			Item.rare = ItemRarityID.LightRed;
 			Item.useTime = 15;
-			strikeVelocity = 22.5f;
-			parryDuration = 75;
+			StrikeVelocity = 22.5f;
+			ParryDuration = 75;
 		}
 
 		public override Color GetColor(bool offHand)

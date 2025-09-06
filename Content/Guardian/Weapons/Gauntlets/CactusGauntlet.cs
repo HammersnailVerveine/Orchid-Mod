@@ -16,8 +16,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.value = Item.sellPrice(0, 0, 3, 25);
 			Item.rare = ItemRarityID.White;
 			Item.useTime = 30;
-			strikeVelocity = 14f;
-			parryDuration = 50;
+			StrikeVelocity = 14f;
+			ParryDuration = 50;
 		}
 
 		public override void OnParryNPC(Player player, OrchidGuardian guardian, NPC npc, Projectile anchor)

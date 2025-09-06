@@ -40,8 +40,10 @@ namespace OrchidMod.Content.Guardian
 
 		public virtual void SafeHoldItem(Player player) { }
 
-		public float strikeVelocity = 10f;
-		public int parryDuration = 60;
+		public float StrikeVelocity = 10f; // Initial speed of the punches
+		public int ParryDuration = 60; // Duration of a right click parry in frames
+		public int ParryDashDuration = 4; // Duration in frames of the parry dash
+		public float ParryDashSpeed = 6f; // Velocity of the parry dash
 
 		public sealed override void SetDefaults()
 		{
@@ -78,6 +80,50 @@ namespace OrchidMod.Content.Guardian
 					Main.projectile[anchors[i]].netUpdate = true;
 				}
 			}
+
+			if (player.whoAmI == Main.myPlayer && anchor.ModProjectile is GuardianGauntletAnchor gauntletAnchor)
+			{
+				// 8 dir input
+				if (player.controlLeft && !player.controlRight)
+				{
+					gauntletAnchor.GauntletDashAngle = MathHelper.Pi * 1.5f; // Left
+					if (player.controlUp && !player.controlDown)
+					{
+						gauntletAnchor.GauntletDashAngle += MathHelper.Pi * 0.25f; // Top Left
+					}
+					else if (!player.controlUp && player.controlDown)
+					{
+						gauntletAnchor.GauntletDashAngle -= MathHelper.Pi * 0.25f; // Bottom Left
+					}
+				}
+				else if (!player.controlLeft && player.controlRight)
+				{
+					gauntletAnchor.GauntletDashAngle = MathHelper.Pi * 0.5f; // Right
+					if (player.controlUp && !player.controlDown)
+					{
+						gauntletAnchor.GauntletDashAngle -= MathHelper.Pi * 0.25f; // Top Right
+					}
+					else if (!player.controlUp && player.controlDown)
+					{
+						gauntletAnchor.GauntletDashAngle += MathHelper.Pi * 0.25f; // Bottom Right
+					}
+				}
+				else if (player.controlUp && !player.controlDown)
+				{
+					gauntletAnchor.GauntletDashAngle  = 0f; // Up
+				}
+				else if (!player.controlUp && player.controlDown)
+				{
+					gauntletAnchor.GauntletDashAngle = MathHelper.Pi; // Down
+				}
+				else
+				{ // Projectile Direction (no input)
+					gauntletAnchor.GauntletDashAngle = MathHelper.Pi * (1f + player.direction * 0.5f);
+				}
+
+				gauntletAnchor.GauntletDashTimer = ParryDashDuration;
+			}
+
 			OnParryGauntlet(player, guardian, aggressor, anchor);
 		}
 
@@ -117,13 +163,13 @@ namespace OrchidMod.Content.Guardian
 								guardian.UseGuard(1);
 								if (projectileMain.ai[0] == 0)
 								{
-									projectileMain.ai[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
+									projectileMain.ai[0] = (int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 									(projectileMain.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
 								}
 
 								if (projectileOff.ai[0] == 0)
 								{
-									projectileOff.ai[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
+									projectileOff.ai[0] = (int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 									(projectileOff.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
 								}
 							}
@@ -204,7 +250,7 @@ namespace OrchidMod.Content.Guardian
 					{
 						indexes[i] = proj.whoAmI;
 						gauntlet.OffHandGauntlet = i == 0;
-						proj.localAI[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration); // for UI display
+						proj.localAI[0] = (int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration); // for UI display
 						gauntlet.OnChangeSelectedItem(player);
 						gauntlet.NeedNetUpdate = true;
 					}
@@ -227,7 +273,7 @@ namespace OrchidMod.Content.Guardian
 					{
 						if (gauntlet.SelectedItem != player.selectedItem)
 						{
-							projectile.localAI[0] = (int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration); // for UI display
+							projectile.localAI[0] = (int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration); // for UI display
 							gauntlet.OnChangeSelectedItem(player);
 						}
 					}
@@ -248,7 +294,7 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ParryDuration", OrchidUtils.FramesToSeconds((int)(parryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration)))));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration)))));
 
 
 			string click = ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs ? Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.LeftClick") : Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
