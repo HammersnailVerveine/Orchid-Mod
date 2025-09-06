@@ -18,8 +18,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.value = Item.sellPrice(0, 0, 8, 40);
 			Item.rare = ItemRarityID.White;
 			Item.useTime = 35;
-			strikeVelocity = 15f;
-			parryDuration = 60;
+			StrikeVelocity = 15f;
+			ParryDuration = 60;
 			hasBackGauntlet = true;
 		}
 

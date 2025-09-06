@@ -21,8 +21,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.rare = ItemRarityID.LightRed;
 			Item.useTime = 25;
 			Item.crit = 6;
-			strikeVelocity = 20f;
-			parryDuration = 60;
+			StrikeVelocity = 20f;
+			ParryDuration = 60;
 		}
 
 		public override Color GetColor(bool offHand)
@@ -41,7 +41,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			if (player.HasBuff<GuardianSpiderGauntletBuff>())
 			{
 				int projectileType = ModContent.ProjectileType<SpiderGauntletProjectile>();
-				float speed = strikeVelocity * (charged ? 1f : 0.75f) * Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.85f, 1.15f);
+				float speed = StrikeVelocity * (charged ? 1f : 0.75f) * Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.85f, 1.15f);
 				Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2).RotatedByRandom(MathHelper.ToRadians(5));
 				int spikeDamage = (int)(guardian.GetGuardianDamage(Item.damage) * (charged ? 1.15f : 0.4f));
 				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), projectile.Center, velocity * speed, projectileType, spikeDamage, Item.knockBack, player.whoAmI, charged ? 1f : 0f);
