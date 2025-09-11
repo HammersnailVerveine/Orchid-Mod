@@ -4019,6 +4019,11 @@ Items: {
 		// DisplayName: Flaming Quarterstaff
 		// Tooltip: "'May the fire light your way'"
 	}
+
+	GuardianNeedle: {
+		// DisplayName: Guardian Needle
+		// Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -4492,6 +4497,7 @@ Projectiles: {
 	// DesertWarhammerProjectile.DisplayName: Bone Fragments
 	// DemoniteShieldProjectile.DisplayName: Veil of Night
 	// SpectreQuarterstaffProj.DisplayName: Spectre Quarterstaff Proj
+	// GuardianNeedleAnchor.DisplayName: Guardian Needle Anchor
 }
 
 Configs: {

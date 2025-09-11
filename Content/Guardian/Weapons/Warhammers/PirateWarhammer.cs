@@ -30,7 +30,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			{
 				CombatText.NewText(player.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Charged"), false);
 				SoundEngine.PlaySound(SoundID.DD2_BallistaTowerShot.WithPitchOffset(0.2f), player.Center);
-				guardian.GuardianHammerCharge = 210;
+				guardian.GuardianItemCharge = 210;
 			}
 			SoundEngine.PlaySound(SoundID.Coins.WithPitchOffset(-0.4f), player.Center);
 			SoundEngine.PlaySound(SoundID.CoinPickup.WithPitchOffset(-0.4f), player.Center);

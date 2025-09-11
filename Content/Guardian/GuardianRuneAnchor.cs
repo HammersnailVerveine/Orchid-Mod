@@ -64,7 +64,7 @@ namespace OrchidMod.Content.Guardian
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 			Projectile.ai[0] = 0f;
 			Projectile.ai[1] = 0f;
-			guardian.GuardianRuneCharge = 0;
+			guardian.GuardianItemCharge = 0;
 			if (owner.inventory[owner.selectedItem].ModItem is OrchidModGuardianRune) SelectedItem = owner.selectedItem;
 			Projectile.netUpdate = true;
 		}
@@ -93,7 +93,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				else if (Projectile.ai[0] == 0f)
 				{ // Adresses a visual issue
-					guardian.GuardianRuneCharge = 0;
+					guardian.GuardianItemCharge = 0;
 				}
 
 				Projectile.timeLeft = 5;
@@ -104,20 +104,20 @@ namespace OrchidMod.Content.Guardian
 
 					if (Projectile.ai[0] == 1f)
 					{ // Being charged by the player
-						if (guardian.GuardianRuneCharge < Projectile.ai[1])
+						if (guardian.GuardianItemCharge < Projectile.ai[1])
 						{
-							guardian.GuardianRuneCharge = Projectile.ai[1];
+							guardian.GuardianItemCharge = Projectile.ai[1];
 						}
 
-						if (guardian.GuardianRuneCharge <= 180f)
+						if (guardian.GuardianItemCharge <= 180f)
 						{
-							guardian.GuardianRuneCharge += 10f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee); // Very slow charge time compared to other items
-							if (guardian.GuardianRuneCharge > 180f)
+							guardian.GuardianItemCharge += 10f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee); // Very slow charge time compared to other items
+							if (guardian.GuardianItemCharge > 180f)
 							{
-								guardian.GuardianRuneCharge = 180f;
+								guardian.GuardianItemCharge = 180f;
 							}
 
-							if (guardian.GuardianRuneCharge > 120f)
+							if (guardian.GuardianItemCharge > 120f)
 							{
 								Projectile.localAI[0] += 0.015f; // used for full charge glow
 								if (Projectile.localAI[0] > 1f) Projectile.localAI[0] = 1f;
@@ -125,7 +125,7 @@ namespace OrchidMod.Content.Guardian
 							else Projectile.localAI[0] = 0f;
 						}
 
-						if (guardian.GuardianRuneCharge >= 180f && !Ding && IsLocalOwner)
+						if (guardian.GuardianItemCharge >= 180f && !Ding && IsLocalOwner)
 						{ // Ding sound on full charge
 							Ding = true;
 							if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
@@ -134,7 +134,7 @@ namespace OrchidMod.Content.Guardian
 
 						// Slam cost calculations
 						float segment = 120f / guardianItem.RuneCost; // 120 is the max charge for non Reinforced effects
-						while (segment < guardian.GuardianRuneCharge)
+						while (segment < guardian.GuardianItemCharge)
 						{
 							segment += 120f / guardianItem.RuneCost;
 							runeCost--;
@@ -157,7 +157,7 @@ namespace OrchidMod.Content.Guardian
 
 						if (!owner.controlUseItem && IsLocalOwner)
 						{
-							bool fullyCharged = guardian.GuardianRuneCharge >= 180f;
+							bool fullyCharged = guardian.GuardianItemCharge >= 180f;
 							if (guardian.UseSlam(runeCost, true))
 							{
 								SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
@@ -185,24 +185,24 @@ namespace OrchidMod.Content.Guardian
 								SoundEngine.PlaySound(SoundID.LiquidsWaterLava, owner.Center);
 								CombatText.NewText(owner.Hitbox, new Color(255, 125, 125), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Failed"), false, true);
 							}
-							guardian.GuardianRuneCharge = 0;
+							guardian.GuardianItemCharge = 0;
 							Projectile.ai[0] = 0f;
 							Projectile.netUpdate = true;
 						}
 
-						if (guardian.GuardianRuneCharge < 120f)
+						if (guardian.GuardianItemCharge < 120f)
 						{
-							Projectile.rotation = owner.direction * 0.4f - (owner.direction * 0.00375f) * guardian.GuardianRuneCharge;
-							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianRuneCharge * 0.0025f) * owner.direction);
-							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -(1f + guardian.GuardianRuneCharge * 0.0025f) * owner.direction);
-							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(14f * owner.direction, -(2 + guardian.GuardianRuneCharge * 0.05f));
+							Projectile.rotation = owner.direction * 0.4f - (owner.direction * 0.00375f) * guardian.GuardianItemCharge;
+							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianItemCharge * 0.0025f) * owner.direction);
+							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -(1f + guardian.GuardianItemCharge * 0.0025f) * owner.direction);
+							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(14f * owner.direction, -(2 + guardian.GuardianItemCharge * 0.05f));
 						}
 						else
 						{
 							Projectile.rotation = 0f;
 							owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * 1.05f * -owner.direction);
 							owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * 1.45f * -owner.direction);
-							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(14f * owner.direction, -(8 + (float)Math.Sin(Projectile.localAI[2]) + (guardian.GuardianRuneCharge - 120) * 0.2f));
+							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(14f * owner.direction, -(8 + (float)Math.Sin(Projectile.localAI[2]) + (guardian.GuardianItemCharge - 120) * 0.2f));
 							Projectile.localAI[2] += 0.1f;
 						}
 					}
@@ -260,7 +260,7 @@ namespace OrchidMod.Content.Guardian
 
 				var drawPosition = posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 
-				if (player.GetModPlayer<OrchidGuardian>().GuardianRuneCharge >= 120f) // max charge
+				if (player.GetModPlayer<OrchidGuardian>().GuardianItemCharge >= 120f) // max charge
 				{
 					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });

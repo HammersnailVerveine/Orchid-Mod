@@ -58,7 +58,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		{
 			if (projectile.ai[2] > 0)
 			{
-				Main.player[projectile.owner].GetModPlayer<OrchidGuardian>().GuardianGauntletCharge += 0.3f / Item.useTime * Main.player[projectile.owner].statDefense;
+				Main.player[projectile.owner].GetModPlayer<OrchidGuardian>().GuardianItemCharge += 0.3f / Item.useTime * Main.player[projectile.owner].statDefense;
 			}
 		}
 

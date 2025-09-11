@@ -56,13 +56,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 
 		public override void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool jabAttack, bool counterAttack)
 		{
-			if (jabAttack && bonusChargeHit && guardian.GuardianGauntletCharge < 180 && guardian.GuardianGauntletCharge > 0)
+			if (jabAttack && bonusChargeHit && guardian.GuardianItemCharge < 180 && guardian.GuardianItemCharge > 0)
 			{
 				GuardianQuarterstaffAnchor anchor = projectile.ModProjectile as GuardianQuarterstaffAnchor;
 				if (anchor.DamageReset == 1)
 				{
-					guardian.GuardianGauntletCharge += 90 * player.GetTotalAttackSpeed(DamageClass.Melee);
-					if (guardian.GuardianGauntletCharge > 180) guardian.GuardianGauntletCharge = 180;
+					guardian.GuardianItemCharge += 90 * player.GetTotalAttackSpeed(DamageClass.Melee);
+					if (guardian.GuardianItemCharge > 180) guardian.GuardianItemCharge = 180;
 				}	
 			}
 		}

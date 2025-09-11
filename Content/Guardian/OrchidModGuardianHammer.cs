@@ -82,7 +82,7 @@ namespace OrchidMod.Content.Guardian
 			Projectile projectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.Zero, projType, damage, Item.knockBack, player.whoAmI);
 			projectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 
-			guardian.GuardianHammerCharge = 0f;
+			guardian.GuardianItemCharge = 0f;
 			return true;
 		}
 		

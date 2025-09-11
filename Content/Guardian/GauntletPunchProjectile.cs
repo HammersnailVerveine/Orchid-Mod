@@ -57,7 +57,7 @@ namespace OrchidMod.Content.Guardian
 						}
 					}
 
-					owner.GetModPlayer<OrchidGuardian>().GuardianGauntletCharge = 0; // probably not the best place to put this but it works. (fixes a minor visual issue)
+					owner.GetModPlayer<OrchidGuardian>().GuardianItemCharge = 0; // probably not the best place to put this but it works. (fixes a minor visual issue)
 					SoundEngine.PlaySound(ChargedHit ? SoundID.DD2_MonkStaffGroundMiss : SoundID.DD2_MonkStaffSwing, owner.Center);
 				}
 			}

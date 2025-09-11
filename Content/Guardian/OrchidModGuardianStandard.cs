@@ -87,11 +87,11 @@ namespace OrchidMod.Content.Guardian
 				{
 					var guardian = player.GetModPlayer<OrchidGuardian>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-					if (proj != null && proj.ModProjectile is GuardianStandardAnchor anchor && guardian.GuardianStandardCharge == 0f)
+					if (proj != null && proj.ModProjectile is GuardianStandardAnchor anchor && guardian.GuardianItemCharge == 0f)
 					{
 						proj.ai[0] = 1f;
 						anchor.NeedNetUpdate = true;
-						guardian.GuardianStandardCharge++;
+						guardian.GuardianItemCharge++;
 						SoundEngine.PlaySound(SoundID.Item7, player.Center);
 					}
 				}

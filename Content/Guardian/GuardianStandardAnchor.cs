@@ -86,7 +86,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 			Projectile.ai[0] = 0f;
-			guardian.GuardianStandardCharge = 0;
+			guardian.GuardianItemCharge = 0;
 			if (!Worn || owner.inventory[owner.selectedItem].ModItem is OrchidModGuardianStandard) SelectedItem = owner.selectedItem;
 			Projectile.netUpdate = true;
 		}
@@ -132,7 +132,7 @@ namespace OrchidMod.Content.Guardian
 
 					if (Projectile.ai[0] == 0f)
 					{ // Adresses a visual issue
-						guardian.GuardianStandardCharge = 0;
+						guardian.GuardianItemCharge = 0;
 					}
 				}
 
@@ -223,13 +223,13 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (Projectile.ai[0] == 1f)
 					{ // Being charged by the player
-						if (guardian.GuardianStandardCharge < 180f)
+						if (guardian.GuardianItemCharge < 180f)
 						{
-							guardian.GuardianStandardCharge += 30f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee);
-							if (guardian.GuardianStandardCharge > 180f) guardian.GuardianStandardCharge = 180f;
+							guardian.GuardianItemCharge += 30f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee);
+							if (guardian.GuardianItemCharge > 180f) guardian.GuardianItemCharge = 180f;
 						}
 
-						if (guardian.GuardianStandardCharge >= 180f && !Ding && IsLocalOwner)
+						if (guardian.GuardianItemCharge >= 180f && !Ding && IsLocalOwner)
 						{
 							Ding = true;
 							if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
@@ -238,7 +238,7 @@ namespace OrchidMod.Content.Guardian
 
 						if ((!owner.controlUseItem || !heldStandard) && IsLocalOwner)
 						{
-							if (guardian.GuardianStandardCharge >= 180f)
+							if (guardian.GuardianItemCharge >= 180f)
 							{
 								SoundEngine.PlaySound(guardianItem.Item.UseSound, owner.Center);
 
@@ -279,16 +279,16 @@ namespace OrchidMod.Content.Guardian
 								Projectile auraProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), owner.Center, Vector2.Zero, projectileType, 0, 0f, owner.whoAmI);
 							}
 
-							guardian.GuardianStandardCharge = 0;
+							guardian.GuardianItemCharge = 0;
 							Projectile.ai[0] = 0f;
 							Projectile.netUpdate = true;
 						}
 
-						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(8f * owner.direction, -(12 + guardian.GuardianStandardCharge * 0.03f));
-						Projectile.rotation = MathHelper.PiOver4 * (0.25f - guardian.GuardianStandardCharge * 0.0025f) * owner.direction - MathHelper.PiOver4;
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2(8f * owner.direction, -(12 + guardian.GuardianItemCharge * 0.03f));
+						Projectile.rotation = MathHelper.PiOver4 * (0.25f - guardian.GuardianItemCharge * 0.0025f) * owner.direction - MathHelper.PiOver4;
 
-						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
-						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -(1f + guardian.GuardianStandardCharge * 0.0025f) * owner.direction);
+						owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f + guardian.GuardianItemCharge * 0.0025f) * owner.direction);
+						owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Quarter, MathHelper.PiOver2 * -(1f + guardian.GuardianItemCharge * 0.0025f) * owner.direction);
 					}
 					else if (Worn && !heldStandard)
 					{ // Display on player back

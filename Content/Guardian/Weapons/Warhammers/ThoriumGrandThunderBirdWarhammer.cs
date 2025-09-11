@@ -98,16 +98,16 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			
 				if (Targets.Count > 0)
 				{
-					if (projectile.ai[1] == 0 && guardian.GuardianHammerCharge < 210f)
+					if (projectile.ai[1] == 0 && guardian.GuardianItemCharge < 210f)
 					{
-						guardian.GuardianHammerCharge += 7.5f * Targets.Count / Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
-						if (guardian.GuardianHammerCharge > 210f)
-							guardian.GuardianHammerCharge = 210f;
+						guardian.GuardianItemCharge += 7.5f * Targets.Count / Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
+						if (guardian.GuardianItemCharge > 210f)
+							guardian.GuardianItemCharge = 210f;
 					}
 
 					//if (projectile.ai[1] >= 0 && Main.rand.NextBool(60 - Targets.Count * 10)) SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFuryCircle.WithPitchOffset(0.2f * Targets.Count).WithVolumeScale(0.1f + 0.05f  * Targets.Count), projectile.Center);
 
-					Vector2 gemPos = projectile.Center + new Vector2(8 * projectile.spriteDirection, -8).RotatedBy(projectile.ai[1] > 0 ? projectile.rotation : guardian.GuardianHammerCharge * 0.0065f * player.gravDir * projectile.spriteDirection);
+					Vector2 gemPos = projectile.Center + new Vector2(8 * projectile.spriteDirection, -8).RotatedBy(projectile.ai[1] > 0 ? projectile.rotation : guardian.GuardianItemCharge * 0.0065f * player.gravDir * projectile.spriteDirection);
 
 					if (projectile.ai[1] >= 0 && canTether && Main.rand.Next(6) < Targets.Count)
 					{
@@ -166,11 +166,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 				if (!((GuardianHammerAnchor)projectile.ModProjectile).WeakHit)
 				{
-					if (guardian.GuardianHammerCharge < 210f)
+					if (guardian.GuardianItemCharge < 210f)
 					{
-						guardian.GuardianHammerCharge += 15f * (Targets.Count + kills / 2f) * player.GetTotalAttackSpeed(DamageClass.Melee);
-						if (guardian.GuardianHammerCharge > 210f)
-							guardian.GuardianHammerCharge = 210f;
+						guardian.GuardianItemCharge += 15f * (Targets.Count + kills / 2f) * player.GetTotalAttackSpeed(DamageClass.Melee);
+						if (guardian.GuardianItemCharge > 210f)
+							guardian.GuardianItemCharge = 210f;
 					}
 				}
 			}
@@ -190,7 +190,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 					player.ApplyDamageToNPC(npc, guardian.GetGuardianDamage(Item.damage * (conducted ? 0.75f : 0.5f)), Item.knockBack / 12f, npc.Center.X > player.Center.X ? 1 : -1, Main.rand.Next(100) < guardian.GetGuardianCrit(), ModContent.GetInstance<GuardianDamageClass>(), true);
 					if (isKill.DidNPCDie()) killedTargets++;
 				}
-				Vector2 gemPos = projectile.Center + new Vector2(8 * projectile.spriteDirection, -8).RotatedBy(projectile.ai[1] > 0 ? projectile.rotation : guardian.GuardianHammerCharge * 0.0065f * player.gravDir * projectile.spriteDirection);
+				Vector2 gemPos = projectile.Center + new Vector2(8 * projectile.spriteDirection, -8).RotatedBy(projectile.ai[1] > 0 ? projectile.rotation : guardian.GuardianItemCharge * 0.0065f * player.gravDir * projectile.spriteDirection);
 				Vector2 currPoint = gemPos;
 				Vector2 nextPoint;
 				float angleToEnemy = gemPos.AngleTo(npc.Center);

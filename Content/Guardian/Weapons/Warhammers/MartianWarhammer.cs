@@ -33,7 +33,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			if (projectile.ai[1] <= -1)
 			{
-				if (guardian.GuardianHammerCharge >= 180 && projectile.ai[1] > -30) projectile.ai[1]++;
+				if (guardian.GuardianItemCharge >= 180 && projectile.ai[1] > -30) projectile.ai[1]++;
 			}
 		}
 
@@ -169,7 +169,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			{
 				CombatText.NewText(player.Hitbox, new Color(175, 255, 175), Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Charged"), false);
 				SoundEngine.PlaySound(SoundID.Item92, player.Center);
-				guardian.GuardianHammerCharge = 210;
+				guardian.GuardianItemCharge = 210;
 			}
 
 			for (int i = 0; i < 10; i++)

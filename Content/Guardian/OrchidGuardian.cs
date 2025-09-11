@@ -84,10 +84,7 @@ namespace OrchidMod
 		public bool OverHalfGuards => GuardianGuard + GuardianGuardRecharging > GuardianGuardMax / 2f;
 		public bool OverHalfSlams => GuardianSlam + GuardianSlamRecharging > GuardianSlamMax / 2f;
 		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
-		public float GuardianHammerCharge = 0f; // Player Warhammer Throw Charge, max is 180f
-		public float GuardianGauntletCharge = 0f; // Player Gauntlet Punch Charge, max is 180f
-		public float GuardianStandardCharge = 0f; // Player Standard Charge, max is 180f
-		public float GuardianRuneCharge = 0f; // Player Rune Charge, max is 180f
+		public float GuardianItemCharge = 0f; // Player Warhammer Throw Charge, max is 180f
 		public bool GuardianGauntletParry = false; // Player is currently parrying with a gauntlet
 		public bool GuardianGauntletParry2 = false; // Player is currently parrying with a gauntlet (1 frame buffer)
 		public bool GuardianStandardBuffer = false; // used to delay the deactivation of various standards effects by 1 frame
@@ -168,10 +165,7 @@ namespace OrchidMod
 
 		public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
 		{
-			GuardianHammerCharge = 0;
-			GuardianGauntletCharge = 0;
-			GuardianStandardCharge = 0;
-			GuardianRuneCharge = 0;
+			GuardianItemCharge = 0;
 		}
 
 		public override void PostUpdate()
@@ -255,10 +249,7 @@ namespace OrchidMod
 				}
 			}
 
-			if (Player.HeldItem.ModItem is not OrchidModGuardianGauntlet && Player.HeldItem.ModItem is not OrchidModGuardianQuarterstaff) GuardianGauntletCharge = 0f;
-			if (Player.HeldItem.ModItem is not OrchidModGuardianHammer) GuardianHammerCharge = 0f;
-			if (Player.HeldItem.ModItem is not OrchidModGuardianStandard && Player.HeldItem.ModItem is not HorizonLance) GuardianStandardCharge = 0f;
-			if (Player.HeldItem.ModItem is not OrchidModGuardianRune) GuardianRuneCharge = 0f;
+			if (Player.HeldItem.ModItem is not OrchidModGuardianItem) GuardianItemCharge = 0f;
 
 			if (GuardianGauntletParry2) GuardianGauntletParry2 = false;
 			else GuardianGauntletParry = false;
@@ -797,10 +788,10 @@ namespace OrchidMod
 
 		public int ThrowLevel()
 		{
-			if (GuardianHammerCharge < 45f) return 0;
-			if (GuardianHammerCharge < 90f) return 1;
-			if (GuardianHammerCharge < 135f) return 2;
-			if (GuardianHammerCharge < 180f) return 3;
+			if (GuardianItemCharge < 45f) return 0;
+			if (GuardianItemCharge < 90f) return 1;
+			if (GuardianItemCharge < 135f) return 2;
+			if (GuardianItemCharge < 180f) return 3;
 			return 4;
 		}
 	}

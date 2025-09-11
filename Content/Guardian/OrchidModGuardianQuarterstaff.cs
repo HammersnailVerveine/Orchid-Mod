@@ -118,7 +118,7 @@ namespace OrchidMod.Content.Guardian
 							player.immuneTime = 0;
 							player.immune = false;
 							guardian.modPlayer.PlayerImmunity = 0;
-							guardian.GuardianGauntletCharge = 0f;
+							guardian.GuardianItemCharge = 0f;
 							guardian.UseGuard(1);
 							proj.ai[0] = 0f;
 							proj.ai[2] = ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration;
@@ -126,12 +126,12 @@ namespace OrchidMod.Content.Guardian
 							SoundEngine.PlaySound(SoundID.Item37, player.Center);
 						}
 
-						if (shouldCharge && guardian.GuardianGauntletCharge == 0f && proj.ai[0] == 0f && proj.ai[2] >= -10f)
+						if (shouldCharge && guardian.GuardianItemCharge == 0f && proj.ai[0] == 0f && proj.ai[2] >= -10f)
 						{
 							proj.ai[0] = 1f;
 							proj.ai[2] = 0f;
 							anchor.NeedNetUpdate = true;
-							guardian.GuardianGauntletCharge++;
+							guardian.GuardianItemCharge++;
 							SoundEngine.PlaySound(SoundID.Item7, player.Center);
 						}
 					}

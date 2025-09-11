@@ -113,7 +113,7 @@ namespace OrchidMod.Content.Guardian
 				if (player.ownedProjectileCounts[projectileType] > 0)
 				{
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-					if (proj != null && proj.ModProjectile is GuardianRuneAnchor anchor && guardian.GuardianRuneCharge == 0f)
+					if (proj != null && proj.ModProjectile is GuardianRuneAnchor anchor && guardian.GuardianItemCharge == 0f)
 					{
 						foreach (Projectile projectile in Main.projectile) 
 						{
@@ -124,7 +124,7 @@ namespace OrchidMod.Content.Guardian
 							}
 						}
 
-						guardian.GuardianRuneCharge++;
+						guardian.GuardianItemCharge++;
 						proj.ai[0] = 1f;
 						anchor.NeedNetUpdate = true;
 						SoundEngine.PlaySound(SoundID.Item7, player.Center);

@@ -66,7 +66,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 			Projectile.ai[0] = 0f;
-			guardian.GuardianGauntletCharge = 0;
+			guardian.GuardianItemCharge = 0;
 			SelectedItem = owner.selectedItem;
 			Projectile.netUpdate = true;
 			Projectile.friendly = false;
@@ -108,7 +108,7 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (Projectile.ai[0] == 0f)
 					{ // Adresses a visual issue
-						guardian.GuardianGauntletCharge = 0;
+						guardian.GuardianItemCharge = 0;
 					}
 				}
 
@@ -234,7 +234,7 @@ namespace OrchidMod.Content.Guardian
 								owner.immuneTime = 0;
 								owner.immune = false;
 								guardian.modPlayer.PlayerImmunity = 0;
-								guardian.GuardianGauntletCharge = 0f;
+								guardian.GuardianItemCharge = 0f;
 								guardian.UseGuard(1);
 								Projectile.ai[2] = guardianItem.ParryDuration * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration;
 								Projectile.netUpdate = true;
@@ -247,19 +247,19 @@ namespace OrchidMod.Content.Guardian
 				}
 				else if (Projectile.ai[0] == 1f)
 				{ // Being charged by the player
-					if (guardian.GuardianGauntletCharge < 180f)
+					if (guardian.GuardianItemCharge < 180f)
 					{ // Increase guardian charge
-						guardian.GuardianGauntletCharge += 30f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee);
-						if (guardian.GuardianGauntletCharge > 180f) guardian.GuardianGauntletCharge = 180f;
+						guardian.GuardianItemCharge += 30f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee);
+						if (guardian.GuardianItemCharge > 180f) guardian.GuardianItemCharge = 180f;
 					}
 
 					// Rotate the staff as charge progresses, readying an upward swipe attack
 
-					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(12f * owner.direction, guardian.GuardianGauntletCharge * 0.03f);
-					Projectile.rotation = MathHelper.PiOver4 * (1f + guardian.GuardianGauntletCharge * 0.0025f) * owner.direction - MathHelper.PiOver4;
+					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(12f * owner.direction, guardian.GuardianItemCharge * 0.03f);
+					Projectile.rotation = MathHelper.PiOver4 * (1f + guardian.GuardianItemCharge * 0.0025f) * owner.direction - MathHelper.PiOver4;
 
-					owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f - guardian.GuardianGauntletCharge * 0.0025f) * owner.direction);
-					owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(1f - guardian.GuardianGauntletCharge * 0.0025f) * owner.direction);
+					owner.SetCompositeArmFront(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(0.6f - guardian.GuardianItemCharge * 0.0025f) * owner.direction);
+					owner.SetCompositeArmBack(true, CompositeArmStretchAmount.Full, MathHelper.PiOver2 * -(1f - guardian.GuardianItemCharge * 0.0025f) * owner.direction);
 
 					if (OldPosition.Count > 0)
 					{
@@ -269,7 +269,7 @@ namespace OrchidMod.Content.Guardian
 
 					if (IsLocalOwner)
 					{
-						if (guardian.GuardianGauntletCharge >= 180f && !Ding)
+						if (guardian.GuardianItemCharge >= 180f && !Ding)
 						{ // Sound cue when fully charged
 							Ding = true;
 							if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
@@ -287,7 +287,7 @@ namespace OrchidMod.Content.Guardian
 
 						if (!chargeInput)
 						{
-							if (guardian.GuardianGauntletCharge >= 180f)
+							if (guardian.GuardianItemCharge >= 180f)
 							{ // swing
 								Projectile.ai[0] = 41f;
 							}
@@ -297,7 +297,7 @@ namespace OrchidMod.Content.Guardian
 							}
 
 							Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
-							guardian.GuardianGauntletCharge = 0;
+							guardian.GuardianItemCharge = 0;
 							Projectile.netUpdate = true;
 						}
 						else if (jabInput)
@@ -380,7 +380,7 @@ namespace OrchidMod.Content.Guardian
 
 					if (Projectile.ai[0] >= 0)
 					{
-						if (guardian.GuardianGauntletCharge > 0)
+						if (guardian.GuardianItemCharge > 0)
 						{
 							Projectile.ai[0] = 1f;
 						}
@@ -398,9 +398,9 @@ namespace OrchidMod.Content.Guardian
 							Projectile.ai[1] = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2;
 							Projectile.netUpdate = true;
 
-							if (guardian.GuardianGauntletCharge <= 0)
+							if (guardian.GuardianItemCharge <= 0)
 							{ // Fix an occurence where jabs loop and the player doesn't have any charge
-								guardian.GuardianGauntletCharge = 1f;
+								guardian.GuardianItemCharge = 1f;
 							}
 						}
 					}
@@ -629,12 +629,12 @@ namespace OrchidMod.Content.Guardian
 					if (FirstHit)
 					{
 						guardianItem.OnHitFirst(player, guardian, target, Projectile, hit, true, false);
-						if (guardian.GuardianGauntletCharge > 0f)
+						if (guardian.GuardianItemCharge > 0f)
 						{
-							guardian.GuardianGauntletCharge += 60f * guardianItem.JabChargeGain * player.GetTotalAttackSpeed(DamageClass.Melee);
-							if (guardian.GuardianGauntletCharge > 180f)
+							guardian.GuardianItemCharge += 60f * guardianItem.JabChargeGain * player.GetTotalAttackSpeed(DamageClass.Melee);
+							if (guardian.GuardianItemCharge > 180f)
 							{
-								guardian.GuardianGauntletCharge = 180f;
+								guardian.GuardianItemCharge = 180f;
 							}
 						}
 					}

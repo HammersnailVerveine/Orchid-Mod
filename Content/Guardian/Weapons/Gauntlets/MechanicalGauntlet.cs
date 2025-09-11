@@ -39,7 +39,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			bool slowFalling = player.controlUp;
 			if (player.gravDir == -1) (fastFalling, slowFalling) = (slowFalling, fastFalling);
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-			hover = !fastFalling && guardian.GuardianGauntletCharge > 0 && player.velocity.Y * player.gravDir > player.maxFallSpeed / 6;
+			hover = !fastFalling && guardian.GuardianItemCharge > 0 && player.velocity.Y * player.gravDir > player.maxFallSpeed / 6;
 			if (hover)
 			{
 				player.velocity.Y = Math.Min(player.velocity.Y, player.maxFallSpeed / (slowFalling ? 10 : 3) * player.gravDir);

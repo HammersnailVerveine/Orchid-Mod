@@ -1,12 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
-using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -17,12 +14,9 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Misc
 {
-	public class HorizonLance : OrchidModGuardianParryItem
+	public class GuardianNeedle : OrchidModGuardianParryItem
 	{
-		public int StandardDuration; // Effect duration in ticks
 		public int ParryDuration;
-		public virtual string LanceTexture => Texture;
-		public virtual string LanceTextureGlow => Texture + "_Glow";
 
 		public virtual void SafeHoldItem(Player player) { }
 
@@ -37,14 +31,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			Item.UseSound = SoundID.DD2_GhastlyGlaiveImpactGhost;
 
 
-			Item.width = 52;
-			Item.height = 52;
-			Item.value = Item.sellPrice(0, 10, 0, 0);
-			Item.rare = ItemRarityID.Red;
+			Item.width = 46;
+			Item.height = 46;
+			Item.value = Item.sellPrice(0, 4, 0, 0);
+			Item.rare = ItemRarityID.LightRed;
 			Item.useTime = Item.useAnimation = 40;
-			Item.knockBack = 8f;
-			Item.damage = 618;
-			StandardDuration = 1800; // 30 sec
+			Item.knockBack = 6f;
+			Item.damage = 100;
 			ParryDuration = 90;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
@@ -53,10 +46,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 		public override void AddRecipes()
 		{
+			/*
 			var recipe = CreateRecipe();
 			recipe.AddIngredient<HorizonFragment>(18);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
+			*/
 		}
 
 		public override void OnParry(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) 
@@ -103,13 +98,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 		{
 			if (player.whoAmI == Main.myPlayer && !player.cursed)
 			{
-				var projectileType = ModContent.ProjectileType<GuardianHorizonLanceAnchor>();
+				var projectileType = ModContent.ProjectileType<GuardianNeedleAnchor>();
 				if (player.ownedProjectileCounts[projectileType] > 0)
 				{
 
 					var guardian = player.GetModPlayer<OrchidGuardian>();
 					var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-					if (proj != null && proj.ModProjectile is GuardianHorizonLanceAnchor anchor && proj.ai[0] >= 0f)
+					if (proj != null && proj.ModProjectile is GuardianNeedleAnchor anchor && proj.ai[0] >= 0f)
 					{
 						bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
 						bool shouldCharge = Main.mouseLeft && Main.mouseLeftRelease;
@@ -147,7 +142,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 		public sealed override void HoldItem(Player player)
 		{
-			var projectileType = ModContent.ProjectileType<GuardianHorizonLanceAnchor>();
+			var projectileType = ModContent.ProjectileType<GuardianNeedleAnchor>();
 			var guardian = player.GetModPlayer<OrchidGuardian>();
 			guardian.GuardianDisplayUI = 300;
 
@@ -164,36 +159,27 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 				var index = Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center.X, player.Center.Y, 0f, 0f, projectileType, 0, 0f, player.whoAmI);
 
 				var proj = Main.projectile[index];
-				if (proj.ModProjectile is not GuardianHorizonLanceAnchor standard)
+				if (proj.ModProjectile is not GuardianNeedleAnchor anchor)
 				{
 					proj.Kill();
 				}
 				else
 				{
-					standard.OnChangeSelectedItem(player);
+					anchor.OnChangeSelectedItem(player);
 				}
 			}
 			else
 			{
 				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projectileType);
-				if (proj != null && proj.ModProjectile is GuardianHorizonLanceAnchor standard)
+				if (proj != null && proj.ModProjectile is GuardianNeedleAnchor anchor)
 				{
-					if (standard.SelectedItem != player.selectedItem)
+					if (anchor.SelectedItem != player.selectedItem)
 					{
-						standard.OnChangeSelectedItem(player);
+						anchor.OnChangeSelectedItem(player);
 					}
 				}
 			}
 			SafeHoldItem(player);
-		}
-
-		public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-		{
-			//Projectile proj = Main.player[Main.myPlayer].GetModPlayer<OrchidGuardian>().GuardianCurrentStandardAnchor;
-			//if (proj != null && proj.ModProjectile is GuardianHorizonLanceAnchor standard)
-			//{
-				spriteBatch.Draw(ModContent.Request<Texture2D>(LanceTextureGlow).Value, position, frame, Color.White, 0, origin, scale, SpriteEffects.None, 0);
-			//}
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -203,16 +189,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration)))));
 
-
-			tooltips.Insert(index + 2, new TooltipLine(Mod, "RuneDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.BuffDuration", OrchidUtils.FramesToSeconds((int)(StandardDuration * Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianRuneTimer)))));
-
-			tooltips.Insert(index + 3, new TooltipLine(Mod, "ShieldStacks", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.HorizonLaceShieldStacks"))
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "ShieldStacks", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.HorizonLaceShieldStacks"))
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});
 
 			string click = ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs ? Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.LeftClick") : Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
-			tooltips.Insert(index + 4, new TooltipLine(Mod, "ClickInfo", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Parry", click))
+			tooltips.Insert(index + 3, new TooltipLine(Mod, "ClickInfo", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Parry", click))
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});

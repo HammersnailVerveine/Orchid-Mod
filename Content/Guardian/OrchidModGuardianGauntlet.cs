@@ -176,7 +176,7 @@ namespace OrchidMod.Content.Guardian
 						}
 						else if (shoundpunch)
 						{ // Left click
-							if (guardian.GuardianGauntletCharge == 0)
+							if (guardian.GuardianItemCharge == 0)
 							{
 								//guardian.GuardianGauntletCharge++;
 								SoundEngine.PlaySound(SoundID.Item7, player.Center);

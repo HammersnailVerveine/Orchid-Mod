@@ -197,7 +197,7 @@ namespace OrchidMod.Content.Guardian.UI
 
 				if (player.HeldItem.ModItem is OrchidModGuardianItem)
 				{
-					if (modPlayer.GuardianHammerCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianHammer)
+					if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianHammer)
 					{
 						if (ModContent.GetInstance<OrchidClientConfig>().GuardianUseOldHammerUi)
 						{
@@ -236,14 +236,14 @@ namespace OrchidMod.Content.Guardian.UI
 						else
 						{
 							int val = 24;
-							if (modPlayer.GuardianHammerCharge > 180f)
+							if (modPlayer.GuardianItemCharge > 180f)
 							{
 								drawpos = new Vector2(position.X - 14, position.Y - 96 * player.gravDir + 6f * (player.gravDir - 1));
 								spriteBatch.Draw(textureHammerReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
 							}
 							else
 							{
-								float charge = modPlayer.GuardianHammerCharge;
+								float charge = modPlayer.GuardianItemCharge;
 								while (charge < 180f)
 								{
 									charge += 7.5f;
@@ -262,17 +262,17 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (modPlayer.GuardianStandardCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianStandard)
+					if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianStandard)
 					{
 						int val = textureStandardOn.Height;
-						if (modPlayer.GuardianStandardCharge >= 180f)
+						if (modPlayer.GuardianItemCharge >= 180f)
 						{
 							drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
 							spriteBatch.Draw(textureStandardReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
 						}
 						else
 						{
-							float charge = modPlayer.GuardianStandardCharge;
+							float charge = modPlayer.GuardianItemCharge;
 							while (charge < 180f)
 							{
 								charge += 7.5f;
@@ -291,17 +291,17 @@ namespace OrchidMod.Content.Guardian.UI
 						spriteBatch.Draw(textureStandardOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 					}
 
-					if (modPlayer.GuardianStandardCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is HorizonLance)
+					if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is HorizonLance)
 					{
 						int val = textureHorizonLanceOn.Height;
-						if (modPlayer.GuardianStandardCharge >= 180f)
+						if (modPlayer.GuardianItemCharge >= 180f)
 						{
 							drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
 							spriteBatch.Draw(textureHorizonLanceReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
 						}
 						else
 						{
-							float charge = modPlayer.GuardianStandardCharge;
+							float charge = modPlayer.GuardianItemCharge;
 							while (charge < 180f)
 							{
 								charge += 7.5f;
@@ -320,17 +320,17 @@ namespace OrchidMod.Content.Guardian.UI
 						spriteBatch.Draw(textureHorizonLanceOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 					}
 
-					if (modPlayer.GuardianRuneCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianRune)
+					if (modPlayer.GuardianItemCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianRune)
 					{
 						int val = textureRuneOn.Height;
-						if (modPlayer.GuardianRuneCharge >= 180f)
+						if (modPlayer.GuardianItemCharge >= 180f)
 						{
 							drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
 							spriteBatch.Draw(textureRuneReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
 						}
 						else
 						{
-							float charge = modPlayer.GuardianRuneCharge;
+							float charge = modPlayer.GuardianItemCharge;
 							while (charge < 180f)
 							{
 								charge += 7.5f;
@@ -350,17 +350,17 @@ namespace OrchidMod.Content.Guardian.UI
 
 					if (player.HeldItem.ModItem is OrchidModGuardianQuarterstaff)
 					{
-						if (modPlayer.GuardianGauntletCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+						if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
 						{
 							int val = textureQuarterstaffOn.Height;
-							if (modPlayer.GuardianGauntletCharge >= 180f)
+							if (modPlayer.GuardianItemCharge >= 180f)
 							{
 								drawpos = new Vector2(position.X - 10, position.Y - 96 * player.gravDir + 6f * (player.gravDir - 1));
 								spriteBatch.Draw(textureQuarterstaffReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
 							}
 							else
 							{
-								float charge = modPlayer.GuardianGauntletCharge;
+								float charge = modPlayer.GuardianItemCharge;
 								while (charge < 180f)
 								{
 									charge += 7.5f;
@@ -408,17 +408,17 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (modPlayer.GuardianGauntletCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+					if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
 					{
 						int val = textureGauntletOn.Height;
-						if (modPlayer.GuardianGauntletCharge >= 180f)
+						if (modPlayer.GuardianItemCharge >= 180f)
 						{
 							drawpos = new Vector2(position.X - 10, position.Y - 96 * player.gravDir + 6f * (player.gravDir - 1));
 							spriteBatch.Draw(textureGauntletReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
 						}
 						else
 						{
-							float charge = modPlayer.GuardianGauntletCharge;
+							float charge = modPlayer.GuardianItemCharge;
 							while (charge < 180f)
 							{
 								charge += 7.5f;

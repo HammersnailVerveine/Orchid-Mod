@@ -250,8 +250,8 @@ namespace OrchidMod.Content.Guardian
 				{
 					if (Charging)
 					{
-						guardian.GuardianGauntletCharge += 30f / GauntletItem.useTime * (owner.GetTotalAttackSpeed(DamageClass.Melee) * 2f - 1f);
-						if (guardian.GuardianGauntletCharge > 180f)
+						guardian.GuardianItemCharge += 30f / GauntletItem.useTime * (owner.GetTotalAttackSpeed(DamageClass.Melee) * 2f - 1f);
+						if (guardian.GuardianItemCharge > 180f)
 						{
 							if (!Ding && IsLocalOwner)
 							{
@@ -259,22 +259,22 @@ namespace OrchidMod.Content.Guardian
 								else SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 								Ding = true;
 							}
-							guardian.GuardianGauntletCharge = 180f;
+							guardian.GuardianItemCharge = 180f;
 						}
-						else if (guardian.GuardianGauntletCharge > (70 * owner.GetTotalAttackSpeed(DamageClass.Melee) - owner.HeldItem.useTime) / 2.5f) guardian.SlamCostUI = 1;
+						else if (guardian.GuardianItemCharge > (70 * owner.GetTotalAttackSpeed(DamageClass.Melee) - owner.HeldItem.useTime) / 2.5f) guardian.SlamCostUI = 1;
 
 						if ((ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs ? !Main.mouseRight : !Main.mouseLeft) && owner.whoAmI == Main.myPlayer)
 						{
-							if (guardian.GuardianGauntletCharge < 180f && guardian.UseSlam(1, true))
+							if (guardian.GuardianItemCharge < 180f && guardian.UseSlam(1, true))
 							{ // Consume a slam to fully charge if the player has one
 								guardian.UseSlam();
-								guardian.GuardianGauntletCharge = 180f;
+								guardian.GuardianItemCharge = 180f;
 							}
 
-							if (guardian.GuardianGauntletCharge >= 180f) Projectile.ai[0] = -2f;
+							if (guardian.GuardianItemCharge >= 180f) Projectile.ai[0] = -2f;
 							else Projectile.ai[0] = -1f;
 
-							guardian.GuardianGauntletCharge = 0;
+							guardian.GuardianItemCharge = 0;
 
 							if (IsLocalOwner)
 							{
@@ -285,13 +285,13 @@ namespace OrchidMod.Content.Guardian
 						}
 						else
 						{
-							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(-(4 + guardian.GuardianGauntletCharge * 0.033f) * owner.direction, 4);
+							Projectile.Center = owner.MountedCenter.Floor() + new Vector2(-(4 + guardian.GuardianItemCharge * 0.033f) * owner.direction, 4);
 							Projectile.rotation = MathHelper.PiOver2;
 						}
 					}
 					else
 					{
-						Projectile.Center = owner.MountedCenter.Floor() + new Vector2((-6 + guardian.GuardianGauntletCharge * 0.01f) * owner.direction, 6);
+						Projectile.Center = owner.MountedCenter.Floor() + new Vector2((-6 + guardian.GuardianItemCharge * 0.01f) * owner.direction, 6);
 						if (OffHandGauntlet) Projectile.position.X += 8 * owner.direction;
 
 						if (owner.velocity.X != 0)
@@ -375,7 +375,7 @@ namespace OrchidMod.Content.Guardian
 				var effect = SpriteEffects.None;
 				if (player.direction != 1)
 				{
-					if (player.velocity.X != 0 && !Blocking || (player.GetModPlayer<OrchidGuardian>().GuardianGauntletCharge > 0 && Projectile.ai[2] != 0) || Slamming) effect = SpriteEffects.FlipVertically;
+					if (player.velocity.X != 0 && !Blocking || (player.GetModPlayer<OrchidGuardian>().GuardianItemCharge > 0 && Projectile.ai[2] != 0) || Slamming) effect = SpriteEffects.FlipVertically;
 					else effect = SpriteEffects.FlipHorizontally;
 				}
 
