@@ -8,13 +8,16 @@ The [b]Orchid Mod[/b] aims to add content to the game in polished and refreshing
 - Thorium Pre-Hardmode Cross-content for Guardian
 - Pre-Hardmode content for a new class : the Shapeshifter
 
+[h1] 1.5.1.1[/h1]
+- Various bugfixes, and early Warhammers balancing
+
 [img]https://i.imgur.com/kcLoweG.png[/img]
 The Orchid Mod currently adds one (and a half) new classes: the [b]Guardian[/b] and the [b]Shapeshifter[/b].
 
 These new classes are aimed at experienced players, looking for a refreshing way of playing the game. They can be considerably harder to play than vanilla classes, and might require some dedication to achieve a desirable damage output.
 
 [h1]Guardian[/h1]
-The [b]Guardian[/b] is a living wall, using heavy [b]Pavises[/b], [b]Gauntlets[/b] and devastating [b]Warhammers[/b] to crush their foes and defend themselves.
+The [b]Guardian[/b] is a living wall, using heavy [b]Pavises[/b], [b]Gauntlets[/b], [b]Quarterstaves[/b] and devastating [b]Warhammers[/b] to crush their foes and defend themselves.
 Unique [b]Runes[/b] will provide the player with long lasting damage, and [b]Standards[/b] will provide usefull effects in battle.
 
 Weapons are tied to unique [b]Slam[/b] and [b]Block[/b] resources that should be restored using a good weapon rotation.
@@ -24,10 +27,14 @@ Weapons are tied to unique [b]Slam[/b] and [b]Block[/b] resources that should be
 [b]The Guardian class has content spread thourough the entire game, and allows comfortably beating it[/b]
 
 [h1]Shapeshifter[/h1]
+The [b]Shapeshifter[/b] vanquises their foes by transforming into multiple [b]wildshapes[/b], each having unique abilities and completely replacing normal movement.
 
-Description in progress!
+[b]Predators[/b] are fast, and excel at single-target, while [b]Sages[/b] are slower, but can control and deal damage to multiple enemies.
+[b]Wardens[/b] unleash slow but powerful hits while healing their wounds, and [b]Symbiotes[/b] turn into powerful teammates, requiring a [i]multiplayer friend[/i] to function!
 
-[b]The Shapeshifterclass has content up to the Wall of Flesh[/b]
+[i]Adapting to the unique movement of each wildshape, and picking the right one for each battle is the key to playing the shapeshifter class![/i]
+
+[b]The Shapeshifter class has content up to the Wall of Flesh[/b]
 
 [img]https://i.imgur.com/hbZMoD5.png[/img]
 [list]
