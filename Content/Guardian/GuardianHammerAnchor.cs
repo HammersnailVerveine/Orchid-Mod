@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Content.General.Prefixes;
+using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,6 +31,8 @@ namespace OrchidMod.Content.Guardian
 		public bool NeedNetUpdate = false;
 		public int dir;
 		public int hitboxOffset;
+
+		public int BlockDuration = 0;
 
 		public bool Ding = false;
 
@@ -104,7 +108,47 @@ namespace OrchidMod.Content.Guardian
 					Projectile.netUpdate = true;
 				}
 
-				if (Projectile.ai[1] <= 0) // Held
+				Projectile.rotation += Projectile.velocity.Length() / 45f * dir;
+
+				if (BlockDuration != 0)
+				{ // Blocking
+					if (BlockDuration <= HammerItem.BlockDuration * HammerItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration)
+					{ // hammers only starts to slow down 15 frames after being thrown
+						Projectile.rotation += 0.25f * dir;
+
+						if (BlockDuration > 0)
+						{
+							Projectile.velocity *= 0.9f;
+							Projectile.timeLeft++;
+						}
+						else
+						{
+							float dist = Projectile.Center.Distance(player.Center);
+							Vector2 vel = Vector2.Normalize(player.Center - Projectile.Center) * HammerItem.ReturnSpeed * BlockDuration * 0.2f;
+							Projectile.velocity = -vel;
+
+							if (dist < 30f && player.whoAmI == Main.myPlayer)
+							{
+								Projectile.Kill();
+							}
+						}
+					}
+
+					OldPosition.Add(new Vector2(Projectile.Center.X, Projectile.Center.Y));
+					OldRotation.Add(0f + Projectile.rotation);
+					if (OldPosition.Count > 10)
+						OldPosition.RemoveAt(0);
+					if (OldRotation.Count > 10)
+						OldRotation.RemoveAt(0);
+
+					BlockDuration--;
+
+					if (BlockDuration == 0)
+					{
+						BlockDuration = -1;
+					}
+				}
+				else if (Projectile.ai[1] <= 0) // Held
 				{
 					if (player.dead || player.HeldItem.ModItem is not OrchidModGuardianHammer)
 					{
@@ -267,12 +311,10 @@ namespace OrchidMod.Content.Guardian
 							float dist = Projectile.Center.Distance(player.Center);
 							Vector2 vel = Vector2.Normalize(player.Center - Projectile.Center) * HammerItem.ReturnSpeed;
 
-							if (range < -40)
+							if (range < -30)
 							{
-								float mult = 10f;
-								if (Projectile.timeLeft < 500) mult += (500 - Projectile.timeLeft) / 40f;
-								vel *= mult;
-								Projectile.velocity = vel;
+								vel *= 1 - (30 - range) * 0.15f;
+								Projectile.velocity = -vel;
 							}
 							else
 							{
@@ -285,7 +327,7 @@ namespace OrchidMod.Content.Guardian
 								Projectile.Kill();
 							}
 
-							if (range < -100)
+							if (range < -60)
 							{
 								Projectile.friendly = false;
 							}
@@ -423,6 +465,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			writer.Write(HammerItem.Item.type);
 			writer.Write(range);
+			writer.Write(BlockDuration);
 		}
 
 		public override void ReceiveExtraAI(BinaryReader reader)
@@ -430,6 +473,7 @@ namespace OrchidMod.Content.Guardian
 			Item item = new Item();
 			int itemtype = reader.ReadInt32();
 			range = reader.ReadInt32();
+			BlockDuration = reader.ReadInt32();
 
 			if (HammerItem == null)
 			{
@@ -501,6 +545,21 @@ namespace OrchidMod.Content.Guardian
 				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 				float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
 				rotationBonus += (guardian.GuardianItemCharge * 0.0065f + SwingOffset * (3.5f + guardian.GuardianItemCharge * 0.006f)) * player.gravDir * Projectile.spriteDirection;
+			}
+
+			if (BlockDuration != 0)
+			{
+				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+
+				for (int i = 0; i < OldPosition.Count; i++)
+				{
+					Vector2 drawPositionTrail = OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
+					spriteBatch.Draw(HammerTexture, drawPositionTrail, null, lightColor * 0.04f * (i + 1), OldRotation[i], HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				}
+
+				spriteBatch.End();
+				spriteBatch.Begin(spriteBatchSnapshot);
 			}
 
 			spriteBatch.Draw(HammerTexture, position, null, color, Projectile.rotation + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);

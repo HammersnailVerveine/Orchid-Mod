@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
+using OrchidMod.Content.General.Prefixes;
+using OrchidMod.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -19,6 +22,7 @@ namespace OrchidMod.Content.Guardian
 		public bool TileCollide;
 		public bool TileBounce;
 		public float ReturnSpeed;
+		public float BlockDuration;
 		public float SwingSpeed;
 		/// <summary>Multiplier for the amount of bonus charge gained from hitting with a melee swing.</summary>
 		public float SwingChargeGain;
@@ -56,6 +60,7 @@ namespace OrchidMod.Content.Guardian
 			ReturnSpeed = 1f;
 			SwingSpeed = 1f;
 			SwingChargeGain = 1f;
+			BlockDuration = 180;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
@@ -63,6 +68,11 @@ namespace OrchidMod.Content.Guardian
 			SafeSetDefaults();
 
 			Item.useAnimation = Item.useTime;
+		}
+
+		public override bool AltFunctionUse(Player player)
+		{
+			return true;
 		}
 
 		public override bool WeaponPrefix() => true;
@@ -77,10 +87,15 @@ namespace OrchidMod.Content.Guardian
 		{
 			var guardian = player.GetModPlayer<OrchidGuardian>();
 			int projType = ProjectileType<GuardianHammerAnchor>();
-
 			int damage = guardian.GetGuardianDamage(Item.damage);
 			Projectile projectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.Zero, projType, damage, Item.knockBack, player.whoAmI);
 			projectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
+
+			if (Main.mouseRight && Main.mouseRightRelease && projectile.ModProjectile is GuardianHammerAnchor anchor)
+			{
+				projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * Item.shootSpeed;
+				anchor.BlockDuration = (int)(BlockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration + 15);
+			}
 
 			guardian.GuardianItemCharge = 0f;
 			return true;
@@ -89,12 +104,26 @@ namespace OrchidMod.Content.Guardian
 		public override bool CanUseItem(Player player)
 		{
 			int projType = ProjectileType<GuardianHammerAnchor>();
+
+			/*
+			if (Main.mouseRight && Main.mouseRightRelease)
+			{
+				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projType && i.ai[2] > 0);
+				if (proj != null && proj.ModProjectile is GuardianHammerAnchor warhammer)
+				{ // recalls existing blocking warhammers when right clicking
+					proj.ai[2] = 0f;
+					proj.netUpdate = true;
+				}
+			}
+			*/
+
 			if (player.ownedProjectileCounts[projType] > 0) return false;
 			return base.CanUseItem(player);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var guardian = Main.LocalPlayer.GetModPlayer<OrchidGuardian>();
 			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
 			if (tt != null)
 			{
@@ -104,6 +133,20 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "BlockDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.BlockDuration", OrchidUtils.FramesToSeconds((int)(BlockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration)))));
+
+			string click = Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Block", click))
+			{
+				OverrideColor = new Color(175, 255, 175)
+			});
+
+			tooltips.Insert(index + 3, new TooltipLine(Mod, "Swing", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ChargeToThrow"))
+			{
+				OverrideColor = new Color(175, 255, 175)
+			});
+
 			if (GuardStacks > 0 || SlamStacks > 0)
 			{
 				string TooltipToGet = GetInstance<OrchidMod>().GetLocalizationKey("Misc.GuardianGrants");
@@ -122,24 +165,6 @@ namespace OrchidMod.Content.Guardian
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
-
-				/*tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldStacks", "Grants " + (GuardStacks > 0 ? GuardStacks + " guard" + (GuardStacks > 1 ? "s" : "") + (SlamStacks > 0 ? " and " : "") : "") + (SlamStacks > 0 ? (GuardStacks != SlamStacks ? SlamStacks + " " : "") + "slam" + (SlamStacks > 1 ? "s" : "") : "") + " when fully charged")
-				{
-					OverrideColor = new Color(175, 255, 175)
-				});*/
-
-			/*if (SlamStacks > 0)
-			{
-				tooltips.Insert(index + 1, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.SlamStacks + " slam" + (this.SlamStacks > 1 ? "s" : "") + " when fully charged")
-				{
-					OverrideColor = new Color(175, 255, 175)
-				});
-			}*/
-
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "Swing", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ChargeToThrow"))
-			{
-				OverrideColor = new Color(175, 255, 175)
-			});
 		}
 	}
 }

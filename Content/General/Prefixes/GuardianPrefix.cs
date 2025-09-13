@@ -152,7 +152,7 @@ namespace OrchidMod.Content.General.Prefixes
 			{
 				string block = Language.GetTextValue("Mods.OrchidMod.Prefixes.AddParry");
 
-				if (item.ModItem is OrchidModGuardianShield)
+				if (item.ModItem is OrchidModGuardianShield || item.ModItem is OrchidModGuardianHammer)
 				{
 					block = Language.GetTextValue("Mods.OrchidMod.Prefixes.AddBlock");
 				}
@@ -209,7 +209,7 @@ namespace OrchidMod.Content.General.Prefixes
 			{
 				List<int> UniversalPrefixesIDs = [36, 37, 38, 39, 40, 41, 53, 54, 55, 56, 57, 59, 60, 61]; // Has to be hardcoded
 
-				if (item.ModItem is not OrchidModGuardianHammer && item.ModItem is not OrchidModGuardianRune)
+				if (item.ModItem is not OrchidModGuardianRune)
 				{
 					foreach (var prefix in GuardianPrefix.GetPrefixes)
 					{

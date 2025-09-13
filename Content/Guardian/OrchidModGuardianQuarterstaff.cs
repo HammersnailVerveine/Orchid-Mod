@@ -225,14 +225,6 @@ namespace OrchidMod.Content.Guardian
 					OverrideColor = new Color(175, 255, 175)
 				});
 			}
-
-			/*if (SlamStacks > 0)
-			{
-				tooltips.Insert(index + 4, new TooltipLine(Mod, "ShieldSlams", "Grants " + this.SlamStacks + " slam" + (this.SlamStacks > 1 ? "s" : "") + " when fully charged")
-				{
-					OverrideColor = new Color(175, 255, 175)
-				});
-			}*/
 		}
 	}
 }
