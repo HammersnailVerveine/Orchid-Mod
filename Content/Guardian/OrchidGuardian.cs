@@ -747,6 +747,8 @@ namespace OrchidMod
 				Player.immune = true;
 
 				Projectile anchor = null;
+
+				/*
 				int[] anchorTypes = [ModContent.ProjectileType<GuardianQuarterstaffAnchor>(), ModContent.ProjectileType<GuardianGauntletAnchor>(), ModContent.ProjectileType<GuardianHorizonLanceAnchor>()];
 
 				foreach (int type in anchorTypes)
@@ -757,11 +759,22 @@ namespace OrchidMod
 						break;
 					}
 				}
+				*/
+
+				foreach (Projectile anchorProjectile in Main.projectile)
+				{
+					if (anchorProjectile.ModProjectile is OrchidModGuardianParryAnchor && anchorProjectile.owner == Player.whoAmI && anchorProjectile.active)
+					{
+						anchor = anchorProjectile;
+						break;
+					}
+				}
 
 				if (anchor != null)
 				{
 					parryItem.OnParry(Player, this, aggressor, anchor);
-					int toAdd = (anchor.type == anchorTypes[0]) ? 0 : 1; // Gives 0 slam for a quarterstaff parry, 1 for other items
+					//int toAdd = (anchor.type == anchorTypes[0]) ? 0 : 1;
+					int toAdd = (anchor.ModProjectile is GuardianQuarterstaffAnchor) ? 0 : 1; // Gives 0 slam for a quarterstaff parry, 1 for other items
 
 					if (aggressor is NPC npc)
 					{

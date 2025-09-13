@@ -28,17 +28,16 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 			Item.maxStack = 1;
 			Item.noUseGraphic = true;
 			Item.useStyle = ItemUseStyleID.Thrust;
-			Item.UseSound = SoundID.DD2_GhastlyGlaiveImpactGhost;
-
+			Item.UseSound = SoundID.Item50;
 
 			Item.width = 46;
 			Item.height = 46;
-			Item.value = Item.sellPrice(0, 4, 0, 0);
+			Item.value = Item.sellPrice(0, 1, 60, 0);
 			Item.rare = ItemRarityID.LightRed;
-			Item.useTime = Item.useAnimation = 40;
+			Item.useTime = Item.useAnimation = 20;
 			Item.knockBack = 6f;
-			Item.damage = 100;
-			ParryDuration = 90;
+			Item.damage = 78;
+			ParryDuration = 20;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
@@ -48,7 +47,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 		{
 			/*
 			var recipe = CreateRecipe();
-			recipe.AddIngredient<HorizonFragment>(18);
+			recipe.AddIngredient(ItemID.SpiderFang);
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 			*/
@@ -56,35 +55,23 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 
 		public override void OnParry(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) 
 		{
-			anchor.ai[0] = 0;
-
-			if (player.statDefense > 10) guardian.modPlayer.TryHeal((int)(player.statDefense * 0.1f));
-			SoundEngine.PlaySound(SoundID.Item68, player.Center);
-
-			Vector2 offset = Vector2.UnitY;
-
+			Vector2 targetPosition = Main.MouseWorld;
 			if (aggressor != null)
 			{
-				if (aggressor is NPC npc)
-				{
-					offset = offset.RotatedBy((npc.Center - player.Center).ToRotation() - MathHelper.PiOver2);
-				}
+				targetPosition = aggressor.Center;
 
-				if (aggressor is Projectile projectile)
+				player.velocity = new Vector2(-player.velocity.X * 0.33f, -10f);
+
+				if ((player.velocity.X > 0 && player.controlLeft) || (player.velocity.X < 0 && player.controlRight))
 				{
-					//offset = offset.RotatedBy((projectile.Center - player.Center).ToRotation() - MathHelper.PiOver2);
-					offset = Vector2.Normalize(-projectile.velocity);
+					player.velocity.X *= 0.25f;
 				}
 			}
-			else 
-			{
-				offset = offset.RotatedByRandom(MathHelper.Pi);
-			}
 
-			var projectileType = ModContent.ProjectileType<GuardianHorizonLanceCounter>();
-			int damage = guardian.GetGuardianDamage(Item.damage);
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center, offset, projectileType, damage, Item.knockBack, player.whoAmI);
-			newProjectile.CritChance = guardian.GetGuardianCrit(Item.crit);
+			anchor.ai[2] = -41f;
+			anchor.ai[1] = Vector2.Normalize(targetPosition - player.MountedCenter).ToRotation() - MathHelper.PiOver2;
+			guardian.GuardianItemCharge = 0;
+			anchor.netUpdate = true;
 		}
 
 		public override bool WeaponPrefix() => true;
@@ -115,21 +102,45 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 							shouldCharge = Main.mouseRight && Main.mouseRightRelease;
 						}
 
-						if (shouldBlock && guardian.UseGuard(1, true) && proj.ai[0] <= 1f)
+						if (shouldBlock && !shouldCharge && guardian.UseGuard(1, true) && proj.ai[0] <= 0f && proj.ai[2] == 0f)
 						{
 							player.immuneTime = 0;
 							player.immune = false;
 							guardian.modPlayer.PlayerImmunity = 0;
 							guardian.GuardianItemCharge = 0f;
 							guardian.UseGuard(1);
-							proj.ai[0] = ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration + 1f;
+							proj.ai[0] = 0f;
+							proj.ai[2] = ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration;
+
+							Vector2 targetPosition = Main.MouseWorld;
+							if (targetPosition.Y < player.MountedCenter.Y + 16)
+							{
+								targetPosition.Y = player.MountedCenter.Y + 16;
+							}
+							proj.ai[1] = Vector2.Normalize(targetPosition - player.MountedCenter).ToRotation() - MathHelper.PiOver2;
+
 							anchor.NeedNetUpdate = true;
 							SoundEngine.PlaySound(SoundID.Item37, player.Center);
+							SoundEngine.PlaySound(SoundID.DoubleJump, player.Center);
+
+							for (int i = 0; i < 7; i++)
+							{
+								Dust dust = Dust.NewDustDirect(player.Center, 0, 0, DustID.Smoke);
+								dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+								dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+							}
+
+							for (int i = 0; i < 5; i++)
+							{
+								Gore gore = Gore.NewGoreDirect(player.GetSource_FromAI(), player.Center + new Vector2(Main.rand.NextFloat(-24f, 0f), Main.rand.NextFloat(-24f, 0f)), Vector2.UnitY.RotatedByRandom(MathHelper.Pi), 61 + Main.rand.Next(3));
+								gore.rotation = Main.rand.NextFloat(MathHelper.Pi);
+							}
 						}
 
-						if (shouldCharge && guardian.GuardianItemCharge == 0f)
+						if (shouldCharge && guardian.GuardianItemCharge == 0f && proj.ai[0] == 0f && proj.ai[2] >= -10f)
 						{
 							proj.ai[0] = 1f;
+							proj.ai[2] = 0f;
 							anchor.NeedNetUpdate = true;
 							guardian.GuardianItemCharge++;
 							SoundEngine.PlaySound(SoundID.Item7, player.Center);
@@ -185,17 +196,24 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			var guardian = Main.LocalPlayer.GetModPlayer<OrchidGuardian>();
-			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
+			if (tt != null)
+			{
+				string[] splitText = tt.Text.Split(' ');
+				string damageValue = splitText.First();
+				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
+			}
 
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
 			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration)))));
 
-			tooltips.Insert(index + 2, new TooltipLine(Mod, "ShieldStacks", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.HorizonLaceShieldStacks"))
+			string click = ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs ? Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.LeftClick") : Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ParryDash", click))
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});
 
-			string click = ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs ? Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.LeftClick") : Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
-			tooltips.Insert(index + 3, new TooltipLine(Mod, "ClickInfo", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Parry", click))
+			tooltips.Insert(index + 3, new TooltipLine(Mod, "Swing", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ChargeToDash", click))
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});

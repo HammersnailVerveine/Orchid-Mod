@@ -15,7 +15,7 @@ using static Terraria.Player;
 
 namespace OrchidMod.Content.Guardian
 {
-	public class GuardianQuarterstaffAnchor : OrchidModGuardianAnchor
+	public class GuardianQuarterstaffAnchor : OrchidModGuardianParryAnchor
 	{
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;

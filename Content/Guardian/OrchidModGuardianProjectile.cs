@@ -68,4 +68,5 @@ namespace OrchidMod.Content.Guardian
 	}
 
 	public abstract class OrchidModGuardianAnchor : OrchidModGuardianProjectile {} // Only used to "fake" true melee hits when hitting with those projectiles
+	public abstract class OrchidModGuardianParryAnchor : OrchidModGuardianAnchor { } // used to identify achors that can "parry" attacks
 }

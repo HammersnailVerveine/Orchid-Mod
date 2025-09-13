@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
-using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Weapons.Misc;
 using System;
 using System.Collections.Generic;
@@ -9,16 +8,14 @@ using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using static Terraria.Player;
 using Terraria.Localization;
-using Terraria.DataStructures;
 using OrchidMod.Content.General.Prefixes;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Misc
 {
-	public class GuardianHorizonLanceAnchor : OrchidModGuardianAnchor
+	public class GuardianHorizonLanceAnchor : OrchidModGuardianParryAnchor
 	{
 		public int TimeSpent = 0;
 		public bool Ding = false;

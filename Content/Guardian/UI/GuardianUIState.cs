@@ -50,6 +50,10 @@ namespace OrchidMod.Content.Guardian.UI
 		public static Texture2D textureHorizonLanceOff;
 		public static Texture2D textureHorizonLanceReady;
 
+		public static Texture2D textureGuardianNeedleOn;
+		public static Texture2D textureGuardianNeedleOff;
+		public static Texture2D textureGuardianNeedleReady;
+
 		public static Texture2D blockOn;
 		public static Texture2D blockOff;
 
@@ -95,6 +99,10 @@ namespace OrchidMod.Content.Guardian.UI
 			textureHorizonLanceOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HorizonLanceOn", AssetRequestMode.ImmediateLoad).Value;
 			textureHorizonLanceOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HorizonLanceOff", AssetRequestMode.ImmediateLoad).Value;
 			textureHorizonLanceReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/HorizonLanceReady", AssetRequestMode.ImmediateLoad).Value;
+
+			textureGuardianNeedleOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/GuardianNeedleOn", AssetRequestMode.ImmediateLoad).Value;
+			textureGuardianNeedleOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/GuardianNeedleOff", AssetRequestMode.ImmediateLoad).Value;
+			textureGuardianNeedleReady ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/GuardianNeedleReady", AssetRequestMode.ImmediateLoad).Value;
 
 			blockOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOn", AssetRequestMode.ImmediateLoad).Value;
 			blockOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/BlockOff", AssetRequestMode.ImmediateLoad).Value;
@@ -318,6 +326,35 @@ namespace OrchidMod.Content.Guardian.UI
 						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + textureHorizonLanceOn.Height - val + 3f * (player.gravDir - 1));
 						if (player.gravDir < 0) drawpos.Y -= (textureHorizonLanceOn.Height - rectangle.Height);
 						spriteBatch.Draw(textureHorizonLanceOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+					}
+
+					if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is GuardianNeedle)
+					{
+						int val = textureGuardianNeedleOn.Height;
+						if (modPlayer.GuardianItemCharge >= 180f)
+						{
+							drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
+							spriteBatch.Draw(textureGuardianNeedleReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
+						}
+						else
+						{
+							float charge = modPlayer.GuardianItemCharge;
+							while (charge < 180f)
+							{
+								charge += 7.5f;
+								val--;
+							}
+						}
+
+						Rectangle rectangle = textureGuardianNeedleOn.Bounds;
+						rectangle.Height = val;
+						rectangle.Y = textureGuardianNeedleOn.Height - val;
+
+						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + 3f * (player.gravDir - 1));
+						spriteBatch.Draw(textureGuardianNeedleOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + textureGuardianNeedleOn.Height - val + 3f * (player.gravDir - 1));
+						if (player.gravDir < 0) drawpos.Y -= (textureGuardianNeedleOn.Height - rectangle.Height);
+						spriteBatch.Draw(textureGuardianNeedleOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 					}
 
 					if (modPlayer.GuardianItemCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianRune)

@@ -5,7 +5,6 @@ using OrchidMod.Content.Gambler.Accessories;
 using OrchidMod.Content.Gambler.Weapons.Cards;
 using OrchidMod.Common.ItemDropRules.Conditions;
 using OrchidMod.Utilities;
-using System;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
@@ -19,10 +18,8 @@ using OrchidMod.Content.Guardian.Weapons.Shields;
 using OrchidMod.Content.Guardian.Accessories;
 using OrchidMod.Common.ModSystems;
 using OrchidMod.Content.Guardian.Armors.Misc;
-using OrchidMod.Content.Guardian.Armors.Misc;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using OrchidMod.Content.Guardian.Weapons.Standards;
-using OrchidMod.Content.General.Misc;
 using OrchidMod.Content.General.Armor.Vanity;
 using OrchidMod.Content.Shapeshifter.Accessories;
 using OrchidMod.Content.Shapeshifter.Misc;
@@ -31,12 +28,12 @@ using OrchidMod.Content.Guardian.Weapons.Quarterstaves;
 using OrchidMod.Content.Shapeshifter.Weapons.Sage;
 using OrchidMod.Content.Gambler.Weapons.Dice;
 using OrchidMod.Content.Alchemist.Weapons.Air;
-using static OrchidMod.Common.ItemDropRules.Conditions.OrchidDropConditions;
 using OrchidMod.Content.Alchemist.Misc.Scrolls;
 using OrchidMod.Content.Alchemist.Accessories;
 using OrchidMod.Content.Gambler.Misc;
 using OrchidMod.Content.Gambler.Decks;
 using OrchidMod.Content.Shapeshifter.Weapons.Predator;
+using OrchidMod.Content.Guardian.Weapons.Misc;
 
 namespace OrchidMod.Common.Global.NPCs
 {
@@ -137,6 +134,47 @@ namespace OrchidMod.Common.Global.NPCs
 				else
 				{
 					OrchidUtils.AddItemToShop<HockeyQuarterstaff>(shop, ref nextSlot);
+				}
+			}
+		}
+
+		public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
+		{
+			Mod thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				if (thoriumMod.IsNPCTypeEquals("Tracker", npc.type))
+				{
+					int spiderWingsType = thoriumMod.Find<ModItem>("DridersGrace").Type;
+					int trackerType = thoriumMod.Find<ModNPC>("Tracker").Type;
+					foreach (Item item in items)
+					{
+						if (item != null)
+						{
+							if (item.type == spiderWingsType)
+							{
+								/*
+								if (NPCShopDatabase.TryGetNPCShop(NPCShopDatabase.GetShopName(trackerType, "Shop"), out AbstractNPCShop shop))
+								{
+
+								}
+								*/
+
+								for (int i = 0; i < items.Length - 1; i++)
+								{
+									if (items[i] == null)
+									{
+										items[i] = new Item(ModContent.ItemType<GuardianNeedle>(), 1, 0);
+										items[i].shopCustomPrice = 8; // same as Drider's Grace
+										items[i].shopSpecialCurrency = item.shopSpecialCurrency;
+										Main.NewText("ping");
+										break;
+									}
+								}
+								break;
+							}
+						}
+					}
 				}
 			}
 		}

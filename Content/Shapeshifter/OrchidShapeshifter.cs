@@ -2,8 +2,6 @@
 using OrchidMod.Common;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Shapeshifter;
-using OrchidMod.Content.Shapeshifter.Buffs.Debuffs;
-using OrchidMod.Content.Shapeshifter.DrawLayers;
 using OrchidMod.Content.Shapeshifter.Dusts;
 using OrchidMod.Content.Shapeshifter.Projectiles.Misc;
 using System;
@@ -13,7 +11,6 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace OrchidMod
 {
