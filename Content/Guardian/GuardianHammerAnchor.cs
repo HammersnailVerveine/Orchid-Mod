@@ -183,7 +183,7 @@ namespace OrchidMod.Content.Guardian
 							{
 								if (blockedEnemy.npc == target)
 								{ // Enemy already blocked, reset the timer
-									blockedEnemy.time = BlockDuration + 60;
+									blockedEnemy.time = 120;
 									contained = true;
 									break;
 								}
