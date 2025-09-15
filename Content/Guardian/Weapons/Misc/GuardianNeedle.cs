@@ -94,11 +94,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Misc
 					if (proj != null && proj.ModProjectile is GuardianNeedleAnchor anchor && proj.ai[0] >= 0f)
 					{
 						bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
-						bool shouldCharge = Main.mouseLeft && Main.mouseLeftRelease;
+						bool shouldCharge = Main.mouseLeft;
 
 						if (ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs)
 						{
-							shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
+							shouldBlock = Main.mouseLeft;
 							shouldCharge = Main.mouseRight && Main.mouseRightRelease;
 						}
 

@@ -52,7 +52,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 			Projectile.netImportant = true;
 			Projectile.alpha = 255;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 60;
+			Projectile.localNPCHitCooldown = -1;
 			Projectile.netImportant = true;
 
 			HitBox = [new Rectangle(0, 0, 30, 30), new Rectangle(0, 0, 30, 30), new Rectangle(0, 0, 30, 30)];
