@@ -135,7 +135,35 @@ namespace OrchidMod.Content.Guardian
 						}
 					}
 
-					Rectangle hitBox = Projectile.Hitbox;
+					Rectangle hitBox = Projectile.Hitbox; // larger hitbox for projectiles
+					hitBox.X -= (int)(HammerTexture.Width / 2f) - 4;
+					hitBox.Y -= (int)(HammerTexture.Width / 2f) - 4;
+					hitBox.Width += HammerTexture.Width + 8;
+					hitBox.Height += HammerTexture.Width + 8;
+
+					for (int l = 0; l < Main.projectile.Length; l++)
+					{
+						Projectile proj = Main.projectile[l];
+						if (proj.active && proj.hostile && proj.damage > 0 && !OrchidGuardian.ProjectilesBlockBlacklist.Contains(proj.type))
+						{
+							if (proj.Hitbox.Intersects(Projectile.Hitbox))
+							{
+								bool killProj = HammerItem.OnBlockProjectile(owner, guardian, Projectile, proj);
+								guardian.OnBlockProjectile(Projectile, proj);
+								if (!FirstBlock)
+								{
+									FirstBlock = true;
+									guardian.OnBlockProjectileFirst(Projectile, proj);
+									HammerItem.OnBlockFirstProjectile(owner, guardian, Projectile, proj);
+									SoundEngine.PlaySound(SoundID.Item37, Projectile.Center);
+								}
+								if (killProj) proj.Kill();
+								SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+							}
+						}
+					}
+
+					hitBox = Projectile.Hitbox;
 					hitBox.X -= 2;
 					hitBox.Y -= 2;
 					hitBox.Width += 4;
@@ -161,7 +189,7 @@ namespace OrchidMod.Content.Guardian
 							{ // First time blocking an enemy
 								guardian.GuardianBlockedEnemies.Add(new BlockedEnemy(target, (int)Projectile.ai[0] + 60));
 								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
-								HammerItem.OnBlock(owner, guardian, target, Projectile);
+								HammerItem.OnBlockNPC(owner, guardian, target, Projectile);
 							}
 
 							if (target.knockBackResist > 0f)
@@ -177,10 +205,10 @@ namespace OrchidMod.Content.Guardian
 
 							guardian.OnBlockNPC(Projectile, target);
 							if (!FirstBlock)
-							{ // First parry stuff
+							{ // First block stuff
 								FirstBlock = true;
 								guardian.OnBlockNPCFirst(Projectile, target);
-								HammerItem.OnBlockFirst(owner, guardian, target, Projectile);
+								HammerItem.OnBlockFirstNPC(owner, guardian, target, Projectile);
 								SoundEngine.PlaySound(SoundID.Item37, owner.Center);
 							}
 						}
