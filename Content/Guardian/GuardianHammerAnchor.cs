@@ -19,6 +19,7 @@ namespace OrchidMod.Content.Guardian
 	{
 		public List<Vector2> OldPosition;
 		public List<float> OldRotation;
+		public List<int> BlockedNPCs;
 
 		public bool returning = false;
 		public OrchidModGuardianHammer HammerItem;
@@ -58,6 +59,7 @@ namespace OrchidMod.Content.Guardian
 
 			OldPosition = new List<Vector2>();
 			OldRotation = new List<float>();
+			BlockedNPCs = new List<int>();
 		}
 
 		public override void OnSpawn(IEntitySource source)
@@ -174,6 +176,8 @@ namespace OrchidMod.Content.Guardian
 						NPC target = Main.npc[k];
 						if (target.active && !target.dontTakeDamage && !target.friendly && target.Hitbox.Intersects(hitBox))
 						{
+							HammerItem.OnBlockContact(owner, guardian, target, Projectile);
+
 							bool contained = false;
 							foreach (BlockedEnemy blockedEnemy in guardian.GuardianBlockedEnemies)
 							{
@@ -187,20 +191,21 @@ namespace OrchidMod.Content.Guardian
 
 							if (!contained)
 							{ // First time blocking an enemy
-								guardian.GuardianBlockedEnemies.Add(new BlockedEnemy(target, (int)Projectile.ai[0] + 60));
+								guardian.GuardianBlockedEnemies.Add(new BlockedEnemy(target, 120));
 								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
-								HammerItem.OnBlockNPC(owner, guardian, target, Projectile);
+
+								if (!BlockedNPCs.Contains(target.whoAmI))
+								{
+									HammerItem.OnBlockNPC(owner, guardian, target, Projectile);
+									BlockedNPCs.Add(target.whoAmI);
+								}
 							}
 
-							if (target.knockBackResist > 0f)
+							if (target.knockBackResist > 0f && BlockDuration > 0)
 							{ // Push enemy if possible
-								if (BlockDuration > 0)
-								{
-									Vector2 push = target.Center - Projectile.Center;
-									push.Normalize();
-									target.velocity = push + Projectile.velocity;
-								}
-								HammerItem.OnPush(owner, guardian, target, Projectile);
+								Vector2 push = target.Center - Projectile.Center;
+								push.Normalize();
+								target.velocity = push + Projectile.velocity;
 							}
 
 							guardian.OnBlockNPC(Projectile, target);

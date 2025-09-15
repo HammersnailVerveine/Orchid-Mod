@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Guardian
 		/// <summary>Multiplier for the amount of bonus charge gained from hitting with a melee swing.</summary>
 		public float SwingChargeGain;
 		public int HitCooldown;
-		public virtual void OnPush(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon pushing an enemy with a throw (can happen repeatedly)
+		public virtual void OnBlockContact(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon pushing an enemy with a throw (can happen repeatedly)
 		public virtual void OnBlockNPC(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon blocking an enemy (1 time per throw per enemy)
 		public virtual void OnBlockFirstNPC(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon blocking the first enemy of a blocking throw
 		public virtual bool OnBlockProjectile(Player player, OrchidGuardian guardian, Projectile projectileHammer, Projectile projectileBlocked) { return true; } // Called upon blocking a proejctile, return false to prevent the projectile from being destroyed
