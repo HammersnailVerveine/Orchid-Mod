@@ -490,14 +490,24 @@ namespace OrchidMod.Content.Guardian
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{
 			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
-			if (HammerItem.TileBounce)
+			if (BlockDuration >0)
 			{
 				if (Projectile.velocity.X != oldVelocity.X)
 					Projectile.velocity.X = -oldVelocity.X;
 				if (Projectile.velocity.Y != oldVelocity.Y)
 					Projectile.velocity.Y = -oldVelocity.Y;
 			}
-			else range = -40;
+			else
+			{
+				if (HammerItem.TileBounce)
+				{
+					if (Projectile.velocity.X != oldVelocity.X)
+						Projectile.velocity.X = -oldVelocity.X;
+					if (Projectile.velocity.Y != oldVelocity.Y)
+						Projectile.velocity.Y = -oldVelocity.Y;
+				}
+				else range = -40;
+			}
 			Player player = Main.player[Projectile.owner];
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 			HammerItem.OnThrowTileCollide(player, guardian, Projectile, oldVelocity);

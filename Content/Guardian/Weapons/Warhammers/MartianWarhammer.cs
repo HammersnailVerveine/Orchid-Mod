@@ -44,6 +44,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			NPC target = null;
 			if (anchor.range == Range)
 			{
+				projectile.localNPCHitCooldown = 10;
+				projectile.ResetLocalNPCHitImmunity();
 				projectile.ai[1] = 37;
 			}
 			Vector2 teleportFrom = Vector2.Zero;

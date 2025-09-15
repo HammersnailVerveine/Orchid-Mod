@@ -102,6 +102,7 @@ namespace OrchidMod.Content.Guardian
 				projectile.friendly = true;
 				projectile.knockBack = 0f;
 				projectile.damage = (int)(projectile.damage / 3f);
+				projectile.tileCollide = true;
 
 				anchor.BlockDuration = (int)(BlockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration + 15);
 			}
