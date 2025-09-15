@@ -29,6 +29,7 @@ namespace OrchidMod.Content.Guardian
 		public bool penetrate;
 		public bool WeakHit = false;
 		public bool NeedNetUpdate = false;
+		public bool FirstBlock = false;
 		public int dir;
 		public int hitboxOffset;
 
@@ -52,8 +53,9 @@ namespace OrchidMod.Content.Guardian
 			Projectile.alpha = 255;
 			Projectile.tileCollide = false;
 			Projectile.usesLocalNPCImmunity = true;
-			Projectile.localNPCHitCooldown = 30;
-			
+			Projectile.localNPCHitCooldown = -1;
+			FirstBlock = false;
+
 			OldPosition = new List<Vector2>();
 			OldRotation = new List<float>();
 		}
@@ -97,8 +99,8 @@ namespace OrchidMod.Content.Guardian
 
 		public override void AI()
 		{
-			Player player = Main.player[Projectile.owner];
-			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+			Player owner = Main.player[Projectile.owner];
+			OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
 
 			if (HammerItem != null)
 			{
@@ -108,10 +110,9 @@ namespace OrchidMod.Content.Guardian
 					Projectile.netUpdate = true;
 				}
 
-				Projectile.rotation += Projectile.velocity.Length() / 45f * dir;
-
 				if (BlockDuration != 0)
 				{ // Blocking
+					Projectile.rotation += Projectile.velocity.Length() / 45f * dir;
 					if (BlockDuration <= HammerItem.BlockDuration * HammerItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration)
 					{ // hammers only starts to slow down 15 frames after being thrown
 						Projectile.rotation += 0.25f * dir;
@@ -123,13 +124,64 @@ namespace OrchidMod.Content.Guardian
 						}
 						else
 						{
-							float dist = Projectile.Center.Distance(player.Center);
-							Vector2 vel = Vector2.Normalize(player.Center - Projectile.Center) * HammerItem.ReturnSpeed * BlockDuration * 0.2f;
+							float dist = Projectile.Center.Distance(owner.Center);
+							Vector2 vel = Vector2.Normalize(owner.Center - Projectile.Center) * HammerItem.ReturnSpeed * BlockDuration * 0.2f;
 							Projectile.velocity = -vel;
 
-							if (dist < 30f && player.whoAmI == Main.myPlayer)
+							if (dist < 30f && owner.whoAmI == Main.myPlayer)
 							{
 								Projectile.Kill();
+							}
+						}
+					}
+
+					Rectangle hitBox = Projectile.Hitbox;
+					hitBox.X -= 2;
+					hitBox.Y -= 2;
+					hitBox.Width += 4;
+					hitBox.Height += 4;
+
+					for (int k = 0; k < Main.maxNPCs; k++)
+					{
+						NPC target = Main.npc[k];
+						if (target.active && !target.dontTakeDamage && !target.friendly && target.Hitbox.Intersects(hitBox))
+						{
+							bool contained = false;
+							foreach (BlockedEnemy blockedEnemy in guardian.GuardianBlockedEnemies)
+							{
+								if (blockedEnemy.npc == target)
+								{ // Enemy already blocked, reset the timer
+									blockedEnemy.time = BlockDuration + 60;
+									contained = true;
+									break;
+								}
+							}
+
+							if (!contained)
+							{ // First time blocking an enemy
+								guardian.GuardianBlockedEnemies.Add(new BlockedEnemy(target, (int)Projectile.ai[0] + 60));
+								SoundEngine.PlaySound(SoundID.Dig, owner.Center);
+								HammerItem.OnBlock(owner, guardian, target, Projectile);
+							}
+
+							if (target.knockBackResist > 0f)
+							{ // Push enemy if possible
+								if (BlockDuration > 0)
+								{
+									Vector2 push = target.Center - Projectile.Center;
+									push.Normalize();
+									target.velocity = push + Projectile.velocity;
+								}
+								HammerItem.OnPush(owner, guardian, target, Projectile);
+							}
+
+							guardian.OnBlockNPC(Projectile, target);
+							if (!FirstBlock)
+							{ // First parry stuff
+								FirstBlock = true;
+								guardian.OnBlockNPCFirst(Projectile, target);
+								HammerItem.OnBlockFirst(owner, guardian, target, Projectile);
+								SoundEngine.PlaySound(SoundID.Item37, owner.Center);
 							}
 						}
 					}
@@ -150,7 +202,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				else if (Projectile.ai[1] <= 0) // Held
 				{
-					if (player.dead || player.HeldItem.ModItem is not OrchidModGuardianHammer)
+					if (owner.dead || owner.HeldItem.ModItem is not OrchidModGuardianHammer)
 					{
 						if (Projectile.owner == Main.myPlayer)
 						{
@@ -161,20 +213,20 @@ namespace OrchidMod.Content.Guardian
 					{
 						if (Projectile.owner == Main.myPlayer)
 						{
-							if (Main.MouseWorld.X > player.Center.X && player.direction != 1) player.ChangeDir(1);
-							else if (Main.MouseWorld.X < player.Center.X && player.direction != -1) player.ChangeDir(-1);
+							if (Main.MouseWorld.X > owner.Center.X && owner.direction != 1) owner.ChangeDir(1);
+							else if (Main.MouseWorld.X < owner.Center.X && owner.direction != -1) owner.ChangeDir(-1);
 						}
 
-						player.itemAnimation = 1;
+						owner.itemAnimation = 1;
 						Projectile.timeLeft = 600;
-						Projectile.spriteDirection = -player.direction;
-						player.heldProj = Projectile.whoAmI;
+						Projectile.spriteDirection = -owner.direction;
+						owner.heldProj = Projectile.whoAmI;
 
 						if (guardian.GuardianItemCharge >= 180f && !Ding)
 						{
 							Ding = true;
-							if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, player.Center);
-							else SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
+							if (ModContent.GetInstance<OrchidClientConfig>().GuardianAltChargeSounds) SoundEngine.PlaySound(SoundID.DD2_BetsyFireballShot, owner.Center);
+							else SoundEngine.PlaySound(SoundID.MaxMana, owner.Center);
 						}
 
 						if (Projectile.ai[1] == 0)
@@ -185,26 +237,26 @@ namespace OrchidMod.Content.Guardian
 								return;
 							}
 
-							player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + guardian.GuardianItemCharge * 0.006f * Projectile.spriteDirection); // set arm position (90 degree offset since arm starts lowered)
-							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianItemCharge * 0.006f * Projectile.spriteDirection) - (new Vector2(player.Center.X, player.Center.Y) - new Vector2(player.Center.X, player.Center.Y).Floor());
-							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianItemCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianItemCharge) * 10f) * player.direction * 0.4f, (hitboxOffset * 2 - hitboxOffset * 0.014f * guardian.GuardianItemCharge) * 0.4f);
+							owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + guardian.GuardianItemCharge * 0.006f * Projectile.spriteDirection); // set arm position (90 degree offset since arm starts lowered)
+							Vector2 armPosition = owner.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianItemCharge * 0.006f * Projectile.spriteDirection) - (new Vector2(owner.Center.X, owner.Center.Y) - new Vector2(owner.Center.X, owner.Center.Y).Floor());
+							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianItemCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianItemCharge) * 10f) * owner.direction * 0.4f, (hitboxOffset * 2 - hitboxOffset * 0.014f * guardian.GuardianItemCharge) * 0.4f);
 
 							if (guardian.GuardianItemCharge < 210f)
 							{
-								guardian.GuardianItemCharge += 30f / HammerItem.Item.useTime * player.GetTotalAttackSpeed(DamageClass.Melee);
+								guardian.GuardianItemCharge += 30f / HammerItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee);
 
 								if (guardian.GuardianItemCharge > 210f) guardian.GuardianItemCharge = 210f;
 							}
 
-							if (player.whoAmI == Main.myPlayer)
+							if (owner.whoAmI == Main.myPlayer)
 							{
-								if (!player.controlUseItem)
+								if (!owner.controlUseItem)
 								{
 									if (guardian.GuardianItemCharge > 10f)
 									{
 										Projectile.ai[1] = 1;
 
-										Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * HammerItem.Item.shootSpeed;
+										Vector2 dir = Vector2.Normalize(Main.MouseWorld - owner.Center) * HammerItem.Item.shootSpeed;
 
 										if (guardian.ThrowLevel() < 4)
 										{
@@ -248,18 +300,20 @@ namespace OrchidMod.Content.Guardian
 								SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
 								Projectile.friendly = true;
 								ResetHitStatus(false);
-								HammerItem.OnSwing(player, guardian, Projectile, guardian.GuardianItemCharge >= 180f);
+								HammerItem.OnSwing(owner, guardian, Projectile, guardian.GuardianItemCharge >= 180f);
+								Projectile.ResetLocalNPCHitImmunity();
+								Projectile.localNPCHitCooldown = -1;
 							}
 
-							Projectile.velocity = Vector2.UnitX * 0.001f * player.direction; // So enemies are KBd in the right direction
+							Projectile.velocity = Vector2.UnitX * 0.001f * owner.direction; // So enemies are KBd in the right direction
 
 							float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
-							Vector2 arm = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianItemCharge * 0.006f) * Projectile.spriteDirection);
-							player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + (guardian.GuardianItemCharge * 0.006f + SwingOffset * (3f + guardian.GuardianItemCharge * 0.006f)) * Projectile.spriteDirection);
-							Vector2 armPosition = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianItemCharge * 0.006f + SwingOffset * (3f + guardian.GuardianItemCharge * 0.006f)) * Projectile.spriteDirection) - (new Vector2(player.Center.X, player.Center.Y) - new Vector2(player.Center.X, player.Center.Y).Floor());
-							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianItemCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianItemCharge) * 10f) * player.direction * 0.4f + (armPosition.X - arm.X) * (2.5f + hitboxOffset * 0.07f), (armPosition.Y - arm.Y) * -(1.1f + hitboxOffset * 0.03f) + (210f - guardian.GuardianItemCharge) * 0.075f);
+							Vector2 arm = owner.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianItemCharge * 0.006f) * Projectile.spriteDirection);
+							owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + (guardian.GuardianItemCharge * 0.006f + SwingOffset * (3f + guardian.GuardianItemCharge * 0.006f)) * Projectile.spriteDirection);
+							Vector2 armPosition = owner.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - (guardian.GuardianItemCharge * 0.006f + SwingOffset * (3f + guardian.GuardianItemCharge * 0.006f)) * Projectile.spriteDirection) - (new Vector2(owner.Center.X, owner.Center.Y) - new Vector2(owner.Center.X, owner.Center.Y).Floor());
+							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianItemCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianItemCharge) * 10f) * owner.direction * 0.4f + (armPosition.X - arm.X) * (2.5f + hitboxOffset * 0.07f), (armPosition.Y - arm.Y) * -(1.1f + hitboxOffset * 0.03f) + (210f - guardian.GuardianItemCharge) * 0.075f);
 
-							float toAdd = 30f / HammerItem.Item.useTime * HammerItem.SwingSpeed * player.GetTotalAttackSpeed(DamageClass.Melee);
+							float toAdd = 30f / HammerItem.Item.useTime * HammerItem.SwingSpeed * owner.GetTotalAttackSpeed(DamageClass.Melee);
 							if (Projectile.ai[1] < -40) Projectile.ai[1] += toAdd * 1.5f;
 							else
 							{
@@ -278,7 +332,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				else // Thrown
 				{
-					if (HammerItem.ThrowAI(player, guardian, Projectile, WeakThrow))
+					if (HammerItem.ThrowAI(owner, guardian, Projectile, WeakThrow))
 					{
 						if (Projectile.timeLeft < 598 && range > 0) // Delay helps preventing the hammer from instantly despawning if launched from inside a tile
 						Projectile.tileCollide = HammerItem.TileCollide;
@@ -286,16 +340,13 @@ namespace OrchidMod.Content.Guardian
 
 						if (range == HammerItem.Range)
 						{ // First frame of the throw
-							SoundEngine.PlaySound(HammerItem.Item.UseSound, player.Center);
+							SoundEngine.PlaySound(HammerItem.Item.UseSound, owner.Center);
 							ResetHitStatus(!WeakThrow);
 							Projectile.friendly = true;
-							HammerItem.OnThrow(player, guardian, Projectile, WeakThrow);
+							HammerItem.OnThrow(owner, guardian, Projectile, WeakThrow);
+							Projectile.ResetLocalNPCHitImmunity();
+							Projectile.localNPCHitCooldown = -1;
 						}
-
-						if (WeakThrow)
-							Projectile.rotation += 0.25f * dir;
-						else
-							Projectile.rotation += Projectile.velocity.Length() / 30f * (Projectile.velocity.X > 0 ? 1f : -1f) * 1.2f;
 
 						OldPosition.Add(new Vector2(Projectile.Center.X, Projectile.Center.Y));
 						OldRotation.Add(0f + Projectile.rotation);
@@ -308,8 +359,8 @@ namespace OrchidMod.Content.Guardian
 
 						if (range < 0)
 						{
-							float dist = Projectile.Center.Distance(player.Center);
-							Vector2 vel = Vector2.Normalize(player.Center - Projectile.Center) * HammerItem.ReturnSpeed;
+							float dist = Projectile.Center.Distance(owner.Center);
+							Vector2 vel = Vector2.Normalize(owner.Center - Projectile.Center) * HammerItem.ReturnSpeed;
 
 							if (range < -30)
 							{
@@ -322,7 +373,7 @@ namespace OrchidMod.Content.Guardian
 								Projectile.velocity += vel;
 							}
 
-							if (dist < 30f && player.whoAmI == Main.myPlayer)
+							if (dist < 30f && owner.whoAmI == Main.myPlayer)
 							{
 								Projectile.Kill();
 							}
@@ -332,10 +383,15 @@ namespace OrchidMod.Content.Guardian
 								Projectile.friendly = false;
 							}
 						}
+
+						if (WeakThrow)
+							Projectile.rotation += 0.25f * dir;
+						else
+							Projectile.rotation += Projectile.velocity.Length() / 30f * (Projectile.velocity.X > 0 ? 1f : -1f) * 1.2f;
 					}
 				}
 
-				HammerItem.ExtraAI(player, guardian, Projectile);
+				HammerItem.ExtraAI(owner, guardian, Projectile);
 			}
 		}
 
@@ -442,7 +498,7 @@ namespace OrchidMod.Content.Guardian
 					Projectile.netUpdate = true;
 				}
 			}
-			else
+			else if (BlockDuration == 0)
 			{ // Melee Swing
 				bool fullyCharged = guardian.GuardianItemCharge >= 180f;
 				if (FirstHit)

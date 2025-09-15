@@ -24,6 +24,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			GuardStacks = 1;
 			SwingSpeed = 1.5f;
 			ReturnSpeed = 1f;
+			BlockDuration = 210;
 		}
 
 		public override bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool weak)

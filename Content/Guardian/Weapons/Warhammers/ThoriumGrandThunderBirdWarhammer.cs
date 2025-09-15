@@ -33,6 +33,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			ReturnSpeed = 1f;
 			SwingSpeed = 1.33f;
 			SwingChargeGain = 0.75f;
+			BlockDuration = 150;
 		}
 
 		public static readonly SoundStyle ThoriumCloudSpawn = new("ThoriumMod/Sounds/Custom/GrandCloudSpawn");

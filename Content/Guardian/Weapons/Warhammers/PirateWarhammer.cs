@@ -22,6 +22,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			Range = 40;
 			SlamStacks = 3;
 			ReturnSpeed = 1.8f;
+			BlockDuration = 270;
 		}
 
 		public override void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged)

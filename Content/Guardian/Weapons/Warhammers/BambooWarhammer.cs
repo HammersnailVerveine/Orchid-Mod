@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			ReturnSpeed = 1.5f;
 			SwingSpeed = 1.5f;
 			HitCooldown = 15;
+			BlockDuration = 120;
 		}
 
 		public override void AddRecipes()

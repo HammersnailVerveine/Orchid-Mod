@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			GuardStacks = 1;
 			ReturnSpeed = 0.8f;
 			SwingChargeGain = 1.5f;
+			BlockDuration = 240;
 		}
 
 		public override void AddRecipes()

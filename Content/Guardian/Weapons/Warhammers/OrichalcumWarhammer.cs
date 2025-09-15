@@ -26,6 +26,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			HitCooldown = 20;
 			Penetrate = true;
 			TileBounce = true;
+			BlockDuration = 240;
 		}
 
 		public override void OnSwing(Player player, OrchidGuardian guardian, Projectile projectile, bool FullyCharged)

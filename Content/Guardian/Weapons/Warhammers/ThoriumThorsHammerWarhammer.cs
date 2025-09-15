@@ -24,6 +24,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			SwingSpeed = 1.5f;
 			HitCooldown = 20;
 			Penetrate = true;
+			BlockDuration = 255;
 		}
 
 		//public override bool CanRightClick() => true;

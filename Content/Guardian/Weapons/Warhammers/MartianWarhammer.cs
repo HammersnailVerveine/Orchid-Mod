@@ -27,6 +27,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			HitCooldown = 15;
 			TileCollide = false;
 			Penetrate = true;
+			BlockDuration = 360;
 		}
 
 		public override void ExtraAI(Player player, OrchidGuardian guardian, Projectile projectile)

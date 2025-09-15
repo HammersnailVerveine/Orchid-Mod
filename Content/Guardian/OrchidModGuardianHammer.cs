@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Utilities;
@@ -18,15 +17,18 @@ namespace OrchidMod.Content.Guardian
 		public int Range;
 		public int SlamStacks;
 		public int GuardStacks;
+		public int BlockDuration;
 		public bool Penetrate;
 		public bool TileCollide;
 		public bool TileBounce;
 		public float ReturnSpeed;
-		public float BlockDuration;
 		public float SwingSpeed;
 		/// <summary>Multiplier for the amount of bonus charge gained from hitting with a melee swing.</summary>
 		public float SwingChargeGain;
 		public int HitCooldown;
+		public virtual void OnPush(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon pushing an enemy with a throw (can happen repeatedly)
+		public virtual void OnBlock(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon blocking an enemy (1 time per throw per enemy)
+		public virtual void OnBlockFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon blocking the first enemy of a blocking throw
 		public virtual void OnMeleeHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged) { } // Called upon landing any melee swing hit
 		public virtual void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged) { } // Called upon landing the first hit of a melee swing
 		public virtual void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { } // Called upon landing any throw hit
@@ -91,9 +93,14 @@ namespace OrchidMod.Content.Guardian
 			Projectile projectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, Vector2.Zero, projType, damage, Item.knockBack, player.whoAmI);
 			projectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 
-			if (Main.mouseRight && Main.mouseRightRelease && projectile.ModProjectile is GuardianHammerAnchor anchor)
+			if (Main.mouseRight && Main.mouseRightRelease && projectile.ModProjectile is GuardianHammerAnchor anchor && guardian.UseGuard(1, true))
 			{
-				projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * Item.shootSpeed;
+				guardian.UseGuard(1);
+				projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * (10f + (Item.shootSpeed - 10f) * 0.2f);
+				projectile.friendly = true;
+				projectile.knockBack = 0f;
+				projectile.damage = (int)(projectile.damage / 3f);
+
 				anchor.BlockDuration = (int)(BlockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration + 15);
 			}
 
@@ -105,19 +112,17 @@ namespace OrchidMod.Content.Guardian
 		{
 			int projType = ProjectileType<GuardianHammerAnchor>();
 
-			/*
 			if (Main.mouseRight && Main.mouseRightRelease)
 			{
-				var proj = Main.projectile.First(i => i.active && i.owner == player.whoAmI && i.type == projType && i.ai[2] > 0);
+				var proj = Main.projectile.FirstOrDefault(i => i.active && i.owner == player.whoAmI && i.type == projType && i.ModProjectile is GuardianHammerAnchor warhammer && warhammer.BlockDuration > 0);
 				if (proj != null && proj.ModProjectile is GuardianHammerAnchor warhammer)
 				{ // recalls existing blocking warhammers when right clicking
-					proj.ai[2] = 0f;
+					warhammer.BlockDuration = -30; // -30 instead of -1 so they return faster
 					proj.netUpdate = true;
 				}
 			}
-			*/
 
-			if (player.ownedProjectileCounts[projType] > 0) return false;
+			if (player.ownedProjectileCounts[projType] > 0 || (!(Main.mouseRight && Main.mouseRightRelease && player.GetModPlayer<OrchidGuardian>().UseGuard(1, true)) && !Main.mouseLeft)) return false;
 			return base.CanUseItem(player);
 		}
 

@@ -416,7 +416,7 @@ namespace OrchidMod
 		{
 			foreach (BlockedEnemy blockedEnemy in GuardianBlockedEnemies)
 			{
-				if (blockedEnemy.npc.whoAmI == npc.whoAmI)
+				if (blockedEnemy.npc.whoAmI == npc.whoAmI && !GuardianGauntletParry)
 				{
 					return false;
 				}
@@ -650,7 +650,10 @@ namespace OrchidMod
 				}
 			}
 
-			AddSlam(toAdd);
+			if (anchor.ModProjectile is not GuardianHammerAnchor)
+			{
+				AddSlam(toAdd);
+			}
 		}
 
 		public void OnBlockProjectileFirst(Projectile anchor, Projectile blockedProjectil0e, int toAdd = 1, bool parry = false)
