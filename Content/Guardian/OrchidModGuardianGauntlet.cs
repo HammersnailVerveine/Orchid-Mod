@@ -42,8 +42,8 @@ namespace OrchidMod.Content.Guardian
 
 		public float StrikeVelocity = 10f; // Initial speed of the punches
 		public int ParryDuration = 60; // Duration of a right click parry in frames
-		public int ParryDashDuration = 4; // Duration in frames of the parry dash
-		public float ParryDashSpeed = 6f; // Velocity of the parry dash
+		public int ParryDashDuration = 0; // Duration in frames of the parry dash
+		public float ParryDashSpeed = 0f; // Velocity of the parry dash
 
 		public sealed override void SetDefaults()
 		{
