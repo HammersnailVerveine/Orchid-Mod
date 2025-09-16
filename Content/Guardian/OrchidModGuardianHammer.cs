@@ -98,13 +98,13 @@ namespace OrchidMod.Content.Guardian
 			if (Main.mouseRight && Main.mouseRightRelease && projectile.ModProjectile is GuardianHammerAnchor anchor && guardian.UseGuard(1, true))
 			{
 				guardian.UseGuard(1);
-				projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * (10f + (Item.shootSpeed - 10f) * 0.2f);
+				projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * (10f + (Item.shootSpeed - 10f) * 0.35f);
 				projectile.friendly = true;
 				projectile.knockBack = 0f;
 				projectile.damage = (int)(projectile.damage / 3f);
 				projectile.tileCollide = true;
 
-				anchor.BlockDuration = (int)(BlockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration + 15);
+				anchor.BlockDuration = (int)(BlockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration + 10);
 			}
 
 			guardian.GuardianItemCharge = 0f;

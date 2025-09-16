@@ -126,8 +126,14 @@ namespace OrchidMod.Content.Guardian
 						}
 						else
 						{
+							Projectile.tileCollide = false;
 							float dist = Projectile.Center.Distance(owner.Center);
 							Vector2 vel = Vector2.Normalize(owner.Center - Projectile.Center) * HammerItem.ReturnSpeed * BlockDuration * 0.2f;
+							if (vel.Length() > 48f)
+							{
+								vel = Vector2.Normalize(vel) * 48f;
+							}
+
 							Projectile.velocity = -vel;
 
 							if (dist < 30f && owner.whoAmI == Main.myPlayer)
