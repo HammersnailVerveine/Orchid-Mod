@@ -5,10 +5,9 @@ using OrchidMod.Content.Guardian.Buffs;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Content.Guardian.Projectiles.Standards;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
-using OrchidMod.Content.Guardian.Weapons.Misc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
 using Terraria.Audio;
@@ -150,6 +149,14 @@ namespace OrchidMod
 				ProjectileID.PearlSandBallFalling,
 				ProjectileID.AshBallFalling
 			};
+
+			Mod thoriumMod = OrchidMod.ThoriumMod;
+			if (thoriumMod != null)
+			{
+				ProjectilesBlockBlacklist.Add(thoriumMod.Find<ModProjectile>("OctopusArm").Type);
+				ProjectilesBlockBlacklist.Add(thoriumMod.Find<ModProjectile>("GraniteEradicatorArm").Type);
+				ProjectilesBlockBlacklist.Add(thoriumMod.Find<ModProjectile>("KrakenArm").Type);
+			}
 		}
 
 		public override void Initialize()

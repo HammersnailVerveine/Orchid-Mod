@@ -116,7 +116,7 @@ namespace OrchidMod.Content.Guardian
 				{ // Blocking
 					Projectile.rotation += Projectile.velocity.Length() / 45f * dir;
 					if (BlockDuration <= HammerItem.BlockDuration * HammerItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration)
-					{ // hammers only starts to slow down 15 frames after being thrown
+					{ // hammers only starts to slow down 10 frames after being thrown
 						Projectile.rotation += 0.25f * dir;
 
 						if (BlockDuration > 0)
