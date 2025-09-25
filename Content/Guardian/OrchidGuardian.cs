@@ -7,7 +7,6 @@ using OrchidMod.Content.Guardian.Projectiles.Standards;
 using OrchidMod.Content.Guardian.Weapons.Gauntlets;
 using System;
 using System.Collections.Generic;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.Localization;
 using Terraria.Audio;
@@ -89,6 +88,7 @@ namespace OrchidMod
 		public bool GuardianStandardBuffer = false; // used to delay the deactivation of various standards effects by 1 frame
 		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
 		public int GuardianCounterTime = 0;
+		public int GuardianShieldSpikeReflect = 5; // Shgield spikes only fire a projectile if this is >0
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
 		public Projectile GuardianCurrentStandardAnchor;
@@ -254,6 +254,11 @@ namespace OrchidMod
 				{
 					GuardianBlockedEnemies.Remove(blockedEnemy);
 				}
+			}
+
+			if (modPlayer.Timer % 30 == 0 && GuardianShieldSpikeReflect < 5)
+			{
+				GuardianShieldSpikeReflect++;
 			}
 
 			if (Player.HeldItem.ModItem is not OrchidModGuardianItem) GuardianItemCharge = 0f;
@@ -692,52 +697,62 @@ namespace OrchidMod
 
 			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor)
 			{
-				if (GuardianSpikeDamage > 0)
+				if (shieldAnchor.ShieldItem.ModItem is OrchidModGuardianShield shield)
 				{
-					int damage = Math.Max(GetGuardianDamage(Player.statDefense * GuardianSpikeDamage), 1);
-					if (GuardianSpikeTemple)
+					shield.Reflect(Player, anchor, blockedProjectile, ref GuardianShieldSpikeReflect);
+				}
+
+				if (GuardianShieldSpikeReflect > 0)
+				{
+					GuardianShieldSpikeReflect--;
+
+					if (GuardianSpikeDamage > 0)
 					{
-						int type = ModContent.ProjectileType<TempleSpikeProj>();
-						Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center);
-						Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center + dir * 2f, dir, type, damage, 1f, Player.whoAmI);
-						projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
-						SoundEngine.PlaySound(SoundID.Item91.WithPitchOffset(0.2f).WithVolumeScale(0.6f), anchor.Center);
-						SoundEngine.PlaySound(SoundID.Item68.WithPitchOffset(0.6f).WithVolumeScale(0.5f), anchor.Center);
-					}
-					else if (GuardianSpikeMech)
-					{
-						int type = ModContent.ProjectileType<MechSpikeProj>();
-						Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center);
-						NPC target = null;
-						float distanceClosest = 400f;
-						foreach (NPC npc in Main.npc)
+						int damage = Math.Max(GetGuardianDamage(Player.statDefense * GuardianSpikeDamage), 1);
+						if (GuardianSpikeTemple)
 						{
-							float distance = npc.Center.Distance(anchor.Center);
-							if (OrchidModProjectile.IsValidTarget(npc) && distance < distanceClosest)
+							int type = ModContent.ProjectileType<TempleSpikeProj>();
+							Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center);
+							Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center + dir * 2f, dir, type, damage, 1f, Player.whoAmI);
+							projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+							SoundEngine.PlaySound(SoundID.Item91.WithPitchOffset(0.2f).WithVolumeScale(0.6f), anchor.Center);
+							SoundEngine.PlaySound(SoundID.Item68.WithPitchOffset(0.6f).WithVolumeScale(0.5f), anchor.Center);
+						}
+						else if (GuardianSpikeMech)
+						{
+							int type = ModContent.ProjectileType<MechSpikeProj>();
+							Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center);
+							NPC target = null;
+							float distanceClosest = 400f;
+							foreach (NPC npc in Main.npc)
 							{
-								float targetRotOffs = (npc.Center - anchor.Center).ToRotation() - dir.ToRotation();
-								if (targetRotOffs > MathHelper.Pi) targetRotOffs -= MathHelper.TwoPi;
-								if (Math.Abs(targetRotOffs) < MathHelper.PiOver4)
+								float distance = npc.Center.Distance(anchor.Center);
+								if (OrchidModProjectile.IsValidTarget(npc) && distance < distanceClosest)
 								{
-									target = npc;
-									distanceClosest = distance;
+									float targetRotOffs = (npc.Center - anchor.Center).ToRotation() - dir.ToRotation();
+									if (targetRotOffs > MathHelper.Pi) targetRotOffs -= MathHelper.TwoPi;
+									if (Math.Abs(targetRotOffs) < MathHelper.PiOver4)
+									{
+										target = npc;
+										distanceClosest = distance;
+									}
 								}
 							}
+							if (target != null) dir = new Vector2(1, 0).RotatedBy((target.Center - anchor.Center).ToRotation());
+							dir = dir.RotatedByRandom(0.1f);
+							Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center, dir * 12f, type, damage, 1f, Player.whoAmI);
+							projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+							projectile.rotation = dir.ToRotation() - MathHelper.PiOver2;
+							SoundEngine.PlaySound(SoundID.Item12.WithVolumeScale(0.6f), anchor.Center);
 						}
-						if (target != null) dir = new Vector2(1, 0).RotatedBy((target.Center - anchor.Center).ToRotation());
-						dir = dir.RotatedByRandom(0.1f);
-						Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center, dir * 12f, type, damage, 1f, Player.whoAmI);
-						projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
-						projectile.rotation = dir.ToRotation() - MathHelper.PiOver2;
-						SoundEngine.PlaySound(SoundID.Item12.WithVolumeScale(0.6f), anchor.Center);
-					}
-					else if (GuardianSpikeDungeon)
-					{ // For some god forsaken reason, any projectile spawned here is destroyed on frame 1
-						int type = ModContent.ProjectileType<WaterSpikeProjAlt>();
-						Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center) * 10f;
-						Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center, dir, type, damage, 1f, Player.whoAmI);
-						projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
-						SoundEngine.PlaySound(SoundID.Item21.WithPitchOffset(0.5f).WithVolumeScale(0.7f), anchor.Center);
+						else if (GuardianSpikeDungeon)
+						{ // For some god forsaken reason, any projectile spawned here is destroyed on frame 1
+							int type = ModContent.ProjectileType<WaterSpikeProjAlt>();
+							Vector2 dir = Vector2.Normalize(anchor.Center - Player.Center) * 10f;
+							Projectile projectile = Projectile.NewProjectileDirect(anchor.GetSource_FromAI(), anchor.Center, dir, type, damage, 1f, Player.whoAmI);
+							projectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>());
+							SoundEngine.PlaySound(SoundID.Item21.WithPitchOffset(0.5f).WithVolumeScale(0.7f), anchor.Center);
+						}
 					}
 				}
 			}

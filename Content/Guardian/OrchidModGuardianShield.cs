@@ -4,7 +4,6 @@ using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -36,6 +35,8 @@ namespace OrchidMod.Content.Guardian
 		/// <summary>Called when a projectile collides with the shield during a block. Return <c>true</c> to destroy the projectile. Defaults to <c>true</c>.</summary>
 		/// <returns>Whether to destroy the projectile.</returns>
 		public virtual bool Block(Player player, Projectile shield, Projectile projectile) { return true; }
+		/// <summary>Called when a projectile collides with the shield during a block, this should be use to spawn projectiles created by reflecting projectiles.
+		public virtual void Reflect(Player player, Projectile shield, Projectile projectile, ref int GuardianShieldSpikeReflect) {}
 		/// <summary>Called on the first frame of a block.</summary>
 		public virtual void BlockStart(Player player, Projectile shield) { }
 
