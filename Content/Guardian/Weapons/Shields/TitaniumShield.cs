@@ -23,6 +23,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			shouldFlip = true;
 		}
 
+		public override void HoldItemFrame(Player player)
+		{
+			player.GetModPlayer<OrchidGuardian>().GuardianCounter = true;
+		}
+
 		public override void Protect(Player player, Projectile shield)
 		{
 			player.GetModPlayer<OrchidPlayer>().SpawnTitaniumShards(shield.GetSource_FromThis());

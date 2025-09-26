@@ -162,11 +162,11 @@ namespace OrchidMod.Content.Guardian.UI
 					bool check = modPlayer.GuardianSlam > i;
 					Texture2D texture = check ? textureSlamOn : textureSlamOff;
 					drawpos = new Vector2(position.X - offSet + 18 * i, position.Y + 18 * player.gravDir);
+					Vector2 drawposHighlight = new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16 * player.gravDir + 2f * (player.gravDir - 1));
 					spriteBatch.Draw(texture, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 					if (modPlayer.SlamCostUI > i)
 					{
-						Vector2 drawposCost = new Vector2(position.X - offSet - 2 + 18 * i, position.Y + 16 * player.gravDir + 2f * (player.gravDir - 1));
-						spriteBatch.Draw(textureSlamHighlight, drawposCost, null, (check ? Color.White * 0.8f : Color.DarkGray) * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
+						spriteBatch.Draw(textureSlamHighlight, drawposHighlight, null, (check ? Color.White * 0.8f : Color.DarkGray) * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
 					}
 					if (modPlayer.GuardianSlam - 1 == i && modPlayer.GuardianSlamRecharging < 0)
 					{
@@ -178,6 +178,15 @@ namespace OrchidMod.Content.Guardian.UI
 					{
 						float flash = 0.5f + (float)Math.Sin((player.miscCounterNormalized + modPlayer.GuardianSlamRecharging * 1.5f) * 2 * MathHelper.TwoPi) * 0.1f;
 						spriteBatch.Draw(textureSlamOn, drawpos, new Rectangle(0, 0, (int)(modPlayer.GuardianSlamRecharging * textureSlamOn.Width + 0.5f), textureSlamOn.Height), new Color(flash, flash, flash, 0.5f));
+					}
+					if (modPlayer.GuardianCounter && modPlayer.GuardianCounterTime > 0 && ((modPlayer.GuardianSlam <= 1 && i == 0) || modPlayer.GuardianSlam - 1 == i))
+					{
+						float flash = 0.4f + (float)Math.Sin(Main.timeForVisualEffects * 0.1f) * 0.2f;
+						Color color = !modPlayer.GuardianCounterHorizon
+							? new Color(flash, 0, 0, 1f - flash)
+							: GuardianHorizonLanceAnchor.GetHorizonGlowColor(Math.Sin(Main.timeForVisualEffects * 0.05f), 0.4f + (float)Math.Cos(Main.timeForVisualEffects * 0.1f) * 0.1f, 0.8f - flash);
+						int chargeHeight = (int)(Math.Min(modPlayer.GuardianCounterTime / 30f, 1f) * textureSlamHighlight.Height);
+						spriteBatch.Draw(textureSlamHighlight, drawposHighlight + new Vector2(0, textureSlamHighlight.Height - chargeHeight), new Rectangle(0, textureSlamHighlight.Height - chargeHeight, textureSlamHighlight.Width, chargeHeight), color);
 					}
 				}
 

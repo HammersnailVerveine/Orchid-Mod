@@ -87,7 +87,12 @@ namespace OrchidMod
 		public bool GuardianGauntletParry2 = false; // Player is currently parrying with a gauntlet (1 frame buffer)
 		public bool GuardianStandardBuffer = false; // used to delay the deactivation of various standards effects by 1 frame
 		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
+		/// <summary> Allows the player to trigger counterattack effects. Set when able to use an item that has counterattack effects. Use GuardianCounterTime to check for counterattack eligibility. </summary>
+		public bool GuardianCounter;
+		/// <summary> Timer for performing a counterattack if GuardianCounter is true. Set to 60 after guarding with a gauntlet, or to the block or counter duration after guarding with a pavise or quarterstaff. Will always be 0 if GuardianCounter is false. </summary>
 		public int GuardianCounterTime = 0;
+		/// <summary> Makes the GuardianCounter indicator flash Horizon colors instead of red. </summary>
+		public bool GuardianCounterHorizon;
 		public int GuardianShieldSpikeReflect = 5; // Shgield spikes only fire a projectile if this is >0
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
@@ -243,7 +248,14 @@ namespace OrchidMod
 				GuardianSlamRecharging++;
 			}
 
-			if (GuardianCounterTime > 0) GuardianCounterTime--;
+			if (GuardianCounter)
+			{
+				if (GuardianCounterTime > 0) GuardianCounterTime--;
+				GuardianCounter = false;
+				GuardianCounterHorizon = false;
+			}
+			else GuardianCounterTime = 0;
+
 			GuardianDisplayUI--;
 
 			for (int i = GuardianBlockedEnemies.Count - 1; i >= 0; i--)
@@ -638,12 +650,15 @@ namespace OrchidMod
 			}
 
 			//set counterattack time. unsure if this is the best place to put this?
-			if (anchor.ModProjectile is GuardianShieldAnchor)
-				GuardianCounterTime = (int)anchor.ai[0];
-			else if (anchor.ModProjectile is GuardianGauntletAnchor)
-				GuardianCounterTime = 60;
-			else if (anchor.ModProjectile is GuardianQuarterstaffAnchor && Player.inventory[Player.selectedItem].ModItem is OrchidModGuardianQuarterstaff qs)
-				GuardianCounterTime = (int)(40 / (qs.CounterSpeed * Player.GetTotalAttackSpeed<MeleeDamageClass>()));
+			if (GuardianCounter)
+			{
+				if (anchor.ModProjectile is GuardianShieldAnchor)
+					GuardianCounterTime = (int)anchor.ai[0];
+				else if (anchor.ModProjectile is GuardianGauntletAnchor)
+					GuardianCounterTime = 60;
+				else if (anchor.ModProjectile is GuardianQuarterstaffAnchor && Player.inventory[Player.selectedItem].ModItem is OrchidModGuardianQuarterstaff qs)
+					GuardianCounterTime = (int)(40 / (qs.CounterSpeed * Player.GetTotalAttackSpeed<MeleeDamageClass>()));
+			}
 		}
 
 		public void OnBlockNPCFirst(Projectile anchor, NPC target, int toAdd = 1, bool parry = false)
