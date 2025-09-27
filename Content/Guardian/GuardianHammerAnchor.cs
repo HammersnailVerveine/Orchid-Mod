@@ -31,7 +31,6 @@ namespace OrchidMod.Content.Guardian
 		public bool WeakHit = false;
 		public bool NeedNetUpdate = false;
 		public bool FirstBlock = false;
-		public int dir;
 		public int hitboxOffset;
 
 		public int BlockDuration = 0;
@@ -95,8 +94,6 @@ namespace OrchidMod.Content.Guardian
 				Projectile.netUpdate = true;
 				Projectile.localNPCHitCooldown = hammerItem.HitCooldown;
 			}
-
-			dir = (Projectile.velocity.X > 0 ? 1 : -1);
 		}
 
 		public override void AI()
@@ -114,10 +111,10 @@ namespace OrchidMod.Content.Guardian
 
 				if (BlockDuration != 0)
 				{ // Blocking
-					Projectile.rotation += Projectile.velocity.Length() / 45f * dir;
+					Projectile.rotation += Projectile.velocity.Length() / 45f * (Projectile.velocity.X > 0 ? 1 : -1);
 					if (BlockDuration <= HammerItem.BlockDuration * HammerItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration)
 					{ // hammers only starts to slow down 10 frames after being thrown
-						Projectile.rotation += 0.25f * dir;
+						Projectile.rotation += 0.25f * (Projectile.velocity.X > 0 ? 1 : -1);
 
 						if (BlockDuration > 0)
 						{
@@ -226,7 +223,7 @@ namespace OrchidMod.Content.Guardian
 					}
 
 					OldPosition.Add(new Vector2(Projectile.Center.X, Projectile.Center.Y));
-					OldRotation.Add(0f + Projectile.rotation);
+					OldRotation.Add(Projectile.rotation + MathHelper.PiOver2);
 					if (OldPosition.Count > 10)
 						OldPosition.RemoveAt(0);
 					if (OldRotation.Count > 10)
@@ -388,7 +385,7 @@ namespace OrchidMod.Content.Guardian
 						}
 
 						OldPosition.Add(new Vector2(Projectile.Center.X, Projectile.Center.Y));
-						OldRotation.Add(0f + Projectile.rotation);
+						OldRotation.Add(Projectile.rotation);
 						if (OldPosition.Count > 5)
 							OldPosition.RemoveAt(0);
 						if (OldRotation.Count > 5)
@@ -424,7 +421,7 @@ namespace OrchidMod.Content.Guardian
 						}
 
 						if (WeakThrow)
-							Projectile.rotation += 0.25f * dir;
+							Projectile.rotation += 0.25f * (Projectile.velocity.X > 0 ? 1 : -1);
 						else
 							Projectile.rotation += Projectile.velocity.Length() / 30f * (Projectile.velocity.X > 0 ? 1f : -1f) * 1.2f;
 					}
@@ -575,24 +572,28 @@ namespace OrchidMod.Content.Guardian
 
 		public override void ReceiveExtraAI(BinaryReader reader)
 		{
-			Item item = new Item();
 			int itemtype = reader.ReadInt32();
 			range = reader.ReadInt32();
 			BlockDuration = reader.ReadInt32();
 
 			if (HammerItem == null)
 			{
+				Main.player[Projectile.owner].GetModPlayer<OrchidGuardian>().GuardianItemCharge = 0f;
+
+				Item item = new Item();
 				item.SetDefaults(itemtype);
 				if (item.ModItem is OrchidModGuardianHammer hammerItem)
 				{
 					HammerItem = hammerItem;
 
-					/*if (Main.netMode != NetmodeID.Server)
+					if (Main.netMode != NetmodeID.Server)
 					{
 						HammerTexture = TextureAssets.Item[hammerItem.Item.type].Value;
-						Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
-						Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
-					}*/
+						hitboxOffset = (int)(HammerTexture.Width * hammerItem.Item.scale / 2f);
+						DrawOriginOffsetX = DrawOriginOffsetY = hitboxOffset;
+						//Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
+						//Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
+					}
 
 					Projectile.scale = hammerItem.Item.scale;
 

@@ -105,6 +105,7 @@ namespace OrchidMod.Content.Guardian
 				projectile.tileCollide = true;
 
 				anchor.BlockDuration = (int)(BlockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration + 10);
+				anchor.NeedNetUpdate = true;
 			}
 
 			guardian.GuardianItemCharge = 0f;
