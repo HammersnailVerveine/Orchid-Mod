@@ -87,6 +87,11 @@ namespace OrchidMod.Common.Global.NPCs
 						shop.Add(ItemType<ShapeshifterHairpin>(), OrchidConditions.EnableContentShapeshifter);
 					}
 					break;
+				case NPCID.GoblinTinkerer:
+					{
+						shop.Add(ItemType<GoblinSpike>());
+					}
+					break;
 			}
 
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -229,7 +234,7 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.RuneWizard:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<RuneRune>(), 2));
+						npcLoot.Add(ItemDropRule.Common(ItemType<RuneRune>()));
 					}
 					break;
 				case NPCID.Everscream:
@@ -303,7 +308,7 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.Paladin:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<PaladinGauntlet>(), 15));
+						npcLoot.Add(ItemDropRule.ExpertGetsRerolls(ItemType<PaladinGauntlet>(), 10, 2));
 					}
 					break;
 				case NPCID.DevourerHead:
@@ -323,7 +328,7 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.AngryBonesBigHelmet:
 				case NPCID.AngryBonesBigMuscle:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<BadgeBattlesPast>(), 20));
+						npcLoot.Add(ItemDropRule.Common(ItemType<BadgeBattlesPast>(), 50));
 					}
 					break;
 				case NPCID.WallCreeper:
@@ -421,6 +426,8 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.PirateShip:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DeckDog>(), 200).OnFailedRoll(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DeckPirate>(), 10)));
+						npcLoot.Add(ItemDropRule.OneFromOptionsWithNumerator(4, ItemType<PirateWarhammer>(), ItemType<PirateStandard>()));
+						npcLoot.Add(ItemDropRule.Common(ItemType<PirateStandard>(), 10));
 					}
 					break;
 				case NPCID.QueenSlimeBoss:

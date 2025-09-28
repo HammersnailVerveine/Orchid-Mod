@@ -127,9 +127,9 @@ namespace OrchidMod.Common.ModSystems
 
 		private void placeVerbena()
 		{
-			int amount = (int)(Main.maxTilesX * Main.maxTilesY * 0.0004f);
+			int amount = (int)(Main.maxTilesX * Main.maxTilesY * 0.0000004f);
 			int failsafe = 0;
-			while(failsafe < 5000 && amount > 0)
+			while(failsafe < 40000 && amount > 0)
 			{
 				failsafe++;
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
