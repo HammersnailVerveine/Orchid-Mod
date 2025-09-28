@@ -26,6 +26,10 @@ namespace OrchidMod.Common
 
 		[DefaultValue(false)]
 		[BackgroundColor(151, 120, 79)]
+		public bool GuardianChargeCursor { get; set; }
+
+		[DefaultValue(false)]
+		[BackgroundColor(151, 120, 79)]
 		public bool GuardianBlockCancelChain { get; set; }
 
 		[DefaultValue(false)]

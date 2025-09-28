@@ -122,6 +122,14 @@ namespace OrchidMod.Content.Guardian
 						Projectile.Kill();
 						return;
 					}
+					else
+					{
+						Item heldItem = owner.HeldItem;
+						if (heldItem.damage > 0 && heldItem.ModItem is not OrchidModGuardianItem && (heldItem.pick + heldItem.hammer + heldItem.axe == 0) && Projectile.ai[1] > 277f)
+						{ // owner is not holding a guardian item, standard fades a lot faster
+							Projectile.ai[1] -= 2f;
+						}
+					}
 				}
 				else
 				{
@@ -206,13 +214,26 @@ namespace OrchidMod.Content.Guardian
 
 						guardian.GuardianCurrentStandardAnchor = Projectile;
 						guardian.GuardianStandardBuffer = true;
-						Projectile.ai[1]--;
+
+						if (!heldStandard)
+						{
+							Projectile.ai[1]--;
+						}
+
 						if (Projectile.ai[1] <= 0)
 						{
-							Projectile.ai[1] = 0;
+							if (Projectile.ai[2] > 0)
+							{ // Standard is reinforced -> goes back to charged
+								Projectile.ai[1] = 245f; // magic number so it looks good with the UI sin(). This is almost exactly 4 seconds
+								SoundEngine.PlaySound(SoundID.LiquidsWaterLava, Projectile.Center);
+							}
+							else
+							{
+								Projectile.ai[1] = 0;
+								BuffItem = null;
+								if (!heldStandard && IsLocalOwner) Projectile.Kill();
+							}
 							Projectile.ai[2] = 0;
-							BuffItem = null;
-							if (!heldStandard && IsLocalOwner) Projectile.Kill();
 						}
 
 						buffItem.ExtraAIStandardWorn(this, Projectile, owner, guardian);
@@ -225,7 +246,7 @@ namespace OrchidMod.Content.Guardian
 					{ // Being charged by the player
 						if (guardian.GuardianItemCharge < 180f)
 						{
-							guardian.GuardianItemCharge += 30f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee);
+							guardian.GuardianItemCharge += 45f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee);
 							if (guardian.GuardianItemCharge > 180f) guardian.GuardianItemCharge = 180f;
 						}
 
@@ -260,7 +281,11 @@ namespace OrchidMod.Content.Guardian
 								}
 
 								BuffItem = StandardItem;
-								Projectile.ai[1] = guardianItem.StandardDuration * guardian.GuardianStandardTimer;
+								Projectile.ai[1] += guardianItem.StandardDuration * guardian.GuardianStandardTimer;
+								if (Projectile.ai[1] > (guardianItem.StandardDuration * guardian.GuardianStandardTimer) * 2f)
+								{ // standards duration stacks up to 200%
+									Projectile.ai[1] = (guardianItem.StandardDuration * guardian.GuardianStandardTimer) * 2f;
+								}
 
 								foreach (Projectile proj in Main.projectile)
 								{
@@ -335,7 +360,7 @@ namespace OrchidMod.Content.Guardian
 
 			var player = Main.player[Projectile.owner];
 			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
-			if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not OrchidModGuardianStandard) color *= Projectile.ai[1] / 30f;
+			if (Projectile.ai[1] < 30f && player.HeldItem.ModItem is not OrchidModGuardianStandard && !Reinforced) color *= Projectile.ai[1] / 30f;
 
 			if (player.HeldItem.ModItem is not OrchidModGuardianStandard && Worn) guardianItem = (OrchidModGuardianStandard)BuffItem.ModItem;
 

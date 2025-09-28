@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;

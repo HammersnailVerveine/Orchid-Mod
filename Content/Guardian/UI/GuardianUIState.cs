@@ -59,6 +59,7 @@ namespace OrchidMod.Content.Guardian.UI
 
 		public static Texture2D textureIconStandardOn;
 		public static Texture2D textureIconStandardOff;
+		public static Texture2D textureIconStandardHighlight;
 		public static Texture2D textureIconRuneOn;
 		public static Texture2D textureIconRuneOff;
 
@@ -109,6 +110,7 @@ namespace OrchidMod.Content.Guardian.UI
 
 			textureIconStandardOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconStandardOn", AssetRequestMode.ImmediateLoad).Value;
 			textureIconStandardOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconStandardOff", AssetRequestMode.ImmediateLoad).Value;
+			textureIconStandardHighlight ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconStandardHighlight", AssetRequestMode.ImmediateLoad).Value;
 			textureIconRuneOn ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconRuneOn", AssetRequestMode.ImmediateLoad).Value;
 			textureIconRuneOff ??= ModContent.Request<Texture2D>("OrchidMod/Content/Guardian/UI/Textures/IconRuneOff", AssetRequestMode.ImmediateLoad).Value;
 
@@ -129,11 +131,16 @@ namespace OrchidMod.Content.Guardian.UI
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
+				bool drawAtCursor = ModContent.GetInstance<OrchidClientConfig>().GuardianChargeCursor;
 				Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.height + player.gfxOffY + 12)).Floor();
 				if (player.gravDir < 0) position.Y -= 81;
 				Vector2 drawpos = position;
 				position = position - Main.screenPosition;
 				SpriteEffects effect = player.gravDir > 0 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+
+				Texture2D chargeTextureOn = null;
+				Texture2D chargeTextureOff = null;
+				Texture2D chargeTextureReady = null;
 
 				int offSet = (int)(modPlayer.GuardianGuardMax / 2f * (textureBlockOn.Width + 2));
 				int offSetIcons = offSet;
@@ -193,7 +200,7 @@ namespace OrchidMod.Content.Guardian.UI
 				offSet = (int)((textureIconRuneOn.Width + 2) * 0.5f);
 				if (modPlayer.RuneProjectiles.Count > 0)
 				{
-					float colorMult = modPlayer.RuneProjectiles[0].timeLeft > 275 ? 1f : (float)Math.Abs(Math.Sin((modPlayer.RuneProjectiles[0].timeLeft * 0.5f) / Math.PI / 4f));
+					float colorMult = (modPlayer.RuneProjectiles[0].timeLeft > 275 || player.HeldItem.ModItem is OrchidModGuardianStandard) ? 1f : (float)Math.Abs(Math.Sin((modPlayer.RuneProjectiles[0].timeLeft * 0.5f) / Math.PI / 4f));
 					offSet = (int)(offSet * (modPlayer.GuardianCurrentStandardAnchor == null ? 1f : 2f));
 					drawpos = new Vector2(position.X - offSet, position.Y + 36 * player.gravDir + (player.gravDir - 1));
 					spriteBatch.Draw(textureIconRuneOff, drawpos, null, Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
@@ -201,15 +208,35 @@ namespace OrchidMod.Content.Guardian.UI
 					offSet -= textureIconRuneOn.Width + 2;
 				}
 
-				if (modPlayer.GuardianCurrentStandardAnchor != null && modPlayer.GuardianCurrentStandardAnchor.ModProjectile is GuardianStandardAnchor anchor)
+				if (modPlayer.GuardianCurrentStandardAnchor != null && modPlayer.GuardianCurrentStandardAnchor.ModProjectile is GuardianStandardAnchor anchor && anchor.StandardItem.ModItem is OrchidModGuardianStandard standardItem && anchor.BuffItem != null)
 				{
-					float colorMult = modPlayer.GuardianCurrentStandardAnchor.ai[1] > 275 ? 1f : (float)Math.Abs(Math.Sin((modPlayer.GuardianCurrentStandardAnchor.ai[1] * 0.5f) / Math.PI / 4f));
-					int remainingDurationOffset = textureIconStandardOn.Height;
-					if (anchor.BuffItem != null && anchor.BuffItem.ModItem is OrchidModGuardianStandard standardItem)
-						remainingDurationOffset = (int)(textureIconStandardOn.Height * (1 - modPlayer.GuardianCurrentStandardAnchor.ai[1] / standardItem.StandardDuration));
+					float standardDuration = modPlayer.GuardianCurrentStandardAnchor.ai[1];
+					float standardDurationHighlight = 0f;
+					if (standardDuration > standardItem.StandardDuration * modPlayer.GuardianStandardTimer)
+					{
+						standardDurationHighlight = standardDuration - standardItem.StandardDuration * modPlayer.GuardianStandardTimer;
+						standardDuration = standardItem.StandardDuration * modPlayer.GuardianStandardTimer;
+
+						if (standardDurationHighlight > standardItem.StandardDuration * modPlayer.GuardianStandardTimer)
+						{ // can happen if modPlayer.GuardianStandardTimer lowers while a standard is active
+							standardDurationHighlight = standardItem.StandardDuration * modPlayer.GuardianStandardTimer;
+						}
+					}
+
+					float colorMult = standardDuration > 275 ? 1f : (float)Math.Abs(Math.Sin((standardDuration * 0.5f) / Math.PI / 4f));
+					int remainingDurationOffset = (int)(textureIconStandardOn.Height * (1 - standardDuration / (standardItem.StandardDuration * modPlayer.GuardianStandardTimer)));
 					drawpos = new Vector2(position.X - offSet, position.Y + 36 * player.gravDir + (player.gravDir - 1));
+
 					spriteBatch.Draw(textureIconStandardOff, drawpos, null, Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
-					spriteBatch.Draw(textureIconStandardOn, drawpos + new Vector2(0, remainingDurationOffset), new Rectangle(0, remainingDurationOffset, textureIconRuneOn.Width, textureIconStandardOn.Height - remainingDurationOffset), Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
+					Rectangle drawRectangle = new Rectangle(0, remainingDurationOffset, textureIconStandardOn.Width, textureIconStandardOn.Height - remainingDurationOffset);
+					spriteBatch.Draw(textureIconStandardOn, drawpos + new Vector2(0, remainingDurationOffset), drawRectangle, Color.White * colorMult, 0f, Vector2.Zero, 1f, effect, 0f);
+
+					if (standardDurationHighlight > 0)
+					{ // draws a border if duration is >100% of the standard duration
+						remainingDurationOffset = (int)(textureIconStandardHighlight.Height * (1 - standardDurationHighlight / (standardItem.StandardDuration * modPlayer.GuardianStandardTimer)));
+						drawRectangle = new Rectangle(0, remainingDurationOffset, textureIconStandardHighlight.Width, textureIconStandardHighlight.Height - remainingDurationOffset);
+						spriteBatch.Draw(textureIconStandardHighlight, drawpos + new Vector2(-2, remainingDurationOffset - 2), drawRectangle, Color.White * colorMult * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
+					}
 				}
 
 				if (player.HeldItem.ModItem is OrchidModGuardianItem)
@@ -252,176 +279,47 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 						else
 						{
-							int val = 24;
-							if (modPlayer.GuardianItemCharge > 180f)
-							{
-								drawpos = new Vector2(position.X - 14, position.Y - 96 * player.gravDir + 6f * (player.gravDir - 1));
-								spriteBatch.Draw(textureHammerReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
-							}
-							else
-							{
-								float charge = modPlayer.GuardianItemCharge;
-								while (charge < 180f)
-								{
-									charge += 7.5f;
-									val--;
-								}
-							}
-
-							Rectangle rectangle = textureHammerOn.Bounds;
-							rectangle.Height = val;
-							rectangle.Y = textureHammerOn.Height - val;
-							drawpos = new Vector2(position.X - 12, position.Y - 94 * player.gravDir + 4f * (player.gravDir - 1));
-							spriteBatch.Draw(textureHammerOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
-							drawpos = new Vector2(position.X - 12, position.Y - 94 * player.gravDir + textureHammerOn.Height - val + 4f * (player.gravDir - 1));
-							if (player.gravDir < 0) drawpos.Y -= (textureHammerOn.Height - rectangle.Height);
-							spriteBatch.Draw(textureHammerOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+							chargeTextureOff = textureHammerOff;
+							chargeTextureOn = textureHammerOn;
+							chargeTextureReady = textureHammerReady;
 						}
 					}
 
 					if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianStandard)
 					{
-						int val = textureStandardOn.Height;
-						if (modPlayer.GuardianItemCharge >= 180f)
-						{
-							drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
-							spriteBatch.Draw(textureStandardReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
-						}
-						else
-						{
-							float charge = modPlayer.GuardianItemCharge;
-							while (charge < 180f)
-							{
-								charge += 7.5f;
-								val--;
-							}
-						}
-
-						Rectangle rectangle = textureStandardOn.Bounds;
-						rectangle.Height = val;
-						rectangle.Y = textureStandardOn.Height - val;
-
-						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + 3f * (player.gravDir - 1));
-						spriteBatch.Draw(textureStandardOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
-						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + textureStandardOn.Height - val + 3f * (player.gravDir - 1));
-						if (player.gravDir < 0) drawpos.Y -= (textureStandardOn.Height - rectangle.Height);
-						spriteBatch.Draw(textureStandardOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+						chargeTextureOff = textureStandardOff;
+						chargeTextureOn = textureStandardOn;
+						chargeTextureReady = textureStandardReady;
 					}
 
 					if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is HorizonLance)
 					{
-						int val = textureHorizonLanceOn.Height;
-						if (modPlayer.GuardianItemCharge >= 180f)
-						{
-							drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
-							spriteBatch.Draw(textureHorizonLanceReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
-						}
-						else
-						{
-							float charge = modPlayer.GuardianItemCharge;
-							while (charge < 180f)
-							{
-								charge += 7.5f;
-								val--;
-							}
-						}
-
-						Rectangle rectangle = textureHorizonLanceOn.Bounds;
-						rectangle.Height = val;
-						rectangle.Y = textureHorizonLanceOn.Height - val;
-
-						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + 3f * (player.gravDir - 1));
-						spriteBatch.Draw(textureHorizonLanceOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
-						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + textureHorizonLanceOn.Height - val + 3f * (player.gravDir - 1));
-						if (player.gravDir < 0) drawpos.Y -= (textureHorizonLanceOn.Height - rectangle.Height);
-						spriteBatch.Draw(textureHorizonLanceOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+						chargeTextureOn = textureHorizonLanceOn;
+						chargeTextureOff = textureHorizonLanceOff;
+						chargeTextureReady = textureHorizonLanceReady;
 					}
 
 					if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is GuardianNeedle)
 					{
-						int val = textureGuardianNeedleOn.Height;
-						if (modPlayer.GuardianItemCharge >= 180f)
-						{
-							drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
-							spriteBatch.Draw(textureGuardianNeedleReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
-						}
-						else
-						{
-							float charge = modPlayer.GuardianItemCharge;
-							while (charge < 180f)
-							{
-								charge += 7.5f;
-								val--;
-							}
-						}
-
-						Rectangle rectangle = textureGuardianNeedleOn.Bounds;
-						rectangle.Height = val;
-						rectangle.Y = textureGuardianNeedleOn.Height - val;
-
-						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + 3f * (player.gravDir - 1));
-						spriteBatch.Draw(textureGuardianNeedleOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
-						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + textureGuardianNeedleOn.Height - val + 3f * (player.gravDir - 1));
-						if (player.gravDir < 0) drawpos.Y -= (textureGuardianNeedleOn.Height - rectangle.Height);
-						spriteBatch.Draw(textureGuardianNeedleOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+						chargeTextureOn = textureGuardianNeedleOn;
+						chargeTextureOff = textureGuardianNeedleOff;
+						chargeTextureReady = textureGuardianNeedleReady;
 					}
 
 					if (modPlayer.GuardianItemCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianRune)
 					{
-						int val = textureRuneOn.Height;
-						if (modPlayer.GuardianItemCharge >= 180f)
-						{
-							drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
-							spriteBatch.Draw(textureRuneReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
-						}
-						else
-						{
-							float charge = modPlayer.GuardianItemCharge;
-							while (charge < 180f)
-							{
-								charge += 7.5f;
-								val--;
-							}
-						}
-
-						Rectangle rectangle = textureRuneOn.Bounds;
-						rectangle.Height = val;
-						rectangle.Y = textureRuneOn.Height - val;
-						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + 3f * (player.gravDir - 1));
-						spriteBatch.Draw(textureRuneOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
-						drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + textureRuneOn.Height - val + 3f * (player.gravDir - 1));
-						if (player.gravDir < 0) drawpos.Y -= (textureRuneOn.Height - rectangle.Height);
-						spriteBatch.Draw(textureRuneOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+						chargeTextureOn = textureRuneOn;
+						chargeTextureOff = textureRuneOff;
+						chargeTextureReady = textureRuneReady;
 					}
 
 					if (player.HeldItem.ModItem is OrchidModGuardianQuarterstaff)
 					{
 						if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
 						{
-							int val = textureQuarterstaffOn.Height;
-							if (modPlayer.GuardianItemCharge >= 180f)
-							{
-								drawpos = new Vector2(position.X - 10, position.Y - 96 * player.gravDir + 6f * (player.gravDir - 1));
-								spriteBatch.Draw(textureQuarterstaffReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
-							}
-							else
-							{
-								float charge = modPlayer.GuardianItemCharge;
-								while (charge < 180f)
-								{
-									charge += 7.5f;
-									val--;
-								}
-							}
-
-							Rectangle rectangle = textureQuarterstaffOn.Bounds;
-							rectangle.Height = val;
-							rectangle.Y = textureQuarterstaffOn.Height - val;
-							drawpos = new Vector2(position.X - 8, position.Y - 94 * player.gravDir + 4f * (player.gravDir - 1));
-							spriteBatch.Draw(textureQuarterstaffOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
-							drawpos = new Vector2(position.X - 8, position.Y - 94 * player.gravDir + textureQuarterstaffOn.Height - val + 4f * (player.gravDir - 1));
-							if (player.gravDir < 0) drawpos.Y -= (textureQuarterstaffOn.Height - rectangle.Height);
-							spriteBatch.Draw(textureQuarterstaffOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+							chargeTextureOn = textureQuarterstaffOn;
+							chargeTextureOff = textureQuarterstaffOff;
+							chargeTextureReady = textureQuarterstaffReady;
 						}
 						else
 						{
@@ -456,30 +354,9 @@ namespace OrchidMod.Content.Guardian.UI
 
 					if (modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
 					{
-						int val = textureGauntletOn.Height;
-						if (modPlayer.GuardianItemCharge >= 180f)
-						{
-							drawpos = new Vector2(position.X - 10, position.Y - 96 * player.gravDir + 6f * (player.gravDir - 1));
-							spriteBatch.Draw(textureGauntletReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
-						}
-						else
-						{
-							float charge = modPlayer.GuardianItemCharge;
-							while (charge < 180f)
-							{
-								charge += 7.5f;
-								val--;
-							}
-						}
-
-						Rectangle rectangle = textureGauntletOn.Bounds;
-						rectangle.Height = val;
-						rectangle.Y = textureGauntletOn.Height - val;
-						drawpos = new Vector2(position.X - 8, position.Y - 94 * player.gravDir + 4f * (player.gravDir - 1));
-						spriteBatch.Draw(textureGauntletOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
-						drawpos = new Vector2(position.X - 8, position.Y - 94 * player.gravDir + textureGauntletOn.Height - val + 4f * (player.gravDir - 1));
-						if (player.gravDir < 0) drawpos.Y -= (textureGauntletOn.Height - rectangle.Height);
-						spriteBatch.Draw(textureGauntletOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+						chargeTextureOn = textureGauntletOn;
+						chargeTextureOff = textureGauntletOff;
+						chargeTextureReady = textureGauntletReady;
 					}
 					else
 					{
@@ -509,6 +386,58 @@ namespace OrchidMod.Content.Guardian.UI
 								spriteBatch.Draw(blockOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 								return;
 							}
+						}
+					}
+
+					if (chargeTextureOn != null)
+					{
+						int val = chargeTextureOn.Height;
+						if (modPlayer.GuardianItemCharge < 180f)
+						{
+							float charge = modPlayer.GuardianItemCharge;
+							while (charge < 180f)
+							{
+								charge += 7.5f;
+								val--;
+							}
+						}
+
+						Rectangle rectangle = chargeTextureOn.Bounds;
+						rectangle.Height = val;
+						rectangle.Y = chargeTextureOn.Height - val;
+
+						if (drawAtCursor)
+						{
+							spriteBatch.End();
+							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.UIScaleMatrix);
+
+							drawpos = Main.MouseScreen + new Vector2(18f, 18f);
+
+							if (modPlayer.GuardianItemCharge >= 180f)
+							{
+								spriteBatch.Draw(chargeTextureReady, drawpos - new Vector2(2, 2), null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
+							}
+
+							spriteBatch.Draw(chargeTextureOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+							drawpos.Y += chargeTextureOn.Height - val;
+							spriteBatch.Draw(chargeTextureOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+
+							spriteBatch.End();
+							spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+						}
+						else
+						{
+							if (modPlayer.GuardianItemCharge >= 180f)
+							{
+								drawpos = new Vector2(position.X - 11, position.Y - 96 * player.gravDir + 5f * (player.gravDir - 1));
+								spriteBatch.Draw(chargeTextureReady, drawpos, null, Color.White * 0.8f, 0f, Vector2.Zero, 1f, effect, 0f);
+							}
+
+							drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + 3f * (player.gravDir - 1));
+							spriteBatch.Draw(chargeTextureOff, drawpos, null, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
+							drawpos = new Vector2(position.X - 9, position.Y - 94 * player.gravDir + chargeTextureOn.Height - val + 3f * (player.gravDir - 1));
+							if (player.gravDir < 0) drawpos.Y -= (chargeTextureOn.Height - rectangle.Height);
+							spriteBatch.Draw(chargeTextureOn, drawpos, rectangle, Color.White, 0f, Vector2.Zero, 1f, effect, 0f);
 						}
 					}
 				}

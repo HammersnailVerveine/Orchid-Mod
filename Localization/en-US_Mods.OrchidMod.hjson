@@ -4559,6 +4559,11 @@ Configs: {
 			Label: Shapeshifter Scroll Delay
 			Tooltip: Delay (in frames) before the player transforms in the newly selected wildshape in the hotbar while scrolling
 		}
+
+		GuardianChargeCursor: {
+			Label: Guardian Charge Visuals at Cursor
+			Tooltip: Charging up guardian weapons displays an icon near the cursor instead of above the player character
+		}
 	}
 
 	OrchidServerConfig: {
