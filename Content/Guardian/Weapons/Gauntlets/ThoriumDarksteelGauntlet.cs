@@ -62,7 +62,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 		}
 
-		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage)
+		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage)
 		{
 			damage = (int)Math.Max(1, damage * 0.01f * player.statDefense);
 			StrikeVelocity = 15f + (0.15f * player.statDefense);

@@ -85,6 +85,8 @@ namespace OrchidMod
 		public float GuardianItemCharge = 0f; // Player Warhammer Throw Charge, max is 180f
 		public bool GuardianGauntletParry = false; // Player is currently parrying with a gauntlet
 		public bool GuardianGauntletParry2 = false; // Player is currently parrying with a gauntlet (1 frame buffer)
+		/// <summary> Cooldown in frames between starting a new punch charge since starting the last one. Can begin a punch when 0 or lower, goes down to -10. Half of the gauntlet's punch animation time is added when a charge is started. </summary>
+		public int GauntletPunchCooldown = 0;
 		public bool GuardianStandardBuffer = false; // used to delay the deactivation of various standards effects by 1 frame
 		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
 		/// <summary> Allows the player to trigger counterattack effects. Set when able to use an item that has counterattack effects. Use GuardianCounterTime to check for counterattack eligibility. </summary>
@@ -203,6 +205,8 @@ namespace OrchidMod
 			{
 				DoParryItemParry(null);
 			}
+
+			if (GauntletPunchCooldown > -10) GauntletPunchCooldown--;
 		}
 
 		public override void UpdateLifeRegen()
@@ -775,7 +779,6 @@ namespace OrchidMod
 
 		public void DoParryItemParry(Entity aggressor)
 		{
-			SoundEngine.PlaySound(SoundID.Item37, Player.Center);
 			GuardianGauntletParry2 = false;
 
 			if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
@@ -836,6 +839,7 @@ namespace OrchidMod
 						AddSlam(toAdd);
 					}
 				}
+				parryItem.PlayParrySound(Player, this, anchor);
 			}
 		}
 

@@ -17,6 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.useTime = 15;
 			StrikeVelocity = 22.5f;
 			ParryDuration = 75;
+			PunchSpeed = 1.3f;
 		}
 
 		public override Color GetColor(bool offHand)

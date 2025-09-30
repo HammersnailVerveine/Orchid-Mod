@@ -22,6 +22,7 @@ namespace OrchidMod.Content.Guardian
 		public bool NeedNetUpdate = false;
 		public float GauntletDashAngle = 0f;
 		public int GauntletDashTimer = 0;
+		public float SlamTime = 0;
 
 		public int SelectedItem { get; set; } = -1;
 		public Item GauntletItem => Main.player[Projectile.owner].inventory[SelectedItem];
@@ -75,9 +76,11 @@ namespace OrchidMod.Content.Guardian
 			Projectile.ai[0] = 0f;
 			Projectile.ai[1] = 0f;
 			Projectile.ai[2] = 0f;
+			Projectile.localAI[1] = 0;
 			Projectile.netUpdate = true;
 			GauntletDashAngle = 0f;
 			GauntletDashTimer = 0;
+			owner.GetModPlayer<OrchidGuardian>().GuardianItemCharge = 0;
 		}
 
 		public override void AI()
@@ -142,31 +145,26 @@ namespace OrchidMod.Content.Guardian
 						else
 						{
 							Projectile.ai[0] = 0f;
+							//refund remaining duration as guards if interrupted by owner becoming immune from another source
 							guardian.GuardianGuardRecharging += Projectile.ai[0] / (guardianItem.ParryDuration * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
 							Rectangle rect = owner.Hitbox;
 							rect.Y -= 64;
 							CombatText.NewText(guardian.Player.Hitbox, Color.LightGray, Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Interrupted"), false, true);
-							if (OffHandGauntlet)
+							if (OffHandGauntlet) //disable mainhand guard on interrupt
 							{
-								//Main.NewText("Starting sweep from offhand gauntlet projectile[" + Projectile.whoAmI + "] for mainhand gauntlet");
 								for (int i = Projectile.whoAmI + 1; i < Main.maxProjectiles; i++)
 								{
-									if (Main.projectile[i].active && Main.projectile[i].owner == Projectile.owner && Main.projectile[i].ModProjectile is GuardianGauntletAnchor offhand)
+									if (Main.projectile[i].active && Main.projectile[i].owner == Projectile.owner && Main.projectile[i].ModProjectile is GuardianGauntletAnchor mainhand)
 									{
-										//Main.NewText("Found at projectile[" + i + "]!");
-										if (offhand.Blocking)
+										if (mainhand.Blocking)
 										{
 											Main.projectile[i].ai[0] = 0f;
-											//Main.NewText("Disabling mainhand gauntlet parry");
 											break;
 										}
-										//Main.NewText("Mainhand gauntlet not parrying, exiting");
 										break;
 									}
 								}
-								//Main.NewText("Sweep done");
 							}
-							//else Main.NewText("Sweep initiated from mainhand gauntlet (projectile[" + Projectile.whoAmI + "]), ignoring");
 						}
 					}
 					else if (Projectile.ai[0] <= 0f)
@@ -177,13 +175,15 @@ namespace OrchidMod.Content.Guardian
 				}
 				else if (Slamming)
 				{
-					float slamTime = Projectile.ai[0] == -1f ? 10f : 15f;
 					if (Projectile.localAI[1] == 0f) // Register base slam length
 					{
-						Projectile.localAI[1] = slamTime;
+						SlamTime = (Projectile.ai[0] == -1f ? 30f : 35f) / (guardianItem.PunchSpeed * owner.GetAttackSpeed<MeleeDamageClass>());
+						Projectile.localAI[1] = SlamTime;
+						guardian.GauntletPunchCooldown = (int)SlamTime / 2 - 1;
 					}
-
-					float addedDistance = (float)Math.Sin(MathHelper.Pi / slamTime * Projectile.localAI[1]) * slamTime;
+					float animTime = Projectile.localAI[1] / SlamTime;
+					float fistDist = Projectile.ai[0] == -1f ? 15f : 20f;
+					float addedDistance = (float)Math.Sin((animTime - 0.33f) * ((1 - animTime) * 5.5f - 4.4f) - 0.2f) * -animTime * fistDist;
 					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(4 * owner.direction, 0) + Vector2.UnitY.RotatedBy(Projectile.ai[1]) * addedDistance;
 
 					if (!IsLocalOwner)
@@ -192,15 +192,16 @@ namespace OrchidMod.Content.Guardian
 						if (puchDir.X > 0 && owner.direction != 1) owner.ChangeDir(1);
 						else if (puchDir.X < 0 && owner.direction != -1) owner.ChangeDir(-1);
 					}
-					else if (Projectile.localAI[1] == slamTime)
+					else if (Projectile.localAI[1] == SlamTime)
 					{ // Slam just started, make projectile
 						int damage = guardian.GetGuardianDamage(guardianItem.Item.damage);
-						if (guardianItem.OnPunch(owner, guardian, Projectile, Projectile.ai[0] == -2f, ref damage))
+						bool charged = Projectile.ai[0] == -2f;
+						if (guardianItem.OnPunch(owner, guardian, Projectile, ref charged, ref damage))
 						{
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
-							float strikeVelocity = guardianItem.StrikeVelocity * (Projectile.ai[0] == -1f ? 0.75f : 1f) * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetTotalAttackSpeed(DamageClass.Melee);
+							float strikeVelocity = guardianItem.StrikeVelocity * (charged ? 1f : 0.75f) * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetTotalAttackSpeed(DamageClass.Melee);
 							Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2) * strikeVelocity * 0.25f;
-							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, projectileType, 1, 1f, owner.whoAmI, Projectile.ai[0] == -1f ? 0f : 1f, OffHandGauntlet ? 1f : 0f);
+							Projectile punchProj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, projectileType, 1, 1f, owner.whoAmI, charged ? 1f : 0f, OffHandGauntlet ? 1f : 0f);
 							if (punchProj.ModProjectile is GauntletPunchProjectile punch)
 							{
 								punch.GauntletItem = GauntletItem.ModItem as OrchidModGuardianGauntlet;
@@ -210,7 +211,7 @@ namespace OrchidMod.Content.Guardian
 								//punchProj.position += punchProj.velocity * 0.5f;
 								punchProj.velocity += owner.velocity * 0.375f;
 
-								if (Projectile.ai[0] == -1f)
+								if (!charged)
 								{
 									punchProj.damage = (int)(punchProj.damage / 4f);
 									SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, owner.Center);
@@ -236,12 +237,13 @@ namespace OrchidMod.Content.Guardian
 					Projectile.rotation = Projectile.ai[1];
 					if (owner.direction == 1) Projectile.rotation += MathHelper.Pi;
 
-					Projectile.localAI[1] *= 0.8f;
-					if (Projectile.localAI[1] <= 0.04f)
+					Projectile.localAI[1]--;
+					if (Projectile.localAI[1] <= 0)
 					{
 						Projectile.localAI[1] = 0f;
 						Projectile.ai[0] = 0;
 						Projectile.ai[1] = 0;
+
 						if (owner.direction == -1) Projectile.rotation += MathHelper.Pi; // weird issue fix, gauntlets flips for 1 frame at the end of a punch when facing left
 					}
 				}
@@ -264,7 +266,7 @@ namespace OrchidMod.Content.Guardian
 
 						if ((ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs ? !Main.mouseRight : !Main.mouseLeft) && owner.whoAmI == Main.myPlayer)
 						{
-							if (guardian.GuardianItemCharge > (70 * owner.GetTotalAttackSpeed(DamageClass.Melee) - owner.HeldItem.useTime) / 2.5f &&  guardian.GuardianItemCharge < 180f && guardian.UseSlam(1, true))
+							if (CanInstantSlam() && guardian.UseSlam(1, true))
 							{ // Consume a slam to fully charge if the player has one
 								guardian.UseSlam();
 								guardian.GuardianItemCharge = 180f;
@@ -317,6 +319,13 @@ namespace OrchidMod.Content.Guardian
 			}
 
 			guardianItem.ExtraAIGauntlet(Projectile);
+		}
+
+		public bool CanInstantSlam()
+		{
+			Player player = Main.player[Projectile.owner];
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+			return guardian.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f &&  guardian.GuardianItemCharge < 180f;
 		}
 
 		public override void OnKill(int timeLeft)

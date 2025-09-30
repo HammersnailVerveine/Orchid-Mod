@@ -3313,7 +3313,7 @@ Items: {
 
 	PalladiumGauntlet: {
 		DisplayName: Palladium Gauntlets
-		Tooltip: ""
+		Tooltip: While above 90% life, can consume life to parry
 	}
 
 	MythrilWarhammer: {
@@ -3422,7 +3422,7 @@ Items: {
 			15% increased damage resistance, opposing damage and critical strike chance
 			Enemies are significantly more likely to target you
 			'''
-		SetBonus: While above 50% max life, consume life instead of guards or slams
+		SetBonus: While above 50% life, consume life instead of guards or slams
 	}
 
 	GuardianHorizonLegs: {

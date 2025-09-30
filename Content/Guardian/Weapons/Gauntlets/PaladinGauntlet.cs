@@ -34,7 +34,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			player.AddBuff(ModContent.BuffType<GuardianPaladinGauntletBuff>(), 600);
 		}
 
-		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage)
+		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage)
 		{
 			if (charged)
 			{

@@ -33,7 +33,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			return new Color(0, 192, 255);
 		}
 
-		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage)
+		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage)
 		{
 			if (charged && guardian.UseGuard(1, true))
 			{

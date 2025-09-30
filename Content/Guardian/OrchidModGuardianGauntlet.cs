@@ -28,8 +28,12 @@ namespace OrchidMod.Content.Guardian
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void ModifyHitNPCGauntlet(Player player, NPC target, Projectile projectile, ref HitModifiers modifiers, bool charged) { }
-		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool charged, ref int damage) => true; // Return false to prevent normal punch projectiles from spawning
+		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage) => true; // Return false to prevent normal punch projectiles from spawning
+		/// <summary> Called after the player parries damage. </summary>
 		public virtual void OnParryGauntlet(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) { }
+		/// <summary> Called when the player presses the guard button to begin guarding while at least one gauntlet can guard. Return false to prevent guarding. Defaults to <c>guardian.UseGuard(1)</c>. Returning true without calling <c>guardian.UseGuard</c> will allow the player to guard without resources. </summary>
+		/// <param name="anchor"> A gauntlet currently eligible for parrying. Will be the main hand gauntlet if both can parry. </param>
+		public virtual bool PreGuard(Player player, OrchidGuardian guardian, Projectile anchor) { return guardian.UseGuard(1); }
 		public virtual bool ProjectileAI(Player player, Projectile projectile, bool charged) => true;
 		public virtual void ExtraAIGauntlet(Projectile projectile) { }
 		public virtual void PostDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
@@ -37,10 +41,14 @@ namespace OrchidMod.Content.Guardian
 		public virtual void SafeModifyTooltips(List<TooltipLine> tooltips) { } // Called at the end of ModifyTooltips
 
 		public virtual Color GetColor(bool offHand) => Color.White;
+		/// <summary> Responsible for playing the sound when the player begins guarding with the weapon. Default behavior is <c>SoundEngine.PlaySound(SoundID.Item37, player.Center);</c> </summary>
+		public virtual void PlayGuardSound(Player player, OrchidGuardian guardian, Projectile anchor) => SoundEngine.PlaySound(SoundID.Item37, player.Center);
 
 		public virtual void SafeHoldItem(Player player) { }
 
 		public float StrikeVelocity = 10f; // Initial speed of the punches
+		/// <summary> Jab and slam animation speed multiplier. Also affected by melee speed, but not by usetime. </summary>
+		public float PunchSpeed = 1f;
 		public int ParryDuration = 60; // Duration of a right click parry in frames
 		public int ParryDashDuration = 0; // Duration in frames of the parry dash
 		public float ParryDashSpeed = 0f; // Velocity of the parry dash
@@ -81,7 +89,7 @@ namespace OrchidMod.Content.Guardian
 				}
 			}
 
-			if (player.whoAmI == Main.myPlayer && anchor.ModProjectile is GuardianGauntletAnchor gauntletAnchor)
+			if (ParryDashDuration > 0 && player.whoAmI == Main.myPlayer && anchor.ModProjectile is GuardianGauntletAnchor gauntletAnchor)
 			{
 				// 8 dir input
 				if (player.controlLeft && !player.controlRight)
@@ -129,6 +137,10 @@ namespace OrchidMod.Content.Guardian
 
 		public override bool WeaponPrefix() => true;
 
+		int punchTimer = 0;
+		bool shouldPunch => punchTimer > 0;
+		bool shouldGuard;
+
 		public override bool CanUseItem(Player player)
 		{
 			if (player.whoAmI == Main.myPlayer && !player.cursed)
@@ -138,65 +150,90 @@ namespace OrchidMod.Content.Guardian
 				int[] anchors = GetAnchors(player);
 				if (anchors != null)
 				{
+					bool swap = ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs;
+					bool punchHold = swap ? Main.mouseRight : Main.mouseLeft;
+					bool punchTap = swap ? Main.mouseRightRelease : Main.mouseLeftRelease;
+					bool guardHold = swap ? Main.mouseLeft : Main.mouseRight;
+					bool guardTap = swap ? Main.mouseLeftRelease : Main.mouseRightRelease;
+
+					if (punchHold && punchTap && guardian.GuardianItemCharge <= 0) punchTimer = 6;
+					if (guardHold && guardTap && !guardian.GuardianGauntletParry) shouldGuard = true;
+				}
+			}
+			return false;
+		}
+
+		void DoBufferedGauntletInputs(Player player)
+		{
+			int[] anchors = GetAnchors(player);
+			if (anchors != null)
+			{
+				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+				bool swap = ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs;
+				bool punchHold = swap ? Main.mouseRight : Main.mouseLeft;
+				bool punchTap = swap ? Main.mouseRightRelease : Main.mouseLeftRelease;
+				bool guardHold = swap ? Main.mouseLeft : Main.mouseRight;
+				bool guardTap = swap ? Main.mouseLeftRelease : Main.mouseRightRelease;
+
+				if (guardian.GuardianItemCharge > 0) punchTimer = 0;
+				if (shouldPunch && !punchHold) punchTimer--;
+				if (!guardHold || guardian.GuardianGauntletParry) shouldGuard = false;
+				
+				if (shouldPunch || shouldGuard)
+				{
 					Projectile projectileMain = Main.projectile[anchors[1]];
 					Projectile projectileOff = Main.projectile[anchors[0]];
-
-					bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
-					bool shoundpunch = Main.mouseLeft && Main.mouseLeftRelease;
-					if (ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs)
-					{
-						shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
-						shoundpunch = Main.mouseRight && Main.mouseRightRelease;
-					}
-
+					//if neither gauntlet is busy
 					if (projectileMain.ai[0] == 0f || projectileOff.ai[0] == 0f || (projectileMain.ai[0] > 0f && projectileOff.ai[0] > 0f))
-					{ // At least one of the gauntlets is not being used or both are blocking
-						if (shouldBlock)
-						{ // Right click & None of the gauntlets is blocking = Block
-							if (guardian.UseGuard(1, true) && (projectileMain.ai[0] <= 0f || projectileOff.ai[0] <= 0f) 
-								&& !(projectileMain.ai[0] > 0 && projectileMain.ai[2] <= 0) && !(projectileOff.ai[0] > 0 && projectileOff.ai[2] <= 0))
-							{ // Player is not already blocking with a gauntlet
-								player.immuneTime = 0;
-								guardian.modPlayer.PlayerImmunity = 0;
-								player.immune = false;
-								SoundEngine.PlaySound(SoundID.Item37, player.Center);
-								guardian.UseGuard(1);
-								if (projectileMain.ai[0] == 0)
+					{	//and trying to guard
+						if (shouldGuard)
+						{
+							bool mainGauntletFree = projectileMain.ai[0] == 0f && projectileMain.ai[2] <= 0f;
+							bool offGauntletFree = projectileOff.ai[0] == 0f && projectileOff.ai[2] <= 0f;
+							if (mainGauntletFree || offGauntletFree)
+							{
+								if (PreGuard(player, guardian, mainGauntletFree ? projectileMain : projectileOff))
 								{
-									projectileMain.ai[0] = (int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
-									(projectileMain.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
-								}
-
-								if (projectileOff.ai[0] == 0)
-								{
-									projectileOff.ai[0] = (int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
-									(projectileOff.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
+									shouldGuard = false;
+									player.immuneTime = 0;
+									guardian.modPlayer.PlayerImmunity = 0;
+									player.immune = false;
+									PlayGuardSound(player, guardian, mainGauntletFree ? projectileMain : projectileOff);
+									if (mainGauntletFree)
+									{
+										projectileMain.ai[0] = (int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
+										(projectileMain.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
+									}
+									if (offGauntletFree)
+									{
+										projectileOff.ai[0] = (int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration);
+										(projectileOff.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
+									}
 								}
 							}
 						}
-						else if (shoundpunch)
-						{ // Left click
-							if (guardian.GuardianItemCharge == 0)
-							{
-								//guardian.GuardianGauntletCharge++;
-								SoundEngine.PlaySound(SoundID.Item7, player.Center);
+						//or, if trying to punch
+						else if (shouldPunch && guardian.GauntletPunchCooldown <= 0)
+						{
+							guardian.GauntletPunchCooldown += (int)(30f / (PunchSpeed * player.GetAttackSpeed<MeleeDamageClass>())) - 1;
+							punchTimer = 0;
+							//guardian.GuardianGauntletCharge++;
+							SoundEngine.PlaySound(SoundID.Item7, player.Center);
 
-								if (projectileMain.ai[0] != 0f)
-								{ // Main gauntlet is slamming or blocking, use offhand one
-									projectileOff.ai[2] = 1f;
-									(projectileOff.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
-								}
-								else
-								{ // else use main hand
-									projectileMain.ai[2] = 1f; 
-									(projectileMain.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
-								}
+							if (projectileMain.ai[0] != 0f)
+							{ // Main gauntlet is slamming or blocking, use offhand one
+								projectileOff.ai[2] = 1f;
+								(projectileOff.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
+							}
+							else
+							{ // else use main hand
+								projectileMain.ai[2] = 1f; 
+								(projectileMain.ModProjectile as GuardianGauntletAnchor).NeedNetUpdate = true;
 							}
 						}
 					}
 				}
 			}
-			return false;
 		}
 
 		public int[] GetAnchors(Player player)
@@ -258,9 +295,7 @@ namespace OrchidMod.Content.Guardian
 
 				if (indexes[1] < indexes[0])
 				{ // Swap order if necessary in Main.projectile[] so the front gauntlet is drawn first
-					Projectile buffer = Main.projectile[indexes[0]];
-					Main.projectile[indexes[0]] = Main.projectile[indexes[1]];
-					Main.projectile[indexes[1]] = buffer;
+					(Main.projectile[indexes[0]], Main.projectile[indexes[1]]) = (Main.projectile[indexes[1]], Main.projectile[indexes[0]]);
 					Main.projectile[indexes[0]].whoAmI = indexes[1];
 					Main.projectile[indexes[1]].whoAmI = indexes[0];
 				}
@@ -279,6 +314,7 @@ namespace OrchidMod.Content.Guardian
 					}
 				}
 			}
+			DoBufferedGauntletInputs(player);
 			SafeHoldItem(player);
 		}
 
