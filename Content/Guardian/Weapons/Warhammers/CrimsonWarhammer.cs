@@ -10,7 +10,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			Item.width = 36;
 			Item.height = 36;
-			Item.value = Item.sellPrice(0, 0, 27, 0);
+			Item.value = Item.sellPrice(0, 0, 54, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.DD2_MonkStaffSwing;
 			Item.knockBack = 9f;

@@ -19,7 +19,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		{
 			Item.width = 42;
 			Item.height = 42;
-			Item.value = Item.sellPrice(0, 0, 1, 75);
+			Item.value = Item.sellPrice(0, 0, 30, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.UseSound = SoundID.Item71.WithPitchOffset(0.5f).WithVolumeScale(0.5f);
 			Item.useTime = 20;

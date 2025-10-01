@@ -11,7 +11,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 
 		public override void SafeSetDefaults()
 		{
-			Item.value = Item.sellPrice(0, 0, 87, 50);
+			Item.value = Item.sellPrice(0, 1, 0, 0);
 			Item.width = 28;
 			Item.height = 38;
 			Item.noUseGraphic = true;

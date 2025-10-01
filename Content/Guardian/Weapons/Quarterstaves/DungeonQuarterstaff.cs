@@ -16,7 +16,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		{
 			Item.width = 46;
 			Item.height = 46;
-			Item.value = Item.sellPrice(0, 1, 60, 50);
+			Item.value = Item.sellPrice(0, 1, 75, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.useTime = 30;
 			ParryDuration = 75;
@@ -24,6 +24,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.knockBack = 6.5f;
 			Item.damage = 73;
 			GuardStacks = 2;
+			JabDamage = 0.25f;
 		}
 
 		public override void OnAttack(Player player, OrchidGuardian guardian, Projectile projectile, bool jabAttack, bool counterAttack)

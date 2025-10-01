@@ -9,7 +9,7 @@ namespace OrchidMod.Content.Guardian.Accessories
 		{
 			Item.width = 32;
 			Item.height = 28;
-			Item.value = Item.sellPrice(0, 0, 15, 0);
+			Item.value = Item.sellPrice(0, 1, 0, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.accessory = true;
 		}

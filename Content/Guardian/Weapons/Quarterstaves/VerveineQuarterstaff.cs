@@ -17,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		{
 			Item.width = 40;
 			Item.height = 40;
-			Item.value = Item.sellPrice(0, 0, 1, 75);
+			Item.value = Item.sellPrice(0, 0, 85, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.useTime = 26;
 			ParryDuration = 90;
