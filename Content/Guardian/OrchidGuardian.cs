@@ -321,6 +321,7 @@ namespace OrchidMod
 			GuardianBamboo = false;
 			GuardianGit = false;
 			GuardianHorizon = false;
+			GuardianCrystalNinja = false;
 			GuardianHoneyPotion = false;
 			GuardianWormTooth = false;
 			GuardianMonsterFang = false;
