@@ -38,7 +38,15 @@ namespace OrchidMod.Content.Guardian.Accessories
 
 				if (proj.ai[0] > 0)
 				{
-					damageIncrease += 0.008f;
+					if (damageIncrease < 1f)
+					{
+						damageIncrease += 0.008f;
+
+						if (damageIncrease > 1f)
+						{
+							damageIncrease = 1f;
+						}
+					}
 					timer = 30;
 				}
 				else if (timer > 0)

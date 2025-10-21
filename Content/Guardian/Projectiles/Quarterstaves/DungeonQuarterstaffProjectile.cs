@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using System;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 {
@@ -59,6 +60,15 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 					dust.velocity = dust.velocity * 0.5f + Projectile.velocity * 0.5f;
 					dust.noGravity = true;
 				}
+			}
+		}
+
+		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
+		{
+			if (guardian.GuardianItemCharge > 0 && Projectile.ai[1] != 0)
+			{ // charge on jab projectile hit
+				Projectile.ai[1] = 0;
+				guardian.GuardianItemCharge += 30f * player.GetTotalAttackSpeed(DamageClass.Melee);
 			}
 		}
 	}

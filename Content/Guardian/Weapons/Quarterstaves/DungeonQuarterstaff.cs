@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Guardian.Projectiles.Quarterstaves;
 using Terraria;
 using Terraria.Audio;
@@ -25,6 +24,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.damage = 73;
 			GuardStacks = 2;
 			JabDamage = 0.25f;
+			JabChargeGain = 0.5f;
 		}
 
 		public override void OnAttack(Player player, OrchidGuardian guardian, Projectile projectile, bool jabAttack, bool counterAttack)
@@ -33,7 +33,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			{
 				Vector2 velocity = Vector2.UnitY.RotatedBy((player.Center - Main.MouseWorld).ToRotation() + MathHelper.PiOver2) * Item.shootSpeed;
 				Vector2 tipPosition = projectile.Center - Vector2.UnitY.RotatedBy(projectile.rotation + MathHelper.PiOver4) * projectile.width * 0.5f;
-				SpawnProjectile(velocity, projectile, guardian, tipPosition);
+				SpawnProjectile(velocity, projectile, guardian, tipPosition, true);
 			}
 
 			boltCounter = 0;
@@ -70,7 +70,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 					boltCounter++;
 					Vector2 velocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * Item.shootSpeed;
 					Vector2 tipPosition = projectile.Center - Vector2.UnitY.RotatedBy(projectile.rotation + MathHelper.PiOver4) * projectile.width * 0.1f;
-					SpawnProjectile(velocity, projectile, guardian, tipPosition);
+					SpawnProjectile(velocity, projectile, guardian, tipPosition, false);
 					SoundEngine.PlaySound(SoundID.Item21.WithPitchOffset(boltCounter == 1 ? -0.1f : 0.3f), player.Center);
 				}
 			}
@@ -81,17 +81,17 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 				{
 					boltCounter++;
 					Vector2 velocity = Vector2.UnitY.RotatedBy((player.Center - Main.MouseWorld).ToRotation() + MathHelper.PiOver2) * Item.shootSpeed;
-					SpawnProjectile(velocity, projectile, guardian, player.Center);
+					SpawnProjectile(velocity, projectile, guardian, player.Center, false);
 					SoundEngine.PlaySound(SoundID.Item21.WithPitchOffset(boltCounter * 0.4f - 0.5f), player.Center);
 				}
 			}
 		}
 
-		public void SpawnProjectile(Vector2 velocity, Projectile projectile, OrchidGuardian guardian, Vector2 position)
+		public void SpawnProjectile(Vector2 velocity, Projectile projectile, OrchidGuardian guardian, Vector2 position, bool jab)
 		{
 			int damage = guardian.GetGuardianDamage(Item.damage * 0.5f);
 			int projectileType = ModContent.ProjectileType<DungeonQuarterstaffProjectile>();
-			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, velocity, projectileType, damage, Item.knockBack, projectile.owner);
+			Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), position, velocity, projectileType, damage, Item.knockBack, projectile.owner, 0f, jab ? 1 : 0);
 			newProjectile.CritChance = guardian.GetGuardianCrit(Item.crit);
 			newProjectile.rotation = newProjectile.velocity.ToRotation();
 			newProjectile.netUpdate = true;

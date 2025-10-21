@@ -247,6 +247,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				else if (Projectile.ai[0] == 1f)
 				{ // Being charged by the player
+					Projectile.friendly = false;
 					if (guardian.GuardianItemCharge < 180f)
 					{ // Increase guardian charge
 						guardian.GuardianItemCharge += 30f / guardianItem.Item.useTime * owner.GetTotalAttackSpeed(DamageClass.Melee);
@@ -497,6 +498,7 @@ namespace OrchidMod.Content.Guardian
 				else
 				{ // Idle - guarterstaff is held further and lower
 					Ding = false;
+					Projectile.friendly = false;
 
 					Projectile.Center = owner.MountedCenter.Floor() + new Vector2(12f * owner.direction, 0f);
 					Projectile.rotation = MathHelper.PiOver4 * owner.direction - MathHelper.PiOver4;
@@ -658,6 +660,11 @@ namespace OrchidMod.Content.Guardian
 				Player player = Owner;
 				OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 				guardianItem.QuarterstaffModifyHitNPC(player, guardian, target, Projectile, ref modifiers, Projectile.ai[0] < 0f, Projectile.ai[2] < 0f, FirstHit);
+			}
+
+			if (target.aiStyle == NPCAIStyleID.Worm && Projectile.ai[0] == 0f && target.type != NPCID.SolarCrawltipedeTail && target.type != NPCID.StardustWormHead)
+			{ // counterattacking a worm, exception for crawltipedes and milkyway weavers
+				modifiers.FinalDamage /= 3f;
 			}
 		}
 
