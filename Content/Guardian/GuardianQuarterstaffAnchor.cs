@@ -668,7 +668,7 @@ namespace OrchidMod.Content.Guardian
 
 			if (target.aiStyle == NPCAIStyleID.Worm && Projectile.ai[0] == 0f && target.type != NPCID.SolarCrawltipedeTail && target.type != NPCID.StardustWormHead)
 			{ // counterattacking a worm, exception for crawltipedes and milkyway weavers
-				modifiers.FinalDamage /= 3f;
+				modifiers.FinalDamage *= 0.5f;
 			}
 		}
 
