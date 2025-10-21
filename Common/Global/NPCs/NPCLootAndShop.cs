@@ -430,6 +430,11 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.Common(ItemType<PirateStandard>(), 10));
 					}
 					break;
+				case NPCID.BigMimicHallow:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<CrystalGauntlet>(), 2));
+					}
+					break;
 				case NPCID.QueenSlimeBoss:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<GuardianCrystalNinjaHelm>(), 2));

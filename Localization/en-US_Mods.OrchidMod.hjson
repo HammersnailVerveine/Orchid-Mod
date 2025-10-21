@@ -4019,6 +4019,15 @@ Items: {
 			Counterattacks and properls upwards after a parry
 			'''
 	}
+
+	CrystalGauntlet: {
+		DisplayName: Crystal Clashers
+		Tooltip:
+			'''
+			Stores up to 3 seconds of invincibility when guarding and extends it on parry
+			Releases defense shredding crystal shards on each parry or slam
+			'''
+	}
 }
 
 NPCs: {

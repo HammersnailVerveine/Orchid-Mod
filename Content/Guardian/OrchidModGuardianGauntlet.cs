@@ -43,12 +43,15 @@ namespace OrchidMod.Content.Guardian
 		public virtual Color GetColor(bool offHand) => Color.White;
 		/// <summary> Responsible for playing the sound when the player begins guarding with the weapon. Default behavior is <c>SoundEngine.PlaySound(SoundID.Item37, player.Center);</c> </summary>
 		public virtual void PlayGuardSound(Player player, OrchidGuardian guardian, Projectile anchor) => SoundEngine.PlaySound(SoundID.Item37, player.Center);
+		/// <summary> Responsible for playing the sound when the player punches with the weapon. Default behavior is <c>SoundEngine.PlaySound(charged ? SoundID.DD2_MonkStaffGroundMiss : SoundID.DD2_MonkStaffSwing, player.Center);</c> </summary>
+		public virtual void PlayPunchSound(Player player, OrchidGuardian guardian, Projectile anchor, bool charged) => SoundEngine.PlaySound(charged ? SoundID.DD2_MonkStaffGroundMiss : SoundID.DD2_MonkStaffSwing, player.Center);
 
 		public virtual void SafeHoldItem(Player player) { }
 
 		public float StrikeVelocity = 10f; // Initial speed of the punches
 		/// <summary> Jab and slam animation speed multiplier. Also affected by melee speed, but not by usetime. </summary>
 		public float PunchSpeed = 1f;
+		public float jabDamage;
 		public int ParryDuration = 60; // Duration of a right click parry in frames
 		public int ParryDashDuration = 0; // Duration in frames of the parry dash
 		public float ParryDashSpeed = 0f; // Velocity of the parry dash
@@ -64,6 +67,7 @@ namespace OrchidMod.Content.Guardian
 			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.useTime = 30;
 			Item.knockBack = 5f;
+			jabDamage = 0.25f;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
@@ -218,7 +222,7 @@ namespace OrchidMod.Content.Guardian
 							guardian.GauntletPunchCooldown += (int)(30f / (PunchSpeed * player.GetAttackSpeed<MeleeDamageClass>())) - 1;
 							punchTimer = 0;
 							//guardian.GuardianGauntletCharge++;
-							SoundEngine.PlaySound(SoundID.Item7, player.Center);
+							SoundEngine.PlaySound(Item.UseSound, player.Center);
 
 							if (projectileMain.ai[0] != 0f)
 							{ // Main gauntlet is slamming or blocking, use offhand one

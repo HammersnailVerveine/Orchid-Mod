@@ -211,12 +211,8 @@ namespace OrchidMod.Content.Guardian
 								//punchProj.position += punchProj.velocity * 0.5f;
 								punchProj.velocity += owner.velocity * 0.375f;
 
-								if (!charged)
-								{
-									punchProj.damage = (int)(punchProj.damage / 4f);
-									SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, owner.Center);
-								}
-								else SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundMiss, owner.Center);
+								if (!charged) punchProj.damage = (int)(punchProj.damage * guardianItem.jabDamage);
+								guardianItem.PlayPunchSound(owner, guardian, Projectile, charged);
 
 								punchProj.netUpdate = true;
 							}
