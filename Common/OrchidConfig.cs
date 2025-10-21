@@ -46,6 +46,12 @@ namespace OrchidMod.Common
 		[BackgroundColor(151, 120, 79)]
 		public int GuardianMinHoldTimer { get; set; }
 
+		[Increment(1)]
+		[Range(0, 60)]
+		[DefaultValue(30)]
+		[BackgroundColor(151, 120, 79)]
+		public int GuardianMaxHoldTimer { get; set; }
+
 		[DefaultValue(false)]
 		[BackgroundColor(151, 120, 79)]
 		public bool GuardianGauntletAlwaysSlam { get; set; }

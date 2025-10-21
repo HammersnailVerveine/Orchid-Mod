@@ -4577,7 +4577,12 @@ Configs: {
 
 		GuardianMinHoldTimer: {
 			Label: Guardian Charge Minimum Hold Timer
-			Tooltip: Timer in Frames for how long an input has to be held before the UI for charging a guardian weapon appears and weapons like gauntlets can trigger an instant slam
+			Tooltip: Minimum timer (in frames) for how long a charge input has to be held before UI appears and weapons like gauntlets can consume slams
+		}
+
+		GuardianMaxHoldTimer: {
+			Label: Guardian Charge Maximum Hold Timer
+			Tooltip: Maximum timer (in frames) for how long a charge input has to be held before UI appears and weapons like gauntlets can consume slams
 		}
 
 		GuardianGauntletAlwaysSlam: {

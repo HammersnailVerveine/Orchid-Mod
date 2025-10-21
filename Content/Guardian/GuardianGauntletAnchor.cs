@@ -321,7 +321,15 @@ namespace OrchidMod.Content.Guardian
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-			return guardian.ChargeHoldTimer > ModContent.GetInstance<OrchidClientConfig>().GuardianMinHoldTimer && guardian.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && guardian.GuardianItemCharge < 180f;
+
+			if (guardian.ChargeHoldTimer > ModContent.GetInstance<OrchidClientConfig>().GuardianMaxHoldTimer)
+			{
+				return true;
+			}
+			else
+			{
+				return guardian.ChargeHoldTimer > ModContent.GetInstance<OrchidClientConfig>().GuardianMinHoldTimer && guardian.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && guardian.GuardianItemCharge < 180f;
+			}
 		}
 
 		public override void OnKill(int timeLeft)

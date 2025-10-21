@@ -132,6 +132,8 @@ namespace OrchidMod.Content.Guardian.UI
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
 				bool minHoldTimer = modPlayer.ChargeHoldTimer > ModContent.GetInstance<OrchidClientConfig>().GuardianMinHoldTimer;
+				bool maxHoldTimer = modPlayer.ChargeHoldTimer > ModContent.GetInstance<OrchidClientConfig>().GuardianMaxHoldTimer;
+
 				bool drawAtCursor = ModContent.GetInstance<OrchidClientConfig>().GuardianChargeCursor;
 				Vector2 position = (player.position + new Vector2(player.width * 0.5f, player.height + player.gfxOffY + 12)).Floor();
 				if (player.gravDir < 0) position.Y -= 81;
@@ -286,28 +288,28 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianStandard)
+					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is OrchidModGuardianStandard)
 					{
 						chargeTextureOff = textureStandardOff;
 						chargeTextureOn = textureStandardOn;
 						chargeTextureReady = textureStandardReady;
 					}
 
-					if (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is HorizonLance)
+					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is HorizonLance)
 					{
 						chargeTextureOn = textureHorizonLanceOn;
 						chargeTextureOff = textureHorizonLanceOff;
 						chargeTextureReady = textureHorizonLanceReady;
 					}
 
-					if (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is GuardianNeedle)
+					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is GuardianNeedle)
 					{
 						chargeTextureOn = textureGuardianNeedleOn;
 						chargeTextureOff = textureGuardianNeedleOff;
 						chargeTextureReady = textureGuardianNeedleReady;
 					}
 
-					if (minHoldTimer && modPlayer.GuardianItemCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianRune)
+					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is OrchidModGuardianRune)
 					{
 						chargeTextureOn = textureRuneOn;
 						chargeTextureOff = textureRuneOff;
@@ -316,7 +318,7 @@ namespace OrchidMod.Content.Guardian.UI
 
 					if (player.HeldItem.ModItem is OrchidModGuardianQuarterstaff)
 					{
-						if (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)
+						if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f))
 						{
 							chargeTextureOn = textureQuarterstaffOn;
 							chargeTextureOff = textureQuarterstaffOff;
@@ -353,7 +355,7 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
 					{
 						chargeTextureOn = textureGauntletOn;
 						chargeTextureOff = textureGauntletOff;
