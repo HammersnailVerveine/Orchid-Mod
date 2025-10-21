@@ -1,5 +1,1 @@
-- Fixed Horizon Fragments not dropping from Celestial Pillars
-- Nerfed Warhammer (81 -> 61 damage)
-- Buffed Heartbeat usetime (30 -> 28)
-- Nerfed Soul Crusher usetime (30 -> 32) and damage (240 -> 182)
-- Nerfed Grond Explosion damage by 33%
+https://docs.google.com/document/d/1zbwRczBYU3LOF2OkxNabtwamH4O6K1Nxw0qtq5s16H0

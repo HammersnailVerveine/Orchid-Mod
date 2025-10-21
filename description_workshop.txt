@@ -8,8 +8,10 @@ The [b]Orchid Mod[/b] aims to add content to the game in polished and refreshing
 - Thorium Pre-Hardmode Cross-content for Guardian
 - Pre-Hardmode content for a new class : the Shapeshifter
 
-[h1] 1.5.1.1[/h1]
-- Various bugfixes, and early Warhammers balancing
+[h1] 1.5.1.2[/h1]
+- Various fixes and balance changes
+- Gauntlets and Standards core changes to be more viable and/or self-sufficient
+- A few new items
 
 [img]https://i.imgur.com/kcLoweG.png[/img]
 The Orchid Mod currently adds one (and a half) new classes: the [b]Guardian[/b] and the [b]Shapeshifter[/b].
@@ -46,7 +48,16 @@ The [b]Shapeshifter[/b] vanquises their foes by transforming into multiple [b]wi
 [list]
 [*] [b]Barometz[/b] for contributing various sprites and item ideas, as well as creating and maintaining the Orchid Mod wiki.
 [*] [b]IceBeam[/b] and [b]Feedza[/b] for maintaining sections of the Orchid Mod wiki.
-[*] [b]direwolf420[/b] and [b]S-Pladison[/b] for extensive coding help, and cross-mod compatibility.
+[*] [b]direwolf420[/b], [b]Alino[/b] and [b]S-Pladison[/b] for extensive coding help, and cross-mod compatibility.
 [*] [b]Amber[/b], [b]BluNinja[/b], [b]catsounds[/b], [b]multibanana[/b], and [b]Draka[/b] for contributing sprites, artwork, and ideas.
-[*] [b]A91[/b], [b]Circadian[/b], [b]Kyle[/b], [b]ChozoChorizo[/b], [b]TheLoneGamer[/b], and [b]Xrylene[/b] for considerable balance and design feedback.
-[*] [b]GitGudWO[/b] for the trailers and videos above.[quote=tModLoader OrchidMod]
+[*] [b]Appollodorus[/b], [b]Scribbled Sky[/b], [b]Aquatix[/b], [b]Tame Froggy[/b], [b]Straw Chips[/b], [b]Qnex[/b], [b]Beef[/b], [b]A91[/b], [b]Circadian[/b], [b]Kyle[/b], [b]ChozoChorizo[/b], [b]TheLoneGamer[/b], and [b]Xrylene[/b] for considerable balance and design feedback.
+
+[quote=Please, stop asking]
+The mod does not have Calamity cross-content
+It works with the mod, but the classes will be underpowered.[/quote]
+
+[quote=Older Classes]
+We are aware that the "old" Orchid classes have been neglected, and they have been put on hold for the time being.
+We would rather work on stuff we enjoy, which in the end gets us to produce more content, of higher quality
+Alchemist and Gambler are on the backburner for now, and shaman's future in uncertain. Therefore, its existing content was removed from the mod.
+Content for the other 2 classes can be re-enabled in the mod configs if you wish to play them[/quote]
