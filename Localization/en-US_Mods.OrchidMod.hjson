@@ -4028,6 +4028,11 @@ Items: {
 			Releases defense shredding crystal shards on each parry or slam
 			'''
 	}
+
+	Slam: {
+		DisplayName: Slam
+		Tooltip: ""
+	}
 }
 
 NPCs: {

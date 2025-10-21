@@ -6,12 +6,12 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Misc
 {
-	public class Guard : ModItem
+	public class Slam : ModItem
 	{
 		public override void SetDefaults()
 		{
-			Item.width = 18;
-			Item.height = 18;
+			Item.width = 16;
+			Item.height = 16;
 			Item.maxStack = 1;
 			Item.rare = ItemRarityID.White;
 		}
@@ -34,14 +34,14 @@ namespace OrchidMod.Content.Guardian.Misc
 		public override bool CanPickup(Player player)
 		{
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-			if (guardian.GuardianGuard >= guardian.GuardianGuardMax && Main.netMode == NetmodeID.SinglePlayer) return false; // CBA to sync guard stacks in mp
+			if (guardian.GuardianSlam >= guardian.GuardianSlamMax && Main.netMode == NetmodeID.SinglePlayer) return false; // CBA to sync slam stacks in mp
 			return base.CanPickup(player);
 		}
 
 		public override bool OnPickup(Player player)
 		{
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-			guardian.AddGuard(1);
+			guardian.AddSlam(1);
 			SoundEngine.PlaySound(SoundID.Item53, player.Center);
 			return false;
 		}
