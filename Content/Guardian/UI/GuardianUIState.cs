@@ -244,7 +244,7 @@ namespace OrchidMod.Content.Guardian.UI
 
 				if (player.HeldItem.ModItem is OrchidModGuardianItem)
 				{
-					if (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && player.HeldItem.ModItem is OrchidModGuardianHammer)
+					if ((maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)) && player.HeldItem.ModItem is OrchidModGuardianHammer)
 					{
 						if (ModContent.GetInstance<OrchidClientConfig>().GuardianUseOldHammerUi)
 						{
@@ -288,28 +288,28 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is OrchidModGuardianStandard)
+					if ((maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)) && player.HeldItem.ModItem is OrchidModGuardianStandard)
 					{
 						chargeTextureOff = textureStandardOff;
 						chargeTextureOn = textureStandardOn;
 						chargeTextureReady = textureStandardReady;
 					}
 
-					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is HorizonLance)
+					if ((maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)) && player.HeldItem.ModItem is HorizonLance)
 					{
 						chargeTextureOn = textureHorizonLanceOn;
 						chargeTextureOff = textureHorizonLanceOff;
 						chargeTextureReady = textureHorizonLanceReady;
 					}
 
-					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is GuardianNeedle)
+					if ((maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)) && player.HeldItem.ModItem is GuardianNeedle)
 					{
 						chargeTextureOn = textureGuardianNeedleOn;
 						chargeTextureOff = textureGuardianNeedleOff;
 						chargeTextureReady = textureGuardianNeedleReady;
 					}
 
-					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is OrchidModGuardianRune)
+					if ((maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (23 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)) && player.HeldItem.ModItem is OrchidModGuardianRune)
 					{
 						chargeTextureOn = textureRuneOn;
 						chargeTextureOff = textureRuneOff;
@@ -355,7 +355,7 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f) && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+					if ((maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)) && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
 					{
 						chargeTextureOn = textureGauntletOn;
 						chargeTextureOff = textureGauntletOff;
