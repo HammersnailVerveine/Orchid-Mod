@@ -33,7 +33,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 			var thoriumMod = OrchidMod.ThoriumMod;
 			if (thoriumMod != null && anchor.Strong)
 			{
-				Item.NewItem(player.GetSource_OnHit(target), target.Hitbox, thoriumMod.Find<ModItem>("MeatSlab").Type);
+				int meat = Item.NewItem(player.GetSource_OnHit(target), target.Hitbox, thoriumMod.Find<ModItem>("MeatSlab").Type);
+				if (Main.netMode == NetmodeID.MultiplayerClient)
+				{
+					NetMessage.SendData(MessageID.SyncItem, -1, -1, null, meat, 1f);
+				}
 			}
 		}
 	}
