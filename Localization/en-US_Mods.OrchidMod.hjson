@@ -4586,8 +4586,8 @@ Configs: {
 		}
 
 		GuardianGauntletAlwaysSlam: {
-			Tooltip: Guardian Gauntlets will always try to consume a slam charge to perform a slam, no matter how long the input has been held
 			Label: Guardian Gauntlets always consume Slams
+			Tooltip: Guardian Gauntlets will always try to consume a slam charge to perform a slam, no matter how long the input has been held
 		}
 	}
 
