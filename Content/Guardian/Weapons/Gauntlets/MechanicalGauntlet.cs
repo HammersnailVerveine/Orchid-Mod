@@ -47,6 +47,12 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 		}
 
+		public override void OnParryGauntlet(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor)
+		{
+			//shouldn't need to do this but for some reason order of operations is wrong
+			guardian.GuardianCounter = true;
+		}
+
 		public override void ExtraAIGauntlet(Projectile projectile)
 		{
 			Player player = Main.player[projectile.owner];
@@ -67,7 +73,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage)
 		{
-			if (guardian.GuardianCounterTime > 0 || (projectile.ModProjectile is GuardianGauntletAnchor anchor && anchor.Ding))
+			if ((guardian.GuardianCounterTime > 0 && (charged || guardian.UseSlam(1))) || (projectile.ModProjectile is GuardianGauntletAnchor anchor && anchor.Ding))
 			{
 				guardian.GuardianCounterTime = 0;
 				SoundEngine.PlaySound(SoundID.Item14, player.Center);
