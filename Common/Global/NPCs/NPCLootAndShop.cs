@@ -150,6 +150,7 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				if (thoriumMod.IsNPCTypeEquals("Tracker", npc.type))
 				{
+					//int runeWizardMirrorType = thoriumMod.Find<ModItem>("WormHoleMirror").Type; //i considered adding rune rune here
 					int spiderWingsType = thoriumMod.Find<ModItem>("DridersGrace").Type;
 					int trackerType = thoriumMod.Find<ModNPC>("Tracker").Type;
 					foreach (Item item in items)
@@ -172,7 +173,7 @@ namespace OrchidMod.Common.Global.NPCs
 										items[i] = new Item(ModContent.ItemType<GuardianNeedle>(), 1, 0);
 										items[i].shopCustomPrice = 8; // same as Drider's Grace
 										items[i].shopSpecialCurrency = item.shopSpecialCurrency;
-										Main.NewText("ping");
+										//Main.NewText("ping");
 										break;
 									}
 								}
