@@ -63,7 +63,7 @@ namespace OrchidMod.Content.Guardian
 			Item.autoReuse = true;
 			Item.maxStack = 1;
 			Item.noUseGraphic = true;
-			Item.UseSound = SoundID.Item1;
+			Item.UseSound = SoundID.Item7;
 			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.useTime = 30;
 			Item.knockBack = 5f;
@@ -202,6 +202,7 @@ namespace OrchidMod.Content.Guardian
 									player.immuneTime = 0;
 									guardian.modPlayer.PlayerImmunity = 0;
 									player.immune = false;
+									guardian.GuardianGauntletParry = true; //remind the player that they are in fact parrying because the projectile ai runs on a slight delay
 									PlayGuardSound(player, guardian, mainGauntletFree ? projectileMain : projectileOff);
 									if (mainGauntletFree)
 									{
