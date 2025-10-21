@@ -4511,6 +4511,7 @@ Projectiles: {
 	// DemoniteShieldProjectile.DisplayName: Veil of Night
 	// SpectreQuarterstaffProj.DisplayName: Spectre Quarterstaff Proj
 	// GuardianNeedleAnchor.DisplayName: Honeysteel Needle
+	// CrystalGauntletProjectile.DisplayName: Crystal Gauntlet Projectile
 }
 
 Configs: {
@@ -4581,6 +4582,16 @@ Configs: {
 		GuardianChargeCursor: {
 			// Label: Guardian Charge Visuals at Cursor
 			// Tooltip: Charging up guardian weapons displays an icon near the cursor instead of above the player character
+		}
+
+		GuardianMinHoldTimer: {
+			// Label: Guardian Charge Minimum Hold Timer
+			// Tooltip: Timer in Frames for how long an input has to be held before the UI for charging a guardian weapon appears and weapons like gauntlets can trigger an instant slam
+		}
+
+		GuardianGauntletAlwaysSlam: {
+			// Tooltip: Guardian Gauntlets will always consume a slam charge to perform a slam, no matter how long the input has been held
+			// Label: Guardian Gauntlets always consume Slams
 		}
 	}
 

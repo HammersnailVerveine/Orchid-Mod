@@ -40,6 +40,16 @@ namespace OrchidMod.Common
 		[BackgroundColor(151, 120, 79)]
 		public bool GuardianSwapGauntletImputs { get; set; }
 
+		[Increment(1)]
+		[Range(0, 30)]
+		[DefaultValue(6)]
+		[BackgroundColor(151, 120, 79)]
+		public int GuardianMinHoldTimer { get; set; }
+
+		[DefaultValue(false)]
+		[BackgroundColor(151, 120, 79)]
+		public bool GuardianGauntletAlwaysSlam { get; set; }
+
 		[Header("Shapeshifter")]
 		[DefaultValue(false)]
 		[BackgroundColor(100, 175, 150)]

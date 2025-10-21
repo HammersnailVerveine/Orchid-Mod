@@ -89,6 +89,7 @@ namespace OrchidMod
 		public int GauntletPunchCooldown = 0;
 		public bool GuardianStandardBuffer = false; // used to delay the deactivation of various standards effects by 1 frame
 		public int SlamCostUI = 0; // Displays an outline around slams in the UI if > 0
+		public int ChargeHoldTimer; // Timer (in frames) since GuardianItemCharge has been >0 
 		/// <summary> Allows the player to trigger counterattack effects. Set when able to use an item that has counterattack effects. Use GuardianCounterTime to check for counterattack eligibility. </summary>
 		public bool GuardianCounter;
 		/// <summary> Timer for performing a counterattack if GuardianCounter is true. Set to 60 after guarding with a gauntlet, or to the block or counter duration after guarding with a pavise or quarterstaff. Will always be 0 if GuardianCounter is false. </summary>
@@ -250,6 +251,15 @@ namespace OrchidMod
 			{
 				GuardianSlam--;
 				GuardianSlamRecharging++;
+			}
+
+			if (GuardianItemCharge > 0)
+			{
+				ChargeHoldTimer++;
+			}
+			else
+			{
+				ChargeHoldTimer = 0;
 			}
 
 			if (GuardianCounter)

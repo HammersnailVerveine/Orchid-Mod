@@ -258,11 +258,11 @@ namespace OrchidMod.Content.Guardian
 							}
 							guardian.GuardianItemCharge = 180f;
 						}
-						else if (guardian.GuardianItemCharge > (70 * owner.GetTotalAttackSpeed(DamageClass.Melee) - owner.HeldItem.useTime) / 2.5f) guardian.SlamCostUI = 1;
+						else if (CanInstantSlam()) guardian.SlamCostUI = 1;
 
 						if ((ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs ? !Main.mouseRight : !Main.mouseLeft) && owner.whoAmI == Main.myPlayer)
 						{
-							if (CanInstantSlam() && guardian.UseSlam(1, true))
+							if ((CanInstantSlam() || ModContent.GetInstance<OrchidClientConfig>().GuardianGauntletAlwaysSlam) && guardian.UseSlam(1, true))
 							{ // Consume a slam to fully charge if the player has one
 								guardian.UseSlam();
 								guardian.GuardianItemCharge = 180f;
@@ -321,7 +321,7 @@ namespace OrchidMod.Content.Guardian
 		{
 			Player player = Main.player[Projectile.owner];
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-			return guardian.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f &&  guardian.GuardianItemCharge < 180f;
+			return guardian.ChargeHoldTimer > ModContent.GetInstance<OrchidClientConfig>().GuardianMinHoldTimer && guardian.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f && guardian.GuardianItemCharge < 180f;
 		}
 
 		public override void OnKill(int timeLeft)
