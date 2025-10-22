@@ -304,7 +304,7 @@ namespace OrchidMod.Common.Global.NPCs
 					break;
 				case NPCID.MartianSaucerCore:
 					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<MartianWarhammer>(), 6));
+						npcLoot.Add(ItemDropRule.Common(ItemType<MartianWarhammer>(), 4));
 					}
 					break;
 				case NPCID.Paladin:
