@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.NPCs;
 using OrchidMod.Common.ModObjects;
 using System;
 using Terraria;
@@ -19,36 +20,37 @@ namespace OrchidMod.Content.Guardian.Buffs.Debuffs
 
 		public override void Update(NPC npc, ref int buffIndex)
 		{
+			OrchidGlobalNPC orchidNPC = npc.GetGlobalNPC<OrchidGlobalNPC>();
+
 			foreach (NPC otherNPC in Main.npc)
 			{
 				if (npc.Center.Distance(otherNPC.Center) < (Math.Max(otherNPC.width, otherNPC.height) * 0.5f + Math.Max(otherNPC.width, otherNPC.height) * 0.5f + 16f) && npc != otherNPC && OrchidModProjectile.IsValidTarget(otherNPC))
 				{
-					Player player = npc.HasValidTarget ? Main.player[npc.target] : null;
-					if (player == null)
-					{ // Literally use any player, this does not matter
-						foreach(Player pl in Main.player)
-						{
-							if (pl.active)
-							{
-								player = pl;
-								break;
-							}
-						}
+					Player player = Main.player[orchidNPC.StarKOOwner];
+					int remainingDamage = npc.buffTime[buffIndex] / 15;
+					if (otherNPC.immune[player.whoAmI] <= 0)
+					{
+						player.ApplyDamageToNPC(otherNPC, 500, npc.velocity.Length(), npc.velocity.X > 0 ? 1 : -1, false, ModContent.GetInstance<GuardianDamageClass>(), true);
+						otherNPC.immune[player.whoAmI] = 10;
 					}
-
-					npc.velocity *= 0.5f;
-					player.ApplyDamageToNPC(otherNPC, 500, npc.velocity.Length(), npc.velocity.X > 0 ? 1 : -1, false, ModContent.GetInstance<GuardianDamageClass>(), true);
-					player.ApplyDamageToNPC(npc, 500, 0f, 1, false, ModContent.GetInstance<GuardianDamageClass>(), true);
-					npc.RequestBuffRemoval(ModContent.BuffType<HockeyQuarterstaffDebuff>());
+					if (npc.immune[player.whoAmI] <= 0)
+					{
+						player.ApplyDamageToNPC(npc, Math.Clamp(npc.life - remainingDamage, 1, 500), 0f, 1, false, ModContent.GetInstance<GuardianDamageClass>());
+						if (npc.life > 10)
+							npc.immune[player.whoAmI] = 10;
+					}
 				}
 			}
 
+			npc.velocity = Vector2.Lerp(npc.velocity, orchidNPC.ForcedVelocity, npc.buffTime[buffIndex] * npc.knockBackResist * 0.01f);
 			if (npc.velocity.Length() < 8f)
 			{
+				npc.lifeRegen -= 15 * npc.buffTime[buffIndex];
 				npc.RequestBuffRemoval(ModContent.BuffType<HockeyQuarterstaffDebuff>());
 			}
 			else
 			{
+				npc.lifeRegen -= 15;
 				Vector2 finalVelocity = Vector2.Zero;
 				Vector2 intendedVelocity = npc.velocity / 10f;
 				for (int i = 0; i < 10; i++)
@@ -58,19 +60,7 @@ namespace OrchidMod.Content.Guardian.Buffs.Debuffs
 
 				if ((finalVelocity - npc.velocity).Length() > 8f)
 				{
-					Player player = npc.HasValidTarget ? Main.player[npc.target] : null;
-
-					if (player == null)
-					{ // Literally use any player, this does not matter
-						foreach (Player pl in Main.player)
-						{
-							if (pl.active)
-							{
-								player = pl;
-								break;
-							}
-						}
-					}
+					Player player = Main.player[orchidNPC.StarKOOwner];
 
 					npc.velocity *= 0f;
 					player.ApplyDamageToNPC(npc, 500, 0f, 1, false, ModContent.GetInstance<GuardianDamageClass>(), true);

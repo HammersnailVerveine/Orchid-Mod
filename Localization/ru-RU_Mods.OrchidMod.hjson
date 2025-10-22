@@ -4517,6 +4517,7 @@ Projectiles: {
 	// SpectreQuarterstaffProj.DisplayName: Spectre Quarterstaff Proj
 	// GuardianNeedleAnchor.DisplayName: Honeysteel Needle
 	// CrystalGauntletProjectile.DisplayName: Crystal Gauntlet Projectile
+	// StarKO.DisplayName: Star K.O.
 }
 
 Configs: {
