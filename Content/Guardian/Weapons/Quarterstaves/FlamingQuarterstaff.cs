@@ -17,8 +17,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.rare = ItemRarityID.White;
 			Item.useTime = 30;
 			ParryDuration = 60;
-			Item.knockBack = 5f;
-			Item.damage = 32;
+			Item.knockBack = 9f;
+			Item.damage = 35;
 			GuardStacks = 1;
 		}
 
@@ -65,9 +65,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 									dust.scale += Main.rand.NextFloat(2f);
 									dust.velocity *= Main.rand.NextFloat(0.2f, 0.6f);
 								}
+								dust.fadeIn += Main.rand.NextFloat(2.5f);
 							}
 							else if (projectile.ai[0] <= -30 && projectile.ai[0] >= -39) //jab
-									dust.velocity += new Vector2(-1, 1).RotatedBy(projectile.rotation) * (projectile.ai[0] + 30) * Main.rand.NextFloat(0.6f, 1.2f);
+							{
+								dust.velocity += new Vector2(-1, 1).RotatedBy(projectile.rotation) * (projectile.ai[0] + 30) * Main.rand.NextFloat(0.6f, 1.2f);
+								dust.fadeIn += Main.rand.NextFloat(1f);
+							}
 							break;
 						case 9:
 							dust.scale *= Main.rand.NextFloat(0.5f, 1f);
@@ -80,6 +84,14 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		public override void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool jabAttack, bool counterAttack)
 		{
 			target.AddBuff(BuffID.OnFire, jabAttack ? 45 : 180);
+		}
+
+		public override void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, NPC.HitInfo hit, bool jabAttack, bool counterAttack)
+		{
+			if (!jabAttack)
+			{
+				target.AddBuff(BuffID.OnFire3, 40);
+			}
 		}
 
 		public override void AddRecipes()
