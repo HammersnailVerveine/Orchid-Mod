@@ -54,7 +54,7 @@ namespace OrchidMod.Common.Global.NPCs
 			if (npc.HasBuff<HockeyQuarterstaffDebuff>())
 			{
 				npc.DiscourageDespawn(2);
-				if (npc.life < 2000 && ((Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].Center - npc.Center) * new Vector2(1f, 1.2f)).Length() > 1000f)
+				if (npc.life < 1000 && ((Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].Center - npc.Center) * new Vector2(1f, 1.2f)).Length() > 1000f)
 				{
 					Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, npc.velocity, ModContent.ProjectileType<StarKO>(), 0, 0, ai0: npc.whoAmI);
 					if (StarKOOwner >= 0 && Main.player[StarKOOwner].active && !Main.player[StarKOOwner].dead && Collision.TileCollision(Main.player[StarKOOwner].Center, Vector2.UnitY * 1000, 1, 1) == Vector2.UnitY * 1000) npc.Center = Main.player[StarKOOwner].Center - Vector2.UnitY * 1000;
