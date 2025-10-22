@@ -49,7 +49,16 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
-			if (Main.rand.NextBool(5) || Projectile.ai[0] == 1f) target.AddBuff(BuffID.Venom, 240 + Main.rand.Next(120));
+			if (Strong)
+			{
+				target.AddBuff(BuffID.Venom, 300);
+				if (FirstHit && !player.dead) guardian.GuardianGuardRecharging += 0.5f;
+			}
+			else
+			{
+				target.AddBuff(BuffID.Venom, 180);
+				if (FirstHit && !player.dead) guardian.GuardianSlamRecharging += 0.2f;
+			}
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
