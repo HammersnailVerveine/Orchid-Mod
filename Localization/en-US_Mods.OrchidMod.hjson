@@ -3685,7 +3685,7 @@ Items: {
 
 	ShardQuarterstaff: {
 		DisplayName: Harmony
-		Tooltip: Has a chance to confuse
+		Tooltip: Counterattacks confuse and conjure a damaging duality
 	}
 
 	ThoriumDarksteelGauntlet: {
