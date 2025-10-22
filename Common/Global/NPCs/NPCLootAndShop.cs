@@ -202,6 +202,7 @@ namespace OrchidMod.Common.Global.NPCs
 			IItemDropRuleCondition ThoriumDisabled = new OrchidDropConditions.ThoriumDisabled();
 			IItemDropRuleCondition ThoriumDisabledGambler = new	OrchidDropConditions.ThoriumDisabledEnableContentGambler();
 			IItemDropRuleCondition NotExpert = new Conditions.NotExpert();
+			IItemDropRuleCondition IsExpert = new Conditions.IsExpert();
 
 			// GENERIC NPCs
 
@@ -461,7 +462,17 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.LunarTowerNebula:
 				case NPCID.LunarTowerVortex:
 					{
-						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<HorizonFragment>(), 1, 3, 15).OnFailedRoll(ItemDropRule.Common(ItemType<HorizonFragment>(), 1, 5, 23)));
+						DropOneByOne.Parameters classicParameters = new()
+						{
+							ChanceNumerator = 1,
+							ChanceDenominator = 1,
+							MinimumStackPerChunkBase = 1,
+							MaximumStackPerChunkBase = 3,
+							MinimumItemDropsCount = 3, //one quarter of vanilla fragments, 12
+							MaximumItemDropsCount = 5, //one quarter of vanilla fragments, 20
+						};
+						DropOneByOne.Parameters expertParameters = classicParameters with {MaximumStackPerChunkBase = 4, BonusMinDropsPerChunkPerPlayer = 1, BonusMaxDropsPerChunkPerPlayer = 1};
+						npcLoot.Add(new DropBasedOnExpertMode(new DropOneByOne(ItemType<HorizonFragment>(), classicParameters), new DropOneByOne(ItemType<HorizonFragment>(), expertParameters)));
 					}
 					break;
 				default:

@@ -3348,7 +3348,7 @@ Items: {
 
 	HorizonFragment: {
 		DisplayName: Horizon Fragment
-		Tooltip: The edge of vastness beyond comprehension lies within this fragment
+		Tooltip: "'Vastness beyond comprehension lies within this fragment'"
 	}
 
 	HorizonShield: {
