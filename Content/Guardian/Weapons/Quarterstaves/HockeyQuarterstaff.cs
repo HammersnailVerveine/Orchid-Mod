@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Global.NPCs;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using Terraria;
 using Terraria.ID;
@@ -16,7 +17,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			Item.rare = ItemRarityID.Pink;
 			Item.useTime = 10;
 			ParryDuration = 60;
-			Item.knockBack = 12f;
+			Item.knockBack = 24f;
 			Item.damage = 114;
 			GuardStacks = 1;
 			SwingStyle = 2;
@@ -30,9 +31,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 		{
 			if (!jabAttack && !counterAttack && target.knockBackResist > 0f)
 			{
-				Vector2 velocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * 20f;
-				target.velocity = velocity;
-				target.AddBuff(ModContent.BuffType<HockeyQuarterstaffDebuff>(), 60);
+				Vector2 velocity = Vector2.UnitY.RotatedBy(projectile.ai[1]) * Item.knockBack;
+				target.AddBuff(ModContent.BuffType<HockeyQuarterstaffDebuff>(), 90);
+				OrchidGlobalNPC orchidTarget = target.GetGlobalNPC<OrchidGlobalNPC>();
+				orchidTarget.ForcedVelocity = target.velocity = velocity;
+				orchidTarget.StarKOOwner = player.whoAmI;
 			}
 		}
 
@@ -41,6 +44,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			if (!jabAttack && !counterAttack && target.knockBackResist > 0f && firstHit && target.life > 1)
 			{
 				modifiers.SetMaxDamage(target.life < 10 ? 1 : target.life - 10);
+				modifiers.DamageVariationScale *= 0;
 			}
 		}
 	}

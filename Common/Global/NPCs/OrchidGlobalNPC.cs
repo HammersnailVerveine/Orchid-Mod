@@ -1,11 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ID;
 using OrchidMod.Content.Alchemist.Misc;
 using OrchidMod.Content.Gambler.Misc;
+using OrchidMod.Content.Guardian;
+using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using OrchidMod.Content.Guardian.Misc;
+using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Common.ModSystems;
 
 namespace OrchidMod.Common.Global.NPCs
@@ -16,6 +20,8 @@ namespace OrchidMod.Common.Global.NPCs
 		public int ShamanBomb = 0;
 		public int ShamanShroom = 0;
 		public int ShamanSpearDamage = 0;
+		public int StarKOOwner = -1;
+		public Vector2 ForcedVelocity = Vector2.Zero;
 
 		public bool AlchemistHit = false;
 		public bool GamblerHit = false;
@@ -43,7 +49,23 @@ namespace OrchidMod.Common.Global.NPCs
 			if (ShamanShroom > 0) modifiers.FinalDamage *= 1.1f;
 		}
 
-		public override void DrawEffects(NPC npc, ref Color drawColor)
+		public override void PostAI(NPC npc)
+		{
+			if (npc.HasBuff<HockeyQuarterstaffDebuff>())
+			{
+				npc.DiscourageDespawn(2);
+				if (npc.life < 2000 && ((Main.player[Player.FindClosest(npc.position, npc.width, npc.height)].Center - npc.Center) * new Vector2(1f, 1.2f)).Length() > 1000f)
+				{
+					Projectile.NewProjectile(npc.GetSource_Death(), npc.Center, npc.velocity, ModContent.ProjectileType<StarKO>(), 0, 0, ai0: npc.whoAmI);
+					if (StarKOOwner >= 0 && Main.player[StarKOOwner].active && !Main.player[StarKOOwner].dead && Collision.TileCollision(Main.player[StarKOOwner].Center, Vector2.UnitY * 1000, 1, 1) == Vector2.UnitY * 1000) npc.Center = Main.player[StarKOOwner].Center - Vector2.UnitY * 1000;
+					if (Main.netMode != NetmodeID.MultiplayerClient) npc.StrikeInstantKill();
+				}
+				//if (StarKOTimer == 1) StarKOOwner = -1;
+				//StarKOTimer--;
+			}
+		}
+
+		/*public override void DrawEffects(NPC npc, ref Color drawColor)
 		{
 			if (ShamanBomb > 0)
 			{
@@ -98,7 +120,7 @@ namespace OrchidMod.Common.Global.NPCs
 
 				if (damage < 20) damage = 20;
 			}
-		}
+		}*/
 
 		public override void OnKill(NPC npc)
 		{
