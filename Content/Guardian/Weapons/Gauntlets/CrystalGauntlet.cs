@@ -48,7 +48,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override void PlayParrySound(Player player, OrchidGuardian guardian, Projectile anchor)
 		{
-			SoundEngine.PlaySound(SoundID.Item30.WithPitchOffset(clashImmune / -200f), player.Center);
+			SoundEngine.PlaySound(SoundID.Item30.WithPitchOffset(clashImmune / -300f), player.Center);
 		}
 
 		int clashImmune;
@@ -76,6 +76,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override void SafeHoldItem(Player player)
 		{
+			//this line is to prevent weird behavior while weapon switching
+			//todo later: implement weapon switching hook properly and make it so stored iframes from this weapon are returned if guarding is interrupted
 			if (clashImmune > 0 && !player.GetModPlayer<OrchidGuardian>().GuardianGauntletParry)
 			{
 				clashImmune = 0;
@@ -84,16 +86,16 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			int immunity = Math.Min(Math.Max(player.immuneTime, clashImmune), 180);
 			if (immunity > 40)
 			{
-				int dustType = player.immuneTime switch
+				int dustType = Main.rand.Next(immunity) switch
 				{
 					< 60 => DustID.BlueCrystalShard,
-					< 90 => DustID.PurpleCrystalShard,
+					< 120 => DustID.PurpleCrystalShard,
 					_ => DustID.UndergroundHallowedEnemies // pinkcrystalshard is ugly for some reason
 				};
 				//int dustType = Main.rand.NextBool() ? DustID.BlueCrystalShard : DustID.PurpleCrystalShard;
 				Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, dustType, Alpha: 100);
 				dust.noGravity = true;
-				dust.scale *= (immunity - 10) * 0.015f;
+				dust.scale *= immunity * 0.01f;
 				dust.velocity *= 0.8f + immunity * 0.004f;
 				dust.velocity += player.velocity * 0.8f;
 			}
@@ -101,11 +103,6 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage)
 		{
-			if (clashImmune > 0)
-			{
-				player.immune = true;
-				player.immuneTime = clashImmune;
-			}
 			if (!charged) charged = guardian.UseSlam(1); //always consume slams before jabbing
 			if (charged)
 			{
