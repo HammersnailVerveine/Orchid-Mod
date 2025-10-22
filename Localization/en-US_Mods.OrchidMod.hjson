@@ -2758,7 +2758,7 @@ Items: {
 	}
 
 	EnchantedPavise: {
-		DisplayName: Enchanted Pavise
+		DisplayName: Enchanted Shield
 		Tooltip: Shoots an enchanted shield blast
 	}
 
