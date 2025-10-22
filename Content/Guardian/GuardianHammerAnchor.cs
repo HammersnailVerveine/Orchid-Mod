@@ -381,7 +381,7 @@ namespace OrchidMod.Content.Guardian
 							Projectile.friendly = true;
 							HammerItem.OnThrow(owner, guardian, Projectile, WeakThrow);
 							Projectile.ResetLocalNPCHitImmunity();
-							Projectile.localNPCHitCooldown = -1;
+							if (!HammerItem.Penetrate) Projectile.localNPCHitCooldown = -1;
 						}
 
 						OldPosition.Add(new Vector2(Projectile.Center.X, Projectile.Center.Y));
@@ -441,27 +441,33 @@ namespace OrchidMod.Content.Guardian
 
 		public override void SafeModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (Projectile.ai[1] < 0) // Less damage for melee hits
+			if (HammerItem != null)
 			{
-				if (Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianItemCharge < 180f)
+				if (BlockDuration != 0) // Block hit
 				{
-					modifiers.FinalDamage *= 0.5f;
+					modifiers.FinalDamage *= HammerItem.BlockDamage;
 				}
-				else
+				else if (Projectile.ai[1] < 0) // Swing hit
 				{
-					modifiers.FinalDamage *= 0.75f;
-				}
-			}
-
-			if (HammerItem != null && Projectile.ai[1] > 0)
-			{
-				if (!HammerItem.Penetrate && target.lifeMax > 5)
-				{
-					modifiers.FinalDamage *= 1f - 0.25f * HitCount;
-					HitCount++;
-					if (HitCount > 3)
+					if (Main.LocalPlayer.GetModPlayer<OrchidGuardian>().GuardianItemCharge >= 180f)
 					{
-						HitCount = 3;
+						modifiers.FinalDamage *= HammerItem.SwingDamage;
+					}
+					else
+					{
+						modifiers.FinalDamage *= HammerItem.SwingDamage * 1.5f;
+					}
+				}
+				else // Throw hit
+				{
+					if (!HammerItem.Penetrate && target.lifeMax > 5)
+					{
+						modifiers.FinalDamage *= HammerItem.ThrowDamage * (1f - 0.25f * HitCount);
+						if (HitCount < 3) HitCount++;
+					}
+					else
+					{
+						modifiers.FinalDamage *= HammerItem.ThrowDamage;
 					}
 				}
 			}

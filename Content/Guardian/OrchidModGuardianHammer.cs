@@ -25,6 +25,9 @@ namespace OrchidMod.Content.Guardian
 		public float SwingSpeed;
 		/// <summary>Multiplier for the amount of bonus charge gained from hitting with a melee swing.</summary>
 		public float SwingChargeGain;
+		public float SwingDamage;
+		public float ThrowDamage;
+		public float BlockDamage;
 		public int HitCooldown;
 		public virtual void OnBlockContact(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon pushing an enemy with a throw (can happen repeatedly)
 		public virtual void OnBlockNPC(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon blocking an enemy (1 time per throw per enemy)
@@ -61,9 +64,12 @@ namespace OrchidMod.Content.Guardian
 			TileBounce = false;
 			TileCollide = true;
 			SlamStacks = 0;
+			ThrowDamage = 1f;
 			ReturnSpeed = 1f;
 			SwingSpeed = 1f;
+			SwingDamage = 0.5f;
 			SwingChargeGain = 1f;
+			BlockDamage = 0.33f;
 			BlockDuration = 180;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
@@ -101,7 +107,6 @@ namespace OrchidMod.Content.Guardian
 				projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * (10f + (Item.shootSpeed - 10f) * 0.35f);
 				projectile.friendly = true;
 				projectile.knockBack = 0f;
-				projectile.damage = (int)(projectile.damage / 3f);
 				projectile.tileCollide = true;
 
 				anchor.BlockDuration = (int)(BlockDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration + 10);
