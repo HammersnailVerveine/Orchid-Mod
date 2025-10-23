@@ -128,7 +128,7 @@ Buffs: {
 	}
 
 	ReactionCooldown: {
-		DisplayName: Помехи в эксперементе
+		DisplayName: Помехи в эксперименте
 		Description: Вы не можете использовать скрытые реакции
 	}
 
@@ -224,7 +224,7 @@ Buffs: {
 
 	BambooBuff: {
 		DisplayName: Бамбуковая защита
-		Description: Защита увеличена на 25%
+		Description: Защита увеличена на 50%
 	}
 
 	GuardianGitBuff: {
@@ -268,7 +268,7 @@ Buffs: {
 	}
 
 	SageOwlDebuff: {
-		DisplayName: Ослабление мудрой совы
+		DisplayName: Ослабление совы
 		Description: Защита снижена
 	}
 
@@ -303,33 +303,37 @@ Buffs: {
 	}
 
 	ShapeshifterSurvivalPotionBuff: {
-		// DisplayName: Survival Instincts
-		// Description: Damage resistance and feral damage increased based on current health
+		DisplayName: Инстинкты выживания
+		Description: Сопротивление урону и звериный урон увеличиваются в зависимости от потерянного здоровья
 	}
 
 	ShapeshifterShapeshiftingCooldownDebuff: {
-		// DisplayName: Shapeshifting Sickness
-		// Description: Reduced stats and cancels on-shapeshift effects
+		DisplayName: Пост-обращенческий синдром
+		Description: 
+			'''
+			Характеристики снижены
+			Эффекты от обращений отменены
+			'''
 	}
 
 	ThoriumGrandThunderBirdWarhammerDebuff: {
-		// DisplayName: Conductive
-		// Description: You're like a lightning rod!
+		DisplayName: Проводник
+		Description: Теперь вы громоотвод!
 	}
 
 	GuardianThoriumBronzeShieldBuff: {
-		// DisplayName: Testudo
-		// Description: Protecting nearby allies, the next slam's damage will be increased by {0}%
-		/* AltDescription:
+		DisplayName: Testudo
+		Description: Защищает ближайших союзников. Урон следующей атаки нападением будет увеличен на {0}%
+		AltDescription:
 			'''
-			 and rising!
-			Guard regeneration is being consumed to increase damage further
-			''' */
+			
+			Восстановление очков обороны конвертируется в дополнительный бонус к урону
+			'''
 	}
 
 	ThoriumBronzeShieldProtection: {
-		// DisplayName: Testudo Formation
-		// Description: Being protected by an ally's shield
+		DisplayName: Testudinem formate!
+		Description: Вас защищает щит союзника
 	}
 }
 
@@ -431,7 +435,7 @@ AlchemistRecipe: {
 
 	RecipeMushroomThread: {
 		DisplayName: Грибная нить
-		Tooltip: Создайт грибную нить, которую можно использовать для создания брони
+		Tooltip: Создаёт грибную нить, которую можно использовать для создания брони
 	}
 
 	RecipePermanentFreeze: {
@@ -642,7 +646,7 @@ Items: {
 		DisplayName: Алхимический стабилизатор
 		Tooltip:
 			'''
-			Используется для создания различных алхимический оружий
+			Используется для создания различного алхимического оружия
 			«Пахнет как пчелиный воск»
 			'''
 	}
@@ -652,7 +656,7 @@ Items: {
 		Tooltip:
 			'''
 			Продаётся химиком, которую можно найти в шахте
-			Используется для создания различных алхимический оружий
+			Используется для создания различного алхимического оружия
 			'''
 	}
 
@@ -741,7 +745,7 @@ Items: {
 			'''
 			Позволяет смешивать алхимические отвары с помощью клавиш быстрого доступа
 			Нажмите на соответствующую числу над отваром клавишу, чтобы добавить его в смесь
-			Используйте колёсико мыши для прокрутки отображаемх зелий
+			Используйте колёсико мыши для прокрутки отображаемых зелий
 			Одновременно может отображать до 10 отваров
 			'''
 	}
@@ -775,7 +779,7 @@ Items: {
 		DisplayName: Облако в флаконе
 		Tooltip:
 			'''
-			Подрасывает в воздух поражённых врагов
+			Подбрасывает в воздух поражённых врагов
 			Увеличивает шанс появления пузырьков-катализаторов
 			'''
 	}
@@ -796,7 +800,7 @@ Items: {
 		Tooltip:
 			'''
 			Выращивает гриб, который взрывается через некоторое время или при катализе
-			Гриб погрощает свойства ближайших спор, выпуская их в ещё большем количестве
+			Гриб поглощает свойства ближайших спор, выпуская их в ещё большем количестве
 			Одновременно может существовать только 1 гриб
 			'''
 	}
@@ -816,7 +820,7 @@ Items: {
 		DisplayName: Пердёж в флаконе
 		Tooltip:
 			'''
-			Подрасывает в воздух поражённых врагов
+			Подбрасывает в воздух поражённых врагов
 			Увеличивает шанс появления пузырьков-катализаторов
 			'''
 	}
@@ -826,7 +830,7 @@ Items: {
 		Tooltip:
 			'''
 			Призывает пчёл при ударе
-			Пчёлы не могут быть призваны, если отвар используется с огненным ингридиентом
+			Пчёлы не могут быть призваны, если отвар используется с огненным ингредиентом
 			Имеет шанс выпустить улей-катализатор
 			'''
 	}
@@ -835,7 +839,7 @@ Items: {
 		DisplayName: Дыхание демона
 		Tooltip:
 			'''
-			Выпускает демонические огни, возращающиеся к месту столкновения отвара
+			Выпускает демонические огни, возвращающиеся к месту столкновения отвара
 			Покрывает поражённых врагов ветряным элементом
 			'''
 	}
@@ -864,7 +868,7 @@ Items: {
 		DisplayName: Цунами в флаконе
 		Tooltip:
 			'''
-			Подрасывает в воздух поражённых врагов
+			Подбрасывает в воздух поражённых врагов
 			Увеличивает шанс появления пузырьков-катализаторов
 			'''
 	}
@@ -918,7 +922,7 @@ Items: {
 	}
 
 	BlinkrootFlask: {
-		DisplayName: Экстракт мерцающего коря
+		DisplayName: Экстракт мерцающего корня
 		Tooltip:
 			'''
 			Выпускает воздушные споры
@@ -1029,7 +1033,7 @@ Items: {
 		Tooltip:
 			'''
 			Выращивает гриб, испускающий ауру, увеличивающую количество спор, выделяемых другими экстрактами
-			Гриб погрощает свойства ближайших спор, выпуская их в ещё большем количестве
+			Гриб поглощает свойства ближайших спор, выпуская их в ещё большем количестве
 			Одновременно может существовать только 1 гриб
 			'''
 	}
@@ -1049,7 +1053,7 @@ Items: {
 		DisplayName: Флакон живительного сока
 		Tooltip:
 			'''
-			Создаёт пузырь лечебного сока при использовании с другими ингридиентами
+			Создаёт пузырь лечебного сока при использовании с другими ингредиентами
 			При использовании с воздушным элементом лечебный эффект удваивается
 			Имеет шанс выпустить большой пузырь сока-катализатора
 			При реакции лечит союзников и покрывает ближайших врагов природным элементом
@@ -1083,7 +1087,7 @@ Items: {
 			'''
 			Выпускает отравляющие пузырьки, задерживающиеся в воздухе
 			Имеет шанс выпустить ядовитый пузырь-катализатор
-			Может влиять на эффекты других алхимических оружий, создающих пузырьки
+			Может влиять на эффекты другого алхимического оружия, создающих пузырьки
 			'''
 	}
 
@@ -1144,7 +1148,7 @@ Items: {
 			Замораживает все споры, катализирующие элементы и частицы, задерживающиеся в воздухе, находящиеся в области действия
 			Замороженные снаряды упадут на землю и разобьются при ударе
 			Враги в области действия будут замедлены, а враги, покрытые водяным элементом, будут заморожены на ещё более длительное время
-			Использование огненного ингридиента отменяет все эти эффекты, покрывая врага водяным элементом
+			Использование огненного ингредиента отменяет все эти эффекты, покрывая врага водяным элементом
 			'''
 	}
 
@@ -1152,7 +1156,7 @@ Items: {
 		DisplayName: Слизневой флакон
 		Tooltip:
 			'''
-			Делает поражённых врагов желейными и уявимыми к урону от падения
+			Делает поражённых врагов желейными и уязвимыми к урону от падения
 			Имеет шанс выпустить слизневой пузырь-катализатор
 			'''
 	}
@@ -1221,7 +1225,7 @@ Items: {
 	}
 
 	BurningClovers: {
-		DisplayName: Горящие клеверы
+		DisplayName: Горящий клевер
 		Tooltip:
 			'''
 			Кости картёжника замедлятся, если выпадает 5 или более очков
@@ -1427,7 +1431,7 @@ Items: {
 
 	VulturePotion: {
 		DisplayName: Зелье стервятника
-		Tooltip: Увеливает скорость появления фишек на 20%
+		Tooltip: Увеличивает скорость появления фишек на 20%
 	}
 
 	VultureTalon: {
@@ -1490,7 +1494,7 @@ Items: {
 			'''
 			Призывает искажённого червя, следующего за вашим курсором
 			Периодически выпускает куски гнили
-			При подании этой гнили червь увеличивает свою длину и урон
+			При поедании этой гнили червь увеличивает свою длину и урон
 			'''
 	}
 
@@ -2770,7 +2774,7 @@ Items: {
 	}
 
 	EnchantedPavise: {
-		DisplayName: Зачарованная павеза
+		DisplayName: Зачарованный щит
 		Tooltip: Выпускает заряд зачарованного меча
 	}
 
@@ -2860,8 +2864,8 @@ Items: {
 	}
 
 	DesertWarhammer: {
-		DisplayName: Грозобойник
-		Tooltip: Постоянно электризует ближайших врагов
+		DisplayName: Ископаемый боевой молот
+		Tooltip: Разбрасывает осколки окаменелостей при попадании
 	}
 
 	CrimsonWarhammer: {
@@ -2880,8 +2884,8 @@ Items: {
 	}
 
 	PirateWarhammer: {
-		DisplayName: Пиратский боевой молот
-		Tooltip: С врагов, поражённых взмахом, выпадает больше золота
+		DisplayName: Причальный отбойник
+		Tooltip: Моментально заряжается при попадании
 	}
 
 	ChlorophyteWarhammer: {
@@ -2890,7 +2894,7 @@ Items: {
 	}
 
 	TempleWarhammer: {
-		DisplayName: Боевой молот храма
+		DisplayName: Бхаевои молотсс
 		Tooltip: Выпускает самонаводящиеся искры
 	}
 
@@ -2901,7 +2905,7 @@ Items: {
 
 	HellRune: {
 		DisplayName: Символ Суртра
-		Tooltip: Призывает горизонтально движующиеся огненные шары
+		Tooltip: Призывает горизонтально движущиеся огненные шары
 	}
 
 	RuneRune: {
@@ -2926,7 +2930,7 @@ Items: {
 			Немного увеличивает скорость восполнения очков обороны
 			Враги будут чаще выбирать вас в качестве цели
 			'''
-		SetBonus: Использование очков обороны или нападения увеличивает защиту на 25%
+		SetBonus: Использование очков обороны или нападения увеличивает защиту на 50%
 	}
 
 	GuardianBambooChest: {
@@ -2964,7 +2968,7 @@ Items: {
 			Увеличивает противостоящий урон на 5%
 			Увеличивает максимальный запас очков обороны на 1 ед.
 			'''
-		SetBonus: Блоки и парирования имеют 50% шанс дать 2 очка нападения
+		SetBonus: Блоки и парирования имеют 50% шанс дать дополнительное очко нападения
 	}
 
 	GuardianMeteoriteLegs: {
@@ -3032,7 +3036,7 @@ Items: {
 			Увеличивает максимальный запас очков обороны на 2 ед.
 			Враги будут чаще выбирать вас в качестве цели
 			'''
-		SetBonus: Увеличивает скорость восполнение осков обороны
+		SetBonus: Увеличивает скорость восполнение очков обороны
 	}
 
 	GuardianTitaniumHead: {
@@ -3085,7 +3089,7 @@ Items: {
 		Tooltip:
 			'''
 			Наносит противостоящий урон, равный 150% от вашей защиты, при блоке врага
-			Блокирование снарядов выпускает водяной выстерл, наносящий урон щита
+			Блокирование снарядов выпускает водяной выстрел, наносящий урон щита
 			'''
 	}
 
@@ -3121,7 +3125,7 @@ Items: {
 
 	DemoniteShield: {
 		DisplayName: Завеса ночи
-		Tooltip: ""
+		Tooltip: Атаки нападением выпускают тёмных духов
 	}
 
 	CorruptionWarhammer: {
@@ -3136,7 +3140,7 @@ Items: {
 
 	GuideShieldBounce: {
 		DisplayName: Руководство по отпрыгиванию на щите
-		Tooltip: Позволяет отпыгивать от поверхности с помощью блока
+		Tooltip: Позволяет отпрыгивать от поверхности с помощью блока
 	}
 
 	GuardianCobaltHead: {
@@ -3167,7 +3171,7 @@ Items: {
 			'''
 			Увеличивает шанс противостоящего критического удара и скорость ближнего боя на 18%
 			Увеличивает максимальный запас очков обороны и нападения на 1 ед.
-			Враги будут чаще выбирать вас в качестве целиu
+			Враги будут чаще выбирать вас в качестве цели
 			'''
 	}
 
@@ -3187,11 +3191,11 @@ Items: {
 	}
 
 	GuardianGitHelm: {
-		DisplayName: Рыцарский шлем Gud'а
+		DisplayName: Рыцарский шлем Gud-а
 		Tooltip:
 			'''
 			Увеличивает максимальный запас очков обороны и нападения на 1 ед.
-			Экиперовка вместе с бронёй из базовых руд даст уникальный бонус косплекта
+			Экипировка вместе с бронёй из базовых руд даст уникальный бонус комплекта
 			Враги будут чаще выбирать вас в качестве цели
 			'''
 		SetBonus: Увеличивает скорость передвижения после успешного блока или парирования
@@ -3199,7 +3203,7 @@ Items: {
 
 	GuardianRunePotion: {
 		DisplayName: Руническое зелье
-		Tooltip: Увеличивает количество рунных станрядов хранителя
+		Tooltip: Увеличивает количество рунных снарядов хранителя
 	}
 
 	GuardianHoneyPotion: {
@@ -3232,7 +3236,7 @@ Items: {
 	}
 
 	SpiderGauntlet: {
-		DisplayName: Смертельное косание
+		DisplayName: Смертельное касание
 		Tooltip: Выпускает клыки после парирования
 	}
 
@@ -3241,7 +3245,7 @@ Items: {
 		Tooltip:
 			'''
 			Удерживайте ВВЕРХ и ВНИЗ для управления скоростью падения во время зарядки атаки
-			Полность заряженые атаки и контратаки вызывают ракетный выпад
+			Полностью заряженные атаки и контратаки вызывают ракетный выпад
 			'''
 	}
 
@@ -3314,7 +3318,7 @@ Items: {
 		Tooltip:
 			'''
 			Заряженные удары выпускают самонаводящиеся осколки света
-			Парирования усиляют незаряженные атаки
+			Парирования усиливают незаряженные атаки
 			'''
 	}
 
@@ -3325,7 +3329,7 @@ Items: {
 
 	PalladiumGauntlet: {
 		DisplayName: Палладиевая перчатка
-		Tooltip: ""
+		Tooltip: Использует ваше здоровье для использования парирования, если оно превышает 90% от максимального
 	}
 
 	MythrilWarhammer: {
@@ -3360,7 +3364,7 @@ Items: {
 
 	HorizonFragment: {
 		DisplayName: Фрагмент горизонта
-		Tooltip: «В этом фрагменте скрыта грань непостижимых просторов»
+		Tooltip: «В этом фрагменте скрыты непостижимые просторы»
 	}
 
 	HorizonShield: {
@@ -3450,7 +3454,7 @@ Items: {
 		DisplayName: Идол звёздной совы
 		LeftClick: Стреляет шквалом перьев
 		RightClick: Отмечает врагов под вами, увеличивая наносимый урон на 3 ед.
-		Jump: Прыгните, чтобы подлететь и начать парить, увеличивая урон и скорость атаки
+		Jump: Прыгните, чтобы совершить до двух рывков и начать парить, увеличивая скорость атаки
 		Passive: Улучшенное ночное зрение
 		Tooltip: Обращает вас в звёздную сову, даруя уникальные навыки
 	}
@@ -3465,9 +3469,9 @@ Items: {
 	}
 
 	PredatorIceFox: {
-		DisplayName: Статуэтка ледяной лесы
+		DisplayName: Статуэтка ледяной лисы
 		LeftClick: Призывает 3 лисиных огонька
-		RightClick: Переводит вас в призрачную форму. Вы будете наносить урон врагам, через которых проходите.
+		RightClick: Иногда переводит вас в призрачную форму. Вы будете наносить урон врагам, через которых проходите.
 		Jump: При двойном прыжке может совершить телепортирующий рывок, вызывающий 3 лисиных огонька
 		Passive: Обращение в человека и обратно снижает скорость передвижения
 		Tooltip: Обращает вас в лесу-духа, даруя уникальные навыки
@@ -3475,7 +3479,7 @@ Items: {
 
 	PredatorHarpy: {
 		DisplayName: Чучело гарпии
-		LeftClick: Стреляет бритвенно острыми перьями
+		LeftClick: Стреляет бритвенно острыми перьями, игнорирующими защиту врага
 		RightClick: Совершает горизонтальный рывок, выпуская шквал перьев
 		Jump: Может совершать четверной прыжок
 		Passive: Каждый прыжок и рывок усиливает вашу следующую атаку
@@ -3485,28 +3489,28 @@ Items: {
 	PredatorFossil: {
 		DisplayName: Статуэтка раптора
 		LeftClick: Совершает сильный укус, вызывающий кровотечение
-		RightClick: Совешает рывок, позволяющий захватиться за цель и кусать её с повышенной частотой
+		RightClick: Совершает рывок, позволяющий захватиться за цель и кусать её с повышенной частотой
 		Jump: Прыжки с цели захвата наносят дополнительный урон
 		Passive: Урон от падения снижен
 		Tooltip: Обращает вас в костяного раптора, даруя уникальные навыки
 	}
 
 	PredatorUndine: {
-		// DisplayName: Undine Statuette
-		// LeftClick: Slashes, granting 'tide' for up to 100% bonus critical strike chance
-		// RightClick: Releases all 'tide', 200% of excess critical strike chance increases damage
-		// Jump: Can jump two additional times, uses 5 'tide' instead of taking damage
-		// Passive: Skill critical strikes briefly grant up to 50% melee and movement speed
-		// Tooltip: Transforms you into an Undine, gaining unique abilities
+		DisplayName: Статуэтка ундины
+		LeftClick: Наносит удары, увеличивающие запас очков «Волны» и шанс критического удара вплоть до 100%
+		RightClick: Выпускает «Волну», расходуя все очки. Каждый 1% шанса критического удара свыше 100% конвертируется в 2% бонуса к урону навыка
+		Jump: Может совершать тройной прыжок. При наличии 5 очков «Волны», вместо получения следующего урона активируется навык
+		Passive: Нанесение критических ударов навыком ненадолго увеличивают скорость ближнего боя и передвижения вплоть до 50%
+		Tooltip: Обращает вас в ундину, даруя уникальные навыки
 	}
 
 	PredatorGoblin: {
-		// DisplayName: Barghest Idol
-		// LeftClick: A ferocious bite, generating energy on hit and kill
-		// RightClick: Unleashes a series of shadowflame slashes, only usable at full energy
-		// Jump: Can jump an additional time, leaping forwards
-		// Passive: Stay immobile to enter stealth, reducing aggro and insantly filling energy
-		// Tooltip: Transforms you into a Barghest, gaining unique abilities
+		DisplayName: Идол баргеста
+		LeftClick: Совершает свирепый укус, накапливая энергию при ударах и убийствах
+		RightClick: Наносит серию ударов теневого пламени при полном заряде энергии
+		Jump: Может совершать дополнительный, ускоренный прыжок
+		Passive: При бездействии переходит в режим скрытности, снижающий агрессивность врагов и моментально восполняющий энергию
+		Tooltip: Обращает вас в баргеста, даруя уникальные навыки
 	}
 
 	SageBee: {
@@ -3538,7 +3542,7 @@ Items: {
 
 	SageCrimson: {
 		DisplayName: Чучело кримеры
-		LeftClick: Выпускает шквал базровых выстрелов, скорость которых увеличивается по мере использования атаки
+		LeftClick: Выпускает шквал багровых выстрелов, скорость которых увеличивается по мере использования атаки
 		RightClick: Создаёт отбрасывающий вас взрыв, сила которого зависит от уровня заряда обычной атаки
 		Jump: При прыжке совершается рывок, после которого можно будет парить в течении нескольких секунд
 		Passive: Убитые враги взрываются, нанося дополнительный урон ближайшим целям
@@ -3546,12 +3550,12 @@ Items: {
 	}
 
 	WardenSpider: {
-		DisplayName: Идол паутинопокрытого
+		DisplayName: Идол панцирного паука
 		LeftClick: Совершает сильный укус, который исцеляет вас, если был поражён покрытый паутиной враг
 		RightClick: Выстреливает паутиной, уничтожающей врагов, у которых менее 100 ед. здоровья
-		Jump: Позволяет использвать паутину, чтобы притягиваться к блокам или другим паутинам
-		Passive: Убийства врагов восстанавливают вам 10 ед. здоровья и дарают 15 ед. защиты. Порог усиления и исцеления снижен в других формах
-		Tooltip: Обращает вас в паутинопокрытого паука, даруя уникальные навыки
+		Jump: Позволяет использовать паутину, чтобы притягиваться к блокам или другим паутинам
+		Passive: Убийства врагов восстанавливают вам 10 ед. здоровья и дают 15 ед. защиты. Порог усиления и исцеления снижен в других формах
+		Tooltip: Обращает вас в панцирного паука паука, даруя уникальные навыки
 	}
 
 	WardenSlime: {
@@ -3564,21 +3568,21 @@ Items: {
 	}
 
 	WardenSalamortar: {
-		// DisplayName: Salamortar Idol
-		// LeftClick: Continuously shoots explosive mortar in an arc
-		// RightClick: Consumes all heat to shoot a massive bomb, healing on hit
-		// Jump: Builds up heat while running in a straight line, granting speed
-		// Passive: Jumping into lava launches you back and grants maximum heat
-		// Tooltip: Transforms you into a Salamortar, gaining unique abilities
+		DisplayName: Идол пиросаламандры 
+		LeftClick: Непрерывно стреляет взрывающимися пирокластами по дуге
+		RightClick: Использует всю свою теплоту для выстрела большой бомбой, восстанавливающей здоровье при попадании
+		Jump: При беге накапливается теплота, увеличивающая скорость передвижения с каждым уровнем
+		Passive: Прыжки в лаву подбрасывают вас вверх и дают максимальный уровень теплоты
+		Tooltip: Обращает вас в пиросаламандру, даруя уникальные навыки
 	}
 
 	WardenSnail: {
-		// DisplayName: Shell Idol
-		// LeftClick: Enters your shell, bowling through enemies at the cost of durability
-		// RightClick: Throws your shell, restoring durability on hit and life on pickup
-		// Jump: Increased mobility and can jump an aditional time as a slug
-		// Passive: Shell durability regenerates as a slug
-		// Tooltip: Transforms you into a Snail, gaining unique abilities
+		DisplayName: Идол ракушки
+		LeftClick: Облачает вас в ракушку, позволяющую таранить врагов ценой её прочности без получения урона
+		RightClick: Бросает ракушку. Восстанавливает ваше здоровье при её подборе и пополняет прочность, если попала по врагу при выстреле
+		Jump: Увеличивает скорость передвижения и позволяет совершать дополнительный прыжок, когда вы в форме слизня
+		Passive: Прочность ракушки пассивно пополняется, когда вы в форме слизня
+		Tooltip: Обращает вас в улитку, даруя уникальные навыки
 	}
 
 	WardenEater: {
@@ -3587,31 +3591,31 @@ Items: {
 		RightClick: Выпускает до 3 плодов, которые созревают со временем. Скорость созревания увеличивается при смерти врагов по близости
 		Jump: При прыжке совершает рывок в сторону курсора, наносящий урон врагам и позволяющий съедать спелые фрукты
 		Passive: Скорость передвижения увеличивается, если основание стебля находится на блоке какой-либо травы
-		Tooltip: Обращает вас в платоядное растение, даруя уникальные навыки
+		Tooltip: Обращает вас в плотоядное растение, даруя уникальные навыки
 	}
 
 	SageBat: {
 		DisplayName: Идол летучей мыши
-		LeftClick: Заряжает звуковой выстрел, ноносящий большой урон эхолоцированным врагам
+		LeftClick: Заряжает звуковой выстрел, наносящий большой урон эхолоцированным врагам
 		RightClick: Выпускает звуковую волну, эхолоцирующую врагов на обратном пути
 		Jump: Позволяет совершать четверной прыжок
-		Passive: Позволяет висеть на потолке, что увеличивает скорость регенерации здоровья и снижает агрессию врагов
+		Passive: Позволяет висеть на потолке, что увеличивает скорость регенерации здоровья и снижает агрессивность врагов
 		Tooltip: Обращает вас в летучую мышь, даруя уникальные навыки
 	}
 
 	SageBatHell: {
 		DisplayName: Идол адской летучей мыши
-		LeftClick: Заряжает звуковой выстрел, ноносящий большой урон эхолоцированным врагам
+		LeftClick: Заряжает звуковой выстрел, нанося непрерывный урон эхолоцированным врагам
 		RightClick: Выпускает звуковую волну, эхолоцирующую врагов на обратном пути
 		Jump: Позволяет совершать четверной прыжок
-		Passive: Позволяет висеть на потолке, что увеличивает скорость регенерации здоровья и снижает агрессию врагов
+		Passive: Позволяет висеть на потолке, что увеличивает скорость регенерации здоровья и снижает агрессивность врагов
 		Tooltip: Обращает вас в адскую летучую мышь, даруя уникальные навыки
 	}
 
 	SymbioteToad: {
 		DisplayName: Статуэтка сокожабы
-		LeftClick: Высовывает длинный язык, поподания которым призывают соковых мух, до 10 штух
-		RightClick: Перенаправляет соковых мух защищать вашего союзника, до 5 мух за каждым игроком
+		LeftClick: Высовывает длинный язык, попадания которым призывают соковых мух, до 10 штук
+		RightClick: Вплоть до 5 соковых мух будут защищать вас или выбранного союзника
 		Jump: Зажмите ВВЕРХ при прыжке, чтоб увеличить его высоту и снизить урон от падения
 		Passive: Соковые мухи жертвуют собой, чтобы восстановить потерянное от удара здоровье игрока
 		Tooltip: Обращает вас в адскую сокожабу, даруя уникальные навыки
@@ -3627,8 +3631,8 @@ Items: {
 	}
 
 	ShapeshifterHairpin: {
-		// DisplayName: Peculiar Hairpin
-		// Tooltip: Applies your hair color to wildshapes
+		DisplayName: Причудливая заколка
+		Tooltip: Цвет ваших волос будет влиять на цвет формы обращения
 	}
 
 	ShapeshifterBlankEffigy: {
@@ -3678,7 +3682,7 @@ Items: {
 
 	DungeonQuarterstaff: {
 		DisplayName: Раздвинутые моря
-		Tooltip: Выпускает воядной выстрел при взмахах
+		Tooltip: Выпускает водяной выстрел при взмахах
 	}
 
 	CorruptionQuarterstaff: {
@@ -3693,14 +3697,14 @@ Items: {
 
 	ShardQuarterstaff: {
 		DisplayName: Гармония
-		Tooltip: Может запутать поражённых врагов
+		Tooltip: Контратаки запутывают поражённых врагов и создают наносящую урон сферу дуализма 
 	}
 
 	ThoriumDarksteelGauntlet: {
 		DisplayName: Рука Божья
 		Tooltip:
 			'''
-			Скорость и дальность атаки маштабируются от вашей защиты
+			Скорость и дальность атаки масштабируются от вашей защиты
 			«Однажды один сильный человек убил Ктулху голыми руками»
 			'''
 	}
@@ -3719,7 +3723,7 @@ Items: {
 		Tooltip:
 			'''
 			При полной зарядке откидывает врагов, атакующих ваших союзников
-			При усилении нажмите дважди в любом направлении, чтобы совершить гиперпрыжок в эту сторону
+			При усилении нажмите дважды в любом направлении, чтобы совершить гиперпрыжок в эту сторону
 			Гиперпрыжок расходует 1 очко обороны и даёт 1 очко нападения
 			'''
 	}
@@ -3759,7 +3763,7 @@ Items: {
 	}
 
 	ThoriumGraniteGauntlet: {
-		DisplayName: Грантный удар сдачи
+		DisplayName: Гранитный удар сдачи
 		Tooltip:
 			'''
 			Отбивайте снаряды и быстро приближающихся врагов, чтобы отразить их
@@ -3774,7 +3778,7 @@ Items: {
 
 	ThoriumAquaiteQuarterstaff: {
 		DisplayName: Волнолом
-		Tooltip: Тыкающие удары заменяются взмахами, мгновенно заряжающими оружие при попадании
+		Tooltip: Атакует взмахами вместо тыкающих ударов
 	}
 
 	DukeGauntlet: {
@@ -3789,14 +3793,14 @@ Items: {
 
 	JewelerGauntlet: {
 		DisplayName: Перчатки ювелира
-		Tooltip: Вставьте самоцвет с помощью ПКМ, чтобы получить ункальный эффект
-		Amethyst: "[i:Amethyst] [c/9C5ADC:Аметист]: Атаки игнорируют значительную часть вражесокй защиты"
+		Tooltip: Вставьте самоцвет с помощью ПКМ, чтобы получить уникальный эффект
+		Amethyst: "[i:Amethyst] [c/9C5ADC:Аметист]: Атаки игнорируют значительную часть вражеской защиты"
 		Topaz: "[i:Topaz] [c/FFBA00:Топаз]: Увеличивает время неуязвимости после парирования"
 		Sapphire: "[i:Sapphire] [c/2D6ACC:Сапфир]: Позволяет пользователю совершать двойной прыжок"
 		Emerald: "[i:Emerald] [c/00A32E:Изумруд]: Позволяет пользователю совершать рывок"
 		Ruby: "[i:Ruby] [c/D92B2B:Рубин]: Значительно ускоряет регенерацию здоровья после парирования"
-		Diamond: "[i:Diamond] [c/FFC4E1:Алмаз]: Пользоватль будет излучать ауру света"
-		Amber: "[i:Amber] [c/FF8800:Янтарь]: Востанавливает 50% очков обороны от атак заряженных попаданий"
+		Diamond: "[i:Diamond] [c/FFC4E1:Алмаз]: Пользователь будет излучать ауру света"
+		Amber: "[i:Amber] [c/FF8800:Янтарь]: Восстанавливает 50% очков обороны от атак заряженных попаданий"
 		Aquamarine: "[i:ThoriumMod/Aquamarine] [c/6dffd8:Аквамарин]: Увеличивает мобильность в воде, когда пользователь держит их в руках"
 		Opal: "[i:ThoriumMod/Opal] [c/ef659a:Опал]: Увеличивает скорость восстановления параметров ближайших игроков"
 		None: Самоцвет не вставлен
@@ -3818,7 +3822,7 @@ Items: {
 	}
 
 	ParryingMailFeral: {
-		DisplayName: Feral Braces
+		DisplayName: Звериные наручи
 		Tooltip:
 			'''
 			Увеличивает длительность блока и парирования на 25%
@@ -3846,7 +3850,7 @@ Items: {
 	}
 
 	ParryingMailNinja: {
-		DisplayName: Прекрытие ассасина
+		DisplayName: Прикрытие ассасина
 		Tooltip:
 			'''
 			Увеличивает длительность блока и парирования на 25%, а также скорость ближнего боя на 12%
@@ -3877,7 +3881,11 @@ Items: {
 
 	DeepwaterLocket: {
 		DisplayName: Глубоководный медальон
-		Tooltip: Атаки обращений мудрости увеличивают звериный урон на 2% за удар по каждому отдельному врагу
+		Tooltip:
+			'''
+			Атаки обращений мудрости увеличивают звериный урон на 2% за удар по каждому отдельному врагу
+			Бонус за каждый удар длится 10 секунд, складывается до 10 раз и сбрасывается при получении урона
+			'''
 	}
 
 	ShapeshifterEmblem: {
@@ -3886,33 +3894,33 @@ Items: {
 	}
 
 	HarnessYouxia: {
-		// DisplayName: Youxia Harness
-		// Tooltip: Launches 5 daggers towards enemies when shapeshifting
+		DisplayName: Упряжь юся
+		Tooltip: Бросает 5 ножей в сторону ближайших врагов при активации обращения
 	}
 
 	ShawlFeather: {
-		// DisplayName: Feather Shawl
-		/* Tooltip:
+		DisplayName: Перьевая шаль
+		Tooltip:
 			'''
-			Use the 'Grapple' key to dash while shapeshifted
-			Hold the 'Grapple' key to use a hook normally
-			''' */
+			Нажмите клавишу «Крюк-кошка», чтобы совершить рывок в состоянии обращения
+			Удерживайте клавишу, чтобы использовать крюк обычным образом
+			'''
 	}
 
 	ShawlOfTheWind: {
-		// DisplayName: Shawl Of The Wind
-		/* Tooltip:
+		DisplayName: Шаль ветра
+		Tooltip:
 			'''
-			12% increased movement speed
-			Use the 'Grapple' key to dash while shapeshifted
-			Hold the 'Grapple' key to use a hook normally
-			''' */
+			Увеличивает скорость передвижения на 12%
+			Нажмите клавишу «Крюк-кошка», чтобы совершить рывок в состоянии обращения
+			Удерживайте клавишу, чтобы использовать крюк обычным образом
+			'''
 	}
 
 	ShapeshifterHarpyHead: {
 		DisplayName: Повязка парителя
 		Tooltip: Увеличивает шанс звериного критического удара на 5%
-		SetBonus: Попадания по врагам обрушивают на них остре перья
+		SetBonus: Попадания по врагам обрушивают на них острые перья
 	}
 
 	ShapeshifterHarpyChest: {
@@ -3922,125 +3930,121 @@ Items: {
 
 	ShapeshifterHarpyLegs: {
 		DisplayName: Мантия парителя
-		Tooltip: Увелиивает скорость передвижения 10%
+		Tooltip: Увеличивает скорость передвижения 10%
 	}
 
 	ShapeshifterSurvivalPotion: {
-		// DisplayName: Survival Instincts Potion
-		/* Tooltip:
+		DisplayName: Зелье инстинктов выживания
+		Tooltip:
 			'''
-			Damage resistance or feral damage increased up to 15% based on missing health
-			Only works while shapeshifted
-			''' */
+			Увеличивает сопротивление урону и звериный урон вплоть до 15% в зависимости от потерянного здоровья
+			Работает только в состоянии обращения
+			'''
 	}
 
 	ShapeshifterAshwoodHead: {
-		// DisplayName: Pyre Hood
-		// Tooltip: 10% increased feral critical strike chance
-		/* SetBonus:
+		DisplayName: Капюшон крады
+		Tooltip: Увеличивает шанс звериного критического удара на 10%
+		SetBonus:
 			'''
-			Dealing damage fuels a pyre, increasing feral damage by up to 10%
-			Taking damage consumes the pyre, damaging nearby enemies
-			''' */
+			Нанесение урона вызывает вокруг вас огоньки крады, увеличивающие урон вплоть до 10%
+			Получение урона расходует огоньки, нанося урон ближайшим врагам
+			'''
 	}
 
 	ShapeshifterAshwoodChest: {
-		// DisplayName: Pyre Mantle
-		// Tooltip: 5% increased feral damage
+		DisplayName: Мантия крады
+		Tooltip: Увеличивает звериный урон на 5%
 	}
 
 	ShapeshifterAshwoodLegs: {
-		// DisplayName: Pyre Skirt
-		// Tooltip: 10% increased movement speed
+		DisplayName: Юбка крады
+		Tooltip: Увеличивает скорость передвижения на 10%
 	}
 
 	GuideTorches: {
-		// DisplayName: Guide to Handless Torch Handling
-		/* Tooltip:
+		DisplayName: Руководство по использованию факелов без рук
+		Tooltip:
 			'''
-			Allows you to place torches while shapeshifted
-			Press 'Middle Mouse' to place a torch
-			Right click to deactivate effects
-			''' */
+			Позволяет размещать факела в состоянии обращения
+			Нажмите на колёсико мыши, чтобы установить факел
+			Нажмите ПКМ, чтобы отключить эффект
+			'''
 	}
 
 	GuideTorchesInactive: {
-		// DisplayName: Guide to Handless Torch Handling (Inactive)
-		/* Tooltip:
+		DisplayName: Руководство по использованию факелов без рук (Неактивно)
+		Tooltip:
 			'''
-			Allows you to place torches while shapeshifted
-			Press 'Middle Mouse' to place a torch
-			Effects are currently inactive, Right click to reactivate
-			''' */
+			Позволяет размещать факела в состоянии обращения
+			Нажмите на колёсико мыши, чтобы установить факел
+			Эффект сейчас неактивен. Нажмите ПКМ, чтобы активировать его
+			'''
 	}
 
 	ThoriumCookWarhammer: {
-		// DisplayName: Meat Tenderizer
-		// Tooltip: Fully charged strikes drop 'meat slabs' which grant Well Fed
+		DisplayName: Мясной отбивальщик
+		Tooltip: С врагов, атакованных полностью заряженными атаками, выпадают кусочки мяса, дающие бафф «Перекус» при подборе
 	}
 
 	GuardianCrystalNinjaHelm: {
-		// DisplayName: Crystal Assassin Mask
-		/* Tooltip:
+		DisplayName: Кристальная маска ассасина
+		Tooltip:
 			'''
-			Increases maximum guards and slams by 1
-			Dashing triggers your active parry
-			''' */
+			Увеличивает максимальный запас очков обороны и нападения на 1 ед.
+			Совершение рывка активирует эффект парирования
+			'''
 	}
 
 	ThoriumGrandThunderBirdWarhammer: {
-		// DisplayName: Stormbreaker
-		/* Tooltip:
+		DisplayName: Громовержец
+		Tooltip:
 			'''
-			Conducts electricity to nearby enemies, charging faster with each connection
-			Struck enemies become more conductive
-			''' */
+			Проводит электричество через ближайших врагов, заряжаясь быстрее с каждым электризованным
+			Поражённые враги лучше проводят электричество
+			'''
 	}
 
 	ThoriumBronzeShield: {
-		// DisplayName: Bronze Scutum
-		/* Tooltip:
+		DisplayName: Бронзовый скутум
+		Tooltip:
 			'''
-			Sacrifice acceleration and nullify guard regeneration while blocking to protect nearby allies
-			Nullified guard regeneration is converted into a damage bonus on the next slam
-			''' */
+			Снижает ускорение и подавляет естественное восстановление очков обороны во время блока ради защиты ближайших союзников
+			Невосстановленные очки обороны конвертируются в бонус к урону следующей атаки нападением
+			'''
 	}
 
 	SpectreQuarterstaff: {
-		// DisplayName: Ghostly Glaive
-		/* Tooltip:
-			'''
-			Gradually summons wisps that will be unleashed on a counterattack
-			'Not to be confused with its ghastly counterpart'
-			''' */
+		DisplayName: Призрачная глефа
+		Tooltip: Периодически призывает огоньки, самонаводящиеся на врагов после контратаки
 	}
 
 	FlamingQuarterstaff: {
-		// DisplayName: Flaming Quarterstaff
-		// Tooltip: "'May the fire light your way'"
+		DisplayName: Огненный боевой шест
+		Tooltip: «Да осветит пламя твой путьMay the fire light your way»
 	}
 
 	GuardianNeedle: {
-		// DisplayName: Hivesteel Needle
-		/* Tooltip:
+		DisplayName: Игла из стали Улья
+		Tooltip:
 			'''
-			Can bounce off of jabbed enemies, granting guard charges and increasing damage
-			Counterattacks and properls upwards after a parry
-			''' */
+			Вы будете отскакивать от поражённых сверху врагов, что будет моментально восстанавливать очки обороны и увеличивать урон
+            Отбрасывает вас в низ при парировании и контратаках
+			'''
 	}
-
+	
 	CrystalGauntlet: {
-		// DisplayName: Crystal Clashers
-		/* Tooltip:
+		DisplayName: Кристальные ударники
+		Tooltip:
 			'''
-			Stores up to 3 seconds of invincibility when guarding and extends it on parry
-			Releases defense shredding crystal shards on each parry or slam
-			''' */
+			Использование защитной стойки накапливает до 3 секунд неуязвимости и применяет их после успешного парирования
+			Выпускает кристальный осколки при каждом парировании или атаке нападением
+			'''
 	}
-
+	
 	Slam: {
-		// DisplayName: Slam
-		// Tooltip: ""
+		DisplayName: Очко нападения
+		Tooltip: ""
 	}
 }
 
@@ -4106,7 +4110,7 @@ NPCs: {
 			15: Жизнь после смерти — всего лишь одна большая реакция! Не знаю, почему луна вызывает её.
 			16: Мне кажется или луна... сделана из аттарактита?!
 			17: Есть такой научный метод... продолжай совершенствовать вещество, пока оно не перестанет взрываться!
-			18: Вот твой ежедневный рецепт... прошу заметить, что он сам — не ингридиент.
+			18: Вот твой ежедневный рецепт... прошу заметить, что он сам — не ингредиент.
 			19: Держи, и постарайся не потерять руки из-за этой штуки.
 			20: У меня не было времени испытать этот. Если не увижу тебя завтра, буду считать, что оно не сработало так, как я задумывала.
 			21: И вот один совершенно точно правильно работающий бесплатный рецепт! Или же нет?
@@ -4116,7 +4120,7 @@ NPCs: {
 			25: Сверхознакомление с моими блестящими идеями может быть опасным для тебя, стажёр.
 			26: Я уже дала тебе один сегодня, почему бы тебе не придумать свои собственные рецепты?
 			27: На данный момент у меня нет ничего, что бы ты мог протестировать. Погоди, что ты только что сказал?
-			28: Так как ты спраиваешь в первый раз, я продам тебе три подсказки по цене одной, а в придачу ещё и маленький подарок! А теперь я бы настоятельно рекомендовала тебе заполучить рукопись о скрытых реакциях...
+			28: Так как ты спрашиваешь в первый раз, я продам тебе три подсказки по цене одной, а в придачу ещё и маленький подарок! А теперь я бы настоятельно рекомендовала тебе заполучить рукопись о скрытых реакциях...
 			29: Вижу, ты нашёл немного светящихся грибов. А ты знал, что из них можно сплести неплохую ткань? Вот рецепт.
 			30: О, лилии джунглей, я обожаю эти цветы! Ты хочешь заставить их цвести, не так ли? Вот решение.
 		}
@@ -4184,7 +4188,7 @@ NPCs: {
 			10: Дружище, у тебя все карманы забиты. Ты бы не позволил новенькой колоде рассыпаться по полу, не так ли?
 		}
 
-		Census.SpawnCondition: В вашей колоде должна быть любоая карта ([i:8427][i:8409] и т.п.)
+		Census.SpawnCondition: В вашей колоде должна быть любая карта ([i:8427][i:8409] и т.п.)
 	}
 
 	DownpourElemental.DisplayName: Элементаль ливня
@@ -4221,7 +4225,7 @@ Prefixes: {
 	EmpyreanPrefix.DisplayName: Небесный
 	BestialPrefix.DisplayName: Звериный
 	BoarishPrefix.DisplayName: Кабанский
-	// MisshapenPrefix.DisplayName: Misshapen
+	MisshapenPrefix.DisplayName: Деформированный
 	DivinePrefix.DisplayName: Божественный
 	EnragedPrefix.DisplayName: Разъярённый
 	FeralPrefix.DisplayName: Дикий
@@ -4262,7 +4266,7 @@ Projectiles: {
 	PrototypeSecrecyProjectile.DisplayName: Секретный прототип
 	PrototypeSecrecyHitProjectile.DisplayName: Секретный прототип
 	MineshaftHookProjectile.DisplayName: Mineshaft Hook Projectile
-	EnchantedPaviseProj.DisplayName: Зачарованная павеза
+	EnchantedPaviseProj.DisplayName: Зачарованный щит
 	LivingRuneProj.DisplayName: Пузырь сока
 	EnchantedRuneProj.DisplayName: Зачарованная искра
 	GuardianShieldAnchor.DisplayName: Павеза
@@ -4498,26 +4502,25 @@ Projectiles: {
 	SymbioteToadProj.DisplayName: Соковый язык
 	SymbioteToadProjAlt.DisplayName: Соковая муха
 	ShapeshifterHarpyProj.DisplayName: Перо парителя
-	// WardenSalamortarProj.DisplayName: Mortar
-	// WardenSalamortarProjAlt.DisplayName: Mortar
-	// WardenSalamortarProjBig.DisplayName: Massive Mortar
-	// WardenSalamortarProjBigAlt.DisplayName: Massive Mortar
-	// ShapeshifterAshwoodFlame.DisplayName: Ashwood Flame
-	// ShapeshifterAshwoodProj.DisplayName: Ashwood Flame
-	// ShapeshifterHarnessProj.DisplayName: Dagger
-	// WardenSnailProj.DisplayName: Snail Shell
-	// PredatorUndineProj.DisplayName: Undine Slash
-	// PredatorUndineProjAlt.DisplayName: Undine Bolt
-	// PredatorGoblinProj.DisplayName: Barghest Bite
-	// PredatorGoblinProjAlt.DisplayName: Barghest Slash
-	// PredatorGoblinProjSlash.DisplayName: Barghest Slash
-	// PredatorGoblinProjResource.DisplayName: Shadowflame Energy
-	// DesertWarhammerProjectile.DisplayName: Bone Fragments
-	// DemoniteShieldProjectile.DisplayName: Veil of Night
-	// SpectreQuarterstaffProj.DisplayName: Spectre Quarterstaff Proj
-	// GuardianNeedleAnchor.DisplayName: Honeysteel Needle
-	// CrystalGauntletProjectile.DisplayName: Crystal Gauntlet Projectile
-	// StarKO.DisplayName: Star K.O.
+	WardenSalamortarProj.DisplayName: Mortar
+	WardenSalamortarProjAlt.DisplayName: Mortar
+	WardenSalamortarProjBig.DisplayName: Massive Mortar
+	WardenSalamortarProjBigAlt.DisplayName: Massive Mortar
+	ShapeshifterAshwoodFlame.DisplayName: Ashwood Flame
+	ShapeshifterAshwoodProj.DisplayName: Ashwood Flame
+	ShapeshifterHarnessProj.DisplayName: Dagger
+	WardenSnailProj.DisplayName: Snail Shell
+	PredatorUndineProj.DisplayName: Undine Slash
+	PredatorUndineProjAlt.DisplayName: Undine Bolt
+	PredatorGoblinProj.DisplayName: Barghest Bite
+	PredatorGoblinProjAlt.DisplayName: Barghest Slash
+	PredatorGoblinProjSlash.DisplayName: Barghest Slash
+	PredatorGoblinProjResource.DisplayName: Shadowflame Energy
+	DesertWarhammerProjectile.DisplayName: Bone Fragments
+	DemoniteShieldProjectile.DisplayName: Veil of Night
+	SpectreQuarterstaffProj.DisplayName: Spectre Quarterstaff Proj
+	GuardianNeedleAnchor.DisplayName: Honeysteel Needle
+	StarKO.DisplayName: Звёздный нокаут
 }
 
 Configs: {
@@ -4526,8 +4529,8 @@ Configs: {
 
 		Headers: {
 			General: Основной раздел
-			// Guardian: Guardian
-			// Shapeshifter: Shapeshifter
+			Guardian: Хранитель
+			Shapeshifter: Оборотень
 		}
 
 		ShowClassTags: {
@@ -4537,72 +4540,92 @@ Configs: {
 
 		ShowModTags: {
 			Label: Показать метки кроссмод-контента
-			Tooltip: Включает метки в подсказках кроссмод-предметов (загрузка кроссмод-контента без требуемых модов должна быть включена в серверной конфигурации Orchid)
+			Tooltip: 
+				'''
+				Включает метки в подсказках кроссмод-предметов
+				(загрузка кроссмод-контента без требуемых модов должна быть включена в серверной конфигурации Orchid)
+				'''
 		}
 
 		GuardianUseOldHammerUi: {
-			// Label: Old Guardian Hammer UI
-			// Tooltip: Use the old Guardian Hammer UI (Paper Mario style)
+			Label: Старый интерфейс молотов хранителя
+			Tooltip: Использовать старый интерфейс молотов хранителя (в стиле Paper Mario)
 		}
 
 		GuardianSwapPaviseImputs: {
-			// Label: Swap Pavise Imputs
-			// Tooltip: Swap Left and Right click inputs for Guardian Pavises
+			Label: Поменять клавиши функционала павез
+			Tooltip: Меняет местами ЛКМ и ПКМ для функционала павез хранителя
 		}
 
 		GuardianSwapGauntletImputs: {
-			// Label: Swap Parry Items Imputs
-			// Tooltip: Swap Left and Right click inputs for Guardian Parry Items (Gauntlets, Quarterstaves, ...)
+			Label: Поменять клавишу предметов парирования
+			Tooltip: Меняет местами ЛКМ и ПКМ для предметов хранителя, использующих парирование (перчатки, боевые шесты и т.д.)
 		}
 
 		GuardianAltChargeSounds: {
-			// Label: Alternative Guardian Charge Sounds
-			// Tooltip: Replaces the Sound played when fully charging a guardian item
+			Label: Использовать альтернативный звук заряда хранителя
+			Tooltip: Заменяет звук, проигрываемый при полном заряде предметов хранителя на альтернативный
 		}
 
 		GuardianBlockCancelChain: {
-			// Label: Pavise Block Cancel Auto-re-use
-			// Tooltip: If possible, automatically starts blocking again when cancelling a block with right click
+			Label: Автоматически использовать пассивный блок после его отмены
+			Tooltip: По возможности, блокирование будет автоматически повторяться после отмены с помощью ПКМ
 		}
 
 		ShapeshifterUseHairColor: {
-			// Label: Use Hair Color for Wildshapes
-			// Tooltip: Applies the 'Peculiar Hairpin' accessory effect at all times, and has it apply the default wildshape color instead. The hairpin can still be used to apply dye to wildshape hair.
+			Label: Применять цвет волос персонажа на обращения
+			Tooltip: 
+				'''
+				Аналогично эффекту причудливой заколки, цвет «шерсти» обращений будет зависеть от цвета волос персонажа
+				В свою очередь, заколка теперь будет использоваться для отображения стандартного цвета «шерсти»
+				'''
 		}
 
 		ShapeshifterHookDelay: {
-			// Label: Shawl Dash Hook Delay
-			// Tooltip: While a 'Shawl' accessory is equipped, how long should the hook key be held (in frames) before the hook is fired.
+			Label: Задержка активации крюков с шалью
+			Tooltip: Определяет количество кадров, в течение которых нужно удерживать клавишу использования крюка, чтобы выпустить крюк при экипированной шали
 		}
 
 		ShapeshifterHookDashRelease: {
-			// Label: Shawl Dash on release
-			// Tooltip: Triggers 'Shawl' accessory dashes when releasing the hook key instead of pressing it (allowing to launch a hook without dashing)
+			Label: Активировать рывок шали при отпускании
+			Tooltip: Рывок шали будет активироваться при отпускании клавиши крюка, а не её нажатии, что позволяет использовать крюк без случайных рывков
 		}
 
 		ShapeshifterScrollDelay: {
-			// Label: Shapeshifter Scroll Delay
-			// Tooltip: Delay (in frames) before the player transforms in the newly selected wildshape in the hotbar while scrolling
+			Label: Задержка обращения при прокрутке
+			Tooltip: 
+				'''
+				Определяет, сколько кадров должно пройти перед тем,
+				как персонаж трансформируется в следующее обращение во время прокрутки панели быстрого доступа
+				'''
 		}
 
 		GuardianChargeCursor: {
-			// Label: Guardian Charge Visuals at Cursor
-			// Tooltip: Charging up guardian weapons displays an icon near the cursor instead of above the player character
+			Label: Отображать зарядку предметов хранителя на курсоре
+			Tooltip: Уровень заряда заряжаемых предметов хранителя будет отображаться рядом с курсором, а не над персонажем
 		}
-
+		
 		GuardianMinHoldTimer: {
-			// Label: Guardian Charge Minimum Hold Timer
-			// Tooltip: Minimum timer (in frames) for how long a charge input has to be held before UI appears and weapons like gauntlets can consume slams
+			Label: Мин. время зарядки предметов хранителя
+			Tooltip: 
+				'''
+				Определяет минимальное количество кадров, в течение которых нужно удерживать клавишу зарядки оружия
+				для появления интерфейса зарядки и использования очков нападения
+				'''
 		}
 
 		GuardianMaxHoldTimer: {
-			// Label: Guardian Charge Maximum Hold Timer
-			// Tooltip: Maximum timer (in frames) for how long a charge input has to be held before UI appears and weapons like gauntlets can consume slams
+			Label: Макс. время зарядки предметов хранителя
+			Tooltip: 
+				'''
+				Определяет максимальное количество кадров, в течение которых нужно удерживать клавишу зарядки оружия
+				для появления интерфейса зарядки и использования очков нападения
+				'''
 		}
 
 		GuardianGauntletAlwaysSlam: {
-			// Label: Guardian Gauntlets always consume Slams
-			// Tooltip: Guardian Gauntlets will always try to consume a slam charge to perform a slam, no matter how long the input has been held
+			Label: Всегда использовать атаку нападением с перчатками
+			Tooltip: Перчатки хранителя при возможности всегда будут использовать атаку нападением, независимо от того, как долго удерживалась клавиша
 		}
 	}
 
@@ -4617,17 +4640,17 @@ Configs: {
 
 		EnableContentAlchemist: {
 			Label: Доступность контента алхимика
-			Tooltip: Предметы, относящиеся к классу алхимика, будут появляться в сундуках, выпадать с врагов, иметь рецепт и т.п.
+			Tooltip: Делает предметы, относящиеся к классу алхимика, доступными для получения
 		}
 
 		EnableContentGambler: {
 			Label: Доступность контента картёжника
-			Tooltip: Предметы, относящиеся к классу картёжника, будут появляться в сундуках, выпадать с врагов, иметь рецепт и т.п.
+			Tooltip: Делает предметы, относящиеся к классу картёжника, доступными для получения
 		}
 
 		EnableContentShapeshifter: {
 			Label: Доступность контента оборотня
-			Tooltip: Предметы, относящиеся к классу оборотня, будут появляться в сундуках, выпадать с врагов, иметь рецепт и т.п.
+			Tooltip: Делает предметы, относящиеся к классу оборотня, доступными для получения
 		}
 	}
 }
@@ -4706,7 +4729,11 @@ UI: {
 			Зарядите, чтобы взмахнуть
 			Нажмите {0}, чтобы нанести колющий удар во время зарядки
 			'''
-		// ChargeToDash: Charge to dash, {0} click to jab while charging
+		ChargeToDash:
+			'''
+			Зарядите, чтобы совершить рывок
+			Нажмите {0}, чтобы нанести колющий удар во время зарядки
+			'''
 		ParryDuration: Длительность парирования: {0} сек.
 		BlockDuration: Длительность блока: {0} сек.
 		Interrupted: Прервано
@@ -4716,7 +4743,7 @@ UI: {
 		Guard: "{0} оч. обороны"
 		Slam: "{0} оч. нападения"
 		Parry: Нажмите {0}, чтобы совершить парирование
-		// ParryDash: "{0} click to parry, dashing downwards"
+		ParryDash: Нажмите {0}, чтобы совершить парирование рывком вниз
 		ChargeToThrow:
 			'''
 			Зарядите, чтобы бросить
@@ -4733,7 +4760,7 @@ UI: {
 	DanserItem: {
 		ImpactWeapon: -Ударное оружие-
 		PhaseWeapon: -Фазовое оружие-
-		MomentumWeapon: -Momentum Weapon-
+		MomentumWeapon: -Темповое оружие-
 	}
 
 	ReactionBook: {
@@ -4750,7 +4777,7 @@ DamageClasses: {
 	Shaman: -Шаман-
 	Shapeshifter: -Оборотень-
 	AlchemistDamageClass.DisplayName: ед. химического урона
-	DancerDamageClass.DisplayName: ед. равновесящего урона
+	DancerDamageClass.DisplayName: ед. урона равновесия
 	GamblerChipDamageClass.DisplayName: ед. азартного урона
 	GamblerDamageClass.DisplayName: ед. азартного урона
 
@@ -4763,7 +4790,7 @@ DamageClasses: {
 		}
 	}
 
-	ShamanDamageClass.DisplayName: shamanic damage
+	ShamanDamageClass.DisplayName: ед. шаманского урона
 	ShapeshifterDamageClass.DisplayName: ед. звериного урона
 }
 
