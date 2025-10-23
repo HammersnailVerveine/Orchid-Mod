@@ -4502,24 +4502,25 @@ Projectiles: {
 	SymbioteToadProj.DisplayName: Соковый язык
 	SymbioteToadProjAlt.DisplayName: Соковая муха
 	ShapeshifterHarpyProj.DisplayName: Перо парителя
-	WardenSalamortarProj.DisplayName: Mortar
-	WardenSalamortarProjAlt.DisplayName: Mortar
-	WardenSalamortarProjBig.DisplayName: Massive Mortar
-	WardenSalamortarProjBigAlt.DisplayName: Massive Mortar
-	ShapeshifterAshwoodFlame.DisplayName: Ashwood Flame
-	ShapeshifterAshwoodProj.DisplayName: Ashwood Flame
-	ShapeshifterHarnessProj.DisplayName: Dagger
-	WardenSnailProj.DisplayName: Snail Shell
-	PredatorUndineProj.DisplayName: Undine Slash
-	PredatorUndineProjAlt.DisplayName: Undine Bolt
-	PredatorGoblinProj.DisplayName: Barghest Bite
-	PredatorGoblinProjAlt.DisplayName: Barghest Slash
-	PredatorGoblinProjSlash.DisplayName: Barghest Slash
-	PredatorGoblinProjResource.DisplayName: Shadowflame Energy
-	DesertWarhammerProjectile.DisplayName: Bone Fragments
-	DemoniteShieldProjectile.DisplayName: Veil of Night
-	SpectreQuarterstaffProj.DisplayName: Spectre Quarterstaff Proj
-	GuardianNeedleAnchor.DisplayName: Honeysteel Needle
+	WardenSalamortarProj.DisplayName: Пирокласт
+	WardenSalamortarProjAlt.DisplayName: Пирокласт
+	WardenSalamortarProjBig.DisplayName: Большой пирокласт
+	WardenSalamortarProjBigAlt.DisplayName: Большой пирокласт
+	ShapeshifterAshwoodFlame.DisplayName: Пепельное пламя
+	ShapeshifterAshwoodProj.DisplayName: Пепельное пламя
+	ShapeshifterHarnessProj.DisplayName: Нож
+	WardenSnailProj.DisplayName: Ракушка улитки
+	PredatorUndineProj.DisplayName: Удар ундины
+	PredatorUndineProjAlt.DisplayName: Выстрел ундины
+	PredatorGoblinProj.DisplayName: Укус баргеста
+	PredatorGoblinProjAlt.DisplayName: Удар баргеста
+	PredatorGoblinProjSlash.DisplayName: Удар баргеста
+	PredatorGoblinProjResource.DisplayName: Энергия теневого пламени
+	DesertWarhammerProjectile.DisplayName: Осколок кости
+	DemoniteShieldProjectile.DisplayName: Завеса ночи
+	SpectreQuarterstaffProj.DisplayName: Призрачная глефа
+	GuardianNeedleAnchor.DisplayName: Игла из стали Улья
+	CrystalGauntletProjectile.DisplayName: Кристальные отбойники
 	StarKO.DisplayName: Звёздный нокаут
 }
 
