@@ -428,8 +428,7 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.PirateShip:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DeckDog>(), 200).OnFailedRoll(ItemDropRule.ByCondition(EnableContentGambler, ItemType<DeckPirate>(), 10)));
-						npcLoot.Add(ItemDropRule.OneFromOptionsWithNumerator(4, ItemType<PirateWarhammer>(), ItemType<PirateStandard>()));
-						npcLoot.Add(ItemDropRule.Common(ItemType<PirateStandard>(), 10));
+						npcLoot.Add(ItemDropRule.OneFromOptions(2, ItemType<PirateWarhammer>(), ItemType<PirateStandard>()));
 					}
 					break;
 				case NPCID.BigMimicHallow:
