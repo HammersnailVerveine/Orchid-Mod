@@ -497,6 +497,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				else
 				{ // Idle - guarterstaff is held further and lower
+					ResetSize();
 					Ding = false;
 					Projectile.friendly = false;
 
@@ -674,10 +675,11 @@ namespace OrchidMod.Content.Guardian
 
 		public void ResetSize()
 		{
-			int length = (int)Math.Sqrt(2 * (QuarterstaffTexture.Width * QuarterstaffItem.scale * QuarterstaffTexture.Width * QuarterstaffItem.scale));
+			float bonusScale = Owner.GetModPlayer<OrchidGuardian>().GuardianWeaponScale;
+			int length = (int)Math.Sqrt(2 * (QuarterstaffTexture.Width * QuarterstaffItem.scale * bonusScale * QuarterstaffTexture.Width * QuarterstaffItem.scale * bonusScale));
 			Projectile.width = length + 4;
 			Projectile.height = length + 4;
-			Projectile.scale = QuarterstaffItem.scale;
+			Projectile.scale = QuarterstaffItem.scale * bonusScale;
 		}
 
 		public override void OnKill(int timeLeft)

@@ -64,8 +64,8 @@ namespace OrchidMod.Content.Guardian
 		public override void OnSpawn(IEntitySource source)
 		{
 			Player player = Main.player[Projectile.owner];
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 			Item item = player.inventory[player.selectedItem];
-
 
 			if (item == null || !(item.ModItem is OrchidModGuardianHammer hammerItem))
 			{
@@ -81,10 +81,9 @@ namespace OrchidMod.Content.Guardian
 				HammerTexture = TextureAssets.Item[hammerItem.Item.type].Value;
 				//Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
 				//Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
-				hitboxOffset = (int)(HammerTexture.Width * hammerItem.Item.scale / 2f);
+				hitboxOffset = (int)(HammerTexture.Width * guardian.GuardianWeaponScale * hammerItem.Item.scale / 2f);
 				DrawOriginOffsetX = DrawOriginOffsetY = hitboxOffset;
 
-				Projectile.scale = hammerItem.Item.scale;
 
 				//Projectile.position.X -= Projectile.width / 2;
 				//Projectile.position.Y -= Projectile.height / 2;
@@ -103,6 +102,12 @@ namespace OrchidMod.Content.Guardian
 
 			if (HammerItem != null)
 			{
+				Projectile.scale = HammerItem.Item.scale * guardian.GuardianWeaponScale;
+				if (IsLocalOwner)
+				{ // OnSpawn() is called too early, guardian.GuardianWeaponScale is always equal to 1f
+					hitboxOffset = (int)(HammerTexture.Width * guardian.GuardianWeaponScale * HammerItem.Item.scale / 2f);
+				}
+
 				if (NeedNetUpdate)
 				{
 					NeedNetUpdate = false;
@@ -584,7 +589,8 @@ namespace OrchidMod.Content.Guardian
 
 			if (HammerItem == null)
 			{
-				Main.player[Projectile.owner].GetModPlayer<OrchidGuardian>().GuardianItemCharge = 0f;
+				OrchidGuardian guardian = Main.player[Projectile.owner].GetModPlayer<OrchidGuardian>();
+				guardian.GuardianItemCharge = 0f;
 
 				Item item = new Item();
 				item.SetDefaults(itemtype);
@@ -601,7 +607,7 @@ namespace OrchidMod.Content.Guardian
 						//Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
 					}
 
-					Projectile.scale = hammerItem.Item.scale;
+					Projectile.scale = hammerItem.Item.scale * guardian.GuardianWeaponScale;
 
 					//Projectile.position.X -= Projectile.width / 2;
 					//Projectile.position.Y -= Projectile.height / 2;

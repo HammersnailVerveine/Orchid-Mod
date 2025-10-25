@@ -41,7 +41,7 @@ namespace OrchidMod
 		public float GuardianBlockDuration = 1f; // Block Duration multiplier (pavises)
 		public float GuardianParryDuration = 1f; // Parry Duration multiplier (gauntlets, misc)
 		public float GuardianMeleeSpeed = 1f; // Edited via reforges. It multiplies the player MeleeSpeed in postupdate
-		public float GuardianPaviseScale = 1f; // Multiplies pavise scale
+		public float GuardianWeaponScale = 1f; // Multiplies pavise scale
 
 		// Set effects, accessories, misc
 
@@ -187,6 +187,7 @@ namespace OrchidMod
 		{
 			// This should multiply the player melee speed AFTER all other modifications, making reforge melee speed multiplicative instead of additive
 			Player.GetAttackSpeed(DamageClass.Melee) *= GuardianMeleeSpeed;
+			Player.ApplyMeleeScale(ref GuardianWeaponScale); // melee scale affects guardian weapon scale
 		}
 
 		public override void PostUpdateMiscEffects()
@@ -317,7 +318,7 @@ namespace OrchidMod
 			GuardianBlockDuration = 1f;
 			GuardianParryDuration = 1f;
 			GuardianMeleeSpeed = 1f;
-			GuardianPaviseScale = 1f;
+			GuardianWeaponScale = 1f;
 			ParryInvincibilityBonus = 0;
 			if (!GuardianBronzeShieldBuff) GuardianBronzeShieldDamage = 0;
 
