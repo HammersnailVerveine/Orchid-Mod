@@ -32,6 +32,8 @@ namespace OrchidMod
 		public float GuardianSlamRecharge = 1f;
 		public int GuardianGuardMax = 3; // Max guard charges
 		public int GuardianSlamMax = 3; // Max slam charges
+		/// <summary> The ratio of guards and slams out of the player's maximum that can naturally be regenerated before the regeneration penalty takes effect. Default is 0.5.</summary>
+		public float GuardianRegenThreshold = 0.5f;
 		public int GuardianBonusRune = 0; // Bonus projectiles spawned by runes
 		public int ParryInvincibilityBonus = 0; // Bonus in frames added to the length of parry iframes
 		public float GuardianRuneTimer = 1f; // Rune duration multiplier
@@ -79,8 +81,8 @@ namespace OrchidMod
 		public float GuardianGuardRecharging = 0;
 		/// <summary> Current timer for slam stack regen or degen. Increments slams at 1 or higher, decrements at -1 or lower.</summary>
 		public float GuardianSlamRecharging = 0;
-		public bool OverHalfGuards => GuardianGuard + GuardianGuardRecharging > GuardianGuardMax / 2f;
-		public bool OverHalfSlams => GuardianSlam + GuardianSlamRecharging > GuardianSlamMax / 2f;
+		public bool OverThresholdGuards => GuardianGuard + GuardianGuardRecharging > GuardianGuardMax * GuardianRegenThreshold;
+		public bool OverThresholdSlams => GuardianSlam + GuardianSlamRecharging > GuardianSlamMax * GuardianRegenThreshold;
 		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
 		public float GuardianItemCharge = 0f; // Player Warhammer Throw Charge, max is 180f
 		public bool GuardianGauntletParry = false; // Player is currently parrying with a gauntlet
@@ -219,8 +221,11 @@ namespace OrchidMod
 		public override void ResetEffects()
 		{
 			// Resetting Core guardian fields
+			if (Player.itemTime > 0 && Player.HeldItem.damage > 0 && Player.HeldItem.ModItem is not OrchidModGuardianItem && Player.HeldItem.pick + Player.HeldItem.hammer + Player.HeldItem.axe == 0)
+				GuardianRegenThreshold = 0;
+			else if (GuardianRegenThreshold > 1) GuardianRegenThreshold = 1;
 
-			if (!OverHalfGuards)
+			if (!OverThresholdGuards)
 				GuardianGuardRecharging += GuardianGuardRecharge / GuardianRechargeTime;
 			else GuardianGuardRecharging += (-2 + GuardianGuardRecharge) / GuardianRechargeTime;
 			
@@ -237,7 +242,7 @@ namespace OrchidMod
 				GuardianGuardRecharging++;
 			}
 
-			if (!OverHalfSlams)
+			if (!OverThresholdSlams)
 				GuardianSlamRecharging += GuardianSlamRecharge / GuardianRechargeTime;
 			else GuardianSlamRecharging += (-2 + GuardianSlamRecharge) / GuardianRechargeTime;
 			
@@ -310,6 +315,7 @@ namespace OrchidMod
 			GuardianSlamRecharge = 1f;
 			GuardianGuardMax = 3;
 			GuardianSlamMax = 3;
+			GuardianRegenThreshold = 0.5f;
 			GuardianBonusRune = 0;
 			GuardianRuneTimer = 1f;
 			GuardianStandardTimer = 1f;
