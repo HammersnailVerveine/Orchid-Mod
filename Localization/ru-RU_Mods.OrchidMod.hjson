@@ -335,6 +335,11 @@ Buffs: {
 		DisplayName: Testudinem formate!
 		Description: Вас защищает щит союзника
 	}
+
+	GuardianRegenPotionBuff: {
+		DisplayName: Стойкость
+		Description: Увеличивает максимальный лимит восстановления очков обороны и нападения
+	}
 }
 
 AlchemistRecipe: {
@@ -4045,6 +4050,11 @@ Items: {
 	Slam: {
 		DisplayName: Очко нападения
 		Tooltip: ""
+	}
+
+	GuardianRegenPotion: {
+		DisplayName: Зелье стойкости
+		Tooltip: Позволяет очкам обороны и нападения восстанавливаться до максимального значения
 	}
 }
 
