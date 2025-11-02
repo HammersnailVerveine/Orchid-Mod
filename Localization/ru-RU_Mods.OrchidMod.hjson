@@ -4026,7 +4026,7 @@ Items: {
 
 	FlamingQuarterstaff: {
 		DisplayName: Огненный боевой шест
-		Tooltip: «Да осветит пламя твой путьMay the fire light your way»
+		Tooltip: «Да осветит пламя твой путь»
 	}
 
 	GuardianNeedle: {
