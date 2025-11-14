@@ -2859,7 +2859,7 @@ Items: {
 	}
 
 	SpectreShield: {
-		DisplayName: Призрачная павеза
+		DisplayName: Спектральная павеза
 		Tooltip: Выпускает самонаводящиеся души после блокирования снарядов
 	}
 
@@ -4443,7 +4443,7 @@ Projectiles: {
 	NightShieldProjAlt.DisplayName: Стикс
 	BijouShieldProj.DisplayName: Украшенный заслон
 	HallowedShieldProj.DisplayName: Свалинн
-	SpectreShieldProj.DisplayName: Призрачный выстрел
+	SpectreShieldProj.DisplayName: Спектральный выстрел
 	TempleWarhammerProj.DisplayName: Искра
 	BeeRuneProj.DisplayName: Пчела
 	HellRuneProj.DisplayName: Символический огонь
