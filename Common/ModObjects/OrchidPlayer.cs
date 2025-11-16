@@ -219,18 +219,12 @@ namespace OrchidMod.Common.ModObjects
 			LastHitNPC = target;
 		}
 
-		public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+		public override void ModifyHurt(ref Player.HurtModifiers modifiers)
 		{
 			if (OrchidDamageResistance > 0) modifiers.FinalDamage /= OrchidDamageResistance;
 			else modifiers.FinalDamage *= 9999;
 			//idk if we'd ever have a situation where it's possible to hit -100% damage resistance but this makes it kill the player instead of throwing an exception
 			//seems fitting anyway
-		}
-
-		public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
-		{
-			if (OrchidDamageResistance > 0) modifiers.FinalDamage /= OrchidDamageResistance;
-			else modifiers.FinalDamage *= 9999;
 		}
 
 		public override bool FreeDodge(Player.HurtInfo info)
