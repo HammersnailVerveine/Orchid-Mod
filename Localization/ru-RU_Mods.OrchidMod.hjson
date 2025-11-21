@@ -3369,7 +3369,7 @@ Items: {
 
 	HorizonFragment: {
 		DisplayName: Фрагмент горизонта
-		Tooltip: «В этом фрагменте скрыты непостижимые просторы»
+		Tooltip: «В этом фрагменте заключены непостижимые просторы»
 	}
 
 	HorizonShield: {
