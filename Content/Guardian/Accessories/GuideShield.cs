@@ -38,6 +38,9 @@ namespace OrchidMod.Content.Guardian.Accessories
 					}
 				}
 			}
+
+			OrchidGuardian modPlayer = player.GetModPlayer<OrchidGuardian>();
+			if (modPlayer.GuardianChain < 96f) modPlayer.GuardianChain = 96f;
 		}
 	}
 }

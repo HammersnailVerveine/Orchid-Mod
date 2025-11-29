@@ -331,6 +331,11 @@ Buffs: {
 		DisplayName: Testudo Formation
 		Description: Being protected by an ally's shield
 	}
+
+	GuardianRegenPotionBuff: {
+		DisplayName: Tenacity
+		Description: Increased maximum guard and slam regeneration
+	}
 }
 
 AlchemistRecipe: {
@@ -4032,6 +4037,11 @@ Items: {
 	Slam: {
 		DisplayName: Slam
 		Tooltip: ""
+	}
+
+	GuardianRegenPotion: {
+		DisplayName: Tenacity Potion
+		Tooltip: Allows regenerating up to maximum guards and slams
 	}
 }
 
