@@ -4043,6 +4043,11 @@ Items: {
 		DisplayName: Tenacity Potion
 		Tooltip: Allows regenerating up to maximum guards and slams
 	}
+
+	HeavyChain: {
+		Tooltip: ""
+		DisplayName: Heavy Chain
+	}
 }
 
 NPCs: {
