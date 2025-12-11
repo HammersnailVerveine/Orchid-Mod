@@ -3905,6 +3905,19 @@ Items: {
 			'''
 	}
 
+	ShawlPhoenix: {
+		DisplayName: Shawl of the Phoenix
+		Tooltip:
+			'''
+			12% increased movement speed
+			Provides 7 seconds of immunity to lava
+			Grants immunity to fire blocks
+			Reduces damage from touching lava
+			Use the 'Grapple' key to dash while shapeshifted
+			Hold the 'Grapple' key to use a hook normally
+			'''
+	}
+
 	ShapeshifterHarpyHead: {
 		DisplayName: Soaring Headband
 		Tooltip: 5% increased feral critical strike chance
