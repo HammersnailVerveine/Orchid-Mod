@@ -16,15 +16,5 @@ namespace OrchidMod.Common.Global.Items
 
 			return base.CanUseItem(item, player);
 		}
-
-		public override void ModifyWeaponDamage(Item item, Player player, ref StatModifier damage)
-		{ // DELETE AFTER GUARDIAN EVENT
-			if (item.ModItem is OrchidModGuardianItem || item.damage < 1 || item.accessory)
-			{
-				return;
-			}
-
-		    //item.damage = 1;
-		}
 	}
 }
