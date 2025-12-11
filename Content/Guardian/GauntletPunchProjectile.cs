@@ -113,7 +113,8 @@ namespace OrchidMod.Content.Guardian
 					}
 					else
 					{
-						guardian.GuardianSlamRecharging += 0.2f;
+						guardian.GuardianSlamRecharging += guardian.GauntletSlamPool;
+						guardian.GauntletSlamPool *= 0.8f;
 					}
 
 					GauntletItem.OnHitFirst(owner, guardian, target, Projectile, hit, ChargedHit);

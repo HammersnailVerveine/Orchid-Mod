@@ -103,6 +103,7 @@ namespace OrchidMod
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
 		public Projectile GuardianCurrentStandardAnchor;
+		public float GauntletSlamPool = 0f; // How much slam charge will be granted by hitting the next punch
 
 		public const int GuardianRechargeTime = 600;
 
@@ -202,7 +203,7 @@ namespace OrchidMod
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.EMERALD) modPlayer.OrchidDoubleDash = true;
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.SAPPHIRE) Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.AQUAMARINE) Player.trident = true;
-				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.TOPAZ) ParryInvincibilityBonus += 60;
+				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.TOPAZ) ParryInvincibilityBonus += 40;
 				GuardianJewelerGauntlet = 0;
 			}
 			
@@ -267,6 +268,20 @@ namespace OrchidMod
 			else
 			{
 				ChargeHoldTimer = 0;
+			}
+
+			if (Player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+			{
+				GauntletSlamPool += 0.0017f; // charges in 5 seconds
+
+				if (GauntletSlamPool > 0.5f)
+				{
+					GauntletSlamPool = 0.5f;
+				}
+			}
+			else
+			{
+				GauntletSlamPool = 0f;
 			}
 
 			if (GuardianCounter)
@@ -689,13 +704,15 @@ namespace OrchidMod
 		{ // Called anytime the player blocks/parries their first NPC
 			OnBlockAnyFirst(anchor, ref toAdd, parry);
 
-			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor)
+			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor && Player.whoAmI == Main.myPlayer)
 			{
 				if (GuardianSpikeDamage > 0)
 				{
 					float damage = Player.statDefense * GuardianSpikeDamage;
 
 					damage = GetGuardianDamage(damage);
+					if (damage < 1) damage = 1;
+					if (damage > 500) damage = 500;
 					bool crit = Main.rand.NextFloat(100) < anchor.CritChance;
 					Player.ApplyDamageToNPC(target, (int)damage, 0f, Player.direction, crit, ModContent.GetInstance<GuardianDamageClass>());
 				}
@@ -804,7 +821,7 @@ namespace OrchidMod
 			if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
 			{
 				int intendedImmunityLength = parryItem.InvincibilityDuration + ParryInvincibilityBonus;
-				if (Player.longInvince) intendedImmunityLength += 40;
+				if (Player.longInvince) intendedImmunityLength += 20;
 				modPlayer.PlayerImmunity = intendedImmunityLength;
 				Player.immuneTime = intendedImmunityLength;
 				Player.immune = true;

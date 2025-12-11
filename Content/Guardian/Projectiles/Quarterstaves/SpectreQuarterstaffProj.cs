@@ -10,6 +10,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 {
 	public class SpectreQuarterstaffProj : OrchidModGuardianProjectile
 	{
+		int TimeSpent = 0;
 		float timerNoReach = 0;
 
 		public override void SafeSetDefaults()
@@ -18,7 +19,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 			Projectile.height = 10;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 600;
+			Projectile.timeLeft = 630;
 			Projectile.scale = 0.66f;
 			Projectile.penetrate = 1;
 			Projectile.alpha = 255;
@@ -30,6 +31,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 
 		public override void AI()
 		{
+			TimeSpent++;
+
 			if (!Initialized)
 			{
 				Initialized = true;
@@ -72,40 +75,33 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 
 			if (Projectile.ai[2] < 0f)
 			{ // Hovering above the player
-				Vector2 target = Owner.Center - Vector2.UnitY * 128f + new Vector2(Projectile.localAI[1], Projectile.localAI[2]) + Owner.velocity * 15f;
-
-				if (Projectile.Center.Distance(target) > 88f && timerNoReach >= 0)
+				int count = 0; // nb of more recent projectiles
+				int countTotal = 0; // nb of other projectiles
+				int highestTimeSpent = 0;
+				foreach (Projectile projectile in Main.projectile)
 				{
-					timerNoReach++;
-					Projectile.velocity += (target - Projectile.Center) * (0.005f + timerNoReach * 0.00025f);
+					if (projectile.active && projectile.type == Type && Projectile.owner == projectile.owner && Projectile.ai[2] < 0f)
+					{
+						countTotal++;
 
-					if (Projectile.velocity.Length() > 10f)
-					{
-						Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 16f;
-					}
-				}
-				else
-				{
-					if (timerNoReach > 0 || timerNoReach < 0)
-					{
-						timerNoReach++;
-						if (timerNoReach > 0)
+						if (projectile.ModProjectile is SpectreQuarterstaffProj spectreProj)
 						{
-							timerNoReach = -Main.rand.Next(10, 20);
+							if (spectreProj.TimeSpent < TimeSpent)
+							{
+								count++;
+							}
+
+							if (spectreProj.TimeSpent > highestTimeSpent)
+							{
+								highestTimeSpent = spectreProj.TimeSpent;
+							}
 						}
 					}
-					else
-					{
-						timerNoReach = 0;
-					}
-
-					Projectile.velocity *= 0.9f;
-
-					if (Projectile.velocity.Length() < Projectile.ai[0])
-					{
-						Projectile.velocity = Vector2.Normalize(Projectile.velocity) * Projectile.ai[0];
-					}
 				}
+
+				Player owner = Owner;
+				Vector2 targetPosition = owner.Center - Vector2.UnitY.RotatedBy(highestTimeSpent * 0.02f + (MathHelper.TwoPi / countTotal) * count) * (16f + Math.Max(owner.width, owner.height));
+				Projectile.velocity = (targetPosition - Projectile.Center) * 0.1f + owner.velocity;
 
 				if (Projectile.ai[1] > 0)
 				{
