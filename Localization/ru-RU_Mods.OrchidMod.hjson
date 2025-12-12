@@ -340,11 +340,6 @@ Buffs: {
 		DisplayName: Стойкость
 		Description: Увеличивает максимальный лимит восстановления очков обороны и нападения
 	}
-
-	GuardianRegenPotionBuff: {
-		// DisplayName: Tenacity
-		// Description: Increased maximum guard and slam regeneration
-	}
 }
 
 AlchemistRecipe: {
@@ -3928,16 +3923,15 @@ Items: {
 	}
 
 	ShawlPhoenix: {
-		// DisplayName: Shawl of the Phoenix
-		/* Tooltip:
+		DisplayName: Шаль феникса
+		Tooltip:
 			'''
-			12% increased movement speed
-			Provides 7 seconds of immunity to lava
-			Grants immunity to fire blocks
-			Reduces damage from touching lava
-			Use the 'Grapple' key to dash while shapeshifted
-			Hold the 'Grapple' key to use a hook normally
-			''' */
+			Увеличивает скорость передвижения на 12%
+			Даёт невосприимчивость к огненным блокам и 7 секунд невосприимчивости к лаве
+            Снижает урон, получаемый при контакте с лавой
+			Нажмите клавишу «Крюк-кошка», чтобы совершить рывок в состоянии обращения
+			Удерживайте клавишу, чтобы использовать крюк обычным образом
+			'''
 	}
 
 	ShapeshifterHarpyHead: {
@@ -4075,14 +4069,9 @@ Items: {
 		Tooltip: Позволяет очкам обороны и нападения восстанавливаться до максимального значения
 	}
 
-	GuardianRegenPotion: {
-		// DisplayName: Tenacity Potion
-		// Tooltip: Allows regenerating up to maximum guards and slams
-	}
-
 	HeavyChain: {
-		// Tooltip: ""
-		// DisplayName: Heavy Chain
+		Tooltip: ""
+		DisplayName: Тяжёлая цепь
 	}
 }
 
