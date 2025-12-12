@@ -137,7 +137,7 @@ namespace OrchidMod.Content.General.Prefixes
 			{
 				if (item.ModItem is OrchidModGuardianShield)
 				{
-					modPlayer.modPlayerGuardian.GuardianPaviseScale += speed - 1f;
+					modPlayer.modPlayerGuardian.GuardianWeaponScale += speed - 1f;
 				}
 				else
 				{

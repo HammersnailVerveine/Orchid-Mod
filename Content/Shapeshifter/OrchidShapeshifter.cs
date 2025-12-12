@@ -54,6 +54,7 @@ namespace OrchidMod
 
 		public bool ShapeshifterShawlFeather = false; // Used only for dash visuals
 		public bool ShapeshifterShawlWind = false; // Used only for dash visuals
+		public bool ShapeshifterShawlPhoenix = false; // Used only for dash visuals
 
 		public float ShapeshifterHookDash = 0f; // Shawl accessories tree effect : provides a burst of velocity speed when shapeshifting
 		public int ShapeshifterHarness = 0; // Youxia Harness effect, this is the base damage of the projectile fired
@@ -268,6 +269,7 @@ namespace OrchidMod
 			ShapeshifterHairpin = false;
 			ShapeshifterShawlFeather = false;
 			ShapeshifterShawlWind = false;
+			ShapeshifterShawlPhoenix = false;
 		}
 
 		public override void PostUpdateEquips()
@@ -735,7 +737,47 @@ namespace OrchidMod
 		{
 			Projectile projectile = ShapeshiftAnchor.Projectile;
 
-			if (ShapeshifterShawlWind)
+			// General dash visuals and effects
+
+			SoundStyle dashSound = SoundID.DoubleJump;
+			dashSound.Pitch *= Main.rand.NextFloat(1.25f, 1.75f);
+			SoundEngine.PlaySound(dashSound, projectile.Center);
+
+			for (int i = 0; i < 5; i++)
+			{
+				Dust dust = Dust.NewDustDirect(projectile.Center, 0, 0, DustID.Smoke);
+				dust.scale *= Main.rand.NextFloat(1f, 1.5f);
+				dust.velocity *= Main.rand.NextFloat(0.5f, 0.75f);
+			}
+
+			for (int i = 0; i < 3; i++)
+			{
+				Gore gore = Gore.NewGoreDirect(projectile.GetSource_FromAI(), projectile.Center + new Vector2(Main.rand.NextFloat(-24f, 0f), Main.rand.NextFloat(-24f, 0f)), Vector2.UnitY.RotatedByRandom(MathHelper.Pi), 61 + Main.rand.Next(3));
+				gore.rotation = Main.rand.NextFloat(MathHelper.Pi);
+			}
+
+			// Specific dash effects
+
+			if (ShapeshifterShawlPhoenix)
+			{
+				SoundEngine.PlaySound(SoundID.DD2_SkyDragonsFurySwing, projectile.Center);
+				for (int i = 0; i < 5; i++)
+				{
+					Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, ModContent.DustType<ShapeshifterDustPhoenix>(), Scale: Main.rand.NextFloat(1.2f, 1.4f));
+					dust.velocity *= 0.5f;
+					dust.velocity.Y = 2f;
+					dust.customData = Main.rand.Next(314);
+					dust.fadeIn -= 60;
+				}
+
+				for (int i = 0; i < 8; i++)
+				{
+					Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.Torch, Scale: Main.rand.NextFloat(1.2f, 1.4f));
+					dust.velocity *= Main.rand.NextFloat(0.5f, 1.5f);
+					dust.noGravity = true;
+				}
+			}
+			else if (ShapeshifterShawlWind)
 			{
 				SoundEngine.PlaySound(SoundID.Grass, projectile.Center);
 				for (int i = 0; i < 5; i++)
@@ -752,6 +794,7 @@ namespace OrchidMod
 					dust.velocity *= 0.5f;
 					dust.velocity.Y = 2f;
 					dust.customData = Main.rand.Next(314);
+					dust.fadeIn -= 60;
 				}
 			}
 
@@ -762,6 +805,7 @@ namespace OrchidMod
 				projectile.velocity = offSet;
 				ShapeshiftAnchor.NeedNetUpdate = true;
 			}
+
 			Shapeshift.ResetFallHeight(Player);
 			ShapeshifterMoveSpeedDecelerate = 0;
 			ShapeshifterNoDecelerationTimer = 13;

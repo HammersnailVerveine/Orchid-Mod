@@ -32,6 +32,8 @@ namespace OrchidMod
 		public float GuardianSlamRecharge = 1f;
 		public int GuardianGuardMax = 3; // Max guard charges
 		public int GuardianSlamMax = 3; // Max slam charges
+		/// <summary> The ratio of guards and slams out of the player's maximum that can naturally be regenerated before the regeneration penalty takes effect. Default is 0.5.</summary>
+		public float GuardianRegenThreshold = 0.5f;
 		public int GuardianBonusRune = 0; // Bonus projectiles spawned by runes
 		public int ParryInvincibilityBonus = 0; // Bonus in frames added to the length of parry iframes
 		public float GuardianRuneTimer = 1f; // Rune duration multiplier
@@ -41,7 +43,7 @@ namespace OrchidMod
 		public float GuardianBlockDuration = 1f; // Block Duration multiplier (pavises)
 		public float GuardianParryDuration = 1f; // Parry Duration multiplier (gauntlets, misc)
 		public float GuardianMeleeSpeed = 1f; // Edited via reforges. It multiplies the player MeleeSpeed in postupdate
-		public float GuardianPaviseScale = 1f; // Multiplies pavise scale
+		public float GuardianWeaponScale = 1f; // Multiplies pavise scale
 
 		// Set effects, accessories, misc
 
@@ -69,6 +71,7 @@ namespace OrchidMod
 		public bool GuardianBronzeShieldBuff = false;
 		public float GuardianBronzeShieldDamage = 0;
 		public bool GuardianBronzeShieldProtection = false;
+		public float GuardianChain = 0f; // Increases the swing range on Warhammers (additive, 16f = 1 tile)
 
 		// Dynamic gameplay and UI fields
 
@@ -79,8 +82,8 @@ namespace OrchidMod
 		public float GuardianGuardRecharging = 0;
 		/// <summary> Current timer for slam stack regen or degen. Increments slams at 1 or higher, decrements at -1 or lower.</summary>
 		public float GuardianSlamRecharging = 0;
-		public bool OverHalfGuards => GuardianGuard + GuardianGuardRecharging > GuardianGuardMax / 2f;
-		public bool OverHalfSlams => GuardianSlam + GuardianSlamRecharging > GuardianSlamMax / 2f;
+		public bool OverThresholdGuards => GuardianGuard + GuardianGuardRecharging > GuardianGuardMax * GuardianRegenThreshold;
+		public bool OverThresholdSlams => GuardianSlam + GuardianSlamRecharging > GuardianSlamMax * GuardianRegenThreshold;
 		public int GuardianDisplayUI = 0; // Guardian UI is displayed if > 0
 		public float GuardianItemCharge = 0f; // Player Warhammer Throw Charge, max is 180f
 		public bool GuardianGauntletParry = false; // Player is currently parrying with a gauntlet
@@ -100,6 +103,7 @@ namespace OrchidMod
 		public List<BlockedEnemy> GuardianBlockedEnemies = new List<BlockedEnemy>();
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
 		public Projectile GuardianCurrentStandardAnchor;
+		public float GauntletSlamPool = 0f; // How much slam charge will be granted by hitting the next punch
 
 		public const int GuardianRechargeTime = 600;
 
@@ -187,6 +191,7 @@ namespace OrchidMod
 		{
 			// This should multiply the player melee speed AFTER all other modifications, making reforge melee speed multiplicative instead of additive
 			Player.GetAttackSpeed(DamageClass.Melee) *= GuardianMeleeSpeed;
+			Player.ApplyMeleeScale(ref GuardianWeaponScale); // melee scale affects guardian weapon scale
 		}
 
 		public override void PostUpdateMiscEffects()
@@ -198,7 +203,7 @@ namespace OrchidMod
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.EMERALD) modPlayer.OrchidDoubleDash = true;
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.SAPPHIRE) Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
 				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.AQUAMARINE) Player.trident = true;
-				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.TOPAZ) ParryInvincibilityBonus += 60;
+				if (GuardianJewelerGauntlet == (byte)JewelerGauntletGem.TOPAZ) ParryInvincibilityBonus += 40;
 				GuardianJewelerGauntlet = 0;
 			}
 			
@@ -218,8 +223,11 @@ namespace OrchidMod
 		public override void ResetEffects()
 		{
 			// Resetting Core guardian fields
+			if (Player.itemTime > 0 && Player.HeldItem.damage > 0 && Player.HeldItem.ModItem is not OrchidModGuardianItem && Player.HeldItem.pick + Player.HeldItem.hammer + Player.HeldItem.axe == 0)
+				GuardianRegenThreshold = 0;
+			else if (GuardianRegenThreshold > 1) GuardianRegenThreshold = 1;
 
-			if (!OverHalfGuards)
+			if (!OverThresholdGuards)
 				GuardianGuardRecharging += GuardianGuardRecharge / GuardianRechargeTime;
 			else GuardianGuardRecharging += (-2 + GuardianGuardRecharge) / GuardianRechargeTime;
 			
@@ -236,7 +244,7 @@ namespace OrchidMod
 				GuardianGuardRecharging++;
 			}
 
-			if (!OverHalfSlams)
+			if (!OverThresholdSlams)
 				GuardianSlamRecharging += GuardianSlamRecharge / GuardianRechargeTime;
 			else GuardianSlamRecharging += (-2 + GuardianSlamRecharge) / GuardianRechargeTime;
 			
@@ -260,6 +268,20 @@ namespace OrchidMod
 			else
 			{
 				ChargeHoldTimer = 0;
+			}
+
+			if (Player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+			{
+				GauntletSlamPool += 0.0017f; // charges in 5 seconds
+
+				if (GauntletSlamPool > 0.5f)
+				{
+					GauntletSlamPool = 0.5f;
+				}
+			}
+			else
+			{
+				GauntletSlamPool = 0f;
 			}
 
 			if (GuardianCounter)
@@ -309,6 +331,7 @@ namespace OrchidMod
 			GuardianSlamRecharge = 1f;
 			GuardianGuardMax = 3;
 			GuardianSlamMax = 3;
+			GuardianRegenThreshold = 0.5f;
 			GuardianBonusRune = 0;
 			GuardianRuneTimer = 1f;
 			GuardianStandardTimer = 1f;
@@ -317,8 +340,9 @@ namespace OrchidMod
 			GuardianBlockDuration = 1f;
 			GuardianParryDuration = 1f;
 			GuardianMeleeSpeed = 1f;
-			GuardianPaviseScale = 1f;
+			GuardianWeaponScale = 1f;
 			ParryInvincibilityBonus = 0;
+			GuardianChain = 0f;
 			if (!GuardianBronzeShieldBuff) GuardianBronzeShieldDamage = 0;
 
 			GuardianMeteorite = false;
@@ -680,13 +704,15 @@ namespace OrchidMod
 		{ // Called anytime the player blocks/parries their first NPC
 			OnBlockAnyFirst(anchor, ref toAdd, parry);
 
-			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor)
+			if (anchor.ModProjectile is GuardianShieldAnchor shieldAnchor && Player.whoAmI == Main.myPlayer)
 			{
 				if (GuardianSpikeDamage > 0)
 				{
 					float damage = Player.statDefense * GuardianSpikeDamage;
 
 					damage = GetGuardianDamage(damage);
+					if (damage < 1) damage = 1;
+					if (damage > 500) damage = 500;
 					bool crit = Main.rand.NextFloat(100) < anchor.CritChance;
 					Player.ApplyDamageToNPC(target, (int)damage, 0f, Player.direction, crit, ModContent.GetInstance<GuardianDamageClass>());
 				}
@@ -795,7 +821,7 @@ namespace OrchidMod
 			if (Player.HeldItem.ModItem is OrchidModGuardianParryItem parryItem)
 			{
 				int intendedImmunityLength = parryItem.InvincibilityDuration + ParryInvincibilityBonus;
-				if (Player.longInvince) intendedImmunityLength += 40;
+				if (Player.longInvince) intendedImmunityLength += 20;
 				modPlayer.PlayerImmunity = intendedImmunityLength;
 				Player.immuneTime = intendedImmunityLength;
 				Player.immune = true;

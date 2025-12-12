@@ -34,7 +34,33 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			if (Timer > 60)
 			{
 				Timer = 0;
-				SpawnProjectile(player.GetModPlayer<OrchidGuardian>());
+				int count = 0;
+				int lowestTimeLeft = 630;
+				Projectile lowestTimeLeftProjectile = null;
+
+				foreach (Projectile projectile in Main.projectile)
+				{
+					int projectileType = ModContent.ProjectileType<SpectreQuarterstaffProj>();
+					if (projectile.type == projectileType && projectile.owner == player.whoAmI && projectile.active)
+					{
+						count++;
+
+						if (projectile.timeLeft < lowestTimeLeft)
+						{
+							lowestTimeLeft = projectile.timeLeft;
+							lowestTimeLeftProjectile = projectile;
+						}
+					}
+				}
+
+				if (count < 10)
+				{
+					SpawnProjectile(player.GetModPlayer<OrchidGuardian>());
+				}
+				else if (lowestTimeLeftProjectile  != null)
+				{
+					lowestTimeLeftProjectile.timeLeft = 630;
+				}
 			}
 		}
 
@@ -43,7 +69,21 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			if (TimerHit <= 0)
 			{
 				TimerHit = 5;
-				SpawnProjectile(guardian);
+				int count = 0;
+
+				foreach (Projectile otherProjectile in Main.projectile)
+				{
+					int projectileType = ModContent.ProjectileType<SpectreQuarterstaffProj>();
+					if (otherProjectile.type == projectileType && otherProjectile.owner == player.whoAmI && otherProjectile.active)
+					{
+						count++;
+					}
+				}
+
+				if (count < 15)
+				{
+					SpawnProjectile(guardian);
+				}
 			}
 		}
 

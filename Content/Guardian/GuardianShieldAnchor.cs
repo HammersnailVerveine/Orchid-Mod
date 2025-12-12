@@ -99,7 +99,7 @@ namespace OrchidMod.Content.Guardian
 			if (!death)
 			{
 				OrchidGuardian guardian = owner.GetModPlayer<OrchidGuardian>();
-				Projectile.scale = guardian.GuardianPaviseScale;
+				Projectile.scale = guardian.GuardianWeaponScale;
 
 				if (NeedNetUpdate)
 				{
@@ -123,8 +123,8 @@ namespace OrchidMod.Content.Guardian
 						if (IsLocalOwner)
 						{
 							var texture = ModContent.Request<Texture2D>((ShieldItem.ModItem as OrchidModGuardianShield).ShieldTexture).Value;
-							Projectile.width = (int)(texture.Height * guardian.GuardianPaviseScale);
-							Projectile.height = (int)(texture.Height * guardian.GuardianPaviseScale);
+							Projectile.width = (int)(texture.Height * guardian.GuardianWeaponScale);
+							Projectile.height = (int)(texture.Height * guardian.GuardianWeaponScale);
 						}
 					}
 
@@ -146,9 +146,9 @@ namespace OrchidMod.Content.Guardian
 					{
 						Vector2 oldDimensions = new Vector2(Projectile.width, Projectile.height);
 						var texture = ModContent.Request<Texture2D>(guardianItem.ShieldTexture).Value;
-						Projectile.width = (int)(texture.Height * guardian.GuardianPaviseScale);
-						Projectile.height = (int)(texture.Height * guardian.GuardianPaviseScale);
-						aimedLocation += (oldDimensions * 0.5f - new Vector2(texture.Height * guardian.GuardianPaviseScale, texture.Height * guardian.GuardianPaviseScale) * 0.5f).Floor();
+						Projectile.width = (int)(texture.Height * guardian.GuardianWeaponScale);
+						Projectile.height = (int)(texture.Height * guardian.GuardianWeaponScale);
+						aimedLocation += (oldDimensions * 0.5f - new Vector2(texture.Height * guardian.GuardianWeaponScale, texture.Height * guardian.GuardianWeaponScale) * 0.5f).Floor();
 					}
 
 					aimedLocation += owner.Center.Floor() - oldOwnerPos.Floor();

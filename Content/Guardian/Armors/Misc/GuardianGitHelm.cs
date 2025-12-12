@@ -34,6 +34,15 @@ namespace OrchidMod.Content.Guardian.Armors.Misc
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
+			Mod ThoriumMod = OrchidMod.ThoriumMod;
+			if (ThoriumMod != null)
+			{
+				if (body.type == ThoriumMod.Find<ModItem>("ThoriumMail").Type && legs.type == ThoriumMod.Find<ModItem>("ThoriumGreaves").Type)
+				{
+					return true;
+				}
+			}
+
 			return (body.type == ItemID.CopperChainmail && legs.type == ItemID.CopperGreaves)
 				|| (body.type == ItemID.TinChainmail && legs.type == ItemID.TinGreaves)
 				|| (body.type == ItemID.IronChainmail && legs.type == ItemID.IronGreaves)

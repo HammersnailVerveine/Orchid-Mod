@@ -60,6 +60,16 @@ namespace OrchidMod.Content.Guardian
 					owner.GetModPlayer<OrchidGuardian>().GuardianItemCharge = 0; // probably not the best place to put this but it works. (fixes a minor visual issue)
 					SoundEngine.PlaySound(ChargedHit ? SoundID.DD2_MonkStaffGroundMiss : SoundID.DD2_MonkStaffSwing, owner.Center);
 				}
+
+				float scale = Owner.GetModPlayer<OrchidGuardian>().GuardianWeaponScale;
+				if (scale != 1f)
+				{ // re-centers and adjusts projectiles scale + hitbox to match the players
+					Vector2 oldCenter = Projectile.Center;
+					Projectile.scale = scale;
+					Projectile.width = (int)(Projectile.width * scale);
+					Projectile.height = (int)(Projectile.height * scale);
+					Projectile.Center = oldCenter;
+				}
 			}
 			else
 			{
@@ -103,7 +113,8 @@ namespace OrchidMod.Content.Guardian
 					}
 					else
 					{
-						guardian.GuardianSlamRecharging += 0.2f;
+						guardian.GuardianSlamRecharging += guardian.GauntletSlamPool;
+						guardian.GauntletSlamPool *= 0.8f;
 					}
 
 					GauntletItem.OnHitFirst(owner, guardian, target, Projectile, hit, ChargedHit);

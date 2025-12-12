@@ -1,3 +1,4 @@
+using OrchidMod.Content.Guardian;
 using Terraria;
 using Terraria.ModLoader;
 
