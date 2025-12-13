@@ -133,29 +133,6 @@ namespace OrchidMod.Common.Global.NPCs
 			{
 				Item.NewItem(npc.GetSource_Death(), npc.getRect(), ModContent.ItemType<Chip>());
 			}
-
-			if (GuardianHit && !npc.SpawnedFromStatue && OrchidMiscModSystem.SlamDropCooldown >= 300)
-			{ // Slam pickups drop logic (every 10 sec, not if there are more than 2 nearby slams)
-				OrchidMiscModSystem.SlamDropCooldown = 0;
-				int slamType = ModContent.ItemType<Slam>();
-				int count = 0;
-				foreach (Item item in Main.item)
-				{
-					if (item.type == slamType && item.Center.Distance(npc.Center) < 160f && item.active)
-					{
-						count++;
-						if (count == 3)
-						{
-							break;
-						}
-					}
-				}
-
-				if (count < 3)
-				{
-					Item.NewItem(npc.GetSource_Death(), npc.getRect(), slamType);
-				}
-			}
 		}
 	}
 }
