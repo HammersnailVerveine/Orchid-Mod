@@ -1,6 +1,6 @@
 Keybinds: {
 	"Alchemist Hidden Reaction.DisplayName": Скрытая алхимическая реакция
-	"Alchemist Catalyst Tool Shortcut.DisplayName": Быстрый доступ к инструменту-катализатору
+	"Alchemist Catalyst Tool Shortcut.DisplayName": Инструмент-катализатор
 	"Hidden Reaction.DisplayName": Скрытая реакция
 }
 
@@ -8,7 +8,7 @@ Tiles: {
 	JungleLilyTile.MapEntry: Лилия джунглей
 	ShamanBiomeChestTile.MapEntry: Светящийся грибной сундук
 	GuardianBuffStationTile.MapEntry: Вращающийся манекен
-	VerveineQuarterstaffTile.MapEntry: Вонючее растение
+	VerveineQuarterstaffTile.MapEntry: Пердёжное растение
 }
 
 Buffs: {
@@ -4700,7 +4700,7 @@ Misc: {
 	NewHiddenReac: Найдена подсказка к новой скрытой реакции!
 	NoHintsLeft: На этом уровне не осталось подсказок
 	FailedReaction: Неудачная реакция
-	EntryAdded: Запись «{0}» добавлена в рукопись о скрытых реакциях!
+	EntryAdded: Запись {0} добавлена в рукопись о скрытых реакциях!
 	CurrentСard: "Текущая карта: "
 	PlayingСard: "Разыгранная карта: "
 	Crossmod: "Это кроссмод предмет с "
