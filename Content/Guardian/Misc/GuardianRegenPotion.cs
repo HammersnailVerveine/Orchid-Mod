@@ -23,6 +23,10 @@ namespace OrchidMod.Content.Guardian.Misc
 			Item.buffType = ModContent.BuffType<GuardianRegenPotionBuff>();
 			Item.buffTime = 60 * 60 * 4;
 		}
+		public override void SetStaticDefaults()
+		{
+			Item.ResearchUnlockCount = 20;
+		}
 
 		public override void AddRecipes()
 		{

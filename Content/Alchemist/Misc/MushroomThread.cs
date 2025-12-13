@@ -25,6 +25,7 @@ namespace OrchidMod.Content.Alchemist.Misc
 			/* Tooltip.SetDefault("Result of the hidden reaction between blinkroot and glowing mushroom extracts"
 							+ "\n'Quite an unexpected outcome'"); */
 			//+  "\n[c/FF0000:PLEASE MAKE SURE THE HIDDEN REACTION KEYBIND IS SET]");
+			Item.ResearchUnlockCount = 25;
 		}
 
 		public override void Update(ref float gravity, ref float maxFallSpeed)

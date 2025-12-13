@@ -18,6 +18,7 @@ namespace OrchidMod.Content.Gambler.Misc
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Tyche Relic");
+			Item.ResearchUnlockCount = 25;
 		}
 	}
 }

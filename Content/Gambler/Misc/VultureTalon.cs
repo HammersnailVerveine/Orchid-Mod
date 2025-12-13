@@ -16,6 +16,7 @@ namespace OrchidMod.Content.Gambler.Misc
 		public override void SetStaticDefaults()
 		{
 			// DisplayName.SetDefault("Vulture Talon");
+			Item.ResearchUnlockCount = 25;
 		}
 	}
 }

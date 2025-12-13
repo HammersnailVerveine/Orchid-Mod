@@ -23,6 +23,10 @@ namespace OrchidMod.Content.Shapeshifter.Misc
 			Item.buffType = ModContent.BuffType<ShapeshifterSurvivalPotionBuff>();
 			Item.buffTime = 60 * 60 * 8;
 		}
+		public override void SetStaticDefaults()
+		{
+			Item.ResearchUnlockCount = 20;
+		}
 
 		public override void AddRecipes()
 		{

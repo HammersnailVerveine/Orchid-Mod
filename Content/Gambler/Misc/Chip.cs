@@ -29,6 +29,7 @@ namespace OrchidMod.Content.Gambler.Misc
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.IsAPickup[Type] = true;
+			Item.ResearchUnlockCount = -1;
 
 			// DisplayName.SetDefault("Chip");
 		}

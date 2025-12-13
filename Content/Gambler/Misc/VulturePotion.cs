@@ -28,6 +28,7 @@ namespace OrchidMod.Content.Gambler.Misc
 		{
 			// DisplayName.SetDefault("Scavenger Potion");
 			// Tooltip.SetDefault("20% increased gambler chip generation");
+			Item.ResearchUnlockCount = 20;
 		}
 		public override void AddRecipes()
 		{

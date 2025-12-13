@@ -21,6 +21,7 @@ namespace OrchidMod.Content.General.Materials
 			// DisplayName.SetDefault("Jungle Lily Bud");
 			/* Tooltip.SetDefault("It closed when you picked it up"
 							+ "\nMaybe the chemist could help you?"); */
+			Item.ResearchUnlockCount = 25;
 		}
 
 		public override void SetDefaults()

@@ -22,6 +22,7 @@ namespace OrchidMod.Content.Guardian.Misc
 		{
 			ItemID.Sets.ItemIconPulse[Item.type] = true;
 			ItemID.Sets.ItemNoGravity[Item.type] = true;
+			Item.ResearchUnlockCount = 25;
 		}
 
 		public override void PostUpdate()

@@ -24,6 +24,11 @@ namespace OrchidMod.Content.Guardian.Misc
 			Item.buffTime = 60 * 60 * 6;
 		}
 
+		public override void SetStaticDefaults()
+		{
+			Item.ResearchUnlockCount = 20;
+		}
+
 		public override void AddRecipes()
 		{
 			var recipe = CreateRecipe();

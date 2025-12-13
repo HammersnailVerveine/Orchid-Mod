@@ -13,6 +13,7 @@ namespace OrchidMod.Content.General.Materials
 		{
 			// DisplayName.SetDefault("Bloomed Jungle Lily");
 			// Tooltip.SetDefault("Gathered from a chemically bloomed jungle lily");
+			Item.ResearchUnlockCount = 25;
 		}
 
 		public override void SetDefaults()
