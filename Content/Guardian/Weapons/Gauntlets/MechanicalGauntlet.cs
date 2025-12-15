@@ -53,9 +53,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			guardian.GuardianCounter = true;
 		}
 
-		public override void ExtraAIGauntlet(Projectile projectile)
+		public override void ExtraAIGauntlet(Player player, OrchidGuardian guardian, Projectile projectile, bool offHandGauntlet)
 		{
-			Player player = Main.player[projectile.owner];
 			if (projectile.ModProjectile is GuardianGauntletAnchor anchor && !anchor.OffHandGauntlet)
 			{
 				//checking for Ding determines whether it is a natural full charge or an instant one, since instant charges do not ding

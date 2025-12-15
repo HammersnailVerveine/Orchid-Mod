@@ -314,7 +314,7 @@ namespace OrchidMod.Content.Guardian
 				}
 			}
 
-			guardianItem.ExtraAIGauntlet(Projectile);
+			guardianItem.ExtraAIGauntlet(owner, guardian, Projectile, OffHandGauntlet);
 		}
 
 		public bool CanInstantSlam()

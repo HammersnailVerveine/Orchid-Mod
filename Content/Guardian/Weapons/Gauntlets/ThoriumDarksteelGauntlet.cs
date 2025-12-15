@@ -54,7 +54,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			});
 		}
 
-		public override void ExtraAIGauntlet(Projectile projectile)
+		public override void ExtraAIGauntlet(Player player, OrchidGuardian guardian, Projectile projectile, bool offHandGauntlet)
 		{
 			if (projectile.ai[2] > 0)
 			{

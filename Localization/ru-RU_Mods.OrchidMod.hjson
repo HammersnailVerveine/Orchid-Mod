@@ -4073,6 +4073,15 @@ Items: {
 		Tooltip: ""
 		DisplayName: Тяжёлая цепь
 	}
+
+	BeeGauntlet: {
+		// DisplayName: Bumblebeaters
+		/* Tooltip:
+			'''
+			Press DOWN to control descent while charging
+			Releases bees on parry and slam
+			''' */
+	}
 }
 
 NPCs: {

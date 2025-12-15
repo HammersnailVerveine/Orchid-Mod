@@ -1,11 +1,6 @@
-﻿using log4net.Core;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OrchidMod.Common.Global.Items;
-using OrchidMod.Content.Alchemist;
-using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Guardian.Buffs;
-using OrchidMod.Utilities;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -13,7 +8,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.WorldBuilding;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
