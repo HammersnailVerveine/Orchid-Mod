@@ -1,3 +1,5 @@
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 using OrchidMod.Content.Guardian.Buffs;
 using Terraria;
 using Terraria.ID;
@@ -5,6 +7,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Misc
 {
+	[ClassTag(ClassTags.Guardian)]
 	public class GuardianHoneyPotion : ModItem
 	{
 		public override void SetDefaults()

@@ -1,3 +1,5 @@
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -5,6 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Content.Gambler.Misc
 {
+	[ClassTag(ClassTags.Gambler)]
 	public class VulturePotion : ModItem
 	{
 		public override void SetDefaults()

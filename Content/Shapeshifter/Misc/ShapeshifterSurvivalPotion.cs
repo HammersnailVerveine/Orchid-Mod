@@ -1,3 +1,5 @@
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using Terraria;
 using Terraria.ID;
@@ -5,6 +7,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Misc
 {
+	[ClassTag(ClassTags.Shapeshifter)]
 	public class ShapeshifterSurvivalPotion : ModItem
 	{
 		public override void SetDefaults()
