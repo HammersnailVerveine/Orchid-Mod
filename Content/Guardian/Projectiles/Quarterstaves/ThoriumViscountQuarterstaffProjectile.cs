@@ -25,7 +25,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 			Projectile.penetrate = -1;
 			Projectile.alpha = 255;
 			Projectile.friendly = false;
-			Projectile.tileCollide = true;
+			Projectile.tileCollide = false;
 			Bats = new List<ViscountQuarterstaffBat>();
 			TextureGlow ??= ModContent.Request<Texture2D>(Texture + "_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 		}
