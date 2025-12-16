@@ -46,11 +46,17 @@ namespace OrchidMod.Content.Guardian.Projectiles.Runes
 				{
 					if (IsValidTarget(npc) && npc.Center.Distance(Projectile.Center) < 160f)
 					{
+						Projectile newProjectile = null;
 						if (Main.player[Projectile.owner].strongBees && Main.rand.NextBool(2))
-							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * 5f, ProjectileID.GiantBee, (int)(Projectile.damage * 1.15f), 0f, Projectile.owner);
+						{
+							newProjectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * 5f, ProjectileID.GiantBee, (int)(Projectile.damage * 1.15f), 0f, Projectile.owner);
+						}
 						else
-							Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * 5f, ProjectileID.Bee, Projectile.damage, 0f, Projectile.owner);
-						break;
+						{
+							newProjectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.UnitY.RotatedByRandom(MathHelper.Pi) * 5f, ProjectileID.Bee, Projectile.damage, 0f, Projectile.owner);
+						}
+
+						newProjectile.DamageType = ModContent.GetInstance<GuardianDamageClass>();
 					}
 				}
 			}

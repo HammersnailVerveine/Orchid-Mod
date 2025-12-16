@@ -4061,6 +4061,15 @@ Items: {
 		Tooltip: ""
 		DisplayName: Heavy Chain
 	}
+
+	BeeGauntlet: {
+		DisplayName: Bumblebeaters
+		Tooltip:
+			'''
+			Press DOWN to control descent while charging
+			Releases bees on parry and slam
+			'''
+	}
 }
 
 NPCs: {
