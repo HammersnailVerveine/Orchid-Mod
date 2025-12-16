@@ -3799,6 +3799,11 @@ Items: {
 		Tooltip: Counterattacks release a noxious cloud
 	}
 
+	ThoriumViscountQuarterstaff: {
+		DisplayName: Fancy Cane
+		Tooltip: Counterattacks turn you into a swarm of bats, ignoring 20 defense
+	}
+
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Thorium Quarterstaff
 		Tooltip: Releases sparks on hit
@@ -4546,6 +4551,7 @@ Projectiles: {
 	GuardianNeedleAnchor.DisplayName: Honeysteel Needle
 	CrystalGauntletProjectile.DisplayName: Crystal Gauntlet Projectile
 	StarKO.DisplayName: Star K.O.
+	ThoriumViscountQuarterstaffProjectile.DisplayName: Thorium Viscount Quarterstaff Projectile
 }
 
 Configs: {

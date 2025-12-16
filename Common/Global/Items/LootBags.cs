@@ -183,6 +183,12 @@ namespace OrchidMod.Common.Global.Items
 				return;
 			}
 
+			if (thoriumMod.IsItemTypeEquals("CountBag", arg))
+			{
+				QuickSpawnItem<ThoriumViscountQuarterstaff>(player, 1, 3);
+				return;
+			}
+
 			// ThunderBirdBag JellyFishBag GraniteBag CountBag BeholderBag BoreanBag LichBag AbyssionBag
 
 			SkipThorium:

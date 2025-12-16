@@ -62,6 +62,8 @@ namespace OrchidMod.Common.ModObjects
 		public ref int DoubleTappedLeft => ref DoubleTapped[3];
 		/// <summary>List of current Orchid Titanium Shards owned by this player.</summary>
 		public List<Projectile> TitaniumShards = new List<Projectile>();
+		/// <summary>If true, all player Drawlayers will not render.</summary>
+		public bool HideAllDrawLayers = false;
 
 		// Equipment Fields (General)
 
@@ -124,6 +126,17 @@ namespace OrchidMod.Common.ModObjects
 			}
 		}
 
+		public override void HideDrawLayers(PlayerDrawSet drawInfo)
+		{
+			if (HideAllDrawLayers)
+			{
+				foreach (PlayerDrawLayer layer in PlayerDrawLayerLoader.DrawOrder)
+				{
+					layer.Hide();
+				}
+			}
+		}
+
 		public override void ResetEffects()
 		{
 			Timer++;
@@ -134,6 +147,7 @@ namespace OrchidMod.Common.ModObjects
 			remoteCopterPet = false;
 			OrchidDoubleDash = false;
 			OrchidDodgeChance = 1f;
+			HideAllDrawLayers = false;
 
 			if (OrchidDoubleDashCD > 0)
 			{

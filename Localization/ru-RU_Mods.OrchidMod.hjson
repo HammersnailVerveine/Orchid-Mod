@@ -3816,6 +3816,11 @@ Items: {
 		Tooltip: Контратаки выпускают облако яда
 	}
 
+	ThoriumViscountQuarterstaff: {
+		// DisplayName: Fancy Cane
+		// Tooltip: Counterattacks turn you into a swarm of bats, ignoring 20 defense
+	}
+
 	ThoriumThoriumQuarterstaff: {
 		DisplayName: Ториевый боевой шест
 		Tooltip: Выпускает искры при попадании
@@ -4559,6 +4564,7 @@ Projectiles: {
 	GuardianNeedleAnchor.DisplayName: Игла из стали Улья
 	CrystalGauntletProjectile.DisplayName: Кристальные отбойники
 	StarKO.DisplayName: Звёздный нокаут
+	// ThoriumViscountQuarterstaffProjectile.DisplayName: Thorium Viscount Quarterstaff Projectile
 }
 
 Configs: {

@@ -513,6 +513,11 @@ namespace OrchidMod.Common.Global.NPCs
 					npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<ThoriumStarScouterStandard>(), 6)); // 1 in 7 is brutal damn
 				}
 
+				if (thoriumMod.IsNPCTypeEquals("Viscount", npc.type))
+				{
+					npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<ThoriumViscountQuarterstaff>(), 6)); // 1 in 7 is brutal damn
+				}
+
 				// TheGrandThunderBirdv2 QueenJelly GraniteEnergyStorm Viscount FallenDeathBeholder BoreanStriderPopped Lich Abyssion PatchWerk
 			}
 		}

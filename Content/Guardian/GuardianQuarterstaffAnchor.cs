@@ -158,6 +158,8 @@ namespace OrchidMod.Content.Guardian
 					{
 						ResetSize();
 					}
+
+					guardianItem.ExtraAIQuarterstaffBlocking(owner, guardian, Projectile);
 				}
 				else if (Projectile.ai[2] < 0f)
 				{ // Counterattacking
@@ -244,6 +246,8 @@ namespace OrchidMod.Content.Guardian
 							}
 						}
 					}
+
+					guardianItem.ExtraAIQuarterstaffCounterattacking(owner, guardian, Projectile);
 				}
 				else if (Projectile.ai[0] == 1f)
 				{ // Being charged by the player
@@ -313,6 +317,8 @@ namespace OrchidMod.Content.Guardian
 					{
 						ResetSize();
 					}
+
+					guardianItem.ExtraAIQuarterstaffCharging(owner, guardian, Projectile);
 				}
 				else if (Projectile.ai[0] < 0)
 				{ // Jabbing
@@ -405,6 +411,8 @@ namespace OrchidMod.Content.Guardian
 							}
 						}
 					}
+
+					guardianItem.ExtraAIQuarterstaffJabbing(owner, guardian, Projectile);
 				}
 				else if (Projectile.ai[0] > 1f)
 				{ // Swinging (charged attack)
@@ -494,6 +502,8 @@ namespace OrchidMod.Content.Guardian
 						Projectile.ai[1] = 0f;
 						Projectile.friendly = false;
 					}
+
+					guardianItem.ExtraAIQuarterstaffSwinging(owner, guardian, Projectile);
 				}
 				else
 				{ // Idle - guarterstaff is held further and lower
@@ -512,6 +522,8 @@ namespace OrchidMod.Content.Guardian
 						OldPosition.RemoveAt(0);
 						OldRotation.RemoveAt(0);
 					}
+
+					guardianItem.ExtraAIQuarterstaffIdle(owner, guardian, Projectile);
 				}
 
 				// Hitbox management for jabs and swings
