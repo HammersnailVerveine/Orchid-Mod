@@ -96,6 +96,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 
 			player.velocity = Velocity;
 			player.maxFallSpeed = 0f;
+			player.noFallDmg = true;
+			player.fallStart = (int)(player.position.Y / 16);
 		}
 
 		public override void QuarterstaffModifyHitNPC(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, ref NPC.HitModifiers modifiers, bool jabAttack, bool counterAttack, bool firstHit)
