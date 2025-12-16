@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Content.General.Prefixes;
-using OrchidMod.Content.Shapeshifter;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -58,6 +57,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 					newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 					newProjectile.rotation = newProjectile.velocity.ToRotation();
 					newProjectile.netUpdate = true;
+				}
+
+				for (int i = 0; i < Main.rand.Next(5, 8); i++)
+				{
+					float speed = StrikeVelocity * Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * Main.rand.NextFloat(0.1f, 0.3f);
+					Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.Center).ToRotation() - MathHelper.PiOver2).RotatedByRandom(MathHelper.ToRadians(20)) * speed + player.velocity * 0.75f;
+					Dust dust = Dust.NewDustDirect(projectile.Center, 4, 4, DustID.Honey2);
+					dust.noGravity = true;
+					dust.velocity = velocity;
 				}
 
 				guardian.GuardianGuardRecharging += 0.5f; // because it doesn't shoot a proper slam projectile
