@@ -14,5 +14,9 @@ namespace OrchidMod.Content.Guardian.Misc
 			Item.value = Item.sellPrice(0, 0, 12, 50);
 			Item.rare = ItemRarityID.Yellow;
 		}
+		public override void SetStaticDefaults()
+		{
+			Item.ResearchUnlockCount = 25;
+		}
 	}
 }

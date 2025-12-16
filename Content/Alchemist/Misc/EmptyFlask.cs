@@ -21,6 +21,7 @@ namespace OrchidMod.Content.Alchemist.Misc
 			// DisplayName.SetDefault("Empty Flask");
 			/* Tooltip.SetDefault("Sold by the mineshaft chemist"
 							+ "\nUsed to make various alchemist weapons"); */
+			Item.ResearchUnlockCount = 25;
 		}
 
 	}

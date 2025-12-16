@@ -19,6 +19,7 @@ namespace OrchidMod.Content.Guardian.Misc
 		public override void SetStaticDefaults()
 		{
 			ItemID.Sets.IsAPickup[Type] = true;
+			Item.ResearchUnlockCount = -1;
 		}
 
 		public override void PostUpdate()

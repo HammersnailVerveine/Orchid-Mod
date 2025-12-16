@@ -1,3 +1,5 @@
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 using OrchidMod.Content.Guardian.Buffs;
 using Terraria;
 using Terraria.ID;
@@ -5,6 +7,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Misc
 {
+	[ClassTag(ClassTags.Guardian)]
 	public class GuardianRegenPotion : ModItem
 	{
 		public override void SetDefaults()
@@ -22,6 +25,10 @@ namespace OrchidMod.Content.Guardian.Misc
 			Item.rare = ItemRarityID.Blue;
 			Item.buffType = ModContent.BuffType<GuardianRegenPotionBuff>();
 			Item.buffTime = 60 * 60 * 4;
+		}
+		public override void SetStaticDefaults()
+		{
+			Item.ResearchUnlockCount = 20;
 		}
 
 		public override void AddRecipes()

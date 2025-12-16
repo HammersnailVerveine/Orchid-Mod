@@ -1,3 +1,5 @@
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -5,6 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace OrchidMod.Content.Gambler.Misc
 {
+	[ClassTag(ClassTags.Gambler)]
 	public class VulturePotion : ModItem
 	{
 		public override void SetDefaults()
@@ -28,6 +31,7 @@ namespace OrchidMod.Content.Gambler.Misc
 		{
 			// DisplayName.SetDefault("Scavenger Potion");
 			// Tooltip.SetDefault("20% increased gambler chip generation");
+			Item.ResearchUnlockCount = 20;
 		}
 		public override void AddRecipes()
 		{

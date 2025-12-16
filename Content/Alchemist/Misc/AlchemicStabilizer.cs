@@ -20,6 +20,7 @@ namespace OrchidMod.Content.Alchemist.Misc
 			// DisplayName.SetDefault("Alchemical Stabilizer");
 			/* Tooltip.SetDefault("Used to make various alchemist weapons"
 							+ "\n'Smells like bee wax'"); */
+			Item.ResearchUnlockCount = 25;
 		}
 
 	}

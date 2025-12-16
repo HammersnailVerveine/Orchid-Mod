@@ -1,3 +1,5 @@
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 using OrchidMod.Content.Shapeshifter.Buffs;
 using Terraria;
 using Terraria.ID;
@@ -5,6 +7,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Shapeshifter.Misc
 {
+	[ClassTag(ClassTags.Shapeshifter)]
 	public class ShapeshifterSurvivalPotion : ModItem
 	{
 		public override void SetDefaults()
@@ -22,6 +25,10 @@ namespace OrchidMod.Content.Shapeshifter.Misc
 			Item.rare = ItemRarityID.Blue;
 			Item.buffType = ModContent.BuffType<ShapeshifterSurvivalPotionBuff>();
 			Item.buffTime = 60 * 60 * 8;
+		}
+		public override void SetStaticDefaults()
+		{
+			Item.ResearchUnlockCount = 20;
 		}
 
 		public override void AddRecipes()
