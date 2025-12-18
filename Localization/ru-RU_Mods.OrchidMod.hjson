@@ -4075,8 +4075,13 @@ Items: {
 	}
 
 	HeavyChain: {
-		Tooltip: ""
 		DisplayName: Тяжёлая цепь
+		Tooltip: ""
+	}
+
+	HeavyChainTest: {
+		// DisplayName: Heavy Chain (test)
+		// Tooltip: Increases warhammer swing range more than the Heavy Chain (non-test) and is red
 	}
 
 	BeeGauntlet: {

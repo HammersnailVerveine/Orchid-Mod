@@ -72,6 +72,7 @@ namespace OrchidMod
 		public float GuardianBronzeShieldDamage = 0;
 		public bool GuardianBronzeShieldProtection = false;
 		public float GuardianChain = 0f; // Increases the swing range on Warhammers (additive, 16f = 1 tile)
+		public string GuardianChainTexture = null; // Used to draw the warhammer chain
 
 		// Dynamic gameplay and UI fields
 
@@ -343,6 +344,7 @@ namespace OrchidMod
 			GuardianWeaponScale = 1f;
 			ParryInvincibilityBonus = 0;
 			GuardianChain = 0f;
+			GuardianChainTexture = null;
 			if (!GuardianBronzeShieldBuff) GuardianBronzeShieldDamage = 0;
 
 			GuardianMeteorite = false;
