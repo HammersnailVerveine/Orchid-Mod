@@ -4800,10 +4800,10 @@ DamageClasses: {
 
 Conditions: {
 	SlimeRain: A slime rain is active
-	GamblerSetSlime: The player hs more than 2 "Slime" set cards in their deck
-	GamblerSetBoss: The player hs more than 2 "Boss" set cards in their deck
-	GamblerSetBiome: The player hs more than 2 "Biome" set cards in their deck
-	GamblerSetElemental: The player hs more than 2 "Elemental" set cards in their deck
+	GamblerSetSlime: The player has more than 2 "Slime" set cards in their deck
+	GamblerSetBoss: The player has more than 2 "Boss" set cards in their deck
+	GamblerSetBiome: The player has more than 2 "Biome" set cards in their deck
+	GamblerSetElemental: The player has more than 2 "Elemental" set cards in their deck
 	AlchemistKnownReactions4: The player knows at least 4 hidden reactions
 	DisabledThorium: Thorium mod is disabled
 	EnabledContentAlchemist: Alchemist content is enabled
