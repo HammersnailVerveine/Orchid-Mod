@@ -3817,8 +3817,8 @@ Items: {
 	}
 
 	ThoriumViscountQuarterstaff: {
-		// DisplayName: Fancy Cane
-		// Tooltip: Counterattacks turn you into a swarm of bats, ignoring 20 defense
+		DisplayName: Элегантная трость
+		Tooltip: Контратаки превращают вас в рой летучих мышей, пробивающий 20 ед. защиты врага
 	}
 
 	ThoriumThoriumQuarterstaff: {
@@ -4167,7 +4167,7 @@ NPCs: {
 			30: О, лилии джунглей, я обожаю эти цветы! Ты хочешь заставить их цвести, не так ли? Вот решение.
 		}
 
-		Census.SpawnCondition: Можно найти связанно в главной шахте, расположенной в центре мира
+		Census.SpawnCondition: Найдите и освободите в главной шахте, расположенной под центром мира
 	}
 
 	Croupier: {
@@ -4230,7 +4230,7 @@ NPCs: {
 			10: Дружище, у тебя все карманы забиты. Ты бы не позволил новенькой колоде рассыпаться по полу, не так ли?
 		}
 
-		Census.SpawnCondition: В вашей колоде должна быть любая карта ([i:8427][i:8409] и т.п.)
+		Census.SpawnCondition: Необходимо наличие любой игральной карты ([i:OrchidMod/SapCard],[i:OrchidMod/JungleSlimeCard] и т.п.) в вашей колоде
 	}
 
 	DownpourElemental.DisplayName: Элементаль ливня
@@ -4564,7 +4564,7 @@ Projectiles: {
 	GuardianNeedleAnchor.DisplayName: Игла из стали Улья
 	CrystalGauntletProjectile.DisplayName: Кристальные отбойники
 	StarKO.DisplayName: Звёздный нокаут
-	// ThoriumViscountQuarterstaffProjectile.DisplayName: Thorium Viscount Quarterstaff Projectile
+	ThoriumViscountQuarterstaffProjectile.DisplayName: Рой летучих мышей
 }
 
 Configs: {

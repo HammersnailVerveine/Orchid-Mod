@@ -4217,7 +4217,7 @@ NPCs: {
 			10: My man, your pockets are full. You wouldn't let a brand new deck sitting on the ground, would ya?
 		}
 
-		Census.SpawnCondition: Have a gamber card ([i:8427][i:8409] etc.) in your deck
+		Census.SpawnCondition: Have a gamber card ([i:OrchidMod/SapCard][i:OrchidMod/JungleSlimeCard] etc.) in your deck
 	}
 
 	DownpourElemental.DisplayName: Downpour Elemental
@@ -4551,7 +4551,7 @@ Projectiles: {
 	GuardianNeedleAnchor.DisplayName: Honeysteel Needle
 	CrystalGauntletProjectile.DisplayName: Crystal Gauntlet Projectile
 	StarKO.DisplayName: Star K.O.
-	ThoriumViscountQuarterstaffProjectile.DisplayName: Thorium Viscount Quarterstaff Projectile
+	ThoriumViscountQuarterstaffProjectile.DisplayName: Swarm of bats
 }
 
 Configs: {
