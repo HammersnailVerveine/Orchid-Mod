@@ -4080,6 +4080,16 @@ Items: {
 			Releases bees on parry and slam
 			'''
 	}
+
+	MahoganyPavise: {
+		Tooltip: ""
+		DisplayName: Mahogany Pavise
+	}
+
+	BorealQuarterstaff: {
+		Tooltip: ""
+		DisplayName: Boreal Quarterstaff
+	}
 }
 
 NPCs: {
