@@ -4093,6 +4093,26 @@ Items: {
 			Выпускает пчёл при атаках нападением и парированиях
 			'''
 	}
+
+	MahoganyPavise: {
+		// Tooltip: ""
+		// DisplayName: Mahogany Pavise
+	}
+
+	BorealQuarterstaff: {
+		// Tooltip: ""
+		// DisplayName: Boreal Quarterstaff
+	}
+
+	ShadewoodWarhammer: {
+		// Tooltip: ""
+		// DisplayName: Shadewood Warhammer
+	}
+
+	EbonwoodWarhammer: {
+		// Tooltip: ""
+		// DisplayName: Ebonwood Warhammer
+	}
 }
 
 NPCs: {
