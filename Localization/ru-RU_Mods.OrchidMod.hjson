@@ -4103,6 +4103,16 @@ Items: {
 		// Tooltip: ""
 		// DisplayName: Boreal Quarterstaff
 	}
+
+	ShadewoodWarhammer: {
+		// Tooltip: ""
+		// DisplayName: Shadewood Warhammer
+	}
+
+	EbonwoodWarhammer: {
+		// Tooltip: ""
+		// DisplayName: Ebonwood Warhammer
+	}
 }
 
 NPCs: {
