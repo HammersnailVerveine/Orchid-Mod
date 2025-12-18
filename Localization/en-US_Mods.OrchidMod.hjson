@@ -1774,9 +1774,7 @@ Items: {
 		DisplayName: Orchid Emblem
 		Tooltip:
 			'''
-			While the Guardians can continue their playthrough, the journey for both Alchemists and Gamblers stops here
-			A complete Shaman overhaul is on the way, and the class will come back soon!
-			Please, come and say hi on Discord if you want to support me ;)
+			+15% orchid damage
 			'''
 	}
 
