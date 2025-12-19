@@ -1772,10 +1772,7 @@ Items: {
 
 	OrchidEmblem: {
 		DisplayName: Orchid Emblem
-		Tooltip:
-			'''
-			+15% orchid damage
-			'''
+		Tooltip: +15% orchid damage
 	}
 
 	RCRemote: {
@@ -4097,6 +4094,16 @@ Items: {
 	EbonwoodWarhammer: {
 		Tooltip: ""
 		DisplayName: Ebonwood Warhammer
+	}
+
+	PearlwoodPavise: {
+		Tooltip: ""
+		DisplayName: Pearlwood Pavise
+	}
+
+	AshWoodPavise: {
+		Tooltip: ""
+		DisplayName: Ash Wood Pavise
 	}
 }
 

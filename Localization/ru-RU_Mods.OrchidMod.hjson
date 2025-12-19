@@ -4096,12 +4096,12 @@ Items: {
 
 	MahoganyPavise: {
 		// Tooltip: ""
-		// DisplayName: Mahogany Pavise
+		// DisplayName: Rich Mahogany Pavise
 	}
 
 	BorealQuarterstaff: {
 		// Tooltip: ""
-		// DisplayName: Boreal Quarterstaff
+		// DisplayName: Boreal Wood Quarterstaff
 	}
 
 	ShadewoodWarhammer: {
@@ -4112,6 +4112,16 @@ Items: {
 	EbonwoodWarhammer: {
 		// Tooltip: ""
 		// DisplayName: Ebonwood Warhammer
+	}
+
+	PearlwoodPavise: {
+		// Tooltip: ""
+		// DisplayName: Pearlwood Pavise
+	}
+
+	AshWoodPavise: {
+		// Tooltip: ""
+		// DisplayName: Ash Wood Pavise
 	}
 }
 
