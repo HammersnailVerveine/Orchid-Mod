@@ -4095,33 +4095,38 @@ Items: {
 	}
 
 	MahoganyPavise: {
-		// Tooltip: ""
 		// DisplayName: Rich Mahogany Pavise
+		// Tooltip: ""
 	}
 
 	BorealQuarterstaff: {
-		// Tooltip: ""
 		// DisplayName: Boreal Wood Quarterstaff
+		// Tooltip: ""
 	}
 
 	ShadewoodWarhammer: {
-		// Tooltip: ""
 		// DisplayName: Shadewood Warhammer
+		// Tooltip: ""
 	}
 
 	EbonwoodWarhammer: {
-		// Tooltip: ""
 		// DisplayName: Ebonwood Warhammer
+		// Tooltip: ""
 	}
 
 	PearlwoodPavise: {
-		// Tooltip: ""
 		// DisplayName: Pearlwood Pavise
+		// Tooltip: ""
 	}
 
 	AshWoodPavise: {
-		// Tooltip: ""
 		// DisplayName: Ash Wood Pavise
+		// Tooltip: ""
+	}
+
+	ThoriumIllusionistPavise: {
+		// DisplayName: Mirror Pavise
+		// Tooltip: Reflects blocked projectiles
 	}
 }
 
@@ -4599,7 +4604,14 @@ Projectiles: {
 	GuardianNeedleAnchor.DisplayName: Игла из стали Улья
 	CrystalGauntletProjectile.DisplayName: Кристальные отбойники
 	StarKO.DisplayName: Звёздный нокаут
-	// ThoriumViscountQuarterstaffProjectile.DisplayName: Thorium Viscount Quarterstaff Projectile
+	// ThoriumViscountQuarterstaffProjectile.DisplayName: Bat Swarm
+	// ThoriumIllusionistPaviseArrow.DisplayName: Illusion
+	// ThoriumIllusionistPaviseBoulder.DisplayName: Illusion
+	// ThoriumIllusionistPaviseLaser.DisplayName: Illusion
+	// ThoriumIllusionistPaviseStinger.DisplayName: Illusion
+	// ThoriumIllusionistPaviseMagic.DisplayName: Illusion
+	// ThoriumIllusionistPaviseFeather.DisplayName: Illusion
+	// ThoriumIllusionistPaviseScythe.DisplayName: Illusion
 }
 
 Configs: {
