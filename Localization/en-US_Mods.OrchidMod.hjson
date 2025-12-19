@@ -4110,6 +4110,11 @@ Items: {
 		DisplayName: Mirror Pavise
 		Tooltip: Reflects blocked projectiles
 	}
+
+	ThoriumYewGauntlet: {
+		DisplayName: Goblin War Claw
+		Tooltip: Fully charge to fire a grappling claw
+	}
 }
 
 NPCs: {
@@ -4594,6 +4599,7 @@ Projectiles: {
 	ThoriumIllusionistPaviseMagic.DisplayName: Illusion
 	ThoriumIllusionistPaviseFeather.DisplayName: Illusion
 	ThoriumIllusionistPaviseScythe.DisplayName: Illusion
+	ThoriumYewGauntletProjectile.DisplayName: Thorium Yew Gauntlet Projectile
 }
 
 Configs: {

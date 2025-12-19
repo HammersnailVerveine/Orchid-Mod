@@ -28,7 +28,8 @@ namespace OrchidMod.Content.Guardian
 		public virtual void OnHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void OnHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, HitInfo hit, bool charged) { }
 		public virtual void ModifyHitNPCGauntlet(Player player, NPC target, Projectile projectile, ref HitModifiers modifiers, bool charged) { }
-		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage) => true; // Return false to prevent normal punch projectiles from spawning
+		/// <summary> Called right before a punch projectile is spawned. Return false to prevent normal punch projectiles from spawning. </summary>
+		public virtual bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool offHandGauntlet, bool manuallyFullyCharged, ref bool charged, ref int damage) => true;
 		/// <summary> Called after the player parries damage. </summary>
 		public virtual void OnParryGauntlet(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor) { }
 		/// <summary> Called when the player presses the guard button to begin guarding while at least one gauntlet can guard. Return false to prevent guarding. Defaults to <c>guardian.UseGuard(1)</c>. Returning true without calling <c>guardian.UseGuard</c> will allow the player to guard without resources. </summary>
@@ -36,8 +37,8 @@ namespace OrchidMod.Content.Guardian
 		public virtual bool PreGuard(Player player, OrchidGuardian guardian, Projectile anchor) { return guardian.UseGuard(1); }
 		public virtual bool ProjectileAI(Player player, Projectile projectile, bool charged) => true;
 		public virtual void ExtraAIGauntlet(Player player, OrchidGuardian guardian, Projectile anchor, bool offHandGauntlet) { }
-		public virtual void PostDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, Color lightColor) { }
-		public virtual bool PreDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, ref Color lightColor) { return true; }
+		public virtual void PostDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, bool offHandGauntlet, Color lightColor) { }
+		public virtual bool PreDrawGauntlet(SpriteBatch spriteBatch, Projectile projectile, Player player, bool offHandGauntlet, ref Color lightColor) { return true; }
 		public virtual void SafeModifyTooltips(List<TooltipLine> tooltips) { } // Called at the end of ModifyTooltips
 
 		public virtual Color GetColor(bool offHand) => Color.White;
@@ -55,6 +56,7 @@ namespace OrchidMod.Content.Guardian
 		public int ParryDuration = 60; // Duration of a right click parry in frames
 		public int ParryDashDuration = 0; // Duration in frames of the parry dash
 		public float ParryDashSpeed = 0f; // Velocity of the parry dash
+		public float ChargeSpeedMultiplier = 1f; // Multiplies charge speed while holding left click
 
 		public sealed override void SetDefaults()
 		{
@@ -347,7 +349,7 @@ namespace OrchidMod.Content.Guardian
 			SafeModifyTooltips(tooltips);
 		}
 
-		public virtual Texture2D GetGauntletTexture(bool OffHandGauntlet, out Rectangle? drawRectangle)
+		public virtual Texture2D GetGauntletTexture(Player player, Projectile anchor, bool OffHandGauntlet, out Rectangle? drawRectangle)
 		{
 			drawRectangle = null;
 			if (hasBackGauntlet && OffHandGauntlet)

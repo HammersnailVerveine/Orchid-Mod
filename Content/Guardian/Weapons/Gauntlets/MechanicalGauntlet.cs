@@ -50,6 +50,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		public override void OnParryGauntlet(Player player, OrchidGuardian guardian, Entity aggressor, Projectile anchor)
 		{
 			//shouldn't need to do this but for some reason order of operations is wrong
+			// Projectiles are updated at the end of the frame. Feel free to rewrite the logic and fix this if you wish to.
 			guardian.GuardianCounter = true;
 		}
 
@@ -70,7 +71,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 		}
 
-		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage)
+		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool offHandGauntlet, bool fullyManuallyCharged, ref bool charged, ref int damage)
 		{
 			if ((guardian.GuardianCounterTime > 0 && (charged || guardian.UseSlam(1))) || (projectile.ModProjectile is GuardianGauntletAnchor anchor && anchor.Ding))
 			{

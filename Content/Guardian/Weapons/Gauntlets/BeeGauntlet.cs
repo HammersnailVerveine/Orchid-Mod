@@ -26,7 +26,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			ParryDuration = 30;
 		}
 
-		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage)
+		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool offHandGauntlet, bool fullyManuallyCharged, ref bool charged, ref int damage)
 		{
 			if (charged)
 			{
@@ -137,7 +137,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 		}
 
-		public override Texture2D GetGauntletTexture(bool OffHandGauntlet, out Rectangle? drawRectangle)
+		public override Texture2D GetGauntletTexture(Player player, Projectile anchor, bool OffHandGauntlet, out Rectangle? drawRectangle)
 		{
 			Texture2D texture = ModContent.Request<Texture2D>(GauntletTexture).Value;
 			Rectangle rectangle = texture.Bounds;
