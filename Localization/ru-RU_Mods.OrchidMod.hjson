@@ -1785,12 +1785,7 @@ Items: {
 
 	OrchidEmblem: {
 		DisplayName: Эмблема Orchid
-		Tooltip:
-			'''
-			Пока хранители продолжают свой путь, путешествие для алхимиков и картёжников на этом заканчивается
-			Класс шамана скоро вернётся, а его полная переработка уже ведётся!
-			Если хотите поддержать меня, просто зайдите в наш Discord и передайте привет ;)
-			'''
+		Tooltip: Увеличивает orchid урон на 15%
 	}
 
 	RCRemote: {
@@ -4095,23 +4090,23 @@ Items: {
 	}
 
 	MahoganyPavise: {
-		// Tooltip: ""
-		// DisplayName: Mahogany Pavise
+		DisplayName: Павеза из красного дерева
+		Tooltip: ""
 	}
 
 	BorealQuarterstaff: {
-		// Tooltip: ""
-		// DisplayName: Boreal Quarterstaff
+		DisplayName: Боевой шест из северного дерева
+		Tooltip: ""
 	}
 
 	ShadewoodWarhammer: {
-		// Tooltip: ""
-		// DisplayName: Shadewood Warhammer
+		DisplayName: Боевой молот из мрачного дерева
+		Tooltip: ""
 	}
 
 	EbonwoodWarhammer: {
-		// Tooltip: ""
-		// DisplayName: Ebonwood Warhammer
+		DisplayName: Боевой молот из из эбонитового дерева
+		Tooltip: ""
 	}
 }
 

@@ -1772,10 +1772,7 @@ Items: {
 
 	OrchidEmblem: {
 		DisplayName: Orchid Emblem
-		Tooltip:
-			'''
-			+15% orchid damage
-			'''
+		Tooltip: +15% orchid damage
 	}
 
 	RCRemote: {
@@ -4080,23 +4077,23 @@ Items: {
 	}
 
 	MahoganyPavise: {
-		Tooltip: ""
 		DisplayName: Rich Mahogany Pavise
+		Tooltip: ""
 	}
 
 	BorealQuarterstaff: {
-		Tooltip: ""
 		DisplayName: Boreal Wood Quarterstaff
+		Tooltip: ""
 	}
 
 	ShadewoodWarhammer: {
-		Tooltip: ""
 		DisplayName: Shadewood Warhammer
+		Tooltip: ""
 	}
 
 	EbonwoodWarhammer: {
-		Tooltip: ""
 		DisplayName: Ebonwood Warhammer
+		Tooltip: ""
 	}
 }
 
