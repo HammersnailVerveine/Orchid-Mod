@@ -3795,7 +3795,7 @@ Items: {
 	}
 
 	ThoriumViscountQuarterstaff: {
-		DisplayName: Fancy Cane
+		DisplayName: Pipistrelle
 		Tooltip: Counterattacks turn you into a swarm of bats, ignoring 20 defense
 	}
 
@@ -4107,7 +4107,7 @@ Items: {
 	}
 
 	ThoriumIllusionistPavise: {
-		DisplayName: Mirror Pavise
+		DisplayName: Reflection
 		Tooltip: Reflects blocked projectiles
 	}
 
