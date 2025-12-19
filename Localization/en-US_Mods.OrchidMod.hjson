@@ -4095,6 +4095,21 @@ Items: {
 		DisplayName: Ebonwood Warhammer
 		Tooltip: ""
 	}
+
+	PearlwoodPavise: {
+		DisplayName: Pearlwood Pavise
+		Tooltip: ""
+	}
+
+	AshWoodPavise: {
+		DisplayName: Ash Wood Pavise
+		Tooltip: ""
+	}
+
+	ThoriumIllusionistPavise: {
+		DisplayName: Mirror Pavise
+		Tooltip: Reflects blocked projectiles
+	}
 }
 
 NPCs: {
@@ -4569,9 +4584,16 @@ Projectiles: {
 	DemoniteShieldProjectile.DisplayName: Veil of Night
 	SpectreQuarterstaffProj.DisplayName: Spectre Quarterstaff Proj
 	GuardianNeedleAnchor.DisplayName: Honeysteel Needle
-	CrystalGauntletProjectile.DisplayName: Crystal Gauntlet Projectile
+	CrystalGauntletProjectile.DisplayName: Crystal
 	StarKO.DisplayName: Star K.O.
-	ThoriumViscountQuarterstaffProjectile.DisplayName: Swarm of bats
+	ThoriumViscountQuarterstaffProjectile.DisplayName: Bat Swarm
+	ThoriumIllusionistPaviseArrow.DisplayName: Illusion
+	ThoriumIllusionistPaviseBoulder.DisplayName: Illusion
+	ThoriumIllusionistPaviseLaser.DisplayName: Illusion
+	ThoriumIllusionistPaviseStinger.DisplayName: Illusion
+	ThoriumIllusionistPaviseMagic.DisplayName: Illusion
+	ThoriumIllusionistPaviseFeather.DisplayName: Illusion
+	ThoriumIllusionistPaviseScythe.DisplayName: Illusion
 }
 
 Configs: {

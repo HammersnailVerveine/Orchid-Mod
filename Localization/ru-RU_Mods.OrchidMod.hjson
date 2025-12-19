@@ -4108,6 +4108,21 @@ Items: {
 		DisplayName: Боевой молот из из эбонитового дерева
 		Tooltip: ""
 	}
+
+	PearlwoodPavise: {
+		DisplayName: Павеза из жемчужного дерева
+		Tooltip: ""
+	}
+
+	AshWoodPavise: {
+		DisplayName: Павеза из пепельного дерева
+		Tooltip: ""
+	}
+
+	ThoriumIllusionistPavise: {
+		DisplayName: Зеркальная павеза
+		Tooltip: Отражает вражеские снаряды при блоке
+	}
 }
 
 NPCs: {
@@ -4585,6 +4600,13 @@ Projectiles: {
 	CrystalGauntletProjectile.DisplayName: Кристальные отбойники
 	StarKO.DisplayName: Звёздный нокаут
 	ThoriumViscountQuarterstaffProjectile.DisplayName: Рой летучих мышей
+	ThoriumIllusionistPaviseArrow.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseBoulder.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseLaser.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseStinger.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseMagic.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseFeather.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseScythe.DisplayName: Иллюзия
 }
 
 Configs: {
