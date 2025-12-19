@@ -4599,7 +4599,7 @@ Projectiles: {
 	ThoriumIllusionistPaviseMagic.DisplayName: Illusion
 	ThoriumIllusionistPaviseFeather.DisplayName: Illusion
 	ThoriumIllusionistPaviseScythe.DisplayName: Illusion
-	ThoriumYewGauntletProjectile.DisplayName: Thorium Yew Gauntlet Projectile
+	ThoriumYewGauntletProjectile.DisplayName: Yew Grappleclaw
 }
 
 Configs: {
