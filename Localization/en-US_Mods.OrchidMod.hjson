@@ -4115,6 +4115,16 @@ Items: {
 		DisplayName: Goblin War Claw
 		Tooltip: Fully charge to fire a grappling claw
 	}
+
+	ThoriumEvergreenWoodQuarterstaff: {
+		DisplayName: Evergreen Wood Quarterstaff
+		Tooltip: ""
+	}
+
+	ThoriumDeadwoodGauntlet: {
+		DisplayName: Deadwood Gauntlet
+		Tooltip: ""
+	}
 }
 
 NPCs: {
