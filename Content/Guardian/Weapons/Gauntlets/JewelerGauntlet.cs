@@ -154,7 +154,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 		}
 
-		public override Texture2D GetGauntletTexture(bool OffHandGauntlet, out Rectangle? drawRectangle)
+		public override Texture2D GetGauntletTexture(Player player, Projectile anchor, bool OffHandGauntlet, out Rectangle? drawRectangle)
 		{
 			Texture2D texture = ModContent.Request<Texture2D>(GauntletTexture).Value;
 			Rectangle rectangle = texture.Bounds;

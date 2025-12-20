@@ -101,7 +101,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 		}
 
-		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, ref bool charged, ref int damage)
+		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool offHandGauntlet, bool fullyManuallyCharged, ref bool charged, ref int damage)
 		{
 			if (!charged) charged = guardian.UseSlam(1); //always consume slams before jabbing
 			if (charged)

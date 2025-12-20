@@ -3812,7 +3812,7 @@ Items: {
 	}
 
 	ThoriumViscountQuarterstaff: {
-		DisplayName: Элегантная трость
+		DisplayName: Нетопырь
 		Tooltip: Контратаки превращают вас в рой летучих мышей, пробивающий 20 ед. защиты врага
 	}
 
@@ -4120,8 +4120,13 @@ Items: {
 	}
 
 	ThoriumIllusionistPavise: {
-		DisplayName: Зеркальная павеза
+		DisplayName: Отражение
 		Tooltip: Отражает вражеские снаряды при блоке
+	}
+
+	ThoriumYewGauntlet: {
+		DisplayName: Гоблинская боевая перчатка с когтями
+		// Tooltip: Fully charge to fire a grappling claw
 	}
 }
 
@@ -4607,6 +4612,7 @@ Projectiles: {
 	ThoriumIllusionistPaviseMagic.DisplayName: Иллюзия
 	ThoriumIllusionistPaviseFeather.DisplayName: Иллюзия
 	ThoriumIllusionistPaviseScythe.DisplayName: Иллюзия
+	// ThoriumYewGauntletProjectile.DisplayName: Yew Grappleclaw
 }
 
 Configs: {

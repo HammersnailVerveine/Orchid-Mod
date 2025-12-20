@@ -355,7 +355,7 @@ namespace OrchidMod.Content.Guardian.UI
 						}
 					}
 
-					if ((maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - player.HeldItem.useTime) / 2.5f)) && player.HeldItem.ModItem is OrchidModGuardianGauntlet)
+					if (player.HeldItem.ModItem is OrchidModGuardianGauntlet gauntlet && (maxHoldTimer || (minHoldTimer && modPlayer.GuardianItemCharge > (70 * player.GetTotalAttackSpeed(DamageClass.Melee) - (player.HeldItem.useTime * gauntlet.ChargeSpeedMultiplier)) / 2.5f)))
 					{
 						chargeTextureOn = textureGauntletOn;
 						chargeTextureOff = textureGauntletOff;
