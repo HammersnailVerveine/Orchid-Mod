@@ -123,6 +123,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 				else
 				{
 					Projectile.velocity = Vector2.Normalize(target - Projectile.Center) * Projectile.velocity.Length();
+					Projectile.tileCollide = false;
 				}
 
 				if (target.Distance(Projectile.Center) < 32f)

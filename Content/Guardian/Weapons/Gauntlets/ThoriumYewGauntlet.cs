@@ -72,7 +72,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				}
 
 				Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.MountedCenter).ToRotation() - MathHelper.PiOver2) * 15f;
-				Projectile.NewProjectile(player.GetSource_ItemUse(Item), projectile.Center + velocity, velocity, projType, damage, 5f, player.whoAmI, offHandGauntlet ? 2f : 1f, -1f);
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item), projectile.Center + velocity, velocity, projType, damage, 5f, player.whoAmI, offHandGauntlet ? 2f : 1f, -1f, projectile.whoAmI);
 				return false;
 			}
 
