@@ -2899,8 +2899,8 @@ Items: {
 	}
 
 	BeeRune: {
-		Tooltip: Напускает пчёл на ближайших врагов
 		DisplayName: Руна Королевы
+		Tooltip: Напускает пчёл на ближайших врагов
 	}
 
 	HellRune: {
@@ -3250,7 +3250,7 @@ Items: {
 	}
 
 	NanitesGauntlet: {
-		DisplayName: Сильная кибернетическая рука
+		DisplayName: Кибернетические руки
 		Tooltip:
 			'''
 			Значительно улучшает подвижность, когда находится в руках
@@ -3323,12 +3323,12 @@ Items: {
 	}
 
 	CobaltGauntlet: {
-		DisplayName: Кобальтовое текко
+		DisplayName: Кобальтовые текко
 		Tooltip: ""
 	}
 
 	PalladiumGauntlet: {
-		DisplayName: Палладиевая перчатка
+		DisplayName: Палладиевые перчатки
 		Tooltip: Использует ваше здоровье для использования парирования, если оно превышает 90% от максимального
 	}
 
@@ -3681,7 +3681,7 @@ Items: {
 	}
 
 	DungeonQuarterstaff: {
-		DisplayName: Раздвинутые моря
+		DisplayName: Раздвигатель морей
 		Tooltip: Выпускает водяной выстрел при взмахах
 	}
 
@@ -3701,7 +3701,7 @@ Items: {
 	}
 
 	ThoriumDarksteelGauntlet: {
-		DisplayName: Рука Божья
+		DisplayName: Рука божья
 		Tooltip:
 			'''
 			Скорость и дальность атаки масштабируются от вашей защиты
@@ -3763,7 +3763,7 @@ Items: {
 	}
 
 	ThoriumGraniteGauntlet: {
-		DisplayName: Гранитный удар сдачи
+		DisplayName: Гранитная расплата
 		Tooltip:
 			'''
 			Отбивайте снаряды и быстро приближающихся врагов, чтобы отразить их
@@ -4125,7 +4125,7 @@ Items: {
 	}
 
 	ThoriumYewGauntlet: {
-		DisplayName: Гоблинская боевая перчатка с когтями
+		DisplayName: Боевые перчатки с когтями
 		// Tooltip: Fully charge to fire a grappling claw
 	}
 }
@@ -4277,77 +4277,62 @@ NPCs: {
 }
 
 Prefixes: {
-	VoodooedPrefix.DisplayName: Вудуистский
-	SpiritualPrefix.DisplayName: Духовный
-	SpiritedPrefix.DisplayName: Одушевлённый
-	PossessedPrefix.DisplayName: Одержимый
-	OccultPrefix.DisplayName: Оккультный
-	LoadedPrefix.DisplayName: Груженный
-	JinxedPrefix.DisplayName: Обречённый
-	HexxedPrefix.DisplayName: Зачарованный
-	FocusedPrefix.DisplayName: Сосредоточенный
-	FerventPrefix.DisplayName: Пылкий
-	EtherealPrefix.DisplayName: Призрачный
-	EffervescentPrefix.DisplayName: Искромётный
-	CursedPrefix.DisplayName: Проклятый
+	# Accessories
 	BrewingPrefix.DisplayName: Сваренный
-	BewitchedPrefix.DisplayName: Заколдованный
+	LoadedPrefix.DisplayName: Груженный
 	BlockingPrefix.DisplayName: Блокирующий
-	UnyieldingPrefix.DisplayName: Непоколебимый
-	ToweringPrefix.DisplayName: Возвышенный
-	SturdyPrefix.DisplayName: Укреплённый
-	StoutPrefix.DisplayName: Прочный
-	SteadfastPrefix.DisplayName: Стойкий
-	SpartanPrefix.DisplayName: Спартанский
-	ResolutePrefix.DisplayName: Решительный
-	HulkingPrefix.DisplayName: Громадный
-	FragilePrefix.DisplayName: Хрупкий
+	# Guardian
+	HaidexPrefix.DisplayName: Непонятный
 	FlimsyPrefix.DisplayName: Хлипкий
 	FeeblePrefix.DisplayName: Хилый
-	EmpyreanPrefix.DisplayName: Небесный
-	BestialPrefix.DisplayName: Звериный
+	FragilePrefix.DisplayName: Хрупкий
+	ResolutePrefix.DisplayName: Решительный
+	StoutPrefix.DisplayName: Прочный
+	UnyieldingPrefix.DisplayName: Непоколебимый
+	SturdyPrefix.DisplayName: Укреплённый
+	SteadfastPrefix.DisplayName: Стойкий
+	ImpregnablePrefix.DisplayName: Неприступный
+	ToweringPrefix.DisplayName: Возвышенный
+	SpartanPrefix.DisplayName: Спартанский
+	AngelicPrefix.DisplayName: Ангельский
+	HulkingPrefix.DisplayName: Громадный
+	EmpyreanPrefix.DisplayName: Возвышенный
+	# Shapeshifter
+	TimidPrefix.DisplayName: Робкий
 	BoarishPrefix.DisplayName: Кабанский
 	MisshapenPrefix.DisplayName: Деформированный
-	DivinePrefix.DisplayName: Божественный
 	EnragedPrefix.DisplayName: Разъярённый
-	FeralPrefix.DisplayName: Звериный
+	BestialPrefix.DisplayName: Зверский
+	VoraciousPrefix.DisplayName: Прожорливый
+	UntamedPrefix.DisplayName: Неукротимый
 	FiercePrefix.DisplayName: Свирепый
+	FeralPrefix.DisplayName: Звериный
 	MonstrousPrefix.DisplayName: Монструозный
 	PrimalPrefix.DisplayName: Первобытный
-	TimidPrefix.DisplayName: Робкий
-	UntamedPrefix.DisplayName: Неукротимый
-	VoraciousPrefix.DisplayName: Прожорливый
-	AngelicPrefix.DisplayName: Ангельский
-	ImpregnablePrefix.DisplayName: Неприступный
-	HaidexPrefix.DisplayName: Непонятный
-	AddPotency: " ед. к концентрации"
-	AddMaximumChips: " к количеству фишек"
-	AddGuard: " оч. обороны"
-	AddAttackSpeed: % к скорости атаки
-	AddDuration: к длительности {0}
-	AddParry: парирования
-	AddBlock: блока
-	AddSize: к размеру
-	AddSpeed: к скорости
+	DivinePrefix.DisplayName: Божественный
+
+	Effects: {
+		AddPotency: +{0} ед. к концентрации
+		AddMaximumChips: +{0} к количеству фишек
+		AddGuard: +{0} оч. обороны
+		AddAttackSpeed: "{0:+0;-0}% к скорости атаки"
+		AddDuration: "{0:+0;-0}% к длительности {1}"
+		AddDurationParry: парирования
+		AddDurationBlock: блока
+		AddSize: "{0:+0;-0}% к размеру"
+		AddSpeed: "{0:+0;-0}% к скорости"
+	}
 }
 
 Projectiles: {
-	BronzeAlloyScepterProj.DisplayName: Bronze Alloy Scepter Proj
-	AdornedBranchProj.DisplayName: Adorned Branch Proj
-	CatalystSummon.DisplayName: Catalyst Summon
-	CatalystAnchor.DisplayName: Catalyst Anchor
-	HauntedCandle.DisplayName: Haunted Candle
 	GenericExplosion.DisplayName: Generic Explosion
 	CroupierProjectile.DisplayName: Croupier Projectile
 	ChemistProjectile.DisplayName: Chemist Projectile
 	DownpourElementalCloudProj.DisplayName: Downpour Elemental Cloud Proj
 	DownpourElementalCloud.DisplayName: Downpour Elemental Cloud
-	AbyssDrillProjectile.DisplayName: Abyss Drill Projectile
-	SearingOnslaughtProjectile.DisplayName: Searing Onslaught Projectile
 	RCRemoteProjectile.DisplayName: Радиоуправляемый вертолётик
 	PrototypeSecrecyProjectile.DisplayName: Секретный прототип
 	PrototypeSecrecyHitProjectile.DisplayName: Секретный прототип
-	MineshaftHookProjectile.DisplayName: Mineshaft Hook Projectile
 	EnchantedPaviseProj.DisplayName: Зачарованный щит
 	LivingRuneProj.DisplayName: Пузырь сока
 	EnchantedRuneProj.DisplayName: Зачарованная искра
@@ -4483,33 +4468,6 @@ Projectiles: {
 	CloudInAVialProj.DisplayName: Cloud In A Vial Proj
 	AirSporeProjAlt.DisplayName: Air Spore Proj Alt
 	AirSporeProj.DisplayName: Air Spore Proj
-	BlumProj.DisplayName: Blum Proj
-	SanctifyOrbHoming.DisplayName: Sanctify Orb Homing
-	SanctifyProj.DisplayName: Sanctify Proj
-	LavaDroplet.DisplayName: Lava Droplet
-	FeatherScepterProj.DisplayName: Feather Scepter Proj
-	EnchantedScepterProjectile.DisplayName: Enchanted Scepter Projectile
-	GemScepterProjectileAmber.DisplayName: Gem Scepter Projectile Amber
-	GemScepterBreak.DisplayName: Gem Scepter Break
-	GemScepterProjectileCopper.DisplayName: Gem Scepter Projectile Copper
-	GemScepterProjectileGold.DisplayName: Gem Scepter Projectile Gold
-	GemScepterProjectilePlatinum.DisplayName: Gem Scepter Projectile Platinum
-	GemScepterProjectileSilver.DisplayName: Gem Scepter Projectile Silver
-	GemScepterProjectileTin.DisplayName: Gem Scepter Projectile Tin
-	GemScepterProjectileTungsten.DisplayName: Gem Scepter Projectile Tungsten
-	AvalancheProjectile.DisplayName: Avalanche Projectile
-	AvalancheProjectileAlt.DisplayName: Avalanche Projectile Alt
-	VileSpoutProjectile.DisplayName: Vile Spout Projectile
-	SpineScepterProjectile.DisplayName: Spine Scepter Projectile
-	BeeSeekerProjectile.DisplayName: Bee Seeker Projectile
-	BeeSeekerProjectileSplash.DisplayName: Bee Seeker Projectile Splash
-	SporeCallerProjectile.DisplayName: Spore Caller Projectile
-	BlumProjectile.DisplayName: Blum Projectile
-	BlumProjectileSplash.DisplayName: Blum Projectile Splash
-	HarpyAnkletProj.DisplayName: Harpy Anklet Proj
-	FeatherScepterProjectile.DisplayName: Feather Scepter Projectile
-	FeatherScepterProjectileSplash.DisplayName: Feather Scepter Projectile Splash
-	DepthsWeaverBlast.DisplayName: Depths Weaver Blast
 	SkywareShieldProj.DisplayName: Звёздный всплеск
 	NightShieldProj.DisplayName: Стикс
 	NightShieldProjAlt.DisplayName: Стикс

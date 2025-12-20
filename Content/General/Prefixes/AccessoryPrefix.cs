@@ -130,7 +130,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 			if (alchemistPotency > 0)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "AlchemistPotencyPrefix", "+" + alchemistPotency + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddPotency"))
+				tooltips.Insert(index, new TooltipLine(Mod, "AlchemistPotencyPrefix", Language.GetTextValue("Mods.OrchidMod.Prefixes.AddPotency", alchemistPotency))
 				{
 					IsModifier = true
 				});
@@ -139,7 +139,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 			if (gamblerChip > 0)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "GamblerChipPrefix", "+" + gamblerChip + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddMaximumChips"))
+				tooltips.Insert(index, new TooltipLine(Mod, "GamblerChipPrefix", Language.GetTextValue("Mods.OrchidMod.Prefixes.Effects.AddMaximumChips", gamblerChip))
 				{
 					IsModifier = true
 				});
@@ -148,7 +148,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 			if (guardianBlock > 0)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "GuardianBlockPrefix", "+" + guardianBlock + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddGuard"))
+				tooltips.Insert(index, new TooltipLine(Mod, "GuardianBlockPrefix", Language.GetTextValue("Mods.OrchidMod.Prefixes.AddGuard", guardianBlock))
 				{
 					IsModifier = true
 				});

@@ -158,7 +158,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 				if (attackSpeed != 0f)
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "ShapeshifterAttackSpeedPrefix", (attackSpeed > 0 ? "+" : "") + string.Format("{0:0}", attackSpeed * 100f) + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddAttackSpeed"))
+					tooltips.Insert(index, new TooltipLine(Mod, "ShapeshifterAttackSpeedPrefix", Language.GetTextValue("Mods.OrchidMod.Prefixes.Effects.AddAttackSpeed", attackSpeed * 100f))
 					{
 						IsModifier = true,
 						IsModifierBad = attackSpeed < 0
