@@ -4127,6 +4127,18 @@ Items: {
 	ThoriumYewGauntlet: {
 		DisplayName: Боевые перчатки с когтями
 		// Tooltip: Fully charge to fire a grappling claw
+		// PullOnKill: Pulls on kill, Right click to deactivate
+		// NoPullOnKill: Does not pull on kill, Right click to activate
+	}
+
+	ThoriumEvergreenWoodQuarterstaff: {
+		// DisplayName: Evergreen Wood Quarterstaff
+		// Tooltip: ""
+	}
+
+	ThoriumDeadwoodGauntlet: {
+		// DisplayName: Deadwood Gauntlet
+		// Tooltip: ""
 	}
 }
 

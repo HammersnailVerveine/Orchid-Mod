@@ -1,14 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common;
+using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Guardian.Projectiles.Gauntlets;
+using OrchidMod.Utilities;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
 	public class ThoriumYewGauntlet : OrchidModGuardianGauntlet
 	{
+		public bool PullOnKill;
+
 		public override void SafeSetDefaults()
 		{
 			Item.width = 30;
@@ -21,6 +31,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			StrikeVelocity = 15f;
 			ParryDuration = 80;
 			ChargeSpeedMultiplier = 3f;
+			PullOnKill = true;
 		}
 
 		public override Color GetColor(bool offHand)
@@ -61,7 +72,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				}
 
 				Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.MountedCenter).ToRotation() - MathHelper.PiOver2) * 15f;
-				Projectile.NewProjectile(player.GetSource_ItemUse(Item), projectile.Center + velocity, velocity, projType, damage, 5f, player.whoAmI, offHandGauntlet ? 2f : 1f, -1f);
+				Projectile.NewProjectile(player.GetSource_ItemUse(Item), projectile.Center + velocity, velocity, projType, damage, 5f, player.whoAmI, offHandGauntlet ? 2f : 1f, -1f, projectile.whoAmI);
 				return false;
 			}
 
@@ -106,6 +117,15 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			return base.PreDrawGauntlet(spriteBatch, projectile, player, offHandGauntlet, ref lightColor);
 		}
 
+		public override bool CanRightClick() => true;
+
+		public override bool ConsumeItem(Player player) => false;
+
+		public override void RightClick(Player player)
+		{
+			PullOnKill = !PullOnKill;
+		}
+
 		public override void AddRecipes()
 		{
 			var thoriumMod = OrchidMod.ThoriumMod;
@@ -116,6 +136,53 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				recipe.AddIngredient(thoriumMod, "YewWood", 18);
 				recipe.Register();
 			}
+		}
+
+		public override void SaveData(TagCompound tag)
+		{
+			tag.Add("PullOnKill", PullOnKill);
+		}
+
+		public override void LoadData(TagCompound tag)
+		{
+			PullOnKill = tag.GetBool("PullOnKill");
+		}
+
+		public override void NetSend(BinaryWriter writer)
+		{
+			writer.Write(PullOnKill);
+		}
+
+		public override void NetReceive(BinaryReader reader)
+		{
+			PullOnKill = reader.ReadBoolean();
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			var guardian = Main.LocalPlayer.GetModPlayer<OrchidGuardian>();
+			TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "Damage" && x.Mod == "Terraria");
+			if (tt != null)
+			{
+				string[] splitText = tt.Text.Split(' ');
+				string damageValue = splitText.First();
+				tt.Text = damageValue + " " + Language.GetTextValue(ModContent.GetInstance<OrchidMod>().GetLocalizationKey("DamageClasses.GuardianDamageClass.DisplayName"));
+			}
+
+			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Knockback"));
+			tooltips.Insert(index + 1, new TooltipLine(Mod, "ParryDuration", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.ParryDuration", OrchidUtils.FramesToSeconds((int)(ParryDuration * Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianParryDuration)))));
+
+
+			string click = ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs ? Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.LeftClick") : Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.RightClick");
+			tooltips.Insert(index + 2, new TooltipLine(Mod, "ClickInfo", Language.GetTextValue("Mods.OrchidMod.UI.GuardianItem.Parry", click))
+			{
+				OverrideColor = new Color(175, 255, 175)
+			});
+
+			string pull = PullOnKill ? Language.GetTextValue("Mods.OrchidMod.Items.ThoriumYewGauntlet.PullOnKill") : Language.GetTextValue("Mods.OrchidMod.Items.ThoriumYewGauntlet.NoPullOnKill");
+			tooltips.Insert(index + 3, new TooltipLine(Mod, "ClickInfo2", pull));
+
+			SafeModifyTooltips(tooltips);
 		}
 	}
 }

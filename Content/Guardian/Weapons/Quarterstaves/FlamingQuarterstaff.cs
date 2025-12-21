@@ -11,7 +11,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 	{
 		public override void SafeSetDefaults()
 		{
-			Item.width = 42;
+			Item.width = 38;
 			Item.height = 42;
 			Item.value = Item.sellPrice(0, 0, 30, 0);
 			Item.rare = ItemRarityID.White;

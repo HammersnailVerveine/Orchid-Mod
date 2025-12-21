@@ -1,9 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Content.Guardian.Weapons.Gauntlets;
+using OrchidMod.Content.Shapeshifter.Accessories;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 {
@@ -14,6 +18,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 		Vector2 NPCImpactVelocity = Vector2.Zero;
 		int TimeSpent = 0;
 		bool Flip = false;
+		bool QuickPull = false;
 
 		public override void SafeSetDefaults()
 		{
@@ -59,6 +64,12 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			else if (IsLocalOwner)
 			{
 				Projectile.Kill();
+			}
+
+			if (QuickPull)
+			{ // this field exists for neysync purposes
+				QuickPull = false;
+				Owner.velocity = Vector2.Normalize(Projectile.Center - Owner.MountedCenter) * 15f;
 			}
 
 			if (Projectile.ai[1] >= 0)
@@ -112,6 +123,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 				else
 				{
 					Projectile.velocity = Vector2.Normalize(target - Projectile.Center) * Projectile.velocity.Length();
+					Projectile.tileCollide = false;
 				}
 
 				if (target.Distance(Projectile.Center) < 32f)
@@ -127,11 +139,19 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
-			if (Projectile.timeLeft > 20 && !target.CountsAsACritter && target.life > 0)
+			if (Projectile.timeLeft > 20 && !target.CountsAsACritter)
 			{
-				Projectile.ai[1] = target.whoAmI;
-				Projectile.netUpdate = true;
-				guardian.AddGuard();
+				if (target.life > 0)
+				{
+					Projectile.ai[1] = target.whoAmI;
+					Projectile.netUpdate = true;
+					guardian.AddGuard();
+				}
+				else if (Owner.HeldItem.ModItem is ThoriumYewGauntlet gauntlet && gauntlet.PullOnKill)
+				{
+					QuickPull = true;
+					Projectile.netUpdate = true;
+				}
 			}
 		}
 
@@ -157,6 +177,16 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			}
 
 			return false;
+		}
+
+		public override void SendExtraAI(BinaryWriter writer)
+		{
+			writer.Write(QuickPull);
+		}
+
+		public override void ReceiveExtraAI(BinaryReader reader)
+		{
+			QuickPull = reader.ReadBoolean();
 		}
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
