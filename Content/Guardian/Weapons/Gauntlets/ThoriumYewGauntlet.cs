@@ -24,13 +24,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.width = 30;
 			Item.height = 32;
 			Item.knockBack = 3f;
-			Item.damage = 102;
+			Item.damage = 94;
 			Item.value = Item.sellPrice(0, 1, 30, 0);
 			Item.rare = ItemRarityID.Green;
 			Item.useTime = 30;
 			StrikeVelocity = 15f;
 			ParryDuration = 80;
-			ChargeSpeedMultiplier = 3f;
+			ChargeSpeedMultiplier = 2.5f;
 			PullOnKill = true;
 		}
 
@@ -60,9 +60,9 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 
 		public override bool OnPunch(Player player, OrchidGuardian guardian, Projectile projectile, bool offHandGauntlet, bool fullyManuallyCharged, ref bool charged, ref int damage)
 		{
-			int projType = ModContent.ProjectileType<ThoriumYewGauntletProjectile>();
 			if (fullyManuallyCharged)
 			{
+				int projType = ModContent.ProjectileType<ThoriumYewGauntletProjectile>();
 				foreach (Projectile proj in Main.projectile)
 				{
 					if (proj.type == projType && proj.active && proj.owner == player.whoAmI && ((proj.ai[0] == 1f && !offHandGauntlet) || (proj.ai[0] == 2f && offHandGauntlet)))
@@ -72,7 +72,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 				}
 
 				Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.MountedCenter).ToRotation() - MathHelper.PiOver2) * 15f;
-				Projectile.NewProjectile(player.GetSource_ItemUse(Item), projectile.Center + velocity, velocity, projType, damage, 5f, player.whoAmI, offHandGauntlet ? 2f : 1f, -1f, projectile.whoAmI);
+				Projectile newprojectile = Projectile.NewProjectileDirect(player.GetSource_ItemUse(Item), projectile.Center + velocity, velocity, projType, damage, 5f, player.whoAmI, offHandGauntlet ? 2f : 1f, -1f, projectile.whoAmI);
+				newprojectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 				return false;
 			}
 

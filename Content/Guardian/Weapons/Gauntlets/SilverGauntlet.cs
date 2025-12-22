@@ -11,12 +11,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.width = 30;
 			Item.height = 32;
 			Item.knockBack = 3f;
-			Item.damage = 53;
+			Item.damage = 58;
 			Item.value = Item.sellPrice(0, 0, 8, 40);
 			Item.rare = ItemRarityID.White;
 			Item.useTime = 30;
 			StrikeVelocity = 15f;
 			ParryDuration = 60;
+			PunchSpeed = 0.9f;
 		}
 
 		public override Color GetColor(bool offHand)

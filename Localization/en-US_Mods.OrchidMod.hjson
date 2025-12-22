@@ -4127,6 +4127,11 @@ Items: {
 		DisplayName: Deadwood Gauntlet
 		Tooltip: ""
 	}
+
+	GlowingMushroomGauntlet: {
+		DisplayName: Puffpaffs
+		Tooltip: Fully charge to release damaging spores
+	}
 }
 
 NPCs: {
@@ -4612,6 +4617,7 @@ Projectiles: {
 	ThoriumIllusionistPaviseFeather.DisplayName: Illusion
 	ThoriumIllusionistPaviseScythe.DisplayName: Illusion
 	ThoriumYewGauntletProjectile.DisplayName: Yew Grappleclaw
+	GlowingMushroomGauntletProjectile.DisplayName: Glowspores
 }
 
 Configs: {

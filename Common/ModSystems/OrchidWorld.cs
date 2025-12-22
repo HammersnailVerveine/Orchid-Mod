@@ -306,6 +306,9 @@ namespace OrchidMod.Common.ModSystems
 			// Granite Chests
 			chestLoots.Add(new ChestLoot(ItemType<SturdySlab>(), ChestType.Granite, 50));
 
+			// Mushroom Chests
+			chestLoots.Add(new ChestLoot(ItemType<GlowingMushroomGauntlet>(), ChestType.Mushroom, 50));
+
 			if (ModContent.GetInstance<OrchidServerConfig>().EnableContentAlchemist)
 			{
 				chestLoots.Add(new ChestLoot(ItemType<EmberVial>(), ChestType.SurfaceWooden, 20));
@@ -488,6 +491,8 @@ namespace OrchidMod.Common.ModSystems
 					return tile.TileType == TileID.Containers2 && tile.TileFrameX == 10 * 36;
 				case ChestType.Granite:
 					return tile.TileType == TileID.Containers && tile.TileFrameX == 50 * 36;
+				case ChestType.Mushroom:
+					return tile.TileType == TileID.Containers && tile.TileFrameX == 32 * 36;
 					//Containers: Mahogany 8, Webbed 15, Lihzard 16, Mushroom 32, Marble 51
 					//Containers2: Dead Man's 4
 				default:
@@ -508,6 +513,7 @@ namespace OrchidMod.Common.ModSystems
 		LivingTree,
 		SkyIsland,
 		Ice,
-		Granite
+		Granite,
+		Mushroom
 	}
 }
