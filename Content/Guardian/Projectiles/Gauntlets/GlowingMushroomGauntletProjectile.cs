@@ -23,7 +23,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			Projectile.height = 20;
 			Projectile.friendly = true;
 			Projectile.aiStyle = -1;
-			Projectile.timeLeft = 300;
+			Projectile.timeLeft = 600;
 			Projectile.scale = 1f;
 			Projectile.alpha = 96;
 			Projectile.penetrate = -1;
