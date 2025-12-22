@@ -4147,7 +4147,7 @@ Items: {
 	}
 
 	GlowingMushroomGauntlet: {
-		// DisplayName: Puffpaffs
+		// DisplayName: Fistipuffs
 		// Tooltip: Fully charge to release damaging spores
 	}
 }

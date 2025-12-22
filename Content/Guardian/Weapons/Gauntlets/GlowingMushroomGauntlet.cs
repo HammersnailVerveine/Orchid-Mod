@@ -13,7 +13,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.width = 26;
 			Item.height = 28;
 			Item.knockBack = 1.5f;
-			Item.damage = 44;
+			Item.damage = 49;
 			Item.value = Item.sellPrice(0, 0, 60, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.useTime = 30;
@@ -37,7 +37,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 					}
 				}
 
-				int sporeDamage = guardian.GetGuardianDamage(Item.damage * 0.2f);
+				int sporeDamage = guardian.GetGuardianDamage(Item.damage * 0.33f);
 				Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - player.MountedCenter).ToRotation() - MathHelper.PiOver2) * 6f;
 				Projectile newprojectile = Projectile.NewProjectileDirect(player.GetSource_ItemUse(Item), projectile.Center + velocity, velocity, projType, sporeDamage, 0f, player.whoAmI);
 				newprojectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
