@@ -160,7 +160,7 @@ namespace OrchidMod.Content.Guardian
 						ResetSize();
 					}
 
-					if (guardian.GuardianStaffRocket > 0 && Main.mouseLeft && Main.mouseLeftRelease && IsLocalOwner && guardian.UseSlam(1, true)) 
+					if (guardian.GuardianStaffRocket > 0 && guardian.GuardianStaffRocketCooldown <= 0 && Main.mouseLeft && Main.mouseLeftRelease && IsLocalOwner && guardian.UseSlam(1, true)) 
 					{ // Staff Rocket dash
 					  // spawning a projectile makes it easy to sync the effects & direction of the dash
 						int projectileType = ModContent.ProjectileType<StaffRocketProjectile>();
