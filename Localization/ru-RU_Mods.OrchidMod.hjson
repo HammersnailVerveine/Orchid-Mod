@@ -4150,6 +4150,42 @@ Items: {
 		// DisplayName: Fistipuffs
 		// Tooltip: Fully charge to release damaging spores
 	}
+
+	StaffRocketYellow: {
+		// DisplayName: Staff-Mounted Propulsion System
+		/* Tooltip:
+			'''
+			Left click while parrying with a quarterstaff to dash
+			Costs 1 slam
+			''' */
+	}
+
+	StaffRocketRed: {
+		// DisplayName: Staff-Mounted Propulsion System
+		/* Tooltip:
+			'''
+			Left click while parrying with a quarterstaff to dash
+			Costs 1 slam
+			''' */
+	}
+
+	StaffRocketGreen: {
+		// DisplayName: Staff-Mounted Propulsion System
+		/* Tooltip:
+			'''
+			Left click while parrying with a quarterstaff to dash
+			Costs 1 slam
+			''' */
+	}
+
+	StaffRocketBlue: {
+		// DisplayName: Staff-Mounted Propulsion System
+		/* Tooltip:
+			'''
+			Left click while parrying with a quarterstaff to dash
+			Costs 1 slam
+			''' */
+	}
 }
 
 NPCs: {
@@ -4636,6 +4672,7 @@ Projectiles: {
 	// ThoriumIllusionistPaviseScythe.DisplayName: Illusion
 	// ThoriumYewGauntletProjectile.DisplayName: Yew Grappleclaw
 	// GlowingMushroomGauntletProjectile.DisplayName: Glowspores
+	// StaffRocketProjectile.DisplayName: Staff Rocket Projectile
 }
 
 Configs: {

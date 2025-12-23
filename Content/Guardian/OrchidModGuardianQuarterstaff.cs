@@ -113,7 +113,7 @@ namespace OrchidMod.Content.Guardian
 					{
 						bool shouldBlock = Main.mouseRight && Main.mouseRightRelease;
 						bool shouldCharge = Main.mouseLeft;
-
+						
 						if (ModContent.GetInstance<OrchidClientConfig>().GuardianSwapGauntletImputs)
 						{
 							shouldBlock = Main.mouseLeft && Main.mouseLeftRelease;
@@ -133,7 +133,7 @@ namespace OrchidMod.Content.Guardian
 							SoundEngine.PlaySound(SoundID.Item37, player.Center);
 						}
 
-						if (shouldCharge && guardian.GuardianItemCharge == 0f && proj.ai[0] == 0f && proj.ai[2] >= -10f)
+						if (shouldCharge && guardian.GuardianItemCharge == 0f && proj.ai[0] == 0f && proj.ai[2] >= -10f && (proj.ai[2] <= 0 || (guardian.GuardianStaffRocket == 0 && guardian.GuardianStaffRocketCooldown <= 0)))
 						{
 							proj.ai[0] = 1f;
 							proj.ai[2] = 0f;

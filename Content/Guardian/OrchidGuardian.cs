@@ -73,6 +73,7 @@ namespace OrchidMod
 		public bool GuardianBronzeShieldProtection = false;
 		public float GuardianChain = 0f; // Increases the swing range on Warhammers (additive, 16f = 1 tile)
 		public string GuardianChainTexture = null; // Used to draw the warhammer chain
+		public int GuardianStaffRocket = 0; // If > 0, the player can dash by spending slams with a quarterstaff (1,2,3,4 = red,green,blue,yellow)
 
 		// Dynamic gameplay and UI fields
 
@@ -105,6 +106,7 @@ namespace OrchidMod
 		public List<Projectile> RuneProjectiles = new List<Projectile>();
 		public Projectile GuardianCurrentStandardAnchor;
 		public float GauntletSlamPool = 0f; // How much slam charge will be granted by hitting the next punch
+		public int GuardianStaffRocketCooldown = 0; // Cooldown between rocket dashes
 
 		public const int GuardianRechargeTime = 600;
 
@@ -262,6 +264,11 @@ namespace OrchidMod
 				GuardianSlamRecharging++;
 			}
 
+			if (GuardianStaffRocketCooldown > 0)
+			{
+				GuardianStaffRocketCooldown--;
+			}
+
 			if (GuardianItemCharge > 0)
 			{
 				ChargeHoldTimer++;
@@ -344,6 +351,7 @@ namespace OrchidMod
 			GuardianWeaponScale = 1f;
 			ParryInvincibilityBonus = 0;
 			GuardianChain = 0f;
+			GuardianStaffRocket = 0;
 			GuardianChainTexture = null;
 			if (!GuardianBronzeShieldBuff) GuardianBronzeShieldDamage = 0;
 
