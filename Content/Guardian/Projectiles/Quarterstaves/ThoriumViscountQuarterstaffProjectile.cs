@@ -93,6 +93,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Quarterstaves
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
+			if (!Initialized) return false;
 			Texture2D projTexture = TextureAssets.Projectile[Projectile.type].Value;
 
 			Vector2 drawPosition = Projectile.Center - Main.screenPosition;

@@ -107,6 +107,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 
 		public override bool OrchidPreDraw(SpriteBatch spriteBatch, ref Color lightColor)
 		{
+			if (!Initialized) return false;
 			spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 			spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
 
