@@ -4152,7 +4152,7 @@ Items: {
 	}
 
 	StaffRocketYellow: {
-		// DisplayName: Staff-Mounted Propulsion System
+		// DisplayName: Yellow Staff-Mounted Propulsion System
 		/* Tooltip:
 			'''
 			Left click while parrying with a quarterstaff to dash
@@ -4161,7 +4161,7 @@ Items: {
 	}
 
 	StaffRocketRed: {
-		// DisplayName: Staff-Mounted Propulsion System
+		// DisplayName: Red Staff-Mounted Propulsion System
 		/* Tooltip:
 			'''
 			Left click while parrying with a quarterstaff to dash
@@ -4170,7 +4170,7 @@ Items: {
 	}
 
 	StaffRocketGreen: {
-		// DisplayName: Staff-Mounted Propulsion System
+		// DisplayName: Green Staff-Mounted Propulsion System
 		/* Tooltip:
 			'''
 			Left click while parrying with a quarterstaff to dash
@@ -4179,7 +4179,7 @@ Items: {
 	}
 
 	StaffRocketBlue: {
-		// DisplayName: Staff-Mounted Propulsion System
+		// DisplayName: Blue Staff-Mounted Propulsion System
 		/* Tooltip:
 			'''
 			Left click while parrying with a quarterstaff to dash

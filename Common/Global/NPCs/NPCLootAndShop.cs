@@ -343,13 +343,13 @@ namespace OrchidMod.Common.Global.NPCs
 				case NPCID.IceBat:
 				case NPCID.JungleBat:
 				case NPCID.Hellbat:
+				case NPCID.SporeBat:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<SageBat>(), 100));
 					}
 					break;
-				case NPCID.SporeBat:
+				case NPCID.SporeSkeleton:
 					{
-						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<SageBat>(), 100));
 						npcLoot.Add(ItemDropRule.Common(ItemType<GlowingMushroomGauntlet>(), 40));
 					}
 					break;

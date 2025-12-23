@@ -23,6 +23,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 		public override void AI()
 		{
 			Projectile.Center = Owner.MountedCenter;
+			Owner.maxFallSpeed = 17f;
 
 			if (!Initialized)
 			{
