@@ -148,7 +148,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 			if (guardianBlock > 0)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "GuardianBlockPrefix", Language.GetTextValue("Mods.OrchidMod.Prefixes.AddGuard", guardianBlock))
+				tooltips.Insert(index, new TooltipLine(Mod, "GuardianBlockPrefix", Language.GetTextValue("Mods.OrchidMod.Prefixes.Effects.AddGuard", guardianBlock))
 				{
 					IsModifier = true
 				});
