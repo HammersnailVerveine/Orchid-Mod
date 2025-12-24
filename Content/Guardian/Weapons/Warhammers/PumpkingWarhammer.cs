@@ -128,11 +128,11 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 				int projType = ModContent.ProjectileType<PumpkingWarhammerProjectile>();
 				foreach (Projectile proj in Main.projectile)
 				{
-					if (proj.type == projType && proj.active && proj.owner == player.whoAmI && proj.localAI[1] == 0 && proj.localAI[2] < guardian.GuardianGuardMax)
+					if (proj.type == projType && proj.active && proj.owner == player.whoAmI && proj.localAI[1] == 0)
 					{
-						proj.localAI[2] ++;
+						proj.localAI[2] += 2;
 						SoundEngine.PlaySound(SoundID.DD2_EtherianPortalSpawnEnemy.WithPitchOffset(proj.localAI[2] * 0.2f));
-						CombatText.NewText(player.Hitbox, Color.IndianRed, (int)proj.localAI[2], false, true);
+						CombatText.NewText(player.Hitbox, Color.IndianRed, (int)(proj.localAI[2] / 2f), false, true);
 					}
 				}
 			}
