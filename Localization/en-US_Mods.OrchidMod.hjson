@@ -3095,6 +3095,57 @@ Items: {
 		DisplayName: Deadwood Gauntlet
 		Tooltip: ""
 	}
+
+	GlowingMushroomGauntlet: {
+		DisplayName: Fistipuffs
+		Tooltip: Fully charge to release damaging spores
+	}
+
+	StaffRocketYellow: {
+		DisplayName: Yellow Staff-Mounted Propulsion System
+		Tooltip:
+			'''
+			Left click while parrying with a quarterstaff to dash
+			Costs 1 slam
+			'''
+	}
+
+	StaffRocketRed: {
+		DisplayName: Red Staff-Mounted Propulsion System
+		Tooltip:
+			'''
+			Left click while parrying with a quarterstaff to dash
+			Costs 1 slam
+			'''
+	}
+
+	StaffRocketGreen: {
+		DisplayName: Green Staff-Mounted Propulsion System
+		Tooltip:
+			'''
+			Left click while parrying with a quarterstaff to dash
+			Costs 1 slam
+			'''
+	}
+
+	StaffRocketBlue: {
+		DisplayName: Blue Staff-Mounted Propulsion System
+		Tooltip:
+			'''
+			Left click while parrying with a quarterstaff to dash
+			Costs 1 slam
+			'''
+	}
+
+	PumpkingWarhammer: {
+		DisplayName: Grim Harvester
+		Tooltip:
+			'''
+			Blocking costs 3 slams, and the scythe logdes itself in the first enemy hit
+			Grants guards after a delay, or when the afflicted enemy dies
+			Charged throw hits increase the amount of guards granted by the effect
+			'''
+	}
 }
 
 NPCs: {
@@ -3538,6 +3589,9 @@ Projectiles: {
 	ThoriumIllusionistPaviseFeather.DisplayName: Illusion
 	ThoriumIllusionistPaviseScythe.DisplayName: Illusion
 	ThoriumYewGauntletProjectile.DisplayName: Yew Grappleclaw
+	GlowingMushroomGauntletProjectile.DisplayName: Glowspores
+	StaffRocketProjectile.DisplayName: Staff Rocket Projectile
+	PumpkingWarhammerProjectile.DisplayName: Pumpking Warhammer Projectile
 }
 
 Configs: {

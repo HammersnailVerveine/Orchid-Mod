@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Content.General.Prefixes;
+using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -136,7 +137,7 @@ namespace OrchidMod.Content.Guardian
 					Projectile.ai[2]--;
 					if (owner.immune)
 					{
-						if (owner.eocHit != -1)
+						if (owner.eocHit != -1 && owner.eocDash > 0)
 						{
 							guardian.DoParryItemParry(Main.npc[owner.eocHit]);
 						}
@@ -157,6 +158,16 @@ namespace OrchidMod.Content.Guardian
 					if (Projectile.scale > 1f)
 					{
 						ResetSize();
+					}
+
+					if (guardian.GuardianStaffRocket > 0 && guardian.GuardianStaffRocketCooldown <= 0 && Main.mouseLeft && Main.mouseLeftRelease && IsLocalOwner && guardian.UseSlam(1, true)) 
+					{ // Staff Rocket dash
+					  // spawning a projectile makes it easy to sync the effects & direction of the dash
+						int projectileType = ModContent.ProjectileType<StaffRocketProjectile>();
+						Vector2 velocity = Vector2.Normalize(Main.MouseWorld - owner.MountedCenter);
+						Projectile.NewProjectile(owner.GetSource_ItemUse(QuarterstaffItem), owner.MountedCenter, velocity, projectileType, 0, 0f, owner.whoAmI, ai1: guardian.GuardianStaffRocket);
+						guardian.UseSlam(1);
+						guardian.GuardianStaffRocketCooldown = 45;
 					}
 
 					guardianItem.ExtraAIQuarterstaffBlocking(owner, guardian, Projectile);

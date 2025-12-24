@@ -18,6 +18,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			Item.crit = 10;
 			StrikeVelocity = 30f;
 			ParryDuration = 90;
+			PunchSpeed = 1.2f;
 			hasArm = true;
 			hasShoulder = true;
 		}

@@ -1,16 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ModLoader;
 using Terraria.ID;
 using OrchidMod.Content.Alchemist.Misc;
 using OrchidMod.Content.Gambler.Misc;
-using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
-using OrchidMod.Content.Guardian.Misc;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
-using OrchidMod.Common.ModSystems;
 
 namespace OrchidMod.Common.Global.NPCs
 {

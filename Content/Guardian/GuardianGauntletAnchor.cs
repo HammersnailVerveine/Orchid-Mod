@@ -136,9 +136,10 @@ namespace OrchidMod.Content.Guardian
 					Projectile.rotation = 0f;
 
 					Projectile.ai[0]--;
+
 					if (owner.immune)
 					{
-						if (owner.eocHit != -1)
+						if (owner.eocHit != -1 && owner.eocDash > 0)
 						{
 							guardian.DoParryItemParry(Main.npc[owner.eocHit]); // this resets both gauntlets' parry state
 						}

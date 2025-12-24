@@ -239,11 +239,6 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.Common(ItemType<RuneRune>()));
 					}
 					break;
-				case NPCID.Everscream:
-					{
-						npcLoot.Add(ItemDropRule.Common(ItemType<FrostRune>(), 5));
-					}
-					break;
 				case NPCID.ElfCopter:
 					{
 						npcLoot.Add(ItemDropRule.Common(ItemType<RCRemote>(), 50));
@@ -348,6 +343,11 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifter, ItemType<SageBat>(), 100));
 					}
 					break;
+				case NPCID.SporeSkeleton:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<GlowingMushroomGauntlet>(), 40));
+					}
+					break;
 				case NPCID.ManEater:
 				case NPCID.Snatcher:
 					{
@@ -372,6 +372,24 @@ namespace OrchidMod.Common.Global.NPCs
 
 			switch (npc.type)
 			{
+				case NPCID.LunarTowerSolar:
+				case NPCID.LunarTowerStardust:
+				case NPCID.LunarTowerNebula:
+				case NPCID.LunarTowerVortex:
+					{
+						DropOneByOne.Parameters classicParameters = new()
+						{
+							ChanceNumerator = 1,
+							ChanceDenominator = 1,
+							MinimumStackPerChunkBase = 1,
+							MaximumStackPerChunkBase = 3,
+							MinimumItemDropsCount = 3, //one quarter of vanilla fragments, 12
+							MaximumItemDropsCount = 5, //one quarter of vanilla fragments, 20
+						};
+						DropOneByOne.Parameters expertParameters = classicParameters with { MaximumStackPerChunkBase = 4, BonusMinDropsPerChunkPerPlayer = 1, BonusMaxDropsPerChunkPerPlayer = 1 };
+						npcLoot.Add(new DropBasedOnExpertMode(new DropOneByOne(ItemType<HorizonFragment>(), classicParameters), new DropOneByOne(ItemType<HorizonFragment>(), expertParameters)));
+					}
+					break;
 				case NPCID.KingSlime:
 					{
 						npcLoot.Add(ItemDropRule.ByCondition(EnableContentShapeshifterNotExpert, ItemType<WardenSlime>(), 3));
@@ -456,22 +474,14 @@ namespace OrchidMod.Common.Global.NPCs
 						npcLoot.Add(ItemDropRule.ByCondition(NotExpert, ItemType<GuardianEmpressMaterial>(), 1, 16, 27)); 
 					}
 					break;
-				case NPCID.LunarTowerSolar:
-				case NPCID.LunarTowerStardust:
-				case NPCID.LunarTowerNebula:
-				case NPCID.LunarTowerVortex:
+				case NPCID.Everscream:
 					{
-						DropOneByOne.Parameters classicParameters = new()
-						{
-							ChanceNumerator = 1,
-							ChanceDenominator = 1,
-							MinimumStackPerChunkBase = 1,
-							MaximumStackPerChunkBase = 3,
-							MinimumItemDropsCount = 3, //one quarter of vanilla fragments, 12
-							MaximumItemDropsCount = 5, //one quarter of vanilla fragments, 20
-						};
-						DropOneByOne.Parameters expertParameters = classicParameters with {MaximumStackPerChunkBase = 4, BonusMinDropsPerChunkPerPlayer = 1, BonusMaxDropsPerChunkPerPlayer = 1};
-						npcLoot.Add(new DropBasedOnExpertMode(new DropOneByOne(ItemType<HorizonFragment>(), classicParameters), new DropOneByOne(ItemType<HorizonFragment>(), expertParameters)));
+						npcLoot.Add(ItemDropRule.Common(ItemType<FrostRune>(), 5));
+					}
+					break;
+				case NPCID.Pumpking:
+					{
+						npcLoot.Add(ItemDropRule.Common(ItemType<PumpkingWarhammer>(), 5));
 					}
 					break;
 				default:
