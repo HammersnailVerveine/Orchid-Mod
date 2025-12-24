@@ -4186,6 +4186,16 @@ Items: {
 			Costs 1 slam
 			''' */
 	}
+
+	PumpkingWarhammer: {
+		// DisplayName: Grim Harvester
+		/* Tooltip:
+			'''
+			Blocking costs 3 slams, and the scythe logdes itself in the first enemy hit
+			Grants guards after a delay, or when the afflicted enemy dies
+			Charged throw hits increase the amount of guards granted by the effect
+			''' */
+	}
 }
 
 NPCs: {
@@ -4673,6 +4683,7 @@ Projectiles: {
 	// ThoriumYewGauntletProjectile.DisplayName: Yew Grappleclaw
 	// GlowingMushroomGauntletProjectile.DisplayName: Glowspores
 	// StaffRocketProjectile.DisplayName: Staff Rocket Projectile
+	// PumpkingWarhammerProjectile.DisplayName: Pumpking Warhammer Projectile
 }
 
 Configs: {

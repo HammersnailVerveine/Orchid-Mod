@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Utilities;
@@ -29,6 +30,16 @@ namespace OrchidMod.Content.Guardian
 		public float ThrowDamage;
 		public float BlockDamage;
 		public int HitCooldown;
+		/// <summary>If true, the warhammer will never be swung.</summary>
+		public bool CannotSwing;
+		/// <summary>offsets the drawing of the warhammer while being held (in pixels). Negative values draw it closer, while positive further.</summary>
+		public float HoldOffset;
+		/// <summary>Multiplier for the initial velocity of the hammer when blocking.</summary>
+		public float BlockVelocityMult;
+		/// <summary>If true, the anchor will load and use ItemName_Hammer.png as its texture.</summary>
+		public bool hasSpecialHammerTexture = false;
+		public virtual string HammerTexture => Texture + "_Hammer";
+
 		public virtual void OnBlockContact(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon pushing an enemy with a throw (can happen repeatedly)
 		public virtual void OnBlockNPC(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon blocking an enemy (1 time per throw per enemy)
 		public virtual void OnBlockFirstNPC(Player player, OrchidGuardian guardian, NPC target, Projectile projectile) { } // Called upon blocking the first enemy of a blocking throw
@@ -38,13 +49,21 @@ namespace OrchidMod.Content.Guardian
 		public virtual void OnMeleeHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool FullyCharged) { } // Called upon landing the first hit of a melee swing
 		public virtual void OnThrowHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { } // Called upon landing any throw hit
 		public virtual void OnThrowHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit, bool Weak) { } // Called upon landing the first hit of a throw
+		public virtual void OnBlockHit(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit) { } // Called upon landing any block hit
+		public virtual void OnBlockHitFirst(Player player, OrchidGuardian guardian, NPC target, Projectile projectile, float knockback, bool crit) { } // Called upon landing the first hit of a block
 		public virtual void OnThrowTileCollide(Player player, OrchidGuardian guardian, Projectile projectile, Vector2 oldVelocity) { }
-		public virtual void OnSwing(Player player, OrchidGuardian guardian, Projectile projectile, bool FullyCharged) { } // Called on the first frame of a throw, FullyCharged is true if the guardian's hammer charge is full
+		public virtual void OnSwing(Player player, OrchidGuardian guardian, Projectile projectile, bool FullyCharged) { } // Called on the first frame of a throw, FullyCharged is true if the guardian's hammer charge is full, FullyCharged is true if the guardian's hammer charge is full
 		public virtual void OnThrow(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak) { } // Called on the first frame of a swing
+		public virtual void OnBlockThrow(Player player, OrchidGuardian guardian, Projectile projectile) { } // Called on the first frame of a block
 		public virtual void ExtraAI(Player player, OrchidGuardian guardian, Projectile projectile) { } // Called at the end of the anchors Projectile AI()
 		/// <summary>Called before default throw AI. Return false to prevent the default AI from running.</summary>
 		/// <remarks>Remember to set <c>Projectile.friendly</c> and <c>OrchidModGuardianProjectile.ResetHitStatus()</c> if overriding default behavior.</remarks>
 		public virtual bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak) => true;
+		/// <summary>Called before drawing the hammer. Return false to prevent the default draw code from running.</summary>
+		/// <remarks>The default draw code will use hammerTexture and drawRectangle (which defaults to null)</remarks>
+		public virtual bool PreDrawHammer(Player player, OrchidGuardian guardian, Projectile projectile, SpriteBatch spriteBatch, ref Color lightColor, ref Texture2D hammerTexture, ref Rectangle drawRectangle) => true;
+		/// <summary>Called after drawing the hammer.</summary>
+		public virtual void PostDrawHammer(Player player, OrchidGuardian guardian, Projectile projectile, SpriteBatch spriteBatch, Color lightColor, Texture2D hammerTexture, Rectangle drawRectangle) { }
 
 		public sealed override void SetDefaults()
 		{
@@ -71,6 +90,7 @@ namespace OrchidMod.Content.Guardian
 			SwingChargeGain = 1f;
 			BlockDamage = 0.33f;
 			BlockDuration = 180;
+			BlockVelocityMult = 1f;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
@@ -104,7 +124,7 @@ namespace OrchidMod.Content.Guardian
 			if (Main.mouseRight && Main.mouseRightRelease && projectile.ModProjectile is GuardianHammerAnchor anchor && guardian.UseGuard(1, true))
 			{
 				guardian.UseGuard(1);
-				projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * (10f + (Item.shootSpeed - 10f) * 0.35f);
+				projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center) * (10f + (Item.shootSpeed - 10f) * 0.35f * BlockVelocityMult);
 				projectile.friendly = true;
 				projectile.knockBack = 0f;
 				projectile.tileCollide = true;

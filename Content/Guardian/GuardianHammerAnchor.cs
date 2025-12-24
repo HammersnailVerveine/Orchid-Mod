@@ -84,6 +84,10 @@ namespace OrchidMod.Content.Guardian
 				hitboxOffset = (int)(HammerTexture.Width * guardian.GuardianWeaponScale * hammerItem.Item.scale / 2f);
 				DrawOriginOffsetX = DrawOriginOffsetY = hitboxOffset;
 
+				if (HammerItem.hasSpecialHammerTexture)
+				{
+					HammerTexture = ModContent.Request<Texture2D>(HammerItem.HammerTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+				}
 
 				//Projectile.position.X -= Projectile.width / 2;
 				//Projectile.position.Y -= Projectile.height / 2;
@@ -116,7 +120,18 @@ namespace OrchidMod.Content.Guardian
 
 				if (BlockDuration != 0)
 				{ // Blocking
+					if (BlockDuration == (int)(HammerItem.BlockDuration * HammerItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration + 10))
+					{ // first frame of the block throw
+						HammerItem.OnBlockThrow(owner, guardian, Projectile);
+						if (Projectile.velocity.X > 0)
+						{
+							Projectile.spriteDirection = -Projectile.spriteDirection;
+							Projectile.direction = Projectile.spriteDirection;
+						}
+					}
+
 					Projectile.rotation += Projectile.velocity.Length() / 45f * (Projectile.velocity.X > 0 ? 1 : -1);
+
 					if (BlockDuration <= HammerItem.BlockDuration * HammerItem.Item.GetGlobalItem<GuardianPrefixItem>().GetBlockDuration() * guardian.GuardianBlockDuration)
 					{ // hammers only starts to slow down 10 frames after being thrown
 						Projectile.rotation += 0.25f * (Projectile.velocity.X > 0 ? 1 : -1);
@@ -243,7 +258,7 @@ namespace OrchidMod.Content.Guardian
 				}
 				else if (Projectile.ai[1] <= 0) // Held
 				{
-					if (owner.dead || owner.HeldItem.ModItem is not OrchidModGuardianHammer)
+					if (owner.dead || owner.HeldItem.ModItem is not OrchidModGuardianHammer hammerItem)
 					{
 						if (Projectile.owner == Main.myPlayer)
 						{
@@ -280,7 +295,7 @@ namespace OrchidMod.Content.Guardian
 
 							owner.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, MathHelper.Pi + guardian.GuardianItemCharge * 0.006f * Projectile.spriteDirection); // set arm position (90 degree offset since arm starts lowered)
 							Vector2 armPosition = owner.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, MathHelper.Pi - guardian.GuardianItemCharge * 0.006f * Projectile.spriteDirection) - (new Vector2(owner.Center.X, owner.Center.Y) - new Vector2(owner.Center.X, owner.Center.Y).Floor());
-							Projectile.Center = armPosition - new Vector2((hitboxOffset * 2 + 0.3f * guardian.GuardianItemCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianItemCharge) * 10f) * owner.direction * 0.4f, (hitboxOffset * 2 - hitboxOffset * 0.014f * guardian.GuardianItemCharge) * 0.4f);
+							Projectile.Center = armPosition - new Vector2(((hitboxOffset + hammerItem.HoldOffset) * 2 + 0.3f * guardian.GuardianItemCharge + (float)Math.Sin(MathHelper.Pi / 210f * guardian.GuardianItemCharge) * 10f) * owner.direction * 0.4f, ((hitboxOffset + hammerItem.HoldOffset) * 2 - (hitboxOffset + hammerItem.HoldOffset) * 0.014f * guardian.GuardianItemCharge) * 0.4f);
 
 							if (guardian.GuardianItemCharge < 210f)
 							{
@@ -293,8 +308,8 @@ namespace OrchidMod.Content.Guardian
 							{
 								if (!owner.controlUseItem)
 								{
-									if (guardian.GuardianItemCharge > 10f)
-									{
+									if (guardian.GuardianItemCharge > 10f || hammerItem.CannotSwing)
+									{ // Hammer is charged enough to be thrown (or can't be thrown)
 										Projectile.ai[1] = 1;
 
 										Vector2 dir = Vector2.Normalize(Main.MouseWorld - owner.Center) * HammerItem.Item.shootSpeed;
@@ -315,12 +330,12 @@ namespace OrchidMod.Content.Guardian
 										guardian.GuardianItemCharge = 0;
 									}
 									else
-									{
+									{ // charged too little, hammer is swung
 										Projectile.ai[1] = -61f;
 										Projectile.netUpdate = true;
 									}
 								}
-								else if (Main.mouseRight)
+								else if (Main.mouseRight && !hammerItem.CannotSwing)
 								{
 									Projectile.ai[1] = -60f;
 									Projectile.netUpdate = true;
@@ -545,7 +560,15 @@ namespace OrchidMod.Content.Guardian
 
 		public override void SafeOnHitNPC(NPC target, NPC.HitInfo hit, int damageDone, Player player, OrchidGuardian guardian)
 		{
-			if (Projectile.ai[1] > 0)
+			if (BlockDuration != 0) // Block hit
+			{
+				if (FirstHit)
+				{
+					HammerItem.OnBlockHitFirst(player, guardian, target, Projectile, hit.Knockback, hit.Crit);
+				}
+				HammerItem.OnBlockHit(player, guardian, target, Projectile, hit.Knockback, hit.Crit);
+			}
+			else if (Projectile.ai[1] > 0)
 			{ // Throw
 				bool weak = WeakThrow;
 				if (FirstHit)
@@ -615,6 +638,11 @@ namespace OrchidMod.Content.Guardian
 						DrawOriginOffsetX = DrawOriginOffsetY = hitboxOffset;
 						//Projectile.width = (int)(HammerTexture.Width * hammerItem.Item.scale);
 						//Projectile.height = (int)(HammerTexture.Height * hammerItem.Item.scale);
+
+						if (HammerItem.hasSpecialHammerTexture)
+						{
+							HammerTexture = ModContent.Request<Texture2D>(HammerItem.HammerTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+						}
 					}
 
 					Projectile.scale = hammerItem.Item.scale * guardian.GuardianWeaponScale;
@@ -633,89 +661,96 @@ namespace OrchidMod.Content.Guardian
 			if (HammerTexture == null) return false;
 			Player player = Main.player[Projectile.owner];
 			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
-			float rotationBonus = 0f;
+			Rectangle drawRectangle = HammerTexture.Bounds;
 
-			SpriteEffects effect;
-			if (Projectile.spriteDirection == 1)
+			if (HammerItem.PreDrawHammer(player, guardian, Projectile, spriteBatch, ref lightColor, ref HammerTexture, ref drawRectangle))
 			{
-				effect = SpriteEffects.FlipHorizontally;
-				rotationBonus += MathHelper.PiOver2;
-			}
-			else
-			{
-				effect = SpriteEffects.None;
-				rotationBonus -= MathHelper.PiOver2;
-			}
+				float rotationBonus = 0f;
 
-			Vector2 posproj = Projectile.Center;
-			//float rotaproj = Projectile.rotation;
-			if (player.gravDir == -1)
-			{
-				if (Projectile.ai[1] <= 0)
+				SpriteEffects effect;
+				if (Projectile.spriteDirection == 1)
 				{
-					posproj.Y = (player.Bottom.Floor() + player.position.Floor()).Y - posproj.Y;
+					effect = SpriteEffects.FlipHorizontally;
+					rotationBonus += MathHelper.PiOver2;
 				}
-				//rotaproj += MathHelper.Pi;
-				if (effect == SpriteEffects.None) effect = SpriteEffects.FlipHorizontally;
-				else effect = SpriteEffects.None;
-			}
-
-			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
-			var position = posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
-
-			if (Projectile.ai[1] == 0)
-			{
-				rotationBonus += guardian.GuardianItemCharge * 0.0065f * player.gravDir * Projectile.spriteDirection;
-			}
-
-			if (Projectile.ai[1] < 0)
-			{
-				float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
-				rotationBonus += (guardian.GuardianItemCharge * 0.0065f + SwingOffset * (3.5f + guardian.GuardianItemCharge * 0.006f)) * player.gravDir * Projectile.spriteDirection;
-			}
-
-			if (BlockDuration != 0)
-			{
-				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
-				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
-
-				for (int i = 0; i < OldPosition.Count; i++)
+				else
 				{
-					Vector2 drawPositionTrail = OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
-					spriteBatch.Draw(HammerTexture, drawPositionTrail, null, lightColor * 0.04f * (i + 1), OldRotation[i], HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
+					effect = SpriteEffects.None;
+					rotationBonus -= MathHelper.PiOver2;
 				}
 
-				spriteBatch.End();
-				spriteBatch.Begin(spriteBatchSnapshot);
-			}
-			else if (guardian.GuardianChain > 0f && guardian.GuardianChainTexture != null)
-			{ // I want to consume a shoebox
-				Texture2D chainTexture = ModContent.Request<Texture2D>(guardian.GuardianChainTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-				Vector2 chainDirection = Vector2.Normalize(Projectile.Center - player.Center);
-				float chainOffset = guardian.GuardianChain;
-				if (Projectile.ai[1] < -52) chainOffset = (chainOffset / 8f) * (Projectile.ai[1] + 60);
-				if (Projectile.ai[1] > -35) chainOffset += (chainOffset / 15f) * (-Projectile.ai[1] - 35);
-
-				while (chainOffset > 0f)
+				Vector2 posproj = Projectile.Center;
+				//float rotaproj = Projectile.rotation;
+				if (player.gravDir == -1)
 				{
-					Vector2 chainPos = position - chainDirection * (chainOffset + HammerTexture.Height * 0.3f);
-					chainOffset -= chainTexture.Height * 0.66f;
-					spriteBatch.Draw(chainTexture, chainPos, null, color, 0f, chainTexture.Size() * 0.5f, 1f, effect, 0f);
+					if (Projectile.ai[1] <= 0)
+					{
+						posproj.Y = (player.Bottom.Floor() + player.position.Floor()).Y - posproj.Y;
+					}
+					//rotaproj += MathHelper.Pi;
+					if (effect == SpriteEffects.None) effect = SpriteEffects.FlipHorizontally;
+					else effect = SpriteEffects.None;
 				}
-			}
 
-			spriteBatch.Draw(HammerTexture, position, null, color, Projectile.rotation + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
+				var position = posproj - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 
-
-			if (Projectile.ai[1] != 0)
-			{
-				for (int i = 0; i < OldPosition.Count; i++)
+				if (Projectile.ai[1] == 0)
 				{
-					color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * (((WeakThrow ? 0.05f : 0.15f) * i));
-					position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
-
-					spriteBatch.Draw(HammerTexture, position, null, color, OldRotation[i] + rotationBonus, HammerTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
+					rotationBonus += guardian.GuardianItemCharge * 0.0065f * player.gravDir * Projectile.spriteDirection;
 				}
+
+				if (Projectile.ai[1] < 0)
+				{
+					float SwingOffset = (float)Math.Sin(MathHelper.Pi / 60f * Projectile.ai[1]);
+					rotationBonus += (guardian.GuardianItemCharge * 0.0065f + SwingOffset * (3.5f + guardian.GuardianItemCharge * 0.006f)) * player.gravDir * Projectile.spriteDirection;
+				}
+
+				if (BlockDuration != 0)
+				{
+					spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
+					spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });
+
+					for (int i = 0; i < OldPosition.Count; i++)
+					{
+						Vector2 drawPositionTrail = OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
+						spriteBatch.Draw(HammerTexture, drawPositionTrail, drawRectangle, lightColor * 0.04f * (i + 1), OldRotation[i], drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					}
+
+					spriteBatch.End();
+					spriteBatch.Begin(spriteBatchSnapshot);
+				}
+				else if (guardian.GuardianChain > 0f && guardian.GuardianChainTexture != null)
+				{ // I want to consume a shoebox
+					Texture2D chainTexture = ModContent.Request<Texture2D>(guardian.GuardianChainTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+					Vector2 chainDirection = Vector2.Normalize(Projectile.Center - player.Center);
+					float chainOffset = guardian.GuardianChain;
+					if (Projectile.ai[1] < -52) chainOffset = (chainOffset / 8f) * (Projectile.ai[1] + 60);
+					if (Projectile.ai[1] > -35) chainOffset += (chainOffset / 15f) * (-Projectile.ai[1] - 35);
+
+					while (chainOffset > 0f)
+					{
+						Vector2 chainPos = position - chainDirection * (chainOffset + HammerTexture.Height * 0.3f);
+						chainOffset -= chainTexture.Height * 0.66f;
+						spriteBatch.Draw(chainTexture, chainPos, null, color, 0f, chainTexture.Size() * 0.5f, 1f, effect, 0f);
+					}
+				}
+
+				spriteBatch.Draw(HammerTexture, position, drawRectangle, color, Projectile.rotation + rotationBonus, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+
+				if (Projectile.ai[1] != 0)
+				{
+					for (int i = 0; i < OldPosition.Count; i++)
+					{
+						color = Lighting.GetColor((int)(OldPosition[i].X / 16f), (int)(OldPosition[i].Y / 16f), Color.White) * (((WeakThrow ? 0.05f : 0.15f) * i));
+						position = OldPosition[i] - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
+
+						spriteBatch.Draw(HammerTexture, position, drawRectangle, color, OldRotation[i] + rotationBonus, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+					}
+				}
+
+				HammerItem.PostDrawHammer(player, guardian, Projectile, spriteBatch, lightColor, HammerTexture, drawRectangle);
 			}
 
 			return false;
