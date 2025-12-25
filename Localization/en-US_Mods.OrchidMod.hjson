@@ -4178,6 +4178,11 @@ Items: {
 			Charged throw hits increase the amount of guards granted by the effect
 			'''
 	}
+
+	PresentQuarterstaff: {
+		DisplayName: Colossal Candy Cane
+		Tooltip: ""
+	}
 }
 
 NPCs: {

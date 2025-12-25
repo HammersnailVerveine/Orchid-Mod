@@ -4196,6 +4196,11 @@ Items: {
 			Charged throw hits increase the amount of guards granted by the effect
 			''' */
 	}
+
+	PresentQuarterstaff: {
+		// DisplayName: Present Quarterstaff
+		// Tooltip: ""
+	}
 }
 
 NPCs: {

@@ -203,6 +203,9 @@ namespace OrchidMod.Common.Global.Items
 
 			switch (arg)
 			{
+				case ItemID.Present:
+					QuickSpawnItem<PresentQuarterstaff>(player, 1, 150);
+					break;
 				case ItemID.WoodenCrate:
 				case ItemID.WoodenCrateHard:
 					{
