@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian.Buffs.Debuffs;
 using ReLogic.Utilities;
@@ -13,6 +14,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumGrandThunderBirdWarhammer : OrchidModGuardianHammer
 	{
 

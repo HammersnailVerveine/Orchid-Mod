@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Attributes;
 using Terraria;
 using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumDeadwoodGauntlet : OrchidModGuardianGauntlet
 	{
 		public override void SafeSetDefaults()

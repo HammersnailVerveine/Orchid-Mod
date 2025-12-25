@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian.Projectiles.Quarterstaves;
 using Terraria;
@@ -8,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumViscountQuarterstaff : OrchidModGuardianQuarterstaff
 	{
 		public int IsCounterAttacking = 0;
