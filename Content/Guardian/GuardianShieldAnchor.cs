@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.General.Prefixes;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.Audio;
@@ -125,6 +124,14 @@ namespace OrchidMod.Content.Guardian
 							var texture = ModContent.Request<Texture2D>((ShieldItem.ModItem as OrchidModGuardianShield).ShieldTexture).Value;
 							Projectile.width = (int)(texture.Height * guardian.GuardianWeaponScale);
 							Projectile.height = (int)(texture.Height * guardian.GuardianWeaponScale);
+						}
+
+						if (owner.boneGloveItem != null && !owner.boneGloveItem.IsAir && owner.boneGloveTimer == 0)
+						{ // Bone glove compatibility, from vanilla code
+							owner.boneGloveTimer = 60;
+							Vector2 center = owner.Center;
+							Vector2 vector = owner.DirectionTo(owner.ApplyRangeCompensation(0.2f, center, Main.MouseWorld)) * 10f;
+							Projectile.NewProjectile(owner.GetSource_ItemUse(owner.boneGloveItem), center.X, center.Y, vector.X, vector.Y, ProjectileID.BoneGloveProj, 25, 5f, owner.whoAmI);
 						}
 					}
 

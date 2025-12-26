@@ -343,6 +343,14 @@ namespace OrchidMod.Content.Guardian
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
 						ResetHitStatus(false);
+
+						if (owner.boneGloveItem != null && !owner.boneGloveItem.IsAir && owner.boneGloveTimer == 0)
+						{ // Bone glove compatibility, from vanilla code
+							owner.boneGloveTimer = 60;
+							Vector2 center = owner.Center;
+							Vector2 vector = owner.DirectionTo(owner.ApplyRangeCompensation(0.2f, center, Main.MouseWorld)) * 10f;
+							Projectile.NewProjectile(owner.GetSource_ItemUse(owner.boneGloveItem), center.X, center.Y, vector.X, vector.Y, ProjectileID.BoneGloveProj, 25, 5f, owner.whoAmI);
+						}
 					}
 
 					if (Projectile.ai[1] > -3.14f && Projectile.ai[1] < 0f)
@@ -437,6 +445,14 @@ namespace OrchidMod.Content.Guardian
 						Projectile.ResetLocalNPCHitImmunity();
 						SoundEngine.PlaySound(QuarterstaffItem.UseSound, Projectile.Center);
 						ResetHitStatus(true);
+
+						if (owner.boneGloveItem != null && !owner.boneGloveItem.IsAir && owner.boneGloveTimer == 0)
+						{ // Bone glove compatibility, from vanilla code
+							owner.boneGloveTimer = 60;
+							Vector2 center = owner.Center;
+							Vector2 vector = owner.DirectionTo(owner.ApplyRangeCompensation(0.2f, center, Main.MouseWorld)) * 10f;
+							Projectile.NewProjectile(owner.GetSource_ItemUse(owner.boneGloveItem), center.X, center.Y, vector.X, vector.Y, ProjectileID.BoneGloveProj, 25, 5f, owner.whoAmI);
+						}
 					}
 
 					if (Projectile.ai[1] > -3.14f && Projectile.ai[1] < 0f)
