@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Guardian.Projectiles.Gauntlets;
 using OrchidMod.Utilities;
@@ -15,6 +16,7 @@ using Terraria.ModLoader.IO;
 
 namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumYewGauntlet : OrchidModGuardianGauntlet
 	{
 		public bool PullOnKill;

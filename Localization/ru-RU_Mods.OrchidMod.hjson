@@ -3159,6 +3159,11 @@ Items: {
 			Атаки по другим врагам заряженными бросками увеличивают количество очков обороны, которое будет получено
 			'''
 	}
+
+	PresentQuarterstaff: {
+		// DisplayName: Present Quarterstaff
+		// Tooltip: ""
+	}
 }
 
 NPCs: {

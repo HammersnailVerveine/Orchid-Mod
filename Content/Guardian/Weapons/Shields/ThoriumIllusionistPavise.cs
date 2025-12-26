@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Content.Guardian.Projectiles.Shields;
 using System.Collections.Generic;
 using Terraria;
@@ -8,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumIllusionistPavise : OrchidModGuardianShield
 	{
 		public static List<int> TypesArrow;

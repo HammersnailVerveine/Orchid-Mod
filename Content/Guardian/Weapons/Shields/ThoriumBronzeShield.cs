@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OrchidMod.Common.Attributes;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.Guardian.Buffs;
 using OrchidMod.Utilities;
@@ -10,6 +11,7 @@ using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumBronzeShield : OrchidModGuardianShield
 	{
 		public static Texture2D TextureAura;

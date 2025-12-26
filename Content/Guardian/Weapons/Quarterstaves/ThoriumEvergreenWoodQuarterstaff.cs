@@ -1,8 +1,10 @@
-﻿using Terraria;
+﻿using OrchidMod.Common.Attributes;
+using Terraria;
 using Terraria.ID;
 
 namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 {
+	[CrossmodContent("ThoriumMod")]
 	public class ThoriumEvergreenWoodQuarterstaff : OrchidModGuardianQuarterstaff
 	{
 		public override void SafeSetDefaults()
