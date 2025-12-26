@@ -158,7 +158,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Shields
 			for (int i = 0; i < 3 + Main.rand.Next(3); i ++)
 			{
 				Vector2 vel = Vector2.Normalize(Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(45f)));
-				Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + vel * 3f, vel * 7f, ModContent.ProjectileType<NightShieldProj>(), (int)(Projectile.damage * 0.75f), 1f, Projectile.owner);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center + vel * 3f, vel * 7f, ModContent.ProjectileType<NightShieldProj>(), (int)(Projectile.damage * 0.75f), 1f, Projectile.owner);
+				newProjectile.CritChance = Projectile.CritChance;
 			}
 		}
 

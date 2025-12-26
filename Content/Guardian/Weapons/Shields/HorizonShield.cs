@@ -70,7 +70,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				Projectile anchor = GetAnchor(player).Projectile;
 				int type = ModContent.ProjectileType<HorizonShieldProj>();
 				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * 15f;
-				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * (player.GetModPlayer<OrchidGuardian>().GuardianCounterTime > 0 ? 3f : 1f)), Item.knockBack, player.whoAmI, StoredBlock ? 1f : 0f);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * (player.GetModPlayer<OrchidGuardian>().GuardianCounterTime > 0 ? 3f : 1f)), Item.knockBack, player.whoAmI, StoredBlock ? 1f : 0f);
+				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 				StoredBlock = false;
 			}
 		}

@@ -31,7 +31,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				Projectile anchor = GetAnchor(player).Projectile;
 				int type = ModContent.ProjectileType<HallowedShieldProj>();
 				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(5f)) * (8f + Main.rand.NextFloat(4f));
-				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.5f), Item.knockBack, player.whoAmI);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.5f), Item.knockBack, player.whoAmI);
+				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 			}
 		}
 

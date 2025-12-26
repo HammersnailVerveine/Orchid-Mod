@@ -4198,8 +4198,13 @@ Items: {
 	}
 
 	PresentQuarterstaff: {
-		// DisplayName: Present Quarterstaff
+		// DisplayName: Colossal Candy Cane
 		// Tooltip: ""
+	}
+
+	SurfaceFireShamanWeapon: {
+		// DisplayName: Willow Wisp
+		// Tooltip: Conjures a spread of delayed wisps
 	}
 }
 
@@ -4689,6 +4694,8 @@ Projectiles: {
 	// GlowingMushroomGauntletProjectile.DisplayName: Glowspores
 	// StaffRocketProjectile.DisplayName: Staff Rocket Projectile
 	// PumpkingWarhammerProjectile.DisplayName: Pumpking Warhammer Projectile
+	// SurfaceFireShamanWeaponAnchor.DisplayName: Willow Wisp Anchor
+	// SurfaceFireShamanProjectile.DisplayName: Willow Wisp
 }
 
 Configs: {

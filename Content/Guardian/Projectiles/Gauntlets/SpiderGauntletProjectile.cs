@@ -57,7 +57,11 @@ namespace OrchidMod.Content.Guardian.Projectiles.Gauntlets
 			else
 			{
 				target.AddBuff(BuffID.Venom, 180);
-				if (FirstHit && !player.dead) guardian.GuardianSlamRecharging += 0.2f;
+				if (FirstHit && !player.dead)
+				{
+						guardian.GuardianSlamRecharging += guardian.GauntletSlamPool;
+						guardian.GauntletSlamPool *= 0.8f;
+				}
 			}
 		}
 
