@@ -1726,7 +1726,7 @@ Items: {
 		DisplayName: Тестировка хранителя
 		Tooltip:
 			'''
-			Дарует бесконечный запас параметров хранителя
+			Даёт бесконечный запас параметров хранителя
 			[c/FF0000:Предмет тестировки]
 			'''
 	}
@@ -3110,54 +3110,54 @@ Items: {
 	}
 
 	GlowingMushroomGauntlet: {
-		// DisplayName: Fistipuffs
-		// Tooltip: Fully charge to release damaging spores
+		DisplayName: Пыхтельники
+		Tooltip: Полностью заряженные атаки выпускают наносящие урон споры
 	}
 
 	StaffRocketYellow: {
-		// DisplayName: Yellow Staff-Mounted Propulsion System
-		/* Tooltip:
+		DisplayName: Жёлтая нашестовая ракетная установка
+		Tooltip:
 			'''
-			Left click while parrying with a quarterstaff to dash
-			Costs 1 slam
-			''' */
+			Нажмите ЛКМ по время парирования боевым шестом, чтобы совершить рывок
+			Расходует 1 оч. нападения
+			'''
 	}
 
 	StaffRocketRed: {
-		// DisplayName: Red Staff-Mounted Propulsion System
-		/* Tooltip:
+		DisplayName: Красная нашестовая ракетная установка
+		Tooltip:
 			'''
-			Left click while parrying with a quarterstaff to dash
-			Costs 1 slam
-			''' */
+			Нажмите ЛКМ по время парирования боевым шестом, чтобы совершить рывок
+			Расходует 1 оч. нападения
+			'''
 	}
 
 	StaffRocketGreen: {
-		// DisplayName: Green Staff-Mounted Propulsion System
-		/* Tooltip:
+		DisplayName: Зелёная нашестовая ракетная установка
+		Tooltip:
 			'''
-			Left click while parrying with a quarterstaff to dash
-			Costs 1 slam
-			''' */
+			Нажмите ЛКМ по время парирования боевым шестом, чтобы совершить рывок
+			Расходует 1 оч. нападения
+			'''
 	}
 
 	StaffRocketBlue: {
-		// DisplayName: Blue Staff-Mounted Propulsion System
-		/* Tooltip:
+		DisplayName: Синяя нашестовая ракетная установка
+		Tooltip:
 			'''
-			Left click while parrying with a quarterstaff to dash
-			Costs 1 slam
-			''' */
+			Нажмите ЛКМ по время парирования боевым шестом, чтобы совершить рывок
+			Расходует 1 оч. нападения
+			'''
 	}
 
 	PumpkingWarhammer: {
-		// DisplayName: Grim Harvester
-		/* Tooltip:
+		DisplayName: Зловещий жнец
+		Tooltip:
 			'''
-			Blocking costs 3 slams, and the scythe logdes itself in the first enemy hit
-			Grants guards after a delay, or when the afflicted enemy dies
-			Charged throw hits increase the amount of guards granted by the effect
-			''' */
+			Вместо блока выпускает косу, которая расходует 3 очка нападения застревает в первом поражённом враге
+			Коса даёт очки обороны по возвращению или смерти поражённого врага
+			Атаки по другим врагам заряженными бросками увеличивают количество очков обороны, которое будет получено
+			'''
 	}
 }
 
@@ -3602,7 +3602,7 @@ Projectiles: {
 	ThoriumIllusionistPaviseFeather.DisplayName: Иллюзия
 	ThoriumIllusionistPaviseScythe.DisplayName: Иллюзия
 	ThoriumYewGauntletProjectile.DisplayName: Тисовый крюк
-	// GlowingMushroomGauntletProjectile.DisplayName: Glowspores
+	GlowingMushroomGauntletProjectile.DisplayName: Светящиеся споры
 	// StaffRocketProjectile.DisplayName: Staff Rocket Projectile
 	// PumpkingWarhammerProjectile.DisplayName: Pumpking Warhammer Projectile
 }
