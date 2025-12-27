@@ -3151,7 +3151,7 @@ Items: {
 	}
 
 	PumpkingWarhammer: {
-		DisplayName: Зловещий жнец
+		DisplayName: Зловещая жатва
 		Tooltip:
 			'''
 			Вместо блока выпускает косу, которая расходует 3 очка нападения застревает в первом поражённом враге
@@ -3617,10 +3617,10 @@ Projectiles: {
 	ThoriumIllusionistPaviseScythe.DisplayName: Иллюзия
 	ThoriumYewGauntletProjectile.DisplayName: Тисовый крюк
 	GlowingMushroomGauntletProjectile.DisplayName: Светящиеся споры
-	// StaffRocketProjectile.DisplayName: Rocket Trail
-	// PumpkingWarhammerProjectile.DisplayName: Harvesting Scythe
-	// SurfaceFireShamanWeaponAnchor.DisplayName: Willow Wisp
-	// SurfaceFireShamanProjectile.DisplayName: Willow Wisp
+	StaffRocketProjectile.DisplayName: Реактивный след
+	PumpkingWarhammerProjectile.DisplayName: Коса жатвы
+	SurfaceFireShamanWeaponAnchor.DisplayName: Ивовый огонёк
+	SurfaceFireShamanProjectile.DisplayName: Ивовый огонёк
 }
 
 Configs: {
