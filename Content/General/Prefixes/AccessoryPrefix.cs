@@ -130,7 +130,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 			if (alchemistPotency > 0)
 			{
-				tooltips.Insert(index, new TooltipLine(Mod, "AlchemistPotencyPrefix", Language.GetTextValue("Mods.OrchidMod.Effects.Prefixes.AddPotency", alchemistPotency))
+				tooltips.Insert(index, new TooltipLine(Mod, "AlchemistPotencyPrefix", Language.GetTextValue("Mods.OrchidMod.Prefixes.Effects.AddPotency", alchemistPotency))
 				{
 					IsModifier = true
 				});

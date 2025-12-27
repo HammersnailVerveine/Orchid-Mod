@@ -2154,7 +2154,7 @@ Items: {
 	}
 
 	GoblinRune: {
-		DisplayName: Руна гоблинов
+		DisplayName: Гоблинская руна
 		Tooltip: Призывает беспорядочные теневые огни защищать вас
 	}
 
@@ -2697,7 +2697,7 @@ Items: {
 	}
 
 	MartianWarhammer: {
-		DisplayName: Двигатель кинетического удара
+		DisplayName: Ударный кинетический модуль
 		Tooltip: Мгновенно заряжается при попадании
 	}
 
@@ -3039,7 +3039,7 @@ Items: {
 
 	HeavyChain: {
 		DisplayName: Тяжёлая цепь
-		Tooltip: ""
+		Tooltip: Увеличивает дальность взмаха боевых молотов 
 	}
 
 	HeavyChainTest: {
