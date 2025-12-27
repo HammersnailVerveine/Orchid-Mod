@@ -12,91 +12,6 @@ Tiles: {
 }
 
 Buffs: {
-	TitanicBuff: {
-		DisplayName: Titanic Buff
-		Description: ""
-	}
-
-	LodestoneSlow: {
-		DisplayName: Lodestone Slow
-		Description: ""
-	}
-
-	GraniteAura: {
-		DisplayName: Granite Aura
-		Description: ""
-	}
-
-	AquaBump: {
-		DisplayName: Aqua Bump
-		Description: ""
-	}
-
-	ShroomHeal: {
-		DisplayName: Shroom Heal
-		Description: ""
-	}
-
-	ShamanicEmpowerment: {
-		DisplayName: Shamanic Empowerment
-		Description: ""
-	}
-
-	MythrilDefense: {
-		DisplayName: Mythril Defense
-		Description: ""
-	}
-
-	DeepForestAura: {
-		DisplayName: Deep Forest Aura
-		Description: ""
-	}
-
-	WindStun: {
-		DisplayName: Wind Stun
-		Description: ""
-	}
-
-	WindSlow: {
-		DisplayName: Wind Slow
-		Description: ""
-	}
-
-	WindDamage: {
-		DisplayName: Wind Damage
-		Description: ""
-	}
-
-	LeafSlow: {
-		DisplayName: Leaf Slow
-		Description: ""
-	}
-
-	HellHit: {
-		DisplayName: Hell Hit
-		Description: ""
-	}
-
-	EarthTotemRevive: {
-		DisplayName: Earth Totem Revive
-		Description: ""
-	}
-
-	DiabolistCauterizeCooldown: {
-		DisplayName: Diabolist Cauterize Cooldown
-		Description: ""
-	}
-
-	BrokenPower: {
-		DisplayName: Broken Power
-		Description: ""
-	}
-
-	AbyssEmpowerment: {
-		DisplayName: Abyss Empowerment
-		Description: ""
-	}
-
 	RCRemoteBuff: {
 		DisplayName: Радиоуправляемый вертолётик
 		Description: Вжжжжжжж
@@ -1224,7 +1139,7 @@ Items: {
 		DisplayName: Связка клевера
 		Tooltip:
 			'''
-			Кости картёжника замедлятся, если выпадает 4 или более очков
+			Игровые кости замедлятся, если выпадает 4 или более очков
 			«Бог любит четверицу!» 
 			'''
 	}
@@ -1233,7 +1148,7 @@ Items: {
 		DisplayName: Горящий клевер
 		Tooltip:
 			'''
-			Кости картёжника замедлятся, если выпадает 5 или более очков
+			Игровые кости замедлятся, если выпадает 5 или более очков
 			Вам не могут выпасть 1 и 2 очка
 			'''
 	}
@@ -1746,7 +1661,7 @@ Items: {
 	}
 
 	GamblingDie: {
-		DisplayName: Кость картёжника
+		DisplayName: Игровая кость
 		Tooltip: В зависимости от результата броска кости, вы получаете бонус к урону
 	}
 
@@ -1785,12 +1700,7 @@ Items: {
 
 	OrchidEmblem: {
 		DisplayName: Эмблема Orchid
-		Tooltip:
-			'''
-			Пока хранители продолжают свой путь, путешествие для алхимиков и картёжников на этом заканчивается
-			Класс шамана скоро вернётся, а его полная переработка уже ведётся!
-			Пожалуйста, если хотите поддержать меня, просто зайдите в наш Discord и передайте привет ;)
-			'''
+		Tooltip: Увеличивает orchid урон на 15%
 	}
 
 	RCRemote: {
@@ -1812,958 +1722,11 @@ Items: {
 		Tooltip: Отпирает светящийся грибной сундук в Темнице
 	}
 
-	HeraldOfFrost: {
-		DisplayName: Herald Of Frost
-		Tooltip: ""
-	}
-
-	SearingOnslaught: {
-		DisplayName: Searing Onslaught
-		Tooltip: ""
-	}
-
-	AbyssDrill: {
-		DisplayName: Abyss Drill
-		Tooltip: ""
-	}
-
-	AbyssHamaxe: {
-		DisplayName: Abyss Hamaxe
-		Tooltip: ""
-	}
-
-	AbyssPickaxe: {
-		DisplayName: Abyss Pickaxe
-		Tooltip: ""
-	}
-
-	AmberIdol: {
-		DisplayName: Amber Idol
-		Tooltip: Heavily increases life regeneration while an Earth Bond is active
-	}
-
-	AmethystIdol: {
-		DisplayName: Amethyst Idol
-		Tooltip: Increases the damage of released spirit catalysts by 20%
-	}
-
-	DeepForestCharm: {
-		DisplayName: Deep Forest Charm
-		Tooltip: ""
-	}
-
-	DestroyerNecklace: {
-		DisplayName: Destroyer Necklace
-		Tooltip: ""
-	}
-
-	DiabolistRune: {
-		DisplayName: Diabolist Rune
-		Tooltip: ""
-	}
-
-	DiamondIdol: {
-		DisplayName: Diamond Idol
-		Tooltip: Your shamanic bonds will last 3 seconds longer
-	}
-
-	DryadsGift: {
-		DisplayName: Dryads Gift
-		Tooltip: ""
-	}
-
-	EmeraldIdol: {
-		DisplayName: Emerald Idol
-		Tooltip: Increases the damage of released air catalysts by 20%
-	}
-
-	FloralStinger: {
-		DisplayName: Floral Stinger
-		Tooltip: ""
-	}
-
-	FragilePresent: {
-		DisplayName: Fragile Present
-		Tooltip: ""
-	}
-
-	FrostburnSigil: {
-		DisplayName: Frostburn Sigil
-		Tooltip: Frostburns enemies while a fire bond is active
-	}
-
-	FurnaceSigil: {
-		DisplayName: Furnace Sigil
-		Tooltip: Burns enemies while a fire bond is active
-	}
-
-	HallowedBaubles: {
-		DisplayName: Hallowed Baubles
-		Tooltip: ""
-	}
-
-	HarpyAnklet: {
-		DisplayName: Harpy Anklet
-		Tooltip: ""
-	}
-
-	HeavyBracer: {
-		DisplayName: Heavy Bracer
-		Tooltip: ""
-	}
-
-	MeltedRing: {
-		DisplayName: Molten Ring
-		Tooltip: Releases damaging droplets of lava while an air bond is released
-	}
-
-	MourningTorch: {
-		DisplayName: Mourning Torch
-		Tooltip: ""
-	}
-
-	PoisonSigil: {
-		DisplayName: Poison Sigil
-		Tooltip: Poisons enemies while a fire bond is active
-	}
-
-	PrismaticIdol: {
-		DisplayName: Prismatic Idol
-		Tooltip: ""
-	}
-
-	RubyIdol: {
-		DisplayName: Ruby Idol
-		Tooltip: Increases the damage of released fire catalysts by 20%
-	}
-
-	RuneOfHorus: {
-		DisplayName: Rune Of Horus
-		Tooltip: ""
-	}
-
-	SapphireIdol: {
-		DisplayName: Sapphire Idol
-		Tooltip: Increases the damage of released water catalysts by 20%
-	}
-
-	ShamanEmblem: {
-		DisplayName: Shaman Emblem
-		Tooltip: 15% increased shamanic damage
-	}
-
-	SinisterPresent: {
-		DisplayName: Sinister Present
-		Tooltip: ""
-	}
-
-	SpectralSkull: {
-		DisplayName: Spectral Skull
-		Tooltip: ""
-	}
-
-	SpiritedWater: {
-		DisplayName: Ondine Tear
-		Tooltip: Restores 30 life when releasing a water bond
-	}
-
-	SpiritedWax: {
-		DisplayName: Waxy Tear
-		Tooltip:
-			'''
-			Restores 30 life when releasing a water or fire bond
-			Summons bees when releasing a water or fire bond
-			'''
-	}
-
-	SunPriestBelt: {
-		DisplayName: Sun Priest Belt
-		Tooltip: ""
-	}
-
-	SunPriestCloak: {
-		DisplayName: Sun Priest Cloak
-		Tooltip: ""
-	}
-
-	SunPriestTorch: {
-		DisplayName: Sun Priest Torch
-		Tooltip: ""
-	}
-
-	TopazIdol: {
-		DisplayName: Topaz Idol
-		Tooltip: Increases the damage of released earth catalysts by 20%
-	}
-
-	ToxicSigil: {
-		DisplayName: Toxic Sigil
-		Tooltip: ""
-	}
-
-	TreasuredBaubles: {
-		DisplayName: Treasured Baubles
-		Tooltip: 15% increased shamanic bond generation
-	}
-
-	VenomSigil: {
-		DisplayName: Venom Sigil
-		Tooltip: ""
-	}
-
-	WaxyVial: {
-		DisplayName: Waxy Vial
-		Tooltip: Summons bees when releasing a fire bond
-	}
-
-	WyvernTailFeather: {
-		DisplayName: Wyvern Tail Feather
-		Tooltip: ""
-	}
-
-	AbyssalChestplate: {
-		DisplayName: Abyssal Chestplate
-		Tooltip: ""
-	}
-
-	AbyssalGreaves: {
-		DisplayName: Abyssal Greaves
-		Tooltip: ""
-	}
-
-	AbyssalHelm: {
-		DisplayName: Abyssal Helm
-		Tooltip: ""
-	}
-
-	AbyssalWings: {
-		DisplayName: Abyssal Wings
-		Tooltip: ""
-	}
-
-	DarkShamanChest: {
-		DisplayName: Dark Shaman Chest
-		Tooltip: ""
-	}
-
-	DarkShamanLegs: {
-		DisplayName: Dark Shaman Legs
-		Tooltip: ""
-	}
-
-	DarkShamanTiara: {
-		DisplayName: Dark Shaman Tiara
-		Tooltip: ""
-	}
-
-	BloodShamanChest: {
-		DisplayName: Blood Shaman Chest
-		Tooltip: ""
-	}
-
-	BloodShamanLegs: {
-		DisplayName: Blood Shaman Legs
-		Tooltip: ""
-	}
-
-	BloodShamanTiara: {
-		DisplayName: Blood Shaman Tiara
-		Tooltip: ""
-	}
-
-	DownpourCrown: {
-		DisplayName: Downpour Crown
-		Tooltip: ""
-	}
-
-	DownpourKilt: {
-		DisplayName: Downpour Kilt
-		Tooltip: ""
-	}
-
-	DownpourTunic: {
-		DisplayName: Downpour Tunic
-		Tooltip: ""
-	}
-
-	AmethystTiara: {
-		DisplayName: Amethyst Tiara
-		Tooltip:
-			'''
-			Increases the damage of released spirit catalysts by 20%
-			Your shamanic bonds will last 3 seconds longer
-			'''
-	}
-
-	DiamondTiara: {
-		DisplayName: Diamond Tiara
-		Tooltip:
-			'''
-			Increases the damage of released catalysts by 10%
-			Your shamanic bonds will last 3 seconds longer
-			'''
-	}
-
-	EmeraldTiara: {
-		DisplayName: Emerald Tiara
-		Tooltip:
-			'''
-			Increases the damage of released air catalysts by 20%
-			Your shamanic bonds will last 3 seconds longer
-			'''
-	}
-
-	RubyTiara: {
-		DisplayName: Ruby Tiara
-		Tooltip:
-			'''
-			Increases the damage of released fire catalysts by 20%
-			Your shamanic bonds will last 3 seconds longer
-			'''
-	}
-
-	SapphireTiara: {
-		DisplayName: Sapphire Tiara
-		Tooltip:
-			'''
-			Increases the damage of released water catalysts by 20%
-			Your shamanic bonds will last 3 seconds longer
-			'''
-	}
-
-	TopazTiara: {
-		DisplayName: Topaz Tiara
-		Tooltip:
-			'''
-			Increases the damage of released earth catalysts by 20%
-			Your shamanic bonds will last 3 seconds longer
-			'''
-	}
-
-	HarpyCrown: {
-		DisplayName: Harpy Crown
-		Tooltip: 6% increased shamanic damage
-	}
-
-	HarpyLegs: {
-		DisplayName: Harpy Legs
-		Tooltip:
-			'''
-			6% increased shamanic damage
-			10% increased movement speed
-			'''
-	}
-
-	HarpyLightArmor: {
-		DisplayName: Harpy Light Armor
-		Tooltip: 8% increased shamanic critical strike chance
-	}
-
-	HellShamanKilt: {
-		DisplayName: Depths Weaver Kilt
-		Tooltip: 8% increased shamanic damage
-	}
-
-	HellShamanTiara: {
-		DisplayName: Depths Weaver Tiara
-		Tooltip:
-			'''
-			6% increased shamanic damage
-			Your shamanic bonds will last 3 seconds longer
-			'''
-	}
-
-	HellShamanTunic: {
-		DisplayName: Depths Weaver Tunic
-		Tooltip: 9% increased shamanic critical strike chance
-	}
-
-	AdamantiteSpangenhelm: {
-		DisplayName: Adamantite Spangenhelm
-		Tooltip: ""
-	}
-
-	ChlorophyteSpangenhelm: {
-		DisplayName: Chlorophyte Spangenhelm
-		Tooltip: ""
-	}
-
-	CobaltSpangenhelm: {
-		DisplayName: Cobalt Spangenhelm
-		Tooltip: ""
-	}
-
-	HallowedSpangenhelm: {
-		DisplayName: Hallowed Spangenhelm
-		Tooltip: ""
-	}
-
-	MythrilSpangenhelm: {
-		DisplayName: Mythril Spangenhelm
-		Tooltip: ""
-	}
-
-	OrichalcumSpangenhelm: {
-		DisplayName: Orichalcum Spangenhelm
-		Tooltip: ""
-	}
-
-	PalladiumSpangenhelm: {
-		DisplayName: Palladium Spangenhelm
-		Tooltip: ""
-	}
-
-	TitaniumSpangenhelm: {
-		DisplayName: Titanium Spangenhelm
-		Tooltip: ""
-	}
-
-	SunPriestHood: {
-		DisplayName: Sun Priest Hood
-		Tooltip: ""
-	}
-
-	SunPriestPants: {
-		DisplayName: Sun Priest Pants
-		Tooltip: ""
-	}
-
-	SunPriestRobe: {
-		DisplayName: Sun Priest Robe
-		Tooltip: ""
-	}
-
-	TitanSpangenhelm: {
-		DisplayName: Titan Spangenhelm
-		Tooltip: ""
-	}
-
-	VampireSarong: {
-		DisplayName: Vampire Sarong
-		Tooltip: ""
-	}
-
-	VampireTiara: {
-		DisplayName: Vampire Tiara
-		Tooltip: ""
-	}
-
-	VampireTunic: {
-		DisplayName: Vampire Tunic
-		Tooltip: ""
-	}
-
-	AbyssFragment: {
-		DisplayName: Abyss Fragment
-		Tooltip: ""
-	}
-
-	BrokenHeroScepter: {
-		DisplayName: Broken Hero Scepter
-		Tooltip: ""
-	}
-
-	DownpourCrystal: {
-		DisplayName: Downpour Crystal
-		Tooltip: ""
-	}
-
-	EmptyTiara: {
-		DisplayName: Empty Tiara
-		Tooltip: ""
-	}
-
-	HarpyTalon: {
-		DisplayName: Harpy Talon
-		Tooltip: ""
-	}
-
-	LihzahrdSilk: {
-		DisplayName: Lihzahrd Silk
-		Tooltip: ""
-	}
-
-	RitualScepter: {
-		DisplayName: Ritual Scepter
-		Tooltip: ""
-	}
-
-	ShamanicEmpowermentPotion: {
-		DisplayName: Shamanic Empowerment Potion
-		Tooltip: ""
-	}
-
-	ViscountMaterial: {
-		DisplayName: Viscount Material
-		Tooltip: ""
-	}
-
-	AdornedBranch: {
-		DisplayName: Adorned Branch
-		Tooltip: ""
-	}
-
-	AmberScepter: {
-		DisplayName: Amber Scepter
-		Tooltip:
-			'''
-			Bonds released using this weapon last 5 seconds longer
-			Restores 20 life when releasing a bond
-			'''
-	}
-
-	AvalancheScepter: {
-		DisplayName: Avalanche
-		Tooltip: Shoots a massive icicle when releasing a bond
-	}
-
-	BeeSeeker: {
-		DisplayName: The Hive
-		Tooltip:
-			'''
-			Summons bees when releasing a bond
-			Can cover players in honey
-			'''
-	}
-
-	BloodCaller: {
-		DisplayName: Blood Caller
-		Tooltip: ""
-	}
-
-	Blum: {
-		DisplayName: Blum
-		Tooltip: ""
-	}
-
-	CopperScepter: {
-		DisplayName: Amethyst Scepter
-		Tooltip: Bonds released using this weapon last 5 seconds longer
-	}
-
-	DepthsBaton: {
-		DisplayName: Depths Baton
-		Tooltip: ""
-	}
-
-	EnchantedScepter: {
-		DisplayName: Enchanted Scepter
-		Tooltip: Hits twice if a shamanic bond is active
-	}
-
-	FeatherScepter: {
-		DisplayName: Feather Scepter
-		Tooltip:
-			'''
-			Shoots more feathers if a shamanic bond is active
-			Feathers start spinning and deal more damage at max range
-			'''
-	}
-
-	FireBatScepter: {
-		DisplayName: Fire Bat Scepter
-		Tooltip: ""
-	}
-
-	GoldScepter: {
-		DisplayName: Ruby Scepter
-		Tooltip: Bonds released using this weapon last 5 seconds longer
-	}
-
-	AbyssPrecinct: {
-		DisplayName: Abyss Precinct
-		Tooltip: ""
-	}
-
-	AbyssShredder: {
-		DisplayName: Abyss Shredder
-		Tooltip: ""
-	}
-
-	AdamantiteScepter: {
-		DisplayName: Adamantite Scepter
-		Tooltip: ""
-	}
-
-	BulbScepter: {
-		DisplayName: Bulb Scepter
-		Tooltip: ""
-	}
-
-	ChlorophyteScepter: {
-		DisplayName: Chlorophyte Scepter
-		Tooltip: ""
-	}
-
-	CobaltScepter: {
-		DisplayName: Cobalt Scepter
-		Tooltip: ""
-	}
-
-	CorruptCone: {
-		DisplayName: Corrupt Cone
-		Tooltip: ""
-	}
-
-	GoblinStick: {
-		DisplayName: Goblin Stick
-		Tooltip: ""
-	}
-
-	HallowedCone: {
-		DisplayName: Hallowed Cone
-		Tooltip: ""
-	}
-
-	IceFlakeCone: {
-		DisplayName: Ice Flake Cone
-		Tooltip: ""
-	}
-
-	IceMimicScepter: {
-		DisplayName: Ice Mimic Scepter
-		Tooltip: ""
-	}
-
-	IchoryCone: {
-		DisplayName: Ichory Cone
-		Tooltip: ""
-	}
-
-	MartianBeamer: {
-		DisplayName: Martian Beamer
-		Tooltip: ""
-	}
-
-	MythrilScepter: {
-		DisplayName: Mythril Scepter
-		Tooltip: ""
-	}
-
-	Nirvana: {
-		DisplayName: Nirvana
-		Tooltip: ""
-	}
-
-	OrichalcumScepter: {
-		DisplayName: Orichalcum Scepter
-		Tooltip: ""
-	}
-
-	PalladiumScepter: {
-		DisplayName: Palladium Scepter
-		Tooltip: ""
-	}
-
-	PiratesGlory: {
-		DisplayName: Pirates Glory
-		Tooltip: ""
-	}
-
-	ReviverofSouls: {
-		DisplayName: Reviverof Souls
-		Tooltip: ""
-	}
-
-	RuneScepter: {
-		DisplayName: Rune Scepter
-		Tooltip: ""
-	}
-
-	Sanctify: {
-		DisplayName: Sanctify
-		Tooltip: ""
-	}
-
-	ShroomiteScepter: {
-		DisplayName: Shroomite Scepter
-		Tooltip: ""
-	}
-
-	SightScepter: {
-		DisplayName: Sight Scepter
-		Tooltip: ""
-	}
-
-	VileSpout: {
-		Tooltip: Chases up to 3 or 5 targets with one or two active bonds
-		DisplayName: Vile Spout
-	}
-
-	TungstenScepter: {
-		Tooltip: Bonds released using this weapon last 5 seconds longer
-		DisplayName: Emerald Scepter
-	}
-
-	TinScepter: {
-		Tooltip: Bonds released using this weapon last 5 seconds longer
-		DisplayName: Topaz Scepter
-	}
-
-	YewWoodScepter: {
-		Tooltip: ""
-		DisplayName: Yew Wood Scepter
-	}
-
-	ViscountScepter: {
-		Tooltip: ""
-		DisplayName: Viscount Scepter
-	}
-
-	ThunderScepter: {
-		Tooltip: ""
-		DisplayName: Thunder Scepter
-	}
-
-	ThoriumScepter: {
-		Tooltip: ""
-		DisplayName: Thorium Scepter
-	}
-
-	StarScouterScepter: {
-		Tooltip: ""
-		DisplayName: Star Scouter Scepter
-	}
-
-	SpiritDropletScepter: {
-		Tooltip: ""
-		DisplayName: Spirit Droplet Scepter
-	}
-
-	QueenJellyfishScepter: {
-		Tooltip: ""
-		DisplayName: Queen Jellyfish Scepter
-	}
-
-	PatchWerkScepter: {
-		Tooltip: ""
-		DisplayName: Patch Werk Scepter
-	}
-
-	OrchidScepter: {
-		Tooltip: ""
-		DisplayName: Orchid Scepter
-	}
-
-	Monowai: {
-		Tooltip: ""
-		DisplayName: Monowai
-	}
-
-	MagmaScepter: {
-		Tooltip: ""
-		DisplayName: Magma Scepter
-	}
-
-	LeadScepter: {
-		Tooltip: Bonds released using this weapon last 5 seconds longer
-		DisplayName: Lead Scepter
-	}
-
-	IronScepter: {
-		Tooltip: Bonds released using this weapon last 5 seconds longer
-		DisplayName: Iron Scepter
-	}
-
-	IceShardScepter: {
-		Tooltip: ""
-		DisplayName: Ice Shard Scepter
-	}
-
-	ValadiumScepter: {
-		Tooltip: ""
-		DisplayName: Valadium Scepter
-	}
-
-	UnfathomableFleshScepter: {
-		Tooltip: ""
-		DisplayName: Unfathomable Flesh Scepter
-	}
-
-	TitanicScepter: {
-		Tooltip: ""
-		DisplayName: Titanic Scepter
-	}
-
-	TerrariumScepter: {
-		Tooltip: ""
-		DisplayName: Terrarium Scepter
-	}
-
-	StrangePlatingScepter: {
-		Tooltip: ""
-		DisplayName: Strange Plating Scepter
-	}
-
-	SolarPebbleScepter: {
-		Tooltip: ""
-		DisplayName: Solar Pebble Scepter
-	}
-
-	PharaohScepter: {
-		Tooltip: ""
-		DisplayName: Pharaoh Scepter
-	}
-
-	MoltenResidueScepter: {
-		Tooltip: ""
-		DisplayName: Molten Residue Scepter
-	}
-
-	LodestoneScepter: {
-		Tooltip: ""
-		DisplayName: Lodestone Scepter
-	}
-
-	LichScepter: {
-		Tooltip: ""
-		DisplayName: Lich Scepter
-	}
-
-	GeodeScepter: {
-		Tooltip: ""
-		DisplayName: Geode Scepter
-	}
-
-	DragonScaleScepter: {
-		Tooltip: ""
-		DisplayName: Dragon Scale Scepter
-	}
-
-	CoznixScepter: {
-		Tooltip: ""
-		DisplayName: Coznix Scepter
-	}
-
-	BoreanStriderScepter: {
-		Tooltip: ""
-		DisplayName: Borean Strider Scepter
-	}
-
-	BersekerShardScepter: {
-		Tooltip: ""
-		DisplayName: Berseker Shard Scepter
-	}
-
-	AbyssionScepter: {
-		Tooltip: ""
-		DisplayName: Abyssion Scepter
-	}
-
-	AbyssalChitinScepter: {
-		Tooltip: ""
-		DisplayName: Abyssal Chitin Scepter
-	}
-
-	GraniteEnergyScepter: {
-		Tooltip: ""
-		DisplayName: Granite Energy Scepter
-	}
-
-	BronzeAlloyScepter: {
-		Tooltip: ""
-		DisplayName: Bronze Alloy Scepter
-	}
-
-	AquaiteScepter: {
-		Tooltip: ""
-		DisplayName: Aquaite Scepter
-	}
-
-	SporeCaller: {
-		Tooltip:
-			'''
-			Spreads inaccurate spores
-			Releasing a bond makes all spores homing
-			'''
-		DisplayName: Spore Caller
-	}
-
-	SpineScepter: {
-		Tooltip: Chases up to 3 or 5 targets with one or two active bonds
-		DisplayName: Spine Scepter
-	}
-
-	SilverScepter: {
-		Tooltip: Bonds released using this weapon last 5 seconds longer
-		DisplayName: Sapphire Scepter
-	}
-
-	ShamanRod: {
-		Tooltip: ""
-		DisplayName: Shaman Rod
-	}
-
-	ShadowWeaver: {
-		Tooltip: ""
-		DisplayName: Shadow Weaver
-	}
-
-	ScepterofStarpower: {
-		Tooltip: ""
-		DisplayName: Scepterof Starpower
-	}
-
-	PlatinumScepter: {
-		Tooltip: Bonds released using this weapon last 5 seconds longer
-		DisplayName: Diamond Scepter
-	}
-
-	PerishingSoul: {
-		Tooltip: ""
-		DisplayName: Perishing Soul
-	}
-
-	MeteorPhasestaff: {
-		Tooltip: ""
-		DisplayName: Meteor Phasestaff
-	}
-
-	HellShamanRod: {
-		Tooltip: ""
-		DisplayName: Hell Shaman Rod
-	}
-
-	WyvernMoray: {
-		Tooltip: ""
-		DisplayName: Wyvern Moray
-	}
-
-	TrueSanctify: {
-		Tooltip: ""
-		DisplayName: True Sanctify
-	}
-
-	TrueDepthsBaton: {
-		Tooltip: ""
-		DisplayName: True Depths Baton
-	}
-
-	TitaniumScepter: {
-		Tooltip: ""
-		DisplayName: Titanium Scepter
-	}
-
-	TheCore: {
-		Tooltip: ""
-		DisplayName: The Core
-	}
-
-	TerraScepter: {
-		Tooltip: ""
-		DisplayName: Terra Scepter
-	}
-
-	SunRay: {
-		Tooltip: ""
-		DisplayName: Sun Ray
-	}
-
 	GuardianTest: {
 		DisplayName: Тестировка хранителя
 		Tooltip:
 			'''
-			Дарует бесконечный запас параметров хранителя
+			Даёт бесконечный запас параметров хранителя
 			[c/FF0000:Предмет тестировки]
 			'''
 	}
@@ -2904,8 +1867,8 @@ Items: {
 	}
 
 	BeeRune: {
-		Tooltip: Напускает пчёл на ближайших врагов
 		DisplayName: Руна Королевы
+		Tooltip: Напускает пчёл на ближайших врагов
 	}
 
 	HellRune: {
@@ -3191,7 +2154,7 @@ Items: {
 	}
 
 	GoblinRune: {
-		DisplayName: Руна гоблинов
+		DisplayName: Гоблинская руна
 		Tooltip: Призывает беспорядочные теневые огни защищать вас
 	}
 
@@ -3255,7 +2218,7 @@ Items: {
 	}
 
 	NanitesGauntlet: {
-		DisplayName: Сильная кибернетическая рука
+		DisplayName: Кибернетические руки
 		Tooltip:
 			'''
 			Значительно улучшает подвижность, когда находится в руках
@@ -3328,12 +2291,12 @@ Items: {
 	}
 
 	CobaltGauntlet: {
-		DisplayName: Кобальтовое текко
+		DisplayName: Кобальтовые текко
 		Tooltip: ""
 	}
 
 	PalladiumGauntlet: {
-		DisplayName: Палладиевая перчатка
+		DisplayName: Палладиевые перчатки
 		Tooltip: Использует ваше здоровье для использования парирования, если оно превышает 90% от максимального
 	}
 
@@ -3686,7 +2649,7 @@ Items: {
 	}
 
 	DungeonQuarterstaff: {
-		DisplayName: Раздвинутые моря
+		DisplayName: Раздвигатель морей
 		Tooltip: Выпускает водяной выстрел при взмахах
 	}
 
@@ -3706,7 +2669,7 @@ Items: {
 	}
 
 	ThoriumDarksteelGauntlet: {
-		DisplayName: Рука Божья
+		DisplayName: Рука божья
 		Tooltip:
 			'''
 			Скорость и дальность атаки масштабируются от вашей защиты
@@ -3734,7 +2697,7 @@ Items: {
 	}
 
 	MartianWarhammer: {
-		DisplayName: Двигатель кинетического удара
+		DisplayName: Ударный кинетический модуль
 		Tooltip: Мгновенно заряжается при попадании
 	}
 
@@ -3768,7 +2731,7 @@ Items: {
 	}
 
 	ThoriumGraniteGauntlet: {
-		DisplayName: Гранитный удар сдачи
+		DisplayName: Гранитная расплата
 		Tooltip:
 			'''
 			Отбивайте снаряды и быстро приближающихся врагов, чтобы отразить их
@@ -3817,8 +2780,8 @@ Items: {
 	}
 
 	ThoriumViscountQuarterstaff: {
-		// DisplayName: Pipistrelle
-		// Tooltip: Counterattacks turn you into a swarm of bats, ignoring 20 defense
+		DisplayName: Нетопырь
+		Tooltip: Контратаки превращают вас в рой летучих мышей, пробивающий 20 ед. защиты врага
 	}
 
 	ThoriumThoriumQuarterstaff: {
@@ -4076,7 +3039,7 @@ Items: {
 
 	HeavyChain: {
 		DisplayName: Тяжёлая цепь
-		Tooltip: ""
+		Tooltip: Увеличивает дальность взмаха боевых молотов 
 	}
 
 	HeavyChainTest: {
@@ -4095,116 +3058,120 @@ Items: {
 	}
 
 	MahoganyPavise: {
-		// DisplayName: Rich Mahogany Pavise
-		// Tooltip: ""
+		DisplayName: Павеза из красного дерева
+		Tooltip: ""
 	}
 
 	BorealQuarterstaff: {
-		// DisplayName: Boreal Wood Quarterstaff
-		// Tooltip: ""
+		DisplayName: Боевой шест из северного дерева
+		Tooltip: ""
 	}
 
 	ShadewoodWarhammer: {
-		// DisplayName: Shadewood Warhammer
-		// Tooltip: ""
+		DisplayName: Боевой молот из мрачного дерева
+		Tooltip: ""
 	}
 
 	EbonwoodWarhammer: {
-		// DisplayName: Ebonwood Warhammer
-		// Tooltip: ""
+		DisplayName: Боевой молот из из эбонитового дерева
+		Tooltip: ""
 	}
 
 	PearlwoodPavise: {
-		// DisplayName: Pearlwood Pavise
-		// Tooltip: ""
+		DisplayName: Павеза из жемчужного дерева
+		Tooltip: ""
 	}
 
 	AshWoodPavise: {
-		// DisplayName: Ash Wood Pavise
-		// Tooltip: ""
+		DisplayName: Павеза из пепельного дерева
+		Tooltip: ""
 	}
 
 	ThoriumIllusionistPavise: {
-		// DisplayName: Reflection
-		// Tooltip: Reflects blocked projectiles
+		DisplayName: Отражение
+		Tooltip: Отражает вражеские снаряды при блоке
 	}
 
 	ThoriumYewGauntlet: {
-		// DisplayName: Goblin War Claw
-		// Tooltip: Fully charge to fire a grappling claw
-		// PullOnKill: Pulls on kill, Right click to deactivate
-		// NoPullOnKill: Does not pull on kill, Right click to activate
+		DisplayName: Боевые перчатки с когтями
+		Tooltip: При полном заряде выпускает цепь, притягивающую вас к поражённым врагам
+		PullOnKill: Вы также будите притягиваться к убитым врагам (нажмите ПКМ, что отключить)
+		NoPullOnKill: Вы не будите притягиваться к убитым врагам (нажмите ПКМ, что включить)
 	}
 
 	ThoriumEvergreenWoodQuarterstaff: {
-		// DisplayName: Evergreen Wood Quarterstaff
-		// Tooltip: ""
+		DisplayName: Боевой шест из вечнозелёного дерева
+		Tooltip: ""
 	}
 
 	ThoriumDeadwoodGauntlet: {
-		// DisplayName: Deadwood Gauntlet
-		// Tooltip: ""
+		DisplayName: Перчатки из мёртвого дерева
+		Tooltip: ""
 	}
 
 	GlowingMushroomGauntlet: {
-		// DisplayName: Fistipuffs
-		// Tooltip: Fully charge to release damaging spores
+		DisplayName: Пыхтельники
+		Tooltip: Полностью заряженные атаки выпускают наносящие урон споры
 	}
 
 	StaffRocketYellow: {
-		// DisplayName: Yellow Staff-Mounted Propulsion System
-		/* Tooltip:
+		DisplayName: Жёлтая нашестовая ракетная установка
+		Tooltip:
 			'''
-			Left click while parrying with a quarterstaff to dash
-			Costs 1 slam
-			''' */
+			Нажмите ЛКМ по время парирования боевым шестом, чтобы совершить рывок
+			Расходует 1 оч. нападения
+			'''
 	}
 
 	StaffRocketRed: {
-		// DisplayName: Red Staff-Mounted Propulsion System
-		/* Tooltip:
+		DisplayName: Красная нашестовая ракетная установка
+		Tooltip:
 			'''
-			Left click while parrying with a quarterstaff to dash
-			Costs 1 slam
-			''' */
+			Нажмите ЛКМ по время парирования боевым шестом, чтобы совершить рывок
+			Расходует 1 оч. нападения
+			'''
 	}
 
 	StaffRocketGreen: {
-		// DisplayName: Green Staff-Mounted Propulsion System
-		/* Tooltip:
+		DisplayName: Зелёная нашестовая ракетная установка
+		Tooltip:
 			'''
-			Left click while parrying with a quarterstaff to dash
-			Costs 1 slam
-			''' */
+			Нажмите ЛКМ по время парирования боевым шестом, чтобы совершить рывок
+			Расходует 1 оч. нападения
+			'''
 	}
 
 	StaffRocketBlue: {
-		// DisplayName: Blue Staff-Mounted Propulsion System
-		/* Tooltip:
+		DisplayName: Синяя нашестовая ракетная установка
+		Tooltip:
 			'''
-			Left click while parrying with a quarterstaff to dash
-			Costs 1 slam
-			''' */
+			Нажмите ЛКМ по время парирования боевым шестом, чтобы совершить рывок
+			Расходует 1 оч. нападения
+			'''
 	}
 
 	PumpkingWarhammer: {
-		// DisplayName: Grim Harvester
-		/* Tooltip:
+		DisplayName: Зловещая жатва
+		Tooltip:
 			'''
-			Blocking costs 3 slams, and the scythe logdes itself in the first enemy hit
-			Grants guards after a delay, or when the afflicted enemy dies
-			Charged throw hits increase the amount of guards granted by the effect
-			''' */
+			Вместо блока выпускает косу, которая расходует 3 очка нападения застревает в первом поражённом враге
+			Коса даёт очки обороны по возвращению или смерти поражённого врага
+			Атаки по другим врагам заряженными бросками увеличивают количество очков обороны, которое будет получено
+			'''
 	}
 
 	PresentQuarterstaff: {
-		// DisplayName: Colossal Candy Cane
-		// Tooltip: ""
+		DisplayName: Огромная карамельная палочка
+		Tooltip: ""
 	}
 
 	SurfaceFireShamanWeapon: {
-		// DisplayName: Willow Wisp
-		// Tooltip: Conjures a spread of delayed wisps
+		DisplayName: Ивовый огонёк
+		Tooltip:
+			'''
+			Вызывает медленные огоньки на атаку в указанной точке
+			[c/FF0000:Предмет тестировки]
+			'''
 	}
 }
 
@@ -4285,7 +3252,7 @@ NPCs: {
 			30: О, лилии джунглей, я обожаю эти цветы! Ты хочешь заставить их цвести, не так ли? Вот решение.
 		}
 
-		Census.SpawnCondition: Можно найти связанно в главной шахте, расположенной в центре мира
+		Census.SpawnCondition: Найдите и освободите в главной шахте, расположенной под центром мира
 	}
 
 	Croupier: {
@@ -4348,84 +3315,69 @@ NPCs: {
 			10: Дружище, у тебя все карманы забиты. Ты бы не позволил новенькой колоде рассыпаться по полу, не так ли?
 		}
 
-		Census.SpawnCondition: В вашей колоде должна быть любая карта ([i:8427][i:8409] и т.п.)
+		Census.SpawnCondition: Необходимо наличие любой игральной карты ([i:OrchidMod/SapCard],[i:OrchidMod/JungleSlimeCard] и т.п.) в вашей колоде
 	}
 
 	DownpourElemental.DisplayName: Элементаль ливня
 }
 
 Prefixes: {
-	VoodooedPrefix.DisplayName: Вудуистский
-	SpiritualPrefix.DisplayName: Духовный
-	SpiritedPrefix.DisplayName: Одушевлённый
-	PossessedPrefix.DisplayName: Одержимый
-	OccultPrefix.DisplayName: Оккультный
-	LoadedPrefix.DisplayName: Груженный
-	JinxedPrefix.DisplayName: Обречённый
-	HexxedPrefix.DisplayName: Зачарованный
-	FocusedPrefix.DisplayName: Сосредоточенный
-	FerventPrefix.DisplayName: Пылкий
-	EtherealPrefix.DisplayName: Призрачный
-	EffervescentPrefix.DisplayName: Искромётный
-	CursedPrefix.DisplayName: Проклятый
+	# Accessories
 	BrewingPrefix.DisplayName: Сваренный
-	BewitchedPrefix.DisplayName: Заколдованный
+	LoadedPrefix.DisplayName: Обеспеченный
 	BlockingPrefix.DisplayName: Блокирующий
-	UnyieldingPrefix.DisplayName: Непоколебимый
-	ToweringPrefix.DisplayName: Возвышенный
-	SturdyPrefix.DisplayName: Укреплённый
-	StoutPrefix.DisplayName: Прочный
-	SteadfastPrefix.DisplayName: Стойкий
-	SpartanPrefix.DisplayName: Спартанский
-	ResolutePrefix.DisplayName: Решительный
-	HulkingPrefix.DisplayName: Громадный
-	FragilePrefix.DisplayName: Хрупкий
+	# Guardian
+	HaidexPrefix.DisplayName: Непонятный
 	FlimsyPrefix.DisplayName: Хлипкий
 	FeeblePrefix.DisplayName: Хилый
-	EmpyreanPrefix.DisplayName: Небесный
-	BestialPrefix.DisplayName: Звериный
+	FragilePrefix.DisplayName: Ветхий
+	ResolutePrefix.DisplayName: Твёрдый
+	StoutPrefix.DisplayName: Прочный
+	UnyieldingPrefix.DisplayName: Несгибаемый
+	SturdyPrefix.DisplayName: Укреплённый
+	SteadfastPrefix.DisplayName: Неразрушимый
+	ImpregnablePrefix.DisplayName: Неприступный
+	ToweringPrefix.DisplayName: Превосходящий
+	SpartanPrefix.DisplayName: Спартанский
+	AngelicPrefix.DisplayName: Ангельский
+	HulkingPrefix.DisplayName: Громадный
+	EmpyreanPrefix.DisplayName: Возвышенный
+	# Shapeshifter
+	TimidPrefix.DisplayName: Робкий
 	BoarishPrefix.DisplayName: Кабанский
 	MisshapenPrefix.DisplayName: Деформированный
-	DivinePrefix.DisplayName: Божественный
 	EnragedPrefix.DisplayName: Разъярённый
+	BestialPrefix.DisplayName: Зверский
+	VoraciousPrefix.DisplayName: Прожорливый
+	UntamedPrefix.DisplayName: Неукротимый
+	FiercePrefix.DisplayName: Лютый
 	FeralPrefix.DisplayName: Звериный
-	FiercePrefix.DisplayName: Свирепый
 	MonstrousPrefix.DisplayName: Монструозный
 	PrimalPrefix.DisplayName: Первобытный
-	TimidPrefix.DisplayName: Робкий
-	UntamedPrefix.DisplayName: Неукротимый
-	VoraciousPrefix.DisplayName: Прожорливый
-	AngelicPrefix.DisplayName: Ангельский
-	ImpregnablePrefix.DisplayName: Неприступный
-	HaidexPrefix.DisplayName: Непонятный
-	AddPotency: " ед. к концентрации"
-	AddMaximumChips: " к количеству фишек"
-	AddGuard: " оч. обороны"
-	AddAttackSpeed: % к скорости атаки
-	AddDuration: к длительности {0}
-	AddParry: парирования
-	AddBlock: блока
-	AddSize: к размеру
-	AddSpeed: к скорости
+	DivinePrefix.DisplayName: Святой
+
+	Effects: {
+		AddPotency: +{0} ед. к концентрации
+		AddMaximumChips: +{0} к количеству фишек
+		AddGuard: +{0} оч. обороны
+		AddAttackSpeed: "{0:+0;-0}% к скорости атаки"
+		AddDuration: "{0:+0;-0}% к длительности {1}"
+		AddDurationParry: парирования
+		AddDurationBlock: блока
+		AddSize: "{0:+0;-0}% к размеру"
+		AddSpeed: "{0:+0;-0}% к скорости"
+	}
 }
 
 Projectiles: {
-	BronzeAlloyScepterProj.DisplayName: Bronze Alloy Scepter Proj
-	AdornedBranchProj.DisplayName: Adorned Branch Proj
-	CatalystSummon.DisplayName: Catalyst Summon
-	CatalystAnchor.DisplayName: Catalyst Anchor
-	HauntedCandle.DisplayName: Haunted Candle
 	GenericExplosion.DisplayName: Generic Explosion
 	CroupierProjectile.DisplayName: Croupier Projectile
 	ChemistProjectile.DisplayName: Chemist Projectile
 	DownpourElementalCloudProj.DisplayName: Downpour Elemental Cloud Proj
 	DownpourElementalCloud.DisplayName: Downpour Elemental Cloud
-	AbyssDrillProjectile.DisplayName: Abyss Drill Projectile
-	SearingOnslaughtProjectile.DisplayName: Searing Onslaught Projectile
 	RCRemoteProjectile.DisplayName: Радиоуправляемый вертолётик
 	PrototypeSecrecyProjectile.DisplayName: Секретный прототип
 	PrototypeSecrecyHitProjectile.DisplayName: Секретный прототип
-	MineshaftHookProjectile.DisplayName: Mineshaft Hook Projectile
 	EnchantedPaviseProj.DisplayName: Зачарованный щит
 	LivingRuneProj.DisplayName: Пузырь сока
 	EnchantedRuneProj.DisplayName: Зачарованная искра
@@ -4561,33 +3513,6 @@ Projectiles: {
 	CloudInAVialProj.DisplayName: Cloud In A Vial Proj
 	AirSporeProjAlt.DisplayName: Air Spore Proj Alt
 	AirSporeProj.DisplayName: Air Spore Proj
-	BlumProj.DisplayName: Blum Proj
-	SanctifyOrbHoming.DisplayName: Sanctify Orb Homing
-	SanctifyProj.DisplayName: Sanctify Proj
-	LavaDroplet.DisplayName: Lava Droplet
-	FeatherScepterProj.DisplayName: Feather Scepter Proj
-	EnchantedScepterProjectile.DisplayName: Enchanted Scepter Projectile
-	GemScepterProjectileAmber.DisplayName: Gem Scepter Projectile Amber
-	GemScepterBreak.DisplayName: Gem Scepter Break
-	GemScepterProjectileCopper.DisplayName: Gem Scepter Projectile Copper
-	GemScepterProjectileGold.DisplayName: Gem Scepter Projectile Gold
-	GemScepterProjectilePlatinum.DisplayName: Gem Scepter Projectile Platinum
-	GemScepterProjectileSilver.DisplayName: Gem Scepter Projectile Silver
-	GemScepterProjectileTin.DisplayName: Gem Scepter Projectile Tin
-	GemScepterProjectileTungsten.DisplayName: Gem Scepter Projectile Tungsten
-	AvalancheProjectile.DisplayName: Avalanche Projectile
-	AvalancheProjectileAlt.DisplayName: Avalanche Projectile Alt
-	VileSpoutProjectile.DisplayName: Vile Spout Projectile
-	SpineScepterProjectile.DisplayName: Spine Scepter Projectile
-	BeeSeekerProjectile.DisplayName: Bee Seeker Projectile
-	BeeSeekerProjectileSplash.DisplayName: Bee Seeker Projectile Splash
-	SporeCallerProjectile.DisplayName: Spore Caller Projectile
-	BlumProjectile.DisplayName: Blum Projectile
-	BlumProjectileSplash.DisplayName: Blum Projectile Splash
-	HarpyAnkletProj.DisplayName: Harpy Anklet Proj
-	FeatherScepterProjectile.DisplayName: Feather Scepter Projectile
-	FeatherScepterProjectileSplash.DisplayName: Feather Scepter Projectile Splash
-	DepthsWeaverBlast.DisplayName: Depths Weaver Blast
 	SkywareShieldProj.DisplayName: Звёздный всплеск
 	NightShieldProj.DisplayName: Стикс
 	NightShieldProjAlt.DisplayName: Стикс
@@ -4680,22 +3605,22 @@ Projectiles: {
 	DemoniteShieldProjectile.DisplayName: Завеса ночи
 	SpectreQuarterstaffProj.DisplayName: Призрачная глефа
 	GuardianNeedleAnchor.DisplayName: Игла из стали Улья
-	CrystalGauntletProjectile.DisplayName: Кристальные отбойники
+	CrystalGauntletProjectile.DisplayName: Кристалл
 	StarKO.DisplayName: Звёздный нокаут
-	// ThoriumViscountQuarterstaffProjectile.DisplayName: Bat Swarm
-	// ThoriumIllusionistPaviseArrow.DisplayName: Illusion
-	// ThoriumIllusionistPaviseBoulder.DisplayName: Illusion
-	// ThoriumIllusionistPaviseLaser.DisplayName: Illusion
-	// ThoriumIllusionistPaviseStinger.DisplayName: Illusion
-	// ThoriumIllusionistPaviseMagic.DisplayName: Illusion
-	// ThoriumIllusionistPaviseFeather.DisplayName: Illusion
-	// ThoriumIllusionistPaviseScythe.DisplayName: Illusion
-	// ThoriumYewGauntletProjectile.DisplayName: Yew Grappleclaw
-	// GlowingMushroomGauntletProjectile.DisplayName: Glowspores
-	// StaffRocketProjectile.DisplayName: Rocket Trail
-	// PumpkingWarhammerProjectile.DisplayName: Harvesting Scythe
-	// SurfaceFireShamanWeaponAnchor.DisplayName: Willow Wisp
-	// SurfaceFireShamanProjectile.DisplayName: Willow Wisp
+	ThoriumViscountQuarterstaffProjectile.DisplayName: Рой летучих мышей
+	ThoriumIllusionistPaviseArrow.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseBoulder.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseLaser.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseStinger.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseMagic.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseFeather.DisplayName: Иллюзия
+	ThoriumIllusionistPaviseScythe.DisplayName: Иллюзия
+	ThoriumYewGauntletProjectile.DisplayName: Тисовый крюк
+	GlowingMushroomGauntletProjectile.DisplayName: Светящиеся споры
+	StaffRocketProjectile.DisplayName: Реактивный след
+	PumpkingWarhammerProjectile.DisplayName: Коса жатвы
+	SurfaceFireShamanWeaponAnchor.DisplayName: Ивовый огонёк
+	SurfaceFireShamanProjectile.DisplayName: Ивовый огонёк
 }
 
 Configs: {
@@ -4927,7 +3852,7 @@ UI: {
 		UsesUpTo: Использует до {0} оч. нападения
 		RuneDuration: Время действия руны: {0} сек.
 		Block: Нажмите {0}, чтобы сделать блок
-		BuffDuration: Длительность баффа: {0} сек.
+		BuffDuration: Длительность эффекта: {0} сек.
 		HorizonLaceShieldStacks: Даёт 3 оч. обороны при полном заряде
 		DamageOfDefense: Наносит противостоящий урон, равный {0}% от вашей защиты
 	}

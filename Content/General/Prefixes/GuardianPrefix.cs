@@ -150,11 +150,11 @@ namespace OrchidMod.Content.General.Prefixes
 		{
 			if ((blockDuration != 1f && blockDuration != 0f) || (speed != 1f && speed != 0f))
 			{
-				string block = Language.GetTextValue("Mods.OrchidMod.Prefixes.AddParry");
+				string block = Language.GetTextValue("Mods.OrchidMod.Prefixes.Effects.AddDurationParry");
 
 				if (item.ModItem is OrchidModGuardianShield || item.ModItem is OrchidModGuardianHammer)
 				{
-					block = Language.GetTextValue("Mods.OrchidMod.Prefixes.AddBlock");
+					block = Language.GetTextValue("Mods.OrchidMod.Prefixes.Effects.AddDurationBlock");
 				}
 
 				// I have no clue how to do this in a clean way
@@ -183,7 +183,7 @@ namespace OrchidMod.Content.General.Prefixes
 
 				if (blockDuration != 1f && blockDuration != 0f)
 				{
-					tooltips.Insert(index, new TooltipLine(Mod, "BlockDurationPrefix", (blockDuration > 1 ? "+" : "") + string.Format("{0:0}", (blockDuration - 1f) * 100f) + "% " + Language.GetTextValue("Mods.OrchidMod.Prefixes.AddDuration", block))
+					tooltips.Insert(index, new TooltipLine(Mod, "BlockDurationPrefix", Language.GetTextValue("Mods.OrchidMod.Prefixes.Effects.AddDuration", (blockDuration - 1f) * 100f, block))
 					{
 						IsModifier = true,
 						IsModifierBad = blockDuration < 1
@@ -192,8 +192,9 @@ namespace OrchidMod.Content.General.Prefixes
 
 				if (speed != 1f && speed != 0f)
 				{
-					string statname = item.ModItem is OrchidModGuardianShield ? Language.GetTextValue("Mods.OrchidMod.Prefixes.AddSize") : Language.GetTextValue("Mods.OrchidMod.Prefixes.AddSpeed");
-					tooltips.Insert(index, new TooltipLine(Mod, "SpeedPrefix", (speed > 1 ? "+" : "") + string.Format("{0:0}", (speed - 1f) * 100f) + "% " + statname)
+					string key = item.ModItem is OrchidModGuardianShield ? "Mods.OrchidMod.Prefixes.Effects.AddSize" : "Mods.OrchidMod.Prefixes.Effects.AddSpeed";
+					float value = (speed - 1f) * 100f;
+					tooltips.Insert(index, new TooltipLine(Mod, "SpeedPrefix", Language.GetTextValue(key, value))
 					{
 						IsModifier = true,
 						IsModifierBad = speed < 1
