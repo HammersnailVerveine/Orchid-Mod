@@ -3324,7 +3324,7 @@ NPCs: {
 Prefixes: {
 	# Accessories
 	BrewingPrefix.DisplayName: Сваренный
-	LoadedPrefix.DisplayName: Груженный
+	LoadedPrefix.DisplayName: Обеспеченный
 	BlockingPrefix.DisplayName: Блокирующий
 	# Guardian
 	HaidexPrefix.DisplayName: Непонятный
