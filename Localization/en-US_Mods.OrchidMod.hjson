@@ -4674,9 +4674,9 @@ Projectiles: {
 	ThoriumIllusionistPaviseScythe.DisplayName: Illusion
 	ThoriumYewGauntletProjectile.DisplayName: Yew Grappleclaw
 	GlowingMushroomGauntletProjectile.DisplayName: Glowspores
-	StaffRocketProjectile.DisplayName: Staff Rocket Projectile
-	PumpkingWarhammerProjectile.DisplayName: Pumpking Warhammer Projectile
-	SurfaceFireShamanWeaponAnchor.DisplayName: Willow Wisp Anchor
+	StaffRocketProjectile.DisplayName: Rocket Trail
+	PumpkingWarhammerProjectile.DisplayName: Harvesting Scythe
+	SurfaceFireShamanWeaponAnchor.DisplayName: Willow Wisp
 	SurfaceFireShamanProjectile.DisplayName: Willow Wisp
 }
 
