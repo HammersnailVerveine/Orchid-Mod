@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace OrchidMod.Utilities
 {
@@ -21,7 +22,8 @@ namespace OrchidMod.Utilities
 			if (centiseconds == 0) return seconds;
 			centiseconds = (int)(centiseconds / 0.6f + 0.5f);
 			if (centiseconds % 10 == 0) centiseconds /= 10;
-			return seconds + "." + centiseconds;
+			string separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+			return seconds + separator + centiseconds;
 		}
 	}
 }

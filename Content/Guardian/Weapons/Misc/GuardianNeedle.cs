@@ -11,9 +11,11 @@ using Terraria.Localization;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OrchidMod.Common.Attributes;
 
 namespace OrchidMod.Content.Guardian.Weapons.Misc
 {
+	[CrossmodContent("ThoriumMod")]
 	public class GuardianNeedle : OrchidModGuardianParryItem
 	{
 		public int ParryDuration;

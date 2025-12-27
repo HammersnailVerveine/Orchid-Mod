@@ -87,6 +87,14 @@ namespace OrchidMod.Common.Global.Items
 
 		private void AddCrossmodInfoToTooltips(Item item, List<TooltipLine> tooltips, string[] mods)
 		{
+			for (int i = 0; i < mods.Length; i++)
+			{
+				if (mods[i] == "ThoriumMod")
+				{
+					mods[i] = "Thorium Mod";
+				}
+			}
+
 			var text = Language.GetTextValue("Mods.OrchidMod.Misc.Crossmod") + String.Join(", ", mods);
 
 			tooltips.Add(new TooltipLine(Mod, "CrossmodInfo", text)

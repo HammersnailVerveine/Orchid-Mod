@@ -8,6 +8,8 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using Terraria.DataStructures;
+using OrchidMod.Common.Attributes;
+using OrchidMod.Common;
 
 namespace OrchidMod.Content.Shaman
 {
@@ -221,6 +223,7 @@ namespace OrchidMod.Content.Shaman
 		}
 	}
 
+	[ClassTag(ClassTags.Shaman)]
 	public abstract class ShamanWeaponItem : ModItem
 	{
 		public float displaySpeed = 0;
@@ -236,6 +239,7 @@ namespace OrchidMod.Content.Shaman
 			Item.useAnimation = 20;
 			Item.noUseGraphic = true;
 			Item.noMelee = true;
+			Item.DamageType = ModContent.GetInstance<ShamanDamageClass>();
 			SafeSetDefaults();
 		}
 
