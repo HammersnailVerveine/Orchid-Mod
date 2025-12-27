@@ -77,7 +77,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Quarterstaves
 			{
 				SoundEngine.PlaySound(SoundID.Item66, player.Center);
 				Vector2 vel = -Vector2.UnitX.RotatedBy((player.Center - Main.MouseWorld).ToRotation()) * Item.shootSpeed;
-				Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center, vel, ModContent.ProjectileType<ThoriumAquaiteQuarterstaffProjectile>(), (int)(Item.damage * 2.5f), Item.knockBack * 2, projectile.owner);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromAI(), player.Center, vel, ModContent.ProjectileType<ThoriumAquaiteQuarterstaffProjectile>(), (int)(Item.damage * 2.5f), Item.knockBack * 2, projectile.owner);
+				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 			}
 		}
 

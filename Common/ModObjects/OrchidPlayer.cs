@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using OrchidMod.Content.General.Projectiles;
+using OrchidMod.Content.Guardian;
 using OrchidMod.Content.Guardian.Weapons.Shields;
 using Terraria;
 using Terraria.Audio;
@@ -294,7 +295,9 @@ namespace OrchidMod.Common.ModObjects
 			if (count < 1) return;
 			for (int i = 0; i < count; i++)
 			{
-				TitaniumShards.Add(Projectile.NewProjectileDirect(source, Player.Center, Vector2.Zero, ModContent.ProjectileType<OrchidTitaniumShard>(), 50, 15f, Player.whoAmI));
+				Projectile newProjectile = Projectile.NewProjectileDirect(source, Player.Center, Vector2.Zero, ModContent.ProjectileType<OrchidTitaniumShard>(), 50, 15f, Player.whoAmI);
+				newProjectile.CritChance = (int)(Player.GetCritChance<GuardianDamageClass>() + Player.GetCritChance<GenericDamageClass>() + 4);
+				TitaniumShards.Add(newProjectile);
 			}
 		}
 	}

@@ -177,6 +177,14 @@ namespace OrchidMod.Content.Guardian.Projectiles.Misc
 								Projectile newProjectile = Projectile.NewProjectileDirect(HorizonLanceItem.GetSource_FromAI(), Projectile.Center + owner.velocity * 1.5f, Projectile.ai[2].ToRotationVector2(), projectileType, damage, HorizonLanceItem.knockBack, owner.whoAmI);
 								newProjectile.CritChance = (int)(owner.GetCritChance<GuardianDamageClass>() + owner.GetCritChance<GenericDamageClass>() + HorizonLanceItem.crit);
 								newProjectile.netUpdate = true;
+
+								if (owner.boneGloveItem != null && !owner.boneGloveItem.IsAir && owner.boneGloveTimer == 0)
+								{ // Bone glove compatibility, from vanilla code
+									owner.boneGloveTimer = 60;
+									Vector2 center = owner.Center;
+									Vector2 vector = owner.DirectionTo(owner.ApplyRangeCompensation(0.2f, center, Main.MouseWorld)) * 10f;
+									Projectile.NewProjectile(owner.GetSource_ItemUse(owner.boneGloveItem), center.X, center.Y, vector.X, vector.Y, ProjectileID.BoneGloveProj, 25, 5f, owner.whoAmI);
+								}
 							}
 						}
 

@@ -95,7 +95,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 
 		public override bool ThrowAI(Player player, OrchidGuardian guardian, Projectile projectile, bool Weak)
 		{
-			if (EmbeddedScythe && projectile.ModProjectile is GuardianHammerAnchor anchor && anchor.range <= -16)
+			if (EmbeddedScythe && projectile.ModProjectile is GuardianHammerAnchor anchor && anchor.range <= -16 && anchor.BlockDuration <= 0)
 			{
 				for (int i = 0; i < 5; i++)
 				{
@@ -158,7 +158,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Warhammers
 		{
 			drawRectangle.Height /= 2;
 
-			if (EmbeddedScythe)
+			if (EmbeddedScythe && projectile.ModProjectile is GuardianHammerAnchor anchor && anchor.BlockDuration <= 0)
 			{ // adjusts the draw rectangle to the next frame if the parry scythe is active
 				spriteBatch.End(out SpriteBatchSnapshot spriteBatchSnapshot);
 				spriteBatch.Begin(spriteBatchSnapshot with { BlendState = BlendState.Additive });

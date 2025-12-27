@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -10,6 +10,9 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 {
 	public class PumpkingWarhammerProjectile : OrchidModGuardianProjectile
 	{
+		float EmbeddedRotation = 0f;
+		float EmbeddedRotation2 = 0f;
+
 		public override void SafeSetDefaults()
 		{
 			Projectile.width = 46;
@@ -24,6 +27,12 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 			Projectile.usesLocalNPCImmunity = true;
 			Projectile.localNPCHitCooldown = 20;
 		}
+
+		public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
+		{
+			behindNPCs.Add(index);
+		}
+
 
 		public override bool? CanHitNPC(NPC target)
 		{
@@ -55,6 +64,7 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 				{
 					Initialized = true;
 					Vector2 offset = npc.Center - Projectile.Center;
+					EmbeddedRotation = npc.rotation;
 					if (offset.X < 0)
 					{ // flip
 						Projectile.localAI[0] = 1;
@@ -64,6 +74,8 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 					{
 						Projectile.rotation = (npc.Center - Projectile.Center).ToRotation() - MathHelper.Pi * 0.25f;
 					}
+
+					EmbeddedRotation2 = Projectile.rotation;
 
 					for (int i = 0; i < 5; i++)
 					{
@@ -82,7 +94,11 @@ namespace OrchidMod.Content.Guardian.Projectiles.Warhammers
 					SoundEngine.PlaySound(SoundID.NPCDeath52.WithPitchOffset(0.5f), Projectile.Center);
 				}
 
-				Projectile.Center = npc.Center + new Vector2(Projectile.ai[1], Projectile.ai[2]);
+				Projectile.Center = npc.Center + new Vector2(Projectile.ai[1], Projectile.ai[2]).RotatedBy(npc.rotation - EmbeddedRotation + EmbeddedRotation2 * 0.1f);
+
+				Projectile.rotation += 0.35f * (Projectile.localAI[0] == 1 ? -1 : 1);
+				//Projectile.rotation = EmbeddedRotation2 + npc.rotation - EmbeddedRotation;
+				EmbeddedRotation2 += (Projectile.localAI[0] == 1 ? -1 : 1);
 
 				if (Main.rand.NextBool())
 				{

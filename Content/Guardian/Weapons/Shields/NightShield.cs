@@ -32,7 +32,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				Projectile anchor = GetAnchor(player).Projectile;
 				int type = ModContent.ProjectileType<NightShieldProjAlt>();
 				Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center) * 10f;
-				Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.6f), Item.knockBack, player.whoAmI);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.6f), Item.knockBack, player.whoAmI);
+				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 			}
 		}
 	}

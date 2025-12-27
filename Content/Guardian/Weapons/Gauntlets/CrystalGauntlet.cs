@@ -70,7 +70,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			float speed = StrikeVelocity * Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * 0.35f;
 			for (int i = 0; i < 4; i++)
 			{
-				Projectile.NewProjectile(Item.GetSource_FromThis(), player.Center, new Vector2(i % 2 == 0 ? speed : -speed, i < 2 ? speed : -speed) + player.velocity, ModContent.ProjectileType<CrystalGauntletProjectile>(), shardDamage, player.GetWeaponKnockback(Item), player.whoAmI);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), player.Center, new Vector2(i % 2 == 0 ? speed : -speed, i < 2 ? speed : -speed) + player.velocity, ModContent.ProjectileType<CrystalGauntletProjectile>(), shardDamage, player.GetWeaponKnockback(Item), player.whoAmI);
+				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 			}
 		}
 

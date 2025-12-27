@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace OrchidMod.Content.Guardian.Weapons.Shields
 {
@@ -31,7 +32,8 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				for (int i = 0; i < 1 + Main.rand.Next(3); i++)
 				{
 					Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(10f)) * (8f + Main.rand.NextFloat(4f));
-					Projectile.NewProjectile(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.4f), Item.knockBack, player.whoAmI);
+					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.4f), Item.knockBack, player.whoAmI);
+					newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 				}
 			}
 		}

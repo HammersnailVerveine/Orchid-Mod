@@ -525,6 +525,11 @@ namespace OrchidMod.Content.Shapeshifter
 				finalVelocity += intendedVelocity;
 			}
 
+			if (player.waterWalk || player.waterWalk2)
+			{
+				finalVelocity = Collision.WaterCollision(projectile.position, finalVelocity, projectile.width, projectile.height, false, false, player.waterWalk);
+			}
+
 			if (player.stickyBreak > 0 && !WebImmunity)
 			{ // cobwebs
 				finalVelocity *= 0.5f;
@@ -615,6 +620,16 @@ namespace OrchidMod.Content.Shapeshifter
 				bool isSlope = false;
 				finalVelocity += TileCollideShapeshifter(projectile.position + finalVelocity, intendedVelocity, projectile.width, projectile.height, ref isSlope, fall1, fall2, (int)player.gravDir);
 				if (Math.Abs(finalVelocity.Y - intendedVelocity.Y * (j + 1)) > 0.001f)
+				{ // A tile was hit on the Y axis
+					return true;
+				}
+			}
+
+
+			if (player.waterWalk || player.waterWalk2)
+			{
+				finalVelocity = Collision.WaterCollision(projectile.position, intendedVelocity, projectile.width, projectile.height, false, false, player.waterWalk);
+				if (Math.Abs(finalVelocity.Y - intendedVelocity.Y) > 0.001f)
 				{ // A tile was hit on the Y axis
 					return true;
 				}

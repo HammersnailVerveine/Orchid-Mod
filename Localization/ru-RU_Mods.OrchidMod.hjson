@@ -3166,8 +3166,12 @@ Items: {
 	}
 
 	SurfaceFireShamanWeapon: {
-		// DisplayName: Willow Wisp
-		// Tooltip: Conjures a spread of delayed wisps
+		DisplayName: Ивовый огонёк
+		Tooltip:
+			'''
+			Вызывает медленные огоньки на атаку в указанной точке
+			[c/FF0000:Предмет тестировки]
+			'''
 	}
 }
 
@@ -3613,9 +3617,9 @@ Projectiles: {
 	ThoriumIllusionistPaviseScythe.DisplayName: Иллюзия
 	ThoriumYewGauntletProjectile.DisplayName: Тисовый крюк
 	GlowingMushroomGauntletProjectile.DisplayName: Светящиеся споры
-	// StaffRocketProjectile.DisplayName: Staff Rocket Projectile
-	// PumpkingWarhammerProjectile.DisplayName: Pumpking Warhammer Projectile
-	// SurfaceFireShamanWeaponAnchor.DisplayName: Willow Wisp Anchor
+	// StaffRocketProjectile.DisplayName: Rocket Trail
+	// PumpkingWarhammerProjectile.DisplayName: Harvesting Scythe
+	// SurfaceFireShamanWeaponAnchor.DisplayName: Willow Wisp
 	// SurfaceFireShamanProjectile.DisplayName: Willow Wisp
 }
 

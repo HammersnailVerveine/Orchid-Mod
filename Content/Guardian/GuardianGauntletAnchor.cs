@@ -199,6 +199,14 @@ namespace OrchidMod.Content.Guardian
 						bool charged = Projectile.ai[0] == -2f;
 						if (guardianItem.OnPunch(owner, guardian, Projectile, OffHandGauntlet, Ding, ref charged, ref damage))
 						{
+							if (owner.boneGloveItem != null && !owner.boneGloveItem.IsAir && owner.boneGloveTimer == 0)
+							{ // Bone glove compatibility, from vanilla code
+								owner.boneGloveTimer = 60;
+								Vector2 center = owner.Center;
+								Vector2 vector = owner.DirectionTo(owner.ApplyRangeCompensation(0.2f, center, Main.MouseWorld)) * 10f;
+								Projectile.NewProjectile(owner.GetSource_ItemUse(owner.boneGloveItem), center.X, center.Y, vector.X, vector.Y, ProjectileID.BoneGloveProj, 25, 5f, owner.whoAmI);
+							}
+
 							int projectileType = ModContent.ProjectileType<GauntletPunchProjectile>();
 							float strikeVelocity = guardianItem.StrikeVelocity * (charged ? 1f : 0.75f) * guardianItem.Item.GetGlobalItem<GuardianPrefixItem>().GetSlamDistance() * owner.GetTotalAttackSpeed(DamageClass.Melee);
 							Vector2 velocity = Vector2.UnitY.RotatedBy((Main.MouseWorld - owner.MountedCenter).ToRotation() - MathHelper.PiOver2) * strikeVelocity * 0.25f;

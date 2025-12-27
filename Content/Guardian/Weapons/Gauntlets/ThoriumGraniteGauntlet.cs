@@ -93,6 +93,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 					//player.immune = true;
 					guardian.DoParryItemParry(null);
 					Projectile counterProj = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), projectile.Center + strikeVelocity * 4, Vector2.Zero, ModContent.ProjectileType<ThoriumGraniteGauntletProjectile>(), Math.Clamp(highestDeflectedDamage, punchDamage, 1000), Item.knockBack, projectile.owner);
+					counterProj.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 					counterProj.rotation = Main.rand.NextFloat(MathHelper.TwoPi);
 					if (!instantExplode)
 					{

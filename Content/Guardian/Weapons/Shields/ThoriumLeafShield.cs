@@ -36,12 +36,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 			for (int i = 0; i < quantity; i++)
 			{
 				float side = (i - ((quantity - 1) / 2f)) * -shield.direction;
-				int leaf = Projectile.NewProjectile(Item.GetSource_FromThis(), shield.Center, new Vector2(baseSpeed, 0).RotatedBy(dir) + spread.RotatedByRandom(Main.rand.NextFloat()) * side, ModContent.ProjectileType<ThoriumLeafShieldProj>(), (int)(shield.damage * 0.8f), Item.knockBack, player.whoAmI);
+				Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), shield.Center, new Vector2(baseSpeed, 0).RotatedBy(dir) + spread.RotatedByRandom(Main.rand.NextFloat()) * side, ModContent.ProjectileType<ThoriumLeafShieldProj>(), (int)(shield.damage * 0.8f), Item.knockBack, player.whoAmI);
 				if (!fanOut) side = 0;
-				Main.projectile[leaf].position += Main.projectile[leaf].velocity * 4;
-				Main.projectile[leaf].ai[0] = dir + (side + Main.rand.NextFloat() - 0.5f) * 0.1f;
-				Main.projectile[leaf].ai[1] = spinTime + Math.Abs(side) * 4;
-				Main.projectile[leaf].timeLeft = time + (int)Math.Abs(side) * 2;
+				newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
+				newProjectile.position += newProjectile.velocity * 4;
+				newProjectile.ai[0] = dir + (side + Main.rand.NextFloat() - 0.5f) * 0.1f;
+				newProjectile.ai[1] = spinTime + Math.Abs(side) * 4;
+				newProjectile.timeLeft = time + (int)Math.Abs(side) * 2;
                 int dust = Dust.NewDust(shield.Center - new Vector2(4, 4), 0, 0, DustID.Grass);
 			}
 		}
