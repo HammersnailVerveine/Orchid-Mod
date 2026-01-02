@@ -73,11 +73,13 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 		public override void SafeModifyTooltips(List<TooltipLine> tooltips)
 		{
 			string tooltip;
+			Color? color = null;
 
 			switch (GemType)
 			{
 				default:
 					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".None"));
+					color = Color.Gray;
 					break;
 				case JewelerGauntletGem.AMETHYST:
 					tooltip = Language.GetTextValue(Mod.GetLocalizationKey("Items." + GetType().Name + ".Amethyst"));
@@ -109,7 +111,14 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			}
 
 			int index = tooltips.FindIndex(ttip => ttip.Mod.Equals("Terraria") && ttip.Name.Equals("Tooltip0"));
-			tooltips.Insert(index + 1, new TooltipLine(Mod, "Tooltip", tooltip));
+			if (index < 0) index = tooltips.Count - 1;
+
+			var line = new TooltipLine(Mod, "Tooltip", tooltip);
+
+			if (color.HasValue)
+				line.OverrideColor = color.Value;
+
+			tooltips.Insert(index + 1, line);
 		}
 
 		public override void SafeHoldItem(Player player)
