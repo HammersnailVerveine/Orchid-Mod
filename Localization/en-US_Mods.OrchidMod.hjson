@@ -5,9 +5,9 @@ Keybinds: {
 }
 
 Tiles: {
-	JungleLilyTile.MapEntry: Jungle Lily
-	ShamanBiomeChestTile.MapEntry: Shroom Chest
-	GuardianBuffStationTile.MapEntry: Spinning Dummy
+	JungleLilyTile.MapEntry: "{$Items.JungleLily.DisplayName}"
+	ShamanBiomeChestTile.MapEntry: "{$Items.ShamanBiomeChest.DisplayName}"
+	GuardianBuffStationTile.MapEntry: "{$Items.GuardianBuffStation.DisplayName}"
 	VerveineQuarterstaffTile.MapEntry: Farting Plant
 }
 
@@ -1761,13 +1761,13 @@ Items: {
 	}
 
 	CrimtaneShield: {
-		Tooltip: Restores 10 life on block
 		DisplayName: Scapula
+		Tooltip: Restores 10 life on block
 	}
 
 	SkywareShield: {
-		Tooltip: Releases a burst of stars
 		DisplayName: Skyward
+		Tooltip: Releases a burst of stars
 	}
 
 	MeteoriteShield: {
@@ -1866,8 +1866,8 @@ Items: {
 	}
 
 	FrostRune: {
-		Tooltip: Summons a circle of ornaments
 		DisplayName: Ornament Rune
+		Tooltip: Summons a circle of ornaments
 	}
 
 	EmpressRune: {
@@ -2231,11 +2231,7 @@ Items: {
 
 	TinStandard: {
 		DisplayName: Tin Standard
-		Tooltip:
-			'''
-			Fully charging increases defense by 4
-			When reinforced, increases maximum guards and slams by 1 and slowly regenerates them
-			'''
+		Tooltip: "{$Items.CopperStandard.Tooltip}"
 	}
 
 	PirateStandard: {
@@ -2710,7 +2706,7 @@ Items: {
 
 	GuardianAncientHallowedHead: {
 		DisplayName: Ancient Hallowed Greathelm
-		Tooltip: ""
+		Tooltip: "{$Items.GuardianHallowedHead.Tooltip}"
 	}
 
 	ThoriumGraniteGauntlet: {
@@ -3365,7 +3361,7 @@ Projectiles: {
 	RCRemoteProjectile.DisplayName: RC Remote
 	PrototypeSecrecyProjectile.DisplayName: Prototype Secrecy Projectile
 	PrototypeSecrecyHitProjectile.DisplayName: Prototype Secrecy Hit Projectile
-	EnchantedPaviseProj.DisplayName: Enchanted Pavise
+	EnchantedPaviseProj.DisplayName: Enchanted Shield Blast
 	LivingRuneProj.DisplayName: Sap Bubble
 	EnchantedRuneProj.DisplayName: Enchanted Spark
 	GuardianShieldAnchor.DisplayName: Pavise
@@ -3516,7 +3512,7 @@ Projectiles: {
 	WaterSpikeProjAlt.DisplayName: Water Spike
 	GoblinRuneProj.DisplayName: Chaos Fire
 	GuardianGauntletAnchor.DisplayName: Gauntlet
-	GauntletPunchProjectile.DisplayName: Gauntlet
+	GauntletPunchProjectile.DisplayName: Punch
 	SpiderGauntletProjectile.DisplayName: Fang
 	GuardianStandardAnchor.DisplayName: Standard
 	StandardAuraProjectile.DisplayName: Standard
@@ -3524,8 +3520,8 @@ Projectiles: {
 	GuardianHammerAnchor.DisplayName: Warhammer
 	GuardianRuneAnchor.DisplayName: Rune
 	MechanicalGauntletProjectile.DisplayName: Rocket Punch
-	MoonLordRuneProj.DisplayName: Moon Rune
-	MoonLordRuneProjAlt.DisplayName: Moon Rune
+	MoonLordRuneProj.DisplayName: Otherworldly Portal
+	MoonLordRuneProjAlt.DisplayName: Moon Shot
 	HorizonShieldProj.DisplayName: Terminus
 	DesertStandardProj.DisplayName: Standard Lightning
 	ShapeshifterShapeshiftAnchor.DisplayName: Shapeshift
@@ -3535,9 +3531,8 @@ Projectiles: {
 	PredatorIceFoxProj.DisplayName: Foxfire
 	PredatorIceFoxProjAlt.DisplayName: Foxfire
 	GuardianHorizonLanceAnchor.DisplayName: Horizon Firmament
-	GuardianHorizonLanceProj.DisplayName: Horizon Firmament
-	GuardianHorizonLanceProjAlt.DisplayName: Horizon Firmament
-	GuardianHorizonLanceCounter.DisplayName: Horizon Firmament
+	GuardianHorizonLanceProj.DisplayName: Aurora
+	GuardianHorizonLanceCounter.DisplayName: Aurora Unleash
 	PredatorHarpyProj.DisplayName: Feather
 	PredatorHarpyProjAlt.DisplayName: Feather
 	SageBeeProj.DisplayName: Stinger
@@ -3548,8 +3543,8 @@ Projectiles: {
 	SageBatProjAlt.DisplayName: Sound
 	GuardianQuarterstaffAnchor.DisplayName: Quarterstaff
 	ThoriumLeafShieldProj.DisplayName: Razor Leaves
-	DungeonQuarterstaffProjectile.DisplayName: Quarterstaff
-	ShardQuarterstaffProjectile.DisplayName: Quarterstaff
+	DungeonQuarterstaffProjectile.DisplayName: Water Bolt
+	ShardQuarterstaffProjectile.DisplayName: Duality
 	OrchidTitaniumShard.DisplayName: Titanium Shard
 	ThoriumGraniteGauntletProjectile.DisplayName: Chargeback
 	TempleSpikeProj.DisplayName: Deadly Sun Laser
