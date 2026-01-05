@@ -3039,7 +3039,7 @@ Items: {
 
 	HeavyChain: {
 		DisplayName: Тяжёлая цепь
-		Tooltip: Увеличивает дальность взмаха боевых молотов 
+		Tooltip: Увеличивает дальность взмаха боевых молотов
 	}
 
 	HeavyChainTest: {

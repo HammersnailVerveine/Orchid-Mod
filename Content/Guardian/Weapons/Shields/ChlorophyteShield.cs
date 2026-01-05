@@ -33,6 +33,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Shields
 				{
 					Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center).RotatedByRandom(MathHelper.ToRadians(10f)) * (8f + Main.rand.NextFloat(4f));
 					Projectile newProjectile = Projectile.NewProjectileDirect(Item.GetSource_FromThis(), anchor.Center, dir, type, (int)(shield.damage * 0.4f), Item.knockBack, player.whoAmI);
+					newProjectile.DamageType = ModContent.GetInstance<GuardianDamageClass>();
 					newProjectile.CritChance = (int)(player.GetCritChance<GuardianDamageClass>() + player.GetCritChance<GenericDamageClass>() + Item.crit);
 				}
 			}
