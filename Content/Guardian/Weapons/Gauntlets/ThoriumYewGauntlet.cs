@@ -183,7 +183,7 @@ namespace OrchidMod.Content.Guardian.Weapons.Gauntlets
 			});
 
 			string pull = PullOnKill ? Language.GetTextValue("Mods.OrchidMod.Items.ThoriumYewGauntlet.PullOnKill") : Language.GetTextValue("Mods.OrchidMod.Items.ThoriumYewGauntlet.NoPullOnKill");
-			tooltips.Insert(index + 3, new TooltipLine(Mod, "ClickInfo2", pull));
+			tooltips.Insert(index + 4, new TooltipLine(Mod, "ClickInfo2", pull));
 
 			SafeModifyTooltips(tooltips);
 		}
