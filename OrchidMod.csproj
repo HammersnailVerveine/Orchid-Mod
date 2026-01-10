@@ -5,7 +5,10 @@
 
 	<!-- General -->
 	<PropertyGroup>
-		
+		<AssemblyName>OrchidMod</AssemblyName>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile>$(AssemblyName).xml</DocumentationFile>
+		<NoWarn>1591</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
 	  <AdditionalFiles Remove="Common\Globals.Tiles\**" />
@@ -24,4 +27,6 @@
 
 	<!-- References -->
 
+
 </Project>
+
