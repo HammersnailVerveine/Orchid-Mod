@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Utilities;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +25,7 @@ namespace OrchidMod.Content.Guardian
 		public bool returning = false;
 		public OrchidModGuardianHammer HammerItem;
 		public Texture2D HammerTexture;
+		public Texture2D HammerTextureGlow;
 
 		public int range = 0;
 		public int HitCount = 0;
@@ -88,6 +90,12 @@ namespace OrchidMod.Content.Guardian
 				{
 					HammerTexture = ModContent.Request<Texture2D>(HammerItem.HammerTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				}
+
+				if (ModContent.RequestIfExists<Texture2D>(hammerItem.Texture + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
+				{
+					HammerTextureGlow = assetglow.Value;
+				}
+
 
 				//Projectile.position.X -= Projectile.width / 2;
 				//Projectile.position.Y -= Projectile.height / 2;
@@ -752,9 +760,6 @@ namespace OrchidMod.Content.Guardian
 					}
 				}
 
-				spriteBatch.Draw(HammerTexture, position, drawRectangle, color, Projectile.rotation + rotationBonus, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
-
-
 				if (Projectile.ai[1] != 0)
 				{
 					for (int i = 0; i < OldPosition.Count; i++)
@@ -764,6 +769,14 @@ namespace OrchidMod.Content.Guardian
 
 						spriteBatch.Draw(HammerTexture, position, drawRectangle, color, OldRotation[i] + rotationBonus, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
 					}
+				}
+
+				spriteBatch.Draw(HammerTexture, position, drawRectangle, color, Projectile.rotation + rotationBonus, drawRectangle.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				if (HammerTextureGlow != null)
+				{
+					Color glowColor = HammerItem.GetHammerGlowmaskColor(player, guardian, Projectile, lightColor); 
+					spriteBatch.Draw(HammerTextureGlow, position, drawRectangle, glowColor, Projectile.rotation + rotationBonus, HammerTextureGlow.Size() * 0.5f, Projectile.scale, effect, 0f);
 				}
 
 				HammerItem.PostDrawHammer(player, guardian, Projectile, spriteBatch, lightColor, HammerTexture, drawRectangle);

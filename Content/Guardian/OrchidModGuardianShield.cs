@@ -39,6 +39,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void Reflect(Player player, Projectile shield, Projectile projectile, ref int GuardianShieldSpikeReflect) {}
 		/// <summary>Called on the first frame of a block.</summary>
 		public virtual void BlockStart(Player player, Projectile shield) { }
+		public virtual Color GetPaviseGlowmaskColor(Player player, OrchidGuardian guardian, Projectile projectile, Color lightColor) => Color.White;
 
 		public float distance = 100f;
 		public float slamDistance = 100f;

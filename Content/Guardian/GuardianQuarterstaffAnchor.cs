@@ -4,6 +4,7 @@ using OrchidMod.Common;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Content.Guardian.Projectiles.Misc;
 using OrchidMod.Utilities;
+using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +31,7 @@ namespace OrchidMod.Content.Guardian
 		public int SelectedItem { get; set; } = -1;
 		public Item QuarterstaffItem => Main.player[Projectile.owner].inventory[SelectedItem];
 		public Texture2D QuarterstaffTexture;
+		public Texture2D QuarterstaffTextureGlow;
 
 		public override void SendExtraAI(BinaryWriter writer)
 		{
@@ -76,6 +78,11 @@ namespace OrchidMod.Content.Guardian
 			{
 				QuarterstaffTexture = ModContent.Request<Texture2D>(guardianItem.QuarterstaffTexture, ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
 				ResetSize();
+
+				if (ModContent.RequestIfExists<Texture2D>(guardianItem.QuarterstaffTexture + "_Glow", out Asset<Texture2D> assetglow, AssetRequestMode.ImmediateLoad))
+				{
+					QuarterstaffTextureGlow = assetglow.Value;
+				}
 			}
 			else if (IsLocalOwner)
 			{
@@ -742,7 +749,8 @@ namespace OrchidMod.Content.Guardian
 			if (SelectedItem < 0 || SelectedItem > 58 || QuarterstaffTexture == null) return false;
 			if (QuarterstaffItem.ModItem is not OrchidModGuardianQuarterstaff guardianItem) return false;
 
-			var player = Main.player[Projectile.owner];
+			Player player = Main.player[Projectile.owner];
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
 			SpriteEffects effect = SpriteEffects.None;
 			float rotationoffset = 0f;
 
@@ -771,6 +779,12 @@ namespace OrchidMod.Content.Guardian
 
 				Vector2 drawPosition = Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
 				spriteBatch.Draw(QuarterstaffTexture, drawPosition, null, lightColor, Projectile.rotation + rotationoffset, QuarterstaffTexture.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				if (QuarterstaffTextureGlow != null)
+				{
+					Color glowColor = guardianItem.GetQuarterstaffGlowmaskColor(player, guardian, Projectile, lightColor);
+					spriteBatch.Draw(QuarterstaffTextureGlow, drawPosition, null, glowColor, Projectile.rotation + rotationoffset, QuarterstaffTextureGlow.Size() * 0.5f, Projectile.scale, effect, 0f);
+				}
 			}
 			guardianItem.PostDrawQuarterstaff(spriteBatch, Projectile, player, lightColor);
 

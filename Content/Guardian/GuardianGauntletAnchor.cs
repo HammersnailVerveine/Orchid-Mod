@@ -370,8 +370,9 @@ namespace OrchidMod.Content.Guardian
 			if (!(GauntletItem.ModItem is OrchidModGuardianGauntlet guardianItem)) return false;
 			if (!ModContent.HasAsset(guardianItem.GauntletTexture)) return false;
 
-			var player = Main.player[Projectile.owner];
-			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
+			Player player = Main.player[Projectile.owner];
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+			Color color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
 
 			if (guardianItem.PreDrawGauntlet(spriteBatch, Projectile, player, OffHandGauntlet, ref color))
 			{
@@ -430,6 +431,12 @@ namespace OrchidMod.Content.Guardian
 				Vector2 origin = drawRectangle == null ? texture.Size() * 0.5f : drawRectangle.GetValueOrDefault().Size() * 0.5f;
 				spriteBatch.Draw(texture, drawPosition, drawRectangle, color, drawRotation, origin, Projectile.scale, effect, 0f);
 
+				Texture2D textureGlow = guardianItem.GetGlowmaskTexture(player, Projectile, OffHandGauntlet, out Rectangle? drawRectangleGlow);
+				if (textureGlow != null)
+				{
+					Color glowColor = guardianItem.GetGauntletGlowmaskColor(player, guardian, Projectile, lightColor);
+					spriteBatch.Draw(textureGlow, drawPosition, drawRectangle, glowColor, drawRotation, origin, Projectile.scale, effect, 0f);
+				}
 			}
 			guardianItem.PostDrawGauntlet(spriteBatch, Projectile, player, OffHandGauntlet, color);
 

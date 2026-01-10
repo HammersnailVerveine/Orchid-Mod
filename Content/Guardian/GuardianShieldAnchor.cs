@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common.ModObjects;
 using OrchidMod.Content.General.Prefixes;
+using ReLogic.Content;
 using System;
 using System.IO;
 using Terraria;
@@ -374,17 +375,24 @@ namespace OrchidMod.Content.Guardian
 			if (!(ShieldItem.ModItem is OrchidModGuardianShield guardianItem)) return false;
 			if (!ModContent.HasAsset(guardianItem.ShieldTexture)) return false;
 
-			var player = Main.player[Projectile.owner];
-			var color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
+			Player player = Main.player[Projectile.owner];
+			OrchidGuardian guardian = player.GetModPlayer<OrchidGuardian>();
+			Color color = Lighting.GetColor((int)(Projectile.Center.X / 16f), (int)(Projectile.Center.Y / 16f), Color.White);
 
 			if (guardianItem.PreDrawShield(spriteBatch, Projectile, player, ref color))
 			{
-				var texture = ModContent.Request<Texture2D>(guardianItem.ShieldTexture).Value;
-				var drawPosition = Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
-				var effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+				Texture2D texture = ModContent.Request<Texture2D>(guardianItem.ShieldTexture).Value;
+				Vector2 drawPosition = Projectile.Center - Main.screenPosition + Vector2.UnitY * player.gfxOffY;
+				SpriteEffects effect = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 				float colorMult = (Projectile.ai[1] + Projectile.ai[0] > 0 ? 1f : (0.4f + Math.Abs((1f * Main.player[Main.myPlayer].GetModPlayer<OrchidPlayer>().Timer120 - 60) / 120f)));
 				float flippedRotation = Projectile.rotation + (Projectile.spriteDirection == 1 ? 0 : MathHelper.Pi);
 				spriteBatch.Draw(texture, drawPosition, null, color * colorMult, flippedRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+
+				if (ModContent.RequestIfExists<Texture2D>(guardianItem.ShieldTexture + "_Glow", out Asset<Texture2D> assetglow))
+				{
+					Color glowColor = guardianItem.GetPaviseGlowmaskColor(player, guardian, Projectile, lightColor);
+					spriteBatch.Draw(assetglow.Value, drawPosition, null, glowColor, flippedRotation, texture.Size() * 0.5f, Projectile.scale, effect, 0f);
+				}
 			}
 			guardianItem.PostDrawShield(spriteBatch, Projectile, player, color);
 

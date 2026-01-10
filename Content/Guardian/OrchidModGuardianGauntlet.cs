@@ -4,6 +4,7 @@ using OrchidMod.Common;
 using OrchidMod.Common.Global.Items;
 using OrchidMod.Content.General.Prefixes;
 using OrchidMod.Utilities;
+using ReLogic.Content;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
@@ -22,6 +23,7 @@ namespace OrchidMod.Content.Guardian
 		public bool hasBackGauntlet = false;
 
 		public virtual string GauntletTexture => Texture + "_Gauntlet";
+		public virtual string GauntletTextureGlow => Texture + "_Gauntlet_Glow";
 		public virtual string GauntletBackTexture => Texture + "_GauntletBack";
 		public virtual string ArmTexture => Texture + "_Arm";
 		public virtual string ShoulderTexture => Texture + "_Shoulder";
@@ -48,6 +50,7 @@ namespace OrchidMod.Content.Guardian
 		public virtual void PlayPunchSound(Player player, OrchidGuardian guardian, Projectile anchor, bool charged) => SoundEngine.PlaySound(charged ? SoundID.DD2_MonkStaffGroundMiss : SoundID.DD2_MonkStaffSwing, player.Center);
 
 		public virtual void SafeHoldItem(Player player) { }
+		public virtual Color GetGauntletGlowmaskColor(Player player, OrchidGuardian guardian, Projectile projectile, Color lightColor) => Color.White;
 
 		public float StrikeVelocity = 10f; // Initial speed of the punches
 		/// <summary> Jab and slam animation speed multiplier. Also affected by melee speed, but not by usetime. </summary>
@@ -372,6 +375,20 @@ namespace OrchidMod.Content.Guardian
 		{
 			drawRectangle = null;
 			return ModContent.Request<Texture2D>(ShoulderTexture).Value;
+		}
+
+		public virtual Texture2D GetGlowmaskTexture(Player player, Projectile anchor, bool OffHandGauntlet, out Rectangle? drawRectangle)
+		{
+			drawRectangle = null;
+
+			if (ModContent.RequestIfExists<Texture2D>(GauntletTextureGlow, out Asset<Texture2D> assetglow))
+			{
+				return assetglow.Value;
+			}
+			else
+			{
+				return null;
+			}
 		}
 	}
 }
