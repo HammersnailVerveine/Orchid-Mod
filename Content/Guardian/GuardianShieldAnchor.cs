@@ -232,7 +232,7 @@ namespace OrchidMod.Content.Guardian
 					Projectile.ai[0] --;
 					if (Projectile.ai[0] <= 0f)
 					{
-						if (guardian.OnBlockEnd(owner, Projectile))
+						if (guardianItem.BlockEnd(owner, Projectile))
 						{
 							spawnDusts();
 						}
