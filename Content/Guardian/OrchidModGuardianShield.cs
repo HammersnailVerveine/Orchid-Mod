@@ -39,6 +39,8 @@ namespace OrchidMod.Content.Guardian
 		public virtual void Reflect(Player player, Projectile shield, Projectile projectile, ref int GuardianShieldSpikeReflect) {}
 		/// <summary>Called on the first frame of a block.</summary>
 		public virtual void BlockStart(Player player, Projectile shield) { }
+		/// <summary>Called on the last frame of a block. Will spawn dust at the end of a block if it returns true</summary>
+		public virtual bool BlockEnd(Player player, Projectile shield) => true;
 		public virtual Color GetPaviseGlowmaskColor(Player player, OrchidGuardian guardian, Projectile projectile, Color lightColor) => Color.White;
 
 		public float distance = 100f;
@@ -102,7 +104,10 @@ namespace OrchidMod.Content.Guardian
 								proj.ai[1] = 60f;
 								if (proj.ai[0] > 0f) 
 								{
-									shield.spawnDusts();
+									if (BlockEnd(player, proj))
+									{
+										shield.spawnDusts();
+									}
 									proj.ai[0] = 0f;
 									resetBlockedEnemiesDuration(guardian);
 								}
