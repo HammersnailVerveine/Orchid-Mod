@@ -159,7 +159,7 @@ Buffs: {
 
 	GuardianSpiderGauntletBuff: {
 		DisplayName: Токсичные кулаки
-		Description: Атаки выпускают токсичные хелицеры
+		Description: Атаки выпускают токсичные клыки
 	}
 
 	GuardianMechanicalGauntletBuff: {
@@ -2205,7 +2205,7 @@ Items: {
 
 	SpiderGauntlet: {
 		DisplayName: Касание смерти
-		Tooltip: Атаки выпускают хелицеры после успешного парирования
+		Tooltip: Атаки выпускают клыки после успешного парирования
 	}
 
 	MechanicalGauntlet: {
