@@ -30,7 +30,8 @@ namespace OrchidMod.Content.Guardian
 		public float networkedRotation => Projectile.ai[2];
 
 		// ...
-
+		private bool IsRotationLocked;
+		private float LockedRotation;
 		public override void SafeSetDefaults()
 		{
 			Projectile.width = 20;
@@ -108,6 +109,7 @@ namespace OrchidMod.Content.Guardian
 				}
 
 				float addedDistance = 0f;
+
 				if (Projectile.ai[1] > 0f)
 				{ // Shield bash
 					if (isSlamming == 0)
@@ -142,9 +144,12 @@ namespace OrchidMod.Content.Guardian
 
 					if (Projectile.ai[1] <= 0f)
 					{
+						guardianItem.SlamEnd(owner, Projectile);
 						Projectile.ai[1] = 0f;
 						isSlamming = 0;
 						Projectile.friendly = false;
+						IsRotationLocked = false;
+						Projectile.netUpdate = true;
 					}
 				}
 
@@ -246,14 +251,14 @@ namespace OrchidMod.Content.Guardian
 						aimedLocation = Main.MouseWorld - owner.Center.Floor();
 						aimedLocation.Normalize();
 						
-						if (guardianItem.useDiscreteAim) aimedLocation = Vector2.UnitX.RotatedBy(OrchidModGuardianShield.GetSnappedAngle(guardianItem, owner,aimedLocation.ToRotation()));
+						aimedLocation = Vector2.UnitX.RotatedBy(IsRotationLocked ? LockedRotation : OrchidModGuardianShield.GetSnappedAngle(guardianItem, owner,aimedLocation.ToRotation()));
 						Projectile.velocity = aimedLocation * float.Epsilon;
 						aimedLocation *= (guardianItem.distance + addedDistance) * -1f;
 
 						Projectile.rotation = aimedLocation.ToRotation();
 						if (guardianItem.shouldFlip)
 						{
-							if (aimedLocation.X < 0 || (guardianItem.useDiscreteAim && -Vector2.Normalize(Main.MouseWorld - owner.Center.Floor()).X < 0))
+							if (aimedLocation.X < 0 || (guardianItem.useDiscreteAim && -Vector2.Normalize(Main.MouseWorld - owner.Center.Floor()).X < 0) || (IsRotationLocked && -Vector2.UnitX.RotatedBy(LockedRotation).X < 0) )
 							{
 								Projectile.spriteDirection = -1;
 							}
@@ -286,6 +291,12 @@ namespace OrchidMod.Content.Guardian
 				if (isSlamming == 1) // Slam() is called here so the projectile has the time to reposition properly before effects such as projectile spawns are called
 				{
 					isSlamming = 2;
+					if (guardianItem.lockSlamRotation)
+					{
+						IsRotationLocked = true;
+						LockedRotation = OrchidModGuardianShield.GetSnappedAngle(guardianItem, owner, Vector2.Normalize(Main.MouseWorld - owner.Center.Floor()).ToRotation());
+						Projectile.netUpdate = true;
+					}
 					guardianItem.Slam(owner, Projectile);
 					guardian.GuardianCounterTime = 0;
 				} 
