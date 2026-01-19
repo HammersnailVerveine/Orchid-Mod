@@ -245,13 +245,15 @@ namespace OrchidMod.Content.Guardian
 					{
 						aimedLocation = Main.MouseWorld - owner.Center.Floor();
 						aimedLocation.Normalize();
+						
+						if (guardianItem.useDiscreteAim) aimedLocation = Vector2.UnitX.RotatedBy(OrchidModGuardianShield.GetSnappedAngle(guardianItem, owner,aimedLocation.ToRotation()));
 						Projectile.velocity = aimedLocation * float.Epsilon;
 						aimedLocation *= (guardianItem.distance + addedDistance) * -1f;
 
 						Projectile.rotation = aimedLocation.ToRotation();
 						if (guardianItem.shouldFlip)
 						{
-							if (aimedLocation.X < 0)
+							if (aimedLocation.X < 0 || (guardianItem.useDiscreteAim && -Vector2.Normalize(Main.MouseWorld - owner.Center.Floor()).X < 0))
 							{
 								Projectile.spriteDirection = -1;
 							}

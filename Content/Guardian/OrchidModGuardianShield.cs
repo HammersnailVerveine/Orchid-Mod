@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OrchidMod.Common;
@@ -49,6 +50,19 @@ namespace OrchidMod.Content.Guardian
 		/// <summary>Causes the shield's held sprite to flip when facing right.</summary>
 		public bool shouldFlip = false;
 		public bool slamAutoReuse = true;
+		/// <summary>
+		/// If true, the shield will be rotated in discrete steps, instead of a single continuous circle. Defaults to false.
+		/// </summary>
+		public bool useDiscreteAim = false;
+		/// <summary>
+		/// The amount of steps per half-rotation that the shield will snap to, if <c>useDiscreteAim</c> is true.
+		/// <br/> A value of <c>0</c> results in only a single possible angle, directly in front of the player. Otherwise, there will be twice as many snap points as this value.
+		/// </summary>
+		public int discreteAimIncrements;
+		/// <summary>
+		/// The angle, in pi/2 increments, that the base angle will be rotated by.
+		/// </summary>
+		public int discreteAimRotation;
 
 		public sealed override void SetDefaults()
 		{
@@ -242,6 +256,18 @@ namespace OrchidMod.Content.Guardian
 			{
 				OverrideColor = new Color(175, 255, 175)
 			});
+		}
+		
+		public static float GetSnappedAngle(OrchidModGuardianShield shield, Player player, float originalAngle)
+		{
+			if (!shield.useDiscreteAim) return originalAngle;
+			if (shield.discreteAimIncrements == 0) return -player.direction * MathHelper.PiOver2 * shield.discreteAimRotation + (player.direction == -1 ? MathHelper.Pi : 0f);
+			else
+			{
+				float angleIncrement = MathHelper.Pi / shield.discreteAimIncrements;
+				return (float)Math.Round((Vector2.Normalize(Main.MouseWorld - player.MountedCenter.Floor()).ToRotation() + MathHelper.PiOver2 * shield.discreteAimRotation) / angleIncrement) * angleIncrement - MathHelper.PiOver2 * shield.discreteAimRotation;
+			}
+
 		}
 	}
 }
