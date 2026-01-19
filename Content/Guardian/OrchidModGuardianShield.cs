@@ -29,6 +29,8 @@ namespace OrchidMod.Content.Guardian
 		public virtual void SlamHit(Player player, Projectile shield, NPC npc) { }
 		/// <summary>Called on the first frame of a slam.</summary>
 		public virtual void Slam(Player player, Projectile shield) { }
+		/// <summary>Called on the last frame of a slam.</summary>
+		public virtual void SlamEnd(Player player, Projectile shield) { }
 		/// <summary>Called when an enemy collides with the shield during a block. Will be called once per frame per enemy colliding with it.</summary>
 		public virtual void Push(Player player, Projectile shield, NPC npc) { }
 		/// <summary>Called once per block when the first enemy or projectile is blocked. This is called after <c>Push</c> or <c>Block</c>, but before <c>Block</c> destroys the projectile.</summary>
@@ -63,6 +65,10 @@ namespace OrchidMod.Content.Guardian
 		/// The angle, in pi/2 increments, that the base angle will be rotated by.
 		/// </summary>
 		public int discreteAimRotation;
+		/// <summary>
+		/// If true, slams performed with the shield will be locked to the rotation they started with, rather than being free to rotate mid-slam.
+		/// </summary>
+		public bool lockSlamRotation;
 
 		public sealed override void SetDefaults()
 		{
@@ -75,6 +81,10 @@ namespace OrchidMod.Content.Guardian
 			Item.useStyle = ItemUseStyleID.Thrust;
 			Item.useTime = 30;
 			Item.knockBack = 6f;
+			useDiscreteAim = false;
+			discreteAimIncrements = 2;
+			discreteAimRotation = 0;
+			lockSlamRotation = false;
 
 			OrchidGlobalItemPerEntity orchidItem = Item.GetGlobalItem<OrchidGlobalItemPerEntity>();
 			orchidItem.guardianWeapon = true;
